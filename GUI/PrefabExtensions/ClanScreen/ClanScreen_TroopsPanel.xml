@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Widget Id="CCT_TroopsRoot" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" IsVisible="@IsTroopsSelected" DoNotAcceptEvents="false">
+  <Children>
+    <!-- ===================== RIGHT PANEL ===================== -->
+    <Widget WidthSizePolicy="StretchToParent"
+            HeightSizePolicy="StretchToParent"
+            MarginLeft="10"
+            MarginRight="290"
+            IsVisible="@IsAnyTroopSelected">
+      <Children>
+        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+          <Children>
+            <!--3D Model container (placeholder)-->
+            <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
+            </Widget>
+
+            <!-- Stats / header -->
+            <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="300">
+              <Children>
+                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="20" MarginRight="20" StackLayout.LayoutMethod="VerticalBottomToTop">
+                  <Children>
+                    <!-- Name row -->
+                    <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+                      <Children>
+                        <!-- Bind to selected troop -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{Troop}" Text="@Name" ClipContents="false" />
+
+                        <!-- Rename button -->
+                        <ButtonWidget DoNotPassEventsToChildren="true"
+                                      WidthSizePolicy="CoverChildren"
+                                      HeightSizePolicy="CoverChildren"
+                                      MarginLeft="6"
+                                      DataSource="{TroopEditor}"
+                                      Command.Click="ExecuteRenameSelected"
+                                      UpdateChildrenStates="true">
+                          <Children>
+                            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                        SuggestedWidth="32" SuggestedHeight="32"
+                                        Brush="SPClan.NameChange.Icon" />
+                          </Children>
+                        </ButtonWidget>
+                      </Children>
+                    </ListPanel>
+                  </Children>
+                </ListPanel>
+              </Children>
+            </Widget>
+          </Children>
+        </Widget>
+      </Children>
+    </Widget>
+    <!-- =================== /RIGHT PANEL ====================== -->
+
+    <!-- LEFT PANEL (same margins/frame as other tabs) -->
+    <BrushListPanel IsVisible="@IsTroopsSelected" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
+        <Children>
+        <!--Horizontal Header Section-->
+        <NavigationScopeTargeter ScopeID="SortButtonsScope" ScopeParent="..\SortButtons" ScopeMovements="Horizontal"/>
+        <ListPanel Id="SortButtons" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" RenderLate="true" DataSource="{SortController}">
+            <Children>
+            <!-- WIDTH/HEIGHT switched to clan members header constants -->
+            <SortButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="588" SuggestedHeight="!Clan.Members.Sort.1.Height" Brush="Clan.Members.Sort.1" Command.Click="ExecuteSortByName" IsSelected="@IsNameSelected" SortState="@NameState" SortVisualWidget="TextWidget\NameSortVisualWidget" UpdateChildrenStates="true" GamepadNavigationIndex="0">
+                <Children>
+                <TextWidget Id="TextWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="Clan.LeftPanel.Header.Text" ClipContents="false" Text="Custom Units">
+                    <Children>
+                    <BrushWidget Id="NameSortVisualWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="20" SuggestedHeight="20" HorizontalAlignment="Right" VerticalAlignment="Center" PositionXOffset="20" Brush="ArmyManagement.Sort.ArrowBrush"/>
+                    </Children>
+                </TextWidget>
+                </Children>
+            </SortButtonWidget>
+            <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Scroll.Header.Width" SuggestedHeight="!Scroll.Header.Height" Sprite="StdAssets\scroll_header" ExtendRight="3" ExtendTop="6" ExtendLeft="3" ExtendBottom="4" HorizontalAlignment="Right"/>
+            </Children>
+        </ListPanel>
+        <!-- SCROLL GROUP (first child; header draws after) -->
+        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent">
+            <Children>
+            <!-- Scrollable area -->
+            <ScrollablePanel Id="CCT_ClanElementsScrollablePanel" WidthSizePolicy="CoverChildren" MinWidth="!Clan.Management.Collapser.Width" HeightSizePolicy="StretchToParent" MarginLeft="3" MarginBottom="3" AutoHideScrollBars="true" ClipRect="CCT_ClanElementsRect" InnerPanel="CCT_ClanElementsRect\CCT_ClanElementsListPanel" MouseScrollAxis="Vertical" VerticalScrollbar="..\CCT_ClanElementsScrollbar\Scrollbar">
+                <Children>
+                <!-- Navigation + clipping rect -->
+                <NavigationScopeTargeter ScopeID="CCT_TroopsScope" ScopeParent=".\CCT_ClanElementsRect" ScopeMovements="Vertical" IsDefaultNavigationScope="true" DoNotAutoNavigateAfterSort="true"/>
+                <Widget Id="CCT_ClanElementsRect" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" ClipContents="true">
+                    <Children>
+                    <!-- Vertical list inside the scroll area -->
+                    <NavigatableListPanel Id="CCT_ClanElementsListPanel" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalBottomToTop" MinIndex="0" StepSize="1000">
+                        <Children>
+                        <!-- REGULAR anchor + list -->
+                        <NavigationAutoScrollWidget TrackedWidget=".\CCT_RegularHeader"/>
+                        <ScrollablePanelFixedHeaderWidget Id="CCT_RegularHeader" FixedHeader="..\..\..\CCT_RegularToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height"/>
+                        <!-- CHANGED: bind to CustomRegular -->
+                        <NavigatableListPanel Id="CCT_RegularList" DataSource="{CustomRegular}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
+                            <ItemTemplate>
+                            <!-- Button wiring kept identical; item VM should expose IsSelected/ExecuteSelect if you want selection -->
+                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="64" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
+                                <Children>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="24" MarginRight="24" StackLayout.LayoutMethod="HorizontalLeftToRight">
+                                    <Children>
+                                    <!-- Name on the left -->
+                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.LeftPanel.Text" ClipContents="false" Text="@Name"/>
+                                    <!-- Tier badge on the right -->
+                                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Right" Text="@TierText"/>
+                                    </Children>
+                                </ListPanel>
+                                </Children>
+                            </ButtonWidget>
+                            </ItemTemplate>
+                        </NavigatableListPanel>
+                        <!-- ELITE anchor + list -->
+                        <NavigationAutoScrollWidget TrackedWidget=".\CCT_EliteHeader"/>
+                        <ScrollablePanelFixedHeaderWidget Id="CCT_EliteHeader" FixedHeader="..\..\..\CCT_EliteToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
+                        <!-- CHANGED: bind to CustomElite -->
+                        <NavigatableListPanel Id="CCT_EliteList" DataSource="{CustomElite}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
+                            <ItemTemplate>
+                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="64" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
+                                <Children>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="24" MarginRight="24" StackLayout.LayoutMethod="HorizontalLeftToRight">
+                                    <Children>
+                                    <!-- Name on the left -->
+                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.LeftPanel.Text" ClipContents="false" Text="@Name"/>
+                                    <!-- Tier badge on the right -->
+                                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Right" Text="@TierText"/>
+                                    </Children>
+                                </ListPanel>
+                                </Children>
+                            </ButtonWidget>
+                            </ItemTemplate>
+                        </NavigatableListPanel>
+                        </Children>
+                    </NavigatableListPanel>
+                    </Children>
+                </Widget>
+                <!-- REGULAR toggle (sibling under the ScrollablePanel) -->
+                <PartyHeaderToggleWidget Id="CCT_RegularToggle" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height" CollapseIndicator="RegularCollapser\RegularCollapseIndicator" ListPanel="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_RegularList" HorizontalAlignment="Left" VerticalAlignment="Top" Brush="Clan.Management.Collapser" WidgetToClose="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_RegularList">
+                    <Children>
+                    <ListPanel Id="RegularCollapser" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Children>
+                        <BrushWidget Id="RegularCollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="16" SuggestedHeight="16" VerticalAlignment="Center" PositionYOffset="-2" MarginRight="5" Brush="Party.Toggle.ExpandIndicator"/>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Clan.Management.Collapser.Text" Text="Regular"/>
+                        </Children>
+                    </ListPanel>
+                    </Children>
+                </PartyHeaderToggleWidget>
+                <!-- ELITE toggle -->
+                <PartyHeaderToggleWidget Id="CCT_EliteToggle" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height" CollapseIndicator="EliteCollapser\EliteCollapseIndicator" ListPanel="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_EliteList" HorizontalAlignment="Left" VerticalAlignment="Top" Brush="Clan.Management.Collapser" WidgetToClose="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_EliteList">
+                    <Children>
+                    <ListPanel Id="EliteCollapser" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Children>
+                        <BrushWidget Id="EliteCollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="16" SuggestedHeight="16" VerticalAlignment="Center" PositionYOffset="-2" MarginRight="5" Brush="Party.Toggle.ExpandIndicator"/>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Clan.Management.Collapser.Text" Text="Elite"/>
+                        </Children>
+                    </ListPanel>
+                    </Children>
+                </PartyHeaderToggleWidget>
+                </Children>
+            </ScrollablePanel>
+            <!-- Vertical Scrollbar (sibling of the scrollable area) -->
+            <Standard.VerticalScrollbar Id="CCT_ClanElementsScrollbar" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" VerticalAlignment="Bottom" MarginLeft="2" MarginRight="2" MarginBottom="3"/>
+            </Children>
+        </ListPanel>
+        </Children>
+    </BrushListPanel>
+  </Children>
+</Widget>

@@ -1,0 +1,23 @@
+# Ignore build output
+bin/
+obj/
+
+# Ignore logs
+*.log
+
+# Ignore decompiled files
+*decompiled*
+
+# Ignore user-specific and temp files
+*.user
+*.suo
+*.tmp
+*.bak
+*.cache
+*.vs/
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore SaveData (optional, comment out if you want to keep versioned)
+#SaveData/

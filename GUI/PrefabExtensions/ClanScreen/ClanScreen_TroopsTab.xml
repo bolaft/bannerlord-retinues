@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ButtonWidget
+  DoNotPassEventsToChildren="true"
+  WidthSizePolicy="Fixed"
+  HeightSizePolicy="Fixed"
+  SuggestedWidth="!Header.Tab.Center.Width.Scaled"
+  SuggestedHeight="!Header.Tab.Center.Height.Scaled"
+  PositionYOffset="6"
+  MarginRight="2"
+  Brush="Header.Tab.Center"
+  UpdateChildrenStates="true"
+  IsEnabled="true"
+  IsSelected="@IsTroopsSelected"
+  Command.Click="ExecuteSelectTroops">
+  <Children>
+    <TextWidget
+      WidthSizePolicy="StretchToParent"
+      HeightSizePolicy="StretchToParent"
+      MarginTop="3"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Brush="Clan.TabControl.Text"
+      Text="@TroopsTabText" />
+  </Children>
+</ButtonWidget>

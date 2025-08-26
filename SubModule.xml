@@ -1,0 +1,40 @@
+<Module>
+  <Name value="Custom Clan Troops"/>
+  <Id value="CustomClanTroops"/>
+  <Version value="v1.0.0"/>
+  <DefaultModule value="false"/>
+  <SingleplayerModule value="true"/>
+  <MultiplayerModule value="false"/>
+  <Official value="false"/>
+
+  <DependedModules>
+    <DependedModule Id="Bannerlord.Harmony"/>
+    <DependedModule Id="Bannerlord.UIExtenderEx"/>
+    <DependedModule Id="Native"/>
+    <DependedModule Id="SandBoxCore"/>
+    <DependedModule Id="Sandbox"/>
+    <DependedModule Id="StoryMode" Optional="true"/>
+  </DependedModules>
+
+  <SubModules>
+    <SubModule>
+      <Name value="Custom Clan Troops"/>
+      <DLLName value="CustomClanTroops.dll"/>
+      <SubModuleClassType value="CustomClanTroops.SubModule"/>
+      <Tags>
+        <Tag key="Campaign"/>
+        <Tag key="CampaignSystem"/>
+        <Tag key="UI"/>
+      </Tags>
+      <Assemblies>
+        <Assembly Path="bin/Win64_Shipping_Client/CustomClanTroops.dll"/>
+      </Assemblies>
+    </SubModule>
+  </SubModules>
+  
+  <Xmls>
+    <XmlNode>
+      <XmlName id="NPCCharacters" path="ModuleData/NPCCharacters.xml" />
+    </XmlNode>
+  </Xmls>
+</Module>
