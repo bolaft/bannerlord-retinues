@@ -1,6 +1,8 @@
 using System;
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
+using TaleWorlds.Core;
+
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 
@@ -23,7 +25,7 @@ namespace CustomClanTroops.UI
         public string Name => Troop.Name;
 
         [DataSourceProperty]
-        public string TierText => Troop != null ? $"T{Troop.Level}" : "";
+        public string TierText => Troop != null ? $"T{Troop.Tier}" : "";
 
         [DataSourceProperty]
         public bool IsSelected

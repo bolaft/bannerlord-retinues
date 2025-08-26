@@ -3,10 +3,12 @@ using System.Linq;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 using CustomClanTroops.Utils;
+using CustomClanTroops.Wrappers.Campaign;
 
 namespace CustomClanTroops.Wrappers.Objects
 {
@@ -15,7 +17,28 @@ namespace CustomClanTroops.Wrappers.Objects
         public const string IdPrefix = "cct_";
         public const string BasicIdPrefix = IdPrefix + "basic_";
         public const string EliteIdPrefix = IdPrefix + "elite_";
-        private static readonly SkillObject[] defaultSkills = new SkillObject[]
+
+        public static IReadOnlyDictionary<int, int> SkillCapsByTier = new Dictionary<int, int>
+        {
+            { 1, 20 },
+            { 2, 50 },
+            { 3, 80 },
+            { 4, 120 },
+            { 5, 160 },
+            { 6, 260 }
+        };
+
+        public static IReadOnlyDictionary<int, int> TotalSkillPointsByTier = new Dictionary<int, int>
+        {
+            { 1, 90 },
+            { 2, 210 },
+            { 3, 360 },
+            { 4, 535 },
+            { 5, 710 },
+            { 6, 915 }
+        };
+
+        public static readonly SkillObject[] TroopSkills = new SkillObject[]
         {
             DefaultSkills.Athletics,
             DefaultSkills.Riding,
@@ -27,24 +50,26 @@ namespace CustomClanTroops.Wrappers.Objects
             DefaultSkills.Throwing
         };
 
-        private const Occupation defaultOccupation = Occupation.Soldier;
+        private const Occupation DefaultOccupation = Occupation.Soldier;
 
-        public string Name { get { return GetName(); } }
-        public string StringId { get { return GetStringId(); } }
-        public int Level { get { return _characterObject.Level; } }
-        public Occupation Occupation { get { return GetOccupation(); } }
-        public CultureObject Culture { get { return _characterObject.Culture; } }
-        public List<(SkillObject skill, int value)> Skills { get { return GetSkills(); } }
-        public List<Equipment> Equipments { get { return GetEquipments(); } }
-        public bool IsFemale { get { return GetIsFemale(); } }
-        public int Athletics { get { return GetSkill(DefaultSkills.Athletics); } }
-        public int Riding { get { return GetSkill(DefaultSkills.Riding); } }
-        public int OneHanded { get { return GetSkill(DefaultSkills.OneHanded); } }
-        public int TwoHanded { get { return GetSkill(DefaultSkills.TwoHanded); } }
-        public int Polearm { get { return GetSkill(DefaultSkills.Polearm); } }
-        public int Bow { get { return GetSkill(DefaultSkills.Bow); } }
-        public int Crossbow { get { return GetSkill(DefaultSkills.Crossbow); } }
-        public int Throwing { get { return GetSkill(DefaultSkills.Throwing); } }
+        public string Name => GetName();
+        public string StringId => GetStringId();
+        public int Tier => _characterObject.Tier;
+        public int Level => _characterObject.Level;
+        public Occupation Occupation => GetOccupation();
+        public CultureObject Culture => _characterObject.Culture;
+        public List<(SkillObject skill, int value)> Skills => GetSkills();
+        public List<Equipment> Equipments => GetEquipments();
+        public bool IsFemale => GetIsFemale();
+
+        public int Athletics => GetSkill(DefaultSkills.Athletics);
+        public int Riding => GetSkill(DefaultSkills.Riding);
+        public int OneHanded => GetSkill(DefaultSkills.OneHanded);
+        public int TwoHanded => GetSkill(DefaultSkills.TwoHanded);
+        public int Polearm => GetSkill(DefaultSkills.Polearm);
+        public int Bow => GetSkill(DefaultSkills.Bow);
+        public int Crossbow => GetSkill(DefaultSkills.Crossbow);
+        public int Throwing => GetSkill(DefaultSkills.Throwing);
 
         public CharacterObject[] UpgradeTargets { get { return GetUpgradeTargets(); } }
         public ItemCategory UpgradeRequiresItemFromCategory { get { return GetUpgradeRequiresItemFromCategory(); } }
@@ -53,10 +78,39 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public CharacterObject BaseCharacter => _characterObject;
 
+        private CharacterViewModel _viewModel;
+        public CharacterViewModel ViewModel
+        {
+            get
+            {
+                if (_viewModel == null)
+                {
+                    // TODO: Fix this, doesn't work, using default base unit instead
+
+                    // _viewModel = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                    // _viewModel.FillFrom(_characterObject, seed: -1);
+                    // Log.Info($"CharacterWrapper: Created ViewModel for character {_characterObject.StringId}");
+                    // Log.Info($"CharacterWrapper: ViewModel details - CharStringId: {_viewModel.CharStringId}, Race: {_viewModel.Race}, EquipmentCode: {_viewModel.EquipmentCode}");
+
+                    Log.Warn($"CharacterWrapper: ViewModel not created for character {_characterObject.StringId}, using default.");
+
+                    HeroWrapper hero = new HeroWrapper();
+                    CharacterWrapper baseCultureTroop = hero.Culture.RootBasic;
+
+                    _viewModel = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                    _viewModel.FillFrom(baseCultureTroop.BaseCharacter, seed: -1);
+                    Log.Info($"CharacterWrapper: Created ViewModel for character {baseCultureTroop.StringId}");
+                    Log.Info($"CharacterWrapper: ViewModel details - CharStringId: {_viewModel.CharStringId}, Race: {_viewModel.Race}, EquipmentCode: {_viewModel.EquipmentCode}");
+                }
+                return _viewModel;
+            }
+        }
+
         // Constructor: from existing CharacterObject
         public CharacterWrapper(CharacterObject co)
         {
             _characterObject = co;
+
         }
 
         // Constructor: from params
@@ -69,7 +123,7 @@ namespace CustomClanTroops.Wrappers.Objects
             List<Equipment> equipments,
             CharacterObject[] upgradeTargets = null,
             ItemCategory upgradeRequiresItemFromCategory = null,
-            Occupation occupation = defaultOccupation)
+            Occupation occupation = DefaultOccupation)
         {
             CreateCharacterObject(name, id, level, occupation, culture, skills, equipments, upgradeTargets, upgradeRequiresItemFromCategory);
         }
@@ -278,7 +332,7 @@ namespace CustomClanTroops.Wrappers.Objects
 
             // Build a dictionary for fast lookup
             var skillDict = skills.ToDictionary(x => x.skill, x => x.value);
-            foreach (var skill in defaultSkills)
+            foreach (var skill in TroopSkills)
             {
                 int value = skillDict.TryGetValue(skill, out int v) ? v : 0;
                 SetSkill(skill, value);
@@ -287,7 +341,7 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public List<(SkillObject skill, int value)> GetSkills()
         {
-            return defaultSkills.Select(skill => (skill, _characterObject.GetSkillValue(skill))).ToList();
+            return TroopSkills.Select(skill => (skill, _characterObject.GetSkillValue(skill))).ToList();
         }
 
         public void SetSkill(SkillObject skill, int value)
@@ -321,7 +375,7 @@ namespace CustomClanTroops.Wrappers.Objects
         public void SetIsFemale(bool isFemale)
         {
             PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsFemale");
-            property.SetValue(_characterObject, !isFemale);
+            property.SetValue(_characterObject, isFemale);
         }
 
         public bool GetIsFemale()

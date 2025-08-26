@@ -4,6 +4,7 @@ using System.Linq;
 using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core.ViewModelCollection;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using CustomClanTroops.Logic;
@@ -21,20 +22,34 @@ namespace CustomClanTroops.UI
         [DataSourceProperty] public string TroopsTabText => "Troops";
 
         private readonly MBBindingList<TroopRowVM> _basic = new();
-        private readonly MBBindingList<TroopRowVM> _elite   = new();
+        private readonly MBBindingList<TroopRowVM> _elite = new();
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomRegular => _basic;
-        [DataSourceProperty] public MBBindingList<TroopRowVM> CustomElite   => _elite;
+        [DataSourceProperty] public MBBindingList<TroopRowVM> CustomElite => _elite;
 
         [DataSourceProperty]
-        public TroopRowVM Troop
+        public TroopRowVM TroopRow
         {
             get => _selected;
             private set
             {
                 if (_selected == value) return;
                 _selected = value;
-                OnPropertyChanged(nameof(Troop));
+                OnPropertyChanged(nameof(TroopRow));
+                OnPropertyChanged(nameof(TroopInfo));
                 OnPropertyChanged(nameof(IsAnyTroopSelected));
+            }
+        }
+
+        [DataSourceProperty]
+        public TroopInfoVM TroopInfo
+        {
+            get
+            {
+                var sel = _selected?.Troop;
+                if (sel == null) return null;
+
+                // Build a TroopInfoVM on demand from the selected troop
+                return new TroopInfoVM(TroopRow.Troop);
             }
         }
 
@@ -150,17 +165,19 @@ namespace CustomClanTroops.UI
             foreach (var e in _elite)   if (!ReferenceEquals(e, vm) && e.IsSelected) e.IsSelected = false;
 
             vm.IsSelected = true;
-            Troop = vm;
+            TroopRow = vm;
 
-            Log.Info($"ClanManagementMixinVM: selected '{vm.Name}'");
+            Log.Debug($"ClanManagementMixinVM: selected '{vm.Name}'");
         }
 
-        public void NotifyTroopRenamed()
+        public void NotifyTroopChanged()
         {
-            Troop?.Refresh();
+            TroopRow?.Refresh();
+            TroopInfo?.Refresh();
             OnPropertyChanged(nameof(CustomRegular));
             OnPropertyChanged(nameof(CustomElite));
-            OnPropertyChanged(nameof(Troop));
+            OnPropertyChanged(nameof(TroopRow));
+            OnPropertyChanged(nameof(TroopInfo));
         }
     }
 }

@@ -20,6 +20,10 @@
       <HintPath>..\..\bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="TaleWorlds.Core.ViewModelCollection">
+      <HintPath>..\..\bin\Win64_Shipping_Client\TaleWorlds.Core.ViewModelCollection.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.Library">
       <HintPath>..\..\bin\Win64_Shipping_Client\TaleWorlds.Library.dll</HintPath>
       <Private>false</Private>

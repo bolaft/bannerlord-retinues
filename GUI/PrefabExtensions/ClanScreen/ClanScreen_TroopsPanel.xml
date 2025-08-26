@@ -10,20 +10,19 @@
       <Children>
         <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
           <Children>
-            <!--3D Model container (placeholder)-->
-            <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
-            </Widget>
-
             <!-- Stats / header -->
-            <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="300">
+            <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="800">
               <Children>
                 <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="20" MarginRight="20" StackLayout.LayoutMethod="VerticalBottomToTop">
                   <Children>
+                    <!-- Name Header -->
+                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Name" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+
                     <!-- Name row -->
                     <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                       <Children>
                         <!-- Bind to selected troop -->
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{Troop}" Text="@Name" ClipContents="false" />
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopRow}" Text="@Name" ClipContents="false" />
 
                         <!-- Rename button -->
                         <ButtonWidget DoNotPassEventsToChildren="true"
@@ -41,6 +40,175 @@
                         </ButtonWidget>
                       </Children>
                     </ListPanel>
+
+                    <!--Divider-->
+                    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="4" PositionXOffset="-3" Sprite="Clan\divider_mid" MarginLeft="100" MarginRight="100" MarginTop="25"/>
+
+                    <!-- Gender Header -->
+                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Gender" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+
+                    <!-- Gender row -->
+                    <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+                      <Children>
+                        <!-- Bind to selected troop -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" Text="@Gender" ClipContents="false" />
+
+                        <!-- Rename button -->
+                        <ButtonWidget DoNotPassEventsToChildren="true"
+                                      WidthSizePolicy="CoverChildren"
+                                      HeightSizePolicy="CoverChildren"
+                                      MarginLeft="6"
+                                      DataSource="{TroopEditor}"
+                                      Command.Click="ExecuteChangeGenderSelected"
+                                      UpdateChildrenStates="true">
+                          <Children>
+                            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                        SuggestedWidth="32" SuggestedHeight="32"
+                                        Brush="SPClan.NameChange.Icon" />
+                          </Children>
+                        </ButtonWidget>
+                      </Children>
+                    </ListPanel>
+
+                    <!--Divider-->
+                    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="4" PositionXOffset="-3" Sprite="Clan\divider_mid" MarginLeft="100" MarginRight="100" MarginTop="25"/>
+
+                    <!-- Skills Header -->
+                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Skills" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+
+                    <!-- Skill Points -->
+                    <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+                      <Children>
+                        <!-- Bind to selected troop -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" IntText="@SkillPointsUsed" ClipContents="false" />
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="/" ClipContents="false" />
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" IntText="@SkillPointsTotal" ClipContents="false" />
+                      </Children>
+                    </ListPanel>
+
+                    <!-- Skills Icon Grid: 2 rows, 4 columns -->
+                    <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop" UpdateChildrenStates="true">
+                      <Children>
+                        <!-- First row -->
+                        <ListPanel HorizontalAlignment="Center" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginBottom="5" UpdateChildrenStates="true">
+                          <Children>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="60">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="athletics" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@Athletics" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="60">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="riding" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@Riding" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="60">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="onehanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@OneHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="60">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="twohanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@TwoHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                          </Children>
+                        </ListPanel>
+                        <!-- Second row (fixed: match first row's margins and centering) -->
+                        <ListPanel HorizontalAlignment="Center" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginBottom="5" UpdateChildrenStates="true">
+                          <Children>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="polearm" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@Polearm" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="bow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@Bow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="crossbow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@Crossbow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="throwing" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                    <TextWidget DataSource="{TroopInfo}" IntText="@Throwing" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                    <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                          </Children>
+                        </ListPanel>
+                      </Children>
+                    </ListPanel>
+
+                    <!--Divider-->
+                    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="4" PositionXOffset="-3" Sprite="Clan\divider_mid" MarginLeft="100" MarginRight="100" MarginTop="25"/>
+                    
                   </Children>
                 </ListPanel>
               </Children>
@@ -84,6 +252,26 @@
                     <!-- Vertical list inside the scroll area -->
                     <NavigatableListPanel Id="CCT_ClanElementsListPanel" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalBottomToTop" MinIndex="0" StepSize="1000">
                         <Children>
+                        <!-- ELITE anchor + list -->
+                        <NavigationAutoScrollWidget TrackedWidget=".\CCT_EliteHeader"/>
+                        <ScrollablePanelFixedHeaderWidget Id="CCT_EliteHeader" FixedHeader="..\..\..\CCT_EliteToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
+                        <!-- CHANGED: bind to CustomElite -->
+                        <NavigatableListPanel Id="CCT_EliteList" DataSource="{CustomElite}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
+                            <ItemTemplate>
+                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
+                                <Children>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="24" MarginRight="24" StackLayout.LayoutMethod="HorizontalLeftToRight">
+                                    <Children>
+                                    <!-- Name on the left -->
+                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.Tuple.Name.Text" ClipContents="false" Text="@Name"/>
+                                    <!-- Tier badge on the right -->
+                                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.Tuple.Name.Text" HorizontalAlignment="Right" Text="@TierText"/>
+                                    </Children>
+                                </ListPanel>
+                                </Children>
+                            </ButtonWidget>
+                            </ItemTemplate>
+                        </NavigatableListPanel>
                         <!-- REGULAR anchor + list -->
                         <NavigationAutoScrollWidget TrackedWidget=".\CCT_RegularHeader"/>
                         <ScrollablePanelFixedHeaderWidget Id="CCT_RegularHeader" FixedHeader="..\..\..\CCT_RegularToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height"/>
@@ -91,34 +279,14 @@
                         <NavigatableListPanel Id="CCT_RegularList" DataSource="{CustomRegular}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
                             <ItemTemplate>
                             <!-- Button wiring kept identical; item VM should expose IsSelected/ExecuteSelect if you want selection -->
-                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="64" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
+                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
                                 <Children>
                                 <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="24" MarginRight="24" StackLayout.LayoutMethod="HorizontalLeftToRight">
                                     <Children>
                                     <!-- Name on the left -->
-                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.LeftPanel.Text" ClipContents="false" Text="@Name"/>
+                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.Tuple.Name.Text" ClipContents="false" Text="@Name"/>
                                     <!-- Tier badge on the right -->
-                                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Right" Text="@TierText"/>
-                                    </Children>
-                                </ListPanel>
-                                </Children>
-                            </ButtonWidget>
-                            </ItemTemplate>
-                        </NavigatableListPanel>
-                        <!-- ELITE anchor + list -->
-                        <NavigationAutoScrollWidget TrackedWidget=".\CCT_EliteHeader"/>
-                        <ScrollablePanelFixedHeaderWidget Id="CCT_EliteHeader" FixedHeader="..\..\..\CCT_EliteToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
-                        <!-- CHANGED: bind to CustomElite -->
-                        <NavigatableListPanel Id="CCT_EliteList" DataSource="{CustomElite}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
-                            <ItemTemplate>
-                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="64" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
-                                <Children>
-                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="24" MarginRight="24" StackLayout.LayoutMethod="HorizontalLeftToRight">
-                                    <Children>
-                                    <!-- Name on the left -->
-                                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.LeftPanel.Text" ClipContents="false" Text="@Name"/>
-                                    <!-- Tier badge on the right -->
-                                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Right" Text="@TierText"/>
+                                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.Tuple.Name.Text" HorizontalAlignment="Right" Text="@TierText"/>
                                     </Children>
                                 </ListPanel>
                                 </Children>
