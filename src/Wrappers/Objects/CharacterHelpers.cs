@@ -21,10 +21,10 @@ namespace CustomClanTroops.Wrappers.Objects
             CharacterWrapper clone = new CharacterWrapper(cloneObj);
 
             // Set Name
-            clone.SetName(newName);
+            clone.Name = newName;
 
             // Set UpgradeTargets
-            clone.SetUpgradeTargets(new CharacterObject[0]);
+            clone.UpgradeTargets = new CharacterObject[0];
 
             return clone;
         }

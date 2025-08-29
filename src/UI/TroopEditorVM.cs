@@ -1,3 +1,4 @@
+using System.Linq;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.CampaignSystem;
@@ -35,7 +36,7 @@ namespace CustomClanTroops.UI
             {
                 if (HasUpgradeTarget2) return false;
                 if (IsElite && _troop.Tier < 6) return true;
-                if (IsElite && _troop.Tier < 5) return true;
+                if (!IsElite && _troop.Tier < 5) return true;
                 return false;
             }
         }
@@ -61,7 +62,7 @@ namespace CustomClanTroops.UI
                 var points = SkillPointsTotal;
                 foreach (var skill in CharacterWrapper.TroopSkills)
                 {
-                    points -= _troop.GetSkill(skill);
+                    points -= _troop.Skills.FirstOrDefault(s => s.skill == skill).value;
                 }
                 return points;
             }
@@ -143,7 +144,7 @@ namespace CustomClanTroops.UI
         {
             if (_troop == null) return false;
 
-            var belowCap = _troop.GetSkill(skill) < CharacterWrapper.SkillCapsByTier[_troop.Tier];
+            var belowCap = _troop.Skills.FirstOrDefault(s => s.skill == skill).value < CharacterWrapper.SkillCapsByTier[_troop.Tier];
             var hasPointsLeft = _owner.TroopEditor.SkillPointsLeft > 0;
 
             return belowCap && hasPointsLeft;
@@ -153,7 +154,7 @@ namespace CustomClanTroops.UI
         {
             if (_troop == null) return false;
 
-            return _troop.GetSkill(skill) > 0;
+            return _troop.Skills.FirstOrDefault(s => s.skill == skill).value > 0;
         }
 
         private void ModifySkill(SkillObject skill, int change)
@@ -161,7 +162,13 @@ namespace CustomClanTroops.UI
             if (change > 0 && !CanIncrement(skill)) return;
             if (change < 0 && !CanDecrement(skill)) return;
 
-            _troop.SetSkill(skill, _troop.GetSkill(skill) + change);
+            var skills = _troop.Skills;
+            var idx = skills.FindIndex(s => s.skill == skill);
+            if (idx >= 0)
+            {
+                skills[idx] = (skill, skills[idx].value + change);
+                _troop.Skills = skills;
+            }
             _owner.UpdateTroops();
         }
 
@@ -212,7 +219,7 @@ namespace CustomClanTroops.UI
                     if (string.IsNullOrWhiteSpace(input)) return;
 
                     var target = CharacterHelpers.CloneTroop(_troop, input);
-                    target.SetLevel(_troop.Level + 5);
+                    target.Level = _troop.Level + 5;
 
                     _troop.AddUpgradeTarget(target);
 
@@ -244,7 +251,7 @@ namespace CustomClanTroops.UI
 
         [DataSourceMethod] public void ExecuteChangeGenderSelected()
         {
-            _troop.SetIsFemale(!_troop.IsFemale);
+            _troop.IsFemale = !_troop.IsFemale;
 
             _owner.UpdateTroops();
             Log.Debug($"TroopEditorVM: changed gender of '{_troop.Name}' to '{(_troop.IsFemale ? "Female" : "Male")}'");
@@ -267,7 +274,7 @@ namespace CustomClanTroops.UI
                     if (string.IsNullOrWhiteSpace(input)) return;
 
                     // Apply to our OO model and push to engine
-                    _troop.SetName(input);
+                    _troop.Name = input;
 
                     _owner.UpdateTroops();
                     Log.Debug($"TroopEditorVM: renamed '{current}' → '{input}'");
