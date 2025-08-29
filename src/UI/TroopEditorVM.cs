@@ -162,7 +162,7 @@ namespace CustomClanTroops.UI
             if (change < 0 && !CanDecrement(skill)) return;
 
             _troop.SetSkill(skill, _troop.GetSkill(skill) + change);
-            _owner.NotifyTroopChanged();
+            _owner.UpdateTroops();
         }
 
         [DataSourceMethod] public void ExecuteIncrementAthletics() => ModifySkill(DefaultSkills.Athletics, 1);
@@ -199,14 +199,54 @@ namespace CustomClanTroops.UI
 
         [DataSourceMethod] public void ExecuteAddUpgradeTarget()
         {
-            Log.Info("TroopEditorVM: ExecuteAddUpgradeTarget called");
+            var data = new TextInquiryData(
+                new TextObject("Create Troop").ToString(),
+                new TextObject("Enter the troop's name:").ToString(),
+                true,
+                true,
+                new TextObject("{=OK}OK").ToString(),
+                new TextObject("{=Cancel}Cancel").ToString(),
+                (string input) =>
+                {
+                    input = (input ?? "").Trim();
+                    if (string.IsNullOrWhiteSpace(input)) return;
+
+                    var target = CharacterHelpers.CloneTroop(_troop, input);
+                    target.SetLevel(_troop.Level + 5);
+
+                    _troop.AddUpgradeTarget(target);
+
+                    if (IsElite)
+                    {
+                        TroopManager.AddEliteTroop(target);
+                    }
+                    else
+                    {
+                        TroopManager.AddBasicTroop(target);
+                    }
+
+                    _owner.UpdateTroops();
+                    _owner.UpdateLists();
+
+                    Log.Debug($"TroopEditorVM: created upgrade target → '{input}'");
+                },
+                null,               // onNegative
+                false,              // isInputObfuscated (arg #9 MUST be bool)
+                (string input) =>   // validator (arg #10)
+                {
+                    bool ok = !string.IsNullOrWhiteSpace(input?.Trim());
+                    return new System.Tuple<bool, string>(ok, ok ? "" : "Name cannot be empty.");
+                }
+            );
+
+            InformationManager.ShowTextInquiry(data);
         }
 
         [DataSourceMethod] public void ExecuteChangeGenderSelected()
         {
             _troop.SetIsFemale(!_troop.IsFemale);
 
-            _owner.NotifyTroopChanged();
+            _owner.UpdateTroops();
             Log.Debug($"TroopEditorVM: changed gender of '{_troop.Name}' to '{(_troop.IsFemale ? "Female" : "Male")}'");
         }
 
@@ -229,7 +269,7 @@ namespace CustomClanTroops.UI
                     // Apply to our OO model and push to engine
                     _troop.SetName(input);
 
-                    _owner.NotifyTroopChanged();
+                    _owner.UpdateTroops();
                     Log.Debug($"TroopEditorVM: renamed '{current}' → '{input}'");
                 },
                 null,               // onNegative

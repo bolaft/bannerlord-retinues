@@ -35,9 +35,9 @@ namespace CustomClanTroops.Logic
                 int basicCount = 0;
                 if (basicRoot != null)
                 {
-                    foreach (var clone in CharacterHelpers.CloneTroopTree(basicRoot, namePrefix, CharacterWrapper.BasicIdPrefix))
+                    foreach (var clone in CharacterHelpers.CloneTroopTree(basicRoot, namePrefix))
                     {
-                        CustomClanTroops.TroopManager.AddBasicTroop(clone);
+                        TroopManager.AddBasicTroop(clone);
                         basicCount++;
                     }
                     Log.Info($"[TroopSetup] Cloned basic troop tree. {basicCount} troops cloned.");
@@ -52,9 +52,9 @@ namespace CustomClanTroops.Logic
                 int eliteCount = 0;
                 if (eliteRoot != null)
                 {
-                    foreach (var clone in CharacterHelpers.CloneTroopTree(eliteRoot, namePrefix, CharacterWrapper.EliteIdPrefix))
+                    foreach (var clone in CharacterHelpers.CloneTroopTree(eliteRoot, namePrefix))
                     {
-                        CustomClanTroops.TroopManager.AddEliteTroop(clone);
+                        TroopManager.AddEliteTroop(clone);
                         eliteCount++;
                     }
                     Log.Info($"[TroopSetup] Cloned elite troop tree. {eliteCount} troops cloned.");

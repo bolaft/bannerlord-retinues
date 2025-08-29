@@ -11,7 +11,7 @@ namespace CustomClanTroops.Wrappers.Objects
 {
     public static class CharacterHelpers
     {
-        public static CharacterWrapper CloneTroop(CharacterWrapper original, string newName, string newId)
+        public static CharacterWrapper CloneTroop(CharacterWrapper original, string newName)
         {
             // Clone from the source troop
             var cloneObj = CharacterObject.CreateFrom(original.GetCharacterObject());
@@ -29,18 +29,17 @@ namespace CustomClanTroops.Wrappers.Objects
             return clone;
         }
 
-        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper root, string namePrefix, string idPrefix)
+        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper root, string namePrefix)
         {
-            foreach (var clone in CloneTroopTree(root, namePrefix, idPrefix, null))
+            foreach (var clone in CloneTroopTree(root, namePrefix, null))
                 yield return clone;
         }
 
-        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper original, string namePrefix, string idPrefix, CharacterWrapper parent = null)
+        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper original, string namePrefix, CharacterWrapper parent = null)
         {
             string newName = namePrefix + original.Name;
-            string newId = idPrefix + original.StringId;
 
-            CharacterWrapper clone = CloneTroop(original, newName, newId);
+            CharacterWrapper clone = CloneTroop(original, newName);
 
             if (parent != null)
             {
@@ -52,7 +51,7 @@ namespace CustomClanTroops.Wrappers.Objects
             foreach (var child in original.UpgradeTargets ?? new TaleWorlds.CampaignSystem.CharacterObject[0])
             {
                 var childWrapper = new CharacterWrapper(child);
-                foreach (var descendant in CloneTroopTree(childWrapper, namePrefix, idPrefix, clone))
+                foreach (var descendant in CloneTroopTree(childWrapper, namePrefix, clone))
                 {
                     yield return descendant;
                 }

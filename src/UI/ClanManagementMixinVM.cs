@@ -28,7 +28,8 @@ namespace CustomClanTroops.UI
 
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomElite => _elite;
 
-        [DataSourceProperty] public TroopRowVM TroopRow
+        [DataSourceProperty]
+        public TroopRowVM TroopRow
         {
             get => _selected;
             private set
@@ -48,7 +49,8 @@ namespace CustomClanTroops.UI
 
         [DataSourceProperty] public bool IsAnyTroopSelected => _selected != null;
 
-        [DataSourceProperty] public bool IsTroopsSelected
+        [DataSourceProperty]
+        public bool IsTroopsSelected
         {
             get => _isTroopsSelected;
             set
@@ -60,7 +62,8 @@ namespace CustomClanTroops.UI
             }
         }
 
-        [DataSourceMethod] public void ExecuteSelectTroops()
+        [DataSourceMethod]
+        public void ExecuteSelectTroops()
         {
             Log.Debug("ClanManagementMixinVM: Troops tab clicked");
             EnsureTroopsReady();
@@ -69,14 +72,14 @@ namespace CustomClanTroops.UI
 
             // Deselect vanilla tabs + their panels
             ViewModel.IsMembersSelected = false;
-            ViewModel.IsFiefsSelected   = false;
+            ViewModel.IsFiefsSelected = false;
             ViewModel.IsPartiesSelected = false;
-            ViewModel.IsIncomeSelected  = false;
+            ViewModel.IsIncomeSelected = false;
 
             ViewModel.ClanMembers.IsSelected = false;
             ViewModel.ClanParties.IsSelected = false;
-            ViewModel.ClanFiefs.IsSelected   = false;
-            ViewModel.ClanIncome.IsSelected  = false;
+            ViewModel.ClanFiefs.IsSelected = false;
+            ViewModel.ClanIncome.IsSelected = false;
         }
 
         public ClanManagementMixinVM(ClanManagementVM vm) : base(vm)
@@ -97,7 +100,7 @@ namespace CustomClanTroops.UI
         {
             if (!e.Value) return;
             if (e.PropertyName == "IsMembersSelected" ||
-                e.PropertyName == "IsFiefsSelected"   ||
+                e.PropertyName == "IsFiefsSelected" ||
                 e.PropertyName == "IsPartiesSelected" ||
                 e.PropertyName == "IsIncomeSelected")
             {
@@ -115,21 +118,7 @@ namespace CustomClanTroops.UI
 
             try
             {
-                _basic.Clear();
-                foreach (var troop in TroopManager.BasicCustomTroops)
-                {
-                    _basic.Add(new TroopRowVM(troop, OnRowSelected));
-                }
-
-                _elite.Clear();
-                foreach (var troop in TroopManager.EliteCustomTroops)
-                {
-                    _elite.Add(new TroopRowVM(troop, OnRowSelected));
-                }
-
-                Log.Debug($"ClanManagementMixinVM: lists built → Basic={_basic.Count}, Elite={_elite.Count}");
-                OnPropertyChanged(nameof(CustomBasic));
-                OnPropertyChanged(nameof(CustomElite));
+                UpdateLists();
 
                 if (_basic.Count > 0)
                 {
@@ -150,7 +139,7 @@ namespace CustomClanTroops.UI
             if (vm == null) return;
 
             foreach (var r in _basic) if (!ReferenceEquals(r, vm) && r.IsSelected) r.IsSelected = false;
-            foreach (var e in _elite)   if (!ReferenceEquals(e, vm) && e.IsSelected) e.IsSelected = false;
+            foreach (var e in _elite) if (!ReferenceEquals(e, vm) && e.IsSelected) e.IsSelected = false;
 
             vm.IsSelected = true;
             TroopRow = vm;
@@ -159,7 +148,7 @@ namespace CustomClanTroops.UI
             Log.Debug($"ClanManagementMixinVM: selected '{vm.Name}'");
         }
 
-        public void NotifyTroopChanged()
+        public void UpdateTroops()
         {
             TroopRow?.Refresh();
             TroopEditor?.Refresh();
@@ -167,6 +156,25 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(CustomElite));
             OnPropertyChanged(nameof(TroopRow));
             OnPropertyChanged(nameof(TroopEditor));
+        }
+
+        public void UpdateLists()
+        {
+            _basic.Clear();
+            foreach (var troop in TroopManager.BasicCustomTroops)
+            {
+                _basic.Add(new TroopRowVM(troop, OnRowSelected));
+            }
+
+            _elite.Clear();
+            foreach (var troop in TroopManager.EliteCustomTroops)
+            {
+                _elite.Add(new TroopRowVM(troop, OnRowSelected));
+            }
+
+            Log.Debug($"ClanManagementMixinVM: lists built → Basic={_basic.Count}, Elite={_elite.Count}");
+            OnPropertyChanged(nameof(CustomBasic));
+            OnPropertyChanged(nameof(CustomElite));
         }
     }
 }

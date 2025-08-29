@@ -15,10 +15,6 @@ namespace CustomClanTroops.Wrappers.Objects
 {
     public class CharacterWrapper
     {
-        public const string IdPrefix = "cct_";
-        public const string BasicIdPrefix = IdPrefix + "basic_";
-        public const string EliteIdPrefix = IdPrefix + "elite_";
-
         public static IReadOnlyDictionary<int, int> SkillCapsByTier = new Dictionary<int, int>
         {
             { 1, 20 },
@@ -130,6 +126,11 @@ namespace CustomClanTroops.Wrappers.Objects
         public string GetName()
         {
             return _characterObject.Name.ToString();
+        }
+
+        public void SetLevel(int level)
+        {
+            _characterObject.Level = level;
         }
 
         public void SetSkills(List<(SkillObject skill, int value)> skills)
