@@ -54,6 +54,37 @@ namespace CustomClanTroops.UI
         [DataSourceProperty]
         public string Throwing => _character.Throwing.ToString();
 
+        [DataSourceProperty]
+        public string BannerCodeText => _character.ViewModel.BannerCodeText;
+
+        [DataSourceProperty]
+        public string CharStringId => _character.StringId;
+
+        [DataSourceProperty]
+        public string EquipmentCode => _character.ViewModel.EquipmentCode;
+
+        [DataSourceProperty]
+        public string BodyProperties => _character.ViewModel.BodyProperties;
+
+        [DataSourceProperty]
+        public bool IsFemale => _character.ViewModel.IsFemale;
+
+        [DataSourceProperty]
+        // public string MountCreationKey => _character.ViewModel.MountCreationKey;
+        public string MountCreationKey => "B1";
+
+        [DataSourceProperty]
+        public int Race => _character.ViewModel.Race;
+
+        [DataSourceProperty]
+        public int StanceIndex => _character.ViewModel.StanceIndex;
+
+        [DataSourceProperty]
+        public uint ArmorColor1 => _character.ViewModel.ArmorColor1;
+
+        [DataSourceProperty]
+        public uint ArmorColor2 => _character.ViewModel.ArmorColor2;
+
         public TroopInfoVM(CharacterWrapper character)
         {
             _character = character;
@@ -62,10 +93,12 @@ namespace CustomClanTroops.UI
         public void Refresh()
         {
             OnPropertyChanged(nameof(Gender));
+
             OnPropertyChanged(nameof(SkillPointsTotal));
             OnPropertyChanged(nameof(SkillPointsLeft));
             OnPropertyChanged(nameof(SkillPointsUsed));
             OnPropertyChanged(nameof(SkillCap));
+
             OnPropertyChanged(nameof(Athletics));
             OnPropertyChanged(nameof(Riding));
             OnPropertyChanged(nameof(OneHanded));
@@ -74,6 +107,17 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(Bow));
             OnPropertyChanged(nameof(Crossbow));
             OnPropertyChanged(nameof(Throwing));
+
+            OnPropertyChanged(nameof(BannerCodeText));
+            OnPropertyChanged(nameof(CharStringId));
+            OnPropertyChanged(nameof(EquipmentCode));
+            OnPropertyChanged(nameof(BodyProperties));
+            OnPropertyChanged(nameof(IsFemale));
+            OnPropertyChanged(nameof(MountCreationKey));
+            OnPropertyChanged(nameof(Race));
+            OnPropertyChanged(nameof(StanceIndex));
+            OnPropertyChanged(nameof(ArmorColor1));
+            OnPropertyChanged(nameof(ArmorColor2));
         }
     }
 }

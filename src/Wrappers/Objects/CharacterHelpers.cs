@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using CustomClanTroops.Wrappers.Objects;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.Core;
+using CustomClanTroops.Utils;
+using System.Reflection;
 
 namespace CustomClanTroops.Wrappers.Objects
 {
@@ -31,16 +35,35 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             string newName = namePrefix + original.Name;
             string newId = idPrefix + original.StringId;
-            var clone = new CharacterWrapper(
-                newName,
-                newId,
-                original.Level,
-                original.Culture,
-                original.Skills,
-                original.Equipments,
-                null, // upgradeTargets
-                original.UpgradeRequiresItemFromCategory
-            );
+
+            // 1) Clone from the source troop
+            var cloneObj = CharacterObject.CreateFrom(original.BaseCharacter);
+
+            // 2) Set a unique StringId via reflection
+            if (MBObjectManager.Instance.GetObject<CharacterObject>(newId) != null)
+                throw new System.InvalidOperationException($"An object with id '{newId}' already exists.");
+
+            var stringIdProp = typeof(MBObjectBase).GetProperty("StringId",
+                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            stringIdProp.SetValue(cloneObj, newId);
+
+            // 3) Register the new object so the game "knows" it
+            MBObjectManager.Instance.RegisterObject(cloneObj);
+
+            // 4) Wrap it and finish your tweaks
+            CharacterWrapper clone = new CharacterWrapper(cloneObj);
+            clone.SetName(newName);
+
+            // Set UpgradeTargets
+            try
+            {
+                clone.SetUpgradeTargets(new CharacterObject[0]);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error($"CharacterWrapper: Exception setting UpgradeTargets: {ex}");
+            }
+
             return clone;
         }
 

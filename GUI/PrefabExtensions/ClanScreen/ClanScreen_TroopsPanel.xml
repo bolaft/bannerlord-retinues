@@ -4,14 +4,26 @@
     <!-- ===================== RIGHT PANEL ===================== -->
     <Widget WidthSizePolicy="StretchToParent"
             HeightSizePolicy="StretchToParent"
-            MarginLeft="10"
+            MarginLeft="600"
             MarginRight="290"
             IsVisible="@IsAnyTroopSelected">
       <Children>
         <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
           <Children>
             <!-- Stats / header -->
-            <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="800">
+            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="10" MarginRight="290">
+              <Children>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
+                  <Children>
+                    <CharacterTableauWidget DataSource="{TroopInfo}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
+                      <Children>
+                      </Children>
+                    </CharacterTableauWidget>
+                  </Children>
+                </Widget>
+              </Children>
+            </Widget>
+            <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="300">
               <Children>
                 <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="20" MarginRight="20" StackLayout.LayoutMethod="VerticalBottomToTop">
                   <Children>
@@ -41,9 +53,6 @@
                       </Children>
                     </ListPanel>
 
-                    <!--Divider-->
-                    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="4" PositionXOffset="-3" Sprite="Clan\divider_mid" MarginLeft="100" MarginRight="100" MarginTop="25"/>
-
                     <!-- Gender Header -->
                     <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Gender" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
 
@@ -70,9 +79,6 @@
                       </Children>
                     </ListPanel>
 
-                    <!--Divider-->
-                    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="4" PositionXOffset="-3" Sprite="Clan\divider_mid" MarginLeft="100" MarginRight="100" MarginTop="25"/>
-
                     <!-- Skills Header -->
                     <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Skills" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
 
@@ -92,7 +98,7 @@
                         <!-- First row -->
                         <ListPanel HorizontalAlignment="Center" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginBottom="5" UpdateChildrenStates="true">
                           <Children>
-                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="60">
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
                               <Children>
                                 <SkillIconVisualWidget MarginBottom="6" SkillId="athletics" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                 
@@ -105,7 +111,7 @@
                                 </ListPanel>
                               </Children>
                             </ListPanel>
-                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="60">
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
                               <Children>
                                 <SkillIconVisualWidget MarginBottom="6" SkillId="riding" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                 
@@ -118,7 +124,7 @@
                                 </ListPanel>
                               </Children>
                             </ListPanel>
-                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="60">
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
                               <Children>
                                 <SkillIconVisualWidget MarginBottom="6" SkillId="onehanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                 
@@ -131,7 +137,7 @@
                                 </ListPanel>
                               </Children>
                             </ListPanel>
-                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="60">
+                            <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="20">
                               <Children>
                                 <SkillIconVisualWidget MarginBottom="6" SkillId="twohanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                 
@@ -205,10 +211,6 @@
                         </ListPanel>
                       </Children>
                     </ListPanel>
-
-                    <!--Divider-->
-                    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="4" PositionXOffset="-3" Sprite="Clan\divider_mid" MarginLeft="100" MarginRight="100" MarginTop="25"/>
-                    
                   </Children>
                 </ListPanel>
               </Children>

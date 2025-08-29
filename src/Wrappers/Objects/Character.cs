@@ -83,26 +83,33 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             get
             {
-                if (_viewModel == null)
-                {
-                    // TODO: Fix this, doesn't work, using default base unit instead
+                var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                vm.FillFrom(_characterObject, seed: -1);
+                Log.Info($"VM: CharStringId: {vm.CharStringId}");
+                Log.Info($"VM: Race: {vm.Race}");
+                Log.Info($"VM: EquipmentCode: {vm.EquipmentCode}");
+                Log.Info($"VM: BodyProperties: {vm.BodyProperties}");
+                return vm;
+                // if (_viewModel == null)
+                // {
+                // TODO: Fix this, doesn't work, using default base unit instead
 
-                    // _viewModel = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-                    // _viewModel.FillFrom(_characterObject, seed: -1);
-                    // Log.Info($"CharacterWrapper: Created ViewModel for character {_characterObject.StringId}");
-                    // Log.Info($"CharacterWrapper: ViewModel details - CharStringId: {_viewModel.CharStringId}, Race: {_viewModel.Race}, EquipmentCode: {_viewModel.EquipmentCode}");
+                // _viewModel = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                // _viewModel.FillFrom(_characterObject, seed: -1);
+                // Log.Info($"CharacterWrapper: Created ViewModel for character {_characterObject.StringId}");
+                // Log.Info($"CharacterWrapper: ViewModel details - CharStringId: {_viewModel.CharStringId}, Race: {_viewModel.Race}, EquipmentCode: {_viewModel.EquipmentCode}");
 
-                    Log.Warn($"CharacterWrapper: ViewModel not created for character {_characterObject.StringId}, using default.");
+                // Log.Warn($"CharacterWrapper: ViewModel not created for character {_characterObject.StringId}, using default.");
 
-                    HeroWrapper hero = new HeroWrapper();
-                    CharacterWrapper baseCultureTroop = hero.Culture.RootBasic;
+                // HeroWrapper hero = new HeroWrapper();
+                // CharacterWrapper baseCultureTroop = hero.Culture.RootBasic;
 
-                    _viewModel = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-                    _viewModel.FillFrom(baseCultureTroop.BaseCharacter, seed: -1);
-                    Log.Info($"CharacterWrapper: Created ViewModel for character {baseCultureTroop.StringId}");
-                    Log.Info($"CharacterWrapper: ViewModel details - CharStringId: {_viewModel.CharStringId}, Race: {_viewModel.Race}, EquipmentCode: {_viewModel.EquipmentCode}");
-                }
-                return _viewModel;
+                // _viewModel = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                // _viewModel.FillFrom(baseCultureTroop.BaseCharacter, seed: -1);
+                // Log.Info($"CharacterWrapper: Created ViewModel for character {baseCultureTroop.StringId}");
+                // Log.Info($"CharacterWrapper: ViewModel details - CharStringId: {_viewModel.CharStringId}, Race: {_viewModel.Race}, EquipmentCode: {_viewModel.EquipmentCode}");
+                // }
+                // return _viewModel;
             }
         }
 
@@ -168,16 +175,6 @@ namespace CustomClanTroops.Wrappers.Objects
 
             try
             {
-                PropertyInfo bodyPropertyRange = Reflector.P<CharacterObject>(_characterObject, "BodyPropertyRange");
-                bodyPropertyRange.SetValue(_characterObject, MBObjectManager.Instance.GetObject<MBBodyProperty>("fighter_empire"));
-            }
-            catch (System.Exception ex)
-            {
-                Log.Error($"CharacterWrapper: Exception setting BodyPropertyRange: {ex}");
-            }
-
-            try
-            {
                 _characterObject.StringId = finalId;
                 _characterObject.Culture = culture;
                 _characterObject.Level = level;
@@ -225,15 +222,6 @@ namespace CustomClanTroops.Wrappers.Objects
 
             try
             {
-                UpdateBodyProperties();
-            }
-            catch (System.Exception ex)
-            {
-                Log.Error($"CharacterWrapper: Exception updating BodyProperties: {ex}");
-            }
-
-            try
-            {
                 _characterObject.HiddenInEncylopedia = false;
             }
             catch (System.Exception ex)
@@ -243,10 +231,38 @@ namespace CustomClanTroops.Wrappers.Objects
 
         }
 
-        private void UpdateBodyProperties()
+        public void CopyAppearanceFrom(CharacterObject template)
         {
-            ((BasicCharacterObject)_characterObject).UpdatePlayerCharacterBodyProperties(((BasicCharacterObject)_characterObject).BodyPropertyRange.BodyPropertyMax, ((BasicCharacterObject)_characterObject).Race, ((BasicCharacterObject)_characterObject).IsFemale);
-            ((BasicCharacterObject)_characterObject).UpdatePlayerCharacterBodyProperties(((BasicCharacterObject)_characterObject).BodyPropertyRange.BodyPropertyMin, ((BasicCharacterObject)_characterObject).Race, ((BasicCharacterObject)_characterObject).IsFemale);
+            // Body range (min/max) from template
+            var min = template.GetBodyPropertiesMin(returnBaseValue: true);
+            var max = template.GetBodyPropertiesMax();
+            var range = new MBBodyProperty();
+            range.Init(min, max);
+            var bpProp = Reflector.P<BasicCharacterObject>(_characterObject, "BodyPropertyRange");
+            bpProp.SetValue(_characterObject, range);
+
+            // Gender & race
+            var isFemaleProp = Reflector.P<BasicCharacterObject>(_characterObject, "IsFemale");
+            isFemaleProp.SetValue(_characterObject, ((BasicCharacterObject)template).IsFemale);
+
+            var raceProp = Reflector.P<BasicCharacterObject>(_characterObject, "Race");
+            raceProp.SetValue(_characterObject, ((BasicCharacterObject)template).Race);
+
+            // Skeleton/monster (important for rendering posture/mesh)
+            var monsterProp = Reflector.P<BasicCharacterObject>(_characterObject, "Monster");
+            monsterProp?.SetValue(_characterObject, Reflector.P<BasicCharacterObject>(template, "Monster").GetValue(template));
+
+            // Default formation class (helps some UIs)
+            var defForm = Reflector.P<BasicCharacterObject>(_characterObject, "DefaultFormationClass");
+            defForm?.SetValue(_characterObject, Reflector.P<BasicCharacterObject>(template, "DefaultFormationClass").GetValue(template));
+
+            // If you want a pixel-identical look, set the exact resolved body
+            var exact = template.GetBodyProperties(template.Equipment, seed: -1);
+            ((BasicCharacterObject)_characterObject).UpdatePlayerCharacterBodyProperties(
+                exact,
+                ((BasicCharacterObject)_characterObject).Race,
+                ((BasicCharacterObject)_characterObject).IsFemale
+            );
         }
 
         public string GetStringId()
@@ -358,14 +374,38 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public void SetEquipments(List<Equipment> equipments)
         {
-            MBEquipmentRoster roster = new MBEquipmentRoster();
-            MBList<Equipment> mbList = new MBList<Equipment>(equipments);
-            FieldInfo field2 = Reflector.F<MBEquipmentRoster>(roster, "_equipments");
-            field2.SetValue(roster, mbList);
-            FieldInfo field3 = Reflector.F<BasicCharacterObject>((BasicCharacterObject)(object)_characterObject, "_equipmentRoster");
-            field3.SetValue(_characterObject, roster);
-            ((BasicCharacterObject)_characterObject).InitializeEquipmentsOnLoad((BasicCharacterObject)(object)_characterObject);
+            // Prefer the internal setter: it updates EquipmentCode and all caches.
+            var m = _characterObject.GetType().GetMethod(
+                "SetEquipments",
+                BindingFlags.Instance | BindingFlags.NonPublic,
+                null,
+                new[] { typeof(Equipment[]) },
+                null
+            );
+
+            if (m != null)
+            {
+                m.Invoke(_characterObject, new object[] { equipments.ToArray() });
+
+                // In some builds this is separate; call if it exists.
+                var updateCode = _characterObject.GetType().GetMethod("UpdateEquipmentCode",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+                updateCode?.Invoke(_characterObject, null);
+            }
+            else
+            {
+                // Fallback to your old path if the method isn't present in this version.
+                MBEquipmentRoster roster = new MBEquipmentRoster();
+                FieldInfo fEquipList = Reflector.F<MBEquipmentRoster>(roster, "_equipments");
+                fEquipList.SetValue(roster, new MBList<Equipment>(equipments));
+                FieldInfo fRoster = Reflector.F<BasicCharacterObject>((BasicCharacterObject)_characterObject, "_equipmentRoster");
+                fRoster.SetValue(_characterObject, roster);
+            }
+
+            // Always re-init after changing sets.
+            ((BasicCharacterObject)_characterObject).InitializeEquipmentsOnLoad((BasicCharacterObject)_characterObject);
         }
+
 
         public List<Equipment> GetEquipments()
         {
@@ -384,26 +424,26 @@ namespace CustomClanTroops.Wrappers.Objects
             return (bool)property.GetValue(_characterObject);
         }
 
-        private CharacterObject[] GetUpgradeTargets()
+        public CharacterObject[] GetUpgradeTargets()
         {
             var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeTargets");
             var value = prop.GetValue(_characterObject) as CharacterObject[];
             return value ?? new CharacterObject[0];
         }
 
-        private void SetUpgradeTargets(CharacterObject[] targets)
+        public void SetUpgradeTargets(CharacterObject[] targets)
         {
             var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeTargets");
             prop.SetValue(_characterObject, targets ?? new CharacterObject[0]);
         }
 
-        private ItemCategory GetUpgradeRequiresItemFromCategory()
+        public ItemCategory GetUpgradeRequiresItemFromCategory()
         {
             var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeRequiresItemFromCategory");
             return (ItemCategory)prop.GetValue(_characterObject);
         }
 
-        private void SetUpgradeRequiresItemFromCategory(ItemCategory value)
+        public void SetUpgradeRequiresItemFromCategory(ItemCategory value)
         {
             var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeRequiresItemFromCategory");
             prop.SetValue(_characterObject, value);
