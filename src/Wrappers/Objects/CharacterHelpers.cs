@@ -13,21 +13,9 @@ namespace CustomClanTroops.Wrappers.Objects
     {
         public static CharacterWrapper CloneTroop(CharacterWrapper original, string newName, string newId)
         {
-            // // Set a unique StringId via reflection
-            // if (MBObjectManager.Instance.GetObject<CharacterObject>(newId) != null)
-            //     throw new System.InvalidOperationException($"An object with id '{newId}' already exists.");
-
-            // var stringIdProp = typeof(MBObjectBase).GetProperty("StringId",
-            //     BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-
-            // stringIdProp.SetValue(original.GetCharacterObject(), newId);
-
             // Clone from the source troop
             var cloneObj = CharacterObject.CreateFrom(original.GetCharacterObject());
             Log.Info($"[CharacterHelpers] Cloning troop '{original.StringId}' to '{cloneObj.StringId}' with name '{newName}'.");
-
-            // Register the new object so the game "knows" it
-            // MBObjectManager.Instance.RegisterObject(cloneObj);
 
             // Wrap it
             CharacterWrapper clone = new CharacterWrapper(cloneObj);

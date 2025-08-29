@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -52,6 +53,7 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public string Name => GetName();
         public string StringId => GetStringId();
+
         public int Tier => _characterObject.Tier;
         public int Level => _characterObject.Level;
         public CultureObject Culture => _characterObject.Culture;
@@ -69,6 +71,7 @@ namespace CustomClanTroops.Wrappers.Objects
         public int Throwing => GetSkill(DefaultSkills.Throwing);
 
         public CharacterObject[] UpgradeTargets { get { return GetUpgradeTargets(); } }
+
         public ItemCategory UpgradeRequiresItemFromCategory { get { return GetUpgradeRequiresItemFromCategory(); } }
 
         private CharacterObject _characterObject;
@@ -83,10 +86,29 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
+        public CharacterWrapper UpgradeTarget1
+        {
+            get
+            {
+                var target = GetUpgradeTargets().FirstOrDefault();
+
+                return target != null ? new CharacterWrapper(target) : null;
+            }
+        }
+
+        public CharacterWrapper UpgradeTarget2
+        {
+            get
+            {
+                var target = GetUpgradeTargets().Skip(1).FirstOrDefault();
+
+                return target != null ? new CharacterWrapper(target) : null;
+            }
+        }
+
         public CharacterWrapper(CharacterObject co)
         {
             _characterObject = co;
-
         }
 
         public CharacterObject GetCharacterObject()

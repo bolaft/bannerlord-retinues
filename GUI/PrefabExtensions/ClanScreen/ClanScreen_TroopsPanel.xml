@@ -6,16 +6,16 @@
             HeightSizePolicy="StretchToParent"
             MarginLeft="600"
             MarginRight="290"
-            IsVisible="@IsAnyTroopSelected">
+            IsVisible="@IsAnyTroopSelected" >
       <Children>
-        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DataSource="{TroopEditor}">
           <Children>
             <!-- Stats / header -->
             <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="290">
               <Children>
                 <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
                   <Children>
-                    <CharacterTableauWidget DataSource="{TroopInfo}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
+                    <CharacterTableauWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
                       <Children>
                       </Children>
                     </CharacterTableauWidget>
@@ -33,8 +33,8 @@
                     <!-- Name row -->
                     <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                       <Children>
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopRow}" Text="@Name" ClipContents="false" />
-                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" DataSource="{TroopEditor}" Command.Click="ExecuteRenameSelected" UpdateChildrenStates="true">
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Name" ClipContents="false" />
+                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteRenameSelected" UpdateChildrenStates="true">
                           <Children>
                             <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
                           </Children>
@@ -48,8 +48,8 @@
                     <!-- Gender row -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                       <Children>
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" Text="@Gender" ClipContents="false" />
-                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" DataSource="{TroopEditor}" Command.Click="ExecuteChangeGenderSelected" UpdateChildrenStates="true">
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Gender" ClipContents="false" />
+                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteChangeGenderSelected" UpdateChildrenStates="true">
                           <Children>
                             <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
                           </Children>
@@ -63,9 +63,9 @@
                     <!-- Skill Points -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                       <Children>
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" IntText="@SkillPointsUsed" ClipContents="false" />
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsUsed" ClipContents="false" />
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="/" ClipContents="false" />
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" IntText="@SkillPointsTotal" ClipContents="false" />
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsTotal" ClipContents="false" />
                       </Children>
                     </ListPanel>
 
@@ -83,16 +83,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementAthletics" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@Athletics" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@Athletics" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementAthletics" />
                               			</Children>
                               		</Widget>
@@ -109,16 +109,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementRiding" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@Riding" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@Riding" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementRiding" />
                               			</Children>
                               		</Widget>
@@ -135,16 +135,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementOneHanded" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@OneHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@OneHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementOneHanded" />
                               			</Children>
                               		</Widget>
@@ -161,16 +161,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementTwoHanded" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@TwoHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@TwoHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementTwoHanded" />
                               			</Children>
                               		</Widget>
@@ -193,16 +193,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementPolearm" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@Polearm" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@Polearm" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementPolearm" />
                               			</Children>
                               		</Widget>
@@ -219,16 +219,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementBow" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@Bow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@Bow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementBow" />
                               			</Children>
                               		</Widget>
@@ -245,16 +245,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementCrossbow" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@Crossbow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@Crossbow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementCrossbow" />
                               			</Children>
                               		</Widget>
@@ -271,16 +271,16 @@
                                     <Children>
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanDecrementThrowing" />
                               			</Children>
                                       </Widget>
                               
-                                      <TextWidget DataSource="{TroopInfo}" IntText="@Throwing" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                                      <TextWidget IntText="@Throwing" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                               
                                       <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
                               			<Children>
-                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
                               					IsVisible="@CanIncrementThrowing" />
                               			</Children>
                               		</Widget>
@@ -290,6 +290,30 @@
                               </ListPanel>
                             
                                                         
+                          </Children>
+                        </ListPanel>
+                      </Children>
+                    </ListPanel>
+
+                    <!-- Upgrades Header -->
+                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Upgrades" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+
+                    <!-- Upgrade Targets: Fixed 2-slot layout -->
+                    <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop" MarginBottom="15">
+                      <Children>
+                        <!-- First upgrade -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget1" HorizontalAlignment="Center" Text="@UpgradeTarget1Name" ClipContents="false" />
+                        <!-- Second upgrade -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget2" HorizontalAlignment="Center" Text="@UpgradeTarget2Name" ClipContents="false" />
+                        <!-- Row: Add upgrade button below -->
+                        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="20" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true" IsVisible="@CanAddUpgradeTarget">
+                          <Children>
+                            <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="Add Upgrade" ClipContents="false" />
+                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteAddUpgradeTarget" UpdateChildrenStates="true">
+                              <Children>
+                                <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
+                              </Children>
+                            </ButtonWidget>
                           </Children>
                         </ListPanel>
                       </Children>
@@ -310,7 +334,7 @@
       <Children>
         <!-- Sort header -->
         <NavigationScopeTargeter ScopeID="SortButtonsScope" ScopeParent="..\SortButtons" ScopeMovements="Horizontal"/>
-        <ListPanel Id="SortButtons" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" RenderLate="true" DataSource="{SortController}">
+        <ListPanel Id="SortButtons" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" RenderLate="true">
           <Children>
             <SortButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="588" SuggestedHeight="!Clan.Members.Sort.1.Height" Brush="Clan.Members.Sort.1" Command.Click="ExecuteSortByName" IsSelected="@IsNameSelected" SortState="@NameState" SortVisualWidget="TextWidget\NameSortVisualWidget" UpdateChildrenStates="true" GamepadNavigationIndex="0">
               <Children>

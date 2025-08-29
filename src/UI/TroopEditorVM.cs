@@ -16,27 +16,204 @@ namespace CustomClanTroops.UI
 
         public TroopEditorVM(ClanManagementMixinVM owner) => _owner = owner;
 
-        [DataSourceMethod]
-        public void ExecuteChangeGenderSelected()
+        [DataSourceProperty] public string Gender => _troop.IsFemale ? "Female" : "Male";
+
+        [DataSourceProperty] public string Name => _troop.Name;
+
+        [DataSourceProperty]
+        public bool IsElite
         {
-            // Toggle gender
+            get
+            {
+                var row = _owner?.TroopRow;
+                return row != null && _owner.CustomElite.Contains(row);
+            }
+        }
+        [DataSourceProperty] public bool CanAddUpgradeTarget
+        {
+            get
+            {
+                if (HasUpgradeTarget2) return false;
+                if (IsElite && _troop.Tier < 6) return true;
+                if (IsElite && _troop.Tier < 5) return true;
+                return false;
+            }
+        }
+
+        [DataSourceProperty] public bool HasUpgradeTarget1 => _troop.UpgradeTarget1 != null;
+
+        [DataSourceProperty] public string UpgradeTarget1Id => HasUpgradeTarget1 ? _troop.UpgradeTarget1.StringId : null;
+
+        [DataSourceProperty] public string UpgradeTarget1Name => HasUpgradeTarget1 ? _troop.UpgradeTarget1.Name : null;
+
+        [DataSourceProperty] public bool HasUpgradeTarget2 => _troop.UpgradeTarget2 != null;
+
+        [DataSourceProperty] public string UpgradeTarget2Id => HasUpgradeTarget2 ? _troop.UpgradeTarget2.StringId : null;
+
+        [DataSourceProperty] public string UpgradeTarget2Name => HasUpgradeTarget2 ? _troop.UpgradeTarget2.Name : null;
+
+        [DataSourceProperty] public int SkillPointsTotal => CharacterWrapper.TotalSkillPointsByTier[_troop.Tier];
+
+        [DataSourceProperty] public int SkillPointsLeft
+        {
+            get
+            {
+                var points = SkillPointsTotal;
+                foreach (var skill in CharacterWrapper.TroopSkills)
+                {
+                    points -= _troop.GetSkill(skill);
+                }
+                return points;
+            }
+        }
+
+        [DataSourceProperty] public int SkillPointsUsed => SkillPointsTotal - SkillPointsLeft;
+
+        [DataSourceProperty] public int SkillCap => CharacterWrapper.SkillCapsByTier[_troop.Tier];
+
+        [DataSourceProperty] public string Athletics => _troop.Athletics.ToString();
+
+        [DataSourceProperty] public string Riding => _troop.Riding.ToString();
+
+        [DataSourceProperty] public string OneHanded => _troop.OneHanded.ToString();
+
+        [DataSourceProperty] public string TwoHanded => _troop.TwoHanded.ToString();
+
+        [DataSourceProperty] public string Polearm => _troop.Polearm.ToString();
+
+        [DataSourceProperty] public string Bow => _troop.Bow.ToString();
+
+        [DataSourceProperty] public string Crossbow => _troop.Crossbow.ToString();
+
+        [DataSourceProperty] public string Throwing => _troop.Throwing.ToString();
+
+        [DataSourceProperty] public string BannerCodeText => _troop.ViewModel.BannerCodeText;
+
+        [DataSourceProperty] public string CharStringId => _troop.StringId;
+
+        [DataSourceProperty] public string EquipmentCode => _troop.ViewModel.EquipmentCode;
+
+        [DataSourceProperty] public string BodyProperties => _troop.ViewModel.BodyProperties;
+
+        [DataSourceProperty] public bool IsFemale => _troop.ViewModel.IsFemale;
+
+        [DataSourceProperty] public string MountCreationKey => _troop.ViewModel.MountCreationKey;
+
+        [DataSourceProperty] public int Race => _troop.ViewModel.Race;
+
+        [DataSourceProperty] public int StanceIndex => _troop.ViewModel.StanceIndex;
+
+        [DataSourceProperty] public uint ArmorColor1 => _troop.ViewModel.ArmorColor1;
+
+        [DataSourceProperty] public uint ArmorColor2 => _troop.ViewModel.ArmorColor2;
+
+        [DataSourceProperty] public bool CanIncrementAthletics => CanIncrement(DefaultSkills.Athletics);
+
+        [DataSourceProperty] public bool CanDecrementAthletics => CanDecrement(DefaultSkills.Athletics);
+
+        [DataSourceProperty] public bool CanIncrementRiding => CanIncrement(DefaultSkills.Riding);
+
+        [DataSourceProperty] public bool CanDecrementRiding => CanDecrement(DefaultSkills.Riding);
+
+        [DataSourceProperty] public bool CanIncrementOneHanded => CanIncrement(DefaultSkills.OneHanded);
+
+        [DataSourceProperty] public bool CanDecrementOneHanded => CanDecrement(DefaultSkills.OneHanded);
+
+        [DataSourceProperty] public bool CanIncrementTwoHanded => CanIncrement(DefaultSkills.TwoHanded);
+
+        [DataSourceProperty] public bool CanDecrementTwoHanded => CanDecrement(DefaultSkills.TwoHanded);
+
+        [DataSourceProperty] public bool CanIncrementPolearm => CanIncrement(DefaultSkills.Polearm);
+
+        [DataSourceProperty] public bool CanDecrementPolearm => CanDecrement(DefaultSkills.Polearm);
+
+        [DataSourceProperty] public bool CanIncrementBow => CanIncrement(DefaultSkills.Bow);
+
+        [DataSourceProperty] public bool CanDecrementBow => CanDecrement(DefaultSkills.Bow);
+
+        [DataSourceProperty] public bool CanIncrementCrossbow => CanIncrement(DefaultSkills.Crossbow);
+
+        [DataSourceProperty] public bool CanDecrementCrossbow => CanDecrement(DefaultSkills.Crossbow);
+
+        [DataSourceProperty] public bool CanIncrementThrowing => CanIncrement(DefaultSkills.Throwing);
+
+        [DataSourceProperty] public bool CanDecrementThrowing => CanDecrement(DefaultSkills.Throwing);
+
+        private bool CanIncrement(SkillObject skill)
+        {
+            if (_troop == null) return false;
+
+            var belowCap = _troop.GetSkill(skill) < CharacterWrapper.SkillCapsByTier[_troop.Tier];
+            var hasPointsLeft = _owner.TroopEditor.SkillPointsLeft > 0;
+
+            return belowCap && hasPointsLeft;
+        }
+
+        private bool CanDecrement(SkillObject skill)
+        {
+            if (_troop == null) return false;
+
+            return _troop.GetSkill(skill) > 0;
+        }
+
+        private void ModifySkill(SkillObject skill, int change)
+        {
+            if (change > 0 && !CanIncrement(skill)) return;
+            if (change < 0 && !CanDecrement(skill)) return;
+
+            _troop.SetSkill(skill, _troop.GetSkill(skill) + change);
+            _owner.NotifyTroopChanged();
+        }
+
+        [DataSourceMethod] public void ExecuteIncrementAthletics() => ModifySkill(DefaultSkills.Athletics, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementAthletics() => ModifySkill(DefaultSkills.Athletics, -1);
+
+        [DataSourceMethod] public void ExecuteIncrementRiding() => ModifySkill(DefaultSkills.Riding, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementRiding() => ModifySkill(DefaultSkills.Riding, -1);
+
+        [DataSourceMethod] public void ExecuteIncrementOneHanded() => ModifySkill(DefaultSkills.OneHanded, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementOneHanded() => ModifySkill(DefaultSkills.OneHanded, -1);
+
+        [DataSourceMethod] public void ExecuteIncrementTwoHanded() => ModifySkill(DefaultSkills.TwoHanded, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementTwoHanded() => ModifySkill(DefaultSkills.TwoHanded, -1);
+
+        [DataSourceMethod] public void ExecuteIncrementPolearm() => ModifySkill(DefaultSkills.Polearm, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementPolearm() => ModifySkill(DefaultSkills.Polearm, -1);
+
+        [DataSourceMethod] public void ExecuteIncrementBow() => ModifySkill(DefaultSkills.Bow, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementBow() => ModifySkill(DefaultSkills.Bow, -1);
+
+        [DataSourceMethod] public void ExecuteIncrementCrossbow() => ModifySkill(DefaultSkills.Crossbow, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementCrossbow() => ModifySkill(DefaultSkills.Crossbow, -1);
+
+        [DataSourceMethod] public void ExecuteIncrementThrowing() => ModifySkill(DefaultSkills.Throwing, 1);
+
+        [DataSourceMethod] public void ExecuteDecrementThrowing() => ModifySkill(DefaultSkills.Throwing, -1);
+
+        [DataSourceMethod] public void ExecuteAddUpgradeTarget()
+        {
+            Log.Info("TroopEditorVM: ExecuteAddUpgradeTarget called");
+        }
+
+        [DataSourceMethod] public void ExecuteChangeGenderSelected()
+        {
             _troop.SetIsFemale(!_troop.IsFemale);
 
             _owner.NotifyTroopChanged();
             Log.Debug($"TroopEditorVM: changed gender of '{_troop.Name}' to '{(_troop.IsFemale ? "Female" : "Male")}'");
         }
 
-        [DataSourceMethod]
-        public void ExecuteRenameSelected()
+        [DataSourceMethod] public void ExecuteRenameSelected()
         {
             var current = _troop.Name;
 
-            // BL 1.2.12 overload expects:
-            // (title, text, showAff, showNeg, affText, negText,
-            //  Action<string> onAffirmative, Action onNegative,
-            //  bool isInputObfuscated,
-            //  Func<string, Tuple<bool,string>> validator,
-            //  string defaultInputText)
             var data = new TextInquiryData(
                 new TextObject("Rename Troop").ToString(),
                 new TextObject("Enter the new name:").ToString(),
@@ -68,170 +245,48 @@ namespace CustomClanTroops.UI
             InformationManager.ShowTextInquiry(data);
         }
 
-        [DataSourceProperty]
-        public bool CanIncrementAthletics => CanIncrement(DefaultSkills.Athletics);
-        [DataSourceProperty]
-        public bool CanDecrementAthletics => CanDecrement(DefaultSkills.Athletics);
-
-        [DataSourceProperty]
-        public bool CanIncrementRiding => CanIncrement(DefaultSkills.Riding);
-        [DataSourceProperty]
-        public bool CanDecrementRiding => CanDecrement(DefaultSkills.Riding);
-
-        [DataSourceProperty]
-        public bool CanIncrementOneHanded => CanIncrement(DefaultSkills.OneHanded);
-        [DataSourceProperty]
-        public bool CanDecrementOneHanded => CanDecrement(DefaultSkills.OneHanded);
-
-        [DataSourceProperty]
-        public bool CanIncrementTwoHanded => CanIncrement(DefaultSkills.TwoHanded);
-        [DataSourceProperty]
-        public bool CanDecrementTwoHanded => CanDecrement(DefaultSkills.TwoHanded);
-
-        [DataSourceProperty]
-        public bool CanIncrementPolearm => CanIncrement(DefaultSkills.Polearm);
-        [DataSourceProperty]
-        public bool CanDecrementPolearm => CanDecrement(DefaultSkills.Polearm);
-
-        [DataSourceProperty]
-        public bool CanIncrementBow => CanIncrement(DefaultSkills.Bow);
-        [DataSourceProperty]
-        public bool CanDecrementBow => CanDecrement(DefaultSkills.Bow);
-
-        [DataSourceProperty]
-        public bool CanIncrementCrossbow => CanIncrement(DefaultSkills.Crossbow);
-        [DataSourceProperty]
-        public bool CanDecrementCrossbow => CanDecrement(DefaultSkills.Crossbow);
-
-        [DataSourceProperty]
-        public bool CanIncrementThrowing => CanIncrement(DefaultSkills.Throwing);
-        [DataSourceProperty]
-        public bool CanDecrementThrowing => CanDecrement(DefaultSkills.Throwing);
-
-        private bool CanIncrement(SkillObject skill)
-        {
-            if (_troop == null) return false;
-
-            var belowCap = _troop.GetSkill(skill) < CharacterWrapper.SkillCapsByTier[_troop.Tier];
-            var hasPointsLeft = _owner.TroopInfo.SkillPointsLeft > 0;
-
-            return belowCap && hasPointsLeft;
-        }
-
-        private bool CanDecrement(SkillObject skill)
-        {
-            if (_troop == null) return false;
-
-            return _troop.GetSkill(skill) > 0;
-        }
-
-        private void ModifySkill(SkillObject skill, int change)
-        {
-            if (change > 0 && !CanIncrement(skill)) return;
-            if (change < 0 && !CanDecrement(skill)) return;
-
-            _troop.SetSkill(skill, _troop.GetSkill(skill) + change);
-            _owner.NotifyTroopChanged();
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementAthletics()
-        {
-            ModifySkill(DefaultSkills.Athletics, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementAthletics()
-        {
-            ModifySkill(DefaultSkills.Athletics, -1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementRiding()
-        {
-            ModifySkill(DefaultSkills.Riding, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementRiding()
-        {
-            ModifySkill(DefaultSkills.Riding, -1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementOneHanded()
-        {
-            ModifySkill(DefaultSkills.OneHanded, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementOneHanded()
-        {
-            ModifySkill(DefaultSkills.OneHanded, -1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementTwoHanded()
-        {
-            ModifySkill(DefaultSkills.TwoHanded, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementTwoHanded()
-        {
-            ModifySkill(DefaultSkills.TwoHanded, -1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementPolearm()
-        {
-            ModifySkill(DefaultSkills.Polearm, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementPolearm()
-        {
-            ModifySkill(DefaultSkills.Polearm, -1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementBow()
-        {
-            ModifySkill(DefaultSkills.Bow, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementBow()
-        {
-            ModifySkill(DefaultSkills.Bow, -1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementCrossbow()
-        {
-            ModifySkill(DefaultSkills.Crossbow, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementCrossbow()
-        {
-            ModifySkill(DefaultSkills.Crossbow, -1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteIncrementThrowing()
-        {
-            ModifySkill(DefaultSkills.Throwing, 1);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDecrementThrowing()
-        {
-            ModifySkill(DefaultSkills.Throwing, -1);
-        }
-
         public void Refresh()
         {
+            OnPropertyChanged(nameof(Gender));
+
+            // Upgrade target properties
+            OnPropertyChanged(nameof(CanAddUpgradeTarget));
+            OnPropertyChanged(nameof(HasUpgradeTarget1));
+            OnPropertyChanged(nameof(UpgradeTarget1Id));
+            OnPropertyChanged(nameof(UpgradeTarget1Name));
+            OnPropertyChanged(nameof(HasUpgradeTarget2));
+            OnPropertyChanged(nameof(UpgradeTarget2Id));
+            OnPropertyChanged(nameof(UpgradeTarget2Name));
+
+            // Visual model properties
+            OnPropertyChanged(nameof(BannerCodeText));
+            OnPropertyChanged(nameof(CharStringId));
+            OnPropertyChanged(nameof(EquipmentCode));
+            OnPropertyChanged(nameof(BodyProperties));
+            OnPropertyChanged(nameof(IsFemale));
+            OnPropertyChanged(nameof(MountCreationKey));
+            OnPropertyChanged(nameof(Race));
+            OnPropertyChanged(nameof(StanceIndex));
+            OnPropertyChanged(nameof(ArmorColor1));
+            OnPropertyChanged(nameof(ArmorColor2));
+
+            // Skill properties    
+            OnPropertyChanged(nameof(SkillPointsTotal));
+            OnPropertyChanged(nameof(SkillPointsLeft));
+            OnPropertyChanged(nameof(SkillPointsUsed));
+            OnPropertyChanged(nameof(SkillCap));
+
+            // Skill value properties
+            OnPropertyChanged(nameof(Athletics));
+            OnPropertyChanged(nameof(Riding));
+            OnPropertyChanged(nameof(OneHanded));
+            OnPropertyChanged(nameof(TwoHanded));
+            OnPropertyChanged(nameof(Polearm));
+            OnPropertyChanged(nameof(Bow));
+            OnPropertyChanged(nameof(Crossbow));
+            OnPropertyChanged(nameof(Throwing));
+
+            // Skill update properties
             OnPropertyChanged(nameof(CanIncrementAthletics));
             OnPropertyChanged(nameof(CanDecrementAthletics));
             OnPropertyChanged(nameof(CanIncrementRiding));

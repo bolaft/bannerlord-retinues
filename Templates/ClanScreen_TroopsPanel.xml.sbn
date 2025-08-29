@@ -6,16 +6,16 @@
             HeightSizePolicy="StretchToParent"
             MarginLeft="600"
             MarginRight="290"
-            IsVisible="@IsAnyTroopSelected">
+            IsVisible="@IsAnyTroopSelected" >
       <Children>
-        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DataSource="{TroopEditor}">
           <Children>
             <!-- Stats / header -->
             <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="290">
               <Children>
                 <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
                   <Children>
-                    <CharacterTableauWidget DataSource="{TroopInfo}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
+                    <CharacterTableauWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
                       <Children>
                       </Children>
                     </CharacterTableauWidget>
@@ -33,8 +33,8 @@
                     <!-- Name row -->
                     <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                       <Children>
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopRow}" Text="@Name" ClipContents="false" />
-                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" DataSource="{TroopEditor}" Command.Click="ExecuteRenameSelected" UpdateChildrenStates="true">
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Name" ClipContents="false" />
+                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteRenameSelected" UpdateChildrenStates="true">
                           <Children>
                             <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
                           </Children>
@@ -48,8 +48,8 @@
                     <!-- Gender row -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                       <Children>
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" Text="@Gender" ClipContents="false" />
-                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" DataSource="{TroopEditor}" Command.Click="ExecuteChangeGenderSelected" UpdateChildrenStates="true">
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Gender" ClipContents="false" />
+                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteChangeGenderSelected" UpdateChildrenStates="true">
                           <Children>
                             <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
                           </Children>
@@ -63,9 +63,9 @@
                     <!-- Skill Points -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                       <Children>
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" IntText="@SkillPointsUsed" ClipContents="false" />
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsUsed" ClipContents="false" />
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="/" ClipContents="false" />
-                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" DataSource="{TroopInfo}" IntText="@SkillPointsTotal" ClipContents="false" />
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsTotal" ClipContents="false" />
                       </Children>
                     </ListPanel>
 
@@ -91,6 +91,30 @@
                       </Children>
                     </ListPanel>
 
+                    <!-- Upgrades Header -->
+                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Upgrades" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+
+                    <!-- Upgrade Targets: Fixed 2-slot layout -->
+                    <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop" MarginBottom="15">
+                      <Children>
+                        <!-- First upgrade -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget1" HorizontalAlignment="Center" Text="@UpgradeTarget1Name" ClipContents="false" />
+                        <!-- Second upgrade -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget2" HorizontalAlignment="Center" Text="@UpgradeTarget2Name" ClipContents="false" />
+                        <!-- Row: Add upgrade button below -->
+                        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="20" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true" IsVisible="@CanAddUpgradeTarget">
+                          <Children>
+                            <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="Add Upgrade" ClipContents="false" />
+                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteAddUpgradeTarget" UpdateChildrenStates="true">
+                              <Children>
+                                <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
+                              </Children>
+                            </ButtonWidget>
+                          </Children>
+                        </ListPanel>
+                      </Children>
+                    </ListPanel>
+
                   </Children>
                 </ListPanel>
               </Children>
@@ -106,7 +130,7 @@
       <Children>
         <!-- Sort header -->
         <NavigationScopeTargeter ScopeID="SortButtonsScope" ScopeParent="..\SortButtons" ScopeMovements="Horizontal"/>
-        <ListPanel Id="SortButtons" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" RenderLate="true" DataSource="{SortController}">
+        <ListPanel Id="SortButtons" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" RenderLate="true">
           <Children>
             <SortButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="588" SuggestedHeight="!Clan.Members.Sort.1.Height" Brush="Clan.Members.Sort.1" Command.Click="ExecuteSortByName" IsSelected="@IsNameSelected" SortState="@NameState" SortVisualWidget="TextWidget\NameSortVisualWidget" UpdateChildrenStates="true" GamepadNavigationIndex="0">
               <Children>

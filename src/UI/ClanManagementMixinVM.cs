@@ -17,52 +17,73 @@ namespace CustomClanTroops.UI
     public sealed class ClanManagementMixinVM : BaseViewModelMixin<ClanManagementVM>
     {
         private bool _isTroopsSelected;
+
         private TroopRowVM _selected;
 
-        [DataSourceProperty] public string TroopsTabText => "Troops";
-
         private readonly MBBindingList<TroopRowVM> _basic = new();
+
         private readonly MBBindingList<TroopRowVM> _elite = new();
+
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomBasic => _basic;
+
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomElite => _elite;
 
-        [DataSourceProperty]
-        public TroopRowVM TroopRow
+        [DataSourceProperty] public TroopRowVM TroopRow
         {
             get => _selected;
             private set
             {
                 if (_selected == value) return;
                 _selected = value;
+                // Only instantiate TroopEditor when a troop is selected
+                TroopEditor = _selected != null ? new TroopEditorVM(this) : null;
+
                 OnPropertyChanged(nameof(TroopRow));
-                OnPropertyChanged(nameof(TroopInfo));
+                OnPropertyChanged(nameof(TroopEditor));
                 OnPropertyChanged(nameof(IsAnyTroopSelected));
             }
         }
 
-        [DataSourceProperty]
-        public TroopInfoVM TroopInfo
-        {
-            get
-            {
-                var sel = _selected?.Troop;
-                if (sel == null) return null;
-
-                // Build a TroopInfoVM on demand from the selected troop
-                return new TroopInfoVM(TroopRow.Troop);
-            }
-        }
+        [DataSourceProperty] public TroopEditorVM TroopEditor { get; private set; }
 
         [DataSourceProperty] public bool IsAnyTroopSelected => _selected != null;
 
-        [DataSourceProperty] public TroopEditorVM TroopEditor { get; private set; }
+        [DataSourceProperty] public bool IsTroopsSelected
+        {
+            get => _isTroopsSelected;
+            set
+            {
+                if (value == _isTroopsSelected) return;
+                _isTroopsSelected = value;
+                OnPropertyChanged(nameof(IsTroopsSelected));
+                if (_isTroopsSelected) EnsureTroopsReady();
+            }
+        }
+
+        [DataSourceMethod] public void ExecuteSelectTroops()
+        {
+            Log.Debug("ClanManagementMixinVM: Troops tab clicked");
+            EnsureTroopsReady();
+
+            IsTroopsSelected = true;
+
+            // Deselect vanilla tabs + their panels
+            ViewModel.IsMembersSelected = false;
+            ViewModel.IsFiefsSelected   = false;
+            ViewModel.IsPartiesSelected = false;
+            ViewModel.IsIncomeSelected  = false;
+
+            ViewModel.ClanMembers.IsSelected = false;
+            ViewModel.ClanParties.IsSelected = false;
+            ViewModel.ClanFiefs.IsSelected   = false;
+            ViewModel.ClanIncome.IsSelected  = false;
+        }
 
         public ClanManagementMixinVM(ClanManagementVM vm) : base(vm)
         {
             Log.Debug("ClanManagementMixinVM: created");
             ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 
-            TroopEditor = new TroopEditorVM(this);
             OnPropertyChanged(nameof(TroopEditor));
         }
 
@@ -82,39 +103,6 @@ namespace CustomClanTroops.UI
             {
                 IsTroopsSelected = false;
             }
-        }
-
-        [DataSourceProperty]
-        public bool IsTroopsSelected
-        {
-            get => _isTroopsSelected;
-            set
-            {
-                if (value == _isTroopsSelected) return;
-                _isTroopsSelected = value;
-                OnPropertyChanged(nameof(IsTroopsSelected));
-                if (_isTroopsSelected) EnsureTroopsReady();
-            }
-        }
-
-        [DataSourceMethod]
-        public void ExecuteSelectTroops()
-        {
-            Log.Debug("ClanManagementMixinVM: Troops tab clicked");
-            EnsureTroopsReady();
-
-            IsTroopsSelected = true;
-
-            // Deselect vanilla tabs + their panels
-            ViewModel.IsMembersSelected = false;
-            ViewModel.IsFiefsSelected   = false;
-            ViewModel.IsPartiesSelected = false;
-            ViewModel.IsIncomeSelected  = false;
-
-            ViewModel.ClanMembers.IsSelected = false;
-            ViewModel.ClanParties.IsSelected = false;
-            ViewModel.ClanFiefs.IsSelected   = false;
-            ViewModel.ClanIncome.IsSelected  = false;
         }
 
         private void EnsureTroopsReady()
@@ -174,12 +162,11 @@ namespace CustomClanTroops.UI
         public void NotifyTroopChanged()
         {
             TroopRow?.Refresh();
-            TroopInfo?.Refresh();
             TroopEditor?.Refresh();
             OnPropertyChanged(nameof(CustomBasic));
             OnPropertyChanged(nameof(CustomElite));
             OnPropertyChanged(nameof(TroopRow));
-            OnPropertyChanged(nameof(TroopInfo));
+            OnPropertyChanged(nameof(TroopEditor));
         }
     }
 }

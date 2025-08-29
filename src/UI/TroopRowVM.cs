@@ -11,7 +11,8 @@ namespace CustomClanTroops.UI
     public sealed class TroopRowVM : ViewModel
     {
         private readonly Action<TroopRowVM> _onSelect;
-        public CharacterWrapper Troop { get; }
+
+        public CharacterWrapper Troop;
 
         private bool _isSelected;
 
@@ -21,14 +22,11 @@ namespace CustomClanTroops.UI
             _onSelect = onSelect;
         }
 
-        [DataSourceProperty]
-        public string Name => Troop.Name;
+        [DataSourceProperty] public string Name => Troop.Name;
+        
+        [DataSourceProperty] public string TierText => Troop != null ? $"T{Troop.Tier}" : "";
 
-        [DataSourceProperty]
-        public string TierText => Troop != null ? $"T{Troop.Tier}" : "";
-
-        [DataSourceProperty]
-        public bool IsSelected
+        [DataSourceProperty] public bool IsSelected
         {
             get => _isSelected;
             set
@@ -38,12 +36,8 @@ namespace CustomClanTroops.UI
                 OnPropertyChanged(nameof(IsSelected));
             }
         }
-
-        [DataSourceMethod]
-        public void ExecuteSelect()
-        {
-            _onSelect?.Invoke(this);
-        }
+        
+        [DataSourceMethod] public void ExecuteSelect() => _onSelect?.Invoke(this);
 
         public void Refresh()
         {

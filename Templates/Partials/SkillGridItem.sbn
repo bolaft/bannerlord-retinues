@@ -5,16 +5,16 @@
       <Children>
         <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
 			<Children>
-				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrement{{ skill.name }}" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrement{{ skill.name }}" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
 					IsVisible="@CanDecrement{{ skill.name }}" />
 			</Children>
         </Widget>
 
-        <TextWidget DataSource="{TroopInfo}" IntText="@{{ skill.name }}" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+        <TextWidget IntText="@{{ skill.name }}" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
 
         <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
 			<Children>
-				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrement{{ skill.name }}" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrement{{ skill.name }}" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
 					IsVisible="@CanIncrement{{ skill.name }}" />
 			</Children>
 		</Widget>
