@@ -10,6 +10,20 @@
     <DebugType>portable</DebugType>
   </PropertyGroup>
 
+  <Target Name="GenerateClanScreenXml" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet run --project Tools/TemplateGenerator/TemplateGenerator.csproj" />
+  </Target>
+
+  <!-- Exclude all code files in Tools from main project build -->
+  <ItemGroup>
+    <Compile Remove="Tools\**\*.cs" />
+    <None Include="Tools\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="GUI\PrefabExtensions\ClanScreen\ClanScreen_TroopsPanel.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <ItemGroup>
     <!-- Core TaleWorlds assemblies -->
     <Reference Include="TaleWorlds.MountAndBlade">

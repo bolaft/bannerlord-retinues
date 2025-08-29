@@ -1,0 +1,16 @@
+<NavigationAutoScrollWidget TrackedWidget=".\CCT_{{ section.id }}Header"/>
+<ScrollablePanelFixedHeaderWidget Id="CCT_{{ section.id }}Header" FixedHeader="..\..\..\CCT_{{ section.id }}Toggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
+<NavigatableListPanel Id="CCT_{{ section.id }}List" DataSource="{ {{- section.dataSource -}} }" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
+  <ItemTemplate>
+    <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
+      <Children>
+        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="24" MarginRight="24" StackLayout.LayoutMethod="HorizontalLeftToRight">
+          <Children>
+            <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.Tuple.Name.Text" ClipContents="false" Text="@Name"/>
+            <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Clan.Tuple.Name.Text" HorizontalAlignment="Right" Text="@TierText"/>
+          </Children>
+        </ListPanel>
+      </Children>
+    </ButtonWidget>
+  </ItemTemplate>
+</NavigatableListPanel>
