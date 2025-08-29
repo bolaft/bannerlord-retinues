@@ -166,6 +166,7 @@ namespace CustomClanTroops.UI
 
             vm.IsSelected = true;
             TroopRow = vm;
+            TroopEditor.Refresh();
 
             Log.Debug($"ClanManagementMixinVM: selected '{vm.Name}'");
         }
@@ -174,6 +175,7 @@ namespace CustomClanTroops.UI
         {
             TroopRow?.Refresh();
             TroopInfo?.Refresh();
+            TroopEditor?.Refresh();
             OnPropertyChanged(nameof(CustomBasic));
             OnPropertyChanged(nameof(CustomElite));
             OnPropertyChanged(nameof(TroopRow));

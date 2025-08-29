@@ -81,10 +81,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="athletics" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementAthletics" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@Athletics" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementAthletics" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>
@@ -95,10 +107,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="riding" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementRiding" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@Riding" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementRiding" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>
@@ -109,10 +133,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="onehanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementOneHanded" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@OneHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementOneHanded" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>
@@ -123,10 +159,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="twohanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementTwoHanded" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@TwoHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementTwoHanded" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>
@@ -143,10 +191,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="polearm" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementPolearm" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@Polearm" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementPolearm" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>
@@ -157,10 +217,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="bow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementBow" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@Bow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementBow" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>
@@ -171,10 +243,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="crossbow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementCrossbow" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@Crossbow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementCrossbow" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>
@@ -185,10 +269,22 @@
                                   <SkillIconVisualWidget MarginBottom="6" SkillId="throwing" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
                                   <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
                                     <Children>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanDecrementThrowing" />
+                              			</Children>
+                                      </Widget>
+                              
                                       <TextWidget DataSource="{TroopInfo}" IntText="@Throwing" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                                      <ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true"/>
-                                    </Children>
+                              
+                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                              			<Children>
+                              				<ButtonWidget DataSource="{TroopEditor}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                              					IsVisible="@CanIncrementThrowing" />
+                              			</Children>
+                              		</Widget>
+                              	  </Children>
                                   </ListPanel>
                                 </Children>
                               </ListPanel>

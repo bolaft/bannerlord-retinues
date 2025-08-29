@@ -15,7 +15,7 @@ namespace CustomClanTroops.UI
         private CharacterWrapper _troop => _owner?.TroopRow?.Troop;
 
         public TroopEditorVM(ClanManagementMixinVM owner) => _owner = owner;
-    
+
         [DataSourceMethod]
         public void ExecuteChangeGenderSelected()
         {
@@ -68,17 +68,69 @@ namespace CustomClanTroops.UI
             InformationManager.ShowTextInquiry(data);
         }
 
+        [DataSourceProperty]
+        public bool CanIncrementAthletics => CanIncrement(DefaultSkills.Athletics);
+        [DataSourceProperty]
+        public bool CanDecrementAthletics => CanDecrement(DefaultSkills.Athletics);
+
+        [DataSourceProperty]
+        public bool CanIncrementRiding => CanIncrement(DefaultSkills.Riding);
+        [DataSourceProperty]
+        public bool CanDecrementRiding => CanDecrement(DefaultSkills.Riding);
+
+        [DataSourceProperty]
+        public bool CanIncrementOneHanded => CanIncrement(DefaultSkills.OneHanded);
+        [DataSourceProperty]
+        public bool CanDecrementOneHanded => CanDecrement(DefaultSkills.OneHanded);
+
+        [DataSourceProperty]
+        public bool CanIncrementTwoHanded => CanIncrement(DefaultSkills.TwoHanded);
+        [DataSourceProperty]
+        public bool CanDecrementTwoHanded => CanDecrement(DefaultSkills.TwoHanded);
+
+        [DataSourceProperty]
+        public bool CanIncrementPolearm => CanIncrement(DefaultSkills.Polearm);
+        [DataSourceProperty]
+        public bool CanDecrementPolearm => CanDecrement(DefaultSkills.Polearm);
+
+        [DataSourceProperty]
+        public bool CanIncrementBow => CanIncrement(DefaultSkills.Bow);
+        [DataSourceProperty]
+        public bool CanDecrementBow => CanDecrement(DefaultSkills.Bow);
+
+        [DataSourceProperty]
+        public bool CanIncrementCrossbow => CanIncrement(DefaultSkills.Crossbow);
+        [DataSourceProperty]
+        public bool CanDecrementCrossbow => CanDecrement(DefaultSkills.Crossbow);
+
+        [DataSourceProperty]
+        public bool CanIncrementThrowing => CanIncrement(DefaultSkills.Throwing);
+        [DataSourceProperty]
+        public bool CanDecrementThrowing => CanDecrement(DefaultSkills.Throwing);
+
+        private bool CanIncrement(SkillObject skill)
+        {
+            if (_troop == null) return false;
+
+            var belowCap = _troop.GetSkill(skill) < CharacterWrapper.SkillCapsByTier[_troop.Tier];
+            var hasPointsLeft = _owner.TroopInfo.SkillPointsLeft > 0;
+
+            return belowCap && hasPointsLeft;
+        }
+
+        private bool CanDecrement(SkillObject skill)
+        {
+            if (_troop == null) return false;
+
+            return _troop.GetSkill(skill) > 0;
+        }
+
         private void ModifySkill(SkillObject skill, int change)
         {
-            if (_owner.TroopInfo.SkillPointsLeft < 1 && change > 0) return;
+            if (change > 0 && !CanIncrement(skill)) return;
+            if (change < 0 && !CanDecrement(skill)) return;
 
-            int minValue = 0;
-            int maxValue = CharacterWrapper.SkillCapsByTier[_troop.Tier];
-
-            int newValue = _troop.GetSkill(skill) + change;
-            if (newValue < minValue || newValue > maxValue) return;
-
-            _troop.SetSkill(skill, newValue);
+            _troop.SetSkill(skill, _troop.GetSkill(skill) + change);
             _owner.NotifyTroopChanged();
         }
 
@@ -176,6 +228,26 @@ namespace CustomClanTroops.UI
         public void ExecuteDecrementThrowing()
         {
             ModifySkill(DefaultSkills.Throwing, -1);
+        }
+
+        public void Refresh()
+        {
+            OnPropertyChanged(nameof(CanIncrementAthletics));
+            OnPropertyChanged(nameof(CanDecrementAthletics));
+            OnPropertyChanged(nameof(CanIncrementRiding));
+            OnPropertyChanged(nameof(CanDecrementRiding));
+            OnPropertyChanged(nameof(CanIncrementOneHanded));
+            OnPropertyChanged(nameof(CanDecrementOneHanded));
+            OnPropertyChanged(nameof(CanIncrementTwoHanded));
+            OnPropertyChanged(nameof(CanDecrementTwoHanded));
+            OnPropertyChanged(nameof(CanIncrementPolearm));
+            OnPropertyChanged(nameof(CanDecrementPolearm));
+            OnPropertyChanged(nameof(CanIncrementBow));
+            OnPropertyChanged(nameof(CanDecrementBow));
+            OnPropertyChanged(nameof(CanIncrementCrossbow));
+            OnPropertyChanged(nameof(CanDecrementCrossbow));
+            OnPropertyChanged(nameof(CanIncrementThrowing));
+            OnPropertyChanged(nameof(CanDecrementThrowing));
         }
     }
 }

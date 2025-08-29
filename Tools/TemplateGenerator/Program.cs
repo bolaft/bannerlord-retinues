@@ -21,18 +21,18 @@ class Program
         // --- Define skills exactly as in reference XML ---
         var skills_row1 = new[]
         {
-            new { skill_id = "athletics", margin = 40, command = "Athletics" },
-            new { skill_id = "riding",    margin = 40, command = "Riding" },
-            new { skill_id = "onehanded", margin = 40, command = "OneHanded" },
-            new { skill_id = "twohanded", margin = 0,  command = "TwoHanded" },
+            new { skill_id = "athletics", margin = 40, name = "Athletics" },
+            new { skill_id = "riding",    margin = 40, name = "Riding" },
+            new { skill_id = "onehanded", margin = 40, name = "OneHanded" },
+            new { skill_id = "twohanded", margin = 0,  name = "TwoHanded" },
         };
 
         var skills_row2 = new[]
         {
-            new { skill_id = "polearm",  margin = 40, command = "Polearm" },
-            new { skill_id = "bow",      margin = 40, command = "Bow" },
-            new { skill_id = "crossbow", margin = 40, command = "Crossbow" },
-            new { skill_id = "throwing", margin = 0,  command = "Throwing" },
+            new { skill_id = "polearm",  margin = 40, name = "Polearm" },
+            new { skill_id = "bow",      margin = 40, name = "Bow" },
+            new { skill_id = "crossbow", margin = 40, name = "Crossbow" },
+            new { skill_id = "throwing", margin = 0,  name = "Throwing" },
         };
 
         // --- Define troop sections exactly as in reference ---
