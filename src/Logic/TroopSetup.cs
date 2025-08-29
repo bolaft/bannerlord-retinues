@@ -30,24 +30,34 @@ namespace CustomClanTroops.Logic
 
                 Log.Info($"[TroopSetup] Cloning troop trees for clan '{clan.Name}' and culture '{culture.Name}'.");
 
-                // Clone basic troop tree
+                // Clone basic troop tree and collect clones
                 CharacterWrapper basicRoot = culture.RootBasic;
+                int basicCount = 0;
                 if (basicRoot != null)
                 {
-                    CharacterHelpers.CloneTroopTree(basicRoot, namePrefix, CharacterWrapper.BasicIdPrefix);
-                    Log.Info("[TroopSetup] Cloned basic troop tree.");
+                    foreach (var clone in CharacterHelpers.CloneTroopTree(basicRoot, namePrefix, CharacterWrapper.BasicIdPrefix))
+                    {
+                        CustomClanTroops.TroopManager.AddBasicTroop(clone);
+                        basicCount++;
+                    }
+                    Log.Info($"[TroopSetup] Cloned basic troop tree. {basicCount} troops cloned.");
                 }
                 else
                 {
                     Log.Warn("[TroopSetup] No basic troop root found.");
                 }
 
-                // Clone elite troop tree
+                // Clone elite troop tree and collect clones
                 CharacterWrapper eliteRoot = culture.RootElite;
+                int eliteCount = 0;
                 if (eliteRoot != null)
                 {
-                    CharacterHelpers.CloneTroopTree(eliteRoot, namePrefix, CharacterWrapper.EliteIdPrefix);
-                    Log.Info("[TroopSetup] Cloned elite troop tree.");
+                    foreach (var clone in CharacterHelpers.CloneTroopTree(eliteRoot, namePrefix, CharacterWrapper.EliteIdPrefix))
+                    {
+                        CustomClanTroops.TroopManager.AddEliteTroop(clone);
+                        eliteCount++;
+                    }
+                    Log.Info($"[TroopSetup] Cloned elite troop tree. {eliteCount} troops cloned.");
                 }
                 else
                 {

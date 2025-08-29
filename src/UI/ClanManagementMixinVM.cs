@@ -23,7 +23,7 @@ namespace CustomClanTroops.UI
 
         private readonly MBBindingList<TroopRowVM> _basic = new();
         private readonly MBBindingList<TroopRowVM> _elite = new();
-        [DataSourceProperty] public MBBindingList<TroopRowVM> CustomRegular => _basic;
+        [DataSourceProperty] public MBBindingList<TroopRowVM> CustomBasic => _basic;
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomElite => _elite;
 
         [DataSourceProperty]
@@ -128,19 +128,19 @@ namespace CustomClanTroops.UI
             try
             {
                 _basic.Clear();
-                foreach (var troop in TroopManager.GetBasicTroops().ToList())
+                foreach (var troop in TroopManager.BasicCustomTroops)
                 {
                     _basic.Add(new TroopRowVM(troop, OnRowSelected));
                 }
 
                 _elite.Clear();
-                foreach (var troop in TroopManager.GetEliteTroops().ToList())
+                foreach (var troop in TroopManager.EliteCustomTroops)
                 {
                     _elite.Add(new TroopRowVM(troop, OnRowSelected));
                 }
 
                 Log.Debug($"ClanManagementMixinVM: lists built → Basic={_basic.Count}, Elite={_elite.Count}");
-                OnPropertyChanged(nameof(CustomRegular));
+                OnPropertyChanged(nameof(CustomBasic));
                 OnPropertyChanged(nameof(CustomElite));
 
                 if (_basic.Count > 0)
@@ -174,7 +174,7 @@ namespace CustomClanTroops.UI
         {
             TroopRow?.Refresh();
             TroopInfo?.Refresh();
-            OnPropertyChanged(nameof(CustomRegular));
+            OnPropertyChanged(nameof(CustomBasic));
             OnPropertyChanged(nameof(CustomElite));
             OnPropertyChanged(nameof(TroopRow));
             OnPropertyChanged(nameof(TroopInfo));

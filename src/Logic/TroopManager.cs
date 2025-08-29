@@ -10,50 +10,28 @@ namespace CustomClanTroops
 {
     public static class TroopManager
     {
-        public static IEnumerable<CharacterWrapper> GetTroops()
+
+        private static List<CharacterWrapper> _eliteCustomTroops = new List<CharacterWrapper>();
+        private static List<CharacterWrapper> _basicCustomTroops = new List<CharacterWrapper>();
+
+        public static IEnumerable<CharacterWrapper> EliteCustomTroops => _eliteCustomTroops;
+        public static IEnumerable<CharacterWrapper> BasicCustomTroops => _basicCustomTroops;
+
+        public static void AddBasicTroop(CharacterWrapper troop)
         {
-            var objs = MBObjectManager.Instance.GetObjectTypeList<CharacterObject>();
-            foreach (var c in objs)
-            {
-                var id = c?.StringId;
-                if (string.IsNullOrEmpty(id)) continue;
-                if (id.StartsWith(CharacterWrapper.IdPrefix))
-                    yield return new CharacterWrapper(c);
-            }
+            if (troop != null && !_basicCustomTroops.Contains(troop))
+                _basicCustomTroops.Add(troop);
         }
 
-        public static IEnumerable<CharacterWrapper> GetEliteTroops()
+        public static void AddEliteTroop(CharacterWrapper troop)
         {
-            foreach (var troop in GetTroops())
-            {
-                if (troop.StringId.StartsWith(CharacterWrapper.EliteIdPrefix))
-                    yield return troop;
-            }
-        }
-
-        public static IEnumerable<CharacterWrapper> GetBasicTroops()
-        {
-            foreach (var troop in GetTroops())
-            {
-                if (troop.StringId.StartsWith(CharacterWrapper.BasicIdPrefix))
-                    yield return troop;
-            }
+            if (troop != null && !_eliteCustomTroops.Contains(troop))
+                _eliteCustomTroops.Add(troop);
         }
 
         public static bool CustomTroopsExist()
         {
-            var exists = GetTroops().Any();
-
-            if (exists)
-            {
-                Log.Info($"[TroopManager] Custom troops detected.");
-            }
-            else
-            {
-                Log.Info($"[TroopManager] No custom troops found.");
-            }
-
-            return exists;
+            return BasicCustomTroops.Any() || EliteCustomTroops.Any();
         }
     }
 }

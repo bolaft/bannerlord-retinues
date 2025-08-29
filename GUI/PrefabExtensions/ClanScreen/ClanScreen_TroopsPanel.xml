@@ -11,7 +11,7 @@
         <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
           <Children>
             <!-- Stats / header -->
-            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="10" MarginRight="290">
+            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="290">
               <Children>
                 <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
                   <Children>
@@ -23,7 +23,7 @@
                 </Widget>
               </Children>
             </Widget>
-            <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="300">
+            <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="340">
               <Children>
                 <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="20" MarginRight="20" StackLayout.LayoutMethod="VerticalBottomToTop">
                   <Children>
@@ -277,8 +277,8 @@
                         <!-- REGULAR anchor + list -->
                         <NavigationAutoScrollWidget TrackedWidget=".\CCT_RegularHeader"/>
                         <ScrollablePanelFixedHeaderWidget Id="CCT_RegularHeader" FixedHeader="..\..\..\CCT_RegularToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height"/>
-                        <!-- CHANGED: bind to CustomRegular -->
-                        <NavigatableListPanel Id="CCT_RegularList" DataSource="{CustomRegular}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
+                        <!-- CHANGED: bind to CustomBasic -->
+                        <NavigatableListPanel Id="CCT_RegularList" DataSource="{CustomBasic}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" StackLayout.LayoutMethod="VerticalBottomToTop" UseSelfIndexForMinimum="true">
                             <ItemTemplate>
                             <!-- Button wiring kept identical; item VM should expose IsSelected/ExecuteSelect if you want selection -->
                             <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" Brush="Clan.Management.LeftTuple" IsSelected="@IsSelected" Command.Click="ExecuteSelect" UpdateChildrenStates="true">
