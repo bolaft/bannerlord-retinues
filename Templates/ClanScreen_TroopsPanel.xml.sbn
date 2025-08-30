@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Widget Id="CCT_TroopsRoot" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" IsVisible="@IsTroopsSelected" DoNotAcceptEvents="false">
-  <Children>
-    {{ include "TroopEquipmentScreen_RightPanel.sbn" }}
+	<Children>
+    {{ include "TroopEditor.sbn" }}
     
-    {{ include "TroopEquipmentScreen_LeftPanel.sbn" }}
+    {{ include "TroopList.sbn" }}
   </Children>
 </Widget>

@@ -1,0 +1,43 @@
+<!-- Right Panel Subtemplate for ClanScreen_TroopsPanel -->
+<Widget WidthSizePolicy="StretchToParent"
+        HeightSizePolicy="StretchToParent"
+        MarginLeft="600"
+        MarginRight="290"
+        IsVisible="@IsAnyTroopSelected" >
+	<Children>
+		<Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DataSource="{TroopEditor}">
+			<Children>
+				<!-- Stats / header -->
+				<Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="290">
+					<Children>
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
+							<Children>
+								<CharacterTableauWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
+									<Children></Children>
+								</CharacterTableauWidget>
+								<!-- Row: Remove troop button -->
+								<ButtonWidget IsVisible="@CanRemoveTroop" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Top" Brush="Popup.Delete.Button" Command.Click="ExecuteRemoveTroop">
+									<Children>
+										<TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Remove Troop" VerticalAlignment="Center" HorizontalAlignment="Center" />
+									</Children>
+								</ButtonWidget>
+								<!-- Row: Edit equipment -->
+								<ButtonWidget IsVisible="@EditorDefaultMode" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="Popup.Done.Button"  Command.Click="ExecuteDisplayEquipmentEditor">
+									<Children>
+										<TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Edit Equipment" />
+									</Children>
+								</ButtonWidget>
+							</Children>
+						</Widget>
+					</Children>
+				</Widget>
+                <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="340">
+                    <Children>
+                        {{ include "TroopEditorDefault.sbn" }}
+                        {{ include "TroopEditorEquipment.sbn" }}
+                    </Children>
+                </Widget>
+			</Children>
+		</Widget>
+	</Children>
+</Widget>

@@ -24,7 +24,7 @@ namespace CustomClanTroops
                 _extender = UIExtender.Create("CustomClanTroops");
                 _extender.Register(typeof(SubModule).Assembly);
                 _extender.Enable();
-                Log.Info("UIExtender enabled & assembly registered.");
+                Log.Debug("UIExtender enabled & assembly registered.");
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace CustomClanTroops
             {
                 _harmony = new Harmony("CustomClanTroops");
                 _harmony.PatchAll(Assembly.GetExecutingAssembly());
-                Log.Info("Harmony patches applied.");
+                Log.Debug("Harmony patches applied.");
             }
             catch (Exception ex)
             {
@@ -46,12 +46,12 @@ namespace CustomClanTroops
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
-            Log.Info($"SubModule.OnGameStart: {game?.GameType?.GetType().Name}");
+            Log.Debug($"SubModule.OnGameStart: {game?.GameType?.GetType().Name}");
 
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {
                 cs.AddBehavior(new CustomClanTroops.Behaviors.CampaignBehavior());
-                Log.Info("Registered CampaignBehavior.");
+                Log.Debug("Registered CampaignBehavior.");
             }
         }
 
@@ -64,7 +64,7 @@ namespace CustomClanTroops
             catch { /* ignore */ }
 
             base.OnSubModuleUnloaded();
-            Log.Info("SubModule unloaded.");
+            Log.Debug("SubModule unloaded.");
         }
     }
 }

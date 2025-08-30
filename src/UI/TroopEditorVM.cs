@@ -22,6 +22,25 @@ namespace CustomClanTroops.UI
 
         public TroopEditorVM(ClanManagementMixinVM owner) => _owner = owner;
 
+        private bool _editorEquipmentMode;
+
+        [DataSourceProperty] public bool EditorEquipmentMode
+        {
+            get => _editorEquipmentMode;
+            set
+            {
+                if (_editorEquipmentMode != value)
+                {
+                    _editorEquipmentMode = value;
+                    OnPropertyChanged(nameof(EditorEquipmentMode));
+                    OnPropertyChanged(nameof(EditorDefaultMode));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public bool EditorDefaultMode => !EditorEquipmentMode;
+
         [DataSourceProperty] public string Gender => _troop.IsFemale ? "Female" : "Male";
 
         [DataSourceProperty] public string Name => _troop.Name;
@@ -348,13 +367,29 @@ namespace CustomClanTroops.UI
             );
         }
 
-        [DataSourceMethod] public void ExecuteEditEquipment()
+        [DataSourceMethod]
+        public void ExecuteDisplayDefaultEditor()
         {
-            Log.Info($"TroopEditorVM: editing equipment for '{_troop.Name}'");
+            Log.Debug($"TroopEditorVM: editing default properties for '{_troop.Name}'");
+
+            EditorEquipmentMode = false;
+            Refresh();
+        }
+
+        [DataSourceMethod]
+        public void ExecuteDisplayEquipmentEditor()
+        {
+            Log.Debug($"TroopEditorVM: editing equipment for '{_troop.Name}'");
+
+            EditorEquipmentMode = true;
+            Refresh();
         }
 
         public void Refresh()
         {
+            OnPropertyChanged(nameof(EditorEquipmentMode));
+
+            OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Gender));
 
             // Upgrade target properties

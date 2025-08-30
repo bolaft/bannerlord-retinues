@@ -14,7 +14,7 @@ namespace CustomClanTroops.Logic
         /// </summary>
         public static void ClonePlayerCultureTroops()
         {
-            Log.Info("[TroopSetup] Starting troop setup...");
+            Log.Debug("[TroopSetup] Starting troop setup...");
             try
             {
                 HeroWrapper hero = new HeroWrapper();
@@ -28,7 +28,7 @@ namespace CustomClanTroops.Logic
 
                 string namePrefix = clan.Name + " ";
 
-                Log.Info($"[TroopSetup] Cloning troop trees for clan '{clan.Name}' and culture '{culture.Name}'.");
+                Log.Debug($"[TroopSetup] Cloning troop trees for clan '{clan.Name}' and culture '{culture.Name}'.");
 
                 // Clone basic troop tree and collect clones
                 CharacterWrapper basicRoot = culture.RootBasic;
@@ -40,7 +40,7 @@ namespace CustomClanTroops.Logic
                         TroopManager.AddBasicTroop(clone);
                         basicCount++;
                     }
-                    Log.Info($"[TroopSetup] Cloned basic troop tree. {basicCount} troops cloned.");
+                    Log.Debug($"[TroopSetup] Cloned basic troop tree. {basicCount} troops cloned.");
                 }
                 else
                 {
@@ -57,7 +57,7 @@ namespace CustomClanTroops.Logic
                         TroopManager.AddEliteTroop(clone);
                         eliteCount++;
                     }
-                    Log.Info($"[TroopSetup] Cloned elite troop tree. {eliteCount} troops cloned.");
+                    Log.Debug($"[TroopSetup] Cloned elite troop tree. {eliteCount} troops cloned.");
                 }
                 else
                 {

@@ -1,0 +1,24 @@
+<Widget IsVisible="@EditorEquipmentMode" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="20" MarginRight="20" StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Equipment" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+
+        
+
+        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+            <Children>
+                <!-- Cancel button -->
+                <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" VerticalAlignment="Bottom" Brush="ButtonBrush3" Command.Click="ExecuteDisplayDefaultEditor">
+                    <Children>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Cancel" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Children>
+                </ButtonWidget>
+                <!-- Confirm -->
+                <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" VerticalAlignment="Bottom" Brush="ButtonBrush1"  Command.Click="ExecuteDisplayDefaultEditor">
+                    <Children>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Confirm" />
+                    </Children>
+                </ButtonWidget>
+            </Children>
+        </ListPanel>
+    </Children>
+</Widget>

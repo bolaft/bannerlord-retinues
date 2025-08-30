@@ -19,17 +19,17 @@ namespace CustomClanTroops.Behaviors
 
         private void OnSessionLaunched(CampaignGameStarter starter)
         {
-            Log.Info("OnSessionLaunched event triggered.");
+            Log.Debug("OnSessionLaunched event triggered.");
         }
 
         private void OnGameLoaded(CampaignGameStarter starter)
         {
-            Log.Info("OnGameLoaded event triggered.");
+            Log.Debug("OnGameLoaded event triggered.");
         }
 
         private void OnBeforeSave()
         {
-            Log.Info("OnBeforeSave event triggered.");
+            Log.Debug("OnBeforeSave event triggered.");
         }
     }
 }

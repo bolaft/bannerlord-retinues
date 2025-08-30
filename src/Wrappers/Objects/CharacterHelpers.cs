@@ -15,7 +15,7 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             // Clone from the source troop
             var cloneObj = CharacterObject.CreateFrom(original.GetCharacterObject());
-            Log.Info($"[CharacterHelpers] Cloning troop '{original.StringId}' to '{cloneObj.StringId}' with name '{newName}'.");
+            Log.Debug($"[CharacterHelpers] Cloning troop '{original.StringId}' to '{cloneObj.StringId}' with name '{newName}'.");
 
             // Wrap it
             CharacterWrapper clone = new CharacterWrapper(cloneObj, parent);

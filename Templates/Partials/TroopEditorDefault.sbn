@@ -1,0 +1,81 @@
+
+<ListPanel IsVisible="@EditorDefaultMode" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="20" MarginRight="20" StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+        <!-- Name Header -->
+        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Name" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+        <!-- Name row -->
+        <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+            <Children>
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Name" ClipContents="false" />
+                <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteRenameSelected" UpdateChildrenStates="true">
+                    <Children>
+                        <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
+                    </Children>
+                </ButtonWidget>
+            </Children>
+        </ListPanel>
+        <!-- Gender Header -->
+        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Gender" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+        <!-- Gender row -->
+        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+            <Children>
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Gender" ClipContents="false" />
+                <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteChangeGenderSelected" UpdateChildrenStates="true">
+                    <Children>
+                        <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
+                    </Children>
+                </ButtonWidget>
+            </Children>
+        </ListPanel>
+        <!-- Skills Header -->
+        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Skills" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+        <!-- Skill Points -->
+        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
+            <Children>
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsUsed" ClipContents="false" />
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="/" ClipContents="false" />
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsTotal" ClipContents="false" />
+            </Children>
+        </ListPanel>
+        <!-- Skills Icon Grid -->
+        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop" UpdateChildrenStates="true">
+            <Children>
+                <!-- First row -->
+                <ListPanel HorizontalAlignment="Center" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginBottom="5" UpdateChildrenStates="true">
+                    <Children>
+                        {{ for skill in skills_row1 }}
+                        {{ include "TroopEditorDefaultSkill.sbn" }}
+                        {{ end }}
+                    </Children>
+                </ListPanel>
+                <!-- Second row -->
+                <ListPanel HorizontalAlignment="Center" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginBottom="5" UpdateChildrenStates="true">
+                    <Children>
+                        {{ for skill in skills_row2 }}
+                        {{ include "TroopEditorDefaultSkill.sbn" }}
+                        {{ end }}
+                    </Children>
+                </ListPanel>
+            </Children>
+        </ListPanel>
+        <!-- Upgrades Header -->
+        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Upgrades" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
+        <!-- Upgrade Targets: Fixed 2-slot layout -->
+        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop" MarginBottom="15">
+            <Children>
+                <!-- First upgrade -->
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget1" HorizontalAlignment="Center" Text="@UpgradeTarget1Name" ClipContents="false" />
+                <!-- Second upgrade -->
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget2" HorizontalAlignment="Center" Text="@UpgradeTarget2Name" ClipContents="false" />
+                <!-- No upgrade -->
+                <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@IsMaxTier" HorizontalAlignment="Center" Text="-" ClipContents="false" />
+                <!-- Row: Add upgrade button below -->
+                <ButtonWidget IsVisible="@CanAddUpgradeTarget" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="Popup.Done.Button" Command.Click="ExecuteAddUpgradeTarget">
+                    <Children>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Add Upgrade" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Children>
+                </ButtonWidget>
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>
