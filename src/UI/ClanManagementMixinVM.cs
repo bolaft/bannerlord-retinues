@@ -24,6 +24,10 @@ namespace CustomClanTroops.UI
 
         private readonly MBBindingList<TroopRowVM> _elite = new();
 
+        [DataSourceProperty] public bool EditorDefaultMode => TroopEditor?.EditorDefaultMode ?? false;
+
+        [DataSourceProperty] public bool EditorEquipmentMode => TroopEditor?.EditorEquipmentMode ?? false;
+
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomBasic => _basic;
 
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomElite => _elite;
@@ -41,6 +45,8 @@ namespace CustomClanTroops.UI
                 OnPropertyChanged(nameof(TroopRow));
                 OnPropertyChanged(nameof(TroopEditor));
                 OnPropertyChanged(nameof(IsAnyTroopSelected));
+                OnPropertyChanged(nameof(EditorDefaultMode));
+                OnPropertyChanged(nameof(EditorEquipmentMode));
             }
         }
 
@@ -157,6 +163,10 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(CustomElite));
             OnPropertyChanged(nameof(TroopRow));
             OnPropertyChanged(nameof(TroopEditor));
+            OnPropertyChanged(nameof(TroopRow));
+            OnPropertyChanged(nameof(TroopEditor));
+            OnPropertyChanged(nameof(EditorDefaultMode));
+            OnPropertyChanged(nameof(EditorEquipmentMode));
         }
 
         public void UpdateLists()

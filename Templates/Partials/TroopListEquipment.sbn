@@ -1,0 +1,5 @@
+<BrushListPanel IsVisible="@EditorEquipmentMode" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
+	<Children>
+		
+	</Children>
+</BrushListPanel>

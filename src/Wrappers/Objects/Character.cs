@@ -129,6 +129,20 @@ namespace CustomClanTroops.Wrappers.Objects
                 property.SetValue(_characterObject, value);
             }
         }
+        
+        public bool IsHiddenInEncyclopedia
+        {
+            get
+            {
+                PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsHiddenInEncylopedia");
+                return (bool)property.GetValue(_characterObject);
+            }
+            set
+            {
+                PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsHiddenInEncylopedia");
+                property.SetValue(_characterObject, value);
+            }
+        }
 
         public int Athletics
         {

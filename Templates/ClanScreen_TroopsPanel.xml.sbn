@@ -2,7 +2,9 @@
 <Widget Id="CCT_TroopsRoot" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" IsVisible="@IsTroopsSelected" DoNotAcceptEvents="false">
 	<Children>
     {{ include "TroopEditor.sbn" }}
+
+    {{ include "TroopListDefault.sbn" }}
     
-    {{ include "TroopList.sbn" }}
+    {{ include "TroopListEquipment.sbn" }}
   </Children>
 </Widget>

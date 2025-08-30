@@ -15,9 +15,13 @@
     					<Children>
     						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
     							<Children>
-    								<CharacterTableauWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
-    									<Children></Children>
-    								</CharacterTableauWidget>
+    								<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" DataSource="{TroopModel}">
+    									<Children>
+    										<CharacterTableauWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
+    											<Children></Children>
+    										</CharacterTableauWidget>
+    									</Children>
+    								</Widget>
     								<!-- Row: Remove troop button -->
     								<ButtonWidget IsVisible="@CanRemoveTroop" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Top" Brush="Popup.Delete.Button" Command.Click="ExecuteRemoveTroop">
     									<Children>
@@ -310,6 +314,8 @@
                                 <Children>
                                     <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Equipment" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
                             
+                                    
+                            
                                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
                                         <Children>
                                             <!-- Cancel button -->
@@ -334,9 +340,8 @@
     		</Widget>
     	</Children>
     </Widget>
-    
-    <!-- Left Panel Subtemplate for ClanScreen_TroopsPanel -->
-    <BrushListPanel IsVisible="@IsTroopsSelected" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
+
+    <BrushListPanel IsVisible="@EditorDefaultMode" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
     	<Children>
     		<!-- Sort header -->
     		<NavigationScopeTargeter ScopeID="SortButtonsScope" ScopeParent="..\SortButtons" ScopeMovements="Horizontal"/>
@@ -437,6 +442,13 @@
     				<Standard.VerticalScrollbar Id="CCT_ClanElementsScrollbar" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" VerticalAlignment="Bottom" MarginLeft="2" MarginRight="2" MarginBottom="3"/>
     			</Children>
     		</ListPanel>
+    	</Children>
+    </BrushListPanel>
+
+    
+    <BrushListPanel IsVisible="@EditorEquipmentMode" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
+    	<Children>
+    		
     	</Children>
     </BrushListPanel>
 

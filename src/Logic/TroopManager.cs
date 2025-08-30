@@ -40,6 +40,7 @@ namespace CustomClanTroops
             _eliteCustomTroops.Remove(troop);
 
             troop.GetParent()?.RemoveUpgradeTarget(troop);
+            troop.IsHiddenInEncyclopedia = true;
         }
     }
 }

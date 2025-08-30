@@ -8,6 +8,7 @@ using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
@@ -20,7 +21,12 @@ namespace CustomClanTroops.UI
 
         private CharacterWrapper _troop => _owner?.TroopRow?.Troop;
 
-        public TroopEditorVM(ClanManagementMixinVM owner) => _owner = owner;
+        [DataSourceProperty] public CharacterViewModel TroopModel => _troop?.ViewModel;
+
+        public TroopEditorVM(ClanManagementMixinVM owner)
+        {
+            _owner = owner;
+        }
 
         private bool _editorEquipmentMode;
 
@@ -132,27 +138,7 @@ namespace CustomClanTroops.UI
         [DataSourceProperty] public string Crossbow => _troop.Crossbow.ToString();
 
         [DataSourceProperty] public string Throwing => _troop.Throwing.ToString();
-
-        [DataSourceProperty] public string BannerCodeText => _troop.ViewModel.BannerCodeText;
-
-        [DataSourceProperty] public string CharStringId => _troop.StringId;
-
-        [DataSourceProperty] public string EquipmentCode => _troop.ViewModel.EquipmentCode;
-
-        [DataSourceProperty] public string BodyProperties => _troop.ViewModel.BodyProperties;
-
-        [DataSourceProperty] public bool IsFemale => _troop.ViewModel.IsFemale;
-
-        [DataSourceProperty] public string MountCreationKey => _troop.ViewModel.MountCreationKey;
-
-        [DataSourceProperty] public int Race => _troop.ViewModel.Race;
-
-        [DataSourceProperty] public int StanceIndex => _troop.ViewModel.StanceIndex;
-
-        [DataSourceProperty] public uint ArmorColor1 => _troop.ViewModel.ArmorColor1;
-
-        [DataSourceProperty] public uint ArmorColor2 => _troop.ViewModel.ArmorColor2;
-
+        
         [DataSourceProperty] public bool CanIncrementAthletics => CanIncrement(DefaultSkills.Athletics);
 
         [DataSourceProperty] public bool CanDecrementAthletics => CanDecrement(DefaultSkills.Athletics);
@@ -371,27 +357,26 @@ namespace CustomClanTroops.UI
         public void ExecuteDisplayDefaultEditor()
         {
             Log.Debug($"TroopEditorVM: editing default properties for '{_troop.Name}'");
-
             EditorEquipmentMode = false;
             Refresh();
+            _owner.UpdateTroops();
         }
 
         [DataSourceMethod]
         public void ExecuteDisplayEquipmentEditor()
         {
             Log.Debug($"TroopEditorVM: editing equipment for '{_troop.Name}'");
-
+            _owner.UpdateTroops();
             EditorEquipmentMode = true;
             Refresh();
+            _owner.UpdateTroops();
         }
 
         public void Refresh()
         {
             OnPropertyChanged(nameof(EditorEquipmentMode));
-
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Gender));
-
             // Upgrade target properties
             OnPropertyChanged(nameof(CanRemoveTroop));
             OnPropertyChanged(nameof(CanAddUpgradeTarget));
@@ -401,25 +386,13 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(HasUpgradeTarget2));
             OnPropertyChanged(nameof(UpgradeTarget2Id));
             OnPropertyChanged(nameof(UpgradeTarget2Name));
-
-            // Visual model properties
-            OnPropertyChanged(nameof(BannerCodeText));
-            OnPropertyChanged(nameof(CharStringId));
-            OnPropertyChanged(nameof(EquipmentCode));
-            OnPropertyChanged(nameof(BodyProperties));
-            OnPropertyChanged(nameof(IsFemale));
-            OnPropertyChanged(nameof(MountCreationKey));
-            OnPropertyChanged(nameof(Race));
-            OnPropertyChanged(nameof(StanceIndex));
-            OnPropertyChanged(nameof(ArmorColor1));
-            OnPropertyChanged(nameof(ArmorColor2));
-
+            // Visual model property
+            OnPropertyChanged(nameof(TroopModel));
             // Skill properties    
             OnPropertyChanged(nameof(SkillPointsTotal));
             OnPropertyChanged(nameof(SkillPointsLeft));
             OnPropertyChanged(nameof(SkillPointsUsed));
             OnPropertyChanged(nameof(SkillCap));
-
             // Skill value properties
             OnPropertyChanged(nameof(Athletics));
             OnPropertyChanged(nameof(Riding));
@@ -429,7 +402,6 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(Bow));
             OnPropertyChanged(nameof(Crossbow));
             OnPropertyChanged(nameof(Throwing));
-
             // Skill update properties
             OnPropertyChanged(nameof(CanIncrementAthletics));
             OnPropertyChanged(nameof(CanDecrementAthletics));

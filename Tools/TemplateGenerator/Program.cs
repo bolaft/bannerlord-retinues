@@ -9,16 +9,13 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        // Project root detection: adjust if needed
         var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
 
-        // Paths
         var templatesDir = Path.Combine(root, "Templates");
         var templatePath = Path.Combine(templatesDir, "ClanScreen_TroopsPanel.xml.sbn");
         var partialsDir = Path.Combine(templatesDir, "Partials");
         var outputPath = Path.Combine(root, "GUI", "PrefabExtensions", "ClanScreen", "ClanScreen_TroopsPanel.xml");
 
-        // --- Define skills exactly as in reference XML ---
         var skills_row1 = new[]
         {
             new { skill_id = "athletics", margin = 40, name = "Athletics" },
@@ -35,7 +32,6 @@ class Program
             new { skill_id = "throwing", margin = 0,  name = "Throwing" },
         };
 
-        // --- Define troop sections exactly as in reference ---
         var troop_sections = new[]
         {
             new { id = "Elite",   label = "Elite",   dataSource = "CustomElite" },

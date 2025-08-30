@@ -1,5 +1,4 @@
-<!-- Left Panel Subtemplate for ClanScreen_TroopsPanel -->
-<BrushListPanel IsVisible="@IsTroopsSelected" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
+<BrushListPanel IsVisible="@EditorDefaultMode" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
 	<Children>
 		<!-- Sort header -->
 		<NavigationScopeTargeter ScopeID="SortButtonsScope" ScopeParent="..\SortButtons" ScopeMovements="Horizontal"/>
