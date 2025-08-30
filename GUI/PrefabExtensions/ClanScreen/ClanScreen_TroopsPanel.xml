@@ -1,318 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Widget Id="CCT_TroopsRoot" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" IsVisible="@IsTroopsSelected" DoNotAcceptEvents="false">
   <Children>
-    <!-- ===================== RIGHT PANEL ===================== -->
+    <!-- Right Panel Subtemplate for ClanScreen_TroopsPanel -->
     <Widget WidthSizePolicy="StretchToParent"
             HeightSizePolicy="StretchToParent"
             MarginLeft="600"
             MarginRight="290"
             IsVisible="@IsAnyTroopSelected" >
-      <Children>
+    <Children>
         <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DataSource="{TroopEditor}">
-          <Children>
+        <Children>
             <!-- Stats / header -->
             <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="290">
-              <Children>
+            <Children>
                 <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="465" SuggestedHeight="512" HorizontalAlignment="Left">
-                  <Children>
+                <Children>
                     <CharacterTableauWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="550" SuggestedHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center" BannerCodeText="@BannerCodeText" CharStringId="@CharStringId" EquipmentCode="@EquipmentCode" BodyProperties="@BodyProperties" IsFemale="@IsFemale" MountCreationKey="@MountCreationKey" Race="@Race" StanceIndex="@StanceIndex" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" DoNotUseCustomScale="true">
-                      <Children>
-                      </Children>
+                    <Children>
+                    </Children>
                     </CharacterTableauWidget>
                     <!-- Row: Remove troop button -->
                     <ButtonWidget IsVisible="@CanRemoveTroop" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Top" Brush="Popup.Delete.Button" Command.Click="ExecuteRemoveTroop">
-                      <Children>
+                    <Children>
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Remove Troop" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                      </Children>
+                    </Children>
                     </ButtonWidget>
                     <!-- Row: Edit equipment -->
                     <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="Popup.Done.Button"  Command.Click="ExecuteEditEquipment">
-                      <Children>
+                    <Children>
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Edit Equipment" />
-                      </Children>
+                    </Children>
                     </ButtonWidget>
-                  </Children>
+                </Children>
                 </Widget>
-              </Children>
+            </Children>
             </Widget>
             <Widget VisualDefinition="RightPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" PositionXOffset="800" MarginLeft="340">
-              <Children>
+            <Children>
                 <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="20" MarginRight="20" StackLayout.LayoutMethod="VerticalBottomToTop">
-                  <Children>
+                <Children>
                     <!-- Name Header -->
                     <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Name" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
-
                     <!-- Name row -->
                     <ListPanel Id="HeroNameParent" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
-                      <Children>
+                    <Children>
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Name" ClipContents="false" />
                         <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteRenameSelected" UpdateChildrenStates="true">
-                          <Children>
+                        <Children>
                             <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
-                          </Children>
+                        </Children>
                         </ButtonWidget>
-                      </Children>
+                    </Children>
                     </ListPanel>
-
                     <!-- Gender Header -->
                     <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Gender" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
-
                     <!-- Gender row -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
-                      <Children>
+                    <Children>
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="@Gender" ClipContents="false" />
                         <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteChangeGenderSelected" UpdateChildrenStates="true">
-                          <Children>
+                        <Children>
                             <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
-                          </Children>
+                        </Children>
                         </ButtonWidget>
-                      </Children>
+                    </Children>
                     </ListPanel>
-
                     <!-- Skills Header -->
                     <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Skills" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
-
                     <!-- Skill Points -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="15" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true">
-                      <Children>
+                    <Children>
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsUsed" ClipContents="false" />
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="/" ClipContents="false" />
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" IntText="@SkillPointsTotal" ClipContents="false" />
-                      </Children>
+                    </Children>
                     </ListPanel>
-
                     <!-- Skills Icon Grid -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop" UpdateChildrenStates="true">
-                      <Children>
+                    <Children>
                         <!-- First row -->
                         <ListPanel HorizontalAlignment="Center" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginBottom="5" UpdateChildrenStates="true">
-                          <Children>
+                        <Children>
                             
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="athletics" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementAthletics" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@Athletics" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementAthletics" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="athletics" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementAthletics" />
+                            			</Children>
+                                    </Widget>
                             
-                                                        
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="riding" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementRiding" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@Riding" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementRiding" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                    <TextWidget IntText="@Athletics" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                             
-                                                        
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="onehanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementOneHanded" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@OneHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementOneHanded" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementAthletics" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementAthletics" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
                             
-                                                        
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="twohanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementTwoHanded" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@TwoHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementTwoHanded" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                                    
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="riding" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementRiding" />
+                            			</Children>
+                                    </Widget>
                             
-                                                        
-                          </Children>
+                                    <TextWidget IntText="@Riding" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                            
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementRiding" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementRiding" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            
+                                                    
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="onehanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementOneHanded" />
+                            			</Children>
+                                    </Widget>
+                            
+                                    <TextWidget IntText="@OneHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                            
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementOneHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementOneHanded" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            
+                                                    
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="twohanded" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementTwoHanded" />
+                            			</Children>
+                                    </Widget>
+                            
+                                    <TextWidget IntText="@TwoHanded" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                            
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementTwoHanded" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementTwoHanded" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            
+                                                    
+                        </Children>
                         </ListPanel>
                         <!-- Second row -->
                         <ListPanel HorizontalAlignment="Center" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginBottom="5" UpdateChildrenStates="true">
-                          <Children>
+                        <Children>
                             
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="polearm" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementPolearm" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@Polearm" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementPolearm" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="polearm" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementPolearm" />
+                            			</Children>
+                                    </Widget>
                             
-                                                        
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="bow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementBow" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@Bow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementBow" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                    <TextWidget IntText="@Polearm" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
                             
-                                                        
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="crossbow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementCrossbow" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@Crossbow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementCrossbow" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementPolearm" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementPolearm" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
                             
-                                                        
-                                                          <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="20">
-                                <Children>
-                                  <SkillIconVisualWidget MarginBottom="6" SkillId="throwing" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
-                                  <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
-                                    <Children>
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanDecrementThrowing" />
-                              			</Children>
-                                      </Widget>
-                              
-                                      <TextWidget IntText="@Throwing" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
-                              
-                                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
-                              			<Children>
-                              				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
-                              					IsVisible="@CanIncrementThrowing" />
-                              			</Children>
-                              		</Widget>
-                              	  </Children>
-                                  </ListPanel>
-                                </Children>
-                              </ListPanel>
+                                                    
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="bow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementBow" />
+                            			</Children>
+                                    </Widget>
                             
-                                                        
-                          </Children>
+                                    <TextWidget IntText="@Bow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                            
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementBow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementBow" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            
+                                                    
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="40" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="crossbow" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementCrossbow" />
+                            			</Children>
+                                    </Widget>
+                            
+                                    <TextWidget IntText="@Crossbow" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                            
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementCrossbow" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementCrossbow" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            
+                                                    
+                                                    <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="110" StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" MarginRight="0" MarginBottom="20">
+                              <Children>
+                                <SkillIconVisualWidget MarginBottom="6" SkillId="throwing" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="80" SuggestedHeight="80" DoNotPassEventsToChildren="false"/>
+                                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" HorizontalAlignment="Center" UpdateChildrenStates="true">
+                                  <Children>
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonRightBigArrowBrush1" Command.Click="ExecuteDecrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanDecrementThrowing" />
+                            			</Children>
+                                    </Widget>
+                            
+                                    <TextWidget IntText="@Throwing" WidthSizePolicy="Fixed" SuggestedWidth="32" HeightSizePolicy="Fixed" SuggestedHeight="24" Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF" HorizontalAlignment="Center"/>
+                            
+                                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24">
+                            			<Children>
+                            				<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" Brush="ButtonLeftBigArrowBrush1" Command.Click="ExecuteIncrementThrowing" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" 
+                            					IsVisible="@CanIncrementThrowing" />
+                            			</Children>
+                            		</Widget>
+                            	  </Children>
+                                </ListPanel>
+                              </Children>
+                            </ListPanel>
+                            
+                                                    
+                        </Children>
                         </ListPanel>
-                      </Children>
+                    </Children>
                     </ListPanel>
-
                     <!-- Upgrades Header -->
                     <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Text="Upgrades" Brush="Kingdom.TitleSmall.Text" MarginTop="15" MarginBottom="10"/>
-
                     <!-- Upgrade Targets: Fixed 2-slot layout -->
                     <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" StackLayout.LayoutMethod="VerticalBottomToTop" MarginBottom="15">
-                      <Children>
+                    <Children>
                         <!-- First upgrade -->
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget1" HorizontalAlignment="Center" Text="@UpgradeTarget1Name" ClipContents="false" />
                         <!-- Second upgrade -->
@@ -321,52 +313,50 @@
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@IsMaxTier" HorizontalAlignment="Center" Text="-" ClipContents="false" />
                         <!-- Row: Add upgrade button below -->
                         <ButtonWidget IsVisible="@CanAddUpgradeTarget" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="Popup.Done.Button" Command.Click="ExecuteAddUpgradeTarget">
-                          <Children>
+                        <Children>
                             <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Add Upgrade" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                          </Children>
+                        </Children>
                         </ButtonWidget>
-                      </Children>
+                    </Children>
                     </ListPanel>
-                  </Children>
+                </Children>
                 </ListPanel>
-              </Children>
+            </Children>
             </Widget>
-          </Children>
+        </Children>
         </Widget>
-      </Children>
+    </Children>
     </Widget>
-    <!-- =================== /RIGHT PANEL ====================== -->
-
-    <!-- ===================== LEFT PANEL ====================== -->
+    
+    <!-- Left Panel Subtemplate for ClanScreen_TroopsPanel -->
     <BrushListPanel IsVisible="@IsTroopsSelected" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" VerticalAlignment="Bottom" MarginTop="6" MarginBottom="9" MarginLeft="27" Brush="Frame1Brush" StackLayout.LayoutMethod="VerticalBottomToTop">
-      <Children>
+    <Children>
         <!-- Sort header -->
         <NavigationScopeTargeter ScopeID="SortButtonsScope" ScopeParent="..\SortButtons" ScopeMovements="Horizontal"/>
         <ListPanel Id="SortButtons" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" RenderLate="true">
-          <Children>
+        <Children>
             <SortButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="588" SuggestedHeight="!Clan.Members.Sort.1.Height" Brush="Clan.Members.Sort.1" Command.Click="ExecuteSortByName" IsSelected="@IsNameSelected" SortState="@NameState" SortVisualWidget="TextWidget\NameSortVisualWidget" UpdateChildrenStates="true" GamepadNavigationIndex="0">
-              <Children>
+            <Children>
                 <TextWidget Id="TextWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="Clan.LeftPanel.Header.Text" ClipContents="false" Text="Custom Units">
-                  <Children>
+                <Children>
                     <BrushWidget Id="NameSortVisualWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="20" SuggestedHeight="20" HorizontalAlignment="Right" VerticalAlignment="Center" PositionXOffset="20" Brush="ArmyManagement.Sort.ArrowBrush"/>
-                  </Children>
+                </Children>
                 </TextWidget>
-              </Children>
+            </Children>
             </SortButtonWidget>
             <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Scroll.Header.Width" SuggestedHeight="!Scroll.Header.Height" Sprite="StdAssets\scroll_header" ExtendRight="3" ExtendTop="6" ExtendLeft="3" ExtendBottom="4" HorizontalAlignment="Right"/>
-          </Children>
+        </Children>
         </ListPanel>
-
         <!-- Scroll group -->
         <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent">
-          <Children>
+        <Children>
             <ScrollablePanel Id="CCT_ClanElementsScrollablePanel" WidthSizePolicy="CoverChildren" MinWidth="!Clan.Management.Collapser.Width" HeightSizePolicy="StretchToParent" MarginLeft="3" MarginBottom="3" AutoHideScrollBars="true" ClipRect="CCT_ClanElementsRect" InnerPanel="CCT_ClanElementsRect\CCT_ClanElementsListPanel" MouseScrollAxis="Vertical" VerticalScrollbar="..\CCT_ClanElementsScrollbar\Scrollbar">
-              <Children>
+            <Children>
                 <NavigationScopeTargeter ScopeID="CCT_TroopsScope" ScopeParent=".\CCT_ClanElementsRect" ScopeMovements="Vertical" IsDefaultNavigationScope="true" DoNotAutoNavigateAfterSort="true"/>
                 <Widget Id="CCT_ClanElementsRect" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" ClipContents="true">
-                  <Children>
+                <Children>
                     <NavigatableListPanel Id="CCT_ClanElementsListPanel" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalBottomToTop" MinIndex="0" StepSize="1000">
-                      <Children>
+                    <Children>
                         
                         <NavigationAutoScrollWidget TrackedWidget=".\CCT_EliteHeader"/>
                         <ScrollablePanelFixedHeaderWidget Id="CCT_EliteHeader" FixedHeader="..\..\..\CCT_EliteToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
@@ -384,8 +374,8 @@
                             </ButtonWidget>
                           </ItemTemplate>
                         </NavigatableListPanel>
-
-
+    
+    
                         
                         <NavigationAutoScrollWidget TrackedWidget=".\CCT_RegularHeader"/>
                         <ScrollablePanelFixedHeaderWidget Id="CCT_RegularHeader" FixedHeader="..\..\..\CCT_RegularToggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
@@ -403,44 +393,45 @@
                             </ButtonWidget>
                           </ItemTemplate>
                         </NavigatableListPanel>
-
-                      </Children>
+    
+                    </Children>
                     </NavigatableListPanel>
-                  </Children>
+                </Children>
                 </Widget>
-
-                  
-                  <PartyHeaderToggleWidget Id="CCT_RegularToggle" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height" CollapseIndicator="RegularCollapser\RegularCollapseIndicator" ListPanel="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_RegularList" HorizontalAlignment="Left" VerticalAlignment="Top" Brush="Clan.Management.Collapser" WidgetToClose="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_RegularList">
-                    <Children>
-                      <ListPanel Id="RegularCollapser" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Children>
-                          <BrushWidget Id="RegularCollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="16" SuggestedHeight="16" VerticalAlignment="Center" PositionYOffset="-2" MarginRight="5" Brush="Party.Toggle.ExpandIndicator"/>
-                          <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Clan.Management.Collapser.Text" Text="Regular"/>
-                        </Children>
-                      </ListPanel>
-                    </Children>
-                  </PartyHeaderToggleWidget>
-
-
-                  
-                  <PartyHeaderToggleWidget Id="CCT_EliteToggle" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height" CollapseIndicator="EliteCollapser\EliteCollapseIndicator" ListPanel="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_EliteList" HorizontalAlignment="Left" VerticalAlignment="Top" Brush="Clan.Management.Collapser" WidgetToClose="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_EliteList">
-                    <Children>
-                      <ListPanel Id="EliteCollapser" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Children>
-                          <BrushWidget Id="EliteCollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="16" SuggestedHeight="16" VerticalAlignment="Center" PositionYOffset="-2" MarginRight="5" Brush="Party.Toggle.ExpandIndicator"/>
-                          <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Clan.Management.Collapser.Text" Text="Elite"/>
-                        </Children>
-                      </ListPanel>
-                    </Children>
-                  </PartyHeaderToggleWidget>
-
-
-              </Children>
+    
+                
+                <PartyHeaderToggleWidget Id="CCT_RegularToggle" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height" CollapseIndicator="RegularCollapser\RegularCollapseIndicator" ListPanel="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_RegularList" HorizontalAlignment="Left" VerticalAlignment="Top" Brush="Clan.Management.Collapser" WidgetToClose="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_RegularList">
+                  <Children>
+                    <ListPanel Id="RegularCollapser" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <Children>
+                        <BrushWidget Id="RegularCollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="16" SuggestedHeight="16" VerticalAlignment="Center" PositionYOffset="-2" MarginRight="5" Brush="Party.Toggle.ExpandIndicator"/>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Clan.Management.Collapser.Text" Text="Regular"/>
+                      </Children>
+                    </ListPanel>
+                  </Children>
+                </PartyHeaderToggleWidget>
+    
+    
+                
+                <PartyHeaderToggleWidget Id="CCT_EliteToggle" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height" CollapseIndicator="EliteCollapser\EliteCollapseIndicator" ListPanel="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_EliteList" HorizontalAlignment="Left" VerticalAlignment="Top" Brush="Clan.Management.Collapser" WidgetToClose="..\CCT_ClanElementsRect\CCT_ClanElementsListPanel\CCT_EliteList">
+                  <Children>
+                    <ListPanel Id="EliteCollapser" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center">
+                      <Children>
+                        <BrushWidget Id="EliteCollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="16" SuggestedHeight="16" VerticalAlignment="Center" PositionYOffset="-2" MarginRight="5" Brush="Party.Toggle.ExpandIndicator"/>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Clan.Management.Collapser.Text" Text="Elite"/>
+                      </Children>
+                    </ListPanel>
+                  </Children>
+                </PartyHeaderToggleWidget>
+    
+    
+            </Children>
             </ScrollablePanel>
             <Standard.VerticalScrollbar Id="CCT_ClanElementsScrollbar" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" VerticalAlignment="Bottom" MarginLeft="2" MarginRight="2" MarginBottom="3"/>
-          </Children>
+        </Children>
         </ListPanel>
-      </Children>
+    </Children>
     </BrushListPanel>
+
   </Children>
 </Widget>

@@ -6,6 +6,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Inventory;
 using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Core;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
@@ -184,15 +185,23 @@ namespace CustomClanTroops.UI
 
         private void ModifySkill(SkillObject skill, int change)
         {
-            if (change > 0 && !CanIncrement(skill)) return;
-            if (change < 0 && !CanDecrement(skill)) return;
-
-            var skills = _troop.Skills;
-            var idx = skills.FindIndex(s => s.skill == skill);
-            if (idx >= 0)
+            int repeat = 1;
+            if (Input.IsKeyDown(InputKey.LeftControl) || Input.IsKeyDown(InputKey.RightControl))
+                repeat = 500;
+            else if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))
+                repeat = 5;
+            for (int i = 0; i < repeat; i++)
             {
-                skills[idx] = (skill, skills[idx].value + change);
-                _troop.Skills = skills;
+                if (change > 0 && !CanIncrement(skill)) break;
+                if (change < 0 && !CanDecrement(skill)) break;
+
+                var skills = _troop.Skills;
+                var idx = skills.FindIndex(s => s.skill == skill);
+                if (idx >= 0)
+                {
+                    skills[idx] = (skill, skills[idx].value + change);
+                    _troop.Skills = skills;
+                }
             }
             _owner.UpdateTroops();
         }
@@ -339,8 +348,7 @@ namespace CustomClanTroops.UI
             );
         }
 
-        [DataSourceMethod]
-        public void ExecuteEditEquipment()
+        [DataSourceMethod] public void ExecuteEditEquipment()
         {
             Log.Info($"TroopEditorVM: editing equipment for '{_troop.Name}'");
         }

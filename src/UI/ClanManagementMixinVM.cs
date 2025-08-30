@@ -161,6 +161,8 @@ namespace CustomClanTroops.UI
 
         public void UpdateLists()
         {
+            var prevSelectedId = TroopRow?.Troop.StringId;
+
             _basic.Clear();
             foreach (var troop in TroopManager.BasicCustomTroops)
             {
@@ -177,7 +179,17 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(CustomBasic));
             OnPropertyChanged(nameof(CustomElite));
 
-            SelectExclusive(TroopRow); // Reselect previously selected troop, if any
+            // Restore selection by StringId
+            if (!string.IsNullOrEmpty(prevSelectedId))
+            {
+                var newSelected = _basic.Concat(_elite).FirstOrDefault(r => r.Troop.StringId == prevSelectedId);
+                if (newSelected != null)
+                    SelectExclusive(newSelected);
+            }
+            else
+            {
+                SelectFirstTroop();
+            }
         }
     }
 }
