@@ -1,7 +1,11 @@
+using System;
 using System.Linq;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Inventory;
+using TaleWorlds.CampaignSystem.GameState;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
@@ -335,9 +339,10 @@ namespace CustomClanTroops.UI
             );
         }
 
-        [DataSourceMethod] public void ExecuteEditEquipment()
+        [DataSourceMethod]
+        public void ExecuteEditEquipment()
         {
-            Log.Info("TroopEditorVM: ExecuteEditEquipment called");
+            Log.Info($"TroopEditorVM: editing equipment for '{_troop.Name}'");
         }
 
         public void Refresh()

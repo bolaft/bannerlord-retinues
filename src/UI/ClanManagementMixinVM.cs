@@ -28,8 +28,7 @@ namespace CustomClanTroops.UI
 
         [DataSourceProperty] public MBBindingList<TroopRowVM> CustomElite => _elite;
 
-        [DataSourceProperty]
-        public TroopRowVM TroopRow
+        [DataSourceProperty] public TroopRowVM TroopRow
         {
             get => _selected;
             private set
@@ -49,8 +48,7 @@ namespace CustomClanTroops.UI
 
         [DataSourceProperty] public bool IsAnyTroopSelected => _selected != null;
 
-        [DataSourceProperty]
-        public bool IsTroopsSelected
+        [DataSourceProperty] public bool IsTroopsSelected
         {
             get => _isTroopsSelected;
             set
@@ -62,8 +60,7 @@ namespace CustomClanTroops.UI
             }
         }
 
-        [DataSourceMethod]
-        public void ExecuteSelectTroops()
+        [DataSourceMethod] public void ExecuteSelectTroops()
         {
             Log.Debug("ClanManagementMixinVM: Troops tab clicked");
             EnsureTroopsReady();
@@ -179,6 +176,8 @@ namespace CustomClanTroops.UI
             Log.Debug($"ClanManagementMixinVM: lists built → Basic={_basic.Count}, Elite={_elite.Count}");
             OnPropertyChanged(nameof(CustomBasic));
             OnPropertyChanged(nameof(CustomElite));
+
+            SelectExclusive(TroopRow); // Reselect previously selected troop, if any
         }
     }
 }

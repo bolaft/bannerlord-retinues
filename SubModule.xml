@@ -31,10 +31,4 @@
       </Assemblies>
     </SubModule>
   </SubModules>
-  
-  <Xmls>
-    <XmlNode>
-      <XmlName id="NPCCharacters" path="ModuleData/NPCCharacters.xml" />
-    </XmlNode>
-  </Xmls>
 </Module>

@@ -3,7 +3,7 @@
   DoNotPassEventsToChildren="true"
   WidthSizePolicy="Fixed"
   HeightSizePolicy="Fixed"
-  SuggestedWidth="!Header.Tab.Center.Width.Scaled"
+  SuggestedWidth="240"
   SuggestedHeight="!Header.Tab.Center.Height.Scaled"
   PositionYOffset="6"
   MarginRight="2"
