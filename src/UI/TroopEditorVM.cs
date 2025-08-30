@@ -30,13 +30,34 @@ namespace CustomClanTroops.UI
                 return row != null && _owner.CustomElite.Contains(row);
             }
         }
+
+        [DataSourceProperty] public bool CanRemoveTroop
+        {
+            get
+            {
+                if (HasUpgradeTarget1) return false;
+                if (_troop.GetParent() == null) return false;
+                return true;
+            }
+        }
+
+        [DataSourceProperty]
+        public bool IsMaxTier
+        {
+            get
+            {
+                if (IsElite && _troop.Tier < 6) return false;
+                if (!IsElite && _troop.Tier < 5) return false;
+                return true;
+            }
+        }
+
         [DataSourceProperty] public bool CanAddUpgradeTarget
         {
             get
             {
                 if (HasUpgradeTarget2) return false;
-                if (IsElite && _troop.Tier < 6) return true;
-                if (!IsElite && _troop.Tier < 5) return true;
+                if (!IsMaxTier) return true;
                 return false;
             }
         }
@@ -292,11 +313,39 @@ namespace CustomClanTroops.UI
             InformationManager.ShowTextInquiry(data);
         }
 
+        [DataSourceMethod] public void ExecuteRemoveTroop()
+        {
+            var troopName = _troop.Name;
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    "Remove Troop?",
+                    $"Are you sure you want to remove '{troopName}'? This cannot be undone.",
+                    true,
+                    true,
+                    "Yes",
+                    "No",
+                    () => {
+                        TroopManager.RemoveTroop(_troop);
+                        _owner.UpdateLists();
+                        _owner.SelectFirstTroop();
+                        Log.Debug($"TroopEditorVM: removed troop '{troopName}'");
+                    },
+                    null
+                )
+            );
+        }
+
+        [DataSourceMethod] public void ExecuteEditEquipment()
+        {
+            Log.Info("TroopEditorVM: ExecuteEditEquipment called");
+        }
+
         public void Refresh()
         {
             OnPropertyChanged(nameof(Gender));
 
             // Upgrade target properties
+            OnPropertyChanged(nameof(CanRemoveTroop));
             OnPropertyChanged(nameof(CanAddUpgradeTarget));
             OnPropertyChanged(nameof(HasUpgradeTarget1));
             OnPropertyChanged(nameof(UpgradeTarget1Id));

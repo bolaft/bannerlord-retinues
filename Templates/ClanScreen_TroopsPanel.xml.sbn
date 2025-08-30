@@ -19,6 +19,18 @@
                       <Children>
                       </Children>
                     </CharacterTableauWidget>
+                    <!-- Row: Remove troop button -->
+                    <ButtonWidget IsVisible="@CanRemoveTroop" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Top" Brush="Popup.Delete.Button" Command.Click="ExecuteRemoveTroop">
+                      <Children>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Remove Troop" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                      </Children>
+                    </ButtonWidget>
+                    <!-- Row: Edit equipment -->
+                    <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="Popup.Done.Button"  Command.Click="ExecuteEditEquipment">
+                      <Children>
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Edit Equipment" />
+                      </Children>
+                    </ButtonWidget>
                   </Children>
                 </Widget>
               </Children>
@@ -101,20 +113,16 @@
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget1" HorizontalAlignment="Center" Text="@UpgradeTarget1Name" ClipContents="false" />
                         <!-- Second upgrade -->
                         <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@HasUpgradeTarget2" HorizontalAlignment="Center" Text="@UpgradeTarget2Name" ClipContents="false" />
+                        <!-- No upgrade -->
+                        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.Tuple.Name.Text" IsVisible="@IsMaxTier" HorizontalAlignment="Center" Text="-" ClipContents="false" />
                         <!-- Row: Add upgrade button below -->
-                        <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="20" StackLayout.LayoutMethod="HorizontalLeftToRight" UpdateChildrenStates="true" IsVisible="@CanAddUpgradeTarget">
+                        <ButtonWidget IsVisible="@CanAddUpgradeTarget" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="Popup.Done.Button" Command.Click="ExecuteAddUpgradeTarget">
                           <Children>
-                            <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginRight="8" Brush="Clan.RightPanel.Name.Text" Text="Add Upgrade" ClipContents="false" />
-                            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="6" Command.Click="ExecuteAddUpgradeTarget" UpdateChildrenStates="true">
-                              <Children>
-                                <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" Brush="SPClan.NameChange.Icon" />
-                              </Children>
-                            </ButtonWidget>
+                            <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Add Upgrade" VerticalAlignment="Center" HorizontalAlignment="Center" />
                           </Children>
-                        </ListPanel>
+                        </ButtonWidget>
                       </Children>
                     </ListPanel>
-
                   </Children>
                 </ListPanel>
               </Children>

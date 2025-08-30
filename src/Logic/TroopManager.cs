@@ -33,5 +33,13 @@ namespace CustomClanTroops
         {
             return BasicCustomTroops.Any() || EliteCustomTroops.Any();
         }
+
+        public static void RemoveTroop(CharacterWrapper troop)
+        {
+            _basicCustomTroops.Remove(troop);
+            _eliteCustomTroops.Remove(troop);
+
+            troop.GetParent()?.RemoveUpgradeTarget(troop);
+        }
     }
 }

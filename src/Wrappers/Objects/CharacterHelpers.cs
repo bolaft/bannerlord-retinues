@@ -11,14 +11,14 @@ namespace CustomClanTroops.Wrappers.Objects
 {
     public static class CharacterHelpers
     {
-        public static CharacterWrapper CloneTroop(CharacterWrapper original, string newName)
+        public static CharacterWrapper CloneTroop(CharacterWrapper original, string newName, CharacterWrapper parent = null)
         {
             // Clone from the source troop
             var cloneObj = CharacterObject.CreateFrom(original.GetCharacterObject());
             Log.Info($"[CharacterHelpers] Cloning troop '{original.StringId}' to '{cloneObj.StringId}' with name '{newName}'.");
 
             // Wrap it
-            CharacterWrapper clone = new CharacterWrapper(cloneObj);
+            CharacterWrapper clone = new CharacterWrapper(cloneObj, parent);
 
             // Set Name
             clone.Name = newName;
@@ -39,7 +39,7 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             string newName = namePrefix + original.Name;
 
-            CharacterWrapper clone = CloneTroop(original, newName);
+            CharacterWrapper clone = CloneTroop(original, newName, parent);
 
             if (parent != null)
             {
@@ -50,7 +50,7 @@ namespace CustomClanTroops.Wrappers.Objects
 
             foreach (var child in original.UpgradeTargets ?? new TaleWorlds.CampaignSystem.CharacterObject[0])
             {
-                var childWrapper = new CharacterWrapper(child);
+                var childWrapper = new CharacterWrapper(child, clone);
                 foreach (var descendant in CloneTroopTree(childWrapper, namePrefix, clone))
                 {
                     yield return descendant;

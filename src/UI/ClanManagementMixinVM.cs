@@ -119,12 +119,7 @@ namespace CustomClanTroops.UI
             try
             {
                 UpdateLists();
-
-                if (_basic.Count > 0)
-                {
-                    SelectExclusive(_basic[0]);
-                    Log.Debug($"ClanManagementMixinVM: auto-selected '{_basic[0].Name}'");
-                }
+                SelectFirstTroop();
             }
             catch (Exception ex)
             {
@@ -146,6 +141,15 @@ namespace CustomClanTroops.UI
             TroopEditor.Refresh();
 
             Log.Debug($"ClanManagementMixinVM: selected '{vm.Name}'");
+        }
+
+        public void SelectFirstTroop()
+        {
+            if (_basic.Count > 0)
+            {
+                SelectExclusive(_basic[0]);
+                Log.Debug($"ClanManagementMixinVM: auto-selected '{_basic[0].Name}'");
+            }
         }
 
         public void UpdateTroops()

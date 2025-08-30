@@ -85,9 +85,11 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
-        public List<Equipment> Equipments {
+        public List<Equipment> Equipments
+        {
             get => _characterObject.AllEquipments.ToList();
-            set {
+            set
+            {
                 var m = _characterObject.GetType().GetMethod(
                     "SetEquipments",
                     BindingFlags.Instance | BindingFlags.NonPublic,
@@ -114,74 +116,93 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
-        public bool IsFemale {
-            get {
+        public bool IsFemale
+        {
+            get
+            {
                 PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsFemale");
                 return (bool)property.GetValue(_characterObject);
             }
-            set {
+            set
+            {
                 PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsFemale");
                 property.SetValue(_characterObject, value);
             }
         }
 
-        public int Athletics {
+        public int Athletics
+        {
             get => GetSkill(DefaultSkills.Athletics);
             set => SetSkill(DefaultSkills.Athletics, value);
         }
-        public int Riding {
+        public int Riding
+        {
             get => GetSkill(DefaultSkills.Riding);
             set => SetSkill(DefaultSkills.Riding, value);
         }
-        public int OneHanded {
+        public int OneHanded
+        {
             get => GetSkill(DefaultSkills.OneHanded);
             set => SetSkill(DefaultSkills.OneHanded, value);
         }
-        public int TwoHanded {
+        public int TwoHanded
+        {
             get => GetSkill(DefaultSkills.TwoHanded);
             set => SetSkill(DefaultSkills.TwoHanded, value);
         }
-        public int Polearm {
+        public int Polearm
+        {
             get => GetSkill(DefaultSkills.Polearm);
             set => SetSkill(DefaultSkills.Polearm, value);
         }
-        public int Bow {
+        public int Bow
+        {
             get => GetSkill(DefaultSkills.Bow);
             set => SetSkill(DefaultSkills.Bow, value);
         }
-        public int Crossbow {
+        public int Crossbow
+        {
             get => GetSkill(DefaultSkills.Crossbow);
             set => SetSkill(DefaultSkills.Crossbow, value);
         }
-        public int Throwing {
+        public int Throwing
+        {
             get => GetSkill(DefaultSkills.Throwing);
             set => SetSkill(DefaultSkills.Throwing, value);
         }
 
-        public CharacterObject[] UpgradeTargets {
-            get {
+        public CharacterObject[] UpgradeTargets
+        {
+            get
+            {
                 var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeTargets");
                 var value = prop.GetValue(_characterObject) as CharacterObject[];
                 return value ?? new CharacterObject[0];
             }
-            set {
+            set
+            {
                 var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeTargets");
                 prop.SetValue(_characterObject, value ?? new CharacterObject[0]);
             }
         }
 
-        public ItemCategory UpgradeRequiresItemFromCategory {
-            get {
+        public ItemCategory UpgradeRequiresItemFromCategory
+        {
+            get
+            {
                 var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeRequiresItemFromCategory");
                 return (ItemCategory)prop.GetValue(_characterObject);
             }
-            set {
+            set
+            {
                 var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeRequiresItemFromCategory");
                 prop.SetValue(_characterObject, value);
             }
         }
 
         private CharacterObject _characterObject;
+
+        private CharacterWrapper _parent;
 
         public CharacterViewModel ViewModel
         {
@@ -199,7 +220,7 @@ namespace CustomClanTroops.Wrappers.Objects
             {
                 var target = UpgradeTargets.FirstOrDefault();
 
-                return target != null ? new CharacterWrapper(target) : null;
+                return target != null ? new CharacterWrapper(target, this) : null;
             }
         }
 
@@ -209,15 +230,24 @@ namespace CustomClanTroops.Wrappers.Objects
             {
                 var target = UpgradeTargets.Skip(1).FirstOrDefault();
 
-                return target != null ? new CharacterWrapper(target) : null;
+                return target != null ? new CharacterWrapper(target, this) : null;
             }
         }
 
-        public CharacterWrapper(CharacterObject co) => _characterObject = co;
+        public CharacterWrapper(CharacterObject co, CharacterWrapper parent = null)
+        {
+            _characterObject = co;
+            _parent = parent;
+        }
 
         public CharacterObject GetCharacterObject()
         {
             return _characterObject;
+        }
+
+        public CharacterWrapper GetParent()
+        {
+            return _parent;
         }
 
         public int GetSkill(SkillObject skill)
@@ -237,6 +267,14 @@ namespace CustomClanTroops.Wrappers.Objects
             var oldTargets = UpgradeTargets ?? new TaleWorlds.CampaignSystem.CharacterObject[0];
             var newTargets = new List<TaleWorlds.CampaignSystem.CharacterObject>(oldTargets);
             newTargets.Add(target.GetCharacterObject());
+            _characterObject.GetType().GetProperty("UpgradeTargets")?.SetValue(_characterObject, newTargets.ToArray());
+        }
+        
+        public void RemoveUpgradeTarget(CharacterWrapper target)
+        {
+            var oldTargets = UpgradeTargets ?? new TaleWorlds.CampaignSystem.CharacterObject[0];
+            var newTargets = new List<TaleWorlds.CampaignSystem.CharacterObject>(oldTargets);
+            newTargets.Remove(target.GetCharacterObject());
             _characterObject.GetType().GetProperty("UpgradeTargets")?.SetValue(_characterObject, newTargets.ToArray());
         }
     }
