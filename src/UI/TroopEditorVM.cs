@@ -66,7 +66,7 @@ namespace CustomClanTroops.UI
             get
             {
                 if (HasUpgradeTarget1) return false;
-                if (_troop.GetParent() == null) return false;
+                if (_troop.Parent == null) return false;
                 return true;
             }
         }
@@ -92,52 +92,45 @@ namespace CustomClanTroops.UI
             }
         }
 
-        [DataSourceProperty] public bool HasUpgradeTarget1 => _troop.UpgradeTarget1 != null;
+        private CharacterObject UpgradeTarget1 => _troop.UpgradeTargets.FirstOrDefault();
 
-        [DataSourceProperty] public string UpgradeTarget1Id => HasUpgradeTarget1 ? _troop.UpgradeTarget1.StringId : null;
+        private CharacterObject UpgradeTarget2 => _troop.UpgradeTargets.Skip(1).FirstOrDefault();
 
-        [DataSourceProperty] public string UpgradeTarget1Name => HasUpgradeTarget1 ? _troop.UpgradeTarget1.Name : null;
+        [DataSourceProperty] public bool HasUpgradeTarget1 => UpgradeTarget1 != null;
 
-        [DataSourceProperty] public bool HasUpgradeTarget2 => _troop.UpgradeTarget2 != null;
+        [DataSourceProperty] public string UpgradeTarget1Id => HasUpgradeTarget1 ? UpgradeTarget1.StringId : null;
 
-        [DataSourceProperty] public string UpgradeTarget2Id => HasUpgradeTarget2 ? _troop.UpgradeTarget2.StringId : null;
+        [DataSourceProperty] public string UpgradeTarget1Name => HasUpgradeTarget1 ? UpgradeTarget1.Name.ToString() : null;
 
-        [DataSourceProperty] public string UpgradeTarget2Name => HasUpgradeTarget2 ? _troop.UpgradeTarget2.Name : null;
+        [DataSourceProperty] public bool HasUpgradeTarget2 => UpgradeTarget2 != null;
 
-        [DataSourceProperty] public int SkillPointsTotal => CharacterWrapper.TotalSkillPointsByTier[_troop.Tier];
+        [DataSourceProperty] public string UpgradeTarget2Id => HasUpgradeTarget2 ? UpgradeTarget2.StringId : null;
 
-        [DataSourceProperty] public int SkillPointsLeft
-        {
-            get
-            {
-                var points = SkillPointsTotal;
-                foreach (var skill in CharacterWrapper.TroopSkills)
-                {
-                    points -= _troop.Skills.FirstOrDefault(s => s.skill == skill).value;
-                }
-                return points;
-            }
-        }
+        [DataSourceProperty] public string UpgradeTarget2Name => HasUpgradeTarget2 ? UpgradeTarget2.Name.ToString() : null;
+
+        [DataSourceProperty] public int SkillPointsTotal => _troop.SkillPoints;
+
+        [DataSourceProperty] public int SkillPointsLeft => _troop.SkillPointsLeft;
 
         [DataSourceProperty] public int SkillPointsUsed => SkillPointsTotal - SkillPointsLeft;
 
-        [DataSourceProperty] public int SkillCap => CharacterWrapper.SkillCapsByTier[_troop.Tier];
+        [DataSourceProperty] public int SkillCap => _troop.SkillCap;
 
-        [DataSourceProperty] public string Athletics => _troop.Athletics.ToString();
+        [DataSourceProperty] public int Athletics => _troop.GetSkill(DefaultSkills.Athletics);
 
-        [DataSourceProperty] public string Riding => _troop.Riding.ToString();
+        [DataSourceProperty] public int Riding => _troop.GetSkill(DefaultSkills.Riding);
 
-        [DataSourceProperty] public string OneHanded => _troop.OneHanded.ToString();
+        [DataSourceProperty] public int OneHanded => _troop.GetSkill(DefaultSkills.OneHanded);
 
-        [DataSourceProperty] public string TwoHanded => _troop.TwoHanded.ToString();
+        [DataSourceProperty] public int TwoHanded => _troop.GetSkill(DefaultSkills.TwoHanded);
 
-        [DataSourceProperty] public string Polearm => _troop.Polearm.ToString();
+        [DataSourceProperty] public int Polearm => _troop.GetSkill(DefaultSkills.Polearm);
 
-        [DataSourceProperty] public string Bow => _troop.Bow.ToString();
+        [DataSourceProperty] public int Bow => _troop.GetSkill(DefaultSkills.Bow);
 
-        [DataSourceProperty] public string Crossbow => _troop.Crossbow.ToString();
+        [DataSourceProperty] public int Crossbow => _troop.GetSkill(DefaultSkills.Crossbow);
 
-        [DataSourceProperty] public string Throwing => _troop.Throwing.ToString();
+        [DataSourceProperty] public int Throwing => _troop.GetSkill(DefaultSkills.Throwing);
         
         [DataSourceProperty] public bool CanIncrementAthletics => CanIncrement(DefaultSkills.Athletics);
 
@@ -175,17 +168,14 @@ namespace CustomClanTroops.UI
         {
             if (_troop == null) return false;
 
-            var belowCap = _troop.Skills.FirstOrDefault(s => s.skill == skill).value < CharacterWrapper.SkillCapsByTier[_troop.Tier];
-            var hasPointsLeft = _owner.TroopEditor.SkillPointsLeft > 0;
-
-            return belowCap && hasPointsLeft;
+            return _troop.GetSkill(skill) < _troop.SkillCap && _troop.SkillPointsLeft > 0;
         }
 
         private bool CanDecrement(SkillObject skill)
         {
             if (_troop == null) return false;
 
-            return _troop.Skills.FirstOrDefault(s => s.skill == skill).value > 0;
+            return _troop.GetSkill(skill) > 0;
         }
 
         private void ModifySkill(SkillObject skill, int change)
@@ -200,13 +190,8 @@ namespace CustomClanTroops.UI
                 if (change > 0 && !CanIncrement(skill)) break;
                 if (change < 0 && !CanDecrement(skill)) break;
 
-                var skills = _troop.Skills;
-                var idx = skills.FindIndex(s => s.skill == skill);
-                if (idx >= 0)
-                {
-                    skills[idx] = (skill, skills[idx].value + change);
-                    _troop.Skills = skills;
-                }
+                int value = _troop.GetSkill(skill) + change;
+                _troop.SetSkill(skill, value);
             }
             _owner.UpdateTroops();
         }
@@ -257,7 +242,8 @@ namespace CustomClanTroops.UI
                     input = (input ?? "").Trim();
                     if (string.IsNullOrWhiteSpace(input)) return;
 
-                    var target = CharacterHelpers.CloneTroop(_troop, input);
+                    var target = _troop.Clone();
+                    target.Name = input;
                     target.Level = _troop.Level + 5;
 
                     _troop.AddUpgradeTarget(target);

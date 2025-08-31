@@ -1,5 +1,6 @@
 using TaleWorlds.CampaignSystem;
 using System;
+using System.Collections.Generic;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Utils;
@@ -8,10 +9,6 @@ namespace CustomClanTroops.Logic
 {
     public static class TroopSetup
     {
-        /// <summary>
-        /// Sets up the initial custom troops for the player's clan by cloning both troop trees (noble and non-noble)
-        /// of the player's culture, prefixing with the clan's name.
-        /// </summary>
         public static void ClonePlayerCultureTroops()
         {
             Log.Debug("[TroopSetup] Starting troop setup...");
@@ -35,7 +32,7 @@ namespace CustomClanTroops.Logic
                 int basicCount = 0;
                 if (basicRoot != null)
                 {
-                    foreach (var clone in CharacterHelpers.CloneTroopTree(basicRoot, namePrefix))
+                    foreach (var clone in CloneTroopTree(basicRoot, namePrefix))
                     {
                         TroopManager.AddBasicTroop(clone);
                         basicCount++;
@@ -52,7 +49,7 @@ namespace CustomClanTroops.Logic
                 int eliteCount = 0;
                 if (eliteRoot != null)
                 {
-                    foreach (var clone in CharacterHelpers.CloneTroopTree(eliteRoot, namePrefix))
+                    foreach (var clone in CloneTroopTree(eliteRoot, namePrefix))
                     {
                         TroopManager.AddEliteTroop(clone);
                         eliteCount++;
@@ -67,6 +64,38 @@ namespace CustomClanTroops.Logic
             catch (Exception ex)
             {
                 Log.Error($"[TroopSetup] Exception during troop setup: {ex}");
+            }
+        }
+
+        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper root, string namePrefix)
+        {
+            foreach (var clone in CloneTroopTree(root, namePrefix, null))
+                yield return clone;
+        }
+
+        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper original, string namePrefix, CharacterWrapper parent = null)
+        {
+            string newName = namePrefix + original.Name;
+
+            CharacterWrapper clone = original.Clone();
+            clone.Name = newName;
+
+            if (parent != null)
+            {
+                clone.Parent = parent;
+                parent.AddUpgradeTarget(clone);
+            }
+
+            yield return clone;
+
+            foreach (var child in original.UpgradeTargets ?? new TaleWorlds.CampaignSystem.CharacterObject[0])
+            {
+                var childWrapper = new CharacterWrapper(child);
+                childWrapper.Parent = clone;
+                foreach (var descendant in CloneTroopTree(childWrapper, namePrefix, clone))
+                {
+                    yield return descendant;
+                }
             }
         }
     }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -15,37 +14,49 @@ namespace CustomClanTroops.Wrappers.Objects
 {
     public class CharacterWrapper
     {
-        public static IReadOnlyDictionary<int, int> SkillCapsByTier = new Dictionary<int, int>
+        public int SkillCap
         {
-            { 1, 20 },
-            { 2, 50 },
-            { 3, 80 },
-            { 4, 120 },
-            { 5, 160 },
-            { 6, 260 }
-        };
+            get
+            {
+                return Tier switch
+                {
+                    1 => 20, 2 => 50, 3 => 80, 4 => 120, 5 => 160, 6 => 260,
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
+            }
+        }
 
-        public static IReadOnlyDictionary<int, int> TotalSkillPointsByTier = new Dictionary<int, int>
+        public int SkillPoints
         {
-            { 1, 90 },
-            { 2, 210 },
-            { 3, 360 },
-            { 4, 535 },
-            { 5, 710 },
-            { 6, 915 }
-        };
+            get
+            {
+                return Tier switch
+                {
+                    1 => 90, 2 => 210, 3 => 360, 4 => 535, 5 => 710, 6 => 915,
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
+            }
+        }
 
-        public static readonly SkillObject[] TroopSkills = new SkillObject[]
+        public int SkillPointsLeft
         {
-            DefaultSkills.Athletics,
-            DefaultSkills.Riding,
-            DefaultSkills.OneHanded,
-            DefaultSkills.TwoHanded,
-            DefaultSkills.Polearm,
-            DefaultSkills.Bow,
-            DefaultSkills.Crossbow,
-            DefaultSkills.Throwing
-        };
+            get
+            {
+                var used = new[]
+                {
+                    DefaultSkills.Athletics,
+                    DefaultSkills.Riding,
+                    DefaultSkills.OneHanded,
+                    DefaultSkills.TwoHanded,
+                    DefaultSkills.Polearm,
+                    DefaultSkills.Bow,
+                    DefaultSkills.Crossbow,
+                    DefaultSkills.Throwing
+                }.Sum(GetSkill);
+
+                return Math.Max(0, SkillPoints - used);
+            }
+        }
 
         public string StringId => _characterObject.StringId;
 
@@ -58,8 +69,11 @@ namespace CustomClanTroops.Wrappers.Objects
             get => _characterObject.Name.ToString();
             set
             {
-                var setNameMethod = Reflector.M((BasicCharacterObject)_characterObject, "SetName", typeof(TextObject));
-                setNameMethod.Invoke(_characterObject, new object[] { new TextObject(value, (Dictionary<string, object>)null) });
+                Reflector.InvokeMethod(
+                    _characterObject,
+                    "SetName",
+                    new[] { typeof(TextObject) },
+                    new TextObject(value, (System.Collections.Generic.Dictionary<string, object>)null));
             }
         }
 
@@ -69,154 +83,69 @@ namespace CustomClanTroops.Wrappers.Objects
             set => _characterObject.Level = value;
         }
 
-        public List<(SkillObject skill, int value)> Skills
-        {
-            get => TroopSkills.Select(skill => (skill, _characterObject.GetSkillValue(skill))).ToList();
-            set
-            {
-                FieldInfo field = Reflector.F<CharacterObject>(_characterObject, "DefaultCharacterSkills");
-                field.SetValue(_characterObject, (object)new MBCharacterSkills());
-                var skillDict = value.ToDictionary(x => x.skill, x => x.value);
-                foreach (var skill in TroopSkills)
-                {
-                    int v = skillDict.TryGetValue(skill, out int val) ? val : 0;
-                    SetSkill(skill, v);
-                }
-            }
-        }
-
         public List<Equipment> Equipments
         {
             get => _characterObject.AllEquipments.ToList();
             set
             {
-                var m = _characterObject.GetType().GetMethod(
-                    "SetEquipments",
-                    BindingFlags.Instance | BindingFlags.NonPublic,
-                    null,
-                    new[] { typeof(Equipment[]) },
-                    null
-                );
-                if (m != null)
+                try
                 {
-                    m.Invoke(_characterObject, new object[] { value.ToArray() });
-                    var updateCode = _characterObject.GetType().GetMethod("UpdateEquipmentCode",
-                        BindingFlags.Instance | BindingFlags.NonPublic);
-                    updateCode?.Invoke(_characterObject, null);
+                    Reflector.InvokeMethod(_characterObject, "SetEquipments", new[] { typeof(Equipment[]) }, value.ToArray());
+                    Reflector.InvokeMethod(_characterObject, "UpdateEquipmentCode", Type.EmptyTypes, Array.Empty<object>());
                 }
-                else
+                catch (MissingMethodException)
                 {
+                    // Fallback: write fields directly
                     MBEquipmentRoster roster = new MBEquipmentRoster();
-                    FieldInfo fEquipList = Reflector.F<MBEquipmentRoster>(roster, "_equipments");
-                    fEquipList.SetValue(roster, new MBList<Equipment>(value));
-                    FieldInfo fRoster = Reflector.F<BasicCharacterObject>((BasicCharacterObject)_characterObject, "_equipmentRoster");
-                    fRoster.SetValue(_characterObject, roster);
+                    Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
+                    Reflector.SetFieldValue(_characterObject, "_equipmentRoster", roster);
                 }
+
                 ((BasicCharacterObject)_characterObject).InitializeEquipmentsOnLoad((BasicCharacterObject)_characterObject);
             }
         }
 
         public bool IsFemale
         {
-            get
-            {
-                PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsFemale");
-                return (bool)property.GetValue(_characterObject);
-            }
-            set
-            {
-                PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsFemale");
-                property.SetValue(_characterObject, value);
-            }
-        }
-        
-        public bool IsHiddenInEncyclopedia
-        {
-            get
-            {
-                PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsHiddenInEncylopedia");
-                return (bool)property.GetValue(_characterObject);
-            }
-            set
-            {
-                PropertyInfo property = Reflector.P<BasicCharacterObject>(_characterObject, "IsHiddenInEncylopedia");
-                property.SetValue(_characterObject, value);
-            }
+            get => Reflector.GetPropertyValue<bool>(_characterObject, "IsFemale");
+            set => Reflector.SetPropertyValue(_characterObject, "IsFemale", value);
         }
 
-        public int Athletics
+        public bool HiddenInEncyclopedia
         {
-            get => GetSkill(DefaultSkills.Athletics);
-            set => SetSkill(DefaultSkills.Athletics, value);
+            get => Reflector.GetPropertyValue<bool>(_characterObject, "HiddenInEncylopedia");
+            set => Reflector.SetPropertyValue(_characterObject, "HiddenInEncylopedia", value);
         }
-        public int Riding
+
+        public bool IsNotTransferableInHideouts
         {
-            get => GetSkill(DefaultSkills.Riding);
-            set => SetSkill(DefaultSkills.Riding, value);
+            get => _characterObject.IsNotTransferableInHideouts;
+            set => _characterObject.SetTransferableInHideouts(!value);
         }
-        public int OneHanded
+
+        public bool IsNotTransferableInPartyScreen
         {
-            get => GetSkill(DefaultSkills.OneHanded);
-            set => SetSkill(DefaultSkills.OneHanded, value);
-        }
-        public int TwoHanded
-        {
-            get => GetSkill(DefaultSkills.TwoHanded);
-            set => SetSkill(DefaultSkills.TwoHanded, value);
-        }
-        public int Polearm
-        {
-            get => GetSkill(DefaultSkills.Polearm);
-            set => SetSkill(DefaultSkills.Polearm, value);
-        }
-        public int Bow
-        {
-            get => GetSkill(DefaultSkills.Bow);
-            set => SetSkill(DefaultSkills.Bow, value);
-        }
-        public int Crossbow
-        {
-            get => GetSkill(DefaultSkills.Crossbow);
-            set => SetSkill(DefaultSkills.Crossbow, value);
-        }
-        public int Throwing
-        {
-            get => GetSkill(DefaultSkills.Throwing);
-            set => SetSkill(DefaultSkills.Throwing, value);
+            get => _characterObject.IsNotTransferableInPartyScreen;
+            set => _characterObject.SetTransferableInPartyScreen(!value);
         }
 
         public CharacterObject[] UpgradeTargets
         {
-            get
-            {
-                var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeTargets");
-                var value = prop.GetValue(_characterObject) as CharacterObject[];
-                return value ?? new CharacterObject[0];
-            }
-            set
-            {
-                var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeTargets");
-                prop.SetValue(_characterObject, value ?? new CharacterObject[0]);
-            }
+            get => Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? Array.Empty<CharacterObject>();
+            set => Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", value ?? Array.Empty<CharacterObject>());
         }
 
         public ItemCategory UpgradeRequiresItemFromCategory
         {
-            get
-            {
-                var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeRequiresItemFromCategory");
-                return (ItemCategory)prop.GetValue(_characterObject);
-            }
-            set
-            {
-                var prop = Reflector.P<CharacterObject>(_characterObject, "UpgradeRequiresItemFromCategory");
-                prop.SetValue(_characterObject, value);
-            }
+            get => Reflector.GetPropertyValue<ItemCategory>(_characterObject, "UpgradeRequiresItemFromCategory");
+            set => Reflector.SetPropertyValue(_characterObject, "UpgradeRequiresItemFromCategory", value);
         }
 
         private CharacterObject _characterObject;
 
-        private CharacterWrapper _parent;
+        public CharacterObject CharacterObject => _characterObject;
+
+        public CharacterWrapper Parent;
 
         public CharacterViewModel ViewModel
         {
@@ -228,40 +157,9 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
-        public CharacterWrapper UpgradeTarget1
-        {
-            get
-            {
-                var target = UpgradeTargets.FirstOrDefault();
-
-                return target != null ? new CharacterWrapper(target, this) : null;
-            }
-        }
-
-        public CharacterWrapper UpgradeTarget2
-        {
-            get
-            {
-                var target = UpgradeTargets.Skip(1).FirstOrDefault();
-
-                return target != null ? new CharacterWrapper(target, this) : null;
-            }
-        }
-
-        public CharacterWrapper(CharacterObject co, CharacterWrapper parent = null)
+        public CharacterWrapper(CharacterObject co)
         {
             _characterObject = co;
-            _parent = parent;
-        }
-
-        public CharacterObject GetCharacterObject()
-        {
-            return _characterObject;
-        }
-
-        public CharacterWrapper GetParent()
-        {
-            return _parent;
         }
 
         public int GetSkill(SkillObject skill)
@@ -271,25 +169,39 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public void SetSkill(SkillObject skill, int value)
         {
-            FieldInfo field = Reflector.F<CharacterObject>(_characterObject, "DefaultCharacterSkills");
-            MBCharacterSkills skills = (MBCharacterSkills)field.GetValue(_characterObject);
+            var skills = Reflector.GetFieldValue<MBCharacterSkills>(_characterObject, "DefaultCharacterSkills");
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
 
         public void AddUpgradeTarget(CharacterWrapper target)
         {
-            var oldTargets = UpgradeTargets ?? new TaleWorlds.CampaignSystem.CharacterObject[0];
-            var newTargets = new List<TaleWorlds.CampaignSystem.CharacterObject>(oldTargets);
-            newTargets.Add(target.GetCharacterObject());
-            _characterObject.GetType().GetProperty("UpgradeTargets")?.SetValue(_characterObject, newTargets.ToArray());
+            var oldTargets = UpgradeTargets ?? Array.Empty<CharacterObject>();
+            var newTargets = new List<CharacterObject>(oldTargets) { target.CharacterObject };
+            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.ToArray());
         }
-        
+
         public void RemoveUpgradeTarget(CharacterWrapper target)
         {
-            var oldTargets = UpgradeTargets ?? new TaleWorlds.CampaignSystem.CharacterObject[0];
-            var newTargets = new List<TaleWorlds.CampaignSystem.CharacterObject>(oldTargets);
-            newTargets.Remove(target.GetCharacterObject());
-            _characterObject.GetType().GetProperty("UpgradeTargets")?.SetValue(_characterObject, newTargets.ToArray());
+            var oldTargets = UpgradeTargets ?? Array.Empty<CharacterObject>();
+            var newTargets = new List<CharacterObject>(oldTargets);
+            newTargets.Remove(target.CharacterObject);
+            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.ToArray());
+        }
+
+        public CharacterWrapper Clone()
+        {
+            // Clone from the source troop
+            var cloneObj = CharacterObject.CreateFrom(_characterObject);
+
+            // Wrap it
+            CharacterWrapper clone = new CharacterWrapper(cloneObj);
+
+            // Set UpgradeTargets
+            clone.UpgradeTargets = Array.Empty<CharacterObject>();
+
+            Log.Debug($"[CharacterHelpers] Cloned troop '{_characterObject.StringId}' to '{cloneObj.StringId}'.");
+
+            return clone;
         }
     }
 }

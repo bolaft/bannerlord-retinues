@@ -12,9 +12,11 @@ namespace CustomClanTroops
     {
 
         private static List<CharacterWrapper> _eliteCustomTroops = new List<CharacterWrapper>();
+
         private static List<CharacterWrapper> _basicCustomTroops = new List<CharacterWrapper>();
 
         public static IEnumerable<CharacterWrapper> EliteCustomTroops => _eliteCustomTroops;
+
         public static IEnumerable<CharacterWrapper> BasicCustomTroops => _basicCustomTroops;
 
         public static void AddBasicTroop(CharacterWrapper troop)
@@ -39,8 +41,11 @@ namespace CustomClanTroops
             _basicCustomTroops.Remove(troop);
             _eliteCustomTroops.Remove(troop);
 
-            troop.GetParent()?.RemoveUpgradeTarget(troop);
-            troop.IsHiddenInEncyclopedia = true;
+            troop.Parent?.RemoveUpgradeTarget(troop);
+
+            troop.HiddenInEncyclopedia = true;
+            troop.IsNotTransferableInPartyScreen = false;
+            troop.IsNotTransferableInHideouts = false;
         }
     }
 }
