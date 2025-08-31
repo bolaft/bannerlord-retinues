@@ -10,6 +10,7 @@ namespace CustomClanTroops.Utils
             BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
 
         // ---------- Core resolvers (walk base types) ----------
+
         private static PropertyInfo ResolveProperty(Type type, string name)
         {
             for (var t = type; t != null; t = t.BaseType)
@@ -43,6 +44,7 @@ namespace CustomClanTroops.Utils
         }
 
         // ---------- Back-compat helpers ----------
+
         internal static PropertyInfo P<T>(T instance, string propertyName)
             => ResolveProperty(instance?.GetType() ?? typeof(T), propertyName);
 
@@ -53,6 +55,7 @@ namespace CustomClanTroops.Utils
             => ResolveMethod(instance?.GetType() ?? typeof(T), methodName, parameterTypes);
 
         // ---------- Public convenience API ----------
+
         public static TReturn GetPropertyValue<TReturn>(object instance, string propertyName)
         {
             if (instance == null) throw new ArgumentNullException(nameof(instance));
@@ -168,6 +171,7 @@ namespace CustomClanTroops.Utils
         }
 
         // ---------- Helpers ----------
+
         private static object ConvertIfNeeded(object value, Type targetType)
         {
             if (targetType == typeof(void)) return null;

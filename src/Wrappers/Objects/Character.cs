@@ -14,6 +14,142 @@ namespace CustomClanTroops.Wrappers.Objects
 {
     public class CharacterWrapper
     {
+        // =========================================================================
+        // Fields & Construction
+        // =========================================================================
+
+        private CharacterObject _characterObject;
+
+        public CharacterWrapper(CharacterObject co)
+        {
+            _characterObject = co;
+        }
+
+        // =========================================================================
+        // Identity & Core Accessors
+        // =========================================================================
+
+        public CharacterObject CharacterObject => _characterObject;
+
+        public string StringId => _characterObject.StringId;
+
+        public int Tier => _characterObject.Tier;
+
+        public CultureObject Culture => _characterObject.Culture;
+
+        public string Name
+        {
+            get => _characterObject.Name.ToString();
+            set
+            {
+                Reflector.InvokeMethod(
+                    _characterObject,
+                    "SetName",
+                    new[] { typeof(TextObject) },
+                    new TextObject(value, (System.Collections.Generic.Dictionary<string, object>)null));
+            }
+        }
+
+        public int Level
+        {
+            get => _characterObject.Level;
+            set => _characterObject.Level = value;
+        }
+
+        // =========================================================================
+        // Relationships
+        // =========================================================================
+
+        public CharacterWrapper Parent;
+
+        // =========================================================================
+        // Equipment Management
+        // =========================================================================
+
+        public List<Equipment> Equipments
+        {
+            get => _characterObject.AllEquipments.ToList();
+            set
+            {
+                try
+                {
+                    Reflector.InvokeMethod(_characterObject, "SetEquipments", new[] { typeof(Equipment[]) }, value.ToArray());
+                    Reflector.InvokeMethod(_characterObject, "UpdateEquipmentCode", Type.EmptyTypes, Array.Empty<object>());
+                }
+                catch (MissingMethodException)
+                {
+                    // Fallback: write fields directly
+                    MBEquipmentRoster roster = new MBEquipmentRoster();
+                    Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
+                    Reflector.SetFieldValue(_characterObject, "_equipmentRoster", roster);
+                }
+
+                ((BasicCharacterObject)_characterObject).InitializeEquipmentsOnLoad((BasicCharacterObject)_characterObject);
+            }
+        }
+
+        // =========================================================================
+        // Flags & Gameplay Toggles
+        // =========================================================================
+
+        public bool IsFemale
+        {
+            get => Reflector.GetPropertyValue<bool>(_characterObject, "IsFemale");
+            set => Reflector.SetPropertyValue(_characterObject, "IsFemale", value);
+        }
+
+        public bool HiddenInEncyclopedia
+        {
+            get => Reflector.GetPropertyValue<bool>(_characterObject, "HiddenInEncylopedia");
+            set => Reflector.SetPropertyValue(_characterObject, "HiddenInEncylopedia", value);
+        }
+
+        public bool IsNotTransferableInHideouts
+        {
+            get => _characterObject.IsNotTransferableInHideouts;
+            set => _characterObject.SetTransferableInHideouts(!value);
+        }
+
+        public bool IsNotTransferableInPartyScreen
+        {
+            get => _characterObject.IsNotTransferableInPartyScreen;
+            set => _characterObject.SetTransferableInPartyScreen(!value);
+        }
+
+        // =========================================================================
+        // Upgrade Data (properties)
+        // =========================================================================
+
+        public CharacterObject[] UpgradeTargets
+        {
+            get => Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? Array.Empty<CharacterObject>();
+            set => Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", value ?? Array.Empty<CharacterObject>());
+        }
+
+        public ItemCategory UpgradeRequiresItemFromCategory
+        {
+            get => Reflector.GetPropertyValue<ItemCategory>(_characterObject, "UpgradeRequiresItemFromCategory");
+            set => Reflector.SetPropertyValue(_characterObject, "UpgradeRequiresItemFromCategory", value);
+        }
+
+        // =========================================================================
+        // View Model
+        // =========================================================================
+
+        public CharacterViewModel ViewModel
+        {
+            get
+            {
+                var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                vm.FillFrom(_characterObject, seed: -1);
+                return vm;
+            }
+        }
+
+        // =========================================================================
+        // Skills (caps, totals, helpers)
+        // =========================================================================
+
         public int SkillCap
         {
             get
@@ -58,110 +194,6 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
-        public string StringId => _characterObject.StringId;
-
-        public int Tier => _characterObject.Tier;
-
-        public CultureObject Culture => _characterObject.Culture;
-
-        public string Name
-        {
-            get => _characterObject.Name.ToString();
-            set
-            {
-                Reflector.InvokeMethod(
-                    _characterObject,
-                    "SetName",
-                    new[] { typeof(TextObject) },
-                    new TextObject(value, (System.Collections.Generic.Dictionary<string, object>)null));
-            }
-        }
-
-        public int Level
-        {
-            get => _characterObject.Level;
-            set => _characterObject.Level = value;
-        }
-
-        public List<Equipment> Equipments
-        {
-            get => _characterObject.AllEquipments.ToList();
-            set
-            {
-                try
-                {
-                    Reflector.InvokeMethod(_characterObject, "SetEquipments", new[] { typeof(Equipment[]) }, value.ToArray());
-                    Reflector.InvokeMethod(_characterObject, "UpdateEquipmentCode", Type.EmptyTypes, Array.Empty<object>());
-                }
-                catch (MissingMethodException)
-                {
-                    // Fallback: write fields directly
-                    MBEquipmentRoster roster = new MBEquipmentRoster();
-                    Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
-                    Reflector.SetFieldValue(_characterObject, "_equipmentRoster", roster);
-                }
-
-                ((BasicCharacterObject)_characterObject).InitializeEquipmentsOnLoad((BasicCharacterObject)_characterObject);
-            }
-        }
-
-        public bool IsFemale
-        {
-            get => Reflector.GetPropertyValue<bool>(_characterObject, "IsFemale");
-            set => Reflector.SetPropertyValue(_characterObject, "IsFemale", value);
-        }
-
-        public bool HiddenInEncyclopedia
-        {
-            get => Reflector.GetPropertyValue<bool>(_characterObject, "HiddenInEncylopedia");
-            set => Reflector.SetPropertyValue(_characterObject, "HiddenInEncylopedia", value);
-        }
-
-        public bool IsNotTransferableInHideouts
-        {
-            get => _characterObject.IsNotTransferableInHideouts;
-            set => _characterObject.SetTransferableInHideouts(!value);
-        }
-
-        public bool IsNotTransferableInPartyScreen
-        {
-            get => _characterObject.IsNotTransferableInPartyScreen;
-            set => _characterObject.SetTransferableInPartyScreen(!value);
-        }
-
-        public CharacterObject[] UpgradeTargets
-        {
-            get => Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? Array.Empty<CharacterObject>();
-            set => Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", value ?? Array.Empty<CharacterObject>());
-        }
-
-        public ItemCategory UpgradeRequiresItemFromCategory
-        {
-            get => Reflector.GetPropertyValue<ItemCategory>(_characterObject, "UpgradeRequiresItemFromCategory");
-            set => Reflector.SetPropertyValue(_characterObject, "UpgradeRequiresItemFromCategory", value);
-        }
-
-        private CharacterObject _characterObject;
-
-        public CharacterObject CharacterObject => _characterObject;
-
-        public CharacterWrapper Parent;
-
-        public CharacterViewModel ViewModel
-        {
-            get
-            {
-                var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-                vm.FillFrom(_characterObject, seed: -1);
-                return vm;
-            }
-        }
-
-        public CharacterWrapper(CharacterObject co)
-        {
-            _characterObject = co;
-        }
-
         public int GetSkill(SkillObject skill)
         {
             return _characterObject.GetSkillValue(skill);
@@ -172,6 +204,10 @@ namespace CustomClanTroops.Wrappers.Objects
             var skills = Reflector.GetFieldValue<MBCharacterSkills>(_characterObject, "DefaultCharacterSkills");
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
+
+        // =========================================================================
+        // Upgrade Helpers (methods)
+        // =========================================================================
 
         public void AddUpgradeTarget(CharacterWrapper target)
         {
@@ -187,6 +223,10 @@ namespace CustomClanTroops.Wrappers.Objects
             newTargets.Remove(target.CharacterObject);
             Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.ToArray());
         }
+
+        // =========================================================================
+        // Cloning
+        // =========================================================================
 
         public CharacterWrapper Clone()
         {

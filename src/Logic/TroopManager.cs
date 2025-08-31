@@ -10,7 +10,6 @@ namespace CustomClanTroops
 {
     public static class TroopManager
     {
-
         private static List<CharacterWrapper> _eliteCustomTroops = new List<CharacterWrapper>();
 
         private static List<CharacterWrapper> _basicCustomTroops = new List<CharacterWrapper>();

@@ -7,6 +7,7 @@ namespace CustomClanTroops.Utils
     public class Log
     {
         private static readonly string LogFile;
+
         static Log()
         {
             try
@@ -46,9 +47,13 @@ namespace CustomClanTroops.Utils
         }
 
         public static void Info(string message) => Write(message, "white");
+
         public static void Success(string message) => Write(message, "green");
+
         public static void Error(string message) => Write(message, "red");
+
         public static void Warn(string message) => Write(message, "yellow");
+
         public static void Debug(string message) => WriteToLogFile(message);
     }
 }
