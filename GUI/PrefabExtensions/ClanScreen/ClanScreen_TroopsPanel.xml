@@ -468,7 +468,7 @@
                                         
                                                 <!-- Add upgrade button -->
                                                 <ButtonWidget
-                                                    IsVisible="true"
+                                                    IsVisible="@CanAddUpgradeTarget"
                                                     DoNotPassEventsToChildren="true"
                                                     WidthSizePolicy="Fixed"
                                                     HeightSizePolicy="Fixed"

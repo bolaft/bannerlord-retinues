@@ -30,6 +30,11 @@ namespace CustomClanTroops
                 _eliteCustomTroops.Add(troop);
         }
 
+        public static bool IsNoble(CharacterWrapper troop)
+        {
+            return EliteCustomTroops.Contains(troop);
+        }
+
         public static bool CustomTroopsExist()
         {
             return BasicCustomTroops.Any() || EliteCustomTroops.Any();
