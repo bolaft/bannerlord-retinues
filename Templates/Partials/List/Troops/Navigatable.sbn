@@ -1,56 +1,54 @@
 {{- func troop_list(kind, datasource) -}}
 <NavigationAutoScrollWidget 
-    TrackedWidget=".\CCT_{{kind}}Header"/>
+    TrackedWidget=".\CCT_{{kind}}Header"
+/>
 
 <ScrollablePanelFixedHeaderWidget 
     Id="CCT_{{kind}}Header" 
     FixedHeader="..\..\..\CCT_{{kind}}Toggle" 
-    WidthSizePolicy="Fixed" 
-    HeightSizePolicy="Fixed" 
-    SuggestedWidth="!Clan.Management.Collapser.Width" 
-    HeaderHeight="!Clan.Management.Collapser.Height" 
-    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+    SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" 
+    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"
+/>
 
 <NavigatableListPanel 
     Id="CCT_{{kind}}List" 
     DataSource="{{datasource}}" 
-    WidthSizePolicy="CoverChildren" 
-    HeightSizePolicy="CoverChildren" 
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
     HorizontalAlignment="Right" 
     StackLayout.LayoutMethod="VerticalBottomToTop" 
-    UseSelfIndexForMinimum="true">
+    UseSelfIndexForMinimum="true"
+>
     <ItemTemplate>
         <ButtonWidget 
             DoNotPassEventsToChildren="true"
-            WidthSizePolicy="Fixed" 
-            HeightSizePolicy="Fixed" 
-            SuggestedHeight="68" 
-            SuggestedWidth="!Clan.Management.Collapser.Width" 
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+            SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" 
             Brush="Clan.Management.LeftTuple" 
             IsSelected="@IsSelected" 
             Command.Click="ExecuteSelect" 
-            UpdateChildrenStates="true">
+            UpdateChildrenStates="true"
+        >
             <Children>
                 <ListPanel 
-                    WidthSizePolicy="StretchToParent" 
-                    HeightSizePolicy="StretchToParent" 
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" 
                     MarginLeft="24" MarginRight="24" 
-                    StackLayout.LayoutMethod="HorizontalLeftToRight">
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                >
                     <Children>
                         <TextWidget 
-                            WidthSizePolicy="StretchToParent" 
-                            HeightSizePolicy="CoverChildren" 
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                             VerticalAlignment="Center" 
                             Brush="Clan.Tuple.Name.Text" 
                             ClipContents="false" 
-                            Text="@DisplayName"/>
+                            Text="@DisplayName"
+                        />
                         <TextWidget 
-                            WidthSizePolicy="CoverChildren" 
-                            HeightSizePolicy="CoverChildren" 
-                            VerticalAlignment="Center" 
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+                            VerticalAlignment="Center" HorizontalAlignment="Right" 
                             Brush="Clan.Tuple.Name.Text" 
-                            HorizontalAlignment="Right" 
-                            Text="@TierText"/>
+                            Text="@TierText"
+                        />
                     </Children>
                 </ListPanel>
             </Children>
@@ -61,8 +59,7 @@
 
 <NavigatableListPanel 
     Id="CCT_ListTroopsListPanel" 
-    WidthSizePolicy="CoverChildren" 
-    HeightSizePolicy="CoverChildren" 
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
     StackLayout.LayoutMethod="VerticalBottomToTop" 
     MinIndex="0" StepSize="1000">
     <Children>

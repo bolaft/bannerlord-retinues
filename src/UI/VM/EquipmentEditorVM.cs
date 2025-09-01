@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TaleWorlds.Library;
 using TaleWorlds.Core;
 using TaleWorlds.PlayerServices;
@@ -14,6 +15,10 @@ namespace CustomClanTroops.UI.VM
         private readonly ClanManagementMixinVM _owner;
 
         private CharacterWrapper Troop => _owner.SelectedTroop;
+
+        private EquipmentListVM EquipmentList => _owner.EquipmentList;
+
+        public EquipmentSlotVM SelectedSlot { get; set; }
 
         public EquipmentEditorVM(ClanManagementMixinVM owner)
         {
@@ -37,6 +42,41 @@ namespace CustomClanTroops.UI.VM
             OnPropertyChanged(nameof(Weapon2Slot));
             OnPropertyChanged(nameof(Weapon3Slot));
             OnPropertyChanged(nameof(Weapon4Slot));
+
+            RefreshSlots();
+        }
+
+        public void RefreshSlots()
+        {
+            HeadSlot.Refresh();
+            CloakSlot.Refresh();
+            BodySlot.Refresh();
+            GlovesSlot.Refresh();
+            BootsSlot.Refresh();
+            MountSlot.Refresh();
+            HarnessSlot.Refresh();
+            Weapon1Slot.Refresh();
+            Weapon2Slot.Refresh();
+            Weapon3Slot.Refresh();
+            Weapon4Slot.Refresh();
+        }
+
+        public void HandleSlotSelected(EquipmentSlotVM slot)
+        {
+            SelectedSlot = slot;
+            RefreshSlots();
+
+            if (EquipmentList != null)
+                EquipmentList.Refresh();
+
+                // Selected item in the list is the already equipped one
+                // var row = EquipmentList.Equipments.FirstOrDefault(r => r.Equipment?.StringId == slot.Item?.StringId);
+                // if (row != null) HandleRowSelected(row);
+        }
+
+        public void HandleRowSelected(EquipmentRowVM row)
+        {
+            if (row == null) return;
         }
 
         [DataSourceProperty] public EquipmentSlotVM HeadSlot    { get; private set; }
@@ -55,23 +95,27 @@ namespace CustomClanTroops.UI.VM
         {
             var eq = GetPrimaryEquipment();
 
-            HeadSlot    = new EquipmentSlotVM(eq, EquipmentIndex.Head);
-            CloakSlot   = new EquipmentSlotVM(eq, EquipmentIndex.Cape);
-            BodySlot    = new EquipmentSlotVM(eq, EquipmentIndex.Body);
-            GlovesSlot  = new EquipmentSlotVM(eq, EquipmentIndex.Gloves);
-            BootsSlot   = new EquipmentSlotVM(eq, EquipmentIndex.Leg);
-            MountSlot   = new EquipmentSlotVM(eq, EquipmentIndex.Horse);
-            HarnessSlot = new EquipmentSlotVM(eq, EquipmentIndex.HorseHarness);
+            HeadSlot = new EquipmentSlotVM(eq, EquipmentIndex.Head, this);
+            CloakSlot = new EquipmentSlotVM(eq, EquipmentIndex.Cape, this);
+            BodySlot = new EquipmentSlotVM(eq, EquipmentIndex.Body, this);
+            GlovesSlot = new EquipmentSlotVM(eq, EquipmentIndex.Gloves, this);
+            BootsSlot = new EquipmentSlotVM(eq, EquipmentIndex.Leg, this);
+            MountSlot = new EquipmentSlotVM(eq, EquipmentIndex.Horse, this);
+            HarnessSlot = new EquipmentSlotVM(eq, EquipmentIndex.HorseHarness, this);
 
-            Weapon1Slot = new EquipmentSlotVM(eq, EquipmentIndex.WeaponItemBeginSlot);
-            Weapon2Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon1);
-            Weapon3Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon2);
-            Weapon4Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon3);
+            Weapon1Slot = new EquipmentSlotVM(eq, EquipmentIndex.WeaponItemBeginSlot, this);
+            Weapon2Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon1, this);
+            Weapon3Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon2, this);
+            Weapon4Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon3, this);
+
+            // Set default selected slot
+            HandleSlotSelected(Weapon1Slot);
 
             // refresh each so UI picks up values immediately
-            HeadSlot.Refresh();   CloakSlot.Refresh();  BodySlot.Refresh();   GlovesSlot.Refresh();
-            BootsSlot.Refresh();  MountSlot.Refresh();  HarnessSlot.Refresh();
+            HeadSlot.Refresh(); CloakSlot.Refresh(); BodySlot.Refresh(); GlovesSlot.Refresh();
+            BootsSlot.Refresh(); MountSlot.Refresh(); HarnessSlot.Refresh();
             Weapon1Slot.Refresh(); Weapon2Slot.Refresh(); Weapon3Slot.Refresh(); Weapon4Slot.Refresh();
+
         }
 
         private Equipment GetPrimaryEquipment()

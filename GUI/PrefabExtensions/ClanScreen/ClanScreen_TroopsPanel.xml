@@ -553,8 +553,8 @@
                                                     HorizontalAlignment="Center"
                                                     StackLayout.LayoutMethod="VerticalBottomToTop"
                                                     UpdateChildrenStates="true"
-                                                    MarginBottom="24"
-                                                    >
+                                                    MarginBottom="24" MarginLeft="160"
+                                                >
                                                 
                                                   <Children>
                                                   
@@ -578,22 +578,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Weapon 1"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Weapon 1"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -611,22 +625,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Weapon 2"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Weapon 2"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -644,22 +672,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Weapon 3"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Weapon 3"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -677,22 +719,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Weapon 4"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Weapon 4"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -701,7 +757,15 @@
                                                             />
                                                         </Children>
                                                     </ListPanel>
-                                                  
+                                                
+                                                    <Widget
+                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
+                                                        SuggestedHeight="4"
+                                                        PositionXOffset="-3"
+                                                        Sprite="Clan\divider_mid" 
+                                                        MarginLeft="100" MarginRight="100" MarginTop="25"
+                                                    />
+                                                
                                                     <!-- Armor -->
                                                     <TextWidget
                                                         WidthSizePolicy="CoverChildren"
@@ -722,22 +786,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Head"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Head"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -756,22 +834,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Cloak"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Cloak"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -790,22 +882,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Armor"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Body"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -824,22 +930,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Gloves"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Gloves"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -858,22 +978,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Boots"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Boots"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -882,6 +1016,14 @@
                                                             />
                                                         </Children>
                                                     </ListPanel>
+                                                
+                                                    <Widget
+                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
+                                                        SuggestedHeight="4"
+                                                        PositionXOffset="-3"
+                                                        Sprite="Clan\divider_mid" 
+                                                        MarginLeft="100" MarginRight="100" MarginTop="25"
+                                                    />
                                                   
                                                     <!-- Mount -->
                                                     <TextWidget
@@ -903,22 +1045,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Mount"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Mount"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -937,22 +1093,36 @@
                                                         MarginBottom="6"
                                                     >
                                                         <Children>
-                                                            <TextWidget
-                                                                Text="Harness"
-                                                                Brush="Clan.Tuple.Name.Text"
-                                                                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                                                                SuggestedWidth="120"
+                                                            <ButtonWidget
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="120" SuggestedHeight="48"
                                                                 VerticalAlignment="Center"
-                                                            />
+                                                                IsSelected="@IsSelected"
+                                                                Brush="ButtonBrush2"
+                                                                MarginRight="32"
+                                                                Command.Click="ExecuteSelect"
+                                                            >
+                                                                <Children>
+                                                                    <TextWidget
+                                                                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                                        Brush="Popup.Button.Text"
+                                                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                        Text="Harness"
+                                                                    />
+                                                                </Children>
+                                                            </ButtonWidget>
+                                                    
                                                             <ImageIdentifierWidget
                                                                 ImageId="@ImageId"
                                                                 ImageTypeCode="@ImageTypeCode"
                                                                 ImageAdditionalArgs="@ImageAdditionalArgs"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="48" SuggestedHeight="48"
+                                                                SuggestedWidth="96" SuggestedHeight="48"
                                                                 HorizontalAlignment="Left"
-                                                                MarginRight="24"
+                                                                MarginRight="32"
                                                             />
+                                                    
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
@@ -1076,64 +1246,61 @@
                 
                                         <NavigatableListPanel 
                                             Id="CCT_ListTroopsListPanel" 
-                                            WidthSizePolicy="CoverChildren" 
-                                            HeightSizePolicy="CoverChildren" 
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
                                             StackLayout.LayoutMethod="VerticalBottomToTop" 
                                             MinIndex="0" StepSize="1000">
                                             <Children>
                                         
                                                 <NavigationAutoScrollWidget 
-                                                    TrackedWidget=".\CCT_EliteHeader"/>
+                                                    TrackedWidget=".\CCT_EliteHeader"
+                                                />
                                                 
                                                 <ScrollablePanelFixedHeaderWidget 
                                                     Id="CCT_EliteHeader" 
                                                     FixedHeader="..\..\..\CCT_EliteToggle" 
-                                                    WidthSizePolicy="Fixed" 
-                                                    HeightSizePolicy="Fixed" 
-                                                    SuggestedWidth="!Clan.Management.Collapser.Width" 
-                                                    HeaderHeight="!Clan.Management.Collapser.Height" 
-                                                    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
+                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+                                                    SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" 
+                                                    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"
+                                                />
                                                 
                                                 <NavigatableListPanel 
                                                     Id="CCT_EliteList" 
                                                     DataSource="{EliteTroops}" 
-                                                    WidthSizePolicy="CoverChildren" 
-                                                    HeightSizePolicy="CoverChildren" 
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
                                                     HorizontalAlignment="Right" 
                                                     StackLayout.LayoutMethod="VerticalBottomToTop" 
-                                                    UseSelfIndexForMinimum="true">
+                                                    UseSelfIndexForMinimum="true"
+                                                >
                                                     <ItemTemplate>
                                                         <ButtonWidget 
                                                             DoNotPassEventsToChildren="true"
-                                                            WidthSizePolicy="Fixed" 
-                                                            HeightSizePolicy="Fixed" 
-                                                            SuggestedHeight="68" 
-                                                            SuggestedWidth="!Clan.Management.Collapser.Width" 
+                                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+                                                            SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" 
                                                             Brush="Clan.Management.LeftTuple" 
                                                             IsSelected="@IsSelected" 
                                                             Command.Click="ExecuteSelect" 
-                                                            UpdateChildrenStates="true">
+                                                            UpdateChildrenStates="true"
+                                                        >
                                                             <Children>
                                                                 <ListPanel 
-                                                                    WidthSizePolicy="StretchToParent" 
-                                                                    HeightSizePolicy="StretchToParent" 
+                                                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" 
                                                                     MarginLeft="24" MarginRight="24" 
-                                                                    StackLayout.LayoutMethod="HorizontalLeftToRight">
+                                                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                                                >
                                                                     <Children>
                                                                         <TextWidget 
-                                                                            WidthSizePolicy="StretchToParent" 
-                                                                            HeightSizePolicy="CoverChildren" 
+                                                                            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                                                                             VerticalAlignment="Center" 
                                                                             Brush="Clan.Tuple.Name.Text" 
                                                                             ClipContents="false" 
-                                                                            Text="@DisplayName"/>
+                                                                            Text="@DisplayName"
+                                                                        />
                                                                         <TextWidget 
-                                                                            WidthSizePolicy="CoverChildren" 
-                                                                            HeightSizePolicy="CoverChildren" 
-                                                                            VerticalAlignment="Center" 
+                                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+                                                                            VerticalAlignment="Center" HorizontalAlignment="Right" 
                                                                             Brush="Clan.Tuple.Name.Text" 
-                                                                            HorizontalAlignment="Right" 
-                                                                            Text="@TierText"/>
+                                                                            Text="@TierText"
+                                                                        />
                                                                     </Children>
                                                                 </ListPanel>
                                                             </Children>
@@ -1141,57 +1308,55 @@
                                                     </ItemTemplate>
                                                 </NavigatableListPanel>
                                                 <NavigationAutoScrollWidget 
-                                                    TrackedWidget=".\CCT_RegularHeader"/>
+                                                    TrackedWidget=".\CCT_RegularHeader"
+                                                />
                                                 
                                                 <ScrollablePanelFixedHeaderWidget 
                                                     Id="CCT_RegularHeader" 
                                                     FixedHeader="..\..\..\CCT_RegularToggle" 
-                                                    WidthSizePolicy="Fixed" 
-                                                    HeightSizePolicy="Fixed" 
-                                                    SuggestedWidth="!Clan.Management.Collapser.Width" 
-                                                    HeaderHeight="!Clan.Management.Collapser.Height" 
-                                                    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
+                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+                                                    SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" 
+                                                    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"
+                                                />
                                                 
                                                 <NavigatableListPanel 
                                                     Id="CCT_RegularList" 
                                                     DataSource="{BasicTroops}" 
-                                                    WidthSizePolicy="CoverChildren" 
-                                                    HeightSizePolicy="CoverChildren" 
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
                                                     HorizontalAlignment="Right" 
                                                     StackLayout.LayoutMethod="VerticalBottomToTop" 
-                                                    UseSelfIndexForMinimum="true">
+                                                    UseSelfIndexForMinimum="true"
+                                                >
                                                     <ItemTemplate>
                                                         <ButtonWidget 
                                                             DoNotPassEventsToChildren="true"
-                                                            WidthSizePolicy="Fixed" 
-                                                            HeightSizePolicy="Fixed" 
-                                                            SuggestedHeight="68" 
-                                                            SuggestedWidth="!Clan.Management.Collapser.Width" 
+                                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+                                                            SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" 
                                                             Brush="Clan.Management.LeftTuple" 
                                                             IsSelected="@IsSelected" 
                                                             Command.Click="ExecuteSelect" 
-                                                            UpdateChildrenStates="true">
+                                                            UpdateChildrenStates="true"
+                                                        >
                                                             <Children>
                                                                 <ListPanel 
-                                                                    WidthSizePolicy="StretchToParent" 
-                                                                    HeightSizePolicy="StretchToParent" 
+                                                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" 
                                                                     MarginLeft="24" MarginRight="24" 
-                                                                    StackLayout.LayoutMethod="HorizontalLeftToRight">
+                                                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                                                >
                                                                     <Children>
                                                                         <TextWidget 
-                                                                            WidthSizePolicy="StretchToParent" 
-                                                                            HeightSizePolicy="CoverChildren" 
+                                                                            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                                                                             VerticalAlignment="Center" 
                                                                             Brush="Clan.Tuple.Name.Text" 
                                                                             ClipContents="false" 
-                                                                            Text="@DisplayName"/>
+                                                                            Text="@DisplayName"
+                                                                        />
                                                                         <TextWidget 
-                                                                            WidthSizePolicy="CoverChildren" 
-                                                                            HeightSizePolicy="CoverChildren" 
-                                                                            VerticalAlignment="Center" 
+                                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+                                                                            VerticalAlignment="Center" HorizontalAlignment="Right" 
                                                                             Brush="Clan.Tuple.Name.Text" 
-                                                                            HorizontalAlignment="Right" 
-                                                                            Text="@TierText"/>
+                                                                            Text="@TierText"
+                                                                        />
                                                                     </Children>
                                                                 </ListPanel>
                                                             </Children>
@@ -1371,10 +1536,94 @@
                             ClipRect="CCT_ListItemsRect" 
                             InnerPanel="CCT_ListItemsRect\CCT_ListItemsListPanel" 
                             MouseScrollAxis="Vertical" 
-                            VerticalScrollbar="..\CCT_ListItemsScrollbar\Scrollbar">
+                            VerticalScrollbar="..\CCT_ListItemsScrollbar\Scrollbar"
+                        >
                             <Children>
                             
-                                <!-- Not implemented -->
+                                <NavigationScopeTargeter 
+                                    ScopeID="CCT_TroopsScope" 
+                                    ScopeParent=".\CCT_ListItemsRect" 
+                                    ScopeMovements="Vertical" 
+                                    IsDefaultNavigationScope="true" 
+                                    DoNotAutoNavigateAfterSort="true"
+                                />
+                
+                                <Widget 
+                                    Id="CCT_ListItemsRect" 
+                                    WidthSizePolicy="CoverChildren" 
+                                    HeightSizePolicy="StretchToParent" 
+                                    ClipContents="true"
+                                >
+                                    <Children>
+                
+                                        <NavigatableListPanel 
+                                            Id="CCT_ListItemsListPanel" 
+                                            WidthSizePolicy="CoverChildren" 
+                                            HeightSizePolicy="CoverChildren" 
+                                            StackLayout.LayoutMethod="VerticalBottomToTop" 
+                                            MinIndex="0" StepSize="1000"
+                                        >
+                                            <Children>
+                                                <NavigationAutoScrollWidget
+                                                    TrackedWidget=".\CCT_ItemHeader"
+                                                />
+                                        
+                                                <ScrollablePanelFixedHeaderWidget 
+                                                    Id="CCT_ItemHeader" 
+                                                    WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
+                                                    SuggestedWidth="!Clan.Management.Collapser.Width"  HeaderHeight="!Clan.Management.Collapser.Height" 
+                                                    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"
+                                                />
+                                        
+                                                <NavigatableListPanel 
+                                                    Id="CCT_ItemList" 
+                                                    DataSource="{Equipments}" 
+                                                    WidthSizePolicy="CoverChildren"  HeightSizePolicy="CoverChildren" 
+                                                    HorizontalAlignment="Right" 
+                                                    StackLayout.LayoutMethod="VerticalBottomToTop" 
+                                                    UseSelfIndexForMinimum="true"
+                                                >
+                                                    <ItemTemplate>
+                                                        <ButtonWidget 
+                                                            DoNotPassEventsToChildren="true"
+                                                            WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
+                                                            SuggestedHeight="68"  SuggestedWidth="!Clan.Management.Collapser.Width" 
+                                                            Brush="Clan.Management.LeftTuple" 
+                                                            IsSelected="@IsSelected" 
+                                                            Command.Click="ExecuteSelect" 
+                                                            UpdateChildrenStates="true"
+                                                        >
+                                                            <Children>
+                                                                <ListPanel 
+                                                                    WidthSizePolicy="StretchToParent"  HeightSizePolicy="StretchToParent" 
+                                                                    MarginLeft="24" MarginRight="24" 
+                                                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                                                >
+                                                                    <Children>
+                                                                        <TextWidget 
+                                                                            WidthSizePolicy="StretchToParent"  HeightSizePolicy="CoverChildren" 
+                                                                            VerticalAlignment="Center" 
+                                                                            Brush="Clan.Tuple.Name.Text" 
+                                                                            ClipContents="false" 
+                                                                            Text="@DisplayName"
+                                                                        />
+                                                                        <TextWidget 
+                                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+                                                                            VerticalAlignment="Center"  HorizontalAlignment="Right" 
+                                                                            Brush="Clan.Tuple.Name.Text" 
+                                                                            Text="@TierText"
+                                                                        />
+                                                                    </Children>
+                                                                </ListPanel>
+                                                            </Children>
+                                                        </ButtonWidget>
+                                                    </ItemTemplate>
+                                                </NavigatableListPanel>
+                                            </Children>
+                                        </NavigatableListPanel>
+                
+                                    </Children>
+                                </Widget>
                 
                             </Children>
                         </ScrollablePanel>

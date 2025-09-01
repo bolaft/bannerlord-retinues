@@ -24,3 +24,13 @@
     </Children>
 </ButtonWidget>
 {{- end -}}
+
+{{- func divider() -}}
+<Widget
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
+    SuggestedHeight="4"
+    PositionXOffset="-3"
+    Sprite="Clan\divider_mid" 
+    MarginLeft="100" MarginRight="100" MarginTop="25"
+/>
+{{- end -}}

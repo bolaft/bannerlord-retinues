@@ -1,11 +1,61 @@
+{{- func slot_row(datasource, label) -}}
+<ListPanel 
+    WidthSizePolicy="CoverChildren" 
+    HeightSizePolicy="CoverChildren" 
+    DataSource="{{datasource}}"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginBottom="6"
+>
+    <Children>
+        <ButtonWidget
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="120" SuggestedHeight="48"
+            VerticalAlignment="Center"
+            IsSelected="@IsSelected"
+            Brush="ButtonBrush2"
+            MarginRight="32"
+            Command.Click="ExecuteSelect"
+        >
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="{{label}}"
+                />
+            </Children>
+        </ButtonWidget>
+
+        <ImageIdentifierWidget
+            ImageId="@ImageId"
+            ImageTypeCode="@ImageTypeCode"
+            ImageAdditionalArgs="@ImageAdditionalArgs"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="96" SuggestedHeight="48"
+            HorizontalAlignment="Left"
+            MarginRight="32"
+        />
+
+        <TextWidget
+            Text="@DisplayName"
+            Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center" HorizontalAlignment="Left"
+        />
+    </Children>
+</ListPanel>
+{{- end -}}
+
+
 <!-- All equipped slots, shown one after the other -->
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop"
     UpdateChildrenStates="true"
-    MarginBottom="24"
-    >
+    MarginBottom="24" MarginLeft="160"
+>
 
   <Children>
   
@@ -13,381 +63,44 @@
     {{ title_header("Weapons") }}
 
     <!-- Weapons 1..4 -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{Weapon1Slot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Weapon 1"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{Weapon1Slot}" "Weapon 1" }}
 
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{Weapon2Slot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Weapon 2"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{Weapon2Slot}" "Weapon 2" }}
 
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{Weapon3Slot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Weapon 3"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{Weapon3Slot}" "Weapon 3" }}
 
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{Weapon4Slot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Weapon 4"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
-  
+    {{ slot_row "{Weapon4Slot}" "Weapon 4" }}
+
+    {{ divider() }}
+
     <!-- Armor -->
     {{ title_header("Armor") }}
 
     <!-- Head -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{HeadSlot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Head"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{HeadSlot}" "Head" }}
 
     <!-- Cloak -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{CloakSlot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Cloak"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{CloakSlot}" "Cloak" }}
 
     <!-- Body -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{BodySlot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Armor"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{BodySlot}" "Body" }}
 
     <!-- Gloves -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{GlovesSlot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Gloves"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{GlovesSlot}" "Gloves" }}
 
     <!-- Boots -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{BootsSlot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Boots"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{BootsSlot}" "Boots" }}
+
+    {{ divider() }}
   
     <!-- Mount -->
     {{ title_header("Mount") }}
 
     <!-- Mount -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{MountSlot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Mount"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{MountSlot}" "Mount" }}
 
     <!-- Harness -->
-    <ListPanel 
-        WidthSizePolicy="CoverChildren" 
-        HeightSizePolicy="CoverChildren" 
-        DataSource="{HarnessSlot}"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        MarginBottom="6"
-    >
-        <Children>
-            <TextWidget
-                Text="Harness"
-                Brush="Clan.Tuple.Name.Text"
-                WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="120"
-                VerticalAlignment="Center"
-            />
-            <ImageIdentifierWidget
-                ImageId="@ImageId"
-                ImageTypeCode="@ImageTypeCode"
-                ImageAdditionalArgs="@ImageAdditionalArgs"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="48" SuggestedHeight="48"
-                HorizontalAlignment="Left"
-                MarginRight="24"
-            />
-            <TextWidget
-                Text="@DisplayName"
-                Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
-            />
-        </Children>
-    </ListPanel>
+    {{ slot_row "{HarnessSlot}" "Harness" }}
 
   </Children>
 </ListPanel>

@@ -86,6 +86,7 @@ namespace CustomClanTroops.UI.VM
                     if (string.IsNullOrWhiteSpace(input)) return;
                     Troop.Name = input;
                     _owner.SelectedRow?.Refresh();
+                    OnPropertyChanged(nameof(Name));
 
                     Log.Debug($"Troop renamed '{current}' → '{input}'");
                 },
@@ -139,6 +140,7 @@ namespace CustomClanTroops.UI.VM
 
                     _owner.TroopList.Refresh();
                     _owner.SelectById(newTroop.StringId);
+                    OnPropertyChanged(nameof(UpgradeTargets));
 
                     Log.Debug($"Upgrade target added: '{input}'");
                 },

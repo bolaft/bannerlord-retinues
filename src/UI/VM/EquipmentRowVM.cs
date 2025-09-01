@@ -1,5 +1,6 @@
 using System;
 using TaleWorlds.Library;
+using TaleWorlds.Core;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
@@ -10,17 +11,17 @@ namespace CustomClanTroops.UI.VM
     {
         private readonly Action<EquipmentRowVM> _onSelect;
 
-        public EquipmentWrapper Equipment { get; }
+        public ItemObject Equipment { get; }
 
         private bool _isSelected;
 
-        public EquipmentRowVM(EquipmentWrapper item, Action<EquipmentRowVM> onSelect)
+        public EquipmentRowVM(ItemObject item, Action<EquipmentRowVM> onSelect)
         {
             Equipment = item;
             _onSelect = onSelect;
         }
 
-        [DataSourceProperty] public string Name => Equipment.Name;
+        [DataSourceProperty] public string Name => Equipment?.Name.ToString();
 
         [DataSourceProperty] public bool IsSelected
         {
