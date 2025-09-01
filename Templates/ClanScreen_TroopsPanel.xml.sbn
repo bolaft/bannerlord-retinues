@@ -37,7 +37,10 @@
                                         {{ action_button("@CanRemoveTroop", "Top", "Popup.Delete.Button", "ExecuteRemoveTroop", "Remove") }}
 
                                         <!-- Edit equipment button -->
-                                        {{ action_button("@IsDefaultMode", "Bottom", "Popup.Done.Button", "ExecuteSwitchToEquipment", "Edit Equipment") }}
+                                        {{ action_button("@IsDefaultMode", "Bottom", "ButtonBrush1", "ExecuteSwitchToEquipment", "Equipment") }}
+
+                                        <!-- Close equipment button -->
+                                        {{ action_button("@IsEquipmentMode", "Bottom", "ButtonBrush3", "ExecuteSwitchToDefault", "Back") }}
                                     </Children>
                                 </Widget>
                             </Children>

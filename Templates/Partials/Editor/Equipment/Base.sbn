@@ -1,25 +1,10 @@
 <ListPanel
     DataSource="{EquipmentEditor}"
-    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
     StackLayout.LayoutMethod="VerticalBottomToTop"
 >
     <Children>
-        <!-- Header -->
-        {{ title_header("Equipment") }}
-    </Children>
-</ListPanel>
-
-<ListPanel
-    StackLayout.LayoutMethod="HorizontalLeftToRight"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
-    HorizontalAlignment="Center"
-    MarginBottom="15"
-    UpdateChildrenStates="true"
->
-    <Children>
-        <!-- Cancel button -->
-        {{ action_button("true", "Bottom", "ButtonBrush3", "ExecuteSwitchToDefault", "Cancel") }}
-        <!-- Confirm button -->
-        {{ action_button("true", "Bottom", "ButtonBrush1", "ExecuteSwitchToDefault", "Confirm") }}
+        <!-- slots -->
+        {{ include "Editor/Equipment/SlotGrid.sbn" }}
     </Children>
 </ListPanel>

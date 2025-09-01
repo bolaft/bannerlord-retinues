@@ -20,7 +20,7 @@
 </ListPanel>
 
 <!-- Add upgrade button -->
-{{ action_button("@CanAddUpgradeTarget", "Bottom", "ButtonBrush1", "ExecuteAddUpgradeTarget", "Add Upgrade") }}
+{{ action_button("@CanAddUpgradeTarget", "Bottom", "Popup.Done.Button", "ExecuteAddUpgradeTarget", "Add Upgrade") }}
 
 <!-- Max Tier -->
 <TextWidget
