@@ -1,0 +1,40 @@
+<!-- Gender header -->
+{{ title_header("Gender") }}
+
+<!-- Gender row -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    MarginBottom="15"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+>
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            MarginRight="8"
+            Brush="Clan.RightPanel.Name.Text"
+            Text="@Gender"
+            ClipContents="false"
+        />
+        <ButtonWidget
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            MarginLeft="6"
+            Command.Click="ExecuteChangeGender"
+            UpdateChildrenStates="true"
+        >
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="32"
+                    SuggestedHeight="32"
+                    Brush="SPClan.NameChange.Icon"
+                />
+            </Children>
+        </ButtonWidget>
+    </Children>
+</ListPanel>

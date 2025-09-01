@@ -135,6 +135,7 @@
                                             StackLayout.LayoutMethod="VerticalBottomToTop"
                                         >
                                             <Children>
+                                                <!-- Name -->
                                                 <!-- Name header -->
                                                 <TextWidget
                                                     WidthSizePolicy="CoverChildren"
@@ -145,7 +146,7 @@
                                                     MarginTop="15"
                                                     MarginBottom="10"
                                                 />
-                                        
+                                                
                                                 <!-- Name row -->
                                                 <ListPanel
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -184,6 +185,7 @@
                                                     </Children>
                                                 </ListPanel>
                                         
+                                                <!-- Gender -->
                                                 <!-- Gender header -->
                                                 <TextWidget
                                                     WidthSizePolicy="CoverChildren"
@@ -194,7 +196,7 @@
                                                     MarginTop="15"
                                                     MarginBottom="10"
                                                 />
-                                        
+                                                
                                                 <!-- Gender row -->
                                                 <ListPanel
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -233,6 +235,7 @@
                                                     </Children>
                                                 </ListPanel>
                                         
+                                                <!-- Skills -->
                                                 <!-- Skills header -->
                                                 <TextWidget
                                                     WidthSizePolicy="CoverChildren"
@@ -243,7 +246,7 @@
                                                     MarginTop="15"
                                                     MarginBottom="10"
                                                 />
-                                        
+                                                
                                                 <!-- Skills points -->
                                                 <ListPanel
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -273,7 +276,7 @@
                                                         />
                                                     </Children>
                                                 </ListPanel>
-                                        
+                                                
                                                 <!-- Skills grid -->
                                                 <ListPanel
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -290,7 +293,6 @@
                                                             MarginBottom="5" UpdateChildrenStates="true"
                                                         >
                                                         <ItemTemplate>
-                                                            
                                                             <ListPanel
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                                                 SuggestedWidth="80" SuggestedHeight="110"
@@ -366,7 +368,6 @@
                                                             MarginBottom="5" UpdateChildrenStates="true"
                                                         >
                                                         <ItemTemplate>
-                                                            
                                                             <ListPanel
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                                                 SuggestedWidth="80" SuggestedHeight="110"
@@ -437,6 +438,7 @@
                                                     </Children>
                                                 </ListPanel>
                                         
+                                                <!-- Upgrades -->
                                                 <!-- Upgrades header -->
                                                 <TextWidget
                                                     WidthSizePolicy="CoverChildren"
@@ -447,7 +449,7 @@
                                                     MarginTop="15"
                                                     MarginBottom="10"
                                                 />
-                                        
+                                                
                                                 <!-- Upgrades list -->
                                                 <ListPanel
                                                     DataSource="{UpgradeTargets}"
@@ -465,7 +467,7 @@
                                                         />
                                                     </ItemTemplate>
                                                 </ListPanel>
-                                        
+                                                
                                                 <!-- Add upgrade button -->
                                                 <ButtonWidget
                                                     IsVisible="@CanAddUpgradeTarget"
@@ -490,7 +492,23 @@
                                                         />
                                                     </Children>
                                                 </ButtonWidget>
-                                            
+                                                
+                                                <TextWidget
+                                                    IsVisible="@IsMaxTier"
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                    HorizontalAlignment="Center"
+                                                    ClipContents="false" 
+                                                    MarginBottom="8"
+                                                    Text="N/A" Brush="Clan.Tuple.Name.Text"
+                                                />
+                                                <!-- Max Tier -->
+                                                <ListPanel
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                    HorizontalAlignment="Center"
+                                                    StackLayout.LayoutMethod="VerticalBottomToTop"
+                                                >
+                                                </ListPanel>
+                                        
                                             </Children>
                                         </ListPanel>
                                     </Children>

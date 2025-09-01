@@ -24,19 +24,15 @@ namespace CustomClanTroops.UI.VM
 
         [DataSourceProperty] public int SkillPointsUsed => Troop?.Skills.Values.Sum() ?? 0;
 
+        [DataSourceProperty] public bool IsMaxTier => Troop?.Tier >= (TroopManager.IsNoble(Troop) ? 6 : 5);
+
         [DataSourceProperty] public bool CanAddUpgradeTarget
         {
             get
             {
                 if (Troop == null) return false;
-
-                int maxTier = TroopManager.IsNoble(Troop) ? 6 : 5;
-
-                if (Troop.Tier >= maxTier)
-                    return false;
-
-                if (Troop.UpgradeTargets.Count() >= 4)
-                    return false;
+                if (IsMaxTier) return false;
+                if (Troop.UpgradeTargets.Count() >= 4) return false;
 
                 return true;
             }
@@ -164,6 +160,7 @@ namespace CustomClanTroops.UI.VM
             OnPropertyChanged(nameof(SkillsRow1));
             OnPropertyChanged(nameof(SkillsRow2));
             OnPropertyChanged(nameof(UpgradeTargets));
+            OnPropertyChanged(nameof(IsMaxTier));
             OnPropertyChanged(nameof(CanAddUpgradeTarget));
         }
     }

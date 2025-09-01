@@ -1,0 +1,40 @@
+<!-- Name header -->
+{{ title_header("Name") }}
+
+<!-- Name row -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    MarginBottom="15"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+>
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            MarginRight="8"
+            Brush="Clan.RightPanel.Name.Text"
+            Text="@Name"
+            ClipContents="false"
+        />
+        <ButtonWidget
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            MarginLeft="6"
+            Command.Click="ExecuteRename"
+            UpdateChildrenStates="true"
+        >
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="32"
+                    SuggestedHeight="32"
+                    Brush="SPClan.NameChange.Icon"
+                />
+            </Children>
+        </ButtonWidget>
+    </Children>
+</ListPanel>

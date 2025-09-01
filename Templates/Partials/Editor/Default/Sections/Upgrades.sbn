@@ -1,0 +1,33 @@
+<!-- Upgrades header -->
+{{ title_header("Upgrades") }}
+
+<!-- Upgrades list -->
+<ListPanel
+    DataSource="{UpgradeTargets}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+>
+    <ItemTemplate>
+        <TextWidget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            ClipContents="false" 
+            MarginBottom="8"
+            Text="@Name" Brush="Clan.Tuple.Name.Text"
+        />
+    </ItemTemplate>
+</ListPanel>
+
+<!-- Add upgrade button -->
+{{ action_button("@CanAddUpgradeTarget", "Bottom", "ButtonBrush1", "ExecuteAddUpgradeTarget", "Add Upgrade") }}
+
+<!-- Max Tier -->
+<TextWidget
+    IsVisible="@IsMaxTier"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    ClipContents="false" 
+    MarginBottom="8"
+    Text="N/A" Brush="Clan.Tuple.Name.Text"
+/>

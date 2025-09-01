@@ -1,0 +1,65 @@
+<!-- Skills header -->
+{{ title_header("Skills") }}
+
+<!-- Skills points -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+    MarginBottom="15"
+>
+    <Children>
+        <TextWidget
+            IntText="@SkillPointsUsed" Brush="Clan.RightPanel.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            ClipContents="false"
+            MarginRight="8"
+        />
+        <TextWidget
+            Text="/" Brush="Clan.RightPanel.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            ClipContents="false"
+            MarginRight="8"
+        />
+        <TextWidget
+            IntText="@SkillPoints" Brush="Clan.RightPanel.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            ClipContents="false" 
+            MarginRight="8"
+        />
+    </Children>
+</ListPanel>
+
+<!-- Skills grid -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    UpdateChildrenStates="true"
+>
+    <Children>
+        <ListPanel
+            DataSource="{SkillsRow1}"
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            MarginBottom="5" UpdateChildrenStates="true"
+        >
+        <ItemTemplate>
+            {{ include "Editor/Default/Sections/Skill.sbn" }}
+        </ItemTemplate>
+        </ListPanel>
+        <ListPanel
+            DataSource="{SkillsRow2}"
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            MarginBottom="5" UpdateChildrenStates="true"
+        >
+        <ItemTemplate>
+            {{ include "Editor/Default/Sections/Skill.sbn" }}
+        </ItemTemplate>
+        </ListPanel>
+    </Children>
+</ListPanel>
