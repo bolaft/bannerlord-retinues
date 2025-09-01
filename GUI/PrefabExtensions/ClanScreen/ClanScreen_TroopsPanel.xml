@@ -558,24 +558,13 @@
                                                 
                                                   <Children>
                                                   
-                                                    <!-- Weapons -->
-                                                    <TextWidget
-                                                        WidthSizePolicy="CoverChildren"
-                                                        HeightSizePolicy="CoverChildren"
-                                                        HorizontalAlignment="Center"
-                                                        Text="Weapons"
-                                                        Brush="Kingdom.TitleSmall.Text"
-                                                        MarginTop="15"
-                                                        MarginBottom="10"
-                                                    />
-                                                
                                                     <!-- Weapons 1..4 -->
                                                     <ListPanel 
                                                         WidthSizePolicy="CoverChildren" 
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{Weapon1Slot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -598,21 +587,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -622,7 +622,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{Weapon2Slot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -645,21 +645,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -669,7 +680,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{Weapon3Slot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -692,21 +703,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -716,7 +738,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{Weapon4Slot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -739,21 +761,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -763,18 +796,7 @@
                                                         SuggestedHeight="4"
                                                         PositionXOffset="-3"
                                                         Sprite="Clan\divider_mid" 
-                                                        MarginLeft="100" MarginRight="100" MarginTop="25"
-                                                    />
-                                                
-                                                    <!-- Armor -->
-                                                    <TextWidget
-                                                        WidthSizePolicy="CoverChildren"
-                                                        HeightSizePolicy="CoverChildren"
-                                                        HorizontalAlignment="Center"
-                                                        Text="Armor"
-                                                        Brush="Kingdom.TitleSmall.Text"
-                                                        MarginTop="15"
-                                                        MarginBottom="10"
+                                                        MarginLeft="40" MarginRight="80" MarginTop="32" MarginBottom="16"
                                                     />
                                                 
                                                     <!-- Head -->
@@ -783,7 +805,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{HeadSlot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -806,21 +828,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -831,7 +864,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{CloakSlot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -854,21 +887,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -879,7 +923,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{BodySlot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -902,21 +946,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -927,7 +982,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{GlovesSlot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -950,21 +1005,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -975,7 +1041,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{BootsSlot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -998,21 +1064,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -1022,27 +1099,16 @@
                                                         SuggestedHeight="4"
                                                         PositionXOffset="-3"
                                                         Sprite="Clan\divider_mid" 
-                                                        MarginLeft="100" MarginRight="100" MarginTop="25"
+                                                        MarginLeft="40" MarginRight="80" MarginTop="32" MarginBottom="16"
                                                     />
                                                   
-                                                    <!-- Mount -->
-                                                    <TextWidget
-                                                        WidthSizePolicy="CoverChildren"
-                                                        HeightSizePolicy="CoverChildren"
-                                                        HorizontalAlignment="Center"
-                                                        Text="Mount"
-                                                        Brush="Kingdom.TitleSmall.Text"
-                                                        MarginTop="15"
-                                                        MarginBottom="10"
-                                                    />
-                                                
                                                     <!-- Mount -->
                                                     <ListPanel 
                                                         WidthSizePolicy="CoverChildren" 
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{MountSlot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -1065,21 +1131,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -1090,7 +1167,7 @@
                                                         HeightSizePolicy="CoverChildren" 
                                                         DataSource="{HarnessSlot}"
                                                         StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                        MarginBottom="6"
+                                                        MarginTop="16"
                                                     >
                                                         <Children>
                                                             <ButtonWidget
@@ -1113,21 +1190,32 @@
                                                                 </Children>
                                                             </ButtonWidget>
                                                     
-                                                            <ImageIdentifierWidget
-                                                                ImageId="@ImageId"
-                                                                ImageTypeCode="@ImageTypeCode"
-                                                                ImageAdditionalArgs="@ImageAdditionalArgs"
+                                                            <Widget
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                SuggestedWidth="96" SuggestedHeight="48"
-                                                                HorizontalAlignment="Left"
-                                                                MarginRight="32"
-                                                            />
+                                                                SuggestedWidth="86" SuggestedHeight="42"
+                                                            >
+                                                                <Children>
+                                                                    <BrushWidget
+                                                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                        Brush="Frame1Brush"
+                                                                    />
+                                                                    <ImageIdentifierWidget
+                                                                        ImageId="@ImageId"
+                                                                        ImageTypeCode="@ImageTypeCode"
+                                                                        AdditionalArgs="@ImageAdditionalArgs"
+                                                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                        SuggestedWidth="86" SuggestedHeight="42"
+                                                                    />
+                                                                </Children>
+                                                            </Widget>
                                                     
                                                             <TextWidget
                                                                 Text="@DisplayName"
                                                                 Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                MarginLeft="24"
                                                             />
                                                         </Children>
                                                     </ListPanel>
@@ -1288,6 +1376,26 @@
                                                                     StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                                 >
                                                                     <Children>
+                                                                        <Widget
+                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                            PositionXOffset="-20"
+                                                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                            SuggestedWidth="68" SuggestedHeight="48"
+                                                                        >
+                                                                            <Children>
+                                                                                <BrushWidget
+                                                                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                                    Brush="Frame1Brush"
+                                                                                />
+                                                                                <ImageIdentifierWidget
+                                                                                    ImageId="@ImageId"
+                                                                                    ImageTypeCode="@ImageTypeCode"
+                                                                                    AdditionalArgs="@ImageAdditionalArgs"
+                                                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                                    SuggestedWidth="68" SuggestedHeight="48"
+                                                                                />
+                                                                            </Children>
+                                                                        </Widget>
                                                                         <TextWidget 
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                                                                             VerticalAlignment="Center" 
@@ -1344,6 +1452,26 @@
                                                                     StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                                 >
                                                                     <Children>
+                                                                        <Widget
+                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                                            PositionXOffset="-20"
+                                                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                            SuggestedWidth="68" SuggestedHeight="48"
+                                                                        >
+                                                                            <Children>
+                                                                                <BrushWidget
+                                                                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                                    Brush="Frame1Brush"
+                                                                                />
+                                                                                <ImageIdentifierWidget
+                                                                                    ImageId="@ImageId"
+                                                                                    ImageTypeCode="@ImageTypeCode"
+                                                                                    AdditionalArgs="@ImageAdditionalArgs"
+                                                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                                    SuggestedWidth="68" SuggestedHeight="48"
+                                                                                />
+                                                                            </Children>
+                                                                        </Widget>
                                                                         <TextWidget 
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                                                                             VerticalAlignment="Center" 
@@ -1577,7 +1705,7 @@
                                                     UseSelfIndexForMinimum="true"
                                                 >
                                                     <ItemTemplate>
-                                                        <ButtonWidget 
+                                                        <ButtonWidget
                                                             DoNotPassEventsToChildren="true"
                                                             WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
                                                             SuggestedHeight="68"  SuggestedWidth="!Clan.Management.Collapser.Width" 
@@ -1587,18 +1715,63 @@
                                                             UpdateChildrenStates="true"
                                                         >
                                                             <Children>
-                                                                <ListPanel 
-                                                                    WidthSizePolicy="StretchToParent"  HeightSizePolicy="StretchToParent" 
-                                                                    MarginLeft="24" MarginRight="24" 
+                                                                <!-- Row layout: icon | name | price -->
+                                                                <ListPanel
+                                                                    WidthSizePolicy="StretchToParent"
+                                                                    HeightSizePolicy="StretchToParent"
+                                                                    MarginLeft="10" MarginRight="10"
                                                                     StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                                 >
+                                        
                                                                     <Children>
-                                                                        <TextWidget 
-                                                                            WidthSizePolicy="StretchToParent"  HeightSizePolicy="CoverChildren" 
-                                                                            VerticalAlignment="Center" 
-                                                                            Brush="Clan.Tuple.Name.Text" 
-                                                                            ClipContents="false" 
+                                        
+                                                                        <!-- Icon -->
+                                                                        <Widget
+                                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                            SuggestedWidth="96" SuggestedHeight="48"
+                                                                            MarginRight="24"
+                                                                        >
+                                                                            <Children>
+                                                                                <BrushWidget
+                                                                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                                    Brush="Frame1Brush"
+                                                                                />
+                                                                                <ImageIdentifierWidget
+                                                                                    ImageId="@ImageId"
+                                                                                    ImageTypeCode="@ImageTypeCode"
+                                                                                    AdditionalArgs="@ImageAdditionalArgs"
+                                                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                                    SuggestedWidth="96" SuggestedHeight="48"
+                                                                                />
+                                                                            </Children>
+                                                                        </Widget>
+                                        
+                                                                        <!-- Name -->
+                                                                        <TextWidget
                                                                             Text="@Name"
+                                                                            Brush="Clan.Tuple.Name.Text"
+                                                                            WidthSizePolicy="StretchToParent"
+                                                                            HeightSizePolicy="CoverChildren"
+                                                                            VerticalAlignment="Center"
+                                                                            MarginLeft="10"
+                                                                        />
+                                        
+                                                                        <!-- Price -->
+                                                                        <TextWidget
+                                                                            IntText="@Price"
+                                                                            Brush="InventoryGoldFontBrush"
+                                                                            WidthSizePolicy="CoverChildren"
+                                                                            HeightSizePolicy="CoverChildren"
+                                                                            HorizontalAlignment="Right"
+                                                                            VerticalAlignment="Center"
+                                                                        />
+                                                                        
+                                                                        <ImageWidget
+                                                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                            SuggestedWidth="20" SuggestedHeight="20"
+                                                                            Sprite="General\Icons\Coin@2x"
+                                                                            VerticalAlignment="Center" 
                                                                         />
                                                                     </Children>
                                                                 </ListPanel>

@@ -109,6 +109,8 @@ namespace CustomClanTroops.UI.VM
 
             OnPropertyChanged(nameof(Gender));
             _owner.RefreshTroopViewModel();
+            _owner.SelectedRow.Refresh();
+            _owner.SelectById(Troop.StringId);
         }
 
         [DataSourceMethod]

@@ -32,8 +32,6 @@ namespace CustomClanTroops.UI.VM
 
         [DataSourceProperty] public bool IsSelected => _owner.SelectedSlot == this;
 
-        [DataSourceProperty] public string Brush => IsSelected ? "ButtonBrush1" : "ButtonBrush2";
-
         [DataSourceProperty] public int ImageTypeCode => Image?.ImageTypeCode ?? 0;
 
         [DataSourceProperty] public string ImageId => Image?.Id ?? "";
@@ -62,7 +60,6 @@ namespace CustomClanTroops.UI.VM
             Log.Debug($"EquipmentSlotVM.Refresh({_slot})");
 
             OnPropertyChanged(nameof(DisplayName));
-            OnPropertyChanged(nameof(Brush));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageAdditionalArgs));

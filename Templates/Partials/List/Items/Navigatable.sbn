@@ -19,7 +19,7 @@
             UseSelfIndexForMinimum="true"
         >
             <ItemTemplate>
-                <ButtonWidget 
+                <ButtonWidget
                     DoNotPassEventsToChildren="true"
                     WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
                     SuggestedHeight="68"  SuggestedWidth="!Clan.Management.Collapser.Width" 
@@ -29,18 +29,63 @@
                     UpdateChildrenStates="true"
                 >
                     <Children>
-                        <ListPanel 
-                            WidthSizePolicy="StretchToParent"  HeightSizePolicy="StretchToParent" 
-                            MarginLeft="24" MarginRight="24" 
+                        <!-- Row layout: icon | name | price -->
+                        <ListPanel
+                            WidthSizePolicy="StretchToParent"
+                            HeightSizePolicy="StretchToParent"
+                            MarginLeft="10" MarginRight="10"
                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                         >
+
                             <Children>
-                                <TextWidget 
-                                    WidthSizePolicy="StretchToParent"  HeightSizePolicy="CoverChildren" 
-                                    VerticalAlignment="Center" 
-                                    Brush="Clan.Tuple.Name.Text" 
-                                    ClipContents="false" 
+
+                                <!-- Icon -->
+                                <Widget
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                    SuggestedWidth="96" SuggestedHeight="48"
+                                    MarginRight="24"
+                                >
+                                    <Children>
+                                        <BrushWidget
+                                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                            Brush="Frame1Brush"
+                                        />
+                                        <ImageIdentifierWidget
+                                            ImageId="@ImageId"
+                                            ImageTypeCode="@ImageTypeCode"
+                                            AdditionalArgs="@ImageAdditionalArgs"
+                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                            SuggestedWidth="96" SuggestedHeight="48"
+                                        />
+                                    </Children>
+                                </Widget>
+
+                                <!-- Name -->
+                                <TextWidget
                                     Text="@Name"
+                                    Brush="Clan.Tuple.Name.Text"
+                                    WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="CoverChildren"
+                                    VerticalAlignment="Center"
+                                    MarginLeft="10"
+                                />
+
+                                <!-- Price -->
+                                <TextWidget
+                                    IntText="@Price"
+                                    Brush="InventoryGoldFontBrush"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                />
+                                
+                                <ImageWidget
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                    SuggestedWidth="20" SuggestedHeight="20"
+                                    Sprite="General\Icons\Coin@2x"
+                                    VerticalAlignment="Center" 
                                 />
                             </Children>
                         </ListPanel>

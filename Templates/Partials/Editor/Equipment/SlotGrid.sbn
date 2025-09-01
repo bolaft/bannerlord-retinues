@@ -4,7 +4,7 @@
     HeightSizePolicy="CoverChildren" 
     DataSource="{{datasource}}"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
-    MarginBottom="6"
+    MarginTop="16"
 >
     <Children>
         <ButtonWidget
@@ -27,21 +27,32 @@
             </Children>
         </ButtonWidget>
 
-        <ImageIdentifierWidget
-            ImageId="@ImageId"
-            ImageTypeCode="@ImageTypeCode"
-            ImageAdditionalArgs="@ImageAdditionalArgs"
+        <Widget
+            HorizontalAlignment="Center" VerticalAlignment="Center"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="96" SuggestedHeight="48"
-            HorizontalAlignment="Left"
-            MarginRight="32"
-        />
+            SuggestedWidth="86" SuggestedHeight="42"
+        >
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    Brush="Frame1Brush"
+                />
+                <ImageIdentifierWidget
+                    ImageId="@ImageId"
+                    ImageTypeCode="@ImageTypeCode"
+                    AdditionalArgs="@ImageAdditionalArgs"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="86" SuggestedHeight="42"
+                />
+            </Children>
+        </Widget>
 
         <TextWidget
             Text="@DisplayName"
             Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center" HorizontalAlignment="Left"
+            MarginLeft="24"
         />
     </Children>
 </ListPanel>
@@ -59,9 +70,6 @@
 
   <Children>
   
-    <!-- Weapons -->
-    {{ title_header("Weapons") }}
-
     <!-- Weapons 1..4 -->
     {{ slot_row "{Weapon1Slot}" "Weapon 1" }}
 
@@ -72,9 +80,6 @@
     {{ slot_row "{Weapon4Slot}" "Weapon 4" }}
 
     {{ divider() }}
-
-    <!-- Armor -->
-    {{ title_header("Armor") }}
 
     <!-- Head -->
     {{ slot_row "{HeadSlot}" "Head" }}
@@ -93,9 +98,6 @@
 
     {{ divider() }}
   
-    <!-- Mount -->
-    {{ title_header("Mount") }}
-
     <!-- Mount -->
     {{ slot_row "{MountSlot}" "Mount" }}
 

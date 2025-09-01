@@ -36,6 +36,26 @@
                     StackLayout.LayoutMethod="HorizontalLeftToRight"
                 >
                     <Children>
+                        <Widget
+                            VerticalAlignment="Center" HorizontalAlignment="Left"
+                            PositionXOffset="-20"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="68" SuggestedHeight="48"
+                        >
+                            <Children>
+                                <BrushWidget
+                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                    Brush="Frame1Brush"
+                                />
+                                <ImageIdentifierWidget
+                                    ImageId="@ImageId"
+                                    ImageTypeCode="@ImageTypeCode"
+                                    AdditionalArgs="@ImageAdditionalArgs"
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                    SuggestedWidth="68" SuggestedHeight="48"
+                                />
+                            </Children>
+                        </Widget>
                         <TextWidget 
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                             VerticalAlignment="Center" 

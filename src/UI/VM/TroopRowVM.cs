@@ -20,6 +20,12 @@ namespace CustomClanTroops.UI.VM
             _onSelect = onSelect;
         }
 
+        [DataSourceProperty] public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
+
+        [DataSourceProperty] public string ImageId => Troop?.Image.Id ?? "";
+
+        [DataSourceProperty] public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs ?? "";
+
         [DataSourceProperty] public string TierText => $"T{Troop.Tier}";
 
         [DataSourceProperty] public string DisplayName
@@ -54,6 +60,9 @@ namespace CustomClanTroops.UI.VM
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(DisplayName));
             OnPropertyChanged(nameof(TierText));
+            OnPropertyChanged(nameof(ImageId));
+            OnPropertyChanged(nameof(ImageTypeCode));
+            OnPropertyChanged(nameof(ImageAdditionalArgs));
         }
     }
 }

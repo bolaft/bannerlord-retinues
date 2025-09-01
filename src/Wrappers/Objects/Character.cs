@@ -27,9 +27,11 @@ namespace CustomClanTroops.Wrappers.Objects
 
         // =========================================================================
         // Identity & Core Accessors
-        // =========================================================================
+        // ========================================================================
 
         public CharacterObject CharacterObject => _characterObject;
+
+        public ImageIdentifierVM Image => new ImageIdentifierVM(CharacterCode.CreateFrom(_characterObject));
 
         public string StringId => _characterObject.StringId;
 

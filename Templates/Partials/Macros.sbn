@@ -31,6 +31,6 @@
     SuggestedHeight="4"
     PositionXOffset="-3"
     Sprite="Clan\divider_mid" 
-    MarginLeft="100" MarginRight="100" MarginTop="25"
+    MarginLeft="40" MarginRight="80" MarginTop="32" MarginBottom="16"
 />
 {{- end -}}
