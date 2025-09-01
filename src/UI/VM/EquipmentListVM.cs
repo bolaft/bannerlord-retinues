@@ -28,7 +28,11 @@ namespace CustomClanTroops.UI.VM
 
             Equipments.Clear();
 
-            foreach (var item in EquipmentManager.GetUnlockedItems(selectedSlot.Slot))
+            var items = EquipmentManager.GetUnlockedItems(selectedSlot.Slot)
+                .OrderBy(i => i.ItemType)
+                .ThenBy(i => i.Name?.ToString() ?? string.Empty);
+
+            foreach (var item in items)
             {
                 var row = new EquipmentRowVM(item, _owner.EquipmentEditor.HandleRowSelected);
                 if (selectedItem != null && item.StringId == selectedItem.StringId)

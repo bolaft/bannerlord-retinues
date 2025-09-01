@@ -19,6 +19,7 @@ namespace CustomClanTroops
         {
             if (item == null) return;
             if (!IsSupportedType(item.ItemType)) return;
+            if (!IsValidEquipment(item)) return;
 
             var list = Unlocked[item.ItemType];
             if (!list.Contains(item))
@@ -110,6 +111,63 @@ namespace CustomClanTroops
         {
             // Keys we pre-initialize define support
             return Unlocked.ContainsKey(t);
+        }
+
+        /// Returns true if the item is a valid piece of troop equipment (ignores pack animals, boulders, etc.).
+        public static bool IsValidEquipment(ItemObject item)
+        {
+            if (item == null)
+                return false;
+
+            switch (item.ItemType)
+            {
+                // Armor pieces
+                case ItemObject.ItemTypeEnum.HeadArmor:
+                case ItemObject.ItemTypeEnum.Cape:
+                case ItemObject.ItemTypeEnum.BodyArmor:
+                case ItemObject.ItemTypeEnum.HandArmor:
+                case ItemObject.ItemTypeEnum.LegArmor:
+                    return item.ArmorComponent != null;
+
+                // Mounts (exclude pack animals/livestock)
+                case ItemObject.ItemTypeEnum.Horse:
+                    var hc = item.HorseComponent;
+                    if (hc == null) return false;
+                    if (hc.IsLiveStock) return false;
+                    if (item.ItemCategory == DefaultItemCategories.PackAnimal) return false;
+                    return true;
+
+                // Harness
+                case ItemObject.ItemTypeEnum.HorseHarness:
+                    return true;
+
+                // Weapons
+                case ItemObject.ItemTypeEnum.OneHandedWeapon:
+                case ItemObject.ItemTypeEnum.TwoHandedWeapon:
+                case ItemObject.ItemTypeEnum.Polearm:
+                case ItemObject.ItemTypeEnum.Bow:
+                case ItemObject.ItemTypeEnum.Crossbow:
+                case ItemObject.ItemTypeEnum.Thrown:
+                case ItemObject.ItemTypeEnum.Shield:
+                    var wc = item.WeaponComponent;
+                    if (wc == null) return false;
+                    var w = wc.PrimaryWeapon;
+                    if (w == null) return false;
+
+                    var cls = w.WeaponClass.ToString();
+                    if (cls == "Stone" || cls == "Boulder" || cls == "LargeStone")
+                        return false;
+
+                    return true;
+
+                // Banner
+                case ItemObject.ItemTypeEnum.Banner:
+                    return true;
+
+                // Everything else (trade goods, animals, props, food, etc.)
+                default:
+                    return false;
+            }
         }
 
         private static IEnumerable<ItemObject> EnumerateItems(Equipment eq)
