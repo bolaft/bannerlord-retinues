@@ -1,0 +1,66 @@
+
+<ListPanel
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="80" SuggestedHeight="110"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center"
+    MarginRight="20" MarginLeft="20" MarginBottom="20"
+>
+    <Children>
+        <SkillIconVisualWidget
+            SkillId="@StringId"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="80" SuggestedHeight="80"
+            DoNotPassEventsToChildren="false"
+            MarginBottom="6"
+        />
+        <ListPanel
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center"
+            UpdateChildrenStates="true"
+        >
+            <Children>
+                <Widget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="24" SuggestedHeight="24"
+                >
+                    <Children>
+                        <ButtonWidget
+                            IsVisible="@CanDecrement"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="24" SuggestedHeight="24"
+                            Brush="ButtonRightBigArrowBrush1"
+                            DoNotPassEventsToChildren="true"
+                            UpdateChildrenStates="true"
+                            Command.Click="ExecuteDecrement"
+                        />
+                    </Children>
+                </Widget>
+                <TextWidget
+                    IntText="@Value"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="32" SuggestedHeight="24"
+                    Brush="Encyclopedia.Skill.Text" Brush.FontSize="24" Brush.FontColor="#F4E1C4FF"
+                    HorizontalAlignment="Center"
+                />
+                <Widget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="24" SuggestedHeight="24"
+                >
+                    <Children>
+                        <ButtonWidget
+                            IsVisible="@CanIncrement"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="24" SuggestedHeight="24"
+                            Brush="ButtonLeftBigArrowBrush1"
+                            DoNotPassEventsToChildren="true"
+                            UpdateChildrenStates="true"
+                            Command.Click="ExecuteIncrement"
+                        />
+                    </Children>
+                </Widget>
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>

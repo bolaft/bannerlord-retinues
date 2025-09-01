@@ -1,0 +1,26 @@
+
+{{- func action_button(is_visible, vertical_align, brush, command, text) -}}
+<ButtonWidget
+    IsVisible="{{is_visible}}"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed"
+    HeightSizePolicy="Fixed"
+    SuggestedWidth="!CancelButton.Width"
+    SuggestedHeight="!CancelButton.Height"
+    HorizontalAlignment="Center"
+    VerticalAlignment="{{vertical_align}}"
+    Brush="{{brush}}"
+    Command.Click="{{command}}"
+>
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            Brush="Popup.Button.Text"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Text="{{text}}"
+        />
+    </Children>
+</ButtonWidget>
+{{- end -}}

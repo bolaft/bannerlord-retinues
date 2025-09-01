@@ -174,25 +174,19 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
-        public int SkillPointsLeft
-        {
-            get
+        public Dictionary<SkillObject, int> Skills =>
+            new[]
             {
-                var used = new[]
-                {
-                    DefaultSkills.Athletics,
-                    DefaultSkills.Riding,
-                    DefaultSkills.OneHanded,
-                    DefaultSkills.TwoHanded,
-                    DefaultSkills.Polearm,
-                    DefaultSkills.Bow,
-                    DefaultSkills.Crossbow,
-                    DefaultSkills.Throwing
-                }.Sum(GetSkill);
-
-                return Math.Max(0, SkillPoints - used);
+                DefaultSkills.Athletics,
+                DefaultSkills.Riding,
+                DefaultSkills.OneHanded,
+                DefaultSkills.TwoHanded,
+                DefaultSkills.Polearm,
+                DefaultSkills.Bow,
+                DefaultSkills.Crossbow,
+                DefaultSkills.Throwing
             }
-        }
+            .ToDictionary(skill => skill, skill => GetSkill(skill));
 
         public int GetSkill(SkillObject skill)
         {

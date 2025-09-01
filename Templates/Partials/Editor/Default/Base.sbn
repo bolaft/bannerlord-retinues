@@ -1,0 +1,180 @@
+<ListPanel
+    DataSource="{TroopEditor}"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+>
+    <Children>
+        <!-- Name header -->
+        {{ title_header("Name") }}
+
+        <!-- Name row -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            MarginBottom="15"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true"
+        >
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    MarginRight="8"
+                    Brush="Clan.RightPanel.Name.Text"
+                    Text="@Name"
+                    ClipContents="false"
+                />
+                <ButtonWidget
+                    DoNotPassEventsToChildren="true"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    MarginLeft="6"
+                    Command.Click="ExecuteRename"
+                    UpdateChildrenStates="true"
+                >
+                    <Children>
+                        <BrushWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="32"
+                            SuggestedHeight="32"
+                            Brush="SPClan.NameChange.Icon"
+                        />
+                    </Children>
+                </ButtonWidget>
+            </Children>
+        </ListPanel>
+
+        <!-- Gender header -->
+        {{ title_header("Gender") }}
+
+        <!-- Gender row -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            MarginBottom="15"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true"
+        >
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    MarginRight="8"
+                    Brush="Clan.RightPanel.Name.Text"
+                    Text="@Gender"
+                    ClipContents="false"
+                />
+                <ButtonWidget
+                    DoNotPassEventsToChildren="true"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    MarginLeft="6"
+                    Command.Click="ExecuteChangeGender"
+                    UpdateChildrenStates="true"
+                >
+                    <Children>
+                        <BrushWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="32"
+                            SuggestedHeight="32"
+                            Brush="SPClan.NameChange.Icon"
+                        />
+                    </Children>
+                </ButtonWidget>
+            </Children>
+        </ListPanel>
+
+        <!-- Skills header -->
+        {{ title_header("Skills") }}
+
+        <!-- Skills points -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true"
+            MarginBottom="15"
+        >
+            <Children>
+                <TextWidget
+                    IntText="@SkillPointsUsed" Brush="Clan.RightPanel.Name.Text"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    ClipContents="false"
+                    MarginRight="8"
+                />
+                <TextWidget
+                    Text="/" Brush="Clan.RightPanel.Name.Text"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    ClipContents="false"
+                    MarginRight="8"
+                />
+                <TextWidget
+                    IntText="@SkillPoints" Brush="Clan.RightPanel.Name.Text"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    ClipContents="false" 
+                    MarginRight="8"
+                />
+            </Children>
+        </ListPanel>
+
+        <!-- Skills grid -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            UpdateChildrenStates="true"
+        >
+            <Children>
+                <ListPanel
+                    DataSource="{SkillsRow1}"
+                    HorizontalAlignment="Center"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    MarginBottom="5" UpdateChildrenStates="true"
+                >
+                <ItemTemplate>
+                    {{ include "Editor/Default/Skill.sbn" }}
+                </ItemTemplate>
+                </ListPanel>
+                <ListPanel
+                    DataSource="{SkillsRow2}"
+                    HorizontalAlignment="Center"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    MarginBottom="5" UpdateChildrenStates="true"
+                >
+                <ItemTemplate>
+                    {{ include "Editor/Default/Skill.sbn" }}
+                </ItemTemplate>
+                </ListPanel>
+            </Children>
+        </ListPanel>
+
+        <!-- Upgrades header -->
+        {{ title_header("Upgrades") }}
+
+        <!-- Upgrades list -->
+        <ListPanel
+            DataSource="{UpgradeTargets}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+        >
+            <ItemTemplate>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center"
+                    ClipContents="false" 
+                    MarginBottom="8"
+                    Text="@Name" Brush="Clan.Tuple.Name.Text"
+                />
+            </ItemTemplate>
+        </ListPanel>
+
+        <!-- Add upgrade button -->
+        {{ action_button("@CanAddUpgradeTarget", "Bottom", "ButtonBrush1", "ExecuteAddUpgradeTarget", "Add Upgrade") }}
+    
+    </Children>
+</ListPanel>

@@ -1,10 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Widget Id="CCT_TroopsRoot" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" IsVisible="@IsTroopsSelected" DoNotAcceptEvents="false">
-	<Children>
-    {{ include "TroopEditor.sbn" }}
 
-    {{ include "TroopListDefault.sbn" }}
-    
-    {{ include "TroopListEquipment.sbn" }}
-  </Children>
+<!-- Template macros -->
+{{ include "Macros.sbn" }}
+
+<Widget 
+    IsVisible="@IsTroopsSelected"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    DoNotAcceptEvents="false"
+>
+	<Children>
+
+        <Widget 
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            MarginLeft="600" MarginRight="290"
+        >
+            <Children>
+                <Widget
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                >
+                    <Children>
+                        <Widget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            MarginRight="290"
+                        >
+                            <Children>
+                                <Widget
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
+                                    SuggestedWidth="465" SuggestedHeight="512"
+                                    HorizontalAlignment="Left"
+                                >
+                                    <Children>
+                                        <!-- Character tableau -->
+                                        {{ include "Tableau.sbn" }}
+
+                                        <!-- Remove troop button -->
+                                        {{ action_button("@CanRemoveTroop", "Top", "Popup.Delete.Button", "ExecuteRemoveTroop", "Remove") }}
+
+                                        <!-- Edit equipment button -->
+                                        {{ action_button("@IsDefaultMode", "Bottom", "Popup.Done.Button", "ExecuteSwitchToEquipment", "Edit Equipment") }}
+                                    </Children>
+                                </Widget>
+                            </Children>
+                        </Widget>
+                        <Widget
+                            VisualDefinition="RightPanel"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            PositionXOffset="800"
+                            MarginLeft="340"
+                        >
+                            <Children>
+                                <!-- Troop editor -->
+                                {{ include "Editor/Base.sbn" }}
+                            </Children>
+                        </Widget>
+                    </Children>
+                </Widget>
+            </Children>
+        </Widget>
+
+        <!-- Scrollable list -->
+        {{ include "List/Base.sbn" }}
+
+    </Children>
 </Widget>

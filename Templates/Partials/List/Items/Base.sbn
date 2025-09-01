@@ -1,0 +1,35 @@
+{{ include "List/SortHeader.sbn" }}
+
+<ListPanel 
+    WidthSizePolicy="CoverChildren" 
+    HeightSizePolicy="StretchToParent"
+>
+    <Children>
+        <ScrollablePanel 
+            DataSource="{ItemList}"
+            Id="CCT_ListItemsScrollablePanel" 
+            WidthSizePolicy="CoverChildren" 
+            MinWidth="!Clan.Management.Collapser.Width" 
+            HeightSizePolicy="StretchToParent" 
+            MarginLeft="3" MarginBottom="3" 
+            AutoHideScrollBars="true" 
+            ClipRect="CCT_ListItemsRect" 
+            InnerPanel="CCT_ListItemsRect\CCT_ListItemsListPanel" 
+            MouseScrollAxis="Vertical" 
+            VerticalScrollbar="..\CCT_ListItemsScrollbar\Scrollbar">
+            <Children>
+            
+                <!-- Not implemented -->
+
+            </Children>
+        </ScrollablePanel>
+
+        <Standard.VerticalScrollbar 
+            Id="CCT_ListItemsScrollbar" 
+            HeightSizePolicy="StretchToParent" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Bottom" 
+            MarginLeft="2" MarginRight="2" MarginBottom="3"
+        />
+    </Children>
+</ListPanel>
