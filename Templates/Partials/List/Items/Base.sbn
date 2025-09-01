@@ -6,7 +6,7 @@
 >
     <Children>
         <ScrollablePanel 
-            DataSource="{ItemList}"
+            DataSource="{EquipmentList}"
             Id="CCT_ListItemsScrollablePanel" 
             WidthSizePolicy="CoverChildren" 
             MinWidth="!Clan.Management.Collapser.Width" 

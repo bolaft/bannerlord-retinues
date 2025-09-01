@@ -10,13 +10,6 @@
             TrackedWidget=".\CCT_ItemHeader"
         />
 
-        <ScrollablePanelFixedHeaderWidget 
-            Id="CCT_ItemHeader" 
-            WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
-            SuggestedWidth="!Clan.Management.Collapser.Width"  HeaderHeight="!Clan.Management.Collapser.Height" 
-            AdditionalBottomOffset="!Clan.Members.Sort.1.Height"
-        />
-
         <NavigatableListPanel 
             Id="CCT_ItemList" 
             DataSource="{Equipments}" 
@@ -47,13 +40,7 @@
                                     VerticalAlignment="Center" 
                                     Brush="Clan.Tuple.Name.Text" 
                                     ClipContents="false" 
-                                    Text="@DisplayName"
-                                />
-                                <TextWidget 
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                    VerticalAlignment="Center"  HorizontalAlignment="Right" 
-                                    Brush="Clan.Tuple.Name.Text" 
-                                    Text="@TierText"
+                                    Text="@Name"
                                 />
                             </Children>
                         </ListPanel>

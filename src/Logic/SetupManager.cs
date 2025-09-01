@@ -7,25 +7,33 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.Logic
 {
-    public static class TroopSetup
+    public static class SetupManager
     {
-        public static void ClonePlayerCultureTroops()
+        public static void Setup()
         {
-            Log.Debug("[TroopSetup] Starting troop setup...");
+            HeroWrapper hero = new HeroWrapper();
+            var clan = hero.Clan;
+            var culture = hero.Culture;
+
+            CloneCultureTroops(clan, culture);
+
+            EquipmentManager.UnlockFromCulture(culture);
+        }
+
+        private static void CloneCultureTroops(ClanWrapper clan, CultureWrapper culture)
+        {
+            Log.Debug("[SetupManager] Starting troop setup...");
             try
             {
-                HeroWrapper hero = new HeroWrapper();
-                var clan = hero.Clan;
-                var culture = hero.Culture;
                 if (clan == null || culture == null)
                 {
-                    Log.Warn("[TroopSetup] Clan or culture not found. Aborting troop setup.");
+                    Log.Warn("[SetupManager] Clan or culture not found. Aborting troop setup.");
                     return;
                 }
 
                 string namePrefix = clan.Name + " ";
 
-                Log.Debug($"[TroopSetup] Cloning troop trees for clan '{clan.Name}' and culture '{culture.Name}'.");
+                Log.Debug($"[SetupManager] Cloning troop trees for clan '{clan.Name}' and culture '{culture.Name}'.");
 
                 // Clone basic troop tree and collect clones
                 CharacterWrapper basicRoot = culture.RootBasic;
@@ -37,11 +45,11 @@ namespace CustomClanTroops.Logic
                         TroopManager.AddBasicTroop(clone);
                         basicCount++;
                     }
-                    Log.Debug($"[TroopSetup] Cloned basic troop tree. {basicCount} troops cloned.");
+                    Log.Debug($"[SetupManager] Cloned basic troop tree. {basicCount} troops cloned.");
                 }
                 else
                 {
-                    Log.Warn("[TroopSetup] No basic troop root found.");
+                    Log.Warn("[SetupManager] No basic troop root found.");
                 }
 
                 // Clone elite troop tree and collect clones
@@ -54,26 +62,26 @@ namespace CustomClanTroops.Logic
                         TroopManager.AddEliteTroop(clone);
                         eliteCount++;
                     }
-                    Log.Debug($"[TroopSetup] Cloned elite troop tree. {eliteCount} troops cloned.");
+                    Log.Debug($"[SetupManager] Cloned elite troop tree. {eliteCount} troops cloned.");
                 }
                 else
                 {
-                    Log.Warn("[TroopSetup] No elite troop root found.");
+                    Log.Warn("[SetupManager] No elite troop root found.");
                 }
             }
             catch (Exception ex)
             {
-                Log.Error($"[TroopSetup] Exception during troop setup: {ex}");
+                Log.Error($"[SetupManager] Exception during troop setup: {ex}");
             }
         }
 
-        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper root, string namePrefix)
+        private static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper root, string namePrefix)
         {
             foreach (var clone in CloneTroopTree(root, namePrefix, null))
                 yield return clone;
         }
 
-        public static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper original, string namePrefix, CharacterWrapper parent = null)
+        private static IEnumerable<CharacterWrapper> CloneTroopTree(CharacterWrapper original, string namePrefix, CharacterWrapper parent = null)
         {
             string newName = namePrefix + original.Name;
 
@@ -85,6 +93,9 @@ namespace CustomClanTroops.Logic
                 clone.Parent = parent;
                 parent.AddUpgradeTarget(clone);
             }
+
+            // Copied troops' equipment is always unlocked
+            EquipmentManager.UnlockFromTroop(clone);
 
             yield return clone;
 

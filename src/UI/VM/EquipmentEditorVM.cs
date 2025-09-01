@@ -66,17 +66,18 @@ namespace CustomClanTroops.UI.VM
             SelectedSlot = slot;
             RefreshSlots();
 
-            if (EquipmentList != null)
-                EquipmentList.Refresh();
+            if (EquipmentList == null) return;
 
-                // Selected item in the list is the already equipped one
-                // var row = EquipmentList.Equipments.FirstOrDefault(r => r.Equipment?.StringId == slot.Item?.StringId);
-                // if (row != null) HandleRowSelected(row);
+            EquipmentList.Refresh();
         }
 
         public void HandleRowSelected(EquipmentRowVM row)
         {
+            Log.Debug($"EquipmentEditorVM.HandleRowSelected(): row = {row?.Equipment?.StringId}");
+    
             if (row == null) return;
+
+            foreach (var r in EquipmentList.Equipments) r.IsSelected = ReferenceEquals(r, row);
         }
 
         [DataSourceProperty] public EquipmentSlotVM HeadSlot    { get; private set; }

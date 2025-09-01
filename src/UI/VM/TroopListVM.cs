@@ -43,7 +43,7 @@ namespace CustomClanTroops.UI.VM
             if (_owner.SelectedRow == null)
                 _owner.SelectFirstTroop();
 
-            Log.Info($"TroopList.Refresh: Basic={BasicTroops.Count}, Elite={EliteTroops.Count}");
+            Log.Debug($"TroopList.Refresh: Basic={BasicTroops.Count}, Elite={EliteTroops.Count}");
         }
 
         private void AddTroopWithChildren(CharacterWrapper troop, MBBindingList<TroopRowVM> list, int depth)

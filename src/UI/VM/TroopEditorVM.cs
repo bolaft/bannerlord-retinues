@@ -72,7 +72,7 @@ namespace CustomClanTroops.UI.VM
         [DataSourceMethod]
         public void ExecuteRename()
         {
-            Log.Info($"{nameof(ExecuteRename)} called.");
+            Log.Debug($"{nameof(ExecuteRename)} called.");
 
             var current = Troop.Name;
 
@@ -103,7 +103,7 @@ namespace CustomClanTroops.UI.VM
         [DataSourceMethod]
         public void ExecuteChangeGender()
         {
-            Log.Info($"{nameof(ExecuteChangeGender)} called.");
+            Log.Debug($"{nameof(ExecuteChangeGender)} called.");
 
             Troop.IsFemale = !Troop.IsFemale;
 
@@ -114,7 +114,7 @@ namespace CustomClanTroops.UI.VM
         [DataSourceMethod]
         public void ExecuteAddUpgradeTarget()
         {
-            Log.Info($"{nameof(ExecuteAddUpgradeTarget)} called.");
+            Log.Debug($"{nameof(ExecuteAddUpgradeTarget)} called.");
 
             InformationManager.ShowTextInquiry(new TextInquiryData(
                 "Add Upgrade", "Enter the name of the new troop:",

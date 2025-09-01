@@ -13,9 +13,11 @@ namespace CustomClanTroops.UI.VM
     {
         private readonly Equipment _equipment;
 
+        private readonly EquipmentEditorVM _owner;
+
         private readonly EquipmentIndex _slot;
 
-        private readonly EquipmentEditorVM _owner;
+        public EquipmentIndex Slot => _slot;
 
         public EquipmentSlotVM(Equipment equipment, EquipmentIndex slot, EquipmentEditorVM owner)
         {

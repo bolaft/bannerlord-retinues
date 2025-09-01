@@ -92,7 +92,7 @@ namespace CustomClanTroops.UI
         [DataSourceMethod]
         public void ExecuteSelectTroops()
         {
-            Log.Info($"{nameof(ExecuteSelectTroops)} called");
+            Log.Debug($"{nameof(ExecuteSelectTroops)} called");
 
             // deselect vanilla tabs
             ViewModel.IsMembersSelected = false;
@@ -120,8 +120,8 @@ namespace CustomClanTroops.UI
                 // If manager says nothing exists, seed from player culture.
                 if (!TroopManager.CustomTroopsExist())
                 {
-                    Log.Info("EnsureTroopsReady: no custom troops -> seeding from player culture.");
-                    TroopSetup.ClonePlayerCultureTroops();
+                    Log.Debug("EnsureTroopsReady: no custom troops -> seeding from player culture.");
+                    SetupManager.Setup();
                 }
 
                 // Update left pane
@@ -222,7 +222,7 @@ namespace CustomClanTroops.UI
         [DataSourceMethod]
         public void ExecuteRemoveTroop()
         {
-            Log.Info($"{nameof(ExecuteRemoveTroop)} called.");
+            Log.Debug($"{nameof(ExecuteRemoveTroop)} called.");
 
             if (SelectedTroop == null) return;
 

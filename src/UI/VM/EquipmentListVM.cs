@@ -19,16 +19,28 @@ namespace CustomClanTroops.UI.VM
 
         public void Refresh()
         {
-            // // Placeholder: get only the item in slot
-            // var selectedItem = _owner.EquipmentEditor.SelectedSlot?.Item;
-            // var items = selectedItem != null ? new[] { selectedItem } : Array.Empty<ItemObject>();
+            var selectedSlot = _owner.EquipmentEditor?.SelectedSlot;
+            var selectedItem = selectedSlot?.Item;
 
-            // Equipments.Clear();
+            Log.Debug($"EquipmentListVM.Refresh(): selectedItem = {selectedItem?.StringId}");
 
-            // foreach (var item in items)
-            //     Equipments.Add(new EquipmentRowVM(item, _owner.EquipmentEditor.HandleRowSelected));
+            EquipmentRowVM currentRow = null;
 
-            // OnPropertyChanged(nameof(Equipments));
+            Equipments.Clear();
+
+            foreach (var item in EquipmentManager.GetUnlockedItems(selectedSlot.Slot))
+            {
+                var row = new EquipmentRowVM(item, _owner.EquipmentEditor.HandleRowSelected);
+                if (selectedItem != null && item.StringId == selectedItem.StringId)
+                    currentRow = row;
+                Equipments.Add(row);
+            }
+
+            _owner.EquipmentEditor.HandleRowSelected(currentRow);
+
+            OnPropertyChanged(nameof(Equipments));
+
+            Log.Debug($"EquipmentListVM.Refresh(): {Equipments.Count} items loaded");
         }
     }
 }

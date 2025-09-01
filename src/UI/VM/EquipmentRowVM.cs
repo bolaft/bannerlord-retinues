@@ -15,9 +15,9 @@ namespace CustomClanTroops.UI.VM
 
         private bool _isSelected;
 
-        public EquipmentRowVM(ItemObject item, Action<EquipmentRowVM> onSelect)
+        public EquipmentRowVM(ItemObject equipment, Action<EquipmentRowVM> onSelect)
         {
-            Equipment = item;
+            Equipment = equipment;
             _onSelect = onSelect;
         }
 
