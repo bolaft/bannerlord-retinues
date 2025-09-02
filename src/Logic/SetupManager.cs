@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Wrappers.Campaign;
+using CustomClanTroops.Logic.Items;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.Logic
@@ -19,7 +20,7 @@ namespace CustomClanTroops.Logic
             CloneCultureTroops(clan, culture);
 
             // Unlock cultural gear
-            EquipmentManager.UnlockFromCulture(culture);
+            UnlockManager.UnlockFromCulture(culture);
         }
 
         private static void CloneCultureTroops(ClanWrapper clan, CultureWrapper culture)
@@ -97,7 +98,7 @@ namespace CustomClanTroops.Logic
             }
 
             // Copied troops' equipment is always unlocked
-            EquipmentManager.UnlockFromTroop(clone);
+            UnlockManager.UnlockFromTroop(clone);
 
             // Only keep the first variant
             clone.Equipments = clone.Equipments.Take(1).ToList();

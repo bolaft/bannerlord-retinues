@@ -132,6 +132,7 @@ namespace CustomClanTroops.UI.VM
                     newTroop.Name = input;
                     newTroop.Level = Troop.Level + 5;
                     newTroop.Parent = Troop;
+                    newTroop.UnequipAll();
 
                     if (TroopManager.EliteCustomTroops.Contains(Troop))
                         TroopManager.AddEliteTroop(newTroop);

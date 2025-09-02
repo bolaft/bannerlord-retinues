@@ -6,7 +6,7 @@ using TaleWorlds.ObjectSystem;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 
-namespace CustomClanTroops
+namespace CustomClanTroops.Logic
 {
     public static class TroopManager
     {

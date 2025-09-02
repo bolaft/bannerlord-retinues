@@ -17,12 +17,12 @@ namespace CustomClanTroops.Utils
 
         // Defaults
         private static bool _disallowMountsForTier1 = true;
-        private static bool _disallowHigherTierEquipment = true;
+        private static bool _limitEquipmentByTier = true;
         private static bool _payForTroopEquipment = true;
         private static bool _allEquipmentUnlocked = false;
 
         public static bool DisallowMountsForTier1 { get; set; } = _disallowMountsForTier1;
-        public static bool DisallowHigherTierEquipment { get; set; } = _disallowHigherTierEquipment;
+        public static bool LimitEquipmentByTier { get; set; } = _limitEquipmentByTier;
         public static bool PayForTroopEquipment { get; set; } = _payForTroopEquipment;
         public static bool AllEquipmentUnlocked { get; set; } = _allEquipmentUnlocked;
 
@@ -49,8 +49,8 @@ namespace CustomClanTroops.Utils
                     var value = parts[1].Trim();
                     if (key.Equals("DisallowMountsForTier1", StringComparison.OrdinalIgnoreCase))
                         DisallowMountsForTier1 = ParseBool(value, _disallowMountsForTier1);
-                    else if (key.Equals("DisallowHigherTierEquipment", StringComparison.OrdinalIgnoreCase))
-                        DisallowHigherTierEquipment = ParseBool(value, _disallowHigherTierEquipment);
+                    else if (key.Equals("LimitEquipmentByTier", StringComparison.OrdinalIgnoreCase))
+                        LimitEquipmentByTier = ParseBool(value, _limitEquipmentByTier);
                     else if (key.Equals("PayForTroopEquipment", StringComparison.OrdinalIgnoreCase))
                         PayForTroopEquipment = ParseBool(value, _payForTroopEquipment);
                     else if (key.Equals("AllEquipmentUnlocked", StringComparison.OrdinalIgnoreCase))

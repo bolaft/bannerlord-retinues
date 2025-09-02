@@ -531,32 +531,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -587,32 +588,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -643,32 +645,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -699,32 +702,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -764,32 +768,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -821,32 +826,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -878,32 +884,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -935,32 +942,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -992,32 +1000,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -1057,32 +1066,33 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                         
@@ -1114,36 +1124,57 @@
                                                         
                                                                 <!-- Equipment visual -->
                                                                 <Widget
-                                                                    IsVisible="true"
                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                    SuggestedWidth="86" SuggestedHeight="42"
-                                                                    PositionXOffset="0" PositionYOffset="0"
-                                                                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0">
+                                                                    SuggestedWidth="86" SuggestedHeight="42">
                                                                     <Children>
                                                                         <BrushWidget
                                                                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                             Brush="Frame1Brush"/>
                                                                         <ImageIdentifierWidget
-                                                                            ImageId="@ImageId"
-                                                                            ImageTypeCode="@ImageTypeCode"
-                                                                            AdditionalArgs="@ImageAdditionalArgs"
+                                                                            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
                                                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                                            SuggestedWidth="86" SuggestedHeight="42"/>
+                                                                            SuggestedWidth="86" SuggestedHeight="42">
+                                                                            <Children>
+                                                                                <HintWidget
+                                                                                    DataSource="{Hint}"
+                                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                                            </Children>
+                                                                        </ImageIdentifierWidget>
                                                                     </Children>
                                                                 </Widget>
                                                         
+                                                                <!-- Equipment name -->
                                                                 <TextWidget
                                                                     Text="@DisplayName"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                                    MarginLeft="24"
-                                                                />
+                                                                    MarginLeft="24"/>
                                                             </Children>
                                                         </ListPanel>
                                                     </Children>
                                                 </ListPanel>
+                                        
+                                                <!-- Unequip all button -->
+                                                <ButtonWidget
+                                                    IsVisible="true"
+                                                    DoNotPassEventsToChildren="true"
+                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                    SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Top"
+                                                    Brush="Popup.Delete.Button"
+                                                    Command.Click="ExecuteUnequipAll">
+                                                    <Children>
+                                                        <TextWidget
+                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                            Brush="Popup.Button.Text"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                            Text="Unequip All"/>
+                                                    </Children>
+                                                </ButtonWidget>
+                                        
                                             </Children>
                                         </ListPanel>
                                     </Children>
@@ -1574,6 +1605,11 @@
                                                             Command.Click="ExecuteSelect" 
                                                             UpdateChildrenStates="true">
                                                             <Children>
+                                                                <HintWidget
+                                                                    DataSource="{Hint}"
+                                                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                                                                 <ListPanel
                                                                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                                                     MarginLeft="10" MarginRight="10"

@@ -127,14 +127,43 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
-        public void Unequip(EquipmentIndex slot, int set = 0)
+        public ItemObject Unequip(EquipmentIndex slot, int set = 0)
         {
             var equipments = Equipments.ToList();
             if (set < 0 || set >= equipments.Count())
-                return;
+                return null;
             var eq = equipments[set];
+            var item = eq[slot].Item;
             eq[slot] = EquipmentElement.Invalid;
             Equipments = equipments;
+            return item;
+        }
+
+        public List<ItemObject> UnequipAll(int set = 0)
+        {
+            var unequippedItems = new List<ItemObject>();
+            var equipments = Equipments.ToList();
+            if (set < 0 || set >= equipments.Count())
+                return unequippedItems;
+            var eq = equipments[set];
+
+            var slots = new[]
+            {
+                EquipmentIndex.Head, EquipmentIndex.Cape, EquipmentIndex.Body, EquipmentIndex.Gloves, EquipmentIndex.Leg,
+                EquipmentIndex.Horse, EquipmentIndex.HorseHarness,
+                EquipmentIndex.WeaponItemBeginSlot, EquipmentIndex.Weapon1, EquipmentIndex.Weapon2, EquipmentIndex.Weapon3
+            };
+
+            foreach (var slot in slots)
+            {
+                var item = eq[slot].Item;
+                eq[slot] = EquipmentElement.Invalid;
+                if (item != null)
+                    unequippedItems.Add(item);
+            }
+
+            Equipments = equipments;
+            return unequippedItems;
         }
 
         public Dictionary<SkillObject, int> MinimumSkillRequirements

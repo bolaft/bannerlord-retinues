@@ -1,8 +1,13 @@
 using System;
 using System.Text;
+using System.Collections.Generic;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
+using CustomClanTroops.Logic.Items;
+using CustomClanTroops.Helpers;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM
@@ -70,7 +75,7 @@ namespace CustomClanTroops.UI.VM
 
         [DataSourceProperty] public bool CanEquip => _canEquip;
 
-        [DataSourceProperty] public int Stock => EquipmentManager.GetStock(Equipment);
+        [DataSourceProperty] public int Stock => StockManager.GetStock(Equipment);
 
         [DataSourceProperty] public bool ShowStock
         {
@@ -117,5 +122,7 @@ namespace CustomClanTroops.UI.VM
                 return true;
             }
         }
+
+        [DataSourceProperty] public BasicTooltipViewModel Hint => ItemHelpers.MakeTooltip(Equipment);
     }
 }

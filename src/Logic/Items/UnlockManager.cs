@@ -8,42 +8,12 @@ using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 
-namespace CustomClanTroops
+namespace CustomClanTroops.Logic.Items
 {
-    public static class EquipmentManager
+    public static class UnlockManager
     {
-
         // Pre-initialized with empty lists.
         public static readonly Dictionary<ItemObject.ItemTypeEnum, List<ItemObject>> Unlocked = InitEmptyUnlocked();
-
-        // Tracks the number of each item in stock
-        public static readonly Dictionary<ItemObject, int> Stocks = new();
-
-        // Add one to the stock of an item
-        public static void AddToStock(ItemObject item)
-        {
-            if (item == null) return;
-            if (Stocks.ContainsKey(item))
-                Stocks[item]++;
-            else
-                Stocks[item] = 1;
-        }
-
-        // Remove one from the stock of an item (minimum 0)
-        public static void RemoveFromStock(ItemObject item)
-        {
-            if (item == null) return;
-            if (Stocks.TryGetValue(item, out int count) && count > 0)
-                Stocks[item] = count - 1;
-        }
-
-        public static int GetStock(ItemObject item)
-        {
-            if (item == null) return 0;
-            if (Stocks.TryGetValue(item, out int count))
-                return count;
-            return 0;
-        }
 
         // Unlock an item
         public static void Unlock(ItemObject item)
@@ -129,7 +99,12 @@ namespace CustomClanTroops
                     ItemObject.ItemTypeEnum.Bow,
                     ItemObject.ItemTypeEnum.Crossbow,
                     ItemObject.ItemTypeEnum.Thrown,
-                    ItemObject.ItemTypeEnum.Shield
+                    ItemObject.ItemTypeEnum.Shield,
+                    ItemObject.ItemTypeEnum.Bolts,
+                    ItemObject.ItemTypeEnum.Arrows,
+                    ItemObject.ItemTypeEnum.Pistol,
+                    ItemObject.ItemTypeEnum.Musket,
+                    ItemObject.ItemTypeEnum.Bullets
                 },
 
             _ => Array.Empty<ItemObject.ItemTypeEnum>()
@@ -199,6 +174,11 @@ namespace CustomClanTroops
                 case ItemObject.ItemTypeEnum.Crossbow:
                 case ItemObject.ItemTypeEnum.Thrown:
                 case ItemObject.ItemTypeEnum.Shield:
+                case ItemObject.ItemTypeEnum.Pistol:
+                case ItemObject.ItemTypeEnum.Musket:
+                case ItemObject.ItemTypeEnum.Bullets:
+                case ItemObject.ItemTypeEnum.Bolts:
+                case ItemObject.ItemTypeEnum.Arrows:
                     var wc = item.WeaponComponent;
                     if (wc == null) return false;
                     var w = wc.PrimaryWeapon;

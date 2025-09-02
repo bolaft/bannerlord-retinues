@@ -3,8 +3,9 @@ using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
-using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Logic;
+using CustomClanTroops.Logic.Items;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM
@@ -28,7 +29,7 @@ namespace CustomClanTroops.UI.VM
 
             Equipments.Clear();
 
-            var items = EquipmentManager.GetUnlockedItems(selectedSlot.Slot)
+            var items = UnlockManager.GetUnlockedItems(selectedSlot.Slot)
                 .OrderBy(i => i.ItemType)
                 .ThenBy(i => i.Name?.ToString() ?? string.Empty);
 
@@ -40,10 +41,11 @@ namespace CustomClanTroops.UI.VM
             foreach (var item in items)
             {
                 // Items limited by tier
-                if (Config.DisallowHigherTierEquipment)
+                if (Config.LimitEquipmentByTier)
                 {
-                    int tierIndex = Array.IndexOf(Enum.GetValues(item.Tier.GetType()), item.Tier) + 1;
-                    if (tierIndex > _owner.SelectedTroop.Tier)
+                    int tierIndex = Array.IndexOf(Enum.GetValues(item.Tier.GetType()), item.Tier);
+                    int allowedDifference = 3;
+                    if (tierIndex + 1 - allowedDifference > _owner.SelectedTroop.Tier)
                         continue;
                 }
                 var row = new EquipmentRowVM(item, _owner.SelectedTroop.CanEquip(item), _owner.EquipmentEditor.HandleRowClicked);

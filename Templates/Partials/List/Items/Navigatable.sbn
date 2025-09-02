@@ -22,6 +22,11 @@
                     Command.Click="ExecuteSelect" 
                     UpdateChildrenStates="true">
                     <Children>
+                        <HintWidget
+                            DataSource="{Hint}"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                         <ListPanel
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                             MarginLeft="10" MarginRight="10"

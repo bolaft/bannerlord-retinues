@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using TaleWorlds.Library;
 using TaleWorlds.Core;
 using TaleWorlds.PlayerServices;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Helpers;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM
@@ -72,5 +75,7 @@ namespace CustomClanTroops.UI.VM
         {
             _owner.HandleSlotSelected(this);
         }
+
+        [DataSourceProperty] public BasicTooltipViewModel Hint => ItemHelpers.MakeTooltip(Item);
     }
 }

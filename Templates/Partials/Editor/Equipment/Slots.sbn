@@ -25,15 +25,34 @@
         </ButtonWidget>
 
         <!-- Equipment visual -->
-        {{ image("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "86", "42") }}
+        <Widget
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="86" SuggestedHeight="42">
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    Brush="Frame1Brush"/>
+                <ImageIdentifierWidget
+                    ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="86" SuggestedHeight="42">
+                    <Children>
+                        <HintWidget
+                            DataSource="{Hint}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </ImageIdentifierWidget>
+            </Children>
+        </Widget>
 
+        <!-- Equipment name -->
         <TextWidget
             Text="@DisplayName"
             Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center" HorizontalAlignment="Left"
-            MarginLeft="24"
-        />
+            MarginLeft="24"/>
     </Children>
 </ListPanel>
 {{- end -}}

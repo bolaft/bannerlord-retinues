@@ -3,12 +3,13 @@ using System.Linq;
 using TaleWorlds.Library;
 using TaleWorlds.Core;
 using TaleWorlds.PlayerServices;
+using TaleWorlds.CampaignSystem;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Logic.Items;
 using CustomClanTroops.Utils;
-using TaleWorlds.CampaignSystem;
 
 namespace CustomClanTroops.UI.VM
 {
@@ -105,7 +106,7 @@ namespace CustomClanTroops.UI.VM
                         // Deduct the gold
                         HeroWrapper.ChangeGold(-row.Cost);
                         // Add item to stocks
-                        EquipmentManager.AddToStock(row.Equipment);
+                        StockManager.AddToStock(row.Equipment);
                         // Proceed with item selection
                         SelectRow(row);
                     }, Troop.Name, equipmentName, row.Cost);
@@ -127,11 +128,11 @@ namespace CustomClanTroops.UI.VM
         private void SelectRow(EquipmentRowVM row)
         {
             // Remove one item from stocks
-            EquipmentManager.RemoveFromStock(row.Equipment);
+            StockManager.RemoveFromStock(row.Equipment);
 
             // Add previous item to stocks
             if (SelectedSlot?.Item != null)
-                EquipmentManager.AddToStock(SelectedSlot.Item);
+                StockManager.AddToStock(SelectedSlot.Item);
 
             // Equip the Item
             Troop.EquipItem(row.Equipment, SelectedSlot.Slot);
@@ -216,6 +217,23 @@ namespace CustomClanTroops.UI.VM
             // Get only the first variant
             var list = Troop?.Equipments;
             return (list != null && list.Count > 0) ? list[0] : default;
+        }
+
+        [DataSourceMethod]
+        public void ExecuteUnequipAll()
+        {
+            if (Troop == null) return;
+
+            var unequippedItems = Troop.UnequipAll();
+
+            // Add all unequipped items to stocks
+            foreach (var item in unequippedItems)
+                StockManager.AddToStock(item);
+
+            Refresh();
+            _owner.RefreshTroopViewModel();
+            _owner.SelectedRow.Refresh();
+            EquipmentList?.Refresh();
         }
     }
 }
