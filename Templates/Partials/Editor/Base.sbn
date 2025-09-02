@@ -1,26 +1,10 @@
-<!-- Title header macro -->
-{{- func title_header(text) -}}
-<TextWidget
-    WidthSizePolicy="CoverChildren"
-    HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center"
-    Text="{{text}}"
-    Brush="Kingdom.TitleSmall.Text"
-    MarginTop="15"
-    MarginBottom="10"
-/>
-{{- end -}}
-
 <!-- Base editor macro -->
 {{- func right_pane_panel(is_visible, include_file) -}}
 <ListPanel
     IsVisible="{{is_visible}}"
-    WidthSizePolicy="StretchToParent"
-    HeightSizePolicy="CoverChildren"
-    MarginLeft="20"
-    MarginRight="20"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
->
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+    MarginLeft="20" MarginRight="20"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
     <Children>
         {{ include include_file }}
     </Children>

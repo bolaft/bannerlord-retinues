@@ -1,0 +1,9 @@
+<!-- Simple divider -->
+{{- func divider(is_visible = "true") -}}
+<Widget
+    IsVisible="{{is_visible}}"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
+    SuggestedHeight="4"
+    Sprite="Clan\divider_mid" 
+    MarginLeft="40" MarginRight="80" MarginTop="32" MarginBottom="16"/>
+{{- end -}}

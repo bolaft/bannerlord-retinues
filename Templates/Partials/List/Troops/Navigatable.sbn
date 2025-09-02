@@ -1,15 +1,12 @@
 {{- func troop_list(kind, datasource) -}}
-<NavigationAutoScrollWidget 
-    TrackedWidget=".\CCT_{{kind}}Header"
-/>
+<NavigationAutoScrollWidget TrackedWidget=".\CCT_{{kind}}Header"/>
 
 <ScrollablePanelFixedHeaderWidget 
     Id="CCT_{{kind}}Header" 
     FixedHeader="..\..\..\CCT_{{kind}}Toggle" 
     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
     SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" 
-    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"
-/>
+    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
 
 <NavigatableListPanel 
     Id="CCT_{{kind}}List" 
@@ -17,8 +14,7 @@
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
     HorizontalAlignment="Right" 
     StackLayout.LayoutMethod="VerticalBottomToTop" 
-    UseSelfIndexForMinimum="true"
->
+    UseSelfIndexForMinimum="true">
     <ItemTemplate>
         <ButtonWidget 
             DoNotPassEventsToChildren="true"
@@ -27,48 +23,26 @@
             Brush="Clan.Management.LeftTuple" 
             IsSelected="@IsSelected" 
             Command.Click="ExecuteSelect" 
-            UpdateChildrenStates="true"
-        >
+            UpdateChildrenStates="true">
             <Children>
                 <ListPanel 
                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" 
                     MarginLeft="24" MarginRight="24" 
-                    StackLayout.LayoutMethod="HorizontalLeftToRight"
-                >
+                    StackLayout.LayoutMethod="HorizontalLeftToRight">
                     <Children>
-                        <Widget
-                            VerticalAlignment="Center" HorizontalAlignment="Left"
-                            PositionXOffset="-20"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="68" SuggestedHeight="48"
-                        >
-                            <Children>
-                                <BrushWidget
-                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                    Brush="Frame1Brush"
-                                />
-                                <ImageIdentifierWidget
-                                    ImageId="@ImageId"
-                                    ImageTypeCode="@ImageTypeCode"
-                                    AdditionalArgs="@ImageAdditionalArgs"
-                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                    SuggestedWidth="68" SuggestedHeight="48"
-                                />
-                            </Children>
-                        </Widget>
+                        <!-- Icon -->
+                        {{ image("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "68", "48", "0", "0", "0", "0", "-20", "0") }}
+
+                        <!-- Name -->
                         <TextWidget 
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                             VerticalAlignment="Center" 
                             Brush="Clan.Tuple.Name.Text" 
                             ClipContents="false" 
-                            Text="@DisplayName"
-                        />
-                        <TextWidget 
-                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                            VerticalAlignment="Center" HorizontalAlignment="Right" 
-                            Brush="Clan.Tuple.Name.Text" 
-                            Text="@TierText"
-                        />
+                            Text="@DisplayName"/>
+
+                        <!-- Tier -->
+                        {{ text("@TierText", "Clan.Tuple.Name.Text") }}
                     </Children>
                 </ListPanel>
             </Children>

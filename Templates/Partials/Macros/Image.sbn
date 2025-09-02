@@ -1,0 +1,22 @@
+<!-- Image -->
+{{- func image(id, code, additional_args, width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
+<Widget
+    IsVisible="{{is_visible}}"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"
+    PositionXOffset="{{x_offset}}" PositionYOffset="{{y_offset}}"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}">
+    <Children>
+        <BrushWidget
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            Brush="{{brush}}"/>
+        <ImageIdentifierWidget
+            ImageId="{{id}}"
+            ImageTypeCode="{{code}}"
+            AdditionalArgs="{{additional_args}}"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"/>
+    </Children>
+</Widget>
+{{- end -}}

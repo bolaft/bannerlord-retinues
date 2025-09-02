@@ -8,14 +8,12 @@
     ListPanel="..\CCT_ListTroopsRect\CCT_ListTroopsListPanel\CCT_{{type}}List"
     HorizontalAlignment="Left" VerticalAlignment="Top"
     Brush="Clan.Management.Collapser"
-    WidgetToClose="..\CCT_ListTroopsRect\CCT_ListTroopsListPanel\CCT_{{type}}List"
->
+    WidgetToClose="..\CCT_ListTroopsRect\CCT_ListTroopsListPanel\CCT_{{type}}List">
     <Children>
         <ListPanel
             Id="{{type}}Collapser"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            HorizontalAlignment="Center" VerticalAlignment="Center"
-        >
+            HorizontalAlignment="Center" VerticalAlignment="Center">
             <Children>
                 <BrushWidget
                     Id="{{type}}CollapseIndicator"
@@ -23,13 +21,11 @@
                     SuggestedWidth="16" SuggestedHeight="16"
                     VerticalAlignment="Center"
                     PositionYOffset="-2" MarginRight="5"
-                    Brush="Party.Toggle.ExpandIndicator"
-                />
+                    Brush="Party.Toggle.ExpandIndicator"/>
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     Brush="Clan.Management.Collapser.Text"
-                    Text="{{type}}"
-                />
+                    Text="{{type}}"/>
             </Children>
         </ListPanel>
     </Children>

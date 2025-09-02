@@ -1,55 +1,40 @@
 {{ include "List/SortHeader.sbn" }}
 
 <ListPanel 
-    WidthSizePolicy="CoverChildren" 
-    HeightSizePolicy="StretchToParent"
->
+    WidthSizePolicy="CoverChildren"  HeightSizePolicy="StretchToParent">
     <Children>
         <ScrollablePanel 
             DataSource="{EquipmentList}"
             Id="CCT_ListItemsScrollablePanel" 
-            WidthSizePolicy="CoverChildren" 
-            MinWidth="!Clan.Management.Collapser.Width" 
-            HeightSizePolicy="StretchToParent" 
-            MarginLeft="3" MarginBottom="3" 
-            AutoHideScrollBars="true" 
             ClipRect="CCT_ListItemsRect" 
             InnerPanel="CCT_ListItemsRect\CCT_ListItemsListPanel" 
-            MouseScrollAxis="Vertical" 
             VerticalScrollbar="..\CCT_ListItemsScrollbar\Scrollbar"
-        >
+            WidthSizePolicy="CoverChildren"  HeightSizePolicy="StretchToParent" 
+            MinWidth="!Clan.Management.Collapser.Width" 
+            MarginLeft="3" MarginBottom="3" 
+            AutoHideScrollBars="true" 
+            MouseScrollAxis="Vertical">
             <Children>
-            
                 <NavigationScopeTargeter 
-                    ScopeID="CCT_TroopsScope" 
-                    ScopeParent=".\CCT_ListItemsRect" 
-                    ScopeMovements="Vertical" 
-                    IsDefaultNavigationScope="true" 
-                    DoNotAutoNavigateAfterSort="true"
-                />
-
+                    ScopeID="CCT_TroopsScope"  ScopeParent=".\CCT_ListItemsRect"  ScopeMovements="Vertical" 
+                    IsDefaultNavigationScope="true" DoNotAutoNavigateAfterSort="true"/>
                 <Widget 
                     Id="CCT_ListItemsRect" 
-                    WidthSizePolicy="CoverChildren" 
-                    HeightSizePolicy="StretchToParent" 
-                    ClipContents="true"
-                >
+                    WidthSizePolicy="CoverChildren"  HeightSizePolicy="StretchToParent" 
+                    ClipContents="true">
                     <Children>
 
                         {{ include "List/Items/Navigatable.sbn" }}
 
                     </Children>
                 </Widget>
-
             </Children>
         </ScrollablePanel>
 
         <Standard.VerticalScrollbar 
             Id="CCT_ListItemsScrollbar" 
             HeightSizePolicy="StretchToParent" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom" 
-            MarginLeft="2" MarginRight="2" MarginBottom="3"
-        />
+            HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+            MarginLeft="2" MarginRight="2" MarginBottom="3"/>
     </Children>
 </ListPanel>

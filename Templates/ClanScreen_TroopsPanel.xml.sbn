@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Template macros -->
-{{ include "Macros.sbn" }}
+{{ include "Macros/Button.sbn" }}
+{{ include "Macros/Divider.sbn" }}
+{{ include "Macros/Image.sbn" }}
+{{ include "Macros/Text.sbn" }}
 
 <Widget 
     IsVisible="@IsTroopsSelected"
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-    DoNotAcceptEvents="false"
->
+    DoNotAcceptEvents="false">
 	<Children>
 
         <Widget 
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-            MarginLeft="600" MarginRight="290"
-        >
+            MarginLeft="600" MarginRight="290">
             <Children>
                 <Widget
-                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                >
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
                     <Children>
                         <Widget
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                            MarginRight="290"
-                        >
+                            MarginRight="290">
                             <Children>
                                 <Widget
                                     WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
                                     SuggestedWidth="465" SuggestedHeight="512"
-                                    HorizontalAlignment="Left"
-                                >
+                                    HorizontalAlignment="Left">
                                     <Children>
                                         <!-- Character tableau -->
                                         {{ include "Tableau.sbn" }}
 
                                         <!-- Remove troop button -->
-                                        {{ action_button("@CanRemoveTroop", "Top", "Popup.Delete.Button", "ExecuteRemoveTroop", "Remove") }}
+                                        {{ button_text("Remove", "ExecuteRemoveTroop", "Popup.Delete.Button", "@CanRemoveTroop", "Top") }}
 
                                         <!-- Edit equipment button -->
-                                        {{ action_button("@IsDefaultMode", "Bottom", "ButtonBrush1", "ExecuteSwitchToEquipment", "Equipment") }}
+                                        {{ button_text("Equipment", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "Bottom") }}
 
                                         <!-- Close equipment button -->
-                                        {{ action_button("@IsEquipmentMode", "Bottom", "ButtonBrush3", "ExecuteSwitchToDefault", "Back") }}
+                                        {{ button_text("Back", "ExecuteSwitchToDefault", "ButtonBrush3", "@IsEquipmentMode", "Bottom") }}
                                     </Children>
                                 </Widget>
                             </Children>
@@ -49,8 +47,7 @@
                             VisualDefinition="RightPanel"
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                             PositionXOffset="800"
-                            MarginLeft="340"
-                        >
+                            MarginLeft="340">
                             <Children>
                                 <!-- Troop editor -->
                                 {{ include "Editor/Base.sbn" }}

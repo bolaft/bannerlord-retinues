@@ -1,0 +1,34 @@
+<!-- String text -->
+{{- func text(text, brush, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
+<TextWidget
+    IsVisible="{{is_visible}}"
+    Text="{{text}}" Brush="{{brush}}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="{{horizontal_alignment}}" VerticalAlignment="Center"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"
+    ClipContents="false"/>
+{{- end -}}
+
+<!-- Int text -->
+{{- func text_int(text, brush, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
+<TextWidget
+    IsVisible="{{is_visible}}"
+    IntText="{{text}}" Brush="{{brush}}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="{{horizontal_alignment}}"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"
+    ClipContents="false"/>
+{{- end -}}
+
+<!-- Title header -->
+{{- func header(text, is_visible = "true") -}}
+<TextWidget
+    IsVisible="{{is_visible}}"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    Text="{{text}}"
+    Brush="Kingdom.TitleSmall.Text"
+    MarginTop="15"
+    MarginBottom="10"/>
+{{- end -}}

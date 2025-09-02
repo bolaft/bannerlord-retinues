@@ -1,125 +1,78 @@
 <NavigatableListPanel 
     Id="CCT_ListItemsListPanel" 
-    WidthSizePolicy="CoverChildren" 
-    HeightSizePolicy="CoverChildren" 
+    WidthSizePolicy="CoverChildren"  HeightSizePolicy="CoverChildren" 
     StackLayout.LayoutMethod="VerticalBottomToTop" 
-    MinIndex="0" StepSize="1000"
->
+    MinIndex="0" StepSize="1000">
     <Children>
-        <NavigationAutoScrollWidget
-            TrackedWidget=".\CCT_ItemHeader"
-        />
-
+        <NavigationAutoScrollWidget TrackedWidget=".\CCT_ItemHeader"/>
         <NavigatableListPanel 
             Id="CCT_ItemList" 
             DataSource="{Equipments}" 
-            WidthSizePolicy="CoverChildren"  HeightSizePolicy="CoverChildren" 
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
             HorizontalAlignment="Right" 
             StackLayout.LayoutMethod="VerticalBottomToTop" 
-            UseSelfIndexForMinimum="true"
-        >
+            UseSelfIndexForMinimum="true">
             <ItemTemplate>
                 <ButtonWidget
                     DoNotPassEventsToChildren="true"
                     WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
                     SuggestedHeight="68"  SuggestedWidth="!Clan.Management.Collapser.Width" 
                     Brush="Clan.Management.LeftTuple" 
-                    IsSelected="@IsSelected"
-                    IsEnabled="@CanEquip"
+                    IsSelected="@IsSelected" IsEnabled="@CanEquip"
                     Command.Click="ExecuteSelect" 
-                    UpdateChildrenStates="true"
-                >
+                    UpdateChildrenStates="true">
                     <Children>
-                        <!-- Row layout: icon | name | price -->
                         <ListPanel
-                            WidthSizePolicy="StretchToParent"
-                            HeightSizePolicy="StretchToParent"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                             MarginLeft="10" MarginRight="10"
-                            StackLayout.LayoutMethod="HorizontalLeftToRight"
-                        >
-
+                            StackLayout.LayoutMethod="HorizontalLeftToRight">
                             <Children>
-
                                 <!-- Icon -->
-                                <Widget
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                    SuggestedWidth="96" SuggestedHeight="48"
-                                    MarginRight="24"
-                                >
-                                    <Children>
-                                        <BrushWidget
-                                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                            Brush="Frame1Brush"
-                                        />
-                                        <ImageIdentifierWidget
-                                            ImageId="@ImageId"
-                                            ImageTypeCode="@ImageTypeCode"
-                                            AdditionalArgs="@ImageAdditionalArgs"
-                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                            SuggestedWidth="96" SuggestedHeight="48"
-                                        />
-                                    </Children>
-                                </Widget>
+                                {{ image("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "96", "48", "0", "24") }}
 
                                 <!-- Name -->
                                 <TextWidget
                                     Text="@Name"
                                     Brush="Clan.Tuple.Name.Text"
-                                    WidthSizePolicy="StretchToParent"
-                                    HeightSizePolicy="CoverChildren"
+                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
                                     VerticalAlignment="Center"
-                                    MarginLeft="10"
-                                />
+                                    MarginLeft="10"/>
 
                                 <!-- Cost -->
                                 <TextWidget
                                     IntText="@Cost"
                                     Brush="InventoryGoldFontBrush"
-                                    WidthSizePolicy="CoverChildren"
-                                    HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    IsVisible="@ShowCost"
-                                />
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    IsVisible="@ShowCost"/>
                                 
+                                <!-- Coin icon -->
                                 <ImageWidget
                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                     SuggestedWidth="20" SuggestedHeight="20"
                                     Sprite="General\Icons\Coin@2x"
                                     VerticalAlignment="Center" 
-                                    IsVisible="@ShowCost"
-                                />
+                                    IsVisible="@ShowCost"/>
 
                                 <!-- Stock -->
                                 <TextWidget
                                     Text="In Stock ("
                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren"
-                                    HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    IsVisible="@ShowStock"
-                                />
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    IsVisible="@ShowStock"/>
                                 <TextWidget
                                     IntText="@Stock"
                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren"
-                                    HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    IsVisible="@ShowStock"
-                                />
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    IsVisible="@ShowStock"/>
                                 <TextWidget
                                     Text=")"
                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren"
-                                    HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    IsVisible="@ShowStock"
-                                />
-
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    IsVisible="@ShowStock"/>
                             </Children>
                         </ListPanel>
                     </Children>

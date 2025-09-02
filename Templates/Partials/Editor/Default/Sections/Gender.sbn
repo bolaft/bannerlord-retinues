@@ -1,40 +1,18 @@
-<!-- Gender header -->
-{{ title_header("Gender") }}
+<!-- Header -->
+{{ header("Gender") }}
 
-<!-- Gender row -->
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
-    MarginBottom="15"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true"
->
+    MarginBottom="15">
     <Children>
-        <TextWidget
-            WidthSizePolicy="CoverChildren"
-            HeightSizePolicy="CoverChildren"
-            MarginRight="8"
-            Brush="Clan.RightPanel.Name.Text"
-            Text="@Gender"
-            ClipContents="false"
-        />
-        <ButtonWidget
-            DoNotPassEventsToChildren="true"
-            WidthSizePolicy="CoverChildren"
-            HeightSizePolicy="CoverChildren"
-            MarginLeft="6"
-            Command.Click="ExecuteChangeGender"
-            UpdateChildrenStates="true"
-        >
-            <Children>
-                <BrushWidget
-                    WidthSizePolicy="Fixed"
-                    HeightSizePolicy="Fixed"
-                    SuggestedWidth="32"
-                    SuggestedHeight="32"
-                    Brush="SPClan.NameChange.Icon"
-                />
-            </Children>
-        </ButtonWidget>
+        <!-- Gender text -->
+        {{ text("@Gender", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+
+        <!-- Clickable icon -->
+        {{ button_icon("ExecuteChangeGender", "SPClan.NameChange.Icon", "32") }}
+
     </Children>
 </ListPanel>

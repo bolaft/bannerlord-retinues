@@ -4,7 +4,17 @@
     StackLayout.LayoutMethod="VerticalBottomToTop"
 >
     <Children>
-        <!-- slots -->
-        {{ include "Editor/Equipment/SlotGrid.sbn" }}
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            UpdateChildrenStates="true"
+            MarginBottom="24" MarginLeft="160"
+        >
+            <Children>
+                <!-- Equipment slots -->
+                {{ include "Editor/Equipment/Slots.sbn" }}
+            </Children>
+        </ListPanel>
     </Children>
 </ListPanel>

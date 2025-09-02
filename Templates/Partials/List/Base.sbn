@@ -1,12 +1,10 @@
+<!-- List macro -->
 {{- func list_panel(include_file, is_visible) -}}
 <BrushListPanel
     IsVisible="{{is_visible}}"
-    WidthSizePolicy="CoverChildren"
-    HeightSizePolicy="StretchToParent"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
     VerticalAlignment="Bottom"
-    MarginTop="6"
-    MarginBottom="9"
-    MarginLeft="27"
+    MarginTop="6" MarginBottom="9" MarginLeft="27"
     Brush="Frame1Brush"
     StackLayout.LayoutMethod="VerticalBottomToTop"
 >
@@ -16,5 +14,8 @@
 </BrushListPanel>
 {{- end -}}
 
+<!-- Defaut mode list -->
 {{ list_panel("List/Troops/Base.sbn", "@IsDefaultMode") }}
+
+<!-- Equipment mode list -->
 {{ list_panel("List/Items/Base.sbn", "@IsEquipmentMode") }}

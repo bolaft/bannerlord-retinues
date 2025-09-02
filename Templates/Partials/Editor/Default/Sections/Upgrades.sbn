@@ -1,33 +1,20 @@
-<!-- Upgrades header -->
-{{ title_header("Upgrades") }}
+<!-- Header -->
+{{ header("Upgrades") }}
 
 <!-- Upgrades list -->
 <ListPanel
     DataSource="{UpgradeTargets}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
->
+    StackLayout.LayoutMethod="VerticalBottomToTop">
     <ItemTemplate>
-        <TextWidget
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            HorizontalAlignment="Center"
-            ClipContents="false" 
-            MarginBottom="8"
-            Text="@Name" Brush="Clan.Tuple.Name.Text"
-        />
+        <!-- Upgrade name -->
+        {{ text("@Name", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "8") }}
     </ItemTemplate>
 </ListPanel>
 
 <!-- Add upgrade button -->
-{{ action_button("@CanAddUpgradeTarget", "Bottom", "Popup.Done.Button", "ExecuteAddUpgradeTarget", "Add Upgrade") }}
+{{ button_text("Add Upgrade", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@CanAddUpgradeTarget", "Bottom") }}
 
 <!-- Max Tier -->
-<TextWidget
-    IsVisible="@IsMaxTier"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center"
-    ClipContents="false" 
-    MarginBottom="8"
-    Text="N/A" Brush="Clan.Tuple.Name.Text"
-/>
+{{ text("N/A", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "8", "@IsMaxTier") }}

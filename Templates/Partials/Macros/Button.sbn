@@ -1,0 +1,38 @@
+<!-- Text button -->
+{{- func button_text(text, command, brush, is_visible, vertical_alignment = "Center", horizontal_alignment = "Center") -}}
+<ButtonWidget
+    IsVisible="{{is_visible}}"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+    HorizontalAlignment="{{horizontal_alignment}}"
+    VerticalAlignment="{{vertical_alignment}}"
+    Brush="{{brush}}"
+    Command.Click="{{command}}">
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            Brush="Popup.Button.Text"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Text="{{text}}"/>
+    </Children>
+</ButtonWidget>
+{{- end -}}
+
+<!-- Icon button -->
+{{- func button_icon(command, brush, size, is_visible = "true", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0") -}}
+<ButtonWidget
+    IsVisible="{{is_visible}}"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"
+    Command.Click="{{command}}"
+    UpdateChildrenStates="true">
+    <Children>
+        <BrushWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{size}}" SuggestedHeight="{{size}}"
+            Brush="{{brush}}"/>
+    </Children>
+</ButtonWidget>
+{{- end -}}
