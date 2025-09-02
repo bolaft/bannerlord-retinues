@@ -119,6 +119,9 @@ namespace CustomClanTroops
             if (item == null)
                 return false;
 
+            if (item.IsUniqueItem)
+                return false;
+
             switch (item.ItemType)
             {
                 // Armor pieces
@@ -181,7 +184,6 @@ namespace CustomClanTroops
                     EquipmentIndex.Head, EquipmentIndex.Cape, EquipmentIndex.Body, EquipmentIndex.Gloves, EquipmentIndex.Leg,
                     EquipmentIndex.Horse, EquipmentIndex.HorseHarness,
                     EquipmentIndex.WeaponItemBeginSlot, EquipmentIndex.Weapon1, EquipmentIndex.Weapon2, EquipmentIndex.Weapon3,
-                    EquipmentIndex.NumAllWeaponSlots
                 };
 
             foreach (var idx in indices)

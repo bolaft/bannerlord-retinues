@@ -90,6 +90,54 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
+        public bool CanEquip(ItemObject item)
+        {
+            // If the item has no skill requirement, always true
+            if (item.RelevantSkill == null || item.Difficulty <= 0)
+                return true;
+            
+            if (GetSkill(item.RelevantSkill) >= item.Difficulty)
+                return true;
+
+            return false;
+        }
+
+        public Dictionary<SkillObject, int> MinimumSkillRequirements
+        {
+            get
+            {
+                // Initialize with all skills from Skills property, default 0
+                var reqs = Skills.Keys.ToDictionary(skill => skill, skill => 0);
+                var slots =
+                    new[]
+                    {
+                        EquipmentIndex.Head, EquipmentIndex.Cape, EquipmentIndex.Body, EquipmentIndex.Gloves, EquipmentIndex.Leg,
+                        EquipmentIndex.Horse, EquipmentIndex.HorseHarness,
+                        EquipmentIndex.WeaponItemBeginSlot, EquipmentIndex.Weapon1, EquipmentIndex.Weapon2, EquipmentIndex.Weapon3,
+                    };
+
+                foreach (Equipment eq in Equipments)
+                {
+                    foreach (var slot in slots)
+                    {
+                        var item = eq[slot].Item;
+                        if (item != null && item.RelevantSkill != null)
+                        {
+                            if (item.Difficulty > reqs[item.RelevantSkill])
+                                reqs[item.RelevantSkill] = item.Difficulty;
+                        }
+                    }
+                }
+
+                return reqs;
+            }
+        }
+
+        public int GetMinimumSkillRequirement(SkillObject skill)
+        {
+            return MinimumSkillRequirements.TryGetValue(skill, out int req) ? req : 0;
+        }
+
         // =========================================================================
         // Flags & Gameplay Toggles
         // =========================================================================

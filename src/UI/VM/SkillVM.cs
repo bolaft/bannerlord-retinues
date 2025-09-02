@@ -29,11 +29,34 @@ namespace CustomClanTroops.UI.VM
 
         [DataSourceProperty] public string Name => _skill.Name.ToString();
 
-        [DataSourceProperty] public bool CanIncrement => Value < _troop.SkillCap && _troop.Skills.Values.Sum() < _troop.SkillPoints;
+        [DataSourceProperty] public bool CanIncrement
+        {
+            get
+            {
+                // At tier skill cap
+                if (Value >= _troop.SkillCap) return false;
+                // No skill points left to spend
+                if (_troop.Skills.Values.Sum() >= _troop.SkillPoints) return false;
 
-        [DataSourceProperty] public bool CanDecrement => Value > 0;
+                return true;
+            }
+        }
 
-        [DataSourceMethod]
+        [DataSourceProperty] public bool CanDecrement
+        {
+            get
+            {
+                // Can't go below zero
+                if (Value <= 0) return false;
+
+                // At minimal threshold for equipped gear
+                if (Value <= _troop.GetMinimumSkillRequirement(_skill)) return false;
+
+                return true;
+            }
+        }
+
+            [DataSourceMethod]
         public void ExecuteIncrement() => Modify(+1);
 
         [DataSourceMethod]
@@ -58,12 +81,14 @@ namespace CustomClanTroops.UI.VM
                 _troop.SetSkill(_skill, _troop.GetSkill(_skill) + delta);
             }
 
-            _owner.Refresh();
             Refresh();
         }
 
         public void Refresh()
         {
+            // Refresh skill points used
+            _owner.Refresh();
+
             OnPropertyChanged(nameof(Value));
             OnPropertyChanged(nameof(StringId));
             OnPropertyChanged(nameof(Name));

@@ -14,10 +14,13 @@ namespace CustomClanTroops.UI.VM
 
         private bool _isSelected;
 
-        public EquipmentRowVM(ItemObject equipment, Action<EquipmentRowVM> onSelect)
+        private bool _canEquip;
+
+        public EquipmentRowVM(ItemObject equipment, bool canEquip, Action<EquipmentRowVM> onSelect)
         {
             Equipment = equipment;
             _onSelect = onSelect;
+            _canEquip = canEquip;
         }
 
         // ---- Existing ----
@@ -35,7 +38,13 @@ namespace CustomClanTroops.UI.VM
             }
         }
 
-        [DataSourceMethod] public void ExecuteSelect() => _onSelect?.Invoke(this);
+        [DataSourceMethod] public void ExecuteSelect()
+        {
+            if (CanEquip)
+            {
+                _onSelect?.Invoke(this);
+            }
+        }
 
         public void Refresh()
         {
@@ -57,6 +66,8 @@ namespace CustomClanTroops.UI.VM
         [DataSourceProperty] public string ImageAdditionalArgs => Image?.AdditionalArgs ?? "";
 
         [DataSourceProperty] public int Price => Equipment?.Value ?? 0;
+
+        [DataSourceProperty] public bool CanEquip => _canEquip;
 
         [DataSourceProperty] public string StatsText
         {

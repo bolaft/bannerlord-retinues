@@ -74,18 +74,18 @@ namespace CustomClanTroops.UI.VM
         public void HandleRowSelected(EquipmentRowVM row)
         {
             Log.Debug($"EquipmentEditorVM.HandleRowSelected(): row = {row?.Equipment?.StringId}");
-    
+
             if (row == null) return;
 
             foreach (var r in EquipmentList.Equipments) r.IsSelected = ReferenceEquals(r, row);
         }
 
-        [DataSourceProperty] public EquipmentSlotVM HeadSlot    { get; private set; }
-        [DataSourceProperty] public EquipmentSlotVM CloakSlot   { get; private set; }
-        [DataSourceProperty] public EquipmentSlotVM BodySlot    { get; private set; }
-        [DataSourceProperty] public EquipmentSlotVM GlovesSlot  { get; private set; }
-        [DataSourceProperty] public EquipmentSlotVM BootsSlot   { get; private set; }
-        [DataSourceProperty] public EquipmentSlotVM MountSlot   { get; private set; }
+        [DataSourceProperty] public EquipmentSlotVM HeadSlot { get; private set; }
+        [DataSourceProperty] public EquipmentSlotVM CloakSlot { get; private set; }
+        [DataSourceProperty] public EquipmentSlotVM BodySlot { get; private set; }
+        [DataSourceProperty] public EquipmentSlotVM GlovesSlot { get; private set; }
+        [DataSourceProperty] public EquipmentSlotVM BootsSlot { get; private set; }
+        [DataSourceProperty] public EquipmentSlotVM MountSlot { get; private set; }
         [DataSourceProperty] public EquipmentSlotVM HarnessSlot { get; private set; }
         [DataSourceProperty] public EquipmentSlotVM Weapon1Slot { get; private set; }
         [DataSourceProperty] public EquipmentSlotVM Weapon2Slot { get; private set; }

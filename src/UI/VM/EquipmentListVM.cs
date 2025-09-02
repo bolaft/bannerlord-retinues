@@ -34,7 +34,7 @@ namespace CustomClanTroops.UI.VM
 
             foreach (var item in items)
             {
-                var row = new EquipmentRowVM(item, _owner.EquipmentEditor.HandleRowSelected);
+                var row = new EquipmentRowVM(item, _owner.SelectedTroop.CanEquip(item), _owner.EquipmentEditor.HandleRowSelected);
                 if (selectedItem != null && item.StringId == selectedItem.StringId)
                     currentRow = row;
                 Equipments.Add(row);

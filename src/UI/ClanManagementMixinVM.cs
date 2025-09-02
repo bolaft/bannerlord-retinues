@@ -164,7 +164,14 @@ namespace CustomClanTroops.UI
 
         [DataSourceMethod] public void ExecuteSwitchToDefault() => SwitchMode(EditorMode.Default);
 
-        [DataSourceMethod] public void ExecuteSwitchToEquipment() => SwitchMode(EditorMode.Equipment);
+        [DataSourceMethod] public void ExecuteSwitchToEquipment()
+        {
+            // Refresh equipment list because skill changes may affect available items
+            EquipmentList.Refresh();
+
+            // Go to equipment mode
+            SwitchMode(EditorMode.Equipment);
+        }
 
         private void SwitchMode(EditorMode mode)
         {
