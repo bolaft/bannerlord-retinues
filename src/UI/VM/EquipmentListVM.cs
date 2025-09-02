@@ -42,7 +42,7 @@ namespace CustomClanTroops.UI.VM
                     if (tierIndex > _owner.SelectedTroop.Tier)
                         continue;
                 }
-                var row = new EquipmentRowVM(item, _owner.SelectedTroop.CanEquip(item), _owner.EquipmentEditor.HandleRowSelected);
+                var row = new EquipmentRowVM(item, _owner.SelectedTroop.CanEquip(item), _owner.EquipmentEditor.HandleRowClicked);
                 if (selectedItem != null && item.StringId == selectedItem.StringId)
                     currentRow = row;
                 Equipments.Add(row);

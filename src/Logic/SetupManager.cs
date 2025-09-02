@@ -12,9 +12,8 @@ namespace CustomClanTroops.Logic
     {
         public static void Setup()
         {
-            HeroWrapper hero = new HeroWrapper();
-            var clan = hero.Clan;
-            var culture = hero.Culture;
+            var clan = HeroWrapper.Clan;
+            var culture = HeroWrapper.Culture;
 
             // Clone all cultural troops
             CloneCultureTroops(clan, culture);

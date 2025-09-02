@@ -6,5 +6,7 @@ namespace CustomClanTroops.Config
         public static bool DisallowMountsForTier1 { get; set; } = true;
 
         public static bool DisallowHigherTierEquipment { get; set; } = true;
+
+        public static bool PayForTroopEquipment { get; set; } = true;
     }
 }

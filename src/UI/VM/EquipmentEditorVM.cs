@@ -5,9 +5,11 @@ using TaleWorlds.Core;
 using TaleWorlds.PlayerServices;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Logic;
+using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 using CustomClanTroops.Config;
+using TaleWorlds.CampaignSystem;
 
 namespace CustomClanTroops.UI.VM
 {
@@ -79,6 +81,58 @@ namespace CustomClanTroops.UI.VM
             if (row == null) return;
 
             foreach (var r in EquipmentList.Equipments) r.IsSelected = ReferenceEquals(r, row);
+
+            SelectedSlot.Refresh();  // Equipment slot
+            _owner.RefreshTroopViewModel();  // Character model
+            _owner.SelectedRow.Refresh();  // Troop row
+        }
+
+        public void HandleRowClicked(EquipmentRowVM row)
+        {
+            Log.Debug($"EquipmentEditorVM.HandleRowClicked(): row = {row?.Equipment?.StringId}");
+
+            if (!Troop.CanEquip(row.Equipment)) return;  // Can't equip
+            if (HeroWrapper.Gold >= row.Price)
+            {
+                ShowSelectItemConfirmation(() =>
+                {
+                    // Pay the price
+                    HeroWrapper.ChangeGold(-row.Price);
+
+                    // Equip the Item
+                    Troop.EquipItem(row.Equipment, SelectedSlot.Slot);
+
+                    // UI row selection
+                    HandleRowSelected(row);
+                }, Troop.Name, row.Equipment.Name.ToString(), row.Price);
+            }
+            else
+            {
+                ShowNotEnoughGoldMessage();
+            }
+        }
+
+        private void ShowSelectItemConfirmation(Action onConfirm, string troopName, string itemName, int price)
+        {
+            InformationManager.ShowInquiry(new InquiryData(
+                "Buy Item",
+                $"Are you sure you want to buy {itemName} for {troopName} at the cost of {price} gold?",
+                true, true,
+                "Yes", "No",
+                () => onConfirm?.Invoke(),
+                null
+            ));
+        }
+
+        private void ShowNotEnoughGoldMessage()
+        {
+            InformationManager.ShowInquiry(new InquiryData(
+                "Not Enough Gold",
+                "You do not have enough gold to purchase this item.",
+                false, true,
+                null, "OK",
+                null, null
+            ));
         }
 
         [DataSourceProperty] public EquipmentSlotVM HeadSlot { get; private set; }

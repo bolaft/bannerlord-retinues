@@ -102,6 +102,20 @@ namespace CustomClanTroops.Wrappers.Objects
             return false;
         }
 
+        public void EquipItem(ItemObject item, EquipmentIndex slot, int set = 0)
+        {
+            if (CanEquip(item))
+            {
+                // Defensive: clone list to avoid mutating original
+                var equipments = Equipments.ToList();
+                if (set >= equipments.Count)
+                    return;
+                var eq = equipments[set];
+                eq[slot] = new EquipmentElement(item);
+                Equipments = equipments;
+            }
+        }
+
         public Dictionary<SkillObject, int> MinimumSkillRequirements
         {
             get
