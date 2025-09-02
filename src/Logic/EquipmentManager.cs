@@ -6,6 +6,7 @@ using TaleWorlds.ObjectSystem;
 using TaleWorlds.CampaignSystem;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Config;
 
 namespace CustomClanTroops
 {
@@ -53,9 +54,25 @@ namespace CustomClanTroops
             var result = new List<ItemObject>();
             foreach (var t in TypesPerSlot(slot))
             {
-                if (Unlocked.TryGetValue(t, out var list) && list.Count > 0)
-                    result.AddRange(list);
+                // No unlock restrictions: return all valid items
+                if (ModConfig.AllEquipmentUnlocked)
+                {
+                    // get all items of this type
+                    var allItems = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
+                    foreach (var item in allItems)
+                    {
+                        if (item?.ItemType == t && IsValidEquipment(item))
+                            result.Add(item);
+                    }
+                }
+                // Only return unlocked items
+                else
+                {
+                    if (Unlocked.TryGetValue(t, out var list) && list.Count > 0)
+                        result.AddRange(list);
+                }
             }
+            
             // Deduplicate by reference (same ItemObject) just in case
             return result.Distinct().ToList();
         }

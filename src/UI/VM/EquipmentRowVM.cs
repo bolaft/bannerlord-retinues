@@ -3,6 +3,7 @@ using System.Text;
 using TaleWorlds.Library;
 using TaleWorlds.Core;
 using Bannerlord.UIExtenderEx.Attributes;
+using CustomClanTroops.Config;
 
 namespace CustomClanTroops.UI.VM
 {
@@ -68,6 +69,8 @@ namespace CustomClanTroops.UI.VM
         [DataSourceProperty] public int Price => Equipment?.Value ?? 0;
 
         [DataSourceProperty] public bool CanEquip => _canEquip;
+
+        [DataSourceProperty] public bool ShowPrice => ModConfig.PayForTroopEquipment;
 
         [DataSourceProperty] public string StatsText
         {

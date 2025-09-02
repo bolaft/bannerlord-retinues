@@ -1777,6 +1777,7 @@
                                                                             HeightSizePolicy="CoverChildren"
                                                                             HorizontalAlignment="Right"
                                                                             VerticalAlignment="Center"
+                                                                            IsVisible="@ShowPrice"
                                                                         />
                                                                         
                                                                         <ImageWidget
@@ -1784,6 +1785,7 @@
                                                                             SuggestedWidth="20" SuggestedHeight="20"
                                                                             Sprite="General\Icons\Coin@2x"
                                                                             VerticalAlignment="Center" 
+                                                                            IsVisible="@ShowPrice"
                                                                         />
                                                                     </Children>
                                                                 </ListPanel>

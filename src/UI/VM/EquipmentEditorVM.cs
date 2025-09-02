@@ -92,24 +92,39 @@ namespace CustomClanTroops.UI.VM
             Log.Debug($"EquipmentEditorVM.HandleRowClicked(): row = {row?.Equipment?.StringId}");
 
             if (!Troop.CanEquip(row.Equipment)) return;  // Can't equip
-            if (HeroWrapper.Gold >= row.Price)
+
+            // Case 1: Pay for troop equipment
+            if (ModConfig.PayForTroopEquipment)
             {
-                ShowSelectItemConfirmation(() =>
+                // If player has enough gold
+                if (HeroWrapper.Gold >= row.Price)
                 {
-                    // Pay the price
-                    HeroWrapper.ChangeGold(-row.Price);
-
-                    // Equip the Item
-                    Troop.EquipItem(row.Equipment, SelectedSlot.Slot);
-
-                    // UI row selection
-                    HandleRowSelected(row);
-                }, Troop.Name, row.Equipment.Name.ToString(), row.Price);
+                    ShowSelectItemConfirmation(() =>
+                    {
+                        HeroWrapper.ChangeGold(-row.Price);
+                        SelectRow(row);
+                    }, Troop.Name, row.Equipment.Name.ToString(), row.Price);
+                }
+                // If player does not have enough gold
+                else
+                {
+                    ShowNotEnoughGoldMessage();
+                }
             }
+            // Case 2: Equip the item without paying
             else
             {
-                ShowNotEnoughGoldMessage();
+                SelectRow(row);
             }
+        }
+
+        private void SelectRow(EquipmentRowVM row)
+        {
+            // Equip the Item
+            Troop.EquipItem(row.Equipment, SelectedSlot.Slot);
+
+            // UI row selection
+            HandleRowSelected(row);
         }
 
         private void ShowSelectItemConfirmation(Action onConfirm, string troopName, string itemName, int price)

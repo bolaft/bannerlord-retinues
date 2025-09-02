@@ -1,12 +1,70 @@
+using System;
+using System.IO;
 
 namespace CustomClanTroops.Config
 {
     public static class ModConfig
     {
-        public static bool DisallowMountsForTier1 { get; set; } = true;
+        private static string ConfigFile
+        {
+            get
+            {
+                var asmDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!;
+                var moduleRoot = Directory.GetParent(asmDir)!.Parent!.FullName;
+                return Path.Combine(moduleRoot, "config.ini");
+            }
+        }
 
-        public static bool DisallowHigherTierEquipment { get; set; } = true;
+        // Defaults
+        private static bool _disallowMountsForTier1 = true;
+        private static bool _disallowHigherTierEquipment = true;
+        private static bool _payForTroopEquipment = true;
+        private static bool _allEquipmentUnlocked = false;
 
-        public static bool PayForTroopEquipment { get; set; } = true;
+        public static bool DisallowMountsForTier1 { get; set; } = _disallowMountsForTier1;
+        public static bool DisallowHigherTierEquipment { get; set; } = _disallowHigherTierEquipment;
+        public static bool PayForTroopEquipment { get; set; } = _payForTroopEquipment;
+        public static bool AllEquipmentUnlocked { get; set; } = _allEquipmentUnlocked;
+
+        static ModConfig()
+        {
+            LoadConfig();
+        }
+
+        // Loads config from a simple INI-like file: key=value per line, ignores unknowns and comments
+        private static void LoadConfig()
+        {
+            try
+            {
+                if (!File.Exists(ConfigFile))
+                    return;
+
+                foreach (var line in File.ReadAllLines(ConfigFile))
+                {
+                    var trimmed = line.Trim();
+                    if (string.IsNullOrEmpty(trimmed) || trimmed.StartsWith("#") || !trimmed.Contains("="))
+                        continue;
+                    var parts = trimmed.Split(new[] { '=' }, 2);
+                    var key = parts[0].Trim();
+                    var value = parts[1].Trim();
+                    if (key.Equals("DisallowMountsForTier1", StringComparison.OrdinalIgnoreCase))
+                        DisallowMountsForTier1 = ParseBool(value, _disallowMountsForTier1);
+                    else if (key.Equals("DisallowHigherTierEquipment", StringComparison.OrdinalIgnoreCase))
+                        DisallowHigherTierEquipment = ParseBool(value, _disallowHigherTierEquipment);
+                    else if (key.Equals("PayForTroopEquipment", StringComparison.OrdinalIgnoreCase))
+                        PayForTroopEquipment = ParseBool(value, _payForTroopEquipment);
+                    else if (key.Equals("AllEquipmentUnlocked", StringComparison.OrdinalIgnoreCase))
+                        AllEquipmentUnlocked = ParseBool(value, _allEquipmentUnlocked);
+                }
+            }
+            catch { /* ignore errors, use defaults */ }
+        }
+
+        private static bool ParseBool(string value, bool fallback)
+        {
+            if (bool.TryParse(value, out var b)) return b;
+            if (int.TryParse(value, out var i)) return i != 0;
+            return fallback;
+        }
     }
 }
