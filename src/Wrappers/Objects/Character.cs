@@ -92,6 +92,10 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public bool CanEquip(ItemObject item)
         {
+            // Can always unequip
+            if (item == null)
+                return true;
+
             // If the item has no skill requirement, always true
             if (item.RelevantSkill == null || item.Difficulty <= 0)
                 return true;
@@ -104,16 +108,33 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public void EquipItem(ItemObject item, EquipmentIndex slot, int set = 0)
         {
-            if (CanEquip(item))
+            if (item == null)
             {
-                // Defensive: clone list to avoid mutating original
-                var equipments = Equipments.ToList();
-                if (set >= equipments.Count)
-                    return;
-                var eq = equipments[set];
-                eq[slot] = new EquipmentElement(item);
-                Equipments = equipments;
+                Unequip(slot);
             }
+            else
+            {
+                if (CanEquip(item))
+                {
+                    // Defensive: clone list to avoid mutating original
+                    var equipments = Equipments.ToList();
+                    if (set >= equipments.Count)
+                        return;
+                    var eq = equipments[set];
+                    eq[slot] = new EquipmentElement(item);
+                    Equipments = equipments;
+                }
+            }
+        }
+
+        public void Unequip(EquipmentIndex slot, int set = 0)
+        {
+            var equipments = Equipments.ToList();
+            if (set < 0 || set >= equipments.Count())
+                return;
+            var eq = equipments[set];
+            eq[slot] = EquipmentElement.Invalid;
+            Equipments = equipments;
         }
 
         public Dictionary<SkillObject, int> MinimumSkillRequirements

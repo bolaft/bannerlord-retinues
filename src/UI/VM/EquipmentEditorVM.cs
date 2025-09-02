@@ -8,7 +8,6 @@ using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
-using CustomClanTroops.Config;
 using TaleWorlds.CampaignSystem;
 
 namespace CustomClanTroops.UI.VM
@@ -87,6 +86,7 @@ namespace CustomClanTroops.UI.VM
             _owner.SelectedRow.Refresh();  // Troop row
         }
 
+        // Selecting item (only activated by user input)
         public void HandleRowClicked(EquipmentRowVM row)
         {
             Log.Debug($"EquipmentEditorVM.HandleRowClicked(): row = {row?.Equipment?.StringId}");
@@ -94,16 +94,21 @@ namespace CustomClanTroops.UI.VM
             if (!Troop.CanEquip(row.Equipment)) return;  // Can't equip
 
             // Case 1: Pay for troop equipment
-            if (ModConfig.PayForTroopEquipment)
+            if (row.Cost > 0)
             {
                 // If player has enough gold
-                if (HeroWrapper.Gold >= row.Price)
+                if (HeroWrapper.Gold >= row.Cost)
                 {
+                    var equipmentName = row.Equipment?.Name.ToString() ?? string.Empty;
                     ShowSelectItemConfirmation(() =>
                     {
-                        HeroWrapper.ChangeGold(-row.Price);
+                        // Deduct the gold
+                        HeroWrapper.ChangeGold(-row.Cost);
+                        // Add item to stocks
+                        EquipmentManager.AddToStock(row.Equipment);
+                        // Proceed with item selection
                         SelectRow(row);
-                    }, Troop.Name, row.Equipment.Name.ToString(), row.Price);
+                    }, Troop.Name, equipmentName, row.Cost);
                 }
                 // If player does not have enough gold
                 else
@@ -118,13 +123,24 @@ namespace CustomClanTroops.UI.VM
             }
         }
 
+        // Selecting item (only activated by user input)
         private void SelectRow(EquipmentRowVM row)
         {
+            // Remove one item from stocks
+            EquipmentManager.RemoveFromStock(row.Equipment);
+
+            // Add previous item to stocks
+            if (SelectedSlot?.Item != null)
+                EquipmentManager.AddToStock(SelectedSlot.Item);
+
             // Equip the Item
             Troop.EquipItem(row.Equipment, SelectedSlot.Slot);
 
             // UI row selection
             HandleRowSelected(row);
+
+            // Needed to update upgrade costs
+            EquipmentList.Refresh();
         }
 
         private void ShowSelectItemConfirmation(Action onConfirm, string troopName, string itemName, int price)
@@ -169,7 +185,7 @@ namespace CustomClanTroops.UI.VM
             bool mountsAllowed = true;
 
             // No mounts for tier 1 troops
-            if (ModConfig.DisallowMountsForTier1)
+            if (Config.DisallowMountsForTier1)
                 mountsAllowed = Troop?.Tier > 1;
 
             HeadSlot = new EquipmentSlotVM(eq, EquipmentIndex.Head, true, this);

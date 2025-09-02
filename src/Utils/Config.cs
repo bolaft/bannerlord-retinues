@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 
-namespace CustomClanTroops.Config
+namespace CustomClanTroops.Utils
 {
-    public static class ModConfig
+    public static class Config
     {
         private static string ConfigFile
         {
@@ -26,7 +26,7 @@ namespace CustomClanTroops.Config
         public static bool PayForTroopEquipment { get; set; } = _payForTroopEquipment;
         public static bool AllEquipmentUnlocked { get; set; } = _allEquipmentUnlocked;
 
-        static ModConfig()
+        static Config()
         {
             LoadConfig();
         }

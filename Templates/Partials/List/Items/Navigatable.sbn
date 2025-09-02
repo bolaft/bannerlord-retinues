@@ -72,15 +72,15 @@
                                     MarginLeft="10"
                                 />
 
-                                <!-- Price -->
+                                <!-- Cost -->
                                 <TextWidget
-                                    IntText="@Price"
+                                    IntText="@Cost"
                                     Brush="InventoryGoldFontBrush"
                                     WidthSizePolicy="CoverChildren"
                                     HeightSizePolicy="CoverChildren"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    IsVisible="@ShowPrice"
+                                    IsVisible="@ShowCost"
                                 />
                                 
                                 <ImageWidget
@@ -88,8 +88,38 @@
                                     SuggestedWidth="20" SuggestedHeight="20"
                                     Sprite="General\Icons\Coin@2x"
                                     VerticalAlignment="Center" 
-                                    IsVisible="@ShowPrice"
+                                    IsVisible="@ShowCost"
                                 />
+
+                                <!-- Stock -->
+                                <TextWidget
+                                    Text="In Stock ("
+                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    IsVisible="@ShowStock"
+                                />
+                                <TextWidget
+                                    IntText="@Stock"
+                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    IsVisible="@ShowStock"
+                                />
+                                <TextWidget
+                                    Text=")"
+                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    IsVisible="@ShowStock"
+                                />
+
                             </Children>
                         </ListPanel>
                     </Children>

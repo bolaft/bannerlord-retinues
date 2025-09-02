@@ -5,7 +5,6 @@ using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Config;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM
@@ -33,10 +32,15 @@ namespace CustomClanTroops.UI.VM
                 .OrderBy(i => i.ItemType)
                 .ThenBy(i => i.Name?.ToString() ?? string.Empty);
 
+            // Empty slot
+            var emptyRow = new EquipmentRowVM(null, true, _owner.EquipmentEditor.HandleRowClicked);
+            emptyRow.IsSelected = selectedItem == null;
+            Equipments.Add(emptyRow);
+
             foreach (var item in items)
             {
                 // Items limited by tier
-                if (ModConfig.DisallowHigherTierEquipment)
+                if (Config.DisallowHigherTierEquipment)
                 {
                     int tierIndex = Array.IndexOf(Enum.GetValues(item.Tier.GetType()), item.Tier) + 1;
                     if (tierIndex > _owner.SelectedTroop.Tier)

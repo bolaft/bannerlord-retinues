@@ -6,14 +6,44 @@ using TaleWorlds.ObjectSystem;
 using TaleWorlds.CampaignSystem;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Config;
+using CustomClanTroops.Utils;
 
 namespace CustomClanTroops
 {
     public static class EquipmentManager
     {
+
         // Pre-initialized with empty lists.
         public static readonly Dictionary<ItemObject.ItemTypeEnum, List<ItemObject>> Unlocked = InitEmptyUnlocked();
+
+        // Tracks the number of each item in stock
+        public static readonly Dictionary<ItemObject, int> Stocks = new();
+
+        // Add one to the stock of an item
+        public static void AddToStock(ItemObject item)
+        {
+            if (item == null) return;
+            if (Stocks.ContainsKey(item))
+                Stocks[item]++;
+            else
+                Stocks[item] = 1;
+        }
+
+        // Remove one from the stock of an item (minimum 0)
+        public static void RemoveFromStock(ItemObject item)
+        {
+            if (item == null) return;
+            if (Stocks.TryGetValue(item, out int count) && count > 0)
+                Stocks[item] = count - 1;
+        }
+
+        public static int GetStock(ItemObject item)
+        {
+            if (item == null) return 0;
+            if (Stocks.TryGetValue(item, out int count))
+                return count;
+            return 0;
+        }
 
         // Unlock an item
         public static void Unlock(ItemObject item)
@@ -55,7 +85,7 @@ namespace CustomClanTroops
             foreach (var t in TypesPerSlot(slot))
             {
                 // No unlock restrictions: return all valid items
-                if (ModConfig.AllEquipmentUnlocked)
+                if (Config.AllEquipmentUnlocked)
                 {
                     // get all items of this type
                     var allItems = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();

@@ -3,7 +3,7 @@ using System.Text;
 using TaleWorlds.Library;
 using TaleWorlds.Core;
 using Bannerlord.UIExtenderEx.Attributes;
-using CustomClanTroops.Config;
+using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM
 {
@@ -14,7 +14,6 @@ namespace CustomClanTroops.UI.VM
         public ItemObject Equipment { get; }
 
         private bool _isSelected;
-
         private bool _canEquip;
 
         public EquipmentRowVM(ItemObject equipment, bool canEquip, Action<EquipmentRowVM> onSelect)
@@ -25,7 +24,7 @@ namespace CustomClanTroops.UI.VM
         }
 
         // ---- Existing ----
-        [DataSourceProperty] public string Name => Equipment?.Name?.ToString() ?? string.Empty;
+        [DataSourceProperty] public string Name => Equipment?.Name?.ToString() ?? "Empty";
 
         [DataSourceProperty]
         public bool IsSelected
@@ -41,6 +40,9 @@ namespace CustomClanTroops.UI.VM
 
         [DataSourceMethod] public void ExecuteSelect()
         {
+            // Prevents buying the already equipped item
+            if (IsSelected) return;
+
             if (CanEquip)
             {
                 _onSelect?.Invoke(this);
@@ -54,8 +56,8 @@ namespace CustomClanTroops.UI.VM
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
-            OnPropertyChanged(nameof(Price));
-            OnPropertyChanged(nameof(StatsText));
+            OnPropertyChanged(nameof(Stock));
+            OnPropertyChanged(nameof(Cost));
         }
 
         private ImageIdentifierVM Image => Equipment != null ? new ImageIdentifierVM(Equipment, "") : null;
@@ -66,47 +68,53 @@ namespace CustomClanTroops.UI.VM
 
         [DataSourceProperty] public string ImageAdditionalArgs => Image?.AdditionalArgs ?? "";
 
-        [DataSourceProperty] public int Price => Equipment?.Value ?? 0;
-
         [DataSourceProperty] public bool CanEquip => _canEquip;
 
-        [DataSourceProperty] public bool ShowPrice => ModConfig.PayForTroopEquipment;
+        [DataSourceProperty] public int Stock => EquipmentManager.GetStock(Equipment);
 
-        [DataSourceProperty] public string StatsText
+        [DataSourceProperty] public bool ShowStock
         {
             get
             {
-                if (Equipment == null) return string.Empty;
+                // Don't show if there is a cost
+                if (Cost > 0) return false;
 
-                // Armor
-                var ac = Equipment.ArmorComponent;
-                if (ac != null)
-                {
-                    return $"Armor H{ac.HeadArmor} B{ac.BodyArmor} A{ac.ArmArmor} L{ac.LegArmor}";
-                }
+                // Don't show if there is no stock
+                if (Stock == 0) return false;
 
-                // Weapon
-                var wc = Equipment.WeaponComponent;
-                if (wc != null && wc.PrimaryWeapon != null)
-                {
-                    var w = wc.PrimaryWeapon;
-                    if (w.MissileDamage > 0)
-                        return $"Ranged Dmg{w.MissileDamage} Spd{w.MissileSpeed} Acc{w.Accuracy}";
-                    return $"Melee SD{w.SwingDamage}@{w.SwingSpeed} TD{w.ThrustDamage}@{w.ThrustSpeed}";
-                }
+                return true;
+            }
+        }
 
-                // Mount
-                var hc = Equipment.HorseComponent;
-                if (hc != null)
-                    return $"Mount Spd{hc.Speed} Mvr{hc.Maneuver} Chg{hc.ChargeDamage}";
+        [DataSourceProperty] public int Cost
+        {
+            get
+            {
+                // No cost if set in config
+                if (!Config.PayForTroopEquipment) return 0;
 
-                // Harness / Banner
-                if (Equipment.ItemType == ItemObject.ItemTypeEnum.HorseHarness)
-                    return "Harness";
-                if (Equipment.ItemType == ItemObject.ItemTypeEnum.Banner)
-                    return "Banner";
+                // No cost for empty slot
+                if (Equipment == null) return 0;
 
-                return string.Empty;
+                // If we have it in stock, we don't pay
+                if (Stock > 0) return 0;
+
+                // Otherwise, pay item price
+                return Equipment?.Value ?? 0;
+            }
+        }
+
+        [DataSourceProperty] public bool ShowCost
+        {
+            get
+            {
+                // Don't show if costs nothing
+                if (Cost == 0) return false;
+
+                // Don't show if currently equipped
+                if (IsSelected) return false;
+
+                return true;
             }
         }
     }
