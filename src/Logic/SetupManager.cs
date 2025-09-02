@@ -1,5 +1,6 @@
 using TaleWorlds.CampaignSystem;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Wrappers.Campaign;
@@ -15,8 +16,10 @@ namespace CustomClanTroops.Logic
             var clan = hero.Clan;
             var culture = hero.Culture;
 
+            // Clone all cultural troops
             CloneCultureTroops(clan, culture);
 
+            // Unlock cultural gear
             EquipmentManager.UnlockFromCulture(culture);
         }
 
@@ -96,6 +99,9 @@ namespace CustomClanTroops.Logic
 
             // Copied troops' equipment is always unlocked
             EquipmentManager.UnlockFromTroop(clone);
+
+            // Only keep the first variant
+            clone.Equipments = clone.Equipments.Take(1).ToList();
 
             yield return clone;
 

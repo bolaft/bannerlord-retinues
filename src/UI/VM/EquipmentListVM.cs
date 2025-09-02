@@ -5,6 +5,7 @@ using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Config;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM
@@ -34,6 +35,13 @@ namespace CustomClanTroops.UI.VM
 
             foreach (var item in items)
             {
+                // Items limited by tier
+                if (ModConfig.DisallowHigherTierEquipment)
+                {
+                    int tierIndex = Array.IndexOf(Enum.GetValues(item.Tier.GetType()), item.Tier) + 1;
+                    if (tierIndex > _owner.SelectedTroop.Tier)
+                        continue;
+                }
                 var row = new EquipmentRowVM(item, _owner.SelectedTroop.CanEquip(item), _owner.EquipmentEditor.HandleRowSelected);
                 if (selectedItem != null && item.StringId == selectedItem.StringId)
                     currentRow = row;

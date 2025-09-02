@@ -19,13 +19,12 @@ namespace CustomClanTroops.UI.VM
 
         public EquipmentIndex Slot => _slot;
 
-        public EquipmentSlotVM(Equipment equipment, EquipmentIndex slot, EquipmentEditorVM owner)
+        public EquipmentSlotVM(Equipment equipment, EquipmentIndex slot, bool isEnabled, EquipmentEditorVM owner)
         {
             _equipment = equipment;
             _slot = slot;
             _owner = owner;
-
-            Refresh();
+            IsEnabled = isEnabled;
         }
 
         [DataSourceProperty] public string DisplayName => Item?.Name?.ToString() ?? "";
@@ -37,6 +36,8 @@ namespace CustomClanTroops.UI.VM
         [DataSourceProperty] public string ImageId => Image?.Id ?? "";
 
         [DataSourceProperty] public string ImageAdditionalArgs => Image?.AdditionalArgs ?? "";
+
+        [DataSourceProperty] public bool IsEnabled { get; private set; }
 
         private ImageIdentifierVM Image => Item != null ? new ImageIdentifierVM(Item, "") : null;
 
@@ -64,6 +65,7 @@ namespace CustomClanTroops.UI.VM
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
             OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(IsEnabled));
         }
 
         [DataSourceMethod] public void ExecuteSelect()

@@ -13,6 +13,7 @@
             SuggestedWidth="120" SuggestedHeight="48"
             VerticalAlignment="Center"
             IsSelected="@IsSelected"
+            IsEnabled="@IsEnabled"
             Brush="ButtonBrush2"
             MarginRight="32"
             Command.Click="ExecuteSelect"

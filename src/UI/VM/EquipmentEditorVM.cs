@@ -7,6 +7,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
+using CustomClanTroops.Config;
 
 namespace CustomClanTroops.UI.VM
 {
@@ -96,18 +97,24 @@ namespace CustomClanTroops.UI.VM
         {
             var eq = GetPrimaryEquipment();
 
-            HeadSlot = new EquipmentSlotVM(eq, EquipmentIndex.Head, this);
-            CloakSlot = new EquipmentSlotVM(eq, EquipmentIndex.Cape, this);
-            BodySlot = new EquipmentSlotVM(eq, EquipmentIndex.Body, this);
-            GlovesSlot = new EquipmentSlotVM(eq, EquipmentIndex.Gloves, this);
-            BootsSlot = new EquipmentSlotVM(eq, EquipmentIndex.Leg, this);
-            MountSlot = new EquipmentSlotVM(eq, EquipmentIndex.Horse, this);
-            HarnessSlot = new EquipmentSlotVM(eq, EquipmentIndex.HorseHarness, this);
+            bool mountsAllowed = true;
 
-            Weapon1Slot = new EquipmentSlotVM(eq, EquipmentIndex.WeaponItemBeginSlot, this);
-            Weapon2Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon1, this);
-            Weapon3Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon2, this);
-            Weapon4Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon3, this);
+            // No mounts for tier 1 troops
+            if (ModConfig.DisallowMountsForTier1)
+                mountsAllowed = Troop?.Tier > 1;
+
+            HeadSlot = new EquipmentSlotVM(eq, EquipmentIndex.Head, true, this);
+            CloakSlot = new EquipmentSlotVM(eq, EquipmentIndex.Cape, true, this);
+            BodySlot = new EquipmentSlotVM(eq, EquipmentIndex.Body, true, this);
+            GlovesSlot = new EquipmentSlotVM(eq, EquipmentIndex.Gloves, true, this);
+            BootsSlot = new EquipmentSlotVM(eq, EquipmentIndex.Leg, true, this);
+            MountSlot = new EquipmentSlotVM(eq, EquipmentIndex.Horse, mountsAllowed, this);
+            HarnessSlot = new EquipmentSlotVM(eq, EquipmentIndex.HorseHarness, mountsAllowed, this);
+
+            Weapon1Slot = new EquipmentSlotVM(eq, EquipmentIndex.WeaponItemBeginSlot, true, this);
+            Weapon2Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon1, true, this);
+            Weapon3Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon2, true, this);
+            Weapon4Slot = new EquipmentSlotVM(eq, EquipmentIndex.Weapon3, true, this);
 
             // Set default selected slot
             HandleSlotSelected(Weapon1Slot);
@@ -121,6 +128,7 @@ namespace CustomClanTroops.UI.VM
 
         private Equipment GetPrimaryEquipment()
         {
+            // Get only the first variant
             var list = Troop?.Equipments;
             return (list != null && list.Count > 0) ? list[0] : default;
         }
