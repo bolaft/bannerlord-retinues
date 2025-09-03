@@ -1,7 +1,4 @@
 using TaleWorlds.CampaignSystem;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.Behaviors

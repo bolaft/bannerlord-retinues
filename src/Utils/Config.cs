@@ -15,7 +15,6 @@ namespace CustomClanTroops.Utils
             }
         }
 
-        // Defaults
         private static bool _disallowMountsForTier1 = true;
         private static bool _limitEquipmentByTier = true;
         private static bool _payForTroopEquipment = true;
@@ -44,7 +43,7 @@ namespace CustomClanTroops.Utils
                     var trimmed = line.Trim();
                     if (string.IsNullOrEmpty(trimmed) || trimmed.StartsWith("#") || !trimmed.Contains("="))
                         continue;
-                    var parts = trimmed.Split(new[] { '=' }, 2);
+                    var parts = trimmed.Split(['='], 2);
                     var key = parts[0].Trim();
                     var value = parts[1].Trim();
                     if (key.Equals("DisallowMountsForTier1", StringComparison.OrdinalIgnoreCase))

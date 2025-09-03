@@ -54,6 +54,7 @@ namespace CustomClanTroops.Utils
 
         public static void Warn(string message) => Write(message, "yellow");
 
+        // Debug messages don't show in game, only in log file
         public static void Debug(string message) => WriteToLogFile(message);
     }
 }

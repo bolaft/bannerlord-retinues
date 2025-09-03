@@ -6,8 +6,7 @@ namespace CustomClanTroops.Utils
 {
     public static class Reflector
     {
-        public const BindingFlags Flags =
-            BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
+        public const BindingFlags Flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
 
         // ---------- Core resolvers (walk base types) ----------
 
@@ -100,7 +99,7 @@ namespace CustomClanTroops.Utils
             var setter = pi.GetSetMethod(true);
             if (setter != null)
             {
-                setter.Invoke(instance, new[] { converted });
+                setter.Invoke(instance, [converted]);
                 return;
             }
 
