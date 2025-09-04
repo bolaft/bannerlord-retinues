@@ -43,13 +43,13 @@
                                     VerticalAlignment="Center"
                                     MarginLeft="10"/>
 
-                                <!-- Cost -->
+                                <!-- Value -->
                                 <TextWidget
-                                    IntText="@Cost"
+                                    IntText="@Value"
                                     Brush="InventoryGoldFontBrush"
                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    IsVisible="@ShowCost"/>
+                                    IsVisible="@ShowValue"/>
                                 
                                 <!-- Coin icon -->
                                 <ImageWidget
@@ -57,7 +57,7 @@
                                     SuggestedWidth="20" SuggestedHeight="20"
                                     Sprite="General\Icons\Coin@2x"
                                     VerticalAlignment="Center" 
-                                    IsVisible="@ShowCost"/>
+                                    IsVisible="@ShowValue"/>
 
                                 <!-- Stock -->
                                 <TextWidget

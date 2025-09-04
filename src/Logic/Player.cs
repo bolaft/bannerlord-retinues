@@ -1,7 +1,7 @@
 using TaleWorlds.CampaignSystem;
-using CustomClanTroops.Game.Troops.Campaign;
+using CustomClanTroops.Wrappers.Campaign;
 
-namespace CustomClanTroops.Game
+namespace CustomClanTroops.Logic
 {
     public static class Player
     {
@@ -9,9 +9,27 @@ namespace CustomClanTroops.Game
         // Members
         // =========================================================================
 
-        public static TroopClan Clan => new(Hero.MainHero.Clan);
+        private static WClan _clan;
+        public static WClan Clan
+        {
+            get
+            {
+                if (_clan == null)
+                    _clan = new WClan(Hero.MainHero.Clan);
+                return _clan;
+            }
+        }
 
-        public static TroopCulture Culture => new(Hero.MainHero.Culture);
+        private static WCulture _culture;
+        public static WCulture Culture
+        {
+            get
+            {
+                if (_culture == null)
+                    _culture = new WCulture(Hero.MainHero.Culture);
+                return _culture;
+            }
+        }
 
         // =========================================================================
         // Gold

@@ -17,8 +17,5 @@
             </Children>
         </ListPanel>
 
-        <!-- Unequip all button -->
-        {{ button_text("Unequip All", "ExecuteUnequipAll", "Popup.Delete.Button", "true", "Top") }}
-
     </Children>
 </ListPanel>

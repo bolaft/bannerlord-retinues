@@ -3,7 +3,7 @@ using TaleWorlds.Core;
 
 namespace CustomClanTroops.Wrappers.Objects
 {
-    public class EquipmentWrapper(Equipment equipment)
+    public class WEquipment(Equipment equipment) : IWrapper
     {
         // =========================================================================
         // Base
@@ -11,7 +11,7 @@ namespace CustomClanTroops.Wrappers.Objects
 
         private readonly Equipment _equipment = equipment;
 
-        public Equipment Base => _equipment;
+        public object Base => _equipment;
 
         // =========================================================================
         // Slot List
@@ -28,15 +28,15 @@ namespace CustomClanTroops.Wrappers.Objects
         // Items
         // =========================================================================
 
-        public List<ItemWrapper> Items
+        public List<WItem> Items
         {
             get
             {
-                var items = new List<ItemWrapper>();
+                var items = new List<WItem>();
                 foreach (var slot in Slots)
                 {
                     if (_equipment[slot].Item != null)
-                        items.Add(new ItemWrapper(_equipment[slot].Item));
+                        items.Add(new WItem(_equipment[slot].Item));
                 }
                 return items;
             }
@@ -46,70 +46,70 @@ namespace CustomClanTroops.Wrappers.Objects
         // Slots
         // =========================================================================
 
-        public ItemWrapper WeaponItemBeginSlot
+        public WItem WeaponItemBeginSlot
         {
             get => new(_equipment[EquipmentIndex.WeaponItemBeginSlot].Item);
-            set => _equipment[EquipmentIndex.WeaponItemBeginSlot] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.WeaponItemBeginSlot] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Weapon1
+        public WItem Weapon1
         {
             get => new(_equipment[EquipmentIndex.Weapon1].Item);
-            set => _equipment[EquipmentIndex.Weapon1] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Weapon1] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Weapon2
+        public WItem Weapon2
         {
             get => new(_equipment[EquipmentIndex.Weapon2].Item);
-            set => _equipment[EquipmentIndex.Weapon2] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Weapon2] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Weapon3
+        public WItem Weapon3
         {
             get => new(_equipment[EquipmentIndex.Weapon3].Item);
-            set => _equipment[EquipmentIndex.Weapon3] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Weapon3] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Head
+        public WItem Head
         {
             get => new(_equipment[EquipmentIndex.Head].Item);
-            set => _equipment[EquipmentIndex.Head] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Head] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Cape
+        public WItem Cape
         {
             get => new(_equipment[EquipmentIndex.Cape].Item);
-            set => _equipment[EquipmentIndex.Cape] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Cape] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Body
+        public WItem Body
         {
             get => new(_equipment[EquipmentIndex.Body].Item);
-            set => _equipment[EquipmentIndex.Body] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Body] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Gloves
+        public WItem Gloves
         {
             get => new(_equipment[EquipmentIndex.Gloves].Item);
-            set => _equipment[EquipmentIndex.Gloves] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Gloves] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Leg
+        public WItem Leg
         {
             get => new(_equipment[EquipmentIndex.Leg].Item);
-            set => _equipment[EquipmentIndex.Leg] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Leg] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper Horse
+        public WItem Horse
         {
             get => new(_equipment[EquipmentIndex.Horse].Item);
-            set => _equipment[EquipmentIndex.Horse] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.Horse] = new EquipmentElement((ItemObject)value.Base);
         }
-        public ItemWrapper HorseHarness
+        public WItem HorseHarness
         {
             get => new(_equipment[EquipmentIndex.HorseHarness].Item);
-            set => _equipment[EquipmentIndex.HorseHarness] = new EquipmentElement(value.Base);
+            set => _equipment[EquipmentIndex.HorseHarness] = new EquipmentElement((ItemObject)value.Base);
         }
 
-        public ItemWrapper GetItem(EquipmentIndex slot)
+        public WItem GetItem(EquipmentIndex slot)
         {
-            return new ItemWrapper(_equipment[slot].Item);
+            return new WItem(_equipment[slot].Item);
         }
 
-        public void SetItem(EquipmentIndex slot, ItemWrapper item)
+        public void SetItem(EquipmentIndex slot, WItem item)
         {
-            _equipment[slot] = new EquipmentElement(item?.Base);
+            _equipment[slot] = new EquipmentElement((ItemObject)item?.Base);
         }
 
         // =========================================================================

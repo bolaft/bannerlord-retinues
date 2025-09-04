@@ -7,18 +7,19 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Utils;
+using TaleWorlds.Library;
 
 namespace CustomClanTroops.Wrappers.Objects
 {
-    public class CharacterWrapper(CharacterObject characterObject)
+    public class WCharacter(CharacterObject characterObject, WClan clan = null, WCharacter parent = null) : IWrapper
     {
         // =========================================================================
         // Base
         // =========================================================================
 
-        protected readonly CharacterObject _characterObject = characterObject;
+        private readonly CharacterObject _characterObject = characterObject;
 
-        public CharacterObject Base => _characterObject;
+        public object Base => _characterObject;
 
         // =========================================================================
         // VM properties
@@ -40,7 +41,11 @@ namespace CustomClanTroops.Wrappers.Objects
         // Wrapped properties
         // =========================================================================
 
-        public CultureWrapper Culture => new(_characterObject.Culture);
+        public WCulture Culture => new(_characterObject.Culture);
+
+        public WClan Clan => clan;
+
+        public WCharacter Parent => parent;
 
         // =========================================================================
         // Basic Attributes
@@ -71,6 +76,8 @@ namespace CustomClanTroops.Wrappers.Objects
         // =========================================================================
         // Flags & Toggles
         // =========================================================================
+
+        public bool IsElite => Clan.EliteTroops.Contains(this);
 
         public bool IsFemale
         {
@@ -127,41 +134,187 @@ namespace CustomClanTroops.Wrappers.Objects
             var skills = Reflector.GetFieldValue<MBCharacterSkills>(_characterObject, "DefaultCharacterSkills");
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
+        public int SkillCap
+        {
+            get
+            {
+                return Tier switch
+                {
+                    1 => 20,
+                    2 => 50,
+                    3 => 80,
+                    4 => 120,
+                    5 => 160,
+                    6 => 260,
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
+            }
+        }
+
+        public int SkillPoints
+        {
+            get
+            {
+                return Tier switch
+                {
+                    1 => 90,
+                    2 => 210,
+                    3 => 360,
+                    4 => 535,
+                    5 => 710,
+                    6 => 915,
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
+            }
+        }
+
+        public int SkillPointsUsed => Skills.Sum(skill => GetSkill(skill.Key));
+
+        public int SkillPointsLeft => SkillPoints - SkillPointsUsed;
+
+        public bool CanIncrementSkill(SkillObject skill)
+        {
+            // Skills can't go above the tier skill cap
+            if (GetSkill(skill) >= SkillCap)
+                return false;
+
+            // Check if we have enough skill points left
+            if (SkillPointsLeft <= 0)
+                return false;
+            return true;
+        }
+
+        public bool CanDecrementSkill(SkillObject skill)
+        {
+            // Skills can't go below zero
+            if (GetSkill(skill) <= 0)
+                return false;
+
+            // Check for equipment skill requirements
+            if (GetSkill(skill) <= Equipment.GetSkillRequirement(skill))
+                return false;
+
+            return true;
+        }
 
         // =========================================================================
         // Equipment
         // =========================================================================
 
-        public List<EquipmentWrapper> Equipments
+        public List<WEquipment> Equipments
         {
-            get => [.. _characterObject.AllEquipments.Select(e => new EquipmentWrapper(e))];
+            get
+            {
+                var equipments = _characterObject.AllEquipments.ToList();
+                return [.. equipments.Select(e => new WEquipment(e))];
+            }
             set
             {
-                // Convert the list of EquipmentWrapper to an array of Equipment objects
-                var equipmentArray = value.Select(w => w.Base).ToArray();
-                // Set the character's equipments using reflection
-                Reflector.InvokeMethod(_characterObject, "SetEquipments", [typeof(Equipment[])], equipmentArray);
-                // Update the equipment code to reflect changes
-                Reflector.InvokeMethod(_characterObject, "UpdateEquipmentCode", Type.EmptyTypes, []);
-                // Re-initialize the character's equipment state
-                _characterObject.InitializeEquipmentsOnLoad(_characterObject);
+                var equipments = value.Select(e => (Equipment)e.Base).ToList();
+                MBEquipmentRoster roster = new();
+                Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(equipments));
+                Reflector.SetFieldValue(_characterObject, "_equipmentRoster", roster);
             }
+        }
+
+        public WEquipment Equipment => new((Equipment)Equipments.FirstOrDefault().Base);
+
+        public bool CanEquip(WItem item)
+        {
+            if (item.RelevantSkill != null && item.Difficulty <= GetSkill(item.RelevantSkill))
+                return false;  // Does not meet item skill requirements
+
+            return true;
+        }
+
+        public void Equip(WItem item, EquipmentIndex slot)
+        {
+            Equipment.SetItem(slot, item);
+        }
+
+        public void Unequip(EquipmentIndex slot)
+        {
+            Equipment.SetItem(slot, null);
+        }
+
+        public void UnequipAll()
+        {
+            foreach (var slot in WEquipment.Slots)
+                Unequip(slot);
         }
 
         // =========================================================================
         // Upgrades
         // =========================================================================
 
-        public List<CharacterObject> UpgradeTargets
+        public CharacterObject[] UpgradeTargets
         {
-            get => Reflector.GetPropertyValue<List<CharacterObject>>(_characterObject, "UpgradeTargets") ?? new List<CharacterObject>();
-            set => Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", value ?? new List<CharacterObject>());
+            get => Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? [];
+            set => Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", value ?? []);
         }
 
         public ItemCategory UpgradeRequiresItemFromCategory
         {
             get => Reflector.GetPropertyValue<ItemCategory>(_characterObject, "UpgradeRequiresItemFromCategory");
             set => Reflector.SetPropertyValue(_characterObject, "UpgradeRequiresItemFromCategory", value);
+        }
+
+        public void AddUpgradeTarget(WCharacter target)
+        {
+            var oldTargets = UpgradeTargets ?? [];
+            var newTargets = new List<CharacterObject>(oldTargets) { (CharacterObject)target.Base };
+            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.ToArray());
+        }
+
+        public void RemoveUpgradeTarget(WCharacter target)
+        {
+            var oldTargets = UpgradeTargets ?? [];
+            var newTargets = new List<CharacterObject>(oldTargets) { (CharacterObject)target.Base};
+            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.ToArray());
+        }
+
+        // =========================================================================
+        // Management methods
+        // =========================================================================
+
+        public void Register()
+        {
+            HiddenInEncyclopedia = false;
+            IsNotTransferableInPartyScreen = false;
+            IsNotTransferableInHideouts = false;
+        }
+
+        public void Unregister()
+        {
+            HiddenInEncyclopedia = true;
+            IsNotTransferableInPartyScreen = true;
+            IsNotTransferableInHideouts = true;
+        }
+
+        public WCharacter Clone(bool keepUpgrades = true, bool keepEquipment = true, bool keepSkills = true)
+        {
+            // Clone from the source troop
+            var cloneObject = CharacterObject.CreateFrom(_characterObject);
+
+            // Wrap it
+            WCharacter clone = new(cloneObject, Clan);
+
+            if (keepUpgrades)
+                clone.UpgradeTargets = [.. UpgradeTargets];  // Unlink
+            else
+                clone.UpgradeTargets = [];
+
+            if (keepEquipment)
+                clone.Equipments = [.. Equipments];  // Unlink
+            else
+                clone.Equipments = [];
+
+            if (keepSkills)
+                clone.Skills = new Dictionary<SkillObject, int>(Skills);  // Unlink
+            else
+                clone.Skills = [];
+
+            return clone;
         }
     }
 }

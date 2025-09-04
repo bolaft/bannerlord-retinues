@@ -71,6 +71,25 @@
                                                     Text="Remove"/>
                                             </Children>
                                         </ButtonWidget>
+                                        
+                                        <!-- Unequip all button -->
+                                        <ButtonWidget
+                                            IsVisible="@IsEquipmentMode"
+                                            DoNotPassEventsToChildren="true"
+                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Brush="Popup.Delete.Button"
+                                            Command.Click="ExecuteUnequipAll">
+                                            <Children>
+                                                <TextWidget
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                    Brush="Popup.Button.Text"
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                    Text="Unequip All"/>
+                                            </Children>
+                                        </ButtonWidget>
 
                                         <!-- Edit equipment button -->
                                         <ButtonWidget
@@ -1156,25 +1175,6 @@
                                                     </Children>
                                                 </ListPanel>
                                         
-                                                <!-- Unequip all button -->
-                                                <ButtonWidget
-                                                    IsVisible="true"
-                                                    DoNotPassEventsToChildren="true"
-                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                    SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Top"
-                                                    Brush="Popup.Delete.Button"
-                                                    Command.Click="ExecuteUnequipAll">
-                                                    <Children>
-                                                        <TextWidget
-                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                            Brush="Popup.Button.Text"
-                                                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                            Text="Unequip All"/>
-                                                    </Children>
-                                                </ButtonWidget>
-                                        
                                             </Children>
                                         </ListPanel>
                                     </Children>
@@ -1644,13 +1644,13 @@
                                                                             VerticalAlignment="Center"
                                                                             MarginLeft="10"/>
                                         
-                                                                        <!-- Cost -->
+                                                                        <!-- Value -->
                                                                         <TextWidget
-                                                                            IntText="@Cost"
+                                                                            IntText="@Value"
                                                                             Brush="InventoryGoldFontBrush"
                                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                             HorizontalAlignment="Right" VerticalAlignment="Center"
-                                                                            IsVisible="@ShowCost"/>
+                                                                            IsVisible="@ShowValue"/>
                                                                         
                                                                         <!-- Coin icon -->
                                                                         <ImageWidget
@@ -1658,7 +1658,7 @@
                                                                             SuggestedWidth="20" SuggestedHeight="20"
                                                                             Sprite="General\Icons\Coin@2x"
                                                                             VerticalAlignment="Center" 
-                                                                            IsVisible="@ShowCost"/>
+                                                                            IsVisible="@ShowValue"/>
                                         
                                                                         <!-- Stock -->
                                                                         <TextWidget

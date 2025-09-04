@@ -1,31 +1,33 @@
+using System.Linq;
 using System.Collections.Generic;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
-using CustomClanTroops.Game.Troops.Objects;
+using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 
-namespace CustomClanTroops.UI.VM
+namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentListVM(EquipmentEditorVM owner) : ViewModel
+    public sealed class EquipmentListVM(EquipmentEditorVM owner) : ViewModel, IView
     {
         // =========================================================================
         // Fields
         // =========================================================================
 
-        private EquipmentEditorVM _owner = owner;
-
-        private EquipmentRowVM _selectedRow;
+        private readonly EquipmentEditorVM _owner = owner;
 
         // =========================================================================
         // Selected Troop
         // =========================================================================
 
-        public TroopCharacter SelectedTroop => _owner.SelectedTroop;
+        public WCharacter SelectedTroop => _owner.SelectedTroop;
 
         // =========================================================================
         // Public API
         // =========================================================================
+
+        [DataSourceProperty]
+        public EquipmentRowVM SelectedRow => Equipments.FirstOrDefault(t => t.IsSelected);
 
         [DataSourceProperty]
         public MBBindingList<EquipmentRowVM> Equipments { get; } = [];
@@ -36,17 +38,19 @@ namespace CustomClanTroops.UI.VM
 
         public void Refresh()
         {
+            Log.Debug("Refreshing Equipment List.");
+
             Equipments.Clear();
 
-            var items = new List<TroopItem>();
+            var items = new List<WItem>();
 
             if (Config.AllEquipmentUnlocked)
                 // Get all items
                 foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
-                items.Add(new TroopItem(item));
+                items.Add(new WItem(item));
             else
                 // Get only unlocked items
-                items.AddRange(TroopItem.UnlockedItems);
+                items.AddRange(WItem.UnlockedItems);
             
             foreach (var item in items)
             {
@@ -54,13 +58,10 @@ namespace CustomClanTroops.UI.VM
                 if (!item.IsEquippable)
                     continue;
 
-                // Only items that can be equipped by the selected troop
-                if (!SelectedTroop.CanEquip(item))
-                    continue;
-
-                Equipments.Add(new EquipmentRowVM(this, item));
+                Equipments.Add(new EquipmentRowVM(item, this));
             }
 
+            OnPropertyChanged(nameof(SelectedTroop));
             OnPropertyChanged(nameof(Equipments));
         }
     }

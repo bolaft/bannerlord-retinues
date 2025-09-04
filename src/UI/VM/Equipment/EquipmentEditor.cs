@@ -1,27 +1,28 @@
 using TaleWorlds.Library;
-using CustomClanTroops.Game.Troops.Objects;
+using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Utils;
 
-namespace CustomClanTroops.UI.VM
+namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class TroopEditorVM(ClanManagementMixinVM owner) : ViewModel
+    public sealed class EquipmentEditorVM(ClanManagementMixinVM owner) : ViewModel, IView
     {
         // =========================================================================
         // Fields
         // =========================================================================
 
-        private ClanManagementMixinVM _owner = owner;
+        private readonly ClanManagementMixinVM _owner = owner;
 
         // =========================================================================
         // Selected Troop
         // =========================================================================
 
-        public TroopCharacter SelectedTroop => _owner.SelectedTroop;
+        public WCharacter SelectedTroop => _owner.SelectedTroop;
 
         // =========================================================================
         // VMs
         // =========================================================================
 
-        [DataSourceProperty] public TroopListVM TroopList => new(this);
+        [DataSourceProperty] public EquipmentListVM EquipmentList => new(this);
 
         // =========================================================================
         // Refresh
@@ -29,9 +30,12 @@ namespace CustomClanTroops.UI.VM
 
         public void Refresh()
         {
-            TroopList.Refresh();
+            Log.Debug("Refreshing Equipment Editor.");
 
-            OnPropertyChanged(nameof(TroopList));
+            EquipmentList.Refresh();
+
+            OnPropertyChanged(nameof(SelectedTroop));
+            OnPropertyChanged(nameof(EquipmentList));
         }
     }
 }

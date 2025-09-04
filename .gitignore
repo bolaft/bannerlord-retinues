@@ -19,5 +19,8 @@ obj/
 # Ignore VS Code settings
 .vscode/
 
-# Ignore SaveData (optional, comment out if you want to keep versioned)
-#SaveData/
+# Ignore SaveData
+SaveData/
+
+# Ignore global suppressions
+GlobalSuppressions.cs

@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
-using Bannerlord.UIExtenderEx;
-using HarmonyLib;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
+using HarmonyLib;
+using Bannerlord.UIExtenderEx;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops
@@ -46,7 +46,7 @@ namespace CustomClanTroops
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
-            Log.Debug($"SubModule.OnGameStart: {game?.GameType?.GetType().Name}");
+            Log.Debug($"{game?.GameType?.GetType().Name}");
 
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {

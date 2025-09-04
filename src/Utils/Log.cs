@@ -32,7 +32,9 @@ namespace CustomClanTroops.Utils
         public static void WriteToLogFile(string message)
         {
             var timestamp = DateTime.Now.ToString("HH:mm:ss");
-            var formatted = $"[{timestamp}] {message}";
+            var caller = FindCaller();
+
+            var formatted = $"[{timestamp}] {caller}{message}";
             try
             {
                 File.AppendAllText(LogFile, formatted + Environment.NewLine);
@@ -56,5 +58,27 @@ namespace CustomClanTroops.Utils
 
         // Debug messages don't show in game, only in log file
         public static void Debug(string message) => WriteToLogFile(message);
+
+        private static string FindCaller()
+        {
+            try
+            {
+                var stack = new System.Diagnostics.StackTrace();
+                // 0 = FindCaller, 1 = WriteToLogFile, 2 = Log.Debug/Info/etc, 3 = actual caller
+                var frame = stack.GetFrame(3);
+                if (frame != null)
+                {
+                    var method = frame.GetMethod();
+                    if (method != null)
+                    {
+                        var className = method.DeclaringType != null ? method.DeclaringType.Name : "<UnknownClass>";
+                        var methodName = method.Name;
+                        return $"{className}.{methodName}: ";
+                    }
+                }
+            }
+            catch { /* Ignore stack errors */ }
+            return "";
+        }
     }
 }

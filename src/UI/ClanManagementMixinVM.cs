@@ -4,13 +4,16 @@ using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using CustomClanTroops.UI.VM;
-using CustomClanTroops.Game;
-using CustomClanTroops.Game.Troops.Objects;
+using CustomClanTroops.UI.VM.Equipment;
+using CustomClanTroops.UI.VM.Troop;
+using CustomClanTroops.Logic;
+using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI
 {
     [ViewModelMixin("TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM")]
-    public sealed class ClanManagementMixinVM : BaseViewModelMixin<ClanManagementVM>
+    public sealed class ClanManagementMixinVM : BaseViewModelMixin<ClanManagementVM>, IView
     {
         // =========================================================================
         // Constructor
@@ -29,7 +32,7 @@ namespace CustomClanTroops.UI
         // Selected Troop
         // =========================================================================
 
-        public TroopCharacter SelectedTroop { get; private set; }
+        public WCharacter SelectedTroop => TroopEditor.TroopList.SelectedRow?.Troop;
 
         // =========================================================================
         // Enums
@@ -100,6 +103,7 @@ namespace CustomClanTroops.UI
 
             // Check if a setup is needed
             if (Player.Clan.BasicTroops.IsEmpty() && Player.Clan.EliteTroops.IsEmpty())
+                Log.Debug("No custom troops found, initializing default troops.");
                 Setup.Initialize();
             
             Refresh();

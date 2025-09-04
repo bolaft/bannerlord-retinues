@@ -1,9 +1,11 @@
 
 using System.Linq;
 using System.Collections.Generic;
-using CustomClanTroops.Game.Troops.Objects;
+using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Utils;
+using TaleWorlds.CampaignSystem.BarterSystem.Barterables;
 
-namespace CustomClanTroops.Game
+namespace CustomClanTroops.Logic
 {
     public static class Setup
     {
@@ -16,18 +18,24 @@ namespace CustomClanTroops.Game
             foreach (var troop in CopyTroopTree($"{clan.Name} ", culture.EliteTroops))
                 clan.EliteTroops.Add(troop);
 
+            Log.Debug($"Cloned {culture.EliteTroops.Count()} elite troops from {culture.Name} to {clan.Name}");
+
             // Clone culture's basic troops
             foreach (var troop in CopyTroopTree($"{clan.Name} ", culture.BasicTroops))
                 clan.BasicTroops.Add(troop);
+
+            Log.Debug($"Cloned {culture.BasicTroops.Count()} basic troops from {culture.Name} to {clan.Name}");
 
             // Unlock all items of all equipments of all troops
             foreach (var troop in Enumerable.Concat(clan.EliteTroops, clan.BasicTroops))
                 foreach (var equipment in troop.Equipments)
                     foreach (var item in equipment.Items)
                         item.Unlock();
+            
+            Log.Debug($"Unlocked {WItem.UnlockedItems.Count()} items from {clan.EliteTroops.Count + clan.BasicTroops.Count} troops");
         }
 
-        public static IEnumerable<TroopCharacter> CopyTroopTree(string prefix, List<TroopCharacter> troops)
+        public static IEnumerable<WCharacter> CopyTroopTree(string prefix, List<WCharacter> troops)
         {
             foreach (var troop in troops)
             {
