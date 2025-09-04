@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using Bannerlord.UIExtenderEx.Attributes;
@@ -13,7 +16,7 @@ using CustomClanTroops.Utils;
 namespace CustomClanTroops.UI
 {
     [ViewModelMixin("TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM")]
-    public sealed class ClanManagementMixinVM : BaseViewModelMixin<ClanManagementVM>, IView
+    public sealed class ClanScreen : BaseViewModelMixin<ClanManagementVM>, IView
     {
         // =========================================================================
         // Fields
@@ -27,26 +30,33 @@ namespace CustomClanTroops.UI
         // Constructor
         // =========================================================================
 
-        public ClanManagementMixinVM(ClanManagementVM vm) : base(vm)
+        public ClanScreen(ClanManagementVM vm) : base(vm)
         {
-            if (Player.Clan.BasicTroops.IsEmpty() && Player.Clan.EliteTroops.IsEmpty())
+            try
             {
-                Log.Debug("No custom troops found, initializing default troops.");
-                Setup.Initialize();
+                if (Player.Clan.BasicTroops.IsEmpty() && Player.Clan.EliteTroops.IsEmpty())
+                {
+                    Log.Debug("No custom troops found, initializing default troops.");
+                    Setup.Initialize();
+                }
+
+                TroopEditor = new TroopEditorVM(this);
+                TroopEditor.Refresh();
+                TroopList = new TroopListVM(this);
+                TroopList.Refresh();
+                EquipmentEditor = new EquipmentEditorVM(this);
+                EquipmentEditor.Refresh();
+                EquipmentList = new EquipmentListVM(this);
+                EquipmentList.Refresh();
+
+                Refresh();
+
+                ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
             }
-
-            TroopEditor = new TroopEditorVM(this);
-            TroopEditor.Refresh();
-            TroopList = new TroopListVM(this);
-            TroopList.Refresh();
-            EquipmentEditor = new EquipmentEditorVM(this);
-            EquipmentEditor.Refresh();
-            EquipmentList = new EquipmentListVM(this);
-            EquipmentList.Refresh();
-
-            Refresh();
-
-            ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // =========================================================================
@@ -111,6 +121,37 @@ namespace CustomClanTroops.UI
             }
         }
 
+        [DataSourceProperty]
+        public CharacterViewModel Model => SelectedTroop?.Model;
+
+        [DataSourceProperty]
+        public bool ShowRemoveTroop
+        {
+            get
+            {
+                if (IsEquipmentMode)
+                    return false; // Only show in default mode
+                if (SelectedTroop?.Parent is null)
+                    return false; // Cannot remove root troops
+                if (SelectedTroop?.UpgradeTargets.Count() > 0)
+                    return false; // Cannot remove troops that are upgrade targets
+
+                return true;
+            }
+        }
+
+        [DataSourceProperty]
+        public bool ShowUnequipTroop
+        {
+            get
+            {
+                if (IsDefaultMode)
+                    return false; // Only show in equipment mode
+
+                return true;
+            }
+        }
+
         // =========================================================================
         // Action Bindings
         // =========================================================================
@@ -132,7 +173,7 @@ namespace CustomClanTroops.UI
 
             IsTroopsSelected = true;
 
-            ExecuteSwitchToDefault();
+            SwitchMode(EditorMode.Default);
         }
 
         [DataSourceMethod]
@@ -153,8 +194,14 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(TroopList));
             OnPropertyChanged(nameof(EquipmentEditor));
             OnPropertyChanged(nameof(EquipmentList));
+
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
+
+            OnPropertyChanged(nameof(ShowRemoveTroop));
+            OnPropertyChanged(nameof(ShowUnequipTroop));
+
+            OnPropertyChanged(nameof(Model));
         }
 
         // =========================================================================
@@ -180,8 +227,18 @@ namespace CustomClanTroops.UI
 
             _editorMode = mode;
 
+            // Refresh only when switching to Equipment mode
+            if (mode == EditorMode.Equipment)
+            {
+                EquipmentEditor.Refresh();
+                EquipmentList.Refresh();
+            }
+
+            // UI updates
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
+            OnPropertyChanged(nameof(ShowRemoveTroop));
+            OnPropertyChanged(nameof(ShowUnequipTroop));
         }
     }
 }

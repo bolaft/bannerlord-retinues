@@ -6,7 +6,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopListVM(CustomClanTroops.UI.ClanManagementMixinVM owner) : ListBase<TroopListVM, TroopRowVM>(owner), IView
+    public sealed class TroopListVM(UI.ClanScreen screen) : BaseList<TroopListVM, TroopRowVM>(screen), IView
     {
         // =========================================================================
         // Data Bindings
@@ -23,6 +23,13 @@ namespace CustomClanTroops.UI.VM.Troop
         // =========================================================================
 
         public override System.Collections.Generic.List<TroopRowVM> Rows => EliteTroops.Concat(BasicTroops).ToList();
+
+        public void Select(WCharacter troop)
+        {
+            var row = Rows.FirstOrDefault(r => r.Troop.Equals(troop));
+            if (row is not null)
+                Select(row);
+        }
 
         public void Refresh()
         {

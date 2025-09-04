@@ -4,24 +4,8 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentEditorVM(ClanManagementMixinVM owner) : ViewModel, IView
+    public sealed class EquipmentEditorVM(ClanScreen screen) : BaseEditor<EquipmentEditorVM>(screen), IView
     {
-        // =========================================================================
-        // Fields
-        // =========================================================================
-
-        private readonly ClanManagementMixinVM _owner = owner;
-
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
-
-        [DataSourceProperty]
-        public string Name => _owner.SelectedTroop?.Name;
-
-        [DataSourceProperty]
-        public string Gender => _owner.SelectedTroop != null && _owner.SelectedTroop.IsFemale ? "Female" : "Male";
-
         // =========================================================================
         // Public API
         // =========================================================================
@@ -29,9 +13,6 @@ namespace CustomClanTroops.UI.VM.Equipment
         public void Refresh()
         {
             Log.Debug("Refreshing Equipment Editor.");
-
-            OnPropertyChanged(nameof(Name));
-            OnPropertyChanged(nameof(Gender));
         }
     }
 }

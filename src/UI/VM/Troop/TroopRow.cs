@@ -1,10 +1,11 @@
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopRowVM(WCharacter troop, TroopListVM owner) : RowBase<TroopListVM, TroopRowVM>(owner), IView
+    public sealed class TroopRowVM(WCharacter troop, TroopListVM list) : BaseRow<TroopListVM, TroopRowVM>(list), IView
     {
         // =========================================================================
         // Data Bindings
@@ -40,13 +41,23 @@ namespace CustomClanTroops.UI.VM.Troop
 
         public void Refresh()
         {
-            OnPropertyChanged(nameof(Troop));
-            OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
             OnPropertyChanged(nameof(IndentedName));
             OnPropertyChanged(nameof(TierText));
+        }
+
+        // =========================================================================
+        // Internals
+        // =========================================================================
+
+        protected override void OnSelect()
+        {
+            Log.Debug($"Selected troop: {Troop.Name}.");
+
+            RowList.Screen.TroopEditor.Refresh();
+            RowList.Screen.Refresh();
         }
     }
 }

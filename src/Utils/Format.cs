@@ -7,9 +7,14 @@ namespace CustomClanTroops.Utils
             if (string.IsNullOrEmpty(text))
                 return text;
 
-            // Insert spaces before capital letters and convert to title case
-            var result = System.Text.RegularExpressions.Regex.Replace(text, "([a-z])([A-Z])", "$1 $2");
-            return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(result);
+            // Replace underscores with spaces
+            text = text.Replace('_', ' ');
+            // Insert spaces before capital letters
+            text = System.Text.RegularExpressions.Regex.Replace(text, "([a-z])([A-Z])", "$1 $2");
+            // Convert to title case
+            text = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
+
+            return text;
         }
     }
 }

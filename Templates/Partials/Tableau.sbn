@@ -1,5 +1,5 @@
 <Widget
-    DataSource="{TroopViewModel}"
+    DataSource="{Model}"
     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
     SuggestedWidth="550" SuggestedHeight="900"
     HorizontalAlignment="Center" VerticalAlignment="Center">

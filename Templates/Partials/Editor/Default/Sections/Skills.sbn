@@ -12,7 +12,7 @@
         <!-- Used skill points  -->
         {{ text_int("@SkillPointsUsed", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
         {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-        {{ text_int("@SkillPoints", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
     </Children>
 </ListPanel>
 

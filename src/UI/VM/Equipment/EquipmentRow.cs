@@ -6,7 +6,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM owner) : RowBase<EquipmentListVM, EquipmentRowVM>(owner), IView
+    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list) : BaseRow<EquipmentListVM, EquipmentRowVM>(list), IView
     {
         // =========================================================================
         // Data Bindings
@@ -49,7 +49,7 @@ namespace CustomClanTroops.UI.VM.Equipment
         }
 
         [DataSourceProperty]
-        public bool CanEquip => _owner.Owner.SelectedTroop?.CanEquip(Item) ?? false;
+        public bool CanEquip => RowList.Screen.SelectedTroop?.CanEquip(Item) ?? false;
 
         [DataSourceProperty]
         public string ImageId => Item?.Image.Id;
@@ -68,7 +68,6 @@ namespace CustomClanTroops.UI.VM.Equipment
 
         public void Refresh()
         {
-            OnPropertyChanged(nameof(Item));
             OnPropertyChanged(nameof(Hint));
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Value));
@@ -79,6 +78,15 @@ namespace CustomClanTroops.UI.VM.Equipment
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
+        }
+
+        // =========================================================================
+        // Internals
+        // =========================================================================
+
+        protected override void OnSelect()
+        {
+            Log.Debug($"Selected item: {Item.Name}.");
         }
     }
 }

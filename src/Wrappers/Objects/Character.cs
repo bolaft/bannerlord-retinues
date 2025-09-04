@@ -79,6 +79,8 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public bool IsElite => Clan.EliteTroops.Contains(this);
 
+        public bool IsMaxTier => Tier >= (IsElite ? 6 : 5);
+
         public bool IsFemale
         {
             get => Reflector.GetPropertyValue<bool>(_characterObject, "IsFemale");
@@ -133,68 +135,6 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             var skills = Reflector.GetFieldValue<MBCharacterSkills>(_characterObject, "DefaultCharacterSkills");
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
-        }
-        public int SkillCap
-        {
-            get
-            {
-                return Tier switch
-                {
-                    1 => 20,
-                    2 => 50,
-                    3 => 80,
-                    4 => 120,
-                    5 => 160,
-                    6 => 260,
-                    _ => throw new ArgumentOutOfRangeException(),
-                };
-            }
-        }
-
-        public int SkillPoints
-        {
-            get
-            {
-                return Tier switch
-                {
-                    1 => 90,
-                    2 => 210,
-                    3 => 360,
-                    4 => 535,
-                    5 => 710,
-                    6 => 915,
-                    _ => throw new ArgumentOutOfRangeException(),
-                };
-            }
-        }
-
-        public int SkillPointsUsed => Skills.Sum(skill => GetSkill(skill.Key));
-
-        public int SkillPointsLeft => SkillPoints - SkillPointsUsed;
-
-        public bool CanIncrementSkill(SkillObject skill)
-        {
-            // Skills can't go above the tier skill cap
-            if (GetSkill(skill) >= SkillCap)
-                return false;
-
-            // Check if we have enough skill points left
-            if (SkillPointsLeft <= 0)
-                return false;
-            return true;
-        }
-
-        public bool CanDecrementSkill(SkillObject skill)
-        {
-            // Skills can't go below zero
-            if (GetSkill(skill) <= 0)
-                return false;
-
-            // Check for equipment skill requirements
-            if (GetSkill(skill) <= Equipment.GetSkillRequirement(skill))
-                return false;
-
-            return true;
         }
 
         // =========================================================================
@@ -297,7 +237,7 @@ namespace CustomClanTroops.Wrappers.Objects
             var cloneObject = CharacterObject.CreateFrom(_characterObject);
 
             // Default clan is the same as the original troop
-            if (clan == null) clan = Clan;
+            clan ??= Clan;
 
             // Wrap it
             WCharacter clone = new(cloneObject, clan, parent);

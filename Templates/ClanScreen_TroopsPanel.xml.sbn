@@ -32,10 +32,10 @@
                                         {{ include "Tableau.sbn" }}
 
                                         <!-- Remove troop button -->
-                                        {{ button_text("Remove", "ExecuteRemoveTroop", "Popup.Delete.Button", "@CanRemoveTroop", "Top") }}
+                                        {{ button_text("Remove", "ExecuteRemoveTroop", "Popup.Delete.Button", "@ShowRemoveTroop", "Top") }}
                                         
                                         <!-- Unequip all button -->
-                                        {{ button_text("Unequip All", "ExecuteUnequipAll", "Popup.Delete.Button", "@IsEquipmentMode", "Top") }}
+                                        {{ button_text("Unequip All", "ExecuteUnequipAll", "Popup.Delete.Button", "@ShowUnequipTroop", "Top") }}
 
                                         <!-- Edit equipment button -->
                                         {{ button_text("Equipment", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "Bottom") }}

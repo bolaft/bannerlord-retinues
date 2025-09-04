@@ -4,21 +4,21 @@ using TaleWorlds.Library;
 
 namespace CustomClanTroops.UI.VM
 {
-    public abstract class ListBase<TSelf, TRow>(UI.ClanManagementMixinVM owner) : ViewModel
-        where TSelf : ListBase<TSelf, TRow>
-        where TRow : RowBase<TSelf, TRow>
+    public abstract class BaseList<TSelf, TRow>(UI.ClanScreen screen) : ViewModel
+        where TSelf : BaseList<TSelf, TRow>
+        where TRow : BaseRow<TSelf, TRow>
     {
         // =========================================================================
         // Fields
         // =========================================================================
 
-        protected readonly UI.ClanManagementMixinVM _owner = owner;
+        protected readonly UI.ClanScreen _screen = screen;
 
         // =========================================================================
         // Public API
         // =========================================================================
 
-        public UI.ClanManagementMixinVM Owner => _owner;
+        public UI.ClanScreen Screen => _screen;
 
         public virtual List<TRow> Rows { get; protected set; } = new();
 

@@ -30,7 +30,7 @@
                                     <Children>
                                         <!-- Character tableau -->
                                         <Widget
-                                            DataSource="{TroopViewModel}"
+                                            DataSource="{Model}"
                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                             SuggestedWidth="550" SuggestedHeight="900"
                                             HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -55,7 +55,7 @@
 
                                         <!-- Remove troop button -->
                                         <ButtonWidget
-                                            IsVisible="@CanRemoveTroop"
+                                            IsVisible="@ShowRemoveTroop"
                                             DoNotPassEventsToChildren="true"
                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                             SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
@@ -74,7 +74,7 @@
                                         
                                         <!-- Unequip all button -->
                                         <ButtonWidget
-                                            IsVisible="@IsEquipmentMode"
+                                            IsVisible="@ShowUnequipTroop"
                                             DoNotPassEventsToChildren="true"
                                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                             SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
@@ -282,7 +282,7 @@
                                                             ClipContents="false"/>
                                                         <TextWidget
                                                             IsVisible="true"
-                                                            IntText="@SkillPoints" Brush="Clan.RightPanel.Name.Text"
+                                                            IntText="@SkillTotal" Brush="Clan.RightPanel.Name.Text"
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                             HorizontalAlignment="Center"
                                                             MarginLeft="0" MarginRight="8" MarginTop="0" MarginBottom="0"
@@ -472,7 +472,7 @@
                                                 
                                                 <!-- Add upgrade button -->
                                                 <ButtonWidget
-                                                    IsVisible="@CanAddUpgradeTarget"
+                                                    IsVisible="@CanUpgrade"
                                                     DoNotPassEventsToChildren="true"
                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                                     SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"

@@ -8,7 +8,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentListVM(UI.ClanManagementMixinVM owner) : ListBase<EquipmentListVM, EquipmentRowVM>(owner), IView
+    public sealed class EquipmentListVM(UI.ClanScreen screen) : BaseList<EquipmentListVM, EquipmentRowVM>(screen), IView
     {
         // =========================================================================
         // Data Bindings
@@ -22,6 +22,13 @@ namespace CustomClanTroops.UI.VM.Equipment
         // =========================================================================
 
         public override List<EquipmentRowVM> Rows => Equipments.ToList();
+
+        public void Select(WItem item)
+        {
+            var row = Rows.FirstOrDefault(r => r.Item.Equals(item));
+            if (row is not null)
+                Select(row);
+        }
 
         public void Refresh()
         {

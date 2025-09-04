@@ -59,6 +59,12 @@ namespace CustomClanTroops.Utils
         // Debug messages don't show in game, only in log file
         public static void Debug(string message) => WriteToLogFile(message);
 
+        // Exception logger
+        public static void Exception(Exception ex)
+        {
+            Error($"[EXCEPTION] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}");
+        }
+
         private static string FindCaller()
         {
             try
@@ -72,7 +78,7 @@ namespace CustomClanTroops.Utils
                     if (method != null)
                     {
                         var className = method.DeclaringType != null ? method.DeclaringType.Name : "<UnknownClass>";
-                        var methodName = method.Name == ".ctor" ? "<Constructor>" : method.Name;
+                        var methodName = method.Name == ".ctor" ? className : method.Name;
                         return $"{className}.{methodName}: ";
                     }
                 }

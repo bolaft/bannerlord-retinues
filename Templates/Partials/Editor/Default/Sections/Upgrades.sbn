@@ -14,7 +14,7 @@
 </ListPanel>
 
 <!-- Add upgrade button -->
-{{ button_text("Add Upgrade", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@CanAddUpgradeTarget", "Bottom") }}
+{{ button_text("Add Upgrade", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@CanUpgrade", "Bottom") }}
 
 <!-- Max Tier -->
 {{ text("N/A", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "8", "@IsMaxTier") }}

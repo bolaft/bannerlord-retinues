@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 
 namespace CustomClanTroops.UI.VM
 {
-    public abstract class RowBase<TList, TRow>(TList owner) : ViewModel
-        where TList : ListBase<TList, TRow>
-        where TRow  : RowBase<TList, TRow>
+    public abstract class BaseRow<TList, TRow>(TList rowList) : ViewModel
+        where TList : BaseList<TList, TRow>
+        where TRow : BaseRow<TList, TRow>
     {
         // =========================================================================
         // Fields
@@ -13,7 +14,7 @@ namespace CustomClanTroops.UI.VM
 
         private bool _isSelected;
 
-        protected readonly TList _owner = owner;
+        protected readonly TList _rowList = rowList;
 
         // =========================================================================
         // Data Bindings
@@ -28,6 +29,10 @@ namespace CustomClanTroops.UI.VM
                 if (_isSelected != value)
                 {
                     _isSelected = value;
+
+                    // Specific row selection logic
+                    if (value) OnSelect();
+
                     OnPropertyChanged(nameof(IsSelected));
                 }
             }
@@ -44,10 +49,32 @@ namespace CustomClanTroops.UI.VM
         // Public API
         // =========================================================================
 
+        public TList RowList => _rowList;
+
+        public List<TRow> Rows => _rowList.Rows;
+
         public void Select()
         {
+            // No-op if already selected
+            if (IsSelected)
+                return;
+
             // Safe due to self-referential generic constraint
-            _owner.Select((TRow)this);
+            _rowList.Select((TRow)this);
         }
+
+        public void Unselect()
+        {
+            if (!IsSelected)
+                return;
+
+            IsSelected = false;
+        }
+
+        // =========================================================================
+        // Internals
+        // =========================================================================
+
+        protected abstract void OnSelect();
     }
 }
