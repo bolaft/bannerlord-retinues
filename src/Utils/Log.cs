@@ -72,7 +72,7 @@ namespace CustomClanTroops.Utils
                     if (method != null)
                     {
                         var className = method.DeclaringType != null ? method.DeclaringType.Name : "<UnknownClass>";
-                        var methodName = method.Name;
+                        var methodName = method.Name == ".ctor" ? "<Constructor>" : method.Name;
                         return $"{className}.{methodName}: ";
                     }
                 }

@@ -3,129 +3,82 @@ using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
-using System.Runtime.InteropServices;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM owner) : ViewModel, IView
+    public sealed class EquipmentRowVM(WItem item, EquipmentListVM owner) : RowBase<EquipmentListVM, EquipmentRowVM>(owner), RowBase<EquipmentListVM, EquipmentRowVM>, IView
     {
         // =========================================================================
-        // Fields
-        // =========================================================================
-
-        private readonly EquipmentListVM _owner = owner;
-
-        private bool _isSelected = false;
-
-        // =========================================================================
-        // Selected Troop
-        // =========================================================================
-
-        public WCharacter SelectedTroop => _owner.SelectedTroop;
-
-        // =========================================================================
-        // Public API
-        // =========================================================================
-
-        public WItem Item = item;
-
-        public bool IsSelected {
-            get => _isSelected;
-            set
-            {
-                if (value)
-                    Log.Debug($"{Item.Name} selected.");
-
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    OnPropertyChanged(nameof(IsSelected));
-                }
-            }
-        }
-
-        // =========================================================================
-        // Data Source Properties
+        // Data Bindings
         // =========================================================================
 
         [DataSourceProperty]
         public BasicTooltipViewModel Hint => Helpers.ItemTooltip.Make(Item);
 
         [DataSourceProperty]
-        public string Name => Item.Name;
+        public string Name => Item?.Name;
 
         [DataSourceProperty]
-        public int Value => Item.Value;
+        public int Value => Item?.Value ?? 0;
 
         [DataSourceProperty]
         public bool ShowValue
         {
             get
             {
-                // No cost if not paying for troop equipment
                 if (!Config.PayForTroopEquipment) return false;
-
-                // No cost to empty a slot
                 if (Item == null) return false;
-
-                // No cost if item is in stock
-                if (Stock > 0) return true;
-
+                // If paying, we display the value (even if stock is zero)
                 return true;
             }
         }
 
         [DataSourceProperty]
-        public int Stock => Item.GetStock();
+        public int Stock => Item?.GetStock() ?? 0;
 
         [DataSourceProperty]
         public bool ShowStock
         {
             get
             {
-                // No need for stocks if not paying for troop equipment
                 if (!Config.PayForTroopEquipment) return false;
-
-                // No need for stocks to empty a slot
                 if (Item == null) return false;
-
-                // No stock means no need to display stock
                 if (Stock == 0) return false;
-
                 return true;
             }
         }
 
         [DataSourceProperty]
-        public bool CanEquip => SelectedTroop.CanEquip(Item);
+        public bool CanEquip => _owner.Owner.SelectedTroop?.CanEquip(Item) ?? false;
 
         [DataSourceProperty]
-        public string ImageId => Item.Image.Id;
+        public string ImageId => Item?.Image.Id;
 
         [DataSourceProperty]
-        public int ImageTypeCode => Item.Image.ImageTypeCode;
+        public int ImageTypeCode => Item?.Image.ImageTypeCode ?? 0;
 
         [DataSourceProperty]
-        public string ImageAdditionalArgs => Item.Image.AdditionalArgs;
+        public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
 
         // =========================================================================
-        // Actions
+        // Public API
         // =========================================================================
 
-        [DataSourceMethod]
-        public void ExecuteSelect()
-        {
-            IsSelected = true;
-        }
-
-        // =========================================================================
-        // Refresh
-        // =========================================================================
+        public WItem Item { get; } = item;
 
         public void Refresh()
         {
             OnPropertyChanged(nameof(Item));
-            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(Hint));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(Stock));
+            OnPropertyChanged(nameof(ShowStock));
+            OnPropertyChanged(nameof(CanEquip));
+            OnPropertyChanged(nameof(ImageId));
+            OnPropertyChanged(nameof(ImageTypeCode));
+            OnPropertyChanged(nameof(ImageAdditionalArgs));
         }
     }
 }

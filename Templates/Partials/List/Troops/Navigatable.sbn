@@ -39,7 +39,7 @@
                             VerticalAlignment="Center" 
                             Brush="Clan.Tuple.Name.Text" 
                             ClipContents="false" 
-                            Text="@DisplayName"/>
+                            Text="@IndentedName"/>
 
                         <!-- Tier -->
                         {{ text("@TierText", "Clan.Tuple.Name.Text") }}

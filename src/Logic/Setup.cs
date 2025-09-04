@@ -1,9 +1,9 @@
 
 using System.Linq;
 using System.Collections.Generic;
+using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
-using TaleWorlds.CampaignSystem.BarterSystem.Barterables;
 
 namespace CustomClanTroops.Logic
 {
@@ -14,37 +14,42 @@ namespace CustomClanTroops.Logic
             var culture = Player.Culture;
             var clan = Player.Clan;
 
-            // Clone culture's elite troops
-            foreach (var troop in CopyTroopTree($"{clan.Name} ", culture.EliteTroops))
-                clan.EliteTroops.Add(troop);
+            clan.EliteTroops.Clear();
+            clan.BasicTroops.Clear();
 
-            Log.Debug($"Cloned {culture.EliteTroops.Count()} elite troops from {culture.Name} to {clan.Name}");
+            // Clone the elite tree from the elite root
+            foreach (var clone in CloneTroopTreeRecursive(culture.RootElite, clan, null))
+                clan.EliteTroops.Add(clone);
 
-            // Clone culture's basic troops
-            foreach (var troop in CopyTroopTree($"{clan.Name} ", culture.BasicTroops))
-                clan.BasicTroops.Add(troop);
+            Log.Debug($"Cloned {clan.EliteTroops.Count} elite troops from {culture.Name} to {clan.Name}");
 
-            Log.Debug($"Cloned {culture.BasicTroops.Count()} basic troops from {culture.Name} to {clan.Name}");
+            // Clone the basic tree from the basic root
+            foreach (var clone in CloneTroopTreeRecursive(culture.RootBasic, clan, null))
+                clan.BasicTroops.Add(clone);
 
-            // Unlock all items of all equipments of all troops
+            Log.Debug($"Cloned {clan.BasicTroops.Count} basic troops from {culture.Name} to {clan.Name}");
+
+            // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(clan.EliteTroops, clan.BasicTroops))
                 foreach (var equipment in troop.Equipments)
                     foreach (var item in equipment.Items)
                         item.Unlock();
-            
+
             Log.Debug($"Unlocked {WItem.UnlockedItems.Count()} items from {clan.EliteTroops.Count + clan.BasicTroops.Count} troops");
         }
 
-        public static IEnumerable<WCharacter> CopyTroopTree(string prefix, List<WCharacter> troops)
+        private static IEnumerable<WCharacter> CloneTroopTreeRecursive(WCharacter original, WClan clan, WCharacter parent)
         {
-            foreach (var troop in troops)
+            var clone = original.Clone(clan: clan, parent: parent);
+            clone.Name = $"{clan.Name} {original.Name}";
+            yield return clone;
+            if (original.UpgradeTargets != null)
             {
-                // Clone the troop
-                var clone = troop.Clone();
-                // Prefix its name
-                clone.Name = $"{prefix} {troop.Name}";
-                // Return it
-                yield return clone;
+                foreach (var child in original.UpgradeTargets)
+                {
+                    foreach (var descendant in CloneTroopTreeRecursive(new WCharacter(child, clan, clone), clan, clone))
+                        yield return descendant;
+                }
             }
         }
     }

@@ -13,29 +13,12 @@ namespace CustomClanTroops.UI.VM.Troop
         private readonly ClanManagementMixinVM _owner = owner;
 
         // =========================================================================
-        // Selected Troop
-        // =========================================================================
-
-        public WCharacter SelectedTroop => _owner.SelectedTroop;
-
-        // =========================================================================
-        // VMs
-        // =========================================================================
-
-        [DataSourceProperty] public TroopListVM TroopList => new(this);
-
-        // =========================================================================
-        // Refresh
+        // Public API
         // =========================================================================
 
         public void Refresh()
         {
             Log.Debug("Refreshing Troop Editor.");
-
-            TroopList.Refresh();
-
-            OnPropertyChanged(nameof(SelectedTroop));
-            OnPropertyChanged(nameof(TroopList));
         }
     }
 }

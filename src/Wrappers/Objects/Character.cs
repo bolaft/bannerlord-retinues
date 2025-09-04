@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Library;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Utils;
-using TaleWorlds.Library;
 
 namespace CustomClanTroops.Wrappers.Objects
 {
-    public class WCharacter(CharacterObject characterObject, WClan clan = null, WCharacter parent = null) : IWrapper
+    public class WCharacter(CharacterObject characterObject, WClan clan = null, WCharacter parent = null) : StringIdentifier, IWrapper
     {
         // =========================================================================
         // Base
@@ -51,7 +51,7 @@ namespace CustomClanTroops.Wrappers.Objects
         // Basic Attributes
         // =========================================================================
 
-        public string StringId => _characterObject.StringId;
+        public override string StringId => _characterObject.StringId;
 
         public string Name
         {
@@ -291,13 +291,16 @@ namespace CustomClanTroops.Wrappers.Objects
             IsNotTransferableInHideouts = true;
         }
 
-        public WCharacter Clone(bool keepUpgrades = true, bool keepEquipment = true, bool keepSkills = true)
+        public WCharacter Clone(WClan clan = null, WCharacter parent = null, bool keepUpgrades = true, bool keepEquipment = true, bool keepSkills = true)
         {
             // Clone from the source troop
             var cloneObject = CharacterObject.CreateFrom(_characterObject);
 
+            // Default clan is the same as the original troop
+            if (clan == null) clan = Clan;
+
             // Wrap it
-            WCharacter clone = new(cloneObject, Clan);
+            WCharacter clone = new(cloneObject, clan, parent);
 
             if (keepUpgrades)
                 clone.UpgradeTargets = [.. UpgradeTargets];  // Unlink

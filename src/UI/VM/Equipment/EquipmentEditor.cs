@@ -13,29 +13,25 @@ namespace CustomClanTroops.UI.VM.Equipment
         private readonly ClanManagementMixinVM _owner = owner;
 
         // =========================================================================
-        // Selected Troop
+        // Data Bindings
         // =========================================================================
 
-        public WCharacter SelectedTroop => _owner.SelectedTroop;
+        [DataSourceProperty]
+        public string Name => _owner.SelectedTroop?.Name;
+
+        [DataSourceProperty]
+        public string Gender => _owner.SelectedTroop != null && _owner.SelectedTroop.IsFemale ? "Female" : "Male";
 
         // =========================================================================
-        // VMs
-        // =========================================================================
-
-        [DataSourceProperty] public EquipmentListVM EquipmentList => new(this);
-
-        // =========================================================================
-        // Refresh
+        // Public API
         // =========================================================================
 
         public void Refresh()
         {
             Log.Debug("Refreshing Equipment Editor.");
 
-            EquipmentList.Refresh();
-
-            OnPropertyChanged(nameof(SelectedTroop));
-            OnPropertyChanged(nameof(EquipmentList));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Gender));
         }
     }
 }

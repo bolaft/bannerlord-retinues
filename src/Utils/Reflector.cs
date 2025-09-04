@@ -8,7 +8,9 @@ namespace CustomClanTroops.Utils
     {
         public const BindingFlags Flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
 
-        // ---------- Core resolvers (walk base types) ----------
+        // =========================================================================
+        // Core Resolvers
+        // =========================================================================
 
         private static PropertyInfo ResolveProperty(Type type, string name)
         {
@@ -42,7 +44,9 @@ namespace CustomClanTroops.Utils
             return null;
         }
 
-        // ---------- Back-compat helpers ----------
+        // =========================================================================
+        // Back-compat helpers
+        // =========================================================================
 
         internal static PropertyInfo P<T>(T instance, string propertyName)
             => ResolveProperty(instance?.GetType() ?? typeof(T), propertyName);
@@ -53,7 +57,9 @@ namespace CustomClanTroops.Utils
         internal static MethodInfo M<T>(T instance, string methodName, params Type[] parameterTypes)
             => ResolveMethod(instance?.GetType() ?? typeof(T), methodName, parameterTypes);
 
-        // ---------- Public convenience API ----------
+        // =========================================================================
+        // Public API
+        // =========================================================================
 
         public static TReturn GetPropertyValue<TReturn>(object instance, string propertyName)
         {
@@ -169,7 +175,9 @@ namespace CustomClanTroops.Utils
             return mi.Invoke(instance, args);
         }
 
-        // ---------- Helpers ----------
+        // =========================================================================
+        // Helpers
+        // =========================================================================
 
         private static object ConvertIfNeeded(object value, Type targetType)
         {

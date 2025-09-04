@@ -7,7 +7,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.Wrappers.Objects
 {
-    public class WItem(ItemObject itemObject) : IWrapper
+    public class WItem(ItemObject itemObject) : StringIdentifier, IWrapper
     {
         // =========================================================================
         // Base
@@ -37,7 +37,7 @@ namespace CustomClanTroops.Wrappers.Objects
         // Main properties
         // =========================================================================
 
-        public string StringId => _itemObject.StringId;
+        public override string StringId => _itemObject.StringId;
 
         public string Name => _itemObject.Name.ToString();
 
@@ -250,22 +250,19 @@ namespace CustomClanTroops.Wrappers.Objects
         // Unlocks
         // =========================================================================
 
-        public static List<WItem> UnlockedItems { get; } = [];
+        public static HashSet<WItem> UnlockedItems { get; } = new();
 
-        public bool IsUnlocked()
-        {
-            return UnlockedItems.Contains(this);
-        }
+        public bool IsUnlocked => UnlockedItems.Contains(this);
 
         public void Unlock()
         {
-            if (!UnlockedItems.Contains(this))
+            if (!IsUnlocked)
                 UnlockedItems.Add(this);
         }
 
         public void Lock()
         {
-            if (UnlockedItems.Contains(this))
+            if (IsUnlocked)
                 UnlockedItems.Remove(this);
         }
 

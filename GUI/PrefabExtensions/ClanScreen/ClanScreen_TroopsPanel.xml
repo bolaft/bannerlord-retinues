@@ -1330,7 +1330,7 @@
                                                                             VerticalAlignment="Center" 
                                                                             Brush="Clan.Tuple.Name.Text" 
                                                                             ClipContents="false" 
-                                                                            Text="@DisplayName"/>
+                                                                            Text="@IndentedName"/>
                                                 
                                                                         <!-- Tier -->
                                                                         <TextWidget
@@ -1404,7 +1404,7 @@
                                                                             VerticalAlignment="Center" 
                                                                             Brush="Clan.Tuple.Name.Text" 
                                                                             ClipContents="false" 
-                                                                            Text="@DisplayName"/>
+                                                                            Text="@IndentedName"/>
                                                 
                                                                         <!-- Tier -->
                                                                         <TextWidget

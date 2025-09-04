@@ -1,65 +1,52 @@
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopRowVM(WCharacter troop, TroopListVM owner) : ViewModel, IView
+    public sealed class TroopRowVM(WCharacter troop, TroopListVM owner) : RowBase<TroopListVM, TroopRowVM>(owner), RowBase<TroopListVM, TroopRowVM>, IView
     {
         // =========================================================================
-        // Fields
+        // Data Bindings
         // =========================================================================
 
-        private readonly TroopListVM _owner = owner;
+        [DataSourceProperty]
+        public string ImageId => Troop.Image.Id;
 
-        private bool _isSelected = false;
+        [DataSourceProperty]
+        public int ImageTypeCode => Troop.Image.ImageTypeCode;
 
-        // =========================================================================
-        // Selected Troop
-        // =========================================================================
+        [DataSourceProperty]
+        public string ImageAdditionalArgs => Troop.Image.AdditionalArgs;
 
-        public WCharacter SelectedTroop => _owner.SelectedTroop;
+        [DataSourceProperty]
+        public string IndentedName
+        {
+            get
+            {
+                var indent = new string(' ', (Troop.Tier - 1) * 4);
+                return $"{indent}{Troop.Name}";
+            }
+        }
+
+        [DataSourceProperty]
+        public string TierText => $"T{Troop.Tier}";
 
         // =========================================================================
         // Public API
         // =========================================================================
 
-        public WCharacter Troop = troop;
-
-        public bool IsSelected {
-            get => _isSelected;
-            set
-            {
-                if (value)
-                    Log.Debug($"{Troop.Name} selected.");
-
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    OnPropertyChanged(nameof(IsSelected));
-                }
-            }
-        }
-
-        // =========================================================================
-        // Actions
-        // =========================================================================
-
-        [DataSourceMethod]
-        public void ExecuteSelect()
-        {
-            IsSelected = true;
-        }
-
-        // =========================================================================
-        // Refresh
-        // =========================================================================
+        public WCharacter Troop { get; } = troop;
 
         public void Refresh()
         {
             OnPropertyChanged(nameof(Troop));
             OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(ImageId));
+            OnPropertyChanged(nameof(ImageTypeCode));
+            OnPropertyChanged(nameof(ImageAdditionalArgs));
+            OnPropertyChanged(nameof(IndentedName));
+            OnPropertyChanged(nameof(TierText));
         }
     }
 }

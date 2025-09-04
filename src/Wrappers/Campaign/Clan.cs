@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.Wrappers.Campaign
 {
-    public class WClan(Clan clan) : IWrapper
+    public class WClan(Clan clan) : StringIdentifier, IWrapper
     {
         // =========================================================================
         // Base
@@ -20,7 +21,7 @@ namespace CustomClanTroops.Wrappers.Campaign
 
         public string Name => _clan.Name.ToString();
 
-        public string StringId => _clan.StringId.ToString();
+        public override string StringId => _clan.StringId.ToString();
 
         // =========================================================================
         // Troops

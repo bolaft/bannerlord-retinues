@@ -6,58 +6,69 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopListVM(TroopEditorVM owner) : ViewModel, IView
+    public sealed class TroopListVM(CustomClanTroops.UI.ClanManagementMixinVM owner) : ListBase<TroopListVM, TroopRowVM>(owner), ListBase<TroopListVM, TroopRowVM>, IView
     {
         // =========================================================================
-        // Fields
+        // Data Bindings
         // =========================================================================
 
-        private readonly TroopEditorVM _owner = owner;
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> EliteTroops { get; set; } = new();
 
-        // =========================================================================
-        // Selected Troop
-        // =========================================================================
-
-        public WCharacter SelectedTroop => _owner.SelectedTroop;
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> BasicTroops { get; set; } = new();
 
         // =========================================================================
         // Public API
         // =========================================================================
 
-        [DataSourceProperty]
-        public TroopRowVM SelectedRow => EliteTroops.FirstOrDefault(t => t.IsSelected) ?? BasicTroops.FirstOrDefault(t => t.IsSelected);
-
-        [DataSourceProperty]
-        public MBBindingList<TroopRowVM> EliteTroops { get; } = [];
-
-        [DataSourceProperty]
-        public MBBindingList<TroopRowVM> BasicTroops { get; } = [];
-
-        // =========================================================================
-        // Refresh
-        // =========================================================================
+        public override System.Collections.Generic.List<TroopRowVM> Rows => EliteTroops.Concat(BasicTroops).ToList();
 
         public void Refresh()
         {
             Log.Debug("Refreshing Troop List.");
 
-            foreach (var troop in Player.Clan.EliteTroops)
-                EliteTroops.Add(new TroopRowVM(troop, this));
-            
+            EliteTroops.Clear();
+            foreach (var root in Player.Clan.EliteTroops.Where(t => t.Parent is null))
+                AddTroopWithChildren(root, EliteTroops);
+
             Log.Debug($"Loaded {EliteTroops.Count} elite troops.");
 
-            foreach (var troop in Player.Clan.BasicTroops)
-                BasicTroops.Add(new TroopRowVM(troop, this));
+            BasicTroops.Clear();
+            foreach (var root in Player.Clan.BasicTroops.Where(t => t.Parent is null))
+                AddTroopWithChildren(root, BasicTroops);
 
             Log.Debug($"Loaded {BasicTroops.Count} basic troops.");
 
             if (SelectedRow is null)
-                // Select first elite troop by default
-                EliteTroops[0].IsSelected = true;
+            {
+                Log.Debug("No row is selected.");
+                Select(EliteTroops.FirstOrDefault() ?? BasicTroops.FirstOrDefault());
+            }
+            else
+            {
+                Log.Debug($"Selected row: {SelectedRow.Troop.Name}.");
+            }
 
             OnPropertyChanged(nameof(SelectedRow));
             OnPropertyChanged(nameof(EliteTroops));
             OnPropertyChanged(nameof(BasicTroops));
+        }
+
+        // =========================================================================
+        // Internals
+        // =========================================================================
+
+        private void AddTroopWithChildren(WCharacter troop, MBBindingList<TroopRowVM> list)
+        {
+            var row = new TroopRowVM(troop, this);
+            list.Add(row);
+
+            var children = Player.Clan.BasicTroops.Concat(Player.Clan.EliteTroops)
+                .Where(t => t.Parent != null && t.Parent.Equals(troop));
+
+            foreach (var child in children)
+                AddTroopWithChildren(child, list);
         }
     }
 }

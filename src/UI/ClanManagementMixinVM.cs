@@ -16,23 +16,38 @@ namespace CustomClanTroops.UI
     public sealed class ClanManagementMixinVM : BaseViewModelMixin<ClanManagementVM>, IView
     {
         // =========================================================================
+        // Fields
+        // =========================================================================
+
+        private bool _isTroopsSelected;
+
+        private EditorMode _editorMode = EditorMode.Default;
+
+        // =========================================================================
         // Constructor
         // =========================================================================
 
         public ClanManagementMixinVM(ClanManagementVM vm) : base(vm)
         {
-            TroopEditor = new TroopEditorVM(this);
-            EquipmentEditor = new EquipmentEditorVM(this);
+            if (Player.Clan.BasicTroops.IsEmpty() && Player.Clan.EliteTroops.IsEmpty())
+            {
+                Log.Debug("No custom troops found, initializing default troops.");
+                Setup.Initialize();
+            }
 
-            // Listen to vanilla tab changes to hide our panel
+            TroopEditor = new TroopEditorVM(this);
+            TroopEditor.Refresh();
+            TroopList = new TroopListVM(this);
+            TroopList.Refresh();
+            EquipmentEditor = new EquipmentEditorVM(this);
+            EquipmentEditor.Refresh();
+            EquipmentList = new EquipmentListVM(this);
+            EquipmentList.Refresh();
+
+            Refresh();
+
             ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
         }
-
-        // =========================================================================
-        // Selected Troop
-        // =========================================================================
-
-        public WCharacter SelectedTroop => TroopEditor.TroopList.SelectedRow?.Troop;
 
         // =========================================================================
         // Enums
@@ -45,18 +60,20 @@ namespace CustomClanTroops.UI
         }
 
         // =========================================================================
-        // VMs
+        // Data Bindings
         // =========================================================================
 
-        [DataSourceProperty] public TroopEditorVM TroopEditor { get; private set; }
+        [DataSourceProperty]
+        public TroopEditorVM TroopEditor { get; private set; }
 
-        [DataSourceProperty] public EquipmentEditorVM EquipmentEditor { get; private set; }
+        [DataSourceProperty]
+        public TroopListVM TroopList { get; private set; }
 
-        // =========================================================================
-        // Tab Selection
-        // =========================================================================
+        [DataSourceProperty]
+        public EquipmentEditorVM EquipmentEditor { get; private set; }
 
-        private bool _isTroopsSelected;
+        [DataSourceProperty]
+        public EquipmentListVM EquipmentList { get; private set; }
 
         [DataSourceProperty]
         public bool IsTroopsSelected
@@ -69,66 +86,6 @@ namespace CustomClanTroops.UI
                 OnPropertyChanged(nameof(IsTroopsSelected));
             }
         }
-
-        private void OnVanillaTabChanged(object sender, PropertyChangedWithBoolValueEventArgs e)
-        {
-            if (!e.Value) return;
-
-            if (e.PropertyName == "IsMembersSelected" ||
-                e.PropertyName == "IsFiefsSelected" ||
-                e.PropertyName == "IsPartiesSelected" ||
-                e.PropertyName == "IsIncomeSelected")
-            {
-                IsTroopsSelected = false;
-            }
-        }
-
-        [DataSourceMethod]
-        public void ExecuteSelectTroops()
-        {
-            // Deselect vanilla tabs
-            ViewModel.IsMembersSelected = false;
-            ViewModel.IsFiefsSelected = false;
-            ViewModel.IsPartiesSelected = false;
-            ViewModel.IsIncomeSelected = false;
-
-            // Deselect vanilla sub-tabs
-            ViewModel.ClanMembers.IsSelected = false;
-            ViewModel.ClanParties.IsSelected = false;
-            ViewModel.ClanFiefs.IsSelected = false;
-            ViewModel.ClanIncome.IsSelected = false;
-
-            // Select troops tab
-            IsTroopsSelected = true;
-
-            // Check if a setup is needed
-            if (Player.Clan.BasicTroops.IsEmpty() && Player.Clan.EliteTroops.IsEmpty())
-                Log.Debug("No custom troops found, initializing default troops.");
-                Setup.Initialize();
-            
-            Refresh();
-        }
-
-        // =========================================================================
-        // Refresh
-        // =========================================================================
-
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(TroopEditor));
-            OnPropertyChanged(nameof(EquipmentEditor));
-            OnPropertyChanged(nameof(IsDefaultMode));
-            OnPropertyChanged(nameof(IsEquipmentMode));
-
-            TroopEditor.Refresh();
-            EquipmentEditor.Refresh();
-        }
-
-        // =========================================================================
-        // Tab Selection
-        // =========================================================================
-
-        private EditorMode _editorMode = EditorMode.Default;
 
         [DataSourceProperty]
         public bool IsDefaultMode
@@ -154,11 +111,68 @@ namespace CustomClanTroops.UI
             }
         }
 
+        // =========================================================================
+        // Action Bindings
+        // =========================================================================
+
+        [DataSourceMethod]
+        public void ExecuteSelectTroops()
+        {
+            if (IsTroopsSelected == true) return;
+
+            ViewModel.IsMembersSelected = false;
+            ViewModel.IsFiefsSelected = false;
+            ViewModel.IsPartiesSelected = false;
+            ViewModel.IsIncomeSelected = false;
+
+            ViewModel.ClanMembers.IsSelected = false;
+            ViewModel.ClanParties.IsSelected = false;
+            ViewModel.ClanFiefs.IsSelected = false;
+            ViewModel.ClanIncome.IsSelected = false;
+
+            IsTroopsSelected = true;
+
+            ExecuteSwitchToDefault();
+        }
+
         [DataSourceMethod]
         public void ExecuteSwitchToDefault() => SwitchMode(EditorMode.Default);
 
         [DataSourceMethod]
         public void ExecuteSwitchToEquipment() => SwitchMode(EditorMode.Equipment);
+
+        // =========================================================================
+        // Public API
+        // =========================================================================
+
+        public WCharacter SelectedTroop => TroopList.SelectedRow?.Troop;
+
+        public void Refresh()
+        {
+            OnPropertyChanged(nameof(TroopEditor));
+            OnPropertyChanged(nameof(TroopList));
+            OnPropertyChanged(nameof(EquipmentEditor));
+            OnPropertyChanged(nameof(EquipmentList));
+            OnPropertyChanged(nameof(IsDefaultMode));
+            OnPropertyChanged(nameof(IsEquipmentMode));
+        }
+
+        // =========================================================================
+        // Internals
+        // =========================================================================
+
+        private void OnVanillaTabChanged(object sender, TaleWorlds.Library.PropertyChangedWithBoolValueEventArgs e)
+        {
+            if (!e.Value) return;
+
+            if (e.PropertyName == "IsMembersSelected" ||
+                e.PropertyName == "IsFiefsSelected" ||
+                e.PropertyName == "IsPartiesSelected" ||
+                e.PropertyName == "IsIncomeSelected")
+            {
+                IsTroopsSelected = false;
+            }
+        }
 
         private void SwitchMode(EditorMode mode)
         {
