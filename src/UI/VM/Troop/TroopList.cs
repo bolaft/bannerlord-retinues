@@ -6,7 +6,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopListVM(CustomClanTroops.UI.ClanManagementMixinVM owner) : ListBase<TroopListVM, TroopRowVM>(owner), ListBase<TroopListVM, TroopRowVM>, IView
+    public sealed class TroopListVM(CustomClanTroops.UI.ClanManagementMixinVM owner) : ListBase<TroopListVM, TroopRowVM>(owner), IView
     {
         // =========================================================================
         // Data Bindings

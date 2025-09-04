@@ -4,7 +4,7 @@ using CustomClanTroops.Wrappers.Objects;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopRowVM(WCharacter troop, TroopListVM owner) : RowBase<TroopListVM, TroopRowVM>(owner), RowBase<TroopListVM, TroopRowVM>, IView
+    public sealed class TroopRowVM(WCharacter troop, TroopListVM owner) : RowBase<TroopListVM, TroopRowVM>(owner), IView
     {
         // =========================================================================
         // Data Bindings

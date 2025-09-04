@@ -8,7 +8,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentListVM(CustomClanTroops.UI.ClanManagementMixinVM owner) : ListBase<EquipmentListVM, EquipmentRowVM>(owner), ListBase<EquipmentListVM, EquipmentRowVM>, IView
+    public sealed class EquipmentListVM(UI.ClanManagementMixinVM owner) : ListBase<EquipmentListVM, EquipmentRowVM>(owner), IView
     {
         // =========================================================================
         // Data Bindings
