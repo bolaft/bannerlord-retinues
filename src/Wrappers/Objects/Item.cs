@@ -83,6 +83,8 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public bool IsMeleeWeapon => PrimaryWeapon?.IsMeleeWeapon ?? false;
 
+        public bool IsAmmo => PrimaryWeapon?.IsAmmo ?? false;
+
         // =========================================================================
         // Computed properties
         // =========================================================================
@@ -101,17 +103,24 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             get
             {
-                if (IsArmor)
-                    // Body Armor, Gloves...
+                if (IsArmor)  // Body Armor, Gloves...
                     return Format.CamelCaseToTitle(Type.ToString());
 
-                if (IsHorse)
-                    // Horse, War Horse, Noble Horse...
+                if (IsHorse)  // Horse, War Horse, Noble Horse..
                     return Format.CamelCaseToTitle(Category.ToString());
 
-                if (IsWeapon)
-                    // Mace, Bow...
-                    return Format.CamelCaseToTitle(PrimaryWeapon.WeaponClass.ToString());
+                if (IsWeapon)  // Mace, Bow...
+                {
+                    var cls = Format.CamelCaseToTitle(PrimaryWeapon.WeaponClass.ToString());
+
+                    if (IsAmmo)
+                    {
+                        // Ensure the class name ends with 's'
+                        if (!cls.EndsWith("s")) cls += "s";
+                    }
+
+                    return cls;
+                }
 
                 // Defaults to item type
                 return Format.CamelCaseToTitle(Type.ToString());
@@ -170,6 +179,12 @@ namespace CustomClanTroops.Wrappers.Objects
                     }
                     Add("Length", PrimaryWeapon.WeaponLength);
                     Add("Handling", PrimaryWeapon.Handling);
+                }
+
+                if (IsAmmo)
+                {
+                    Add("Damage", PrimaryWeapon.ThrustDamage);
+                    Add("Stack Size", PrimaryWeapon.MaxDataValue);
                 }
 
                 if (RelevantSkill != null && Difficulty > 0)

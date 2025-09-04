@@ -6,6 +6,7 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
+using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Utils;
 
@@ -33,6 +34,17 @@ namespace CustomClanTroops.Wrappers.Objects
             {
                 var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
                 vm.FillFrom(_characterObject, seed: -1);
+
+                if (Clan != null)
+                {
+                    // For armor colors
+                    vm.ArmorColor1 = Clan.Color;
+                    vm.ArmorColor2 = Clan.Color2;
+
+                    // For heraldic items
+                    vm.BannerCodeText = Clan.BannerCodeText;
+                }
+
                 return vm;
             }
         }
@@ -161,10 +173,13 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public bool CanEquip(WItem item)
         {
-            if (item.RelevantSkill != null && item.Difficulty <= GetSkill(item.RelevantSkill))
-                return false;  // Does not meet item skill requirements
+            if (item.RelevantSkill == null)
+                return true;  // No requirements
+            
+            if (item.Difficulty <= GetSkill(item.RelevantSkill))
+                return true;  // Meets item skill requirements
 
-            return true;
+            return false;
         }
 
         public void Equip(WItem item, EquipmentIndex slot)
@@ -187,10 +202,18 @@ namespace CustomClanTroops.Wrappers.Objects
         // Upgrades
         // =========================================================================
 
-        public CharacterObject[] UpgradeTargets
+        public WCharacter[] UpgradeTargets
         {
-            get => Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? [];
-            set => Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", value ?? []);
+            get
+            {
+                var arr = Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? [];
+                return arr.Select(obj => new WCharacter(obj, Clan, this)).ToArray();
+            }
+            set
+            {
+                var arr = value?.Select(wc => (CharacterObject)wc.Base).ToArray() ?? [];
+                Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", arr);
+            }
         }
 
         public ItemCategory UpgradeRequiresItemFromCategory
@@ -202,20 +225,45 @@ namespace CustomClanTroops.Wrappers.Objects
         public void AddUpgradeTarget(WCharacter target)
         {
             var oldTargets = UpgradeTargets ?? [];
-            var newTargets = new List<CharacterObject>(oldTargets) { (CharacterObject)target.Base };
-            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.ToArray());
+            var newTargets = new List<WCharacter>(oldTargets) { target };
+            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.Select(wc => (CharacterObject)wc.Base).ToArray());
         }
 
         public void RemoveUpgradeTarget(WCharacter target)
         {
             var oldTargets = UpgradeTargets ?? [];
-            var newTargets = new List<CharacterObject>(oldTargets) { (CharacterObject)target.Base};
-            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.ToArray());
+            var newTargets = new List<WCharacter>(oldTargets);
+            newTargets.RemoveAll(wc => wc.Base == target.Base);
+            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.Select(wc => (CharacterObject)wc.Base).ToArray());
         }
 
         // =========================================================================
         // Management methods
         // =========================================================================
+
+        public void Remove()
+        {
+            // Remove from clan lists
+            if (Clan != null)
+            {
+                if (IsElite)
+                    Clan.EliteTroops.Remove(this);
+                else
+                    Clan.BasicTroops.Remove(this);
+            }
+
+            // Remove from parent's upgrade targets
+            Parent?.RemoveUpgradeTarget(this);
+
+            Log.Debug($"Removed troop {Name} from parent {Parent?.Name ?? "null"} and clan {Clan?.Name ?? "null"}");
+
+            // Unregister from the game systems
+            Unregister();
+
+            // Remove all children
+            foreach (var target in UpgradeTargets)
+                target.Remove();
+        }
 
         public void Register()
         {

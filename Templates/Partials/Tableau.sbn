@@ -1,12 +1,11 @@
 <Widget
     DataSource="{Model}"
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    SuggestedWidth="550" SuggestedHeight="900"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Center">
     <Children>
         <CharacterTableauWidget
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="512" SuggestedHeight="1024"
+            SuggestedWidth="800" SuggestedHeight="1000"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             DoNotUseCustomScale="true"
             BannerCodeText="@BannerCodeText"

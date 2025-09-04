@@ -23,6 +23,12 @@ namespace CustomClanTroops.Wrappers.Campaign
 
         public override string StringId => _clan.StringId.ToString();
 
+        public string BannerCodeText => _clan.Banner.Serialize();
+
+        public uint Color => _clan.Color;
+
+        public uint Color2 => _clan.Color2;
+
         // =========================================================================
         // Troops
         // =========================================================================

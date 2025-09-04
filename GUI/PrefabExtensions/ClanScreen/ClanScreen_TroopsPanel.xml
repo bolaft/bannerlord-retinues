@@ -31,13 +31,12 @@
                                         <!-- Character tableau -->
                                         <Widget
                                             DataSource="{Model}"
-                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                            SuggestedWidth="550" SuggestedHeight="900"
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                             HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Children>
                                                 <CharacterTableauWidget
                                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                    SuggestedWidth="512" SuggestedHeight="1024"
+                                                    SuggestedWidth="800" SuggestedHeight="1000"
                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                                     DoNotUseCustomScale="true"
                                                     BannerCodeText="@BannerCodeText"
@@ -54,42 +53,57 @@
                                         </Widget>
 
                                         <!-- Remove troop button -->
-                                        <ButtonWidget
-                                            IsVisible="@ShowRemoveTroop"
-                                            DoNotPassEventsToChildren="true"
-                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
-                                            Brush="Popup.Delete.Button"
-                                            Command.Click="ExecuteRemoveTroop">
+                                        <Widget
+                                            Hint="{RemoveButtonHint}"
+                                            IsVisible="@IsDefaultMode"
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            HorizontalAlignment="Center" VerticalAlignment="Top">
                                             <Children>
-                                                <TextWidget
-                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                    Brush="Popup.Button.Text"
-                                                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                    Text="Remove"/>
+                                                <ButtonWidget
+                                                    DataSource="{TroopEditor}"
+                                                    IsEnabled="@CanRemove"
+                                                    DoNotPassEventsToChildren="true" UpdateChildrenStates="true"
+                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                    SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                                                    Brush="Popup.Delete.Button"
+                                                    Command.Click="ExecuteRemoveTroop">
+                                                    <Children>
+                                                        <TextWidget
+                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                            Brush="Popup.Button.Text"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                            Text="Remove"/>
+                                                    </Children>
+                                                </ButtonWidget>
                                             </Children>
-                                        </ButtonWidget>
-                                        
-                                        <!-- Unequip all button -->
-                                        <ButtonWidget
-                                            IsVisible="@ShowUnequipTroop"
-                                            DoNotPassEventsToChildren="true"
-                                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
-                                            Brush="Popup.Delete.Button"
-                                            Command.Click="ExecuteUnequipAll">
+                                        </Widget>
+
+                                        <!-- Unequip troop button -->
+                                        <Widget
+                                            IsVisible="@IsEquipmentMode"
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            HorizontalAlignment="Center" VerticalAlignment="Top">
                                             <Children>
-                                                <TextWidget
-                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                    Brush="Popup.Button.Text"
-                                                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                    Text="Unequip All"/>
+                                                <ButtonWidget
+                                                    DataSource="{EquipmentEditor}"
+                                                    IsEnabled="@CanUnequip"
+                                                    DoNotPassEventsToChildren="true"
+                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                    SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Brush="Popup.Delete.Button"
+                                                    Command.Click="ExecuteUnequipAll">
+                                                    <Children>
+                                                        <TextWidget
+                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                            Brush="Popup.Button.Text"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                            Text="Unequip All"/>
+                                                    </Children>
+                                                </ButtonWidget>
                                             </Children>
-                                        </ButtonWidget>
+                                        </Widget>
 
                                         <!-- Edit equipment button -->
                                         <ButtonWidget

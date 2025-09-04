@@ -124,34 +124,6 @@ namespace CustomClanTroops.UI
         [DataSourceProperty]
         public CharacterViewModel Model => SelectedTroop?.Model;
 
-        [DataSourceProperty]
-        public bool ShowRemoveTroop
-        {
-            get
-            {
-                if (IsEquipmentMode)
-                    return false; // Only show in default mode
-                if (SelectedTroop?.Parent is null)
-                    return false; // Cannot remove root troops
-                if (SelectedTroop?.UpgradeTargets.Count() > 0)
-                    return false; // Cannot remove troops that are upgrade targets
-
-                return true;
-            }
-        }
-
-        [DataSourceProperty]
-        public bool ShowUnequipTroop
-        {
-            get
-            {
-                if (IsDefaultMode)
-                    return false; // Only show in equipment mode
-
-                return true;
-            }
-        }
-
         // =========================================================================
         // Action Bindings
         // =========================================================================
@@ -198,9 +170,6 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
 
-            OnPropertyChanged(nameof(ShowRemoveTroop));
-            OnPropertyChanged(nameof(ShowUnequipTroop));
-
             OnPropertyChanged(nameof(Model));
         }
 
@@ -234,11 +203,13 @@ namespace CustomClanTroops.UI
                 EquipmentList.Refresh();
             }
 
+            // Button updates
+            TroopEditor.OnPropertyChanged(nameof(TroopEditor.CanRemove));
+            EquipmentEditor.OnPropertyChanged(nameof(EquipmentEditor.CanUnequip));
+
             // UI updates
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
-            OnPropertyChanged(nameof(ShowRemoveTroop));
-            OnPropertyChanged(nameof(ShowUnequipTroop));
         }
     }
 }

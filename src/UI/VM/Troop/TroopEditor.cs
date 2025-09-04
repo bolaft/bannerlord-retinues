@@ -1,7 +1,9 @@
 using System.Linq;
 using TaleWorlds.Library;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.UI.Helpers;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Utils;
 
@@ -29,7 +31,50 @@ namespace CustomClanTroops.UI.VM.Troop
         public bool IsMaxTier => Troop?.IsMaxTier ?? false;
 
         [DataSourceProperty]
+        public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets
+        {
+            get
+            {
+                var upgrades = new MBBindingList<TroopUpgradeTargetVM>();
+
+                if (Troop != null)
+                    foreach (var target in Troop.UpgradeTargets)
+                        upgrades.Add(new TroopUpgradeTargetVM(target));
+
+                return upgrades;
+            }
+        }
+
+        [DataSourceProperty]
         public bool CanUpgrade => Troop != null && Rules.CanUpgradeTroop(Troop);
+
+        [DataSourceProperty]
+        public bool CanRemove
+        {
+            get
+            {
+                if (Screen.IsEquipmentMode)
+                    return false; // Only show in default mode
+                if (Troop?.Parent is null)
+                    return false; // Cannot remove root troops
+                if (Troop?.UpgradeTargets.Count() > 0)
+                    return false; // Cannot remove troops that are upgrade targets
+
+                return true;
+            }
+        }
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel RemoveButtonHint
+        {
+            get
+            {
+                if (CanRemove)
+                    return null; // No hint if can remove
+                
+                return Helpers.Tooltip.MakeTooltip(null, CantRemoveTroopExplanation);
+            }
+        }
 
         // =========================================================================
         // Action Bindings
@@ -114,6 +159,30 @@ namespace CustomClanTroops.UI.VM.Troop
             ));
         }
 
+        [DataSourceMethod]
+        public void ExecuteRemoveTroop()
+        {
+            InformationManager.ShowInquiry(new InquiryData(
+                titleText: "Remove Troop",
+                text: $"Are you sure you want to permanently remove {Troop.Name}?\n\nTheir equipment will be stocked for later use.",
+                isAffirmativeOptionShown: true, isNegativeOptionShown: true,
+                affirmativeText: "Confirm", negativeText: "Cancel",
+                affirmativeAction: () =>
+                {
+                    // Stock the troop's equipment
+                    foreach (var item in Troop.Equipment.Items)
+                        item.Stock();
+
+                    // Remove the troop
+                    Troop.Remove();
+
+                    // Update the troop list
+                    Screen.TroopList.Refresh();
+                },
+                negativeAction: () => { }
+            ));
+        }
+
         // =========================================================================
         // Public API
         // =========================================================================
@@ -124,6 +193,24 @@ namespace CustomClanTroops.UI.VM.Troop
 
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Gender));
+            OnPropertyChanged(nameof(SkillTotal));
+            OnPropertyChanged(nameof(SkillPointsUsed));
+            OnPropertyChanged(nameof(IsMaxTier));
+            OnPropertyChanged(nameof(UpgradeTargets));
+
+            OnPropertyChanged(nameof(CanUpgrade));
+            OnPropertyChanged(nameof(CanRemove));
+
+            OnPropertyChanged(nameof(RemoveButtonHint));
         }
+
+        // =========================================================================
+        // Internals
+        // =========================================================================
+
+        private string CantRemoveTroopExplanation =>
+              Troop?.Parent is null ? "Root troops cannot be removed."
+            : Troop?.UpgradeTargets.Count() > 0 ? "Troops that have upgrade targets cannot be removed."
+            : string.Empty;
     }
 }

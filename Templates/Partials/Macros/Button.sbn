@@ -1,5 +1,5 @@
 <!-- Text button -->
-{{- func button_text(text, command, brush, is_visible, vertical_alignment = "Center", horizontal_alignment = "Center") -}}
+{{- func button_text(text, command, brush, is_visible = "true", vertical_alignment = "Center", horizontal_alignment = "Center") -}}
 <ButtonWidget
     IsVisible="{{is_visible}}"
     DoNotPassEventsToChildren="true"

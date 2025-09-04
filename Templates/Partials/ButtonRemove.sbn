@@ -1,0 +1,25 @@
+<Widget
+    Hint="{RemoveButtonHint}"
+    IsVisible="@IsDefaultMode"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+        <ButtonWidget
+            DataSource="{TroopEditor}"
+            IsEnabled="@CanRemove"
+            DoNotPassEventsToChildren="true" UpdateChildrenStates="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+            HorizontalAlignment="Center" VerticalAlignment="Top"
+            Brush="Popup.Delete.Button"
+            Command.Click="ExecuteRemoveTroop">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="Remove"/>
+            </Children>
+        </ButtonWidget>
+    </Children>
+</Widget>

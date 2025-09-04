@@ -13,7 +13,7 @@ namespace CustomClanTroops.UI.VM.Equipment
         // =========================================================================
 
         [DataSourceProperty]
-        public BasicTooltipViewModel Hint => Helpers.ItemTooltip.Make(Item);
+        public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
 
         [DataSourceProperty]
         public string Name => Item?.Name;

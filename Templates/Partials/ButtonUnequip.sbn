@@ -1,0 +1,24 @@
+<Widget
+    IsVisible="@IsEquipmentMode"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+        <ButtonWidget
+            DataSource="{EquipmentEditor}"
+            IsEnabled="@CanUnequip"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="Popup.Delete.Button"
+            Command.Click="ExecuteUnequipAll">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="Unequip All"/>
+            </Children>
+        </ButtonWidget>
+    </Children>
+</Widget>
