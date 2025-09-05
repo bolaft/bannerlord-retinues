@@ -5,6 +5,9 @@ obj/
 # Ignore logs
 *.log
 
+# Ignore solution files
+*.sln
+
 # Ignore decompiled files
 *decompiled*
 
