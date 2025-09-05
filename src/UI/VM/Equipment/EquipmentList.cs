@@ -32,25 +32,50 @@ namespace CustomClanTroops.UI.VM.Equipment
 
         public void Refresh()
         {
-            Log.Debug("Refreshing Equipment List.");
+            Log.Debug("Refreshing.");
 
+            // Clear existing VM list
+            Equipments.Clear();
+
+            // Initialize item list
             var items = new List<WItem>();
 
-            if (Config.AllEquipmentUnlocked)
-            {
-                foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
-                    items.Add(new WItem(item));
-            }
-            else
-            {
-                items.AddRange(WItem.UnlockedItems);
-            }
+            // Selected slot
+            var slot = Screen.EquipmentEditor.SelectedSlot;
 
-            items = items.OrderBy(i => i.Type).ThenBy(i => i.Name).ToList();
+            // Only load items if a slot is selected
+            if (slot != null)
+            {
+                // Load items, method depends on config
+                if (Config.AllEquipmentUnlocked)
+                    foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
+                        items.Add(new WItem(item));
+                else
+                    foreach (var item in WItem.UnlockedItems)
+                        items.Add(item);
 
-            Equipments.Clear();
-            foreach (var item in items)
-                Equipments.Add(new EquipmentRowVM(item, this));
+                // Filter by selected slot
+                items = items.Where(i => i is null || i.Slots.Contains(slot.Slot)).ToList();
+
+                // Sort by type, then name
+                items = items.OrderBy(i => i.Type).ThenBy(i => i.Name).ToList();
+
+                // Empty item to allow unequipping
+                items.Insert(0, null);
+
+                foreach (var item in items)
+                {
+                    // Create row VM
+                    var row = new EquipmentRowVM(item, this);
+
+                    // Preselect equipped item row
+                    if (item == slot.Item || item?.StringId == slot.Item?.StringId)
+                        row.IsSelected = true;
+
+                    // Add to list
+                    Equipments.Add(row);
+                }
+            }
 
             OnPropertyChanged(nameof(Equipments));
         }

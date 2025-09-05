@@ -174,10 +174,10 @@ namespace CustomClanTroops.Wrappers.Objects
         public bool CanEquip(WItem item)
         {
             if (item.RelevantSkill == null)
-                return true;  // No requirements
+                return true; // No requirements
             
             if (item.Difficulty <= GetSkill(item.RelevantSkill))
-                return true;  // Meets item skill requirements
+                return true; // Meets item skill requirements
 
             return false;
         }
@@ -187,15 +187,17 @@ namespace CustomClanTroops.Wrappers.Objects
             Equipment.SetItem(slot, item);
         }
 
-        public void Unequip(EquipmentIndex slot)
+        public WItem Unequip(EquipmentIndex slot)
         {
+            var item = Equipment.GetItem(slot);
             Equipment.SetItem(slot, null);
+            return item;
         }
 
-        public void UnequipAll()
+        public IEnumerable<WItem> UnequipAll()
         {
             foreach (var slot in WEquipment.Slots)
-                Unequip(slot);
+                yield return Unequip(slot);
         }
 
         // =========================================================================
@@ -291,17 +293,17 @@ namespace CustomClanTroops.Wrappers.Objects
             WCharacter clone = new(cloneObject, clan, parent);
 
             if (keepUpgrades)
-                clone.UpgradeTargets = [.. UpgradeTargets];  // Unlink
+                clone.UpgradeTargets = [.. UpgradeTargets]; // Unlink
             else
                 clone.UpgradeTargets = [];
 
             if (keepEquipment)
-                clone.Equipments = [.. Equipments];  // Unlink
+                clone.Equipments = [.. Equipments]; // Unlink
             else
                 clone.Equipments = [];
 
             if (keepSkills)
-                clone.Skills = new Dictionary<SkillObject, int>(Skills);  // Unlink
+                clone.Skills = new Dictionary<SkillObject, int>(Skills); // Unlink
             else
                 clone.Skills = [];
 

@@ -51,6 +51,50 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public int Difficulty => _itemObject.Difficulty;
 
+        public List<EquipmentIndex> Slots
+        {
+            get
+            {
+                List<EquipmentIndex> slots = new();
+
+                void AddWeaponSlots()
+                {
+                    slots.Add(EquipmentIndex.WeaponItemBeginSlot);
+                    slots.Add(EquipmentIndex.Weapon1);
+                    slots.Add(EquipmentIndex.Weapon2);
+                    slots.Add(EquipmentIndex.Weapon3);
+                }
+
+                switch (Type)
+                {
+                    case ItemObject.ItemTypeEnum.HeadArmor: slots.Add(EquipmentIndex.Head); break;
+                    case ItemObject.ItemTypeEnum.Cape: slots.Add(EquipmentIndex.Cape); break;
+                    case ItemObject.ItemTypeEnum.BodyArmor: slots.Add(EquipmentIndex.Body); break;
+                    case ItemObject.ItemTypeEnum.HandArmor: slots.Add(EquipmentIndex.Gloves); break;
+                    case ItemObject.ItemTypeEnum.LegArmor: slots.Add(EquipmentIndex.Leg); break;
+                    case ItemObject.ItemTypeEnum.Horse: slots.Add(EquipmentIndex.Horse); break;
+                    case ItemObject.ItemTypeEnum.HorseHarness: slots.Add(EquipmentIndex.HorseHarness); break;
+
+                    case ItemObject.ItemTypeEnum.OneHandedWeapon:
+                    case ItemObject.ItemTypeEnum.TwoHandedWeapon:
+                    case ItemObject.ItemTypeEnum.Polearm:
+                    case ItemObject.ItemTypeEnum.Bow:
+                    case ItemObject.ItemTypeEnum.Crossbow:
+                    case ItemObject.ItemTypeEnum.Arrows:
+                    case ItemObject.ItemTypeEnum.Bolts:
+                    case ItemObject.ItemTypeEnum.Thrown:
+                    case ItemObject.ItemTypeEnum.Shield:
+                    case ItemObject.ItemTypeEnum.Pistol:
+                    case ItemObject.ItemTypeEnum.Musket:
+                    case ItemObject.ItemTypeEnum.Bullets:
+                        AddWeaponSlots();
+                        break;
+                }
+
+                return slots;
+            }
+        }
+
         // =========================================================================
         // Components
         // =========================================================================

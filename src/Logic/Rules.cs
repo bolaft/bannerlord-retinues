@@ -38,11 +38,15 @@ namespace CustomClanTroops.Logic
 
         public static int SkillPointsLeft(WCharacter character)
         {
+            if (character == null) return 0;
+
             return SkillTotalByTier(character.Tier) - character.Skills.Values.Sum();
         }
 
         public static bool CanIncrementSkill(WCharacter character, SkillObject skill)
         {
+            if (character == null || skill == null) return false;
+
             // Skills can't go above the tier skill cap
             if (character.GetSkill(skill) >= SkillCapByTier(character.Tier))
                 return false;
@@ -56,6 +60,8 @@ namespace CustomClanTroops.Logic
 
         public static bool CanDecrementSkill(WCharacter character, SkillObject skill)
         {
+            if (character == null || skill == null) return false;
+
             // Skills can't go below zero
             if (character.GetSkill(skill) <= 0)
                 return false;
@@ -69,6 +75,8 @@ namespace CustomClanTroops.Logic
 
         public static bool CanUpgradeTroop(WCharacter character)
         {
+            if (character == null) return false;
+
             // Max tier reached
             if (character.IsMaxTier)
                 return false;

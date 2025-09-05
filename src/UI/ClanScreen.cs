@@ -34,6 +34,8 @@ namespace CustomClanTroops.UI
         {
             try
             {
+                Log.Debug("Initializing Clan Screen.");
+    
                 if (Player.Clan.BasicTroops.IsEmpty() && Player.Clan.EliteTroops.IsEmpty())
                 {
                     Log.Debug("No custom troops found, initializing default troops.");
@@ -42,10 +44,13 @@ namespace CustomClanTroops.UI
 
                 TroopEditor = new TroopEditorVM(this);
                 TroopEditor.Refresh();
+
                 TroopList = new TroopListVM(this);
                 TroopList.Refresh();
+
                 EquipmentEditor = new EquipmentEditorVM(this);
                 EquipmentEditor.Refresh();
+
                 EquipmentList = new EquipmentListVM(this);
                 EquipmentList.Refresh();
 
@@ -158,10 +163,12 @@ namespace CustomClanTroops.UI
         // Public API
         // =========================================================================
 
-        public WCharacter SelectedTroop => TroopList.SelectedRow?.Troop;
+        public WCharacter SelectedTroop => TroopList?.SelectedRow?.Troop;
 
         public void Refresh()
         {
+            Log.Debug("Refreshing.");
+
             OnPropertyChanged(nameof(TroopEditor));
             OnPropertyChanged(nameof(TroopList));
             OnPropertyChanged(nameof(EquipmentEditor));

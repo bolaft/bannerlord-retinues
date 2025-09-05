@@ -22,7 +22,7 @@
 <!-- Icon button -->
 {{- func button_icon(command, brush, size, is_visible = "true", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0") -}}
 <ButtonWidget
-    IsVisible="{{is_visible}}"
+    IsEnabled="{{is_visible}}"
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"

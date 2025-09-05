@@ -1,6 +1,5 @@
 - duplicate custom troop functionality for kingdom
 - implement custom troop spawning in clan/kingdom holdings
-- fix cloned upgrade targets sharing equipment with originals
 - implement troop persistence (rewrite troop cloning?)
 - implement stocks/unlocks persistence
 - implement unlocking mechanics

@@ -33,7 +33,7 @@ namespace CustomClanTroops.UI.VM.Troop
 
         public void Refresh()
         {
-            Log.Debug("Refreshing Troop List.");
+            Log.Debug("Refreshing.");
 
             EliteTroops.Clear();
             foreach (var root in Player.Clan.EliteTroops.Where(t => t.Parent is null))

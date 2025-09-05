@@ -61,7 +61,10 @@ namespace CustomClanTroops
             {
                 _harmony?.UnpatchAll("CustomClanTroops");
             }
-            catch { /* ignore */ }
+            catch (Exception ex)
+            {
+                Log.Error($"Failed to remove Harmony patches: {ex}");
+            }
 
             base.OnSubModuleUnloaded();
             Log.Debug("SubModule unloaded.");

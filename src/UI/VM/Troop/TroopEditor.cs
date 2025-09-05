@@ -1,5 +1,7 @@
 using System.Linq;
 using TaleWorlds.Library;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
@@ -12,23 +14,30 @@ namespace CustomClanTroops.UI.VM.Troop
     public sealed class TroopEditorVM(ClanScreen screen) : BaseEditor<TroopEditorVM>(screen), IView
     {
         // =========================================================================
+        // Fields
+        // =========================================================================
+
+        private readonly MBBindingList<TroopSkillVM> _skillsRow1 = new();
+        private readonly MBBindingList<TroopSkillVM> _skillsRow2 = new();
+
+        // =========================================================================
         // Data Bindings
         // =========================================================================
 
         [DataSourceProperty]
-        public string Name => Troop?.Name;
+        public string Name => SelectedTroop?.Name;
 
         [DataSourceProperty]
-        public string Gender => Troop != null && Troop.IsFemale ? "Female" : "Male";
+        public string Gender => SelectedTroop != null && SelectedTroop.IsFemale ? "Female" : "Male";
 
         [DataSourceProperty]
-        public int SkillTotal => Troop != null ? Rules.SkillTotalByTier(Troop.Tier) : 0;
+        public int SkillTotal => SelectedTroop != null ? Rules.SkillTotalByTier(SelectedTroop.Tier) : 0;
 
         [DataSourceProperty]
-        public int SkillPointsUsed => Troop?.Skills.Values.Sum() ?? 0;
+        public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
 
         [DataSourceProperty]
-        public bool IsMaxTier => Troop?.IsMaxTier ?? false;
+        public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false;
 
         [DataSourceProperty]
         public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets
@@ -37,16 +46,20 @@ namespace CustomClanTroops.UI.VM.Troop
             {
                 var upgrades = new MBBindingList<TroopUpgradeTargetVM>();
 
-                if (Troop != null)
-                    foreach (var target in Troop.UpgradeTargets)
+                if (SelectedTroop != null)
+                    foreach (var target in SelectedTroop.UpgradeTargets)
                         upgrades.Add(new TroopUpgradeTargetVM(target));
 
                 return upgrades;
             }
         }
 
+        [DataSourceProperty] public MBBindingList<TroopSkillVM> SkillsRow1 => _skillsRow1;
+
+        [DataSourceProperty] public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
+
         [DataSourceProperty]
-        public bool CanUpgrade => Troop != null && Rules.CanUpgradeTroop(Troop);
+        public bool CanUpgrade => SelectedTroop != null && Rules.CanUpgradeTroop(SelectedTroop);
 
         [DataSourceProperty]
         public bool CanRemove
@@ -55,9 +68,9 @@ namespace CustomClanTroops.UI.VM.Troop
             {
                 if (Screen.IsEquipmentMode)
                     return false; // Only show in default mode
-                if (Troop?.Parent is null)
+                if (SelectedTroop?.Parent is null)
                     return false; // Cannot remove root troops
-                if (Troop?.UpgradeTargets.Count() > 0)
+                if (SelectedTroop?.UpgradeTargets.Count() > 0)
                     return false; // Cannot remove troops that are upgrade targets
 
                 return true;
@@ -71,7 +84,7 @@ namespace CustomClanTroops.UI.VM.Troop
             {
                 if (CanRemove)
                     return null; // No hint if can remove
-                
+
                 return Helpers.Tooltip.MakeTooltip(null, CantRemoveTroopExplanation);
             }
         }
@@ -83,7 +96,7 @@ namespace CustomClanTroops.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteRename()
         {
-            var oldName = Troop.Name;
+            var oldName = SelectedTroop.Name;
 
             InformationManager.ShowTextInquiry(new TextInquiryData(
                 titleText: "Rename Troop", text: "Enter a new name:",
@@ -93,7 +106,7 @@ namespace CustomClanTroops.UI.VM.Troop
                 {
                     if (string.IsNullOrWhiteSpace(newName)) return;
 
-                    Troop.Name = newName.Trim();
+                    SelectedTroop.Name = newName.Trim();
 
                     // UI updates
                     OnPropertyChanged(nameof(Name));
@@ -107,12 +120,12 @@ namespace CustomClanTroops.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteChangeGender()
         {
-            Troop.IsFemale = !Troop.IsFemale;
+            SelectedTroop.IsFemale = !SelectedTroop.IsFemale;
 
             // UI updates
             OnPropertyChanged(nameof(Gender));
-            Screen.Refresh();
             Screen.TroopList.SelectedRow.Refresh();
+            Screen.Refresh();
         }
 
         [DataSourceMethod]
@@ -127,9 +140,9 @@ namespace CustomClanTroops.UI.VM.Troop
                     if (string.IsNullOrWhiteSpace(name)) return;
 
                     // Create the upgrade troop by cloning
-                    var upgrade = Troop.Clone(
-                        clan: Troop.Clan,
-                        parent: Troop,
+                    var upgrade = SelectedTroop.Clone(
+                        clan: SelectedTroop.Clan,
+                        parent: SelectedTroop,
                         keepUpgrades: false,
                         keepEquipment: false,
                         keepSkills: true
@@ -137,16 +150,16 @@ namespace CustomClanTroops.UI.VM.Troop
 
                     // Set name and level
                     upgrade.Name = name.Trim();
-                    upgrade.Level = Troop.Level + 5;
+                    upgrade.Level = SelectedTroop.Level + 5;
 
                     // Add as an upgrade target
-                    Troop.AddUpgradeTarget(upgrade);
+                    SelectedTroop.AddUpgradeTarget(upgrade);
 
                     // Add it the the clan's troop list
                     if (upgrade.IsElite)
-                        Troop.Clan.EliteTroops.Add(upgrade);
+                        SelectedTroop.Clan.EliteTroops.Add(upgrade);
                     else
-                        Troop.Clan.BasicTroops.Add(upgrade);
+                        SelectedTroop.Clan.BasicTroops.Add(upgrade);
 
                     // Update the troop list
                     Screen.TroopList.Refresh();
@@ -155,7 +168,7 @@ namespace CustomClanTroops.UI.VM.Troop
                     Screen.TroopList.Select(upgrade);
                 },
                 negativeAction: () => { },
-                defaultInputText: Troop.Name
+                defaultInputText: SelectedTroop.Name
             ));
         }
 
@@ -164,17 +177,17 @@ namespace CustomClanTroops.UI.VM.Troop
         {
             InformationManager.ShowInquiry(new InquiryData(
                 titleText: "Remove Troop",
-                text: $"Are you sure you want to permanently remove {Troop.Name}?\n\nTheir equipment will be stocked for later use.",
+                text: $"Are you sure you want to permanently remove {SelectedTroop.Name}?\n\nTheir equipment will be stocked for later use.",
                 isAffirmativeOptionShown: true, isNegativeOptionShown: true,
                 affirmativeText: "Confirm", negativeText: "Cancel",
                 affirmativeAction: () =>
                 {
                     // Stock the troop's equipment
-                    foreach (var item in Troop.Equipment.Items)
+                    foreach (var item in SelectedTroop.Equipment.Items)
                         item.Stock();
 
                     // Remove the troop
-                    Troop.Remove();
+                    SelectedTroop.Remove();
 
                     // Update the troop list
                     Screen.TroopList.Refresh();
@@ -189,7 +202,9 @@ namespace CustomClanTroops.UI.VM.Troop
 
         public void Refresh()
         {
-            Log.Debug("Refreshing Equipment Editor.");
+            Log.Debug("Refreshing.");
+
+            RebuildSkillRows();
 
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Gender));
@@ -201,6 +216,9 @@ namespace CustomClanTroops.UI.VM.Troop
             OnPropertyChanged(nameof(CanUpgrade));
             OnPropertyChanged(nameof(CanRemove));
 
+            OnPropertyChanged(nameof(SkillsRow1));
+            OnPropertyChanged(nameof(SkillsRow2));
+
             OnPropertyChanged(nameof(RemoveButtonHint));
         }
 
@@ -209,8 +227,24 @@ namespace CustomClanTroops.UI.VM.Troop
         // =========================================================================
 
         private string CantRemoveTroopExplanation =>
-              Troop?.Parent is null ? "Root troops cannot be removed."
-            : Troop?.UpgradeTargets.Count() > 0 ? "Troops that have upgrade targets cannot be removed."
+              SelectedTroop?.Parent is null ? "Root troops cannot be removed."
+            : SelectedTroop?.UpgradeTargets.Count() > 0 ? "Troops that have upgrade targets cannot be removed."
             : string.Empty;
+
+        private void RebuildSkillRows()
+        {
+            Log.Debug("Rebuilding skill rows.");
+
+            _skillsRow1.Clear();
+            _skillsRow2.Clear();
+
+            if (SelectedTroop == null) return;
+
+            foreach (var s in SelectedTroop.Skills.Take(4))
+                _skillsRow1.Add(new TroopSkillVM(s.Key, SelectedTroop, this));
+
+            foreach (var s in SelectedTroop.Skills.Skip(4).Take(4))
+                _skillsRow2.Add(new TroopSkillVM(s.Key, SelectedTroop, this));
+        }
     }
 }

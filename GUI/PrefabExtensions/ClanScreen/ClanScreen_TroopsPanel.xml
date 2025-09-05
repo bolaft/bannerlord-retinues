@@ -196,7 +196,7 @@
                                                 
                                                         <!-- Clickable icon -->
                                                         <ButtonWidget
-                                                            IsVisible="true"
+                                                            IsEnabled="true"
                                                             DoNotPassEventsToChildren="true"
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                             MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0"
@@ -242,7 +242,7 @@
                                                 
                                                         <!-- Clickable icon -->
                                                         <ButtonWidget
-                                                            IsVisible="true"
+                                                            IsEnabled="true"
                                                             DoNotPassEventsToChildren="true"
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                             MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0"
@@ -339,7 +339,7 @@
                                                                         <Children>
                                                                             <!-- Decrement button -->
                                                                             <ButtonWidget
-                                                                                IsVisible="@CanDecrement"
+                                                                                IsEnabled="@CanDecrement"
                                                                                 DoNotPassEventsToChildren="true"
                                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                                 MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0"
@@ -362,7 +362,7 @@
                                                             
                                                                             <!-- Increment button -->
                                                                             <ButtonWidget
-                                                                                IsVisible="@CanIncrement"
+                                                                                IsEnabled="@CanIncrement"
                                                                                 DoNotPassEventsToChildren="true"
                                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                                 MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0"
@@ -409,7 +409,7 @@
                                                                         <Children>
                                                                             <!-- Decrement button -->
                                                                             <ButtonWidget
-                                                                                IsVisible="@CanDecrement"
+                                                                                IsEnabled="@CanDecrement"
                                                                                 DoNotPassEventsToChildren="true"
                                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                                 MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0"
@@ -432,7 +432,7 @@
                                                             
                                                                             <!-- Increment button -->
                                                                             <ButtonWidget
-                                                                                IsVisible="@CanIncrement"
+                                                                                IsEnabled="@CanIncrement"
                                                                                 DoNotPassEventsToChildren="true"
                                                                                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                                 MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="0"
@@ -537,9 +537,10 @@
                                                     <Children>
                                                         <!-- Equipment slots -->
                                                         <!-- Weapons 1..4 -->
+                                                        
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{Weapon1Slot}"
+                                                            DataSource="{WeaponItemBeginSlotSlot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -586,7 +587,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -596,7 +597,7 @@
                                                         
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{Weapon2Slot}"
+                                                            DataSource="{Weapon1Slot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -643,7 +644,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -653,7 +654,7 @@
                                                         
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{Weapon3Slot}"
+                                                            DataSource="{Weapon2Slot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -700,7 +701,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -710,7 +711,7 @@
                                                         
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{Weapon4Slot}"
+                                                            DataSource="{Weapon3Slot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -757,7 +758,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -823,7 +824,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -831,10 +832,10 @@
                                                             </Children>
                                                         </ListPanel>
                                                         
-                                                        <!-- Cloak -->
+                                                        <!-- Cape -->
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{CloakSlot}"
+                                                            DataSource="{CapeSlot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -853,7 +854,7 @@
                                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                             Brush="Popup.Button.Text"
                                                                             VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                                            Text="Cloak"/>
+                                                                            Text="Cape"/>
                                                                     </Children>
                                                                 </ButtonWidget>
                                                         
@@ -881,7 +882,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -939,7 +940,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -997,7 +998,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -1005,10 +1006,10 @@
                                                             </Children>
                                                         </ListPanel>
                                                         
-                                                        <!-- Boots -->
+                                                        <!-- Legs -->
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{BootsSlot}"
+                                                            DataSource="{LegSlot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -1027,7 +1028,7 @@
                                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                             Brush="Popup.Button.Text"
                                                                             VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                                            Text="Boots"/>
+                                                                            Text="Legs"/>
                                                                     </Children>
                                                                 </ButtonWidget>
                                                         
@@ -1055,7 +1056,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -1071,10 +1072,10 @@
                                                             Sprite="Clan\divider_mid" 
                                                             MarginLeft="40" MarginRight="80" MarginTop="32" MarginBottom="16"/>
                                                         
-                                                        <!-- Mount -->
+                                                        <!-- Horse -->
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{MountSlot}"
+                                                            DataSource="{HorseSlot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -1093,7 +1094,7 @@
                                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                             Brush="Popup.Button.Text"
                                                                             VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                                            Text="Mount"/>
+                                                                            Text="Horse"/>
                                                                     </Children>
                                                                 </ButtonWidget>
                                                         
@@ -1121,7 +1122,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -1132,7 +1133,7 @@
                                                         <!-- Harness -->
                                                         <ListPanel 
                                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                                                            DataSource="{HarnessSlot}"
+                                                            DataSource="{HorseHarnessSlot}"
                                                             StackLayout.LayoutMethod="HorizontalLeftToRight"
                                                             MarginTop="16">
                                                             <Children>
@@ -1179,7 +1180,7 @@
                                                         
                                                                 <!-- Equipment name -->
                                                                 <TextWidget
-                                                                    Text="@DisplayName"
+                                                                    Text="@Name"
                                                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                                                     VerticalAlignment="Center" HorizontalAlignment="Left"

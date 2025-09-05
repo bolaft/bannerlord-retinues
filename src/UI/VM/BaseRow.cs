@@ -32,6 +32,7 @@ namespace CustomClanTroops.UI.VM
 
                     // Specific row selection logic
                     if (value) OnSelect();
+                    else OnUnselect();
 
                     OnPropertyChanged(nameof(IsSelected));
                 }
@@ -72,9 +73,11 @@ namespace CustomClanTroops.UI.VM
         }
 
         // =========================================================================
-        // Internals
+        // Placeholders
         // =========================================================================
 
-        protected abstract void OnSelect();
+        protected virtual void OnSelect() {}
+
+        protected virtual void OnUnselect() {}
     }
 }

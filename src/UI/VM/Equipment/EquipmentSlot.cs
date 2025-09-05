@@ -1,0 +1,126 @@
+using System.Linq;
+using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Library;
+using Bannerlord.UIExtenderEx.Attributes;
+using CustomClanTroops.Wrappers.Objects;
+using CustomClanTroops.Logic;
+using CustomClanTroops.Utils;
+
+namespace CustomClanTroops.UI.VM.Equipment
+{
+    public sealed class EquipmentSlotVM(EquipmentIndex slot, WCharacter troop, EquipmentEditorVM editor) : ViewModel, IView
+    {
+        // =========================================================================
+        // Fields
+        // =========================================================================
+
+        private bool _isSelected;
+
+        private readonly EquipmentIndex _slot = slot;
+
+        WCharacter _troop = troop;
+
+        EquipmentEditorVM _editor = editor;
+
+        // =========================================================================
+        // Data Bindings
+        // =========================================================================
+
+        [DataSourceProperty]
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+
+                    // Specific row selection logic
+                    if (value) OnSelect();
+
+                    OnPropertyChanged(nameof(IsSelected));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public bool IsEnabled
+        {
+            get
+            {
+                // Disable mounts for tier 1 troops if disallowed in config
+                if (Config.DisallowMountsForTier1 && _troop.Tier == 1)
+                    if (_slot == EquipmentIndex.Horse || _slot == EquipmentIndex.HorseHarness)
+                        return false;
+
+                // Disable horse harness if no horse equipped
+                if (_slot == EquipmentIndex.HorseHarness)
+                    if (_troop.Equipment.GetItem(EquipmentIndex.Horse) == null)
+                        return false;
+
+                return true;
+            }
+        }
+
+        [DataSourceProperty]
+        public string Name => Item?.Name;
+
+        [DataSourceProperty]
+        public string ImageId => Item?.Image.Id;
+
+        [DataSourceProperty]
+        public int ImageTypeCode => Item?.Image.ImageTypeCode ?? 0;
+
+        [DataSourceProperty]
+        public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
+
+        // =========================================================================
+        // Action Bindings
+        // =========================================================================
+
+        [DataSourceMethod]
+        public void ExecuteSelect() => Select();
+
+        // =========================================================================
+        // Public API
+        // =========================================================================
+
+        public WItem Item => _troop.Equipment.GetItem(_slot);
+
+        public EquipmentIndex Slot => _slot;
+
+        public void Select()
+        {
+            Log.Debug($"Selecting slot.");
+
+            if (IsSelected)
+                return; // No-op if already selected
+
+            _editor.Select(this);
+        }
+
+        public void OnSelect()
+        {
+            Log.Debug($"Selected slot: {_slot}.");
+
+            _editor.Screen.EquipmentList?.Refresh();
+            _editor.Screen.Refresh();
+        }
+
+        public void Refresh()
+        {
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(ImageId));
+            OnPropertyChanged(nameof(ImageTypeCode));
+            OnPropertyChanged(nameof(ImageAdditionalArgs));
+            OnPropertyChanged(nameof(Hint));
+        }
+    }
+}

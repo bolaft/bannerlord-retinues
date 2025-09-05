@@ -19,6 +19,6 @@ namespace CustomClanTroops.UI.VM
         // Public API
         // =========================================================================
 
-        public WCharacter Troop => _screen.SelectedTroop;
+        public WCharacter SelectedTroop => _screen.SelectedTroop;
     }
 }
