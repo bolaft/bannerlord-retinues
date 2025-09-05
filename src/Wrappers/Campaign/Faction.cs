@@ -5,33 +5,38 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.Wrappers.Campaign
 {
-    public class WClan(Clan clan) : StringIdentifier, IWrapper
+    public class WFaction(IFaction faction) : StringIdentifier, IWrapper
     {
         // =========================================================================
         // Base
         // =========================================================================
 
-        private readonly Clan _clan = clan;
+        private readonly IFaction _faction = faction;
 
-        public object Base => _clan;
+        public object Base => _faction;
 
         // =========================================================================
         // Properties
         // =========================================================================
 
-        public string Name => _clan.Name.ToString();
+        public string Name => _faction.Name.ToString();
 
-        public override string StringId => _clan.StringId.ToString();
+        public override string StringId => _faction.StringId;
 
-        public string BannerCodeText => _clan.Banner.Serialize();
+        public string BannerCodeText => _faction.Banner.Serialize();
 
-        public uint Color => _clan.Color;
+        public uint Color => _faction.Color;
 
-        public uint Color2 => _clan.Color2;
+        public uint Color2 => _faction.Color2;
+
+        public WCulture Culture => new(_faction.Culture);
 
         // =========================================================================
         // Troops
         // =========================================================================
+
+        public WCharacter RootElite { get; set; }
+        public WCharacter RootBasic { get; set; }
 
         public List<WCharacter> EliteTroops { get; } = [];
         public List<WCharacter> BasicTroops { get; } = [];

@@ -17,9 +17,9 @@ namespace CustomClanTroops.UI.VM.Equipment
 
         private readonly EquipmentIndex _slot = slot;
 
-        WCharacter _troop = troop;
+        private readonly WCharacter _troop = troop;
 
-        EquipmentEditorVM _editor = editor;
+        private readonly EquipmentEditorVM _editor = editor;
 
         // =========================================================================
         // Data Bindings

@@ -9,29 +9,31 @@ namespace CustomClanTroops.Logic
 {
     public static class Setup
     {
-
-        public static void Initialize()
+        public static void Initialize(WFaction faction)
         {
-            var culture = Player.Culture;
-            var clan = Player.Clan;
+            // Clear existing troops, if any
+            faction.EliteTroops.Clear();
+            faction.BasicTroops.Clear();
 
-            clan.EliteTroops.Clear();
-            clan.BasicTroops.Clear();
+            // Use the faction culture
+            var culture = faction.Culture;
 
             // Mapping from original to clone
             var map = new Dictionary<WCharacter, WCharacter>();
 
             // Clone the elite tree from the elite root
-            foreach (var clone in CloneTroopTreeRecursive(culture.RootElite, clan, null, map))
-                clan.EliteTroops.Add(clone);
+            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, faction, null, map).ToList();
+            faction.RootElite = eliteClones.FirstOrDefault();
+            faction.EliteTroops.AddRange(eliteClones);
 
-            Log.Debug($"Cloned {clan.EliteTroops.Count} elite troops from {culture.Name} to {clan.Name}");
+            Log.Debug($"Cloned {faction.EliteTroops.Count} elite troops from {culture.Name} to {faction.Name}");
 
             // Clone the basic tree from the basic root
-            foreach (var clone in CloneTroopTreeRecursive(culture.RootBasic, clan, null, map))
-                clan.BasicTroops.Add(clone);
+            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, faction, null, map).ToList();
+            faction.RootBasic = basicClones.FirstOrDefault();
+            faction.BasicTroops.AddRange(basicClones);
 
-            Log.Debug($"Cloned {clan.BasicTroops.Count} basic troops from {culture.Name} to {clan.Name}");
+            Log.Debug($"Cloned {faction.BasicTroops.Count} basic troops from {culture.Name} to {faction.Name}");
 
             // Fix upgrade targets to point to clones
             foreach (var pair in map)
@@ -40,33 +42,32 @@ namespace CustomClanTroops.Logic
                 var clone = pair.Value;
                 if (orig.UpgradeTargets != null)
                 {
-                    clone.UpgradeTargets = orig.UpgradeTargets
+                    clone.UpgradeTargets = [.. orig.UpgradeTargets
                         .Select(t => map.TryGetValue(t, out var c) ? c : null)
-                        .Where(c => c != null)
-                        .ToArray();
+                        .Where(c => c != null)];
                 }
             }
 
             // Unlock items from the added clones
-            foreach (var troop in Enumerable.Concat(clan.EliteTroops, clan.BasicTroops))
+            foreach (var troop in Enumerable.Concat(faction.EliteTroops, faction.BasicTroops))
                 foreach (var equipment in troop.Equipments)
                     foreach (var item in equipment.Items)
                         item.Unlock();
 
-            Log.Debug($"Unlocked {WItem.UnlockedItems.Count()} items from {clan.EliteTroops.Count + clan.BasicTroops.Count} troops");
+            Log.Debug($"Unlocked {WItem.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops");
         }
 
-        private static IEnumerable<WCharacter> CloneTroopTreeRecursive(WCharacter original, WClan clan, WCharacter parent, Dictionary<WCharacter, WCharacter> map)
+        private static IEnumerable<WCharacter> CloneTroopTreeRecursive(WCharacter original, WFaction faction, WCharacter parent, Dictionary<WCharacter, WCharacter> map)
         {
-            var clone = original.Clone(clan: clan, parent: parent);
-            clone.Name = $"{clan.Name} {original.Name}";
+            var clone = original.Clone(faction: faction, parent: parent);
+            clone.Name = $"{faction.Name} {original.Name}";
             map[original] = clone;
             yield return clone;
             if (original.UpgradeTargets != null)
             {
                 foreach (var child in original.UpgradeTargets)
                 {
-                    foreach (var descendant in CloneTroopTreeRecursive(child, clan, clone, map))
+                    foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone, map))
                         yield return descendant;
                 }
             }

@@ -50,7 +50,7 @@ namespace CustomClanTroops
 
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {
-                cs.AddBehavior(new CustomClanTroops.Behaviors.CampaignBehavior());
+                cs.AddBehavior(new Behaviors.CampaignBehavior());
                 Log.Debug("Registered CampaignBehavior.");
             }
         }

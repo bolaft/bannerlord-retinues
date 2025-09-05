@@ -1,7 +1,16 @@
+# FEATURES
+
 - duplicate custom troop functionality for kingdom
-- implement custom troop spawning in clan/kingdom holdings
 - implement troop persistence (rewrite troop cloning?)
 - implement stocks/unlocks persistence
 - implement unlocking mechanics
-- gray out troops tab if clan is Playerland
+
+# FIXES
+
 - fix hints not showing on disabled button / rows
+
+# TESTS
+
+- test sandbox mode
+- test with modded cultures/troops
+- test troops recruited by AI lords

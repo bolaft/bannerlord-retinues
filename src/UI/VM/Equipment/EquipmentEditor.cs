@@ -6,7 +6,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentEditorVM(ClanScreen screen) : BaseEditor<EquipmentEditorVM>(screen), IView
+    public sealed class EquipmentEditorVM(EditorScreenVM screen) : BaseEditor<EquipmentEditorVM>(screen), IView
     {
         // =========================================================================
         // Fields

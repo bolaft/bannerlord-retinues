@@ -7,14 +7,14 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopEditorVM(ClanScreen screen) : BaseEditor<TroopEditorVM>(screen), IView
+    public sealed class TroopEditorVM(EditorScreenVM screen) : BaseEditor<TroopEditorVM>(screen), IView
     {
         // =========================================================================
         // Fields
         // =========================================================================
 
-        private readonly MBBindingList<TroopSkillVM> _skillsRow1 = new();
-        private readonly MBBindingList<TroopSkillVM> _skillsRow2 = new();
+        private readonly MBBindingList<TroopSkillVM> _skillsRow1 = [];
+        private readonly MBBindingList<TroopSkillVM> _skillsRow2 = [];
 
         // =========================================================================
         // Data Bindings
@@ -137,7 +137,7 @@ namespace CustomClanTroops.UI.VM.Troop
 
                     // Create the upgrade troop by cloning
                     var upgrade = SelectedTroop.Clone(
-                        clan: SelectedTroop.Clan,
+                        faction: SelectedTroop.Faction,
                         parent: SelectedTroop,
                         keepUpgrades: false,
                         keepEquipment: false,
@@ -151,11 +151,11 @@ namespace CustomClanTroops.UI.VM.Troop
                     // Add as an upgrade target
                     SelectedTroop.AddUpgradeTarget(upgrade);
 
-                    // Add it the the clan's troop list
+                    // Add it the the faction's troop list
                     if (upgrade.IsElite)
-                        SelectedTroop.Clan.EliteTroops.Add(upgrade);
+                        SelectedTroop.Faction.EliteTroops.Add(upgrade);
                     else
-                        SelectedTroop.Clan.BasicTroops.Add(upgrade);
+                        SelectedTroop.Faction.BasicTroops.Add(upgrade);
 
                     // Update the troop list
                     Screen.TroopList.Refresh();

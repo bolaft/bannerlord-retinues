@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using CustomClanTroops.Wrappers.Campaign;
 using TaleWorlds.Library;
 
 namespace CustomClanTroops.UI.VM
 {
-    public abstract class BaseList<TSelf, TRow>(UI.ClanScreen screen) : ViewModel
+    public abstract class BaseList<TSelf, TRow>(WFaction faction, EditorScreenVM screen) : ViewModel
         where TSelf : BaseList<TSelf, TRow>
         where TRow : BaseRow<TSelf, TRow>
     {
@@ -12,15 +13,16 @@ namespace CustomClanTroops.UI.VM
         // Fields
         // =========================================================================
 
-        protected readonly UI.ClanScreen _screen = screen;
+        protected readonly WFaction _faction = faction;
+        protected readonly EditorScreenVM _screen = screen;
 
         // =========================================================================
         // Public API
         // =========================================================================
 
-        public UI.ClanScreen Screen => _screen;
+        public EditorScreenVM Screen => _screen;
 
-        public virtual List<TRow> Rows { get; protected set; } = new();
+        public virtual List<TRow> Rows { get; protected set; } = [];
 
         public TRow SelectedRow => Rows.FirstOrDefault(r => r.IsSelected);
 

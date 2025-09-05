@@ -32,13 +32,14 @@ namespace CustomClanTroops.UI.Helpers
 
             return new BasicTooltipViewModel(() =>
             {
-                var props = new List<TooltipProperty>();
-
-                // Title
-                props.Add(new TooltipProperty(
+                var props = new List<TooltipProperty>
+                {
+                    // Title
+                    new TooltipProperty(
                     string.Empty, item.Class,
                     0, false, TooltipProperty.TooltipPropertyFlags.Title
-                ));
+                )
+                };
 
                 // Description
                 foreach (var stat in item.Statistics)

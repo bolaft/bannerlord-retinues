@@ -9,24 +9,24 @@ namespace CustomClanTroops.Logic
         // Members
         // =========================================================================
 
-        private static WClan _clan;
-        public static WClan Clan
+        private static WFaction _clan;
+
+        public static WFaction Clan
         {
             get
             {
-                if (_clan == null)
-                    _clan = new WClan(Hero.MainHero.Clan);
+                _clan ??= new WFaction(Hero.MainHero.Clan);
                 return _clan;
             }
         }
 
         private static WCulture _culture;
+
         public static WCulture Culture
         {
             get
             {
-                if (_culture == null)
-                    _culture = new WCulture(Hero.MainHero.Culture);
+                _culture ??= new WCulture(Hero.MainHero.Culture);
                 return _culture;
             }
         }
@@ -41,5 +41,15 @@ namespace CustomClanTroops.Logic
         {
             Hero.MainHero.ChangeHeroGold(amount);
         }
+
+        // =========================================================================
+        // Kingdom
+        // =========================================================================
+
+        public static bool IsKingdomLeader => Hero.MainHero.IsKingdomLeader;
+
+        private static WFaction _kingdom;
+
+        public static WFaction Kingdom => IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom) : null;
     }
 }

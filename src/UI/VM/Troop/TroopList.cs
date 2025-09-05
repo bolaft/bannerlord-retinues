@@ -3,26 +3,27 @@ using TaleWorlds.Library;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
+using CustomClanTroops.Wrappers.Campaign;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopListVM(UI.ClanScreen screen) : BaseList<TroopListVM, TroopRowVM>(screen), IView
+    public sealed class TroopListVM(WFaction faction, EditorScreenVM screen) : BaseList<TroopListVM, TroopRowVM>(faction, screen), IView
     {
         // =========================================================================
         // Data Bindings
         // =========================================================================
 
         [DataSourceProperty]
-        public MBBindingList<TroopRowVM> EliteTroops { get; set; } = new();
+        public MBBindingList<TroopRowVM> EliteTroops { get; set; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<TroopRowVM> BasicTroops { get; set; } = new();
+        public MBBindingList<TroopRowVM> BasicTroops { get; set; } = [];
 
         // =========================================================================
         // Public API
         // =========================================================================
 
-        public override System.Collections.Generic.List<TroopRowVM> Rows => EliteTroops.Concat(BasicTroops).ToList();
+        public override System.Collections.Generic.List<TroopRowVM> Rows => [.. EliteTroops, .. BasicTroops];
 
         public void Select(WCharacter troop)
         {
@@ -36,13 +37,13 @@ namespace CustomClanTroops.UI.VM.Troop
             Log.Debug("Refreshing.");
 
             EliteTroops.Clear();
-            foreach (var root in Player.Clan.EliteTroops.Where(t => t.Parent is null))
+            foreach (var root in _faction.EliteTroops.Where(t => t.Parent is null))
                 AddTroopWithChildren(root, EliteTroops);
 
             Log.Debug($"Loaded {EliteTroops.Count} elite troops.");
 
             BasicTroops.Clear();
-            foreach (var root in Player.Clan.BasicTroops.Where(t => t.Parent is null))
+            foreach (var root in _faction.BasicTroops.Where(t => t.Parent is null))
                 AddTroopWithChildren(root, BasicTroops);
 
             Log.Debug($"Loaded {BasicTroops.Count} basic troops.");
@@ -71,7 +72,7 @@ namespace CustomClanTroops.UI.VM.Troop
             var row = new TroopRowVM(troop, this);
             list.Add(row);
 
-            var children = Player.Clan.BasicTroops.Concat(Player.Clan.EliteTroops)
+            var children = _faction.BasicTroops.Concat(_faction.EliteTroops)
                 .Where(t => t.Parent != null && t.Parent.Equals(troop));
 
             foreach (var child in children)

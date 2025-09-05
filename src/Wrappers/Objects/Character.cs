@@ -10,7 +10,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.Wrappers.Objects
 {
-    public class WCharacter(CharacterObject characterObject, WClan clan = null, WCharacter parent = null) : StringIdentifier, IWrapper
+    public class WCharacter(CharacterObject characterObject, WFaction faction = null, WCharacter parent = null) : StringIdentifier, IWrapper
     {
         // =========================================================================
         // Base
@@ -33,14 +33,14 @@ namespace CustomClanTroops.Wrappers.Objects
                 var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
                 vm.FillFrom(_characterObject, seed: -1);
 
-                if (Clan != null)
+                if (Faction != null)
                 {
                     // For armor colors
-                    vm.ArmorColor1 = Clan.Color;
-                    vm.ArmorColor2 = Clan.Color2;
+                    vm.ArmorColor1 = Faction.Color;
+                    vm.ArmorColor2 = Faction.Color2;
 
                     // For heraldic items
-                    vm.BannerCodeText = Clan.BannerCodeText;
+                    vm.BannerCodeText = Faction.BannerCodeText;
                 }
 
                 return vm;
@@ -53,7 +53,7 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public WCulture Culture => new(_characterObject.Culture);
 
-        public WClan Clan => clan;
+        public WFaction Faction => faction;
 
         public WCharacter Parent => parent;
 
@@ -70,7 +70,7 @@ namespace CustomClanTroops.Wrappers.Objects
             {
                 Reflector.InvokeMethod(
                     _characterObject, "SetName", [typeof(TextObject)],
-                    new TextObject(value, (System.Collections.Generic.Dictionary<string, object>)null)
+                    new TextObject(value, (Dictionary<string, object>)null)
                 );
             }
         }
@@ -87,7 +87,7 @@ namespace CustomClanTroops.Wrappers.Objects
         // Flags & Toggles
         // =========================================================================
 
-        public bool IsElite => Clan.EliteTroops.Contains(this);
+        public bool IsElite => Faction.EliteTroops.Contains(this);
 
         public bool IsMaxTier => Tier >= (IsElite ? 6 : 5);
 
@@ -207,7 +207,7 @@ namespace CustomClanTroops.Wrappers.Objects
             get
             {
                 var arr = Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? [];
-                return arr.Select(obj => new WCharacter(obj, Clan, this)).ToArray();
+                return [.. arr.Select(obj => new WCharacter(obj, Faction, this))];
             }
             set
             {
@@ -243,19 +243,19 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public void Remove()
         {
-            // Remove from clan lists
-            if (Clan != null)
+            // Remove from faction lists
+            if (Faction != null)
             {
                 if (IsElite)
-                    Clan.EliteTroops.Remove(this);
+                    Faction.EliteTroops.Remove(this);
                 else
-                    Clan.BasicTroops.Remove(this);
+                    Faction.BasicTroops.Remove(this);
             }
 
             // Remove from parent's upgrade targets
             Parent?.RemoveUpgradeTarget(this);
 
-            Log.Debug($"Removed troop {Name} from parent {Parent?.Name ?? "null"} and clan {Clan?.Name ?? "null"}");
+            Log.Debug($"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}");
 
             // Unregister from the game systems
             Unregister();
@@ -279,16 +279,16 @@ namespace CustomClanTroops.Wrappers.Objects
             IsNotTransferableInHideouts = true;
         }
 
-        public WCharacter Clone(WClan clan = null, WCharacter parent = null, bool keepUpgrades = true, bool keepEquipment = true, bool keepSkills = true)
+        public WCharacter Clone(WFaction faction = null, WCharacter parent = null, bool keepUpgrades = true, bool keepEquipment = true, bool keepSkills = true)
         {
             // Clone from the source troop
             var cloneObject = CharacterObject.CreateFrom(_characterObject);
 
-            // Default clan is the same as the original troop
-            clan ??= Clan;
+            // Default faction is the same as the original troop
+            faction ??= Faction;
 
             // Wrap it
-            WCharacter clone = new(cloneObject, clan, parent);
+            WCharacter clone = new(cloneObject, faction, parent);
 
             if (keepUpgrades)
                 clone.UpgradeTargets = [.. UpgradeTargets]; // Unlink

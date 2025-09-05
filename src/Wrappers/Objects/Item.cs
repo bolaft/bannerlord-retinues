@@ -55,7 +55,7 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             get
             {
-                List<EquipmentIndex> slots = new();
+                List<EquipmentIndex> slots = [];
 
                 void AddWeaponSlots()
                 {
@@ -309,7 +309,7 @@ namespace CustomClanTroops.Wrappers.Objects
         // Unlocks
         // =========================================================================
 
-        public static HashSet<WItem> UnlockedItems { get; } = new();
+        public static HashSet<WItem> UnlockedItems { get; } = [];
 
         public bool IsUnlocked => UnlockedItems.Contains(this);
 

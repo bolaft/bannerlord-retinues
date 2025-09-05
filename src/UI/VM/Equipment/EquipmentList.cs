@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
+using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentListVM(UI.ClanScreen screen) : BaseList<EquipmentListVM, EquipmentRowVM>(screen), IView
+    public sealed class EquipmentListVM(WFaction faction, EditorScreenVM screen) : BaseList<EquipmentListVM, EquipmentRowVM>(faction, screen), IView
     {
         // =========================================================================
         // Data Bindings
         // =========================================================================
 
         [DataSourceProperty]
-        public MBBindingList<EquipmentRowVM> Equipments { get; set; } = new();
+        public MBBindingList<EquipmentRowVM> Equipments { get; set; } = [];
 
         // =========================================================================
         // Public API
         // =========================================================================
 
-        public override List<EquipmentRowVM> Rows => Equipments.ToList();
+        public override List<EquipmentRowVM> Rows => [.. Equipments];
 
         public void Select(WItem item)
         {
@@ -46,19 +47,25 @@ namespace CustomClanTroops.UI.VM.Equipment
             // Only load items if a slot is selected
             if (slot != null)
             {
-                // Load items, method depends on config
-                if (Config.AllEquipmentUnlocked)
-                    foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
-                        items.Add(new WItem(item));
-                else
-                    foreach (var item in WItem.UnlockedItems)
-                        items.Add(item);
+                // Load items
+                foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
+                {
+                    if (Config.AllEquipmentUnlocked)
+                        items.Add(new WItem(item));  // All items
+                    else
+                    {
+                        if (WItem.UnlockedItems.Contains(new WItem(item)))
+                            items.Add(new WItem(item));  // Unlocked items
+                        else if (item.Culture?.StringId == _faction.Culture.StringId)
+                            items.Add(new WItem(item));  // Items of the faction's culture
+                    }
+                }
 
                 // Filter by selected slot
-                items = items.Where(i => i is null || i.Slots.Contains(slot.Slot)).ToList();
+                items = [.. items.Where(i => i is null || i.Slots.Contains(slot.Slot))];
 
                 // Sort by type, then name
-                items = items.OrderBy(i => i.Type).ThenBy(i => i.Name).ToList();
+                items = [.. items.OrderBy(i => i.Type).ThenBy(i => i.Name)];
 
                 // Empty item to allow unequipping
                 items.Insert(0, null);
