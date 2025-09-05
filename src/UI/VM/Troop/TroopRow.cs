@@ -1,5 +1,4 @@
 using TaleWorlds.Library;
-using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 

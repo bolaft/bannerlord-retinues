@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Reflection;
-using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using CustomClanTroops.Wrappers.Objects;
 

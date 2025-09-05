@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.ObjectSystem;
 using CustomClanTroops.Wrappers.Objects;
 using CustomClanTroops.Utils;
 

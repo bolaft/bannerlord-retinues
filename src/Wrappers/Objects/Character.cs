@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.Core;
@@ -6,7 +5,6 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
-using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Utils;
 

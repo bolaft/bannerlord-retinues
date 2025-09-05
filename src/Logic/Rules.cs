@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem;
 using CustomClanTroops.Wrappers.Objects;
 
 namespace CustomClanTroops.Logic

@@ -1,10 +1,8 @@
-using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Logic;
 using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
