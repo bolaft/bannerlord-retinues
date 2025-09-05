@@ -21,9 +21,11 @@ namespace CustomClanTroops.UI
 
         private bool _isTroopsSelected;
 
-        private ITroopScreen _screen;
+        private readonly ITroopScreen _screen;
 
         private EditorMode _editorMode = EditorMode.Default;
+
+        private WFaction _faction;
 
         // =========================================================================
         // Constructor
@@ -37,25 +39,7 @@ namespace CustomClanTroops.UI
 
                 _screen = screen;
 
-                if (faction.BasicTroops.IsEmpty() && faction.EliteTroops.IsEmpty())
-                {
-                    Log.Debug("No custom troops found, initializing default troops.");
-                    Setup.Initialize(faction);
-                }
-
-                TroopEditor = new TroopEditorVM(this);
-                TroopEditor.Refresh();
-
-                TroopList = new TroopListVM(faction, this);
-                TroopList.Refresh();
-
-                EquipmentEditor = new EquipmentEditorVM(this);
-                EquipmentEditor.Refresh();
-
-                EquipmentList = new EquipmentListVM(faction, this);
-                EquipmentList.Refresh();
-
-                Refresh();
+                SwitchFaction(faction);
             }
             catch (Exception e)
             {
@@ -88,6 +72,12 @@ namespace CustomClanTroops.UI
                 OnPropertyChanged(nameof(IsTroopsSelected));
             }
         }
+
+        [DataSourceProperty]
+        public bool CanSwitchFaction => Player.Kingdom != null;
+
+        [DataSourceProperty]
+        public string FactionSwitchText => Faction == Player.Clan ? "Switch to\nKingdom Troops" : "Switch to\nClan Troops";
 
         [DataSourceProperty]
         public TroopEditorVM TroopEditor { get; private set; }
@@ -158,9 +148,22 @@ namespace CustomClanTroops.UI
             }
         }
 
+        [DataSourceMethod]
+        public void ExecuteSwitchFaction()
+        {
+            Log.Debug("Switching faction.");
+
+            if (Faction == Player.Clan)
+                SwitchFaction(Player.Kingdom);
+            else
+                SwitchFaction(Player.Clan);
+        }
+
         // =========================================================================
         // Public API
         // =========================================================================
+
+        public WFaction Faction => _faction;
 
         public WCharacter SelectedTroop => TroopList?.SelectedRow?.Troop;
 
@@ -186,6 +189,31 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(IsEquipmentMode));
         }
 
+        public void SwitchFaction(WFaction faction)
+        {
+            if (faction.BasicTroops.IsEmpty() && faction.EliteTroops.IsEmpty())
+            {
+                Log.Debug("No custom troops found, initializing default troops.");
+                Setup.Initialize(faction);
+            }
+
+            _faction = faction;
+
+            TroopEditor = new TroopEditorVM(this);
+            TroopEditor.Refresh();
+
+            TroopList = new TroopListVM(this);
+            TroopList.Refresh();
+
+            EquipmentEditor = new EquipmentEditorVM(this);
+            EquipmentEditor.Refresh();
+
+            EquipmentList = new EquipmentListVM(this);
+            EquipmentList.Refresh();
+
+            Refresh();
+        }
+
         public void Refresh()
         {
             Log.Debug("Refreshing.");
@@ -199,6 +227,10 @@ namespace CustomClanTroops.UI
             OnPropertyChanged(nameof(IsEquipmentMode));
 
             OnPropertyChanged(nameof(Model));
+
+            OnPropertyChanged(nameof(Faction));
+            OnPropertyChanged(nameof(FactionSwitchText));
+            OnPropertyChanged(nameof(CanSwitchFaction));
         }
     }
 }

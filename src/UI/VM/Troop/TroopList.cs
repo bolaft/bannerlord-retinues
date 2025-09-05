@@ -7,7 +7,7 @@ using CustomClanTroops.Wrappers.Campaign;
 
 namespace CustomClanTroops.UI.VM.Troop
 {
-    public sealed class TroopListVM(WFaction faction, EditorScreenVM screen) : BaseList<TroopListVM, TroopRowVM>(faction, screen), IView
+    public sealed class TroopListVM(EditorScreenVM screen) : BaseList<TroopListVM, TroopRowVM>(screen), IView
     {
         // =========================================================================
         // Data Bindings
@@ -37,13 +37,13 @@ namespace CustomClanTroops.UI.VM.Troop
             Log.Debug("Refreshing.");
 
             EliteTroops.Clear();
-            foreach (var root in _faction.EliteTroops.Where(t => t.Parent is null))
+            foreach (var root in Screen.Faction.EliteTroops.Where(t => t.Parent is null))
                 AddTroopWithChildren(root, EliteTroops);
 
             Log.Debug($"Loaded {EliteTroops.Count} elite troops.");
 
             BasicTroops.Clear();
-            foreach (var root in _faction.BasicTroops.Where(t => t.Parent is null))
+            foreach (var root in Screen.Faction.BasicTroops.Where(t => t.Parent is null))
                 AddTroopWithChildren(root, BasicTroops);
 
             Log.Debug($"Loaded {BasicTroops.Count} basic troops.");
@@ -72,7 +72,7 @@ namespace CustomClanTroops.UI.VM.Troop
             var row = new TroopRowVM(troop, this);
             list.Add(row);
 
-            var children = _faction.BasicTroops.Concat(_faction.EliteTroops)
+            var children = Screen.Faction.BasicTroops.Concat(Screen.Faction.EliteTroops)
                 .Where(t => t.Parent != null && t.Parent.Equals(troop));
 
             foreach (var child in children)

@@ -5,7 +5,7 @@ using TaleWorlds.Library;
 
 namespace CustomClanTroops.UI.VM
 {
-    public abstract class BaseList<TSelf, TRow>(WFaction faction, EditorScreenVM screen) : ViewModel
+    public abstract class BaseList<TSelf, TRow>(EditorScreenVM screen) : ViewModel
         where TSelf : BaseList<TSelf, TRow>
         where TRow : BaseRow<TSelf, TRow>
     {
@@ -13,7 +13,6 @@ namespace CustomClanTroops.UI.VM
         // Fields
         // =========================================================================
 
-        protected readonly WFaction _faction = faction;
         protected readonly EditorScreenVM _screen = screen;
 
         // =========================================================================

@@ -1,12 +1,12 @@
 <!-- Text button -->
-{{- func button_text(text, command, brush, is_visible = "true", vertical_alignment = "Center", horizontal_alignment = "Center") -}}
+{{- func button_text(text, command, brush, is_visible = "true", is_enabled = "true", vertical_alignment = "Center", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0") -}}
 <ButtonWidget
-    IsVisible="{{is_visible}}"
+    IsVisible="{{is_visible}}" IsEnabled="{{is_enabled}}"
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
     SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
-    HorizontalAlignment="{{horizontal_alignment}}"
-    VerticalAlignment="{{vertical_alignment}}"
+    HorizontalAlignment="{{horizontal_alignment}}" VerticalAlignment="{{vertical_alignment}}"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"
     Brush="{{brush}}"
     Command.Click="{{command}}">
     <Children>

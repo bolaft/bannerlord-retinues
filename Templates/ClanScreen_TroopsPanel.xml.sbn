@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <!-- Template macros -->
 {{ include "Macros/Button.sbn" }}
 {{ include "Macros/Divider.sbn" }}
@@ -7,4 +5,83 @@
 {{ include "Macros/Text.sbn" }}
 
 <!-- Editor screen -->
-{{ include "Base.sbn" }}
+<Widget 
+    DataSource="{EditorScreen}"
+    IsVisible="@IsTroopsSelected"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    DoNotAcceptEvents="false">
+	<Children>
+
+        <Widget 
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            MarginLeft="600" MarginRight="290">
+            <Children>
+                <Widget
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+                    <Children>
+                        <Widget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            MarginRight="290">
+                            <Children>
+                                <Widget
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
+                                    SuggestedWidth="465" SuggestedHeight="512"
+                                    HorizontalAlignment="Left">
+                                    <Children>
+                                        <!-- Character tableau -->
+                                        {{ include "Tableau.sbn" }}
+
+                                        <!-- Remove troop button -->
+                                        {{ include "ButtonRemove.sbn" }}
+
+                                        <!-- Unequip troop button -->
+                                        {{ include "ButtonUnequip.sbn" }}
+
+                                        <!-- Edit equipment button -->
+                                        {{ button_text("Equipment", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "true", "Bottom") }}
+
+                                        <!-- Close equipment button -->
+                                        {{ button_text("Back", "ExecuteSwitchToDefault", "ButtonBrush3", "@IsEquipmentMode", "true", "Bottom") }}
+                                    </Children>
+                                </Widget>
+                            </Children>
+                        </Widget>
+                        <Widget
+                            VisualDefinition="RightPanel"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            PositionXOffset="800"
+                            MarginLeft="340">
+                            <Children>
+                                <!-- Troop editor -->
+                                {{ include "Editor/Base.sbn" }}
+                            </Children>
+                        </Widget>
+                    </Children>
+                </Widget>
+            </Children>
+        </Widget>
+
+        <!-- Change Faction -->
+        <ButtonWidget
+            IsVisible="true" IsEnabled="@CanSwitchFaction"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width" SuggestedHeight="120"
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            MarginLeft="0" MarginRight="20" MarginTop="0" MarginBottom="0"
+            Brush="ButtonBrush2"
+            Command.Click="ExecuteSwitchFaction">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="@FactionSwitchText"/>
+            </Children>
+        </ButtonWidget>
+
+        <!-- Scrollable list -->
+        {{ include "List/Base.sbn" }}
+
+    </Children>
+</Widget>

@@ -9,7 +9,7 @@ using CustomClanTroops.Utils;
 
 namespace CustomClanTroops.UI.VM.Equipment
 {
-    public sealed class EquipmentListVM(WFaction faction, EditorScreenVM screen) : BaseList<EquipmentListVM, EquipmentRowVM>(faction, screen), IView
+    public sealed class EquipmentListVM(EditorScreenVM screen) : BaseList<EquipmentListVM, EquipmentRowVM>(screen), IView
     {
         // =========================================================================
         // Data Bindings
@@ -56,7 +56,7 @@ namespace CustomClanTroops.UI.VM.Equipment
                     {
                         if (WItem.UnlockedItems.Contains(new WItem(item)))
                             items.Add(new WItem(item));  // Unlocked items
-                        else if (item.Culture?.StringId == _faction.Culture.StringId)
+                        else if (item.Culture?.StringId == Screen.Faction.Culture.StringId)
                             items.Add(new WItem(item));  // Items of the faction's culture
                     }
                 }
