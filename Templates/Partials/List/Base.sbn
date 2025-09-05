@@ -18,4 +18,4 @@
 {{ list_panel("List/Troops/Base.sbn", "@IsDefaultMode") }}
 
 <!-- Equipment mode list -->
-{{ list_panel("List/Items/Base.sbn", "@IsEquipmentMode") }}
+{{ list_panel("List/Equipment/Base.sbn", "@IsEquipmentMode") }}

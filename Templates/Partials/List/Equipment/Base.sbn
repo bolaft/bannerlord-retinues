@@ -24,7 +24,7 @@
                     ClipContents="true">
                     <Children>
 
-                        {{ include "List/Items/Navigatable.sbn" }}
+                        {{ include "List/Equipment/Navigatable.sbn" }}
 
                     </Children>
                 </Widget>

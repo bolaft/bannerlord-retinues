@@ -6,6 +6,7 @@
 <!-- Image -->
 <!-- String text --><!-- Int text --><!-- Title header -->
 
+<!-- Editor screen -->
 <Widget 
     DataSource="{EditorScreen}"
     IsVisible="@IsTroopsSelected"
