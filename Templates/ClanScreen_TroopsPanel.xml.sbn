@@ -63,7 +63,7 @@
 
         <!-- Change Faction -->
         <ButtonWidget
-            IsVisible="true" IsEnabled="@CanSwitchFaction"
+            IsVisible="@CanSwitchFaction"
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             SuggestedWidth="!CancelButton.Width" SuggestedHeight="120"
