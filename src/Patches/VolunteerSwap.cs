@@ -3,7 +3,6 @@ using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Campaign;
@@ -53,54 +52,16 @@ public static class VolunteerSwapPatch
                 var vanilla = notable.VolunteerTypes[i];
                 if (vanilla == null) continue;
 
-                if (IsFactionTroop(vanilla)) continue;
+                if (Recruitement.IsFactionTroop(faction, vanilla)) continue;
 
-                var rootId = IsEliteLine(vanilla) ? faction.RootElite.StringId : faction.RootBasic.StringId;
+                var rootId = Recruitement.IsEliteLine(vanilla) ? faction.RootElite.StringId : faction.RootBasic.StringId;
                 var root = MBObjectManager.Instance.GetObject<CharacterObject>(rootId);
                 if (root == null) continue;
 
-                notable.VolunteerTypes[i] = TryToLevel(root, vanilla.Tier);
+                notable.VolunteerTypes[i] = Recruitement.TryToLevel(root, vanilla.Tier);
             }
         }
 
         return true;
-    }
-
-    static CharacterObject TryToLevel(CharacterObject root, int tier)
-    {
-        var cur = root;
-        while (cur.Tier < tier && cur.UpgradeTargets != null && cur.UpgradeTargets.Length > 0)
-            cur = cur.UpgradeTargets[MBRandom.RandomInt(cur.UpgradeTargets.Length)];
-        return cur;
-    }
-
-    static bool IsEliteLine(CharacterObject unit)
-    {
-        // Walk from Culture.EliteBasicTroop across upgrades and checks membership.
-        var seen = new System.Collections.Generic.HashSet<CharacterObject>();
-        var stack = new System.Collections.Generic.Stack<CharacterObject>();
-        var eliteRoot = unit.Culture?.EliteBasicTroop;
-        if (eliteRoot == null) return false;
-
-        stack.Push(eliteRoot);
-        seen.Add(eliteRoot);
-        while (stack.Count > 0)
-        {
-            var n = stack.Pop();
-            if (n == unit) return true;
-            var ups = n.UpgradeTargets;
-            if (ups == null) continue;
-            foreach (var v in ups) if (seen.Add(v)) stack.Push(v);
-        }
-        return false;
-    }
-
-    static bool IsFactionTroop(CharacterObject c)
-    {
-        foreach (var troop in Enumerable.Concat(Player.Clan.BasicTroops, Player.Clan.EliteTroops))
-            if (troop.StringId == c.StringId)
-                return true;
-
-        return false;
     }
 }

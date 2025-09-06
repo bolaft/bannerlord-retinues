@@ -14,11 +14,11 @@ namespace CustomClanTroops.UI.VM.Troop
         // Fields
         // =========================================================================
 
-        SkillObject _skill = skill;
+        readonly SkillObject _skill = skill;
 
-        WCharacter _troop = troop;
+        readonly WCharacter _troop = troop;
 
-        TroopEditorVM _editor = editor;
+        readonly TroopEditorVM _editor = editor;
 
         // =========================================================================
         // Data Bindings

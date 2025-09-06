@@ -15,15 +15,17 @@ namespace CustomClanTroops.Utils
             }
         }
 
-        private static bool _disallowMountsForTier1 = true;
-        private static bool _limitEquipmentByTier = true;
-        private static bool _payForTroopEquipment = true;
-        private static bool _allEquipmentUnlocked = false;
+        private static readonly bool _disallowMountsForTier1 = true;
+        private static readonly bool _limitEquipmentByTier = true;
+        private static readonly bool _payForTroopEquipment = true;
+        private static readonly bool _allEquipmentUnlocked = false;
+        private static readonly bool _recruitClanTroopsAnywhere = false;
 
         public static bool DisallowMountsForTier1 { get; set; } = _disallowMountsForTier1;
         public static bool LimitEquipmentByTier { get; set; } = _limitEquipmentByTier;
         public static bool PayForTroopEquipment { get; set; } = _payForTroopEquipment;
         public static bool AllEquipmentUnlocked { get; set; } = _allEquipmentUnlocked;
+        public static bool RecruitClanTroopsAnywhere { get; set; } = _recruitClanTroopsAnywhere;
 
         static Config()
         {
@@ -54,6 +56,8 @@ namespace CustomClanTroops.Utils
                         PayForTroopEquipment = ParseBool(value, _payForTroopEquipment);
                     else if (key.Equals("AllEquipmentUnlocked", StringComparison.OrdinalIgnoreCase))
                         AllEquipmentUnlocked = ParseBool(value, _allEquipmentUnlocked);
+                    else if (key.Equals("RecruitClanTroopsAnywhere", StringComparison.OrdinalIgnoreCase))
+                        RecruitClanTroopsAnywhere = ParseBool(value, _recruitClanTroopsAnywhere);
                 }
             }
             catch { /* ignore errors, use defaults */ }

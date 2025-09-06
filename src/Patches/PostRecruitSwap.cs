@@ -1,0 +1,46 @@
+using HarmonyLib;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.CampaignBehaviors;
+using TaleWorlds.CampaignSystem.Settlements;
+using CustomClanTroops.Logic;
+using CustomClanTroops.Wrappers.Campaign;
+
+[HarmonyPatch(typeof(RecruitmentCampaignBehavior), "OnTroopRecruited")]
+public static class PostRecruitSwapPatch
+{
+    static void Postfix(Hero recruiter, Settlement settlement, Hero recruitmentSource, CharacterObject troop, int count)
+    {
+        if (recruiter?.PartyBelongedTo == null || troop == null || count <= 0)
+            return;
+
+        WFaction playerClan    = Player.Clan;
+        WFaction playerKingdom = Player.Kingdom;
+
+        // Decide which custom tree to use:
+        // 1) If recruiter is in player clan → clan tree
+        // 2) else if recruiter is in player kingdom → kingdom tree
+        WFaction target = null;
+        if (recruiter.Clan != null && recruiter.Clan.StringId == playerClan?.StringId)
+            target = playerClan;
+        else if (recruiter.Clan?.Kingdom != null && recruiter.Clan.Kingdom.StringId == playerKingdom?.StringId)
+            target = playerKingdom;
+
+        if (target == null) return;
+
+        // Skip if it’s already one of our custom troops
+        if (Recruitement.IsFactionTroop(target, troop))
+            return;
+
+        var root = Recruitement.GetFactionRootFor(troop, target);
+        if (root == null) return;
+
+        var replacement = Recruitement.TryToLevel(root, troop.Tier);
+        if (replacement == null || replacement == troop) return;
+
+        var roster = recruiter.PartyBelongedTo.MemberRoster;
+
+        // Remove the freshly recruited vanilla stack and add the matching custom stack.
+        roster.AddToCounts(troop, -count);
+        roster.AddToCounts(replacement, count);
+    }
+}

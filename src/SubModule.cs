@@ -16,7 +16,6 @@ namespace CustomClanTroops
 
         protected override void OnSubModuleLoad()
         {
-            try { System.IO.File.AppendAllText("CustomClanTroops.log", $"[EARLY] OnSubModuleLoad called at {System.DateTime.Now}\n"); } catch { }
             base.OnSubModuleLoad();
 
             try
@@ -26,9 +25,9 @@ namespace CustomClanTroops
                 _extender.Enable();
                 Log.Debug("UIExtender enabled & assembly registered.");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Log.Error($"Failed to enable UIExtender: {ex}");
+                Log.Exception(e);
             }
 
             try
@@ -37,9 +36,9 @@ namespace CustomClanTroops
                 _harmony.PatchAll(Assembly.GetExecutingAssembly());
                 Log.Debug("Harmony patches applied.");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Log.Error($"Failed to apply Harmony patches: {ex}");
+                Log.Exception(e);
             }
         }
 
@@ -61,9 +60,9 @@ namespace CustomClanTroops
             {
                 _harmony?.UnpatchAll("CustomClanTroops");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Log.Error($"Failed to remove Harmony patches: {ex}");
+                Log.Exception(e);
             }
 
             base.OnSubModuleUnloaded();

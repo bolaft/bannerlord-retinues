@@ -1,9 +1,9 @@
 # FEATURES
 
-- duplicate custom troop functionality for kingdom
 - implement troop persistence (rewrite troop cloning?)
 - implement stocks/unlocks persistence
 - implement unlocking mechanics
+- change troop culture
 
 # FIXES
 
