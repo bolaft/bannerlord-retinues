@@ -49,7 +49,7 @@ namespace CustomClanTroops.UI.VM.Equipment
             get
             {
                 // Disable mounts for tier 1 troops if disallowed in config
-                if (Config.NoMountForTier1 && _troop.Tier == 1)
+                if (Config.GetOption<bool>("NoMountForTier1") && _troop.Tier == 1)
                     if (_slot == EquipmentIndex.Horse || _slot == EquipmentIndex.HorseHarness)
                         return false;
 

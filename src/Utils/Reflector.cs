@@ -203,10 +203,10 @@ namespace CustomClanTroops.Utils
             if (targetType.IsEnum)
             {
                 if (vType == typeof(string)) return Enum.Parse(targetType, (string)value, ignoreCase: true);
-                return Enum.ToObject(targetType, System.Convert.ChangeType(value, Enum.GetUnderlyingType(targetType), CultureInfo.InvariantCulture));
+                return Enum.ToObject(targetType, Convert.ChangeType(value, Enum.GetUnderlyingType(targetType), CultureInfo.InvariantCulture));
             }
 
-            return System.Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
+            return Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
         }
     }
 }

@@ -41,7 +41,7 @@ internal static class RecruitAnywhereSession
     public static void BeginIfNeeded()
     {
         // Only if config is set that way
-        if (!Config.RecruitAnywhere) return;
+        if (!Config.GetOption<bool>("RecruitAnywhere")) return;
 
         if (IsActive) End(); // safety
 

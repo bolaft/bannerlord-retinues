@@ -50,18 +50,19 @@ namespace CustomClanTroops.UI.VM.Equipment
                 // Load items
                 foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
                 {
-                    if (Config.AllEquipmentUnlocked)
+                    if (Config.GetOption<bool>("AllEquipmentUnlocked"))
                         items.Add(new WItem(item));  // All items
                     else
                     {
                         var wItem = new WItem(item);  // Wrap item
 
-                        if (Config.AllowedTierDifference < (wItem.Tier - Screen.EquipmentEditor.SelectedTroop.Tier))
+                        if (Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - Screen.EquipmentEditor.SelectedTroop.Tier))
                             continue; // Skip items that exceed the allowed tier difference
                         else if (WItem.UnlockedItems.Contains(wItem))
                             items.Add(wItem);  // Unlocked items
-                        else if (item.Culture?.StringId == Screen.Faction.Culture.StringId)
-                            items.Add(wItem);  // Items of the faction's culture
+                        else if (Config.GetOption<bool>("UnlockFromCulture"))
+                            if (item.Culture?.StringId == Screen.Faction.Culture.StringId)
+                                items.Add(wItem);  // Items of the faction's culture
                     }
                 }
 

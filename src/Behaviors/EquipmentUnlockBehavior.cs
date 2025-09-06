@@ -36,8 +36,12 @@ namespace CustomClanTroops.Behaviors
 
         private void OnMissionStarted(IMission mission)
         {
+            // Return if the feature is disabled
+            if (!Config.GetOption<bool>("UnlockFromKills")) return;
+
             // Cast to concrete type
             Mission m = mission as Mission;
+
             // Add our per-battle tracker
             m?.AddMissionBehavior(new EquipmentUnlockMissionBehavior(this));
             _newlyUnlockedThisBattle.Clear();
@@ -48,7 +52,7 @@ namespace CustomClanTroops.Behaviors
         {
             if (battleCounts == null || battleCounts.Count == 0) return;
 
-            int threshold = Math.Max(1, Config.KillsForUnlock);
+            int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
 
             foreach (var kvp in battleCounts)
             {

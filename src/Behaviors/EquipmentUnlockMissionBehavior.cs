@@ -26,12 +26,13 @@ namespace CustomClanTroops.Behaviors
 
             var playerTeam = Mission?.PlayerTeam;
             if (playerTeam == null) return;
+
+            // Enemy team only
             if (affectedAgent.Team == null || !affectedAgent.Team.IsEnemyOf(playerTeam)) return;
 
-            // (Optional) If PLAYER-side kill only:
-            if (Config.PlayerKillsOnly)
-                if (affectorAgent?.Team == null || !affectorAgent.Team.IsFriendOf(playerTeam))
-                    return;
+            // Player-side kill only
+            if (affectorAgent?.Team == null || !affectorAgent.Team.IsFriendOf(playerTeam))
+                return;
 
             // Count each equipped item once per fallen agent
             var seen = new HashSet<ItemObject>();
