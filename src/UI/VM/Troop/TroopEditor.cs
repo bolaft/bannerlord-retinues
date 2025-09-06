@@ -98,7 +98,7 @@ namespace CustomClanTroops.UI.VM.Troop
                 titleText: "Rename Troop", text: "Enter a new name:",
                 isAffirmativeOptionShown: true, isNegativeOptionShown: true,
                 affirmativeText: "Confirm", negativeText: "Cancel",
-                affirmativeAction: (string newName) =>
+                affirmativeAction: newName =>
                 {
                     if (string.IsNullOrWhiteSpace(newName)) return;
 
@@ -131,7 +131,7 @@ namespace CustomClanTroops.UI.VM.Troop
                 titleText: "Add Upgrade", text: "Enter the name of the new troop:",
                 isAffirmativeOptionShown: true, isNegativeOptionShown: true,
                 affirmativeText: "Confirm", negativeText: "Cancel",
-                affirmativeAction: (string name) =>
+                affirmativeAction: name =>
                 {
                     if (string.IsNullOrWhiteSpace(name)) return;
 

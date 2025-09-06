@@ -131,7 +131,8 @@ namespace CustomClanTroops.UI
         [DataSourceMethod]
         public void ExecuteSelectTroops()
         {
-            Log.Info("Selecting Troops tab.");
+            Log.Debug("Selecting Troops tab.");
+
             try
             {
                 if (IsTroopsSelected == true) return;

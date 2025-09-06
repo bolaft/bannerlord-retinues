@@ -10,7 +10,7 @@ namespace CustomClanTroops.Behaviors
         private readonly EquipmentUnlockBehavior _owner;
 
         // per-battle “how many defeated enemies wore item X”
-        private readonly Dictionary<ItemObject, int> _battleCounts = new();
+        private readonly Dictionary<ItemObject, int> _battleCounts = [];
 
         public EquipmentUnlockMissionBehavior(EquipmentUnlockBehavior owner) => _owner = owner;
 

@@ -338,6 +338,14 @@ namespace CustomClanTroops.Wrappers.Objects
             return 0;
         }
 
+        public static void SetStock(WItem item, int count)
+        {
+            if (count <= 0)
+                Stocks.Remove(item);
+            else
+                Stocks[item] = count;
+        }
+
         public void Stock()
         {
             if (Stocks.ContainsKey(this))

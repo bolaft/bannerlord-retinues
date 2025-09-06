@@ -15,7 +15,8 @@ namespace CustomClanTroops.Patches.Recruitment.Helpers
             if (vanilla == null || faction == null || faction.RootBasic == null || faction.RootElite == null)
                 return null;
 
-            var rootId = IsEliteLine(vanilla) ? faction.RootElite.StringId : faction.RootBasic.StringId;
+            var rootId = IsEliteLine(vanilla) ? faction.RootElite?.StringId : faction.RootBasic?.StringId;
+            if (rootId == null) return null;
             return MBObjectManager.Instance.GetObject<CharacterObject>(rootId);
         }
 

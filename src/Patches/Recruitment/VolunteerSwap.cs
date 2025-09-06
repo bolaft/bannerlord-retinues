@@ -55,7 +55,8 @@ public static class VolunteerSwapPatch
 
                 if (RecruitmentHelpers.IsFactionTroop(faction, vanilla)) continue;
 
-                var rootId = RecruitmentHelpers.IsEliteLine(vanilla) ? faction.RootElite.StringId : faction.RootBasic.StringId;
+                var rootId = RecruitmentHelpers.IsEliteLine(vanilla) ? faction.RootElite?.StringId : faction.RootBasic?.StringId;
+                if (rootId == null) continue;
                 var root = MBObjectManager.Instance.GetObject<CharacterObject>(rootId);
                 if (root == null) continue;
 

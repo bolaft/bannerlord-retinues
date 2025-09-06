@@ -20,6 +20,28 @@ namespace CustomClanTroops.Wrappers.Objects
 
         public object Base => _characterObject;
 
+        public bool IsVanilla => !_characterObject.StringId.StartsWith("CharacterObject_");
+
+        public static Dictionary<string, string> VanillaStringIdMap = [];
+
+        public string VanillaStringId
+        {
+            get
+            {
+                if (IsVanilla)
+                    return StringId;
+                
+                return VanillaStringIdMap.TryGetValue(StringId, out var vanillaId) ? vanillaId : null;
+            }
+            set
+            {
+                if (IsVanilla)
+                    return; // Cannot set vanilla id for vanilla troops
+
+                VanillaStringIdMap[StringId] = value;
+            }
+        }
+
         // =========================================================================
         // VM properties
         // =========================================================================
@@ -216,12 +238,6 @@ namespace CustomClanTroops.Wrappers.Objects
             }
         }
 
-        public ItemCategory UpgradeRequiresItemFromCategory
-        {
-            get => Reflector.GetPropertyValue<ItemCategory>(_characterObject, "UpgradeRequiresItemFromCategory");
-            set => Reflector.SetPropertyValue(_characterObject, "UpgradeRequiresItemFromCategory", value);
-        }
-
         public void AddUpgradeTarget(WCharacter target)
         {
             var oldTargets = UpgradeTargets ?? [];
@@ -304,6 +320,12 @@ namespace CustomClanTroops.Wrappers.Objects
                 clone.Skills = new Dictionary<SkillObject, int>(Skills); // Unlink
             else
                 clone.Skills = [];
+
+            // Id of the basic vanilla troop
+            var vanillaId = IsVanilla ? StringId : VanillaStringId;
+
+            if (!string.IsNullOrEmpty(vanillaId))
+                clone.VanillaStringId = vanillaId;
 
             return clone;
         }

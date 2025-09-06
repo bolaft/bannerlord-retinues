@@ -1,7 +1,5 @@
 # FEATURES
 
-- implement troop persistence (rewrite troop cloning?)
-- implement stocks/unlocks persistence
 - change troop culture
 - localized TextObjects instead of strings
 - mod config
@@ -9,6 +7,8 @@
 # FIXES
 
 - fix hints not showing on disabled button / rows
+- MCM shows on load config as "default" rather than actual defaults from main mod
+- skills & stocks save bug when save -> load -> save -> load
 
 # TESTS
 

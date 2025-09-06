@@ -70,14 +70,13 @@ namespace CustomClanTroops.Utils
             try
             {
                 var stack = new System.Diagnostics.StackTrace();
-                // 0 = FindCaller, 1 = WriteToLogFile, 2 = Log.Debug/Info/etc, 3 = actual caller
-                var frame = stack.GetFrame(3);
-                if (frame != null)
+                for (int i = 1; i < stack.FrameCount; i++)
                 {
-                    var method = frame.GetMethod();
-                    if (method != null)
+                    var frame = stack.GetFrame(i);
+                    var method = frame?.GetMethod();
+                    var className = method?.DeclaringType?.Name;
+                    if (className != null && className != nameof(Log))
                     {
-                        var className = method.DeclaringType != null ? method.DeclaringType.Name : "<UnknownClass>";
                         var methodName = method.Name == ".ctor" ? className : method.Name;
                         return $"{className}.{methodName}: ";
                     }
