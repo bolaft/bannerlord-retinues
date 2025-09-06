@@ -2,8 +2,9 @@
 
 - implement troop persistence (rewrite troop cloning?)
 - implement stocks/unlocks persistence
-- implement unlocking mechanics
 - change troop culture
+- localized TextObjects instead of strings
+- mod config
 
 # FIXES
 

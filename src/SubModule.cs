@@ -50,6 +50,8 @@ namespace CustomClanTroops
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {
                 cs.AddBehavior(new Behaviors.CampaignBehavior());
+                cs.AddBehavior(new Behaviors.EquipmentUnlockBehavior());
+                // cs.AddBehavior(new Behaviors.EquipmentUnlockMissionBehavior());
                 Log.Debug("Registered CampaignBehavior.");
             }
         }

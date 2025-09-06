@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
 using CustomClanTroops.Logic;
 using CustomClanTroops.Wrappers.Campaign;
+using CustomClanTroops.Patches.Recruitment.Helpers;
 
 [HarmonyPatch(typeof(RecruitmentCampaignBehavior), "OnTroopRecruited")]
 public static class PostRecruitSwapPatch
@@ -28,13 +29,13 @@ public static class PostRecruitSwapPatch
         if (target == null) return;
 
         // Skip if it’s already one of our custom troops
-        if (Recruitement.IsFactionTroop(target, troop))
+        if (RecruitmentHelpers.IsFactionTroop(target, troop))
             return;
 
-        var root = Recruitement.GetFactionRootFor(troop, target);
+        var root = RecruitmentHelpers.GetFactionRootFor(troop, target);
         if (root == null) return;
 
-        var replacement = Recruitement.TryToLevel(root, troop.Tier);
+        var replacement = RecruitmentHelpers.TryToLevel(root, troop.Tier);
         if (replacement == null || replacement == troop) return;
 
         var roster = recruiter.PartyBelongedTo.MemberRoster;

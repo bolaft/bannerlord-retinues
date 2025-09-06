@@ -5,6 +5,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.ObjectSystem;
 using CustomClanTroops.Logic;
+using CustomClanTroops.Patches.Recruitment.Helpers;
 using CustomClanTroops.Wrappers.Campaign;
 using CustomClanTroops.Utils;
 
@@ -52,13 +53,13 @@ public static class VolunteerSwapPatch
                 var vanilla = notable.VolunteerTypes[i];
                 if (vanilla == null) continue;
 
-                if (Recruitement.IsFactionTroop(faction, vanilla)) continue;
+                if (RecruitmentHelpers.IsFactionTroop(faction, vanilla)) continue;
 
-                var rootId = Recruitement.IsEliteLine(vanilla) ? faction.RootElite.StringId : faction.RootBasic.StringId;
+                var rootId = RecruitmentHelpers.IsEliteLine(vanilla) ? faction.RootElite.StringId : faction.RootBasic.StringId;
                 var root = MBObjectManager.Instance.GetObject<CharacterObject>(rootId);
                 if (root == null) continue;
 
-                notable.VolunteerTypes[i] = Recruitement.TryToLevel(root, vanilla.Tier);
+                notable.VolunteerTypes[i] = RecruitmentHelpers.TryToLevel(root, vanilla.Tier);
             }
         }
 

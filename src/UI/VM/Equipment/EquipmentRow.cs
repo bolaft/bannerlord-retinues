@@ -28,7 +28,7 @@ namespace CustomClanTroops.UI.VM.Equipment
         {
             get
             {
-                if (!Config.PayForTroopEquipment) return false;
+                if (!Config.PayForEquipment) return false;
                 if (Item == null) return false;
                 if (Value == 0) return false;
                 if (Stock > 0) return false;
@@ -46,7 +46,7 @@ namespace CustomClanTroops.UI.VM.Equipment
         {
             get
             {
-                if (!Config.PayForTroopEquipment) return false;
+                if (!Config.PayForEquipment) return false;
                 if (Item == null) return false;
                 if (Value == 0) return false;
                 if (Stock == 0) return false;

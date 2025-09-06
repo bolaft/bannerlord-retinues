@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using HarmonyLib;
 using CustomClanTroops.Logic;
+using CustomClanTroops.Patches.Recruitment.Helpers;
 using CustomClanTroops.Utils;
 
 [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "game_menu_recruit_volunteers_on_consequence")]
@@ -40,7 +41,7 @@ internal static class RecruitAnywhereSession
     public static void BeginIfNeeded()
     {
         // Only if config is set that way
-        if (!Config.RecruitClanTroopsAnywhere) return;
+        if (!Config.RecruitAnywhere) return;
 
         if (IsActive) End(); // safety
 
@@ -65,12 +66,12 @@ internal static class RecruitAnywhereSession
                 if (vanilla == null) continue;
 
                 // Skip if already a clan troop
-                if (Recruitement.IsFactionTroop(clan, vanilla)) continue;
+                if (RecruitmentHelpers.IsFactionTroop(clan, vanilla)) continue;
 
-                var root = Recruitement.GetFactionRootFor(vanilla, clan);
+                var root = RecruitmentHelpers.GetFactionRootFor(vanilla, clan);
                 if (root == null) continue;
 
-                notable.VolunteerTypes[i] = Recruitement.TryToLevel(root, vanilla.Tier);
+                notable.VolunteerTypes[i] = RecruitmentHelpers.TryToLevel(root, vanilla.Tier);
             }
         }
 

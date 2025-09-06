@@ -54,10 +54,14 @@ namespace CustomClanTroops.UI.VM.Equipment
                         items.Add(new WItem(item));  // All items
                     else
                     {
-                        if (WItem.UnlockedItems.Contains(new WItem(item)))
-                            items.Add(new WItem(item));  // Unlocked items
+                        var wItem = new WItem(item);  // Wrap item
+
+                        if (Config.AllowedTierDifference < (wItem.Tier - Screen.EquipmentEditor.SelectedTroop.Tier))
+                            continue; // Skip items that exceed the allowed tier difference
+                        else if (WItem.UnlockedItems.Contains(wItem))
+                            items.Add(wItem);  // Unlocked items
                         else if (item.Culture?.StringId == Screen.Faction.Culture.StringId)
-                            items.Add(new WItem(item));  // Items of the faction's culture
+                            items.Add(wItem);  // Items of the faction's culture
                     }
                 }
 
