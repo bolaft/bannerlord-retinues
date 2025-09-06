@@ -5,7 +5,7 @@ using Scriban;
 using Scriban.Runtime;
 using Scriban.Parsing;
 
-class Program
+class PrefabBuilder
 {
     static async Task Main(string[] args)
     {

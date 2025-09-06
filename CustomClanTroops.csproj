@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <Target Name="GenerateClanScreenXml" BeforeTargets="BeforeBuild">
-    <Exec Command="dotnet run --project Tools/TemplateGenerator/TemplateGenerator.csproj" />
+    <Exec Command="dotnet run --project Tools/PrefabBuilder/PrefabBuilder.csproj" />
   </Target>
 
   <!-- Exclude all code files in Tools from main project build -->
