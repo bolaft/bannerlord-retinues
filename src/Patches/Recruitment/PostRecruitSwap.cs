@@ -14,7 +14,7 @@ public static class PostRecruitSwapPatch
         if (recruiter?.PartyBelongedTo == null || troop == null || count <= 0)
             return;
 
-        WFaction playerClan    = Player.Clan;
+        WFaction playerClan = Player.Clan;
         WFaction playerKingdom = Player.Kingdom;
 
         // Decide which custom tree to use:

@@ -266,7 +266,7 @@ namespace CustomClanTroops.Utils
         private static object ParseFromString(string raw, Type type, object fallback)
         {
             if (type == typeof(bool)) return ParseBool(raw, (bool)fallback);
-            if (type == typeof(int))  return ParseInt(raw, (int)fallback);
+            if (type == typeof(int)) return ParseInt(raw, (int)fallback);
             if (type == typeof(string)) return raw;
             return fallback;
         }

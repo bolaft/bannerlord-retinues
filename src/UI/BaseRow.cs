@@ -76,8 +76,8 @@ namespace CustomClanTroops.UI.VM
         // Placeholders
         // =========================================================================
 
-        protected virtual void OnSelect() {}
+        protected virtual void OnSelect() { }
 
-        protected virtual void OnUnselect() {}
+        protected virtual void OnUnselect() { }
     }
 }

@@ -30,7 +30,7 @@ namespace CustomClanTroops.Wrappers.Objects
             {
                 if (IsVanilla)
                     return StringId;
-                
+
                 return VanillaStringIdMap.TryGetValue(StringId, out var vanillaId) ? vanillaId : null;
             }
             set
@@ -195,7 +195,7 @@ namespace CustomClanTroops.Wrappers.Objects
         {
             if (item.RelevantSkill == null)
                 return true; // No requirements
-            
+
             if (item.Difficulty <= GetSkill(item.RelevantSkill))
                 return true; // Meets item skill requirements
 

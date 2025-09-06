@@ -117,7 +117,7 @@ namespace CustomClanTroops.Behaviors
             Player.Clan?.BasicTroops?.Clear();
             Player.Kingdom?.EliteTroops?.Clear();
             Player.Kingdom?.BasicTroops?.Clear();
-    
+
             // Rebuild recursively so upgrade targets are also recreated
             foreach (var root in saved)
                 TroopSave.Load(root);

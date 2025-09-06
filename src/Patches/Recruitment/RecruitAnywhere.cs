@@ -85,7 +85,7 @@ internal static class RecruitAnywhereSession
         foreach (var kv in _backup)
         {
             var notable = kv.Key;
-            var orig    = kv.Value;
+            var orig = kv.Value;
             if (notable?.VolunteerTypes == null || orig == null) continue;
 
             var n = System.Math.Min(notable.VolunteerTypes.Length, orig.Length);
