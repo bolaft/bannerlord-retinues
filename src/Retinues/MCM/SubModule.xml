@@ -1,0 +1,27 @@
+<Module>
+  <Name value="Custom Clan Troops MCM Support"/>
+  <Id value="CustomClanTroops.MCM"/>
+  <Version value="v1.0.0"/>
+  <DefaultModule value="false"/>
+  <SingleplayerModule value="true"/>
+  <MultiplayerModule value="false"/>
+  <Official value="false"/>
+
+  <DependedModules>
+    <DependedModule Id="CustomClanTroops" />
+    <DependedModule Id="Bannerlord.MBOptionScreen" />
+  </DependedModules>
+
+  <SubModules>
+    <SubModule>
+      <Name value="CustomClanTroops.MCM"/>
+      <DLLName value="CustomClanTroops.MCM.dll"/>
+      <SubModuleClassType value="CustomClanTroops.MCM.SubModule"/>
+      <Tags>
+        <Tag key="Campaign"/>
+        <Tag key="CampaignSystem"/>
+        <Tag key="UI"/>
+      </Tags>
+    </SubModule>
+  </SubModules>
+</Module>

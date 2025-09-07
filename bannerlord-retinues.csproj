@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <PlatformTarget>x64</PlatformTarget>
+        <LangVersion>latest</LangVersion>
+
+        <OutputPath>bin\Win64_Shipping_Client\</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+        <DebugType>portable</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- TaleWorlds refs for compile; warning NU1603 is okay -->
+        <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.2.9.33689" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CustomClanTroops\CustomClanTroops.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="MCMv5">
+            <HintPath>..\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv5.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="MCMv5.UI">
+            <HintPath>..\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv5.UI.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="MCM.UI.Adapter.MCMv5">
+            <HintPath>..\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCM.UI.Adapter.MCMv5.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+</Project>

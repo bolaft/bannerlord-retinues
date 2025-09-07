@@ -11,9 +11,9 @@ class PrefabBuilder
     {
         var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
 
-        var templatesDir = Path.Combine(root, "Templates");
+        var templatesDir = Path.Combine(root, "tpl");
         var templatePath = Path.Combine(templatesDir, "ClanScreen_TroopsPanel.xml.sbn");
-        var partialsDir = Path.Combine(templatesDir, "Partials");
+        var partialsDir = Path.Combine(templatesDir, "partials");
         var outputPath = Path.Combine(root, "GUI", "PrefabExtensions", "ClanScreen", "ClanScreen_TroopsPanel.xml");
 
         var context = new TemplateContext
