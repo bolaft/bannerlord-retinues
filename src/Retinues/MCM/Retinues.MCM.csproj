@@ -6,6 +6,9 @@
     <AssemblyName>Retinues.MCM</AssemblyName>
     <RootNamespace>Retinues.MCM</RootNamespace>
 
+    <!-- Path to the Bannerlord game installation directory -->
+    <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+    
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\..\'))</RepoRoot>
     <ModuleName>Retinues.MCM</ModuleName>
     <ModuleOutDir>$(RepoRoot)bin\Modules\$(ModuleName)</ModuleOutDir>
