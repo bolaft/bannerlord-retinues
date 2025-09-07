@@ -3,10 +3,10 @@ using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Logic;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Logic;
 
-namespace CustomClanTroops.Persistence
+namespace Retinues.Core.Persistence
 {
     public static class TroopSave
     {

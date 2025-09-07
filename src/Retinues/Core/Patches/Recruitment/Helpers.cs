@@ -3,10 +3,10 @@ using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
-using CustomClanTroops.Wrappers.Campaign;
+using Retinues.Core.Wrappers.Campaign;
 
 
-namespace CustomClanTroops.Patches.Recruitment.Helpers
+namespace Retinues.Core.Patches.Recruitment.Helpers
 {
     public static class RecruitmentHelpers
     {

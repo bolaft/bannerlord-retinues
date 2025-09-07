@@ -1,4 +1,4 @@
-{{ include "List/SortHeader.sbn" }}
+{{ include "list/sort_header.sbn" }}
 
 <ListPanel 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent">
@@ -24,12 +24,12 @@
                     ClipContents="true">
                     <Children>
 
-                        {{ include "List/Troops/Navigatable.sbn" }}
+                        {{ include "list/troops/navigatable.sbn" }}
 
                     </Children>
                 </Widget>
 
-                {{ include "List/Troops/Toggles.sbn" }}
+                {{ include "list/troops/toggles.sbn" }}
 
             </Children>
         </ScrollablePanel>

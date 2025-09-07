@@ -1,7 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 
-namespace CustomClanTroops.UI.Patches.ClanScreen
+namespace Retinues.Core.UI.Patches.ClanScreen
 {
     // Each patch inserts ONE constant under <Constants> in ClanScreen.xml
     // We point to an embedded XML file via [PrefabExtensionFileName].

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 
-namespace CustomClanTroops.UI.VM
+namespace Retinues.Core.UI.VM
 {
     public abstract class BaseRow<TList, TRow>(TList rowList) : ViewModel
         where TList : BaseList<TList, TRow>

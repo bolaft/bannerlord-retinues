@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.Core;
-using CustomClanTroops.Utils;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.Behaviors
+namespace Retinues.Core.Behaviors
 {
     public sealed class EquipmentUnlockMissionBehavior : MissionBehavior
     {

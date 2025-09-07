@@ -12,5 +12,5 @@
 {{- end -}}
 
 <!-- Editors -->
-{{ right_pane_panel("@IsDefaultMode", "Editor/Default/Base.sbn") }}
-{{ right_pane_panel("@IsEquipmentMode", "Editor/Equipment/Base.sbn") }}
+{{ right_pane_panel("@IsDefaultMode", "editor/default/base.sbn") }}
+{{ right_pane_panel("@IsEquipmentMode", "editor/equipment/base.sbn") }}

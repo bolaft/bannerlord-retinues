@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TaleWorlds.SaveSystem;
 
-namespace CustomClanTroops.Persistence
+namespace Retinues.Core.Persistence
 {
     public class TroopSaveData
     {

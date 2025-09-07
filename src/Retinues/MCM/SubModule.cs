@@ -1,6 +1,6 @@
 using TaleWorlds.MountAndBlade;
 
-namespace CustomClanTroops.MCM
+namespace Retinues.MCM
 {
     public sealed class SubModule : MBSubModuleBase
     {

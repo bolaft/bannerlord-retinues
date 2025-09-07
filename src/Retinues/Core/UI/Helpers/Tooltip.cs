@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using TaleWorlds.Core.ViewModelCollection.Information;
-using CustomClanTroops.Wrappers.Objects;
+using Retinues.Core.Wrappers.Objects;
 
-namespace CustomClanTroops.UI.Helpers
+namespace Retinues.Core.UI.Helpers
 {
     public static class Tooltip
     {

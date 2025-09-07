@@ -1,4 +1,4 @@
-namespace CustomClanTroops.UI.VM
+namespace Retinues.Core.UI.VM
 {
     public interface IView
     {

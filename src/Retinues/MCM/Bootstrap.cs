@@ -3,15 +3,15 @@ using System.Linq;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Abstractions.FluentBuilder.Models;
 using MCM.Common;
-using CustomClanTroops.Utils;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.MCM
+namespace Retinues.MCM
 {
     public static class SettingsBootstrap
     {
-        private const string Id = "CustomClanTroops_Settings_Auto";
-        private const string DisplayName = "Custom Clan Troops";
-        private const string FolderName = "CustomClanTroops";
+        private const string Id = "Retinues.Core.Settings";
+        private const string DisplayName = "Retinues";
+        private const string FolderName = "Retinues.Core";
         private const string FormatType = "xml";
 
         public static bool Register()

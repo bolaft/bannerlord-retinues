@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using TaleWorlds.Core;
-using CustomClanTroops.Wrappers.Objects;
+using Retinues.Core.Wrappers.Objects;
 
-namespace CustomClanTroops.Logic
+namespace Retinues.Core.Logic
 {
     public static class Rules
     {

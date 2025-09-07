@@ -3,10 +3,10 @@ using TaleWorlds.Library;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using Bannerlord.UIExtenderEx.Attributes;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Logic;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Logic;
 
-namespace CustomClanTroops.UI.VM.Troop
+namespace Retinues.Core.UI.VM.Troop
 {
     public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopEditorVM editor) : ViewModel, IView
     {

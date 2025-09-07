@@ -3,11 +3,11 @@ using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
-using CustomClanTroops.UI.VM;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Utils;
+using Retinues.Core.UI.VM;
+using Retinues.Core.Logic;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.UI
+namespace Retinues.Core.UI
 {
     [ViewModelMixin("TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM")]
     public sealed class ClanTroopScreen : BaseViewModelMixin<ClanManagementVM>, ITroopScreen

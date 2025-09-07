@@ -1,4 +1,4 @@
-namespace CustomClanTroops.Wrappers
+namespace Retinues.Core.Wrappers
 {
     public interface IWrapper
     {

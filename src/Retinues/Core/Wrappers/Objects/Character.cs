@@ -5,10 +5,10 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
-using CustomClanTroops.Wrappers.Campaign;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Campaign;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.Wrappers.Objects
+namespace Retinues.Core.Wrappers.Objects
 {
     public class WCharacter(CharacterObject characterObject, WFaction faction = null, WCharacter parent = null) : StringIdentifier, IWrapper
     {

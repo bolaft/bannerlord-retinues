@@ -7,10 +7,10 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.Behaviors
+namespace Retinues.Core.Behaviors
 {
     public sealed class EquipmentUnlockBehavior : CampaignBehaviorBase
     {

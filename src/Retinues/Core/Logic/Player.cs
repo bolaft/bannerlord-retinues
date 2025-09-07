@@ -1,7 +1,7 @@
 using TaleWorlds.CampaignSystem;
-using CustomClanTroops.Wrappers.Campaign;
+using Retinues.Core.Wrappers.Campaign;
 
-namespace CustomClanTroops.Logic
+namespace Retinues.Core.Logic
 {
     public static class Player
     {

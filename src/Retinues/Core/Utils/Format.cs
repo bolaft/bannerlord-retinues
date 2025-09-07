@@ -1,4 +1,4 @@
-namespace CustomClanTroops.Utils
+namespace Retinues.Core.Utils
 {
     public static class Format
     {

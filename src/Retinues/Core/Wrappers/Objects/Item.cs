@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
-using CustomClanTroops.Wrappers.Campaign;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Campaign;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.Wrappers.Objects
+namespace Retinues.Core.Wrappers.Objects
 {
     public class WItem(ItemObject itemObject) : StringIdentifier, IWrapper
     {

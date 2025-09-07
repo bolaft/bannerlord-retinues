@@ -1,8 +1,8 @@
 using TaleWorlds.Library;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.UI.VM.Troop
+namespace Retinues.Core.UI.VM.Troop
 {
     public sealed class TroopRowVM(WCharacter troop, TroopListVM list) : BaseRow<TroopListVM, TroopRowVM>(list), IView
     {

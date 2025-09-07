@@ -13,7 +13,7 @@
         >
             <Children>
                 <!-- Equipment slots -->
-                {{ include "Editor/Equipment/Slots.sbn" }}
+                {{ include "editor/equipment/slots.sbn" }}
             </Children>
         </ListPanel>
 

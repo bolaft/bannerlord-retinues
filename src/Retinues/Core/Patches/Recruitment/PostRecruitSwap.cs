@@ -2,9 +2,9 @@ using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Wrappers.Campaign;
-using CustomClanTroops.Patches.Recruitment.Helpers;
+using Retinues.Core.Logic;
+using Retinues.Core.Wrappers.Campaign;
+using Retinues.Core.Patches.Recruitment.Helpers;
 
 [HarmonyPatch(typeof(RecruitmentCampaignBehavior), "OnTroopRecruited")]
 public static class PostRecruitSwapPatch

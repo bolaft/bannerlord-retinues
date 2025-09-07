@@ -3,15 +3,15 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
-using CustomClanTroops.UI.VM;
-using CustomClanTroops.UI.VM.Equipment;
-using CustomClanTroops.UI.VM.Troop;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
-using CustomClanTroops.Wrappers.Campaign;
+using Retinues.Core.UI.VM;
+using Retinues.Core.UI.VM.Equipment;
+using Retinues.Core.UI.VM.Troop;
+using Retinues.Core.Logic;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
+using Retinues.Core.Wrappers.Campaign;
 
-namespace CustomClanTroops.UI
+namespace Retinues.Core.UI
 {
     public class EditorScreenVM : ViewModel, IView
     {

@@ -1,11 +1,11 @@
 using System.Linq;
 using TaleWorlds.Library;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
-using CustomClanTroops.Wrappers.Campaign;
+using Retinues.Core.Logic;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
+using Retinues.Core.Wrappers.Campaign;
 
-namespace CustomClanTroops.UI.VM.Troop
+namespace Retinues.Core.UI.VM.Troop
 {
     public sealed class TroopListVM(EditorScreenVM screen) : BaseList<TroopListVM, TroopRowVM>(screen), IView
     {

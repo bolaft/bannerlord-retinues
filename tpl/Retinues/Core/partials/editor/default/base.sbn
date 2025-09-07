@@ -5,15 +5,15 @@
 >
     <Children>
         <!-- Name -->
-        {{ include "Editor/Default/Sections/Name.sbn" }}
+        {{ include "editor/default/sections/name.sbn" }}
 
         <!-- Gender -->
-        {{ include "Editor/Default/Sections/Gender.sbn" }}
+        {{ include "editor/default/sections/gender.sbn" }}
 
         <!-- Skills -->
-        {{ include "Editor/Default/Sections/Skills.sbn" }}
+        {{ include "editor/default/sections/skills.sbn" }}
 
         <!-- Upgrades -->
-        {{ include "Editor/Default/Sections/Upgrades.sbn" }}
+        {{ include "editor/default/sections/upgrades.sbn" }}
     </Children>
 </ListPanel>

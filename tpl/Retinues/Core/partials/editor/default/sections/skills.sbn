@@ -30,7 +30,7 @@
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             MarginBottom="5" UpdateChildrenStates="true">
         <ItemTemplate>
-            {{ include "Editor/Default/Sections/Skill.sbn" }}
+            {{ include "editor/default/sections/skill.sbn" }}
         </ItemTemplate>
         </ListPanel>
         <ListPanel
@@ -40,7 +40,7 @@
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             MarginBottom="5" UpdateChildrenStates="true">
         <ItemTemplate>
-            {{ include "Editor/Default/Sections/Skill.sbn" }}
+            {{ include "editor/default/sections/skill.sbn" }}
         </ItemTemplate>
         </ListPanel>
     </Children>

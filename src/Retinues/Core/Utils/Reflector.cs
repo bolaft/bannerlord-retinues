@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 
-namespace CustomClanTroops.Utils
+namespace Retinues.Core.Utils
 {
     public static class Reflector
     {

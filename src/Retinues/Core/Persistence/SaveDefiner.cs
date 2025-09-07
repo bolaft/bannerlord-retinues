@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using TaleWorlds.SaveSystem;
-using CustomClanTroops.Persistence;
+using Retinues.Core.Persistence;
 
-namespace CustomClanTroops.Persistence
+namespace Retinues.Core.Persistence
 {
     // This class is discovered automatically by the save system when the assembly loads.
     public sealed class SaveDefiner : SaveableTypeDefiner

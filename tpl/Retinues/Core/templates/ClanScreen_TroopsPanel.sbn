@@ -1,8 +1,8 @@
 <!-- Template macros -->
-{{ include "Macros/Button.sbn" }}
-{{ include "Macros/Divider.sbn" }}
-{{ include "Macros/Image.sbn" }}
-{{ include "Macros/Text.sbn" }}
+{{ include "macros/button.sbn" }}
+{{ include "macros/divider.sbn" }}
+{{ include "macros/image.sbn" }}
+{{ include "macros/text.sbn" }}
 
 <!-- Editor screen -->
 <Widget 
@@ -29,13 +29,13 @@
                                     HorizontalAlignment="Left">
                                     <Children>
                                         <!-- Character tableau -->
-                                        {{ include "Tableau.sbn" }}
+                                        {{ include "tableau.sbn" }}
 
                                         <!-- Remove troop button -->
-                                        {{ include "ButtonRemove.sbn" }}
+                                        {{ include "button_remove.sbn" }}
 
                                         <!-- Unequip troop button -->
-                                        {{ include "ButtonUnequip.sbn" }}
+                                        {{ include "button_unequip.sbn" }}
 
                                         <!-- Edit equipment button -->
                                         {{ button_text("Equipment", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "true", "Bottom") }}
@@ -53,7 +53,7 @@
                             MarginLeft="340">
                             <Children>
                                 <!-- Troop editor -->
-                                {{ include "Editor/Base.sbn" }}
+                                {{ include "editor/base.sbn" }}
                             </Children>
                         </Widget>
                     </Children>
@@ -81,7 +81,7 @@
         </ButtonWidget>
 
         <!-- Scrollable list -->
-        {{ include "List/Base.sbn" }}
+        {{ include "list/base.sbn" }}
 
     </Children>
 </Widget>

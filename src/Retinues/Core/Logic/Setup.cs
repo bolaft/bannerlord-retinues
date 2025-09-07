@@ -1,11 +1,11 @@
 
 using System.Linq;
 using System.Collections.Generic;
-using CustomClanTroops.Wrappers.Campaign;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Campaign;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.Logic
+namespace Retinues.Core.Logic
 {
     public static class Setup
     {

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using TaleWorlds.Library;
 
-namespace CustomClanTroops.Utils
+namespace Retinues.Core.Utils
 {
     public class Log
     {
@@ -14,18 +14,18 @@ namespace CustomClanTroops.Utils
             {
                 var asmDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!;
                 var moduleRoot = Directory.GetParent(asmDir)!.Parent!.FullName;
-                LogFile = Path.Combine(moduleRoot, "CustomClanTroops.log");
+                LogFile = Path.Combine(moduleRoot, "debug.log");
             }
             catch
             {
-                LogFile = "CustomClanTroops.log";
+                LogFile = "debug.log";
             }
         }
 
         public static void WriteToInGameChat(string message, string color = "white")
         {
             // Implementation for writing to in-game chat
-            var formatted = $"[CCT] {message}";
+            var formatted = $"{message}";
             InformationManager.DisplayMessage(new InformationMessage(formatted));
         }
 

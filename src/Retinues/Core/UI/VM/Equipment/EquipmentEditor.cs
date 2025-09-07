@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
-using CustomClanTroops.Utils;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.UI.VM.Equipment
+namespace Retinues.Core.UI.VM.Equipment
 {
     public sealed class EquipmentEditorVM(EditorScreenVM screen) : BaseEditor<EquipmentEditorVM>(screen), IView
     {

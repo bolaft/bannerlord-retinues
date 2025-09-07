@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 
-namespace CustomClanTroops.UI.Patches.ClanScreen
+namespace Retinues.Core.UI.Patches.ClanScreen
 {
     [PrefabExtension("ClanScreen", "descendant::ButtonWidget[@CommandParameter.Click='0']")]
     internal class ClanScreen_MembersWidth : PrefabExtensionSetAttributePatch

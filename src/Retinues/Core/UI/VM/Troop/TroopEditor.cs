@@ -2,10 +2,10 @@ using System.Linq;
 using TaleWorlds.Library;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Utils;
+using Retinues.Core.Logic;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.UI.VM.Troop
+namespace Retinues.Core.UI.VM.Troop
 {
     public sealed class TroopEditorVM(EditorScreenVM screen) : BaseEditor<TroopEditorVM>(screen), IView
     {

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Persistence;
-using CustomClanTroops.Wrappers.Campaign;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
+using Retinues.Core.Logic;
+using Retinues.Core.Persistence;
+using Retinues.Core.Wrappers.Campaign;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.Behaviors
+namespace Retinues.Core.Behaviors
 {
     public class CampaignBehavior : CampaignBehaviorBase
     {
@@ -22,7 +22,7 @@ namespace CustomClanTroops.Behaviors
         public override void SyncData(IDataStore dataStore)
         {
             // Persist the troops inside the native save.
-            dataStore.SyncData("CCT_Troops", ref _savedTroops);
+            dataStore.SyncData("Retinues_Troops", ref _savedTroops);
         }
 
         private void OnGameLoaded(CampaignGameStarter starter)

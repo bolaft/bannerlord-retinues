@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.Wrappers.Campaign
+namespace Retinues.Core.Wrappers.Campaign
 {
     public class WFaction(IFaction faction) : StringIdentifier, IWrapper
     {

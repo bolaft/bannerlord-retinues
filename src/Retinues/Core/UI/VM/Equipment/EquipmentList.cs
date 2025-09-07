@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
-using CustomClanTroops.Wrappers.Campaign;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Campaign;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.UI.VM.Equipment
+namespace Retinues.Core.UI.VM.Equipment
 {
     public sealed class EquipmentListVM(EditorScreenVM screen) : BaseList<EquipmentListVM, EquipmentRowVM>(screen), IView
     {

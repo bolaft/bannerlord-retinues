@@ -3,9 +3,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using HarmonyLib;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Patches.Recruitment.Helpers;
-using CustomClanTroops.Utils;
+using Retinues.Core.Logic;
+using Retinues.Core.Patches.Recruitment.Helpers;
+using Retinues.Core.Utils;
 
 [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "game_menu_recruit_volunteers_on_consequence")]
 internal static class RecruitAnywhere_Begin

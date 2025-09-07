@@ -4,10 +4,10 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.ObjectSystem;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Patches.Recruitment.Helpers;
-using CustomClanTroops.Wrappers.Campaign;
-using CustomClanTroops.Utils;
+using Retinues.Core.Logic;
+using Retinues.Core.Patches.Recruitment.Helpers;
+using Retinues.Core.Wrappers.Campaign;
+using Retinues.Core.Utils;
 
 [HarmonyPatch(typeof(RecruitmentCampaignBehavior), "UpdateVolunteersOfNotablesInSettlement")]
 public static class VolunteerSwapPatch

@@ -5,9 +5,9 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using HarmonyLib;
 using Bannerlord.UIExtenderEx;
-using CustomClanTroops.Utils;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops
+namespace Retinues.Core
 {
     public class SubModule : MBSubModuleBase
     {
@@ -20,7 +20,7 @@ namespace CustomClanTroops
 
             try
             {
-                _extender = UIExtender.Create("CustomClanTroops");
+                _extender = UIExtender.Create("Retinues.Core");
                 _extender.Register(typeof(SubModule).Assembly);
                 _extender.Enable();
                 Log.Debug("UIExtender enabled & assembly registered.");
@@ -32,7 +32,7 @@ namespace CustomClanTroops
 
             try
             {
-                _harmony = new Harmony("CustomClanTroops");
+                _harmony = new Harmony("Retinues.Core");
                 _harmony.PatchAll(Assembly.GetExecutingAssembly());
                 Log.Debug("Harmony patches applied.");
             }
@@ -60,7 +60,7 @@ namespace CustomClanTroops
         {
             try
             {
-                _harmony?.UnpatchAll("CustomClanTroops");
+                _harmony?.UnpatchAll("Retinues.Core");
             }
             catch (Exception e)
             {

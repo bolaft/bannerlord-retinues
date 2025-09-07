@@ -2,11 +2,11 @@ using TaleWorlds.Library;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
-using CustomClanTroops.Wrappers.Objects;
-using CustomClanTroops.Logic;
-using CustomClanTroops.Utils;
+using Retinues.Core.Wrappers.Objects;
+using Retinues.Core.Logic;
+using Retinues.Core.Utils;
 
-namespace CustomClanTroops.UI.VM.Equipment
+namespace Retinues.Core.UI.VM.Equipment
 {
     public sealed class EquipmentRowVM(WItem item, EquipmentListVM list) : BaseRow<EquipmentListVM, EquipmentRowVM>(list), IView
     {

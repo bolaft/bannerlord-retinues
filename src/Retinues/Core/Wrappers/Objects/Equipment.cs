@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TaleWorlds.Core;
 
-namespace CustomClanTroops.Wrappers.Objects
+namespace Retinues.Core.Wrappers.Objects
 {
     public class WEquipment(Equipment equipment) : IWrapper
     {

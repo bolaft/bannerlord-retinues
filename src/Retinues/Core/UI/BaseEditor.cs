@@ -1,7 +1,7 @@
 using TaleWorlds.Library;
-using CustomClanTroops.Wrappers.Objects;
+using Retinues.Core.Wrappers.Objects;
 
-namespace CustomClanTroops.UI.VM
+namespace Retinues.Core.UI.VM
 {
     // Generic base editor to unify editor VMs and avoid repetition
     public abstract class BaseEditor<TSelf>(EditorScreenVM screen) : ViewModel

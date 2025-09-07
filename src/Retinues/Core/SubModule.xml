@@ -1,6 +1,6 @@
 <Module>
-  <Name value="Custom Clan Troops"/>
-  <Id value="CustomClanTroops"/>
+  <Name value="Retinues"/>
+  <Id value="Retinues.Core"/>
   <Version value="v1.0.0"/>
   <DefaultModule value="false"/>
   <SingleplayerModule value="true"/>
@@ -18,16 +18,16 @@
 
   <SubModules>
     <SubModule>
-      <Name value="Custom Clan Troops"/>
-      <DLLName value="CustomClanTroops.dll"/>
-      <SubModuleClassType value="CustomClanTroops.SubModule"/>
+      <Name value="Retinues"/>
+      <DLLName value="Retinues.Core.dll"/>
+      <SubModuleClassType value="Retinues.Core.SubModule"/>
       <Tags>
         <Tag key="Campaign"/>
         <Tag key="CampaignSystem"/>
         <Tag key="UI"/>
       </Tags>
       <Assemblies>
-        <Assembly Path="bin/Win64_Shipping_Client/CustomClanTroops.dll"/>
+        <Assembly Path="bin/Win64_Shipping_Client/Retinues.Core.dll"/>
       </Assemblies>
     </SubModule>
   </SubModules>

@@ -1,7 +1,7 @@
 using TaleWorlds.Library;
-using CustomClanTroops.Wrappers.Objects;
+using Retinues.Core.Wrappers.Objects;
 
-namespace CustomClanTroops.UI.VM.Troop
+namespace Retinues.Core.UI.VM.Troop
 {
     public sealed class TroopUpgradeTargetVM(WCharacter troop) : ViewModel, IView
     {

@@ -1,6 +1,6 @@
 <Module>
-  <Name value="Custom Clan Troops MCM Support"/>
-  <Id value="CustomClanTroops.MCM"/>
+  <Name value="Retinues - MCM Support"/>
+  <Id value="Retinues.MCM"/>
   <Version value="v1.0.0"/>
   <DefaultModule value="false"/>
   <SingleplayerModule value="true"/>
@@ -8,15 +8,15 @@
   <Official value="false"/>
 
   <DependedModules>
-    <DependedModule Id="CustomClanTroops" />
+    <DependedModule Id="Retinues.Core" />
     <DependedModule Id="Bannerlord.MBOptionScreen" />
   </DependedModules>
 
   <SubModules>
     <SubModule>
-      <Name value="CustomClanTroops.MCM"/>
-      <DLLName value="CustomClanTroops.MCM.dll"/>
-      <SubModuleClassType value="CustomClanTroops.MCM.SubModule"/>
+      <Name value="Retinues.MCM"/>
+      <DLLName value="Retinues.MCM.dll"/>
+      <SubModuleClassType value="Retinues.MCM.SubModule"/>
       <Tags>
         <Tag key="Campaign"/>
         <Tag key="CampaignSystem"/>

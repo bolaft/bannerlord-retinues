@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using CustomClanTroops.Wrappers.Campaign;
+using Retinues.Core.Wrappers.Campaign;
 using TaleWorlds.Library;
 
-namespace CustomClanTroops.UI.VM
+namespace Retinues.Core.UI.VM
 {
     public abstract class BaseList<TSelf, TRow>(EditorScreenVM screen) : ViewModel
         where TSelf : BaseList<TSelf, TRow>
