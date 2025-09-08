@@ -10,6 +10,7 @@
   <DependedModules>
     <DependedModule Id="Retinues.Core" />
     <DependedModule Id="Bannerlord.MBOptionScreen" />
+    <DependedModule Id="Native"/>
   </DependedModules>
 
   <SubModules>

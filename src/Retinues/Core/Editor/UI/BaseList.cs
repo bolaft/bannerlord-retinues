@@ -1,0 +1,36 @@
+using System.Collections.Generic;
+using System.Linq;
+using TaleWorlds.Library;
+using Retinues.Core.Editor.UI.VM;
+
+namespace Retinues.Core.Editor.UI
+{
+    public abstract class BaseList<TSelf, TRow>(EditorScreenVM screen) : ViewModel
+        where TSelf : BaseList<TSelf, TRow>
+        where TRow : BaseRow<TSelf, TRow>
+    {
+        // =========================================================================
+        // Fields
+        // =========================================================================
+
+        protected readonly EditorScreenVM _screen = screen;
+
+        // =========================================================================
+        // Public API
+        // =========================================================================
+
+        public EditorScreenVM Screen => _screen;
+
+        public virtual List<TRow> Rows { get; protected set; } = [];
+
+        public TRow SelectedRow => Rows.FirstOrDefault(r => r.IsSelected);
+
+        public void Select(TRow row)
+        {
+            foreach (var r in Rows)
+                r.IsSelected = ReferenceEquals(r, row);
+
+            OnPropertyChanged(nameof(SelectedRow));
+        }
+    }
+}

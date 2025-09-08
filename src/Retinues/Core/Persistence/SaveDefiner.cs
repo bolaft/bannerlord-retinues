@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using TaleWorlds.SaveSystem;
-using Retinues.Core.Persistence;
+using Retinues.Core.Persistence.Troop;
+using Retinues.Core.Persistence.Item;
 
 namespace Retinues.Core.Persistence
 {
-    // This class is discovered automatically by the save system when the assembly loads.
     public sealed class SaveDefiner : SaveableTypeDefiner
     {
-        // This base id is just a namespace for your type ids; pick a unique-ish int and keep it forever.
         public SaveDefiner() : base(090_787) { }
 
         protected override void DefineClassTypes()

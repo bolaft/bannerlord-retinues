@@ -11,9 +11,7 @@
     <DependedModule Id="Bannerlord.Harmony"/>
     <DependedModule Id="Bannerlord.UIExtenderEx"/>
     <DependedModule Id="Native"/>
-    <DependedModule Id="SandBoxCore"/>
     <DependedModule Id="Sandbox"/>
-    <DependedModule Id="StoryMode" Optional="true"/>
   </DependedModules>
 
   <SubModules>

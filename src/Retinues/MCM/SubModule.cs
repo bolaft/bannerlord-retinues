@@ -1,4 +1,5 @@
 using TaleWorlds.MountAndBlade;
+using Retinues.MCM.Options;
 
 namespace Retinues.MCM
 {
@@ -12,7 +13,7 @@ namespace Retinues.MCM
 
             // Try once per frame until it succeeds (then stop).
             if (!_registered)
-                _registered = SettingsBootstrap.Register();
+                _registered = Bootstrap.Register();
         }
     }
 }

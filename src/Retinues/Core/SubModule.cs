@@ -5,6 +5,9 @@ using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using HarmonyLib;
 using Bannerlord.UIExtenderEx;
+using Retinues.Core.Persistence.Item;
+using Retinues.Core.Persistence.Troop;
+using Retinues.Core.Game.Features.Unlocks.Behaviors;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core
@@ -42,17 +45,21 @@ namespace Retinues.Core
             }
         }
 
-        protected override void OnGameStart(Game game, IGameStarter gameStarter)
+        protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
             Log.Debug($"{game?.GameType?.GetType().Name}");
 
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {
-                cs.AddBehavior(new Behaviors.CampaignBehavior());
-                cs.AddBehavior(new Behaviors.EquipmentUnlockBehavior());
-                // cs.AddBehavior(new Behaviors.EquipmentUnlockMissionBehavior());
-                Log.Debug("Registered CampaignBehavior.");
+                // Persistence behaviors
+                cs.AddBehavior(new ItemSaveBehavior());
+                cs.AddBehavior(new TroopSaveBehavior());
+
+                // Unlock behaviors
+                cs.AddBehavior(new UnlocksBehavior());
+
+                Log.Debug("Behaviors registered.");
             }
         }
 

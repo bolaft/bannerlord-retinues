@@ -13,12 +13,16 @@ CONFIG_DEFAULT='Debug'
 GAME_DIR="$GAME_DIR_DEFAULT"
 CONFIG="$CONFIG_DEFAULT"
 RUN_PREFABS=1
+PREFABS_ONLY=0
+BUILD_MCM=0
 
 usage() {
-  echo "Usage: $0 [-g \"<Bannerlord Game Dir>\"] [-c Debug|Release] [--no-prefabs]"
-  echo "  -g, --game-dir    Path to the Mount & Blade II Bannerlord folder"
-  echo "  -c, --config      Build configuration (Debug/Release). Default: $CONFIG_DEFAULT"
-  echo "      --no-prefabs  Skip running PrefabBuilder"
+  echo "Usage: $0 [-g \"<Bannerlord Game Dir>\"] [-c Debug|Release] [--no-prefabs] [--prefabs-only] [--MCM]"
+  echo "  -g, --game-dir      Path to the Mount & Blade II Bannerlord folder"
+  echo "  -c, --config        Build configuration (Debug/Release). Default: $CONFIG_DEFAULT"
+  echo "      --no-prefabs    Skip running PrefabBuilder"
+  echo "      --prefabs-only  Only run PrefabBuilder"
+  echo "      --MCM           Build Retinues.MCM"
   exit 1
 }
 
@@ -36,6 +40,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-prefabs)
       RUN_PREFABS=0
+      shift
+      ;;
+    --prefabs-only)
+      PREFABS_ONLY=1
+      shift
+      ;;
+    --MCM)
+      BUILD_MCM=1
       shift
       ;;
     -h|--help)
@@ -96,21 +108,24 @@ if [[ $RUN_PREFABS -eq 1 ]]; then
   echo
 fi
 
-# ---------------------------
-# 2) Build Core
-# ---------------------------
-echo "== Building Retinues.Core =="
-dotnet build "$CORE_PROJ" -c "$CONFIG" \
-  -p:BannerlordGameDir="$GAME_DIR"
-
-echo
+if [[ $PREFABS_ONLY -eq 1 ]]; then
+  echo "== Prefabs-only mode: skipping Core and MCM builds =="
+  echo "== Build finished ✅ =="
+  exit 0
+fi
 
 # ---------------------------
-# 3) Build MCM companion
+# 2) Build Core or MCM
 # ---------------------------
-echo "== Building Retinues.MCM =="
-dotnet build "$MCM_PROJ" -c "$CONFIG" \
-  -p:BannerlordGameDir="$GAME_DIR"
+if [[ $BUILD_MCM -eq 1 ]]; then
+  echo "== Building Retinues.MCM =="
+  dotnet build "$MCM_PROJ" -c "$CONFIG" \
+    -p:BannerlordGameDir="$GAME_DIR"
+else
+  echo "== Building Retinues.Core =="
+  dotnet build "$CORE_PROJ" -c "$CONFIG" \
+    -p:BannerlordGameDir="$GAME_DIR"
+fi
 
-echo
+
 echo "== Build finished ✅ =="
