@@ -39,6 +39,44 @@ namespace Retinues.Core.Utils
 
         static Config()
         {
+            // Retinues
+
+            AddOption(
+                section: "Retinues",
+                name: "Max Elite Retinue Ratio",
+                key: "MaxEliteRetinueRatio",
+                hint: "Maximum proportion of elite retinue troops in player party.",
+                @default: 0.1,
+                type: typeof(float),
+                minValue: 0, maxValue: 1);
+
+            AddOption(
+                section: "Retinues",
+                name: "Max Basic Retinue Ratio",
+                key: "MaxBasicRetinueRatio",
+                hint: "Maximum proportion of basic retinue troops in player party.",
+                @default: 0.2,
+                type: typeof(float),
+                minValue: 0, maxValue: 1);
+
+            AddOption(
+                section: "Retinues",
+                name: "Retinue Conversion Cost Per Tier",
+                key: "RetinueConversionCostPerTier",
+                hint: "Conversion cost for retinue troops per tier.",
+                @default: 50,
+                type: typeof(int),
+                minValue: 0, maxValue: 200);
+
+            AddOption(
+                section: "Retinues",
+                name: "Retinue Rank Up Cost Per Tier",
+                key: "RetinueRankUpCostPerTier",
+                hint: "Rank up cost for retinue troops per tier.",
+                @default: 1000,
+                type: typeof(int),
+                minValue: 0, maxValue: 5000);
+
             // Recruitment
 
             AddOption(
@@ -80,14 +118,6 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: "Unlocks",
-                name: "Unlock From Culture",
-                key: "UnlockFromCulture",
-                hint: "Player culture and player-led kingdom culture equipment is always available.",
-                @default: true,
-                type: typeof(bool));
-
-            AddOption(
-                section: "Unlocks",
                 name: "Unlock From Kills",
                 key: "UnlockFromKills",
                 hint: "Unlock equipment by defeating enemies wearing it.",
@@ -102,6 +132,14 @@ namespace Retinues.Core.Utils
                 @default: 100,
                 type: typeof(int),
                 minValue: 1, maxValue: 1000);
+
+            AddOption(
+                section: "Unlocks",
+                name: "Unlock From Culture",
+                key: "UnlockFromCulture",
+                hint: "Player culture and player-led kingdom culture equipment is always available.",
+                @default: false,
+                type: typeof(bool));
 
             AddOption(
                 section: "Unlocks",

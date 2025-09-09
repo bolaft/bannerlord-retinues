@@ -7,6 +7,10 @@ using HarmonyLib;
 using Bannerlord.UIExtenderEx;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
+using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Game.Features.Stocks;
+using Retinues.Core.Game.Features.Unlocks;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
 using Retinues.Core.Utils;
 
@@ -56,6 +60,9 @@ namespace Retinues.Core
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
 
+                // Clear all static lists on new game
+                ClearAll();
+
                 // Unlock behaviors
                 cs.AddBehavior(new UnlocksBehavior());
 
@@ -76,6 +83,18 @@ namespace Retinues.Core
 
             base.OnSubModuleUnloaded();
             Log.Debug("SubModule unloaded.");
+        }
+
+        private static void ClearAll()
+        {
+            // Clear player factions and troops
+            Player.Clear();
+            // Clear vanilla string id map
+            WCharacter.VanillaStringIdMap.Clear();
+            // Clear item unlocks
+            UnlocksManager.UnlockedItems.Clear();
+            // Clear item stocks
+            StocksManager.Stocks.Clear();
         }
     }
 }

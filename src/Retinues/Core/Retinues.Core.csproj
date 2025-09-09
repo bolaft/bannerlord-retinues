@@ -115,12 +115,12 @@
     <None Include="SubModule.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Include="UIExtenderDebug.xml" Condition="Exists('UIExtenderDebug.xml')" />
   </ItemGroup>
 
   <Target Name="CopyModuleManifest" AfterTargets="Build">
     <MakeDir Directories="$(ModuleOutDir)" />
     <Copy SourceFiles="SubModule.xml" DestinationFiles="$(ModuleOutDir)\SubModule.xml" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="UIExtenderDebug.xml" DestinationFiles="$(ModuleOutDir)\UIExtenderDebug.xml" SkipUnchangedFiles="true" />
   </Target>
 
   <!-- Deploy to the game's Modules folder -->
@@ -131,6 +131,7 @@
     <MakeDir Directories="$(GameModuleDir)\bin\Win64_Shipping_Client" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameModuleDir)\bin\Win64_Shipping_Client" SkipUnchangedFiles="true" />
     <Copy SourceFiles="SubModule.xml" DestinationFiles="$(GameModuleDir)\SubModule.xml" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="UIExtenderDebug.xml" DestinationFiles="$(GameModuleDir)\UIExtenderDebug.xml" SkipUnchangedFiles="true" />
     <Copy SourceFiles="../../../cfg/core.config.ini" DestinationFiles="$(GameModuleDir)\config.ini" SkipUnchangedFiles="true" />
     <ItemGroup>
       <GuiFilesToCopy Include="$(ModuleOutDir)\GUI\**\*.*" />

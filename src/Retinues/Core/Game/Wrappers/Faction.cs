@@ -12,7 +12,7 @@ namespace Retinues.Core.Game.Wrappers
 
         private readonly IFaction _faction = faction;
 
-        public object Base => _faction;
+        public IFaction Base => _faction;
 
         // =========================================================================
         // Properties
@@ -34,10 +34,27 @@ namespace Retinues.Core.Game.Wrappers
         // Troops
         // =========================================================================
 
+        public WCharacter RetinueElite { get; set; }
+        public WCharacter RetinueBasic { get; set; }
+
         public WCharacter RootElite => EliteTroops.Find(t => t?.Parent == null);
         public WCharacter RootBasic => BasicTroops.Find(t => t?.Parent == null);
 
         public List<WCharacter> EliteTroops { get; } = [];
         public List<WCharacter> BasicTroops { get; } = [];
+
+        public void ClearTroops()
+        {
+            EliteTroops.Clear();
+            BasicTroops.Clear();
+            RetinueElite = null;
+            RetinueBasic = null;
+        }
+
+        // =========================================================================
+        // Fiefs
+        // =========================================================================
+
+        public bool HasFiefs => Base.Fiefs?.Count > 0;
     }
 }

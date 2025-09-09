@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Wrappers

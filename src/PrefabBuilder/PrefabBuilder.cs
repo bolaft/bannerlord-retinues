@@ -11,7 +11,9 @@ class PrefabBuilder
     static async Task<int> Main(string[] args)
     {
         // repo root = .../ (we're under src/PrefabBuilder/bin/* when running)
-        var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
+        var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+
+        Console.WriteLine($"[PrefabBuilder] Root directory: {root}");
 
         // template roots per submod
         var tplRoot = Path.Combine(root, "tpl", "Retinues");

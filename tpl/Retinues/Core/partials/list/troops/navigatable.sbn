@@ -58,6 +58,7 @@
     MinIndex="0" StepSize="1000">
     <Children>
 
+        {{ troop_list("Retinue", "{RetinueTroops}") }}
         {{ troop_list("Elite", "{EliteTroops}") }}
         {{ troop_list("Regular", "{BasicTroops}") }}
 

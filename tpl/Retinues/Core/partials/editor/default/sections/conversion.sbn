@@ -1,0 +1,68 @@
+<!-- Header -->
+{{ header("Transfer", "@IsRetinue", "0") }}
+
+<!-- Cap -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+    MarginBottom="15"
+    IsVisible="@IsRetinue">
+    <Children>
+        <!-- Used skill points  -->
+        {{ text_int("@TroopCount", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text_int("@RetinueCap", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+    </Children>
+</ListPanel>
+
+<ListPanel
+    DataSource="{ConversionRows}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+  <ItemTemplate>
+    <ListPanel
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center"
+        StackLayout.LayoutMethod="HorizontalLeftToRight">
+        <Children>
+
+            <!-- From troop -->
+            {{ text("@FromDisplay", "Clan.Tuple.Name.Text", "Center", "0", "8") }}
+            
+            <!-- Left arrow button -->
+            {{ button_icon("ExecuteRelease", "ButtonRightBigArrowBrush1", "24", "true", "@CanRelease") }}
+
+            <!-- Conversion cost -->
+            {{ text_int("@ConversionCost", "Clan.Tuple.Name.Text", "Center") }}
+
+            <!-- Coin icon -->
+            <ImageWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="20" SuggestedHeight="20"
+                Sprite="General\Icons\Coin@2x"
+                VerticalAlignment="Center" />
+
+            <!-- Right arrow button -->
+            {{ button_icon("ExecuteRecruit", "ButtonLeftBigArrowBrush1", "24", "true", "@CanRecruit") }}
+
+            <!-- To troop -->
+            {{ text("@ToDisplay", "Clan.Tuple.Name.Text", "Center", "8", "0") }}
+
+        </Children>
+    </ListPanel>
+  </ItemTemplate>
+</ListPanel>
+
+<ListPanel
+    IsVisible="@IsRetinue"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight">
+    <Children>
+        {{ button_text("Apply", "ExecuteApplyConversions", "Popup.Done.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
+        {{ button_text("Clear", "ExecuteClearConversions", "Popup.Delete.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
+    </Children>
+</ListPanel>

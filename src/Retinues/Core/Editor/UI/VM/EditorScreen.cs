@@ -116,6 +116,9 @@ namespace Retinues.Core.Editor.UI.VM
         [DataSourceProperty]
         public CharacterViewModel Model => SelectedTroop?.Model;
 
+        [DataSourceProperty]
+        public bool ShowRemoveButton => IsDefaultMode && SelectedTroop?.IsRetinue == false;
+
         // =========================================================================
         // Action Bindings
         // =========================================================================
@@ -190,10 +193,23 @@ namespace Retinues.Core.Editor.UI.VM
 
         public void SwitchFaction(WFaction faction)
         {
+            if (faction.RetinueElite == null && faction.RetinueBasic == null)
+            {
+                Log.Debug("No retinue troops found, initializing default retinue troops.");
+                Setup.SetupFactionRetinue(faction);
+            }
+
             if (faction.BasicTroops.IsEmpty() && faction.EliteTroops.IsEmpty())
             {
-                Log.Info("No custom troops found, initializing default troops.");
-                Setup.SetupFaction(faction);
+                Log.Debug("No custom troops found for faction.");
+
+                // Always have clan troops if clan has fiefs, if player leads a kingdom or if can recruit anywhere is enabled
+                if (faction.HasFiefs || Player.Kingdom != null || Config.GetOption<bool>("RecruitAnywhere"))
+                {
+                    Log.Debug("Initializing default troops.");
+
+                    Setup.SetupFactionTroops(faction);
+                }
             }
 
             _faction = faction;
@@ -221,6 +237,8 @@ namespace Retinues.Core.Editor.UI.VM
             OnPropertyChanged(nameof(TroopList));
             OnPropertyChanged(nameof(EquipmentEditor));
             OnPropertyChanged(nameof(EquipmentList));
+
+            OnPropertyChanged(nameof(ShowRemoveButton));
 
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));

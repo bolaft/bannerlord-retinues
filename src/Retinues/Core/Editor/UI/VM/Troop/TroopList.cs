@@ -2,6 +2,7 @@ using System.Linq;
 using TaleWorlds.Library;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using Retinues.Core.Game;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
@@ -10,6 +11,24 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // =========================================================================
         // Data Bindings
         // =========================================================================
+
+        [DataSourceProperty]
+        public bool ShowFactionTroops => EliteTroops.Count > 0 || BasicTroops.Count > 0;
+
+        [DataSourceProperty]
+        public string RetinueName
+        {
+            get
+            {
+                if (Screen.Faction.StringId == Player.Kingdom?.StringId)
+                    return Player.IsFemale ? "Queen's Guard" : "King's Guard";
+                else
+                    return "Retinue";
+            }
+        }
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> RetinueTroops { get; set; } = [];
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> EliteTroops { get; set; } = [];
@@ -21,7 +40,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Public API
         // =========================================================================
 
-        public override System.Collections.Generic.List<TroopRowVM> Rows => [.. EliteTroops, .. BasicTroops];
+        public override System.Collections.Generic.List<TroopRowVM> Rows => [.. RetinueTroops,.. EliteTroops, .. BasicTroops];
 
         public void Select(WCharacter troop)
         {
@@ -33,6 +52,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public void Refresh()
         {
             Log.Debug("Refreshing.");
+
+            RetinueTroops.Clear();
+            foreach (var root in TroopManager.CollectRetinueTroops(Screen.Faction).Where(t => t.Parent is null))
+                AddTroopTreeInOrder(root, RetinueTroops);
+
+            Log.Debug($"Loaded {RetinueTroops.Count} retinue troops.");
 
             EliteTroops.Clear();
             foreach (var root in TroopManager.CollectEliteTroops(Screen.Faction).Where(t => t.Parent is null))
@@ -49,14 +74,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (SelectedRow is null)
             {
                 Log.Debug("No row is selected.");
-                Select(EliteTroops.FirstOrDefault() ?? BasicTroops.FirstOrDefault());
-            }
-            else
-            {
-                Log.Debug($"Selected row: {SelectedRow.Troop.Name}.");
+                Select(RetinueTroops.FirstOrDefault() ?? EliteTroops.FirstOrDefault() ?? BasicTroops.FirstOrDefault());
             }
 
+            Log.Debug($"Selected row troop: {SelectedRow?.Troop?.Name ?? "none"}.");
+
             OnPropertyChanged(nameof(SelectedRow));
+            OnPropertyChanged(nameof(ShowFactionTroops));
+            OnPropertyChanged(nameof(RetinueName));
+            OnPropertyChanged(nameof(RetinueTroops));
             OnPropertyChanged(nameof(EliteTroops));
             OnPropertyChanged(nameof(BasicTroops));
         }

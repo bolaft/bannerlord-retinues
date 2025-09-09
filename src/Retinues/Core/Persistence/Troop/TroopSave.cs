@@ -5,7 +5,6 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Persistence.Troop
 {
@@ -17,17 +16,13 @@ namespace Retinues.Core.Persistence.Troop
 
         public static TroopSaveData Save(WCharacter character)
         {
-
-            if (character.Parent == null)
-            {
-                Log.Info("Saving root troop: " + character.Name);
-                Log.Info("Skills Code: " + CodeFromSkills(character.Skills));
-            }
             return new TroopSaveData
             {
                 VanillaStringId = character.VanillaStringId,
                 IsKingdomTroop = character.Faction == Player.Kingdom,
                 IsElite = character.IsElite,
+                IsEliteRetinue = character == character.Faction.RetinueElite,
+                IsBasicRetinue = character == character.Faction.RetinueBasic,
                 UpgradeTargets = character.UpgradeTargets?.Select(Save).ToList(),
                 Name = character.Name,
                 Level = character.Level,
@@ -71,12 +66,6 @@ namespace Retinues.Core.Persistence.Troop
             clone.Skills = SkillsFromCode(data.SkillCode);
             clone.Equipments = [EquipmentFromCode(data.EquipmentCode)];
 
-            if (parent == null)
-            {
-                Log.Info("Loading root troop: " + clone.Name);
-                Log.Info("Skills Code: " + data.SkillCode);
-            }
-
             // Restore upgrade targets
             foreach (var child in data.UpgradeTargets ?? [])
                 clone.AddUpgradeTarget(Load(child, parent: clone));
@@ -84,8 +73,16 @@ namespace Retinues.Core.Persistence.Troop
             // Toggle visibility flags
             clone.Register();
 
+            // Retinues are not transferable
+            if (data.IsEliteRetinue || data.IsBasicRetinue)
+                clone.IsNotTransferableInPartyScreen = true;
+
             // Add to the appropriate troop list
-            if (data.IsElite)
+            if (data.IsEliteRetinue)
+                faction.RetinueElite = clone;
+            else if (data.IsBasicRetinue)
+                faction.RetinueBasic = clone;
+            else if (data.IsElite)
                 faction.EliteTroops.Add(clone);
             else
                 faction.BasicTroops.Add(clone);

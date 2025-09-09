@@ -4,6 +4,7 @@ using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Game.Features.Unlocks;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Editor
@@ -26,7 +27,7 @@ namespace Retinues.Core.Editor
 
                     if (Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier))
                         continue; // Skip items that exceed the allowed tier difference
-                    else if (WItem.UnlockedItems.Contains(wItem))
+                    else if (UnlocksManager.UnlockedItems.Contains(wItem))
                         items.Add(wItem);  // Unlocked items
                     else if (Config.GetOption<bool>("UnlockFromCulture"))
                         if (item.Culture?.StringId == faction?.Culture?.StringId)

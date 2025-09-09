@@ -24,8 +24,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             get
             {
+                if (Troop.IsRetinue)
+                    return Troop.Name; // Retinue troops are not indented
+
                 var indent = new string(' ', (Troop.Tier - 1) * 4);
-                return $"{indent}{Troop.Name}";
+                return $"{indent}{Troop.Name}";  // Indent based on tier
             }
         }
 

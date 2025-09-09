@@ -20,13 +20,15 @@
 {{- end -}}
 
 <!-- Icon button -->
-{{- func button_icon(command, brush, size, is_visible = "true", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0") -}}
+{{- func button_icon(command, brush, size, is_visible = "true", is_enabled = "true", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0") -}}
 <ButtonWidget
-    IsEnabled="{{is_visible}}"
+    IsVisible="{{is_visible}}"
+    IsEnabled="{{is_enabled}}"
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"
     Command.Click="{{command}}"
+    VerticalAlignment="Center" HorizontalAlignment="Center"
     UpdateChildrenStates="true">
     <Children>
         <BrushWidget

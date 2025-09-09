@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Scriban" Version="5.9.1" />
+    <PackageReference Include="Scriban" Version="6.2.1" />
   </ItemGroup>
 
   <Target Name="RunBuilder" AfterTargets="Build">

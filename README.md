@@ -7,18 +7,18 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Features
 
 - tech tree
-- retinues (pre-fief)
 - change troop culture
 - tutorial on first game
-- no lower skills than parent
 - ability to customize regular troops unlocked after first fief
-- only retinues at first: upgraded from top tier troop of player culture
+- skills cost money
+- upgrading a troop requires GLOBAL XP EARNED by troops in battle
+- "acquire a fief to unlock" if no custom troop trees
 
 ## Refactor
 
-- store stocks & unlocks separately
+- persist unlock kills in persistence
 
 ## Fixes
 
-- fix persistence issue (switch to XML?)
 - fix hints not appearing on disabled buttons
+- store string ids so existing troops work

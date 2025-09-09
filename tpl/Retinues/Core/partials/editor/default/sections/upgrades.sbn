@@ -1,8 +1,9 @@
 <!-- Header -->
-{{ header("Upgrades") }}
+{{ header("Upgrades", "@IsRegular") }}
 
 <!-- Upgrades list -->
 <ListPanel
+    IsVisible="@IsRegular"
     DataSource="{UpgradeTargets}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
@@ -14,7 +15,4 @@
 </ListPanel>
 
 <!-- Add upgrade button -->
-{{ button_text("Add Upgrade", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@CanUpgrade", "true", "Bottom") }}
-
-<!-- Max Tier -->
-{{ text("N/A", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "8", "@IsMaxTier") }}
+{{ button_text("Add Upgrade", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@IsRegular", "@CanUpgrade", "Bottom") }}

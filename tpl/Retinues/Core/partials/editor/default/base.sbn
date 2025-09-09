@@ -15,5 +15,8 @@
 
         <!-- Upgrades -->
         {{ include "editor/default/sections/upgrades.sbn" }}
+
+        <!-- Retinues -->
+        {{ include "editor/default/sections/conversion.sbn" }}
     </Children>
 </ListPanel>

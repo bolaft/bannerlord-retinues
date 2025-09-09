@@ -78,6 +78,18 @@ namespace Retinues.Core.Game.Wrappers
 
         public WCharacter Parent => parent;
 
+        public IEnumerable<WCharacter> Tree
+        {
+            get
+            {
+                yield return this;
+        
+                foreach (var child in UpgradeTargets)
+                    foreach (var descendant in child.Tree)
+                        yield return descendant;
+            }
+        }
+
         // =========================================================================
         // Basic Attributes
         // =========================================================================
@@ -104,11 +116,14 @@ namespace Retinues.Core.Game.Wrappers
             set => _characterObject.Level = value;
         }
 
+        public FormationClass FormationClass => _characterObject.GetFormationClass();
+
         // =========================================================================
         // Flags & Toggles
         // =========================================================================
 
-        public bool IsElite => Faction.EliteTroops.Contains(this);
+        public bool IsElite => Faction.EliteTroops.Contains(this) || this.StringId == Faction?.RetinueElite?.StringId;
+        public bool IsRetinue => this.StringId == Faction?.RetinueElite?.StringId || this.StringId == Faction?.RetinueBasic?.StringId;
 
         public bool IsMaxTier => Tier >= (IsElite ? 6 : 5);
 

@@ -18,7 +18,7 @@
             UpdateChildrenStates="true">
             <Children>
                 <!-- Decrement button -->
-                {{ button_icon("ExecuteDecrement", "ButtonRightBigArrowBrush1", "24", "@CanDecrement") }}
+                {{ button_icon("ExecuteDecrement", "ButtonRightBigArrowBrush1", "24", "true", "@CanDecrement") }}
 
                 <TextWidget
                     IntText="@Value"
@@ -28,7 +28,7 @@
                     HorizontalAlignment="Center"/>
 
                 <!-- Increment button -->
-                {{ button_icon("ExecuteIncrement", "ButtonLeftBigArrowBrush1", "24", "@CanIncrement") }}
+                {{ button_icon("ExecuteIncrement", "ButtonLeftBigArrowBrush1", "24", "true", "@CanIncrement") }}
             </Children>
         </ListPanel>
     </Children>

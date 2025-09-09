@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using Retinues.Core.Utils;
+using Retinues.Core.Game.Features.Stocks;
+using Retinues.Core.Game.Features.Unlocks;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -308,58 +310,46 @@ namespace Retinues.Core.Game.Wrappers
         // Unlocks
         // =========================================================================
 
-        public static HashSet<WItem> UnlockedItems { get; } = [];
-
-        public bool IsUnlocked => UnlockedItems.Contains(this);
+        public bool IsUnlocked => UnlocksManager.UnlockedItems.Contains(this);
 
         public void Unlock()
         {
             if (!IsUnlocked)
-                UnlockedItems.Add(this);
+                UnlocksManager.UnlockedItems.Add(this);
         }
 
         public void Lock()
         {
             if (IsUnlocked)
-                UnlockedItems.Remove(this);
+                UnlocksManager.UnlockedItems.Remove(this);
         }
 
         // =========================================================================
         // Stocks
         // =========================================================================
 
-        public static Dictionary<WItem, int> Stocks { get; } = [];
-
         public int GetStock()
         {
-            if (Stocks.TryGetValue(this, out int count))
+            if (StocksManager.Stocks.TryGetValue(this, out int count))
                 return count;
             return 0;
         }
 
-        public static void SetStock(WItem item, int count)
-        {
-            if (count <= 0)
-                Stocks.Remove(item);
-            else
-                Stocks[item] = count;
-        }
-
         public void Stock()
         {
-            if (Stocks.ContainsKey(this))
-                Stocks[this]++;
+            if (StocksManager.Stocks.ContainsKey(this))
+                StocksManager.Stocks[this]++;
             else
-                Stocks[this] = 1;
+                StocksManager.Stocks[this] = 1;
         }
 
         public void Unstock()
         {
-            if (Stocks.ContainsKey(this))
+            if (StocksManager.Stocks.ContainsKey(this))
             {
-                Stocks[this]--;
-                if (Stocks[this] <= 0)
-                    Stocks.Remove(this);
+                StocksManager.Stocks[this]--;
+                if (StocksManager.Stocks[this] <= 0)
+                    StocksManager.Stocks.Remove(this);
             }
         }
     }

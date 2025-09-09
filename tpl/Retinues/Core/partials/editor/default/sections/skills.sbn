@@ -1,20 +1,24 @@
-<!-- Header -->
-{{ header("Skills") }}
+    <!-- Header -->
+    {{ header("Skills") }}
 
-<!-- Skills points -->
-<ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center"
-    StackLayout.LayoutMethod="HorizontalLeftToRight"
-    UpdateChildrenStates="true"
-    MarginBottom="15">
-    <Children>
-        <!-- Used skill points  -->
-        {{ text_int("@SkillPointsUsed", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-        {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-        {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-    </Children>
-</ListPanel>
+    <!-- Skills points -->
+    <ListPanel
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center"
+        StackLayout.LayoutMethod="HorizontalLeftToRight"
+        UpdateChildrenStates="true"
+        MarginBottom="15">
+        <Children>
+            <!-- Used skill points  -->
+            {{ text_int("@SkillPointsUsed", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+            {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+            {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+            <!-- Tier & Tier Upgrade  -->
+            {{ text("- Tier ", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0", "@IsRetinue") }}
+            {{ text("@Tier", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0", "@IsRetinue") }}
+            {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "40", "@IsRetinueIsNotMaxTier", "@CanRankUp") }}
+        </Children>
+    </ListPanel>
 
 <!-- Skills grid -->
 <ListPanel

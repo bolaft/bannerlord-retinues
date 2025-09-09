@@ -84,6 +84,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             // Refresh editor counters
             _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
             _editor.OnPropertyChanged(nameof(_editor.SkillPointsUsed));
+            _editor.OnPropertyChanged(nameof(_editor.CanRankUp));
 
             // Refresh all skills buttons
             foreach (var s in _editor.SkillsRow1.Concat(_editor.SkillsRow2))

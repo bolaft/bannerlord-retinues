@@ -1,12 +1,41 @@
-using System;
 using System.Linq;
 using TaleWorlds.Core;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Game;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Editor
 {
     public static class TroopRules
     {
+        // ================================================================
+        // Retinues
+        // ================================================================
+
+        public static int MaxEliteRetinue => (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+
+        public static int MaxBasicRetinue => (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+
+        public static int ConversionCostPerUnit(WCharacter retinue)
+        {
+            int tier = retinue?.Tier ?? 1;
+            int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
+            return tier * baseCost;
+        }
+
+        public static int RankUpCost(WCharacter retinue)
+        {
+            int tier = retinue?.Tier ?? 1;
+            int baseCost = Config.GetOption<int>("RetinueRankUpCostPerTier");
+            return tier * baseCost;
+        }
+
+        public static int RetinueCapFor(WCharacter retinue) => retinue.IsElite ? MaxEliteRetinue : MaxBasicRetinue;
+
+        // ================================================================
+        // All Troops
+        // ================================================================
+
         public static int SkillCapByTier(int tier)
         {
             return tier switch
@@ -17,7 +46,7 @@ namespace Retinues.Core.Editor
                 4 => 120,
                 5 => 160,
                 6 => 260,
-                _ => throw new ArgumentOutOfRangeException(),
+                _ => 260, // Higher tiers for retinues
             };
         }
 
@@ -31,7 +60,7 @@ namespace Retinues.Core.Editor
                 4 => 535,
                 5 => 710,
                 6 => 915,
-                _ => throw new ArgumentOutOfRangeException(),
+                _ => 915, // Higher tiers for retinues
             };
         }
 
@@ -69,6 +98,10 @@ namespace Retinues.Core.Editor
             if (character.GetSkill(skill) <= character.Equipment.GetSkillRequirement(skill))
                 return false;
 
+            // Check for parent skill (can't go below parent's skill level)
+            if (character.Parent != null && character.GetSkill(skill) <= character.Parent.GetSkill(skill))
+                return false;
+
             return true;
         }
 
@@ -81,8 +114,16 @@ namespace Retinues.Core.Editor
                 return false;
 
             // Max upgrades reached
-            if (character.UpgradeTargets.Count() >= 4)
-                return false;
+            if (character.IsElite || character.IsRetinue)
+            {
+                if (character.UpgradeTargets.Count() >= 1)
+                    return false;  // Elite/Retinue troops can have 1 upgrade target
+            }
+            else
+            {
+                if (character.UpgradeTargets.Count() >= 2)
+                    return false;  // Basic troops can have 2 upgrade targets
+            }
 
             return true;
         }

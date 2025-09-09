@@ -55,41 +55,51 @@ namespace Retinues.Core.Persistence.Troop
         {
             var list = new List<TroopSaveData>();
 
-            WFaction clan = Player.Clan;
-            WFaction kingdom = Player.Kingdom;
+            Log.Debug("Collecting from clan.");
+            CollectFromFaction(Player.Clan, list);
 
-            // Collect from clan
-            if (clan.RootElite is null || clan.RootBasic is null)
-            {
-                Log.Debug("Clan has no troops.");
-                return list;
-            }
-
-            list.Add(TroopSave.Save(clan.RootElite));
-            list.Add(TroopSave.Save(clan.RootBasic));
-
-            if (kingdom is null) return list;
-
-            // Collect from kingdom
-            if (kingdom.RootElite is null || kingdom.RootBasic is null)
-            {
-                Log.Debug("Kingdom has no troops.");
-                return list;
-            }
-
-            list.Add(TroopSave.Save(kingdom.RootElite));
-            list.Add(TroopSave.Save(kingdom.RootBasic));
+            Log.Debug("Collecting from kingdom.");
+            CollectFromFaction(Player.Kingdom, list);
 
             return list;
+        }
+
+        private static void CollectFromFaction(WFaction faction, List<TroopSaveData> list)
+        {
+            if (faction is null)
+            {
+                Log.Debug("No faction, skipping.");
+                return;
+            }
+
+            if (faction.RetinueElite != null && faction.RetinueBasic != null)
+            {
+                Log.Debug("Collecting retinue troops.");
+                list.Add(TroopSave.Save(faction.RetinueElite));
+                list.Add(TroopSave.Save(faction.RetinueBasic));
+            }
+            else
+            {
+                Log.Debug("No retinue troops found.");
+            }
+
+            if (faction.RootElite != null && faction.RootBasic != null)
+            {
+                Log.Debug("Collecting root troops.");
+                list.Add(TroopSave.Save(faction.RootElite));
+                list.Add(TroopSave.Save(faction.RootBasic));
+            }
+            else
+            {
+                Log.Debug("No root troops found.");
+            }
         }
 
         private static void RestoreTroopsFromSave(List<TroopSaveData> saved)
         {
             // Clear existing troops, if any
-            Player.Clan?.EliteTroops?.Clear();
-            Player.Clan?.BasicTroops?.Clear();
-            Player.Kingdom?.EliteTroops?.Clear();
-            Player.Kingdom?.BasicTroops?.Clear();
+            Player.Clan?.ClearTroops();
+            Player.Kingdom?.ClearTroops();
 
             // Rebuild recursively so upgrade targets are also recreated
             foreach (var root in saved)

@@ -8,6 +8,8 @@ namespace Retinues.Core.Persistence.Troop
         [SaveableField(1)] public string VanillaStringId;
         [SaveableField(2)] public bool IsKingdomTroop;
         [SaveableField(3)] public bool IsElite;
+        [SaveableField(2)] public bool IsEliteRetinue;
+        [SaveableField(2)] public bool IsBasicRetinue;
         [SaveableField(4)] public string StringId;
         [SaveableField(5)] public string Name;
         [SaveableField(6)] public int Level;

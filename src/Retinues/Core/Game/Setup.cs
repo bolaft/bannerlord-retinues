@@ -2,13 +2,60 @@
 using System.Linq;
 using System.Collections.Generic;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Game.Features.Unlocks;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game
 {
     public static class Setup
     {
-        public static void SetupFaction(WFaction faction)
+        public static void SetupFactionRetinue(WFaction faction)
+        {
+            string eliteName;
+            string basicName;
+
+            if (faction.StringId == Player.Kingdom?.StringId)
+            {
+                if (Player.IsFemale)
+                    eliteName = $"{faction.Name} Queen's Champion";
+                else
+                    eliteName = $"{faction.Name} King's Champion";
+
+                basicName = $"{faction.Name} Royal Guard";
+            }
+            else
+            {
+                eliteName = $"{faction.Name} House Champion";
+                basicName = $"{faction.Name} House Guard";
+            }
+
+            faction.RetinueElite = CreateRetinueTroop(faction, faction.Culture.RootElite, eliteName);
+            faction.RetinueBasic = CreateRetinueTroop(faction, faction.Culture.RootBasic, basicName);
+        }
+
+        private static WCharacter CreateRetinueTroop(WFaction faction, WCharacter rootTroop, string retinueName)
+        {
+            // Clone it for the player retinue
+            var retinueTroop = rootTroop.Clone(faction, keepUpgrades: false, keepEquipment: false, keepSkills: true);
+
+            // Give it one set of equipment
+            retinueTroop.Equipments = [rootTroop.Equipment];
+
+            // Rename it
+            retinueTroop.Name = retinueName;
+
+            // Non-transferable
+            retinueTroop.IsNotTransferableInPartyScreen = true;
+
+            // Unlock items
+            foreach (var equipment in rootTroop.Equipments)
+                foreach (var item in equipment.Items)
+                    item.Unlock();
+            
+            return retinueTroop;
+        }
+
+        public static void SetupFactionTroops(WFaction faction)
         {
             // Clear existing troops, if any
             faction.EliteTroops.Clear();
@@ -51,7 +98,7 @@ namespace Retinues.Core.Game
                     foreach (var item in equipment.Items)
                         item.Unlock();
 
-            Log.Debug($"Unlocked {WItem.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops");
+            Log.Debug($"Unlocked {UnlocksManager.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops");
         }
 
         private static IEnumerable<WCharacter> CloneTroopTreeRecursive(WCharacter original, WFaction faction, WCharacter parent, Dictionary<WCharacter, WCharacter> map)

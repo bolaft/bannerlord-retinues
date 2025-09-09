@@ -1,6 +1,6 @@
 <Widget
     Hint="{RemoveButtonHint}"
-    IsVisible="@IsDefaultMode"
+    IsVisible="@ShowRemoveButton"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Top">
     <Children>

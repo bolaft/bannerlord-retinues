@@ -21,7 +21,7 @@
 {{- end -}}
 
 <!-- Title header -->
-{{- func header(text, is_visible = "true") -}}
+{{- func header(text, is_visible = "true", margin_top = "15", margin_bottom = "10") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
     WidthSizePolicy="CoverChildren"
@@ -29,6 +29,6 @@
     HorizontalAlignment="Center"
     Text="{{text}}"
     Brush="Kingdom.TitleSmall.Text"
-    MarginTop="15"
-    MarginBottom="10"/>
+    MarginTop="{{margin_top}}"
+    MarginBottom="{{margin_bottom}}"/>
 {{- end -}}
