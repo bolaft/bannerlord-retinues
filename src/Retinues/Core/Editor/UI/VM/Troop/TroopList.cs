@@ -13,9 +13,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // =========================================================================
 
         [DataSourceProperty]
-        public bool ShowFactionTroops => EliteTroops.Count > 0 || BasicTroops.Count > 0;
-
-        [DataSourceProperty]
         public string RetinueName
         {
             get
@@ -77,10 +74,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 Select(RetinueTroops.FirstOrDefault() ?? EliteTroops.FirstOrDefault() ?? BasicTroops.FirstOrDefault());
             }
 
+            if (EliteTroops.Count == 0)
+                EliteTroops.Add(new TroopRowVM(null, this));
+
+            if (BasicTroops.Count == 0)
+                BasicTroops.Add(new TroopRowVM(null, this));
+
             Log.Debug($"Selected row troop: {SelectedRow?.Troop?.Name ?? "none"}.");
 
             OnPropertyChanged(nameof(SelectedRow));
-            OnPropertyChanged(nameof(ShowFactionTroops));
             OnPropertyChanged(nameof(RetinueName));
             OnPropertyChanged(nameof(RetinueTroops));
             OnPropertyChanged(nameof(EliteTroops));

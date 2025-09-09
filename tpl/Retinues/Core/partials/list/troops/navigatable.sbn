@@ -22,6 +22,7 @@
             SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" 
             Brush="Clan.Management.LeftTuple" 
             IsSelected="@IsSelected" 
+            IsEnabled="@DisplayTroop" 
             Command.Click="ExecuteSelect" 
             UpdateChildrenStates="true">
             <Children>
@@ -30,11 +31,22 @@
                     MarginLeft="24" MarginRight="24" 
                     StackLayout.LayoutMethod="HorizontalLeftToRight">
                     <Children>
+                        <!-- Message (empty list) -->
+                        <TextWidget 
+                            IsVisible="@DisplayEmptyMessage"
+                            IsEnable="false"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
+                            VerticalAlignment="Center" 
+                            Brush="Clan.Tuple.Name.Text" 
+                            ClipContents="false" 
+                            Text="@EmptyMessage"/>
+
                         <!-- Icon -->
-                        {{ image("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "68", "48", "0", "0", "0", "0", "-20", "0") }}
+                        {{ image("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
 
                         <!-- Name -->
                         <TextWidget 
+                            IsVisible="@DisplayTroop"
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                             VerticalAlignment="Center" 
                             Brush="Clan.Tuple.Name.Text" 
@@ -42,7 +54,7 @@
                             Text="@IndentedName"/>
 
                         <!-- Tier -->
-                        {{ text("@TierText", "Clan.Tuple.Name.Text") }}
+                        {{ text("@TierText", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "0", "@DisplayTroop") }}
                     </Children>
                 </ListPanel>
             </Children>
