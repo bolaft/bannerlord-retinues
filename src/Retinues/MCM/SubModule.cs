@@ -1,5 +1,5 @@
-using TaleWorlds.MountAndBlade;
 using Retinues.MCM.Options;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.MCM
 {

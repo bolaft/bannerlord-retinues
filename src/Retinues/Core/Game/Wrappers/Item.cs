@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem;
-using Retinues.Core.Utils;
 using Retinues.Core.Game.Features.Stocks;
 using Retinues.Core.Game.Features.Unlocks;
+using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -68,13 +68,27 @@ namespace Retinues.Core.Game.Wrappers
 
                 switch (Type)
                 {
-                    case ItemObject.ItemTypeEnum.HeadArmor: slots.Add(EquipmentIndex.Head); break;
-                    case ItemObject.ItemTypeEnum.Cape: slots.Add(EquipmentIndex.Cape); break;
-                    case ItemObject.ItemTypeEnum.BodyArmor: slots.Add(EquipmentIndex.Body); break;
-                    case ItemObject.ItemTypeEnum.HandArmor: slots.Add(EquipmentIndex.Gloves); break;
-                    case ItemObject.ItemTypeEnum.LegArmor: slots.Add(EquipmentIndex.Leg); break;
-                    case ItemObject.ItemTypeEnum.Horse: slots.Add(EquipmentIndex.Horse); break;
-                    case ItemObject.ItemTypeEnum.HorseHarness: slots.Add(EquipmentIndex.HorseHarness); break;
+                    case ItemObject.ItemTypeEnum.HeadArmor:
+                        slots.Add(EquipmentIndex.Head);
+                        break;
+                    case ItemObject.ItemTypeEnum.Cape:
+                        slots.Add(EquipmentIndex.Cape);
+                        break;
+                    case ItemObject.ItemTypeEnum.BodyArmor:
+                        slots.Add(EquipmentIndex.Body);
+                        break;
+                    case ItemObject.ItemTypeEnum.HandArmor:
+                        slots.Add(EquipmentIndex.Gloves);
+                        break;
+                    case ItemObject.ItemTypeEnum.LegArmor:
+                        slots.Add(EquipmentIndex.Leg);
+                        break;
+                    case ItemObject.ItemTypeEnum.Horse:
+                        slots.Add(EquipmentIndex.Horse);
+                        break;
+                    case ItemObject.ItemTypeEnum.HorseHarness:
+                        slots.Add(EquipmentIndex.HorseHarness);
+                        break;
 
                     case ItemObject.ItemTypeEnum.OneHandedWeapon:
                     case ItemObject.ItemTypeEnum.TwoHandedWeapon:
@@ -148,20 +162,21 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
-                if (IsArmor)  // Body Armor, Gloves...
+                if (IsArmor) // Body Armor, Gloves...
                     return Format.CamelCaseToTitle(Type.ToString());
 
-                if (IsHorse)  // Horse, War Horse, Noble Horse..
+                if (IsHorse) // Horse, War Horse, Noble Horse..
                     return Format.CamelCaseToTitle(Category.ToString());
 
-                if (IsWeapon)  // Mace, Bow...
+                if (IsWeapon) // Mace, Bow...
                 {
                     var cls = Format.CamelCaseToTitle(PrimaryWeapon.WeaponClass.ToString());
 
                     if (IsAmmo)
                     {
                         // Ensure the class name ends with 's'
-                        if (!cls.EndsWith("s")) cls += "s";
+                        if (!cls.EndsWith("s"))
+                            cls += "s";
                     }
 
                     return cls;
@@ -179,7 +194,11 @@ namespace Retinues.Core.Game.Wrappers
                 var stats = new Dictionary<string, int>();
 
                 // Helper function to add statistics if the value is greater than 0
-                void Add(string key, int value) { if (value > 0) stats[key] = value; }
+                void Add(string key, int value)
+                {
+                    if (value > 0)
+                        stats[key] = value;
+                }
 
                 if (IsArmor)
                 {
@@ -239,7 +258,6 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-
         // =========================================================================
         // Computed Flags
         // =========================================================================
@@ -264,9 +282,12 @@ namespace Retinues.Core.Game.Wrappers
 
                     // Mounts (exclude pack animals/livestock)
                     case ItemObject.ItemTypeEnum.Horse:
-                        if (HorseComponent == null) return false;
-                        if (HorseComponent.IsLiveStock) return false;
-                        if (Category == DefaultItemCategories.PackAnimal) return false;
+                        if (HorseComponent == null)
+                            return false;
+                        if (HorseComponent.IsLiveStock)
+                            return false;
+                        if (Category == DefaultItemCategories.PackAnimal)
+                            return false;
                         return true;
 
                     // Harness
@@ -286,8 +307,10 @@ namespace Retinues.Core.Game.Wrappers
                     case ItemObject.ItemTypeEnum.Bullets:
                     case ItemObject.ItemTypeEnum.Bolts:
                     case ItemObject.ItemTypeEnum.Arrows:
-                        if (WeaponComponent == null) return false;
-                        if (PrimaryWeapon == null) return false;
+                        if (WeaponComponent == null)
+                            return false;
+                        if (PrimaryWeapon == null)
+                            return false;
 
                         var cls = PrimaryWeapon.WeaponClass.ToString();
                         if (cls == "Stone" || cls == "Boulder" || cls == "LargeStone")

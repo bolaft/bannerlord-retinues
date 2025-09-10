@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Roster;
 
@@ -40,18 +39,25 @@ namespace Retinues.Core.Game.Wrappers
 
         public int CountOf(WCharacter troop)
         {
-            if (troop.Base == null) return 0;
+            if (troop.Base == null)
+                return 0;
             return _roster.GetTroopCount(troop.Base as CharacterObject);
         }
 
         public void AddTroop(WCharacter troop, int healthy, int wounded = 0, int index = -1)
         {
-            _roster.AddToCounts(troop.Base as CharacterObject, healthy, woundedCount: wounded, index: index);
+            _roster.AddToCounts(
+                troop.Base as CharacterObject,
+                healthy,
+                woundedCount: wounded,
+                index: index
+            );
         }
 
         public void RemoveTroop(WCharacter troop, int healthy, int wounded = 0)
         {
-            if (troop.Base == null) return;
+            if (troop.Base == null)
+                return;
 
             _roster.AddToCounts(troop.Base as CharacterObject, -healthy, woundedCount: -wounded);
         }

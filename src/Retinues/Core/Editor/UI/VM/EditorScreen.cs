@@ -1,13 +1,13 @@
 using System;
-using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection;
-using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Editor.UI.VM.Equipment;
 using Retinues.Core.Editor.UI.VM.Troop;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM
 {
@@ -52,7 +52,7 @@ namespace Retinues.Core.Editor.UI.VM
         public enum EditorMode
         {
             Default = 0,
-            Equipment = 1
+            Equipment = 1,
         }
 
         // =========================================================================
@@ -65,7 +65,8 @@ namespace Retinues.Core.Editor.UI.VM
             get => _isTroopsSelected;
             set
             {
-                if (value == _isTroopsSelected) return;
+                if (value == _isTroopsSelected)
+                    return;
                 _isTroopsSelected = value;
                 OnPropertyChanged(nameof(IsTroopsSelected));
             }
@@ -75,7 +76,8 @@ namespace Retinues.Core.Editor.UI.VM
         public bool CanSwitchFaction => Player.Kingdom != null;
 
         [DataSourceProperty]
-        public string FactionSwitchText => Faction == Player.Clan ? "Switch to\nKingdom Troops" : "Switch to\nClan Troops";
+        public string FactionSwitchText =>
+            Faction == Player.Clan ? "Switch to\nKingdom Troops" : "Switch to\nClan Troops";
 
         [DataSourceProperty]
         public TroopEditorVM TroopEditor { get; private set; }
@@ -95,7 +97,8 @@ namespace Retinues.Core.Editor.UI.VM
             get => _editorMode == EditorMode.Default;
             private set
             {
-                if (value && _editorMode != EditorMode.Default) SwitchMode(EditorMode.Default);
+                if (value && _editorMode != EditorMode.Default)
+                    SwitchMode(EditorMode.Default);
                 OnPropertyChanged(nameof(IsDefaultMode));
                 OnPropertyChanged(nameof(IsEquipmentMode));
             }
@@ -107,7 +110,8 @@ namespace Retinues.Core.Editor.UI.VM
             get => _editorMode == EditorMode.Equipment;
             private set
             {
-                if (value && _editorMode != EditorMode.Equipment) SwitchMode(EditorMode.Equipment);
+                if (value && _editorMode != EditorMode.Equipment)
+                    SwitchMode(EditorMode.Equipment);
                 OnPropertyChanged(nameof(IsEquipmentMode));
                 OnPropertyChanged(nameof(IsDefaultMode));
             }
@@ -136,7 +140,8 @@ namespace Retinues.Core.Editor.UI.VM
 
             try
             {
-                if (IsTroopsSelected == true) return;
+                if (IsTroopsSelected == true)
+                    return;
 
                 _screen.UnselectVanillaTabs();
 
@@ -171,7 +176,8 @@ namespace Retinues.Core.Editor.UI.VM
 
         public void SwitchMode(EditorMode mode)
         {
-            if (_editorMode == mode) return;
+            if (_editorMode == mode)
+                return;
 
             _editorMode = mode;
 
@@ -204,7 +210,11 @@ namespace Retinues.Core.Editor.UI.VM
                 Log.Debug("No custom troops found for faction.");
 
                 // Always have clan troops if clan has fiefs, if player leads a kingdom or if can recruit anywhere is enabled
-                if (faction.HasFiefs || Player.Kingdom != null || Config.GetOption<bool>("RecruitAnywhere"))
+                if (
+                    faction.HasFiefs
+                    || Player.Kingdom != null
+                    || Config.GetOption<bool>("RecruitAnywhere")
+                )
                 {
                     Log.Debug("Initializing default troops.");
 

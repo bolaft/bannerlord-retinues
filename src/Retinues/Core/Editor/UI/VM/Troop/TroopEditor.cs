@@ -1,15 +1,17 @@
-using System.Linq;
 using System.Collections.Generic;
-using TaleWorlds.Library;
-using TaleWorlds.Core.ViewModelCollection.Information;
+using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
-    public sealed class TroopEditorVM(EditorScreenVM screen) : BaseEditor<TroopEditorVM>(screen), IView
+    public sealed class TroopEditorVM(EditorScreenVM screen)
+        : BaseEditor<TroopEditorVM>(screen),
+            IView
     {
         // =========================================================================
         // Fields
@@ -67,7 +69,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     4 => "IV",
                     5 => "V",
                     6 => "VI",
-                    _ => string.Empty
+                    _ => string.Empty,
                 };
             }
         }
@@ -76,13 +78,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string Gender => SelectedTroop != null && SelectedTroop.IsFemale ? "Female" : "Male";
 
         [DataSourceProperty]
-        public int SkillTotal => SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop.Tier) : 0;
+        public int SkillTotal =>
+            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop.Tier) : 0;
 
         [DataSourceProperty]
         public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
 
         [DataSourceProperty]
-        public bool CanRankUp => IsRetinue && TroopRules.SkillPointsLeft(SelectedTroop) == 0 && !SelectedTroop.IsMaxTier;
+        public bool CanRankUp =>
+            IsRetinue && TroopRules.SkillPointsLeft(SelectedTroop) == 0 && !SelectedTroop.IsMaxTier;
 
         [DataSourceProperty]
         public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false;
@@ -112,7 +116,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
 
         [DataSourceProperty]
-        public bool CanUpgrade => SelectedTroop != null && TroopRules.CanUpgradeTroop(SelectedTroop);
+        public bool CanUpgrade =>
+            SelectedTroop != null && TroopRules.CanUpgradeTroop(SelectedTroop);
 
         [DataSourceProperty]
         public bool CanRecruit => true;
@@ -145,11 +150,14 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
         }
 
-        [DataSourceProperty] public bool HasPendingConversions => _staged.Count > 0;
+        [DataSourceProperty]
+        public bool HasPendingConversions => _staged.Count > 0;
 
-        [DataSourceProperty] public int PendingTotalCost => _staged.Values.Sum(o => o.TotalCost);
+        [DataSourceProperty]
+        public int PendingTotalCost => _staged.Values.Sum(o => o.TotalCost);
 
-        [DataSourceProperty] public int PendingTotalCount => _staged.Values.Sum(o => o.Amount);
+        [DataSourceProperty]
+        public int PendingTotalCount => _staged.Values.Sum(o => o.Amount);
 
         // =========================================================================
         // Action Bindings
@@ -158,39 +166,49 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteRankUp()
         {
-            if (SelectedTroop == null) return;
-            if (!CanRankUp) return;
+            if (SelectedTroop == null)
+                return;
+            if (!CanRankUp)
+                return;
 
             int cost = TroopRules.RankUpCost(SelectedTroop);
 
             if (Player.Gold < cost)
             {
-                InformationManager.ShowInquiry(new InquiryData(
-                    titleText: "Not enough gold",
-                    text: $"You do not have enough gold to rank up {SelectedTroop.Name}.\n\nRank up cost: {cost} gold.",
-                    isAffirmativeOptionShown: false, isNegativeOptionShown: true,
-                    affirmativeText: null, negativeText: "OK",
-                    affirmativeAction: null,
-                    negativeAction: () => { }
-                ));
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: "Not enough gold",
+                        text: $"You do not have enough gold to rank up {SelectedTroop.Name}.\n\nRank up cost: {cost} gold.",
+                        isAffirmativeOptionShown: false,
+                        isNegativeOptionShown: true,
+                        affirmativeText: null,
+                        negativeText: "OK",
+                        affirmativeAction: null,
+                        negativeAction: () => { }
+                    )
+                );
             }
             else
             {
-                InformationManager.ShowInquiry(new InquiryData(
-                    titleText: "Rank Up",
-                    text: $"Increase {SelectedTroop.Name}'s tier?\n\nIt will cost you {cost} gold.",
-                    isAffirmativeOptionShown: true, isNegativeOptionShown: true,
-                    affirmativeText: "Confirm", negativeText: "Cancel",
-                    affirmativeAction: () =>
-                    {
-                        TroopManager.RankUp(SelectedTroop);
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: "Rank Up",
+                        text: $"Increase {SelectedTroop.Name}'s tier?\n\nIt will cost you {cost} gold.",
+                        isAffirmativeOptionShown: true,
+                        isNegativeOptionShown: true,
+                        affirmativeText: "Confirm",
+                        negativeText: "Cancel",
+                        affirmativeAction: () =>
+                        {
+                            TroopManager.RankUp(SelectedTroop);
 
-                        // UI updates
-                        Refresh();
-                        _screen.TroopList.SelectedRow.Refresh();
-                    },
-                    negativeAction: () => { }
-                ));
+                            // UI updates
+                            Refresh();
+                            _screen.TroopList.SelectedRow.Refresh();
+                        },
+                        negativeAction: () => { }
+                    )
+                );
             }
         }
 
@@ -199,26 +217,32 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             var oldName = SelectedTroop.Name;
 
-            InformationManager.ShowTextInquiry(new TextInquiryData(
-                titleText: "Rename Troop", text: "Enter a new name:",
-                isAffirmativeOptionShown: true, isNegativeOptionShown: true,
-                affirmativeText: "Confirm", negativeText: "Cancel",
-                affirmativeAction: newName =>
-                {
-                    if (string.IsNullOrWhiteSpace(newName)) return;
+            InformationManager.ShowTextInquiry(
+                new TextInquiryData(
+                    titleText: "Rename Troop",
+                    text: "Enter a new name:",
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: "Confirm",
+                    negativeText: "Cancel",
+                    affirmativeAction: newName =>
+                    {
+                        if (string.IsNullOrWhiteSpace(newName))
+                            return;
 
-                    TroopManager.Rename(SelectedTroop, newName);
+                        TroopManager.Rename(SelectedTroop, newName);
 
-                    // UI updates
-                    OnPropertyChanged(nameof(Name));
-                    foreach (var row in ConversionRows)
-                        row.Refresh();  // Update conversion rows
+                        // UI updates
+                        OnPropertyChanged(nameof(Name));
+                        foreach (var row in ConversionRows)
+                            row.Refresh(); // Update conversion rows
 
-                    Screen.TroopList.SelectedRow.Refresh();
-                },
-                negativeAction: () => { },
-                defaultInputText: oldName
-            ));
+                        Screen.TroopList.SelectedRow.Refresh();
+                    },
+                    negativeAction: () => { },
+                    defaultInputText: oldName
+                )
+            );
         }
 
         [DataSourceMethod]
@@ -235,45 +259,56 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteAddUpgradeTarget()
         {
-            InformationManager.ShowTextInquiry(new TextInquiryData(
-                titleText: "Add Upgrade", text: "Enter the name of the new troop:",
-                isAffirmativeOptionShown: true, isNegativeOptionShown: true,
-                affirmativeText: "Confirm", negativeText: "Cancel",
-                affirmativeAction: name =>
-                {
-                    if (string.IsNullOrWhiteSpace(name)) return;
+            InformationManager.ShowTextInquiry(
+                new TextInquiryData(
+                    titleText: "Add Upgrade",
+                    text: "Enter the name of the new troop:",
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: "Confirm",
+                    negativeText: "Cancel",
+                    affirmativeAction: name =>
+                    {
+                        if (string.IsNullOrWhiteSpace(name))
+                            return;
 
-                    var target = TroopManager.AddUpgradeTarget(SelectedTroop, name);
+                        var target = TroopManager.AddUpgradeTarget(SelectedTroop, name);
 
-                    // Update the troop list
-                    Screen.TroopList.Refresh();
+                        // Update the troop list
+                        Screen.TroopList.Refresh();
 
-                    // Select the new troop
-                    Screen.TroopList.Select(target);
-                },
-                negativeAction: () => { },
-                defaultInputText: SelectedTroop.Name
-            ));
+                        // Select the new troop
+                        Screen.TroopList.Select(target);
+                    },
+                    negativeAction: () => { },
+                    defaultInputText: SelectedTroop.Name
+                )
+            );
         }
 
         [DataSourceMethod]
         public void ExecuteRemoveTroop()
         {
-            InformationManager.ShowInquiry(new InquiryData(
-                titleText: "Remove Troop",
-                text: $"Are you sure you want to permanently remove {SelectedTroop.Name}?\n\nTheir equipment will be stocked for later use.",
-                isAffirmativeOptionShown: true, isNegativeOptionShown: true,
-                affirmativeText: "Confirm", negativeText: "Cancel",
-                affirmativeAction: () =>
-                {
-                    TroopManager.Remove(SelectedTroop);
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    titleText: "Remove Troop",
+                    text: $"Are you sure you want to permanently remove {SelectedTroop.Name}?\n\nTheir equipment will be stocked for later use.",
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: "Confirm",
+                    negativeText: "Cancel",
+                    affirmativeAction: () =>
+                    {
+                        TroopManager.Remove(SelectedTroop);
 
-                    // Update the troop list
-                    Screen.TroopList.Refresh();
-                },
-                negativeAction: () => { }
-            ));
+                        // Update the troop list
+                        Screen.TroopList.Refresh();
+                    },
+                    negativeAction: () => { }
+                )
+            );
         }
+
         [DataSourceMethod]
         public void ExecuteApplyConversions()
         {
@@ -283,7 +318,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             int totalCost = PendingTotalCost;
             if (totalCost > Player.Gold)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Not enough gold to apply conversions."));
+                InformationManager.DisplayMessage(
+                    new InformationMessage("Not enough gold to apply conversions.")
+                );
                 return;
             }
 
@@ -293,7 +330,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 // Clamp to current max (no virtuals now; roster will change as we go)
                 int maxNow = TroopManager.GetMaxConvertible(order.From, order.To);
                 int amount = System.Math.Min(order.Amount, maxNow);
-                if (amount <= 0) continue;
+                if (amount <= 0)
+                    continue;
 
                 // Deduct gold for recruit-to-retinue only
                 int costPer = CostPerUnit(order.From, order.To);
@@ -302,12 +340,17 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 {
                     if (cost > Player.Gold)
                     {
-                        InformationManager.ShowInquiry(new InquiryData(
-                            "Not enough gold",
-                            "You do not have enough gold to hire these retinues.",
-                            false, true,
-                            null, "OK",
-                            null, null)
+                        InformationManager.ShowInquiry(
+                            new InquiryData(
+                                "Not enough gold",
+                                "You do not have enough gold to hire these retinues.",
+                                false,
+                                true,
+                                null,
+                                "OK",
+                                null,
+                                null
+                            )
                         );
                         break;
                     }
@@ -323,7 +366,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteClearConversions()
         {
-            if (!HasPendingConversions) return;
+            if (!HasPendingConversions)
+                return;
             _staged.Clear();
             // push UI updates
             OnPropertyChanged(nameof(HasPendingConversions));
@@ -379,8 +423,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // =========================================================================
 
         private string CantRemoveTroopExplanation =>
-              SelectedTroop?.Parent is null ? "Root troops cannot be removed."
-            : SelectedTroop?.UpgradeTargets.Count() > 0 ? "Troops that have upgrade targets cannot be removed."
+            SelectedTroop?.Parent is null ? "Root troops cannot be removed."
+            : SelectedTroop?.UpgradeTargets.Count() > 0
+                ? "Troops that have upgrade targets cannot be removed."
             : string.Empty;
 
         private void RebuildSkillRows()
@@ -390,7 +435,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             _skillsRow1.Clear();
             _skillsRow2.Clear();
 
-            if (SelectedTroop == null) return;
+            if (SelectedTroop == null)
+                return;
 
             foreach (var s in SelectedTroop.Skills.Take(4))
                 _skillsRow1.Add(new TroopSkillVM(s.Key, SelectedTroop, this));
@@ -402,7 +448,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         private void RebuildRetinueRows()
         {
             _conversionRows.Clear();
-            if (SelectedTroop == null) return;
+            if (SelectedTroop == null)
+                return;
 
             if (SelectedTroop.IsRetinue)
             {
@@ -417,8 +464,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             int count = Player.Party.MemberRoster.CountOf(c);
             foreach (var o in _staged.Values)
             {
-                if (o.To == c) count += o.Amount;
-                if (o.From == c) count -= o.Amount;
+                if (o.To == c)
+                    count += o.Amount;
+                if (o.From == c)
+                    count -= o.Amount;
             }
             return count;
         }
@@ -431,11 +480,13 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         internal int GetMaxStageable(WCharacter from, WCharacter to)
         {
-            if (from == null || to == null) return 0;
+            if (from == null || to == null)
+                return 0;
 
             // availability from virtual roster
             int availableFrom = GetVirtualCount(from);
-            if (availableFrom <= 0) return 0;
+            if (availableFrom <= 0)
+                return 0;
 
             // if converting into a retinue, respect cap using virtual "to" count
             if (to.IsRetinue)
@@ -463,12 +514,18 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             int max = GetMaxStageable(from, to);
             int amount = System.Math.Min(amountRequested, max);
-            if (amount <= 0) return;
+            if (amount <= 0)
+                return;
 
             string key = $"{from.StringId}->{to.StringId}";
             if (!_staged.TryGetValue(key, out var order))
             {
-                order = new StagedOrder { From = from, To = to, Amount = 0 };
+                order = new StagedOrder
+                {
+                    From = from,
+                    To = to,
+                    Amount = 0,
+                };
                 _staged[key] = order;
             }
             order.Amount += amount;

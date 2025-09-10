@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using TaleWorlds.CampaignSystem;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Wrappers
 {

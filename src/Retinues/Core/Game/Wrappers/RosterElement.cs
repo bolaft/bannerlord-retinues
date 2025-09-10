@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Core.Game.Wrappers

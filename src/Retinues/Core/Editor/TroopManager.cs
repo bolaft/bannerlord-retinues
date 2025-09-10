@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using TaleWorlds.Core;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
+using TaleWorlds.Core;
 
 namespace Retinues.Core.Editor
 {
@@ -86,11 +86,13 @@ namespace Retinues.Core.Editor
 
         public static void RankUp(WCharacter troop)
         {
-            if (troop.IsMaxTier) return;
+            if (troop.IsMaxTier)
+                return;
 
             int cost = TroopRules.RankUpCost(troop);
 
-            if (Player.Gold < cost) return;
+            if (Player.Gold < cost)
+                return;
 
             // Pay the cost
             Player.ChangeGold(-cost);
@@ -140,13 +142,16 @@ namespace Retinues.Core.Editor
         private static bool IsEligibleForRetinue(WCharacter troop, WCharacter retinue)
         {
             // Basic checks
-            if (!retinue.IsRetinue || troop.IsRetinue) return false;
+            if (!retinue.IsRetinue || troop.IsRetinue)
+                return false;
 
             // Check for culture match
-            if (troop.Culture?.StringId != retinue.Culture?.StringId) return false;
+            if (troop.Culture?.StringId != retinue.Culture?.StringId)
+                return false;
 
             // Check for tier match
-            if (troop.Tier != retinue.Tier) return false;
+            if (troop.Tier != retinue.Tier)
+                return false;
 
             return true;
         }
@@ -171,7 +176,12 @@ namespace Retinues.Core.Editor
             return maxConvertible;
         }
 
-        public static void Convert(WCharacter from, WCharacter to, int amountRequested, int cost = 0)
+        public static void Convert(
+            WCharacter from,
+            WCharacter to,
+            int amountRequested,
+            int cost = 0
+        )
         {
             // Clamp to max possible
             int max = GetMaxConvertible(from, to);

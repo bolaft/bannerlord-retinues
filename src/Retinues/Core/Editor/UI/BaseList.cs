@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using TaleWorlds.Library;
 using Retinues.Core.Editor.UI.VM;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI
 {

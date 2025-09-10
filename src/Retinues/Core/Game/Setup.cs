@@ -1,8 +1,7 @@
-
-using System.Linq;
 using System.Collections.Generic;
-using Retinues.Core.Game.Wrappers;
+using System.Linq;
 using Retinues.Core.Game.Features.Unlocks;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game
@@ -29,11 +28,23 @@ namespace Retinues.Core.Game
                 basicName = $"{faction.Name} House Guard";
             }
 
-            faction.RetinueElite = CreateRetinueTroop(faction, faction.Culture.RootElite, eliteName);
-            faction.RetinueBasic = CreateRetinueTroop(faction, faction.Culture.RootBasic, basicName);
+            faction.RetinueElite = CreateRetinueTroop(
+                faction,
+                faction.Culture.RootElite,
+                eliteName
+            );
+            faction.RetinueBasic = CreateRetinueTroop(
+                faction,
+                faction.Culture.RootBasic,
+                basicName
+            );
         }
 
-        private static WCharacter CreateRetinueTroop(WFaction faction, WCharacter rootTroop, string retinueName)
+        private static WCharacter CreateRetinueTroop(
+            WFaction faction,
+            WCharacter rootTroop,
+            string retinueName
+        )
         {
             // Clone it for the player retinue
             var retinueTroop = rootTroop.Clone(faction, keepUpgrades: false);
@@ -46,9 +57,9 @@ namespace Retinues.Core.Game
 
             // Unlock items
             foreach (var equipment in rootTroop.Equipments)
-                foreach (var item in equipment.Items)
-                    item.Unlock();
-            
+            foreach (var item in equipment.Items)
+                item.Unlock();
+
             return retinueTroop;
         }
 
@@ -65,24 +76,34 @@ namespace Retinues.Core.Game
             var eliteClones = CloneTroopTreeRecursive(culture.RootElite, faction, null).ToList();
             faction.EliteTroops.AddRange(eliteClones);
 
-            Log.Debug($"Cloned {faction.EliteTroops.Count} elite troops from {culture.Name} to {faction.Name}");
+            Log.Debug(
+                $"Cloned {faction.EliteTroops.Count} elite troops from {culture.Name} to {faction.Name}"
+            );
 
             // Clone the basic tree from the basic root
             var basicClones = CloneTroopTreeRecursive(culture.RootBasic, faction, null).ToList();
             faction.BasicTroops.AddRange(basicClones);
 
-            Log.Debug($"Cloned {faction.BasicTroops.Count} basic troops from {culture.Name} to {faction.Name}");
+            Log.Debug(
+                $"Cloned {faction.BasicTroops.Count} basic troops from {culture.Name} to {faction.Name}"
+            );
 
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(faction.EliteTroops, faction.BasicTroops))
-                foreach (var equipment in troop.Equipments)
-                    foreach (var item in equipment.Items)
-                        item.Unlock();
+            foreach (var equipment in troop.Equipments)
+            foreach (var item in equipment.Items)
+                item.Unlock();
 
-            Log.Debug($"Unlocked {UnlocksManager.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops");
+            Log.Debug(
+                $"Unlocked {UnlocksManager.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops"
+            );
         }
 
-        private static IEnumerable<WCharacter> CloneTroopTreeRecursive(WCharacter original, WFaction faction, WCharacter parent)
+        private static IEnumerable<WCharacter> CloneTroopTreeRecursive(
+            WCharacter original,
+            WFaction faction,
+            WCharacter parent
+        )
         {
             var clone = original.Clone(faction: faction, parent: parent, keepUpgrades: false);
             clone.Name = $"{faction.Name} {original.Name}";
@@ -91,8 +112,8 @@ namespace Retinues.Core.Game
 
             if (original.UpgradeTargets != null)
                 foreach (var child in original.UpgradeTargets)
-                    foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone))
-                        yield return descendant;
+                foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone))
+                    yield return descendant;
         }
     }
 }

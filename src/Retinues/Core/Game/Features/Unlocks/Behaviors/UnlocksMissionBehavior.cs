@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using TaleWorlds.MountAndBlade;
-using TaleWorlds.Core;
 using Retinues.Core.Utils;
+using TaleWorlds.Core;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 {
@@ -14,19 +14,28 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 
-        public override void OnAgentRemoved(Agent affectedAgent, Agent affectorAgent, AgentState state, KillingBlow blow)
+        public override void OnAgentRemoved(
+            Agent affectedAgent,
+            Agent affectorAgent,
+            AgentState state,
+            KillingBlow blow
+        )
         {
             Log.Debug("OnAgentRemoved event triggered.");
 
             // Count only real enemies, humans, that went down (killed or knocked unconscious)
-            if (affectedAgent == null || !affectedAgent.IsHuman) return;
-            if (state != AgentState.Killed && state != AgentState.Unconscious) return;
+            if (affectedAgent == null || !affectedAgent.IsHuman)
+                return;
+            if (state != AgentState.Killed && state != AgentState.Unconscious)
+                return;
 
             var playerTeam = Mission?.PlayerTeam;
-            if (playerTeam == null) return;
+            if (playerTeam == null)
+                return;
 
             // Enemy team only
-            if (affectedAgent.Team == null || !affectedAgent.Team.IsEnemyOf(playerTeam)) return;
+            if (affectedAgent.Team == null || !affectedAgent.Team.IsEnemyOf(playerTeam))
+                return;
 
             // Player-side kill only
             if (affectorAgent?.Team == null || !affectorAgent.Team.IsFriendOf(playerTeam))
@@ -36,7 +45,8 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
             var seen = new HashSet<ItemObject>();
             foreach (var item in EnumerateEquippedItems(affectedAgent))
             {
-                if (item == null || !seen.Add(item)) continue;
+                if (item == null || !seen.Add(item))
+                    continue;
                 _battleCounts[item] = _battleCounts.TryGetValue(item, out var c) ? c + 1 : 1;
             }
         }
@@ -53,7 +63,8 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
         private static IEnumerable<ItemObject> EnumerateEquippedItems(Agent agent)
         {
             var eq = agent?.Equipment;
-            if (eq == null) yield break;
+            if (eq == null)
+                yield break;
 
             // Only iterate the slots you care about, but always use SafeGet to avoid OOB.
             // (Order doesn’t matter; keep it consistent for readability.)

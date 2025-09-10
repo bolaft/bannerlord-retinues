@@ -3,10 +3,12 @@ using Bannerlord.UIExtenderEx.Prefabs2;
 
 [PrefabExtension(
     "ClanScreen",
-    "descendant::ListPanel[.//TextWidget[@Text='@MembersText'] and .//TextWidget[@Text='@PartiesText']]/Children")]
+    "descendant::ListPanel[.//TextWidget[@Text='@MembersText'] and .//TextWidget[@Text='@PartiesText']]/Children"
+)]
 internal class ClanScreen_TroopsTab : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_TroopsTab";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_TroopsTab";
 
     public override InsertType Type => InsertType.Child;
 

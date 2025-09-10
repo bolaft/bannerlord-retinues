@@ -1,14 +1,16 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
-    public sealed class EquipmentListVM(EditorScreenVM screen) : BaseList<EquipmentListVM, EquipmentRowVM>(screen), IView
+    public sealed class EquipmentListVM(EditorScreenVM screen)
+        : BaseList<EquipmentListVM, EquipmentRowVM>(screen),
+            IView
     {
         // =========================================================================
         // Data Bindings
@@ -43,7 +45,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             // Only load items if a slot is selected
             if (slot != null)
             {
-                var items = EquipmentManager.CollectAvailableItems(Screen.SelectedTroop, Screen.Faction, slot.Slot);
+                var items = EquipmentManager.CollectAvailableItems(
+                    Screen.SelectedTroop,
+                    Screen.Faction,
+                    slot.Slot
+                );
 
                 foreach (var item in items)
                 {

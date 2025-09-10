@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 {
@@ -37,7 +37,8 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
         private void OnMissionStarted(IMission mission)
         {
             // Return if the feature is disabled
-            if (!Config.GetOption<bool>("UnlockFromKills")) return;
+            if (!Config.GetOption<bool>("UnlockFromKills"))
+                return;
 
             // Cast to concrete type
             Mission m = mission as Mission;
@@ -50,7 +51,8 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
         // Called by the mission behavior when a battle ends to flush its per-battle counts
         internal void AddBattleCounts(Dictionary<ItemObject, int> battleCounts)
         {
-            if (battleCounts == null || battleCounts.Count == 0) return;
+            if (battleCounts == null || battleCounts.Count == 0)
+                return;
 
             int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
 
@@ -59,7 +61,8 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
                 var item = kvp.Key;
                 var inc = kvp.Value;
 
-                if (item == null) continue;
+                if (item == null)
+                    continue;
 
                 var id = item.StringId;
                 _defeatsByItemId.TryGetValue(id, out int prev);
@@ -81,8 +84,10 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 
         private void OnMapEventEnded(MapEvent mapEvent)
         {
-            if (_newlyUnlockedThisBattle.Count == 0) return;
-            if (!mapEvent?.IsPlayerMapEvent ?? true) return;
+            if (_newlyUnlockedThisBattle.Count == 0)
+                return;
+            if (!mapEvent?.IsPlayerMapEvent ?? true)
+                return;
 
             // Modal summary
             ShowUnlockInquiry(_newlyUnlockedThisBattle);
@@ -94,13 +99,18 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
         {
             var body = string.Join("\n", items.Select(i => i.Name.ToString()));
 
-            InformationManager.ShowInquiry(new InquiryData(
-                new TextObject("New Gear Unlocked").ToString(),
-                body,
-                true, false,
-                GameTexts.FindText("str_ok").ToString(), "",
-                null, null
-            ));
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    new TextObject("New Gear Unlocked").ToString(),
+                    body,
+                    true,
+                    false,
+                    GameTexts.FindText("str_ok").ToString(),
+                    "",
+                    null,
+                    null
+                )
+            );
         }
     }
 }

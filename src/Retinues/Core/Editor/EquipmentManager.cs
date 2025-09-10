@@ -1,37 +1,41 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Unlocks;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
-using Retinues.Core.Game;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Game.Features.Unlocks;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Editor
 {
     public static class EquipmentManager
     {
-        public static List<WItem> CollectAvailableItems(WCharacter troop, WFaction faction, EquipmentIndex slot)
+        public static List<WItem> CollectAvailableItems(
+            WCharacter troop,
+            WFaction faction,
+            EquipmentIndex slot
+        )
         {
             // Initialize item list
             var items = new List<WItem>();
-            
+
             // Load items
             foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
             {
                 if (Config.GetOption<bool>("AllEquipmentUnlocked"))
-                    items.Add(new WItem(item));  // All items
+                    items.Add(new WItem(item)); // All items
                 else
                 {
-                    var wItem = new WItem(item);  // Wrap item
+                    var wItem = new WItem(item); // Wrap item
 
                     if (Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier))
                         continue; // Skip items that exceed the allowed tier difference
                     else if (UnlocksManager.UnlockedItems.Contains(wItem))
-                        items.Add(wItem);  // Unlocked items
+                        items.Add(wItem); // Unlocked items
                     else if (Config.GetOption<bool>("UnlockFromCulture"))
                         if (item.Culture?.StringId == faction?.Culture?.StringId)
-                            items.Add(wItem);  // Items of the faction's culture
+                            items.Add(wItem); // Items of the faction's culture
                 }
             }
 
@@ -49,7 +53,7 @@ namespace Retinues.Core.Editor
 
         public static void EquipFromStock(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            item.Unstock();  // Reduce stock by 1
+            item.Unstock(); // Reduce stock by 1
             Equip(troop, slot, item);
         }
 

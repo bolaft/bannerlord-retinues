@@ -1,27 +1,25 @@
 <Module>
-  <Name value="Retinues - MCM Support"/>
-  <Id value="Retinues.MCM"/>
-  <Version value="v1.0.0"/>
-  <DefaultModule value="false"/>
-  <SingleplayerModule value="true"/>
-  <MultiplayerModule value="false"/>
-  <Official value="false"/>
-
+  <Name value="Retinues - MCM Support" />
+  <Id value="Retinues.MCM" />
+  <Version value="v1.0.0" />
+  <DefaultModule value="false" />
+  <SingleplayerModule value="true" />
+  <MultiplayerModule value="false" />
+  <Official value="false" />
   <DependedModules>
     <DependedModule Id="Retinues.Core" />
     <DependedModule Id="Bannerlord.MBOptionScreen" />
-    <DependedModule Id="Native"/>
+    <DependedModule Id="Native" />
   </DependedModules>
-
   <SubModules>
     <SubModule>
-      <Name value="Retinues.MCM"/>
-      <DLLName value="Retinues.MCM.dll"/>
-      <SubModuleClassType value="Retinues.MCM.SubModule"/>
+      <Name value="Retinues.MCM" />
+      <DLLName value="Retinues.MCM.dll" />
+      <SubModuleClassType value="Retinues.MCM.SubModule" />
       <Tags>
-        <Tag key="Campaign"/>
-        <Tag key="CampaignSystem"/>
-        <Tag key="UI"/>
+        <Tag key="Campaign" />
+        <Tag key="CampaignSystem" />
+        <Tag key="UI" />
       </Tags>
     </SubModule>
   </SubModules>

@@ -1,12 +1,14 @@
 using System.Linq;
-using TaleWorlds.Library;
+using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
-using Retinues.Core.Game;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
-    public sealed class TroopListVM(EditorScreenVM screen) : BaseList<TroopListVM, TroopRowVM>(screen), IView
+    public sealed class TroopListVM(EditorScreenVM screen)
+        : BaseList<TroopListVM, TroopRowVM>(screen),
+            IView
     {
         // =========================================================================
         // Data Bindings
@@ -37,7 +39,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Public API
         // =========================================================================
 
-        public override System.Collections.Generic.List<TroopRowVM> Rows => [.. RetinueTroops,.. EliteTroops, .. BasicTroops];
+        public override System.Collections.Generic.List<TroopRowVM> Rows =>
+            [.. RetinueTroops, .. EliteTroops, .. BasicTroops];
 
         public void Select(WCharacter troop)
         {
@@ -51,19 +54,31 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             Log.Debug("Refreshing.");
 
             RetinueTroops.Clear();
-            foreach (var root in TroopManager.CollectRetinueTroops(Screen.Faction).Where(t => t.Parent is null))
+            foreach (
+                var root in TroopManager
+                    .CollectRetinueTroops(Screen.Faction)
+                    .Where(t => t.Parent is null)
+            )
                 AddTroopTreeInOrder(root, RetinueTroops);
 
             Log.Debug($"Loaded {RetinueTroops.Count} retinue troops.");
 
             EliteTroops.Clear();
-            foreach (var root in TroopManager.CollectEliteTroops(Screen.Faction).Where(t => t.Parent is null))
+            foreach (
+                var root in TroopManager
+                    .CollectEliteTroops(Screen.Faction)
+                    .Where(t => t.Parent is null)
+            )
                 AddTroopTreeInOrder(root, EliteTroops);
 
             Log.Debug($"Loaded {EliteTroops.Count} elite troops.");
 
             BasicTroops.Clear();
-            foreach (var root in TroopManager.CollectBasicTroops(Screen.Faction).Where(t => t.Parent is null))
+            foreach (
+                var root in TroopManager
+                    .CollectBasicTroops(Screen.Faction)
+                    .Where(t => t.Parent is null)
+            )
                 AddTroopTreeInOrder(root, BasicTroops);
 
             Log.Debug($"Loaded {BasicTroops.Count} basic troops.");
@@ -71,7 +86,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (SelectedRow is null)
             {
                 Log.Debug("No row is selected.");
-                Select(RetinueTroops.FirstOrDefault() ?? EliteTroops.FirstOrDefault() ?? BasicTroops.FirstOrDefault());
+                Select(
+                    RetinueTroops.FirstOrDefault()
+                        ?? EliteTroops.FirstOrDefault()
+                        ?? BasicTroops.FirstOrDefault()
+                );
             }
 
             if (EliteTroops.Count == 0)
@@ -98,7 +117,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             var row = new TroopRowVM(troop, this);
             list.Add(row);
 
-            var children = Screen.Faction.BasicTroops.Concat(Screen.Faction.EliteTroops)
+            var children = Screen
+                .Faction.BasicTroops.Concat(Screen.Faction.EliteTroops)
                 .Where(t => t.Parent != null && t.Parent.Equals(troop));
 
             foreach (var child in children)

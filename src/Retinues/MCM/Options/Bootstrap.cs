@@ -34,71 +34,94 @@ namespace Retinues.MCM.Options
                     return false;
                 }
 
-                foreach (var section in options.GroupBy(o => string.IsNullOrWhiteSpace(o.Section) ? "General" : o.Section))
+                foreach (
+                    var section in options.GroupBy(o =>
+                        string.IsNullOrWhiteSpace(o.Section) ? "General" : o.Section
+                    )
+                )
                 {
                     var sectionName = section.Key; // never null/empty due to GroupBy key above
 
-                    builder.CreateGroup(sectionName, group =>
-                    {
-                        int order = 0;
-
-                        foreach (var opt in section)
+                    builder.CreateGroup(
+                        sectionName,
+                        group =>
                         {
-                            // Defensive defaults
-                            var id = string.IsNullOrWhiteSpace(opt.Key) ? Guid.NewGuid().ToString("N") : opt.Key;
-                            var name = string.IsNullOrWhiteSpace(opt.Name) ? id : opt.Name;
-                            var hint = opt.Hint ?? string.Empty;
-                            var type = opt.Type ?? typeof(string);
-                            var def = opt.Default;
-                            var min = opt.MinValue;
-                            var max = opt.MaxValue;
+                            int order = 0;
 
-                            try
+                            foreach (var opt in section)
                             {
-                                if (type == typeof(bool))
+                                // Defensive defaults
+                                var id = string.IsNullOrWhiteSpace(opt.Key)
+                                    ? Guid.NewGuid().ToString("N")
+                                    : opt.Key;
+                                var name = string.IsNullOrWhiteSpace(opt.Name) ? id : opt.Name;
+                                var hint = opt.Hint ?? string.Empty;
+                                var type = opt.Type ?? typeof(string);
+                                var def = opt.Default;
+                                var min = opt.MinValue;
+                                var max = opt.MaxValue;
+
+                                try
                                 {
-                                    group.AddBool(
-                                        id,
-                                        name,
-                                        new ProxyRef<bool>(
-                                            () => Config.GetOption(id, def is bool b && b),
-                                            v => Config.SetOption(id, v, save: true)
-                                        ),
-                                        b => b.SetOrder(order++).SetHintText(hint).SetRequireRestart(false)
-                                    );
+                                    if (type == typeof(bool))
+                                    {
+                                        group.AddBool(
+                                            id,
+                                            name,
+                                            new ProxyRef<bool>(
+                                                () => Config.GetOption(id, def is bool b && b),
+                                                v => Config.SetOption(id, v, save: true)
+                                            ),
+                                            b =>
+                                                b.SetOrder(order++)
+                                                    .SetHintText(hint)
+                                                    .SetRequireRestart(false)
+                                        );
+                                    }
+                                    else if (type == typeof(int))
+                                    {
+                                        group.AddInteger(
+                                            id,
+                                            name,
+                                            min,
+                                            max,
+                                            new ProxyRef<int>(
+                                                () => Config.GetOption(id, def is int i ? i : 0),
+                                                v => Config.SetOption(id, v, save: true)
+                                            ),
+                                            b =>
+                                                b.SetOrder(order++)
+                                                    .SetHintText(hint)
+                                                    .SetRequireRestart(false)
+                                        );
+                                    }
+                                    else if (type == typeof(string))
+                                    {
+                                        group.AddText(
+                                            id,
+                                            name,
+                                            new ProxyRef<string>(
+                                                () =>
+                                                    Config.GetOption<string>(
+                                                        id,
+                                                        def as string ?? string.Empty
+                                                    ),
+                                                v => Config.SetOption(id, v, save: true)
+                                            ),
+                                            b =>
+                                                b.SetOrder(order++)
+                                                    .SetHintText(hint)
+                                                    .SetRequireRestart(false)
+                                        );
+                                    }
                                 }
-                                else if (type == typeof(int))
+                                catch
                                 {
-                                    group.AddInteger(
-                                        id,
-                                        name,
-                                        min, max,
-                                        new ProxyRef<int>(
-                                            () => Config.GetOption(id, def is int i ? i : 0),
-                                            v => Config.SetOption(id, v, save: true)
-                                        ),
-                                        b => b.SetOrder(order++).SetHintText(hint).SetRequireRestart(false)
-                                    );
+                                    // Skip bad entry
                                 }
-                                else if (type == typeof(string))
-                                {
-                                    group.AddText(
-                                        id,
-                                        name,
-                                        new ProxyRef<string>(
-                                            () => Config.GetOption<string>(id, def as string ?? string.Empty),
-                                            v => Config.SetOption(id, v, save: true)
-                                        ),
-                                        b => b.SetOrder(order++).SetHintText(hint).SetRequireRestart(false)
-                                    );
-                                }
-                            }
-                            catch
-                            {
-                                // Skip bad entry
                             }
                         }
-                    });
+                    );
                 }
 
                 var settings = builder.BuildAsGlobal();

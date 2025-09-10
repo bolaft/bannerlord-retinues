@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI
 {
@@ -31,8 +31,10 @@ namespace Retinues.Core.Editor.UI
                     _isSelected = value;
 
                     // Specific row selection logic
-                    if (value) OnSelect();
-                    else OnUnselect();
+                    if (value)
+                        OnSelect();
+                    else
+                        OnUnselect();
 
                     OnPropertyChanged(nameof(IsSelected));
                 }

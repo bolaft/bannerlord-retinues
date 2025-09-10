@@ -1,9 +1,9 @@
 using System.Linq;
-using TaleWorlds.Core;
-using TaleWorlds.ObjectSystem;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game.Features.Stocks;
 using Retinues.Core.Game.Features.Unlocks;
+using Retinues.Core.Game.Wrappers;
+using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Persistence.Item
 {
@@ -18,7 +18,10 @@ namespace Retinues.Core.Persistence.Item
             return new ItemSaveData
             {
                 UnlockedItemIds = [.. UnlocksManager.UnlockedItems.Select(item => item.StringId)],
-                StockedItems = StocksManager.Stocks.ToDictionary(kv => kv.Key.StringId, kv => kv.Value)
+                StockedItems = StocksManager.Stocks.ToDictionary(
+                    kv => kv.Key.StringId,
+                    kv => kv.Value
+                ),
             };
         }
 

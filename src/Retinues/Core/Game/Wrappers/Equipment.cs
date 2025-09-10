@@ -38,9 +38,17 @@ namespace Retinues.Core.Game.Wrappers
 
         public static readonly List<EquipmentIndex> Slots =
         [
-            EquipmentIndex.Head, EquipmentIndex.Cape, EquipmentIndex.Body, EquipmentIndex.Gloves, EquipmentIndex.Leg,
-            EquipmentIndex.WeaponItemBeginSlot, EquipmentIndex.Weapon1, EquipmentIndex.Weapon2, EquipmentIndex.Weapon3,
-            EquipmentIndex.Horse, EquipmentIndex.HorseHarness,
+            EquipmentIndex.Head,
+            EquipmentIndex.Cape,
+            EquipmentIndex.Body,
+            EquipmentIndex.Gloves,
+            EquipmentIndex.Leg,
+            EquipmentIndex.WeaponItemBeginSlot,
+            EquipmentIndex.Weapon1,
+            EquipmentIndex.Weapon2,
+            EquipmentIndex.Weapon3,
+            EquipmentIndex.Horse,
+            EquipmentIndex.HorseHarness,
         ];
 
         // =========================================================================
@@ -64,7 +72,8 @@ namespace Retinues.Core.Game.Wrappers
         public WItem GetItem(EquipmentIndex slot)
         {
             var obj = _equipment[slot].Item;
-            if (obj == null) return null;
+            if (obj == null)
+                return null;
             return new WItem(obj);
         }
 

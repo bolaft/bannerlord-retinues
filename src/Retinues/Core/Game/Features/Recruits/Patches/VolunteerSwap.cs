@@ -1,13 +1,13 @@
 using System.Linq;
 using HarmonyLib;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.CampaignBehaviors;
-using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.ObjectSystem;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.CampaignBehaviors;
+using TaleWorlds.CampaignSystem.Settlements;
+using TaleWorlds.ObjectSystem;
 
 [HarmonyPatch(typeof(RecruitmentCampaignBehavior), "UpdateVolunteersOfNotablesInSettlement")]
 public static class VolunteerSwap
@@ -27,16 +27,21 @@ public static class VolunteerSwap
             swapped = SwapTroopsInSettlement(playerClan, settlement);
 
         if (swapped)
-            Log.Debug($"Swapped volunteers in {settlement.Name} for clan {playerClan.Name} troops.");
+            Log.Debug(
+                $"Swapped volunteers in {settlement.Name} for clan {playerClan.Name} troops."
+            );
 
-        if (swapped) return;  // Already swapped for clan, no need to check kingdom
+        if (swapped)
+            return; // Already swapped for clan, no need to check kingdom
 
         // Next, check if the settlement is in the player kingdom (if any)
         if (kingdom is not null && kingdom.StringId == playerKingdom?.StringId)
             swapped = SwapTroopsInSettlement(playerKingdom, settlement);
 
         if (swapped)
-            Log.Debug($"Swapped volunteers in {settlement.Name} for kingdom {playerKingdom.Name} troops.");
+            Log.Debug(
+                $"Swapped volunteers in {settlement.Name} for kingdom {playerKingdom.Name} troops."
+            );
     }
 
     static bool SwapTroopsInSettlement(WFaction faction, Settlement settlement)
@@ -46,19 +51,26 @@ public static class VolunteerSwap
 
         foreach (var notable in settlement.Notables.ToList())
         {
-            if (!notable.CanHaveRecruits) continue;
+            if (!notable.CanHaveRecruits)
+                continue;
 
             for (int i = 0; i < notable.VolunteerTypes.Length; i++)
             {
                 var vanilla = notable.VolunteerTypes[i];
-                if (vanilla == null) continue;
+                if (vanilla == null)
+                    continue;
 
-                if (CharacterObjectHelper.IsFactionTroop(faction, vanilla)) continue;
+                if (CharacterObjectHelper.IsFactionTroop(faction, vanilla))
+                    continue;
 
-                var rootId = CharacterObjectHelper.IsEliteLine(vanilla) ? faction.RootElite?.StringId : faction.RootBasic?.StringId;
-                if (rootId == null) continue;
+                var rootId = CharacterObjectHelper.IsEliteLine(vanilla)
+                    ? faction.RootElite?.StringId
+                    : faction.RootBasic?.StringId;
+                if (rootId == null)
+                    continue;
                 var root = MBObjectManager.Instance.GetObject<CharacterObject>(rootId);
-                if (root == null) continue;
+                if (root == null)
+                    continue;
 
                 notable.VolunteerTypes[i] = CharacterObjectHelper.TryToLevel(root, vanilla.Tier);
             }

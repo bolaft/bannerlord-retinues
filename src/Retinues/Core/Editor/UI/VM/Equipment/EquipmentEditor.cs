@@ -1,12 +1,14 @@
 using System.Collections.Generic;
-using TaleWorlds.Core;
-using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Utils;
+using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
-    public sealed class EquipmentEditorVM(EditorScreenVM screen) : BaseEditor<EquipmentEditorVM>(screen), IView
+    public sealed class EquipmentEditorVM(EditorScreenVM screen)
+        : BaseEditor<EquipmentEditorVM>(screen),
+            IView
     {
         // =========================================================================
         // Fields
@@ -85,22 +87,26 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             if (!CanUnequip)
                 return; // No-op if cannot unequip
 
-            InformationManager.ShowInquiry(new InquiryData(
-                titleText: "Unequip All",
-                text: $"Unequip all items worn by {SelectedTroop.Name}?\n\nThey will be stocked for later use.",
-                isAffirmativeOptionShown: true, isNegativeOptionShown: true,
-                affirmativeText: "Confirm", negativeText: "Cancel",
-                affirmativeAction: () =>
-                {
-                    EquipmentManager.UnequipAll(SelectedTroop);
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    titleText: "Unequip All",
+                    text: $"Unequip all items worn by {SelectedTroop.Name}?\n\nThey will be stocked for later use.",
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: "Confirm",
+                    negativeText: "Cancel",
+                    affirmativeAction: () =>
+                    {
+                        EquipmentManager.UnequipAll(SelectedTroop);
 
-                    // Refresh UI
-                    Screen.Refresh();
-                    Screen.EquipmentList.Refresh();
-                    Refresh();
-                },
-                negativeAction: () => { }
-            ));
+                        // Refresh UI
+                        Screen.Refresh();
+                        Screen.EquipmentList.Refresh();
+                        Refresh();
+                    },
+                    negativeAction: () => { }
+                )
+            );
         }
 
         // =========================================================================

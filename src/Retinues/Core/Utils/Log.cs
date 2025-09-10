@@ -12,7 +12,9 @@ namespace Retinues.Core.Utils
         {
             try
             {
-                var asmDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!;
+                var asmDir = Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().Location
+                )!;
                 var moduleRoot = Directory.GetParent(asmDir)!.Parent!.FullName;
                 LogFile = Path.Combine(moduleRoot, "debug.log");
             }
@@ -39,7 +41,9 @@ namespace Retinues.Core.Utils
             {
                 File.AppendAllText(LogFile, formatted + Environment.NewLine);
             }
-            catch { /* Ignore file errors */ }
+            catch
+            { /* Ignore file errors */
+            }
         }
 
         private static void Write(string message, string color = "white")
@@ -82,7 +86,9 @@ namespace Retinues.Core.Utils
                     }
                 }
             }
-            catch { /* Ignore stack errors */ }
+            catch
+            { /* Ignore stack errors */
+            }
             return "";
         }
     }

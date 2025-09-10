@@ -1,15 +1,17 @@
-using TaleWorlds.Library;
+using System;
+using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
-using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Game;
-using Retinues.Core.Utils;
-using System;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list) : BaseRow<EquipmentListVM, EquipmentRowVM>(list), IView
+    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list)
+        : BaseRow<EquipmentListVM, EquipmentRowVM>(list),
+            IView
     {
         // =========================================================================
         // Data Bindings
@@ -29,11 +31,16 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         {
             get
             {
-                if (!Config.GetOption<bool>("PayForEquipment")) return false;
-                if (Item == null) return false;
-                if (Value == 0) return false;
-                if (Stock > 0) return false;
-                if (IsSelected) return false;
+                if (!Config.GetOption<bool>("PayForEquipment"))
+                    return false;
+                if (Item == null)
+                    return false;
+                if (Value == 0)
+                    return false;
+                if (Stock > 0)
+                    return false;
+                if (IsSelected)
+                    return false;
 
                 return true;
             }
@@ -47,11 +54,16 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         {
             get
             {
-                if (!Config.GetOption<bool>("PayForEquipment")) return false;
-                if (Item == null) return false;
-                if (Value == 0) return false;
-                if (Stock == 0) return false;
-                if (IsSelected) return false;
+                if (!Config.GetOption<bool>("PayForEquipment"))
+                    return false;
+                if (Item == null)
+                    return false;
+                if (Value == 0)
+                    return false;
+                if (Stock == 0)
+                    return false;
+                if (IsSelected)
+                    return false;
 
                 return true;
             }
@@ -102,26 +114,36 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     // Case 1b1: Player can afford
                     if (Player.Gold >= Value)
                     {
-                        InformationManager.ShowInquiry(new InquiryData(
-                            "Buy Item",
-                            $"Are you sure you want to buy {Item.Name} for {Value} gold?",
-                            true, true,
-                            "Yes", "No",
-                            () =>
-                            {
-                                EquipItem(EquipmentManager.EquipFromPurchase); // Apply the item change
-                            }, null
-                        ));
+                        InformationManager.ShowInquiry(
+                            new InquiryData(
+                                "Buy Item",
+                                $"Are you sure you want to buy {Item.Name} for {Value} gold?",
+                                true,
+                                true,
+                                "Yes",
+                                "No",
+                                () =>
+                                {
+                                    EquipItem(EquipmentManager.EquipFromPurchase); // Apply the item change
+                                },
+                                null
+                            )
+                        );
                     }
                     // Case 1b2: Player cannot afford
                     else
                     {
-                        InformationManager.ShowInquiry(new InquiryData(
-                            "Not enough gold",
-                            "You do not have enough gold to purchase this item.",
-                            false, true,
-                            null, "OK",
-                            null, null)
+                        InformationManager.ShowInquiry(
+                            new InquiryData(
+                                "Not enough gold",
+                                "You do not have enough gold to purchase this item.",
+                                false,
+                                true,
+                                null,
+                                "OK",
+                                null,
+                                null
+                            )
                         );
                     }
                 }

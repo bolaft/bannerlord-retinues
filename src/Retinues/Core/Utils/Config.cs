@@ -25,13 +25,17 @@ namespace Retinues.Core.Utils
         }
 
         private static readonly List<ConfigOption> _options = [];
-        private static readonly Dictionary<string, ConfigOption> _byKey = new(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, ConfigOption> _byKey = new(
+            StringComparer.OrdinalIgnoreCase
+        );
 
         private static string ConfigFile
         {
             get
             {
-                var asmDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!;
+                var asmDir = Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().Location
+                )!;
                 var moduleRoot = Directory.GetParent(asmDir)!.Parent!.FullName;
                 return Path.Combine(moduleRoot, "config.ini");
             }
@@ -48,7 +52,9 @@ namespace Retinues.Core.Utils
                 hint: "Maximum proportion of elite retinue troops in player party.",
                 @default: 0.1,
                 type: typeof(float),
-                minValue: 0, maxValue: 1);
+                minValue: 0,
+                maxValue: 1
+            );
 
             AddOption(
                 section: "Retinues",
@@ -57,7 +63,9 @@ namespace Retinues.Core.Utils
                 hint: "Maximum proportion of basic retinue troops in player party.",
                 @default: 0.2,
                 type: typeof(float),
-                minValue: 0, maxValue: 1);
+                minValue: 0,
+                maxValue: 1
+            );
 
             AddOption(
                 section: "Retinues",
@@ -66,7 +74,9 @@ namespace Retinues.Core.Utils
                 hint: "Conversion cost for retinue troops per tier.",
                 @default: 50,
                 type: typeof(int),
-                minValue: 0, maxValue: 200);
+                minValue: 0,
+                maxValue: 200
+            );
 
             AddOption(
                 section: "Retinues",
@@ -75,7 +85,9 @@ namespace Retinues.Core.Utils
                 hint: "Rank up cost for retinue troops per tier.",
                 @default: 1000,
                 type: typeof(int),
-                minValue: 0, maxValue: 5000);
+                minValue: 0,
+                maxValue: 5000
+            );
 
             // Recruitment
 
@@ -85,7 +97,8 @@ namespace Retinues.Core.Utils
                 key: "RecruitAnywhere",
                 hint: "Player can recruit clan troops in any settlement.",
                 @default: false,
-                type: typeof(bool));
+                type: typeof(bool)
+            );
 
             // Equipment
 
@@ -95,7 +108,8 @@ namespace Retinues.Core.Utils
                 key: "PayForEquipment",
                 hint: "Upgrading troop equipment costs money.",
                 @default: true,
-                type: typeof(bool));
+                type: typeof(bool)
+            );
 
             AddOption(
                 section: "Equipment",
@@ -104,7 +118,9 @@ namespace Retinues.Core.Utils
                 hint: "Maximum allowed tier difference between troops and equipment.",
                 @default: 3,
                 type: typeof(int),
-                minValue: 0, maxValue: 6);
+                minValue: 0,
+                maxValue: 6
+            );
 
             AddOption(
                 section: "Equipment",
@@ -112,7 +128,8 @@ namespace Retinues.Core.Utils
                 key: "NoMountForTier1",
                 hint: "Tier 1 troops cannot have mounts.",
                 @default: true,
-                type: typeof(bool));
+                type: typeof(bool)
+            );
 
             // Unlocks
 
@@ -122,7 +139,8 @@ namespace Retinues.Core.Utils
                 key: "UnlockFromKills",
                 hint: "Unlock equipment by defeating enemies wearing it.",
                 @default: true,
-                type: typeof(bool));
+                type: typeof(bool)
+            );
 
             AddOption(
                 section: "Unlocks",
@@ -131,7 +149,9 @@ namespace Retinues.Core.Utils
                 hint: "How many enemies wearing an item must be defeated to unlock it.",
                 @default: 100,
                 type: typeof(int),
-                minValue: 1, maxValue: 1000);
+                minValue: 1,
+                maxValue: 1000
+            );
 
             AddOption(
                 section: "Unlocks",
@@ -139,7 +159,8 @@ namespace Retinues.Core.Utils
                 key: "UnlockFromCulture",
                 hint: "Player culture and player-led kingdom culture equipment is always available.",
                 @default: false,
-                type: typeof(bool));
+                type: typeof(bool)
+            );
 
             AddOption(
                 section: "Unlocks",
@@ -147,7 +168,8 @@ namespace Retinues.Core.Utils
                 key: "AllEquipmentUnlocked",
                 hint: "All equipment unlocked on game start.",
                 @default: false,
-                type: typeof(bool));
+                type: typeof(bool)
+            );
 
             Load();
 
@@ -160,7 +182,16 @@ namespace Retinues.Core.Utils
             catch { }
         }
 
-        private static void AddOption(string section, string name, string key, string hint, object @default, Type type, int minValue = 0, int maxValue = 1000)
+        private static void AddOption(
+            string section,
+            string name,
+            string key,
+            string hint,
+            object @default,
+            Type type,
+            int minValue = 0,
+            int maxValue = 1000
+        )
         {
             var opt = new ConfigOption
             {
@@ -172,7 +203,7 @@ namespace Retinues.Core.Utils
                 Type = type,
                 Value = @default,
                 MinValue = minValue,
-                MaxValue = maxValue
+                MaxValue = maxValue,
             };
             _options.Add(opt);
             _byKey[key] = opt;
@@ -186,27 +217,37 @@ namespace Retinues.Core.Utils
 
         public static T GetOption<T>(string key, T fallback = default)
         {
-            if (!_byKey.TryGetValue(key, out var opt)) return fallback;
+            if (!_byKey.TryGetValue(key, out var opt))
+                return fallback;
             try
             {
-                if (opt.Value is T t) return t;
+                if (opt.Value is T t)
+                    return t;
                 var converted = ConvertTo(opt.Value, typeof(T));
                 return converted is T tt ? tt : fallback;
             }
-            catch { return fallback; }
+            catch
+            {
+                return fallback;
+            }
         }
 
         public static bool SetOption<T>(string key, T value, bool save = false)
         {
-            if (!_byKey.TryGetValue(key, out var opt)) return false;
+            if (!_byKey.TryGetValue(key, out var opt))
+                return false;
             try
             {
                 var converted = ConvertTo(value, opt.Type);
                 opt.Value = converted;
-                if (save) Save();
+                if (save)
+                    Save();
                 return true;
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
 
         public static void Load()
@@ -219,7 +260,11 @@ namespace Retinues.Core.Utils
                 foreach (var line in File.ReadAllLines(ConfigFile))
                 {
                     var trimmed = line.Trim();
-                    if (string.IsNullOrEmpty(trimmed) || trimmed.StartsWith("#") || !trimmed.Contains("="))
+                    if (
+                        string.IsNullOrEmpty(trimmed)
+                        || trimmed.StartsWith("#")
+                        || !trimmed.Contains("=")
+                    )
                         continue;
 
                     var parts = trimmed.Split(new[] { '=' }, 2);
@@ -278,21 +323,35 @@ namespace Retinues.Core.Utils
 
         private static object ConvertTo(object value, Type targetType)
         {
-            if (value == null) return targetType.IsValueType ? Activator.CreateInstance(targetType) : null;
+            if (value == null)
+                return targetType.IsValueType ? Activator.CreateInstance(targetType) : null;
 
             var vt = value.GetType();
-            if (targetType.IsAssignableFrom(vt)) return value;
+            if (targetType.IsAssignableFrom(vt))
+                return value;
 
             if (targetType == typeof(bool))
             {
-                if (value is string s) return ParseBool(s, false);
-                if (value is int i) return i != 0;
+                if (value is string s)
+                    return ParseBool(s, false);
+                if (value is int i)
+                    return i != 0;
             }
 
             if (targetType == typeof(int))
             {
-                if (value is string s && int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out var ii)) return ii;
-                if (value is bool b) return b ? 1 : 0;
+                if (
+                    value is string s
+                    && int.TryParse(
+                        s,
+                        NumberStyles.Integer,
+                        CultureInfo.InvariantCulture,
+                        out var ii
+                    )
+                )
+                    return ii;
+                if (value is bool b)
+                    return b ? 1 : 0;
             }
 
             if (targetType == typeof(string))
@@ -303,22 +362,28 @@ namespace Retinues.Core.Utils
 
         private static object ParseFromString(string raw, Type type, object fallback)
         {
-            if (type == typeof(bool)) return ParseBool(raw, (bool)fallback);
-            if (type == typeof(int)) return ParseInt(raw, (int)fallback);
-            if (type == typeof(string)) return raw;
+            if (type == typeof(bool))
+                return ParseBool(raw, (bool)fallback);
+            if (type == typeof(int))
+                return ParseInt(raw, (int)fallback);
+            if (type == typeof(string))
+                return raw;
             return fallback;
         }
 
         private static bool ParseBool(string value, bool fallback)
         {
-            if (bool.TryParse(value, out var b)) return b;
-            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var i)) return i != 0;
+            if (bool.TryParse(value, out var b))
+                return b;
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var i))
+                return i != 0;
             return fallback;
         }
 
         private static int ParseInt(string value, int fallback)
         {
-            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var i)) return i;
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var i))
+                return i;
             return fallback;
         }
 
@@ -329,7 +394,7 @@ namespace Retinues.Core.Utils
                 bool b => b ? "true" : "false",
                 IFormattable f => f.ToString(null, CultureInfo.InvariantCulture),
                 null => "",
-                _ => value.ToString()
+                _ => value.ToString(),
             };
         }
     }

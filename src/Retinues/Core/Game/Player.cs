@@ -1,6 +1,6 @@
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-using Retinues.Core.Game.Wrappers;
 
 namespace Retinues.Core.Game
 {
@@ -72,7 +72,8 @@ namespace Retinues.Core.Game
 
         private static WFaction _kingdom;
 
-        public static WFaction Kingdom => IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom) : null;
+        public static WFaction Kingdom =>
+            IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom) : null;
 
         // =========================================================================
         // Public API

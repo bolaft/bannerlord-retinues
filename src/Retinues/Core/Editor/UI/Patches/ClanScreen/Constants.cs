@@ -4,7 +4,8 @@ using Bannerlord.UIExtenderEx.Prefabs2;
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_CollapserWidth : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_CollapserWidth";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_CollapserWidth";
 
     public override InsertType Type => InsertType.Child;
 
@@ -14,7 +15,8 @@ internal sealed class Const_CollapserWidth : PrefabExtensionInsertPatch
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_CollapserHeight : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_CollapserHeight";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_CollapserHeight";
 
     public override InsertType Type => InsertType.Child;
 
@@ -24,7 +26,8 @@ internal sealed class Const_CollapserHeight : PrefabExtensionInsertPatch
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_Sort1Width : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_Sort1Width";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_Sort1Width";
 
     public override InsertType Type => InsertType.Child;
 
@@ -34,7 +37,8 @@ internal sealed class Const_Sort1Width : PrefabExtensionInsertPatch
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_Sort1Height : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_Sort1Height";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_Sort1Height";
 
     public override InsertType Type => InsertType.Child;
 
@@ -44,7 +48,8 @@ internal sealed class Const_Sort1Height : PrefabExtensionInsertPatch
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_ScrollHeaderWidth : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_ScrollHeaderWidth";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_ScrollHeaderWidth";
 
     public override InsertType Type => InsertType.Child;
 
@@ -54,7 +59,8 @@ internal sealed class Const_ScrollHeaderWidth : PrefabExtensionInsertPatch
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_ScrollHeaderHeight : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_ScrollHeaderHeight";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_ScrollHeaderHeight";
 
     public override InsertType Type => InsertType.Child;
 
@@ -64,7 +70,8 @@ internal sealed class Const_ScrollHeaderHeight : PrefabExtensionInsertPatch
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_ExpandIndicatorWidth : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_ExpandIndicatorWidth";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_ExpandIndicatorWidth";
 
     public override InsertType Type => InsertType.Child;
 
@@ -74,7 +81,8 @@ internal sealed class Const_ExpandIndicatorWidth : PrefabExtensionInsertPatch
 [PrefabExtension("ClanScreen", "descendant::Constants")]
 internal sealed class Const_ExpandIndicatorHeight : PrefabExtensionInsertPatch
 {
-    [PrefabExtensionFileName] public string FileName => "ClanScreen_Const_ExpandIndicatorHeight";
+    [PrefabExtensionFileName]
+    public string FileName => "ClanScreen_Const_ExpandIndicatorHeight";
 
     public override InsertType Type => InsertType.Child;
 

@@ -1,8 +1,8 @@
 using System.Linq;
-using TaleWorlds.Core;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Core;
 
 namespace Retinues.Core.Editor
 {
@@ -12,9 +12,11 @@ namespace Retinues.Core.Editor
         // Retinues
         // ================================================================
 
-        public static int MaxEliteRetinue => (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+        public static int MaxEliteRetinue =>
+            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
 
-        public static int MaxBasicRetinue => (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+        public static int MaxBasicRetinue =>
+            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
 
         public static int ConversionCostPerUnit(WCharacter retinue)
         {
@@ -30,7 +32,8 @@ namespace Retinues.Core.Editor
             return tier * baseCost;
         }
 
-        public static int RetinueCapFor(WCharacter retinue) => retinue.IsElite ? MaxEliteRetinue : MaxBasicRetinue;
+        public static int RetinueCapFor(WCharacter retinue) =>
+            retinue.IsElite ? MaxEliteRetinue : MaxBasicRetinue;
 
         // ================================================================
         // All Troops
@@ -66,14 +69,16 @@ namespace Retinues.Core.Editor
 
         public static int SkillPointsLeft(WCharacter character)
         {
-            if (character == null) return 0;
+            if (character == null)
+                return 0;
 
             return SkillTotalByTier(character.Tier) - character.Skills.Values.Sum();
         }
 
         public static bool CanIncrementSkill(WCharacter character, SkillObject skill)
         {
-            if (character == null || skill == null) return false;
+            if (character == null || skill == null)
+                return false;
 
             // Skills can't go above the tier skill cap
             if (character.GetSkill(skill) >= SkillCapByTier(character.Tier))
@@ -88,7 +93,8 @@ namespace Retinues.Core.Editor
 
         public static bool CanDecrementSkill(WCharacter character, SkillObject skill)
         {
-            if (character == null || skill == null) return false;
+            if (character == null || skill == null)
+                return false;
 
             // Skills can't go below zero
             if (character.GetSkill(skill) <= 0)
@@ -99,7 +105,10 @@ namespace Retinues.Core.Editor
                 return false;
 
             // Check for parent skill (can't go below parent's skill level)
-            if (character.Parent != null && character.GetSkill(skill) <= character.Parent.GetSkill(skill))
+            if (
+                character.Parent != null
+                && character.GetSkill(skill) <= character.Parent.GetSkill(skill)
+            )
                 return false;
 
             return true;
@@ -107,7 +116,8 @@ namespace Retinues.Core.Editor
 
         public static bool CanUpgradeTroop(WCharacter character)
         {
-            if (character == null) return false;
+            if (character == null)
+                return false;
 
             // Max tier reached
             if (character.IsMaxTier)
@@ -117,12 +127,12 @@ namespace Retinues.Core.Editor
             if (character.IsElite || character.IsRetinue)
             {
                 if (character.UpgradeTargets.Count() >= 1)
-                    return false;  // Elite/Retinue troops can have 1 upgrade target
+                    return false; // Elite/Retinue troops can have 1 upgrade target
             }
             else
             {
                 if (character.UpgradeTargets.Count() >= 2)
-                    return false;  // Basic troops can have 2 upgrade targets
+                    return false; // Basic troops can have 2 upgrade targets
             }
 
             return true;

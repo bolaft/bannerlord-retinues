@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
+using System.Linq;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Persistence.Troop
 {
@@ -169,23 +169,30 @@ namespace Retinues.Core.Persistence.Troop
 
             foreach (var element in roster.Elements)
             {
-                if (element.Troop.IsVanilla) continue;
+                if (element.Troop.IsVanilla)
+                    continue;
 
-                Log.Debug($"Recording custom troop {element.Troop.Name} x{element.Number}+{element.WoundedNumber}");
+                Log.Debug(
+                    $"Recording custom troop {element.Troop.Name} x{element.Number}+{element.WoundedNumber}"
+                );
                 Log.Debug($"Position: {string.Join(".", element.Troop.PositionInTree)}");
-                Log.Debug($"Faction: {element.Troop.Faction?.Name}, IsRetinue: {element.Troop.IsRetinue}, IsElite: {element.Troop.IsElite}");
+                Log.Debug(
+                    $"Faction: {element.Troop.Faction?.Name}, IsRetinue: {element.Troop.IsRetinue}, IsElite: {element.Troop.IsElite}"
+                );
 
                 // Record the custom troop
-                rosterData.Elements.Add(new RosterElementSaveData
-                {
-                    Healthy = element.Number,
-                    Wounded = element.WoundedNumber,
-                    Xp = element.Xp,
-                    IsKingdom = element.Troop.Faction == Player.Kingdom,
-                    IsRetinue = element.Troop.IsRetinue,
-                    IsElite = element.Troop.IsElite,
-                    Index = element.Index
-                });
+                rosterData.Elements.Add(
+                    new RosterElementSaveData
+                    {
+                        Healthy = element.Number,
+                        Wounded = element.WoundedNumber,
+                        Xp = element.Xp,
+                        IsKingdom = element.Troop.Faction == Player.Kingdom,
+                        IsRetinue = element.Troop.IsRetinue,
+                        IsElite = element.Troop.IsElite,
+                        Index = element.Index,
+                    }
+                );
 
                 foreach (var pos in element.Troop.PositionInTree)
                     rosterData.Elements.Last().PositionInTree.Add(pos);
@@ -201,12 +208,15 @@ namespace Retinues.Core.Persistence.Troop
         private static void RestoreCustomTroopsToRosters(List<RosterSaveData> rosterData)
         {
             foreach (var unit in Player.Clan.BasicTroops)
-                Log.Debug($"Clan Basic Troop: {unit.Name}, Pos: {string.Join(".", unit.PositionInTree)}");
+                Log.Debug(
+                    $"Clan Basic Troop: {unit.Name}, Pos: {string.Join(".", unit.PositionInTree)}"
+                );
 
             foreach (var data in rosterData)
             {
                 var party = MobileParty.All.FirstOrDefault(p => p.StringId == data.PartyId);
-                if (party == null) continue;
+                if (party == null)
+                    continue;
 
                 var wParty = new WParty(party);
                 foreach (var element in data.Elements)
@@ -214,13 +224,20 @@ namespace Retinues.Core.Persistence.Troop
                     var wTroop = GetTroopFromElementData(element);
 
                     Log.Debug($"Data position in tree: {string.Join(".", element.PositionInTree)}");
-                    Log.Debug($"Restoring troop {wTroop.Name} x{element.Healthy}+{element.Wounded}");
+                    Log.Debug(
+                        $"Restoring troop {wTroop.Name} x{element.Healthy}+{element.Wounded}"
+                    );
                     string posStr = string.Join(".", wTroop.PositionInTree);
                     Log.Debug($"Position: {posStr}");
-                    Log.Debug($"Faction: {wTroop.Faction?.Name}, IsRetinue: {wTroop.IsRetinue}, IsElite: {wTroop.IsElite}");
+                    Log.Debug(
+                        $"Faction: {wTroop.Faction?.Name}, IsRetinue: {wTroop.IsRetinue}, IsElite: {wTroop.IsElite}"
+                    );
 
                     wParty.MemberRoster.AddTroop(
-                        wTroop, element.Healthy, wounded: element.Wounded, index: element.Index
+                        wTroop,
+                        element.Healthy,
+                        wounded: element.Wounded,
+                        index: element.Index
                     );
                 }
             }

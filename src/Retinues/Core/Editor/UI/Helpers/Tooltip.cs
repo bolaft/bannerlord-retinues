@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using TaleWorlds.Core.ViewModelCollection.Information;
 using Retinues.Core.Game.Wrappers;
+using TaleWorlds.Core.ViewModelCollection.Information;
 
 namespace Retinues.Core.Editor.UI.Helpers
 {
@@ -12,15 +12,25 @@ namespace Retinues.Core.Editor.UI.Helpers
             {
                 var props = new List<TooltipProperty>();
                 if (!string.IsNullOrEmpty(title))
-                    props.Add(new TooltipProperty(
-                        "", title, 0, false,
-                        TooltipProperty.TooltipPropertyFlags.Title
-                    ));
+                    props.Add(
+                        new TooltipProperty(
+                            "",
+                            title,
+                            0,
+                            false,
+                            TooltipProperty.TooltipPropertyFlags.Title
+                        )
+                    );
                 if (!string.IsNullOrEmpty(description))
-                    props.Add(new TooltipProperty(
-                        "", description, 0, false,
-                        TooltipProperty.TooltipPropertyFlags.None
-                    ));
+                    props.Add(
+                        new TooltipProperty(
+                            "",
+                            description,
+                            0,
+                            false,
+                            TooltipProperty.TooltipPropertyFlags.None
+                        )
+                    );
                 return props;
             });
         }
@@ -36,18 +46,26 @@ namespace Retinues.Core.Editor.UI.Helpers
                 {
                     // Title
                     new TooltipProperty(
-                    string.Empty, item.Class,
-                    0, false, TooltipProperty.TooltipPropertyFlags.Title
-                )
+                        string.Empty,
+                        item.Class,
+                        0,
+                        false,
+                        TooltipProperty.TooltipPropertyFlags.Title
+                    ),
                 };
 
                 // Description
                 foreach (var stat in item.Statistics)
                 {
-                    props.Add(new TooltipProperty(
-                        string.Empty, $"{stat.Key}: {stat.Value}", 0, false,
-                        TooltipProperty.TooltipPropertyFlags.None
-                    ));
+                    props.Add(
+                        new TooltipProperty(
+                            string.Empty,
+                            $"{stat.Key}: {stat.Value}",
+                            0,
+                            false,
+                            TooltipProperty.TooltipPropertyFlags.None
+                        )
+                    );
                 }
 
                 return props;

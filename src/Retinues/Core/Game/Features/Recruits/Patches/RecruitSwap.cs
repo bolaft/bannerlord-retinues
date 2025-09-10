@@ -1,15 +1,21 @@
 using HarmonyLib;
+using Retinues.Core.Game;
+using Retinues.Core.Game.Helpers;
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
-using Retinues.Core.Game;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Game.Helpers;
 
 [HarmonyPatch(typeof(RecruitmentCampaignBehavior), "OnTroopRecruited")]
 public static class RecruitSwap
 {
-    static void Postfix(Hero recruiter, Settlement settlement, Hero recruitmentSource, CharacterObject troop, int count)
+    static void Postfix(
+        Hero recruiter,
+        Settlement settlement,
+        Hero recruitmentSource,
+        CharacterObject troop,
+        int count
+    )
     {
         if (recruiter?.PartyBelongedTo == null || troop == null || count <= 0)
             return;
@@ -23,20 +29,26 @@ public static class RecruitSwap
         WFaction target = null;
         if (recruiter.Clan != null && recruiter.Clan.StringId == playerClan?.StringId)
             target = playerClan;
-        else if (recruiter.Clan?.Kingdom != null && recruiter.Clan.Kingdom.StringId == playerKingdom?.StringId)
+        else if (
+            recruiter.Clan?.Kingdom != null
+            && recruiter.Clan.Kingdom.StringId == playerKingdom?.StringId
+        )
             target = playerKingdom;
 
-        if (target == null) return;
+        if (target == null)
+            return;
 
         // Skip if it’s already one of our custom troops
         if (CharacterObjectHelper.IsFactionTroop(target, troop))
             return;
 
         var root = CharacterObjectHelper.GetFactionRootFor(troop, target);
-        if (root == null) return;
+        if (root == null)
+            return;
 
         var replacement = CharacterObjectHelper.TryToLevel(root, troop.Tier);
-        if (replacement == null || replacement == troop) return;
+        if (replacement == null || replacement == troop)
+            return;
 
         var roster = recruiter.PartyBelongedTo.MemberRoster;
 

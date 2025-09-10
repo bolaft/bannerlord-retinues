@@ -1,31 +1,29 @@
 <Module>
-  <Name value="Retinues"/>
-  <Id value="Retinues.Core"/>
-  <Version value="v1.0.0"/>
-  <DefaultModule value="false"/>
-  <SingleplayerModule value="true"/>
-  <MultiplayerModule value="false"/>
-  <Official value="false"/>
-
+  <Name value="Retinues" />
+  <Id value="Retinues.Core" />
+  <Version value="v1.0.0" />
+  <DefaultModule value="false" />
+  <SingleplayerModule value="true" />
+  <MultiplayerModule value="false" />
+  <Official value="false" />
   <DependedModules>
-    <DependedModule Id="Bannerlord.Harmony"/>
-    <DependedModule Id="Bannerlord.UIExtenderEx"/>
-    <DependedModule Id="Native"/>
-    <DependedModule Id="Sandbox"/>
+    <DependedModule Id="Bannerlord.Harmony" />
+    <DependedModule Id="Bannerlord.UIExtenderEx" />
+    <DependedModule Id="Native" />
+    <DependedModule Id="Sandbox" />
   </DependedModules>
-
   <SubModules>
     <SubModule>
-      <Name value="Retinues"/>
-      <DLLName value="Retinues.Core.dll"/>
-      <SubModuleClassType value="Retinues.Core.SubModule"/>
+      <Name value="Retinues" />
+      <DLLName value="Retinues.Core.dll" />
+      <SubModuleClassType value="Retinues.Core.SubModule" />
       <Tags>
-        <Tag key="Campaign"/>
-        <Tag key="CampaignSystem"/>
-        <Tag key="UI"/>
+        <Tag key="Campaign" />
+        <Tag key="CampaignSystem" />
+        <Tag key="UI" />
       </Tags>
       <Assemblies>
-        <Assembly Path="bin/Win64_Shipping_Client/Retinues.Core.dll"/>
+        <Assembly Path="bin/Win64_Shipping_Client/Retinues.Core.dll" />
       </Assemblies>
     </SubModule>
   </SubModules>

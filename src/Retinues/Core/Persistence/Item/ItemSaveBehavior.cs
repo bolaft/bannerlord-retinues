@@ -1,8 +1,8 @@
-using TaleWorlds.CampaignSystem;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game.Features.Stocks;
 using Retinues.Core.Game.Features.Unlocks;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Persistence.Item
 {
@@ -28,7 +28,9 @@ namespace Retinues.Core.Persistence.Item
 
             _itemData = ItemSave.Save();
 
-            Log.Debug($"Collected {_itemData.UnlockedItemIds.Count} unlocked items and {_itemData.StockedItems.Count} stocked items.");
+            Log.Debug(
+                $"Collected {_itemData.UnlockedItemIds.Count} unlocked items and {_itemData.StockedItems.Count} stocked items."
+            );
         }
 
         private void OnGameLoaded(CampaignGameStarter starter)
@@ -43,7 +45,9 @@ namespace Retinues.Core.Persistence.Item
                 // Restore from save
                 ItemSave.Load(_itemData);
 
-                Log.Debug($"Restored {_itemData.UnlockedItemIds.Count} unlocked items and {_itemData.StockedItems.Count} stocked items.");
+                Log.Debug(
+                    $"Restored {_itemData.UnlockedItemIds.Count} unlocked items and {_itemData.StockedItems.Count} stocked items."
+                );
             }
             else
             {

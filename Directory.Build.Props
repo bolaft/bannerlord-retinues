@@ -2,10 +2,8 @@
   <PropertyGroup>
     <!-- Resolve repo root as an absolute path -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
-
     <!-- Put *all* obj folders here instead of beside each .csproj -->
     <BaseIntermediateOutputPath>$(RepoRoot)obj\</BaseIntermediateOutputPath>
-
     <!-- Per-project, per-config subfolder; add $(TargetFramework) if you multi-target -->
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>

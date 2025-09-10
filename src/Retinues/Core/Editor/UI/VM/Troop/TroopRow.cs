@@ -1,10 +1,12 @@
-using TaleWorlds.Library;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
-    public sealed class TroopRowVM(WCharacter troop, TroopListVM list) : BaseRow<TroopListVM, TroopRowVM>(list), IView
+    public sealed class TroopRowVM(WCharacter troop, TroopListVM list)
+        : BaseRow<TroopListVM, TroopRowVM>(list),
+            IView
     {
         // =========================================================================
         // Data Bindings
@@ -34,7 +36,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     return Troop.Name; // Retinue troops are not indented
 
                 var indent = new string(' ', (Troop?.Tier - 1 ?? 0) * 4);
-                return $"{indent}{Troop?.Name}";  // Indent based on tier
+                return $"{indent}{Troop?.Name}"; // Indent based on tier
             }
         }
 

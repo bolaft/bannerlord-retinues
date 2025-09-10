@@ -1,15 +1,17 @@
 using System;
-using TaleWorlds.Library;
-using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
-using Retinues.Core.Game;
 using Retinues.Core.Editor.UI.VM;
+using Retinues.Core.Game;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.Mixins
 {
-    [ViewModelMixin("TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM")]
+    [ViewModelMixin(
+        "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM"
+    )]
     public sealed class ClanTroopScreen : BaseViewModelMixin<ClanManagementVM>, ITroopScreen
     {
         // =========================================================================
@@ -22,7 +24,8 @@ namespace Retinues.Core.Editor.UI.Mixins
         // Constructor
         // =========================================================================
 
-        public ClanTroopScreen(ClanManagementVM vm) : base(vm)
+        public ClanTroopScreen(ClanManagementVM vm)
+            : base(vm)
         {
             try
             {
@@ -40,7 +43,8 @@ namespace Retinues.Core.Editor.UI.Mixins
         // Data Bindings
         // =========================================================================
 
-        [DataSourceProperty] public EditorScreenVM EditorScreen => _screen;
+        [DataSourceProperty]
+        public EditorScreenVM EditorScreen => _screen;
 
         // =========================================================================
         // Public API
@@ -65,12 +69,15 @@ namespace Retinues.Core.Editor.UI.Mixins
 
         private void OnVanillaTabChanged(object sender, PropertyChangedWithBoolValueEventArgs e)
         {
-            if (!e.Value) return;
+            if (!e.Value)
+                return;
 
-            if (e.PropertyName == "IsMembersSelected" ||
-                e.PropertyName == "IsFiefsSelected" ||
-                e.PropertyName == "IsPartiesSelected" ||
-                e.PropertyName == "IsIncomeSelected")
+            if (
+                e.PropertyName == "IsMembersSelected"
+                || e.PropertyName == "IsFiefsSelected"
+                || e.PropertyName == "IsPartiesSelected"
+                || e.PropertyName == "IsIncomeSelected"
+            )
             {
                 if (EditorScreen != null)
                 {

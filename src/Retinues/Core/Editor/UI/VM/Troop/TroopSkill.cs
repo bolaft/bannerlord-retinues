@@ -1,13 +1,15 @@
 using System.Linq;
-using TaleWorlds.Library;
-using TaleWorlds.Core;
-using TaleWorlds.InputSystem;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Game.Wrappers;
+using TaleWorlds.Core;
+using TaleWorlds.InputSystem;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
-    public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopEditorVM editor) : ViewModel, IView
+    public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopEditorVM editor)
+        : ViewModel,
+            IView
     {
         // =========================================================================
         // Fields
@@ -72,8 +74,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
             for (int i = 0; i < repeat; i++)
             {
-                if (delta > 0 && !CanIncrement) break;
-                if (delta < 0 && !CanDecrement) break;
+                if (delta > 0 && !CanIncrement)
+                    break;
+                if (delta < 0 && !CanDecrement)
+                    break;
 
                 TroopManager.ModifySkill(_troop, _skill, delta);
             }

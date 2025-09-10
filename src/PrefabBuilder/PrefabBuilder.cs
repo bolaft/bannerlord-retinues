@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Scriban;
-using Scriban.Runtime;
 using Scriban.Parsing;
+using Scriban.Runtime;
 
 class PrefabBuilder
 {
@@ -39,7 +39,7 @@ class PrefabBuilder
         var context = new TemplateContext
         {
             TemplateLoader = new LocalFileTemplateLoader(partialsDir),
-            NewLine = "\n"
+            NewLine = "\n",
         };
         context.MemberRenamer = m => m.Name;
 
@@ -49,9 +49,14 @@ class PrefabBuilder
 
         foreach (var tpl in templates)
         {
-            var rel = Path.GetRelativePath(templatesDir, tpl);         // e.g. "ClanScreen_TroopsTab.sbn" or "Constants\X.sbn"
-            var outRel = Path.ChangeExtension(rel, ".xml");            // -> *.xml
-            var outPath = Path.Combine(outGui, "PrefabExtensions", rel.Contains("Clan") ? "ClanScreen" : "", outRel);
+            var rel = Path.GetRelativePath(templatesDir, tpl); // e.g. "ClanScreen_TroopsTab.sbn" or "Constants\X.sbn"
+            var outRel = Path.ChangeExtension(rel, ".xml"); // -> *.xml
+            var outPath = Path.Combine(
+                outGui,
+                "PrefabExtensions",
+                rel.Contains("Clan") ? "ClanScreen" : "",
+                outRel
+            );
 
             // Better: if your templates already contain subfolders like PrefabExtensions\ClanScreen\..., just mirror them:
             // var outRel = rel.Replace(".sbn", ".xml");
@@ -64,7 +69,8 @@ class PrefabBuilder
             if (parsed.HasErrors)
             {
                 Console.Error.WriteLine($"[PrefabBuilder] Parse errors in {tpl}:");
-                foreach (var m in parsed.Messages) Console.Error.WriteLine("  - " + m);
+                foreach (var m in parsed.Messages)
+                    Console.Error.WriteLine("  - " + m);
                 continue;
             }
 
@@ -88,20 +94,28 @@ class PrefabBuilder
 class LocalFileTemplateLoader : ITemplateLoader
 {
     private readonly string _baseDir;
+
     public LocalFileTemplateLoader(string baseDir) => _baseDir = baseDir;
 
     public string GetPath(TemplateContext context, string templateName) =>
         Path.Combine(_baseDir, templateName);
+
     public string Load(TemplateContext context, string templatePath) =>
         File.ReadAllText(templatePath);
+
     public ValueTask<string> LoadAsync(TemplateContext context, string templatePath) =>
         new(File.ReadAllTextAsync(templatePath));
 
     // For Scriban >= 5 overloads:
     public string GetPath(TemplateContext context, SourceSpan callerSpan, string templateName) =>
         GetPath(context, templateName);
+
     public string Load(TemplateContext context, SourceSpan callerSpan, string templatePath) =>
         Load(context, templatePath);
-    public ValueTask<string> LoadAsync(TemplateContext context, SourceSpan callerSpan, string templatePath) =>
-        LoadAsync(context, templatePath);
+
+    public ValueTask<string> LoadAsync(
+        TemplateContext context,
+        SourceSpan callerSpan,
+        string templatePath
+    ) => LoadAsync(context, templatePath);
 }

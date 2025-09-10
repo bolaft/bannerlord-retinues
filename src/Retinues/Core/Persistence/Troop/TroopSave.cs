@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.ObjectSystem;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Persistence.Troop
 {
@@ -33,7 +33,7 @@ namespace Retinues.Core.Persistence.Troop
                 Level = character.Level,
                 IsFemale = character.IsFemale,
                 SkillCode = CodeFromSkills(character.Skills),
-                EquipmentCode = character.Equipment.Code
+                EquipmentCode = character.Equipment.Code,
             };
 
             return data;
@@ -46,9 +46,7 @@ namespace Retinues.Core.Persistence.Troop
         public static WCharacter Load(TroopSaveData data, WCharacter parent = null)
         {
             // Create character object from vanilla id
-            var co = MBObjectManager.Instance.GetObject<CharacterObject>(
-                data.VanillaStringId
-            );
+            var co = MBObjectManager.Instance.GetObject<CharacterObject>(data.VanillaStringId);
 
             // Wrap it
             var wco = new WCharacter(co);
@@ -115,7 +113,8 @@ namespace Retinues.Core.Persistence.Troop
             if (string.IsNullOrWhiteSpace(skillsString))
                 return result;
 
-            var dict = skillsString.Split(';')
+            var dict = skillsString
+                .Split(';')
                 .Select(part => part.Split(':'))
                 .Where(parts => parts.Length == 2)
                 .ToDictionary(parts => parts[0], parts => int.Parse(parts[1]));

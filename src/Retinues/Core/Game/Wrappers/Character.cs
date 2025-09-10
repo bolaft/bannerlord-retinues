@@ -1,17 +1,21 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.ObjectSystem;
 using TaleWorlds.Localization;
-using Retinues.Core.Utils;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Game.Wrappers
 {
-    public class WCharacter(CharacterObject characterObject, WFaction _faction = null, WCharacter parent = null) : StringIdentifier
+    public class WCharacter(
+        CharacterObject characterObject,
+        WFaction _faction = null,
+        WCharacter parent = null
+    ) : StringIdentifier
     {
         // =========================================================================
         // Base
@@ -35,7 +39,9 @@ namespace Retinues.Core.Game.Wrappers
                 if (IsVanilla)
                     return StringId;
 
-                return VanillaStringIdMap.TryGetValue(StringId, out var vanillaId) ? vanillaId : null;
+                return VanillaStringIdMap.TryGetValue(StringId, out var vanillaId)
+                    ? vanillaId
+                    : null;
             }
             set
             {
@@ -93,15 +99,21 @@ namespace Retinues.Core.Game.Wrappers
 
                 foreach (WFaction fac in factions)
                 {
-                    if (fac.EliteTroops.Any(t => t.StringId == StringId) || fac.BasicTroops.Any(t => t.StringId == StringId))
+                    if (
+                        fac.EliteTroops.Any(t => t.StringId == StringId)
+                        || fac.BasicTroops.Any(t => t.StringId == StringId)
+                    )
                     {
-                        _faction = fac;  // Found in faction troop lists
+                        _faction = fac; // Found in faction troop lists
                         break;
                     }
 
-                    if (fac.RetinueElite?.StringId == StringId || fac.RetinueBasic?.StringId == StringId)
+                    if (
+                        fac.RetinueElite?.StringId == StringId
+                        || fac.RetinueBasic?.StringId == StringId
+                    )
                     {
-                        _faction = fac;  // Found as retinue troop
+                        _faction = fac; // Found as retinue troop
                         break;
                     }
                 }
@@ -130,7 +142,7 @@ namespace Retinues.Core.Game.Wrappers
                         break;
                     }
                 }
-                
+
                 return parent;
             }
         }
@@ -142,8 +154,8 @@ namespace Retinues.Core.Game.Wrappers
                 yield return this;
 
                 foreach (var child in UpgradeTargets)
-                    foreach (var descendant in child.Tree)
-                        yield return descendant;
+                foreach (var descendant in child.Tree)
+                    yield return descendant;
             }
         }
 
@@ -178,7 +190,9 @@ namespace Retinues.Core.Game.Wrappers
                     return []; // root => empty path
 
                 var path = Parent.PositionInTree;
-                path.Add(Parent.UpgradeTargets.ToList().FindIndex(t => t.StringId == this.StringId));
+                path.Add(
+                    Parent.UpgradeTargets.ToList().FindIndex(t => t.StringId == this.StringId)
+                );
 
                 return path;
             }
@@ -196,7 +210,9 @@ namespace Retinues.Core.Game.Wrappers
             set
             {
                 Reflector.InvokeMethod(
-                    _characterObject, "SetName", [typeof(TextObject)],
+                    _characterObject,
+                    "SetName",
+                    [typeof(TextObject)],
                     new TextObject(value, (Dictionary<string, object>)null)
                 );
             }
@@ -216,8 +232,12 @@ namespace Retinues.Core.Game.Wrappers
         // Flags & Toggles
         // =========================================================================
 
-        public bool IsElite => Faction?.EliteTroops.Contains(this) == true || StringId == Faction?.RetinueElite?.StringId;
-        public bool IsRetinue => StringId == Faction?.RetinueElite?.StringId || StringId == Faction?.RetinueBasic?.StringId;
+        public bool IsElite =>
+            Faction?.EliteTroops.Contains(this) == true
+            || StringId == Faction?.RetinueElite?.StringId;
+        public bool IsRetinue =>
+            StringId == Faction?.RetinueElite?.StringId
+            || StringId == Faction?.RetinueBasic?.StringId;
 
         public bool IsMaxTier => Tier >= (IsElite ? 6 : 5);
 
@@ -255,22 +275,36 @@ namespace Retinues.Core.Game.Wrappers
             {
                 return new[]
                 {
-                    DefaultSkills.Athletics, DefaultSkills.Riding, DefaultSkills.OneHanded, DefaultSkills.TwoHanded,
-                    DefaultSkills.Polearm, DefaultSkills.Bow, DefaultSkills.Crossbow, DefaultSkills.Throwing
-                }
-                .ToDictionary(skill => skill, GetSkill);
+                    DefaultSkills.Athletics,
+                    DefaultSkills.Riding,
+                    DefaultSkills.OneHanded,
+                    DefaultSkills.TwoHanded,
+                    DefaultSkills.Polearm,
+                    DefaultSkills.Bow,
+                    DefaultSkills.Crossbow,
+                    DefaultSkills.Throwing,
+                }.ToDictionary(skill => skill, GetSkill);
             }
             set
             {
                 // Apply provided (or 0) to the engine-side skills
-                foreach (var skill in new[]
-                {
-                    DefaultSkills.Athletics, DefaultSkills.Riding, DefaultSkills.OneHanded, DefaultSkills.TwoHanded,
-                    DefaultSkills.Polearm, DefaultSkills.Bow, DefaultSkills.Crossbow, DefaultSkills.Throwing
-                })
+                foreach (
+                    var skill in new[]
+                    {
+                        DefaultSkills.Athletics,
+                        DefaultSkills.Riding,
+                        DefaultSkills.OneHanded,
+                        DefaultSkills.TwoHanded,
+                        DefaultSkills.Polearm,
+                        DefaultSkills.Bow,
+                        DefaultSkills.Crossbow,
+                        DefaultSkills.Throwing,
+                    }
+                )
                 {
                     int v = 0;
-                    if (value != null && value.TryGetValue(skill, out var val)) v = val;
+                    if (value != null && value.TryGetValue(skill, out var val))
+                        v = val;
                     SetSkill(skill, v);
                 }
             }
@@ -283,7 +317,10 @@ namespace Retinues.Core.Game.Wrappers
 
         public void SetSkill(SkillObject skill, int value)
         {
-            var skills = Reflector.GetFieldValue<MBCharacterSkills>(_characterObject, "DefaultCharacterSkills");
+            var skills = Reflector.GetFieldValue<MBCharacterSkills>(
+                _characterObject,
+                "DefaultCharacterSkills"
+            );
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
 
@@ -346,7 +383,11 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
-                var arr = Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? [];
+                var arr =
+                    Reflector.GetPropertyValue<CharacterObject[]>(
+                        _characterObject,
+                        "UpgradeTargets"
+                    ) ?? [];
                 return [.. arr.Select(obj => new WCharacter(obj, Faction, this))];
             }
             set
@@ -363,7 +404,11 @@ namespace Retinues.Core.Game.Wrappers
 
             var oldTargets = UpgradeTargets ?? [];
             var newTargets = new List<WCharacter>(oldTargets) { target };
-            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.Select(wc => (CharacterObject)wc.Base).ToArray());
+            Reflector.SetPropertyValue(
+                _characterObject,
+                "UpgradeTargets",
+                newTargets.Select(wc => (CharacterObject)wc.Base).ToArray()
+            );
         }
 
         public void RemoveUpgradeTarget(WCharacter target)
@@ -371,7 +416,11 @@ namespace Retinues.Core.Game.Wrappers
             var oldTargets = UpgradeTargets ?? [];
             var newTargets = new List<WCharacter>(oldTargets);
             newTargets.RemoveAll(wc => wc.StringId == target.StringId);
-            Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", newTargets.Select(wc => (CharacterObject)wc.Base).ToArray());
+            Reflector.SetPropertyValue(
+                _characterObject,
+                "UpgradeTargets",
+                newTargets.Select(wc => (CharacterObject)wc.Base).ToArray()
+            );
         }
 
         // =========================================================================
@@ -392,7 +441,9 @@ namespace Retinues.Core.Game.Wrappers
             // Remove from parent's upgrade targets
             Parent?.RemoveUpgradeTarget(this);
 
-            Log.Debug($"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}");
+            Log.Debug(
+                $"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}"
+            );
 
             // Unregister from the game systems
             Unregister();
@@ -416,13 +467,20 @@ namespace Retinues.Core.Game.Wrappers
             IsNotTransferableInHideouts = true;
         }
 
-        public WCharacter Clone(WFaction faction = null, WCharacter parent = null, bool keepUpgrades = true, bool keepEquipment = true, bool keepSkills = true)
+        public WCharacter Clone(
+            WFaction faction = null,
+            WCharacter parent = null,
+            bool keepUpgrades = true,
+            bool keepEquipment = true,
+            bool keepSkills = true
+        )
         {
             // Clone from the source troop
             var cloneObject = CharacterObject.CreateFrom(_characterObject);
 
             // Detach skills so parent/clone no longer share the same container
-            var freshSkills = (MBCharacterSkills)Activator.CreateInstance(typeof(MBCharacterSkills), nonPublic: true);
+            var freshSkills = (MBCharacterSkills)
+                Activator.CreateInstance(typeof(MBCharacterSkills), nonPublic: true);
             Reflector.SetFieldValue(cloneObject, "DefaultCharacterSkills", freshSkills);
 
             // Default faction is the same as the original troop
@@ -451,10 +509,15 @@ namespace Retinues.Core.Game.Wrappers
             {
                 clone.Skills = new[]
                 {
-                    DefaultSkills.Athletics, DefaultSkills.Riding, DefaultSkills.OneHanded, DefaultSkills.TwoHanded,
-                    DefaultSkills.Polearm, DefaultSkills.Bow, DefaultSkills.Crossbow, DefaultSkills.Throwing
-                }
-                .ToDictionary(skill => skill, GetSkill);
+                    DefaultSkills.Athletics,
+                    DefaultSkills.Riding,
+                    DefaultSkills.OneHanded,
+                    DefaultSkills.TwoHanded,
+                    DefaultSkills.Polearm,
+                    DefaultSkills.Bow,
+                    DefaultSkills.Crossbow,
+                    DefaultSkills.Throwing,
+                }.ToDictionary(skill => skill, GetSkill);
             }
             else
             {

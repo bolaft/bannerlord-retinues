@@ -1,18 +1,18 @@
 using System;
 using System.Reflection;
-using TaleWorlds.MountAndBlade;
-using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem;
-using HarmonyLib;
 using Bannerlord.UIExtenderEx;
-using Retinues.Core.Persistence.Item;
-using Retinues.Core.Persistence.Troop;
+using HarmonyLib;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game.Features.Stocks;
 using Retinues.Core.Game.Features.Unlocks;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Persistence.Item;
+using Retinues.Core.Persistence.Troop;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core
 {

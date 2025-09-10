@@ -4,18 +4,15 @@
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <!-- Output -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\'))</RepoRoot>
     <ModuleName>PrefabBuilder</ModuleName>
     <BinOutDir>$(RepoRoot)bin\$(ModuleName)</BinOutDir>
     <OutputPath>$(BinOutDir)\</OutputPath>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Scriban" Version="6.2.1" />
   </ItemGroup>
-
   <Target Name="RunBuilder" AfterTargets="Build">
     <Exec Command="dotnet run --no-build --project &quot;$(MSBuildProjectFullPath)&quot;" />
   </Target>

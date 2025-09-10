@@ -1,13 +1,17 @@
-using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection.Information;
-using TaleWorlds.Library;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
-    public sealed class EquipmentSlotVM(EquipmentIndex slot, WCharacter troop, EquipmentEditorVM editor) : ViewModel, IView
+    public sealed class EquipmentSlotVM(
+        EquipmentIndex slot,
+        WCharacter troop,
+        EquipmentEditorVM editor
+    ) : ViewModel, IView
     {
         // =========================================================================
         // Fields
@@ -36,7 +40,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     _isSelected = value;
 
                     // Specific row selection logic
-                    if (value) OnSelect();
+                    if (value)
+                        OnSelect();
 
                     OnPropertyChanged(nameof(IsSelected));
                 }
