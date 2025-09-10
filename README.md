@@ -19,5 +19,3 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Fixes
 
 - fix hints not appearing on disabled buttons
-- store string ids so existing troops work
-- fix for troop persistence: REMOVE all on save, record map of roster->troop, add them back on load

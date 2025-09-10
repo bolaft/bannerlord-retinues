@@ -65,8 +65,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Public API
         // =========================================================================
 
-        public int FromAvailable => _from != null ? Player.Party.Roster.CountOf(_from) : 0;
-        public int ToAvailable => _to != null ? Player.Party.Roster.CountOf(_to) : 0;
+        public int FromAvailable => _from != null ? Player.Party.MemberRoster.CountOf(_from) : 0;
+        public int ToAvailable => _to != null ? Player.Party.MemberRoster.CountOf(_to) : 0;
 
         public void Refresh()
         {

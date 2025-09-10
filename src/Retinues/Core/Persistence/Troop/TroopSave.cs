@@ -17,6 +17,9 @@ namespace Retinues.Core.Persistence.Troop
 
         public static TroopSaveData Save(WCharacter character)
         {
+            string posStr = string.Join(".", character.PositionInTree);
+            Log.Debug($"Saving troop {character.Name} ({posStr})");
+
             var data = new TroopSaveData
             {
                 StringId = character.StringId,
@@ -32,9 +35,6 @@ namespace Retinues.Core.Persistence.Troop
                 SkillCode = CodeFromSkills(character.Skills),
                 EquipmentCode = character.Equipment.Code
             };
-
-            Log.Debug($"Saved troop {data.StringId} ({data.Name})");
-            Log.Debug($" - Upgrade targets: {data.UpgradeTargets?.Count ?? 0}");
 
             return data;
         }
@@ -94,6 +94,8 @@ namespace Retinues.Core.Persistence.Troop
             else
                 faction.BasicTroops.Add(clone);
 
+            string posStr = string.Join(".", clone.PositionInTree);
+            Log.Debug($"Loaded troop {clone.Name} ({posStr})");
             // Return the created troop
             return clone;
         }

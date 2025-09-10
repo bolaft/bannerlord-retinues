@@ -11,6 +11,9 @@ namespace Retinues.Core.Persistence
 
         protected override void DefineClassTypes()
         {
+            base.DefineContainerDefinitions();
+
+            AddClassDefinition(typeof(RosterElementSaveData), 070_990);
             AddClassDefinition(typeof(RosterSaveData), 070_991);
             AddClassDefinition(typeof(TroopSaveData), 070_992);
             AddClassDefinition(typeof(ItemSaveData), 070_993);
@@ -20,10 +23,12 @@ namespace Retinues.Core.Persistence
         {
             base.DefineContainerDefinitions();
 
+            ConstructContainerDefinition(typeof(List<RosterElementSaveData>));
             ConstructContainerDefinition(typeof(List<RosterSaveData>));
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(Dictionary<string, int>));
             ConstructContainerDefinition(typeof(List<string>));
+            ConstructContainerDefinition(typeof(List<int>));
         }
     }
 }

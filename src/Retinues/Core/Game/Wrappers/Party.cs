@@ -12,18 +12,28 @@ namespace Retinues.Core.Game.Wrappers
 
         public MobileParty Base => _party;
 
-        private WRoster _roster;
+        public override string StringId => _party.StringId;
 
-        public WRoster Roster
+        private WRoster _memberRoster;
+
+        public WRoster MemberRoster
         {
             get
             {
-                _roster ??= new WRoster(_party.MemberRoster);
-                return _roster;
+                _memberRoster ??= new WRoster(_party.MemberRoster, this);
+                return _memberRoster;
             }
         }
 
-        public override string StringId => _party.StringId;
+        public WRoster PrisonRoster
+        {
+            get
+            {
+                if (_party.PrisonRoster == null)
+                    return null;
+                return new WRoster(_party.PrisonRoster, this);
+            }
+        }
 
         // ================================================================
         // Misc

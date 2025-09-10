@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using TaleWorlds.Core;
 using Retinues.Core.Game.Wrappers;
@@ -155,12 +154,12 @@ namespace Retinues.Core.Editor
         public static int GetMaxConvertible(WCharacter from, WCharacter to)
         {
             // Number of 'from' troops available in party
-            int maxConvertible = Player.Party.Roster.CountOf(from);
+            int maxConvertible = Player.Party.MemberRoster.CountOf(from);
 
             if (to.IsRetinue)
             {
                 // Number of 'to' troops already in party
-                int currentRetinue = Player.Party.Roster.CountOf(to);
+                int currentRetinue = Player.Party.MemberRoster.CountOf(to);
 
                 // Cap left for retinue troops
                 int cap = TroopRules.RetinueCapFor(to);
@@ -182,8 +181,8 @@ namespace Retinues.Core.Editor
             Player.ChangeGold(-cost);
 
             // Mutate roster
-            Player.Party.Roster.RemoveTroop(from, amount);
-            Player.Party.Roster.AddTroop(to, amount);
+            Player.Party.MemberRoster.RemoveTroop(from, amount);
+            Player.Party.MemberRoster.AddTroop(to, amount);
         }
     }
 }

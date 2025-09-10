@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.CampaignSystem.Roster;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -13,19 +12,20 @@ namespace Retinues.Core.Persistence.Troop
     public class TroopSaveBehavior : CampaignBehaviorBase
     {
         private List<TroopSaveData> _troopData = [];
-        private List<RosterSaveData> _rosterStacks = [];
+        private List<RosterSaveData> _rosterData = [];
 
         public override void RegisterEvents()
         {
             CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
             CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener(this, OnBeforeSave);
+            CampaignEvents.OnSaveOverEvent.AddNonSerializedListener(this, OnSaveOver);
         }
 
         public override void SyncData(IDataStore dataStore)
         {
             // Persist the troops inside the native save.
             dataStore.SyncData("Retinues_Troops", ref _troopData);
-            dataStore.SyncData("Retinues_Rosters", ref _rosterStacks);
+            dataStore.SyncData("Retinues_Rosters", ref _rosterData);
         }
 
         private void OnBeforeSave()
@@ -33,23 +33,26 @@ namespace Retinues.Core.Persistence.Troop
             try
             {
                 Log.Debug("Collecting root troops.");
-                _troopData = CollectAllCurrentTroops();
+                _troopData = CollectAllDefinedCustomTroops();
                 Log.Debug($"{_troopData.Count} root troops serialized.");
 
-                Log.Debug("Snapshotting and stripping custom stacks from rosters.");
-                _rosterStacks = SnapshotAndStripAllCustomStacks();
-                Log.Debug($"{_rosterStacks.Count} custom stacks snapshotted & stripped.");
-
-                // Then restore rosters (using vanillaId → current clone maps)
-                if (_rosterStacks != null && _rosterStacks.Count > 0)
-                {
-                    RestoreRosterStacks(_rosterStacks);
-                    Log.Debug($"Restored {_rosterStacks.Count} custom stacks to rosters.");
-                }
+                Log.Debug("Recording and removing existing custom troops.");
+                _rosterData = SaveAndStripAllRosters();
+                Log.Debug($"{_rosterData.Count} roster stacks recorded.");
             }
             catch (Exception e)
             {
                 Log.Exception(e);
+            }
+        }
+
+        private void OnSaveOver(bool t1, string t2)
+        {
+            if (_rosterData.Count > 0)
+            {
+                Log.Debug("Restoring custom troops to rosters.");
+                RestoreCustomTroopsToRosters(_rosterData);
+                Log.Debug("Restored custom troops to rosters.");
             }
         }
 
@@ -71,15 +74,11 @@ namespace Retinues.Core.Persistence.Troop
                     Log.Debug("No root troops in save.");
                 }
 
-                // Then restore rosters (using vanillaId → current clone maps)
-                if (_rosterStacks != null && _rosterStacks.Count > 0)
+                if (_rosterData.Count > 0)
                 {
-                    RestoreRosterStacks(_rosterStacks);
-                    Log.Debug($"Restored {_rosterStacks.Count} custom stacks to rosters.");
-                }
-                else
-                {
-                    Log.Debug("No roster stacks in save.");
+                    Log.Debug("Restoring custom troops to rosters.");
+                    RestoreCustomTroopsToRosters(_rosterData);
+                    Log.Debug("Restored custom troops to rosters.");
                 }
             }
             catch (Exception e)
@@ -92,7 +91,7 @@ namespace Retinues.Core.Persistence.Troop
         // Troop Collection
         // -------------------------
 
-        private static List<TroopSaveData> CollectAllCurrentTroops()
+        private static List<TroopSaveData> CollectAllDefinedCustomTroops()
         {
             var list = new List<TroopSaveData>();
 
@@ -137,174 +136,115 @@ namespace Retinues.Core.Persistence.Troop
         }
 
         // -------------------------
-        // Snapshot & Strip
+        // Roster Management
         // -------------------------
 
-        private static bool IsCustom(CharacterObject c)
-            // Keep this in sync with WCharacter.IsVanilla
-            => c != null && c.StringId != null && c.StringId.StartsWith("CharacterObject_", StringComparison.Ordinal);
-
-        private static List<RosterSaveData> SnapshotAndStripAllCustomStacks()
+        private static List<RosterSaveData> SaveAndStripAllRosters()
         {
-            var result = new List<RosterSaveData>();
+            var rosters = new List<RosterSaveData>();
 
-            // Build quick id sets to know if a custom id belongs to Clan or Kingdom
-            var clanIds = AllCustomIdsForFaction(Player.Clan);
-            var kingdomIds = AllCustomIdsForFaction(Player.Kingdom);
-
-            foreach (var party in MobileParty.All)
+            foreach (var mobileParty in MobileParty.All)
             {
-                SnapshotRoster(party, party.MemberRoster, "Member", clanIds, kingdomIds, result);
-                SnapshotRoster(party, party.PrisonRoster, "Prison", clanIds, kingdomIds, result);
+                var wParty = new WParty(mobileParty);
+
+                var memberData = SaveAndStripRoster(wParty.MemberRoster, false);
+                if (memberData != null)
+                    rosters.Add(memberData);
+
+                var prisonerData = SaveAndStripRoster(wParty.PrisonRoster, true);
+                if (prisonerData != null)
+                    rosters.Add(prisonerData);
             }
 
-            return result;
+            return rosters;
         }
 
-        private static HashSet<string> AllCustomIdsForFaction(WFaction f)
+        private static RosterSaveData SaveAndStripRoster(WRoster roster, bool IsPrisonRoster)
         {
-            var set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            if (f == null) return set;
-
-            void addTree(WCharacter root)
+            var rosterData = new RosterSaveData
             {
-                if (root == null) return;
-                foreach (var w in root.Tree)
-                    set.Add(w.StringId);
-            }
+                PartyId = roster.Party.StringId,
+                IsPrisonRoster = IsPrisonRoster,
+            };
 
-            addTree(f.RetinueElite);
-            addTree(f.RetinueBasic);
-            addTree(f.RootElite);
-            addTree(f.RootBasic);
-
-            return set;
-        }
-
-        private static void SnapshotRoster(
-            MobileParty owner,
-            TroopRoster roster,
-            string kind,
-            HashSet<string> clanIds,
-            HashSet<string> kingdomIds,
-            List<RosterSaveData> sink)
-        {
-            if (roster == null || roster.Count == 0) return;
-
-            for (int i = roster.Count - 1; i >= 0; i--)
+            foreach (var element in roster.Elements)
             {
-                var elem = roster.GetElementCopyAtIndex(i);
-                var c = elem.Character;
-                if (c == null || !IsCustom(c)) continue;
+                if (element.Troop.IsVanilla) continue;
 
-                bool isKingdom = kingdomIds.Contains(c.StringId);
-                bool isClan    = clanIds.Contains(c.StringId);
-                if (!isKingdom && !isClan) continue;
+                Log.Debug($"Recording custom troop {element.Troop.Name} x{element.Number}+{element.WoundedNumber}");
+                Log.Debug($"Position: {string.Join(".", element.Troop.PositionInTree)}");
+                Log.Debug($"Faction: {element.Troop.Faction?.Name}, IsRetinue: {element.Troop.IsRetinue}, IsElite: {element.Troop.IsElite}");
 
-                var w = new WCharacter(c, faction: isKingdom ? Player.Kingdom : Player.Clan);
-                var vanillaId = w.VanillaStringId;
-                if (string.IsNullOrEmpty(vanillaId)) continue;
-
-                sink.Add(new RosterSaveData
+                // Record the custom troop
+                rosterData.Elements.Add(new RosterElementSaveData
                 {
-                    PartyId = owner.StringId,
-                    RosterKind = kind,
-                    VanillaStringId = vanillaId,
-                    Healthy = elem.Number - elem.WoundedNumber,
-                    Wounded = elem.WoundedNumber,
-                    Xp = elem.Xp,
-                    IsKingdom = isKingdom,
-                    IsRetinue = w.IsRetinue
+                    Healthy = element.Number,
+                    Wounded = element.WoundedNumber,
+                    Xp = element.Xp,
+                    IsKingdom = element.Troop.Faction == Player.Kingdom,
+                    IsRetinue = element.Troop.IsRetinue,
+                    IsElite = element.Troop.IsElite,
+                    Index = element.Index
                 });
 
-                if (elem.Number > 0)
-                    roster.AddToCounts(c, -elem.Number, removeDepleted: true, insertAtFront: false);
+                foreach (var pos in element.Troop.PositionInTree)
+                    rosterData.Elements.Last().PositionInTree.Add(pos);
+
+                // Remove it from the roster
+                roster.RemoveTroop(element.Troop, element.Number, element.WoundedNumber);
             }
+
+            // Return null if no custom troops were found
+            return rosterData.Elements.Count > 0 ? rosterData : null;
         }
 
-        // -------------------------
-        // Restore
-        // -------------------------
-
-        private static void RestoreRosterStacks(List<RosterSaveData> stacks)
+        private static void RestoreCustomTroopsToRosters(List<RosterSaveData> rosterData)
         {
-            if (stacks == null || stacks.Count == 0) return;
+            foreach (var unit in Player.Clan.BasicTroops)
+                Log.Debug($"Clan Basic Troop: {unit.Name}, Pos: {string.Join(".", unit.PositionInTree)}");
 
-            var clanRegMap     = BuildVanillaToCloneMap(Player.Clan,    retinue: false);
-            var clanRetMap     = BuildVanillaToCloneMap(Player.Clan,    retinue: true);
-            var kingdomRegMap  = BuildVanillaToCloneMap(Player.Kingdom, retinue: false);
-            var kingdomRetMap  = BuildVanillaToCloneMap(Player.Kingdom, retinue: true);
-
-            foreach (var ss in stacks)
+            foreach (var data in rosterData)
             {
-                try
+                var party = MobileParty.All.FirstOrDefault(p => p.StringId == data.PartyId);
+                if (party == null) continue;
+
+                var wParty = new WParty(party);
+                foreach (var element in data.Elements)
                 {
-                    var party = MobileParty.All.FirstOrDefault(p => p.StringId == ss.PartyId);
-                    if (party == null) continue;
+                    var wTroop = GetTroopFromElementData(element);
 
-                    var roster = ss.RosterKind == "Prison" ? party.PrisonRoster : party.MemberRoster;
-                    if (roster == null) continue;
+                    Log.Debug($"Data position in tree: {string.Join(".", element.PositionInTree)}");
+                    Log.Debug($"Restoring troop {wTroop.Name} x{element.Healthy}+{element.Wounded}");
+                    string posStr = string.Join(".", wTroop.PositionInTree);
+                    Log.Debug($"Position: {posStr}");
+                    Log.Debug($"Faction: {wTroop.Faction?.Name}, IsRetinue: {wTroop.IsRetinue}, IsElite: {wTroop.IsElite}");
 
-                    // Pick map by kingdom/retinue flags
-                    Dictionary<string, CharacterObject> map =
-                        ss.IsKingdom
-                            ? (ss.IsRetinue ? kingdomRetMap : kingdomRegMap)
-                            : (ss.IsRetinue ? clanRetMap    : clanRegMap);
-
-                    // Backwards-compat: old saves had IsRetinue=false by default → try other map if not found
-                    if (!map.TryGetValue(ss.VanillaStringId, out var current) || current == null)
-                    {
-                        var alt =
-                            ss.IsKingdom
-                                ? (ss.IsRetinue ? kingdomRegMap : kingdomRetMap)
-                                : (ss.IsRetinue ? clanRegMap    : clanRetMap);
-
-                        if (!alt.TryGetValue(ss.VanillaStringId, out current) || current == null)
-                            continue; // couldn't resolve
-                    }
-
-                    int healthy = ss.Healthy, wounded = ss.Wounded, xp = ss.Xp;
-
-                    if (healthy > 0)
-                        roster.AddToCounts(current, healthy, insertAtFront: false, woundedCount: 0, xpChange: xp);
-                    if (wounded > 0)
-                        roster.AddToCounts(current, wounded, insertAtFront: false, woundedCount: wounded, xpChange: 0);
-                }
-                catch (Exception e)
-                {
-                    Log.Exception(e);
+                    wParty.MemberRoster.AddTroop(
+                        wTroop, element.Healthy, wounded: element.Wounded, index: element.Index
+                    );
                 }
             }
         }
 
-        private static Dictionary<string, CharacterObject> BuildVanillaToCloneMap(WFaction f, bool retinue)
+        private static WCharacter GetTroopFromElementData(RosterElementSaveData data)
         {
-            var map = new Dictionary<string, CharacterObject>(StringComparer.OrdinalIgnoreCase);
-            if (f == null) return map;
+            var faction = data.IsKingdom ? Player.Kingdom : Player.Clan;
 
-            void addTree(WCharacter root)
+            if (faction is null)
             {
-                if (root == null) return;
-                foreach (var w in root.Tree)
-                {
-                    var v = w.VanillaStringId;
-                    if (!string.IsNullOrEmpty(v) && !map.ContainsKey(v))
-                        map.Add(v, (CharacterObject) w.Base);
-                }
+                Log.Warn("No faction found for roster element, skipping.");
+                return null;
             }
 
-            if (retinue)
-            {
-                addTree(f.RetinueElite);
-                addTree(f.RetinueBasic);
-            }
-            else
-            {
-                addTree(f.RootElite);
-                addTree(f.RootBasic);
-            }
+            if (data.IsRetinue)
+                if (data.IsElite)
+                    return data.IsElite ? faction.RetinueElite : null;
+                else
+                    return faction.RetinueBasic;
 
-            return map;
+            var root = data.IsElite ? faction.RootElite : faction.RootBasic;
+
+            return WCharacter.GetFromPositionInTree(root, data.PositionInTree);
         }
     }
 }
