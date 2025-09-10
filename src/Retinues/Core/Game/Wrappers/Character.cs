@@ -4,12 +4,14 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.Localization;
+using Retinues.Core.Game.Helpers;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Wrappers
 {
-    public class WCharacter(CharacterObject characterObject, WFaction faction = null, WCharacter parent = null) : StringIdentifier
+    public class WCharacter(CharacterObject characterObject, WFaction faction = null, WCharacter parent = null)
     {
         // =========================================================================
         // Base
@@ -69,7 +71,7 @@ namespace Retinues.Core.Game.Wrappers
         }
 
         // =========================================================================
-        // Wrapped properties
+        // Tree & Relations
         // =========================================================================
 
         public WCulture Culture => new(_characterObject.Culture);
@@ -89,12 +91,25 @@ namespace Retinues.Core.Game.Wrappers
                         yield return descendant;
             }
         }
+        
+        public CharacterObject Root
+        {
+            get
+            {
+                var rootId = IsElite ? Faction.RootElite?.StringId : Faction.RootBasic?.StringId;
+                return MBObjectManager.Instance.GetObject<CharacterObject>(rootId);
+            }
+        }
 
         // =========================================================================
         // Basic Attributes
         // =========================================================================
 
-        public override string StringId => _characterObject.StringId;
+        public string StringId
+        {
+            get => _characterObject.StringId;
+            set => CharacterObjectHelper.SetStringIdAndReregister(_characterObject, value);
+        }
 
         public string Name
         {
@@ -122,8 +137,8 @@ namespace Retinues.Core.Game.Wrappers
         // Flags & Toggles
         // =========================================================================
 
-        public bool IsElite => Faction.EliteTroops.Contains(this) || this.StringId == Faction?.RetinueElite?.StringId;
-        public bool IsRetinue => this.StringId == Faction?.RetinueElite?.StringId || this.StringId == Faction?.RetinueBasic?.StringId;
+        public bool IsElite => Faction.EliteTroops.Contains(this) || StringId == Faction?.RetinueElite?.StringId;
+        public bool IsRetinue => StringId == Faction?.RetinueElite?.StringId || StringId == Faction?.RetinueBasic?.StringId;
 
         public bool IsMaxTier => Tier >= (IsElite ? 6 : 5);
 
@@ -320,13 +335,19 @@ namespace Retinues.Core.Game.Wrappers
             // Wrap it
             WCharacter clone = new(cloneObject, faction, parent);
 
+            // Add to upgrade targets of the parent, if any
+            parent?.AddUpgradeTarget(clone);
+
             if (keepUpgrades)
                 clone.UpgradeTargets = [.. UpgradeTargets]; // Unlink
             else
                 clone.UpgradeTargets = [];
 
+            clone.Equipments = [];
+
+            // Recreate equipment from code to avoid shared references
             if (keepEquipment)
-                clone.Equipments = [.. Equipments]; // Unlink
+                clone.Equipments = [WEquipment.FromCode(Equipment.Code)];
             else
                 clone.Equipments = [];
 

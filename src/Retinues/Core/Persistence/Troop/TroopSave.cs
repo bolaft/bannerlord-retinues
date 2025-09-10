@@ -5,6 +5,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Persistence.Troop
 {
@@ -16,8 +17,9 @@ namespace Retinues.Core.Persistence.Troop
 
         public static TroopSaveData Save(WCharacter character)
         {
-            return new TroopSaveData
+            var data = new TroopSaveData
             {
+                StringId = character.StringId,
                 VanillaStringId = character.VanillaStringId,
                 IsKingdomTroop = character.Faction == Player.Kingdom,
                 IsElite = character.IsElite,
@@ -28,8 +30,13 @@ namespace Retinues.Core.Persistence.Troop
                 Level = character.Level,
                 IsFemale = character.IsFemale,
                 SkillCode = CodeFromSkills(character.Skills),
-                EquipmentCode = CodeFromEquipment(character.Equipment)
+                EquipmentCode = character.Equipment.Code
             };
+
+            Log.Debug($"Saved troop {data.StringId} ({data.Name})");
+            Log.Debug($" - Upgrade targets: {data.UpgradeTargets?.Count ?? 0}");
+
+            return data;
         }
 
         // =========================================================================
@@ -64,7 +71,7 @@ namespace Retinues.Core.Persistence.Troop
             clone.Level = data.Level;
             clone.IsFemale = data.IsFemale;
             clone.Skills = SkillsFromCode(data.SkillCode);
-            clone.Equipments = [EquipmentFromCode(data.EquipmentCode)];
+            clone.Equipments = [WEquipment.FromCode(data.EquipmentCode)];
 
             // Restore upgrade targets
             foreach (var child in data.UpgradeTargets ?? [])
@@ -88,24 +95,12 @@ namespace Retinues.Core.Persistence.Troop
                 faction.BasicTroops.Add(clone);
 
             // Return the created troop
-            return wco;
+            return clone;
         }
 
         // =========================================================================
         // Helpers
         // =========================================================================
-
-        public static string CodeFromEquipment(WEquipment equipment)
-        {
-            var obj = (Equipment)equipment.Base;
-            return obj.CalculateEquipmentCode();
-        }
-
-        public static WEquipment EquipmentFromCode(string code)
-        {
-            var obj = Equipment.CreateFromEquipmentCode(code);
-            return new WEquipment(obj);
-        }
 
         public static string CodeFromSkills(Dictionary<SkillObject, int> skills)
         {
@@ -129,6 +124,7 @@ namespace Retinues.Core.Persistence.Troop
                 if (skill != null)
                     result[skill] = kv.Value;
             }
+
             return result;
         }
     }

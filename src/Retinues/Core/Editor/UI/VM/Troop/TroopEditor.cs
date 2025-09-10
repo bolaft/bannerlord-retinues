@@ -414,7 +414,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         internal int GetVirtualCount(WCharacter c)
         {
-            int count = Player.Party.CountOf(c);
+            int count = Player.Party.Roster.CountOf(c);
             foreach (var o in _staged.Values)
             {
                 if (o.To == c) count += o.Amount;

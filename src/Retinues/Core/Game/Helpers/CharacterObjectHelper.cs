@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Helpers
 {
-    public static class CharacterHelper
+    public static class CharacterObjectHelper
     {
         public static CharacterObject GetFactionRootFor(CharacterObject vanilla, WFaction faction)
         {
@@ -59,6 +61,31 @@ namespace Retinues.Core.Game.Helpers
             if (faction.RootBasic?.StringId == c.StringId) return true;
             if (faction.RootElite?.StringId == c.StringId) return true;
             return false;
+        }
+
+        public static void SetStringIdAndReregister(CharacterObject obj, string newId)
+        {
+            var manager = MBObjectManager.Instance;
+
+            // 1) Unregister old (private API names differ between versions)
+            //    Try UnregisterObject(obj) first, then fallback to removing from internal dictionaries.
+            try
+            {
+                Reflector.InvokeMethod(manager, "UnregisterObject", [typeof(CharacterObject)], obj);
+            }
+            catch
+            {
+                // Fallback: try RemoveObject / RemoveObjectById if present
+                try { Reflector.InvokeMethod(manager, "RemoveObject", [typeof(CharacterObject)], obj); }
+                catch { /* last resort: ignore, but you may hit dup-key when registering */ }
+            }
+
+            // 2) Change backing field for StringId
+            //    Your Reflector already tries common patterns, so this works across builds.
+            Reflector.SetPropertyValue(obj, "StringId", newId);
+
+            // 3) Re-register
+            manager.RegisterObject(obj);
         }
     }
 }

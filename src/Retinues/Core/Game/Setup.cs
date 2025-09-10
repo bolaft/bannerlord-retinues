@@ -36,10 +36,7 @@ namespace Retinues.Core.Game
         private static WCharacter CreateRetinueTroop(WFaction faction, WCharacter rootTroop, string retinueName)
         {
             // Clone it for the player retinue
-            var retinueTroop = rootTroop.Clone(faction, keepUpgrades: false, keepEquipment: false, keepSkills: true);
-
-            // Give it one set of equipment
-            retinueTroop.Equipments = [rootTroop.Equipment];
+            var retinueTroop = rootTroop.Clone(faction, keepUpgrades: false);
 
             // Rename it
             retinueTroop.Name = retinueName;
@@ -64,33 +61,17 @@ namespace Retinues.Core.Game
             // Use the faction culture
             var culture = faction.Culture;
 
-            // Mapping from original to clone
-            var map = new Dictionary<WCharacter, WCharacter>();
-
             // Clone the elite tree from the elite root
-            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, faction, null, map).ToList();
+            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, faction, null).ToList();
             faction.EliteTroops.AddRange(eliteClones);
 
             Log.Debug($"Cloned {faction.EliteTroops.Count} elite troops from {culture.Name} to {faction.Name}");
 
             // Clone the basic tree from the basic root
-            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, faction, null, map).ToList();
+            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, faction, null).ToList();
             faction.BasicTroops.AddRange(basicClones);
 
             Log.Debug($"Cloned {faction.BasicTroops.Count} basic troops from {culture.Name} to {faction.Name}");
-
-            // Fix upgrade targets to point to clones
-            foreach (var pair in map)
-            {
-                var orig = pair.Key;
-                var clone = pair.Value;
-                if (orig.UpgradeTargets != null)
-                {
-                    clone.UpgradeTargets = [.. orig.UpgradeTargets
-                        .Select(t => map.TryGetValue(t, out var c) ? c : null)
-                        .Where(c => c != null)];
-                }
-            }
 
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(faction.EliteTroops, faction.BasicTroops))
@@ -101,20 +82,17 @@ namespace Retinues.Core.Game
             Log.Debug($"Unlocked {UnlocksManager.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops");
         }
 
-        private static IEnumerable<WCharacter> CloneTroopTreeRecursive(WCharacter original, WFaction faction, WCharacter parent, Dictionary<WCharacter, WCharacter> map)
+        private static IEnumerable<WCharacter> CloneTroopTreeRecursive(WCharacter original, WFaction faction, WCharacter parent)
         {
-            var clone = original.Clone(faction: faction, parent: parent);
+            var clone = original.Clone(faction: faction, parent: parent, keepUpgrades: false);
             clone.Name = $"{faction.Name} {original.Name}";
-            map[original] = clone;
+
             yield return clone;
+
             if (original.UpgradeTargets != null)
-            {
                 foreach (var child in original.UpgradeTargets)
-                {
-                    foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone, map))
+                    foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone))
                         yield return descendant;
-                }
-            }
         }
     }
 }

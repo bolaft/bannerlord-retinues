@@ -19,13 +19,20 @@ namespace Retinues.Core.Persistence.Item
         public override void SyncData(IDataStore dataStore)
         {
             // Persist the troops inside the native save.
-            dataStore.SyncData("Retinues", ref _itemData);
+            dataStore.SyncData("Retinues_Items", ref _itemData);
+        }
+
+        private void OnBeforeSave()
+        {
+            Log.Debug("Collecting item data.");
+
+            _itemData = ItemSave.Save();
+
+            Log.Debug($"Collected {_itemData.UnlockedItemIds.Count} unlocked items and {_itemData.StockedItems.Count} stocked items.");
         }
 
         private void OnGameLoaded(CampaignGameStarter starter)
         {
-            Log.Debug("OnGameLoaded.");
-
             // Restore stocks and unlocked items
             if (_itemData != null)
             {
@@ -42,15 +49,6 @@ namespace Retinues.Core.Persistence.Item
             {
                 Log.Debug("No item data found in save.");
             }
-        }
-
-        private void OnBeforeSave()
-        {
-            Log.Debug("Collecting item data.");
-
-            _itemData = ItemSave.Save();
-
-            Log.Debug($"Collected {_itemData.UnlockedItemIds.Count} unlocked items and {_itemData.StockedItems.Count} stocked items.");
         }
     }
 }

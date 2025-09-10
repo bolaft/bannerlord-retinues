@@ -64,12 +64,12 @@ internal static class VolunteerSwapForPlayerSession
                 if (vanilla == null) continue;
 
                 // Skip if already a clan troop
-                if (CharacterHelper.IsFactionTroop(clan, vanilla)) continue;
+                if (CharacterObjectHelper.IsFactionTroop(clan, vanilla)) continue;
 
-                var root = CharacterHelper.GetFactionRootFor(vanilla, clan);
+                var root = CharacterObjectHelper.GetFactionRootFor(vanilla, clan);
                 if (root == null) continue;
 
-                notable.VolunteerTypes[i] = CharacterHelper.TryToLevel(root, vanilla.Tier);
+                notable.VolunteerTypes[i] = CharacterObjectHelper.TryToLevel(root, vanilla.Tier);
             }
         }
 

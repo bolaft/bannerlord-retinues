@@ -1,10 +1,8 @@
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
-using TaleWorlds.Core.ViewModelCollection.Information;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
@@ -34,9 +32,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         [DataSourceProperty] public string ToDisplay => $"{_to?.Name} ({ToAvailableVirtual})";
 
-        [DataSourceProperty] public bool CanRecruit => TroopManager.GetMaxConvertible(_from, _to) > 0;
+        [DataSourceProperty] public bool CanRecruit => _editor.GetMaxStageable(_from, _to) > 0;
 
-        [DataSourceProperty] public bool CanRelease => Player.Party.CountOf(_to) > 0;
+        [DataSourceProperty] public bool CanRelease => _editor.GetVirtualCount(_to) > 0;
 
         [DataSourceProperty] public int ConversionCost => PendingAmount * TroopRules.ConversionCostPerUnit(_to);
 
@@ -67,8 +65,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Public API
         // =========================================================================
 
-        public int FromAvailable => _from != null ? Player.Party.CountOf(_from) : 0;
-        public int ToAvailable => _to != null ? Player.Party.CountOf(_to) : 0;
+        public int FromAvailable => _from != null ? Player.Party.Roster.CountOf(_from) : 0;
+        public int ToAvailable => _to != null ? Player.Party.Roster.CountOf(_to) : 0;
 
         public void Refresh()
         {
@@ -85,14 +83,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Internals
         // =========================================================================
 
-        private string PendingFromSuffix => PendingAmount > 0 ? $" -{PendingAmount}" : string.Empty;
-        private string PendingToSuffix   => PendingAmount > 0 ? $" +{PendingAmount}" : string.Empty;
-
         private int FromAvailableVirtual => _editor.GetVirtualCount(_from);
         private int ToAvailableVirtual   => _editor.GetVirtualCount(_to);
-
-        private int MaxStageableRecruit  => _editor.GetMaxStageable(_from, _to);
-        private int MaxStageableRelease  => _editor.GetMaxStageable(_to, _from);
 
         private static int ReadBatchAmount()
         {

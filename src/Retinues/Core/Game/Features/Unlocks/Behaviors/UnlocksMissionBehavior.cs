@@ -16,7 +16,7 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 
         public override void OnAgentRemoved(Agent affectedAgent, Agent affectorAgent, AgentState state, KillingBlow blow)
         {
-            Log.Info("OnAgentRemoved event triggered.");
+            Log.Debug("OnAgentRemoved event triggered.");
 
             // Count only real enemies, humans, that went down (killed or knocked unconscious)
             if (affectedAgent == null || !affectedAgent.IsHuman) return;
@@ -43,7 +43,7 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 
         protected override void OnEndMission()
         {
-            Log.Info("OnEndMission event triggered.");
+            Log.Debug("OnEndMission event triggered.");
 
             // Hand the batch to the campaign behavior (it’ll persist + unlock as needed)
             _owner.AddBattleCounts(_battleCounts);

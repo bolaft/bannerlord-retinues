@@ -29,13 +29,13 @@ public static class RecruitSwap
         if (target == null) return;
 
         // Skip if it’s already one of our custom troops
-        if (CharacterHelper.IsFactionTroop(target, troop))
+        if (CharacterObjectHelper.IsFactionTroop(target, troop))
             return;
 
-        var root = CharacterHelper.GetFactionRootFor(troop, target);
+        var root = CharacterObjectHelper.GetFactionRootFor(troop, target);
         if (root == null) return;
 
-        var replacement = CharacterHelper.TryToLevel(root, troop.Tier);
+        var replacement = CharacterObjectHelper.TryToLevel(root, troop.Tier);
         if (replacement == null || replacement == troop) return;
 
         var roster = recruiter.PartyBelongedTo.MemberRoster;

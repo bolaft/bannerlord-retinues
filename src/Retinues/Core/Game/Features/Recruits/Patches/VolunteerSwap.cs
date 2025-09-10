@@ -53,14 +53,14 @@ public static class VolunteerSwap
                 var vanilla = notable.VolunteerTypes[i];
                 if (vanilla == null) continue;
 
-                if (CharacterHelper.IsFactionTroop(faction, vanilla)) continue;
+                if (CharacterObjectHelper.IsFactionTroop(faction, vanilla)) continue;
 
-                var rootId = CharacterHelper.IsEliteLine(vanilla) ? faction.RootElite?.StringId : faction.RootBasic?.StringId;
+                var rootId = CharacterObjectHelper.IsEliteLine(vanilla) ? faction.RootElite?.StringId : faction.RootBasic?.StringId;
                 if (rootId == null) continue;
                 var root = MBObjectManager.Instance.GetObject<CharacterObject>(rootId);
                 if (root == null) continue;
 
-                notable.VolunteerTypes[i] = CharacterHelper.TryToLevel(root, vanilla.Tier);
+                notable.VolunteerTypes[i] = CharacterObjectHelper.TryToLevel(root, vanilla.Tier);
             }
         }
 

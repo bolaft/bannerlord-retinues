@@ -62,9 +62,6 @@ namespace Retinues.Core.Editor
             target.Name = targetName.Trim();
             target.Level = troop.Level + 5;
 
-            // Add as an upgrade target
-            troop.AddUpgradeTarget(target);
-
             // Add it the the faction's troop list
             if (target.IsElite)
                 troop.Faction.EliteTroops.Add(target);
@@ -158,12 +155,12 @@ namespace Retinues.Core.Editor
         public static int GetMaxConvertible(WCharacter from, WCharacter to)
         {
             // Number of 'from' troops available in party
-            int maxConvertible = Player.Party.CountOf(from);
+            int maxConvertible = Player.Party.Roster.CountOf(from);
 
             if (to.IsRetinue)
             {
                 // Number of 'to' troops already in party
-                int currentRetinue = Player.Party.CountOf(to);
+                int currentRetinue = Player.Party.Roster.CountOf(to);
 
                 // Cap left for retinue troops
                 int cap = TroopRules.RetinueCapFor(to);
@@ -185,8 +182,8 @@ namespace Retinues.Core.Editor
             Player.ChangeGold(-cost);
 
             // Mutate roster
-            Player.Party.RemoveTroop(from, amount);
-            Player.Party.AddTroop(to, amount);
+            Player.Party.Roster.RemoveTroop(from, amount);
+            Player.Party.Roster.AddTroop(to, amount);
         }
     }
 }

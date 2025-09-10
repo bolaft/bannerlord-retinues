@@ -10,6 +10,19 @@ namespace Retinues.Core.Game.Wrappers
     {
         private readonly MobileParty _party = party;
 
+        public MobileParty Base => _party;
+
+        private WRoster _roster;
+
+        public WRoster Roster
+        {
+            get
+            {
+                _roster ??= new WRoster(_party.MemberRoster);
+                return _roster;
+            }
+        }
+
         public override string StringId => _party.StringId;
 
         // ================================================================
@@ -17,38 +30,5 @@ namespace Retinues.Core.Game.Wrappers
         // ================================================================
 
         public int PartySizeLimit => _party.Party.PartySizeLimit;
-
-        // ================================================================
-        // Troop access
-        // ================================================================
-
-        public IEnumerable<WCharacter> Troops => _party.MemberRoster.GetTroopRoster().Select(elem => new WCharacter(elem.Character));
-
-        public int TroopCount => _party.MemberRoster.TotalManCount;
-
-        public int CountOf(WCharacter troop)
-        {
-            return troop == null ? 0 : _party.MemberRoster.GetTroopCount(troop.Base as CharacterObject);
-        }
-
-        // ================================================================
-        // Modification
-        // ================================================================
-
-        public void AddTroop(WCharacter troop, int count = 1, bool wounded = false)
-        {
-            _party.MemberRoster.AddToCounts(
-                troop.Base as CharacterObject,
-                count,
-                insertAtFront: false,
-                woundedCount: wounded ? count : 0);
-        }
-
-        public void RemoveTroop(WCharacter troop, int count = 1)
-        {
-            if (troop.Base == null) return;
-
-            _party.MemberRoster.AddToCounts(troop.Base as CharacterObject, -count);
-        }
     }
 }

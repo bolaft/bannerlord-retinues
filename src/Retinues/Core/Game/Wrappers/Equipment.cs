@@ -14,6 +14,25 @@ namespace Retinues.Core.Game.Wrappers
         public object Base => _equipment;
 
         // =========================================================================
+        // Code
+        // =========================================================================
+
+        public static WEquipment FromCode(string code)
+        {
+            var obj = Equipment.CreateFromEquipmentCode(code);
+            return new WEquipment(obj);
+        }
+
+        public string Code
+        {
+            get
+            {
+                var obj = (Equipment)Base;
+                return obj.CalculateEquipmentCode();
+            }
+        }
+
+        // =========================================================================
         // Slots
         // =========================================================================
 
