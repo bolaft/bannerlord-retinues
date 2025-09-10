@@ -81,7 +81,7 @@ namespace Retinues.Core.Utils
                     var className = method?.DeclaringType?.Name;
                     if (className != null && className != nameof(Log))
                     {
-                        var methodName = method.Name == ".ctor" ? className : method.Name;
+                        var methodName = method.Name == ".ctor" || method.Name ==".cctor" ? className : method.Name;
                         return $"{className}.{methodName}: ";
                     }
                 }
