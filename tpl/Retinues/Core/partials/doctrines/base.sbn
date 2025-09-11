@@ -1,0 +1,8 @@
+<Widget 
+    DataSource="{TechTree}"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    DoNotAcceptEvents="false">
+    <Children>
+        {{ header("Doctrines") }}
+    </Children>
+</Widget>

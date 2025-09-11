@@ -56,6 +56,9 @@ namespace Retinues.Core
 
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {
+                // Clear all static lists
+                ClearAll();
+
                 // Persistence behaviors
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
@@ -68,9 +71,6 @@ namespace Retinues.Core
                 cs.AddBehavior(new FeatServiceBehavior());
 
                 Log.Debug("Behaviors registered.");
-
-                // Clear all static lists on new game
-                ClearAll();
             }
         }
 

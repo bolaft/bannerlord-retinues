@@ -5,7 +5,6 @@ using Retinues.Core.Game.Features.Tech;
 using Retinues.Core.Game.Features.Tech.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Tech

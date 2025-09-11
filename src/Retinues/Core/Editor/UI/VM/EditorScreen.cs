@@ -111,6 +111,8 @@ namespace Retinues.Core.Editor.UI.VM
             }
         }
 
+        [DataSourceProperty] public bool IsNotDefaultMode => !IsDefaultMode;
+
         [DataSourceProperty]
         public bool IsEquipmentMode
         {
@@ -125,6 +127,8 @@ namespace Retinues.Core.Editor.UI.VM
             }
         }
 
+        [DataSourceProperty] public bool IsNotEquipmentMode => !IsEquipmentMode;
+
         [DataSourceProperty] public bool IsDoctrinesMode
         {
             get => _editorMode == EditorMode.Doctrines;
@@ -137,6 +141,8 @@ namespace Retinues.Core.Editor.UI.VM
                 OnPropertyChanged(nameof(IsDoctrinesMode));
             }
         }
+
+        [DataSourceProperty] public bool IsNotDoctrinesMode => !IsDoctrinesMode;
 
         [DataSourceProperty]
         public TechTreeVM TechTree

@@ -7,17 +7,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Features
 
 - tech tree screen in bottom right
-- maybe: select a doctrine to activate, and when active must do 3 tasks to unlock it? popup on task completion
-- tech tree
-    - item unlocks from ally kills
-    - item unlocks from ally casualties
-    - player kills count twice for unlocks
-    - refund xp for retraining
-    - 10% rebate on items of the troop's culture
-    - 10% rebate on items of the clan's culture
-    - 10% rebate on items of the kingdom's culture
-    - +5% retinue cap
-    - skill bonuses
 - change troop culture
 - tutorial on first game
 - tool tip / communicate on skill caps/limits
@@ -33,6 +22,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Tests
 
 - test persistence of item kills for unlocks
+- check game type on sandbox (debug log in SubModule.cs)
 
 ## Doctrines
 

@@ -11,8 +11,8 @@
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
     DoNotAcceptEvents="false">
 	<Children>
-
         <Widget 
+            IsVisible="@IsNotDoctrinesMode"
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
             MarginLeft="600" MarginRight="290">
             <Children>
@@ -61,24 +61,23 @@
             </Children>
         </Widget>
 
-        <!-- Change Faction -->
-        <ButtonWidget
-            IsVisible="@CanSwitchFaction"
-            DoNotPassEventsToChildren="true"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="!CancelButton.Width" SuggestedHeight="120"
-            HorizontalAlignment="Right" VerticalAlignment="Top"
-            MarginLeft="0" MarginRight="20" MarginTop="0" MarginBottom="0"
-            Brush="ButtonBrush2"
-            Command.Click="ExecuteSwitchFaction">
+        <Widget 
+            IsVisible="@IsDoctrinesMode"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
             <Children>
-                <TextWidget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    Brush="Popup.Button.Text"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Text="@FactionSwitchText"/>
+                <!-- Doctrines -->
+                {{ include "doctrines/base.sbn" }}
             </Children>
-        </ButtonWidget>
+        </Widget>
+
+        <!-- Switch faction button-->
+        {{ big_button(@FactionSwitchText, "ExecuteSwitchFaction", @CanSwitchFaction, "Top", "Right") }}
+
+        <!-- Switch doctrines button-->
+        {{ big_button("Doctrines", "ExecuteSwitchToDoctrines", @IsNotDoctrinesMode, "Bottom", "Right") }}
+
+        <!-- Switch to default button-->
+        {{ big_button("Return to\nEditor", "ExecuteSwitchToDefault", @IsDoctrinesMode, "Bottom", "Right") }}
 
         <!-- Scrollable list -->
         {{ include "list/base.sbn" }}
