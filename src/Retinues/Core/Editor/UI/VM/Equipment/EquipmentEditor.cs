@@ -30,6 +30,10 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         // Data Bindings
         // =========================================================================
 
+        // -------------------------
+        // Flags
+        // -------------------------
+
         [DataSourceProperty]
         public bool CanUnequip
         {
@@ -43,6 +47,10 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                 return true;
             }
         }
+
+        // -------------------------
+        // Equipment Slots
+        // -------------------------
 
         [DataSourceProperty]
         public EquipmentSlotVM HeadSlot => _headSlot;

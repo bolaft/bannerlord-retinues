@@ -1,5 +1,3 @@
-using Retinues.Core.Game.Features.Stocks;
-using Retinues.Core.Game.Features.Unlocks;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
@@ -39,8 +37,8 @@ namespace Retinues.Core.Persistence.Item
             if (_itemData != null)
             {
                 // Clear existing items, if any
-                UnlocksManager.UnlockedItems.Clear();
-                StocksManager.Stocks.Clear();
+                WItem.UnlockedItems.Clear();
+                WItem.Stocks.Clear();
 
                 // Restore from save
                 ItemSave.Load(_itemData);

@@ -19,3 +19,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Fixes
 
 - fix hints not appearing on disabled buttons
+
+## Tests
+
+- test persistence of item kills for unlocks

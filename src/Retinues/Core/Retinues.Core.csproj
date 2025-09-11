@@ -6,99 +6,100 @@
     <AssemblyName>Retinues.Core</AssemblyName>
     <RootNamespace>Retinues.Core</RootNamespace>
     <!-- Path to the Bannerlord game installation directory -->
-    <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+    <!-- <BannerlordGameDir>C:/Program Files (x86)/Steam/steamapps/common/Mount &amp; Blade II Bannerlord</BannerlordGameDir> -->
+    <BannerlordGameDir>/home/soufian/workspace/Bannerlord</BannerlordGameDir>
     <!-- Output -->
-    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\..\'))</RepoRoot>
+    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../../'))</RepoRoot>
     <ModuleName>Retinues.Core</ModuleName>
-    <ModuleOutDir>$(RepoRoot)bin\Modules\$(ModuleName)</ModuleOutDir>
-    <BinOutDir>$(ModuleOutDir)\bin\Win64_Shipping_Client</BinOutDir>
-    <OutputPath>$(BinOutDir)\</OutputPath>
+    <ModuleOutDir>$(RepoRoot)bin/Modules/$(ModuleName)</ModuleOutDir>
+    <BinOutDir>$(ModuleOutDir)/bin/Win64_Shipping_Client</BinOutDir>
+    <OutputPath>$(BinOutDir)/</OutputPath>
     <!-- Set to true to copy into the game's Modules folder -->
     <DeployToGame>true</DeployToGame>
   </PropertyGroup>
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->
     <Reference Include="TaleWorlds.MountAndBlade">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.MountAndBlade.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.DotNet">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.DotNet.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.Core">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.Core.ViewModelCollection">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.ViewModelCollection.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.Core.ViewModelCollection.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.Library">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Library.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.Library.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.Engine">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.Engine.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.ScreenSystem">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.ScreenSystem.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.ScreenSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.CampaignSystem">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.CampaignSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.CampaignSystem.ViewModelCollection">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.ViewModelCollection.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.CampaignSystem.ViewModelCollection.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.PlayerServices">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.PlayerServices.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.PlayerServices.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.Localization">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.Localization.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.InputSystem">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.InputSystem.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.InputSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.ObjectSystem">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.ObjectSystem.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.ObjectSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.SaveSystem">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.SaveSystem.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.SaveSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <!-- Sandbox assemblies -->
     <Reference Include="SandBox">
-      <HintPath>$(BannerlordGameDir)\Modules\SandBox\bin\Win64_Shipping_Client\SandBox.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/Modules/SandBox/bin/Win64_Shipping_Client/SandBox.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="SandBox.GauntletUI">
-      <HintPath>$(BannerlordGameDir)\Modules\SandBox\bin\Win64_Shipping_Client\SandBox.GauntletUI.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/Modules/SandBox/bin/Win64_Shipping_Client/SandBox.GauntletUI.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="SandBox.ViewModelCollection">
-      <HintPath>$(BannerlordGameDir)\Modules\SandBox\bin\Win64_Shipping_Client\SandBox.ViewModelCollection.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/Modules/SandBox/bin/Win64_Shipping_Client/SandBox.ViewModelCollection.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="SandBox.View">
-      <HintPath>$(BannerlordGameDir)\Modules\SandBox\bin\Win64_Shipping_Client\SandBox.View.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/Modules/SandBox/bin/Win64_Shipping_Client/SandBox.View.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <!-- UIExtenderEx -->
     <Reference Include="Bannerlord.UIExtenderEx">
-      <HintPath>$(BannerlordGameDir)\Modules\Bannerlord.UIExtenderEx\bin\Win64_Shipping_Client\Bannerlord.UIExtenderEx.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/Modules/Bannerlord.UIExtenderEx/bin/Win64_Shipping_Client/Bannerlord.UIExtenderEx.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <!-- Harmony -->
     <Reference Include="0Harmony">
-      <HintPath>$(BannerlordGameDir)\Modules\Bannerlord.Harmony\bin\Win64_Shipping_Client\0Harmony.dll</HintPath>
+      <HintPath>$(BannerlordGameDir)/Modules/Bannerlord.Harmony/bin/Win64_Shipping_Client/0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
@@ -112,47 +113,47 @@
     <MakeDir Directories="$(ModuleOutDir)" />
     <Copy
       SourceFiles="SubModule.xml"
-      DestinationFiles="$(ModuleOutDir)\SubModule.xml"
+      DestinationFiles="$(ModuleOutDir)/SubModule.xml"
       SkipUnchangedFiles="true"
     />
     <Copy
       SourceFiles="UIExtenderDebug.xml"
-      DestinationFiles="$(ModuleOutDir)\UIExtenderDebug.xml"
+      DestinationFiles="$(ModuleOutDir)/UIExtenderDebug.xml"
       SkipUnchangedFiles="true"
     />
   </Target>
   <!-- Deploy to the game's Modules folder -->
   <Target Name="DeployToGameModules" AfterTargets="Build" Condition="'$(DeployToGame)'=='true'">
     <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
+      <GameModuleDir>$(BannerlordGameDir)/Modules/$(ModuleName)</GameModuleDir>
     </PropertyGroup>
-    <MakeDir Directories="$(GameModuleDir)\bin\Win64_Shipping_Client" />
+    <MakeDir Directories="$(GameModuleDir)/bin/Win64_Shipping_Client" />
     <Copy
       SourceFiles="$(TargetPath)"
-      DestinationFolder="$(GameModuleDir)\bin\Win64_Shipping_Client"
+      DestinationFolder="$(GameModuleDir)/bin/Win64_Shipping_Client"
       SkipUnchangedFiles="true"
     />
     <Copy
       SourceFiles="SubModule.xml"
-      DestinationFiles="$(GameModuleDir)\SubModule.xml"
+      DestinationFiles="$(GameModuleDir)/SubModule.xml"
       SkipUnchangedFiles="true"
     />
     <Copy
       SourceFiles="UIExtenderDebug.xml"
-      DestinationFiles="$(GameModuleDir)\UIExtenderDebug.xml"
+      DestinationFiles="$(GameModuleDir)/UIExtenderDebug.xml"
       SkipUnchangedFiles="true"
     />
     <Copy
       SourceFiles="../../../cfg/core.config.ini"
-      DestinationFiles="$(GameModuleDir)\config.ini"
+      DestinationFiles="$(GameModuleDir)/config.ini"
       SkipUnchangedFiles="true"
     />
     <ItemGroup>
-      <GuiFilesToCopy Include="$(ModuleOutDir)\GUI\**\*.*" />
+      <GuiFilesToCopy Include="$(ModuleOutDir)/GUI/**/*.*" />
     </ItemGroup>
     <Copy
       SourceFiles="@(GuiFilesToCopy)"
-      DestinationFiles="@(GuiFilesToCopy-&gt;'$(GameModuleDir)\GUI\%(RecursiveDir)%(Filename)%(Extension)')"
+      DestinationFiles="@(GuiFilesToCopy-&gt;'$(GameModuleDir)/GUI/%(RecursiveDir)%(Filename)%(Extension)')"
       SkipUnchangedFiles="true"
       Condition="@(GuiFilesToCopy-&gt;Count()) != 0"
     />

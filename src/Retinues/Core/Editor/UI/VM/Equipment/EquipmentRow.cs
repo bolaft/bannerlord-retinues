@@ -18,9 +18,6 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         // =========================================================================
 
         [DataSourceProperty]
-        public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
-
-        [DataSourceProperty]
         public string Name => Item?.Name ?? "Empty";
 
         [DataSourceProperty]
@@ -92,6 +89,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
 
         // =========================================================================
         // Action Bindings

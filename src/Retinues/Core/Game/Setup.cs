@@ -33,6 +33,7 @@ namespace Retinues.Core.Game
                 faction.Culture.RootElite,
                 eliteName
             );
+
             faction.RetinueBasic = CreateRetinueTroop(
                 faction,
                 faction.Culture.RootBasic,
@@ -95,7 +96,7 @@ namespace Retinues.Core.Game
                 item.Unlock();
 
             Log.Debug(
-                $"Unlocked {UnlocksManager.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops"
+                $"Unlocked {WItem.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops"
             );
         }
 
@@ -112,8 +113,8 @@ namespace Retinues.Core.Game
 
             if (original.UpgradeTargets != null)
                 foreach (var child in original.UpgradeTargets)
-                foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone))
-                    yield return descendant;
+                    foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone))
+                        yield return descendant;
         }
     }
 }

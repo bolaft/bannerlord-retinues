@@ -1,6 +1,4 @@
 using System.Linq;
-using Retinues.Core.Game.Features.Stocks;
-using Retinues.Core.Game.Features.Unlocks;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -17,8 +15,8 @@ namespace Retinues.Core.Persistence.Item
         {
             return new ItemSaveData
             {
-                UnlockedItemIds = [.. UnlocksManager.UnlockedItems.Select(item => item.StringId)],
-                StockedItems = StocksManager.Stocks.ToDictionary(
+                UnlockedItemIds = [.. WItem.UnlockedItems.Select(item => item.StringId)],
+                StockedItems = WItem.Stocks.ToDictionary(
                     kv => kv.Key.StringId,
                     kv => kv.Value
                 ),
@@ -32,8 +30,8 @@ namespace Retinues.Core.Persistence.Item
         public static void Load(ItemSaveData data)
         {
             // Clear existing unlocked items
-            UnlocksManager.UnlockedItems.Clear();
-            StocksManager.Stocks.Clear();
+            WItem.UnlockedItems.Clear();
+            WItem.Stocks.Clear();
 
             // Restore unlocked items
             foreach (var id in data.UnlockedItemIds)
@@ -48,7 +46,7 @@ namespace Retinues.Core.Persistence.Item
             {
                 var item = MBObjectManager.Instance.GetObject<ItemObject>(kv.Key);
                 if (item != null)
-                    StocksManager.SetStock(new WItem(item), kv.Value);
+                    WItem.SetStock(new WItem(item), kv.Value);
             }
         }
     }

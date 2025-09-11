@@ -9,33 +9,6 @@ namespace Retinues.Core.Editor
     public static class TroopRules
     {
         // ================================================================
-        // Retinues
-        // ================================================================
-
-        public static int MaxEliteRetinue =>
-            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
-
-        public static int MaxBasicRetinue =>
-            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
-
-        public static int ConversionCostPerUnit(WCharacter retinue)
-        {
-            int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
-            return tier * baseCost;
-        }
-
-        public static int RankUpCost(WCharacter retinue)
-        {
-            int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueRankUpCostPerTier");
-            return tier * baseCost;
-        }
-
-        public static int RetinueCapFor(WCharacter retinue) =>
-            retinue.IsElite ? MaxEliteRetinue : MaxBasicRetinue;
-
-        // ================================================================
         // All Troops
         // ================================================================
 
@@ -137,5 +110,32 @@ namespace Retinues.Core.Editor
 
             return true;
         }
+
+        // ================================================================
+        // Retinues
+        // ================================================================
+
+        public static int MaxEliteRetinue =>
+            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+
+        public static int MaxBasicRetinue =>
+            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+
+        public static int ConversionCostPerUnit(WCharacter retinue)
+        {
+            int tier = retinue?.Tier ?? 1;
+            int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
+            return tier * baseCost;
+        }
+
+        public static int RankUpCost(WCharacter retinue)
+        {
+            int tier = retinue?.Tier ?? 1;
+            int baseCost = Config.GetOption<int>("RetinueRankUpCostPerTier");
+            return tier * baseCost;
+        }
+
+        public static int RetinueCapFor(WCharacter retinue) =>
+            retinue.IsElite ? MaxEliteRetinue : MaxBasicRetinue;
     }
 }

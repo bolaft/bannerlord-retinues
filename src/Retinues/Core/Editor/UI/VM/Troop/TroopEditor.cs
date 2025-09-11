@@ -28,7 +28,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             public WCharacter From;
             public WCharacter To;
             public int Amount;
-            public int CostPer => CostPerUnit(From, To);
+            public int CostPer => TroopRules.ConversionCostPerUnit(To);
             public int TotalCost => Amount * CostPer;
             public string Key => $"{From?.StringId}->{To?.StringId}";
         }
@@ -36,21 +36,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // =========================================================================
         // Data Bindings
         // =========================================================================
-
-        [DataSourceProperty]
-        public bool IsRetinue => SelectedTroop.IsRetinue;
-
-        [DataSourceProperty]
-        public bool IsRetinueIsNotMaxTier => !IsMaxTier && IsRetinue;
-
-        [DataSourceProperty]
-        public bool IsRegular => !SelectedTroop.IsRetinue;
-
-        [DataSourceProperty]
-        public int TroopCount => GetVirtualCount(SelectedTroop);
-
-        [DataSourceProperty]
-        public int RetinueCap => TroopRules.RetinueCapFor(SelectedTroop);
 
         [DataSourceProperty]
         public string Name => SelectedTroop?.Name;
@@ -77,19 +62,29 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public string Gender => SelectedTroop != null && SelectedTroop.IsFemale ? "Female" : "Male";
 
-        [DataSourceProperty]
-        public int SkillTotal =>
-            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop.Tier) : 0;
+        // -------------------------
+        // Flags
+        // -------------------------
 
         [DataSourceProperty]
-        public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
+        public bool IsRetinue => SelectedTroop.IsRetinue;
 
         [DataSourceProperty]
-        public bool CanRankUp =>
-            IsRetinue && TroopRules.SkillPointsLeft(SelectedTroop) == 0 && !SelectedTroop.IsMaxTier;
+        public bool IsRetinueIsNotMaxTier => !IsMaxTier && IsRetinue;
+
+        [DataSourceProperty]
+        public bool IsRegular => !SelectedTroop.IsRetinue;
 
         [DataSourceProperty]
         public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false;
+
+        // -------------------------
+        // Upgrades
+        // -------------------------
+
+        [DataSourceProperty]
+        public bool CanUpgrade =>
+            SelectedTroop != null && TroopRules.CanUpgradeTroop(SelectedTroop);
 
         [DataSourceProperty]
         public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets
@@ -106,21 +101,52 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
         }
 
+        // -------------------------
+        // Conversion
+        // -------------------------
+
+        [DataSourceProperty]
+        public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
+
+        [DataSourceProperty]
+        public bool CanRankUp =>
+            IsRetinue && TroopRules.SkillPointsLeft(SelectedTroop) == 0 && !SelectedTroop.IsMaxTier;
+
+        [DataSourceProperty]
+        public bool HasPendingConversions => _staged.Count > 0;
+
+        [DataSourceProperty]
+        public int PendingTotalCost => _staged.Values.Sum(o => o.TotalCost);
+
+        [DataSourceProperty]
+        public int PendingTotalCount => _staged.Values.Sum(o => o.Amount);
+
+        [DataSourceProperty]
+        public int TroopCount => GetVirtualCount(SelectedTroop);
+
+        [DataSourceProperty]
+        public int RetinueCap => TroopRules.RetinueCapFor(SelectedTroop);
+
+        // -------------------------
+        // Skills
+        // -------------------------
+
+        [DataSourceProperty]
+        public int SkillTotal =>
+            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop.Tier) : 0;
+
+        [DataSourceProperty]
+        public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
+
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow1 => _skillsRow1;
 
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
 
-        [DataSourceProperty]
-        public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
-
-        [DataSourceProperty]
-        public bool CanUpgrade =>
-            SelectedTroop != null && TroopRules.CanUpgradeTroop(SelectedTroop);
-
-        [DataSourceProperty]
-        public bool CanRecruit => true;
+        // -------------------------
+        // Removal
+        // -------------------------
 
         [DataSourceProperty]
         public bool CanRemove
@@ -138,6 +164,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
         }
 
+
         [DataSourceProperty]
         public BasicTooltipViewModel RemoveButtonHint
         {
@@ -150,67 +177,13 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
         }
 
-        [DataSourceProperty]
-        public bool HasPendingConversions => _staged.Count > 0;
-
-        [DataSourceProperty]
-        public int PendingTotalCost => _staged.Values.Sum(o => o.TotalCost);
-
-        [DataSourceProperty]
-        public int PendingTotalCount => _staged.Values.Sum(o => o.Amount);
-
         // =========================================================================
         // Action Bindings
         // =========================================================================
 
-        [DataSourceMethod]
-        public void ExecuteRankUp()
-        {
-            if (SelectedTroop == null)
-                return;
-            if (!CanRankUp)
-                return;
-
-            int cost = TroopRules.RankUpCost(SelectedTroop);
-
-            if (Player.Gold < cost)
-            {
-                InformationManager.ShowInquiry(
-                    new InquiryData(
-                        titleText: "Not enough gold",
-                        text: $"You do not have enough gold to rank up {SelectedTroop.Name}.\n\nRank up cost: {cost} gold.",
-                        isAffirmativeOptionShown: false,
-                        isNegativeOptionShown: true,
-                        affirmativeText: null,
-                        negativeText: "OK",
-                        affirmativeAction: null,
-                        negativeAction: () => { }
-                    )
-                );
-            }
-            else
-            {
-                InformationManager.ShowInquiry(
-                    new InquiryData(
-                        titleText: "Rank Up",
-                        text: $"Increase {SelectedTroop.Name}'s tier?\n\nIt will cost you {cost} gold.",
-                        isAffirmativeOptionShown: true,
-                        isNegativeOptionShown: true,
-                        affirmativeText: "Confirm",
-                        negativeText: "Cancel",
-                        affirmativeAction: () =>
-                        {
-                            TroopManager.RankUp(SelectedTroop);
-
-                            // UI updates
-                            Refresh();
-                            _screen.TroopList.SelectedRow.Refresh();
-                        },
-                        negativeAction: () => { }
-                    )
-                );
-            }
-        }
+        // -------------------------
+        // Generic
+        // -------------------------
 
         [DataSourceMethod]
         public void ExecuteRename()
@@ -309,6 +282,59 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             );
         }
 
+        // -------------------------
+        // Retinue
+        // -------------------------
+
+        [DataSourceMethod]
+        public void ExecuteRankUp()
+        {
+            if (SelectedTroop == null)
+                return;
+            if (!CanRankUp)
+                return;
+
+            int cost = TroopRules.RankUpCost(SelectedTroop);
+
+            if (Player.Gold < cost)
+            {
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: "Not enough gold",
+                        text: $"You do not have enough gold to rank up {SelectedTroop.Name}.\n\nRank up cost: {cost} gold.",
+                        isAffirmativeOptionShown: false,
+                        isNegativeOptionShown: true,
+                        affirmativeText: null,
+                        negativeText: "OK",
+                        affirmativeAction: null,
+                        negativeAction: () => { }
+                    )
+                );
+            }
+            else
+            {
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: "Rank Up",
+                        text: $"Increase {SelectedTroop.Name}'s tier?\n\nIt will cost you {cost} gold.",
+                        isAffirmativeOptionShown: true,
+                        isNegativeOptionShown: true,
+                        affirmativeText: "Confirm",
+                        negativeText: "Cancel",
+                        affirmativeAction: () =>
+                        {
+                            TroopManager.RankUp(SelectedTroop);
+
+                            // UI updates
+                            Refresh();
+                            _screen.TroopList.SelectedRow.Refresh();
+                        },
+                        negativeAction: () => { }
+                    )
+                );
+            }
+        }
+
         [DataSourceMethod]
         public void ExecuteApplyConversions()
         {
@@ -334,8 +360,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     continue;
 
                 // Deduct gold for recruit-to-retinue only
-                int costPer = CostPerUnit(order.From, order.To);
-                int cost = amount * costPer;
+                int cost = amount * order.CostPer;
                 if (cost > 0)
                 {
                     if (cost > Player.Gold)
@@ -422,11 +447,19 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Internals
         // =========================================================================
 
+        // -------------------------
+        // Generic
+        // -------------------------
+
         private string CantRemoveTroopExplanation =>
             SelectedTroop?.Parent is null ? "Root troops cannot be removed."
             : SelectedTroop?.UpgradeTargets.Count() > 0
                 ? "Troops that have upgrade targets cannot be removed."
             : string.Empty;
+
+        // -------------------------
+        // Skills
+        // -------------------------
 
         private void RebuildSkillRows()
         {
@@ -444,6 +477,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             foreach (var s in SelectedTroop.Skills.Skip(4).Take(4))
                 _skillsRow2.Add(new TroopSkillVM(s.Key, SelectedTroop, this));
         }
+
+        // -------------------------
+        // Retinue
+        // -------------------------
 
         private void RebuildRetinueRows()
         {
@@ -497,7 +534,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 availableFrom = System.Math.Min(availableFrom, capLeft);
 
                 // also respect gold virtually
-                int costPer = CostPerUnit(from, to);
+                int costPer = TroopRules.ConversionCostPerUnit(to);
                 if (costPer > 0)
                 {
                     int alreadyCost = PendingTotalCost;
@@ -537,12 +574,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
             foreach (var row in _conversionRows)
                 row.Refresh();
-        }
-
-        internal static int CostPerUnit(WCharacter from, WCharacter to)
-        {
-            // Only charge when the result is a retinue (release is free; change if you want refund/fee).
-            return to.IsRetinue ? TroopRules.ConversionCostPerUnit(to) : 0;
         }
     }
 }

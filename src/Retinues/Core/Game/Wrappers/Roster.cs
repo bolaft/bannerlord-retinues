@@ -7,7 +7,7 @@ namespace Retinues.Core.Game.Wrappers
     public class WRoster(TroopRoster roster, WParty party)
     {
         // =========================================================================
-        // Base
+        // Accessors
         // =========================================================================
 
         private readonly TroopRoster _roster = roster;
@@ -19,7 +19,7 @@ namespace Retinues.Core.Game.Wrappers
         public WParty Party => _party;
 
         // ================================================================
-        // Troops
+        // Elements
         // ================================================================
 
         public IEnumerable<WRosterElement> Elements
@@ -34,6 +34,10 @@ namespace Retinues.Core.Game.Wrappers
                 }
             }
         }
+
+        // ================================================================
+        // Troops
+        // ================================================================
 
         public int Count => _roster.Count;
 

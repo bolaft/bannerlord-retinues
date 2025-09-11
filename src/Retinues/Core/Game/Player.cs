@@ -10,10 +10,6 @@ namespace Retinues.Core.Game
         // Members
         // =========================================================================
 
-        public static string Name => Hero.MainHero.Name.ToString();
-
-        public static bool IsFemale => Hero.MainHero.IsFemale;
-
         private static WFaction _clan;
 
         public static WFaction Clan
@@ -46,6 +42,14 @@ namespace Retinues.Core.Game
                 return _party;
             }
         }
+
+        // =========================================================================
+        // Attributes
+        // =========================================================================
+
+        public static string Name => Hero.MainHero.Name.ToString();
+
+        public static bool IsFemale => Hero.MainHero.IsFemale;
 
         // =========================================================================
         // Renown

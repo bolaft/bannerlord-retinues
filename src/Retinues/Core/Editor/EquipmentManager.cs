@@ -31,7 +31,7 @@ namespace Retinues.Core.Editor
 
                     if (Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier))
                         continue; // Skip items that exceed the allowed tier difference
-                    else if (UnlocksManager.UnlockedItems.Contains(wItem))
+                    else if (wItem.IsUnlocked)
                         items.Add(wItem); // Unlocked items
                     else if (Config.GetOption<bool>("UnlockFromCulture"))
                         if (item.Culture?.StringId == faction?.Culture?.StringId)

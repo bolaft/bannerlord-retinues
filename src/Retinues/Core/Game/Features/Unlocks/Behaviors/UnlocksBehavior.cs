@@ -14,18 +14,18 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 {
     public sealed class UnlocksBehavior : CampaignBehaviorBase
     {
-        // persistent total defeats per item id
+        // Persistent total defeats per item id
         private Dictionary<string, int> _defeatsByItemId = [];
 
-        // transient: items newly unlocked this battle (to show in post-battle UI)
+        // Transient: items newly unlocked this battle (to show in post-battle UI)
         private readonly List<ItemObject> _newlyUnlockedThisBattle = [];
 
         public override void RegisterEvents()
         {
-            // install our mission collector each time a mission starts
+            // Install our mission collector each time a mission starts
             CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
 
-            // good time to show a result summary (after map event concludes)
+            // Good time to show a result summary (after map event concludes)
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, OnMapEventEnded);
         }
 

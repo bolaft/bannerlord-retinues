@@ -3,8 +3,6 @@ using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Features.Stocks;
-using Retinues.Core.Game.Features.Unlocks;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
@@ -92,9 +90,9 @@ namespace Retinues.Core
             // Clear vanilla string id map
             WCharacter.VanillaStringIdMap.Clear();
             // Clear item unlocks
-            UnlocksManager.UnlockedItems.Clear();
+            WItem.UnlockedItems.Clear();
             // Clear item stocks
-            StocksManager.Stocks.Clear();
+            WItem.Stocks.Clear();
         }
     }
 }

@@ -8,11 +8,13 @@ namespace Retinues.Core.Game.Wrappers
 {
     public class WParty(MobileParty party) : StringIdentifier
     {
+        // ================================================================
+        // Accessors
+        // ================================================================
+
         private readonly MobileParty _party = party;
 
         public MobileParty Base => _party;
-
-        public override string StringId => _party.StringId;
 
         private WRoster _memberRoster;
 
@@ -36,8 +38,10 @@ namespace Retinues.Core.Game.Wrappers
         }
 
         // ================================================================
-        // Misc
+        // Properties
         // ================================================================
+
+        public override string StringId => _party.StringId;
 
         public int PartySizeLimit => _party.Party.PartySizeLimit;
     }
