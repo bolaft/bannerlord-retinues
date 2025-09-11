@@ -131,6 +131,30 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
+            // Skills
+
+            AddOption(
+                section: "Skills",
+                name: "Base Skill XP Cost",
+                key: "BaseSkillXpCost",
+                hint: "Base XP cost for increasing a skill.",
+                @default: 100,
+                type: typeof(int),
+                minValue: 0,
+                maxValue: 1000
+            );
+
+            AddOption(
+                section: "Skills",
+                name: "Skill XP Cost Per Point",
+                key: "SkillXpCostPerPoint",
+                hint: "Scalable XP cost for each point of skill increase.",
+                @default: 1,
+                type: typeof(int),
+                minValue: 0,
+                maxValue: 10
+            );
+
             // Unlocks
 
             AddOption(

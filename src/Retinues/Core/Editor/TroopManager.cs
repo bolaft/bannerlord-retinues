@@ -51,7 +51,7 @@ namespace Retinues.Core.Editor
             if (delta > 0)
             {
                 // Cost to go from current -> current + 1
-                int cost = TroopRules.SkillPointXpCost(troop, skill, current);
+                int cost = TroopRules.SkillPointXpCost(current);
                 if (!TroopXpService.TrySpend(troop, cost))
                     return; // Not enough XP; a CanIncrement gate should already prevent this
                 troop.SetSkill(skill, current + 1);
@@ -63,7 +63,7 @@ namespace Retinues.Core.Editor
                 if (newValue < 0) return;
 
                 // Refund the cost of the point we're removing (i.e., the cost that was paid to go from newValue -> newValue + 1)
-                int refund = TroopRules.SkillPointXpCost(troop, skill, newValue);
+                int refund = TroopRules.SkillPointXpCost(newValue);
                 troop.SetSkill(skill, newValue);
                 TroopXpService.Refund(troop, refund);
             }

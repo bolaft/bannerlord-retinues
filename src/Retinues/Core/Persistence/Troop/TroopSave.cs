@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -17,9 +16,6 @@ namespace Retinues.Core.Persistence.Troop
 
         public static TroopSaveData Save(WCharacter character)
         {
-            string posStr = string.Join(".", character.PositionInTree);
-            Log.Debug($"Saving troop {character.Name} ({posStr})");
-
             var data = new TroopSaveData
             {
                 StringId = character.StringId,
@@ -92,8 +88,6 @@ namespace Retinues.Core.Persistence.Troop
             else
                 faction.BasicTroops.Add(clone);
 
-            string posStr = string.Join(".", clone.PositionInTree);
-            Log.Debug($"Loaded troop {clone.Name} ({posStr})");
             // Return the created troop
             return clone;
         }

@@ -72,30 +72,57 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             else if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))
                 repeat = 5; // Shift = 5
 
-            for (int i = 0; i < repeat; i++)
+            void doModify()
             {
-                if (delta > 0 && !CanIncrement)
-                    break;
-                if (delta < 0 && !CanDecrement)
-                    break;
+                for (int i = 0; i < repeat; i++)
+                {
+                    if (delta > 0 && !CanIncrement)
+                        break;
+                    if (delta < 0 && !CanDecrement)
+                        break;
 
-                TroopManager.ModifySkill(_troop, _skill, delta);
+                    TroopManager.ModifySkill(_troop, _skill, delta);
+                }
+
+                // Refresh value
+                OnPropertyChanged(nameof(Value));
+
+                // Refresh editor counters
+                _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
+                _editor.OnPropertyChanged(nameof(_editor.SkillPointsUsed));
+                _editor.OnPropertyChanged(nameof(_editor.CanRankUp));
+                _editor.OnPropertyChanged(nameof(_editor.AvailableTroopXp));
+
+                // Refresh all skills buttons
+                foreach (var s in _editor.SkillsRow1.Concat(_editor.SkillsRow2))
+                {
+                    s.OnPropertyChanged(nameof(s.CanIncrement));
+                    s.OnPropertyChanged(nameof(s.CanDecrement));
+                }
             }
 
-            // Refresh value
-            OnPropertyChanged(nameof(Value));
-
-            // Refresh editor counters
-            _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
-            _editor.OnPropertyChanged(nameof(_editor.SkillPointsUsed));
-            _editor.OnPropertyChanged(nameof(_editor.CanRankUp));
-            _editor.OnPropertyChanged(nameof(_editor.AvailableTroopXp));
-
-            // Refresh all skills buttons
-            foreach (var s in _editor.SkillsRow1.Concat(_editor.SkillsRow2))
+            // TODO: add a check for doctrine once retraining refunds are unlocked
+            if (delta < 0 && !_editor.PlayerWarnedAboutRetraining)
             {
-                s.OnPropertyChanged(nameof(s.CanIncrement));
-                s.OnPropertyChanged(nameof(s.CanDecrement));
+                _editor.PlayerWarnedAboutRetraining = true;
+
+                // Warn the player that decrementing skills may require retraining
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: "Warning",
+                        text: "Lowering this troop's skill will not refund any experience points. Continue anyway?",
+                        isAffirmativeOptionShown: true,
+                        isNegativeOptionShown: true,
+                        affirmativeText: "Continue",
+                        negativeText: "Cancel",
+                        affirmativeAction: () => { doModify(); },
+                        negativeAction: () => { }
+                    )
+                );
+            }
+            else
+            {
+                doModify();
             }
         }
     }

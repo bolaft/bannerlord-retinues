@@ -41,7 +41,7 @@ namespace Retinues.Core.Game.Wrappers
         public bool IsVanilla => Faction is null;
         public bool IsCustom => !IsVanilla;
 
-        public static Dictionary<string, string> VanillaStringIdMap = new();
+        public static Dictionary<string, string> VanillaStringIdMap = [];
 
         // Maps a custom troop's StringId back to its vanilla origin.
         public string VanillaStringId
@@ -274,7 +274,7 @@ namespace Retinues.Core.Game.Wrappers
         // Skills
         // =========================================================================
 
-        private static readonly SkillObject[] CoreSkills =
+        private readonly SkillObject[] CoreSkills =
         [
             DefaultSkills.Athletics,
             DefaultSkills.Riding,
@@ -288,13 +288,33 @@ namespace Retinues.Core.Game.Wrappers
 
         public Dictionary<SkillObject, int> Skills
         {
-            get => CoreSkills.ToDictionary(skill => skill, GetSkill);
+            get
+            {
+                try
+                {
+                    return CoreSkills.ToDictionary(skill => skill, GetSkill);
+                }
+                catch (Exception ex)
+                {
+                    // Handle or log the exception as needed
+                    Log.Exception(ex);
+                    return [];
+                }
+            }
             set
             {
-                foreach (var skill in CoreSkills)
+                try
                 {
-                    var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
-                    SetSkill(skill, v);
+                    foreach (var skill in CoreSkills)
+                    {
+                        var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
+                        SetSkill(skill, v);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle or log the exception as needed
+                    Log.Exception(ex);
                 }
             }
         }
@@ -371,14 +391,14 @@ namespace Retinues.Core.Game.Wrappers
             if (UpgradeTargets.Any(wc => wc.StringId == target.StringId))
                 return;
 
-            var list = UpgradeTargets?.ToList() ?? new List<WCharacter>();
+            var list = UpgradeTargets?.ToList() ?? [];
             list.Add(target);
             Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", ToCharacterArray(list));
         }
 
         public void RemoveUpgradeTarget(WCharacter target)
         {
-            var list = UpgradeTargets?.ToList() ?? new List<WCharacter>();
+            var list = UpgradeTargets?.ToList() ?? [];
             list.RemoveAll(wc => wc.StringId == target.StringId);
             Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", ToCharacterArray(list));
         }

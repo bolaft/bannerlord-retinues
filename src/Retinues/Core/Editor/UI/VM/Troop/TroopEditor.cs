@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
@@ -37,6 +38,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // =========================================================================
         // Data Bindings
         // =========================================================================
+
+        [DataSourceProperty]
+        public bool TroopXpIsEnabled => Config.GetOption<int>("BaseSkillXpCost") > 0 || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
 
         [DataSourceProperty]
         public string Name => SelectedTroop?.Name;
@@ -314,7 +318,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     )
                 );
             }
-            else if (TroopXpService.GetPool(SelectedTroop) < cost)
+            else if (TroopXpService.GetPool(SelectedTroop) < cost && TroopXpIsEnabled)
             {
                 InformationManager.ShowInquiry(
                     new InquiryData(
@@ -331,10 +335,14 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
             else
             {
+                string text = TroopXpIsEnabled
+                    ? $"It will cost you {cost} gold and {cost} XP."
+                    : $"It will cost you {cost} gold.";
+
                 InformationManager.ShowInquiry(
                     new InquiryData(
                         titleText: "Rank Up",
-                        text: $"Increase {SelectedTroop.Name}'s tier?\n\nIt will cost you {cost} gold and {cost} XP.",
+                        text: $"Increase {SelectedTroop.Name}'s tier?\n\n{text}",
                         isAffirmativeOptionShown: true,
                         isNegativeOptionShown: true,
                         affirmativeText: "Confirm",
@@ -373,7 +381,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 // Clamp to current max (no virtuals now; roster will change as we go)
                 int maxNow = TroopManager.GetMaxConvertible(order.From, order.To);
-                int amount = System.Math.Min(order.Amount, maxNow);
+                int amount = Math.Min(order.Amount, maxNow);
                 if (amount <= 0)
                     continue;
 
@@ -425,12 +433,16 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Public API
         // =========================================================================
 
+        public bool PlayerWarnedAboutRetraining { get; set; } = false;
+
         public void Refresh()
         {
             Log.Debug("Refreshing.");
 
             RebuildSkillRows();
             RebuildRetinueRows();
+
+            OnPropertyChanged(nameof(TroopXpIsEnabled));
 
             OnPropertyChanged(nameof(TroopCount));
             OnPropertyChanged(nameof(RetinueCap));
@@ -549,27 +561,27 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 int cap = TroopRules.RetinueCapFor(to);
                 int currentTo = GetVirtualCount(to);
-                int capLeft = System.Math.Max(0, cap - currentTo);
-                availableFrom = System.Math.Min(availableFrom, capLeft);
+                int capLeft = Math.Max(0, cap - currentTo);
+                availableFrom = Math.Min(availableFrom, capLeft);
 
                 // also respect gold virtually
                 int costPer = TroopRules.ConversionCostPerUnit(to);
                 if (costPer > 0)
                 {
                     int alreadyCost = PendingTotalCost;
-                    int goldLeft = System.Math.Max(0, Player.Gold - alreadyCost);
+                    int goldLeft = Math.Max(0, Player.Gold - alreadyCost);
                     int byGold = costPer > 0 ? goldLeft / costPer : availableFrom;
-                    availableFrom = System.Math.Min(availableFrom, byGold);
+                    availableFrom = Math.Min(availableFrom, byGold);
                 }
             }
 
-            return System.Math.Max(0, availableFrom);
+            return Math.Max(0, availableFrom);
         }
 
         internal void StageConversion(WCharacter from, WCharacter to, int amountRequested)
         {
             int max = GetMaxStageable(from, to);
-            int amount = System.Math.Min(amountRequested, max);
+            int amount = Math.Min(amountRequested, max);
             if (amount <= 0)
                 return;
 
