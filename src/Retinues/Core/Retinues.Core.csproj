@@ -6,8 +6,8 @@
     <AssemblyName>Retinues.Core</AssemblyName>
     <RootNamespace>Retinues.Core</RootNamespace>
     <!-- Path to the Bannerlord game installation directory -->
-    <!-- <BannerlordGameDir>C:/Program Files (x86)/Steam/steamapps/common/Mount &amp; Blade II Bannerlord</BannerlordGameDir> -->
-    <BannerlordGameDir>/home/soufian/workspace/Bannerlord</BannerlordGameDir>
+    <BannerlordGameDir>C:/Program Files (x86)/Steam/steamapps/common/Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+    <!-- <BannerlordGameDir>/home/soufian/workspace/Bannerlord</BannerlordGameDir> -->
     <!-- Output -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../../'))</RepoRoot>
     <ModuleName>Retinues.Core</ModuleName>
