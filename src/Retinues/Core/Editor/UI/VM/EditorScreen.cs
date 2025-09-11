@@ -1,8 +1,11 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Core.Editor.UI.Helpers;
 using Retinues.Core.Editor.UI.VM.Equipment;
 using Retinues.Core.Editor.UI.VM.Troop;
+using Retinues.Core.Editor.UI.VM.Tech;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Tech.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -20,6 +23,8 @@ namespace Retinues.Core.Editor.UI.VM
         private bool _isTroopsSelected;
 
         private readonly ITroopScreen _screen;
+
+        private TechTreeVM _techTree;
 
         private EditorMode _editorMode = EditorMode.Default;
 
@@ -53,6 +58,7 @@ namespace Retinues.Core.Editor.UI.VM
         {
             Default = 0,
             Equipment = 1,
+            Doctrines = 2,
         }
 
         // =========================================================================
@@ -101,6 +107,7 @@ namespace Retinues.Core.Editor.UI.VM
                     SwitchMode(EditorMode.Default);
                 OnPropertyChanged(nameof(IsDefaultMode));
                 OnPropertyChanged(nameof(IsEquipmentMode));
+                OnPropertyChanged(nameof(IsDoctrinesMode));
             }
         }
 
@@ -114,8 +121,42 @@ namespace Retinues.Core.Editor.UI.VM
                     SwitchMode(EditorMode.Equipment);
                 OnPropertyChanged(nameof(IsEquipmentMode));
                 OnPropertyChanged(nameof(IsDefaultMode));
+                OnPropertyChanged(nameof(IsDoctrinesMode));
             }
         }
+
+        [DataSourceProperty] public bool IsDoctrinesMode
+        {
+            get => _editorMode == EditorMode.Doctrines;
+            private set
+            {
+                if (value && _editorMode != EditorMode.Doctrines)
+                    SwitchMode(EditorMode.Doctrines);
+                OnPropertyChanged(nameof(IsEquipmentMode));
+                OnPropertyChanged(nameof(IsDefaultMode));
+                OnPropertyChanged(nameof(IsDoctrinesMode));
+            }
+        }
+
+        [DataSourceProperty]
+        public TechTreeVM TechTree
+        {
+            get
+            {
+                if (_techTree != null)
+                    return _techTree;
+
+                _techTree = new TechTreeVM(
+                    repo: new InMemoryDoctrineRepository
+                    {
+                        _defs = Doctrines.BuildStarterDoctrinesForFaction(Faction) // you populate this list
+                    },
+                    feats: new FeatServiceBehavior() // or a stub for now
+                );
+                return _techTree; 
+            }
+        }
+
 
         [DataSourceProperty]
         public CharacterViewModel Model => SelectedTroop?.Model;
@@ -132,6 +173,9 @@ namespace Retinues.Core.Editor.UI.VM
 
         [DataSourceMethod]
         public void ExecuteSwitchToEquipment() => SwitchMode(EditorMode.Equipment);
+
+        [DataSourceMethod]
+        public void ExecuteSwitchToDoctrines() => SwitchMode(EditorMode.Doctrines);
 
         [DataSourceMethod]
         public void ExecuteSelectTroops()
@@ -164,6 +208,7 @@ namespace Retinues.Core.Editor.UI.VM
                 SwitchFaction(Player.Kingdom);
             else
                 SwitchFaction(Player.Clan);
+
         }
 
         // =========================================================================
@@ -176,25 +221,21 @@ namespace Retinues.Core.Editor.UI.VM
 
         public void SwitchMode(EditorMode mode)
         {
-            if (_editorMode == mode)
-                return;
-
+            if (_editorMode == mode) return;
             _editorMode = mode;
 
-            // Refresh only when switching to Equipment mode
             if (mode == EditorMode.Equipment)
             {
                 EquipmentEditor.Refresh();
                 EquipmentList.Refresh();
             }
 
-            // Button updates
             TroopEditor.OnPropertyChanged(nameof(TroopEditor.CanRemove));
             EquipmentEditor.OnPropertyChanged(nameof(EquipmentEditor.CanUnequip));
 
-            // UI updates
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
+            OnPropertyChanged(nameof(IsDoctrinesMode)); // NEW
         }
 
         public void SwitchFaction(WFaction faction)

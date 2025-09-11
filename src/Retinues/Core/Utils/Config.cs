@@ -267,7 +267,7 @@ namespace Retinues.Core.Utils
                     )
                         continue;
 
-                    var parts = trimmed.Split(new[] { '=' }, 2);
+                    var parts = trimmed.Split(['='], 2);
                     var key = parts[0].Trim();
                     var raw = parts[1].Trim();
 
