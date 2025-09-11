@@ -49,7 +49,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
         -> have a troop type wearing a full set of items of their culture get 100 kills in battle
         -> defeat a monarch of a different culture in battle
     - Clanic Traditions - 10% rebate on items of the clan's culture
-        -> recruit 100 custom clan troops
+        -> own a smithy in a fief of your clan's culture for 30 days
         -> win a battle in which your companions get 50+ kills
         -> have a companion win a battle against 100+ enemies as a party leader
     - Royal Patronage - 10% rebate on items of the kingdom's culture
@@ -64,23 +64,23 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
     - Iron Discipline - +5% skill cap
         -> upgrade 100 basic troops to max tier
         -> defeat an bandit leader in single combat
-        -> 
+        -> defeat a party twice your size using mostly custom troops
     - Steadfast Soldiers - +5% skill points
         -> max out the skills of 10 custom troops
-        -> 
-        -> 
+        -> win a siege defense using mostly custom troops
+        -> defend a village from a raid using only custom troops
     - Masters-At-Arms - +1 upgrade branch for elite troops
         -> upgrade 100 elite troops to max tier
         -> defeat an enemy lord using only elite troops
-        -> 
+        -> get 1000 kills with elite troops
     - Adaptive Training - XP refunds for retraining
-        -> have at least one troop reach level 200 in each skill 
-        -> 
-        -> 
+        -> for each skill, have at least one troop reach level 200
+        -> win an uphill battle using a party evenly split among infantry, archers and cavalry custom troops
+        -> get 50 KOs in the arena practice fights
 - RETINUES
     - Indomitable - +25% retinue health
         -> have your retinues defeat 100 enemy troops of equivalent tier without a single casualty
-        -> join a siege as a defender with a full-strength retinue and win
+        -> join an ongoing siege as a defender with a full-strength retinue and win
         -> have a retinue-only party win 3 defensive battles in a row
     - Bound by Honor - +20% retinue morale
         -> refuse payment for mercenary work three times.
