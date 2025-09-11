@@ -80,8 +80,6 @@ namespace Retinues.Core.Game.Features.Xp
 
                     var delta = now - last;
 
-                    Log.Info($"[XP] {id}: now={now}, last={last}, delta={delta}");
-
                     // Credit 5% of the delta (at least 1 if there was any positive delta)
                     int toAdd = delta > 0 ? System.Math.Max(1, delta / 20) : 0;
                     if (toAdd > 0)
