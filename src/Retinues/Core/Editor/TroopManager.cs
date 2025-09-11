@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
 
@@ -43,7 +44,29 @@ namespace Retinues.Core.Editor
 
         public static void ModifySkill(WCharacter troop, SkillObject skill, int delta)
         {
-            troop.SetSkill(skill, troop.GetSkill(skill) + delta);
+            if (troop == null || skill == null || delta == 0) return;
+
+            int current = troop.GetSkill(skill);
+
+            if (delta > 0)
+            {
+                // Cost to go from current -> current + 1
+                int cost = TroopRules.SkillPointXpCost(troop, skill, current);
+                if (!TroopXpService.TrySpend(troop, cost))
+                    return; // Not enough XP; a CanIncrement gate should already prevent this
+                troop.SetSkill(skill, current + 1);
+            }
+            else // delta < 0
+            {
+                // Respect your existing "CanDecrement" constraints upstream
+                int newValue = current - 1;
+                if (newValue < 0) return;
+
+                // Refund the cost of the point we're removing (i.e., the cost that was paid to go from newValue -> newValue + 1)
+                int refund = TroopRules.SkillPointXpCost(troop, skill, newValue);
+                troop.SetSkill(skill, newValue);
+                TroopXpService.Refund(troop, refund);
+            }
         }
 
         public static WCharacter AddUpgradeTarget(WCharacter troop, string targetName)
@@ -96,6 +119,9 @@ namespace Retinues.Core.Editor
 
             // Pay the cost
             Player.ChangeGold(-cost);
+
+            // Spend the XP
+            TroopXpService.TrySpend(troop, cost);
 
             // Upgrade the troop
             troop.Level += 5;

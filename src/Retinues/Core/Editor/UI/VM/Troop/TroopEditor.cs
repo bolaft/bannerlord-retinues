@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -130,6 +131,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // -------------------------
         // Skills
         // -------------------------
+        [DataSourceProperty]
+        public int AvailableTroopXp => SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop) : 0;
 
         [DataSourceProperty]
         public int SkillTotal =>
@@ -311,12 +314,27 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     )
                 );
             }
+            else if (TroopXpService.GetPool(SelectedTroop) < cost)
+            {
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: "Not enough XP",
+                        text: $"You do not have enough XP to rank up {SelectedTroop.Name}.\n\nRank up cost: {cost} XP.",
+                        isAffirmativeOptionShown: false,
+                        isNegativeOptionShown: true,
+                        affirmativeText: null,
+                        negativeText: "OK",
+                        affirmativeAction: null,
+                        negativeAction: () => { }
+                    )
+                );
+            }
             else
             {
                 InformationManager.ShowInquiry(
                     new InquiryData(
                         titleText: "Rank Up",
-                        text: $"Increase {SelectedTroop.Name}'s tier?\n\nIt will cost you {cost} gold.",
+                        text: $"Increase {SelectedTroop.Name}'s tier?\n\nIt will cost you {cost} gold and {cost} XP.",
                         isAffirmativeOptionShown: true,
                         isNegativeOptionShown: true,
                         affirmativeText: "Confirm",
@@ -425,6 +443,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(Gender));
             OnPropertyChanged(nameof(SkillTotal));
             OnPropertyChanged(nameof(SkillPointsUsed));
+            OnPropertyChanged(nameof(AvailableTroopXp));
             OnPropertyChanged(nameof(Tier));
             OnPropertyChanged(nameof(IsMaxTier));
             OnPropertyChanged(nameof(UpgradeTargets));

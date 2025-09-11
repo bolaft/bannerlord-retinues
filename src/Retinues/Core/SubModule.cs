@@ -4,6 +4,7 @@ using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
+using Retinues.Core.Game.Features.Xp.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
@@ -58,13 +59,14 @@ namespace Retinues.Core
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
 
-                // Clear all static lists on new game
-                ClearAll();
-
-                // Unlock behaviors
+                // Gameplay behaviors
                 cs.AddBehavior(new UnlocksBehavior());
+                cs.AddBehavior(new TroopXpBehavior());
 
                 Log.Debug("Behaviors registered.");
+
+                // Clear all static lists on new game
+                ClearAll();
             }
         }
 

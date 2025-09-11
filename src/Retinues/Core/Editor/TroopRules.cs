@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -53,12 +54,14 @@ namespace Retinues.Core.Editor
             if (character == null || skill == null)
                 return false;
 
-            // Skills can't go above the tier skill cap
             if (character.GetSkill(skill) >= SkillCapByTier(character.Tier))
                 return false;
 
-            // Check if we have enough skill points left
             if (SkillPointsLeft(character) <= 0)
+                return false;
+
+            // Must be able to afford the next point from the troop XP bank
+            if (!HasEnoughXpForNextPoint(character, skill))
                 return false;
 
             return true;
@@ -110,6 +113,22 @@ namespace Retinues.Core.Editor
 
             return true;
         }
+
+        public static int SkillPointXpCost(WCharacter c, SkillObject s, int fromValue)
+        {
+            // Tunables (move to Config if you prefer)
+            const int baseCost = 30;            // flat cost
+            const int perPoint = 3;             // scales with current value
+            int tierFactor = 5 * ((c?.Tier ?? 1) - 1); // higher tiers cost more
+            return baseCost + perPoint * fromValue + tierFactor;
+        }
+        public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
+        {
+            if (c == null || s == null) return false;
+            int cost = SkillPointXpCost(c, s, c.GetSkill(s));
+            return TroopXpService.GetPool(c) >= cost;
+        }
+
 
         // ================================================================
         // Retinues
