@@ -5,6 +5,7 @@ using HarmonyLib;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
 using Retinues.Core.Game.Features.Xp.Behaviors;
+using Retinues.Core.Game.Features.Tech.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
@@ -62,6 +63,9 @@ namespace Retinues.Core
                 // Gameplay behaviors
                 cs.AddBehavior(new UnlocksBehavior());
                 cs.AddBehavior(new TroopXpBehavior());
+
+                // Tech/Feat behavior
+                cs.AddBehavior(new FeatServiceBehavior());
 
                 Log.Debug("Behaviors registered.");
 
