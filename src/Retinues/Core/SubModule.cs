@@ -59,9 +59,19 @@ namespace Retinues.Core
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
 
-                // Gameplay behaviors
-                cs.AddBehavior(new UnlocksBehavior());
-                cs.AddBehavior(new TroopXpBehavior());
+                // XP behavior (skip if both costs are 0)
+                if (Config.GetOption<int>("BaseSkillXpCost") > 0 || Config.GetOption<int>("SkillXpCostPerPoint") > 0)
+                {
+                    Log.Info("Troop XP enabled.");
+                    cs.AddBehavior(new TroopXpBehavior());
+                }
+
+                // Unlocks behavior (skip if disabled)
+                if (Config.GetOption<bool>("UnlockFromKills") && !Config.GetOption<bool>("AllEquipmentUnlocked"))
+                {
+                    Log.Info("Item unlocks enabled.");
+                    cs.AddBehavior(new UnlocksBehavior());
+                }
 
                 Log.Debug("Behaviors registered.");
 

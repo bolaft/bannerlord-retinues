@@ -21,8 +21,6 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
             KillingBlow blow
         )
         {
-            Log.Debug("OnAgentRemoved event triggered.");
-
             // Count only real enemies, humans, that went down (killed or knocked unconscious)
             if (affectedAgent == null || !affectedAgent.IsHuman)
                 return;

@@ -172,14 +172,6 @@ namespace Retinues.Core.Persistence.Troop
                 if (element.Troop.IsVanilla)
                     continue;
 
-                Log.Debug(
-                    $"Recording custom troop {element.Troop.Name} x{element.Number}+{element.WoundedNumber}"
-                );
-                Log.Debug($"Position: {string.Join(".", element.Troop.PositionInTree)}");
-                Log.Debug(
-                    $"Faction: {element.Troop.Faction?.Name}, IsRetinue: {element.Troop.IsRetinue}, IsElite: {element.Troop.IsElite}"
-                );
-
                 // Record the custom troop
                 rosterData.Elements.Add(
                     new RosterElementSaveData
@@ -207,11 +199,6 @@ namespace Retinues.Core.Persistence.Troop
 
         private static void RestoreCustomTroopsToRosters(List<RosterSaveData> rosterData)
         {
-            foreach (var unit in Player.Clan.BasicTroops)
-                Log.Debug(
-                    $"Clan Basic Troop: {unit.Name}, Pos: {string.Join(".", unit.PositionInTree)}"
-                );
-
             foreach (var data in rosterData)
             {
                 var party = MobileParty.All.FirstOrDefault(p => p.StringId == data.PartyId);
@@ -222,16 +209,6 @@ namespace Retinues.Core.Persistence.Troop
                 foreach (var element in data.Elements)
                 {
                     var wTroop = GetTroopFromElementData(element);
-
-                    Log.Debug($"Data position in tree: {string.Join(".", element.PositionInTree)}");
-                    Log.Debug(
-                        $"Restoring troop {wTroop.Name} x{element.Healthy}+{element.Wounded}"
-                    );
-                    string posStr = string.Join(".", wTroop.PositionInTree);
-                    Log.Debug($"Position: {posStr}");
-                    Log.Debug(
-                        $"Faction: {wTroop.Faction?.Name}, IsRetinue: {wTroop.IsRetinue}, IsElite: {wTroop.IsElite}"
-                    );
 
                     wParty.MemberRoster.AddTroop(
                         wTroop,

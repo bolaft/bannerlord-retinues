@@ -14,8 +14,8 @@
             {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
             {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
             <!-- Available XP -->
-            {{ text("- Available XP: ", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
-            {{ text_int("@AvailableTroopXp", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+            {{ text("- XP: ", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
+            {{ text_int("@AvailableTroopXp", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0", "@TroopXpIsEnabled") }}
             <!-- Tier & Tier Upgrade  -->
             {{ text("- Tier ", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0", "@IsRetinue") }}
             {{ text("@Tier", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0", "@IsRetinue") }}

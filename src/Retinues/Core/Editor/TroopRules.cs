@@ -114,18 +114,18 @@ namespace Retinues.Core.Editor
             return true;
         }
 
-        public static int SkillPointXpCost(WCharacter c, SkillObject s, int fromValue)
+        public static int SkillPointXpCost(int fromValue)
         {
-            // Tunables (move to Config if you prefer)
-            const int baseCost = 30;            // flat cost
-            const int perPoint = 3;             // scales with current value
-            int tierFactor = 5 * ((c?.Tier ?? 1) - 1); // higher tiers cost more
-            return baseCost + perPoint * fromValue + tierFactor;
+            int baseCost = Config.GetOption<int>("BaseSkillXpCost");
+            int perPoint = Config.GetOption<int>("SkillXpCostPerPoint");
+
+            return baseCost + perPoint * fromValue;
         }
+
         public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
         {
             if (c == null || s == null) return false;
-            int cost = SkillPointXpCost(c, s, c.GetSkill(s));
+            int cost = SkillPointXpCost(c.GetSkill(s));
             return TroopXpService.GetPool(c) >= cost;
         }
 

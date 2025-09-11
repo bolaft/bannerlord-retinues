@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Xp
 {
@@ -28,6 +30,11 @@ namespace Retinues.Core.Game.Features.Xp
 
         public static void Refund(WCharacter troop, int amount)
         {
+            var refund = false;  // TODO: refund when doctrine unlocked
+
+            if (!refund)
+                return;
+
             if (troop == null || amount <= 0) return;
             var key = troop.StringId;
             _pool[key] = GetPool(troop) + amount;
@@ -50,33 +57,50 @@ namespace Retinues.Core.Game.Features.Xp
         // Accumulate positive XP deltas from the player's party roster into the bank.
         public static void AccumulateFromPlayerParty()
         {
-            var roster = Player.Party?.MemberRoster;
-            if (roster == null) return;
-
-            // Build a set of all troop StringIds present now
-            var present = roster.Elements
-                                .Where(e => e.Troop != null && e.Troop.IsCustom)
-                                .Select(e => e.Troop.StringId)
-                                .ToHashSet();
-
-            // For each present troop type, add the delta
-            foreach (var e in roster.Elements)
+            try
             {
-                if (e.Troop == null || !e.Troop.IsCustom) continue;
+                var roster = Player.Party?.MemberRoster;
+                if (roster == null) return;
 
-                var id = e.Troop.StringId;
-                var now = e.Xp;
-                var last = _lastSnapshotXp.TryGetValue(id, out var l) ? l : now; // seed to now initially
-                var delta = now - last;
-                if (delta > 0)
-                    _pool[id] = (_pool.TryGetValue(id, out var v) ? v : 0) + delta;
+                // Build a set of all troop StringIds present now
+                var present = roster.Elements
+                                    .Where(e => e.Troop != null && e.Troop.IsCustom)
+                                    .Select(e => e.Troop.StringId)
+                                    .ToHashSet();
 
-                _lastSnapshotXp[id] = now;
+                foreach (var e in roster.Elements)
+                {
+                    if (e.Troop == null /* || !e.Troop.IsCustom */) continue; // keep/customize your filter as needed
+
+                    var id  = e.Troop.StringId;
+                    var now = e.Xp;
+
+                    // Baseline new troop types to 0 so their first battle counts
+                    var last = _lastSnapshotXp.TryGetValue(id, out var l) ? l : 0;
+
+                    var delta = now - last;
+
+                    Log.Info($"[XP] {id}: now={now}, last={last}, delta={delta}");
+
+                    // Credit 5% of the delta (at least 1 if there was any positive delta)
+                    int toAdd = delta > 0 ? System.Math.Max(1, delta / 20) : 0;
+                    if (toAdd > 0)
+                        _pool[id] = (_pool.TryGetValue(id, out var v) ? v : 0) + toAdd;
+
+                    // Update snapshot AFTER using it
+                    _lastSnapshotXp[id] = now;
+                }
+
+                // Optionally prune snapshots for types no longer present
+                foreach (var key in _lastSnapshotXp.Keys.Where(k => !present.Contains(k)).ToList())
+                {
+                    _lastSnapshotXp.Remove(key);
+                }
             }
-
-            // Optionally prune snapshots for types no longer present
-            foreach (var key in _lastSnapshotXp.Keys.Where(k => !present.Contains(k)).ToList())
-                _lastSnapshotXp.Remove(key);
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
         }
     }
 }
