@@ -71,13 +71,13 @@
         </Widget>
 
         <!-- Switch faction button-->
-        {{ big_button(@FactionSwitchText, "ExecuteSwitchFaction", @CanSwitchFaction, "Top", "Right") }}
+        {{ big_button("@FactionSwitchText", "ExecuteSwitchFaction", "@CanSwitchFaction", "Top", "Right") }}
 
         <!-- Switch doctrines button-->
-        {{ big_button("Doctrines", "ExecuteSwitchToDoctrines", @IsNotDoctrinesMode, "Bottom", "Right") }}
+        {{ big_button("Doctrines", "ExecuteSwitchToDoctrines", "@IsNotDoctrinesMode", "Bottom", "Right") }}
 
         <!-- Switch to default button-->
-        {{ big_button("Return to\nEditor", "ExecuteSwitchToDefault", @IsDoctrinesMode, "Bottom", "Right") }}
+        {{ big_button("Return to\nEditor", "ExecuteSwitchToDefault", "@IsDoctrinesMode", "Bottom", "Right") }}
 
         <!-- Scrollable list -->
         {{ include "list/base.sbn" }}

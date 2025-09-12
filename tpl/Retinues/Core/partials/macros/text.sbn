@@ -1,5 +1,5 @@
 <!-- String text -->
-{{- func text(text, brush, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
+{{- func text(text, brush = "Clan.Tuple.Name.Text", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
     Text="{{text}}" Brush="{{brush}}"
@@ -10,7 +10,7 @@
 {{- end -}}
 
 <!-- Int text -->
-{{- func text_int(text, brush, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
+{{- func text_int(text, brush = "Clan.Tuple.Name.Text", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
     IntText="{{text}}" Brush="{{brush}}"
@@ -31,4 +31,14 @@
     Brush="Kingdom.TitleSmall.Text"
     MarginTop="{{margin_top}}"
     MarginBottom="{{margin_bottom}}"/>
+{{- end -}}
+
+<!-- Bigger title -->
+{{- func title(text) -}}
+<TextWidget
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    Text="{{text}}"
+    Brush="Kingdom.TitleMedium.Text"/>
 {{- end -}}

@@ -1,0 +1,18 @@
+<Widget
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+        {{ title("@Name") }}
+        <ListPanel
+            DataSource="{Doctrines}"
+            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+            SuggestedWidth="350"
+            MarginLeft="20" MarginRight="20" MarginTop="35" MarginBottom="0"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <ItemTemplate>
+                {{ include "doctrines/doctrine.sbn" }}
+            </ItemTemplate>
+        </ListPanel>
+    </Children>
+</Widget>

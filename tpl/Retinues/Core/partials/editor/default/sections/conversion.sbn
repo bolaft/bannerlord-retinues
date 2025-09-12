@@ -62,7 +62,7 @@
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight">
     <Children>
-        {{ button_text("Apply", "ExecuteApplyConversions", "Popup.Done.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
+        {{ button_text("Convert", "ExecuteApplyConversions", "Popup.Done.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
         {{ button_text("Clear", "ExecuteClearConversions", "Popup.Delete.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
     </Children>
 </ListPanel>

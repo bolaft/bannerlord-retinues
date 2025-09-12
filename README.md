@@ -10,6 +10,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - change troop culture
 - tutorial on first game
 - tool tip / communicate on skill caps/limits
+- make doctrines optional
 
 ## Refactor
 

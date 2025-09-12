@@ -1,11 +1,9 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Core.Editor.UI.Helpers;
+using Retinues.Core.Editor.UI.VM.Doctrines;
 using Retinues.Core.Editor.UI.VM.Equipment;
 using Retinues.Core.Editor.UI.VM.Troop;
-using Retinues.Core.Editor.UI.VM.Tech;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Features.Tech.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -24,11 +22,12 @@ namespace Retinues.Core.Editor.UI.VM
 
         private readonly ITroopScreen _screen;
 
-        private TechTreeVM _techTree;
+        private MBBindingList<DoctrineColumnVM> _doctrineColumns;
 
         private EditorMode _editorMode = EditorMode.Default;
 
         private WFaction _faction;
+
 
         // =========================================================================
         // Constructor
@@ -79,7 +78,17 @@ namespace Retinues.Core.Editor.UI.VM
         }
 
         [DataSourceProperty]
-        public bool CanSwitchFaction => Player.Kingdom != null;
+        public MBBindingList<DoctrineColumnVM> DoctrineColumns
+        {
+            get
+            {
+                _doctrineColumns ??= DoctrineColumnVM.CreateColumns();
+                return _doctrineColumns;
+            }
+        }
+
+        [DataSourceProperty]
+        public bool CanSwitchFaction => Player.Kingdom != null && !IsDoctrinesMode;
 
         [DataSourceProperty]
         public string FactionSwitchText =>
@@ -143,26 +152,6 @@ namespace Retinues.Core.Editor.UI.VM
         }
 
         [DataSourceProperty] public bool IsNotDoctrinesMode => !IsDoctrinesMode;
-
-        [DataSourceProperty]
-        public TechTreeVM TechTree
-        {
-            get
-            {
-                if (_techTree != null)
-                    return _techTree;
-
-                _techTree = new TechTreeVM(
-                    repo: new InMemoryDoctrineRepository
-                    {
-                        _defs = Doctrines.BuildStarterDoctrinesForFaction(Faction) // you populate this list
-                    },
-                    feats: new FeatServiceBehavior() // or a stub for now
-                );
-                return _techTree; 
-            }
-        }
-
 
         [DataSourceProperty]
         public CharacterViewModel Model => SelectedTroop?.Model;
@@ -241,7 +230,10 @@ namespace Retinues.Core.Editor.UI.VM
 
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
-            OnPropertyChanged(nameof(IsDoctrinesMode)); // NEW
+            OnPropertyChanged(nameof(IsDoctrinesMode));
+            OnPropertyChanged(nameof(IsNotDoctrinesMode));
+
+            OnPropertyChanged(nameof(CanSwitchFaction));
         }
 
         public void SwitchFaction(WFaction faction)
@@ -289,6 +281,8 @@ namespace Retinues.Core.Editor.UI.VM
         public void Refresh()
         {
             Log.Debug("Refreshing.");
+
+            OnPropertyChanged(nameof(DoctrineColumns));
 
             OnPropertyChanged(nameof(TroopEditor));
             OnPropertyChanged(nameof(TroopList));

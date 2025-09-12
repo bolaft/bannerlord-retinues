@@ -1,8 +1,11 @@
-<Widget 
-    DataSource="{TechTree}"
+<ListPanel 
+    DataSource="{DoctrineColumns}"
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-    DoNotAcceptEvents="false">
-    <Children>
-        {{ header("Doctrines") }}
-    </Children>
-</Widget>
+    DoNotAcceptEvents="false"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    PositionXOffset="60" PositionYOffset="0"
+    VerticalAlignment="Center" HorizontalAlignment="Center">
+    <ItemTemplate>
+        {{ include "doctrines/column.sbn" }}
+    </ItemTemplate>
+</ListPanel>

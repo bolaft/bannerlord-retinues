@@ -51,7 +51,7 @@ namespace Retinues.Core.Game.Features.Xp.Behaviors
             // unchanged
             var dict = TroopXpService._pool;
             dataStore.SyncData("CCT_TroopXpPool", ref dict);
-            TroopXpService._pool = dict ?? new System.Collections.Generic.Dictionary<string, int>();
+            TroopXpService._pool = dict ?? [];
         }
     }
 }

@@ -5,7 +5,7 @@ using HarmonyLib;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
 using Retinues.Core.Game.Features.Xp.Behaviors;
-using Retinues.Core.Game.Features.Tech.Behaviors;
+using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
@@ -63,22 +63,22 @@ namespace Retinues.Core
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
 
+                // Doctrine behavior
+                cs.AddBehavior(new DoctrineServiceBehavior());
+
                 // XP behavior (skip if both costs are 0)
                 if (Config.GetOption<int>("BaseSkillXpCost") > 0 || Config.GetOption<int>("SkillXpCostPerPoint") > 0)
                 {
-                    Log.Info("Troop XP enabled.");
+                    Log.Debug("Troop XP enabled.");
                     cs.AddBehavior(new TroopXpBehavior());
                 }
 
                 // Unlocks behavior (skip if disabled)
                 if (Config.GetOption<bool>("UnlockFromKills") && !Config.GetOption<bool>("AllEquipmentUnlocked"))
                 {
-                    Log.Info("Item unlocks enabled.");
+                    Log.Debug("Item unlocks enabled.");
                     cs.AddBehavior(new UnlocksBehavior());
                 }
-
-                // Tech/Feat behavior
-                cs.AddBehavior(new FeatServiceBehavior());
 
                 Log.Debug("Behaviors registered.");
             }

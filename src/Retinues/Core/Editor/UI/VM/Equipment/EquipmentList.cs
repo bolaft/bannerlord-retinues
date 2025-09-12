@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
-using TaleWorlds.Core;
 using TaleWorlds.Library;
-using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
