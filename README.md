@@ -18,8 +18,8 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Fixes
 
 - fix hints not appearing on disabled buttons
-- fix MCM defaults updating
-- fix MCM options not showing (can't use floats)
+- fix MCM defaults weirdness
+- attach retinue bonus mission behaviors
 
 ## Tests
 

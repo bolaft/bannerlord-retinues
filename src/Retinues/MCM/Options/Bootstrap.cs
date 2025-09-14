@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MCM.Abstractions.Base;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
 using Retinues.Core.Utils;
@@ -56,6 +57,7 @@ namespace Retinues.MCM.Options
                                     : opt.Key;
                                 var name = string.IsNullOrWhiteSpace(opt.Name) ? id : opt.Name;
                                 var hint = opt.Hint ?? string.Empty;
+                                hint = $"{hint} Recommended: {opt.Default}.";
                                 var type = opt.Type ?? typeof(string);
                                 var def = opt.Default;
                                 var min = opt.MinValue;
@@ -114,6 +116,23 @@ namespace Retinues.MCM.Options
                                                     .SetRequireRestart(false)
                                         );
                                     }
+                                    else if (type == typeof(float))
+                                    {
+                                        group.AddFloatingInteger(
+                                            id,
+                                            name,
+                                            minValue: min,
+                                            maxValue: max,
+                                            new ProxyRef<float>(
+                                                () => Config.GetOption<float>(id),
+                                                v  => Config.SetOption(id, v, save: true)
+                                            ),
+                                            b => b
+                                                .SetOrder(order++)
+                                                .SetHintText(hint)
+                                                .SetRequireRestart(false)
+                                        );
+                                    }
                                 }
                                 catch
                                 {
@@ -123,6 +142,24 @@ namespace Retinues.MCM.Options
                         }
                     );
                 }
+
+                // Default preset
+                builder.CreatePreset(
+                    BaseSettings.DefaultPresetId,
+                    BaseSettings.DefaultPresetName,
+                    p =>
+                    {
+                        foreach (var (id, def) in Config.EnumerateDefaults())
+                        {
+                            if (def is float f)
+                                p.SetPropertyValue(id, float.Parse(f.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)));
+                            else if (def is double d)
+                                p.SetPropertyValue(id, float.Parse(d.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)));
+                            else
+                                p.SetPropertyValue(id, def);
+                        }
+                    }
+                );
 
                 var settings = builder.BuildAsGlobal();
                 if (settings is null)

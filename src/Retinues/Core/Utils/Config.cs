@@ -8,6 +8,21 @@ namespace Retinues.Core.Utils
 {
     public static class Config
     {
+        // Return (id, defaultValue) pairs for every option
+        public static IEnumerable<(string Id, object Default)> EnumerateDefaults()
+        {
+            foreach (var opt in _options)
+                yield return (opt.Key, opt.Default);
+        }
+
+        // Optional: reset helper MCM can call
+        public static void ResetToDefaults(bool save = true)
+        {
+            foreach (var opt in _options)
+                opt.Value = opt.Default;   // don't touch opt.Default
+            if (save) Save();
+        }
+
         // =========================
         // Model & storage
         // =========================
@@ -388,6 +403,21 @@ namespace Retinues.Core.Utils
                 if (value is bool b)
                     return b ? 1 : 0;
             }
+                    
+            if (targetType == typeof(float))
+            {
+                if (value is float f) return f;
+                if (value is double d) return (float)d;
+                if (value is int i) return (float)i;
+                if (value is string s && float.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var ff)) return ff;
+            }
+            if (targetType == typeof(double))
+            {
+                if (value is double d) return d;
+                if (value is float f) return (double)f;
+                if (value is int i) return (double)i;
+                if (value is string s && double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var dd)) return dd;
+            }
 
             if (targetType == typeof(string))
                 return value.ToString();
@@ -397,12 +427,11 @@ namespace Retinues.Core.Utils
 
         private static object ParseFromString(string raw, Type type, object fallback)
         {
-            if (type == typeof(bool))
-                return ParseBool(raw, (bool)fallback);
-            if (type == typeof(int))
-                return ParseInt(raw, (int)fallback);
-            if (type == typeof(string))
-                return raw;
+            if (type == typeof(bool)) return ParseBool(raw, (bool) fallback);
+            if (type == typeof(int)) return ParseInt(raw,  (int)  fallback);
+            if (type == typeof(float)) return ParseFloat(raw, (float)fallback);
+            if (type == typeof(double)) return ParseDouble(raw,(double)fallback);
+            if (type == typeof(string)) return raw;
             return fallback;
         }
 
@@ -419,6 +448,20 @@ namespace Retinues.Core.Utils
         {
             if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var i))
                 return i;
+            return fallback;
+        }
+
+        private static float ParseFloat(string value, float fallback)
+        {
+            if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var f))
+                return f;
+            return fallback;
+        }
+
+        private static double ParseDouble(string value, double fallback)
+        {
+            if (double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var d))
+                return d;
             return fallback;
         }
 

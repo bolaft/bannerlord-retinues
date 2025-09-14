@@ -6,6 +6,7 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
 using Retinues.Core.Game.Features.Xp.Behaviors;
 using Retinues.Core.Game.Features.Doctrines;
+using Retinues.Core.Game.Features.Combat;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
