@@ -20,9 +20,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             get
             {
                 if (Screen.Faction.StringId == Player.Kingdom?.StringId)
-                    return Player.IsFemale ? "Queen's Guard" : "King's Guard";
+                    return Player.IsFemale ? L.S("queen_guard", "Queen's Guard") : L.S("king_guard", "King's Guard");
                 else
-                    return "Retinue";
+                    return L.S("retinue", "Retinue");
             }
         }
 

@@ -1,5 +1,4 @@
 using System;
-using TaleWorlds.CampaignSystem;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
 using Retinues.Core.Game.Wrappers;

@@ -113,12 +113,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 // Warn the player that decrementing skills may require retraining
                 InformationManager.ShowInquiry(
                     new InquiryData(
-                        titleText: "Warning",
-                        text: "Lowering this troop's skill will not refund any experience points. Continue anyway?",
+                        titleText: L.S("warning", "Warning"),
+                        text: L.S("lower_skill_no_refund", "Lowering this troop's skill will not refund any experience points. Continue anyway?"),
                         isAffirmativeOptionShown: true,
                         isNegativeOptionShown: true,
-                        affirmativeText: "Continue",
-                        negativeText: "Cancel",
+                        affirmativeText: L.S("continue", "Continue"),
+                        negativeText: L.S("cancel", "Cancel"),
                         affirmativeAction: () => { doModify(); },
                         negativeAction: () => { }
                     )

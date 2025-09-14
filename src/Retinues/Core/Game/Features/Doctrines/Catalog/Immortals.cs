@@ -1,21 +1,21 @@
 using TaleWorlds.Core;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Game.Wrappers;
 using System.Collections.Generic;
 using TaleWorlds.MountAndBlade;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
     public sealed class Immortals : Doctrine
     {
-        public override string Name => "Immortals";
-        public override string Description => "+20% retinue survival chance.";
+        public override string Name => L.S("immortals", "Immortals");
+        public override string Description => L.S("immortals_description", "+20% retinue survival chance.");
         public override int Column => 3;
         public override int Row => 3;
 
         public sealed class IM_100RetinueSurviveStruckDown : Feat
         {
-            public override string Description => "Have 100 retinue troops survive being struck down in battle.";
+            public override string Description => L.S("immortals_100_retinue_survive_struck_down", "Have 100 retinue troops survive being struck down in battle.");
             public override int Target => 100;
 
             private static int WoundedAtBattleStart = 0;
@@ -51,7 +51,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class IM_Win100NoDeaths : Feat
         {
-            public override string Description => "Win by yourself against 50+ enemies without a single death on your side.";
+            public override string Description => L.S("immortals_win_100_no_deaths", "Win by yourself against 50+ enemies without a single death on your side.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
@@ -74,7 +74,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class IM_SingleRetinueTwoTier5Kills : Feat
         {
-            public override string Description => "Have a single retinue troop kill two tier 5+ units in one battle.";
+            public override string Description => L.S("immortals_single_retinue_two_tier_5_kills", "Have a single retinue troop kill two tier 5+ units in one battle.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)

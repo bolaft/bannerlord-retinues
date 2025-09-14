@@ -1,20 +1,20 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
-using TaleWorlds.CampaignSystem;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
     public sealed class RoyalPatronage : Doctrine
     {
-        public override string Name => "Royal Patronage";
-        public override string Description => "10% rebate on items of the kingdom's culture.";
+        public override string Name => L.S("royal_patronage", "Royal Patronage");
+        public override string Description => L.S("royal_patronage_description", "10% rebate on items of the kingdom's culture.");
         public override int Column => 1;
         public override int Row => 2;
 
         public sealed class RP_Recruit100CustomKingdom : Feat
         {
-            public override string Description => "Recruit 100 custom kingdom troops.";
+            public override string Description => L.S("royal_patronage_recruit_100_custom_kingdom", "Recruit 100 custom kingdom troops.");
             public override int Target => 100;
 
             public override void OnTroopRecruited(WCharacter troop, int amount)
@@ -26,7 +26,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class RP_CompanionGovernor30Days : Feat
         {
-            public override string Description => "Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.";
+            public override string Description => L.S("royal_patronage_companion_governor_30_days", "Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.");
             public override int Target => 30;
 
             public override void OnDailyTick()
@@ -46,7 +46,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class RP_1000KillsCustomKingdom : Feat
         {
-            public override string Description => "Get 1000 kills with custom kingdom troops.";
+            public override string Description => L.S("royal_patronage_1000_kills_custom_kingdom", "Get 1000 kills with custom kingdom troops.");
             public override int Target => 1000;
 
             public override void OnBattleEnd(Battle battle)

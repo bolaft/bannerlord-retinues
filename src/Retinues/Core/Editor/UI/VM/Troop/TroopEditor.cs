@@ -65,7 +65,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
-        public string Gender => SelectedTroop != null && SelectedTroop.IsFemale ? "Female" : "Male";
+        public string Gender => SelectedTroop != null && SelectedTroop.IsFemale ? L.S("female", "Female") : L.S("male", "Male");
 
         // -------------------------
         // Flags
@@ -199,12 +199,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
             InformationManager.ShowTextInquiry(
                 new TextInquiryData(
-                    titleText: "Rename Troop",
-                    text: "Enter a new name:",
+                    titleText: L.S("rename_troop", "Rename Troop"),
+                    text: L.S("enter_new_name", "Enter a new name:"),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
-                    affirmativeText: "Confirm",
-                    negativeText: "Cancel",
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: newName =>
                     {
                         if (string.IsNullOrWhiteSpace(newName))
@@ -241,12 +241,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             InformationManager.ShowTextInquiry(
                 new TextInquiryData(
-                    titleText: "Add Upgrade",
-                    text: "Enter the name of the new troop:",
+                    titleText: L.S("add_upgrade", "Add Upgrade"),
+                    text: L.S("enter_new_troop_name", "Enter the name of the new troop:"),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
-                    affirmativeText: "Confirm",
-                    negativeText: "Cancel",
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: name =>
                     {
                         if (string.IsNullOrWhiteSpace(name))
@@ -271,12 +271,14 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             InformationManager.ShowInquiry(
                 new InquiryData(
-                    titleText: "Remove Troop",
-                    text: $"Are you sure you want to permanently remove {SelectedTroop.Name}?\n\nTheir equipment will be stocked for later use.",
+                    titleText: L.S("remove_troop", "Remove Troop"),
+                    text: L.T("remove_troop_text", "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use.")
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
-                    affirmativeText: "Confirm",
-                    negativeText: "Cancel",
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
                         TroopManager.Remove(SelectedTroop);
@@ -307,12 +309,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 InformationManager.ShowInquiry(
                     new InquiryData(
-                        titleText: "Not enough gold",
-                        text: $"You do not have enough gold to rank up {SelectedTroop.Name}.\n\nRank up cost: {cost} gold.",
+                        titleText: L.S("rank_up_not_enough_gold_title", "Not enough gold"),
+                        text: L.T("rank_up_not_enough_gold_text", "You do not have enough gold to rank up {TROOP_NAME}.\n\nRank up cost: {COST} gold.")
+                            .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                            .SetTextVariable("COST", cost)
+                            .ToString(),
                         isAffirmativeOptionShown: false,
                         isNegativeOptionShown: true,
                         affirmativeText: null,
-                        negativeText: "OK",
+                        negativeText: L.S("ok", "OK"),
                         affirmativeAction: null,
                         negativeAction: () => { }
                     )
@@ -322,12 +327,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 InformationManager.ShowInquiry(
                     new InquiryData(
-                        titleText: "Not enough XP",
-                        text: $"You do not have enough XP to rank up {SelectedTroop.Name}.\n\nRank up cost: {cost} XP.",
+                        titleText: L.S("rank_up_not_enough_xp_title", "Not enough XP"),
+                        text: L.T("rank_up_not_enough_xp_text", "You do not have enough XP to rank up {TROOP_NAME}.\n\nRank up cost: {COST} XP.")
+                            .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                            .SetTextVariable("COST", cost)
+                            .ToString(),
                         isAffirmativeOptionShown: false,
                         isNegativeOptionShown: true,
                         affirmativeText: null,
-                        negativeText: "OK",
+                        negativeText: L.S("ok", "OK"),
                         affirmativeAction: null,
                         negativeAction: () => { }
                     )
@@ -336,17 +344,25 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             else
             {
                 string text = TroopXpIsEnabled
-                    ? $"It will cost you {cost} gold and {cost} XP."
-                    : $"It will cost you {cost} gold.";
+                    ? L.T("rank_up_cost_text", "It will cost you {COST_GOLD} gold and {COST_XP} XP.")
+                        .SetTextVariable("COST_GOLD", cost)
+                        .SetTextVariable("COST_XP", cost)
+                        .ToString()
+                    : L.T("rank_up_cost_text", "It will cost you {COST} gold.")
+                        .SetTextVariable("COST", cost)
+                        .ToString();
 
                 InformationManager.ShowInquiry(
                     new InquiryData(
-                        titleText: "Rank Up",
-                        text: $"Increase {SelectedTroop.Name}'s tier?\n\n{text}",
+                        titleText: L.S("rank_up", "Rank Up"),
+                        text: L.T("increase_troop_tier", "Increase {TROOP_NAME}'s tier?\n\n{text}")
+                            .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                            .SetTextVariable("text", text)
+                            .ToString(),
                         isAffirmativeOptionShown: true,
                         isNegativeOptionShown: true,
-                        affirmativeText: "Confirm",
-                        negativeText: "Cancel",
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
                         affirmativeAction: () =>
                         {
                             TroopManager.RankUp(SelectedTroop);
@@ -371,7 +387,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (totalCost > Player.Gold)
             {
                 InformationManager.DisplayMessage(
-                    new InformationMessage("Not enough gold to apply conversions.")
+                    new InformationMessage(L.S("convert_not_enough_gold", "Not enough gold to apply conversions."))
                 );
                 return;
             }
@@ -393,12 +409,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     {
                         InformationManager.ShowInquiry(
                             new InquiryData(
-                                "Not enough gold",
-                                "You do not have enough gold to hire these retinues.",
+                                L.S("convert_not_enough_gold_title", "Not enough gold"),
+                                L.S("convert_not_enough_gold_text", "You do not have enough gold to hire these retinues."),
                                 false,
                                 true,
                                 null,
-                                "OK",
+                                L.S("ok", "OK"),
                                 null,
                                 null
                             )
@@ -483,9 +499,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // -------------------------
 
         private string CantRemoveTroopExplanation =>
-            SelectedTroop?.Parent is null ? "Root troops cannot be removed."
+            SelectedTroop?.Parent is null ? L.S("cant_remove_root_troop", "Root troops cannot be removed.")
             : SelectedTroop?.UpgradeTargets.Count() > 0
-                ? "Troops that have upgrade targets cannot be removed."
+                ? L.S("cant_remove_troop_with_targets", "Troops that have upgrade targets cannot be removed.")
             : string.Empty;
 
         // -------------------------

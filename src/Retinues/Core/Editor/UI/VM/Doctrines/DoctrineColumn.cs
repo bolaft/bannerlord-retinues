@@ -4,6 +4,7 @@ using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
+using System;
 
 namespace Retinues.Core.Editor.UI.VM.Doctrines
 {
@@ -37,8 +38,13 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
         {
             var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
             var columns = new MBBindingList<DoctrineColumnVM>();
-            
-            List<string> columnNames = ["Unlocks", "Equipment", "Troops", "Retinues"];
+
+            List<string> columnNames = [
+                L.S("doctrines_col_0", "Unlocks"),
+                L.S("doctrines_col_1", "Equipment"),
+                L.S("doctrines_col_2", "Troops"),
+                L.S("doctrines_col_3", "Retinues")
+            ];
 
             if (svc != null)
             {
@@ -49,7 +55,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
 
                 foreach (var g in groups)
                 {
-                    var colName = g.Key >= 0 && g.Key < columnNames.Count ? columnNames[g.Key] : $"Column {g.Key + 1}";
+                    var colName = g.Key >= 0 && g.Key < columnNames.Count ? columnNames[g.Key] : string.Empty;
                     var vms = g.OrderBy(d => d.Row)
                             .Select(d => new DoctrineVM(d.Key))
                             .ToList();

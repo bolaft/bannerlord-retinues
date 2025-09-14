@@ -92,7 +92,7 @@ namespace Retinues.Core.Editor.UI.VM
 
         [DataSourceProperty]
         public string FactionSwitchText =>
-            Faction == Player.Clan ? "Switch to\nKingdom Troops" : "Switch to\nClan Troops";
+            Faction == Player.Clan ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops") : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
 
         [DataSourceProperty]
         public TroopEditorVM TroopEditor { get; private set; }

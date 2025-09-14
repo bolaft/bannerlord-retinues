@@ -35,7 +35,6 @@ namespace Retinues.Core.Game.Events
         public bool IsVillageRaid => MapEvent.MapEventSettlement != null && MapEvent.MapEventSettlement.IsVillage && !IsSiege;
 
         public bool PlayerIsDefender => PlayerSide == BattleSideEnum.Defender;
-        public bool PlayerJoinedLate => true; // TODO
 
         public bool PlayerIsInArmy => Player.Party.IsInArmy;
         public bool AllyIsInArmy => PartiesOnSide(PlayerSide).Any(p => p.IsInArmy);

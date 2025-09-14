@@ -5,9 +5,6 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
-    /// Thin, static facade over DoctrineServiceBehavior.
-    /// - Prefer type-based methods (Doctrines/Feats are keyed by Type.FullName).
-    /// - String-key overloads are kept for VM convenience.
     public static class DoctrineAPI
     {
         // ---------------------------------------------------------------------
@@ -94,7 +91,7 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             if (!EnsureSvc(out var svc) || doctrineType == null)
             {
-                reason = "Doctrine service is unavailable.";
+                reason = L.S("doctrine_service_unavailable", "Doctrine service is unavailable.");
                 return false;
             }
             return svc.TryAcquireDoctrine(doctrineType.FullName, out reason);
@@ -104,7 +101,7 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(doctrineKey))
             {
-                reason = "Doctrine service is unavailable.";
+                reason = L.S("doctrine_service_unavailable", "Doctrine service is unavailable.");
                 return false;
             }
             return svc.TryAcquireDoctrine(doctrineKey, out reason);

@@ -95,10 +95,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             var def = svc?.GetDoctrine(_id);
 
             if (svc == null || def == null)
-            {
-                InformationManager.DisplayMessage(new InformationMessage("Doctrine service/definition not found."));
                 return;
-            }
 
             // Build feats text from real data
             var feats = def.Feats ?? [];
@@ -122,12 +119,14 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                     sb.Append("    ").Append(status).Append("  ").Append(f.Description).Append('\n');
             }
 
-            string featsText = total == 0 ? "No requirements." : $"Requirements:\n\n{sb}";
+            string featsText = total == 0 ? L.S("feats_no_reqs", "No requirements.") : $"{L.S("feats_reqs","Requirements")}:\n\n{sb}";
 
-            var text = new TextObject("{DESCRIPTION}\n\n{FEATS}\n\n{COST}")
-                .SetTextVariable("DESCRIPTION", new TextObject(Description))
-                .SetTextVariable("FEATS", new TextObject(featsText))
-                .SetTextVariable("COST", new TextObject($"Cost: {GoldCost} Gold, {InfluenceCost} Influence."));
+            var costs = L.T("doctrine_costs", "Cost: {GOLD} Gold, {INFLUENCE} Influence.")
+                .SetTextVariable("GOLD", GoldCost)
+                .SetTextVariable("INFLUENCE", InfluenceCost)
+                .ToString();
+
+            var text = $"{Description}\n\n{featsText}\n\n{costs}";
 
             bool allComplete = total == 0 || complete == total;
             bool alreadyUnlocked = svc.IsDoctrineUnlocked(_id);
@@ -140,7 +139,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                     text.ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
-                    affirmativeText: new TextObject("Unlock").ToString(),
+                    affirmativeText: L.S("unlock_btn", "Unlock"),
                     negativeText: GameTexts.FindText("str_cancel").ToString(),
                     affirmativeAction: () =>
                     {
@@ -151,7 +150,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                         else
                         {
                             InformationManager.DisplayMessage(new InformationMessage(
-                                string.IsNullOrEmpty(reason) ? "Cannot unlock." : reason));
+                                string.IsNullOrEmpty(reason) ? L.S("unlock_failed", "Cannot unlock.") : reason));
                         }
                     },
                     negativeAction: () => { }

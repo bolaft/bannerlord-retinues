@@ -10,10 +10,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - tutorial on first game
 - tool tip / communicate on skill caps/limits
 - add cheats for testing/troubleshooting
-
-## Refactor
-
-- persist unlock kills & troop xp in persistence
+- add try/catch on all doctrine stuff
 
 ## Fixes
 

@@ -97,12 +97,15 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
             InformationManager.ShowInquiry(
                 new InquiryData(
-                    titleText: "Unequip All",
-                    text: $"Unequip all items worn by {SelectedTroop.Name}?\n\nThey will be stocked for later use.",
+                    titleText: L.S("unequip_all", "Unequip All"),
+                    text: L.T(
+                        "unequip_all_text",
+                        "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
+                    ).SetTextVariable("TROOP_NAME", SelectedTroop.Name).ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
-                    affirmativeText: "Confirm",
-                    negativeText: "Cancel",
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
                         EquipmentManager.UnequipAll(SelectedTroop);

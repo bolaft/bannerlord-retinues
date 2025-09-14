@@ -101,7 +101,7 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 
             InformationManager.ShowInquiry(
                 new InquiryData(
-                    new TextObject("New Gear Unlocked").ToString(),
+                    L.S("items_unlocked", "New Gear Unlocked"),
                     body,
                     true,
                     false,

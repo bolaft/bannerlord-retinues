@@ -1,19 +1,20 @@
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
     public sealed class ClanicTraditions : Doctrine
     {
-        public override string Name => "Clanic Traditions";
-        public override string Description => "10% rebate on items of the clan's culture.";
+        public override string Name => L.S("clanic_traditions", "Clanic Traditions");
+        public override string Description => L.S("clanic_traditions_description", "10% rebate on items of the clan's culture.");
         public override int Column => 1;
         public override int Row => 1;
 
         public sealed class CT_OwnSmithy30Days : Feat
         {
-            public override string Description => "Own a smithy in a fief of your clan's culture for 30 days.";
+            public override string Description => L.S("clanic_traditions_own_smithy_30_days", "Own a smithy in a fief of your clan's culture for 30 days.");
             public override int Target => 30;
 
             public override void OnDailyTick()
@@ -34,7 +35,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class CT_Companions50Kills : Feat
         {
-            public override string Description => "Win a battle in which your companions get 50 or more kills.";
+            public override string Description => L.S("clanic_traditions_companions_50_kills", "Win a battle in which your companions get 50 or more kills.");
             public override int Target => 50;
 
             public override void OnBattleEnd(Battle battle)
@@ -48,7 +49,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class CT_CompanionWins100BattleAsLeader : Feat
         {
-            public override string Description => "Acquire a new fief for your clan.";
+            public override string Description => L.S("clanic_traditions_companion_wins_100_battle_as_leader", "Acquire a new fief for your clan.");
             public override int Target => 1;
 
             public override void OnSettlementOwnerChanged(SettlementOwnerChange change)

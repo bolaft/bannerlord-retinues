@@ -1,19 +1,19 @@
-using TaleWorlds.MountAndBlade;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Editor;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
     public sealed class Vanguard : Doctrine
     {
-        public override string Name => "Vanguard";
-        public override string Description => "+15% retinue cap.";
+        public override string Name => L.S("vanguard", "Vanguard");
+        public override string Description => L.S("vanguard_description", "+15% retinue cap.");
         public override int Column => 3;
         public override int Row => 2;
 
         public sealed class VG_ClearHideoutRetinueOnly : Feat
         {
-            public override string Description => "Be at near maximum retinue capacity for 30 days.";
+            public override string Description => L.S("vanguard_clear_hideout_retinue_only", "Be at near maximum retinue capacity for 30 days.");
             public override int Target => 1;
 
             public override void OnDailyTick()
@@ -30,7 +30,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class VG_Win100RetinueOnly : Feat
         {
-            public override string Description => "Win a 100+ battle using only your retinue.";
+            public override string Description => L.S("vanguard_win_100_retinue_only", "Win a 100+ battle using only your retinue.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
@@ -46,7 +46,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class VG_FirstMeleeKillInSiege : Feat
         {
-            public override string Description => "Have a retinue get the first melee kill in a siege assault.";
+            public override string Description => L.S("vanguard_first_melee_kill_in_siege", "Have a retinue get the first melee kill in a siege assault.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)

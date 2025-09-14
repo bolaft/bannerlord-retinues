@@ -15,16 +15,26 @@ namespace Retinues.Core.Game
             if (faction.StringId == Player.Kingdom?.StringId)
             {
                 if (Player.IsFemale)
-                    eliteName = $"{faction.Name} Queen's Champion";
+                    eliteName = L.T(
+                        "retinue_female_kingdom", "{FACTION} Queen's Champion"
+                    ).SetTextVariable("FACTION", faction.Name).ToString();
                 else
-                    eliteName = $"{faction.Name} King's Champion";
+                    eliteName = L.T(
+                        "retinue_male_kingdom", "{FACTION} King's Champion"
+                    ).SetTextVariable("FACTION", faction.Name).ToString();
 
-                basicName = $"{faction.Name} Royal Guard";
+                basicName = L.T(
+                    "retinue_royal_guard", "{FACTION} Royal Guard"
+                ).SetTextVariable("FACTION", faction.Name).ToString();
             }
             else
             {
-                eliteName = $"{faction.Name} House Champion";
-                basicName = $"{faction.Name} House Guard";
+                eliteName = L.T(
+                    "retinue_house_champion", "{FACTION} House Champion"
+                ).SetTextVariable("FACTION", faction.Name).ToString();
+                basicName = L.T(
+                    "retinue_house_guard", "{FACTION} House Guard"
+                ).SetTextVariable("FACTION", faction.Name).ToString();
             }
 
             faction.RetinueElite = CreateRetinueTroop(

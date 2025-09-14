@@ -1,19 +1,20 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
     public sealed class MastersAtArms : Doctrine
     {
-        public override string Name => "Masters-At-Arms";
-        public override string Description => "+1 upgrade branch for elite troops.";
+        public override string Name => L.S("masters_at_arms", "Masters-At-Arms");
+        public override string Description => L.S("masters_at_arms_description", "+1 upgrade branch for elite troops.");
         public override int Column => 2;
         public override int Row => 2;
 
         public sealed class MAA_Upgrade100EliteToMax : Feat
         {
-            public override string Description => "Upgrade 100 elite troops to max tier.";
+            public override string Description => L.S("masters_at_arms_upgrade_100_elite_to_max", "Upgrade 100 elite troops to max tier.");
             public override int Target => 100;
 
             public override void PlayerUpgradedTroops(WCharacter upgradeFromTroop, WCharacter upgradeToTroop, int number)
@@ -27,7 +28,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class MAA_DefeatLordOnlyElite : Feat
         {
-            public override string Description => "Defeat an enemy lord using only elite troops.";
+            public override string Description => L.S("masters_at_arms_defeat_lord_only_elite", "Defeat an enemy lord using only elite troops.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
@@ -48,7 +49,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class MAA_1000EliteKills : Feat
         {
-            public override string Description => "Get 1000 kills with elite troops.";
+            public override string Description => L.S("masters_at_arms_1000_elite_kills", "Get 1000 kills with elite troops.");
             public override int Target => 1000;
 
             public override void OnBattleEnd(Battle battle)

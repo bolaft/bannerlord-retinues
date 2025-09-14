@@ -199,53 +199,53 @@ namespace Retinues.Core.Game.Wrappers
 
                 if (IsArmor)
                 {
-                    Add("Head Armor", ArmorComponent.HeadArmor);
-                    Add("Body Armor", ArmorComponent.BodyArmor);
-                    Add("Arm Armor", ArmorComponent.ArmArmor);
-                    Add("Leg Armor", ArmorComponent.LegArmor);
+                    Add(L.S("item_head_armor", "Head Armor"), ArmorComponent.HeadArmor);
+                    Add(L.S("item_body_armor", "Body Armor"), ArmorComponent.BodyArmor);
+                    Add(L.S("item_arm_armor", "Arm Armor"), ArmorComponent.ArmArmor);
+                    Add(L.S("item_leg_armor", "Leg Armor"), ArmorComponent.LegArmor);
                 }
 
                 if (IsHorse)
                 {
-                    Add("Speed", HorseComponent.Speed);
-                    Add("Maneuver", HorseComponent.Maneuver);
-                    Add("Charge", HorseComponent.ChargeDamage);
-                    Add("Hit Points", HorseComponent.HitPoints);
+                    Add(L.S("item_horse_speed", "Speed"), HorseComponent.Speed);
+                    Add(L.S("item_horse_maneuver", "Maneuver"), HorseComponent.Maneuver);
+                    Add(L.S("item_horse_charge", "Charge"), HorseComponent.ChargeDamage);
+                    Add(L.S("item_horse_hit_points", "Hit Points"), HorseComponent.HitPoints);
                 }
 
                 if (IsShield)
                 {
-                    Add("Speed", PrimaryWeapon.Handling);
-                    Add("Hit Points", PrimaryWeapon.MaxDataValue);
+                    Add(L.S("item_shield_speed", "Speed"), PrimaryWeapon.Handling);
+                    Add(L.S("item_shield_hit_points", "Hit Points"), PrimaryWeapon.MaxDataValue);
                 }
 
                 if (IsRangedWeapon)
                 {
-                    Add("Missile Speed", PrimaryWeapon.MissileSpeed);
-                    Add("Damage", PrimaryWeapon.MissileDamage);
-                    Add("Accuracy", PrimaryWeapon.Accuracy);
+                    Add(L.S("item_ranged_missile_speed", "Missile Speed"), PrimaryWeapon.MissileSpeed);
+                    Add(L.S("item_ranged_damage", "Damage"), PrimaryWeapon.MissileDamage);
+                    Add(L.S("item_ranged_accuracy", "Accuracy"), PrimaryWeapon.Accuracy);
                 }
 
                 if (IsMeleeWeapon)
                 {
                     if (PrimaryWeapon.SwingDamage > 0 && PrimaryWeapon.SwingSpeed > 0)
                     {
-                        Add("Swing Damage", PrimaryWeapon.SwingDamage);
-                        Add("Swing Speed", PrimaryWeapon.SwingSpeed);
+                        Add(L.S("item_melee_swing_damage", "Swing Damage"), PrimaryWeapon.SwingDamage);
+                        Add(L.S("item_melee_swing_speed", "Swing Speed"), PrimaryWeapon.SwingSpeed);
                     }
                     if (PrimaryWeapon.ThrustDamage > 0 && PrimaryWeapon.ThrustSpeed > 0)
                     {
-                        Add("Thrust Damage", PrimaryWeapon.ThrustDamage);
-                        Add("Thrust Speed", PrimaryWeapon.ThrustSpeed);
+                        Add(L.S("item_melee_thrust_damage", "Thrust Damage"), PrimaryWeapon.ThrustDamage);
+                        Add(L.S("item_melee_thrust_speed", "Thrust Speed"), PrimaryWeapon.ThrustSpeed);
                     }
-                    Add("Length", PrimaryWeapon.WeaponLength);
-                    Add("Handling", PrimaryWeapon.Handling);
+                    Add(L.S("item_melee_length", "Length"), PrimaryWeapon.WeaponLength);
+                    Add(L.S("item_melee_handling", "Handling"), PrimaryWeapon.Handling);
                 }
 
                 if (IsAmmo)
                 {
-                    Add("Damage", PrimaryWeapon.ThrustDamage);
-                    Add("Stack Size", PrimaryWeapon.MaxDataValue);
+                    Add(L.S("item_ammo_damage", "Damage"), PrimaryWeapon.ThrustDamage);
+                    Add(L.S("item_ammo_stack_size", "Stack Size"), PrimaryWeapon.MaxDataValue);
                 }
 
                 if (RelevantSkill != null && Difficulty > 0)

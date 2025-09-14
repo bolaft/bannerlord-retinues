@@ -149,6 +149,15 @@
       SkipUnchangedFiles="true"
     />
     <ItemGroup>
+      <LocFilesToCopy Include="../../../loc/**/*.*" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(LocFilesToCopy)"
+      DestinationFiles="@(LocFilesToCopy->'$(GameModuleDir)/ModuleData/Languages/%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true"
+      Condition="@(LocFilesToCopy->Count()) != 0"
+    />
+    <ItemGroup>
       <GuiFilesToCopy Include="$(ModuleOutDir)/GUI/**/*.*" />
     </ItemGroup>
     <Copy

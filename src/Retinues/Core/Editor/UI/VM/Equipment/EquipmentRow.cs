@@ -18,7 +18,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         // =========================================================================
 
         [DataSourceProperty]
-        public string Name => Item?.Name ?? "Empty";
+        public string Name => Item?.Name ?? L.S("empty_item", "Empty");
 
         [DataSourceProperty]
         public int Value => EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop);
@@ -116,12 +116,15 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     {
                         InformationManager.ShowInquiry(
                             new InquiryData(
-                                "Buy Item",
-                                $"Are you sure you want to buy {Item.Name} for {Value} gold?",
+                                L.S("buy_item", "Buy Item"),
+                                L.T("buy_item_text", "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?")
+                                    .SetTextVariable("ITEM_NAME", Item.Name)
+                                    .SetTextVariable("ITEM_VALUE", Value)
+                                    .ToString(),
                                 true,
                                 true,
-                                "Yes",
-                                "No",
+                                L.S("yes", "Yes"),
+                                L.S("no", "No"),
                                 () =>
                                 {
                                     EquipItem(EquipmentManager.EquipFromPurchase); // Apply the item change
@@ -135,12 +138,12 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     {
                         InformationManager.ShowInquiry(
                             new InquiryData(
-                                "Not enough gold",
-                                "You do not have enough gold to purchase this item.",
+                                L.S("not_enough_gold", "Not enough gold"),
+                                L.S("not_enough_gold_text", "You do not have enough gold to purchase this item."),
                                 false,
                                 true,
                                 null,
-                                "OK",
+                                L.S("ok", "OK"),
                                 null,
                                 null
                             )

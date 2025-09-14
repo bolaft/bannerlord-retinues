@@ -29,10 +29,10 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             // Persist state by string keys (Type.FullName)
             var unlockedList = _unlocked?.ToList() ?? [];
-            dataStore.SyncData("CCT_Doctrines_Unlocked", ref unlockedList);
+            dataStore.SyncData("Retinues_Doctrines_Unlocked", ref unlockedList);
             _unlocked = unlockedList != null ? unlockedList.ToHashSet() : [];
 
-            dataStore.SyncData("CCT_Doctrines_FeatProgress", ref _featProgress);
+            dataStore.SyncData("Retinues_Doctrines_FeatProgress", ref _featProgress);
             _featProgress ??= [];
         }
 

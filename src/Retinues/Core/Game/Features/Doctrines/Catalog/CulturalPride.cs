@@ -1,19 +1,18 @@
-using System.Linq;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
     public sealed class CulturalPride : Doctrine
     {
-        public override string Name => "Cultural Pride";
-        public override string Description => "10% rebate on items of the troop's culture.";
+        public override string Name => L.S("cultural_pride", "Cultural Pride");
+        public override string Description => L.S("cultural_pride_description", "10% rebate on items of the troop's culture.");
         public override int Column => 1;
         public override int Row => 0;
 
         public sealed class CP_TournamentOwnCultureGear : Feat
         {
-            public override string Description => "Win a tournament wearing only items of your own culture.";
+            public override string Description => L.S("cultural_pride_tournament_own_culture_gear", "Win a tournament wearing only items of your own culture.");
             public override int Target => 1;
 
             public override void OnTournamentFinished(Tournament tournament)
@@ -32,7 +31,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class CP_FullSet100Kills : Feat
         {
-            public override string Description => "Have a troop type wearing a full set of items of their culture get 100 kills in battle.";
+            public override string Description => L.S("cultural_pride_full_set_100_kills", "Have a troop type wearing a full set of items of their culture get 100 kills in battle.");
             public override int Target => 100;
 
             public override void OnBattleEnd(Battle battle)
@@ -61,7 +60,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class CP_DefeatForeignMonarch : Feat
         {
-            public override string Description => "Defeat a monarch of a different culture in battle.";
+            public override string Description => L.S("cultural_pride_defeat_foreign_monarch", "Defeat a monarch of a different culture in battle.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
