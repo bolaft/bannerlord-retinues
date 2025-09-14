@@ -65,6 +65,7 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         private void OnDailyTick()
         {
+            Log.Info("FeatRuntimeBehavior: OnDailyTick");
             // Call for all active feats (cheap, and feats can early-out themselves).
             foreach (var feat in _activeFeats)
                 feat.OnDailyTick();
@@ -72,11 +73,16 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         private void OnMissionStarted(IMission iMission)
         {
+            Log.Info("FeatRuntimeBehavior: OnMissionStarted");
             if (iMission is not Mission mission) return;
+
+            Log.Info("FeatRuntimeBehavior: OnMissionStarted - is Mission");
 
             // Only care about player-involved map battles.
             var mapEvent = MobileParty.MainParty?.MapEvent;
             if (mapEvent == null || !mapEvent.IsPlayerMapEvent) return;
+
+            Log.Info("FeatRuntimeBehavior: OnMissionStarted - is PlayerMapEvent (Battle)");
 
             // Attach your Battle behavior (captures kills etc.)
             var battle = mission.GetMissionBehavior<Battle>();
@@ -104,26 +110,36 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         internal void OnMissionEnded(Mission mission)
         {
+            Log.Info("FeatRuntimeBehavior: OnMissionEnded");
             // At this point mission is ending; MapEvent may already be null in some cases,
             // so rely on the behavior we attached.
             var battle = mission?.GetMissionBehavior<Battle>();
             if (battle == null) return;
+
+            Log.Info("FeatRuntimeBehavior: OnMissionEnded - is Battle");
 
             foreach (var feat in _activeFeats)
                 feat.OnBattleEnd(battle);
 
             // Log battle report
             battle.LogReport();
+            
+            // Display feat unlock popups if any
+            Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
         }
 
         private Tournament _currentTournament;
 
         internal void OnTournamentStarted(Town town)
         {
+            Log.Info("FeatRuntimeBehavior: OnTournamentStarted");
+
             // Try to get the current mission
             var mission = Mission.Current;
             if (mission == null)
                 return;
+
+            Log.Info("FeatRuntimeBehavior: OnTournamentStarted - is Mission");            
 
             // Check if Tournament behavior already exists
             var tournament = mission.GetMissionBehavior<Tournament>();
@@ -145,6 +161,8 @@ namespace Retinues.Core.Game.Features.Doctrines
             Town town,
             ItemObject prize)
         {
+            Log.Info("FeatRuntimeBehavior: OnTournamentFinished");
+
             var mission = Mission.Current;
             Tournament tournament = null;
             if (mission != null)
@@ -161,10 +179,21 @@ namespace Retinues.Core.Game.Features.Doctrines
             // Notify feats
             foreach (var feat in _activeFeats)
                 feat.OnTournamentFinished(tournament);
+
+            // Display feat unlock popups if any            
+            Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
         }
 
         void OnSettlementOwnerChanged(Settlement s, bool _, Hero n, Hero o, Hero __, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail d)
         {
+            Log.Info("FeatRuntimeBehavior: OnSettlementOwnerChanged");
+
+            // Only care about player clan captures
+            if (s == null || n?.Clan?.StringId != Clan.PlayerClan?.StringId)
+                return;
+            
+            Log.Info("FeatRuntimeBehavior: OnSettlementOwnerChanged - is PlayerClan capture");
+
             foreach (var feat in _activeFeats)
             {
                 feat.OnSettlementOwnerChanged(new SettlementOwnerChange(
@@ -177,6 +206,8 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         void OnQuestCompleted(QuestBase quest, QuestBase.QuestCompleteDetails details)
         {
+            Log.Info("FeatRuntimeBehavior: OnQuestCompleted");
+
             foreach (var feat in _activeFeats)
                 feat.OnQuestCompleted(new Quest(quest, details is QuestBase.QuestCompleteDetails.Success));
         }
@@ -186,12 +217,16 @@ namespace Retinues.Core.Game.Features.Doctrines
             // Only care about player clan recruitment
             if (recruiterHero.StringId != Player.Character.StringId) return;
 
+            Log.Info("FeatRuntimeBehavior: OnTroopRecruited - Is PlayerClan recruitment");
+
             foreach (var feat in _activeFeats)
                 feat.OnTroopRecruited(WCharacterCache.Wrap(troop), amount);
         }
 
         void PlayerUpgradedTroops(CharacterObject upgradeFromTroop, CharacterObject upgradeToTroop, int number)
         {
+            Log.Info("FeatRuntimeBehavior: PlayerUpgradedTroops");
+
             foreach (var feat in _activeFeats)
                 feat.PlayerUpgradedTroops(WCharacterCache.Wrap(upgradeFromTroop), WCharacterCache.Wrap(upgradeToTroop), number);
         }

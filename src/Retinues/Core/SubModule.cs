@@ -81,6 +81,8 @@ namespace Retinues.Core
                 if (Config.GetOption<bool>("EnableDoctrines"))
                 {
                     cs.AddBehavior(new DoctrineServiceBehavior());
+                    cs.AddBehavior(new FeatRuntimeBehavior());
+                    cs.AddBehavior(new FeatUnlockNotifierBehavior());
                     Log.Debug("Doctrines enabled.");
                 }
 
