@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Game.Wrappers.Cache;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -45,7 +46,7 @@ namespace Retinues.Core.Persistence.Troop
             var co = MBObjectManager.Instance.GetObject<CharacterObject>(data.VanillaStringId);
 
             // Wrap it
-            var wco = new WCharacter(co);
+            var wco = WCharacterCache.Wrap(co);
 
             // Determine faction
             var faction = data.IsKingdomTroop ? Player.Kingdom : Player.Clan;

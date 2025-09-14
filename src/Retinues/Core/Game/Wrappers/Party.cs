@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game.Wrappers
@@ -37,6 +34,16 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        public WCharacter Leader
+        {
+            get
+            {
+                if (_party.LeaderHero == null)
+                    return null;
+                return new WCharacter(_party.LeaderHero.CharacterObject);
+            }
+        }
+
         // ================================================================
         // Properties
         // ================================================================
@@ -44,5 +51,9 @@ namespace Retinues.Core.Game.Wrappers
         public override string StringId => _party.StringId;
 
         public int PartySizeLimit => _party.Party.PartySizeLimit;
+
+        public float Morale => _party.Morale;
+
+        public bool IsInArmy => _party.Army != null;
     }
 }

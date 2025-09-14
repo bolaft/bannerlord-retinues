@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -30,9 +32,24 @@ namespace Retinues.Core.Game.Wrappers
 
         public WCulture Culture => new(_faction.Culture);
 
+        public IReadOnlyList<Settlement> Fiefs => _faction.Settlements.Where(s => s.IsTown || s.IsCastle).ToList();
+
         // =========================================================================
         // Troops
         // =========================================================================
+
+        public IEnumerable<WCharacter> Troops
+        {
+            get
+            {
+                yield return RetinueElite;
+                yield return RetinueBasic;
+                foreach (var troop in EliteTroops)
+                    yield return troop;
+                foreach (var troop in BasicTroops)
+                    yield return troop;
+            }
+        }
 
         public WCharacter RetinueElite { get; set; }
         public WCharacter RetinueBasic { get; set; }

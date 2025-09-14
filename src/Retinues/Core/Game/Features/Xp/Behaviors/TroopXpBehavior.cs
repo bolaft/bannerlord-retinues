@@ -2,7 +2,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Features.Xp.Behaviors
 {
-    /// <summary>Hooks into CampaignEvents to track troop XP deltas and persist the bank.</summary>
+    // Hooks into CampaignEvents to track troop XP deltas and persist the bank.
     public sealed class TroopXpBehavior : CampaignBehaviorBase
     {
         private bool _postBattleAccumulatePending;

@@ -148,10 +148,13 @@ namespace Retinues.Core.Editor.UI.VM
                 OnPropertyChanged(nameof(IsEquipmentMode));
                 OnPropertyChanged(nameof(IsDefaultMode));
                 OnPropertyChanged(nameof(IsDoctrinesMode));
+                OnPropertyChanged(nameof(IsNotDoctrinesMode));
             }
         }
 
         [DataSourceProperty] public bool IsNotDoctrinesMode => !IsDoctrinesMode;
+
+        [DataSourceProperty] public bool CanSwitchToDoctrines => !IsDoctrinesMode && Config.GetOption<bool>("EnableDoctrines");
 
         [DataSourceProperty]
         public CharacterViewModel Model => SelectedTroop?.Model;
@@ -217,6 +220,9 @@ namespace Retinues.Core.Editor.UI.VM
         public void SwitchMode(EditorMode mode)
         {
             if (_editorMode == mode) return;
+
+            if (mode == EditorMode.Doctrines && !Config.GetOption<bool>("EnableDoctrines")) return;
+
             _editorMode = mode;
 
             if (mode == EditorMode.Equipment)
@@ -231,8 +237,12 @@ namespace Retinues.Core.Editor.UI.VM
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
             OnPropertyChanged(nameof(IsDoctrinesMode));
+
+            OnPropertyChanged(nameof(IsNotDefaultMode));
+            OnPropertyChanged(nameof(IsNotEquipmentMode));
             OnPropertyChanged(nameof(IsNotDoctrinesMode));
 
+            OnPropertyChanged(nameof(CanSwitchToDoctrines));
             OnPropertyChanged(nameof(CanSwitchFaction));
         }
 
@@ -293,6 +303,8 @@ namespace Retinues.Core.Editor.UI.VM
 
             OnPropertyChanged(nameof(IsDefaultMode));
             OnPropertyChanged(nameof(IsEquipmentMode));
+            OnPropertyChanged(nameof(IsDoctrinesMode));
+            OnPropertyChanged(nameof(IsNotDoctrinesMode));
 
             OnPropertyChanged(nameof(Model));
 

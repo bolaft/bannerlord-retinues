@@ -63,21 +63,25 @@ namespace Retinues.Core
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
 
-                // Doctrine behavior
-                cs.AddBehavior(new DoctrineServiceBehavior());
-
                 // XP behavior (skip if both costs are 0)
                 if (Config.GetOption<int>("BaseSkillXpCost") > 0 || Config.GetOption<int>("SkillXpCostPerPoint") > 0)
                 {
-                    Log.Debug("Troop XP enabled.");
                     cs.AddBehavior(new TroopXpBehavior());
+                    Log.Debug("Troop XP enabled.");
                 }
 
                 // Unlocks behavior (skip if disabled)
                 if (Config.GetOption<bool>("UnlockFromKills") && !Config.GetOption<bool>("AllEquipmentUnlocked"))
                 {
-                    Log.Debug("Item unlocks enabled.");
                     cs.AddBehavior(new UnlocksBehavior());
+                    Log.Debug("Item unlocks enabled.");
+                }
+
+                // Doctrine behaviors (skip if doctrines disabled)
+                if (Config.GetOption<bool>("EnableDoctrines"))
+                {
+                    cs.AddBehavior(new DoctrineServiceBehavior());
+                    Log.Debug("Doctrines enabled.");
                 }
 
                 Log.Debug("Behaviors registered.");

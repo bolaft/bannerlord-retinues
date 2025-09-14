@@ -51,7 +51,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                 {
                     var colName = g.Key >= 0 && g.Key < columnNames.Count ? columnNames[g.Key] : $"Column {g.Key + 1}";
                     var vms = g.OrderBy(d => d.Row)
-                            .Select(d => new DoctrineVM(d.Id))
+                            .Select(d => new DoctrineVM(d.Key))
                             .ToList();
 
                     columns.Add(new DoctrineColumnVM(colName, vms));

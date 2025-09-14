@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Utils;
+using Retinues.Core.Game.Wrappers.Cache;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -40,6 +41,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public bool IsVanilla => Faction is null;
         public bool IsCustom => !IsVanilla;
+
+        public bool IsHero => _characterObject.IsHero;
 
         public static Dictionary<string, string> VanillaStringIdMap = [];
 
@@ -105,6 +108,9 @@ namespace Retinues.Core.Game.Wrappers
                 if (_faction != null)
                     return _faction;
 
+                if (WCharacterIndex.TryGetFactionByTroopId(StringId, out var indexedFaction))
+                    return _faction = indexedFaction;
+
                 var candidates = new List<WFaction> { Player.Clan };
                 if (Player.Kingdom != null)
                     candidates.Add(Player.Kingdom);
@@ -140,6 +146,12 @@ namespace Retinues.Core.Game.Wrappers
                 if (_parent != null)
                     return _parent;
 
+                if (WCharacterIndex.TryGetParentId(StringId, out var pid))
+                {
+                    var pObj = MBObjectManager.Instance.GetObject<CharacterObject>(pid);
+                    if (pObj != null) return _parent = WCharacterCache.Wrap(pObj);
+                }
+
                 if (Faction == null)
                     return null;
 
@@ -164,8 +176,8 @@ namespace Retinues.Core.Game.Wrappers
             {
                 yield return this;
                 foreach (var child in UpgradeTargets)
-                foreach (var descendant in child.Tree)
-                    yield return descendant;
+                    foreach (var descendant in child.Tree)
+                        yield return descendant;
             }
         }
 
@@ -236,7 +248,7 @@ namespace Retinues.Core.Game.Wrappers
         // =========================================================================
 
         public bool IsElite =>
-            Faction?.EliteTroops.Contains(this) == true ||
+            (Faction?.EliteTroops?.Any(t => t.StringId == StringId) ?? false) ||
             StringId == Faction?.RetinueElite?.StringId;
 
         public bool IsRetinue =>
@@ -501,5 +513,16 @@ namespace Retinues.Core.Game.Wrappers
 
             return clone;
         }
+
+        // =========================================================================
+        // Helpers
+        // =========================================================================
+
+        public bool IsRanged => Equipment.HasRangedWeapons;
+
+        public bool IsMounted => Equipment.HasMount;
+
+        public bool IsRuler => _characterObject.HeroObject?.IsFactionLeader ?? false;
+
     }
 }

@@ -1,30 +1,20 @@
-// Retinues.Core.Game.Features.Doctrines/DoctrineServiceBehavior.cs
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using Retinues.Core.Utils; // your logger, optional
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
-    /// <summary>
-    /// Persistent doctrine/feat state + query/mutation API.
-    /// Call via Doctrines.* static facade or fetch behavior from Campaign.
-    /// </summary>
     public sealed class DoctrineServiceBehavior : CampaignBehaviorBase
     {
-        // -------- State (persisted) --------
-        private HashSet<string> _unlocked = [];                // doctrineId -> unlocked
-        private Dictionary<string, int> _featProgress = [];    // featId -> current value
+        // -------- State (persisted using type-key strings) --------
+        private HashSet<string> _unlocked = []; // doctrineKey -> unlocked
+        private Dictionary<string, int> _featProgress = []; // featKey -> current
 
         // -------- Definitions (rebuilt on load) --------
-        private Dictionary<string, DoctrineDef> _defsById = [];
-        private Dictionary<string, string> _featToDoctrine = []; // featId -> doctrineId
-
-        // -------- Events (optional) --------
-        public event Action<string> DoctrineUnlocked; // doctrineId
-        public event Action<string> FeatCompleted;    // featId
+        private Dictionary<string, DoctrineDef> _defsByKey = [];
+        private readonly Dictionary<string, string> _featToDoctrine = []; // featKey -> doctrineKey
 
         public override void RegisterEvents()
         {
@@ -37,7 +27,7 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         public override void SyncData(IDataStore dataStore)
         {
-            // Persist only the variable state; definitions are rebuilt
+            // Persist state by string keys (Type.FullName)
             var unlockedList = _unlocked?.ToList() ?? [];
             dataStore.SyncData("CCT_Doctrines_Unlocked", ref unlockedList);
             _unlocked = unlockedList != null ? unlockedList.ToHashSet() : [];
@@ -46,200 +36,170 @@ namespace Retinues.Core.Game.Features.Doctrines
             _featProgress ??= [];
         }
 
-        // --------------------------------------------------------------------
-        // Public API (call via Doctrines.* facade)
-        // --------------------------------------------------------------------
-        public IEnumerable<DoctrineDef> AllDoctrines() => _defsById.Values.OrderBy(d => d.Column).ThenBy(d => d.Row);
+        // Public API uses *string keys* internally; DoctrineAPI will expose type-based overloads.
+        public IEnumerable<DoctrineDef> AllDoctrines() => _defsByKey.Values.OrderBy(d => d.Column).ThenBy(d => d.Row);
+        public DoctrineDef GetDoctrine(string key) => _defsByKey.TryGetValue(key, out var d) ? d : null;
+        public bool IsDoctrineUnlocked(string key) => _unlocked.Contains(key);
 
-        public DoctrineDef GetDoctrine(string id) => _defsById.TryGetValue(id, out var d) ? d : null;
-
-        public DoctrineStatus GetDoctrineStatus(string id)
+        public DoctrineStatus GetDoctrineStatus(string key)
         {
-            Log.Debug($"Getting status for doctrine {id}");
-            var def = GetDoctrine(id);
+            var def = GetDoctrine(key);
             if (def == null) return DoctrineStatus.Locked;
 
-            if (_unlocked.Contains(id))
-                return DoctrineStatus.Unlocked;
+            if (_unlocked.Contains(key)) return DoctrineStatus.Unlocked;
 
-            // prerequisite gate
-            if (!string.IsNullOrEmpty(def.PrerequisiteId) && !_unlocked.Contains(def.PrerequisiteId))
+            // prereq
+            if (!string.IsNullOrEmpty(def.PrerequisiteKey) && !_unlocked.Contains(def.PrerequisiteKey))
                 return DoctrineStatus.Locked;
 
-            // feats gate
+            // feats
             var feats = def.Feats;
-            if (feats == null || feats.Count == 0)
-                return DoctrineStatus.InProgress; // no feats => can be acquired
+            if (feats == null || feats.Count == 0) return DoctrineStatus.InProgress;
 
-            // if any feat incomplete -> Unlockable (i.e., still working on feats)
-            if (feats.Any(f => !IsFeatComplete(f.Id)))
-                return DoctrineStatus.Unlockable;
-
-            // all feats complete -> ready to acquire
+            if (feats.Any(f => !IsFeatComplete(f.Key))) return DoctrineStatus.Unlockable;
             return DoctrineStatus.InProgress;
         }
 
-        public bool IsDoctrineUnlocked(string id) => _unlocked.Contains(id);
-
-        public bool TryAcquireDoctrine(string id, out string failReason)
+        public bool TryAcquireDoctrine(string key, out string reason)
         {
-            Log.Debug($"Trying to acquire doctrine {id}");
-            failReason = null;
-            var def = GetDoctrine(id);
-            if (def == null) { failReason = "Unknown doctrine."; return false; }
+            reason = null;
+            var def = GetDoctrine(key);
+            if (def == null) { reason = "Unknown doctrine."; return false; }
 
-            var status = GetDoctrineStatus(id);
+            var status = GetDoctrineStatus(key);
             if (status != DoctrineStatus.InProgress)
             {
-                failReason = status == DoctrineStatus.Locked ? "Prerequisite not met." : "Feats incomplete.";
+                reason = status == DoctrineStatus.Locked ? "Prerequisite not met." : "Feats incomplete.";
                 return false;
             }
 
-            // Check costs
             var gold = Hero.MainHero?.Gold ?? 0;
             var influence = Clan.PlayerClan?.Influence ?? 0f;
 
-            if (gold < def.GoldCost)
-            {
-                failReason = "Not enough gold.";
-                return false;
-            }
-            if (influence < def.InfluenceCost)
-            {
-                failReason = "Not enough influence.";
-                return false;
-            }
+            if (gold < def.GoldCost) { reason = "Not enough gold."; return false; }
+            if (influence < def.InfluenceCost) { reason = "Not enough influence."; return false; }
 
-            // Pay & unlock
-            Hero.MainHero?.ChangeHeroGold(-def.GoldCost);
-            if (Clan.PlayerClan != null)
-                Clan.PlayerClan.Influence = Math.Max(0f, Clan.PlayerClan.Influence - def.InfluenceCost);
+            Player.ChangeGold(-def.GoldCost);
+            Player.ChangeInfluence(-def.InfluenceCost);
 
-            _unlocked.Add(id);
-            Log.Debug($"[Doctrines] Unlocked: {def.Name} ({id})");
-            DoctrineUnlocked?.Invoke(id);
+            _unlocked.Add(key);
+            DoctrineUnlocked?.Invoke(key);
             return true;
         }
 
-        // -------- Feats --------
+        // -------- Feats (by feat key string) --------
 
-        public int GetFeatTarget(string featId)
+        public int GetFeatTarget(string featKey)
         {
-            var dId = _featToDoctrine.TryGetValue(featId, out var did) ? did : null;
-            if (dId == null) return 0;
-            var feat = GetDoctrine(dId)?.Feats?.FirstOrDefault(f => f.Id == featId);
+            var dKey = _featToDoctrine.TryGetValue(featKey, out var did) ? did : null;
+            if (dKey == null) return 0;
+            var feat = GetDoctrine(dKey)?.Feats?.FirstOrDefault(f => f.Key == featKey);
             return feat?.Target ?? 0;
         }
 
-        public int GetFeatProgress(string featId)
+        public int GetFeatProgress(string featKey) => _featProgress.TryGetValue(featKey, out var v) ? v : 0;
+
+        public bool IsFeatComplete(string featKey)
         {
-            return _featProgress.TryGetValue(featId, out var v) ? v : 0;
+            int target = GetFeatTarget(featKey);
+            if (target <= 0) return true;
+            return GetFeatProgress(featKey) >= target;
         }
 
-        public bool IsFeatComplete(string featId)
+        public void SetFeatProgress(string featKey, int amount)
         {
-            int target = GetFeatTarget(featId);
-            if (target <= 0) return true; // feats with no target are trivially complete
-            return GetFeatProgress(featId) >= target;
+            if (string.IsNullOrEmpty(featKey) || amount < 0) return;
+            if (!_featToDoctrine.ContainsKey(featKey)) return;
+
+            int target = GetFeatTarget(featKey);
+            int next = Math.Min(target <= 0 ? amount : amount, target > 0 ? target : int.MaxValue);
+
+            _featProgress[featKey] = next;
+
+            Log.Info($"Set feat progress: {featKey} = {next}/{target}");
+
+            if (target > 0 && next >= target) FeatCompleted?.Invoke(featKey);
         }
 
-        /// <summary>Advance feat progress by amount (>=1). Returns new value (clamped).</summary>
-        public int AdvanceFeat(string featId, int amount = 1)
+        public int AdvanceFeat(string featKey, int amount = 1)
         {
-            if (string.IsNullOrEmpty(featId) || amount <= 0) return GetFeatProgress(featId);
+            if (string.IsNullOrEmpty(featKey) || amount <= 0) return GetFeatProgress(featKey);
+            if (!_featToDoctrine.ContainsKey(featKey)) return GetFeatProgress(featKey);
 
-            if (!_featToDoctrine.ContainsKey(featId))
-                return GetFeatProgress(featId); // unknown feat id, ignore safely
-
-            int target = GetFeatTarget(featId);
-            int cur = GetFeatProgress(featId);
+            int target = GetFeatTarget(featKey);
+            int cur = GetFeatProgress(featKey);
             int next = Math.Min(target <= 0 ? cur + amount : cur + amount, target > 0 ? target : int.MaxValue);
 
-            _featProgress[featId] = next;
+            _featProgress[featKey] = next;
 
-            if (target > 0 && cur < target && next >= target)
-            {
-                Log.Debug($"[Doctrines] Feat complete: {featId}");
-                FeatCompleted?.Invoke(featId);
-            }
+            Log.Info($"Advanced feat progress: {featKey} = {next}/{target}");
+
+            if (target > 0 && cur < target && next >= target) FeatCompleted?.Invoke(featKey);
             return next;
         }
 
-        // --------------------------------------------------------------------
-        // Definitions — build once per session (mirror your DoctrineTree)
-        // --------------------------------------------------------------------
+        // -------- Catalog build from types --------
+
         private void BuildCatalogIfNeeded()
         {
-            Log.Debug("Building doctrine catalog");
-            if (_defsById.Count > 0) return;
+            if (_defsByKey.Count > 0) return;
 
+            var doctrines = DoctrineCatalog.DiscoverDoctrines(); // type discovery
             var defs = new List<DoctrineDef>();
-            string[,] ids = {
-                { "lions_share", "battlefield_tithes", "pragmatic_scavengers", "ancestral_heritage" },
-                { "cultural_pride", "clanic_traditions", "royal_patronage", "ironclad" },
-                { "iron_discipline", "steadfast_soldiers", "masters_at_arms", "adaptive_training" },
-                { "indomitable", "bound_by_honor", "vanguard", "immortals" }
-            };
-            string[,] names = {
-                { "Lion's Share", "Battlefield Tithes", "Pragmatic Scavengers", "Ancestral Heritage" },
-                { "Cultural Pride", "Clanic Traditions", "Royal Patronage", "Ironclad" },
-                { "Iron Discipline", "Steadfast Soldiers", "Masters-At-Arms", "Adaptive Training" },
-                { "Indomitable", "Bound by Honor", "Vanguard", "Immortals" }
-            };
-            string[,] desc = {
-                { "Hero kills count twice for unlocks.", "Unlock items from allied kills.", "Unlock items from allied casualties.", "Unlocks all items of clan culture." },
-                { "10% rebate on items of the troop's culture.", "10% rebate on items of the clan's culture.", "10% rebate on items of the kingdom's culture.", "No tier restriction for arms and armor." },
-                { "+5% skill cap.", "+5% skill points.", "+1 upgrade branch for elite troops.", "Experience refunds for retraining." },
-                { "+25% retinue health.", "+20% retinue morale.", "+15% retinue cap.", "+25% retinue survival chance." }
-            };
+            _featToDoctrine.Clear();
 
-            for (int c = 0; c < 4; c++)
+            foreach (var d in doctrines)
             {
-                for (int r = 0; r < 4; r++)
+                var key = d.Key; // Type.FullName
+                var feats = new List<FeatDef>();
+
+                foreach (var f in d.InstantiateFeats())
                 {
-                    var id = ids[c, r];
-                    var d = new DoctrineDef
-                    {
-                        Id = id,
-                        Name = names[c, r],
-                        Description = desc[c, r],
-                        Column = c,
-                        Row = r,
-                        PrerequisiteId = r > 0 ? ids[c, r - 1] : null,
-                        GoldCost = r switch { 0 => 1000, 1 => 5000, 2 => 25000, 3 => 100000, _ => 0 },
-                        InfluenceCost = 0,
-                        // InfluenceCost = r switch { 0 => 50, 1 => 100, 2 => 200, 3 => 500, _ => 0 },
-                        Feats = [] // define feats here or add later via RegisterFeat
-                    };
-                    defs.Add(d);
+                    var fKey = f.Key;
+                    feats.Add(new FeatDef { Key = fKey, Description = f.Description, Target = f.Target });
+                    _featToDoctrine[fKey] = key;
+                    f.OnRegister(); // lifecycle hook
                 }
+
+                defs.Add(new DoctrineDef
+                {
+                    Key = key,
+                    Name = d.Name,
+                    Description = d.Description,
+                    Column = d.Column,
+                    Row = d.Row,
+                    // PrerequisiteKey will be set in a second pass
+                    GoldCost = d.GoldCost,
+                    InfluenceCost = d.InfluenceCost,
+                    Feats = feats
+                });
             }
 
-            _defsById = defs.ToDictionary(d => d.Id, d => d);
+            // Second pass: prerequisite = doctrine one row above in same column
+            var byPos = new Dictionary<(int col, int row), DoctrineDef>();
+            foreach (var def in defs)
+                byPos[(def.Column, def.Row)] = def;
 
-            // If you already know some feats, register them here. You can expand later from behaviors.
-            // Example:
-            // RegisterFeat("feat_defeat_king_party", "Defeat a ruling monarch's war party.", 1, "lions_share");
+            foreach (var def in defs)
+            {
+                if (def.Row <= 0)
+                {
+                    def.PrerequisiteKey = null;
+                    continue;
+                }
 
-            RebuildFeatIndex();
+                if (byPos.TryGetValue((def.Column, def.Row - 1), out var prev))
+                    def.PrerequisiteKey = prev.Key;
+                else
+                    def.PrerequisiteKey = null; // optional: log a warning if you expect a strict 4x4
+            }
+
+            _defsByKey = defs.ToDictionary(d => d.Key, d => d);
         }
 
-        public void RegisterFeat(string featId, string description, int target, string doctrineId)
-        {
-            Log.Debug($"Registering feat {featId} for doctrine {doctrineId}");
-            if (!_defsById.TryGetValue(doctrineId, out var d)) return;
-            if (d.Feats.Any(f => f.Id == featId)) return;
-            d.Feats.Add(new FeatDef { Id = featId, Description = description, Target = target });
-            _featToDoctrine[featId] = doctrineId;
-        }
+        // -------- Events --------
 
-        private void RebuildFeatIndex()
-        {
-            Log.Debug("Rebuilding feat index");
-            _featToDoctrine.Clear();
-            foreach (var d in _defsById.Values)
-                foreach (var f in d.Feats)
-                    _featToDoctrine[f.Id] = d.Id;
-        }
+        public event Action<string> DoctrineUnlocked; // doctrineKey
+        public event Action<string> FeatCompleted; // featKey
     }
 }

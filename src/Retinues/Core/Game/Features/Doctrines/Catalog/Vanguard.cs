@@ -1,0 +1,73 @@
+using TaleWorlds.MountAndBlade;
+using Retinues.Core.Game.Events;
+using Retinues.Core.Editor;
+
+namespace Retinues.Core.Game.Features.Doctrines.Catalog
+{
+    public sealed class Vanguard : Doctrine
+    {
+        public override string Name => "Vanguard";
+        public override string Description => "+15% retinue cap.";
+        public override int Column => 3;
+        public override int Row => 2;
+
+        public sealed class VG_ClearHideoutRetinueOnly : Feat
+        {
+            public override string Description => "Be at near maximum retinue capacity for 30 days.";
+            public override int Target => 1;
+
+            public override void OnDailyTick()
+            {
+                int maxRetinues = TroopRules.MaxBasicRetinue + TroopRules.MaxEliteRetinue;
+                int currentRetinues = Player.Party.MemberRoster.RetinueCount;
+
+                if (currentRetinues < 0.8 * maxRetinues)
+                    AdvanceProgress(1);
+                else
+                    SetProgress(0); // Reset progress if not near max capacity
+            }
+        }
+
+        public sealed class VG_Win100RetinueOnly : Feat
+        {
+            public override string Description => "Win a 100+ battle using only your retinue.";
+            public override int Target => 1;
+
+            public override void OnBattleEnd(Battle battle)
+            {
+                if (battle.IsLost) return;
+                if (battle.TotalTroopCount < 100) return;
+                if (battle.AllyTroopCount > 0) return; // No allies allowed
+                if (Player.Party.MemberRoster.RetinueRatio < 1.0f) return; // No non-retinues allowed
+
+                AdvanceProgress(1);
+            }
+        }
+
+        public sealed class VG_FirstMeleeKillInSiege : Feat
+        {
+            public override string Description => "Have a retinue get the first melee kill in a siege assault.";
+            public override int Target => 1;
+
+            public override void OnBattleEnd(Battle battle)
+            {
+                if (battle.IsLost) return;
+                if (!battle.IsSiege) return;
+                if (battle.PlayerIsDefender) return;
+
+                foreach (var kill in battle.Kills)
+                {
+                    if (kill.Blow.IsMissile)
+                        continue; // Ignore ranged kills
+                    if (!kill.Killer.IsPlayerTroop)
+                        return; // First melee kill not by player troop
+                    if (!kill.Killer.Character.IsRetinue)
+                        return; // First melee kill not by retinue
+
+                    AdvanceProgress(1);
+                    return;
+                }
+            }
+        }
+    }
+}

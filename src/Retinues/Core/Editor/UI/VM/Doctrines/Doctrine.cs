@@ -49,7 +49,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                 int total = _def?.Feats?.Count ?? 0;
                 int complete = 0;
                 if (total > 0 && _svc != null)
-                    complete = _def.Feats.Count(f => _svc.IsFeatComplete(f.Id));
+                    complete = _def.Feats.Count(f => _svc.IsFeatComplete(f.Key));
                 return $"{_name} ({complete}/{total})";
             }
         }
@@ -101,19 +101,19 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             }
 
             // Build feats text from real data
-            var feats = def.Feats ?? new System.Collections.Generic.List<FeatDef>();
+            var feats = def.Feats ?? [];
             int total = feats.Count;
             int complete = 0;
 
             var sb = new StringBuilder();
             foreach (var f in feats)
             {
-                bool done = svc.IsFeatComplete(f.Id);
+                bool done = svc.IsFeatComplete(f.Key);
                 if (done) complete++;
 
                 string status = done ? "■" : "□";
-                int prog = svc.GetFeatProgress(f.Id);
-                int target = svc.GetFeatTarget(f.Id);
+                int prog = svc.GetFeatProgress(f.Key);
+                int target = svc.GetFeatTarget(f.Key);
 
                 if (target > 0)
                     sb.Append("    ").Append(status).Append("  ").Append(f.Description).Append(" (")

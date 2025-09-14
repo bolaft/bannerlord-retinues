@@ -6,11 +6,10 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 ## Features
 
-- tech tree screen in bottom right
 - change troop culture
 - tutorial on first game
 - tool tip / communicate on skill caps/limits
-- make doctrines optional
+- add cheats for testing/troubleshooting
 
 ## Refactor
 
@@ -20,82 +19,12 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 - fix hints not appearing on disabled buttons
 - fix MCM defaults updating
+- fix MCM options not showing (can't use floats)
 
 ## Tests
 
 - test persistence of item kills for unlocks
 - check game type on sandbox (debug log in SubModule.cs)
-
-## Doctrines
-
-- UNLOCKS
-    - Lion's Share - Hero kills count twice for unlocks
-        -> personally defeat 25 enemies in one battle
-        -> personally defeat 5 tier 5+ troops in one battle
-        -> personally defeat an enemy lord in battle
-    - Battlefield Tithes - Can unlock items from allied party kills
-        -> complete a quest for an allied lord
-        -> save an allied lord from certain defeat
-        -> turn the tide of a battle involving an allied army
-    - Pragmatic Scavengers - Can unlock items from allied party casualties
-        -> win a defensive battle in which allies suffer >50% casualties
-        -> while in an army, win a battle in which allies suffer >50% casualties
-        -> rescue a defeated allied lord from captivity
-    - Cultural Heritage - Unlocks all items of clan & kingdom cultures
-        -> win a 150+ battle while outnumbered and fielding only custom troops of your own culture
-        -> win a tournament in a town of your own culture
-        -> capture a fief of your own culture from an enemy kingdom
-- EQUIPMENT
-    - Cultural Pride - 10% rebate on items of the troop's culture
-        -> win a tournament wearing only items of your own culture
-        -> have a troop type wearing a full set of items of their culture get 100 kills in battle
-        -> defeat a monarch of a different culture in battle
-    - Clanic Traditions - 10% rebate on items of the clan's culture
-        -> own a smithy in a fief of your clan's culture for 30 days
-        -> win a battle in which your companions get 50+ kills
-        -> have a companion win a battle against 100+ enemies as a party leader
-    - Royal Patronage - 10% rebate on items of the kingdom's culture
-        -> recruit 100 custom kingdom troops
-        -> have a companion of the same culture as your kingdom govern a kingdom fief for 30 days
-        -> get 1000 kills with custom kingdom troops
-    - Ironclad - No tier restriction for arms & armor
-        -> equip a full set of tier 5+ items on a custom troop and have them get 100 kills in battle
-        -> have 10 custom troops reach 80 in athletics skill
-        -> win a 100+ battle, while outnumbered, and fielding only custom troops of tier 1, 2 or 3
-- TROOPS
-    - Iron Discipline - +5% skill cap
-        -> upgrade 100 basic troops to max tier
-        -> defeat an bandit leader in single combat
-        -> defeat a party twice your size using mostly custom troops
-    - Steadfast Soldiers - +5% skill points
-        -> max out the skills of 10 custom troops
-        -> win a siege defense using mostly custom troops
-        -> defend a village from a raid using only custom troops
-    - Masters-At-Arms - +1 upgrade branch for elite troops
-        -> upgrade 100 elite troops to max tier
-        -> defeat an enemy lord using only elite troops
-        -> get 1000 kills with elite troops
-    - Adaptive Training - XP refunds for retraining
-        -> for each skill, have at least one troop reach level 200
-        -> win an uphill battle using a party evenly split among infantry, archers and cavalry custom troops
-        -> get 50 KOs in the arena practice fights
-- RETINUES
-    - Indomitable - +25% retinue health
-        -> have your retinues defeat 100 enemy troops of equivalent tier without a single casualty
-        -> join an ongoing siege as a defender with a full-strength retinue and win
-        -> have a retinue-only party win 3 defensive battles in a row
-    - Bound by Honor - +20% retinue morale
-        -> refuse payment for mercenary work three times.
-        -> maintain a retinue-only party's morale above 80 for 30 days
-        -> have one of your retinue win a tournament
-    - Vanguard - +15% retinue cap
-        -> clear a hideout using only your retinue
-        -> win a 100+ battle using only your retinue
-        -> have a retinue get the first melee kill in a siege assault
-    - Immortals - +25% retinue survival chance
-        -> have 100 retinue troops survive being struck down in battle
-        -> win a 200+ battle without a single death on your side
-        -> have a single retinue troop kill two tier 5+ units in one battle
 
 ## Script
 

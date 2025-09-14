@@ -74,7 +74,7 @@
         {{ big_button("@FactionSwitchText", "ExecuteSwitchFaction", "@CanSwitchFaction", "Top", "Right") }}
 
         <!-- Switch doctrines button-->
-        {{ big_button("Doctrines", "ExecuteSwitchToDoctrines", "@IsNotDoctrinesMode", "Bottom", "Right") }}
+        {{ big_button("Doctrines", "ExecuteSwitchToDoctrines", "@CanSwitchToDoctrines", "Bottom", "Right") }}
 
         <!-- Switch to default button-->
         {{ big_button("Return to\nEditor", "ExecuteSwitchToDefault", "@IsDoctrinesMode", "Bottom", "Right") }}

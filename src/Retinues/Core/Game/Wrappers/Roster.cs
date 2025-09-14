@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Roster;
 
@@ -35,6 +36,21 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        public WRosterElement PlayerElement
+        {
+            get
+            {
+                int idx = 0;
+                foreach (var e in Elements)
+                {
+                    if (e.Troop.StringId == Player.Character.StringId)
+                        return new WRosterElement(e.Base, this, idx);
+                    idx++;
+                }
+                return null;
+            }
+        }
+
         // ================================================================
         // Troops
         // ================================================================
@@ -64,6 +80,93 @@ namespace Retinues.Core.Game.Wrappers
                 return;
 
             _roster.AddToCounts(troop.Base as CharacterObject, -healthy, woundedCount: -wounded);
+        }
+
+        // ================================================================
+        // Helpers
+        // ================================================================
+
+        public int HeroCount
+        {
+            get
+            {
+                int count = 0;
+                foreach (var e in Elements)
+                    if (e.Troop.IsHero)
+                        count += e.Number;
+                return count;
+            }
+        }
+
+        public int EliteCount
+        {
+            get
+            {
+                int count = 0;
+                foreach (var e in Elements)
+                    if (e.Troop.IsElite)
+                        count += e.Number;
+                return count;
+            }
+        }
+
+        public float EliteRatio => Count == 0 ? 0 : (float)EliteCount / (Count - HeroCount);
+
+        public int CustomCount
+        {
+            get
+            {
+                int count = 0;
+                foreach (var e in Elements)
+                    if (e.Troop.IsCustom)
+                        count += e.Number;
+                return count;
+            }
+        }
+
+        public float CustomRatio => Count == 0 ? 0 : (float)CustomCount / (Count - HeroCount);
+
+        public int RetinueCount
+        {
+            get
+            {
+                int count = 0;
+                foreach (var e in Elements)
+                    if (e.Troop.IsRetinue)
+                        count += e.Number;
+                return count;
+            }
+        }
+
+        public float RetinueRatio => Count == 0 ? 0 : (float)RetinueCount / (Count - HeroCount);
+
+        public int InfantryCount => CountByFormation(FormationClass.Infantry);
+        public int ArchersCount => CountByFormation(FormationClass.Ranged);
+        public int CavalryCount => CountByFormation(FormationClass.Cavalry);
+
+        public float InfantryRatio => Count == 0 ? 0 : (float)InfantryCount / (Count - HeroCount);
+        public float ArchersRatio => Count == 0 ? 0 : (float)ArchersCount / (Count - HeroCount);
+        public float CavalryRatio => Count == 0 ? 0 : (float)CavalryCount / (Count - HeroCount);
+
+        public int CountByFormation(FormationClass cls)
+        {
+            int count = 0;
+            foreach (var e in Elements)
+            {
+                var co = e.Troop.Base as CharacterObject;
+                var c = co?.DefaultFormationClass;
+                if (c == cls) count += e.Number;
+            }
+            return count;
+        }
+
+        public int CountByCulture(WCulture culture)
+        {
+            int count = 0;
+            foreach (var e in Elements)
+                if (e.Troop.Culture.StringId == culture.StringId)
+                    count += e.Number;
+            return count;
         }
     }
 }

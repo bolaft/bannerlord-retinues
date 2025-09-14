@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -43,6 +45,18 @@ namespace Retinues.Core.Game
             }
         }
 
+        private static WCharacter _character;
+        public static WCharacter Character
+        {
+            get
+            {
+                _character ??= new WCharacter(Hero.MainHero.CharacterObject);
+                return _character;
+            }
+        }
+
+        public static IFaction MapFaction => Hero.MainHero.MapFaction;
+
         // =========================================================================
         // Attributes
         // =========================================================================
@@ -69,6 +83,25 @@ namespace Retinues.Core.Game
         }
 
         // =========================================================================
+        // Influence
+        // =========================================================================
+
+        public static int Influence
+        {
+            get
+            {
+                if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null) return 0;
+                return (int)TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence;
+            }
+        }
+
+        public static void ChangeInfluence(int amount)
+        {
+            if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null) return;
+            TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence = Math.Max(0f, Influence + amount);
+        }
+
+        // =========================================================================
         // Kingdom
         // =========================================================================
 
@@ -78,6 +111,24 @@ namespace Retinues.Core.Game
 
         public static WFaction Kingdom =>
             IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom) : null;
+
+        // =========================================================================
+        // Troops
+        // =========================================================================
+
+        public static IEnumerable<WCharacter> Troops
+        {
+            get
+            {
+                if (Clan != null)
+                    foreach (var troop in Clan.Troops)
+                        yield return troop;
+
+                if (Kingdom != null)
+                    foreach (var troop in Kingdom.Troops)
+                        yield return troop;
+            }
+        }
 
         // =========================================================================
         // Public API

@@ -100,6 +100,17 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
+            // Doctrines
+
+            AddOption(
+                section: "Doctrines",
+                name: "Enable Doctrines (Unstable)",
+                key: "EnableDoctrines",
+                hint: "Enable the Doctrines system and its features.",
+                @default: true,
+                type: typeof(bool)
+            );
+
             // Equipment
 
             AddOption(

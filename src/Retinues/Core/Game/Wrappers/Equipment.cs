@@ -117,5 +117,37 @@ namespace Retinues.Core.Game.Wrappers
                 return req;
             return 0;
         }
+
+        // =========================================================================
+        // Helpers
+        // =========================================================================
+
+        public bool HasRangedWeapons
+        {
+            get
+            {
+                foreach (var slot in Slots)
+                {
+                    var item = GetItem(slot);
+                    if (item != null && item.IsRangedWeapon)
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public bool HasMount
+        {
+            get
+            {
+                foreach (var slot in Slots)
+                {
+                    var item = GetItem(slot);
+                    if (item != null && item.IsHorse)
+                        return true;
+                }
+                return false;
+            }
+        }
     }
 }
