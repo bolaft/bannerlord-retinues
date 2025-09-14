@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers.Cache;
 using TaleWorlds.CampaignSystem;
@@ -7,9 +6,9 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Core.Game.Features.Combat
+namespace Retinues.Core.Game.Features.Doctrines.Effects.Behaviors
 {
-    public sealed class RetinueSurvivalBonusBehavior : MissionBehavior
+    public sealed class ImmortalsBehavior : MissionBehavior
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 

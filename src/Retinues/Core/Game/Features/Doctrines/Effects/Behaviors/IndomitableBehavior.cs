@@ -5,9 +5,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Core.Game.Features.Combat
+namespace Retinues.Core.Game.Features.Doctrines.Effects.Behaviors
 {
-    public sealed class RetinueHealthBonusBehavior : MissionBehavior
+    public sealed class IndomitableBehavior : MissionBehavior
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
         private const float Multiplier = 1.2f;

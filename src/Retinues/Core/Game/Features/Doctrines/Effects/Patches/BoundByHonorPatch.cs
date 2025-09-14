@@ -1,12 +1,11 @@
 using HarmonyLib;
-using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Features.Doctrines.Catalog;
 using TaleWorlds.Localization;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Core.Game.Features.Morale.Patches
+namespace Retinues.Core.Game.Features.Doctrines.Effects.Patches
 {
     [HarmonyPatch(typeof(DefaultPartyMoraleModel), nameof(DefaultPartyMoraleModel.GetEffectivePartyMorale))]
     internal static class RetinuePartyMoralePatch

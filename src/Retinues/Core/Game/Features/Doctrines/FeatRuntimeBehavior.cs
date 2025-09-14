@@ -5,10 +5,10 @@ using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.MountAndBlade;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Effects.Behaviors;
 using Retinues.Core.Game.Wrappers.Cache;
 using System.Linq;
 using Retinues.Core.Utils;
@@ -84,6 +84,13 @@ namespace Retinues.Core.Game.Features.Doctrines
             {
                 battle = new Battle();
                 mission.AddMissionBehavior(battle);
+
+                // Add special behaviors for certain doctrines if not already present
+                // TODO: should probably not be here
+                if (mission.GetMissionBehavior<ImmortalsBehavior>() == null)
+                    mission.AddMissionBehavior(new ImmortalsBehavior());
+                if (mission.GetMissionBehavior<IndomitableBehavior>() == null)
+                    mission.AddMissionBehavior(new IndomitableBehavior());
             }
 
             // Relay mission end back to us so we can call OnBattleEnd on feats.
