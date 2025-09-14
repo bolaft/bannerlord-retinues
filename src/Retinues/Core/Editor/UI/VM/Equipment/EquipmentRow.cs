@@ -21,7 +21,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public string Name => Item?.Name ?? "Empty";
 
         [DataSourceProperty]
-        public int Value => Item?.Value ?? 0;
+        public int Value => EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop);
 
         [DataSourceProperty]
         public bool ShowValue

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Doctrines;
+using Retinues.Core.Game.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -28,11 +30,11 @@ namespace Retinues.Core.Editor
                 {
                     var wItem = new WItem(item); // Wrap item
 
-                    if (Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier))
-                        continue; // Skip items that exceed the allowed tier difference
+                    if (Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier) && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>())
+                        continue; // Skip items that exceed the allowed tier difference unless Ironclad is unlocked
                     else if (wItem.IsUnlocked)
                         items.Add(wItem); // Unlocked items
-                    else if (Config.GetOption<bool>("UnlockFromCulture"))
+                    else if (Config.GetOption<bool>("UnlockFromCulture") || DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>())
                         if (item.Culture?.StringId == faction?.Culture?.StringId)
                             items.Add(wItem); // Items of the faction's culture
                 }
@@ -58,7 +60,7 @@ namespace Retinues.Core.Editor
 
         public static void EquipFromPurchase(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            Player.ChangeGold(-item.Value); // Deduct cost
+            Player.ChangeGold(GetItemValue(item, troop)); // Deduct cost
             Equip(troop, slot, item);
         }
 
@@ -95,6 +97,26 @@ namespace Retinues.Core.Editor
                 if (item != null && item.Value > 0)
                     item.Stock();
             }
+        }
+
+        public static int GetItemValue(WItem item, WCharacter troop)
+        {
+            int baseValue = item?.Value ?? 0;
+            float rebate = 0.0f;
+
+            if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
+                if (item.Culture?.StringId == troop.Culture?.StringId)
+                    rebate += 0.10f; // 10% rebate on items of the clan's culture
+
+            if (DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
+                if (item.Culture?.StringId == Player.Clan.Culture.StringId)
+                    rebate += 0.10f; // 10% rebate on items of the clan's culture
+
+            if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+                if (item.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
+                    rebate += 0.10f; // 10% rebate on items of the kingdom's culture
+
+            return (int)(baseValue * (1.0f - rebate));
         }
     }
 }

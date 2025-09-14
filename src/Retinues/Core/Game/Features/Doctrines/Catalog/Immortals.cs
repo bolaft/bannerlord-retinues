@@ -9,7 +9,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
     public sealed class Immortals : Doctrine
     {
         public override string Name => "Immortals";
-        public override string Description => "+25% retinue survival chance.";
+        public override string Description => "+20% retinue survival chance.";
         public override int Column => 3;
         public override int Row => 3;
 

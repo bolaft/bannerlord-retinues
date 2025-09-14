@@ -5,7 +5,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
     public sealed class Indomitable : Doctrine
     {
         public override string Name => "Indomitable";
-        public override string Description => "+25% retinue health.";
+        public override string Description => "+20% retinue health.";
         public override int Column => 3;
         public override int Row => 0;
 

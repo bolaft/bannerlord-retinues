@@ -1,5 +1,7 @@
 using System.Linq;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Doctrines;
+using Retinues.Core.Game.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -15,7 +17,7 @@ namespace Retinues.Core.Editor
 
         public static int SkillCapByTier(int tier)
         {
-            return tier switch
+            int cap = tier switch
             {
                 1 => 20,
                 2 => 50,
@@ -25,11 +27,16 @@ namespace Retinues.Core.Editor
                 6 => 260,
                 _ => 260, // Higher tiers for retinues
             };
+
+            if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
+                cap = (int)(cap * 1.05f); // +5% skill cap with Iron Discipline
+
+            return cap;
         }
 
         public static int SkillTotalByTier(int tier)
         {
-            return tier switch
+            int total = tier switch
             {
                 1 => 90,
                 2 => 210,
@@ -39,6 +46,11 @@ namespace Retinues.Core.Editor
                 6 => 915,
                 _ => 915, // Higher tiers for retinues
             };
+
+            if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
+                total = (int)(total * 1.05f); // +5% skill cap with Steadfast Soldiers
+
+            return total;
         }
 
         public static int SkillPointsLeft(WCharacter character)
@@ -98,18 +110,22 @@ namespace Retinues.Core.Editor
             // Max tier reached
             if (character.IsMaxTier)
                 return false;
+            
+            int maxUpgrades;
+
+            if (character.IsRetinue)
+                maxUpgrades = 1;  // 1 upgrade for retinues
+            else if (character.IsElite)
+                if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>())
+                    maxUpgrades = 2;  // 2 upgrades for elite troops with Masters at Arms
+                else
+                    maxUpgrades = 1;  // 1 upgrade for elite troops without Masters at Arms
+            else
+                maxUpgrades = 2;  // 2 upgrades for basic troops
 
             // Max upgrades reached
-            if (character.IsElite || character.IsRetinue)
-            {
-                if (character.UpgradeTargets.Count() >= 1)
-                    return false; // Elite/Retinue troops can have 1 upgrade target
-            }
-            else
-            {
-                if (character.UpgradeTargets.Count() >= 2)
-                    return false; // Basic troops can have 2 upgrade targets
-            }
+            if (character.UpgradeTargets.Count() >= maxUpgrades)
+                return false;
 
             return true;
         }
@@ -134,11 +150,27 @@ namespace Retinues.Core.Editor
         // Retinues
         // ================================================================
 
-        public static int MaxEliteRetinue =>
-            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+        public static int MaxEliteRetinue
+        {
+            get
+            {
+                int maxEliteRetinue = (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+                if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
+                    maxEliteRetinue = (int)(maxEliteRetinue * 1.15f);
+                return maxEliteRetinue;
+            }
+        }
 
-        public static int MaxBasicRetinue =>
-            (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+        public static int MaxBasicRetinue
+        {
+            get
+            {
+                int maxBasicRetinue = (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+                if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
+                    maxBasicRetinue = (int)(maxBasicRetinue * 1.15f);
+                return maxBasicRetinue;
+            }
+        }
 
         public static int ConversionCostPerUnit(WCharacter retinue)
         {

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Core.Game.Features.Doctrines;
+using Retinues.Core.Game.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
@@ -30,7 +32,7 @@ namespace Retinues.Core.Game.Features.Xp
 
         public static void Refund(WCharacter troop, int amount)
         {
-            var refund = false;  // TODO: refund when doctrine unlocked
+            var refund = DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>();
 
             if (!refund)
                 return;
