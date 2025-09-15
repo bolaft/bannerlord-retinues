@@ -9,7 +9,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - change troop culture?
 - tutorial on first game
 - tool tip / communicate on skill caps/limits
-- add cheats for testing/troubleshooting
 - provide translations in many languages
 
 ## Fixes
