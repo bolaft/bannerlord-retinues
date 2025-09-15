@@ -32,8 +32,6 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         public void Refresh()
         {
-            Log.Debug("Refreshing.");
-
             // Clear existing VM list
             Equipments.Clear();
 

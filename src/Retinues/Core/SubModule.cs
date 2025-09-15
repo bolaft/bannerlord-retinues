@@ -13,7 +13,6 @@ using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using TaleWorlds.Localization;
 
 namespace Retinues.Core
 {
@@ -90,7 +89,7 @@ namespace Retinues.Core
                 Log.Debug("Behaviors registered.");
             }
 
-            Log.Debug(L.S("loc_smoke_test", "Localization test FAILED."));
+            Log.Debug(L.S("loc_smoke_test", "Localization test: default fallback (EN)."));
         }
 
         protected override void OnSubModuleUnloaded()

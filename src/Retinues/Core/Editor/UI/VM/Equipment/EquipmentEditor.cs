@@ -204,8 +204,6 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         public void Refresh()
         {
-            Log.Debug("Refreshing.");
-
             // Recreate all slot VMs
             CreateAllSlots();
 

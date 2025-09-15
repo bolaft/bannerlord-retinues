@@ -57,8 +57,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         public void Refresh()
         {
-            Log.Debug("Refreshing.");
-
             RetinueTroops.Clear();
             foreach (
                 var root in TroopManager

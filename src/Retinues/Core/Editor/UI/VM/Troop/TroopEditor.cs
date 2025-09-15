@@ -480,8 +480,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         public void Refresh()
         {
-            Log.Debug("Refreshing.");
-
             RebuildSkillRows();
             RebuildRetinueRows();
 

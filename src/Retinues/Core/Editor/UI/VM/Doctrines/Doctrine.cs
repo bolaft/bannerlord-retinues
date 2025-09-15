@@ -26,8 +26,6 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                 _def = _svc?.GetDoctrine(_id);
                 _name = _def?.Name ?? _id;
 
-                Log.Debug($"Created DoctrineVM for {_id} - {_name}");
-                
                 Refresh();
             }
             catch (Exception ex)

@@ -304,8 +304,6 @@ namespace Retinues.Core.Editor.UI.VM
 
         public void Refresh()
         {
-            Log.Debug("Refreshing.");
-
             OnPropertyChanged(nameof(DoctrineColumns));
 
             OnPropertyChanged(nameof(TroopEditor));
