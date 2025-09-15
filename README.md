@@ -6,7 +6,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 ## Features
 
-- change troop culture
+- change troop culture?
 - tutorial on first game
 - tool tip / communicate on skill caps/limits
 - add cheats for testing/troubleshooting
@@ -19,7 +19,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Tests
 
 - test persistence of item kills for unlocks
-- check game type on sandbox (debug log in SubModule.cs)
 
 ## Script
 

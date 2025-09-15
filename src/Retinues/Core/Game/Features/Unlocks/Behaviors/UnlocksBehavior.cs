@@ -31,6 +31,8 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
         public override void SyncData(IDataStore ds)
         {
             ds.SyncData(nameof(_defeatsByItemId), ref _defeatsByItemId);
+
+            Log.Debug($"SyncData: {_defeatsByItemId.Count} item defeat counts.");
         }
 
         private void OnMissionStarted(IMission mission)
