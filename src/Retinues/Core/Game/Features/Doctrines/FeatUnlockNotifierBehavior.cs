@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Core;
-using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
@@ -49,13 +50,20 @@ namespace Retinues.Core.Game.Features.Doctrines
         /// Try to display queued popups if we're on the world map and no inquiry is active.
         public void TryFlush()
         {
-            if (_inMission) return;
-            if (Mission.Current != null) return; // safest map check across builds
-            if (_pendingFeatKeys.Count == 0) return;
-            if (InformationManager.IsAnyInquiryActive()) return;
+            try
+            {
+                if (_inMission) return;
+                if (Mission.Current != null) return; // safest map check across builds
+                if (_pendingFeatKeys.Count == 0) return;
+                if (InformationManager.IsAnyInquiryActive()) return;
 
-            var featKey = _pendingFeatKeys.Dequeue();
-            BuildAndShow(featKey);
+                var featKey = _pendingFeatKeys.Dequeue();
+                BuildAndShow(featKey);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
         }
 
         private void BuildAndShow(string featKey)

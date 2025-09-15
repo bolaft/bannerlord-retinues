@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
@@ -10,23 +11,33 @@ namespace Retinues.Core.Game.Features.Doctrines
         /// Discover all Doctrine subclasses in the target namespace/assembly.
         public static IReadOnlyList<Doctrine> DiscoverDoctrines(string @namespaceStartsWith = "Retinues.Core.Game.Features.Doctrines.Catalog")
         {
-            var ass = Assembly.GetExecutingAssembly();
             var list = new List<Doctrine>();
 
-            foreach (var t in ass.GetTypes())
+            try
             {
-                if (!typeof(Doctrine).IsAssignableFrom(t) || t.IsAbstract) continue;
-                if (!t.FullName.StartsWith(@namespaceStartsWith, StringComparison.Ordinal)) continue;
+                var ass = Assembly.GetExecutingAssembly();
 
-                var ctor = t.GetConstructor(Type.EmptyTypes);
-                if (ctor == null) continue;
+                foreach (var t in ass.GetTypes())
+                {
+                    if (!typeof(Doctrine).IsAssignableFrom(t) || t.IsAbstract) continue;
+                    if (!t.FullName.StartsWith(@namespaceStartsWith, StringComparison.Ordinal)) continue;
 
-                var d = (Doctrine)Activator.CreateInstance(t);
-                list.Add(d);
+                    var ctor = t.GetConstructor(Type.EmptyTypes);
+                    if (ctor == null) continue;
+
+                    var d = (Doctrine)Activator.CreateInstance(t);
+                    list.Add(d);
+                }
+
+                // order by grid
+                return [.. list.OrderBy(d => d.Column).ThenBy(d => d.Row)];
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
             }
 
-            // order by grid
-            return list.OrderBy(d => d.Column).ThenBy(d => d.Row).ToList();
+            return list;
         }
     }
 }
