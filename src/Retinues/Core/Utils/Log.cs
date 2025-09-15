@@ -66,7 +66,7 @@ namespace Retinues.Core.Utils
         // Exception logger
         public static void Exception(Exception ex)
         {
-            Error($"[EXCEPTION] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}");
+            Error($"[EXCEPTION] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}\n{ex.InnerException}");
         }
 
         private static string FindCaller()

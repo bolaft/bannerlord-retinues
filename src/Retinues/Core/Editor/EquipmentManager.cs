@@ -107,20 +107,27 @@ namespace Retinues.Core.Editor
 
         public static int GetItemValue(WItem item, WCharacter troop)
         {
+            if (item == null)
+                return 0;
+
             int baseValue = item?.Value ?? 0;
             float rebate = 0.0f;
 
-            if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
-                if (item.Culture?.StringId == troop.Culture?.StringId)
-                    rebate += 0.10f; // 10% rebate on items of the clan's culture
+            try
+            {
+                if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
+                    if (item?.Culture?.StringId == troop.Culture?.StringId)
+                        rebate += 0.10f; // 10% rebate on items of the clan's culture
 
-            if (DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
-                if (item.Culture?.StringId == Player.Clan.Culture.StringId)
-                    rebate += 0.10f; // 10% rebate on items of the clan's culture
+                if (DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
+                    if (item?.Culture?.StringId == Player.Clan.Culture.StringId)
+                        rebate += 0.10f; // 10% rebate on items of the clan's culture
 
-            if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
-                if (item.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
-                    rebate += 0.10f; // 10% rebate on items of the kingdom's culture
+                if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+                    if (item?.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
+                        rebate += 0.10f; // 10% rebate on items of the kingdom's culture
+            }
+            catch { }
 
             return (int)(baseValue * (1.0f - rebate));
         }

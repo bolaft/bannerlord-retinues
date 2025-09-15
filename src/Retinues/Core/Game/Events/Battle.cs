@@ -17,7 +17,7 @@ namespace Retinues.Core.Game.Events
         public Battle()
         {
             // Initialize counts
-            PlayerTroopCount = Player.Party.MemberRoster.Count;
+            PlayerTroopCount = Player.Party?.MemberRoster?.Count ?? 0;
             EnemyTroopCount = GetRosters(EnemySide).Sum(r => r.Count);
             AllyTroopCount = GetRosters(PlayerSide).Sum(r => r.Count);
             FriendlyTroopCount = PlayerTroopCount + AllyTroopCount;
@@ -31,16 +31,25 @@ namespace Retinues.Core.Game.Events
                 .ToList();
 
             // Initialize army status
-            PlayerIsInArmy = Player.Party.IsInArmy;
-            AllyIsInArmy = PartiesOnSide(PlayerSide).Any(p => p.IsInArmy);
-            EnemyIsInArmy = PartiesOnSide(EnemySide).Any(p => p.IsInArmy);
+            PlayerIsInArmy = Player.Party?.IsInArmy ?? false;
+            AllyIsInArmy = PartiesOnSide(PlayerSide).Any(p => p?.IsInArmy ?? false);
+            EnemyIsInArmy = PartiesOnSide(EnemySide).Any(p => p?.IsInArmy ?? false);
 
             // Leaders
-            EnemyLeaders = GetLeaders(EnemySide);
-            AllyLeaders =
-            [
-                .. GetLeaders(PlayerSide).Where(l => l.StringId != Player.Character?.StringId),
-            ];
+            try
+            {
+                EnemyLeaders = GetLeaders(EnemySide);
+                AllyLeaders =
+                [
+                    .. GetLeaders(PlayerSide).Where(l => l?.StringId != Player.Character?.StringId),
+                ];
+            }
+            catch (System.Exception e)
+            {
+                Log.Exception(e);
+                EnemyLeaders = [];
+                AllyLeaders = [];
+            }
         }
 
         // =========================================================================
@@ -112,7 +121,7 @@ namespace Retinues.Core.Game.Events
                 return; // ignore non-character agents (horses, etc)
 
             Kills.Add(new Kill(victim, killer, state, blow));
-            Kills.Last().Report();
+            // Kills.Last().Report();
         }
 
         // =========================================================================
@@ -191,7 +200,7 @@ namespace Retinues.Core.Game.Events
 
         private List<WCharacter> GetLeaders(BattleSideEnum side)
         {
-            return [.. PartiesOnSide(side).Select(p => p.Leader)];
+            return [.. PartiesOnSide(side).Select(p => p?.Leader)];
         }
 
         // -------- Rosters --------

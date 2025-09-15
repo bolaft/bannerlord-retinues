@@ -12,10 +12,16 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - provide translations in many languages
 - disable in game messages from logs altogether
 - unlock self culture without kills
+- better XP display
 
 ## Fixes
 
 - fix hints not appearing on disabled buttons
+- XP not saved
+
+## Tests
+
+- recheck lord headshot feat
 
 ## Script
 

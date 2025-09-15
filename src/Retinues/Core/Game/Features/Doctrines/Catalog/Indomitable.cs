@@ -22,15 +22,37 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
+                Log.Info("IND_25EquivNoCasualty: OnBattleEnd");
                 foreach (var kill in battle.Kills)
                 {
                     if (kill.Victim.IsPlayerTroop)
+                    {
+                        Log.Info("  Player troop casualty detected.");
                         if (kill.Victim.Character.IsRetinue)
+                        {
+                            Log.Warn("  Retinue casualty detected; resetting progress.");
                             SetProgress(0); // Reset progress on any retinue casualty
-                        else if (kill.Killer.IsPlayerTroop)
-                            if (kill.Killer.Character.IsRetinue)
-                                if (kill.Victim.Character.Tier >= kill.Killer.Character.Tier)
-                                    AdvanceProgress(1);
+                        }
+                    }
+                    else if (kill.Killer.IsPlayerTroop)
+                    {
+                        Log.Info("  Player troop kill detected.");
+                        if (kill.Killer.Character.IsRetinue)
+                        {
+                            Log.Info($"  Killer: {kill.Killer.Character.Name} (tier {kill.Killer.Character.Tier})");
+                            Log.Info(
+                                $"  Victim: {kill.Victim.Character.Name} (tier {kill.Victim.Character.Tier})"
+                            );
+
+                            if (kill.Victim.Character.Tier >= kill.Killer.Character.Tier)
+                            {
+                                Log.Info(
+                                    $"  Retinue kill of equivalent or higher tier troop: {kill.Victim.Character.Name} (tier {kill.Victim.Character.Tier})"
+                                );
+                                AdvanceProgress(1);
+                            }
+                        }
+                    }
                 }
             }
         }

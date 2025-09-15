@@ -165,12 +165,13 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             try
             {
+                Log.Info("FeatRuntimeBehavior: OnTournamentStarted");
                 // Try to get the current mission
                 var mission = Mission.Current;
                 if (mission == null)
                     return;
 
-                Log.Info("FeatRuntimeBehavior: OnTournamentStarted");
+                Log.Info("FeatRuntimeBehavior: Tournament mission found");
 
                 // Check if Tournament behavior already exists
                 var tournament = mission.GetMissionBehavior<Tournament>();
@@ -200,15 +201,19 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             try
             {
+                Log.Info("FeatRuntimeBehavior: OnTournamentFinished");
                 var mission = Mission.Current;
                 Tournament tournament = null;
                 if (mission != null)
                     tournament = mission.GetMissionBehavior<Tournament>();
                 tournament ??= _currentTournament; // fallback if mission is gone
+                tournament ??= new Tournament(town, WCharacterCache.Wrap(winner), [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]); // fallback
                 if (tournament == null)
+                {
+                    Log.Warn("  No Tournament behavior found; cannot notify feats.");
                     return;
+                }
 
-                Log.Info("FeatRuntimeBehavior: OnTournamentFinished");
 
                 tournament.UpdateOnFinish(
                     WCharacterCache.Wrap(winner),

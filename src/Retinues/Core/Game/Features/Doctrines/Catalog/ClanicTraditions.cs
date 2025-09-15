@@ -18,7 +18,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "clanic_traditions_own_smithy_30_days",
-                    "Own a smithy in a fief of your clan's culture for 30 days."
+                    "Own a smithy in a town of your clan's culture for 30 days."
                 );
             public override int Target => 30;
 
@@ -46,7 +46,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "clanic_traditions_companions_50_kills",
-                    "Win a battle in which your companions get 50 or more kills."
+                    "Win a battle in which you and your companions get 50 or more kills."
                 );
             public override int Target => 50;
 

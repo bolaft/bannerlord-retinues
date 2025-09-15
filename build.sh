@@ -138,4 +138,4 @@ else
 fi
 
 
-echo "== Build finished ✅ =="
+echo "== Build finished ✅ == ($(date))"

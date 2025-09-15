@@ -22,13 +22,19 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
             public override void OnTournamentFinished(Tournament tournament)
             {
+                Log.Info("Tournament finished, checking feat progress...");
+                Log.Info($"  Player: {Player.Character.Name} ({Player.Character.StringId})");
+                Log.Info($"  Winner: {tournament.Winner?.Name} ({tournament.Winner?.StringId})");
                 if (tournament.Winner?.StringId != Player.Character.StringId)
                     return;
 
                 foreach (var item in Player.Character.Equipment.Items)
                 {
                     if (item.Culture?.StringId != Player.Culture.StringId)
+                    {
+                        Log.Info($"  Item: {item.Name} ({item.StringId}) culture {item.Culture?.StringId}");
                         return; // Item does not match player culture
+                    }
                 }
 
                 AdvanceProgress(1);
@@ -57,13 +63,10 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                         continue; // Only consider custom troops
 
                     foreach (var item in troop.Equipment.Items)
-                    {
                         if (item.Culture?.StringId != troop.Culture.StringId)
-                            break; // Item does not match troop culture
+                            return; // Item does not match troop culture
 
-                        AdvanceProgress(1);
-                        break;
-                    }
+                    AdvanceProgress(1);
                 }
             }
         }
