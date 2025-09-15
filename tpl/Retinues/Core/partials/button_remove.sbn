@@ -18,7 +18,7 @@
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Text="Remove"/>
+                    Text="@RemoveButtonText"/>
             </Children>
         </ButtonWidget>
     </Children>

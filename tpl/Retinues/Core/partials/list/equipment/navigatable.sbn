@@ -61,19 +61,7 @@
 
                                 <!-- Stock -->
                                 <TextWidget
-                                    Text="In Stock ("
-                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    IsVisible="@ShowStock"/>
-                                <TextWidget
-                                    IntText="@Stock"
-                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    IsVisible="@ShowStock"/>
-                                <TextWidget
-                                    Text=")"
+                                    Text="@InStockText"
                                     Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                     HorizontalAlignment="Right" VerticalAlignment="Center"

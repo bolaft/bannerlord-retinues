@@ -17,7 +17,7 @@
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Text="Unequip All"/>
+                    Text="@UnequipAllButtonText"/>
             </Children>
         </ButtonWidget>
     </Children>

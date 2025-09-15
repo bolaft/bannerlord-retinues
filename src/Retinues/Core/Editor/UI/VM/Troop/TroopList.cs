@@ -15,7 +15,13 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // =========================================================================
 
         [DataSourceProperty]
-        public string RetinueName
+        public string RegularToggleText => L.S("list_toggle_regular", "Regular");
+
+        [DataSourceProperty]
+        public string EliteToggleText => L.S("list_toggle_elite", "Elite");
+
+        [DataSourceProperty]
+        public string RetinueToggleText
         {
             get
             {
@@ -102,7 +108,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             Log.Debug($"Selected row troop: {SelectedRow?.Troop?.Name ?? "none"}.");
 
             OnPropertyChanged(nameof(SelectedRow));
-            OnPropertyChanged(nameof(RetinueName));
+            OnPropertyChanged(nameof(RetinueToggleText));
             OnPropertyChanged(nameof(RetinueTroops));
             OnPropertyChanged(nameof(EliteTroops));
             OnPropertyChanged(nameof(BasicTroops));

@@ -61,10 +61,10 @@ namespace Retinues.Core.Utils
             // Retinues
 
             AddOption(
-                section: "Retinues",
-                name: "Max Elite Retinue Ratio",
+                section: L.S("mcm_section_retinues", "Retinues"),
+                name: L.S("mcm_option_max_elite_retinue_ratio", "Max Elite Retinue Ratio"),
                 key: "MaxEliteRetinueRatio",
-                hint: "Maximum proportion of elite retinue troops in player party.",
+                hint: L.S("mcm_option_max_elite_retinue_ratio_hint", "Maximum proportion of elite retinue troops in player party."),
                 @default: 0.1,
                 type: typeof(float),
                 minValue: 0,
@@ -72,10 +72,10 @@ namespace Retinues.Core.Utils
             );
 
             AddOption(
-                section: "Retinues",
-                name: "Max Basic Retinue Ratio",
+                section: L.S("mcm_section_retinues", "Retinues"),
+                name: L.S("mcm_option_max_basic_retinue_ratio", "Max Basic Retinue Ratio"),
                 key: "MaxBasicRetinueRatio",
-                hint: "Maximum proportion of basic retinue troops in player party.",
+                hint: L.S("mcm_option_max_basic_retinue_ratio_hint", "Maximum proportion of basic retinue troops in player party."),
                 @default: 0.2,
                 type: typeof(float),
                 minValue: 0,
@@ -83,10 +83,10 @@ namespace Retinues.Core.Utils
             );
 
             AddOption(
-                section: "Retinues",
-                name: "Retinue Conversion Cost Per Tier",
+                section: L.S("mcm_section_retinues", "Retinues"),
+                name: L.S("mcm_option_retinue_conversion_cost_per_tier", "Retinue Conversion Cost Per Tier"),
                 key: "RetinueConversionCostPerTier",
-                hint: "Conversion cost for retinue troops per tier.",
+                hint: L.S("mcm_option_retinue_conversion_cost_per_tier_hint", "Conversion cost for retinue troops per tier."),
                 @default: 50,
                 type: typeof(int),
                 minValue: 0,
@@ -94,10 +94,10 @@ namespace Retinues.Core.Utils
             );
 
             AddOption(
-                section: "Retinues",
-                name: "Retinue Rank Up Cost Per Tier",
+                section: L.S("mcm_section_retinues", "Retinues"),
+                name: L.S("mcm_option_retinue_rank_up_cost_per_tier", "Retinue Rank Up Cost Per Tier"),
                 key: "RetinueRankUpCostPerTier",
-                hint: "Rank up cost for retinue troops per tier.",
+                hint: L.S("mcm_option_retinue_rank_up_cost_per_tier_hint", "Rank up cost for retinue troops per tier."),
                 @default: 1000,
                 type: typeof(int),
                 minValue: 0,
@@ -107,10 +107,10 @@ namespace Retinues.Core.Utils
             // Recruitment
 
             AddOption(
-                section: "Recruitment",
-                name: "Recruit Clan Troops Anywhere",
+                section: L.S("mcm_section_recruitment", "Recruitment"),
+                name: L.S("mcm_option_recruit_anywhere", "Recruit Clan Troops Anywhere"),
                 key: "RecruitAnywhere",
-                hint: "Player can recruit clan troops in any settlement.",
+                hint: L.S("mcm_option_recruit_anywhere_hint", "Player can recruit clan troops in any settlement."),
                 @default: false,
                 type: typeof(bool)
             );
@@ -118,10 +118,10 @@ namespace Retinues.Core.Utils
             // Doctrines
 
             AddOption(
-                section: "Doctrines",
-                name: "Enable Doctrines (Unstable)",
+                section: L.S("mcm_section_doctrines", "Doctrines"),
+                name: L.S("mcm_option_enable_doctrines", "Enable Doctrines (Unstable)"),
                 key: "EnableDoctrines",
-                hint: "Enable the Doctrines system and its features.",
+                hint: L.S("mcm_option_enable_doctrines_hint", "Enable the Doctrines system and its features."),
                 @default: true,
                 type: typeof(bool)
             );
@@ -129,19 +129,19 @@ namespace Retinues.Core.Utils
             // Equipment
 
             AddOption(
-                section: "Equipment",
-                name: "Pay For Troop Equipment",
+                section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S("mcm_option_pay_for_equipment", "Pay For Troop Equipment"),
                 key: "PayForEquipment",
-                hint: "Upgrading troop equipment costs money.",
+                hint: L.S("mcm_option_pay_for_equipment_hint", "Upgrading troop equipment costs money."),
                 @default: true,
                 type: typeof(bool)
             );
 
             AddOption(
-                section: "Equipment",
-                name: "Allowed Tier Difference",
+                section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S("mcm_option_allowed_tier_difference", "Allowed Tier Difference"),
                 key: "AllowedTierDifference",
-                hint: "Maximum allowed tier difference between troops and equipment.",
+                hint: L.S("mcm_option_allowed_tier_difference_hint", "Maximum allowed tier difference between troops and equipment."),
                 @default: 3,
                 type: typeof(int),
                 minValue: 0,
@@ -149,10 +149,10 @@ namespace Retinues.Core.Utils
             );
 
             AddOption(
-                section: "Equipment",
-                name: "Disallow Mounts For Tier 1",
+                section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S("mcm_option_disallow_mounts_for_tier_1", "Disallow Mounts For Tier 1"),
                 key: "NoMountForTier1",
-                hint: "Tier 1 troops cannot have mounts.",
+                hint: L.S("mcm_option_disallow_mounts_for_tier_1_hint", "Tier 1 troops cannot have mounts."),
                 @default: true,
                 type: typeof(bool)
             );
@@ -160,10 +160,10 @@ namespace Retinues.Core.Utils
             // Skills
 
             AddOption(
-                section: "Skills",
-                name: "Base Skill XP Cost",
+                section: L.S("mcm_section_skills", "Skills"),
+                name: L.S("mcm_option_base_skill_xp_cost", "Base Skill XP Cost"),
                 key: "BaseSkillXpCost",
-                hint: "Base XP cost for increasing a skill.",
+                hint: L.S("mcm_option_base_skill_xp_cost_hint", "Base XP cost for increasing a skill."),
                 @default: 100,
                 type: typeof(int),
                 minValue: 0,
@@ -171,10 +171,10 @@ namespace Retinues.Core.Utils
             );
 
             AddOption(
-                section: "Skills",
-                name: "Skill XP Cost Per Point",
+                section: L.S("mcm_section_skills", "Skills"),
+                name: L.S("mcm_option_skill_xp_cost_per_point", "Skill XP Cost Per Point"),
                 key: "SkillXpCostPerPoint",
-                hint: "Scalable XP cost for each point of skill increase.",
+                hint: L.S("mcm_option_skill_xp_cost_per_point_hint", "Scalable XP cost for each point of skill increase."),
                 @default: 1,
                 type: typeof(int),
                 minValue: 0,
@@ -184,19 +184,19 @@ namespace Retinues.Core.Utils
             // Unlocks
 
             AddOption(
-                section: "Unlocks",
-                name: "Unlock From Kills",
+                section: L.S("mcm_section_unlocks", "Unlocks"),
+                name: L.S("mcm_option_unlock_from_kills", "Unlock From Kills"),
                 key: "UnlockFromKills",
-                hint: "Unlock equipment by defeating enemies wearing it.",
+                hint: L.S("mcm_option_unlock_from_kills_hint", "Unlock equipment by defeating enemies wearing it."),
                 @default: true,
                 type: typeof(bool)
             );
 
             AddOption(
-                section: "Unlocks",
-                name: "Required Kills For Unlock",
+                section: L.S("mcm_section_unlocks", "Unlocks"),
+                name: L.S("mcm_option_required_kills_for_unlock", "Required Kills For Unlock"),
                 key: "KillsForUnlock",
-                hint: "How many enemies wearing an item must be defeated to unlock it.",
+                hint: L.S("mcm_option_required_kills_for_unlock_hint", "How many enemies wearing an item must be defeated to unlock it."),
                 @default: 100,
                 type: typeof(int),
                 minValue: 1,
@@ -204,19 +204,19 @@ namespace Retinues.Core.Utils
             );
 
             AddOption(
-                section: "Unlocks",
-                name: "Unlock From Culture",
+                section: L.S("mcm_section_unlocks", "Unlocks"),
+                name: L.S("mcm_option_unlock_from_culture", "Unlock From Culture"),
                 key: "UnlockFromCulture",
-                hint: "Player culture and player-led kingdom culture equipment is always available.",
+                hint: L.S("mcm_option_unlock_from_culture_hint", "Player culture and player-led kingdom culture equipment is always available."),
                 @default: false,
                 type: typeof(bool)
             );
 
             AddOption(
-                section: "Unlocks",
-                name: "All Equipment Unlocked",
+                section: L.S("mcm_section_unlocks", "Unlocks"),
+                name: L.S("mcm_option_all_equipment_unlocked", "All Equipment Unlocked"),
                 key: "AllEquipmentUnlocked",
-                hint: "All equipment unlocked on game start.",
+                hint: L.S("mcm_option_all_equipment_unlocked_hint", "All equipment unlocked on game start."),
                 @default: false,
                 type: typeof(bool)
             );
@@ -245,7 +245,7 @@ namespace Retinues.Core.Utils
         {
             var opt = new ConfigOption
             {
-                Section = section ?? "General",
+                Section = section ?? L.S("mcm_section_general", "General"),
                 Name = name,
                 Key = key,
                 Hint = hint,

@@ -33,6 +33,6 @@
 </PartyHeaderToggleWidget>
 {{- end -}}
 
-{{ party_toggle("Regular", "Regular") }}
-{{ party_toggle("Elite", "Elite") }}
-{{ party_toggle("Retinue", "@RetinueName") }}
+{{ party_toggle("Regular", "@RegularToggleText") }}
+{{ party_toggle("Elite", "@EliteToggleText") }}
+{{ party_toggle("Retinue", "@RetinueToggleText") }}

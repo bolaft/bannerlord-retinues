@@ -59,37 +59,37 @@
 
 <!-- Weapons 1..4 -->
 
-{{ slot_row "{WeaponItemBeginSlotSlot}" "Weapon 1" }}
+{{ slot_row "{WeaponItemBeginSlotSlot}" "@Weapon1Text" }}
 
-{{ slot_row "{Weapon1Slot}" "Weapon 2" }}
+{{ slot_row "{Weapon1Slot}" "@Weapon2Text" }}
 
-{{ slot_row "{Weapon2Slot}" "Weapon 3" }}
+{{ slot_row "{Weapon2Slot}" "@Weapon3Text" }}
 
-{{ slot_row "{Weapon3Slot}" "Weapon 4" }}
+{{ slot_row "{Weapon3Slot}" "@Weapon4Text" }}
 
 <!-- Divider -->
 {{ divider() }}
 
 <!-- Head -->
-{{ slot_row "{HeadSlot}" "Head" }}
+{{ slot_row "{HeadSlot}" "@HeadSlotText" }}
 
 <!-- Cape -->
-{{ slot_row "{CapeSlot}" "Cape" }}
+{{ slot_row "{CapeSlot}" "@CapeSlotText" }}
 
 <!-- Body -->
-{{ slot_row "{BodySlot}" "Body" }}
+{{ slot_row "{BodySlot}" "@BodySlotText" }}
 
 <!-- Gloves -->
-{{ slot_row "{GlovesSlot}" "Gloves" }}
+{{ slot_row "{GlovesSlot}" "@GlovesSlotText" }}
 
 <!-- Legs -->
-{{ slot_row "{LegSlot}" "Legs" }}
+{{ slot_row "{LegSlot}" "@LegSlotText" }}
 
 <!-- Divider -->
 {{ divider() }}
 
 <!-- Horse -->
-{{ slot_row "{HorseSlot}" "Horse" }}
+{{ slot_row "{HorseSlot}" "@HorseSlotText" }}
 
 <!-- Harness -->
-{{ slot_row "{HorseHarnessSlot}" "Harness" }}
+{{ slot_row "{HorseHarnessSlot}" "@HorseHarnessSlotText" }}

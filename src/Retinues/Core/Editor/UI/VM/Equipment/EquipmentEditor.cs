@@ -31,6 +31,13 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         // =========================================================================
 
         // -------------------------
+        // Texts
+        // -------------------------
+
+        [DataSourceProperty]
+        public string UnequipAllButtonText => L.S("unequip_all_button_text", "Unequip All");
+
+        // -------------------------
         // Flags
         // -------------------------
 
@@ -56,34 +63,65 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public EquipmentSlotVM HeadSlot => _headSlot;
 
         [DataSourceProperty]
+        public string HeadSlotText => L.S("head_slot_text", "Head");
+
+        [DataSourceProperty]
         public EquipmentSlotVM CapeSlot => _capeSlot;
+
+        [DataSourceProperty]
+        public string CapeSlotText => L.S("cape_slot_text", "Cape");
 
         [DataSourceProperty]
         public EquipmentSlotVM BodySlot => _bodySlot;
 
         [DataSourceProperty]
+        public string BodySlotText => L.S("body_slot_text", "Body");
+
         public EquipmentSlotVM GlovesSlot => _glovesSlot;
+
+        [DataSourceProperty]
+        public string GlovesSlotText => L.S("gloves_slot_text", "Gloves");
 
         [DataSourceProperty]
         public EquipmentSlotVM LegSlot => _legSlot;
 
         [DataSourceProperty]
+        public string LegSlotText => L.S("leg_slot_text", "Legs");
+
+        [DataSourceProperty]
         public EquipmentSlotVM HorseSlot => _horseSlot;
+
+        [DataSourceProperty]
+        public string HorseSlotText => L.S("horse_slot_text", "Horse");
 
         [DataSourceProperty]
         public EquipmentSlotVM HorseHarnessSlot => _horseHarnessSlot;
 
         [DataSourceProperty]
+        public string HorseHarnessSlotText => L.S("horse_harness_slot_text", "Harness");
+
         public EquipmentSlotVM WeaponItemBeginSlotSlot => _weaponItemBeginSlotSlot;
+
+        [DataSourceProperty]
+        public string Weapon1SlotText => L.S("weapon_1_slot_text", "Weapon 1");
 
         [DataSourceProperty]
         public EquipmentSlotVM Weapon1Slot => _weapon1Slot;
 
         [DataSourceProperty]
+        public string Weapon2SlotText => L.S("weapon_2_slot_text", "Weapon 2");
+
+        [DataSourceProperty]
         public EquipmentSlotVM Weapon2Slot => _weapon2Slot;
 
         [DataSourceProperty]
+        public string Weapon3SlotText => L.S("weapon_3_slot_text", "Weapon 3");
+
+        [DataSourceProperty]
         public EquipmentSlotVM Weapon3Slot => _weapon3Slot;
+
+        [DataSourceProperty]
+        public string Weapon4SlotText => L.S("weapon_4_slot_text", "Weapon 4");
 
         // =========================================================================
         // Action Bindings

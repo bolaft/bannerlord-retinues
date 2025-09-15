@@ -64,10 +64,10 @@ namespace Retinues.Core.Game.Features.Doctrines
             var doctrines = DoctrineAPI.AllDoctrines();
             var (doc, feat) = FindFeat(doctrines, featKey);
 
-            var title = L.T("feat_completed", "Feat Completed");
-            var desc = new TextObject("{DOCTRINE}\n\n{REQ}")
-                .SetTextVariable("DOCTRINE", new TextObject(doc?.Name ?? string.Empty))
-                .SetTextVariable("REQ", new TextObject(feat?.Description ?? string.Empty));
+            var title = L.T("feat_completed_title", "Feat Completed");
+            var desc = L.T("feat_completed_description", "{DOCTRINE}\n\n{REQ}")
+                .SetTextVariable("DOCTRINE", doc?.Name ?? string.Empty)
+                .SetTextVariable("REQ", feat?.Description ?? string.Empty);
 
             InformationManager.ShowInquiry(
                 new InquiryData(title.ToString(), desc.ToString(),

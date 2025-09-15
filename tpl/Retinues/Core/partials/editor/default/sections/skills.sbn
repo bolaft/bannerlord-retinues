@@ -1,5 +1,5 @@
     <!-- Header -->
-    {{ header("Skills") }}
+    {{ header("@SkillsHeaderText") }}
 
     <!-- Skills points -->
     <ListPanel

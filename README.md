@@ -11,6 +11,8 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - tool tip / communicate on skill caps/limits
 - add cheats for testing/troubleshooting
 - add try/catch on all doctrine stuff
+- provide translations in many languages
+- make retinue troops optional
 
 ## Fixes
 

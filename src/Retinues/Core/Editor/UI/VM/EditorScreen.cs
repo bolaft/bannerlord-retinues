@@ -28,7 +28,6 @@ namespace Retinues.Core.Editor.UI.VM
 
         private WFaction _faction;
 
-
         // =========================================================================
         // Constructor
         // =========================================================================
@@ -63,6 +62,21 @@ namespace Retinues.Core.Editor.UI.VM
         // =========================================================================
         // Data Bindings
         // =========================================================================
+
+        [DataSourceProperty]
+        public string TroopsTabText => L.S("troops_tab_text", "Troops");
+
+        [DataSourceProperty]
+        public string EquipmentButtonText => L.S("equipment_button_text", "Equipment");
+
+        [DataSourceProperty]
+        public string CloseEquipmentButtonText => L.S("close_equipment_button_text", "Back");
+
+        [DataSourceProperty]
+        public string DoctrinesButtonText => L.S("doctrines_button_text", "Doctrines");
+
+        [DataSourceProperty]
+        public string CloseDoctrinesButtonText => L.S("close_doctrines_button_text", "Back");
 
         [DataSourceProperty]
         public bool IsTroopsSelected

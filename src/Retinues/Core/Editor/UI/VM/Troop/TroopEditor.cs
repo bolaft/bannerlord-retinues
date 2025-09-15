@@ -40,6 +40,18 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // =========================================================================
 
         [DataSourceProperty]
+        public string GenderHeaderText => L.S("gender_header_text", "Gender");
+
+        [DataSourceProperty]
+        public string NameHeaderText => L.S("name_header_text", "Name");
+
+        [DataSourceProperty]
+        public string SkillsHeaderText => L.S("skills_header_text", "Skills");
+
+        [DataSourceProperty]
+        public string UpgradesHeaderText => L.S("upgrades_header_text", "Upgrades");
+
+        [DataSourceProperty]
         public bool TroopXpIsEnabled => Config.GetOption<int>("BaseSkillXpCost") > 0 || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
 
         [DataSourceProperty]
@@ -88,6 +100,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // -------------------------
 
         [DataSourceProperty]
+        public string AddUpgradeButtonText => L.S("add_upgrade_button_text", "Add Upgrade");
+
+        [DataSourceProperty]
         public bool CanUpgrade =>
             SelectedTroop != null && TroopRules.CanUpgradeTroop(SelectedTroop);
 
@@ -109,6 +124,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // -------------------------
         // Conversion
         // -------------------------
+
+        [DataSourceProperty]
+        public string TransferHeaderText => L.S("transfer_header_text", "Transfer");
+
+        [DataSourceProperty]
+        public string ButtonApplyConversionsText => L.S("apply_conversions_button_text", "Convert");
+
+        [DataSourceProperty]
+        public string ButtonClearConversionsText => L.S("clear_conversions_button_text", "Clear");
 
         [DataSourceProperty]
         public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
@@ -154,6 +178,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // -------------------------
         // Removal
         // -------------------------
+
+        [DataSourceProperty]
+        public string RemoveButtonText => L.S("remove_button_text", "Remove");
 
         [DataSourceProperty]
         public bool CanRemove
@@ -344,11 +371,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             else
             {
                 string text = TroopXpIsEnabled
-                    ? L.T("rank_up_cost_text", "It will cost you {COST_GOLD} gold and {COST_XP} XP.")
+                    ? L.T("rank_up_costs_text", "It will cost you {COST_GOLD} gold and {COST_XP} XP.")
                         .SetTextVariable("COST_GOLD", cost)
                         .SetTextVariable("COST_XP", cost)
                         .ToString()
-                    : L.T("rank_up_cost_text", "It will cost you {COST} gold.")
+                    : L.T("rank_up_gold_cost_text", "It will cost you {COST} gold.")
                         .SetTextVariable("COST", cost)
                         .ToString();
 

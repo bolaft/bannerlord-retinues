@@ -1,5 +1,5 @@
 <!-- Header -->
-{{ header("Upgrades", "@IsRegular") }}
+{{ header("@UpgradesHeaderText", "@IsRegular") }}
 
 <!-- Upgrades list -->
 <ListPanel
@@ -15,4 +15,4 @@
 </ListPanel>
 
 <!-- Add upgrade button -->
-{{ button_text("Add Upgrade", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@IsRegular", "@CanUpgrade", "Bottom") }}
+{{ button_text("@AddUpgradeButtonText", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@IsRegular", "@CanUpgrade", "Bottom") }}

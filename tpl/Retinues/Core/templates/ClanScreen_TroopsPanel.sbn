@@ -38,10 +38,10 @@
                                         {{ include "button_unequip.sbn" }}
 
                                         <!-- Edit equipment button -->
-                                        {{ button_text("Equipment", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "true", "Bottom") }}
+                                        {{ button_text("@EquipmentButtonText", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "true", "Bottom") }}
 
                                         <!-- Close equipment button -->
-                                        {{ button_text("Back", "ExecuteSwitchToDefault", "ButtonBrush3", "@IsEquipmentMode", "true", "Bottom") }}
+                                        {{ button_text("@CloseEquipmentButtonText", "ExecuteSwitchToDefault", "ButtonBrush3", "@IsEquipmentMode", "true", "Bottom") }}
                                     </Children>
                                 </Widget>
                             </Children>
@@ -74,10 +74,10 @@
         {{ big_button("@FactionSwitchText", "ExecuteSwitchFaction", "@CanSwitchFaction", "Top", "Right") }}
 
         <!-- Switch doctrines button-->
-        {{ big_button("Doctrines", "ExecuteSwitchToDoctrines", "@CanSwitchToDoctrines", "Bottom", "Right") }}
+        {{ big_button("@DoctrinesButtonText", "ExecuteSwitchToDoctrines", "@CanSwitchToDoctrines", "Bottom", "Right") }}
 
         <!-- Switch to default button-->
-        {{ big_button("Return to\nEditor", "ExecuteSwitchToDefault", "@IsDoctrinesMode", "Bottom", "Right") }}
+        {{ big_button("@CloseDoctrinesButtonText", "ExecuteSwitchToDefault", "@IsDoctrinesMode", "Bottom", "Right") }}
 
         <!-- Scrollable list -->
         {{ include "list/base.sbn" }}

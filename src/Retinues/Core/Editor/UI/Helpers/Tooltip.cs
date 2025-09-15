@@ -45,7 +45,7 @@ namespace Retinues.Core.Editor.UI.Helpers
                 var props = new List<TooltipProperty>
                 {
                     // Title
-                    new TooltipProperty(
+                    new(
                         string.Empty,
                         item.Class,
                         0,

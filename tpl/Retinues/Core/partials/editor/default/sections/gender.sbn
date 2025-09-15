@@ -1,5 +1,5 @@
 <!-- Header -->
-{{ header("Gender") }}
+{{ header("@GenderHeaderText") }}
 
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"

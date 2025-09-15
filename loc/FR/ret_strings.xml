@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="Français"/>
+  </tags>
+  <strings>
+    <string
+      id="ret_loc_smoke_test" 
+      text="Test de localisation: FR" />
+    <string
+      id="ret_acquire_fief_to_unlock" 
+      text="Acquérez un fief pour débloquer les troupes du clan." />
+    <string
+      id="ret_adaptive_training" 
+      text="Entraînement adaptatif" />
+    <string
+      id="ret_adaptive_training_200_in_each_skill" 
+      text="Pour chaque compétence, avoir au moins un soldat personnalisé avec un niveau de 200 ou plus." />
+    <string
+      id="ret_adaptive_training_50_tournament_kos" 
+      text="Mettre K.O. 50 adversaires en tournoi." />
+    <string
+      id="ret_adaptive_training_description" 
+      text="Remboursement d'expérience lors du réentraînement." />
+    <string
+      id="ret_adaptive_training_win_with_even_split" 
+      text="Remporter une bataille contre plus de 100 ennemis avec une armée répartie équitablement entre infanterie, cavalerie et troupes à distance du clan." />
+    <string
+      id="ret_add_upgrade" 
+      text="Ajouter une amélioration" />
+    <string
+      id="ret_add_upgrade_button_text" 
+      text="Ajouter une amélioration" />
+    <string
+      id="ret_ancestral_heritage" 
+      text="Héritage ancestral" />
+    <string
+      id="ret_ancestral_heritage_150_outnumbered_own_culture" 
+      text="Remporter une bataille de 150+ en étant en infériorité numérique et en ne déployant que des troupes personnalisées de votre culture." />
+    <string
+      id="ret_ancestral_heritage_capture_own_culture_fief" 
+      text="Capturer un fief de votre culture à un royaume ennemi." />
+    <string
+      id="ret_ancestral_heritage_description" 
+      text="Débloque tout l'équipement des cultures du clan et du royaume." />
+    <string
+      id="ret_ancestral_heritage_tournament_own_culture_town" 
+      text="Remporter un tournoi dans une ville de votre culture." />
+    <string
+      id="ret_apply_conversions_button_text" 
+      text="Convertir" />
+    <string
+      id="ret_battlefield_tithes" 
+      text="Dîmes de guerre" />
+    <string
+      id="ret_battlefield_tithes_description" 
+      text="Permet de débloquer des objets grâce aux éliminations des groupes alliés." />
+    <string
+      id="ret_battlefield_tithes_quest_for_allied_lord" 
+      text="Accomplir une quête pour un seigneur allié." />
+    <string
+      id="ret_battlefield_tithes_save_allied_lord" 
+      text="Sauver un seigneur allié d'une défaite certaine." />
+    <string
+      id="ret_battlefield_tithes_turn_tide_allied_army_battle" 
+      text="Renverser l'issue d'une bataille impliquant une armée alliée." />
+    <string
+      id="ret_body_slot_text" 
+      text="Corps" />
+    <string
+      id="ret_bound_by_honor" 
+      text="Liés par l'honneur" />
+    <string
+      id="ret_bound_by_honor_description" 
+      text="+20% de moral de la rétinue." />
+    <string
+      id="ret_bound_by_honor_refuse_payment_3x" 
+      text="Refuser la paie de mercenaire trois fois." />
+    <string
+      id="ret_bound_by_honor_retinue_only_morale_80_for_30_days" 
+      text="Maintenir le moral d'une armée composée uniquement de la rétinue au-dessus de 80 pendant 30 jours." />
+    <string
+      id="ret_bound_by_honor_retinue_wins_tournament" 
+      text="Qu'un membre de votre rétinue remporte un tournoi." />
+    <string
+      id="ret_buy_item" 
+      text="Acheter l'objet" />
+    <string
+      id="ret_buy_item_text" 
+      text="Êtes-vous sûr de vouloir acheter {ITEM_NAME} pour {ITEM_VALUE} or ?" />
+    <string
+      id="ret_cancel" 
+      text="Annuler" />
+    <string
+      id="ret_cant_remove_root_troop" 
+      text="Les troupes racines ne peuvent pas être retirées." />
+    <string
+      id="ret_cant_remove_troop_with_targets" 
+      text="Les troupes ayant des objectifs d'amélioration ne peuvent pas être retirées." />
+    <string
+      id="ret_cape_slot_text" 
+      text="Cape" />
+    <string
+      id="ret_clanic_traditions" 
+      text="Traditions claniques" />
+    <string
+      id="ret_clanic_traditions_companion_wins_100_battle_as_leader" 
+      text="Acquérir un nouveau fief pour votre clan." />
+    <string
+      id="ret_clanic_traditions_companions_50_kills" 
+      text="Remporter une bataille où vos compagnons réalisent 50 éliminations ou plus." />
+    <string
+      id="ret_clanic_traditions_description" 
+      text="Remise de 10% sur l'équipement de la culture du clan." />
+    <string
+      id="ret_clanic_traditions_own_smithy_30_days" 
+      text="Posséder une forge dans un fief de la culture de votre clan pendant 30 jours." />
+    <string
+      id="ret_clear_conversions_button_text" 
+      text="Effacer" />
+    <string
+      id="ret_close_doctrines_button_text" 
+      text="Retour" />
+    <string
+      id="ret_close_equipment_button_text" 
+      text="Retour" />
+    <string
+      id="ret_confirm" 
+      text="Confirmer" />
+    <string
+      id="ret_continue" 
+      text="Continuer" />
+    <string
+      id="ret_convert_not_enough_gold" 
+      text="Pas assez d'or pour appliquer les conversions." />
+    <string
+      id="ret_convert_not_enough_gold_text" 
+      text="Vous n'avez pas assez d'or pour engager ces troupes de rétinue." />
+    <string
+      id="ret_convert_not_enough_gold_title" 
+      text="Pas assez d'or" />
+    <string
+      id="ret_cultural_pride" 
+      text="Fierté culturelle" />
+    <string
+      id="ret_cultural_pride_defeat_foreign_monarch" 
+      text="Vaincre au combat un monarque d'une culture différente." />
+    <string
+      id="ret_cultural_pride_description" 
+      text="Remise de 10% sur l'équipement de la culture de la troupe." />
+    <string
+      id="ret_cultural_pride_full_set_100_kills" 
+      text="Qu'un type de troupe portant un ensemble complet d'équipement de sa culture réalise 100 éliminations en bataille." />
+    <string
+      id="ret_cultural_pride_tournament_own_culture_gear" 
+      text="Remporter un tournoi en ne portant que des équipements de votre culture." />
+    <string
+      id="ret_doctrine_costs" 
+      text="Coût : {GOLD} or, {INFLUENCE} influence." />
+    <string
+      id="ret_doctrine_service_unavailable" 
+      text="Le service des doctrines est indisponible." />
+    <string
+      id="ret_doctrines_button_text" 
+      text="Doctrines" />
+    <string
+      id="ret_doctrines_col_0" 
+      text="Déblocages" />
+    <string
+      id="ret_doctrines_col_1" 
+      text="Équipement" />
+    <string
+      id="ret_doctrines_col_2" 
+      text="Troupes" />
+    <string
+      id="ret_doctrines_col_3" 
+      text="Rétinues" />
+    <string
+      id="ret_empty_item" 
+      text="Vide" />
+    <string
+      id="ret_enter_new_name" 
+      text="Entrez un nouveau nom :" />
+    <string
+      id="ret_enter_new_troop_name" 
+      text="Entrez le nom de la nouvelle troupe :" />
+    <string
+      id="ret_equipment_button_text" 
+      text="Équipement" />
+    <string
+      id="ret_feat_completed_description" 
+      text="{DOCTRINE}\n\n{REQ}" />
+    <string
+      id="ret_feat_completed_title" 
+      text="Exploit accompli" />
+    <string
+      id="ret_feats_no_reqs" 
+      text="Aucune condition." />
+    <string
+      id="ret_feats_reqs" 
+      text="Conditions" />
+    <string
+      id="ret_female" 
+      text="Femme" />
+    <string
+      id="ret_gender_header_text" 
+      text="Genre" />
+    <string
+      id="ret_gloves_slot_text" 
+      text="Gants" />
+    <string
+      id="ret_head_slot_text" 
+      text="Tête" />
+    <string
+      id="ret_horse_harness_slot_text" 
+      text="Harnais" />
+    <string
+      id="ret_horse_slot_text" 
+      text="Cheval" />
+    <string
+      id="ret_immortals" 
+      text="Immortels" />
+    <string
+      id="ret_immortals_100_retinue_survive_struck_down" 
+      text="Avoir 100 soldats de la rétinue qui survivent après avoir été mis hors de combat." />
+    <string
+      id="ret_immortals_description" 
+      text="+20% de chances de survie pour la rétinue." />
+    <string
+      id="ret_immortals_single_retinue_two_tier_5_kills" 
+      text="Qu'un seul soldat de la rétinue tue deux unités de niveau 5+ dans une même bataille." />
+    <string
+      id="ret_immortals_win_100_no_deaths" 
+      text="Remporter seul une bataille contre 50 ennemis ou plus sans aucune mort de votre côté." />
+    <string
+      id="ret_in_stock" 
+      text="En stock ({STOCK})" />
+    <string
+      id="ret_increase_troop_tier" 
+      text="Augmenter le rang de {TROOP_NAME} ?\n\n{text}" />
+    <string
+      id="ret_indomitable" 
+      text="Indomptables" />
+    <string
+      id="ret_indomitable_25_equiv_no_casualty" 
+      text="Faire vaincre à votre rétinue 25 ennemis de rang équivalent sans la moindre perte." />
+    <string
+      id="ret_indomitable_description" 
+      text="+20% de points de vie." />
+    <string
+      id="ret_indomitable_join_siege_defender_full_strength" 
+      text="Participer à un siège en défense avec au moins 10 soldats de rétinue et gagner." />
+    <string
+      id="ret_indomitable_win_3_defensive_battles" 
+      text="Remporter 3 batailles défensives d'affilée avec une armée composée uniquement de la rétinue." />
+    <string
+      id="ret_iron_discipline" 
+      text="Discipline de fer" />
+    <string
+      id="ret_iron_discipline_defeat_twice_size_mostly_custom" 
+      text="Vaincre une armée deux fois plus nombreuse en utilisant principalement des troupes personnalisées." />
+    <string
+      id="ret_iron_discipline_description" 
+      text="+5% de plafond de compétence." />
+    <string
+      id="ret_iron_discipline_headshot_enemy_lord" 
+      text="Tirer dans la tête d'un seigneur ennemi avec une arme à distance." />
+    <string
+      id="ret_iron_discipline_upgrade_100_basic_to_max" 
+      text="Améliorer 100 troupes de base jusqu'au rang maximal." />
+    <string
+      id="ret_ironclad" 
+      text="Blindage d'acier" />
+    <string
+      id="ret_ironclad_100_battle_outnumbered_low_tier" 
+      text="Remporter une bataille de 100+ en étant en infériorité numérique et en ne déployant que des troupes personnalisées de niveau 1, 2 ou 3." />
+    <string
+      id="ret_ironclad_10_troops_athletics_80" 
+      text="Avoir 10 troupes personnalisées atteignant 80 en Athlétisme." />
+    <string
+      id="ret_ironclad_description" 
+      text="Aucune restriction de niveau pour les armes et les armures." />
+    <string
+      id="ret_ironclad_full_set_t5_plus_100_kills" 
+      text="Équiper une troupe personnalisée d'un ensemble complet d'objets de niveau 5+ et lui faire réaliser 100 éliminations en bataille." />
+    <string
+      id="ret_item_ammo_damage" 
+      text="Dégâts" />
+    <string
+      id="ret_item_ammo_stack_size" 
+      text="Taille de pile" />
+    <string
+      id="ret_item_arm_armor" 
+      text="Armure des bras" />
+    <string
+      id="ret_item_body_armor" 
+      text="Armure du corps" />
+    <string
+      id="ret_item_head_armor" 
+      text="Armure de tête" />
+    <string
+      id="ret_item_horse_charge" 
+      text="Charge" />
+    <string
+      id="ret_item_horse_hit_points" 
+      text="Points de vie" />
+    <string
+      id="ret_item_horse_maneuver" 
+      text="Maniabilité" />
+    <string
+      id="ret_item_horse_speed" 
+      text="Vitesse" />
+    <string
+      id="ret_item_leg_armor" 
+      text="Armure des jambes" />
+    <string
+      id="ret_item_melee_handling" 
+      text="Maniement" />
+    <string
+      id="ret_item_melee_length" 
+      text="Longueur" />
+    <string
+      id="ret_item_melee_swing_damage" 
+      text="Dégâts de taille" />
+    <string
+      id="ret_item_melee_swing_speed" 
+      text="Vitesse de taille" />
+    <string
+      id="ret_item_melee_thrust_damage" 
+      text="Dégâts d'estoc" />
+    <string
+      id="ret_item_melee_thrust_speed" 
+      text="Vitesse d'estoc" />
+    <string
+      id="ret_item_ranged_accuracy" 
+      text="Précision" />
+    <string
+      id="ret_item_ranged_damage" 
+      text="Dégâts" />
+    <string
+      id="ret_item_ranged_missile_speed" 
+      text="Vitesse du projectile" />
+    <string
+      id="ret_item_shield_hit_points" 
+      text="Points de vie" />
+    <string
+      id="ret_item_shield_speed" 
+      text="Vitesse" />
+    <string
+      id="ret_items_unlocked" 
+      text="Nouvel équipement débloqué" />
+    <string
+      id="ret_king_guard" 
+      text="Garde du Roi" />
+    <string
+      id="ret_leg_slot_text" 
+      text="Jambes" />
+    <string
+      id="ret_lions_share" 
+      text="Part du lion" />
+    <string
+      id="ret_lions_share_25_personal_kills" 
+      text="Vaincre personnellement 25 ennemis en une seule bataille." />
+    <string
+      id="ret_lions_share_5_tier_5_plus" 
+      text="Vaincre personnellement 5 troupes de niveau 5+ en une seule bataille." />
+    <string
+      id="ret_lions_share_description" 
+      text="Les éliminations du héros comptent double pour les déblocages." />
+    <string
+      id="ret_lions_share_kill_enemy_lord" 
+      text="Vaincre personnellement un seigneur ennemi au combat." />
+    <string
+      id="ret_list_toggle_elite" 
+      text="Élite" />
+    <string
+      id="ret_list_toggle_regular" 
+      text="Régulière" />
+    <string
+      id="ret_list_toggle_retinue" 
+      text="Rétinue" />
+    <string
+      id="ret_lower_skill_no_refund" 
+      text="Réduire la compétence de cette troupe ne remboursera aucun point d'expérience. Continuer quand même ?" />
+    <string
+      id="ret_male" 
+      text="Homme" />
+    <string
+      id="ret_masters_at_arms" 
+      text="Maîtres d'armes" />
+    <string
+      id="ret_masters_at_arms_1000_elite_kills" 
+      text="Obtenir 1000 éliminations avec des troupes d'élite." />
+    <string
+      id="ret_masters_at_arms_defeat_lord_only_elite" 
+      text="Vaincre un seigneur ennemi en n'utilisant que des troupes d'élite." />
+    <string
+      id="ret_masters_at_arms_description" 
+      text="+1 branche d'amélioration pour les troupes d'élite." />
+    <string
+      id="ret_masters_at_arms_upgrade_100_elite_to_max" 
+      text="Améliorer 100 troupes d'élite jusqu'au rang maximal." />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked" 
+      text="Tout l'équipement débloqué" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint" 
+      text="Tout l'équipement est débloqué au début de la partie." />
+    <string
+      id="ret_mcm_option_allowed_tier_difference" 
+      text="Écart de niveau autorisé" />
+    <string
+      id="ret_mcm_option_allowed_tier_difference_hint" 
+      text="Différence de niveau maximale autorisée entre troupes et équipement." />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost" 
+      text="Coût d'XP de base par compétence" />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost_hint" 
+      text="Coût d'XP de base pour augmenter une compétence." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_tier_1" 
+      text="Interdire les montures pour le niveau 1" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_tier_1_hint" 
+      text="Les troupes de niveau 1 ne peuvent pas avoir de monture." />
+    <string
+      id="ret_mcm_option_enable_doctrines" 
+      text="Activer les doctrines (instable)" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint" 
+      text="Active le système de doctrines et ses fonctionnalités." />
+    <string
+      id="ret_mcm_option_max_basic_retinue_ratio" 
+      text="Proportion maximale de rétinue basique" />
+    <string
+      id="ret_mcm_option_max_basic_retinue_ratio_hint" 
+      text="Proportion maximale de troupes de rétinue basiques dans l'armée du joueur." />
+    <string
+      id="ret_mcm_option_max_elite_retinue_ratio" 
+      text="Proportion maximale de rétinue d'élite" />
+    <string
+      id="ret_mcm_option_max_elite_retinue_ratio_hint" 
+      text="Proportion maximale de troupes de rétinue d'élite dans l'armée du joueur." />
+    <string
+      id="ret_mcm_option_pay_for_equipment" 
+      text="Payer l'équipement des troupes" />
+    <string
+      id="ret_mcm_option_pay_for_equipment_hint" 
+      text="Améliorer l'équipement des troupes coûte de l'argent." />
+    <string
+      id="ret_mcm_option_recruit_anywhere" 
+      text="Recruter des troupes du clan partout" />
+    <string
+      id="ret_mcm_option_recruit_anywhere_hint" 
+      text="Le joueur peut recruter des troupes du clan dans n'importe quelle colonie." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock" 
+      text="Éliminations requises pour débloquer" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint" 
+      text="Nombre d'ennemis portant un objet à vaincre pour le débloquer." />
+    <string
+      id="ret_mcm_option_retinue_conversion_cost_per_tier" 
+      text="Coût de conversion de la rétinue par niveau" />
+    <string
+      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint" 
+      text="Coût de conversion des troupes de rétinue par niveau." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_cost_per_tier" 
+      text="Coût d'élévation de rang par niveau (rétinue)" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint" 
+      text="Coût d'élévation de rang des troupes de rétinue par niveau." />
+    <string
+      id="ret_mcm_option_skill_xp_cost_per_point" 
+      text="Coût d'XP par point de compétence" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_per_point_hint" 
+      text="Coût d'XP évolutif pour chaque point de compétence." />
+    <string
+      id="ret_mcm_option_unlock_from_culture" 
+      text="Débloquer selon la culture" />
+    <string
+      id="ret_mcm_option_unlock_from_culture_hint" 
+      text="L'équipement de la culture du joueur et du royaume dirigé par le joueur est toujours disponible." />
+    <string
+      id="ret_mcm_option_unlock_from_kills" 
+      text="Débloquer via les éliminations" />
+    <string
+      id="ret_mcm_option_unlock_from_kills_hint" 
+      text="Débloquer l'équipement en vainquant les ennemis qui le portent." />
+    <string
+      id="ret_mcm_section_doctrines" 
+      text="Doctrines" />
+    <string
+      id="ret_mcm_section_equipment" 
+      text="Équipement" />
+    <string
+      id="ret_mcm_section_general" 
+      text="Général" />
+    <string
+      id="ret_mcm_section_recruitment" 
+      text="Recrutement" />
+    <string
+      id="ret_mcm_section_retinues" 
+      text="Rétinues" />
+    <string
+      id="ret_mcm_section_skills" 
+      text="Compétences" />
+    <string
+      id="ret_mcm_section_unlocks" 
+      text="Déblocages" />
+    <string
+      id="ret_name_header_text" 
+      text="Nom" />
+    <string
+      id="ret_no" 
+      text="Non" />
+    <string
+      id="ret_not_enough_gold" 
+      text="Pas assez d'or" />
+    <string
+      id="ret_not_enough_gold_text" 
+      text="Vous n'avez pas assez d'or pour acheter cet objet." />
+    <string
+      id="ret_ok" 
+      text="OK" />
+    <string
+      id="ret_pragmatic_scavengers" 
+      text="Charognards pragmatiques" />
+    <string
+      id="ret_pragmatic_scavengers_army_win_allies_50" 
+      text="En étant dans une armée, remporter une bataille où les alliés subissent plus de 50% de pertes." />
+    <string
+      id="ret_pragmatic_scavengers_defense_allies_50" 
+      text="Remporter une bataille défensive où les alliés subissent plus de 50% de pertes." />
+    <string
+      id="ret_pragmatic_scavengers_description" 
+      text="Permet de débloquer des objets à partir des pertes des groupes alliés." />
+    <string
+      id="ret_pragmatic_scavengers_rescue_allied_lord" 
+      text="Libérer un seigneur vaincu de captivité." />
+    <string
+      id="ret_queen_guard" 
+      text="Garde de la Reine" />
+    <string
+      id="ret_rank_up" 
+      text="Élever en rang" />
+    <string
+      id="ret_rank_up_costs_text" 
+      text="Cela vous coûtera {COST_GOLD} or et {COST_XP} XP." />
+    <string
+      id="ret_rank_up_gold_cost_text" 
+      text="Cela vous coûtera {COST} or." />
+    <string
+      id="ret_rank_up_not_enough_gold_text" 
+      text="Vous n'avez pas assez d'or pour élever {TROOP_NAME} en rang.\n\nCoût d'élévation : {COST} or." />
+    <string
+      id="ret_rank_up_not_enough_gold_title" 
+      text="Pas assez d'or" />
+    <string
+      id="ret_rank_up_not_enough_xp_text" 
+      text="Vous n'avez pas assez d'XP pour élever {TROOP_NAME} en rang.\n\nCoût d'élévation : {COST} XP." />
+    <string
+      id="ret_rank_up_not_enough_xp_title" 
+      text="XP insuffisant" />
+    <string
+      id="ret_remove_button_text" 
+      text="Supprimer" />
+    <string
+      id="ret_remove_troop" 
+      text="Retirer la troupe" />
+    <string
+      id="ret_remove_troop_text" 
+      text="Êtes-vous sûr de vouloir retirer définitivement {TROOP_NAME} ?\n\nSon équipement sera stocké pour une utilisation ultérieure." />
+    <string
+      id="ret_rename_troop" 
+      text="Renommer la troupe" />
+    <string
+      id="ret_retinue" 
+      text="Rétinue" />
+    <string
+      id="ret_retinue_female_kingdom" 
+      text="{FACTION} Championne de la Reine" />
+    <string
+      id="ret_retinue_house_champion" 
+      text="{FACTION} Champion de la Maison" />
+    <string
+      id="ret_retinue_house_guard" 
+      text="{FACTION} Garde de la Maison" />
+    <string
+      id="ret_retinue_male_kingdom" 
+      text="{FACTION} Champion du Roi" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor" 
+      text="Bonus de moral de la rétinue (Liés par l'honneur)" />
+    <string
+      id="ret_retinue_royal_guard" 
+      text="{FACTION} Garde royale" />
+    <string
+      id="ret_royal_patronage" 
+      text="Patronage royal" />
+    <string
+      id="ret_royal_patronage_1000_kills_custom_kingdom" 
+      text="Obtenir 1000 éliminations avec des troupes personnalisées du royaume." />
+    <string
+      id="ret_royal_patronage_companion_governor_30_days" 
+      text="Qu'un compagnon de la même culture que votre royaume administre un fief du royaume pendant 30 jours." />
+    <string
+      id="ret_royal_patronage_description" 
+      text="Remise de 10% sur l'équipement de la culture du royaume." />
+    <string
+      id="ret_royal_patronage_recruit_100_custom_kingdom" 
+      text="Recruter 100 troupes personnalisées du royaume." />
+    <string
+      id="ret_skills_header_text" 
+      text="Compétences" />
+    <string
+      id="ret_steadfast_soldiers" 
+      text="Soldats inébranlables" />
+    <string
+      id="ret_steadfast_soldiers_defend_village_only_custom" 
+      text="Défendre un village contre un pillage en n'utilisant que des troupes personnalisées." />
+    <string
+      id="ret_steadfast_soldiers_description" 
+      text="+5% de points de compétence." />
+    <string
+      id="ret_steadfast_soldiers_siege_defense_mostly_custom" 
+      text="Remporter une défense de siège en utilisant principalement des troupes personnalisées." />
+    <string
+      id="ret_steadfast_soldiers_twelve_troops_maxed_skills" 
+      text="Maximiser les compétences de 15 troupes personnalisées." />
+    <string
+      id="ret_switch_to_clan_troops" 
+      text="Basculer vers\nTroupes du clan" />
+    <string
+      id="ret_switch_to_kingdom_troops" 
+      text="Basculer vers\nTroupes du royaume" />
+    <string
+      id="ret_transfer_header_text" 
+      text="Transfert" />
+    <string
+      id="ret_troops_tab_text" 
+      text="Troupes" />
+    <string
+      id="ret_unequip_all" 
+      text="Tout retirer" />
+    <string
+      id="ret_unequip_all_button_text" 
+      text="Tout retirer" />
+    <string
+      id="ret_unequip_all_text" 
+      text="Retirer tout l'équipement porté par {TROOP_NAME} ?\n\nIl sera stocké pour une utilisation ultérieure." />
+    <string
+      id="ret_unlock_btn" 
+      text="Débloquer" />
+    <string
+      id="ret_unlock_failed" 
+      text="Impossible de débloquer." />
+    <string
+      id="ret_upgrades_header_text" 
+      text="Améliorations" />
+    <string
+      id="ret_vanguard" 
+      text="Avant-garde" />
+    <string
+      id="ret_vanguard_clear_hideout_retinue_only" 
+      text="Rester proche de la capacité maximale de rétinue pendant 30 jours." />
+    <string
+      id="ret_vanguard_description" 
+      text="+15% de capacité de rétinue." />
+    <string
+      id="ret_vanguard_first_melee_kill_in_siege" 
+      text="Qu'un membre de la rétinue réalise la première élimination au corps à corps lors d'un assaut de siège." />
+    <string
+      id="ret_vanguard_win_100_retinue_only" 
+      text="Remporter une bataille de 100+ en n'utilisant que votre rétinue." />
+    <string
+      id="ret_warning" 
+      text="Avertissement" />
+    <string
+      id="ret_weapon_1_slot_text" 
+      text="Arme 1" />
+    <string
+      id="ret_weapon_2_slot_text" 
+      text="Arme 2" />
+    <string
+      id="ret_weapon_3_slot_text" 
+      text="Arme 3" />
+    <string
+      id="ret_weapon_4_slot_text" 
+      text="Arme 4" />
+    <string
+      id="ret_yes" 
+      text="Oui" />
+  </strings>
+</base>

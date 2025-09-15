@@ -121,7 +121,17 @@ if [[ $BUILD_MCM -eq 1 ]]; then
   echo "== Building Retinues.MCM =="
   dotnet build "$MCM_PROJ" -c "$CONFIG" \
     -p:BannerlordGameDir="$GAME_DIR"
+
 else
+  # Run strings.py before building Core
+  STRINGS_SCRIPT="$ROOT_DIR/strings.py"
+  if [[ -f "$STRINGS_SCRIPT" ]]; then
+    echo "== Running strings.py =="
+    python "$STRINGS_SCRIPT"
+  else
+    echo "WARN: strings.py not found at $STRINGS_SCRIPT, skipping."
+  fi
+
   echo "== Building Retinues.Core =="
   dotnet build "$CORE_PROJ" -c "$CONFIG" \
     -p:BannerlordGameDir="$GAME_DIR"

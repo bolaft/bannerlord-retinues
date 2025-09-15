@@ -47,6 +47,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public int Stock => Item?.GetStock() ?? 0;
 
         [DataSourceProperty]
+        public string InStockText => L.T("in_stock", "In Stock ({STOCK})").SetTextVariable("STOCK", Stock).ToString();
+
+        [DataSourceProperty]
         public bool ShowStock
         {
             get
