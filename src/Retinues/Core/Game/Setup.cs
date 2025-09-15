@@ -15,26 +15,26 @@ namespace Retinues.Core.Game
             if (faction.StringId == Player.Kingdom?.StringId)
             {
                 if (Player.IsFemale)
-                    eliteName = L.T(
-                        "retinue_female_kingdom", "{FACTION} Queen's Champion"
-                    ).SetTextVariable("FACTION", faction.Name).ToString();
+                    eliteName = L.T("retinue_female_kingdom", "{FACTION} Queen's Champion")
+                        .SetTextVariable("FACTION", faction.Name)
+                        .ToString();
                 else
-                    eliteName = L.T(
-                        "retinue_male_kingdom", "{FACTION} King's Champion"
-                    ).SetTextVariable("FACTION", faction.Name).ToString();
+                    eliteName = L.T("retinue_male_kingdom", "{FACTION} King's Champion")
+                        .SetTextVariable("FACTION", faction.Name)
+                        .ToString();
 
-                basicName = L.T(
-                    "retinue_royal_guard", "{FACTION} Royal Guard"
-                ).SetTextVariable("FACTION", faction.Name).ToString();
+                basicName = L.T("retinue_royal_guard", "{FACTION} Royal Guard")
+                    .SetTextVariable("FACTION", faction.Name)
+                    .ToString();
             }
             else
             {
-                eliteName = L.T(
-                    "retinue_house_champion", "{FACTION} House Champion"
-                ).SetTextVariable("FACTION", faction.Name).ToString();
-                basicName = L.T(
-                    "retinue_house_guard", "{FACTION} House Guard"
-                ).SetTextVariable("FACTION", faction.Name).ToString();
+                eliteName = L.T("retinue_house_champion", "{FACTION} House Champion")
+                    .SetTextVariable("FACTION", faction.Name)
+                    .ToString();
+                basicName = L.T("retinue_house_guard", "{FACTION} House Guard")
+                    .SetTextVariable("FACTION", faction.Name)
+                    .ToString();
             }
 
             faction.RetinueElite = CreateRetinueTroop(
@@ -122,8 +122,8 @@ namespace Retinues.Core.Game
 
             if (original.UpgradeTargets != null)
                 foreach (var child in original.UpgradeTargets)
-                    foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone))
-                        yield return descendant;
+                foreach (var descendant in CloneTroopTreeRecursive(child, faction, clone))
+                    yield return descendant;
         }
     }
 }

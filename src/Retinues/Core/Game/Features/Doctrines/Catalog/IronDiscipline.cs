@@ -14,13 +14,23 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class ID_Upgrade100BasicToMax : Feat
         {
-            public override string Description => L.S("iron_discipline_upgrade_100_basic_to_max", "Upgrade 100 basic troops to max tier.");
+            public override string Description =>
+                L.S(
+                    "iron_discipline_upgrade_100_basic_to_max",
+                    "Upgrade 100 basic troops to max tier."
+                );
             public override int Target => 100;
 
-            public override void PlayerUpgradedTroops(WCharacter upgradeFromTroop, WCharacter upgradeToTroop, int number)
+            public override void PlayerUpgradedTroops(
+                WCharacter upgradeFromTroop,
+                WCharacter upgradeToTroop,
+                int number
+            )
             {
-                if (upgradeToTroop.IsElite) return;
-                if (!upgradeToTroop.IsMaxTier) return;
+                if (upgradeToTroop.IsElite)
+                    return;
+                if (!upgradeToTroop.IsMaxTier)
+                    return;
 
                 AdvanceProgress(number);
             }
@@ -28,32 +38,52 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class ID_HeadshotEnemyLord : Feat
         {
-            public override string Description => L.S("iron_discipline_headshot_enemy_lord", "Headshot an enemy lord with a ranged weapon.");
+            public override string Description =>
+                L.S(
+                    "iron_discipline_headshot_enemy_lord",
+                    "Headshot an enemy lord with a ranged weapon."
+                );
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (battle.Kills.Select(k =>
-                    k.Killer.IsPlayer
-                    && k.Victim.Character.IsHero
-                    && k.Blow.IsMissile
-                    && k.Blow.IsHeadShot()).Count() > 0)
+                foreach (var kill in battle.Kills)
                 {
-                    AdvanceProgress(1);
+                    if (
+                        kill.Killer.IsPlayer
+                        && kill.Victim.Character.IsHero
+                        && kill.Blow.IsMissile
+                        && kill.Blow.IsHeadShot()
+                    )
+                    {
+                        AdvanceProgress(1);
+                        break;
+                    }
                 }
             }
         }
 
         public sealed class ID_DefeatTwiceSizeMostlyCustom : Feat
         {
-            public override string Description => L.S("iron_discipline_defeat_twice_size_mostly_custom", "Defeat a party twice your size using mostly custom troops.");
+            public override string Description =>
+                L.S(
+                    "iron_discipline_defeat_twice_size_mostly_custom",
+                    "Defeat a party twice your size using mostly custom troops."
+                );
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (battle.IsLost) return;
-                if (battle.EnemyTroopCount < 2 * battle.FriendlyTroopCount) return;
-                if (Player.Party.MemberRoster.CustomRatio < 0.75f) return;
+                Log.Debug("ID_DefeatTwiceSizeMostlyCustom: OnBattleEnd");
+                Log.Debug(
+                    $"Battle: IsWon={battle.IsWon}, EnemyTroopCount={battle.EnemyTroopCount}, FriendlyTroopCount={battle.FriendlyTroopCount}, CustomRatio={Player.Party.MemberRoster.CustomRatio}"
+                );
+                if (battle.IsLost)
+                    return;
+                if (battle.EnemyTroopCount < 2 * battle.FriendlyTroopCount)
+                    return;
+                if (Player.Party.MemberRoster.CustomRatio < 0.75f)
+                    return;
 
                 AdvanceProgress(1);
             }

@@ -6,18 +6,24 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
     public sealed class CulturalPride : Doctrine
     {
         public override string Name => L.S("cultural_pride", "Cultural Pride");
-        public override string Description => L.S("cultural_pride_description", "10% rebate on items of the troop's culture.");
+        public override string Description =>
+            L.S("cultural_pride_description", "10% rebate on items of the troop's culture.");
         public override int Column => 1;
         public override int Row => 0;
 
         public sealed class CP_TournamentOwnCultureGear : Feat
         {
-            public override string Description => L.S("cultural_pride_tournament_own_culture_gear", "Win a tournament wearing only items of your own culture.");
+            public override string Description =>
+                L.S(
+                    "cultural_pride_tournament_own_culture_gear",
+                    "Win a tournament wearing only items of your own culture."
+                );
             public override int Target => 1;
 
             public override void OnTournamentFinished(Tournament tournament)
             {
-                if (tournament.Winner?.StringId != Player.Character.StringId) return;
+                if (tournament.Winner?.StringId != Player.Character.StringId)
+                    return;
 
                 foreach (var item in Player.Character.Equipment.Items)
                 {
@@ -31,7 +37,11 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class CP_FullSet100Kills : Feat
         {
-            public override string Description => L.S("cultural_pride_full_set_100_kills", "Have a troop type wearing a full set of items of their culture get 100 kills in battle.");
+            public override string Description =>
+                L.S(
+                    "cultural_pride_full_set_100_kills",
+                    "Have a troop type wearing a full set of items of their culture get 100 kills in battle."
+                );
             public override int Target => 100;
 
             public override void OnBattleEnd(Battle battle)
@@ -60,19 +70,24 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class CP_DefeatForeignMonarch : Feat
         {
-            public override string Description => L.S("cultural_pride_defeat_foreign_monarch", "Defeat a monarch of a different culture in battle.");
+            public override string Description =>
+                L.S(
+                    "cultural_pride_defeat_foreign_monarch",
+                    "Defeat a monarch of a different culture in battle."
+                );
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (battle.IsLost) return;
+                if (battle.IsLost)
+                    return;
 
                 foreach (var leader in battle.EnemyLeaders)
                 {
-                    if (!leader.IsRuler)
+                    if (!leader?.IsRuler ?? true)
                         continue; // Not a monarch
 
-                    if (leader.Culture.StringId == Player.Culture.StringId)
+                    if (leader?.Culture.StringId == Player.Culture.StringId)
                         continue; // Same culture
 
                     AdvanceProgress(1);

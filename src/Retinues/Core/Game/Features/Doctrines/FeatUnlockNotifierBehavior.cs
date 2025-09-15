@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Library;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
@@ -18,8 +18,18 @@ namespace Retinues.Core.Game.Features.Doctrines
         public override void RegisterEvents()
         {
             // Track mission enter/leave to know when we're back on the map
-            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, _ => _inMission = true);
-            CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(this, _ => { _inMission = false; TryFlush(); }); // if available in your build
+            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
+                this,
+                _ => _inMission = true
+            );
+            CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(
+                this,
+                _ =>
+                {
+                    _inMission = false;
+                    TryFlush();
+                }
+            ); // if available in your build
             CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
 
             // Listen to feat completions
@@ -36,7 +46,8 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         private void OnFeatCompleted(string featKey)
         {
-            if (string.IsNullOrEmpty(featKey)) return;
+            if (string.IsNullOrEmpty(featKey))
+                return;
             _pendingFeatKeys.Enqueue(featKey);
             TryFlush(); // if we happen to be on map already, show immediately
         }
@@ -52,10 +63,14 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             try
             {
-                if (_inMission) return;
-                if (Mission.Current != null) return; // safest map check across builds
-                if (_pendingFeatKeys.Count == 0) return;
-                if (InformationManager.IsAnyInquiryActive()) return;
+                if (_inMission)
+                    return;
+                if (Mission.Current != null)
+                    return; // safest map check across builds
+                if (_pendingFeatKeys.Count == 0)
+                    return;
+                if (InformationManager.IsAnyInquiryActive())
+                    return;
 
                 var featKey = _pendingFeatKeys.Dequeue();
                 BuildAndShow(featKey);
@@ -73,26 +88,32 @@ namespace Retinues.Core.Game.Features.Doctrines
             var (doc, feat) = FindFeat(doctrines, featKey);
 
             var title = L.T("feat_completed_title", "Feat Completed");
-            var desc = L.T("feat_completed_description", "{DOCTRINE}\n\n{REQ}")
-                .SetTextVariable("DOCTRINE", doc?.Name ?? string.Empty)
-                .SetTextVariable("REQ", feat?.Description ?? string.Empty);
 
             InformationManager.ShowInquiry(
-                new InquiryData(title.ToString(), desc.ToString(),
-                    true, false,
+                new InquiryData(
+                    title.ToString(),
+                    feat.Description,
+                    true,
+                    false,
                     affirmativeText: GameTexts.FindText("str_ok").ToString(),
                     negativeText: null,
                     // On OK: try to show next one (if any) immediately
                     affirmativeAction: () => TryFlush(),
-                    negativeAction: null));
+                    negativeAction: null
+                )
+            );
         }
 
-        private static (DoctrineDef doc, FeatDef feat) FindFeat(IReadOnlyList<DoctrineDef> all, string featKey)
+        private static (DoctrineDef doc, FeatDef feat) FindFeat(
+            IReadOnlyList<DoctrineDef> all,
+            string featKey
+        )
         {
             foreach (var d in all)
             {
                 var f = d.Feats?.FirstOrDefault(x => x.Key == featKey);
-                if (f != null) return (d, f);
+                if (f != null)
+                    return (d, f);
             }
             return (null, null);
         }

@@ -14,20 +14,25 @@ namespace Retinues.Core.Game.Wrappers.Cache
 
         public static WCharacter Wrap(CharacterObject co)
         {
-            return _byObj.GetValue(co, key =>
-            {
-                // seed from index if available
-                var fac = GetFactionFor(key.StringId);
-                WCharacter parent = null;
-                if (WCharacterIndex.TryGetParentId(key.StringId, out var parentId))
+            return _byObj.GetValue(
+                co,
+                key =>
                 {
-                    var pObj = MBObjectManager.Instance.GetObject<CharacterObject>(parentId);
-                    if (pObj != null) parent = Wrap(pObj);
+                    // seed from index if available
+                    var fac = GetFactionFor(key.StringId);
+                    WCharacter parent = null;
+                    if (WCharacterIndex.TryGetParentId(key.StringId, out var parentId))
+                    {
+                        var pObj = MBObjectManager.Instance.GetObject<CharacterObject>(parentId);
+                        if (pObj != null)
+                            parent = Wrap(pObj);
+                    }
+                    return new WCharacter(key, fac, parent);
                 }
-                return new WCharacter(key, fac, parent);
-            });
+            );
         }
 
-        public static void Clear() { /* optional: nothing to do for CWT */ }
+        public static void Clear() { /* optional: nothing to do for CWT */
+        }
     }
 }

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Core.Utils;
 using Retinues.Core.Game.Wrappers.Cache;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -118,16 +118,20 @@ namespace Retinues.Core.Game.Wrappers
                 foreach (var fac in candidates)
                 {
                     // Listed as a troop of the faction?
-                    if (fac.EliteTroops.Any(t => t.StringId == StringId) ||
-                        fac.BasicTroops.Any(t => t.StringId == StringId))
+                    if (
+                        fac.EliteTroops.Any(t => t.StringId == StringId)
+                        || fac.BasicTroops.Any(t => t.StringId == StringId)
+                    )
                     {
                         _faction = fac;
                         break;
                     }
 
                     // Or used as the faction's retinue?
-                    if (fac.RetinueElite?.StringId == StringId ||
-                        fac.RetinueBasic?.StringId == StringId)
+                    if (
+                        fac.RetinueElite?.StringId == StringId
+                        || fac.RetinueBasic?.StringId == StringId
+                    )
                     {
                         _faction = fac;
                         break;
@@ -149,7 +153,8 @@ namespace Retinues.Core.Game.Wrappers
                 if (WCharacterIndex.TryGetParentId(StringId, out var pid))
                 {
                     var pObj = MBObjectManager.Instance.GetObject<CharacterObject>(pid);
-                    if (pObj != null) return _parent = WCharacterCache.Wrap(pObj);
+                    if (pObj != null)
+                        return _parent = WCharacterCache.Wrap(pObj);
                 }
 
                 if (Faction == null)
@@ -176,8 +181,8 @@ namespace Retinues.Core.Game.Wrappers
             {
                 yield return this;
                 foreach (var child in UpgradeTargets)
-                    foreach (var descendant in child.Tree)
-                        yield return descendant;
+                foreach (var descendant in child.Tree)
+                    yield return descendant;
             }
         }
 
@@ -248,12 +253,12 @@ namespace Retinues.Core.Game.Wrappers
         // =========================================================================
 
         public bool IsElite =>
-            (Faction?.EliteTroops?.Any(t => t.StringId == StringId) ?? false) ||
-            StringId == Faction?.RetinueElite?.StringId;
+            (Faction?.EliteTroops?.Any(t => t.StringId == StringId) ?? false)
+            || StringId == Faction?.RetinueElite?.StringId;
 
         public bool IsRetinue =>
-            StringId == Faction?.RetinueElite?.StringId ||
-            StringId == Faction?.RetinueBasic?.StringId;
+            StringId == Faction?.RetinueElite?.StringId
+            || StringId == Faction?.RetinueBasic?.StringId;
 
         public bool IsMaxTier => Tier >= (IsElite ? 6 : 5);
 
@@ -295,7 +300,7 @@ namespace Retinues.Core.Game.Wrappers
             DefaultSkills.Polearm,
             DefaultSkills.Bow,
             DefaultSkills.Crossbow,
-            DefaultSkills.Throwing
+            DefaultSkills.Throwing,
         ];
 
         public Dictionary<SkillObject, int> Skills
@@ -335,7 +340,10 @@ namespace Retinues.Core.Game.Wrappers
 
         public void SetSkill(SkillObject skill, int value)
         {
-            var skills = Reflector.GetFieldValue<MBCharacterSkills>(_characterObject, "DefaultCharacterSkills");
+            var skills = Reflector.GetFieldValue<MBCharacterSkills>(
+                _characterObject,
+                "DefaultCharacterSkills"
+            );
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
 
@@ -392,10 +400,19 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
-                var raw = Reflector.GetPropertyValue<CharacterObject[]>(_characterObject, "UpgradeTargets") ?? [];
+                var raw =
+                    Reflector.GetPropertyValue<CharacterObject[]>(
+                        _characterObject,
+                        "UpgradeTargets"
+                    ) ?? [];
                 return raw.Select(obj => new WCharacter(obj, Faction, this)).ToArray();
             }
-            set => Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", ToCharacterArray(value));
+            set =>
+                Reflector.SetPropertyValue(
+                    _characterObject,
+                    "UpgradeTargets",
+                    ToCharacterArray(value)
+                );
         }
 
         public void AddUpgradeTarget(WCharacter target)
@@ -434,7 +451,9 @@ namespace Retinues.Core.Game.Wrappers
             // Remove from parent's upgrade targets
             Parent?.RemoveUpgradeTarget(this);
 
-            Log.Debug($"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}");
+            Log.Debug(
+                $"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}"
+            );
 
             // Unregister from the game systems
             Unregister();
@@ -475,7 +494,8 @@ namespace Retinues.Core.Game.Wrappers
             var cloneObject = CharacterObject.CreateFrom(_characterObject);
 
             // Detach skills so parent/clone no longer share the same container
-            var freshSkills = (MBCharacterSkills)Activator.CreateInstance(typeof(MBCharacterSkills), nonPublic: true);
+            var freshSkills = (MBCharacterSkills)
+                Activator.CreateInstance(typeof(MBCharacterSkills), nonPublic: true);
             Reflector.SetFieldValue(cloneObject, "DefaultCharacterSkills", freshSkills);
 
             // Default faction is the same as the original troop
@@ -523,6 +543,5 @@ namespace Retinues.Core.Game.Wrappers
         public bool IsMounted => Equipment.HasMount;
 
         public bool IsRuler => _characterObject.HeroObject?.IsFactionLeader ?? false;
-
     }
 }

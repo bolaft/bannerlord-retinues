@@ -1,9 +1,8 @@
-
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.MountAndBlade;
 using Retinues.Core.Game.Wrappers.Cache;
-using TaleWorlds.Core;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -15,9 +14,12 @@ namespace Retinues.Core.Game.Wrappers
 
         public BattleSideEnum Side => _agent.Team?.Side ?? BattleSideEnum.None;
 
-        public WCharacter Character = WCharacterCache.Wrap((CharacterObject)agent.Character);
+        public WCharacter Character = agent.Character is CharacterObject @object
+            ? WCharacterCache.Wrap(@object)
+            : null;
 
         public bool IsPlayer => _agent.IsPlayerControlled;
-        public bool IsPlayerTroop => _agent.IsPlayerTroop;
+
+        public bool IsPlayerTroop => _agent.Team?.IsPlayerTeam == true;
     }
 }

@@ -1,10 +1,10 @@
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
-using System;
 
 namespace Retinues.Core.Editor.UI.VM.Doctrines
 {
@@ -25,8 +25,6 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                 }
             }
 
-            Log.Debug($"Created doctrine column '{name}' with {Doctrines.Count} doctrines.");
-
             Refresh();
         }
 
@@ -39,26 +37,24 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
             var columns = new MBBindingList<DoctrineColumnVM>();
 
-            List<string> columnNames = [
+            List<string> columnNames =
+            [
                 L.S("doctrines_col_0", "Unlocks"),
                 L.S("doctrines_col_1", "Equipment"),
                 L.S("doctrines_col_2", "Troops"),
-                L.S("doctrines_col_3", "Retinues")
+                L.S("doctrines_col_3", "Retinues"),
             ];
 
             if (svc != null)
             {
                 // group by column, then order rows
-                var groups = svc.AllDoctrines()
-                    .GroupBy(d => d.Column)
-                    .OrderBy(g => g.Key);
+                var groups = svc.AllDoctrines().GroupBy(d => d.Column).OrderBy(g => g.Key);
 
                 foreach (var g in groups)
                 {
-                    var colName = g.Key >= 0 && g.Key < columnNames.Count ? columnNames[g.Key] : string.Empty;
-                    var vms = g.OrderBy(d => d.Row)
-                            .Select(d => new DoctrineVM(d.Key))
-                            .ToList();
+                    var colName =
+                        g.Key >= 0 && g.Key < columnNames.Count ? columnNames[g.Key] : string.Empty;
+                    var vms = g.OrderBy(d => d.Row).Select(d => new DoctrineVM(d.Key)).ToList();
 
                     columns.Add(new DoctrineColumnVM(colName, vms));
                 }
@@ -77,7 +73,8 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             get => _name;
             set
             {
-                if (_name == value) return;
+                if (_name == value)
+                    return;
                 _name = value;
                 OnPropertyChanged(nameof(Name));
             }

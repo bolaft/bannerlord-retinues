@@ -1,5 +1,5 @@
-using Retinues.Core.Game.Events;
 using Retinues.Core.Editor;
+using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
@@ -13,7 +13,11 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class VG_ClearHideoutRetinueOnly : Feat
         {
-            public override string Description => L.S("vanguard_clear_hideout_retinue_only", "Be at near maximum retinue capacity for 30 days.");
+            public override string Description =>
+                L.S(
+                    "vanguard_clear_hideout_retinue_only",
+                    "Be at near maximum retinue capacity for 30 days."
+                );
             public override int Target => 1;
 
             public override void OnDailyTick()
@@ -30,15 +34,20 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class VG_Win100RetinueOnly : Feat
         {
-            public override string Description => L.S("vanguard_win_100_retinue_only", "Win a 100+ battle using only your retinue.");
+            public override string Description =>
+                L.S("vanguard_win_100_retinue_only", "Win a 100+ battle using only your retinue.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (battle.IsLost) return;
-                if (battle.TotalTroopCount < 100) return;
-                if (battle.AllyTroopCount > 0) return; // No allies allowed
-                if (Player.Party.MemberRoster.RetinueRatio < 1.0f) return; // No non-retinues allowed
+                if (battle.IsLost)
+                    return;
+                if (battle.TotalTroopCount < 100)
+                    return;
+                if (battle.AllyTroopCount > 0)
+                    return; // No allies allowed
+                if (Player.Party.MemberRoster.RetinueRatio < 1.0f)
+                    return; // No non-retinues allowed
 
                 AdvanceProgress(1);
             }
@@ -46,14 +55,21 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
         public sealed class VG_FirstMeleeKillInSiege : Feat
         {
-            public override string Description => L.S("vanguard_first_melee_kill_in_siege", "Have a retinue get the first melee kill in a siege assault.");
+            public override string Description =>
+                L.S(
+                    "vanguard_first_melee_kill_in_siege",
+                    "Have a retinue get the first melee kill in a siege assault."
+                );
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (battle.IsLost) return;
-                if (!battle.IsSiege) return;
-                if (battle.PlayerIsDefender) return;
+                if (battle.IsLost)
+                    return;
+                if (!battle.IsSiege)
+                    return;
+                if (battle.PlayerIsDefender)
+                    return;
 
                 foreach (var kill in battle.Kills)
                 {

@@ -32,7 +32,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public WCulture Culture => new(_faction.Culture);
 
-        public IReadOnlyList<Settlement> Fiefs => _faction.Settlements.Where(s => s.IsTown || s.IsCastle).ToList();
+        public IReadOnlyList<Settlement> Fiefs =>
+            _faction.Settlements.Where(s => s.IsTown || s.IsCastle).ToList();
 
         // =========================================================================
         // Troops

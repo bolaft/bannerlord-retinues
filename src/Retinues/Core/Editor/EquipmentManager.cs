@@ -30,11 +30,17 @@ namespace Retinues.Core.Editor
                 {
                     var wItem = new WItem(item); // Wrap item
 
-                    if (Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier) && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>())
+                    if (
+                        Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier)
+                        && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
+                    )
                         continue; // Skip items that exceed the allowed tier difference unless Ironclad is unlocked
                     else if (wItem.IsUnlocked)
                         items.Add(wItem); // Unlocked items
-                    else if (Config.GetOption<bool>("UnlockFromCulture") || DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>())
+                    else if (
+                        Config.GetOption<bool>("UnlockFromCulture")
+                        || DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>()
+                    )
                         if (item.Culture?.StringId == faction?.Culture?.StringId)
                             items.Add(wItem); // Items of the faction's culture
                 }

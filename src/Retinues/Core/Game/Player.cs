@@ -90,14 +90,16 @@ namespace Retinues.Core.Game
         {
             get
             {
-                if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null) return 0;
+                if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
+                    return 0;
                 return (int)TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence;
             }
         }
 
         public static void ChangeInfluence(int amount)
         {
-            if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null) return;
+            if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
+                return;
             TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence = Math.Max(0f, Influence + amount);
         }
 

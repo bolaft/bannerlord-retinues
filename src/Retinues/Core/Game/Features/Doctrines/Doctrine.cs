@@ -49,9 +49,11 @@ namespace Retinues.Core.Game.Features.Doctrines
             var t = GetType();
             foreach (var ft in t.GetNestedTypes(BindingFlags.Public | BindingFlags.NonPublic))
             {
-                if (!typeof(Feat).IsAssignableFrom(ft) || ft.IsAbstract) continue;
+                if (!typeof(Feat).IsAssignableFrom(ft) || ft.IsAbstract)
+                    continue;
                 var ctor = ft.GetConstructor(Type.EmptyTypes);
-                if (ctor == null) continue;
+                if (ctor == null)
+                    continue;
 
                 var feat = (Feat)Activator.CreateInstance(ft);
                 yield return feat;

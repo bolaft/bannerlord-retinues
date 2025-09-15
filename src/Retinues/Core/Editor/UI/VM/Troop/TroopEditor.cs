@@ -52,7 +52,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string UpgradesHeaderText => L.S("upgrades_header_text", "Upgrades");
 
         [DataSourceProperty]
-        public bool TroopXpIsEnabled => Config.GetOption<int>("BaseSkillXpCost") > 0 || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
+        public bool TroopXpIsEnabled =>
+            Config.GetOption<int>("BaseSkillXpCost") > 0
+            || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
 
         [DataSourceProperty]
         public string Name => SelectedTroop?.Name;
@@ -77,7 +79,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
-        public string Gender => SelectedTroop != null && SelectedTroop.IsFemale ? L.S("female", "Female") : L.S("male", "Male");
+        public string Gender =>
+            SelectedTroop != null && SelectedTroop.IsFemale
+                ? L.S("female", "Female")
+                : L.S("male", "Male");
 
         // -------------------------
         // Flags
@@ -160,7 +165,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // Skills
         // -------------------------
         [DataSourceProperty]
-        public int AvailableTroopXp => SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop) : 0;
+        public int AvailableTroopXp =>
+            SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop) : 0;
 
         [DataSourceProperty]
         public int SkillTotal =>
@@ -197,7 +203,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 return true;
             }
         }
-
 
         [DataSourceProperty]
         public BasicTooltipViewModel RemoveButtonHint
@@ -299,7 +304,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             InformationManager.ShowInquiry(
                 new InquiryData(
                     titleText: L.S("remove_troop", "Remove Troop"),
-                    text: L.T("remove_troop_text", "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use.")
+                    text: L.T(
+                            "remove_troop_text",
+                            "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use."
+                        )
                         .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
@@ -337,7 +345,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 InformationManager.ShowInquiry(
                     new InquiryData(
                         titleText: L.S("rank_up_not_enough_gold_title", "Not enough gold"),
-                        text: L.T("rank_up_not_enough_gold_text", "You do not have enough gold to rank up {TROOP_NAME}.\n\nRank up cost: {COST} gold.")
+                        text: L.T(
+                                "rank_up_not_enough_gold_text",
+                                "You do not have enough gold to rank up {TROOP_NAME}.\n\nRank up cost: {COST} gold."
+                            )
                             .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
                             .SetTextVariable("COST", cost)
                             .ToString(),
@@ -355,7 +366,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 InformationManager.ShowInquiry(
                     new InquiryData(
                         titleText: L.S("rank_up_not_enough_xp_title", "Not enough XP"),
-                        text: L.T("rank_up_not_enough_xp_text", "You do not have enough XP to rank up {TROOP_NAME}.\n\nRank up cost: {COST} XP.")
+                        text: L.T(
+                                "rank_up_not_enough_xp_text",
+                                "You do not have enough XP to rank up {TROOP_NAME}.\n\nRank up cost: {COST} XP."
+                            )
                             .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
                             .SetTextVariable("COST", cost)
                             .ToString(),
@@ -371,7 +385,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             else
             {
                 string text = TroopXpIsEnabled
-                    ? L.T("rank_up_costs_text", "It will cost you {COST_GOLD} gold and {COST_XP} XP.")
+                    ? L.T(
+                            "rank_up_costs_text",
+                            "It will cost you {COST_GOLD} gold and {COST_XP} XP."
+                        )
                         .SetTextVariable("COST_GOLD", cost)
                         .SetTextVariable("COST_XP", cost)
                         .ToString()
@@ -414,7 +431,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (totalCost > Player.Gold)
             {
                 InformationManager.DisplayMessage(
-                    new InformationMessage(L.S("convert_not_enough_gold", "Not enough gold to apply conversions."))
+                    new InformationMessage(
+                        L.S("convert_not_enough_gold", "Not enough gold to apply conversions.")
+                    )
                 );
                 return;
             }
@@ -437,7 +456,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                         InformationManager.ShowInquiry(
                             new InquiryData(
                                 L.S("convert_not_enough_gold_title", "Not enough gold"),
-                                L.S("convert_not_enough_gold_text", "You do not have enough gold to hire these retinues."),
+                                L.S(
+                                    "convert_not_enough_gold_text",
+                                    "You do not have enough gold to hire these retinues."
+                                ),
                                 false,
                                 true,
                                 null,
@@ -524,9 +546,13 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // -------------------------
 
         private string CantRemoveTroopExplanation =>
-            SelectedTroop?.Parent is null ? L.S("cant_remove_root_troop", "Root troops cannot be removed.")
+            SelectedTroop?.Parent is null
+                ? L.S("cant_remove_root_troop", "Root troops cannot be removed.")
             : SelectedTroop?.UpgradeTargets.Count() > 0
-                ? L.S("cant_remove_troop_with_targets", "Troops that have upgrade targets cannot be removed.")
+                ? L.S(
+                    "cant_remove_troop_with_targets",
+                    "Troops that have upgrade targets cannot be removed."
+                )
             : string.Empty;
 
         // -------------------------

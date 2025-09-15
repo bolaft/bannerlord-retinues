@@ -16,10 +16,7 @@ namespace Retinues.Core.Persistence.Item
             return new ItemSaveData
             {
                 UnlockedItemIds = [.. WItem.UnlockedItems.Select(item => item.StringId)],
-                StockedItems = WItem.Stocks.ToDictionary(
-                    kv => kv.Key.StringId,
-                    kv => kv.Value
-                ),
+                StockedItems = WItem.Stocks.ToDictionary(kv => kv.Key.StringId, kv => kv.Value),
             };
         }
 

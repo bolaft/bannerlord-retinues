@@ -10,14 +10,12 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - tutorial on first game
 - tool tip / communicate on skill caps/limits
 - provide translations in many languages
+- disable in game messages from logs altogether
+- unlock self culture without kills
 
 ## Fixes
 
 - fix hints not appearing on disabled buttons
-
-## Tests
-
-- test persistence of item kills for unlocks
 
 ## Script
 

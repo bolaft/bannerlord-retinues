@@ -47,7 +47,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public int Stock => Item?.GetStock() ?? 0;
 
         [DataSourceProperty]
-        public string InStockText => L.T("in_stock", "In Stock ({STOCK})").SetTextVariable("STOCK", Stock).ToString();
+        public string InStockText =>
+            L.T("in_stock", "In Stock ({STOCK})").SetTextVariable("STOCK", Stock).ToString();
 
         [DataSourceProperty]
         public bool ShowStock
@@ -120,7 +121,10 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                         InformationManager.ShowInquiry(
                             new InquiryData(
                                 L.S("buy_item", "Buy Item"),
-                                L.T("buy_item_text", "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?")
+                                L.T(
+                                        "buy_item_text",
+                                        "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?"
+                                    )
                                     .SetTextVariable("ITEM_NAME", Item.Name)
                                     .SetTextVariable("ITEM_VALUE", Value)
                                     .ToString(),
@@ -142,7 +146,10 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                         InformationManager.ShowInquiry(
                             new InquiryData(
                                 L.S("not_enough_gold", "Not enough gold"),
-                                L.S("not_enough_gold_text", "You do not have enough gold to purchase this item."),
+                                L.S(
+                                    "not_enough_gold_text",
+                                    "You do not have enough gold to purchase this item."
+                                ),
                                 false,
                                 true,
                                 null,

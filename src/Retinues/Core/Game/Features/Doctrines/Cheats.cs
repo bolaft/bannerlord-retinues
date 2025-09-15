@@ -21,7 +21,8 @@ namespace Retinues.Core.Game.Features.Doctrines
         public static string FeatList(List<string> args)
         {
             var docs = DoctrineAPI.AllDoctrines();
-            if (docs == null || docs.Count == 0) return "No doctrines discovered.";
+            if (docs == null || docs.Count == 0)
+                return "No doctrines discovered.";
 
             var sb = new StringBuilder();
             foreach (var d in docs.OrderBy(x => x.Column).ThenBy(x => x.Row))
@@ -37,9 +38,11 @@ namespace Retinues.Core.Game.Features.Doctrines
                 foreach (var f in d.Feats)
                 {
                     int prog = DoctrineAPI.GetFeatProgress(f.Key);
-                    int tgt  = DoctrineAPI.GetFeatTarget(f.Key);
+                    int tgt = DoctrineAPI.GetFeatTarget(f.Key);
                     bool done = DoctrineAPI.IsFeatComplete(f.Key);
-                    sb.AppendLine($"  - {TrimType(f.Key)} : {prog}/{tgt} {(done ? "[DONE]" : "")} — {f.Description}");
+                    sb.AppendLine(
+                        $"  - {TrimType(f.Key)} : {prog}/{tgt} {(done ? "[DONE]" : "")} — {f.Description}"
+                    );
                 }
                 sb.AppendLine();
             }
@@ -49,12 +52,15 @@ namespace Retinues.Core.Game.Features.Doctrines
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_add", "retinues")]
         public static string FeatAdd(List<string> args)
         {
-            if (args.Count < 1) return "Usage: retinues.feat_add <FeatNameOrType> [amount]";
+            if (args.Count < 1)
+                return "Usage: retinues.feat_add <FeatNameOrType> [amount]";
             var t = ResolveFeatType(args[0], out var key, out var err);
-            if (t == null) return err;
+            if (t == null)
+                return err;
 
             int amount = 1;
-            if (args.Count >= 2 && !int.TryParse(args[1], out amount)) return "amount must be an integer.";
+            if (args.Count >= 2 && !int.TryParse(args[1], out amount))
+                return "amount must be an integer.";
 
             int after = DoctrineAPI.AdvanceFeat(key, amount);
             int tgt = DoctrineAPI.GetFeatTarget(key);
@@ -64,11 +70,14 @@ namespace Retinues.Core.Game.Features.Doctrines
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_set", "retinues")]
         public static string FeatSet(List<string> args)
         {
-            if (args.Count < 2) return "Usage: retinues.feat_set <FeatNameOrType> <amount>";
+            if (args.Count < 2)
+                return "Usage: retinues.feat_set <FeatNameOrType> <amount>";
             var t = ResolveFeatType(args[0], out var key, out var err);
-            if (t == null) return err;
+            if (t == null)
+                return err;
 
-            if (!int.TryParse(args[1], out var amount)) return "amount must be an integer.";
+            if (!int.TryParse(args[1], out var amount))
+                return "amount must be an integer.";
             DoctrineAPI.SetFeatProgress(key, amount);
             int tgt = DoctrineAPI.GetFeatTarget(key);
             bool done = DoctrineAPI.IsFeatComplete(key);
@@ -78,9 +87,11 @@ namespace Retinues.Core.Game.Features.Doctrines
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_unlock", "retinues")]
         public static string FeatUnlock(List<string> args)
         {
-            if (args.Count < 1) return "Usage: retinues.feat_unlock <FeatNameOrType>";
+            if (args.Count < 1)
+                return "Usage: retinues.feat_unlock <FeatNameOrType>";
             var t = ResolveFeatType(args[0], out var key, out var err);
-            if (t == null) return err;
+            if (t == null)
+                return err;
 
             int tgt = DoctrineAPI.GetFeatTarget(key);
             DoctrineAPI.SetFeatProgress(key, tgt);
@@ -115,8 +126,13 @@ namespace Retinues.Core.Game.Features.Doctrines
         /// <summary>Resolve a feat by: full type name, short nested name, or case-insensitive suffix.</summary>
         private static Type ResolveFeatType(string token, out string featKey, out string error)
         {
-            featKey = null; error = null;
-            if (string.IsNullOrWhiteSpace(token)) { error = "Empty feat token."; return null; }
+            featKey = null;
+            error = null;
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                error = "Empty feat token.";
+                return null;
+            }
 
             // Build an index once per call (fast enough for console).
             var byKey = new Dictionary<string, Type>(StringComparer.Ordinal);
@@ -124,12 +140,14 @@ namespace Retinues.Core.Game.Features.Doctrines
 
             foreach (var d in DoctrineAPI.AllDoctrines() ?? Array.Empty<DoctrineDef>())
             {
-                if (d.Feats == null) continue;
+                if (d.Feats == null)
+                    continue;
                 foreach (var f in d.Feats)
                 {
                     var full = f.Key; // Type.FullName
                     var t = GetTypeByFullName(full);
-                    if (t == null) continue;
+                    if (t == null)
+                        continue;
                     byKey[full] = t;
 
                     var shortName = TrimType(full); // e.g. MAA_1000EliteKills
@@ -141,23 +159,27 @@ namespace Retinues.Core.Game.Features.Doctrines
             // 1) exact full name
             if (byKey.TryGetValue(token, out var exact))
             {
-                featKey = token; return exact;
+                featKey = token;
+                return exact;
             }
 
             // 2) short name match (e.g. "MAA_1000EliteKills")
             if (byShort.TryGetValue(token, out var mapped))
             {
-                featKey = mapped; return byKey[mapped];
+                featKey = mapped;
+                return byKey[mapped];
             }
 
             // 3) suffix/contains search
             var hit = byKey.Keys.FirstOrDefault(k =>
-                k.EndsWith(token, StringComparison.OrdinalIgnoreCase) ||
-                TrimType(k).Equals(token, StringComparison.OrdinalIgnoreCase));
+                k.EndsWith(token, StringComparison.OrdinalIgnoreCase)
+                || TrimType(k).Equals(token, StringComparison.OrdinalIgnoreCase)
+            );
 
             if (hit != null)
             {
-                featKey = hit; return byKey[hit];
+                featKey = hit;
+                return byKey[hit];
             }
 
             error = $"Feat not found: '{token}'. Try 'retinues.feat_list' to see available feats.";
@@ -166,7 +188,8 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         private static string TrimType(string full)
         {
-            if (string.IsNullOrEmpty(full)) return full;
+            if (string.IsNullOrEmpty(full))
+                return full;
             int i = full.LastIndexOf('.');
             var tail = i >= 0 ? full.Substring(i + 1) : full;
             // nested type shortener: Namespace.Outer+Inner -> Inner
@@ -176,11 +199,13 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         private static Type GetTypeByFullName(string fullName)
         {
-            if (string.IsNullOrEmpty(fullName)) return null;
+            if (string.IsNullOrEmpty(fullName))
+                return null;
 
             // Fast path
             var t = Type.GetType(fullName, throwOnError: false);
-            if (t != null) return t;
+            if (t != null)
+                return t;
 
             // Search loaded assemblies
             foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
@@ -188,9 +213,12 @@ namespace Retinues.Core.Game.Features.Doctrines
                 try
                 {
                     t = a.GetType(fullName, throwOnError: false);
-                    if (t != null) return t;
+                    if (t != null)
+                        return t;
                 }
-                catch { /* ignore dynamic loaders */ }
+                catch
+                { /* ignore dynamic loaders */
+                }
             }
             return null;
         }

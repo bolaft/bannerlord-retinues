@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Retinues.Core.Utils;
 using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Features.Doctrines.Catalog;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -36,19 +36,25 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
             // Enemy team only
             if (affectedAgent.Team == null || !affectedAgent.Team.IsEnemyOf(playerTeam))
                 // Unless ally casualty and Pragmatic Scavengers is unlocked
-                if (affectorAgent?.Team == playerTeam || !DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>())
+                if (
+                    affectorAgent?.Team == playerTeam
+                    || !DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>()
+                )
                     return;
 
             // Player-side kill only
             if (affectorAgent?.Team == null || !affectorAgent.Team.IsFriendOf(playerTeam))
                 return;
-            
+
             // Ignore kills by non-player parties, unless doctrine unlocked
-            if (affectorAgent.Team != playerTeam && !DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>())
+            if (
+                affectorAgent.Team != playerTeam
+                && !DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>()
+            )
                 return;
 
             // Count each equipped item once per fallen agent
-                var seen = new HashSet<ItemObject>();
+            var seen = new HashSet<ItemObject>();
             foreach (var item in EnumerateEquippedItems(affectedAgent))
             {
                 if (item == null || !seen.Add(item))
@@ -60,7 +66,9 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
                     if (affectorAgent.Character.StringId == Player.Character.StringId)
                         updateValue = 2; // Double count if player personally landed the killing blow
 
-                _battleCounts[item] = _battleCounts.TryGetValue(item, out var c) ? c + updateValue : updateValue;
+                _battleCounts[item] = _battleCounts.TryGetValue(item, out var c)
+                    ? c + updateValue
+                    : updateValue;
             }
         }
 

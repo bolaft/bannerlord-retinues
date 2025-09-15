@@ -44,7 +44,8 @@ namespace Retinues.Core.Editor
 
         public static void ModifySkill(WCharacter troop, SkillObject skill, int delta)
         {
-            if (troop == null || skill == null || delta == 0) return;
+            if (troop == null || skill == null || delta == 0)
+                return;
 
             int current = troop.GetSkill(skill);
 
@@ -60,7 +61,8 @@ namespace Retinues.Core.Editor
             {
                 // Respect your existing "CanDecrement" constraints upstream
                 int newValue = current - 1;
-                if (newValue < 0) return;
+                if (newValue < 0)
+                    return;
 
                 // Refund the cost of the point we're removing (i.e., the cost that was paid to go from newValue -> newValue + 1)
                 int refund = TroopRules.SkillPointXpCost(newValue);

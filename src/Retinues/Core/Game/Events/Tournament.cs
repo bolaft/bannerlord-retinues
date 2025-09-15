@@ -1,12 +1,17 @@
 using System.Collections.Generic;
+using Retinues.Core.Game.Wrappers;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using Retinues.Core.Game.Wrappers;
 
 namespace Retinues.Core.Game.Events
 {
-    public class Tournament(Town town, WCharacter winner = null, List<WCharacter> participants = null) : MissionBehavior
+    public class Tournament(
+        Town town,
+        WCharacter winner = null,
+        List<WCharacter> participants = null
+    ) : MissionBehavior
     {
         // =========================================================================
         // Fields
@@ -42,13 +47,24 @@ namespace Retinues.Core.Game.Events
         // Mission Events
         // =========================================================================
 
-        public override void OnAgentRemoved(Agent victim, Agent killer, AgentState state, KillingBlow blow)
+        public override void OnAgentRemoved(
+            Agent victim,
+            Agent killer,
+            AgentState state,
+            KillingBlow blow
+        )
         {
             if (victim == null || killer == null)
                 return; // e.g. if agent despawned
 
             if (state != AgentState.Unconscious)
                 return; // only care about knockouts
+
+            if (victim.Character is not CharacterObject)
+                return; // ignore non-character agents (horses, etc)
+
+            if (killer.Character is not CharacterObject)
+                return; // ignore non-character agents (horses, etc)
 
             KnockOuts.Add(new KnockOut(victim, killer));
         }

@@ -2,7 +2,13 @@ using System.Collections.Generic;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
-    public enum DoctrineStatus { Locked, Unlockable, InProgress, Unlocked }
+    public enum DoctrineStatus
+    {
+        Locked,
+        Unlockable,
+        InProgress,
+        Unlocked,
+    }
 
     public sealed class FeatDef
     {

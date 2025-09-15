@@ -105,9 +105,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                 new InquiryData(
                     titleText: L.S("unequip_all", "Unequip All"),
                     text: L.T(
-                        "unequip_all_text",
-                        "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
-                    ).SetTextVariable("TROOP_NAME", SelectedTroop.Name).ToString(),
+                            "unequip_all_text",
+                            "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
+                        )
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
                     affirmativeText: L.S("confirm", "Confirm"),
@@ -199,7 +201,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public void CreateAllSlots()
         {
             // Helper to create slot VMs
-            EquipmentSlotVM CreateSlot(EquipmentIndex slot, string label) => new(slot, label, SelectedTroop, this);
+            EquipmentSlotVM CreateSlot(EquipmentIndex slot, string label) =>
+                new(slot, label, SelectedTroop, this);
 
             _headSlot = CreateSlot(EquipmentIndex.Head, L.S("head_slot_text", "Head"));
             _capeSlot = CreateSlot(EquipmentIndex.Cape, L.S("cape_slot_text", "Cape"));
@@ -207,11 +210,26 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             _glovesSlot = CreateSlot(EquipmentIndex.Gloves, L.S("gloves_slot_text", "Gloves"));
             _legSlot = CreateSlot(EquipmentIndex.Leg, L.S("leg_slot_text", "Legs"));
             _horseSlot = CreateSlot(EquipmentIndex.Horse, L.S("horse_slot_text", "Horse"));
-            _horseHarnessSlot = CreateSlot(EquipmentIndex.HorseHarness, L.S("horse_harness_slot_text", "Harness"));
-            _weaponItemBeginSlotSlot = CreateSlot(EquipmentIndex.WeaponItemBeginSlot, L.S("weapon_1_slot_text", "Weapon 1"));
-            _weapon1Slot = CreateSlot(EquipmentIndex.Weapon1, L.S("weapon_2_slot_text", "Weapon 2"));
-            _weapon2Slot = CreateSlot(EquipmentIndex.Weapon2, L.S("weapon_3_slot_text", "Weapon 3"));
-            _weapon3Slot = CreateSlot(EquipmentIndex.Weapon3, L.S("weapon_4_slot_text", "Weapon 4"));
+            _horseHarnessSlot = CreateSlot(
+                EquipmentIndex.HorseHarness,
+                L.S("horse_harness_slot_text", "Harness")
+            );
+            _weaponItemBeginSlotSlot = CreateSlot(
+                EquipmentIndex.WeaponItemBeginSlot,
+                L.S("weapon_1_slot_text", "Weapon 1")
+            );
+            _weapon1Slot = CreateSlot(
+                EquipmentIndex.Weapon1,
+                L.S("weapon_2_slot_text", "Weapon 2")
+            );
+            _weapon2Slot = CreateSlot(
+                EquipmentIndex.Weapon2,
+                L.S("weapon_3_slot_text", "Weapon 3")
+            );
+            _weapon3Slot = CreateSlot(
+                EquipmentIndex.Weapon3,
+                L.S("weapon_4_slot_text", "Weapon 4")
+            );
         }
     }
 }

@@ -110,18 +110,18 @@ namespace Retinues.Core.Editor
             // Max tier reached
             if (character.IsMaxTier)
                 return false;
-            
+
             int maxUpgrades;
 
             if (character.IsRetinue)
-                maxUpgrades = 1;  // 1 upgrade for retinues
+                maxUpgrades = 1; // 1 upgrade for retinues
             else if (character.IsElite)
                 if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>())
-                    maxUpgrades = 2;  // 2 upgrades for elite troops with Masters at Arms
+                    maxUpgrades = 2; // 2 upgrades for elite troops with Masters at Arms
                 else
-                    maxUpgrades = 1;  // 1 upgrade for elite troops without Masters at Arms
+                    maxUpgrades = 1; // 1 upgrade for elite troops without Masters at Arms
             else
-                maxUpgrades = 2;  // 2 upgrades for basic troops
+                maxUpgrades = 2; // 2 upgrades for basic troops
 
             // Max upgrades reached
             if (character.UpgradeTargets.Count() >= maxUpgrades)
@@ -140,11 +140,11 @@ namespace Retinues.Core.Editor
 
         public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
         {
-            if (c == null || s == null) return false;
+            if (c == null || s == null)
+                return false;
             int cost = SkillPointXpCost(c.GetSkill(s));
             return TroopXpService.GetPool(c) >= cost;
         }
-
 
         // ================================================================
         // Retinues
@@ -154,7 +154,9 @@ namespace Retinues.Core.Editor
         {
             get
             {
-                int maxEliteRetinue = (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+                int maxEliteRetinue = (int)(
+                    Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio")
+                );
                 if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
                     maxEliteRetinue = (int)(maxEliteRetinue * 1.15f);
                 return maxEliteRetinue;
@@ -165,7 +167,9 @@ namespace Retinues.Core.Editor
         {
             get
             {
-                int maxBasicRetinue = (int)(Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+                int maxBasicRetinue = (int)(
+                    Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio")
+                );
                 if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
                     maxBasicRetinue = (int)(maxBasicRetinue * 1.15f);
                 return maxBasicRetinue;

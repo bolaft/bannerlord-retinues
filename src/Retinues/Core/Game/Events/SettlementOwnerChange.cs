@@ -1,16 +1,22 @@
-using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.CampaignSystem.Actions;
 using Retinues.Core.Game.Wrappers;
+using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Events
 {
-    public class SettlementOwnerChange(Settlement settlement, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail, WCharacter oldOwner, WCharacter newOwner)
+    public class SettlementOwnerChange(
+        Settlement settlement,
+        ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail,
+        WCharacter oldOwner,
+        WCharacter newOwner
+    )
     {
         // =========================================================================
         // Fields
         // =========================================================================
 
-        private readonly ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail _detail = detail;
+        private readonly ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail _detail =
+            detail;
 
         // =========================================================================
         // Info
@@ -25,8 +31,11 @@ namespace Retinues.Core.Game.Events
         // Flags
         // =========================================================================
 
-        public bool WasCaptured => _detail is ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail.BySiege;
-        public bool WasBartered => _detail is ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail.ByBarter;
-        public bool WasGranted => _detail is ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail.ByKingDecision;
+        public bool WasCaptured =>
+            _detail is ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail.BySiege;
+        public bool WasBartered =>
+            _detail is ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail.ByBarter;
+        public bool WasGranted =>
+            _detail is ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail.ByKingDecision;
     }
 }

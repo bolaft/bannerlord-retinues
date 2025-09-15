@@ -44,7 +44,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string TierText => $"T{Troop?.Tier}";
 
         [DataSourceProperty]
-        public string EmptyMessage => L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops.");
+        public string EmptyMessage =>
+            L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops.");
 
         // =========================================================================
         // Public API

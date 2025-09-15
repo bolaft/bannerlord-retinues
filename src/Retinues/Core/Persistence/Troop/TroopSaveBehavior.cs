@@ -201,9 +201,21 @@ namespace Retinues.Core.Persistence.Troop
         {
             foreach (var data in rosterData)
             {
-                var party = MobileParty.All.FirstOrDefault(p => p.StringId == data.PartyId);
-                if (party == null)
+                MobileParty party;
+
+                Log.Debug(
+                    $"Restoring roster for party {data?.PartyId}, prison={data?.IsPrisonRoster}"
+                );
+                try
+                {
+                    party = MobileParty.All?.FirstOrDefault(p => p?.StringId == data?.PartyId);
+                    if (party == null)
+                        continue;
+                }
+                catch (Exception)
+                {
                     continue;
+                }
 
                 var wParty = new WParty(party);
                 foreach (var element in data.Elements)

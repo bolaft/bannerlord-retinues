@@ -221,7 +221,10 @@ namespace Retinues.Core.Game.Wrappers
 
                 if (IsRangedWeapon)
                 {
-                    Add(L.S("item_ranged_missile_speed", "Missile Speed"), PrimaryWeapon.MissileSpeed);
+                    Add(
+                        L.S("item_ranged_missile_speed", "Missile Speed"),
+                        PrimaryWeapon.MissileSpeed
+                    );
                     Add(L.S("item_ranged_damage", "Damage"), PrimaryWeapon.MissileDamage);
                     Add(L.S("item_ranged_accuracy", "Accuracy"), PrimaryWeapon.Accuracy);
                 }
@@ -230,13 +233,22 @@ namespace Retinues.Core.Game.Wrappers
                 {
                     if (PrimaryWeapon.SwingDamage > 0 && PrimaryWeapon.SwingSpeed > 0)
                     {
-                        Add(L.S("item_melee_swing_damage", "Swing Damage"), PrimaryWeapon.SwingDamage);
+                        Add(
+                            L.S("item_melee_swing_damage", "Swing Damage"),
+                            PrimaryWeapon.SwingDamage
+                        );
                         Add(L.S("item_melee_swing_speed", "Swing Speed"), PrimaryWeapon.SwingSpeed);
                     }
                     if (PrimaryWeapon.ThrustDamage > 0 && PrimaryWeapon.ThrustSpeed > 0)
                     {
-                        Add(L.S("item_melee_thrust_damage", "Thrust Damage"), PrimaryWeapon.ThrustDamage);
-                        Add(L.S("item_melee_thrust_speed", "Thrust Speed"), PrimaryWeapon.ThrustSpeed);
+                        Add(
+                            L.S("item_melee_thrust_damage", "Thrust Damage"),
+                            PrimaryWeapon.ThrustDamage
+                        );
+                        Add(
+                            L.S("item_melee_thrust_speed", "Thrust Speed"),
+                            PrimaryWeapon.ThrustSpeed
+                        );
                     }
                     Add(L.S("item_melee_length", "Length"), PrimaryWeapon.WeaponLength);
                     Add(L.S("item_melee_handling", "Handling"), PrimaryWeapon.Handling);

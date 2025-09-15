@@ -1,49 +1,37 @@
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game.Features.Xp.Behaviors
 {
     // Hooks into CampaignEvents to track troop XP deltas and persist the bank.
     public sealed class TroopXpBehavior : CampaignBehaviorBase
     {
-        private bool _postBattleAccumulatePending;
-        private CampaignTime _notBefore;
-
         public override void RegisterEvents()
         {
-            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, _ =>
-            {
-                TroopXpService.InitializeSnapshotFromRoster();
-            });
-
-            // Mark as pending when a player battle ends (XP not applied yet here)
-            CampaignEvents.OnPlayerBattleEndEvent.AddNonSerializedListener(this, mapEvent =>
-            {
-                _postBattleAccumulatePending = true;
-                _notBefore = CampaignTime.Now; // allow as soon as time advances
-            });
-
-            // Passive/fallback accumulation & first-battle fix: do it when time actually moves
-            CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(this, party =>
-            {
-                if (party != Player.Party.Base) return;
-
-                // Always sweep hourly to catch passive XP
-                TroopXpService.AccumulateFromPlayerParty();
-
-                // If a battle just ended, also force a sweep on the first hour after it
-                if (_postBattleAccumulatePending && CampaignTime.Now >= _notBefore)
+            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
+                this,
+                _ =>
                 {
-                    TroopXpService.AccumulateFromPlayerParty();
-                    _postBattleAccumulatePending = false;
+                    TroopXpService.InitializeSnapshotFromRoster();
                 }
-            });
+            );
 
-            // Keep your daily sweep if you want (optional)
-            CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(this, party =>
-            {
-                if (party == Player.Party.Base)
-                    TroopXpService.AccumulateFromPlayerParty();
-            });
+            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
+                this,
+                mission =>
+                {
+                    var mapEvent = MobileParty.MainParty?.MapEvent;
+                    if (mapEvent == null || !mapEvent.IsPlayerMapEvent)
+                        return;
+
+                    if (
+                        mission is TaleWorlds.MountAndBlade.Mission realMission
+                        && realMission.GetMissionBehavior<TroopXpMissionBehavior>() == null
+                    )
+                        realMission.AddMissionBehavior(new TroopXpMissionBehavior());
+                }
+            );
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -52,6 +40,10 @@ namespace Retinues.Core.Game.Features.Xp.Behaviors
             var dict = TroopXpService._pool;
             dataStore.SyncData("CCT_TroopXpPool", ref dict);
             TroopXpService._pool = dict ?? [];
+
+            Log.Debug($"Troop XP pools loaded: {TroopXpService._pool.Count} entries:");
+            foreach (var kv in TroopXpService._pool)
+                Log.Debug($"  {kv.Key}: {kv.Value}");
         }
     }
 }

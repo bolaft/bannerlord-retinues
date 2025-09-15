@@ -1,8 +1,8 @@
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Features.Doctrines.Catalog;
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
@@ -102,9 +102,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
 
             // TODO: add a check for doctrine once retraining refunds are unlocked
-            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>()
+            if (
+                !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>()
                 && delta < 0
-                && !_editor.PlayerWarnedAboutRetraining)
+                && !_editor.PlayerWarnedAboutRetraining
+            )
             {
                 _editor.PlayerWarnedAboutRetraining = true;
 
@@ -112,12 +114,18 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 InformationManager.ShowInquiry(
                     new InquiryData(
                         titleText: L.S("warning", "Warning"),
-                        text: L.S("lower_skill_no_refund", "Lowering this troop's skill will not refund any experience points. Continue anyway?"),
+                        text: L.S(
+                            "lower_skill_no_refund",
+                            "Lowering this troop's skill will not refund any experience points. Continue anyway?"
+                        ),
                         isAffirmativeOptionShown: true,
                         isNegativeOptionShown: true,
                         affirmativeText: L.S("continue", "Continue"),
                         negativeText: L.S("cancel", "Cancel"),
-                        affirmativeAction: () => { doModify(); },
+                        affirmativeAction: () =>
+                        {
+                            doModify();
+                        },
                         negativeAction: () => { }
                     )
                 );

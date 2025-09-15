@@ -106,7 +106,9 @@ namespace Retinues.Core.Editor.UI.VM
 
         [DataSourceProperty]
         public string FactionSwitchText =>
-            Faction == Player.Clan ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops") : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
+            Faction == Player.Clan
+                ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops")
+                : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
 
         [DataSourceProperty]
         public TroopEditorVM TroopEditor { get; private set; }
@@ -134,7 +136,8 @@ namespace Retinues.Core.Editor.UI.VM
             }
         }
 
-        [DataSourceProperty] public bool IsNotDefaultMode => !IsDefaultMode;
+        [DataSourceProperty]
+        public bool IsNotDefaultMode => !IsDefaultMode;
 
         [DataSourceProperty]
         public bool IsEquipmentMode
@@ -150,9 +153,11 @@ namespace Retinues.Core.Editor.UI.VM
             }
         }
 
-        [DataSourceProperty] public bool IsNotEquipmentMode => !IsEquipmentMode;
+        [DataSourceProperty]
+        public bool IsNotEquipmentMode => !IsEquipmentMode;
 
-        [DataSourceProperty] public bool IsDoctrinesMode
+        [DataSourceProperty]
+        public bool IsDoctrinesMode
         {
             get => _editorMode == EditorMode.Doctrines;
             private set
@@ -166,9 +171,12 @@ namespace Retinues.Core.Editor.UI.VM
             }
         }
 
-        [DataSourceProperty] public bool IsNotDoctrinesMode => !IsDoctrinesMode;
+        [DataSourceProperty]
+        public bool IsNotDoctrinesMode => !IsDoctrinesMode;
 
-        [DataSourceProperty] public bool CanSwitchToDoctrines => !IsDoctrinesMode && Config.GetOption<bool>("EnableDoctrines");
+        [DataSourceProperty]
+        public bool CanSwitchToDoctrines =>
+            !IsDoctrinesMode && Config.GetOption<bool>("EnableDoctrines");
 
         [DataSourceProperty]
         public CharacterViewModel Model => SelectedTroop?.Model;
@@ -220,7 +228,6 @@ namespace Retinues.Core.Editor.UI.VM
                 SwitchFaction(Player.Kingdom);
             else
                 SwitchFaction(Player.Clan);
-
         }
 
         // =========================================================================
@@ -233,9 +240,11 @@ namespace Retinues.Core.Editor.UI.VM
 
         public void SwitchMode(EditorMode mode)
         {
-            if (_editorMode == mode) return;
+            if (_editorMode == mode)
+                return;
 
-            if (mode == EditorMode.Doctrines && !Config.GetOption<bool>("EnableDoctrines")) return;
+            if (mode == EditorMode.Doctrines && !Config.GetOption<bool>("EnableDoctrines"))
+                return;
 
             _editorMode = mode;
 

@@ -19,8 +19,9 @@ namespace Retinues.Core.Utils
         public static void ResetToDefaults(bool save = true)
         {
             foreach (var opt in _options)
-                opt.Value = opt.Default;   // don't touch opt.Default
-            if (save) Save();
+                opt.Value = opt.Default; // don't touch opt.Default
+            if (save)
+                Save();
         }
 
         // =========================
@@ -64,7 +65,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_retinues", "Retinues"),
                 name: L.S("mcm_option_max_elite_retinue_ratio", "Max Elite Retinue Ratio"),
                 key: "MaxEliteRetinueRatio",
-                hint: L.S("mcm_option_max_elite_retinue_ratio_hint", "Maximum proportion of elite retinue troops in player party."),
+                hint: L.S(
+                    "mcm_option_max_elite_retinue_ratio_hint",
+                    "Maximum proportion of elite retinue troops in player party."
+                ),
                 @default: 0.1,
                 type: typeof(float),
                 minValue: 0,
@@ -75,7 +79,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_retinues", "Retinues"),
                 name: L.S("mcm_option_max_basic_retinue_ratio", "Max Basic Retinue Ratio"),
                 key: "MaxBasicRetinueRatio",
-                hint: L.S("mcm_option_max_basic_retinue_ratio_hint", "Maximum proportion of basic retinue troops in player party."),
+                hint: L.S(
+                    "mcm_option_max_basic_retinue_ratio_hint",
+                    "Maximum proportion of basic retinue troops in player party."
+                ),
                 @default: 0.2,
                 type: typeof(float),
                 minValue: 0,
@@ -84,9 +91,15 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_retinues", "Retinues"),
-                name: L.S("mcm_option_retinue_conversion_cost_per_tier", "Retinue Conversion Cost Per Tier"),
+                name: L.S(
+                    "mcm_option_retinue_conversion_cost_per_tier",
+                    "Retinue Conversion Cost Per Tier"
+                ),
                 key: "RetinueConversionCostPerTier",
-                hint: L.S("mcm_option_retinue_conversion_cost_per_tier_hint", "Conversion cost for retinue troops per tier."),
+                hint: L.S(
+                    "mcm_option_retinue_conversion_cost_per_tier_hint",
+                    "Conversion cost for retinue troops per tier."
+                ),
                 @default: 50,
                 type: typeof(int),
                 minValue: 0,
@@ -95,9 +108,15 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_retinues", "Retinues"),
-                name: L.S("mcm_option_retinue_rank_up_cost_per_tier", "Retinue Rank Up Cost Per Tier"),
+                name: L.S(
+                    "mcm_option_retinue_rank_up_cost_per_tier",
+                    "Retinue Rank Up Cost Per Tier"
+                ),
                 key: "RetinueRankUpCostPerTier",
-                hint: L.S("mcm_option_retinue_rank_up_cost_per_tier_hint", "Rank up cost for retinue troops per tier."),
+                hint: L.S(
+                    "mcm_option_retinue_rank_up_cost_per_tier_hint",
+                    "Rank up cost for retinue troops per tier."
+                ),
                 @default: 1000,
                 type: typeof(int),
                 minValue: 0,
@@ -110,7 +129,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_recruitment", "Recruitment"),
                 name: L.S("mcm_option_recruit_anywhere", "Recruit Clan Troops Anywhere"),
                 key: "RecruitAnywhere",
-                hint: L.S("mcm_option_recruit_anywhere_hint", "Player can recruit clan troops in any settlement."),
+                hint: L.S(
+                    "mcm_option_recruit_anywhere_hint",
+                    "Player can recruit clan troops in any settlement."
+                ),
                 @default: false,
                 type: typeof(bool)
             );
@@ -121,7 +143,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_doctrines", "Doctrines"),
                 name: L.S("mcm_option_enable_doctrines", "Enable Doctrines (Unstable)"),
                 key: "EnableDoctrines",
-                hint: L.S("mcm_option_enable_doctrines_hint", "Enable the Doctrines system and its features."),
+                hint: L.S(
+                    "mcm_option_enable_doctrines_hint",
+                    "Enable the Doctrines system and its features."
+                ),
                 @default: true,
                 type: typeof(bool)
             );
@@ -132,7 +157,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_equipment", "Equipment"),
                 name: L.S("mcm_option_pay_for_equipment", "Pay For Troop Equipment"),
                 key: "PayForEquipment",
-                hint: L.S("mcm_option_pay_for_equipment_hint", "Upgrading troop equipment costs money."),
+                hint: L.S(
+                    "mcm_option_pay_for_equipment_hint",
+                    "Upgrading troop equipment costs money."
+                ),
                 @default: true,
                 type: typeof(bool)
             );
@@ -141,7 +169,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_equipment", "Equipment"),
                 name: L.S("mcm_option_allowed_tier_difference", "Allowed Tier Difference"),
                 key: "AllowedTierDifference",
-                hint: L.S("mcm_option_allowed_tier_difference_hint", "Maximum allowed tier difference between troops and equipment."),
+                hint: L.S(
+                    "mcm_option_allowed_tier_difference_hint",
+                    "Maximum allowed tier difference between troops and equipment."
+                ),
                 @default: 3,
                 type: typeof(int),
                 minValue: 0,
@@ -152,7 +183,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_equipment", "Equipment"),
                 name: L.S("mcm_option_disallow_mounts_for_tier_1", "Disallow Mounts For Tier 1"),
                 key: "NoMountForTier1",
-                hint: L.S("mcm_option_disallow_mounts_for_tier_1_hint", "Tier 1 troops cannot have mounts."),
+                hint: L.S(
+                    "mcm_option_disallow_mounts_for_tier_1_hint",
+                    "Tier 1 troops cannot have mounts."
+                ),
                 @default: true,
                 type: typeof(bool)
             );
@@ -163,7 +197,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_skills", "Skills"),
                 name: L.S("mcm_option_base_skill_xp_cost", "Base Skill XP Cost"),
                 key: "BaseSkillXpCost",
-                hint: L.S("mcm_option_base_skill_xp_cost_hint", "Base XP cost for increasing a skill."),
+                hint: L.S(
+                    "mcm_option_base_skill_xp_cost_hint",
+                    "Base XP cost for increasing a skill."
+                ),
                 @default: 100,
                 type: typeof(int),
                 minValue: 0,
@@ -174,7 +211,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_skills", "Skills"),
                 name: L.S("mcm_option_skill_xp_cost_per_point", "Skill XP Cost Per Point"),
                 key: "SkillXpCostPerPoint",
-                hint: L.S("mcm_option_skill_xp_cost_per_point_hint", "Scalable XP cost for each point of skill increase."),
+                hint: L.S(
+                    "mcm_option_skill_xp_cost_per_point_hint",
+                    "Scalable XP cost for each point of skill increase."
+                ),
                 @default: 1,
                 type: typeof(int),
                 minValue: 0,
@@ -187,7 +227,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_unlocks", "Unlocks"),
                 name: L.S("mcm_option_unlock_from_kills", "Unlock From Kills"),
                 key: "UnlockFromKills",
-                hint: L.S("mcm_option_unlock_from_kills_hint", "Unlock equipment by defeating enemies wearing it."),
+                hint: L.S(
+                    "mcm_option_unlock_from_kills_hint",
+                    "Unlock equipment by defeating enemies wearing it."
+                ),
                 @default: true,
                 type: typeof(bool)
             );
@@ -196,7 +239,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_unlocks", "Unlocks"),
                 name: L.S("mcm_option_required_kills_for_unlock", "Required Kills For Unlock"),
                 key: "KillsForUnlock",
-                hint: L.S("mcm_option_required_kills_for_unlock_hint", "How many enemies wearing an item must be defeated to unlock it."),
+                hint: L.S(
+                    "mcm_option_required_kills_for_unlock_hint",
+                    "How many enemies wearing an item must be defeated to unlock it."
+                ),
                 @default: 100,
                 type: typeof(int),
                 minValue: 1,
@@ -207,7 +253,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_unlocks", "Unlocks"),
                 name: L.S("mcm_option_unlock_from_culture", "Unlock From Culture"),
                 key: "UnlockFromCulture",
-                hint: L.S("mcm_option_unlock_from_culture_hint", "Player culture and player-led kingdom culture equipment is always available."),
+                hint: L.S(
+                    "mcm_option_unlock_from_culture_hint",
+                    "Player culture and player-led kingdom culture equipment is always available."
+                ),
                 @default: false,
                 type: typeof(bool)
             );
@@ -216,7 +265,10 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_unlocks", "Unlocks"),
                 name: L.S("mcm_option_all_equipment_unlocked", "All Equipment Unlocked"),
                 key: "AllEquipmentUnlocked",
-                hint: L.S("mcm_option_all_equipment_unlocked_hint", "All equipment unlocked on game start."),
+                hint: L.S(
+                    "mcm_option_all_equipment_unlocked_hint",
+                    "All equipment unlocked on game start."
+                ),
                 @default: false,
                 type: typeof(bool)
             );
@@ -403,20 +455,44 @@ namespace Retinues.Core.Utils
                 if (value is bool b)
                     return b ? 1 : 0;
             }
-                    
+
             if (targetType == typeof(float))
             {
-                if (value is float f) return f;
-                if (value is double d) return (float)d;
-                if (value is int i) return (float)i;
-                if (value is string s && float.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var ff)) return ff;
+                if (value is float f)
+                    return f;
+                if (value is double d)
+                    return (float)d;
+                if (value is int i)
+                    return (float)i;
+                if (
+                    value is string s
+                    && float.TryParse(
+                        s,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out var ff
+                    )
+                )
+                    return ff;
             }
             if (targetType == typeof(double))
             {
-                if (value is double d) return d;
-                if (value is float f) return (double)f;
-                if (value is int i) return (double)i;
-                if (value is string s && double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var dd)) return dd;
+                if (value is double d)
+                    return d;
+                if (value is float f)
+                    return (double)f;
+                if (value is int i)
+                    return (double)i;
+                if (
+                    value is string s
+                    && double.TryParse(
+                        s,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out var dd
+                    )
+                )
+                    return dd;
             }
 
             if (targetType == typeof(string))
@@ -427,11 +503,16 @@ namespace Retinues.Core.Utils
 
         private static object ParseFromString(string raw, Type type, object fallback)
         {
-            if (type == typeof(bool)) return ParseBool(raw, (bool) fallback);
-            if (type == typeof(int)) return ParseInt(raw,  (int)  fallback);
-            if (type == typeof(float)) return ParseFloat(raw, (float)fallback);
-            if (type == typeof(double)) return ParseDouble(raw,(double)fallback);
-            if (type == typeof(string)) return raw;
+            if (type == typeof(bool))
+                return ParseBool(raw, (bool)fallback);
+            if (type == typeof(int))
+                return ParseInt(raw, (int)fallback);
+            if (type == typeof(float))
+                return ParseFloat(raw, (float)fallback);
+            if (type == typeof(double))
+                return ParseDouble(raw, (double)fallback);
+            if (type == typeof(string))
+                return raw;
             return fallback;
         }
 

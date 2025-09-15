@@ -125,12 +125,12 @@ namespace Retinues.MCM.Options
                                             maxValue: max,
                                             new ProxyRef<float>(
                                                 () => Config.GetOption<float>(id),
-                                                v  => Config.SetOption(id, v, save: true)
+                                                v => Config.SetOption(id, v, save: true)
                                             ),
-                                            b => b
-                                                .SetOrder(order++)
-                                                .SetHintText(hint)
-                                                .SetRequireRestart(false)
+                                            b =>
+                                                b.SetOrder(order++)
+                                                    .SetHintText(hint)
+                                                    .SetRequireRestart(false)
                                         );
                                     }
                                 }
@@ -152,9 +152,25 @@ namespace Retinues.MCM.Options
                         foreach (var (id, def) in Config.EnumerateDefaults())
                         {
                             if (def is float f)
-                                p.SetPropertyValue(id, float.Parse(f.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)));
+                                p.SetPropertyValue(
+                                    id,
+                                    float.Parse(
+                                        f.ToString(
+                                            "0.00",
+                                            System.Globalization.CultureInfo.InvariantCulture
+                                        )
+                                    )
+                                );
                             else if (def is double d)
-                                p.SetPropertyValue(id, float.Parse(d.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)));
+                                p.SetPropertyValue(
+                                    id,
+                                    float.Parse(
+                                        d.ToString(
+                                            "0.00",
+                                            System.Globalization.CultureInfo.InvariantCulture
+                                        )
+                                    )
+                                );
                             else
                                 p.SetPropertyValue(id, def);
                         }

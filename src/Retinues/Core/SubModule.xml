@@ -6,14 +6,12 @@
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
   <Official value="false" />
-
   <DependedModules>
     <DependedModule Id="Bannerlord.Harmony" />
     <DependedModule Id="Bannerlord.UIExtenderEx" />
     <DependedModule Id="Native" />
     <DependedModule Id="Sandbox" />
   </DependedModules>
-
   <SubModules>
     <SubModule>
       <Name value="Retinues" />

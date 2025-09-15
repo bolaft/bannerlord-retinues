@@ -3,9 +3,9 @@ using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
 using Retinues.Core.Game.Features.Xp.Behaviors;
-using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
@@ -64,14 +64,20 @@ namespace Retinues.Core
                 cs.AddBehavior(new TroopSaveBehavior());
 
                 // XP behavior (skip if both costs are 0)
-                if (Config.GetOption<int>("BaseSkillXpCost") > 0 || Config.GetOption<int>("SkillXpCostPerPoint") > 0)
+                if (
+                    Config.GetOption<int>("BaseSkillXpCost") > 0
+                    || Config.GetOption<int>("SkillXpCostPerPoint") > 0
+                )
                 {
                     cs.AddBehavior(new TroopXpBehavior());
                     Log.Debug("Troop XP enabled.");
                 }
 
                 // Unlocks behavior (skip if disabled)
-                if (Config.GetOption<bool>("UnlockFromKills") && !Config.GetOption<bool>("AllEquipmentUnlocked"))
+                if (
+                    Config.GetOption<bool>("UnlockFromKills")
+                    && !Config.GetOption<bool>("AllEquipmentUnlocked")
+                )
                 {
                     cs.AddBehavior(new UnlocksBehavior());
                     Log.Debug("Item unlocks enabled.");

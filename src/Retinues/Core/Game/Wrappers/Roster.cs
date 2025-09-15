@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -55,7 +55,7 @@ namespace Retinues.Core.Game.Wrappers
         // Troops
         // ================================================================
 
-        public int Count => _roster.Count;
+        public int Count => _roster.TotalHealthyCount;
 
         public int CountOf(WCharacter troop)
         {
@@ -155,7 +155,8 @@ namespace Retinues.Core.Game.Wrappers
             {
                 var co = e.Troop.Base as CharacterObject;
                 var c = co?.DefaultFormationClass;
-                if (c == cls) count += e.Number;
+                if (c == cls)
+                    count += e.Number;
             }
             return count;
         }

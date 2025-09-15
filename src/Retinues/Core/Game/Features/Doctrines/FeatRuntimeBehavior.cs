@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
-using TaleWorlds.Core;
-using TaleWorlds.Library;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.MountAndBlade;
+using System.Linq;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Features.Doctrines.Effects.Behaviors;
 using Retinues.Core.Game.Wrappers.Cache;
-using System.Linq;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Settlements;
+using TaleWorlds.Core;
+using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
@@ -23,13 +23,16 @@ namespace Retinues.Core.Game.Features.Doctrines
         public override void RegisterEvents()
         {
             // Build once session launches (after Doctrines are discovered)
-            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, _ =>
-            {
-                RefreshActiveFeats();
-                // Keep list up to date when feats/doctrines complete
-                DoctrineAPI.AddFeatCompletedListener(_ => RefreshActiveFeats());
-                DoctrineAPI.AddDoctrineUnlockedListener(_ => RefreshActiveFeats());
-            });
+            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
+                this,
+                _ =>
+                {
+                    // Keep list up to date when feats/doctrines complete
+                    DoctrineAPI.AddCatalogBuiltListener(RefreshActiveFeats);
+                    DoctrineAPI.AddFeatCompletedListener(_ => RefreshActiveFeats());
+                    DoctrineAPI.AddDoctrineUnlockedListener(_ => RefreshActiveFeats());
+                }
+            );
 
             // Daily
             CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnDailyTick);
@@ -38,7 +41,10 @@ namespace Retinues.Core.Game.Features.Doctrines
             CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
 
             // Fief captures
-            CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(this, OnSettlementOwnerChanged);
+            CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(
+                this,
+                OnSettlementOwnerChanged
+            );
 
             // Tournaments (special case, separate event)
             CampaignEvents.TournamentStarted.AddNonSerializedListener(this, OnTournamentStarted);
@@ -51,7 +57,10 @@ namespace Retinues.Core.Game.Features.Doctrines
             CampaignEvents.OnTroopRecruitedEvent.AddNonSerializedListener(this, OnTroopRecruited);
 
             // Upgrading
-            CampaignEvents.PlayerUpgradedTroopsEvent.AddNonSerializedListener(this, PlayerUpgradedTroops); 
+            CampaignEvents.PlayerUpgradedTroopsEvent.AddNonSerializedListener(
+                this,
+                PlayerUpgradedTroops
+            );
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -69,7 +78,7 @@ namespace Retinues.Core.Game.Features.Doctrines
             {
                 Log.Info("FeatRuntimeBehavior: OnDailyTick");
                 // Call for all active feats (cheap, and feats can early-out themselves).
-                foreach (var feat in _activeFeats)
+                foreach (var feat in _activeFeats.ToList())
                     feat.OnDailyTick();
             }
             catch (Exception ex)
@@ -82,16 +91,15 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             try
             {
-                Log.Info("FeatRuntimeBehavior: OnMissionStarted");
-                if (iMission is not Mission mission) return;
-
-                Log.Info("FeatRuntimeBehavior: OnMissionStarted - is Mission");
+                if (iMission is not Mission mission)
+                    return;
 
                 // Only care about player-involved map battles.
                 var mapEvent = MobileParty.MainParty?.MapEvent;
-                if (mapEvent == null || !mapEvent.IsPlayerMapEvent) return;
+                if (mapEvent == null || !mapEvent.IsPlayerMapEvent)
+                    return;
 
-                Log.Info("FeatRuntimeBehavior: OnMissionStarted - is PlayerMapEvent (Battle)");
+                Log.Info("FeatRuntimeBehavior: OnMissionStarted");
 
                 // Attach your Battle behavior (captures kills etc.)
                 var battle = mission.GetMissionBehavior<Battle>();
@@ -113,7 +121,7 @@ namespace Retinues.Core.Game.Features.Doctrines
                     mission.AddMissionBehavior(new MissionEndRelay(this));
 
                 // Notify feats: battle start
-                foreach (var feat in _activeFeats)
+                foreach (var feat in _activeFeats.ToList())
                     feat.OnBattleStart(battle);
             }
             catch (Exception ex)
@@ -126,20 +134,22 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             try
             {
-                Log.Info("FeatRuntimeBehavior: OnMissionEnded");
                 // At this point mission is ending; MapEvent may already be null in some cases,
                 // so rely on the behavior we attached.
                 var battle = mission?.GetMissionBehavior<Battle>();
-                if (battle == null) return;
+                if (battle == null)
+                    return;
 
-                Log.Info("FeatRuntimeBehavior: OnMissionEnded - is Battle");
+                Log.Info("FeatRuntimeBehavior: OnMissionEnded");
 
-                foreach (var feat in _activeFeats)
+                foreach (var feat in _activeFeats.ToList())
+                {
                     feat.OnBattleEnd(battle);
+                }
 
                 // Log battle report
                 battle.LogReport();
-                
+
                 // Display feat unlock popups if any
                 Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
             }
@@ -155,14 +165,12 @@ namespace Retinues.Core.Game.Features.Doctrines
         {
             try
             {
-                Log.Info("FeatRuntimeBehavior: OnTournamentStarted");
-
                 // Try to get the current mission
                 var mission = Mission.Current;
                 if (mission == null)
                     return;
 
-                Log.Info("FeatRuntimeBehavior: OnTournamentStarted - is Mission");            
+                Log.Info("FeatRuntimeBehavior: OnTournamentStarted");
 
                 // Check if Tournament behavior already exists
                 var tournament = mission.GetMissionBehavior<Tournament>();
@@ -174,7 +182,7 @@ namespace Retinues.Core.Game.Features.Doctrines
                 _currentTournament = tournament;
 
                 // Notify feats
-                foreach (var feat in _activeFeats)
+                foreach (var feat in _activeFeats.ToList())
                     feat.OnTournamentStart(tournament);
             }
             catch (Exception ex)
@@ -187,12 +195,11 @@ namespace Retinues.Core.Game.Features.Doctrines
             CharacterObject winner,
             MBReadOnlyList<CharacterObject> participants,
             Town town,
-            ItemObject prize)
+            ItemObject prize
+        )
         {
             try
             {
-                Log.Info("FeatRuntimeBehavior: OnTournamentFinished");
-
                 var mission = Mission.Current;
                 Tournament tournament = null;
                 if (mission != null)
@@ -201,16 +208,18 @@ namespace Retinues.Core.Game.Features.Doctrines
                 if (tournament == null)
                     return;
 
+                Log.Info("FeatRuntimeBehavior: OnTournamentFinished");
+
                 tournament.UpdateOnFinish(
                     WCharacterCache.Wrap(winner),
-                    participants.ToList().Select(p => WCharacterCache.Wrap(p)).ToList()
+                    [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]
                 );
 
                 // Notify feats
-                foreach (var feat in _activeFeats)
+                foreach (var feat in _activeFeats.ToList())
                     feat.OnTournamentFinished(tournament);
 
-                // Display feat unlock popups if any            
+                // Display feat unlock popups if any
                 Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
             }
             catch (Exception ex)
@@ -219,25 +228,33 @@ namespace Retinues.Core.Game.Features.Doctrines
             }
         }
 
-        void OnSettlementOwnerChanged(Settlement s, bool _, Hero n, Hero o, Hero __, ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail d)
+        void OnSettlementOwnerChanged(
+            Settlement s,
+            bool _,
+            Hero n,
+            Hero o,
+            Hero __,
+            ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail d
+        )
         {
             try
             {
-                Log.Info("FeatRuntimeBehavior: OnSettlementOwnerChanged");
-
                 // Only care about player clan captures
                 if (s == null || n?.Clan?.StringId != Clan.PlayerClan?.StringId)
                     return;
-                
-                Log.Info("FeatRuntimeBehavior: OnSettlementOwnerChanged - is PlayerClan capture");
 
-                foreach (var feat in _activeFeats)
+                Log.Info("FeatRuntimeBehavior: OnSettlementOwnerChanged");
+
+                foreach (var feat in _activeFeats.ToList())
                 {
-                    feat.OnSettlementOwnerChanged(new SettlementOwnerChange(
-                        s, d,
-                        WCharacterCache.Wrap(o.CharacterObject),
-                        WCharacterCache.Wrap(n.CharacterObject)
-                    ));
+                    feat.OnSettlementOwnerChanged(
+                        new SettlementOwnerChange(
+                            s,
+                            d,
+                            WCharacterCache.Wrap(o.CharacterObject),
+                            WCharacterCache.Wrap(n.CharacterObject)
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -252,8 +269,10 @@ namespace Retinues.Core.Game.Features.Doctrines
             {
                 Log.Info("FeatRuntimeBehavior: OnQuestCompleted");
 
-                foreach (var feat in _activeFeats)
-                    feat.OnQuestCompleted(new Quest(quest, details is QuestBase.QuestCompleteDetails.Success));
+                foreach (var feat in _activeFeats.ToList())
+                    feat.OnQuestCompleted(
+                        new Quest(quest, details is QuestBase.QuestCompleteDetails.Success)
+                    );
             }
             catch (Exception ex)
             {
@@ -261,32 +280,47 @@ namespace Retinues.Core.Game.Features.Doctrines
             }
         }
 
-        void OnTroopRecruited(Hero recruiterHero, Settlement recruitmentSettlement, Hero recruitmentSource, CharacterObject troop, int amount)
+        void OnTroopRecruited(
+            Hero recruiterHero,
+            Settlement recruitmentSettlement,
+            Hero recruitmentSource,
+            CharacterObject troop,
+            int amount
+        )
         {
             try
             {
                 // Only care about player clan recruitment
-                if (recruiterHero.StringId != Player.Character.StringId) return;
+                if (recruiterHero?.StringId != Player.Character?.StringId)
+                    return;
 
-                Log.Info("FeatRuntimeBehavior: OnTroopRecruited - Is PlayerClan recruitment");
+                Log.Info("FeatRuntimeBehavior: OnTroopRecruited");
 
-                foreach (var feat in _activeFeats)
+                foreach (var feat in _activeFeats.ToList())
                     feat.OnTroopRecruited(WCharacterCache.Wrap(troop), amount);
-                }
+            }
             catch (Exception ex)
             {
                 Log.Exception(ex);
             }
         }
 
-        void PlayerUpgradedTroops(CharacterObject upgradeFromTroop, CharacterObject upgradeToTroop, int number)
+        void PlayerUpgradedTroops(
+            CharacterObject upgradeFromTroop,
+            CharacterObject upgradeToTroop,
+            int number
+        )
         {
             try
             {
                 Log.Info("FeatRuntimeBehavior: PlayerUpgradedTroops");
 
-                foreach (var feat in _activeFeats)
-                    feat.PlayerUpgradedTroops(WCharacterCache.Wrap(upgradeFromTroop), WCharacterCache.Wrap(upgradeToTroop), number);
+                foreach (var feat in _activeFeats.ToList())
+                    feat.PlayerUpgradedTroops(
+                        WCharacterCache.Wrap(upgradeFromTroop),
+                        WCharacterCache.Wrap(upgradeToTroop),
+                        number
+                    );
             }
             catch (Exception ex)
             {
@@ -306,7 +340,8 @@ namespace Retinues.Core.Game.Features.Doctrines
 
                 // Ask the service for the discovered doctrine defs; filter by status.
                 var svcDoctrines = DoctrineAPI.AllDoctrines();
-                if (svcDoctrines == null || svcDoctrines.Count == 0) return;
+                if (svcDoctrines == null || svcDoctrines.Count == 0)
+                    return;
 
                 foreach (var def in svcDoctrines)
                 {
@@ -318,18 +353,23 @@ namespace Retinues.Core.Game.Features.Doctrines
                     // For each feat that isn't complete, instantiate and keep it live.
                     foreach (var f in def.Feats)
                     {
-                        if (DoctrineAPI.IsFeatComplete(f.Key)) continue;
+                        if (DoctrineAPI.IsFeatComplete(f.Key))
+                            continue;
 
                         var featType = GetTypeByFullName(f.Key);
-                        if (featType == null) continue;
+                        if (featType == null)
+                            continue;
 
-                        if (Activator.CreateInstance(featType) is Feat feat) _activeFeats.Add(feat);
+                        if (Activator.CreateInstance(featType) is Feat feat)
+                            _activeFeats.Add(feat);
                     }
                 }
 
-                Log.Debug($"Refreshed active feats; now tracking {_activeFeats.Count} active feats:");
-                foreach (var feat in _activeFeats)
-                    Log.Debug($" - {feat.GetType().FullName}");
+                Log.Debug(
+                    $"Refreshed active feats; now tracking {_activeFeats.Count} active feats:"
+                );
+                foreach (var feat in _activeFeats.ToList())
+                    Log.Debug($" - {feat.GetType().Name}");
             }
             catch (Exception ex)
             {
@@ -339,10 +379,12 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         private static Type GetTypeByFullName(string fullName)
         {
-            if (string.IsNullOrEmpty(fullName)) return null;
+            if (string.IsNullOrEmpty(fullName))
+                return null;
             // Same-assembly fast path
             var t = Type.GetType(fullName, throwOnError: false);
-            if (t != null) return t;
+            if (t != null)
+                return t;
 
             // Search all loaded assemblies (useful if you split your mod assemblies)
             foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
@@ -350,9 +392,12 @@ namespace Retinues.Core.Game.Features.Doctrines
                 try
                 {
                     t = a.GetType(fullName, throwOnError: false);
-                    if (t != null) return t;
+                    if (t != null)
+                        return t;
                 }
-                catch { /* ignore dynamic/ReflectionTypeLoadException cases */ }
+                catch
+                { /* ignore dynamic/ReflectionTypeLoadException cases */
+                }
             }
             return null;
         }

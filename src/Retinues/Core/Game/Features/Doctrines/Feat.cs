@@ -1,7 +1,7 @@
 using System;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
@@ -36,18 +36,31 @@ namespace Retinues.Core.Game.Features.Doctrines
         // ---- Hooks ----
 
         public virtual void OnRegister() { }
+
         public virtual void OnUnregister() { }
 
         // ---- Event hooks ----
 
         public virtual void OnDailyTick() { }
+
         public virtual void OnBattleEnd(Battle battle) { }
+
         public virtual void OnBattleStart(Battle battle) { }
+
         public virtual void OnTournamentStart(Tournament tournament) { }
+
         public virtual void OnTournamentFinished(Tournament tournament) { }
+
         public virtual void OnSettlementOwnerChanged(SettlementOwnerChange change) { }
+
         public virtual void OnQuestCompleted(Quest quest) { }
+
         public virtual void OnTroopRecruited(WCharacter troop, int amount) { }
-        public virtual void PlayerUpgradedTroops(WCharacter upgradeFromTroop, WCharacter upgradeToTroop, int number) { }
+
+        public virtual void PlayerUpgradedTroops(
+            WCharacter upgradeFromTroop,
+            WCharacter upgradeToTroop,
+            int number
+        ) { }
     }
 }
