@@ -1,4 +1,4 @@
-{{- func slot_row(datasource, label) -}}
+{{- func slot_row(datasource) -}}
 <ListPanel 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
     DataSource="{{datasource}}"
@@ -20,7 +20,7 @@
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Text="{{label}}"/>
+                    Text="@ButtonLabel"/>
             </Children>
         </ButtonWidget>
 
@@ -59,37 +59,37 @@
 
 <!-- Weapons 1..4 -->
 
-{{ slot_row "{WeaponItemBeginSlotSlot}" "@Weapon1Text" }}
+{{ slot_row "{WeaponItemBeginSlotSlot}" }}
 
-{{ slot_row "{Weapon1Slot}" "@Weapon2Text" }}
+{{ slot_row "{Weapon1Slot}" }}
 
-{{ slot_row "{Weapon2Slot}" "@Weapon3Text" }}
+{{ slot_row "{Weapon2Slot}" }}
 
-{{ slot_row "{Weapon3Slot}" "@Weapon4Text" }}
+{{ slot_row "{Weapon3Slot}" }}
 
 <!-- Divider -->
 {{ divider() }}
 
 <!-- Head -->
-{{ slot_row "{HeadSlot}" "@HeadSlotText" }}
+{{ slot_row "{HeadSlot}" }}
 
 <!-- Cape -->
-{{ slot_row "{CapeSlot}" "@CapeSlotText" }}
+{{ slot_row "{CapeSlot}" }}
 
 <!-- Body -->
-{{ slot_row "{BodySlot}" "@BodySlotText" }}
+{{ slot_row "{BodySlot}" }}
 
 <!-- Gloves -->
-{{ slot_row "{GlovesSlot}" "@GlovesSlotText" }}
+{{ slot_row "{GlovesSlot}" }}
 
 <!-- Legs -->
-{{ slot_row "{LegSlot}" "@LegSlotText" }}
+{{ slot_row "{LegSlot}" }}
 
 <!-- Divider -->
 {{ divider() }}
 
 <!-- Horse -->
-{{ slot_row "{HorseSlot}" "@HorseSlotText" }}
+{{ slot_row "{HorseSlot}" }}
 
 <!-- Harness -->
-{{ slot_row "{HorseHarnessSlot}" "@HorseHarnessSlotText" }}
+{{ slot_row "{HorseHarnessSlot}" }}

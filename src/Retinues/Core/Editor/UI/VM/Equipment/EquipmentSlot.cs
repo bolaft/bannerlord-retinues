@@ -9,6 +9,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 {
     public sealed class EquipmentSlotVM(
         EquipmentIndex slot,
+        string label,
         WCharacter troop,
         EquipmentEditorVM editor
     ) : ViewModel, IView
@@ -18,6 +19,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         // =========================================================================
 
         private bool _isSelected;
+        private readonly string _label = label;
 
         private readonly EquipmentIndex _slot = slot;
 
@@ -28,6 +30,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         // =========================================================================
         // Data Bindings
         // =========================================================================
+
+        [DataSourceProperty]
+        public string ButtonLabel => _label;
 
         [DataSourceProperty]
         public bool IsSelected

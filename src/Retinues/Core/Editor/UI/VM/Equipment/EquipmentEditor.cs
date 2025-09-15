@@ -63,65 +63,33 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public EquipmentSlotVM HeadSlot => _headSlot;
 
         [DataSourceProperty]
-        public string HeadSlotText => L.S("head_slot_text", "Head");
-
-        [DataSourceProperty]
         public EquipmentSlotVM CapeSlot => _capeSlot;
-
-        [DataSourceProperty]
-        public string CapeSlotText => L.S("cape_slot_text", "Cape");
 
         [DataSourceProperty]
         public EquipmentSlotVM BodySlot => _bodySlot;
 
-        [DataSourceProperty]
-        public string BodySlotText => L.S("body_slot_text", "Body");
-
         public EquipmentSlotVM GlovesSlot => _glovesSlot;
-
-        [DataSourceProperty]
-        public string GlovesSlotText => L.S("gloves_slot_text", "Gloves");
 
         [DataSourceProperty]
         public EquipmentSlotVM LegSlot => _legSlot;
 
         [DataSourceProperty]
-        public string LegSlotText => L.S("leg_slot_text", "Legs");
-
-        [DataSourceProperty]
         public EquipmentSlotVM HorseSlot => _horseSlot;
-
-        [DataSourceProperty]
-        public string HorseSlotText => L.S("horse_slot_text", "Horse");
 
         [DataSourceProperty]
         public EquipmentSlotVM HorseHarnessSlot => _horseHarnessSlot;
 
         [DataSourceProperty]
-        public string HorseHarnessSlotText => L.S("horse_harness_slot_text", "Harness");
-
         public EquipmentSlotVM WeaponItemBeginSlotSlot => _weaponItemBeginSlotSlot;
-
-        [DataSourceProperty]
-        public string Weapon1SlotText => L.S("weapon_1_slot_text", "Weapon 1");
 
         [DataSourceProperty]
         public EquipmentSlotVM Weapon1Slot => _weapon1Slot;
 
         [DataSourceProperty]
-        public string Weapon2SlotText => L.S("weapon_2_slot_text", "Weapon 2");
-
-        [DataSourceProperty]
         public EquipmentSlotVM Weapon2Slot => _weapon2Slot;
 
         [DataSourceProperty]
-        public string Weapon3SlotText => L.S("weapon_3_slot_text", "Weapon 3");
-
-        [DataSourceProperty]
         public EquipmentSlotVM Weapon3Slot => _weapon3Slot;
-
-        [DataSourceProperty]
-        public string Weapon4SlotText => L.S("weapon_4_slot_text", "Weapon 4");
 
         // =========================================================================
         // Action Bindings
@@ -231,19 +199,19 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public void CreateAllSlots()
         {
             // Helper to create slot VMs
-            EquipmentSlotVM CreateSlot(EquipmentIndex slot) => new(slot, SelectedTroop, this);
+            EquipmentSlotVM CreateSlot(EquipmentIndex slot, string label) => new(slot, label, SelectedTroop, this);
 
-            _headSlot = CreateSlot(EquipmentIndex.Head);
-            _capeSlot = CreateSlot(EquipmentIndex.Cape);
-            _bodySlot = CreateSlot(EquipmentIndex.Body);
-            _glovesSlot = CreateSlot(EquipmentIndex.Gloves);
-            _legSlot = CreateSlot(EquipmentIndex.Leg);
-            _horseSlot = CreateSlot(EquipmentIndex.Horse);
-            _horseHarnessSlot = CreateSlot(EquipmentIndex.HorseHarness);
-            _weaponItemBeginSlotSlot = CreateSlot(EquipmentIndex.WeaponItemBeginSlot);
-            _weapon1Slot = CreateSlot(EquipmentIndex.Weapon1);
-            _weapon2Slot = CreateSlot(EquipmentIndex.Weapon2);
-            _weapon3Slot = CreateSlot(EquipmentIndex.Weapon3);
+            _headSlot = CreateSlot(EquipmentIndex.Head, L.S("head_slot_text", "Head"));
+            _capeSlot = CreateSlot(EquipmentIndex.Cape, L.S("cape_slot_text", "Cape"));
+            _bodySlot = CreateSlot(EquipmentIndex.Body, L.S("body_slot_text", "Body"));
+            _glovesSlot = CreateSlot(EquipmentIndex.Gloves, L.S("gloves_slot_text", "Gloves"));
+            _legSlot = CreateSlot(EquipmentIndex.Leg, L.S("leg_slot_text", "Legs"));
+            _horseSlot = CreateSlot(EquipmentIndex.Horse, L.S("horse_slot_text", "Horse"));
+            _horseHarnessSlot = CreateSlot(EquipmentIndex.HorseHarness, L.S("horse_harness_slot_text", "Harness"));
+            _weaponItemBeginSlotSlot = CreateSlot(EquipmentIndex.WeaponItemBeginSlot, L.S("weapon_1_slot_text", "Weapon 1"));
+            _weapon1Slot = CreateSlot(EquipmentIndex.Weapon1, L.S("weapon_2_slot_text", "Weapon 2"));
+            _weapon2Slot = CreateSlot(EquipmentIndex.Weapon2, L.S("weapon_3_slot_text", "Weapon 3"));
+            _weapon3Slot = CreateSlot(EquipmentIndex.Weapon3, L.S("weapon_4_slot_text", "Weapon 4"));
         }
     }
 }

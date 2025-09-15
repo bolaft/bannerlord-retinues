@@ -69,9 +69,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             int repeat = 1;
 
-            if (Input.IsKeyDown(InputKey.LeftControl) || Input.IsKeyDown(InputKey.RightControl))
-                repeat = 500; // Ctrl = 500
-            else if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))
+            if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))
                 repeat = 5; // Shift = 5
 
             void doModify()

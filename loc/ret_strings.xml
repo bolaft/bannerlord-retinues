@@ -375,7 +375,7 @@
       text="Regular" />
     <string
       id="ret_loc_smoke_test"
-      text="Localization test FAILED." />
+      text="Localization test: default fallback (EN)." />
     <string
       id="ret_lower_skill_no_refund"
       text="Lowering this troop&apos;s skill will not refund any experience points. Continue anyway?" />
