@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
@@ -10,11 +9,23 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Events
 {
-    public class Battle : MissionBehavior
+    public class Battle : Combat
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 
         public Battle()
+        {
+            try
+            {
+                Initialize();
+            }
+            catch (System.Exception e)
+            {
+                Log.Exception(e);
+            }
+        }
+        
+        private void Initialize()
         {
             // Initialize counts
             PlayerTroopCount = Player.Party?.MemberRoster?.Count ?? 0;
@@ -56,10 +67,6 @@ namespace Retinues.Core.Game.Events
         // Info
         // =========================================================================
 
-        // -------- Kills --------
-
-        public readonly List<Kill> Kills = [];
-
         // -------- Leaders --------
 
         public List<WCharacter> AllyLeaders;
@@ -78,6 +85,10 @@ namespace Retinues.Core.Game.Events
             && MapEvent.MapEventSettlement != null
             && MapEvent.MapEventSettlement.IsVillage
             && !IsSiege;
+        
+        public bool IsFieldBattle => MapEvent.IsFieldBattle;
+
+        public bool IsHideout => MapEvent.IsHideoutBattle;
 
         public bool PlayerIsDefender => PlayerSide == BattleSideEnum.Defender;
 
@@ -98,33 +109,6 @@ namespace Retinues.Core.Game.Events
         public List<WCharacter> EnemyPrisoners;
 
         // =========================================================================
-        // Mission Events
-        // =========================================================================
-
-        public override void OnAgentRemoved(
-            Agent victim,
-            Agent killer,
-            AgentState state,
-            KillingBlow blow
-        )
-        {
-            if (victim == null || killer == null)
-                return; // e.g. if agent despawned
-
-            if (state != AgentState.Killed && state != AgentState.Unconscious)
-                return; // only care about kills and knockouts
-
-            if (victim.Character is not CharacterObject)
-                return; // ignore non-character agents (horses, etc)
-
-            if (killer.Character is not CharacterObject)
-                return; // ignore non-character agents (horses, etc)
-
-            Kills.Add(new Kill(victim, killer, state, blow));
-            // Kills.Last().Report();
-        }
-
-        // =========================================================================
         // Internals
         // =========================================================================
 
@@ -132,43 +116,9 @@ namespace Retinues.Core.Game.Events
 
         private static MapEvent MapEvent => MobileParty.MainParty?.MapEvent;
 
-        // -------- Kills --------
-
-        public class Kill(Agent victim, Agent killer, AgentState state, KillingBlow blow)
-        {
-            public WAgent Victim = new(victim);
-            public WAgent Killer = new(killer);
-            public AgentState State = state;
-            public KillingBlow Blow = blow;
-
-            public void Report()
-            {
-                string GetAgentType(WAgent agent)
-                {
-                    if (agent.Character == null)
-                        return "NoChar";
-                    if (agent.IsPlayer)
-                        return "Player";
-                    if (agent.Character.IsCustom)
-                        return "Custom";
-                    if (agent.Character.IsRetinue)
-                        return "Retinue";
-                    return "Vanilla";
-                }
-                var victimType = GetAgentType(Victim);
-                var killerType = GetAgentType(Killer);
-                var method = Blow.IsMissile ? "Missile" : "Melee";
-                var headshot = Blow.IsHeadShot() ? "[Headshot]" : "";
-                var faction = Killer.Character?.Faction?.Name ?? "No Faction";
-                Log.Info(
-                    $"  {State}: {Victim.Character.Name} ({victimType}) killed by {Killer.Character.Name} [{faction}] ({killerType}) via {method} {headshot}"
-                );
-            }
-        }
-
         // -------- Sides --------
 
-        private BattleSideEnum PlayerSide
+        public BattleSideEnum PlayerSide
         {
             get
             {
@@ -184,7 +134,7 @@ namespace Retinues.Core.Game.Events
             }
         }
 
-        private BattleSideEnum EnemySide
+        public BattleSideEnum EnemySide
         {
             get
             {
@@ -237,7 +187,7 @@ namespace Retinues.Core.Game.Events
             Log.Debug($"--- Battle Report ---");
             Log.Debug($"Outcome: {(IsWon ? "Victory" : "Defeat")}");
             Log.Debug(
-                $"Type: {(IsSiege ? "Siege" : IsVillageRaid ? "Village Raid" : "Field Battle")}"
+                $"Type: {(IsSiege ? "Siege" : IsVillageRaid ? "Village Raid" : IsHideout ? "Hideout" : "Field Battle")}"
             );
             Log.Debug($"Sides: Player is {PlayerSide}, Enemy is {EnemySide}");
             Log.Debug(

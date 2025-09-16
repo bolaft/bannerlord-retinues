@@ -18,6 +18,6 @@ namespace Retinues.Core.Game.Events
 
         public Hero Giver => _quest.QuestGiver;
 
-        public bool RefusedPayment => _quest.RewardGold == 0;
+        public bool NoPayment => _quest.RewardGold == 0;
     }
 }

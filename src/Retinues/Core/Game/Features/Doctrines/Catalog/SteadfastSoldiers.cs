@@ -1,6 +1,5 @@
 using Retinues.Core.Editor;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -33,12 +32,12 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
-        public sealed class SS_SiegeDefenseMostlyCustom : Feat
+        public sealed class SS_SiegeDefenseOnlyCustom : Feat
         {
             public override string Description =>
                 L.S(
-                    "steadfast_soldiers_siege_defense_mostly_custom",
-                    "Win a siege defense using mostly custom troops."
+                    "steadfast_soldiers_siege_defense_only_custom",
+                    "Win a siege defense using only custom troops."
                 );
             public override int Target => 1;
 
@@ -50,7 +49,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     return;
                 if (!battle.IsSiege)
                     return;
-                if (Player.Party.MemberRoster.CustomRatio <= 0.5f)
+                if (Player.Party.MemberRoster.CustomRatio < 0.99f)
                     return;
 
                 AdvanceProgress(1);

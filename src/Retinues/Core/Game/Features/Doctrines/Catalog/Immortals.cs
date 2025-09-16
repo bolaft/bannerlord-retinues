@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -59,7 +58,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "immortals_win_100_no_deaths",
-                    "Win by yourself against 50+ enemies without a single death on your side."
+                    "Win by yourself against 100+ enemies without a single death on your side."
                 );
             public override int Target => 1;
 
@@ -67,7 +66,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             {
                 if (battle.IsLost)
                     return;
-                if (battle.EnemyTroopCount < 50)
+                if (battle.EnemyTroopCount < 100)
                     return;
                 if (battle.AllyTroopCount > 0)
                     return;

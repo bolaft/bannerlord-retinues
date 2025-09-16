@@ -62,7 +62,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "indomitable_join_siege_defender_full_strength",
-                    "Fight a siege battle as a defender with at least 10 retinue troops and win."
+                    "Fight a siege battle as a defender with at least 20 retinue troops and win."
                 );
             public override int Target => 1;
 
@@ -74,7 +74,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     return;
                 if (!battle.PlayerIsDefender)
                     return;
-                if (Player.Party.MemberRoster.RetinueCount < 10)
+                if (Player.Party.MemberRoster.RetinueCount < 20)
                     return;
 
                 AdvanceProgress(1);

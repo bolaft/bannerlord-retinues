@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;

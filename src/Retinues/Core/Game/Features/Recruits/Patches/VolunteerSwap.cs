@@ -14,6 +14,8 @@ public static class VolunteerSwap
 {
     static void Postfix(Settlement settlement)
     {
+        Log.Debug($"VolunteerSwap: Updating volunteers in {settlement?.Name}");
+
         var clan = settlement?.OwnerClan;
         var kingdom = settlement?.OwnerClan?.Kingdom;
 

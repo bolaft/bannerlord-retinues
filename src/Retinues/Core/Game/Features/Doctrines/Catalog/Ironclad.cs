@@ -1,5 +1,4 @@
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
 using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
@@ -17,7 +16,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "ironclad_full_set_t5_plus_100_kills",
-                    "Equip a full set of tier 5+ items on a custom troop and have them get 100 kills in battle."
+                    "Get 100 kills in battle with troops wearing a full set of tier 5+ gear."
                 );
             public override int Target => 100;
 

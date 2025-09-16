@@ -37,30 +37,20 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
-        public sealed class MAA_DefeatLordOnlyElite : Feat
+        public sealed class MAA_KO50Opponents : Feat
         {
             public override string Description =>
                 L.S(
-                    "masters_at_arms_defeat_lord_only_elite",
-                    "Defeat an enemy lord using only elite troops."
+                    "masters_at_arms_ko_50_opponents",
+                    "Knock out 50 opponents in the arena."
                 );
-            public override int Target => 1;
+            public override int Target => 50;
 
-            public override void OnBattleEnd(Battle battle)
+            public override void OnArenaEnd(Combat combat)
             {
-                if (battle.IsLost)
-                    return;
-                if (Player.Party.MemberRoster.EliteRatio < 1.0f)
-                    return;
-
-                foreach (var leader in battle.EnemyLeaders)
-                {
-                    if (leader.IsHero)
-                    {
-                        AdvanceProgress(1);
-                        return;
-                    }
-                }
+                int koCount = combat.Kills.Count(k => k.Killer.IsPlayer);
+                Log.Info($"MAA_KO50Opponents: counted {koCount} KOs in arena match");
+                AdvanceProgress(koCount);
             }
         }
 

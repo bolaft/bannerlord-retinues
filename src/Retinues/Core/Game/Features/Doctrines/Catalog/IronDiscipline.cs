@@ -36,53 +36,39 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
-        public sealed class ID_HeadshotEnemyLord : Feat
+        public sealed class ID_Troops50ArenaKOs : Feat
         {
             public override string Description =>
                 L.S(
-                    "iron_discipline_headshot_enemy_lord",
-                    "Headshot an enemy lord with a ranged weapon."
+                    "iron_discipline_troops_50_arena_kos",
+                    "Have your custom troops knock out 50 opponents in the arena."
                 );
             public override int Target => 1;
 
-            public override void OnBattleEnd(Battle battle)
+            public override void OnArenaEnd(Combat combat)
             {
-                foreach (var kill in battle.Kills)
-                {
-                    if (
-                        kill.Killer.IsPlayer
-                        && kill.Victim.Character.IsHero
-                        && kill.Blow.IsMissile
-                        && kill.Blow.IsHeadShot()
-                    )
-                    {
-                        AdvanceProgress(1);
-                        break;
-                    }
-                }
+                int koCount = combat.Kills.Count(k => k.Killer.Character.IsCustom);
+                Log.Info($"ID_Troops50ArenaKOs: counted {koCount} KOs from custom in arena match");
+                AdvanceProgress(koCount);
             }
         }
 
-        public sealed class ID_DefeatTwiceSizeMostlyCustom : Feat
+        public sealed class ID_DefeatTwiceSizeOnlyCustom : Feat
         {
             public override string Description =>
                 L.S(
-                    "iron_discipline_defeat_twice_size_mostly_custom",
-                    "Defeat a party twice your size using mostly custom troops."
+                    "iron_discipline_defeat_twice_size_only_custom",
+                    "Defeat a party twice your size using only custom troops."
                 );
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
             {
-                Log.Debug("ID_DefeatTwiceSizeMostlyCustom: OnBattleEnd");
-                Log.Debug(
-                    $"Battle: IsWon={battle.IsWon}, EnemyTroopCount={battle.EnemyTroopCount}, FriendlyTroopCount={battle.FriendlyTroopCount}, CustomRatio={Player.Party.MemberRoster.CustomRatio}"
-                );
                 if (battle.IsLost)
                     return;
                 if (battle.EnemyTroopCount < 2 * battle.FriendlyTroopCount)
                     return;
-                if (Player.Party.MemberRoster.CustomRatio < 0.75f)
+                if (Player.Party.MemberRoster.CustomRatio < 0.99f)
                     return;
 
                 AdvanceProgress(1);

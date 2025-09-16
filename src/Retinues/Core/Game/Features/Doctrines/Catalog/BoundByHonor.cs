@@ -11,12 +11,12 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
         public override int Column => 3;
         public override int Row => 1;
 
-        public sealed class BBH_RefusePayment3x : Feat
+        public sealed class BBH_NoPayment3x : Feat
         {
             public override string Description =>
                 L.S(
-                    "bound_by_honor_refuse_payment_3x",
-                    "Refuse payment for mercenary work three times."
+                    "bound_by_honor_no_payment_3x",
+                    "Complete a quest for no reward three times."
                 );
             public override int Target => 3;
 
@@ -24,28 +24,28 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             {
                 if (!quest.IsSuccessful)
                     return;
-                if (!quest.RefusedPayment)
+                if (!quest.NoPayment)
                     return;
 
                 AdvanceProgress(1);
             }
         }
 
-        public sealed class BBH_RetinueOnlyMorale80For30Days : Feat
+        public sealed class BBH_RetinueOnlyMorale90For15Days : Feat
         {
             public override string Description =>
                 L.S(
-                    "bound_by_honor_retinue_only_morale_80_for_30_days",
-                    "Maintain a retinue-only party's morale above 80 for 30 days."
+                    "bound_by_honor_retinue_only_morale_90_for_15_days",
+                    "Maintain a retinue-only party's morale above 90 for 15 days."
                 );
-            public override int Target => 30;
+            public override int Target => 15;
 
             public override void OnDailyTick()
             {
-                if (Player.Party.Morale > 80 && Player.Party.MemberRoster.RetinueRatio > 0.99f)
+                if (Player.Party.Morale > 90 && Player.Party.MemberRoster.RetinueRatio > 0.99f)
                     AdvanceProgress(1);
                 else
-                    SetProgress(0); // Reset progress if morale drops below 80
+                    SetProgress(0); // Reset progress if morale drops below 90
             }
         }
 

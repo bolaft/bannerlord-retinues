@@ -7,6 +7,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Features.Unlocks.Behaviors
@@ -49,13 +50,47 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
             _newlyUnlockedThisBattle.Clear();
         }
 
+        internal ItemObject GetRandomItem(string cultureId, int tier)
+        {
+            // Look up the culture once (optional: compare by StringId instead)
+            var culture = MBObjectManager.Instance.GetObject<CultureObject>(cultureId);
+            if (culture == null) return null;
+
+            // Pull the global item list and filter
+            IEnumerable<ItemObject> allItems = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
+            var pool = allItems.Where(i =>
+                i != null &&
+                (int)i.Tier == tier &&
+                i.Culture == culture &&
+                i.ItemType != ItemObject.ItemTypeEnum.Invalid);
+
+            // Pick random
+            var list = pool.ToList();
+            if (list.Count == 0) return null;
+
+            int idx = MBRandom.RandomInt(list.Count);
+            return list[idx];
+        }
+
+        internal void AddOwnCultureBonuses(Dictionary<int, int> bonuses)
+        {
+            Dictionary<ItemObject, int> randomItemsByTier = [];
+
+            foreach (var tier in bonuses.Keys)
+                randomItemsByTier[GetRandomItem(Player.Clan?.Culture?.StringId, tier)] = bonuses[tier];
+
+            AddBattleCounts(randomItemsByTier, false);
+        }
+
         // Called by the mission behavior when a battle ends to flush its per-battle counts
-        internal void AddBattleCounts(Dictionary<ItemObject, int> battleCounts)
+        internal void AddBattleCounts(Dictionary<ItemObject, int> battleCounts, bool addCultureBonuses = true)
         {
             if (battleCounts == null || battleCounts.Count == 0)
                 return;
 
             int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
+
+            Dictionary<int, int> ownCultureBonuses = [];
 
             foreach (var kvp in battleCounts)
             {
@@ -64,6 +99,14 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
 
                 if (item == null)
                     continue;
+
+                // accumulate in own culture as well
+                if (addCultureBonuses && item.Culture != null && item.Culture != Clan.PlayerClan?.Culture)
+                {
+                    if (!ownCultureBonuses.ContainsKey((int)item.Tier))
+                        ownCultureBonuses[(int)item.Tier] = 0;
+                    ownCultureBonuses[(int)item.Tier] += inc;
+                }
 
                 var id = item.StringId;
                 _defeatsByItemId.TryGetValue(id, out int prev);
@@ -81,6 +124,9 @@ namespace Retinues.Core.Game.Features.Unlocks.Behaviors
                     }
                 }
             }
+
+            // Apply accumulated own culture bonuses
+            AddOwnCultureBonuses(ownCultureBonuses);
         }
 
         private void OnMapEventEnded(MapEvent mapEvent)

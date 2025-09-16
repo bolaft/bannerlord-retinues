@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
@@ -10,7 +9,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
     {
         public override string Name => L.S("adaptive_training", "Adaptive Training");
         public override string Description =>
-            L.S("adaptive_training_description", "Experience refunds for retraining.");
+            L.S("adaptive_training_description", "XP is refunded when lowering a troop's skill.");
         public override int Column => 2;
         public override int Row => 3;
 
@@ -71,26 +70,31 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
-        public sealed class AT_50TournamentKOs : Feat
+        public sealed class AT_5Weapons : Feat
         {
             public override string Description =>
                 L.S(
-                    "adaptive_training_50_tournament_kos",
-                    "Knock-out 50 opponents in tournaments."
+                    "adaptive_training_5_weapons",
+                    "In a single battle, get a kill using five different weapons classes."
                 );
-            public override int Target => 50;
+            public override int Target => 1;
 
-            public override void OnTournamentFinished(Tournament tournament)
+            public override void OnBattleEnd(Battle battle)
             {
-                int koCount = 0;
-
-                foreach (var ko in tournament.KnockOuts)
+                var weaponClasses = new List<int>();
+    
+                foreach (var kill in battle.Kills)
                 {
-                    if (ko.Killer?.Character.StringId == Player.Character.StringId)
-                        koCount++;
+                    if (!kill.Killer.IsPlayer)
+                        continue; // Only count player kills
+
+                    var weapon = kill.Blow.WeaponClass;
+                    if (!weaponClasses.Contains(weapon))
+                        weaponClasses.Add(weapon);
                 }
 
-                AdvanceProgress(koCount);
+                if (weaponClasses.Count > Progress)
+                    SetProgress(weaponClasses.Count);
             }
         }
     }

@@ -2,6 +2,7 @@ using HarmonyLib;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
@@ -17,6 +18,10 @@ public static class RecruitSwap
         int count
     )
     {
+        Log.Debug(
+            $"RecruitSwap: {recruiter?.Name} recruited {count}x {troop?.Name} from {settlement?.Name}"
+        );
+
         if (recruiter?.PartyBelongedTo == null || troop == null || count <= 0)
             return;
 

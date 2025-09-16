@@ -1,4 +1,5 @@
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game.Wrappers
@@ -54,6 +55,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public float Morale => _party.Morale;
 
-        public bool IsInArmy => _party.Army != null;
+        public Army Army => _party.Army;
+
+        public bool IsInArmy => Army != null;
     }
 }

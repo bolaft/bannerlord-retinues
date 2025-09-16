@@ -1,6 +1,4 @@
-using Retinues.Core.Editor;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -16,19 +14,30 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "vanguard_clear_hideout_retinue_only",
-                    "Be at near maximum retinue capacity for 30 days."
+                    "Clear a hideout using only your retinue."
                 );
             public override int Target => 1;
 
-            public override void OnDailyTick()
+            public override void OnBattleEnd(Battle battle)
             {
-                int maxRetinues = TroopRules.MaxBasicRetinue + TroopRules.MaxEliteRetinue;
-                int currentRetinues = Player.Party.MemberRoster.RetinueCount;
+                if (battle.IsLost)
+                    return;
+                if (!battle.IsHideout)
+                    return;
 
-                if (currentRetinues < 0.8 * maxRetinues)
-                    AdvanceProgress(1);
-                else
-                    SetProgress(0); // Reset progress if not near max capacity
+                foreach (var kill in battle.Kills)
+                {
+                    // Heuristic: if any kill is not by a retinue in player troop, disqualify
+                    if (kill.Victim.IsPlayerTroop)
+                        if (!kill.Victim.Character.IsRetinue && !kill.Victim.IsPlayer)
+                            return; // A non-retinue / non-player was present
+                        else
+                        if (!kill.Killer.Character.IsRetinue)
+                            if (!kill.Killer.IsPlayer)
+                                return; // A non-retinue / non-player was present
+                }
+                
+                AdvanceProgress(1);
             }
         }
 
@@ -64,8 +73,6 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (battle.IsLost)
-                    return;
                 if (!battle.IsSiege)
                     return;
                 if (battle.PlayerIsDefender)

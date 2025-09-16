@@ -16,9 +16,9 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "battlefield_tithes_quest_for_allied_lord",
-                    "Complete a quest for an allied lord."
+                    "Complete 5 quests for allied lords."
                 );
-            public override int Target => 1;
+            public override int Target => 5;
 
             public override void OnQuestCompleted(Quest quest)
             {
@@ -31,34 +31,25 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
-        public sealed class BT_SaveAlliedLord : Feat
+        public sealed class BT_LeadArmyVictory : Feat
         {
             public override string Description =>
                 L.S(
-                    "battlefield_tithes_save_allied_lord",
-                    "Save an allied lord from certain defeat."
+                    "battlefield_tithes_lead_army_victory",
+                    "Lead an army of mostly allied troops to victory against an enemy army."
                 );
             public override int Target => 1;
 
-            private static bool IsCandidate = false;
-
-            public override void OnBattleStart(Battle battle)
-            {
-                IsCandidate = false;
-
-                if (battle.AllyTroopCount == 0)
-                    return;
-                if (battle.EnemyTroopCount < 2 * battle.AllyTroopCount)
-                    return;
-
-                IsCandidate = true;
-            }
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (!IsCandidate)
-                    return;
                 if (battle.IsLost)
+                    return;
+                if (!Player.IsArmyLeader)
+                    return;
+                if (battle.AllyTroopCount < battle.PlayerTroopCount)
+                    return;
+                if (battle.EnemyIsInArmy == false)
                     return;
 
                 AdvanceProgress(1);

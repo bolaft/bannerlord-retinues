@@ -60,7 +60,7 @@ namespace Retinues.Core.Game.Features.Xp.Behaviors
             _xpByTroop.Clear();
         }
 
-        private const int XpPerTier = 10;
+        private const int XpPerTier = 5;
 
         private static int ComputeKillXp(CharacterObject victim)
         {

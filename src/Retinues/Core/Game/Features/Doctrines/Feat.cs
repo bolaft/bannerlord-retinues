@@ -61,6 +61,10 @@ namespace Retinues.Core.Game.Features.Doctrines
             WCharacter upgradeFromTroop,
             WCharacter upgradeToTroop,
             int number
-        ) { }
+        )
+        { }
+
+        public virtual void OnArenaStart(Combat combat) { }
+        public virtual void OnArenaEnd(Combat combat) { }
     }
 }

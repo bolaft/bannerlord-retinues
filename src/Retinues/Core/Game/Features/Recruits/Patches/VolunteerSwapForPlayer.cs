@@ -49,6 +49,8 @@ internal static class VolunteerSwapForPlayerSession
 
     public static void BeginIfNeeded()
     {
+        Log.Debug("BeginIfNeeded called.");
+
         // Only if config is set that way
         if (!Config.GetOption<bool>("VolunteerSwapForPlayer"))
             return;

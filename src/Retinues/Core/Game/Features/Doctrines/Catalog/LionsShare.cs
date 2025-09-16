@@ -1,6 +1,5 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -20,16 +19,10 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                Log.Info("LS_25PersonalKills: OnBattleEnd");
                 var playerKills = battle.Kills.Count(k => k.Killer.IsPlayer);
 
-                Log.Info($"Player Kills: {playerKills}");
-
                 if (playerKills > Progress)
-                {
-                    Log.Info($"Updating LS_25PersonalKills progress to {playerKills}");
                     SetProgress(playerKills);
-                }
             }
         }
 

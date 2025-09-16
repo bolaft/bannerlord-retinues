@@ -1,7 +1,6 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {

@@ -1,5 +1,5 @@
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
+using System.Linq;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -14,80 +14,63 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
         public override int Column => 0;
         public override int Row => 2;
 
-        public sealed class PS_DefenseAllies50 : Feat
+        public sealed class PS_Allies100Casualties : Feat
         {
             public override string Description =>
                 L.S(
-                    "pragmatic_scavengers_defense_allies_50",
-                    "Win a defensive battle in which allies suffer over 50% casualties."
+                    "pragmatic_scavengers_defense_allies_100",
+                    "Win a battle in which allies suffer over 100 casualties."
                 );
-            public override int Target => 1;
-
-            private static int AllyCountAtStart = 0;
-
-            public override void OnBattleStart(Battle battle)
-            {
-                AllyCountAtStart = battle.AllyTroopCount;
-            }
+            public override int Target => 100;
 
             public override void OnBattleEnd(Battle battle)
             {
                 if (battle.IsLost)
-                    return;
-                if (!battle.PlayerIsDefender)
-                    return;
-                if (AllyCountAtStart == 0)
-                    return; // No allies at start
-                if (battle.AllyTroopCount > AllyCountAtStart / 2)
-                    return;
+                    return; // Must win
+                
+                if (battle.AllyTroopCount == 0)
+                    return; // No allies, no progress
 
-                AdvanceProgress(1);
+                int allyCasualties = battle.Kills.Where(
+                    k => k.Victim.Side == battle.PlayerSide && !k.Victim.IsPlayer
+                ).Count();
+
+                if (allyCasualties > Progress)
+                    SetProgress(allyCasualties);
             }
         }
 
-        public sealed class PS_ArmyWinAllies50 : Feat
+        public sealed class PS_AllyArmyWin3 : Feat
         {
             public override string Description =>
                 L.S(
                     "pragmatic_scavengers_army_win_allies_50",
-                    "While in an army, win a battle in which allies suffer over 50% casualties."
+                    "Win three battles in a row while part of an allied lord's army."
                 );
-            public override int Target => 1;
+            public override int Target => 3;
 
-            private static int AllyCountAtStart = 0;
-
-            public override void OnBattleStart(Battle battle)
-            {
-                AllyCountAtStart = battle.AllyTroopCount;
-            }
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (!Player.Party.IsInArmy)
-                    return;
-                if (battle.IsLost)
-                    return;
-                if (!battle.PlayerIsDefender)
-                    return;
-                if (AllyCountAtStart == 0)
-                    return; // No allies at start
-                if (battle.AllyTroopCount > AllyCountAtStart / 2)
-                    return;
-
-                AdvanceProgress(1);
+                if (battle.IsLost
+                || !battle.PlayerIsInArmy
+                || Player.IsArmyLeader)
+                    SetProgress(0);
+                else
+                    AdvanceProgress(1);
             }
         }
 
-        public sealed class PS_RescueAlliedLord : Feat
+        public sealed class PS_RescueLord : Feat
         {
             public override string Description =>
                 L.S(
-                    "pragmatic_scavengers_rescue_allied_lord",
+                    "pragmatic_scavengers_rescue_lord",
                     "Rescue a defeated lord from captivity."
                 );
             public override int Target => 1;
 
-            private static bool AllyLordInCaptivity = false;
+            private static bool LordInCaptivity = false;
 
             public override void OnBattleStart(Battle battle)
             {
@@ -95,10 +78,10 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 {
                     if (p.IsHero)
                     {
-                        AllyLordInCaptivity = true;
+                        LordInCaptivity = true;
                         return;
                     }
-                    AllyLordInCaptivity = false;
+                    LordInCaptivity = false;
                 }
             }
 
@@ -106,7 +89,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             {
                 if (battle.IsLost)
                     return;
-                if (!AllyLordInCaptivity)
+                if (!LordInCaptivity)
                     return;
                 AdvanceProgress(1);
             }

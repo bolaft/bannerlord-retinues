@@ -14,11 +14,11 @@
       id="ret_adaptive_training_200_in_each_skill"
       text="For each skill, have at least one custom troop with a level of 200 or higher." />
     <string
-      id="ret_adaptive_training_50_tournament_kos"
-      text="Knock-out 50 opponents in tournaments." />
+      id="ret_adaptive_training_5_weapons"
+      text="In a single battle, get a kill using five different weapons classes." />
     <string
       id="ret_adaptive_training_description"
-      text="Experience refunds for retraining." />
+      text="XP is refunded when lowering a troop&apos;s skill." />
     <string
       id="ret_adaptive_training_win_with_even_split"
       text="Win a battle against over 100 enemies using a party evenly split among infantry, cavalry and ranged clan troops" />
@@ -53,11 +53,11 @@
       id="ret_battlefield_tithes_description"
       text="Can unlock items from allied party kills." />
     <string
-      id="ret_battlefield_tithes_quest_for_allied_lord"
-      text="Complete a quest for an allied lord." />
+      id="ret_battlefield_tithes_lead_army_victory"
+      text="Lead an army of mostly allied troops to victory against an enemy army." />
     <string
-      id="ret_battlefield_tithes_save_allied_lord"
-      text="Save an allied lord from certain defeat." />
+      id="ret_battlefield_tithes_quest_for_allied_lord"
+      text="Complete 5 quests for allied lords." />
     <string
       id="ret_battlefield_tithes_turn_tide_allied_army_battle"
       text="Turn the tide of a battle involving an allied army." />
@@ -71,11 +71,11 @@
       id="ret_bound_by_honor_description"
       text="+20% retinue morale." />
     <string
-      id="ret_bound_by_honor_refuse_payment_3x"
-      text="Refuse payment for mercenary work three times." />
+      id="ret_bound_by_honor_no_payment_3x"
+      text="Complete a quest for no reward three times." />
     <string
-      id="ret_bound_by_honor_retinue_only_morale_80_for_30_days"
-      text="Maintain a retinue-only party&apos;s morale above 80 for 30 days." />
+      id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
+      text="Maintain a retinue-only party&apos;s morale above 90 for 15 days." />
     <string
       id="ret_bound_by_honor_retinue_wins_tournament"
       text="Have one of your retinue win a tournament." />
@@ -105,7 +105,7 @@
       text="Acquire a new fief for your clan." />
     <string
       id="ret_clanic_traditions_companions_50_kills"
-      text="Win a battle in which your companions get 50 or more kills." />
+      text="Win a battle in which you and your companions get 50 or more kills." />
     <string
       id="ret_clanic_traditions_description"
       text="10% rebate on items of the clan&apos;s culture." />
@@ -140,17 +140,17 @@
       id="ret_cultural_pride"
       text="Cultural Pride" />
     <string
-      id="ret_cultural_pride_defeat_foreign_monarch"
-      text="Defeat a monarch of a different culture in battle." />
+      id="ret_cultural_pride_defeat_foreign_ruler"
+      text="Defeat a ruler of a different culture in battle." />
     <string
       id="ret_cultural_pride_description"
       text="10% rebate on items of the troop&apos;s culture." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
-      text="Have a troop type wearing a full set of items of their culture get 100 kills in battle." />
+      text="Get 100 kills in battle with troops wearing no foreign gear." />
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
-      text="Win a tournament wearing only items of your own culture." />
+      text="Win a tournament wearing only armor of your own culture." />
     <string
       id="ret_doctrine_costs"
       text="Cost: {GOLD} Gold, {INFLUENCE} Influence." />
@@ -225,7 +225,7 @@
       text="Have a single retinue troop kill two tier 5+ units in one battle." />
     <string
       id="ret_immortals_win_100_no_deaths"
-      text="Win by yourself against 50+ enemies without a single death on your side." />
+      text="Win by yourself against 100+ enemies without a single death on your side." />
     <string
       id="ret_in_stock"
       text="In Stock ({STOCK})" />
@@ -243,7 +243,7 @@
       text="+20% retinue health." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
-      text="Fight a siege battle as a defender with at least 10 retinue troops and win." />
+      text="Fight a siege battle as a defender with at least 20 retinue troops and win." />
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="Win 3 defensive battles in a row with a retinue-only party." />
@@ -251,14 +251,14 @@
       id="ret_iron_discipline"
       text="Iron Discipline" />
     <string
-      id="ret_iron_discipline_defeat_twice_size_mostly_custom"
-      text="Defeat a party twice your size using mostly custom troops." />
+      id="ret_iron_discipline_defeat_twice_size_only_custom"
+      text="Defeat a party twice your size using only custom troops." />
     <string
       id="ret_iron_discipline_description"
       text="+5% skill cap." />
     <string
-      id="ret_iron_discipline_headshot_enemy_lord"
-      text="Headshot an enemy lord with a ranged weapon." />
+      id="ret_iron_discipline_troops_50_arena_kos"
+      text="Have your custom troops knock out 50 opponents in the arena." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
       text="Upgrade 100 basic troops to max tier." />
@@ -276,7 +276,7 @@
       text="No tier restriction for arms and armor." />
     <string
       id="ret_ironclad_full_set_t5_plus_100_kills"
-      text="Equip a full set of tier 5+ items on a custom troop and have them get 100 kills in battle." />
+      text="Get 100 kills in battle with troops wearing a full set of tier 5+ gear." />
     <string
       id="ret_item_ammo_damage"
       text="Damage" />
@@ -386,11 +386,11 @@
       id="ret_masters_at_arms_1000_elite_kills"
       text="Get 1000 kills with elite troops." />
     <string
-      id="ret_masters_at_arms_defeat_lord_only_elite"
-      text="Defeat an enemy lord using only elite troops." />
-    <string
       id="ret_masters_at_arms_description"
       text="+1 upgrade branch for elite troops." />
+    <string
+      id="ret_masters_at_arms_ko_50_opponents"
+      text="Knock out 50 opponents in the arena." />
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="Upgrade 100 elite troops to max tier." />
@@ -525,15 +525,15 @@
       text="Pragmatic Scavengers" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="While in an army, win a battle in which allies suffer over 50% casualties." />
+      text="Win three battles in a row while part of an allied lord&apos;s army." />
     <string
-      id="ret_pragmatic_scavengers_defense_allies_50"
-      text="Win a defensive battle in which allies suffer over 50% casualties." />
+      id="ret_pragmatic_scavengers_defense_allies_100"
+      text="Win a battle in which allies suffer over 100 casualties." />
     <string
       id="ret_pragmatic_scavengers_description"
       text="Can unlock items from allied party casualties." />
     <string
-      id="ret_pragmatic_scavengers_rescue_allied_lord"
+      id="ret_pragmatic_scavengers_rescue_lord"
       text="Rescue a defeated lord from captivity." />
     <string
       id="ret_queen_guard"
@@ -620,8 +620,8 @@
       id="ret_steadfast_soldiers_description"
       text="+5% skill points." />
     <string
-      id="ret_steadfast_soldiers_siege_defense_mostly_custom"
-      text="Win a siege defense using mostly custom troops." />
+      id="ret_steadfast_soldiers_siege_defense_only_custom"
+      text="Win a siege defense using only custom troops." />
     <string
       id="ret_steadfast_soldiers_twelve_troops_maxed_skills"
       text="Max out the skills of 15 custom troops." />
@@ -660,7 +660,7 @@
       text="Vanguard" />
     <string
       id="ret_vanguard_clear_hideout_retinue_only"
-      text="Be at near maximum retinue capacity for 30 days." />
+      text="Clear a hideout using only your retinue." />
     <string
       id="ret_vanguard_description"
       text="+15% retinue cap." />

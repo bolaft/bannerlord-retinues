@@ -46,8 +46,7 @@ namespace Retinues.Core.Game.Features.Doctrines
                 OnSettlementOwnerChanged
             );
 
-            // Tournaments (special case, separate event)
-            CampaignEvents.TournamentStarted.AddNonSerializedListener(this, OnTournamentStarted);
+            // Tournaments
             CampaignEvents.TournamentFinished.AddNonSerializedListener(this, OnTournamentFinished);
 
             // Quests
@@ -61,6 +60,7 @@ namespace Retinues.Core.Game.Features.Doctrines
                 this,
                 PlayerUpgradedTroops
             );
+
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -94,6 +94,37 @@ namespace Retinues.Core.Game.Features.Doctrines
                 if (iMission is not Mission mission)
                     return;
 
+                Log.Info("FeatRuntimeBehavior: OnMissionStarted");
+
+                foreach (var combatType in Enum.GetValues(typeof(Mission.MissionCombatType)))
+                    if (mission.CombatType == (Mission.MissionCombatType)combatType)
+                        Log.Info($"OnMissionStarted - CombatType: {combatType}");
+                foreach (var mode in Enum.GetValues(typeof(MissionMode)))
+                    if (mission.Mode == (MissionMode)mode)
+                        Log.Info($"OnMissionStarted - Mode: {mode}");
+
+                // Tournament match
+                if (mission.CombatType == Mission.MissionCombatType.Combat
+                    && mission.Mode == MissionMode.StartUp)
+                {
+                    Log.Info("FeatRuntimeBehavior: OnMissionStarted (tournament match)");
+                    // Attach Combat behavior (captures kills etc.)
+                    var combat = mission.GetMissionBehavior<Combat>();
+                    if (combat == null)
+                    {
+                        combat = new Combat();
+                        mission.AddMissionBehavior(combat);
+                    }
+
+                    // Relay mission end back to us so we can call OnTournamentMatchEnd on feats.
+                    if (mission.GetMissionBehavior<MissionEndRelay>() == null)
+                        mission.AddMissionBehavior(new MissionEndRelay(this));
+
+                    // Notify feats: combat start
+                    foreach (var feat in _activeFeats.ToList())
+                        feat.OnArenaStart(combat);
+                }
+
                 // Only care about player-involved map battles.
                 var mapEvent = MobileParty.MainParty?.MapEvent;
                 if (mapEvent == null || !mapEvent.IsPlayerMapEvent)
@@ -101,20 +132,20 @@ namespace Retinues.Core.Game.Features.Doctrines
 
                 Log.Info("FeatRuntimeBehavior: OnMissionStarted");
 
-                // Attach your Battle behavior (captures kills etc.)
+                // Attach Battle behavior (captures kills etc.)
                 var battle = mission.GetMissionBehavior<Battle>();
                 if (battle == null)
                 {
                     battle = new Battle();
                     mission.AddMissionBehavior(battle);
-
-                    // Add special behaviors for certain doctrines if not already present
-                    // TODO: should probably not be here
-                    if (mission.GetMissionBehavior<ImmortalsBehavior>() == null)
-                        mission.AddMissionBehavior(new ImmortalsBehavior());
-                    if (mission.GetMissionBehavior<IndomitableBehavior>() == null)
-                        mission.AddMissionBehavior(new IndomitableBehavior());
                 }
+
+                // Add special behaviors for certain doctrines if not already present
+                // TODO: should probably not be here
+                if (mission.GetMissionBehavior<ImmortalsBehavior>() == null)
+                    mission.AddMissionBehavior(new ImmortalsBehavior());
+                if (mission.GetMissionBehavior<IndomitableBehavior>() == null)
+                    mission.AddMissionBehavior(new IndomitableBehavior());
 
                 // Relay mission end back to us so we can call OnBattleEnd on feats.
                 if (mission.GetMissionBehavior<MissionEndRelay>() == null)
@@ -132,64 +163,45 @@ namespace Retinues.Core.Game.Features.Doctrines
 
         internal void OnMissionEnded(Mission mission)
         {
+            Log.Info("FeatRuntimeBehavior: OnMissionEnded");
+            foreach (var combatType in Enum.GetValues(typeof(Mission.MissionCombatType)))
+                if (mission.CombatType == (Mission.MissionCombatType)combatType)
+                    Log.Info($"OnMissionEnded - CombatType: {combatType}");
+            foreach (var mode in Enum.GetValues(typeof(MissionMode)))
+                if (mission.Mode == (MissionMode)mode)
+                    Log.Info($"OnMissionEnded - Mode: {mode}");
             try
-            {
-                // At this point mission is ending; MapEvent may already be null in some cases,
-                // so rely on the behavior we attached.
-                var battle = mission?.GetMissionBehavior<Battle>();
-                if (battle == null)
-                    return;
-
-                Log.Info("FeatRuntimeBehavior: OnMissionEnded");
-
-                foreach (var feat in _activeFeats.ToList())
                 {
-                    feat.OnBattleEnd(battle);
+                    if (mission.CombatType == Mission.MissionCombatType.Combat)
+                    {
+                        Log.Info("FeatRuntimeBehavior: OnMissionEnded (tournament match)");
+                        // Notify feats: combat end
+                        var combat = mission.GetMissionBehavior<Combat>();
+                        if (combat != null)
+                            foreach (var feat in _activeFeats.ToList())
+                                feat.OnArenaEnd(combat);
+                    }
+                    // At this point mission is ending; MapEvent may already be null in some cases,
+                    // so rely on the behavior we attached.
+                    var battle = mission?.GetMissionBehavior<Battle>();
+                    if (battle == null)
+                        return;
+
+                    Log.Info("FeatRuntimeBehavior: OnMissionEnded (battle)");
+
+                    foreach (var feat in _activeFeats.ToList())
+                        feat.OnBattleEnd(battle);
+
+                    // Log battle report
+                    battle.LogReport();
+
+                    // Display feat unlock popups if any
+                    Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
                 }
-
-                // Log battle report
-                battle.LogReport();
-
-                // Display feat unlock popups if any
-                Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
-        }
-
-        private Tournament _currentTournament;
-
-        internal void OnTournamentStarted(Town town)
-        {
-            try
-            {
-                Log.Info("FeatRuntimeBehavior: OnTournamentStarted");
-                // Try to get the current mission
-                var mission = Mission.Current;
-                if (mission == null)
-                    return;
-
-                Log.Info("FeatRuntimeBehavior: Tournament mission found");
-
-                // Check if Tournament behavior already exists
-                var tournament = mission.GetMissionBehavior<Tournament>();
-                if (tournament == null)
+                catch (Exception ex)
                 {
-                    tournament = new Tournament(town);
-                    mission.AddMissionBehavior(tournament);
+                    Log.Exception(ex);
                 }
-                _currentTournament = tournament;
-
-                // Notify feats
-                foreach (var feat in _activeFeats.ToList())
-                    feat.OnTournamentStart(tournament);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
         }
 
         internal void OnTournamentFinished(
@@ -202,23 +214,7 @@ namespace Retinues.Core.Game.Features.Doctrines
             try
             {
                 Log.Info("FeatRuntimeBehavior: OnTournamentFinished");
-                var mission = Mission.Current;
-                Tournament tournament = null;
-                if (mission != null)
-                    tournament = mission.GetMissionBehavior<Tournament>();
-                tournament ??= _currentTournament; // fallback if mission is gone
-                tournament ??= new Tournament(town, WCharacterCache.Wrap(winner), [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]); // fallback
-                if (tournament == null)
-                {
-                    Log.Warn("  No Tournament behavior found; cannot notify feats.");
-                    return;
-                }
-
-
-                tournament.UpdateOnFinish(
-                    WCharacterCache.Wrap(winner),
-                    [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]
-                );
+                var tournament = new Tournament(town, WCharacterCache.Wrap(winner), [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]); // fallback
 
                 // Notify feats
                 foreach (var feat in _activeFeats.ToList())

@@ -16,25 +16,21 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "cultural_pride_tournament_own_culture_gear",
-                    "Win a tournament wearing only items of your own culture."
+                    "Win a tournament wearing only armor of your own culture."
                 );
             public override int Target => 1;
 
             public override void OnTournamentFinished(Tournament tournament)
             {
-                Log.Info("Tournament finished, checking feat progress...");
-                Log.Info($"  Player: {Player.Character.Name} ({Player.Character.StringId})");
-                Log.Info($"  Winner: {tournament.Winner?.Name} ({tournament.Winner?.StringId})");
                 if (tournament.Winner?.StringId != Player.Character.StringId)
                     return;
 
                 foreach (var item in Player.Character.Equipment.Items)
                 {
+                    if (!item.IsArmor)
+                        continue; // Ignore non-armor items
                     if (item.Culture?.StringId != Player.Culture.StringId)
-                    {
-                        Log.Info($"  Item: {item.Name} ({item.StringId}) culture {item.Culture?.StringId}");
                         return; // Item does not match player culture
-                    }
                 }
 
                 AdvanceProgress(1);
@@ -46,7 +42,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override string Description =>
                 L.S(
                     "cultural_pride_full_set_100_kills",
-                    "Have a troop type wearing a full set of items of their culture get 100 kills in battle."
+                    "Get 100 kills in battle with troops wearing no foreign gear."
                 );
             public override int Target => 100;
 
@@ -62,21 +58,30 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     if (!troop.IsCustom)
                         continue; // Only consider custom troops
 
+                    bool hasFullSet = true;
                     foreach (var item in troop.Equipment.Items)
+                    {
+                        if (item.Culture == null)
+                            continue; // Ignore culture-less items
                         if (item.Culture?.StringId != troop.Culture.StringId)
-                            return; // Item does not match troop culture
+                        {
+                            hasFullSet = false;
+                            break; // Item does not match troop culture
+                        }
+                    }
 
-                    AdvanceProgress(1);
+                    if (hasFullSet)
+                        AdvanceProgress(1);
                 }
             }
         }
 
-        public sealed class CP_DefeatForeignMonarch : Feat
+        public sealed class CP_DefeatForeignRuler : Feat
         {
             public override string Description =>
                 L.S(
-                    "cultural_pride_defeat_foreign_monarch",
-                    "Defeat a monarch of a different culture in battle."
+                    "cultural_pride_defeat_foreign_ruler",
+                    "Defeat a ruler of a different culture in battle."
                 );
             public override int Target => 1;
 
@@ -88,7 +93,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 foreach (var leader in battle.EnemyLeaders)
                 {
                     if (!leader?.IsRuler ?? true)
-                        continue; // Not a monarch
+                        continue; // Not a ruler
 
                     if (leader?.Culture.StringId == Player.Culture.StringId)
                         continue; // Same culture
