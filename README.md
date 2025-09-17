@@ -23,6 +23,8 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - XP doesn't load always (on game startup?)
 - counts as tournament match in real battles
 - crash on AddToCounts. OnTick? when hovering morale?
+- doctrine screen bottom hidden, less vertical margin
+- retinue count wrong (0/23) after game load
 
 ## Tests
 
