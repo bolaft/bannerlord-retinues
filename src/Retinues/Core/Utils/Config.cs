@@ -8,25 +8,10 @@ namespace Retinues.Core.Utils
 {
     public static class Config
     {
-        // Return (id, defaultValue) pairs for every option
-        public static IEnumerable<(string Id, object Default)> EnumerateDefaults()
-        {
-            foreach (var opt in _options)
-                yield return (opt.Key, opt.Default);
-        }
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                Option Model                                */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-        // Optional: reset helper MCM can call
-        public static void ResetToDefaults(bool save = true)
-        {
-            foreach (var opt in _options)
-                opt.Value = opt.Default; // don't touch opt.Default
-            if (save)
-                Save();
-        }
-
-        // =========================
-        // Model & storage
-        // =========================
         public sealed class ConfigOption
         {
             public string Section { get; set; } // e.g., "Recruitment"
@@ -41,6 +26,7 @@ namespace Retinues.Core.Utils
         }
 
         private static readonly List<ConfigOption> _options = [];
+
         private static readonly Dictionary<string, ConfigOption> _byKey = new(
             StringComparer.OrdinalIgnoreCase
         );
@@ -57,9 +43,13 @@ namespace Retinues.Core.Utils
             }
         }
 
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                  Option List                               */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
         static Config()
         {
-            // Retinues
+            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Retinues ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_retinues", "Retinues"),
@@ -123,7 +113,7 @@ namespace Retinues.Core.Utils
                 maxValue: 5000
             );
 
-            // Recruitment
+            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Recruitment ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_recruitment", "Recruitment"),
@@ -137,7 +127,7 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
-            // Doctrines
+            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Doctrines ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_doctrines", "Doctrines"),
@@ -151,7 +141,7 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
-            // Equipment
+            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Equipment ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_equipment", "Equipment"),
@@ -191,7 +181,7 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
-            // Skills
+            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Skills ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_skills", "Skills"),
@@ -221,7 +211,7 @@ namespace Retinues.Core.Utils
                 maxValue: 10
             );
 
-            // Unlocks
+            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Unlocks ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_unlocks", "Unlocks"),
@@ -284,36 +274,9 @@ namespace Retinues.Core.Utils
             catch { }
         }
 
-        private static void AddOption(
-            string section,
-            string name,
-            string key,
-            string hint,
-            object @default,
-            Type type,
-            int minValue = 0,
-            int maxValue = 1000
-        )
-        {
-            var opt = new ConfigOption
-            {
-                Section = section ?? L.S("mcm_section_general", "General"),
-                Name = name,
-                Key = key,
-                Hint = hint,
-                Default = @default,
-                Type = type,
-                Value = @default,
-                MinValue = minValue,
-                MaxValue = maxValue,
-            };
-            _options.Add(opt);
-            _byKey[key] = opt;
-        }
-
-        // =========================
-        // Public API
-        // =========================
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                 Public API                                 */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         public static IReadOnlyList<ConfigOption> Options => _options;
 
@@ -419,9 +382,44 @@ namespace Retinues.Core.Utils
             }
         }
 
-        // =========================
-        // Helpers
-        // =========================
+        public static IEnumerable<(string Id, object Default)> Defaults()
+        {
+            foreach (var opt in _options)
+                yield return (opt.Key, opt.Default);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                   Helpers                                  */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+        private static void AddOption(
+            string section,
+            string name,
+            string key,
+            string hint,
+            object @default,
+            Type type,
+            int minValue = 0,
+            int maxValue = 1000
+        )
+        {
+            var opt = new ConfigOption
+            {
+                Section = section ?? L.S("mcm_section_general", "General"),
+                Name = name,
+                Key = key,
+                Hint = hint,
+                Default = @default,
+                Type = type,
+                Value = @default,
+                MinValue = minValue,
+                MaxValue = maxValue,
+            };
+            _options.Add(opt);
+            _byKey[key] = opt;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Conversion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         private static object ConvertTo(object value, Type targetType)
         {
@@ -501,6 +499,8 @@ namespace Retinues.Core.Utils
             return Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
         }
 
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Parsers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
         private static object ParseFromString(string raw, Type type, object fallback)
         {
             if (type == typeof(bool))
@@ -545,6 +545,8 @@ namespace Retinues.Core.Utils
                 return d;
             return fallback;
         }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         private static string FormatValue(object value)
         {

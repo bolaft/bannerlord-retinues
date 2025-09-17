@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using TaleWorlds.SaveSystem;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
-using TaleWorlds.SaveSystem;
 
 namespace Retinues.Core.Persistence
 {

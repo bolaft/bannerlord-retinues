@@ -149,7 +149,7 @@ namespace Retinues.MCM.Options
                     BaseSettings.DefaultPresetName,
                     p =>
                     {
-                        foreach (var (id, def) in Config.EnumerateDefaults())
+                        foreach (var (id, def) in Config.Defaults())
                         {
                             if (def is float f)
                                 p.SetPropertyValue(

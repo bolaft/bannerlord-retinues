@@ -1,12 +1,26 @@
+using TaleWorlds.CampaignSystem;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Persistence.Item
 {
     public class ItemSaveBehavior : CampaignBehaviorBase
     {
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                  Sync Data                                 */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
         private ItemSaveData _itemData = null;
+
+        public override void SyncData(IDataStore dataStore)
+        {
+            // Persist the troops inside the native save.
+            dataStore.SyncData("Retinues_Items", ref _itemData);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                             Event Registration                             */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         public override void RegisterEvents()
         {
@@ -14,11 +28,9 @@ namespace Retinues.Core.Persistence.Item
             CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener(this, OnBeforeSave);
         }
 
-        public override void SyncData(IDataStore dataStore)
-        {
-            // Persist the troops inside the native save.
-            dataStore.SyncData("Retinues_Items", ref _itemData);
-        }
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                   Events                                   */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         private void OnBeforeSave()
         {

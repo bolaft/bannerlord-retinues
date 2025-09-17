@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Core.Game;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Game.Wrappers.Cache;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
+using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Game.Wrappers.Cache;
 
 namespace Retinues.Core.Persistence.Troop
 {
     public static class TroopSave
     {
-        // =========================================================================
-        // Saving
-        // =========================================================================
-
-        public static TroopSaveData Save(WCharacter character)
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                   Saving                                   */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        
+         public static TroopSaveData Save(WCharacter character)
         {
             var data = new TroopSaveData
             {
@@ -36,11 +36,11 @@ namespace Retinues.Core.Persistence.Troop
             return data;
         }
 
-        // =========================================================================
-        // Loading
-        // =========================================================================
-
-        public static WCharacter Load(TroopSaveData data, WCharacter parent = null)
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                   Loading                                  */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        
+         public static WCharacter Load(TroopSaveData data, WCharacter parent = null)
         {
             // Create character object from vanilla id
             var co = MBObjectManager.Instance.GetObject<CharacterObject>(data.VanillaStringId);
@@ -93,11 +93,11 @@ namespace Retinues.Core.Persistence.Troop
             return clone;
         }
 
-        // =========================================================================
-        // Helpers
-        // =========================================================================
-
-        public static string CodeFromSkills(Dictionary<SkillObject, int> skills)
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                   Helpers                                  */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        
+         public static string CodeFromSkills(Dictionary<SkillObject, int> skills)
         {
             return string.Join(";", skills.Select(kv => $"{kv.Key.StringId}:{kv.Value}"));
         }

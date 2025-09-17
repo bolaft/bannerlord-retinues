@@ -1,18 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Persistence.Troop
 {
     public class TroopSaveBehavior : CampaignBehaviorBase
     {
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                  Sync Data                                 */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
         private List<TroopSaveData> _troopData = [];
         private List<RosterSaveData> _rosterData = [];
+
+        public override void SyncData(IDataStore dataStore)
+        {
+            // Persist the troops inside the native save.
+            dataStore.SyncData("Retinues_Troops", ref _troopData);
+            dataStore.SyncData("Retinues_Rosters", ref _rosterData);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                            // Event Registration                           */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         public override void RegisterEvents()
         {
@@ -21,12 +36,9 @@ namespace Retinues.Core.Persistence.Troop
             CampaignEvents.OnSaveOverEvent.AddNonSerializedListener(this, OnSaveOver);
         }
 
-        public override void SyncData(IDataStore dataStore)
-        {
-            // Persist the troops inside the native save.
-            dataStore.SyncData("Retinues_Troops", ref _troopData);
-            dataStore.SyncData("Retinues_Rosters", ref _rosterData);
-        }
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                                  // Events                                 */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         private void OnBeforeSave()
         {
@@ -65,8 +77,10 @@ namespace Retinues.Core.Persistence.Troop
                 {
                     Player.Clan?.ClearTroops();
                     Player.Kingdom?.ClearTroops();
+
                     foreach (var root in _troopData)
                         TroopSave.Load(root);
+
                     Log.Debug($"Rebuilt {_troopData.Count} root troops.");
                 }
                 else
@@ -76,9 +90,12 @@ namespace Retinues.Core.Persistence.Troop
 
                 if (_rosterData.Count > 0)
                 {
-                    Log.Debug("Restoring custom troops to rosters.");
                     RestoreCustomTroopsToRosters(_rosterData);
-                    Log.Debug("Restored custom troops to rosters.");
+                    Log.Debug($"Restored custom troops to {_rosterData.Count} rosters.");
+                }
+                else
+                {
+                    Log.Debug("No rosters in save.");
                 }
             }
             catch (Exception e)
@@ -87,9 +104,9 @@ namespace Retinues.Core.Persistence.Troop
             }
         }
 
-        // -------------------------
-        // Troop Collection
-        // -------------------------
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                              Troop Collection                              */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         private static List<TroopSaveData> CollectAllDefinedCustomTroops()
         {
@@ -135,9 +152,9 @@ namespace Retinues.Core.Persistence.Troop
             }
         }
 
-        // -------------------------
-        // Roster Management
-        // -------------------------
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /*                              Roster Management                             */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
         private static List<RosterSaveData> SaveAndStripAllRosters()
         {
