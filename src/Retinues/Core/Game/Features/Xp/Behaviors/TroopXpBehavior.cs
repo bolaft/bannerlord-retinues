@@ -4,9 +4,12 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game.Features.Xp.Behaviors
 {
-    // Hooks into CampaignEvents to track troop XP deltas and persist the bank.
     public sealed class TroopXpBehavior : CampaignBehaviorBase
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Event Registration                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
@@ -33,6 +36,10 @@ namespace Retinues.Core.Game.Features.Xp.Behaviors
                 }
             );
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Sync Data                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override void SyncData(IDataStore dataStore)
         {

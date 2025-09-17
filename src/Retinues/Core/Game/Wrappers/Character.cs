@@ -18,12 +18,12 @@ namespace Retinues.Core.Game.Wrappers
         WCharacter parent = null
     ) : StringIdentifier
     {
-        // =========================================================================
-        // Constants & Private Helpers
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //               Constants & Private Helpers              //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static CharacterObject[] ToCharacterArray(IEnumerable<WCharacter> items) =>
-            items?.Select(wc => (CharacterObject)wc.Base).ToArray() ?? [];
+            items?.Select(wc => wc.Base).ToArray() ?? [];
 
         // Backing fields (initialized from primary-ctor parameters)
         private readonly CharacterObject _characterObject = characterObject;
@@ -31,11 +31,11 @@ namespace Retinues.Core.Game.Wrappers
         private WFaction _faction = _faction;
 
         // Fast access to the engine object
-        public object Base => _characterObject;
+        public CharacterObject Base => _characterObject;
 
-        // =========================================================================
-        // Identity & Vanilla Mapping
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //               Identity & Vanilla Mapping               //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override string StringId => _characterObject.StringId;
 
@@ -67,9 +67,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        // =========================================================================
-        // View-Model (VM) Accessors
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                View-Model (VM) Accessors               //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public ImageIdentifierVM Image => new(CharacterCode.CreateFrom(_characterObject));
 
@@ -94,9 +94,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        // =========================================================================
-        // Tree, Relations & Faction
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                Tree, Relations & Faction               //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCulture Culture => new(_characterObject.Culture);
 
@@ -220,9 +220,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        // =========================================================================
-        // Basic Attributes
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Basic Attributes                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public string Name
         {
@@ -248,9 +248,9 @@ namespace Retinues.Core.Game.Wrappers
 
         public FormationClass FormationClass => _characterObject.GetFormationClass();
 
-        // =========================================================================
-        // Flags & Toggles
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Flags & Toggles                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool IsElite =>
             (Faction?.EliteTroops?.Any(t => t.StringId == StringId) ?? false)
@@ -268,9 +268,9 @@ namespace Retinues.Core.Game.Wrappers
             set => Reflector.SetPropertyValue(_characterObject, "IsFemale", value);
         }
 
-        // NOTE: game-side property is misspelled "HiddenInEncylopedia"
         public bool HiddenInEncyclopedia
         {
+            // NOTE: game-side property is misspelled "HiddenInEncylopedia"
             get => Reflector.GetPropertyValue<bool>(_characterObject, "HiddenInEncylopedia");
             set => Reflector.SetPropertyValue(_characterObject, "HiddenInEncylopedia", value);
         }
@@ -287,9 +287,9 @@ namespace Retinues.Core.Game.Wrappers
             set => _characterObject.SetTransferableInPartyScreen(!value);
         }
 
-        // =========================================================================
-        // Skills
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Skills                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly SkillObject[] CoreSkills =
         [
@@ -347,16 +347,16 @@ namespace Retinues.Core.Game.Wrappers
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
 
-        // =========================================================================
-        // Equipment
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Equipment                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public List<WEquipment> Equipments
         {
             get
             {
                 var equipments = _characterObject.AllEquipments.ToList();
-                return equipments.Select(e => new WEquipment(e)).ToList();
+                return [.. equipments.Select(e => new WEquipment(e))];
             }
             set
             {
@@ -392,9 +392,9 @@ namespace Retinues.Core.Game.Wrappers
                 yield return Unequip(slot);
         }
 
-        // =========================================================================
-        // Upgrades
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Upgrades Targets                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter[] UpgradeTargets
         {
@@ -405,7 +405,7 @@ namespace Retinues.Core.Game.Wrappers
                         _characterObject,
                         "UpgradeTargets"
                     ) ?? [];
-                return raw.Select(obj => new WCharacter(obj, Faction, this)).ToArray();
+                return [.. raw.Select(obj => new WCharacter(obj, Faction, this))];
             }
             set =>
                 Reflector.SetPropertyValue(
@@ -432,9 +432,9 @@ namespace Retinues.Core.Game.Wrappers
             Reflector.SetPropertyValue(_characterObject, "UpgradeTargets", ToCharacterArray(list));
         }
 
-        // =========================================================================
-        // Registration & Lifecycle
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                Registration & Lifecycle                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Remove from faction, detach from parent, unregister, then recursively remove children.
         public void Remove()
@@ -477,9 +477,9 @@ namespace Retinues.Core.Game.Wrappers
             IsNotTransferableInHideouts = true;
         }
 
-        // =========================================================================
-        // Cloning
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cloning                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Create a deep gameplay-safe clone of this troop, optionally keeping upgrades/equipment/skills.
         public WCharacter Clone(
@@ -508,7 +508,7 @@ namespace Retinues.Core.Game.Wrappers
             parent?.AddUpgradeTarget(clone);
 
             // Upgrades
-            clone.UpgradeTargets = keepUpgrades ? UpgradeTargets.ToArray() : [];
+            clone.UpgradeTargets = keepUpgrades ? [.. UpgradeTargets] : [];
 
             // Equipment — re-create from code to avoid shared references
             clone.Equipments = [];
@@ -534,9 +534,9 @@ namespace Retinues.Core.Game.Wrappers
             return clone;
         }
 
-        // =========================================================================
-        // Helpers
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool IsRanged => Equipment.HasRangedWeapons;
 

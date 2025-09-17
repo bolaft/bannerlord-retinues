@@ -8,17 +8,17 @@ namespace Retinues.Core.Game.Wrappers
 {
     public class WFaction(IFaction faction) : StringIdentifier
     {
-        // =========================================================================
-        // Base
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Base                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly IFaction _faction = faction;
 
         public IFaction Base => _faction;
 
-        // =========================================================================
-        // Properties
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Properties                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public string Name => _faction.Name.ToString();
 
@@ -33,11 +33,11 @@ namespace Retinues.Core.Game.Wrappers
         public WCulture Culture => new(_faction.Culture);
 
         public IReadOnlyList<Settlement> Fiefs =>
-            _faction.Settlements.Where(s => s.IsTown || s.IsCastle).ToList();
+            [.. _faction.Settlements.Where(s => s.IsTown || s.IsCastle)];
 
-        // =========================================================================
-        // Troops
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Troops                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public IEnumerable<WCharacter> Troops
         {
@@ -69,9 +69,9 @@ namespace Retinues.Core.Game.Wrappers
             RetinueBasic = null;
         }
 
-        // =========================================================================
-        // Fiefs
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Fiefs                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
     }

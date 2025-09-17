@@ -1,6 +1,6 @@
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -14,6 +14,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             );
         public override int Column => 0;
         public override int Row => 3;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class AH_150OutnumberedOwnCulture : Feat
         {
@@ -47,6 +49,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class AH_TournamentOwnCultureTown : Feat
         {
             public override string Description =>
@@ -66,6 +70,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class AH_CaptureOwnCultureFief : Feat
         {

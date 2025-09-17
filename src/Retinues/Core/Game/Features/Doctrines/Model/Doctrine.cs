@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Retinues.Core.Game.Features.Doctrines
+namespace Retinues.Core.Game.Features.Doctrines.Model
 {
     public abstract class Doctrine
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Metadata                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public abstract string Name { get; }
         public abstract string Description { get; }
         public virtual int Column => 0; // 0..3
@@ -39,6 +43,10 @@ namespace Retinues.Core.Game.Features.Doctrines
                 };
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Type-based key used internally/persisted
         public string Key => GetType().FullName;

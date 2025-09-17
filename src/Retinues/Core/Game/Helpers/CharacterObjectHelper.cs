@@ -100,12 +100,11 @@ namespace Retinues.Core.Game.Helpers
                     Reflector.InvokeMethod(manager, "RemoveObject", [typeof(CharacterObject)], obj);
                 }
                 catch
-                { /* last resort: ignore, but you may hit dup-key when registering */
+                { // last resort: ignore, but may hit dup-key when registering //
                 }
             }
 
             // 2) Change backing field for StringId
-            //    Your Reflector already tries common patterns, so this works across builds.
             Reflector.SetPropertyValue(obj, "StringId", newId);
 
             // 3) Re-register

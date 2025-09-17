@@ -10,18 +10,36 @@ using TaleWorlds.Library;
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
     public sealed class EquipmentRowVM(WItem item, EquipmentListVM list)
-        : BaseRow<EquipmentListVM, EquipmentRowVM>(list),
-            IView
+        : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
     {
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━ Basics ━━━━━━━━ */
 
         [DataSourceProperty]
         public string Name => Item?.Name ?? L.S("empty_item", "Empty");
 
         [DataSourceProperty]
         public int Value => EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop);
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool CanEquip
+        {
+            get
+            {
+                if (RowList?.Screen?.SelectedTroop == null)
+                    return false; // No troop selected yet
+                if (Item == null)
+                    return true; // Always allow unequipping
+
+                // Check if the selected troop can equip this item
+                return RowList.Screen.SelectedTroop.CanEquip(Item);
+            }
+        }
 
         [DataSourceProperty]
         public bool ShowValue
@@ -42,6 +60,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                 return true;
             }
         }
+
+        /* ━━━━━━━━ Stocks ━━━━━━━━ */
 
         [DataSourceProperty]
         public int Stock => Item?.GetStock() ?? 0;
@@ -70,20 +90,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             }
         }
 
-        [DataSourceProperty]
-        public bool CanEquip
-        {
-            get
-            {
-                if (RowList?.Screen?.SelectedTroop == null)
-                    return false; // No troop selected yet
-                if (Item == null)
-                    return true; // Always allow unequipping
-
-                // Check if the selected troop can equip this item
-                return RowList.Screen.SelectedTroop.CanEquip(Item);
-            }
-        }
+        /* ━━━━━━━━━ Image ━━━━━━━━ */
 
         [DataSourceProperty]
         public string ImageId => Item?.Image.Id;
@@ -94,12 +101,14 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
 
+        /* ━━━━━━━━ Tooltip ━━━━━━━ */
+
         [DataSourceProperty]
         public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public new void ExecuteSelect()
@@ -168,9 +177,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             }
         }
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WItem Item { get; } = item;
 
@@ -188,9 +197,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(ImageAdditionalArgs));
         }
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected override void OnSelect()
         {

@@ -7,12 +7,11 @@ using TaleWorlds.Library;
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
     public sealed class TroopListVM(EditorScreenVM screen)
-        : BaseList<TroopListVM, TroopRowVM>(screen),
-            IView
+        : BaseList<TroopListVM, TroopRowVM>(screen)
     {
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public string RegularToggleText => L.S("list_toggle_regular", "Regular");
@@ -43,9 +42,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> BasicTroops { get; set; } = [];
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override System.Collections.Generic.List<TroopRowVM> Rows =>
             [.. RetinueTroops, .. EliteTroops, .. BasicTroops];
@@ -114,9 +113,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(BasicTroops));
         }
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private void AddTroopTreeInOrder(WCharacter troop, MBBindingList<TroopRowVM> list)
         {

@@ -1,10 +1,7 @@
 using System;
 using System.Reflection;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
-using HarmonyLib;
 using Bannerlord.UIExtenderEx;
+using HarmonyLib;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Features.Doctrines;
 using Retinues.Core.Game.Features.Unlocks.Behaviors;
@@ -13,6 +10,9 @@ using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core
 {
@@ -87,8 +87,8 @@ namespace Retinues.Core
                 if (Config.GetOption<bool>("EnableDoctrines"))
                 {
                     cs.AddBehavior(new DoctrineServiceBehavior());
-                    cs.AddBehavior(new FeatRuntimeBehavior());
-                    cs.AddBehavior(new FeatUnlockNotifierBehavior());
+                    cs.AddBehavior(new FeatServiceBehavior());
+                    cs.AddBehavior(new FeatNotificationBehavior());
                     Log.Debug("Doctrines enabled.");
                 }
 

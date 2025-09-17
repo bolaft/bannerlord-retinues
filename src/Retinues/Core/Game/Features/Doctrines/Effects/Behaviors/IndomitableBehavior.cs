@@ -16,6 +16,10 @@ namespace Retinues.Core.Game.Features.Doctrines.Effects.Behaviors
             DoctrineAPI.IsDoctrineUnlocked<Indomitable>()
             && MobileParty.MainParty?.MapEvent?.IsPlayerMapEvent == true;
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Mission Events                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public override void OnAgentCreated(Agent agent)
         {
             if (!Enabled || agent == null || !agent.IsHuman)

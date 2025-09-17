@@ -1,25 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
     public sealed class EquipmentListVM(EditorScreenVM screen)
-        : BaseList<EquipmentListVM, EquipmentRowVM>(screen),
-            IView
+        : BaseList<EquipmentListVM, EquipmentRowVM>(screen)
     {
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public MBBindingList<EquipmentRowVM> Equipments { get; set; } = [];
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override List<EquipmentRowVM> Rows => [.. Equipments];
 

@@ -1,5 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Core.Editor.UI.Mixins;
 using Retinues.Core.Editor.UI.VM.Doctrines;
 using Retinues.Core.Editor.UI.VM.Equipment;
 using Retinues.Core.Editor.UI.VM.Troop;
@@ -12,25 +13,21 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM
 {
-    public class EditorScreenVM : ViewModel, IView
+    public class EditorScreenVM : ViewModel
     {
-        // =========================================================================
-        // Fields
-        // =========================================================================
-
-        private bool _isTroopsSelected;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly ITroopScreen _screen;
-
-        private MBBindingList<DoctrineColumnVM> _doctrineColumns;
 
         private EditorMode _editorMode = EditorMode.Default;
 
         private WFaction _faction;
 
-        // =========================================================================
-        // Constructor
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public EditorScreenVM(WFaction faction, ITroopScreen screen)
         {
@@ -48,9 +45,9 @@ namespace Retinues.Core.Editor.UI.VM
             }
         }
 
-        // =========================================================================
-        // Enums
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Enums                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public enum EditorMode
         {
@@ -59,9 +56,28 @@ namespace Retinues.Core.Editor.UI.VM
             Doctrines = 2,
         }
 
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━━━ VMs ━━━━━━━━━ */
+
+        [DataSourceProperty]
+        public TroopEditorVM TroopEditor { get; private set; }
+
+        [DataSourceProperty]
+        public TroopListVM TroopList { get; private set; }
+
+        [DataSourceProperty]
+        public EquipmentEditorVM EquipmentEditor { get; private set; }
+
+        [DataSourceProperty]
+        public EquipmentListVM EquipmentList { get; private set; }
+
+        [DataSourceProperty]
+        public CharacterViewModel Model => SelectedTroop?.Model;
+
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
         public string TroopsTabText => L.S("troops_tab_text", "Troops");
@@ -79,48 +95,12 @@ namespace Retinues.Core.Editor.UI.VM
         public string CloseDoctrinesButtonText => L.S("close_doctrines_button_text", "Back");
 
         [DataSourceProperty]
-        public bool IsTroopsSelected
-        {
-            get => _isTroopsSelected;
-            set
-            {
-                if (value == _isTroopsSelected)
-                    return;
-                _isTroopsSelected = value;
-                OnPropertyChanged(nameof(IsTroopsSelected));
-            }
-        }
-
-        [DataSourceProperty]
-        public MBBindingList<DoctrineColumnVM> DoctrineColumns
-        {
-            get
-            {
-                _doctrineColumns ??= DoctrineColumnVM.CreateColumns();
-                return _doctrineColumns;
-            }
-        }
-
-        [DataSourceProperty]
-        public bool CanSwitchFaction => Player.Kingdom != null && !IsDoctrinesMode;
-
-        [DataSourceProperty]
         public string FactionSwitchText =>
             Faction == Player.Clan
                 ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops")
                 : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
 
-        [DataSourceProperty]
-        public TroopEditorVM TroopEditor { get; private set; }
-
-        [DataSourceProperty]
-        public TroopListVM TroopList { get; private set; }
-
-        [DataSourceProperty]
-        public EquipmentEditorVM EquipmentEditor { get; private set; }
-
-        [DataSourceProperty]
-        public EquipmentListVM EquipmentList { get; private set; }
+        /* ━━━━━━━━━ Mode ━━━━━━━━━ */
 
         [DataSourceProperty]
         public bool IsDefaultMode
@@ -178,15 +158,48 @@ namespace Retinues.Core.Editor.UI.VM
         public bool CanSwitchToDoctrines =>
             !IsDoctrinesMode && Config.GetOption<bool>("EnableDoctrines");
 
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        private bool _isTroopsSelected;
+
         [DataSourceProperty]
-        public CharacterViewModel Model => SelectedTroop?.Model;
+        public bool IsTroopsSelected
+        {
+            get => _isTroopsSelected;
+            set
+            {
+                if (value == _isTroopsSelected)
+                    return;
+                _isTroopsSelected = value;
+                OnPropertyChanged(nameof(IsTroopsSelected));
+            }
+        }
+
+        [DataSourceProperty]
+        public bool CanSwitchFaction => Player.Kingdom != null && !IsDoctrinesMode;
 
         [DataSourceProperty]
         public bool ShowRemoveButton => IsDefaultMode && SelectedTroop?.IsRetinue == false;
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        /* ━━━━━━━ Doctrines ━━━━━━ */
+
+        private MBBindingList<DoctrineColumnVM> _doctrineColumns;
+
+        [DataSourceProperty]
+        public MBBindingList<DoctrineColumnVM> DoctrineColumns
+        {
+            get
+            {
+                _doctrineColumns ??= DoctrineColumnVM.CreateColumns();
+                return _doctrineColumns;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━ Mode Switch ━━━━━ */
 
         [DataSourceMethod]
         public void ExecuteSwitchToDefault() => SwitchMode(EditorMode.Default);
@@ -196,6 +209,21 @@ namespace Retinues.Core.Editor.UI.VM
 
         [DataSourceMethod]
         public void ExecuteSwitchToDoctrines() => SwitchMode(EditorMode.Doctrines);
+
+        /* ━━━━ Faction Switch ━━━━ */
+
+        [DataSourceMethod]
+        public void ExecuteSwitchFaction()
+        {
+            Log.Debug("Switching faction.");
+
+            if (Faction == Player.Clan)
+                SwitchFaction(Player.Kingdom);
+            else
+                SwitchFaction(Player.Clan);
+        }
+
+        /* ━━━━━━━ Selection ━━━━━━ */
 
         [DataSourceMethod]
         public void ExecuteSelectTroops()
@@ -219,20 +247,9 @@ namespace Retinues.Core.Editor.UI.VM
             }
         }
 
-        [DataSourceMethod]
-        public void ExecuteSwitchFaction()
-        {
-            Log.Debug("Switching faction.");
-
-            if (Faction == Player.Clan)
-                SwitchFaction(Player.Kingdom);
-            else
-                SwitchFaction(Player.Clan);
-        }
-
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WFaction Faction => _faction;
 

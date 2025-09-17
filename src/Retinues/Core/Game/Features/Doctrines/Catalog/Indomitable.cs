@@ -1,4 +1,5 @@
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
@@ -10,6 +11,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("indomitable_description", "+20% retinue health.");
         public override int Column => 3;
         public override int Row => 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class IND_25EquivNoCasualty : Feat
         {
@@ -39,7 +42,9 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                         Log.Info("  Player troop kill detected.");
                         if (kill.Killer.Character.IsRetinue)
                         {
-                            Log.Info($"  Killer: {kill.Killer.Character.Name} (tier {kill.Killer.Character.Tier})");
+                            Log.Info(
+                                $"  Killer: {kill.Killer.Character.Name} (tier {kill.Killer.Character.Tier})"
+                            );
                             Log.Info(
                                 $"  Victim: {kill.Victim.Character.Name} (tier {kill.Victim.Character.Tier})"
                             );
@@ -56,6 +61,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 }
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class IND_JoinSiegeDefenderFullStrength : Feat
         {
@@ -80,6 +87,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class IND_RetinueOnly3DefWins : Feat
         {

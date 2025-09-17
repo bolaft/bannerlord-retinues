@@ -9,8 +9,8 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
-    /// Shows a popup when a feat is completed, as soon as the player is on the world map.
-    public sealed class FeatUnlockNotifierBehavior : CampaignBehaviorBase
+    // Shows a popup when a feat is completed, as soon as the player is on the world map.
+    public sealed class FeatNotificationBehavior : CampaignBehaviorBase
     {
         private readonly Queue<string> _pendingFeatKeys = new(); // featKey queue (Type.FullName)
         private bool _inMission;
@@ -58,7 +58,7 @@ namespace Retinues.Core.Game.Features.Doctrines
             TryFlush();
         }
 
-        /// Try to display queued popups if we're on the world map and no inquiry is active.
+        // Try to display queued popups if we're on the world map and no inquiry is active.
         public void TryFlush()
         {
             try
@@ -104,8 +104,8 @@ namespace Retinues.Core.Game.Features.Doctrines
             );
         }
 
-        private static (DoctrineDef doc, FeatDef feat) FindFeat(
-            IReadOnlyList<DoctrineDef> all,
+        private static (DoctrineDefinition doc, FeatDefinition feat) FindFeat(
+            IReadOnlyList<DoctrineDefinition> all,
             string featKey
         )
         {

@@ -5,12 +5,11 @@ using TaleWorlds.Library;
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
     public sealed class TroopRowVM(WCharacter troop, TroopListVM list)
-        : BaseRow<TroopListVM, TroopRowVM>(list),
-            IView
+        : BaseRow<TroopListVM, TroopRowVM>(list)
     {
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public bool DisplayEmptyMessage => Troop is null;
@@ -47,9 +46,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string EmptyMessage =>
             L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops.");
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter Troop { get; } = troop;
 
@@ -65,9 +64,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(EmptyMessage));
         }
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected override void OnSelect()
         {

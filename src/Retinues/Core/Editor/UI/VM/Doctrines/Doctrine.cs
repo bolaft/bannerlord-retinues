@@ -14,7 +14,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
     {
         private readonly string _id;
         private readonly DoctrineServiceBehavior _svc;
-        private readonly DoctrineDef _def;
+        private readonly DoctrineDefinition _def;
         private readonly string _name;
 
         public DoctrineVM(string doctrineId)
@@ -34,15 +34,11 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             }
         }
 
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceProperty]
-        public DoctrineStatus Status
-        {
-            get { return DoctrineAPI.GetDoctrineStatus(_id); }
-        }
+        /* ━━━━━━━━ Button ━━━━━━━━ */
 
         [DataSourceProperty]
         public string ButtonText
@@ -61,10 +57,12 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
         }
 
         [DataSourceProperty]
-        public string Description
+        public string ButtonBrush
         {
-            get { return _def?.Description ?? string.Empty; }
+            get { return Status == DoctrineStatus.Unlocked ? "ButtonBrush1" : "ButtonBrush2"; }
         }
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
         public bool IsEnabled
@@ -72,10 +70,18 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             get { return Status != DoctrineStatus.Locked && Status != DoctrineStatus.Unlocked; }
         }
 
+        /* ━━━━━━ Properties ━━━━━━ */
+
         [DataSourceProperty]
-        public string ButtonBrush
+        public DoctrineStatus Status
         {
-            get { return Status == DoctrineStatus.Unlocked ? "ButtonBrush1" : "ButtonBrush2"; }
+            get { return DoctrineAPI.GetDoctrineStatus(_id); }
+        }
+
+        [DataSourceProperty]
+        public string Description
+        {
+            get { return _def?.Description ?? string.Empty; }
         }
 
         [DataSourceProperty]
@@ -90,9 +96,9 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             get { return _def?.InfluenceCost ?? 0; }
         }
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public void ExecuteShowPopup()
@@ -211,9 +217,9 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             }
         }
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public DoctrineColumnVM Column { get; set; }
 

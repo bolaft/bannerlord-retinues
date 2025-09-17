@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
@@ -12,6 +13,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("masters_at_arms_description", "+1 upgrade branch for elite troops.");
         public override int Column => 2;
         public override int Row => 2;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class MAA_Upgrade100EliteToMax : Feat
         {
@@ -37,13 +40,12 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class MAA_KO50Opponents : Feat
         {
             public override string Description =>
-                L.S(
-                    "masters_at_arms_ko_50_opponents",
-                    "Knock out 50 opponents in the arena."
-                );
+                L.S("masters_at_arms_ko_50_opponents", "Knock out 50 opponents in the arena.");
             public override int Target => 50;
 
             public override void OnArenaEnd(Combat combat)
@@ -53,6 +55,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(koCount);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class MAA_1000EliteKills : Feat
         {

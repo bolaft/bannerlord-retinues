@@ -1,5 +1,5 @@
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
+using Retinues.Core.Game.Features.Doctrines.Model;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -10,6 +10,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("cultural_pride_description", "10% rebate on items of the troop's culture.");
         public override int Column => 1;
         public override int Row => 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class CP_TournamentOwnCultureGear : Feat
         {
@@ -36,6 +38,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class CP_FullSet100Kills : Feat
         {
@@ -75,6 +79,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 }
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class CP_DefeatForeignRuler : Feat
         {

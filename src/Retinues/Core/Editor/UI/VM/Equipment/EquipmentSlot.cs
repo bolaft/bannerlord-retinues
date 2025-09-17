@@ -12,14 +12,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         string label,
         WCharacter troop,
         EquipmentEditorVM editor
-    ) : ViewModel, IView
+    ) : ViewModel
     {
-        // =========================================================================
-        // Fields
-        // =========================================================================
-
-        private bool _isSelected;
-        private readonly string _label = label;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly EquipmentIndex _slot = slot;
 
@@ -27,12 +24,20 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         private readonly EquipmentEditorVM _editor = editor;
 
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
+
+        private readonly string _label = label;
 
         [DataSourceProperty]
         public string ButtonLabel => _label;
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        private bool _isSelected;
 
         [DataSourceProperty]
         public bool IsSelected
@@ -72,8 +77,12 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             }
         }
 
+        /* ━━━━━━━ Item Info ━━━━━━ */
+
         [DataSourceProperty]
         public string Name => Item?.Name;
+
+        /* ━━━━━━━━━ Image ━━━━━━━━ */
 
         [DataSourceProperty]
         public string ImageId => Item?.Image.Id;
@@ -84,19 +93,21 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
 
+        /* ━━━━━━━━━ Hint ━━━━━━━━━ */
+
         [DataSourceProperty]
         public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public void ExecuteSelect() => Select();
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WItem Item => _troop.Equipment.GetItem(_slot);
 

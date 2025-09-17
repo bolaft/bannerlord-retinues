@@ -1,4 +1,5 @@
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -8,6 +9,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
         public override string Description => L.S("vanguard_description", "+15% retinue cap.");
         public override int Column => 3;
         public override int Row => 2;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class VG_ClearHideoutRetinueOnly : Feat
         {
@@ -31,15 +34,16 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     if (kill.Victim.IsPlayerTroop)
                         if (!kill.Victim.Character.IsRetinue && !kill.Victim.IsPlayer)
                             return; // A non-retinue / non-player was present
-                        else
-                        if (!kill.Killer.Character.IsRetinue)
+                        else if (!kill.Killer.Character.IsRetinue)
                             if (!kill.Killer.IsPlayer)
                                 return; // A non-retinue / non-player was present
                 }
-                
+
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class VG_Win100RetinueOnly : Feat
         {
@@ -61,6 +65,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class VG_FirstMeleeKillInSiege : Feat
         {

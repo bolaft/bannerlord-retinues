@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Game.Wrappers;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
@@ -11,6 +12,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("royal_patronage_description", "10% rebate on items of the kingdom's culture.");
         public override int Column => 1;
         public override int Row => 2;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class RP_Recruit100CustomKingdom : Feat
         {
@@ -27,6 +30,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     AdvanceProgress(amount);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class RP_CompanionGovernor30Days : Feat
         {
@@ -52,6 +57,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 }
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class RP_1000KillsCustomKingdom : Feat
         {

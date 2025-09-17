@@ -1,5 +1,5 @@
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
+using Retinues.Core.Game.Features.Doctrines.Model;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -10,6 +10,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("battlefield_tithes_description", "Can unlock items from allied party kills.");
         public override int Column => 0;
         public override int Row => 1;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class BT_QuestForAlliedLord : Feat
         {
@@ -31,6 +33,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class BT_LeadArmyVictory : Feat
         {
             public override string Description =>
@@ -39,7 +43,6 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     "Lead an army of mostly allied troops to victory against an enemy army."
                 );
             public override int Target => 1;
-
 
             public override void OnBattleEnd(Battle battle)
             {
@@ -55,6 +58,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class BT_TurnTideAlliedArmyBattle : Feat
         {

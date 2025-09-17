@@ -3,13 +3,16 @@ using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
-namespace Retinues.Core.Game.Features.Doctrines
+namespace Retinues.Core.Game.Features.Doctrines.Model
 {
     public abstract class Feat
     {
-        // Minimal metadata you define in each feat class
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Metadata                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public abstract string Description { get; }
-        public virtual int Target => 0; // 0 => trivially complete
+        public virtual int Target => 0;
 
         // Type-based key used internally/persisted
         public string Key => GetType().FullName;
@@ -17,7 +20,9 @@ namespace Retinues.Core.Game.Features.Doctrines
         // Owning doctrine type (assumes nested class)
         public Type DoctrineType => GetType().DeclaringType;
 
-        // ---- Progress tracking ----
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Progress Tracking                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public int Progress => DoctrineAPI.GetFeatProgress(GetType());
 
@@ -33,13 +38,17 @@ namespace Retinues.Core.Game.Features.Doctrines
             return DoctrineAPI.AdvanceFeat(GetType(), amount);
         }
 
-        // ---- Hooks ----
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Registration                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public virtual void OnRegister() { }
 
         public virtual void OnUnregister() { }
 
-        // ---- Event hooks ----
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Event Hooks                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public virtual void OnDailyTick() { }
 
@@ -61,10 +70,10 @@ namespace Retinues.Core.Game.Features.Doctrines
             WCharacter upgradeFromTroop,
             WCharacter upgradeToTroop,
             int number
-        )
-        { }
+        ) { }
 
         public virtual void OnArenaStart(Combat combat) { }
+
         public virtual void OnArenaEnd(Combat combat) { }
     }
 }

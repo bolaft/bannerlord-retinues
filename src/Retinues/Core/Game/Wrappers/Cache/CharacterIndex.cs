@@ -15,8 +15,9 @@ namespace Retinues.Core.Game.Wrappers.Cache
             _parentIdByChildId.Clear();
 
             var sources = new List<WFaction> { Player.Clan };
+
             if (Player.Kingdom != null)
-                sources.Add(Player.Kingdom); // Player.Kingdom is cached wrapper too. :contentReference[oaicite:5]{index=5}
+                sources.Add(Player.Kingdom);
 
             foreach (var fac in sources)
             {

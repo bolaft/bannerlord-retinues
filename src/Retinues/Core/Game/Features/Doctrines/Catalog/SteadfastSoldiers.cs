@@ -1,5 +1,6 @@
 using Retinues.Core.Editor;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -10,6 +11,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("steadfast_soldiers_description", "+5% skill points.");
         public override int Column => 2;
         public override int Row => 1;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class SS_TwelveTroopsMaxedSkills : Feat
         {
@@ -31,6 +34,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 SetProgress(maxedCount);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class SS_SiegeDefenseOnlyCustom : Feat
         {
@@ -55,6 +60,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class SS_DefendVillageOnlyCustom : Feat
         {

@@ -10,17 +10,23 @@ namespace Retinues.Core.Game.Events
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 
-        // =========================================================================
-        // Info
-        // =========================================================================
-
-        // -------- Kills --------
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Info                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public readonly List<Kill> Kills = [];
 
-        // =========================================================================
-        // Mission Events
-        // =========================================================================
+        public class Kill(Agent victim, Agent killer, AgentState state, KillingBlow blow)
+        {
+            public WAgent Victim = new(victim);
+            public WAgent Killer = new(killer);
+            public AgentState State = state;
+            public KillingBlow Blow = blow;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Mission Events                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override void OnAgentRemoved(
             Agent victim,
@@ -42,20 +48,6 @@ namespace Retinues.Core.Game.Events
                 return; // ignore non-character agents (horses, etc)
 
             Kills.Add(new Kill(victim, killer, state, blow));
-        }
-
-        // =========================================================================
-        // Internals
-        // =========================================================================
-
-        // -------- Kills --------
-
-        public class Kill(Agent victim, Agent killer, AgentState state, KillingBlow blow)
-        {
-            public WAgent Victim = new(victim);
-            public WAgent Killer = new(killer);
-            public AgentState State = state;
-            public KillingBlow Blow = blow;
         }
     }
 }

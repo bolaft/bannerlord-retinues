@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
@@ -11,6 +12,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
         public override string Description => L.S("iron_discipline_description", "+5% skill cap.");
         public override int Column => 2;
         public override int Row => 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class ID_Upgrade100BasicToMax : Feat
         {
@@ -36,6 +39,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class ID_Troops50ArenaKOs : Feat
         {
             public override string Description =>
@@ -52,6 +57,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(koCount);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class ID_DefeatTwiceSizeOnlyCustom : Feat
         {

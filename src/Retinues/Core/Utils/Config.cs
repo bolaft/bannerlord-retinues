@@ -8,9 +8,9 @@ namespace Retinues.Core.Utils
 {
     public static class Config
     {
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                Option Model                                */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Option Model                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class ConfigOption
         {
@@ -43,13 +43,13 @@ namespace Retinues.Core.Utils
             }
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                  Option List                               */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Option List                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         static Config()
         {
-            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Retinues ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+            /* ━━━━━━━ Retinues ━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_retinues", "Retinues"),
@@ -113,7 +113,7 @@ namespace Retinues.Core.Utils
                 maxValue: 5000
             );
 
-            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Recruitment ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+            /* ━━━━━━ Recruitment ━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_recruitment", "Recruitment"),
@@ -127,7 +127,7 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
-            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Doctrines ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+            /* ━━━━━━━ Doctrines ━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_doctrines", "Doctrines"),
@@ -141,7 +141,7 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
-            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Equipment ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+            /* ━━━━━━━ Equipment ━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_equipment", "Equipment"),
@@ -181,7 +181,7 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
-            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Skills ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+            /* ━━━━━━━━ Skills ━━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_skills", "Skills"),
@@ -211,7 +211,7 @@ namespace Retinues.Core.Utils
                 maxValue: 10
             );
 
-            /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Unlocks ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+            /* ━━━━━━━━ Unlocks ━━━━━━━ */
 
             AddOption(
                 section: L.S("mcm_section_unlocks", "Unlocks"),
@@ -274,9 +274,9 @@ namespace Retinues.Core.Utils
             catch { }
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                 Public API                                 */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static IReadOnlyList<ConfigOption> Options => _options;
 
@@ -388,9 +388,9 @@ namespace Retinues.Core.Utils
                 yield return (opt.Key, opt.Default);
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                   Helpers                                  */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void AddOption(
             string section,
@@ -419,7 +419,7 @@ namespace Retinues.Core.Utils
             _byKey[key] = opt;
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Conversion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━ Conversion ━━━━━━ */
 
         private static object ConvertTo(object value, Type targetType)
         {
@@ -499,7 +499,7 @@ namespace Retinues.Core.Utils
             return Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Parsers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━━━ Parsers ━━━━━━━ */
 
         private static object ParseFromString(string raw, Type type, object fallback)
         {
@@ -546,7 +546,7 @@ namespace Retinues.Core.Utils
             return fallback;
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━━━ Format ━━━━━━━━ */
 
         private static string FormatValue(object value)
         {

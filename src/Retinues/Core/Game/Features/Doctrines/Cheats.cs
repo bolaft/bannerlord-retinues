@@ -6,16 +6,19 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
-    /// Console cheats for Retinues (enable cheats; open console; type "retinues.feat_list" etc.)
-    /// Examples:
-    ///     retinues.feat_list
-    ///     retinues.feat_add MAA_1000EliteKills 25
-    ///     retinues.feat_set LionsShare.LS_25PersonalKills 25 (full name or short name both work)
-    ///     retinues.feat_unlock CH_TournamentOwnCultureTown
-    ///     retinues.feat_unlock_all
+    // Console cheats for Retinues (enable cheats; open console; type "retinues.feat_list" etc.)
+    //
+    // Examples:
+    //     retinues.feat_list
+    //     retinues.feat_add MAA_1000EliteKills 25
+    //     retinues.feat_set LionsShare.LS_25PersonalKills 25 (full name or short name both work)
+    //     retinues.feat_unlock CH_TournamentOwnCultureTown
+    //     retinues.feat_unlock_all
     public static class Cheats
     {
-        // -------------- Commands ----------------
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_list", "retinues")]
         public static string FeatList(List<string> args)
@@ -112,18 +115,20 @@ namespace Retinues.Core.Game.Features.Doctrines
             return $"Completed {n} feats.";
         }
 
-        // -------------- Helpers ----------------
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static IEnumerable<string> AllFeatKeys()
         {
-            var docs = DoctrineAPI.AllDoctrines() ?? Array.Empty<DoctrineDef>();
+            var docs = DoctrineAPI.AllDoctrines() ?? Array.Empty<DoctrineDefinition>();
             foreach (var d in docs)
                 if (d.Feats != null)
                     foreach (var f in d.Feats)
                         yield return f.Key;
         }
 
-        /// <summary>Resolve a feat by: full type name, short nested name, or case-insensitive suffix.</summary>
+        // Resolve a feat by: full type name, short nested name, or case-insensitive suffix.
         private static Type ResolveFeatType(string token, out string featKey, out string error)
         {
             featKey = null;
@@ -138,7 +143,7 @@ namespace Retinues.Core.Game.Features.Doctrines
             var byKey = new Dictionary<string, Type>(StringComparer.Ordinal);
             var byShort = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); // shortName -> fullKey
 
-            foreach (var d in DoctrineAPI.AllDoctrines() ?? Array.Empty<DoctrineDef>())
+            foreach (var d in DoctrineAPI.AllDoctrines() ?? Array.Empty<DoctrineDefinition>())
             {
                 if (d.Feats == null)
                     continue;
@@ -217,7 +222,7 @@ namespace Retinues.Core.Game.Features.Doctrines
                         return t;
                 }
                 catch
-                { /* ignore dynamic loaders */
+                { // ignore dynamic loaders //
                 }
             }
             return null;

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -12,6 +13,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("immortals_description", "+20% retinue survival chance.");
         public override int Column => 3;
         public override int Row => 3;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class IM_100RetinueSurviveStruckDown : Feat
         {
@@ -53,6 +56,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class IM_Win100NoDeaths : Feat
         {
             public override string Description =>
@@ -82,6 +87,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class IM_SingleRetinueTwoTier5Kills : Feat
         {

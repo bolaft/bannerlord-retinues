@@ -1,5 +1,4 @@
 using Retinues.Core.Game.Wrappers.Cache;
-using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -8,15 +7,31 @@ namespace Retinues.Core.Game.Wrappers
 {
     public class WAgent(Agent agent)
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Base                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private readonly Agent _agent = agent;
 
         public Agent Agent => _agent;
 
-        public BattleSideEnum Side => _agent.Team?.Side ?? BattleSideEnum.None;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Components                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter Character = agent.Character is CharacterObject @object
             ? WCharacterCache.Wrap(@object)
             : null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Attributes                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public BattleSideEnum Side => _agent.Team?.Side ?? BattleSideEnum.None;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Flags                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool IsPlayer => _agent.IsPlayerControlled;
 

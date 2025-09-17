@@ -3,19 +3,18 @@ using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game.Wrappers.Cache;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.AgentOrigins;
-using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Features.Xp.Behaviors
 {
-    /// Tracks kills done by custom troops during a mission,
     public sealed class TroopXpMissionBehavior : MissionBehavior
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 
-        private readonly Dictionary<WCharacter, int> _xpByTroop = [];
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override void OnAgentRemoved(
             Agent victim,
@@ -60,7 +59,13 @@ namespace Retinues.Core.Game.Features.Xp.Behaviors
             _xpByTroop.Clear();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private const int XpPerTier = 5;
+
+        private readonly Dictionary<WCharacter, int> _xpByTroop = [];
 
         private static int ComputeKillXp(CharacterObject victim)
         {

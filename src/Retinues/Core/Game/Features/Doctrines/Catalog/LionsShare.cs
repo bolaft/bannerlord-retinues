@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -10,6 +11,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("lions_share_description", "Hero kills count twice for unlocks.");
         public override int Column => 0;
         public override int Row => 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class LS_25PersonalKills : Feat
         {
@@ -25,6 +28,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     SetProgress(playerKills);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class LS_5Tier5Plus : Feat
         {
@@ -45,6 +50,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     SetProgress(playerKills);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class LS_KillEnemyLord : Feat
         {

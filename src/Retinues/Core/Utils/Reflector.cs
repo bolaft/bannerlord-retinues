@@ -7,7 +7,7 @@ namespace Retinues.Core.Utils
     public static class Reflector
     {
         public const BindingFlags Flags =
-              BindingFlags.Instance
+            BindingFlags.Instance
             | BindingFlags.Static
             | BindingFlags.Public
             | BindingFlags.NonPublic

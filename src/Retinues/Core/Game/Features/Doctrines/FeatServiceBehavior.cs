@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Features.Doctrines.Effects.Behaviors;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Game.Wrappers.Cache;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
@@ -15,8 +16,8 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
-    /// Event router for feats.
-    public sealed class FeatRuntimeBehavior : CampaignBehaviorBase
+    // Event router for feats.
+    public sealed class FeatServiceBehavior : CampaignBehaviorBase
     {
         private readonly List<Feat> _activeFeats = [];
 
@@ -60,7 +61,6 @@ namespace Retinues.Core.Game.Features.Doctrines
                 this,
                 PlayerUpgradedTroops
             );
-
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -68,9 +68,9 @@ namespace Retinues.Core.Game.Features.Doctrines
             // No persistent state here — feat progress is persisted by DoctrineServiceBehavior.
         }
 
-        // ---------------------------------------------------------------------
-        // Hooks
-        // ---------------------------------------------------------------------
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Hooks                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private void OnDailyTick()
         {
@@ -104,8 +104,10 @@ namespace Retinues.Core.Game.Features.Doctrines
                         Log.Info($"OnMissionStarted - Mode: {mode}");
 
                 // Tournament match
-                if (mission.CombatType == Mission.MissionCombatType.Combat
-                    && mission.Mode == MissionMode.StartUp)
+                if (
+                    mission.CombatType == Mission.MissionCombatType.Combat
+                    && mission.Mode == MissionMode.StartUp
+                )
                 {
                     Log.Info("FeatRuntimeBehavior: OnMissionStarted (tournament match)");
                     // Attach Combat behavior (captures kills etc.)
@@ -171,37 +173,37 @@ namespace Retinues.Core.Game.Features.Doctrines
                 if (mission.Mode == (MissionMode)mode)
                     Log.Info($"OnMissionEnded - Mode: {mode}");
             try
+            {
+                if (mission.CombatType == Mission.MissionCombatType.Combat)
                 {
-                    if (mission.CombatType == Mission.MissionCombatType.Combat)
-                    {
-                        Log.Info("FeatRuntimeBehavior: OnMissionEnded (tournament match)");
-                        // Notify feats: combat end
-                        var combat = mission.GetMissionBehavior<Combat>();
-                        if (combat != null)
-                            foreach (var feat in _activeFeats.ToList())
-                                feat.OnArenaEnd(combat);
-                    }
-                    // At this point mission is ending; MapEvent may already be null in some cases,
-                    // so rely on the behavior we attached.
-                    var battle = mission?.GetMissionBehavior<Battle>();
-                    if (battle == null)
-                        return;
-
-                    Log.Info("FeatRuntimeBehavior: OnMissionEnded (battle)");
-
-                    foreach (var feat in _activeFeats.ToList())
-                        feat.OnBattleEnd(battle);
-
-                    // Log battle report
-                    battle.LogReport();
-
-                    // Display feat unlock popups if any
-                    Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
+                    Log.Info("FeatRuntimeBehavior: OnMissionEnded (tournament match)");
+                    // Notify feats: combat end
+                    var combat = mission.GetMissionBehavior<Combat>();
+                    if (combat != null)
+                        foreach (var feat in _activeFeats.ToList())
+                            feat.OnArenaEnd(combat);
                 }
-                catch (Exception ex)
-                {
-                    Log.Exception(ex);
-                }
+                // At this point mission is ending; MapEvent may already be null in some cases,
+                // so rely on the behavior we attached.
+                var battle = mission?.GetMissionBehavior<Battle>();
+                if (battle == null)
+                    return;
+
+                Log.Info("FeatRuntimeBehavior: OnMissionEnded (battle)");
+
+                foreach (var feat in _activeFeats.ToList())
+                    feat.OnBattleEnd(battle);
+
+                // Log battle report
+                battle.LogReport();
+
+                // Display feat unlock popups if any
+                Campaign.Current?.GetCampaignBehavior<FeatNotificationBehavior>()?.TryFlush();
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
         }
 
         internal void OnTournamentFinished(
@@ -214,14 +216,18 @@ namespace Retinues.Core.Game.Features.Doctrines
             try
             {
                 Log.Info("FeatRuntimeBehavior: OnTournamentFinished");
-                var tournament = new Tournament(town, WCharacterCache.Wrap(winner), [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]); // fallback
+                var tournament = new Tournament(
+                    town,
+                    WCharacterCache.Wrap(winner),
+                    [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]
+                ); // fallback
 
                 // Notify feats
                 foreach (var feat in _activeFeats.ToList())
                     feat.OnTournamentFinished(tournament);
 
                 // Display feat unlock popups if any
-                Campaign.Current?.GetCampaignBehavior<FeatUnlockNotifierBehavior>()?.TryFlush();
+                Campaign.Current?.GetCampaignBehavior<FeatNotificationBehavior>()?.TryFlush();
             }
             catch (Exception ex)
             {
@@ -329,9 +335,9 @@ namespace Retinues.Core.Game.Features.Doctrines
             }
         }
 
-        // ---------------------------------------------------------------------
-        // Active feats management
-        // ---------------------------------------------------------------------
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                 Active Feats Management                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private void RefreshActiveFeats()
         {
@@ -397,18 +403,19 @@ namespace Retinues.Core.Game.Features.Doctrines
                         return t;
                 }
                 catch
-                { /* ignore dynamic/ReflectionTypeLoadException cases */
+                { // ignore dynamic/ReflectionTypeLoadException cases //
                 }
             }
             return null;
         }
 
-        // ---------------------------------------------------------------------
-        // Mission relay
-        // ---------------------------------------------------------------------
-        private sealed class MissionEndRelay(FeatRuntimeBehavior host) : MissionBehavior
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Mission relay                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private sealed class MissionEndRelay(FeatServiceBehavior host) : MissionBehavior
         {
-            private readonly FeatRuntimeBehavior _host = host;
+            private readonly FeatServiceBehavior _host = host;
 
             public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 

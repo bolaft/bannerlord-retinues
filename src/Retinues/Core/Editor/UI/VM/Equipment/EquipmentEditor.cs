@@ -7,39 +7,18 @@ using TaleWorlds.Library;
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
     public sealed class EquipmentEditorVM(EditorScreenVM screen)
-        : BaseEditor<EquipmentEditorVM>(screen),
-            IView
+        : BaseEditor<EquipmentEditorVM>(screen)
     {
-        // =========================================================================
-        // Fields
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private EquipmentSlotVM _headSlot;
-        private EquipmentSlotVM _capeSlot;
-        private EquipmentSlotVM _bodySlot;
-        private EquipmentSlotVM _glovesSlot;
-        private EquipmentSlotVM _legSlot;
-        private EquipmentSlotVM _horseSlot;
-        private EquipmentSlotVM _horseHarnessSlot;
-        private EquipmentSlotVM _weaponItemBeginSlotSlot;
-        private EquipmentSlotVM _weapon1Slot;
-        private EquipmentSlotVM _weapon2Slot;
-        private EquipmentSlotVM _weapon3Slot;
-
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
-
-        // -------------------------
-        // Texts
-        // -------------------------
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
         public string UnequipAllButtonText => L.S("unequip_all_button_text", "Unequip All");
 
-        // -------------------------
-        // Flags
-        // -------------------------
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
         public bool CanUnequip
@@ -55,45 +34,66 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             }
         }
 
-        // -------------------------
-        // Equipment Slots
-        // -------------------------
+        /* ━━━━ Equipment Slots ━━━ */
+
+        private EquipmentSlotVM _headSlot;
 
         [DataSourceProperty]
         public EquipmentSlotVM HeadSlot => _headSlot;
 
+        private EquipmentSlotVM _capeSlot;
+
         [DataSourceProperty]
         public EquipmentSlotVM CapeSlot => _capeSlot;
+
+        private EquipmentSlotVM _bodySlot;
 
         [DataSourceProperty]
         public EquipmentSlotVM BodySlot => _bodySlot;
 
+        private EquipmentSlotVM _glovesSlot;
+
+        [DataSourceProperty]
         public EquipmentSlotVM GlovesSlot => _glovesSlot;
+
+        private EquipmentSlotVM _legSlot;
 
         [DataSourceProperty]
         public EquipmentSlotVM LegSlot => _legSlot;
 
+        private EquipmentSlotVM _horseSlot;
+
         [DataSourceProperty]
         public EquipmentSlotVM HorseSlot => _horseSlot;
+
+        private EquipmentSlotVM _horseHarnessSlot;
 
         [DataSourceProperty]
         public EquipmentSlotVM HorseHarnessSlot => _horseHarnessSlot;
 
+        private EquipmentSlotVM _weaponItemBeginSlotSlot;
+
         [DataSourceProperty]
         public EquipmentSlotVM WeaponItemBeginSlotSlot => _weaponItemBeginSlotSlot;
+
+        private EquipmentSlotVM _weapon1Slot;
 
         [DataSourceProperty]
         public EquipmentSlotVM Weapon1Slot => _weapon1Slot;
 
+        private EquipmentSlotVM _weapon2Slot;
+
         [DataSourceProperty]
         public EquipmentSlotVM Weapon2Slot => _weapon2Slot;
+
+        private EquipmentSlotVM _weapon3Slot;
 
         [DataSourceProperty]
         public EquipmentSlotVM Weapon3Slot => _weapon3Slot;
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public void ExecuteUnequipAll()
@@ -128,9 +128,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             );
         }
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public IEnumerable<EquipmentSlotVM> Slots
         {
@@ -194,9 +194,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(Weapon3Slot));
         }
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public void CreateAllSlots()
         {

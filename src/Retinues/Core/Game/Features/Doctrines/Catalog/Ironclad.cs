@@ -1,4 +1,5 @@
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
@@ -10,6 +11,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("ironclad_description", "No tier restriction for arms and armor.");
         public override int Column => 1;
         public override int Row => 3;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class IC_FullSetT5Plus100Kills : Feat
         {
@@ -48,6 +51,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class IC_10TroopsAthletics80 : Feat
         {
             public override string Description =>
@@ -66,6 +71,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 SetProgress(count);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class IC_100BattleOutnumberedLowTier : Feat
         {

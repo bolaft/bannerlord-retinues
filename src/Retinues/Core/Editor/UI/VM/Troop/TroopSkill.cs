@@ -10,12 +10,11 @@ using TaleWorlds.Library;
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
     public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopEditorVM editor)
-        : ViewModel,
-            IView
+        : ViewModel
     {
-        // =========================================================================
-        // Fields
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         readonly SkillObject _skill = skill;
 
@@ -23,9 +22,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         readonly TroopEditorVM _editor = editor;
 
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public int Value => _troop.GetSkill(_skill);
@@ -39,9 +38,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public bool CanDecrement => TroopRules.CanDecrementSkill(_troop, _skill);
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public void ExecuteIncrement() => Modify(+1);
@@ -49,9 +48,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteDecrement() => Modify(-1);
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public void Refresh()
         {
@@ -61,9 +60,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(CanDecrement));
         }
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private void Modify(int delta)
         {

@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Doctrines
 {
-    public static class DoctrineCatalog
+    public static class DoctrineDiscovery
     {
-        /// Discover all Doctrine subclasses in the target namespace/assembly.
+        // Discover all Doctrine subclasses in the target namespace/assembly.
         public static IReadOnlyList<Doctrine> DiscoverDoctrines(
             string @namespaceStartsWith = "Retinues.Core.Game.Features.Doctrines.Catalog"
         )

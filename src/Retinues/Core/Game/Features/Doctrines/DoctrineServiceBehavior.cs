@@ -13,7 +13,7 @@ namespace Retinues.Core.Game.Features.Doctrines
         private Dictionary<string, int> _featProgress = []; // featKey -> current
 
         // -------- Definitions (rebuilt on load) --------
-        private Dictionary<string, DoctrineDef> _defsByKey = [];
+        private Dictionary<string, DoctrineDefinition> _defsByKey = [];
         private readonly Dictionary<string, string> _featToDoctrine = []; // featKey -> doctrineKey
 
         public override void RegisterEvents()
@@ -40,10 +40,10 @@ namespace Retinues.Core.Game.Features.Doctrines
         }
 
         // Public API uses *string keys* internally; DoctrineAPI will expose type-based overloads.
-        public IEnumerable<DoctrineDef> AllDoctrines() =>
+        public IEnumerable<DoctrineDefinition> AllDoctrines() =>
             _defsByKey.Values.OrderBy(d => d.Column).ThenBy(d => d.Row);
 
-        public DoctrineDef GetDoctrine(string key) =>
+        public DoctrineDefinition GetDoctrine(string key) =>
             _defsByKey.TryGetValue(key, out var d) ? d : null;
 
         public bool IsDoctrineUnlocked(string key) => _unlocked.Contains(key);
@@ -182,20 +182,20 @@ namespace Retinues.Core.Game.Features.Doctrines
 
             Log.Info("Building doctrine catalog...");
 
-            var doctrines = DoctrineCatalog.DiscoverDoctrines(); // type discovery
-            var defs = new List<DoctrineDef>();
+            var doctrines = DoctrineDiscovery.DiscoverDoctrines(); // type discovery
+            var defs = new List<DoctrineDefinition>();
             _featToDoctrine.Clear();
 
             foreach (var d in doctrines)
             {
                 var key = d.Key; // Type.FullName
-                var feats = new List<FeatDef>();
+                var feats = new List<FeatDefinition>();
 
                 foreach (var f in d.InstantiateFeats())
                 {
                     var fKey = f.Key;
                     feats.Add(
-                        new FeatDef
+                        new FeatDefinition
                         {
                             Key = fKey,
                             Description = f.Description,
@@ -207,7 +207,7 @@ namespace Retinues.Core.Game.Features.Doctrines
                 }
 
                 defs.Add(
-                    new DoctrineDef
+                    new DoctrineDefinition
                     {
                         Key = key,
                         Name = d.Name,
@@ -223,7 +223,7 @@ namespace Retinues.Core.Game.Features.Doctrines
             }
 
             // Second pass: prerequisite = doctrine one row above in same column
-            var byPos = new Dictionary<(int col, int row), DoctrineDef>();
+            var byPos = new Dictionary<(int col, int row), DoctrineDefinition>();
             foreach (var def in defs)
                 byPos[(def.Column, def.Row)] = def;
 

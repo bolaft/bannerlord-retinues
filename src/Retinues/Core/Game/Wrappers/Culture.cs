@@ -5,25 +5,25 @@ namespace Retinues.Core.Game.Wrappers
 {
     public class WCulture(CultureObject culture) : StringIdentifier
     {
-        // =========================================================================
-        // Base
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Base                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly CultureObject _culture = culture;
 
-        public object Base => _culture;
+        public CultureObject Base => _culture;
 
-        // =========================================================================
-        // Properties
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Properties                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public string Name => _culture.Name.ToString();
 
         public override string StringId => _culture.StringId.ToString();
 
-        // =========================================================================
-        // Troops
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Troops                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter RootBasic => new(_culture.BasicTroop, null);
         public WCharacter RootElite => new(_culture.EliteBasicTroop, null);

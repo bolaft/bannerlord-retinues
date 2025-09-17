@@ -23,6 +23,10 @@ namespace Retinues.Core.Game.Features.Doctrines.Effects.Behaviors
         // Track fatal casualties by troop type
         private readonly Dictionary<CharacterObject, int> _retinueDeaths = [];
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Mission Events                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public override void OnAgentRemoved(
             Agent victim,
             Agent killer,

@@ -3,18 +3,18 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
-    public sealed class TroopUpgradeTargetVM(WCharacter troop) : ViewModel, IView
+    public sealed class TroopUpgradeTargetVM(WCharacter troop) : ViewModel
     {
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public string Name => Troop?.Name;
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter Troop { get; } = troop;
 

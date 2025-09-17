@@ -1,4 +1,4 @@
-namespace Retinues.Core.Editor.UI
+namespace Retinues.Core.Editor.UI.Mixins
 {
     public interface ITroopScreen
     {

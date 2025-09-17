@@ -1,5 +1,6 @@
-using Retinues.Core.Game.Events;
 using System.Linq;
+using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -14,6 +15,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
         public override int Column => 0;
         public override int Row => 2;
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class PS_Allies100Casualties : Feat
         {
             public override string Description =>
@@ -27,18 +30,20 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             {
                 if (battle.IsLost)
                     return; // Must win
-                
+
                 if (battle.AllyTroopCount == 0)
                     return; // No allies, no progress
 
-                int allyCasualties = battle.Kills.Where(
-                    k => k.Victim.Side == battle.PlayerSide && !k.Victim.IsPlayer
-                ).Count();
+                int allyCasualties = battle
+                    .Kills.Where(k => k.Victim.Side == battle.PlayerSide && !k.Victim.IsPlayer)
+                    .Count();
 
                 if (allyCasualties > Progress)
                     SetProgress(allyCasualties);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class PS_AllyArmyWin3 : Feat
         {
@@ -49,25 +54,21 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 );
             public override int Target => 3;
 
-
             public override void OnBattleEnd(Battle battle)
             {
-                if (battle.IsLost
-                || !battle.PlayerIsInArmy
-                || Player.IsArmyLeader)
+                if (battle.IsLost || !battle.PlayerIsInArmy || Player.IsArmyLeader)
                     SetProgress(0);
                 else
                     AdvanceProgress(1);
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class PS_RescueLord : Feat
         {
             public override string Description =>
-                L.S(
-                    "pragmatic_scavengers_rescue_lord",
-                    "Rescue a defeated lord from captivity."
-                );
+                L.S("pragmatic_scavengers_rescue_lord", "Rescue a defeated lord from captivity.");
             public override int Target => 1;
 
             private static bool LordInCaptivity = false;

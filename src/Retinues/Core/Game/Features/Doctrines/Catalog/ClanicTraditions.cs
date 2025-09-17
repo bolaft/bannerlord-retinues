@@ -1,6 +1,6 @@
 using System.Linq;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
@@ -12,6 +12,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("clanic_traditions_description", "10% rebate on items of the clan's culture.");
         public override int Column => 1;
         public override int Row => 1;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class CT_OwnSmithy30Days : Feat
         {
@@ -41,6 +43,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class CT_Companions50Kills : Feat
         {
             public override string Description =>
@@ -61,6 +65,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class CT_CompanionWins100BattleAsLeader : Feat
         {
             public override string Description =>
@@ -72,7 +78,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
 
             public override void OnSettlementOwnerChanged(SettlementOwnerChange change)
             {
-                var newOwner = (CharacterObject)change.NewOwner.Base;
+                var newOwner = change.NewOwner.Base;
                 if (newOwner.HeroObject?.Clan?.StringId != Player.Clan.StringId)
                     return;
 

@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Features.Doctrines;
-using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
@@ -10,8 +8,6 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
 {
     public sealed class DoctrineColumnVM : ViewModel
     {
-        private string _name;
-
         public DoctrineColumnVM(string name, IEnumerable<DoctrineVM> doctrines)
         {
             _name = name;
@@ -28,9 +24,9 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             Refresh();
         }
 
-        // =========================================================================
-        // Static
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static MBBindingList<DoctrineColumnVM> CreateColumns()
         {
@@ -63,9 +59,11 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
             return columns;
         }
 
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private string _name;
 
         [DataSourceProperty]
         public string Name
@@ -82,6 +80,10 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
 
         [DataSourceProperty]
         public MBBindingList<DoctrineVM> Doctrines { get; }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public void Refresh()
         {

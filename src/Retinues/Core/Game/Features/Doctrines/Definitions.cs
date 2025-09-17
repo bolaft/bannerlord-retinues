@@ -10,26 +10,26 @@ namespace Retinues.Core.Game.Features.Doctrines
         Unlocked,
     }
 
-    public sealed class FeatDef
+    public sealed class FeatDefinition
     {
-        public string Key; // = featType.FullName
+        public string Key;
         public string Description;
         public int Target;
     }
 
-    public sealed class DoctrineDef
+    public sealed class DoctrineDefinition
     {
-        public string Key; // = doctrineType.FullName
+        public string Key;
         public string Name;
         public string Description;
 
         public int Column;
         public int Row;
-        public string PrerequisiteKey; // = prerequisiteType.FullName
+        public string PrerequisiteKey;
 
         public int GoldCost;
         public int InfluenceCost;
 
-        public List<FeatDef> Feats = [];
+        public List<FeatDefinition> Feats = [];
     }
 }

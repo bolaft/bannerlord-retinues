@@ -8,14 +8,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 {
     public sealed class TroopConversionRowVM : ViewModel
     {
-        // =========================================================================
-        // Fields & Constructor
-        // =========================================================================
-
-        private readonly TroopEditorVM _editor;
-        private readonly WCharacter _from;
-        private readonly WCharacter _to;
-
         public TroopConversionRowVM(WCharacter from, WCharacter to, TroopEditorVM editor)
         {
             _from = from;
@@ -24,9 +16,17 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             Refresh();
         }
 
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly TroopEditorVM _editor;
+        private readonly WCharacter _from;
+        private readonly WCharacter _to;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public string FromDisplay => $"{_from?.Name} ({FromAvailableVirtual})";
@@ -46,9 +46,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public int PendingAmount => _editor.GetPendingAmount(_from, _to);
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public void ExecuteRecruit()
@@ -67,9 +67,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             Refresh();
         }
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public int FromAvailable => _from != null ? Player.Party.MemberRoster.CountOf(_from) : 0;
         public int ToAvailable => _to != null ? Player.Party.MemberRoster.CountOf(_to) : 0;
@@ -85,9 +85,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             _editor.OnPropertyChanged(nameof(_editor.TroopCount));
         }
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private int FromAvailableVirtual => _editor.GetVirtualCount(_from);
         private int ToAvailableVirtual => _editor.GetVirtualCount(_to);

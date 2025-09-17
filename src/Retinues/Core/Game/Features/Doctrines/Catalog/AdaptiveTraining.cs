@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Features.Doctrines.Model;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
 
@@ -12,6 +13,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             L.S("adaptive_training_description", "XP is refunded when lowering a troop's skill.");
         public override int Column => 2;
         public override int Row => 3;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class AT_200InEachSkill : Feat
         {
@@ -40,6 +43,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 SetProgress(satisfiedSkills.Count);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class AT_WinWithEvenSplit : Feat
         {
@@ -70,6 +75,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class AT_5Weapons : Feat
         {
             public override string Description =>
@@ -82,7 +89,7 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
             public override void OnBattleEnd(Battle battle)
             {
                 var weaponClasses = new List<int>();
-    
+
                 foreach (var kill in battle.Kills)
                 {
                     if (!kill.Killer.IsPlayer)

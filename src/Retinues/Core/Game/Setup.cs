@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
-using TaleWorlds.Localization;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Game
 {
     public static class Setup
     {
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                  Retinues                                  */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Retinues                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static void SetupFactionRetinue(WFaction faction)
         {
@@ -26,8 +26,8 @@ namespace Retinues.Core.Game
                 MakeRetinueName(faction, isElite: false)
             );
         }
-        
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Helpers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+        /* ━━━━━━━━ Helpers ━━━━━━━ */
 
         private static string MakeRetinueName(WFaction faction, bool isElite)
         {
@@ -41,8 +41,7 @@ namespace Retinues.Core.Game
                         to = L.T("retinue_male_kingdom", "{FACTION} King's Champion");
                 else
                     to = L.T("retinue_royal_guard", "{FACTION} Royal Guard");
-            else
-                if (isElite)
+            else if (isElite)
                 to = L.T("retinue_house_champion", "{FACTION} House Champion");
             else
                 to = L.T("retinue_house_guard", "{FACTION} House Guard");
@@ -67,15 +66,15 @@ namespace Retinues.Core.Game
 
             // Unlock items
             foreach (var equipment in rootTroop.Equipments)
-                foreach (var item in equipment.Items)
-                    item.Unlock();
+            foreach (var item in equipment.Items)
+                item.Unlock();
 
             return retinueTroop;
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                   Troops                                   */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Troops                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static void SetupFactionTroops(WFaction faction)
         {
@@ -104,16 +103,16 @@ namespace Retinues.Core.Game
 
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(faction.EliteTroops, faction.BasicTroops))
-                foreach (var equipment in troop.Equipments)
-                    foreach (var item in equipment.Items)
-                        item.Unlock();
+            foreach (var equipment in troop.Equipments)
+            foreach (var item in equipment.Items)
+                item.Unlock();
 
             Log.Debug(
                 $"Unlocked {WItem.UnlockedItems.Count()} items from {faction.EliteTroops.Count + faction.BasicTroops.Count} troops"
             );
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Helpers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━━━ Helpers ━━━━━━━ */
 
         private static IEnumerable<WCharacter> CloneTroopTreeRecursive(
             WCharacter original,

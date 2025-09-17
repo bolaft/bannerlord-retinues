@@ -1,5 +1,5 @@
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
+using Retinues.Core.Game.Features.Doctrines.Model;
 
 namespace Retinues.Core.Game.Features.Doctrines.Catalog
 {
@@ -11,13 +11,12 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
         public override int Column => 3;
         public override int Row => 1;
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class BBH_NoPayment3x : Feat
         {
             public override string Description =>
-                L.S(
-                    "bound_by_honor_no_payment_3x",
-                    "Complete a quest for no reward three times."
-                );
+                L.S("bound_by_honor_no_payment_3x", "Complete a quest for no reward three times.");
             public override int Target => 3;
 
             public override void OnQuestCompleted(Quest quest)
@@ -30,6 +29,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                 AdvanceProgress(1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class BBH_RetinueOnlyMorale90For15Days : Feat
         {
@@ -48,6 +49,8 @@ namespace Retinues.Core.Game.Features.Doctrines.Catalog
                     SetProgress(0); // Reset progress if morale drops below 90
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class BBH_RetinueWinsTournament : Feat
         {

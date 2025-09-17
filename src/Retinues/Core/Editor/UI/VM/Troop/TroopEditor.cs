@@ -11,13 +11,11 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
-    public sealed class TroopEditorVM(EditorScreenVM screen)
-        : BaseEditor<TroopEditorVM>(screen),
-            IView
+    public sealed class TroopEditorVM(EditorScreenVM screen) : BaseEditor<TroopEditorVM>(screen)
     {
-        // =========================================================================
-        // Fields
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly MBBindingList<TroopSkillVM> _skillsRow1 = [];
         private readonly MBBindingList<TroopSkillVM> _skillsRow2 = [];
@@ -35,9 +33,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             public string Key => $"{From?.StringId}->{To?.StringId}";
         }
 
-        // =========================================================================
-        // Data Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
         public string GenderHeaderText => L.S("gender_header_text", "Gender");
@@ -84,9 +84,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 ? L.S("female", "Female")
                 : L.S("male", "Male");
 
-        // -------------------------
-        // Flags
-        // -------------------------
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
         public bool IsRetinue => SelectedTroop.IsRetinue;
@@ -100,9 +98,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false;
 
-        // -------------------------
-        // Upgrades
-        // -------------------------
+        /* ━━━━━━━ Upgrades ━━━━━━━ */
 
         [DataSourceProperty]
         public string AddUpgradeButtonText => L.S("add_upgrade_button_text", "Add Upgrade");
@@ -126,9 +122,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
         }
 
-        // -------------------------
-        // Conversion
-        // -------------------------
+        /* ━━━━━━ Conversion ━━━━━━ */
 
         [DataSourceProperty]
         public string TransferHeaderText => L.S("transfer_header_text", "Transfer");
@@ -161,9 +155,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public int RetinueCap => TroopRules.RetinueCapFor(SelectedTroop);
 
-        // -------------------------
-        // Skills
-        // -------------------------
+        /* ━━━━━━━━ Skills ━━━━━━━━ */
+
         [DataSourceProperty]
         public int AvailableTroopXp =>
             SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop) : 0;
@@ -181,9 +174,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
 
-        // -------------------------
-        // Removal
-        // -------------------------
+        /* ━━━━━━━━ Removal ━━━━━━━ */
 
         [DataSourceProperty]
         public string RemoveButtonText => L.S("remove_button_text", "Remove");
@@ -216,13 +207,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
         }
 
-        // =========================================================================
-        // Action Bindings
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // -------------------------
-        // Generic
-        // -------------------------
+        /* ━━━━━━━━ Generic ━━━━━━━ */
 
         [DataSourceMethod]
         public void ExecuteRename()
@@ -326,9 +315,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             );
         }
 
-        // -------------------------
-        // Retinue
-        // -------------------------
+        /* ━━━━━━━━ Retinue ━━━━━━━ */
 
         [DataSourceMethod]
         public void ExecuteRankUp()
@@ -494,9 +481,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 row.Refresh();
         }
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool PlayerWarnedAboutRetraining { get; set; } = false;
 
@@ -537,13 +524,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(PendingTotalCount));
         }
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // -------------------------
-        // Generic
-        // -------------------------
+        /* ━━━━━━━━ Generic ━━━━━━━ */
 
         private string CantRemoveTroopExplanation =>
             SelectedTroop?.Parent is null
@@ -555,9 +540,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 )
             : string.Empty;
 
-        // -------------------------
-        // Skills
-        // -------------------------
+        /* ━━━━━━━━ Skills ━━━━━━━━ */
 
         private void RebuildSkillRows()
         {
@@ -576,9 +559,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 _skillsRow2.Add(new TroopSkillVM(s.Key, SelectedTroop, this));
         }
 
-        // -------------------------
-        // Retinue
-        // -------------------------
+        /* ━━━━━━━━ Retinue ━━━━━━━ */
 
         private void RebuildRetinueRows()
         {

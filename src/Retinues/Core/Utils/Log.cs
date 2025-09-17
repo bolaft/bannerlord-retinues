@@ -1,26 +1,26 @@
 using System;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Utils
 {
     public enum LogLevel
     {
-        Trace    = 0,
-        Debug    = 1,
-        Info     = 2,
-        Success  = 3,
-        Warn     = 4,
-        Error    = 5,
-        Critical = 6
+        Trace = 0,
+        Debug = 1,
+        Info = 2,
+        Success = 3,
+        Warn = 4,
+        Error = 5,
+        Critical = 6,
     }
 
     public static class Log
     {
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                           Log Level Configuration                          */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                 Log Level Configuration                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Lowest level written to file
         public const LogLevel MinFileLevel = LogLevel.Debug;
@@ -28,9 +28,9 @@ namespace Retinues.Core.Utils
         // Lowest level shown in-game (InformationManager)
         public const LogLevel MinInGameLevel = LogLevel.Info;
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                               Log File Setup                               */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Log File Setup                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private const string LogFileName = "debug.log";
         private static readonly object _fileLock = new();
@@ -56,38 +56,48 @@ namespace Retinues.Core.Utils
             }
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                 Public API                                 */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void Trace(string message)    => Write(LogLevel.Trace,   message);
-        public static void Debug(string message)    => Write(LogLevel.Debug,   message);
-        public static void Info(string message)     => Write(LogLevel.Info,    message);
-        public static void Success(string message)  => Write(LogLevel.Success, message);
-        public static void Warn(string message)     => Write(LogLevel.Warn,    message);
-        public static void Error(string message)    => Write(LogLevel.Error,   message);
-        public static void Critical(string message) => Write(LogLevel.Critical,message);
+        public static void Trace(string message) => Write(LogLevel.Trace, message);
+
+        public static void Debug(string message) => Write(LogLevel.Debug, message);
+
+        public static void Info(string message) => Write(LogLevel.Info, message);
+
+        public static void Success(string message) => Write(LogLevel.Success, message);
+
+        public static void Warn(string message) => Write(LogLevel.Warn, message);
+
+        public static void Error(string message) => Write(LogLevel.Error, message);
+
+        public static void Critical(string message) => Write(LogLevel.Critical, message);
 
         public static void Exception(Exception ex, string context = "")
         {
             var msg =
-                $"[EXCEPTION] {ex.GetType().Name}: {ex.Message}" +
-                (string.IsNullOrWhiteSpace(context) ? "" : $" | {context}") +
-                Environment.NewLine + ex.StackTrace;
+                $"[EXCEPTION] {ex.GetType().Name}: {ex.Message}"
+                + (string.IsNullOrWhiteSpace(context) ? "" : $" | {context}")
+                + Environment.NewLine
+                + ex.StackTrace;
 
             Write(LogLevel.Error, msg);
             // Include inner exceptions if present
             var inner = ex.InnerException;
             while (inner != null)
             {
-                Write(LogLevel.Error, $"[INNER] {inner.GetType().Name}: {inner.Message}{Environment.NewLine}{inner.StackTrace}");
+                Write(
+                    LogLevel.Error,
+                    $"[INNER] {inner.GetType().Name}: {inner.Message}{Environment.NewLine}{inner.StackTrace}"
+                );
                 inner = inner.InnerException;
             }
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                   Writers                                  */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Writers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void Write(LogLevel level, string message)
         {
@@ -123,23 +133,31 @@ namespace Retinues.Core.Utils
             }
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /*                                   Helpers                                  */
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static Color LevelColor(LogLevel level)
         {
             // Palette tuned for readability on most backgrounds
             switch (level)
             {
-                case LogLevel.Trace:    return FromHex("#9E9E9EFF"); // grey 600
-                case LogLevel.Debug:    return FromHex("#64B5F6FF"); // light blue
-                case LogLevel.Info:     return FromHex("#2196F3FF"); // blue
-                case LogLevel.Success:  return FromHex("#43A047FF"); // green
-                case LogLevel.Warn:     return FromHex("#FFA000FF"); // amber
-                case LogLevel.Error:    return FromHex("#E53935FF"); // red
-                case LogLevel.Critical: return FromHex("#B71C1CFF"); // deep red
-                default:                return Color.White;
+                case LogLevel.Trace:
+                    return FromHex("#9E9E9EFF"); // grey 600
+                case LogLevel.Debug:
+                    return FromHex("#64B5F6FF"); // light blue
+                case LogLevel.Info:
+                    return FromHex("#2196F3FF"); // blue
+                case LogLevel.Success:
+                    return FromHex("#43A047FF"); // green
+                case LogLevel.Warn:
+                    return FromHex("#FFA000FF"); // amber
+                case LogLevel.Error:
+                    return FromHex("#E53935FF"); // red
+                case LogLevel.Critical:
+                    return FromHex("#B71C1CFF"); // deep red
+                default:
+                    return Color.White;
             }
         }
 
@@ -158,9 +176,11 @@ namespace Retinues.Core.Utils
                     var frame = stack.GetFrame(i);
                     var method = frame?.GetMethod();
                     var type = method?.DeclaringType;
-                    if (type == null) continue;
+                    if (type == null)
+                        continue;
 
-                    if (type == typeof(Log)) continue; // skip logger frames
+                    if (type == typeof(Log))
+                        continue; // skip logger frames
 
                     var typeName = type.Name;
                     var methodName = method!.Name is ".ctor" or ".cctor" ? typeName : method.Name;

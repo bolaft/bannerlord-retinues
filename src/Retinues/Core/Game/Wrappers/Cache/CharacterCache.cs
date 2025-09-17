@@ -8,7 +8,6 @@ namespace Retinues.Core.Game.Wrappers.Cache
     {
         private static readonly ConditionalWeakTable<CharacterObject, WCharacter> _byObj = new();
 
-        // Optional: fast maps so we can seed faction/parent (see #2 below)
         public static WFaction GetFactionFor(string troopId) =>
             WCharacterIndex.TryGetFactionByTroopId(troopId, out var f) ? f : null;
 
@@ -30,9 +29,6 @@ namespace Retinues.Core.Game.Wrappers.Cache
                     return new WCharacter(key, fac, parent);
                 }
             );
-        }
-
-        public static void Clear() { /* optional: nothing to do for CWT */
         }
     }
 }

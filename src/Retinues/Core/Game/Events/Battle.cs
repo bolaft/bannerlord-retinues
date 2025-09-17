@@ -17,67 +17,67 @@ namespace Retinues.Core.Game.Events
         {
             try
             {
-                Initialize();
-            }
-            catch (System.Exception e)
-            {
-                Log.Exception(e);
-            }
-        }
-        
-        private void Initialize()
-        {
-            // Initialize counts
-            PlayerTroopCount = Player.Party?.MemberRoster?.Count ?? 0;
-            EnemyTroopCount = GetRosters(EnemySide).Sum(r => r.Count);
-            AllyTroopCount = GetRosters(PlayerSide).Sum(r => r.Count);
-            FriendlyTroopCount = PlayerTroopCount + AllyTroopCount;
-            TotalTroopCount = PlayerTroopCount + EnemyTroopCount + AllyTroopCount;
+                // Initialize counts
+                PlayerTroopCount = Player.Party?.MemberRoster?.Count ?? 0;
+                EnemyTroopCount = GetRosters(EnemySide).Sum(r => r.Count);
+                AllyTroopCount = GetRosters(PlayerSide).Sum(r => r.Count);
+                FriendlyTroopCount = PlayerTroopCount + AllyTroopCount;
+                TotalTroopCount = PlayerTroopCount + EnemyTroopCount + AllyTroopCount;
 
-            // Prisoners
-            EnemyPrisoners = GetRosters(EnemySide, prisoners: true)
-                .SelectMany(r => r.Elements)
-                .Select(e => e.Troop)
-                .Where(t => t != null)
-                .ToList();
-
-            // Initialize army status
-            PlayerIsInArmy = Player.Party?.IsInArmy ?? false;
-            AllyIsInArmy = PartiesOnSide(PlayerSide).Any(p => p?.IsInArmy ?? false);
-            EnemyIsInArmy = PartiesOnSide(EnemySide).Any(p => p?.IsInArmy ?? false);
-
-            // Leaders
-            try
-            {
-                EnemyLeaders = GetLeaders(EnemySide);
-                AllyLeaders =
+                // Prisoners
+                EnemyPrisoners =
                 [
-                    .. GetLeaders(PlayerSide).Where(l => l?.StringId != Player.Character?.StringId),
+                    .. GetRosters(EnemySide, prisoners: true)
+                        .SelectMany(r => r.Elements)
+                        .Select(e => e.Troop)
+                        .Where(t => t != null),
                 ];
+
+                // Initialize army status
+                PlayerIsInArmy = Player.Party?.IsInArmy ?? false;
+                AllyIsInArmy = PartiesOnSide(PlayerSide).Any(p => p?.IsInArmy ?? false);
+                EnemyIsInArmy = PartiesOnSide(EnemySide).Any(p => p?.IsInArmy ?? false);
+
+                // Leaders
+                try
+                {
+                    EnemyLeaders = GetLeaders(EnemySide);
+                    AllyLeaders =
+                    [
+                        .. GetLeaders(PlayerSide)
+                            .Where(l => l?.StringId != Player.Character?.StringId),
+                    ];
+                }
+                catch (System.Exception e)
+                {
+                    Log.Exception(e);
+                    EnemyLeaders = [];
+                    AllyLeaders = [];
+                }
             }
             catch (System.Exception e)
             {
                 Log.Exception(e);
-                EnemyLeaders = [];
-                AllyLeaders = [];
             }
         }
 
-        // =========================================================================
-        // Info
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Info                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // -------- Leaders --------
+        /* ━━━━━━━━ Leaders ━━━━━━━ */
 
         public List<WCharacter> AllyLeaders;
         public List<WCharacter> EnemyLeaders;
 
-        // -------- Flags --------
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         public bool IsWon =>
             PlayerSide != BattleSideEnum.None && MapEvent.WinningSide == PlayerSide;
         public bool IsLost => !IsWon;
 
+        public bool IsFieldBattle => MapEvent.IsFieldBattle;
+        public bool IsHideout => MapEvent.IsHideoutBattle;
         public bool IsSiege =>
             MapEvent.IsSiegeAssault || MapEvent.IsSiegeAmbush || MapEvent.IsSiegeOutside;
         public bool IsVillageRaid =>
@@ -85,10 +85,6 @@ namespace Retinues.Core.Game.Events
             && MapEvent.MapEventSettlement != null
             && MapEvent.MapEventSettlement.IsVillage
             && !IsSiege;
-        
-        public bool IsFieldBattle => MapEvent.IsFieldBattle;
-
-        public bool IsHideout => MapEvent.IsHideoutBattle;
 
         public bool PlayerIsDefender => PlayerSide == BattleSideEnum.Defender;
 
@@ -96,7 +92,7 @@ namespace Retinues.Core.Game.Events
         public bool AllyIsInArmy;
         public bool EnemyIsInArmy;
 
-        // -------- Counts --------
+        /* ━━━━━━━━ Counts ━━━━━━━━ */
 
         public int TotalTroopCount;
         public int FriendlyTroopCount;
@@ -104,19 +100,11 @@ namespace Retinues.Core.Game.Events
         public int EnemyTroopCount;
         public int AllyTroopCount;
 
-        // -------- Prisoners --------
+        /* ━━━━━━━ Prisoners ━━━━━━ */
 
         public List<WCharacter> EnemyPrisoners;
 
-        // =========================================================================
-        // Internals
-        // =========================================================================
-
-        // -------- Map Event --------
-
-        private static MapEvent MapEvent => MobileParty.MainParty?.MapEvent;
-
-        // -------- Sides --------
+        /* ━━━━━━━━━ Sides ━━━━━━━━ */
 
         public BattleSideEnum PlayerSide
         {
@@ -146,41 +134,9 @@ namespace Retinues.Core.Game.Events
             }
         }
 
-        // -------- Leaders --------
-
-        private List<WCharacter> GetLeaders(BattleSideEnum side)
-        {
-            return [.. PartiesOnSide(side).Select(p => p?.Leader)];
-        }
-
-        // -------- Rosters --------
-
-        private List<WRoster> GetRosters(BattleSideEnum side, bool prisoners = false)
-        {
-            var rosters = new List<WRoster>();
-            foreach (var p in PartiesOnSide(side))
-                rosters.Add(prisoners ? p.PrisonRoster : p.MemberRoster);
-            return rosters;
-        }
-
-        // -------- Parties --------
-
-        private IEnumerable<WParty> PartiesOnSide(BattleSideEnum side, bool includePlayer = false)
-        {
-            foreach (var p in MapEvent.PartiesOnSide(side))
-            {
-                var mp = p?.Party?.MobileParty;
-                if (mp == null)
-                    continue;
-                if (!includePlayer && mp.StringId == Player.Party.StringId)
-                    continue; // skip player party
-                yield return new WParty(mp);
-            }
-        }
-
-        // =========================================================================
-        // Logging
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Logging                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public void LogReport()
         {
@@ -204,6 +160,46 @@ namespace Retinues.Core.Game.Events
             Log.Debug($"CustomKills = {Kills.Where(k => k.Killer.Character.IsCustom).Count()}");
             Log.Debug($"RetinueKills = {Kills.Where(k => k.Killer.Character.IsRetinue).Count()}");
             Log.Debug($"---------------------");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━ Map Event ━━━━━━ */
+
+        private static MapEvent MapEvent => MobileParty.MainParty?.MapEvent;
+
+        /* ━━━━━━━━ Leaders ━━━━━━━ */
+
+        private List<WCharacter> GetLeaders(BattleSideEnum side)
+        {
+            return [.. PartiesOnSide(side).Select(p => p?.Leader)];
+        }
+
+        /* ━━━━━━━━ Rosters ━━━━━━━ */
+
+        private List<WRoster> GetRosters(BattleSideEnum side, bool prisoners = false)
+        {
+            var rosters = new List<WRoster>();
+            foreach (var p in PartiesOnSide(side))
+                rosters.Add(prisoners ? p.PrisonRoster : p.MemberRoster);
+            return rosters;
+        }
+
+        /* ━━━━━━━━ Parties ━━━━━━━ */
+
+        private IEnumerable<WParty> PartiesOnSide(BattleSideEnum side, bool includePlayer = false)
+        {
+            foreach (var p in MapEvent.PartiesOnSide(side))
+            {
+                var mp = p?.Party?.MobileParty;
+                if (mp == null)
+                    continue;
+                if (!includePlayer && mp.StringId == Player.Party.StringId)
+                    continue; // skip player party
+                yield return new WParty(mp);
+            }
         }
     }
 }

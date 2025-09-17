@@ -6,7 +6,6 @@ using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Features.Xp
 {
-    // Global XP bank per troop type (StringId). Tracks deltas from the player's party roster XP.
     public static class TroopXpService
     {
         // Persisted
@@ -43,7 +42,6 @@ namespace Retinues.Core.Game.Features.Xp
             _pool[key] = GetPool(troop) + amount;
         }
 
-        /// Called at game loaded/session launched to align snapshot with current roster XP.
         public static void InitializeSnapshotFromRoster()
         {
             Log.Info("TroopXpService: Initializing XP snapshot from player party...");
