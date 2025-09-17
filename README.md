@@ -12,16 +12,20 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - provide translations in many languages
 - disable in game messages from logs altogether (set log level)
 - better XP display
+- +5 health flat (indomitable)
+- +5 skill cap +10 total skill bonus
+- "2nd upgrade branch for..."
+- rm "Royal Patronage" => doctrine to use crafted gear
 
 ## Fixes
 
 - fix hints not appearing on disabled buttons
 - XP doesn't load always (on game startup?)
 - counts as tournament match in real battles
+- crash on AddToCounts. OnTick? when hovering morale?
 
 ## Tests
 
-- recheck lord headshot feat
 - v1.3 test
 
 ## Script
