@@ -47,6 +47,9 @@
       id="ret_apply_conversions_button_text"
       text="Convert" />
     <string
+      id="ret_available_troop_xp"
+      text="{XP} xp" />
+    <string
       id="ret_battlefield_tithes"
       text="Battlefield Tithes" />
     <string
@@ -68,17 +71,17 @@
       id="ret_bound_by_honor"
       text="Bound by Honor" />
     <string
+      id="ret_bound_by_honor_defeat_10_bandits"
+      text="Get rid of 10 bandit parties." />
+    <string
       id="ret_bound_by_honor_description"
       text="+20% retinue morale." />
     <string
-      id="ret_bound_by_honor_no_payment_3x"
-      text="Complete a quest for no reward three times." />
+      id="ret_bound_by_honor_protect_villagers_or_caravans"
+      text="Save 3 caravans or villager parties from enemy attacks." />
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Maintain a retinue-only party&apos;s morale above 90 for 15 days." />
-    <string
-      id="ret_bound_by_honor_retinue_wins_tournament"
-      text="Have one of your retinue win a tournament." />
     <string
       id="ret_buy_item"
       text="Buy Item" />
@@ -101,7 +104,7 @@
       id="ret_clanic_traditions"
       text="Clanic Traditions" />
     <string
-      id="ret_clanic_traditions_companion_wins_100_battle_as_leader"
+      id="ret_clanic_traditions_acquire_new_fief"
       text="Acquire a new fief for your clan." />
     <string
       id="ret_clanic_traditions_companions_50_kills"
@@ -240,7 +243,7 @@
       text="Have your retinues defeat 25 enemy troops of equivalent tier without a single casualty." />
     <string
       id="ret_indomitable_description"
-      text="+20% retinue health." />
+      text="+5 HP to retinues." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
       text="Fight a siege battle as a defender with at least 20 retinue troops and win." />
@@ -251,17 +254,17 @@
       id="ret_iron_discipline"
       text="Iron Discipline" />
     <string
+      id="ret_iron_discipline_50_arena_kos"
+      text="Knock out 50 opponents in the arena." />
+    <string
       id="ret_iron_discipline_defeat_twice_size_only_custom"
       text="Defeat a party twice your size using only custom troops." />
     <string
       id="ret_iron_discipline_description"
-      text="+5% skill cap." />
-    <string
-      id="ret_iron_discipline_troops_50_arena_kos"
-      text="Have your custom troops knock out 50 opponents in the arena." />
+      text="+5 to skill caps." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
-      text="Upgrade 100 basic troops to max tier." />
+      text="Upgrade 100 basic custom troops to max tier." />
     <string
       id="ret_ironclad"
       text="Ironclad" />
@@ -387,7 +390,7 @@
       text="Get 1000 kills with elite troops." />
     <string
       id="ret_masters_at_arms_description"
-      text="+1 upgrade branch for elite troops." />
+      text="2nd upgrade branch for elite troops." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Knock out 50 opponents in the arena." />
@@ -436,6 +439,12 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximum proportion of elite retinue troops in player party." />
+    <string
+      id="ret_mcm_option_own_culture_unlock_bonuses"
+      text="Kills also unlock items from the custom troop&apos;s culture" />
+    <string
+      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
+      text="Whether kills also unlock items from the custom troop&apos;s culture." />
     <string
       id="ret_mcm_option_pay_for_equipment"
       text="Pay For Troop Equipment" />
@@ -608,6 +617,9 @@
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recruit 100 custom kingdom troops." />
     <string
+      id="ret_skill_cap_text"
+      text="{CAP} skill cap" />
+    <string
       id="ret_skills_header_text"
       text="Skills" />
     <string
@@ -618,12 +630,12 @@
       text="Defend a village from a raid using only custom troops." />
     <string
       id="ret_steadfast_soldiers_description"
-      text="+5% skill points." />
+      text="+10 skill points." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="Win a siege defense using only custom troops." />
     <string
-      id="ret_steadfast_soldiers_twelve_troops_maxed_skills"
+      id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Max out the skills of 15 custom troops." />
     <string
       id="ret_switch_to_clan_troops"
@@ -631,6 +643,9 @@
     <string
       id="ret_switch_to_kingdom_troops"
       text="Switch to\nKingdom Troops" />
+    <string
+      id="ret_tier"
+      text="Tier" />
     <string
       id="ret_transfer_header_text"
       text="Transfer" />

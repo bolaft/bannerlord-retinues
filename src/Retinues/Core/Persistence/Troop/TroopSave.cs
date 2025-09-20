@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Core.Features.Xp;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Game.Wrappers.Cache;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -17,6 +19,8 @@ namespace Retinues.Core.Persistence.Troop
 
         public static TroopSaveData Save(WCharacter character)
         {
+            Log.Debug($"Saving troop: {character.StringId}");
+
             var data = new TroopSaveData
             {
                 StringId = character.StringId,
@@ -31,6 +35,7 @@ namespace Retinues.Core.Persistence.Troop
                 IsFemale = character.IsFemale,
                 SkillCode = CodeFromSkills(character.Skills),
                 EquipmentCode = character.Equipment.Code,
+                XpPool = TroopXpService.GetPool(character),
             };
 
             return data;
@@ -57,7 +62,8 @@ namespace Retinues.Core.Persistence.Troop
                 parent: parent,
                 keepUpgrades: false,
                 keepEquipment: false,
-                keepSkills: false
+                keepSkills: false,
+                stringId: data.StringId
             );
 
             // Create the wrapped character
@@ -75,6 +81,9 @@ namespace Retinues.Core.Persistence.Troop
             // Toggle visibility flags
             clone.Register();
 
+            // Restore XP pool
+            TroopXpService.SetPool(clone, data.XpPool);
+
             // Retinues are not transferable
             if (data.IsEliteRetinue || data.IsBasicRetinue)
                 clone.IsNotTransferableInPartyScreen = true;
@@ -88,6 +97,8 @@ namespace Retinues.Core.Persistence.Troop
                 faction.EliteTroops.Add(clone);
             else
                 faction.BasicTroops.Add(clone);
+
+            Log.Debug($"Created troop: {clone.StringId} (from {clone.VanillaStringId}), target id: {data.StringId}");
 
             // Return the created troop
             return clone;

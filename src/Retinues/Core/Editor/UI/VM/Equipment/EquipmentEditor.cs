@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 

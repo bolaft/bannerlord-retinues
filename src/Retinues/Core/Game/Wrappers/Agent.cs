@@ -19,7 +19,7 @@ namespace Retinues.Core.Game.Wrappers
         //                       Components                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter Character = agent.Character is CharacterObject @object
+        public WCharacter Character = agent?.Character is CharacterObject @object
             ? WCharacterCache.Wrap(@object)
             : null;
 
@@ -27,14 +27,14 @@ namespace Retinues.Core.Game.Wrappers
         //                       Attributes                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public BattleSideEnum Side => _agent.Team?.Side ?? BattleSideEnum.None;
+        public BattleSideEnum Side => _agent?.Team?.Side ?? BattleSideEnum.None;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsPlayer => _agent.IsPlayerControlled;
+        public bool IsPlayer => _agent?.IsPlayerControlled == true;
 
-        public bool IsPlayerTroop => _agent.Team?.IsPlayerTeam == true;
+        public bool IsPlayerTroop => _agent?.Team?.IsPlayerTeam == true;
     }
 }

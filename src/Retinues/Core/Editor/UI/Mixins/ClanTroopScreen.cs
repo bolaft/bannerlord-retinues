@@ -76,9 +76,7 @@ namespace Retinues.Core.Editor.UI.Mixins
             )
             {
                 if (EditorScreen != null)
-                {
                     EditorScreen.IsTroopsSelected = false;
-                }
             }
         }
     }

@@ -6,12 +6,12 @@
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true"
-    MarginBottom="15">
+    MarginBottom="0">
     <Children>
         <!-- Name text -->
-        {{ text("@Name", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text("@Name", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
         <!-- Clickable icon -->
-        {{ button_icon("ExecuteRename", "SPClan.NameChange.Icon", "32") }}
+        {{ button_icon("ExecuteRename", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
     </Children>
 </ListPanel>

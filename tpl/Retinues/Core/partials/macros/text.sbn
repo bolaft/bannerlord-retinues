@@ -20,6 +20,17 @@
     ClipContents="false"/>
 {{- end -}}
 
+<!-- Small text -->
+{{- func small_text(text, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
+<TextWidget
+    IsVisible="{{is_visible}}"
+    Text="{{text}}" Brush="InventoryGoldFontBrush" Brush.FontColor="#F4E1C4FF"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="{{horizontal_alignment}}" VerticalAlignment="Center"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"
+    ClipContents="false"/>
+{{- end -}}
+
 <!-- Title header -->
 {{- func header(text, is_visible = "true", margin_top = "15", margin_bottom = "10") -}}
 <TextWidget

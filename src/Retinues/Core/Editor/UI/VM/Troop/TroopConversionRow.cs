@@ -32,7 +32,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string FromDisplay => $"{_from?.Name} ({FromAvailableVirtual})";
 
         [DataSourceProperty]
-        public string ToDisplay => $"{_to?.Name} ({ToAvailableVirtual})";
+        public string ToDisplay => $"{_to?.Name} ({ToAvailableVirtual}/{_editor.RetinueCap})";
 
         [DataSourceProperty]
         public bool CanRecruit => _editor.GetMaxStageable(_from, _to) > 0;

@@ -4,6 +4,7 @@ using Retinues.Core.Editor.UI.Mixins;
 using Retinues.Core.Editor.UI.VM.Doctrines;
 using Retinues.Core.Editor.UI.VM.Equipment;
 using Retinues.Core.Editor.UI.VM.Troop;
+using Retinues.Core.Features;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -215,8 +216,6 @@ namespace Retinues.Core.Editor.UI.VM
         [DataSourceMethod]
         public void ExecuteSwitchFaction()
         {
-            Log.Debug("Switching faction.");
-
             if (Faction == Player.Clan)
                 SwitchFaction(Player.Kingdom);
             else
@@ -288,9 +287,11 @@ namespace Retinues.Core.Editor.UI.VM
 
         public void SwitchFaction(WFaction faction)
         {
+            Log.Debug($"Switching to faction: {faction?.Name ?? "null"}");
+
             if (faction.RetinueElite == null && faction.RetinueBasic == null)
             {
-                Log.Debug("No retinue troops found, initializing default retinue troops.");
+                Log.Info("No retinue troops found, initializing default retinue troops.");
                 Setup.SetupFactionRetinue(faction);
             }
 
@@ -305,7 +306,7 @@ namespace Retinues.Core.Editor.UI.VM
                     || Config.GetOption<bool>("RecruitAnywhere")
                 )
                 {
-                    Log.Debug("Initializing default troops.");
+                    Log.Info("Initializing default troops.");
 
                     Setup.SetupFactionTroops(faction);
                 }

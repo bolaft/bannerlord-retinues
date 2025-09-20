@@ -1,6 +1,6 @@
 <ListPanel 
     DataSource="{DoctrineColumns}"
-    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
     DoNotAcceptEvents="false"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     PositionXOffset="60" PositionYOffset="0"

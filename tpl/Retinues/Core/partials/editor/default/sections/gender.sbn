@@ -6,13 +6,13 @@
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true"
-    MarginBottom="15">
+    MarginBottom="0">
     <Children>
         <!-- Gender text -->
-        {{ text("@Gender", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text("@Gender", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
         <!-- Clickable icon -->
-        {{ button_icon("ExecuteChangeGender", "SPClan.NameChange.Icon", "32") }}
+        {{ button_icon("ExecuteChangeGender", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
 
     </Children>
 </ListPanel>

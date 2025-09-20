@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -22,6 +24,26 @@ namespace Retinues.Core.Game.Events
             public WAgent Killer = new(killer);
             public AgentState State = state;
             public KillingBlow Blow = blow;
+
+            public bool IsValid
+            {
+                get
+                {
+                    if (killer == null || victim == null)
+                        return false;
+                    if (!killer.IsHuman || !victim.IsHuman)
+                        return false;
+                    if (State is not AgentState.Killed and not AgentState.Unconscious)
+                        return false;
+                    if (
+                        killer.Character is not CharacterObject
+                        || victim.Character is not CharacterObject
+                    )
+                        return false;
+
+                    return true;
+                }
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -35,19 +57,24 @@ namespace Retinues.Core.Game.Events
             KillingBlow blow
         )
         {
-            if (victim == null || killer == null)
-                return; // e.g. if agent despawned
+            var kill = new Kill(victim, killer, state, blow);
 
-            if (state != AgentState.Killed && state != AgentState.Unconscious)
-                return; // only care about kills and knockouts
+            if (kill.IsValid)
+                Kills.Add(kill);
+        }
 
-            if (victim.Character is not CharacterObject)
-                return; // ignore non-character agents (horses, etc)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Logging                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-            if (killer.Character is not CharacterObject)
-                return; // ignore non-character agents (horses, etc)
-
-            Kills.Add(new Kill(victim, killer, state, blow));
+        public void LogCombatReport()
+        {
+            Log.Debug($"--- Combat Report ---");
+            Log.Debug($"Kills: {Kills.Count} total");
+            Log.Debug($"PlayerKills = {Kills.Where(k => k.Killer.IsPlayer).Count()}");
+            Log.Debug($"CustomKills = {Kills.Where(k => k.Killer.Character.IsCustom).Count()}");
+            Log.Debug($"RetinueKills = {Kills.Where(k => k.Killer.Character.IsRetinue).Count()}");
+            Log.Debug($"---------------------");
         }
     }
 }

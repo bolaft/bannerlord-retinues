@@ -51,6 +51,12 @@ namespace Retinues.Core.Game.Wrappers
 
         public override string StringId => _party.StringId;
 
+        public bool IsVillager => _party.IsVillager;
+
+        public bool IsCaravan => _party.IsCaravan;
+
+        public bool IsBandit => _party.IsBandit;
+
         public int PartySizeLimit => _party.Party.PartySizeLimit;
 
         public float Morale => _party.Morale;

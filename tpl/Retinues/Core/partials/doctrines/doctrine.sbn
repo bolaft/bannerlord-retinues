@@ -1,5 +1,5 @@
 <ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop">
     <Children>
@@ -26,7 +26,7 @@
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             Brush="Clan.Tuple.Name.Text"
             VerticalAlignment="Center" HorizontalAlignment="Center"
-            MarginBottom="10" MarginTop="0"
+            MarginBottom="0" MarginTop="0"
             Text="@Description"/>
 
         <ListPanel

@@ -127,7 +127,9 @@ namespace Retinues.Core.Game.Wrappers
 
         public bool IsUniqueItem => _itemObject.IsUniqueItem;
 
-        public bool IsArmor => ArmorComponent != null;
+        public bool IsCrafted => _itemObject.IsCraftedByPlayer;
+
+        public bool IsArmor => ArmorComponent != null && ItemObject.ItemTypeEnum.HorseHarness != Type;
 
         public bool IsHorse => HorseComponent != null;
 

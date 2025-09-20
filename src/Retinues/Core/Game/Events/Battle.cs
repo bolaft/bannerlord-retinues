@@ -85,7 +85,7 @@ namespace Retinues.Core.Game.Events
             && MapEvent.MapEventSettlement != null
             && MapEvent.MapEventSettlement.IsVillage
             && !IsSiege;
-
+        
         public bool PlayerIsDefender => PlayerSide == BattleSideEnum.Defender;
 
         public bool PlayerIsInArmy;
@@ -99,6 +99,11 @@ namespace Retinues.Core.Game.Events
         public int PlayerTroopCount;
         public int EnemyTroopCount;
         public int AllyTroopCount;
+
+        /* ━━━━━━━━ Parties ━━━━━━━ */
+
+        public List<WParty> EnemyParties => [.. PartiesOnSide(EnemySide)];
+        public List<WParty> AllyParties => [.. PartiesOnSide(PlayerSide, includePlayer: false)];
 
         /* ━━━━━━━ Prisoners ━━━━━━ */
 
@@ -138,7 +143,7 @@ namespace Retinues.Core.Game.Events
         //                         Logging                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public void LogReport()
+        public void LogBattleReport()
         {
             Log.Debug($"--- Battle Report ---");
             Log.Debug($"Outcome: {(IsWon ? "Victory" : "Defeat")}");
@@ -155,11 +160,9 @@ namespace Retinues.Core.Game.Events
             Log.Debug(
                 $"Player In Army: {PlayerIsInArmy}, Allies In Army: {AllyIsInArmy}, Enemies In Army: {EnemyIsInArmy}"
             );
-            Log.Debug($"Kills: {Kills.Count} total");
-            Log.Debug($"PlayerKills = {Kills.Where(k => k.Killer.IsPlayer).Count()}");
-            Log.Debug($"CustomKills = {Kills.Where(k => k.Killer.Character.IsCustom).Count()}");
-            Log.Debug($"RetinueKills = {Kills.Where(k => k.Killer.Character.IsRetinue).Count()}");
             Log.Debug($"---------------------");
+
+            LogCombatReport();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

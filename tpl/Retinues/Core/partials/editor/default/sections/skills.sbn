@@ -1,27 +1,40 @@
-    <!-- Header -->
-    {{ header("@SkillsHeaderText") }}
+<!-- Header -->
+{{ header("@SkillsHeaderText") }}
 
-    <!-- Skills points -->
-    <ListPanel
-        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-        HorizontalAlignment="Center"
-        StackLayout.LayoutMethod="HorizontalLeftToRight"
-        UpdateChildrenStates="true"
-        MarginBottom="15">
-        <Children>
-            <!-- Used skill points  -->
-            {{ text_int("@SkillPointsUsed", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-            {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-            {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-            <!-- Available XP -->
-            {{ text("- XP: ", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
-            {{ text_int("@AvailableTroopXp", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0", "@TroopXpIsEnabled") }}
-            <!-- Tier & Tier Upgrade  -->
-            {{ text("- Tier ", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0", "@IsRetinue") }}
-            {{ text("@Tier", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0", "@IsRetinue") }}
-            {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "40", "@IsRetinueIsNotMaxTier", "@CanRankUp") }}
-        </Children>
-    </ListPanel>
+<!-- Skills points -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true">
+    <Children>
+        <!-- Used skill points  -->
+        {{ text_int("@SkillPointsUsed", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+    </Children>
+</ListPanel>
+
+<!-- Experience points -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="30"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+    MarginBottom="15">
+    <Children>
+        <!-- Available XP -->
+        {{ small_text("@AvailableTroopXpText", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
+        {{ small_text(" - ", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
+        <!-- Skill Caps  -->
+        {{ small_text("@SkillCapText") }}
+        <!-- Tier & Tier Upgrade  -->
+        {{ small_text(" - ", "Center", "0", "0", "0", "0", "@IsRetinue") }}
+        {{ small_text("@TierText", "Center", "0", "8", "0", "0", "@IsRetinue") }}
+        {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "30", "@IsRetinueIsNotMaxTier", "@CanRankUp") }}
+    </Children>
+</ListPanel>
 
 <!-- Skills grid -->
 <ListPanel

@@ -115,8 +115,6 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         public void Select()
         {
-            Log.Debug($"Selecting slot.");
-
             if (IsSelected)
                 return; // No-op if already selected
 
@@ -125,8 +123,6 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         public void OnSelect()
         {
-            Log.Debug($"Selected slot: {_slot}.");
-
             _editor.Screen.EquipmentList?.Refresh();
             _editor.Screen.Refresh();
         }

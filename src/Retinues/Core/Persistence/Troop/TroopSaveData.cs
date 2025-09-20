@@ -43,5 +43,8 @@ namespace Retinues.Core.Persistence.Troop
 
         [SaveableField(13)]
         public List<TroopSaveData> UpgradeTargets = [];
+
+        [SaveableField(14)]
+        public int XpPool = 0;
     }
 }

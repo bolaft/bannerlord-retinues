@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Core.Game.Features.Doctrines;
+using Retinues.Core.Features.Doctrines;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 

@@ -1,7 +1,7 @@
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Core.Game.Features.Doctrines;
-using Retinues.Core.Game.Features.Doctrines.Catalog;
+using Retinues.Core.Features.Doctrines;
+using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
@@ -90,7 +90,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
                 _editor.OnPropertyChanged(nameof(_editor.SkillPointsUsed));
                 _editor.OnPropertyChanged(nameof(_editor.CanRankUp));
-                _editor.OnPropertyChanged(nameof(_editor.AvailableTroopXp));
+                _editor.OnPropertyChanged(nameof(_editor.AvailableTroopXpText));
 
                 // Refresh all skills buttons
                 foreach (var s in _editor.SkillsRow1.Concat(_editor.SkillsRow2))
@@ -107,8 +107,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 && !_editor.PlayerWarnedAboutRetraining
             )
             {
-                _editor.PlayerWarnedAboutRetraining = true;
-
                 // Warn the player that decrementing skills may require retraining
                 InformationManager.ShowInquiry(
                     new InquiryData(
@@ -124,6 +122,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                         affirmativeAction: () =>
                         {
                             doModify();
+                            _editor.PlayerWarnedAboutRetraining = true;
                         },
                         negativeAction: () => { }
                     )

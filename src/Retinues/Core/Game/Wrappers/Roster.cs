@@ -61,17 +61,12 @@ namespace Retinues.Core.Game.Wrappers
         {
             if (troop.Base == null)
                 return 0;
-            return _roster.GetTroopCount(troop.Base as CharacterObject);
+            return _roster.GetTroopCount(troop.Base);
         }
 
-        public void AddTroop(WCharacter troop, int healthy, int wounded = 0, int index = -1)
+        public void AddTroop(WCharacter troop, int healthy, int wounded = 0, int xp = 0, int index = -1)
         {
-            _roster.AddToCounts(
-                troop.Base as CharacterObject,
-                healthy,
-                woundedCount: wounded,
-                index: index
-            );
+            _roster.AddToCounts(troop.Base, healthy, woundedCount: wounded, xpChange: xp, index: index);
         }
 
         public void RemoveTroop(WCharacter troop, int healthy, int wounded = 0)
@@ -79,7 +74,7 @@ namespace Retinues.Core.Game.Wrappers
             if (troop.Base == null)
                 return;
 
-            _roster.AddToCounts(troop.Base as CharacterObject, -healthy, woundedCount: -wounded);
+            _roster.AddToCounts(troop.Base, -healthy, woundedCount: -wounded);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -153,7 +148,7 @@ namespace Retinues.Core.Game.Wrappers
             int count = 0;
             foreach (var e in Elements)
             {
-                var co = e.Troop.Base as CharacterObject;
+                var co = e.Troop.Base;
                 var c = co?.DefaultFormationClass;
                 if (c == cls)
                     count += e.Number;

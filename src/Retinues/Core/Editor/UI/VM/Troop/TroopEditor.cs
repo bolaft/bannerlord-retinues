@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Core.Features.Xp;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -52,20 +52,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string UpgradesHeaderText => L.S("upgrades_header_text", "Upgrades");
 
         [DataSourceProperty]
-        public bool TroopXpIsEnabled =>
-            Config.GetOption<int>("BaseSkillXpCost") > 0
-            || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
-
-        [DataSourceProperty]
-        public string Name => SelectedTroop?.Name;
-
-        [DataSourceProperty]
-        public string Tier
+        public string TierText
         {
             get
             {
                 int? tier = SelectedTroop?.Tier;
-                return tier switch
+                string roman = tier switch
                 {
                     1 => "I",
                     2 => "II",
@@ -75,8 +67,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     6 => "VI",
                     _ => string.Empty,
                 };
+                return $"{L.S("tier", "Tier")} {roman}";
             }
         }
+
+        [DataSourceProperty]
+        public string Name => SelectedTroop?.Name;
 
         [DataSourceProperty]
         public string Gender =>
@@ -97,6 +93,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         [DataSourceProperty]
         public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false;
+
+        [DataSourceProperty]
+        public bool TroopXpIsEnabled =>
+            Config.GetOption<int>("BaseSkillXpCost") > 0
+            || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
@@ -158,8 +159,25 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         /* ━━━━━━━━ Skills ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int AvailableTroopXp =>
-            SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop) : 0;
+        public string AvailableTroopXpText
+        {
+            get
+            {
+                // return SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop).ToString() : "0";
+                return L.T("available_troop_xp", "{XP} xp")
+                    .SetTextVariable("XP", TroopXpService.GetPool(SelectedTroop)).ToString();
+            }
+        }
+        
+        [DataSourceProperty]
+        public string SkillCapText
+        {
+            get
+            {
+                return L.T("skill_cap_text", "{CAP} skill cap")
+                    .SetTextVariable("CAP", TroopRules.SkillCapByTier(SelectedTroop.Tier)).ToString();
+            }
+        }
 
         [DataSourceProperty]
         public int SkillTotal =>
@@ -504,9 +522,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Gender));
             OnPropertyChanged(nameof(SkillTotal));
+            OnPropertyChanged(nameof(SkillCapText));
             OnPropertyChanged(nameof(SkillPointsUsed));
-            OnPropertyChanged(nameof(AvailableTroopXp));
-            OnPropertyChanged(nameof(Tier));
+            OnPropertyChanged(nameof(AvailableTroopXpText));
+            OnPropertyChanged(nameof(TierText));
             OnPropertyChanged(nameof(IsMaxTier));
             OnPropertyChanged(nameof(UpgradeTargets));
 
@@ -544,8 +563,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         private void RebuildSkillRows()
         {
-            Log.Debug("Rebuilding skill rows.");
-
             _skillsRow1.Clear();
             _skillsRow2.Clear();
 
@@ -633,24 +650,38 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (amount <= 0)
                 return;
 
-            string key = $"{from.StringId}->{to.StringId}";
-            if (!_staged.TryGetValue(key, out var order))
-            {
-                order = new StagedOrder
-                {
-                    From = from,
-                    To = to,
-                    Amount = 0,
-                };
-                _staged[key] = order;
-            }
-            order.Amount += amount;
+            string key    = $"{from.StringId}->{to.StringId}";
+            string oppKey = $"{to.StringId}->{from.StringId}";
 
-            // Update staging summary + rows (virtuals changed)
+            // 1) Cancel against any opposite staged flow first.
+            if (_staged.TryGetValue(oppKey, out var opp) && opp.Amount > 0)
+            {
+                int cancel = Math.Min(amount, opp.Amount);
+                opp.Amount -= cancel;
+                if (opp.Amount == 0)
+                    _staged.Remove(oppKey);
+                amount -= cancel;
+            }
+
+            // 2) Whatever remains is the net flow in this direction.
+            if (amount > 0)
+            {
+                if (!_staged.TryGetValue(key, out var order))
+                {
+                    order = new StagedOrder { From = from, To = to, Amount = 0 };
+                    _staged[key] = order;
+                }
+                order.Amount += amount;
+            }
+
+            RecomputeConversionSummaryAndRefreshRows();
+        }
+
+        private void RecomputeConversionSummaryAndRefreshRows()
+        {
             OnPropertyChanged(nameof(HasPendingConversions));
             OnPropertyChanged(nameof(PendingTotalCost));
             OnPropertyChanged(nameof(PendingTotalCount));
-
             foreach (var row in _conversionRows)
                 row.Refresh();
         }

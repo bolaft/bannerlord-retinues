@@ -1,8 +1,8 @@
 using System.Linq;
+using Retinues.Core.Features.Doctrines;
+using Retinues.Core.Features.Doctrines.Catalog;
+using Retinues.Core.Features.Xp;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Features.Doctrines;
-using Retinues.Core.Game.Features.Doctrines.Catalog;
-using Retinues.Core.Game.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -29,7 +29,7 @@ namespace Retinues.Core.Editor
             };
 
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
-                cap = (int)(cap * 1.05f); // +5% skill cap with Iron Discipline
+                cap += 5; // +5 skill cap with Iron Discipline
 
             return cap;
         }
@@ -48,7 +48,7 @@ namespace Retinues.Core.Editor
             };
 
             if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
-                total = (int)(total * 1.05f); // +5% skill cap with Steadfast Soldiers
+                total += 10; // +10 skill total with Steadfast Soldiers
 
             return total;
         }

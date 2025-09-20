@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Core.Features.Xp;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
 

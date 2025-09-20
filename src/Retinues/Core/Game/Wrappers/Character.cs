@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Wrappers.Cache;
+using Retinues.Core.Game.Helpers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -487,11 +488,17 @@ namespace Retinues.Core.Game.Wrappers
             WCharacter parent = null,
             bool keepUpgrades = true,
             bool keepEquipment = true,
-            bool keepSkills = true
+            bool keepSkills = true,
+            string stringId = null
         )
         {
+            CharacterObject cloneObject;
+
             // Clone from the source troop
-            var cloneObject = CharacterObject.CreateFrom(_characterObject);
+            if (stringId != null)
+                cloneObject = CharacterFactory.CloneWithId(_characterObject, stringId);
+            else
+                cloneObject = CharacterObject.CreateFrom(_characterObject);
 
             // Detach skills so parent/clone no longer share the same container
             var freshSkills = (MBCharacterSkills)

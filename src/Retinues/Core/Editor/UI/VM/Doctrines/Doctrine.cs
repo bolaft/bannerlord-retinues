@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Core.Game.Features.Doctrines;
+using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;

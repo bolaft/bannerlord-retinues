@@ -70,8 +70,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         protected override void OnSelect()
         {
-            Log.Debug($"Selected troop: {Troop?.Name}.");
-
             RowList.Screen.TroopEditor.Refresh();
             RowList.Screen.Refresh();
         }

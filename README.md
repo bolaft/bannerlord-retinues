@@ -8,27 +8,25 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 - change troop culture?
 - tutorial on first game
-- tool tip / communicate on skill caps/limits
 - provide translations in many languages
-- disable in game messages from logs altogether (set log level)
-- better XP display
-- +5 health flat (indomitable)
-- +5 skill cap +10 total skill bonus
-- "2nd upgrade branch for..."
+- disable in game messages from logs altogether for release
 - rm "Royal Patronage" => doctrine to use crafted gear
+- 50 KOs is present twice, replace one
 
 ## Fixes
 
 - fix hints not appearing on disabled buttons
-- XP doesn't load always (on game startup?)
-- counts as tournament match in real battles
 - crash on AddToCounts. OnTick? when hovering morale?
-- doctrine screen bottom hidden, less vertical margin
-- retinue count wrong (0/23) after game load
+- troop removal before save is hacky
+- restore volunteers from save crash (only when save & exit?)
 
 ## Tests
 
 - v1.3 test
+
+## Other
+
+- show youtubers/streamers
 
 ## Script
 

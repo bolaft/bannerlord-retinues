@@ -4,8 +4,11 @@ using System.Linq;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using Retinues.Core.Game.Helpers;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Persistence.Troop
 {
@@ -17,12 +20,14 @@ namespace Retinues.Core.Persistence.Troop
 
         private List<TroopSaveData> _troopData = [];
         private List<RosterSaveData> _rosterData = [];
+        private List<VolunteerSaveData> _volunteerData = [];
 
         public override void SyncData(IDataStore dataStore)
         {
             // Persist the troops inside the native save.
             dataStore.SyncData("Retinues_Troops", ref _troopData);
             dataStore.SyncData("Retinues_Rosters", ref _rosterData);
+            dataStore.SyncData("Retinues_Volunteers", ref _volunteerData);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -51,6 +56,10 @@ namespace Retinues.Core.Persistence.Troop
                 Log.Debug("Recording and removing existing custom troops.");
                 _rosterData = SaveAndStripAllRosters();
                 Log.Debug($"{_rosterData.Count} roster stacks recorded.");
+
+                Log.Debug("Recording and stripping volunteers with custom troops.");
+                _volunteerData = SaveAndStripAllVolunteers();
+                Log.Debug($"{_volunteerData.Count} notables recorded.");
             }
             catch (Exception e)
             {
@@ -62,9 +71,14 @@ namespace Retinues.Core.Persistence.Troop
         {
             if (_rosterData.Count > 0)
             {
-                Log.Debug("Restoring custom troops to rosters.");
+                Log.Debug("Restoring custom troops to rosters (same session).");
                 RestoreCustomTroopsToRosters(_rosterData);
                 Log.Debug("Restored custom troops to rosters.");
+            }
+            if (_volunteerData.Count > 0)
+            {
+                Log.Debug("Restoring volunteers (same session).");
+                RestoreVolunteers(_volunteerData);
             }
         }
 
@@ -96,6 +110,24 @@ namespace Retinues.Core.Persistence.Troop
                 else
                 {
                     Log.Debug("No rosters in save.");
+                }
+
+                if (_volunteerData.Count > 0)
+                {
+                    try
+                    {
+                        Log.Debug("Restoring volunteers from save.");
+                        RestoreVolunteers(_volunteerData);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e);
+                    }
+                    Log.Debug($"Restored volunteers for {_volunteerData.Count} notables.");
+                }
+                else
+                {
+                    Log.Debug("No volunteers in save.");
                 }
             }
             catch (Exception e)
@@ -243,6 +275,7 @@ namespace Retinues.Core.Persistence.Troop
                         wTroop,
                         element.Healthy,
                         wounded: element.Wounded,
+                        xp: element.Xp,
                         index: element.Index
                     );
                 }
@@ -268,6 +301,112 @@ namespace Retinues.Core.Persistence.Troop
             var root = data.IsElite ? faction.RootElite : faction.RootBasic;
 
             return WCharacter.GetFromPositionInTree(root, data.PositionInTree);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Volunteer Management                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static List<VolunteerSaveData> SaveAndStripAllVolunteers()
+        {
+            var list = new List<VolunteerSaveData>();
+
+            foreach (var settlement in Settlement.All)
+            {
+                if (settlement.IsHideout)
+                    continue; // no volunteers in hideouts
+
+                var notables = settlement?.Notables;
+                if (notables == null || notables.Count == 0) continue;
+
+                foreach (var notable in notables)
+                {
+                    try
+                    {
+                        var slots = notable?.VolunteerTypes;
+                        if (slots == null || slots.Length == 0) continue;
+
+                        VolunteerSaveData record = null;
+
+                        for (int i = 0; i < slots.Length; i++)
+                        {
+                            var co = slots[i];
+                            if (co == null) continue;
+
+                            var w = new WCharacter(co);
+                            if (w.IsVanilla) continue;
+
+                            record ??= new VolunteerSaveData
+                            {
+                                SettlementId = settlement.StringId,
+                                NotableId = notable.StringId
+                            };
+
+                            var slot = new VolunteerSlotSaveData
+                            {
+                                Index = i,
+                                IsKingdom = w.Faction == Player.Kingdom,
+                                IsRetinue = w.IsRetinue,
+                                IsElite = w.IsElite,
+                            };
+                            slot.PositionInTree.AddRange(w.PositionInTree);
+                            record.Slots.Add(slot);
+
+                            // Replace with vanilla so the engine saves clean refs
+                            CharacterObject vanilla = null;
+                            if (!string.IsNullOrEmpty(w.VanillaStringId))
+                                vanilla = MBObjectManager.Instance.GetObject<CharacterObject>(w.VanillaStringId);
+                            slots[i] = vanilla ?? co; // fallback to co if somehow missing
+                        }
+
+                        if (record != null)
+                            list.Add(record);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        private static void RestoreVolunteers(IEnumerable<VolunteerSaveData> data)
+        {
+            foreach (var v in data)
+            {
+                var settlement = Settlement.All?.FirstOrDefault(s => s?.StringId == v.SettlementId);
+                var notable = settlement?.Notables?.FirstOrDefault(n => n?.StringId == v.NotableId);
+                var slots = notable?.VolunteerTypes;
+                if (slots == null) continue;
+
+                foreach (var s in v.Slots)
+                {
+                    try
+                    {
+                        // Resolve the new clone from tree position
+                        var faction = s.IsKingdom ? Player.Kingdom : Player.Clan;
+                        if (faction == null) continue;
+
+                        WCharacter troop = null;
+                        if (s.IsRetinue)
+                            troop = s.IsElite ? faction.RetinueElite : faction.RetinueBasic;
+                        else
+                        {
+                            var root = s.IsElite ? faction.RootElite : faction.RootBasic;
+                            troop = WCharacter.GetFromPositionInTree(root, s.PositionInTree);
+                        }
+
+                        if (troop?.Base != null && s.Index >= 0 && s.Index < slots.Length)
+                            slots[s.Index] = troop.Base;
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+                }
+            }
         }
     }
 }

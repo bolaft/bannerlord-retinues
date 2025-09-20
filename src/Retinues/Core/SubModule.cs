@@ -2,10 +2,11 @@ using System;
 using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
+using Retinues.Core.Features.Doctrines;
+using Retinues.Core.Features.Doctrines.Effects;
+using Retinues.Core.Features.Unlocks.Behaviors;
+using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Features.Doctrines;
-using Retinues.Core.Game.Features.Unlocks.Behaviors;
-using Retinues.Core.Game.Features.Xp.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
@@ -89,6 +90,7 @@ namespace Retinues.Core
                     cs.AddBehavior(new DoctrineServiceBehavior());
                     cs.AddBehavior(new FeatServiceBehavior());
                     cs.AddBehavior(new FeatNotificationBehavior());
+                    cs.AddBehavior(new DoctrineEffectRuntimeBehavior());
                     Log.Debug("Doctrines enabled.");
                 }
 

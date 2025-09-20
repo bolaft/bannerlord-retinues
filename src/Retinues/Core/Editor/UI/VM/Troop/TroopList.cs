@@ -66,8 +66,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             )
                 AddTroopTreeInOrder(root, RetinueTroops);
 
-            Log.Debug($"Loaded {RetinueTroops.Count} retinue troops.");
-
             EliteTroops.Clear();
             foreach (
                 var root in TroopManager
@@ -75,8 +73,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     .Where(t => t.Parent is null)
             )
                 AddTroopTreeInOrder(root, EliteTroops);
-
-            Log.Debug($"Loaded {EliteTroops.Count} elite troops.");
 
             BasicTroops.Clear();
             foreach (
@@ -86,11 +82,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             )
                 AddTroopTreeInOrder(root, BasicTroops);
 
-            Log.Debug($"Loaded {BasicTroops.Count} basic troops.");
-
             if (SelectedRow is null)
             {
-                Log.Debug("No row is selected.");
                 Select(
                     RetinueTroops.FirstOrDefault()
                         ?? EliteTroops.FirstOrDefault()
@@ -103,8 +96,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
             if (BasicTroops.Count == 0)
                 BasicTroops.Add(new TroopRowVM(null, this));
-
-            Log.Debug($"Selected row troop: {SelectedRow?.Troop?.Name ?? "none"}.");
 
             OnPropertyChanged(nameof(SelectedRow));
             OnPropertyChanged(nameof(RetinueToggleText));

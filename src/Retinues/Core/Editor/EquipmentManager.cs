@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Core.Features.Doctrines;
+using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game;
-using Retinues.Core.Game.Features.Doctrines;
-using Retinues.Core.Game.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -29,6 +29,9 @@ namespace Retinues.Core.Editor
                 else
                 {
                     var wItem = new WItem(item); // Wrap item
+
+                    if (wItem.IsCrafted)
+                        continue; // Skip crafted items
 
                     if (
                         Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier)
