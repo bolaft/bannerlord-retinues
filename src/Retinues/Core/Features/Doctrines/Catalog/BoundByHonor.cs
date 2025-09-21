@@ -26,7 +26,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (!battle.IsWon)
+                if (battle.IsLost)
                     return;
 
                 var rescuedParties = battle.AllyParties.Count(p => p.IsCaravan || p.IsVillager);
@@ -65,7 +65,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                if (!battle.IsWon)
+                if (battle.IsLost)
                     return;
 
                 var defeatedBanditParties = battle.EnemyParties.Count(p => p.IsBandit);

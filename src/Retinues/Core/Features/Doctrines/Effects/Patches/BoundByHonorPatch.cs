@@ -19,10 +19,10 @@ namespace Retinues.Core.Features.Doctrines.Effects.Patches
                 return;
 
             var bonus =
-                __result.ResultNumber * (Player.Party.MemberRoster.RetinueRatio * 0.2f * 100);
+                __result.ResultNumber * (Player.Party.MemberRoster.RetinueRatio * 0.2f);
             __result.Add(
                 bonus,
-                L.T("retinue_morale_bonus_bound_by_honor", "Retinue morale bonus (Bound by Honor)")
+                L.T("retinue_morale_bonus_bound_by_honor", "Retinue (Bound by Honor)")
             );
         }
     }

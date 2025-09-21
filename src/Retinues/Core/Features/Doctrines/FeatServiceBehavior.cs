@@ -65,7 +65,7 @@ namespace Retinues.Core.Features.Doctrines
             CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(this, OnQuestCompleted);
 
             // Recruitement
-            CampaignEvents.OnTroopRecruitedEvent.AddNonSerializedListener(this, OnTroopRecruited);
+            CampaignEvents.OnUnitRecruitedEvent.AddNonSerializedListener(this, OnUnitRecruited);
 
             // Upgrading
             CampaignEvents.PlayerUpgradedTroopsEvent.AddNonSerializedListener(
@@ -287,20 +287,13 @@ namespace Retinues.Core.Features.Doctrines
 
         /* ━━━━━ Recruitement ━━━━━ */
 
-        void OnTroopRecruited(
-            Hero recruiterHero,
-            Settlement recruitmentSettlement,
-            Hero recruitmentSource,
+        void OnUnitRecruited(
             CharacterObject troop,
             int amount
         )
         {
             try
             {
-                // Only care about player clan recruitment
-                if (recruiterHero?.StringId != Player.Character?.StringId)
-                    return;
-
                 Log.Info("Feat Runtime Event: OnTroopRecruited");
 
                 foreach (var feat in _activeFeats.ToList())

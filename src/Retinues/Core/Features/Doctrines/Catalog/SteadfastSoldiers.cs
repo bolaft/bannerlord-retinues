@@ -79,8 +79,6 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     return;
                 if (!battle.IsVillageRaid)
                     return;
-                if (battle.AllyTroopCount == 0)
-                    return; // Heuristic to see if villagers help
                 if (Player.Party.MemberRoster.CustomRatio < 0.99f)
                     return;
 

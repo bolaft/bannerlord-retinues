@@ -3,6 +3,7 @@ using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -12,60 +13,67 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
     {
         private readonly UnlocksBehavior _owner = owner;
 
-        // per-battle “how many defeated enemies wore item X”
         private readonly Dictionary<ItemObject, int> _battleCounts = [];
 
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 
+        private bool IsPlayerTroop(Agent agent)
+        {
+            var party = (agent?.Origin as PartyAgentOrigin)?.Party;
+            return party?.MobileParty?.StringId == Player.Party?.StringId;
+        }
+
+        private bool IsAlliedTroop(Agent agent)
+        {
+            return agent?.Team == Mission?.PlayerTeam && !IsPlayerTroop(agent);
+        }
+
+        private bool IsEnemyTroop(Agent agent)
+        {
+            return agent?.Team != Mission?.PlayerTeam;
+        }
+
         public override void OnAgentRemoved(
-            Agent affectedAgent,
-            Agent affectorAgent,
+            Agent victim,
+            Agent killer,
             AgentState state,
             KillingBlow blow
         )
         {
             // Count only real enemies, humans, that went down (killed or knocked unconscious)
-            if (affectedAgent == null || !affectedAgent.IsHuman)
+            if (victim == null || !victim.IsHuman)
                 return;
             if (state != AgentState.Killed && state != AgentState.Unconscious)
                 return;
-
-            var playerTeam = Mission?.PlayerTeam;
-            if (playerTeam == null)
+            if (Mission?.PlayerTeam == null)
                 return;
 
-            // Enemy team only
-            if (affectedAgent.Team == null || !affectedAgent.Team.IsEnemyOf(playerTeam))
-                // Unless ally casualty and Pragmatic Scavengers is unlocked
-                if (
-                    affectorAgent?.Team == playerTeam
-                    || !DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>()
-                )
-                    return;
+            if (IsPlayerTroop(victim))
+                return; // No unlock from player troop casualty
+            else if (IsAlliedTroop(victim))
+                if (!DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>())
+                    return; // No unlock from ally casualty unless doctrine is enabled
+                else
+                    Log.Info("Counting allied casualty due to Pragmatic Scavengers.");
 
-            // Player-side kill only
-            if (affectorAgent?.Team == null || !affectorAgent.Team.IsFriendOf(playerTeam))
-                return;
+            if (IsEnemyTroop(killer))
+                return; // Enemy killers don't unlock anything
+            else if (IsAlliedTroop(killer))
+                if (!DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>())
+                    return; // No unlock from ally killers unless doctrine is enabled
 
-            // Ignore kills by non-player parties, unless doctrine unlocked
-            if (
-                affectorAgent.Team != playerTeam
-                && !DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>()
-            )
-                return;
+            int updateValue = 1;
+
+            if (DoctrineAPI.IsDoctrineUnlocked<LionsShare>())
+                if (killer.Character?.StringId == Player.Character?.StringId)
+                    updateValue = 2; // Double count if player personally landed the killing blow
 
             // Count each equipped item once per fallen agent
             var seen = new HashSet<ItemObject>();
-            foreach (var item in EnumerateEquippedItems(affectedAgent))
+            foreach (var item in EnumerateEquippedItems(victim))
             {
                 if (item == null || !seen.Add(item))
                     continue;
-
-                int updateValue = 1;
-
-                if (DoctrineAPI.IsDoctrineUnlocked<LionsShare>())
-                    if (affectorAgent.Character.StringId == Player.Character.StringId)
-                        updateValue = 2; // Double count if player personally landed the killing blow
 
                 _battleCounts[item] = _battleCounts.TryGetValue(item, out var c)
                     ? c + updateValue
@@ -77,8 +85,12 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         {
             Log.Debug("OnEndMission event triggered.");
 
-            // Hand the batch to the campaign behavior (it’ll persist + unlock as needed)
-            _owner.AddBattleCounts(_battleCounts);
+            if (Mission.Current?.MissionResult?.PlayerVictory == true)
+            {
+                // Hand the batch to the campaign behavior only on victory
+                _owner.AddBattleCounts(_battleCounts);
+            }
+
             _battleCounts.Clear();
         }
 

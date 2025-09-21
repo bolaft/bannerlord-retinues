@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Xp;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
@@ -16,9 +15,6 @@ namespace Retinues.Core.Persistence.Troop
 
         public static TroopSaveData Save(WCharacter character)
         {
-            Log.Debug($"Saving troop: {character.StringId}");
-            Log.Info($"troop vanilla id set to {character.VanillaStringId}");
-
             var data = new TroopSaveData
             {
                 StringId = character.StringId,
@@ -43,8 +39,6 @@ namespace Retinues.Core.Persistence.Troop
         {
             // Wrap it
             var troop = new WCharacter(data.StringId);
-
-            Log.Info($"Loading troop {data.StringId} (from {data.VanillaStringId})");
 
             // Fill it
             troop.FillFrom(
@@ -74,10 +68,6 @@ namespace Retinues.Core.Persistence.Troop
 
             // Activate
             troop.Activate();
-
-            Log.Debug(
-                $"Created troop: {troop.StringId} (from {troop.VanillaStringId}), target id: {data.StringId}"
-            );
 
             // Return the created troop
             return troop;

@@ -11,10 +11,13 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - provide translations in many languages
 - disable in game messages from logs altogether for release
 - rm "Royal Patronage" => doctrine to use crafted gear
+- choose between clan & kingdom troops
 
 ## Fixes
 
 - fix hints not appearing on disabled buttons
+- win siege defense trigger even if being attacked while sieging
+- on recreating kingdom, troops are replaced
 
 ## Tests
 

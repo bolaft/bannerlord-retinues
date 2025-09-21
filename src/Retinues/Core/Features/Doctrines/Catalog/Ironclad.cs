@@ -15,12 +15,12 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class IC_FullSetT5Plus100Kills : Feat
+        public sealed class IC_FullSetT6100Kills : Feat
         {
             public override string Description =>
                 L.S(
-                    "ironclad_full_set_t5_plus_100_kills",
-                    "Get 100 kills in battle with troops wearing a full set of tier 5+ gear."
+                    "ironclad_full_set_t6_100_kills",
+                    "Get 100 kills in battle with troops wearing a tier 6 armor and helmet."
                 );
             public override int Target => 100;
 
@@ -36,38 +36,33 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     if (!troop.IsCustom)
                         continue; // Only consider custom troops
 
-                    bool hasFullSet = true;
-                    foreach (var item in troop.Equipment.Items)
-                    {
-                        if (item.Tier < 5)
-                        {
-                            hasFullSet = false;
-                            break; // Item does not meet tier requirement
-                        }
-                    }
+                    if (troop.Equipment.GetItem(EquipmentIndex.Head).Tier < 6)
+                        continue; // Helmet does not meet tier requirement
 
-                    if (hasFullSet)
-                        AdvanceProgress(1);
+                    if (troop.Equipment.GetItem(EquipmentIndex.Body).Tier < 6)
+                        continue; // Body armor does not meet tier requirement
+                    
+                    AdvanceProgress(1);
                 }
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class IC_10TroopsAthletics80 : Feat
+        public sealed class IC_12TroopsAthletics90 : Feat
         {
             public override string Description =>
                 L.S(
-                    "ironclad_10_troops_athletics_80",
-                    "Have 10 custom troops reach 80 in Athletics skill."
+                    "ironclad_12_troops_athletics_90",
+                    "Have 12 custom troops reach 90 in Athletics skill."
                 );
-            public override int Target => 10;
+            public override int Target => 12;
 
             public override void OnDailyTick()
             {
                 int count = 0;
                 foreach (var troop in Player.Troops)
-                    if (troop.GetSkill(DefaultSkills.Athletics) >= 80)
+                    if (troop.GetSkill(DefaultSkills.Athletics) >= 90)
                         count++;
                 SetProgress(count);
             }
@@ -93,11 +88,13 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                 if (battle.FriendlyTroopCount >= battle.EnemyTroopCount)
                     return;
 
-                foreach (var troop in Player.Party.MemberRoster.Elements)
+                foreach (var e in Player.Party.MemberRoster.Elements)
                 {
-                    if (!troop.Troop.IsCustom)
+                    if (e.Troop.IsHero)
+                        continue; // Ignore heroes
+                    if (!e.Troop.IsCustom)
                         return; // Not a custom troop
-                    if (troop.Troop.Tier > 3)
+                    if (e.Troop.Tier > 3)
                         return; // Troop tier too high
                 }
 

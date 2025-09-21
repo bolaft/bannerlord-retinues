@@ -15,17 +15,9 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionRetinue(WFaction faction)
         {
-            CreateRetinueTroop(
-                faction,
-                true,
-                MakeRetinueName(faction, isElite: true)
-            );
+            CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
 
-            CreateRetinueTroop(
-                faction,
-                false,
-                MakeRetinueName(faction, isElite: false)
-            );
+            CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
         }
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
@@ -59,14 +51,11 @@ namespace Retinues.Core.Features
             var root = isElite ? faction.Culture.RootElite : faction.Culture.RootBasic;
             var retinue = new WCharacter(faction == Player.Kingdom, isElite, true);
 
-            retinue.FillFrom(
-                root,
-                keepUpgrades: false,
-                keepEquipment: true,
-                keepSkills: true
-            );
+            retinue.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
-            Log.Info($"Created retinue troop {retinue.StringId} for {faction.Name} (from {root.StringId})");
+            Log.Info(
+                $"Created retinue troop {retinue.StringId} for {faction.Name} (from {root.StringId})"
+            );
             Log.Info($"troop vanilla id set to {retinue.VanillaStringId}");
 
             // Rename it
@@ -77,8 +66,8 @@ namespace Retinues.Core.Features
 
             // Unlock items
             foreach (var equipment in root.Equipments)
-                foreach (var item in equipment.Items)
-                    item.Unlock();
+            foreach (var item in equipment.Items)
+                item.Unlock();
 
             // Activate
             retinue.Activate();
@@ -96,14 +85,26 @@ namespace Retinues.Core.Features
             var culture = faction.Culture;
 
             // Clone the elite tree from the elite root
-            var eliteClones = CloneTroopTreeRecursive(faction.Culture.RootElite, true, faction, null).ToList();
+            var eliteClones = CloneTroopTreeRecursive(
+                    faction.Culture.RootElite,
+                    true,
+                    faction,
+                    null
+                )
+                .ToList();
 
             Log.Debug(
                 $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
             );
 
             // Clone the basic tree from the basic root
-            var basicClones = CloneTroopTreeRecursive(faction.Culture.RootBasic, false, faction, null).ToList();
+            var basicClones = CloneTroopTreeRecursive(
+                    faction.Culture.RootBasic,
+                    false,
+                    faction,
+                    null
+                )
+                .ToList();
 
             Log.Debug(
                 $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
@@ -138,12 +139,7 @@ namespace Retinues.Core.Features
             var troop = new WCharacter(faction == Player.Kingdom, isElite, false, path);
 
             // Copy from the original troop
-            troop.FillFrom(
-                vanilla,
-                keepUpgrades: false,
-                keepEquipment: true,
-                keepSkills: true
-            );
+            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
             // Rename it
             troop.Name = $"{faction.Name} {vanilla.Name}";
@@ -153,8 +149,8 @@ namespace Retinues.Core.Features
 
             // Unlock items
             foreach (var equipment in vanilla.Equipments)
-                foreach (var item in equipment.Items)
-                    item.Unlock();
+            foreach (var item in equipment.Items)
+                item.Unlock();
 
             // Activate
             troop.Activate();
@@ -163,8 +159,8 @@ namespace Retinues.Core.Features
 
             if (vanilla.UpgradeTargets != null)
                 foreach (var child in vanilla.UpgradeTargets)
-                    foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
-                        yield return descendant;
+                foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
+                    yield return descendant;
         }
     }
 }

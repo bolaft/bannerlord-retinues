@@ -47,7 +47,7 @@ namespace Retinues.Core.Editor.UI.Helpers
                     // Title
                     new(
                         string.Empty,
-                        item.Class,
+                        $"T{item.Tier} {item.Class}",
                         0,
                         false,
                         TooltipProperty.TooltipPropertyFlags.Title

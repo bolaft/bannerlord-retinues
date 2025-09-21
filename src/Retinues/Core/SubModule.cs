@@ -42,13 +42,11 @@ namespace Retinues.Core
                 _harmony = new Harmony("Retinues.Core");
                 _harmony.PatchAll(Assembly.GetExecutingAssembly());
                 Log.Debug("Harmony patches applied.");
-
             }
             catch (Exception e)
             {
                 Log.Exception(e);
             }
-
         }
 
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)

@@ -3,6 +3,7 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
@@ -27,7 +28,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnTroopRecruited(WCharacter troop, int amount)
             {
-                if (troop.Faction.StringId == Player.Kingdom?.StringId)
+                if (troop.IsCustom && troop.Faction == Player.Kingdom)
                     AdvanceProgress(amount);
             }
         }

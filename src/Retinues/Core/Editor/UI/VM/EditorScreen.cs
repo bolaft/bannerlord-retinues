@@ -269,6 +269,10 @@ namespace Retinues.Core.Editor.UI.VM
                 EquipmentEditor.Refresh();
                 EquipmentList.Refresh();
             }
+            if (mode == EditorMode.Default)
+            {
+                TroopEditor.Refresh();
+            }
 
             TroopEditor.OnPropertyChanged(nameof(TroopEditor.CanRemove));
             EquipmentEditor.OnPropertyChanged(nameof(EquipmentEditor.CanUnequip));

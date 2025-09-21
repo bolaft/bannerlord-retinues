@@ -32,20 +32,27 @@ namespace Retinues.Core.Editor
 
                     if (wItem.IsCrafted)
                         continue; // Skip crafted items
-
                     if (
                         Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier)
                         && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
                     )
                         continue; // Skip items that exceed the allowed tier difference unless Ironclad is unlocked
-                    else if (wItem.IsUnlocked)
+
+                    if (wItem.IsUnlocked)
                         items.Add(wItem); // Unlocked items
                     else if (
                         Config.GetOption<bool>("UnlockFromCulture")
-                        || DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>()
+                        && item.Culture?.StringId == faction?.Culture?.StringId
                     )
-                        if (item.Culture?.StringId == faction?.Culture?.StringId)
-                            items.Add(wItem); // Items of the faction's culture
+                        items.Add(wItem); // Items of the faction's culture
+                    else if (
+                        DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>()
+                        && (
+                            item.Culture?.StringId == Player.Clan?.Culture?.StringId
+                            || item.Culture?.StringId == Player.Kingdom?.Culture?.StringId
+                        )
+                    )
+                        items.Add(wItem); // Items of the clan or kingdom's culture
                 }
             }
 

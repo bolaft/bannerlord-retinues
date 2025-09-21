@@ -51,6 +51,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public override string StringId => _party.StringId;
 
+        public string Name => _party.Name.ToString();
+
         public bool IsVillager => _party.IsVillager;
 
         public bool IsCaravan => _party.IsCaravan;

@@ -41,9 +41,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public static Dictionary<string, string> VanillaStringIdMap = [];
 
-        public string VanillaStringId => VanillaStringIdMap.TryGetValue(StringId, out var vid)
-            ? vid
-            : StringId;
+        public string VanillaStringId =>
+            VanillaStringIdMap.TryGetValue(StringId, out var vid) ? vid : StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                View-Model (VM) Accessors               //
@@ -90,8 +89,8 @@ namespace Retinues.Core.Game.Wrappers
             {
                 yield return this;
                 foreach (var child in UpgradeTargets)
-                    foreach (var descendant in child.Tree)
-                        yield return descendant;
+                foreach (var descendant in child.Tree)
+                    yield return descendant;
             }
         }
 
@@ -328,7 +327,6 @@ namespace Retinues.Core.Game.Wrappers
 
         public void Activate()
         {
-            Log.Info($"Activating troop {StringId}.");
             HiddenInEncyclopedia = false;
             IsNotTransferableInPartyScreen = false;
             IsNotTransferableInHideouts = false;
@@ -339,7 +337,6 @@ namespace Retinues.Core.Game.Wrappers
 
         public void Deactivate()
         {
-            Log.Info($"Deactivating troop {StringId}.");
             HiddenInEncyclopedia = true;
             IsNotTransferableInPartyScreen = true;
             IsNotTransferableInHideouts = true;
@@ -372,7 +369,7 @@ namespace Retinues.Core.Game.Wrappers
             if (keepEquipment)
                 Equipments = [WEquipment.FromCode(Equipment.Code)];
             else
-                Equipments = [];
+                Equipments = [WEquipment.FromCode(null)];
 
             // Detach skills so parent/clone no longer share the same container
             var freshSkills = (MBCharacterSkills)

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Core.Features.Doctrines.Catalog;
-using Retinues.Core.Utils;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;

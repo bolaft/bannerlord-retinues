@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 

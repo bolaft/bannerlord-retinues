@@ -19,7 +19,13 @@ namespace Retinues.Core.Game.Wrappers
 
         public static WEquipment FromCode(string code)
         {
-            var obj = Equipment.CreateFromEquipmentCode(code);
+            Equipment obj;
+
+            if (code is null)
+                obj = new Equipment(false);
+            else
+                obj = Equipment.CreateFromEquipmentCode(code);
+
             return new WEquipment(obj);
         }
 

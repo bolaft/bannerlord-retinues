@@ -11,8 +11,8 @@
       id="ret_adaptive_training"
       text="Adaptive Training" />
     <string
-      id="ret_adaptive_training_200_in_each_skill"
-      text="For each skill, have at least one custom troop with a level of 200 or higher." />
+      id="ret_adaptive_training_150_in_each_skill"
+      text="For each skill, have at least one custom troop with a level of 150 or higher." />
     <string
       id="ret_adaptive_training_5_weapons"
       text="In a single battle, get a kill using five different weapons classes." />
@@ -254,14 +254,14 @@
       id="ret_iron_discipline"
       text="Iron Discipline" />
     <string
-      id="ret_iron_discipline_50_arena_kos"
-      text="Knock out 50 opponents in the arena." />
-    <string
       id="ret_iron_discipline_defeat_twice_size_only_custom"
       text="Defeat a party twice your size using only custom troops." />
     <string
       id="ret_iron_discipline_description"
       text="+5 to skill caps." />
+    <string
+      id="ret_iron_discipline_lead_army_10_days"
+      text="Lead an army for 10 days in a row." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
       text="Upgrade 100 basic custom troops to max tier." />
@@ -272,14 +272,14 @@
       id="ret_ironclad_100_battle_outnumbered_low_tier"
       text="Win a 100+ battle, while outnumbered, and fielding only custom troops of tier 1, 2, or 3." />
     <string
-      id="ret_ironclad_10_troops_athletics_80"
-      text="Have 10 custom troops reach 80 in Athletics skill." />
+      id="ret_ironclad_12_troops_athletics_90"
+      text="Have 12 custom troops reach 90 in Athletics skill." />
     <string
       id="ret_ironclad_description"
       text="No tier restriction for arms and armor." />
     <string
-      id="ret_ironclad_full_set_t5_plus_100_kills"
-      text="Get 100 kills in battle with troops wearing a full set of tier 5+ gear." />
+      id="ret_ironclad_full_set_t6_100_kills"
+      text="Get 100 kills in battle with troops wearing a tier 6 armor and helmet." />
     <string
       id="ret_item_ammo_damage"
       text="Damage" />
@@ -543,7 +543,7 @@
       text="Can unlock items from allied party casualties." />
     <string
       id="ret_pragmatic_scavengers_rescue_lord"
-      text="Rescue a defeated lord from captivity." />
+      text="Rescue a defeated lord from a enemy party&apos;s prisoner train." />
     <string
       id="ret_queen_guard"
       text="Queen&apos;s Guard" />
@@ -597,7 +597,7 @@
       text="{FACTION} King&apos;s Champion" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
-      text="Retinue morale bonus (Bound by Honor)" />
+      text="Retinue (Bound by Honor)" />
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Royal Guard" />

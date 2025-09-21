@@ -17,12 +17,12 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class AT_200InEachSkill : Feat
+        public sealed class AT_150InEachSkill : Feat
         {
             public override string Description =>
                 L.S(
-                    "adaptive_training_200_in_each_skill",
-                    "For each skill, have at least one custom troop with a level of 200 or higher."
+                    "adaptive_training_150_in_each_skill",
+                    "For each skill, have at least one custom troop with a level of 150 or higher."
                 );
             public override int Target => 8;
 
@@ -36,7 +36,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     {
                         if (satisfiedSkills.Contains(skill.Key))
                             continue;
-                        if (skill.Value >= 200)
+                        if (skill.Value >= 150)
                             satisfiedSkills.Add(skill.Key);
                     }
                 }
@@ -85,7 +85,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     "adaptive_training_5_weapons",
                     "In a single battle, get a kill using five different weapons classes."
                 );
-            public override int Target => 1;
+            public override int Target => 5;
 
             public override void OnBattleEnd(Battle battle)
             {
@@ -101,7 +101,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                         weaponClasses.Add(weapon);
                 }
 
-                if (weaponClasses.Count > Progress)
+                if (weaponClasses.Count >= Progress)
                     SetProgress(weaponClasses.Count);
             }
         }

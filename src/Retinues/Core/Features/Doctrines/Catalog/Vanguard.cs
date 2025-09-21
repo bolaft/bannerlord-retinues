@@ -33,11 +33,13 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                 {
                     // Heuristic: if any kill is not by a retinue in player troop, disqualify
                     if (kill.Victim.IsPlayerTroop)
+                    {
                         if (!kill.Victim.Character.IsRetinue && !kill.Victim.IsPlayer)
                             return; // A non-retinue / non-player was present
-                        else if (!kill.Killer.Character.IsRetinue)
-                            if (!kill.Killer.IsPlayer)
-                                return; // A non-retinue / non-player was present
+                    }
+                    else if (!kill.Killer.Character.IsRetinue)
+                        if (!kill.Killer.IsPlayer)
+                            return; // A non-retinue / non-player was present
                 }
 
                 AdvanceProgress(1);

@@ -53,7 +53,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     return;
                 if (battle.AllyTroopCount < battle.PlayerTroopCount)
                     return;
-                if (battle.EnemyIsInArmy == false)
+                if (!battle.EnemyIsInArmy)
                     return;
 
                 AdvanceProgress(1);

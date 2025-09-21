@@ -121,7 +121,7 @@ namespace Retinues.Core.Features.Doctrines
 
         private static IEnumerable<string> AllFeatKeys()
         {
-            var docs = DoctrineAPI.AllDoctrines() ?? Array.Empty<DoctrineDefinition>();
+            var docs = DoctrineAPI.AllDoctrines() ?? [];
             foreach (var d in docs)
                 if (d.Feats != null)
                     foreach (var f in d.Feats)
@@ -143,7 +143,7 @@ namespace Retinues.Core.Features.Doctrines
             var byKey = new Dictionary<string, Type>(StringComparer.Ordinal);
             var byShort = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); // shortName -> fullKey
 
-            foreach (var d in DoctrineAPI.AllDoctrines() ?? Array.Empty<DoctrineDefinition>())
+            foreach (var d in DoctrineAPI.AllDoctrines() ?? [])
             {
                 if (d.Feats == null)
                     continue;

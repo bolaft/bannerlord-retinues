@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Retinues.Core.Features.Xp;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 
 namespace Retinues.Core.Editor
@@ -80,12 +81,7 @@ namespace Retinues.Core.Editor
             var child = new WCharacter(troop.Faction == Player.Kingdom, troop.IsElite, false, path);
 
             // Copy from the original troop
-            child.FillFrom(
-                troop,
-                keepUpgrades: false,
-                keepEquipment: false,
-                keepSkills: true
-            );
+            child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);
 
             // Set name and level
             child.Name = targetName.Trim();
@@ -140,18 +136,21 @@ namespace Retinues.Core.Editor
             WCharacter cultureRoot;
             WCharacter factionRoot;
 
-            if (retinue == retinue.Faction?.RetinueElite)
+            if (retinue.StringId == retinue.Faction?.RetinueElite.StringId)
             {
                 cultureRoot = retinue.Culture.RootElite;
                 factionRoot = retinue.Faction.RootElite;
             }
-            else if (retinue == retinue.Faction.RetinueBasic)
+            else if (retinue.StringId == retinue.Faction.RetinueBasic.StringId)
             {
                 cultureRoot = retinue.Culture.RootBasic;
                 factionRoot = retinue.Faction.RootBasic;
             }
             else
+            {
+                Log.Warn($"Troop {retinue.StringId} is not a retinue troop");
                 return sources;
+            }
 
             if (cultureRoot != null)
                 foreach (WCharacter troop in cultureRoot.Tree)
@@ -179,7 +178,7 @@ namespace Retinues.Core.Editor
                 return false;
 
             // Check for culture match
-            if (troop.Culture?.StringId != retinue.Culture?.StringId)
+            if (troop.Culture.StringId != retinue.Culture.StringId)
                 return false;
 
             // Check for tier match

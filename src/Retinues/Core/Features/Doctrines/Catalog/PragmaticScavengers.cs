@@ -36,7 +36,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     return; // No allies, no progress
 
                 int allyCasualties = battle
-                    .Kills.Where(k => k.Victim.Side == battle.PlayerSide && !k.Victim.IsPlayer)
+                    .Kills.Where(k => k.Killer.Side == battle.EnemySide && !k.Victim.IsPlayer)
                     .Count();
 
                 if (allyCasualties > Progress)
@@ -69,7 +69,10 @@ namespace Retinues.Core.Features.Doctrines.Catalog
         public sealed class PS_RescueLord : Feat
         {
             public override string Description =>
-                L.S("pragmatic_scavengers_rescue_lord", "Rescue a defeated lord from captivity.");
+                L.S(
+                    "pragmatic_scavengers_rescue_lord",
+                    "Rescue a defeated lord from a enemy party's prisoner train."
+                );
             public override int Target => 1;
 
             private static bool LordInCaptivity = false;
