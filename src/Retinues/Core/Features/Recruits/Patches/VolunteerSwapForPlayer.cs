@@ -46,7 +46,7 @@ internal static class VolunteerSwapForPlayerSession
 
     public static void BeginIfNeeded()
     {
-        if (!Config.GetOption<bool>("VolunteerSwapForPlayer"))
+        if (!Config.GetOption<bool>("RecruitAnywhere"))
             return;
 
         if (IsActive)
@@ -54,6 +54,9 @@ internal static class VolunteerSwapForPlayerSession
 
         var playerClan = Player.Clan;
         if (playerClan == null)
+            return;
+        
+        if (playerClan.BasicTroops.Count == 0 || playerClan.EliteTroops.Count == 0)
             return;
 
         var s = Hero.MainHero?.CurrentSettlement ?? Settlement.CurrentSettlement;
