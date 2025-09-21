@@ -1,6 +1,5 @@
 using Retinues.Core.Features.Doctrines.Catalog;
-using Retinues.Core.Game.Wrappers.Cache;
-using Retinues.Core.Utils;
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.MountAndBlade;
@@ -29,7 +28,7 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
 
             if (agent.Character is not CharacterObject co || co.IsHero)
                 return;
-            if (!WCharacterCache.Wrap(co).IsRetinue)
+            if (!new WCharacter(co).IsRetinue)
                 return;
 
             agent.Health += Bonus;

@@ -241,7 +241,10 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_unlocks", "Unlocks"),
-                name: L.S("mcm_option_own_culture_unlock_bonuses", "Kills also unlock items from the custom troop's culture"),
+                name: L.S(
+                    "mcm_option_own_culture_unlock_bonuses",
+                    "Kills also unlock items from the custom troop's culture"
+                ),
                 key: "OwnCultureUnlockBonuses",
                 hint: L.S(
                     "mcm_option_own_culture_unlock_bonuses_hint",

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Core.Features.Doctrines.Catalog;
-using Retinues.Core.Game.Wrappers.Cache;
 using Retinues.Core.Utils;
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
@@ -52,7 +52,7 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
             if (co is not CharacterObject charObj)
                 return; // ensure type
 
-            var wc = WCharacterCache.Wrap(charObj);
+            var wc = new WCharacter(charObj);
             if (!wc.IsRetinue)
                 return; // strictly retinue
 

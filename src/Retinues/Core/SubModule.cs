@@ -6,7 +6,6 @@ using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
-using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
@@ -43,11 +42,13 @@ namespace Retinues.Core
                 _harmony = new Harmony("Retinues.Core");
                 _harmony.PatchAll(Assembly.GetExecutingAssembly());
                 Log.Debug("Harmony patches applied.");
+
             }
             catch (Exception e)
             {
                 Log.Exception(e);
             }
+
         }
 
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
@@ -97,6 +98,7 @@ namespace Retinues.Core
                 Log.Debug("Behaviors registered.");
             }
 
+            // Smoke test for localization
             Log.Debug(L.S("loc_smoke_test", "Localization test: default fallback (EN)."));
         }
 
@@ -117,9 +119,10 @@ namespace Retinues.Core
 
         private static void ClearAll()
         {
-            // Clear player factions and troops
-            Player.Clear();
-            // Clear vanilla string id map
+            Log.Info("Clearing all static properties.");
+            // Clear active troops
+            WCharacter.ActiveTroops.Clear();
+            // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
             // Clear item unlocks
             WItem.UnlockedItems.Clear();

@@ -43,7 +43,6 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     {
                         if (kill.Killer.Character.IsRetinue)
                         {
-
                             if (kill.Victim.Character.Tier >= kill.Killer.Character.Tier)
                             {
                                 Log.Debug(

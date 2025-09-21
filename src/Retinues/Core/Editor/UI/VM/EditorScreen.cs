@@ -289,7 +289,7 @@ namespace Retinues.Core.Editor.UI.VM
         {
             Log.Debug($"Switching to faction: {faction?.Name ?? "null"}");
 
-            if (faction.RetinueElite == null && faction.RetinueBasic == null)
+            if (!faction.RetinueElite.IsActive || !faction.RetinueBasic.IsActive)
             {
                 Log.Info("No retinue troops found, initializing default retinue troops.");
                 Setup.SetupFactionRetinue(faction);

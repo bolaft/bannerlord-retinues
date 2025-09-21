@@ -39,8 +39,7 @@ internal static class VolunteerSwapForPlayer_End_Finalize
 
 internal static class VolunteerSwapForPlayerSession
 {
-    private static readonly Dictionary<Hero, CharacterObject[]> _backup =
-        [];
+    private static readonly Dictionary<Hero, CharacterObject[]> _backup = [];
     private static Settlement _settlement;
 
     public static bool IsActive => _settlement != null;

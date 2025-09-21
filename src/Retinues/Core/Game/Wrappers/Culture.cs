@@ -25,7 +25,7 @@ namespace Retinues.Core.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter RootBasic => new(_culture.BasicTroop, null);
-        public WCharacter RootElite => new(_culture.EliteBasicTroop, null);
+        public WCharacter RootBasic => new(_culture.BasicTroop);
+        public WCharacter RootElite => new(_culture.EliteBasicTroop);
     }
 }

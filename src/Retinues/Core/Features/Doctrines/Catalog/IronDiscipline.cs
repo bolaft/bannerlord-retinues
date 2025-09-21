@@ -45,19 +45,18 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class ID_50ArenaKOs : Feat
+        public sealed class ID_LeadArmy10Days : Feat
         {
             public override string Description =>
-                L.S(
-                    "iron_discipline_50_arena_kos",
-                    "Knock out 50 opponents in the arena."
-                );
-            public override int Target => 50;
+                L.S("iron_discipline_lead_army_10_days", "Lead an army for 10 days in a row.");
+            public override int Target => 10;
 
-            public override void OnArenaEnd(Combat combat)
+            public override void OnDailyTick()
             {
-                int koCount = combat.Kills.Count(k => k.Killer.IsPlayer);
-                AdvanceProgress(koCount);
+                if (Player.IsArmyLeader)
+                    AdvanceProgress(1);
+                else
+                    SetProgress(0);
             }
         }
 

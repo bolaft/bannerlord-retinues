@@ -18,14 +18,17 @@ namespace Retinues.Core.Features.Doctrines.Catalog
         public sealed class BBH_ProtectVillagersOrCaravans : Feat
         {
             public override string Description =>
-                L.S("bound_by_honor_protect_villagers_or_caravans", "Save 3 caravans or villager parties from enemy attacks.");
+                L.S(
+                    "bound_by_honor_protect_villagers_or_caravans",
+                    "Save 3 caravans or villager parties from enemy attacks."
+                );
             public override int Target => 3;
 
             public override void OnBattleEnd(Battle battle)
             {
                 if (!battle.IsWon)
                     return;
-                
+
                 var rescuedParties = battle.AllyParties.Count(p => p.IsCaravan || p.IsVillager);
 
                 AdvanceProgress(rescuedParties);
@@ -57,10 +60,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
         public sealed class BBH_Defeat10Bandits : Feat
         {
             public override string Description =>
-                L.S(
-                    "bound_by_honor_defeat_10_bandits",
-                    "Get rid of 10 bandit parties."
-                );
+                L.S("bound_by_honor_defeat_10_bandits", "Get rid of 10 bandit parties.");
             public override int Target => 10;
 
             public override void OnBattleEnd(Battle battle)

@@ -148,6 +148,11 @@
       DestinationFiles="$(GameModuleDir)/config.ini"
       SkipUnchangedFiles="true"
     />
+    <Copy
+      SourceFiles="../../../xml/troop_stubs.xml"
+      DestinationFiles="$(GameModuleDir)/ModuleData/troop_stubs.xml"
+      SkipUnchangedFiles="true"
+    />
     <ItemGroup>
       <LocFilesToCopy Include="../../../loc/**/*.*" />
     </ItemGroup>

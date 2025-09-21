@@ -77,16 +77,25 @@ namespace Retinues.Core.Features.Recruits
             if (faction == null || troop == null)
                 return false;
 
-            if (faction.RetinueElite?.StringId == troop.StringId) return true;
-            if (faction.RetinueBasic?.StringId == troop.StringId) return true;
-            if (faction.RootElite  ?.StringId == troop.StringId) return true;
-            if (faction.RootBasic  ?.StringId == troop.StringId) return true;
+            if (faction.RetinueElite?.StringId == troop.StringId)
+                return true;
+            if (faction.RetinueBasic?.StringId == troop.StringId)
+                return true;
+            if (faction.RootElite?.StringId == troop.StringId)
+                return true;
+            if (faction.RootBasic?.StringId == troop.StringId)
+                return true;
 
             // Null-safe list checks:
-            var inElite = faction.EliteTroops != null && faction.EliteTroops.Any(t => t.StringId == troop.StringId);
-            if (inElite) return true;
+            var inElite =
+                faction.EliteTroops != null
+                && faction.EliteTroops.Any(t => t.StringId == troop.StringId);
+            if (inElite)
+                return true;
 
-            var inBasic = faction.BasicTroops != null && faction.BasicTroops.Any(t => t.StringId == troop.StringId);
+            var inBasic =
+                faction.BasicTroops != null
+                && faction.BasicTroops.Any(t => t.StringId == troop.StringId);
             return inBasic;
         }
 

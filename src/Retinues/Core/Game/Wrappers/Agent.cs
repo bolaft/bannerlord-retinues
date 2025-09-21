@@ -1,4 +1,3 @@
-using Retinues.Core.Game.Wrappers.Cache;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -20,7 +19,7 @@ namespace Retinues.Core.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter Character = agent?.Character is CharacterObject @object
-            ? WCharacterCache.Wrap(@object)
+            ? new WCharacter(@object)
             : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

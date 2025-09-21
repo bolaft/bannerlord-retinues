@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Core.Features.Doctrines.Effects.Behaviors;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Game.Wrappers.Cache;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
@@ -213,8 +212,8 @@ namespace Retinues.Core.Features.Doctrines
                 Log.Info("Feat Runtime Event: OnTournamentFinished");
                 var tournament = new Tournament(
                     town,
-                    WCharacterCache.Wrap(winner),
-                    [.. participants.ToList().Select(p => WCharacterCache.Wrap(p))]
+                    new WCharacter(winner),
+                    [.. participants.ToList().Select(p => new WCharacter(p))]
                 );
 
                 // Notify feats
@@ -255,8 +254,8 @@ namespace Retinues.Core.Features.Doctrines
                         new SettlementOwnerChange(
                             s,
                             d,
-                            WCharacterCache.Wrap(o.CharacterObject),
-                            WCharacterCache.Wrap(n.CharacterObject)
+                            new WCharacter(o.CharacterObject),
+                            new WCharacter(n.CharacterObject)
                         )
                     );
                 }
@@ -305,7 +304,7 @@ namespace Retinues.Core.Features.Doctrines
                 Log.Info("Feat Runtime Event: OnTroopRecruited");
 
                 foreach (var feat in _activeFeats.ToList())
-                    feat.OnTroopRecruited(WCharacterCache.Wrap(troop), amount);
+                    feat.OnTroopRecruited(new WCharacter(troop), amount);
             }
             catch (Exception ex)
             {
@@ -327,8 +326,8 @@ namespace Retinues.Core.Features.Doctrines
 
                 foreach (var feat in _activeFeats.ToList())
                     feat.PlayerUpgradedTroops(
-                        WCharacterCache.Wrap(upgradeFromTroop),
-                        WCharacterCache.Wrap(upgradeToTroop),
+                        new WCharacter(upgradeFromTroop),
+                        new WCharacter(upgradeToTroop),
                         number
                     );
             }

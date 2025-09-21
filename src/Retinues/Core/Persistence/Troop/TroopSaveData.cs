@@ -6,45 +6,30 @@ namespace Retinues.Core.Persistence.Troop
     public class TroopSaveData
     {
         [SaveableField(1)]
-        public string VanillaStringId;
-
-        [SaveableField(2)]
-        public bool IsKingdomTroop;
-
-        [SaveableField(3)]
-        public bool IsElite;
-
-        [SaveableField(4)]
-        public bool IsEliteRetinue;
-
-        [SaveableField(5)]
-        public bool IsBasicRetinue;
-
-        [SaveableField(6)]
         public string StringId;
 
-        [SaveableField(7)]
+        [SaveableField(2)]
+        public string VanillaStringId;
+
+        [SaveableField(3)]
         public string Name;
 
-        [SaveableField(8)]
+        [SaveableField(4)]
         public int Level;
 
-        [SaveableField(9)]
+        [SaveableField(5)]
         public bool IsFemale;
 
-        [SaveableField(10)]
-        public string CultureId;
-
-        [SaveableField(11)]
+        [SaveableField(6)]
         public string SkillCode;
 
-        [SaveableField(12)]
+        [SaveableField(7)]
         public string EquipmentCode;
 
-        [SaveableField(13)]
+        [SaveableField(8)]
         public List<TroopSaveData> UpgradeTargets = [];
 
-        [SaveableField(14)]
+        [SaveableField(9)]
         public int XpPool = 0;
     }
 }

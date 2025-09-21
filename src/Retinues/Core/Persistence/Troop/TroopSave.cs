@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Xp;
-using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Game.Wrappers.Cache;
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
@@ -20,15 +17,12 @@ namespace Retinues.Core.Persistence.Troop
         public static TroopSaveData Save(WCharacter character)
         {
             Log.Debug($"Saving troop: {character.StringId}");
+            Log.Info($"troop vanilla id set to {character.VanillaStringId}");
 
             var data = new TroopSaveData
             {
                 StringId = character.StringId,
                 VanillaStringId = character.VanillaStringId,
-                IsKingdomTroop = character.Faction == Player.Kingdom,
-                IsElite = character.IsElite,
-                IsEliteRetinue = character == character.Faction.RetinueElite,
-                IsBasicRetinue = character == character.Faction.RetinueBasic,
                 UpgradeTargets = character.UpgradeTargets?.Select(Save).ToList(),
                 Name = character.Name,
                 Level = character.Level,
@@ -45,63 +39,48 @@ namespace Retinues.Core.Persistence.Troop
         //                         Loading                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static WCharacter Load(TroopSaveData data, WCharacter parent = null)
+        public static WCharacter Load(TroopSaveData data)
         {
-            // Create character object from vanilla id
-            var co = MBObjectManager.Instance.GetObject<CharacterObject>(data.VanillaStringId);
-
             // Wrap it
-            var wco = WCharacterCache.Wrap(co);
+            var troop = new WCharacter(data.StringId);
 
-            // Determine faction
-            var faction = data.IsKingdomTroop ? Player.Kingdom : Player.Clan;
+            Log.Info($"Loading troop {data.StringId} (from {data.VanillaStringId})");
 
-            // Clone it
-            var clone = wco.Clone(
-                faction: faction,
-                parent: parent,
+            // Fill it
+            troop.FillFrom(
+                new WCharacter(data.VanillaStringId),
                 keepUpgrades: false,
                 keepEquipment: false,
-                keepSkills: false,
-                stringId: data.StringId
+                keepSkills: false
             );
 
             // Create the wrapped character
-            clone.VanillaStringId = data.VanillaStringId;
-            clone.Name = data.Name;
-            clone.Level = data.Level;
-            clone.IsFemale = data.IsFemale;
-            clone.Skills = SkillsFromCode(data.SkillCode);
-            clone.Equipments = [WEquipment.FromCode(data.EquipmentCode)];
+            troop.Name = data.Name;
+            troop.Level = data.Level;
+            troop.IsFemale = data.IsFemale;
+            troop.Skills = SkillsFromCode(data.SkillCode);
+            troop.Equipments = [WEquipment.FromCode(data.EquipmentCode)];
 
             // Restore upgrade targets
             foreach (var child in data.UpgradeTargets ?? [])
-                clone.AddUpgradeTarget(Load(child, parent: clone));
-
-            // Toggle visibility flags
-            clone.Register();
+                troop.AddUpgradeTarget(Load(child));
 
             // Restore XP pool
-            TroopXpService.SetPool(clone, data.XpPool);
+            TroopXpService.SetPool(troop, data.XpPool);
 
             // Retinues are not transferable
-            if (data.IsEliteRetinue || data.IsBasicRetinue)
-                clone.IsNotTransferableInPartyScreen = true;
+            if (troop.IsRetinue)
+                troop.IsNotTransferableInPartyScreen = true;
 
-            // Add to the appropriate troop list
-            if (data.IsEliteRetinue)
-                faction.RetinueElite = clone;
-            else if (data.IsBasicRetinue)
-                faction.RetinueBasic = clone;
-            else if (data.IsElite)
-                faction.EliteTroops.Add(clone);
-            else
-                faction.BasicTroops.Add(clone);
+            // Activate
+            troop.Activate();
 
-            Log.Debug($"Created troop: {clone.StringId} (from {clone.VanillaStringId}), target id: {data.StringId}");
+            Log.Debug(
+                $"Created troop: {troop.StringId} (from {troop.VanillaStringId}), target id: {data.StringId}"
+            );
 
             // Return the created troop
-            return clone;
+            return troop;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

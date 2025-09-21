@@ -85,7 +85,7 @@ namespace Retinues.Core.Game.Events
             && MapEvent.MapEventSettlement != null
             && MapEvent.MapEventSettlement.IsVillage
             && !IsSiege;
-        
+
         public bool PlayerIsDefender => PlayerSide == BattleSideEnum.Defender;
 
         public bool PlayerIsInArmy;

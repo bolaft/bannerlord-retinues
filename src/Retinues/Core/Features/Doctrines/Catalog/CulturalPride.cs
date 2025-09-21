@@ -35,7 +35,9 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                         continue; // Ignore non-armor items
                     if (item.Culture?.StringId != Player.Culture.StringId)
                     {
-                        Log.Info($"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture.StringId}) does not match player culture ({Player.Culture.StringId})");
+                        Log.Info(
+                            $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture.StringId}) does not match player culture ({Player.Culture.StringId})"
+                        );
                         return; // Item does not match player culture
                     }
                 }

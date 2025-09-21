@@ -137,16 +137,5 @@ namespace Retinues.Core.Game
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static bool IsArmyLeader => Party.Army?.LeaderParty?.StringId == Party.StringId;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static void Clear()
-        {
-            _clan = null;
-            _culture = null;
-            _kingdom = null;
-        }
     }
 }

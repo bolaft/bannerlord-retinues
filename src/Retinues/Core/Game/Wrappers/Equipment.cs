@@ -27,7 +27,7 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
-                var obj = (Equipment)Base;
+                var obj = Base;
                 return obj.CalculateEquipmentCode();
             }
         }

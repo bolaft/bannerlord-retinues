@@ -14,10 +14,6 @@ namespace Retinues.Core.Persistence
         {
             base.DefineContainerDefinitions();
 
-            AddClassDefinition(typeof(VolunteerSaveData), 070_988);
-            AddClassDefinition(typeof(VolunteerSlotSaveData), 070_989);
-            AddClassDefinition(typeof(RosterElementSaveData), 070_990);
-            AddClassDefinition(typeof(RosterSaveData), 070_991);
             AddClassDefinition(typeof(TroopSaveData), 070_992);
             AddClassDefinition(typeof(ItemSaveData), 070_993);
         }
@@ -26,10 +22,6 @@ namespace Retinues.Core.Persistence
         {
             base.DefineContainerDefinitions();
 
-            ConstructContainerDefinition(typeof(List<VolunteerSlotSaveData>));
-            ConstructContainerDefinition(typeof(List<VolunteerSaveData>));
-            ConstructContainerDefinition(typeof(List<RosterElementSaveData>));
-            ConstructContainerDefinition(typeof(List<RosterSaveData>));
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(Dictionary<string, int>));
             ConstructContainerDefinition(typeof(List<string>));

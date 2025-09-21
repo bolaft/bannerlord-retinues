@@ -11,7 +11,7 @@ namespace Retinues.Core.Features.Xp
 
         public static int GetPool(WCharacter troop) =>
             troop == null ? 0 : (_pool.TryGetValue(troop.StringId, out var v) ? v : 0);
-        
+
         public static void SetPool(WCharacter troop, int amount)
         {
             if (troop == null || amount < 0)

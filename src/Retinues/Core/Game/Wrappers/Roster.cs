@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 
@@ -64,9 +63,21 @@ namespace Retinues.Core.Game.Wrappers
             return _roster.GetTroopCount(troop.Base);
         }
 
-        public void AddTroop(WCharacter troop, int healthy, int wounded = 0, int xp = 0, int index = -1)
+        public void AddTroop(
+            WCharacter troop,
+            int healthy,
+            int wounded = 0,
+            int xp = 0,
+            int index = -1
+        )
         {
-            _roster.AddToCounts(troop.Base, healthy, woundedCount: wounded, xpChange: xp, index: index);
+            _roster.AddToCounts(
+                troop.Base,
+                healthy,
+                woundedCount: wounded,
+                xpChange: xp,
+                index: index
+            );
         }
 
         public void RemoveTroop(WCharacter troop, int healthy, int wounded = 0)

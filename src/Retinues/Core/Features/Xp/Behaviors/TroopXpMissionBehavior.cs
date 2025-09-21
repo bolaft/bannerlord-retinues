@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Game.Wrappers.Cache;
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 

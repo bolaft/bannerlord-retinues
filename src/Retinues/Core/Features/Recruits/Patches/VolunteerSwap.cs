@@ -18,7 +18,7 @@ public static class VolunteerSwap
             return;
 
         if (settlement.IsHideout)
-            return;  // no volunteers in hideouts
+            return; // no volunteers in hideouts
 
         try
         {
@@ -33,7 +33,6 @@ public static class VolunteerSwap
             if (playerClan != null && clan != null && clan?.StringId == playerClan?.StringId)
                 didSwap = SwapVolunteers(settlement, playerClan);
 
-
             if (playerKingdom is null)
                 return;
 
@@ -42,7 +41,7 @@ public static class VolunteerSwap
                 && playerKingdom != null
                 && kingdom != null
                 && kingdom?.StringId == playerKingdom?.StringId
-                )
+            )
                 didSwap = SwapVolunteers(settlement, playerKingdom);
 
             if (didSwap)
@@ -53,7 +52,6 @@ public static class VolunteerSwap
             Log.Exception(e);
             return;
         }
-
     }
 
     static bool SwapVolunteers(Settlement settlement, WFaction faction)

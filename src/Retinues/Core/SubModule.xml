@@ -10,6 +10,7 @@
     <DependedModule Id="Bannerlord.Harmony" />
     <DependedModule Id="Bannerlord.UIExtenderEx" />
     <DependedModule Id="Native" />
+    <DependedModule Id="SandBoxCore" />
     <DependedModule Id="Sandbox" />
   </DependedModules>
   <SubModules>
@@ -27,4 +28,15 @@
       </Assemblies>
     </SubModule>
   </SubModules>
+	<Xmls>
+		<XmlNode>                
+			<XmlName id="NPCCharacters" path="troop_stubs" />
+			<IncludedGameTypes>
+				<GameType value="Campaign" />
+				<GameType value="CampaignStoryMode" />
+				<GameType value="CustomGame" />
+				<GameType value="EditorGame" />
+			</IncludedGameTypes>
+		</XmlNode>
+  </Xmls>
 </Module>

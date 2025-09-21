@@ -71,10 +71,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
         public sealed class CT_AcquireNewFief : Feat
         {
             public override string Description =>
-                L.S(
-                    "clanic_traditions_acquire_new_fief",
-                    "Acquire a new fief for your clan."
-                );
+                L.S("clanic_traditions_acquire_new_fief", "Acquire a new fief for your clan.");
             public override int Target => 1;
 
             public override void OnSettlementOwnerChanged(SettlementOwnerChange change)

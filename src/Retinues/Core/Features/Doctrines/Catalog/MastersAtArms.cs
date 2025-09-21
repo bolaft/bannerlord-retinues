@@ -2,7 +2,6 @@ using System.Linq;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
@@ -51,7 +50,6 @@ namespace Retinues.Core.Features.Doctrines.Catalog
             public override void OnArenaEnd(Combat combat)
             {
                 int koCount = combat.Kills.Count(k => k.Killer.IsPlayer);
-                Log.Info($"MAA_KO50Opponents: counted {koCount} KOs in arena match");
                 AdvanceProgress(koCount);
             }
         }

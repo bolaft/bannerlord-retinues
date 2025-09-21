@@ -20,12 +20,12 @@ namespace Retinues.Core.Editor
 
         public static List<WCharacter> CollectEliteTroops(WFaction faction)
         {
-            return faction.EliteTroops;
+            return [.. faction.EliteTroops];
         }
 
         public static List<WCharacter> CollectBasicTroops(WFaction faction)
         {
-            return faction.BasicTroops;
+            return [.. faction.BasicTroops];
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -73,26 +73,31 @@ namespace Retinues.Core.Editor
 
         public static WCharacter AddUpgradeTarget(WCharacter troop, string targetName)
         {
-            // Create the new troop by cloning
-            var target = troop.Clone(
-                faction: troop.Faction,
-                parent: troop,
+            // Determine the position in the tree
+            List<int> path = [.. troop.PositionInTree, troop.UpgradeTargets.Length];
+
+            // Wrap the custom troop
+            var child = new WCharacter(troop.Faction == Player.Kingdom, troop.IsElite, false, path);
+
+            // Copy from the original troop
+            child.FillFrom(
+                troop,
                 keepUpgrades: false,
                 keepEquipment: false,
                 keepSkills: true
             );
 
             // Set name and level
-            target.Name = targetName.Trim();
-            target.Level = troop.Level + 5;
+            child.Name = targetName.Trim();
+            child.Level = troop.Level + 5;
 
-            // Add it the the faction's troop list
-            if (target.IsElite)
-                troop.Faction.EliteTroops.Add(target);
-            else
-                troop.Faction.BasicTroops.Add(target);
+            // Add to upgrade targets of the parent
+            troop.AddUpgradeTarget(child);
 
-            return target;
+            // Activate
+            child.Activate();
+
+            return child;
         }
 
         public static void Remove(WCharacter troop)
@@ -137,13 +142,13 @@ namespace Retinues.Core.Editor
 
             if (retinue == retinue.Faction?.RetinueElite)
             {
-                cultureRoot = retinue.Culture?.RootElite;
-                factionRoot = retinue.Faction?.RootElite;
+                cultureRoot = retinue.Culture.RootElite;
+                factionRoot = retinue.Faction.RootElite;
             }
-            else if (retinue == retinue.Faction?.RetinueBasic)
+            else if (retinue == retinue.Faction.RetinueBasic)
             {
-                cultureRoot = retinue.Culture?.RootBasic;
-                factionRoot = retinue.Faction?.RootBasic;
+                cultureRoot = retinue.Culture.RootBasic;
+                factionRoot = retinue.Faction.RootBasic;
             }
             else
                 return sources;

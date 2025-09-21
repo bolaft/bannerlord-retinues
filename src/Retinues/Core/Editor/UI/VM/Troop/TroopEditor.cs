@@ -165,17 +165,19 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 // return SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop).ToString() : "0";
                 return L.T("available_troop_xp", "{XP} xp")
-                    .SetTextVariable("XP", TroopXpService.GetPool(SelectedTroop)).ToString();
+                    .SetTextVariable("XP", TroopXpService.GetPool(SelectedTroop))
+                    .ToString();
             }
         }
-        
+
         [DataSourceProperty]
         public string SkillCapText
         {
             get
             {
                 return L.T("skill_cap_text", "{CAP} skill cap")
-                    .SetTextVariable("CAP", TroopRules.SkillCapByTier(SelectedTroop.Tier)).ToString();
+                    .SetTextVariable("CAP", TroopRules.SkillCapByTier(SelectedTroop.Tier))
+                    .ToString();
             }
         }
 
@@ -650,7 +652,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (amount <= 0)
                 return;
 
-            string key    = $"{from.StringId}->{to.StringId}";
+            string key = $"{from.StringId}->{to.StringId}";
             string oppKey = $"{to.StringId}->{from.StringId}";
 
             // 1) Cancel against any opposite staged flow first.
@@ -668,7 +670,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 if (!_staged.TryGetValue(key, out var order))
                 {
-                    order = new StagedOrder { From = from, To = to, Amount = 0 };
+                    order = new StagedOrder
+                    {
+                        From = from,
+                        To = to,
+                        Amount = 0,
+                    };
                     _staged[key] = order;
                 }
                 order.Amount += amount;

@@ -11,14 +11,10 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - provide translations in many languages
 - disable in game messages from logs altogether for release
 - rm "Royal Patronage" => doctrine to use crafted gear
-- 50 KOs is present twice, replace one
 
 ## Fixes
 
 - fix hints not appearing on disabled buttons
-- crash on AddToCounts. OnTick? when hovering morale?
-- troop removal before save is hacky
-- restore volunteers from save crash (only when save & exit?)
 
 ## Tests
 

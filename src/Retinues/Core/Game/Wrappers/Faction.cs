@@ -45,29 +45,25 @@ namespace Retinues.Core.Game.Wrappers
             {
                 yield return RetinueElite;
                 yield return RetinueBasic;
-                foreach (var troop in EliteTroops)
-                    yield return troop;
-                foreach (var troop in BasicTroops)
-                    yield return troop;
+                foreach (var troop in RootElite.Tree)
+                    if (troop.IsActive)
+                        yield return troop;
+                foreach (var troop in RootBasic.Tree)
+                    if (troop.IsActive)
+                        yield return troop;
             }
         }
 
-        public WCharacter RetinueElite { get; set; }
-        public WCharacter RetinueBasic { get; set; }
+        public WCharacter RetinueElite => new(this == Player.Kingdom, true, true);
+        public WCharacter RetinueBasic => new(this == Player.Kingdom, false, true);
 
-        public WCharacter RootElite => EliteTroops.Find(t => t?.Parent == null);
-        public WCharacter RootBasic => BasicTroops.Find(t => t?.Parent == null);
+        public WCharacter RootElite => new(this == Player.Kingdom, true, false);
+        public WCharacter RootBasic => new(this == Player.Kingdom, false, false);
 
-        public List<WCharacter> EliteTroops { get; } = [];
-        public List<WCharacter> BasicTroops { get; } = [];
-
-        public void ClearTroops()
-        {
-            EliteTroops.Clear();
-            BasicTroops.Clear();
-            RetinueElite = null;
-            RetinueBasic = null;
-        }
+        public List<WCharacter> EliteTroops =>
+            [.. RootElite.Tree.Where(t => t.IsActive && t.IsElite)];
+        public List<WCharacter> BasicTroops =>
+            [.. RootBasic.Tree.Where(t => t.IsActive && !t.IsElite)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Fiefs                         //
