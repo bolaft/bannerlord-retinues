@@ -26,7 +26,7 @@ namespace Retinues.Core.Utils
         public const LogLevel MinFileLevel = LogLevel.Debug;
 
         // Lowest level shown in-game (InformationManager)
-        public const LogLevel MinInGameLevel = LogLevel.Info;
+        public const LogLevel MinInGameLevel = LogLevel.Critical;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Log File Setup                     //
