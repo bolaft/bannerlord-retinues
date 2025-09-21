@@ -53,8 +53,6 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             else if (IsAlliedTroop(victim))
                 if (!DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>())
                     return; // No unlock from ally casualty unless doctrine is enabled
-                else
-                    Log.Info("Counting allied casualty due to Pragmatic Scavengers.");
 
             if (IsEnemyTroop(killer))
                 return; // Enemy killers don't unlock anything

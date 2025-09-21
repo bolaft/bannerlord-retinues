@@ -41,7 +41,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
                     if (troop.Equipment.GetItem(EquipmentIndex.Body).Tier < 6)
                         continue; // Body armor does not meet tier requirement
-                    
+
                     AdvanceProgress(1);
                 }
             }

@@ -18,8 +18,7 @@ namespace Retinues.Core.Features.Doctrines.Effects.Patches
             if (!DoctrineAPI.IsDoctrineUnlocked<BoundByHonor>())
                 return;
 
-            var bonus =
-                __result.ResultNumber * (Player.Party.MemberRoster.RetinueRatio * 0.2f);
+            var bonus = __result.ResultNumber * (Player.Party.MemberRoster.RetinueRatio * 0.2f);
             __result.Add(
                 bonus,
                 L.T("retinue_morale_bonus_bound_by_honor", "Retinue (Bound by Honor)")

@@ -1,9 +1,8 @@
-using System.Collections.Generic;
+using System.Linq;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
@@ -91,38 +90,23 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class IM_SingleRetinueTwoTier5Kills : Feat
+        public sealed class IM_Retinue200Enemies : Feat
         {
             public override string Description =>
                 L.S(
-                    "immortals_single_retinue_two_tier_5_kills",
-                    "Have a single retinue troop kill two tier 5+ units in one battle."
+                    "immortals_retinue_200_enemies",
+                    "Have your retinue defeat 200 enemies in a single battle."
                 );
-            public override int Target => 1;
+            public override int Target => 200;
 
             public override void OnBattleEnd(Battle battle)
             {
-                var killerCandidates = new List<Agent>();
+                int retinueKills = battle.Kills.Count(kill =>
+                    kill.Killer.IsPlayerTroop && kill.Killer.Character.IsRetinue
+                );
 
-                foreach (var kill in battle.Kills)
-                {
-                    if (kill.Victim.Character.Tier < 5)
-                        continue; // Not tier 5+
-                    if (!kill.Killer.Character.IsRetinue)
-                        continue; // Not a retinue
-
-                    if (killerCandidates.Contains(kill.Killer.Agent))
-                    {
-                        // Second tier 5 kill by same retinue
-                        AdvanceProgress(1);
-                        return;
-                    }
-                    else
-                    {
-                        // First tier 5 kill by this retinue
-                        killerCandidates.Add(kill.Killer.Agent);
-                    }
-                }
+                if (retinueKills > Progress)
+                    SetProgress(retinueKills);
             }
         }
     }

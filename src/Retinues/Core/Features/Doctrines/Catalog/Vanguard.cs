@@ -1,6 +1,7 @@
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
@@ -32,14 +33,16 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                 foreach (var kill in battle.Kills)
                 {
                     // Heuristic: if any kill is not by a retinue in player troop, disqualify
-                    if (kill.Victim.IsPlayerTroop)
+                    if (kill.Victim.Side == battle.PlayerSide)
                     {
                         if (!kill.Victim.Character.IsRetinue && !kill.Victim.IsPlayer)
                             return; // A non-retinue / non-player was present
                     }
                     else if (!kill.Killer.Character.IsRetinue)
+                    {
                         if (!kill.Killer.IsPlayer)
                             return; // A non-retinue / non-player was present
+                    }
                 }
 
                 AdvanceProgress(1);

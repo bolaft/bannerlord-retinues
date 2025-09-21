@@ -287,10 +287,7 @@ namespace Retinues.Core.Features.Doctrines
 
         /* ━━━━━ Recruitement ━━━━━ */
 
-        void OnUnitRecruited(
-            CharacterObject troop,
-            int amount
-        )
+        void OnUnitRecruited(CharacterObject troop, int amount)
         {
             try
             {

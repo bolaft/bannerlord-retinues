@@ -39,9 +39,6 @@ namespace Retinues.Core.Features.Doctrines.Effects
                 if (iMission is not Mission mission)
                     return; // Not a battle or a tournament
 
-                if (mission.CombatType != Mission.MissionCombatType.Combat)
-                    return; // Not combat
-
                 if (mission.GetMissionBehavior<ImmortalsBehavior>() == null)
                     mission.AddMissionBehavior(new ImmortalsBehavior());
 

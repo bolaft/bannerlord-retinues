@@ -78,8 +78,7 @@ namespace Retinues.Core.Game.Events
 
         public bool IsFieldBattle => MapEvent.IsFieldBattle;
         public bool IsHideout => MapEvent.IsHideoutBattle;
-        public bool IsSiege =>
-            MapEvent.IsSiegeAssault || MapEvent.IsSiegeAmbush || MapEvent.IsSiegeOutside;
+        public bool IsSiege => MapEvent.IsSiegeAssault;
         public bool IsVillageRaid =>
             !MapEvent.IsFieldBattle
             && MapEvent.MapEventSettlement != null

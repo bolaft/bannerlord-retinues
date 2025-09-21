@@ -43,9 +43,6 @@ public static class VolunteerSwap
                 && kingdom?.StringId == playerKingdom?.StringId
             )
                 didSwap = SwapVolunteers(settlement, playerKingdom);
-
-            if (didSwap)
-                Log.Info($"VolunteerSwap: Swapped volunteers in {settlement.Name}");
         }
         catch (Exception e)
         {

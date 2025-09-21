@@ -224,8 +224,8 @@
       id="ret_immortals_description"
       text="+20% retinue survival chance." />
     <string
-      id="ret_immortals_single_retinue_two_tier_5_kills"
-      text="Have a single retinue troop kill two tier 5+ units in one battle." />
+      id="ret_immortals_retinue_200_enemies"
+      text="Have your retinue defeat 200 enemies in a single battle." />
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Win by yourself against 100+ enemies without a single death on your side." />

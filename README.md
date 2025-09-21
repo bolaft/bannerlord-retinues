@@ -16,7 +16,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 ## Fixes
 
 - fix hints not appearing on disabled buttons
-- win siege defense trigger even if being attacked while sieging
 - on recreating kingdom, troops are replaced
 
 ## Tests

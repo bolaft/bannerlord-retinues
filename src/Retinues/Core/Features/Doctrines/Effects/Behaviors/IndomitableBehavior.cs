@@ -1,5 +1,6 @@
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.MountAndBlade;
@@ -30,7 +31,7 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
                 return;
             if (!new WCharacter(co).IsRetinue)
                 return;
-
+            
             agent.Health += Bonus;
         }
     }
