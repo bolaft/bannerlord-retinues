@@ -3,6 +3,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
@@ -105,6 +106,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>()
                 && delta < 0
                 && !_editor.PlayerWarnedAboutRetraining
+                && Config.GetOption<int>("BaseSkillXpCost") + Config.GetOption<int>("SkillXpCostPerPoint") > 0
             )
             {
                 // Warn the player that decrementing skills may require retraining

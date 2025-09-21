@@ -22,7 +22,9 @@ namespace Retinues.Core.Features.Xp
 
         public static bool TrySpend(WCharacter troop, int amount)
         {
-            if (troop == null || amount <= 0)
+            if (amount <= 0)
+                return true;
+            if (troop == null)
                 return false;
             var key = troop.StringId;
             var have = GetPool(troop);
