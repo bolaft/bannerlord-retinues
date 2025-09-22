@@ -3,6 +3,7 @@ using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game;
 using Retinues.Core.Utils;
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -19,8 +20,7 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
         private bool IsPlayerTroop(Agent agent)
         {
-            var party = (agent?.Origin as PartyAgentOrigin)?.Party;
-            return party?.MobileParty?.StringId == Player.Party?.StringId;
+             return new WAgent(agent).IsPlayerTroop;
         }
 
         private bool IsAlliedTroop(Agent agent)
@@ -47,6 +47,7 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 return;
             if (Mission?.PlayerTeam == null)
                 return;
+            
 
             if (IsPlayerTroop(victim))
                 return; // No unlock from player troop casualty
