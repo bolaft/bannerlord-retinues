@@ -1,5 +1,5 @@
 <!-- Image -->
-{{- func image(id, additional_args, width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
+{{- func image(width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
 <Widget
     IsVisible="{{is_visible}}"
     HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -12,8 +12,8 @@
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
             Brush="{{brush}}"/>
         <ImageIdentifierWidget
-            ImageId="{{id}}"
-            AdditionalArgs="{{additional_args}}"
+            DataSource="{Image}"
+            AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"/>
     </Children>

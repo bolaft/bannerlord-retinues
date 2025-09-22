@@ -42,7 +42,7 @@
                             Text="@EmptyMessage"/>
 
                         <!-- Icon -->
-                        {{ image("@ImageId", "@ImageAdditionalArgs", "68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                        {{ image("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
 
                         <!-- Name -->
                         <TextWidget 

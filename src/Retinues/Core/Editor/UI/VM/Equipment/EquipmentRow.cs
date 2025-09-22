@@ -4,6 +4,7 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
@@ -93,13 +94,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
         [DataSourceProperty]
-        public string ImageId => Item?.Image.Id;
-
-        // [DataSourceProperty]
-        // public int ImageTypeCode => Item?.Image.ImageTypeCode ?? 0;
-
-        [DataSourceProperty]
-        public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
+        public ImageIdentifierVM Image => Item?.Image;
 
         /* ━━━━━━━━ Tooltip ━━━━━━━ */
 
@@ -192,9 +187,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(Stock));
             OnPropertyChanged(nameof(ShowStock));
             OnPropertyChanged(nameof(CanEquip));
-            OnPropertyChanged(nameof(ImageId));
-            // OnPropertyChanged(nameof(ImageTypeCode));
-            OnPropertyChanged(nameof(ImageAdditionalArgs));
+            OnPropertyChanged(nameof(Image));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

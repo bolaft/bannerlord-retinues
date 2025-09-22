@@ -33,7 +33,7 @@
                             StackLayout.LayoutMethod="HorizontalLeftToRight">
                             <Children>
                                 <!-- Icon -->
-                                {{ image("@ImageId", "@ImageAdditionalArgs", "96", "48", "0", "24") }}
+                                {{ image("96", "48", "0", "24") }}
 
                                 <!-- Name -->
                                 <TextWidget

@@ -34,7 +34,8 @@
                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                     Brush="Frame1Brush"/>
                 <ImageIdentifierWidget
-                    ImageId="@ImageId" AdditionalArgs="@ImageAdditionalArgs"
+                    DataSource="{Image}"
+                    AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                     SuggestedWidth="86" SuggestedHeight="42">
                     <Children>

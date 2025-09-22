@@ -1,5 +1,5 @@
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
@@ -18,13 +18,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public bool DisplayTroop => Troop is not null;
 
         [DataSourceProperty]
-        public string ImageId => Troop?.Image.Id;
-
-        // [DataSourceProperty]
-        // public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
-
-        [DataSourceProperty]
-        public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
+        public ImageIdentifierVM Image => Troop?.Image;
 
         [DataSourceProperty]
         public string IndentedName
@@ -56,9 +50,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             OnPropertyChanged(nameof(DisplayEmptyMessage));
             OnPropertyChanged(nameof(DisplayTroop));
-            OnPropertyChanged(nameof(ImageId));
-            // OnPropertyChanged(nameof(ImageTypeCode));
-            OnPropertyChanged(nameof(ImageAdditionalArgs));
             OnPropertyChanged(nameof(IndentedName));
             OnPropertyChanged(nameof(TierText));
             OnPropertyChanged(nameof(EmptyMessage));
