@@ -16,6 +16,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 - fix hints not appearing on disabled buttons
 - on recreating kingdom, troops are replaced
+- perk effect text size overlap in some locales
 
 ## Tests
 
