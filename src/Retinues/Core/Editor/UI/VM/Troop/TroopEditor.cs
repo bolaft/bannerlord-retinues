@@ -163,7 +163,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             get
             {
-                // return SelectedTroop != null ? TroopXpService.GetPool(SelectedTroop).ToString() : "0";
                 return L.T("available_troop_xp", "{XP} xp")
                     .SetTextVariable("XP", TroopXpService.GetPool(SelectedTroop))
                     .ToString();
