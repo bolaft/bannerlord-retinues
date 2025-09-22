@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="FR" />
+    <tag language="DE" />
   </tags>
   <strings>
-    <string
-      id="ret_acquire_fief_to_unlock"
-      text="Acquérez un fief pour débloquer les troupes de clan." />
   </strings>
 </base>
