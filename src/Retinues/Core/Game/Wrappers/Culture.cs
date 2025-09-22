@@ -17,15 +17,15 @@ namespace Retinues.Core.Game.Wrappers
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => _culture.Name.ToString();
+        public string Name => _culture?.Name.ToString();
 
-        public override string StringId => _culture.StringId.ToString();
+        public override string StringId => _culture?.StringId.ToString();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter RootBasic => new(_culture.BasicTroop);
-        public WCharacter RootElite => new(_culture.EliteBasicTroop);
+        public WCharacter RootBasic => new(_culture?.BasicTroop);
+        public WCharacter RootElite => new(_culture?.EliteBasicTroop);
     }
 }

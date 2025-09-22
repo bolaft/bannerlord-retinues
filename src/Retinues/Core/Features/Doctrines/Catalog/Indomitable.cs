@@ -1,7 +1,6 @@
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
@@ -25,17 +24,12 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                Log.Debug("IND_25EquivNoCasualty: OnBattleEnd");
                 foreach (var kill in battle.Kills)
                 {
-                    Log.Debug(
-                        $"  Kill: {kill.Killer.Character?.Name} (tier {kill.Killer.Character?.Tier}, retinue: {kill.Killer.Character?.IsRetinue}) killed {kill.Victim.Character?.Name} (tier {kill.Victim.Character?.Tier}, retinue: {kill.Victim.Character?.IsRetinue})"
-                    );
                     if (!kill.Killer.IsPlayerTroop)
                     {
                         if (kill.Victim.Character.IsRetinue)
                         {
-                            Log.Warn("  Retinue casualty detected; resetting progress.");
                             SetProgress(0); // Reset progress on any retinue casualty
                         }
                     }
@@ -45,9 +39,6 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                         {
                             if (kill.Victim.Character.Tier >= kill.Killer.Character.Tier)
                             {
-                                Log.Debug(
-                                    $"  Retinue kill of equivalent or higher tier troop: {kill.Victim.Character.Name} (tier {kill.Victim.Character.Tier})"
-                                );
                                 AdvanceProgress(1);
                             }
                         }

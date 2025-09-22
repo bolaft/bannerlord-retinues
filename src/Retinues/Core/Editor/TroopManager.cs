@@ -138,13 +138,13 @@ namespace Retinues.Core.Editor
 
             if (retinue.StringId == retinue.Faction?.RetinueElite.StringId)
             {
-                cultureRoot = retinue.Culture.RootElite;
-                factionRoot = retinue.Faction.RootElite;
+                cultureRoot = retinue.Culture?.RootElite;
+                factionRoot = retinue.Faction?.RootElite;
             }
-            else if (retinue.StringId == retinue.Faction.RetinueBasic.StringId)
+            else if (retinue.StringId == retinue.Faction?.RetinueBasic.StringId)
             {
-                cultureRoot = retinue.Culture.RootBasic;
-                factionRoot = retinue.Faction.RootBasic;
+                cultureRoot = retinue.Culture?.RootBasic;
+                factionRoot = retinue.Faction?.RootBasic;
             }
             else
             {
@@ -178,7 +178,7 @@ namespace Retinues.Core.Editor
                 return false;
 
             // Check for culture match
-            if (troop.Culture.StringId != retinue.Culture.StringId)
+            if (troop.Culture?.StringId != retinue.Culture?.StringId)
                 return false;
 
             // Check for tier match

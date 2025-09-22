@@ -22,7 +22,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public string Name => Item?.Name ?? L.S("empty_item", "Empty");
 
         [DataSourceProperty]
-        public int Value => EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop);
+        public int Value => Config.GetOption<bool>("PayForEquipment") ? EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop) : 0;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
