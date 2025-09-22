@@ -16,11 +16,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 - fix hints not appearing on disabled buttons
 - on recreating kingdom, troops are replaced
-- perk effect text size overlap in some locales
-
-## Tests
-
-- v1.3 test
 
 ## Other
 
@@ -30,7 +25,7 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 Welcome to Retinues, a mod for Bannerlord that adds several troop customization features and mechanics to the game.
 
-You can use the mod from an existing save, but I recommend starting a new game to get the intended experience.
+You can use the mod from an existing save, but starting a new game is recommended to get the intended experience.
 
 After installing the mod, if you go in the clan screen you will notice a new tab, the "Troops" tab.
 
