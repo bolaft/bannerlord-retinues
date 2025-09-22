@@ -31,3 +31,6 @@ SaveData/
 
 # Ignore global suppressions
 GlobalSuppressions.cs
+
+# Ignore media
+media/
