@@ -20,8 +20,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public string ImageId => Troop?.Image.Id;
 
-        [DataSourceProperty]
-        public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
+        // [DataSourceProperty]
+        // public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
@@ -57,7 +57,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(DisplayEmptyMessage));
             OnPropertyChanged(nameof(DisplayTroop));
             OnPropertyChanged(nameof(ImageId));
-            OnPropertyChanged(nameof(ImageTypeCode));
+            // OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
             OnPropertyChanged(nameof(IndentedName));
             OnPropertyChanged(nameof(TierText));

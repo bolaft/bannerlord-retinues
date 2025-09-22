@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Retinues.Core.Game.Wrappers;
+using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.ObjectSystem;
@@ -69,8 +70,8 @@ namespace Retinues.Core.Game.Helpers
             F_occupation.SetValue(tgt, F_occupation.GetValue(src));
             F_persona.SetValue(tgt, F_persona.GetValue(src));
 
-            var traitsSrc = (CharacterTraits)F_characterTraits.GetValue(src);
-            F_characterTraits.SetValue(tgt, new CharacterTraits(traitsSrc));
+            var traitsSrc = (PropertyOwner<TraitObject>)F_characterTraits.GetValue(src);
+            F_characterTraits.SetValue(tgt, new PropertyOwner<TraitObject>(traitsSrc));
 
             F_civilianEquipmentTemplate.SetValue(tgt, F_civilianEquipmentTemplate.GetValue(src));
             F_battleEquipmentTemplate.SetValue(tgt, F_battleEquipmentTemplate.GetValue(src));

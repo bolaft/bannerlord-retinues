@@ -5,6 +5,7 @@ using Retinues.Core.Game.Helpers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -48,7 +49,7 @@ namespace Retinues.Core.Game.Wrappers
         //                View-Model (VM) Accessors               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public ImageIdentifierVM Image => new(CharacterCode.CreateFrom(Base));
+        public CharacterImageIdentifierVM Image => new(CharacterCode.CreateFrom(Base));
 
         public CharacterViewModel Model
         {
@@ -140,9 +141,9 @@ namespace Retinues.Core.Game.Wrappers
 
         public bool HiddenInEncyclopedia
         {
-            // NOTE: game-side property is misspelled "HiddenInEncylopedia"
-            get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncylopedia");
-            set => Reflector.SetPropertyValue(Base, "HiddenInEncylopedia", value);
+            // NOTE: fixed typo in 1.3.0
+            get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncyclopedia");
+            set => Reflector.SetPropertyValue(Base, "HiddenInEncyclopedia", value);
         }
 
         public bool IsNotTransferableInHideouts
@@ -228,13 +229,18 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
-                var equipments = Base.AllEquipments.ToList();
-                return [.. equipments.Select(e => new WEquipment(e))];
+                MBEquipmentRoster roster = Reflector.GetFieldValue<MBEquipmentRoster>(Base, "_equipmentRoster");
+                return [.. roster.AllEquipments.Select(e => new WEquipment(e))];
             }
             set
             {
                 var equipments = value.Select(e => e.Base).ToList();
-                var roster = new MBEquipmentRoster();
+                foreach (var eq in equipments)
+                {
+                    // Ensure IsBattle
+                    Reflector.SetFieldValue(eq, "_equipmentType", TaleWorlds.Core.Equipment.EquipmentType.Battle);
+                }
+                MBEquipmentRoster roster = Reflector.GetFieldValue<MBEquipmentRoster>(Base, "_equipmentRoster");
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(equipments));
                 Reflector.SetFieldValue(Base, "_equipmentRoster", roster);
             }

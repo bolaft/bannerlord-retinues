@@ -22,7 +22,7 @@ namespace Retinues.Core.Game.Wrappers
             Equipment obj;
 
             if (code is null)
-                obj = new Equipment(false);
+                obj = new Equipment(Equipment.EquipmentType.Battle);
             else
                 obj = Equipment.CreateFromEquipmentCode(code);
 

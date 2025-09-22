@@ -95,8 +95,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public string ImageId => Item?.Image.Id;
 
-        [DataSourceProperty]
-        public int ImageTypeCode => Item?.Image.ImageTypeCode ?? 0;
+        // [DataSourceProperty]
+        // public int ImageTypeCode => Item?.Image.ImageTypeCode ?? 0;
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
@@ -193,7 +193,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(ShowStock));
             OnPropertyChanged(nameof(CanEquip));
             OnPropertyChanged(nameof(ImageId));
-            OnPropertyChanged(nameof(ImageTypeCode));
+            // OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -20,7 +21,7 @@ namespace Retinues.Core.Game.Wrappers
         //                      VM properties                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public ImageIdentifierVM Image => new(_itemObject);
+        public ItemImageIdentifierVM Image => new(Base);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
@@ -125,7 +126,7 @@ namespace Retinues.Core.Game.Wrappers
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsUniqueItem => _itemObject.IsUniqueItem;
+        // public bool IsUniqueItem => _itemObject.IsUniqueItem;
 
         public bool IsCrafted => _itemObject.IsCraftedByPlayer;
 
@@ -278,9 +279,9 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
-                // No unique items
-                if (IsUniqueItem)
-                    return false;
+                // // No unique items
+                // if (IsUniqueItem)
+                //     return false;
 
                 switch (Type)
                 {
