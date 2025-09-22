@@ -20,6 +20,14 @@ namespace Retinues.Core.Features.Xp
             _pool[key] = amount;
         }
 
+        public static void AddToPool(WCharacter troop, int amount)
+        {
+            if (troop == null || amount <= 0)
+                return;
+            var key = troop.StringId;
+            _pool[key] = GetPool(troop) + amount;
+        }
+
         public static bool TrySpend(WCharacter troop, int amount)
         {
             if (amount <= 0)
