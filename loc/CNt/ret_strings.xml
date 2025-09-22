@@ -4,5 +4,704 @@
     <tag language="CNt" />
   </tags>
   <strings>
+    <string
+      id="ret_acquire_fief_to_unlock"
+      text="佔領一個封地以解鎖家族部隊。" />
+    <string
+      id="ret_adaptive_training"
+      text="適應性訓練" />
+    <string
+      id="ret_adaptive_training_150_in_each_skill"
+      text="對於每項技能，至少擁有一支自定義部隊等級達到150或更高。" />
+    <string
+      id="ret_adaptive_training_5_weapons"
+      text="在一場戰鬥中，使用五種不同武器類別各擊殺一次。" />
+    <string
+      id="ret_adaptive_training_description"
+      text="降低部隊技能時會返還經驗值。" />
+    <string
+      id="ret_adaptive_training_win_with_even_split"
+      text="率領步兵、騎兵和遠程家族部隊平均分配的小隊，在一場對抗超過100名敵人的戰鬥中取勝。" />
+    <string
+      id="ret_add_upgrade"
+      text="新增升級" />
+    <string
+      id="ret_add_upgrade_button_text"
+      text="新增升級" />
+    <string
+      id="ret_ancestral_heritage"
+      text="祖傳遺產" />
+    <string
+      id="ret_ancestral_heritage_150_outnumbered_own_culture"
+      text="在人數劣勢下，僅使用本文化的自定義部隊贏得一場150+敵人的戰鬥。" />
+    <string
+      id="ret_ancestral_heritage_capture_own_culture_fief"
+      text="從敵對王國手中奪取一個屬於本文化的封地。" />
+    <string
+      id="ret_ancestral_heritage_description"
+      text="解鎖家族與王國文化的所有物品。" />
+    <string
+      id="ret_ancestral_heritage_tournament_own_culture_town"
+      text="在本文化的城鎮贏得一場比武大會。" />
+    <string
+      id="ret_apply_conversions_button_text"
+      text="轉換" />
+    <string
+      id="ret_available_troop_xp"
+      text="{XP} 經驗" />
+    <string
+      id="ret_battlefield_tithes"
+      text="戰場什一稅" />
+    <string
+      id="ret_battlefield_tithes_description"
+      text="可透過盟友擊殺解鎖物品。" />
+    <string
+      id="ret_battlefield_tithes_lead_army_victory"
+      text="率領以盟軍為主的軍隊戰勝敵軍。" />
+    <string
+      id="ret_battlefield_tithes_quest_for_allied_lord"
+      text="為盟友領主完成5個任務。" />
+    <string
+      id="ret_battlefield_tithes_turn_tide_allied_army_battle"
+      text="在涉及盟軍的戰鬥中扭轉戰局。" />
+    <string
+      id="ret_body_slot_text"
+      text="身體" />
+    <string
+      id="ret_bound_by_honor"
+      text="榮譽束縛" />
+    <string
+      id="ret_bound_by_honor_defeat_10_bandits"
+      text="消滅10個強盜隊伍。" />
+    <string
+      id="ret_bound_by_honor_description"
+      text="+20% 隨從士氣。" />
+    <string
+      id="ret_bound_by_honor_protect_villagers_or_caravans"
+      text="拯救3支商隊或村民隊伍免受敵人攻擊。" />
+    <string
+      id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
+      text="維持一支僅隨從隊伍的士氣在90以上，持續15天。" />
+    <string
+      id="ret_buy_item"
+      text="購買物品" />
+    <string
+      id="ret_buy_item_text"
+      text="確定要花費 {ITEM_VALUE} 金幣購買 {ITEM_NAME} 嗎？" />
+    <string
+      id="ret_cancel"
+      text="取消" />
+    <string
+      id="ret_cant_remove_root_troop"
+      text="根部隊無法被移除。" />
+    <string
+      id="ret_cant_remove_troop_with_targets"
+      text="擁有升級目標的部隊無法被移除。" />
+    <string
+      id="ret_cape_slot_text"
+      text="披風" />
+    <string
+      id="ret_clanic_traditions"
+      text="家族傳統" />
+    <string
+      id="ret_clanic_traditions_acquire_new_fief"
+      text="為家族獲得一個新的封地。" />
+    <string
+      id="ret_clanic_traditions_companions_50_kills"
+      text="在一場戰鬥中，你與同伴合計擊殺50人以上。" />
+    <string
+      id="ret_clanic_traditions_description"
+      text="本家族文化物品享受10%折扣。" />
+    <string
+      id="ret_clanic_traditions_own_smithy_30_days"
+      text="在本家族文化的城鎮擁有一家鐵匠鋪30天。" />
+    <string
+      id="ret_clear_conversions_button_text"
+      text="清除" />
+    <string
+      id="ret_close_doctrines_button_text"
+      text="返回" />
+    <string
+      id="ret_close_equipment_button_text"
+      text="返回" />
+    <string
+      id="ret_confirm"
+      text="確認" />
+    <string
+      id="ret_continue"
+      text="繼續" />
+    <string
+      id="ret_convert_not_enough_gold"
+      text="金幣不足，無法進行轉換。" />
+    <string
+      id="ret_convert_not_enough_gold_text"
+      text="你沒有足夠的金幣雇傭這些隨從。" />
+    <string
+      id="ret_convert_not_enough_gold_title"
+      text="金幣不足" />
+    <string
+      id="ret_cultural_pride"
+      text="文化自豪" />
+    <string
+      id="ret_cultural_pride_defeat_foreign_ruler"
+      text="在戰鬥中擊敗一名不同文化的統治者。" />
+    <string
+      id="ret_cultural_pride_description"
+      text="部隊文化物品享受10%折扣。" />
+    <string
+      id="ret_cultural_pride_full_set_100_kills"
+      text="僅使用無外來裝備的部隊在戰鬥中獲得100擊殺。" />
+    <string
+      id="ret_cultural_pride_tournament_own_culture_gear"
+      text="僅穿著本文化的護甲贏得一場比武大會。" />
+    <string
+      id="ret_doctrine_costs"
+      text="花費: {GOLD} 金幣, {INFLUENCE} 影響力。" />
+    <string
+      id="ret_doctrine_service_unavailable"
+      text="教義服務不可用。" />
+    <string
+      id="ret_doctrines_button_text"
+      text="教義" />
+    <string
+      id="ret_doctrines_col_0"
+      text="解鎖" />
+    <string
+      id="ret_doctrines_col_1"
+      text="裝備" />
+    <string
+      id="ret_doctrines_col_2"
+      text="部隊" />
+    <string
+      id="ret_doctrines_col_3"
+      text="隨從" />
+    <string
+      id="ret_empty_item"
+      text="空" />
+    <string
+      id="ret_enter_new_name"
+      text="輸入一個新名稱：" />
+    <string
+      id="ret_enter_new_troop_name"
+      text="輸入新部隊的名稱：" />
+    <string
+      id="ret_equipment_button_text"
+      text="裝備" />
+    <string
+      id="ret_feat_completed_title"
+      text="成就完成" />
+    <string
+      id="ret_feats_no_reqs"
+      text="無要求。" />
+    <string
+      id="ret_feats_reqs"
+      text="要求" />
+    <string
+      id="ret_female"
+      text="女性" />
+    <string
+      id="ret_gender_header_text"
+      text="性別" />
+    <string
+      id="ret_gloves_slot_text"
+      text="手套" />
+    <string
+      id="ret_head_slot_text"
+      text="頭部" />
+    <string
+      id="ret_horse_harness_slot_text"
+      text="馬具" />
+    <string
+      id="ret_horse_slot_text"
+      text="馬匹" />
+    <string
+      id="ret_immortals"
+      text="不朽者" />
+    <string
+      id="ret_immortals_100_retinue_survive_struck_down"
+      text="讓100名隨從在戰鬥中倒下後仍存活。" />
+    <string
+      id="ret_immortals_description"
+      text="+20% 隨從生存率。" />
+    <string
+      id="ret_immortals_retinue_200_enemies"
+      text="讓隨從在一場戰鬥中擊敗200個敵人。" />
+    <string
+      id="ret_immortals_win_100_no_deaths"
+      text="單槍匹馬戰勝100+敵人，且我方無一陣亡。" />
+    <string
+      id="ret_in_stock"
+      text="庫存 ({STOCK})" />
+    <string
+      id="ret_increase_troop_tier"
+      text="提升 {TROOP_NAME} 的等級？\n\n{text}" />
+    <string
+      id="ret_indomitable"
+      text="不屈" />
+    <string
+      id="ret_indomitable_25_equiv_no_casualty"
+      text="讓隨從在無一損失的情況下擊敗25個同等級敵軍。" />
+    <string
+      id="ret_indomitable_description"
+      text="+5 生命值給隨從。" />
+    <string
+      id="ret_indomitable_join_siege_defender_full_strength"
+      text="以防守方身份參戰一場攻城戰，並帶領至少20名隨從取勝。" />
+    <string
+      id="ret_indomitable_win_3_defensive_battles"
+      text="僅隨從隊伍連續贏得3場防禦戰。" />
+    <string
+      id="ret_iron_discipline"
+      text="鋼鐵紀律" />
+    <string
+      id="ret_iron_discipline_defeat_twice_size_only_custom"
+      text="僅用自定義部隊擊敗規模為己方兩倍的隊伍。" />
+    <string
+      id="ret_iron_discipline_description"
+      text="+5 技能上限。" />
+    <string
+      id="ret_iron_discipline_lead_army_10_days"
+      text="連續率領軍隊10天。" />
+    <string
+      id="ret_iron_discipline_upgrade_100_basic_to_max"
+      text="將100名基礎自定義部隊升級至最高等級。" />
+    <string
+      id="ret_ironclad"
+      text="鐵甲" />
+    <string
+      id="ret_ironclad_100_battle_outnumbered_low_tier"
+      text="在人數劣勢下，僅使用1-3級自定義部隊贏得一場100+敵人的戰鬥。" />
+    <string
+      id="ret_ironclad_12_troops_athletics_90"
+      text="讓12名自定義部隊達到90點運動技能。" />
+    <string
+      id="ret_ironclad_description"
+      text="武器和護甲無等級限制。" />
+    <string
+      id="ret_ironclad_full_set_t6_100_kills"
+      text="讓部隊穿著6級護甲和頭盔，在戰鬥中獲得100擊殺。" />
+    <string
+      id="ret_item_ammo_damage"
+      text="傷害" />
+    <string
+      id="ret_item_ammo_stack_size"
+      text="堆疊大小" />
+    <string
+      id="ret_item_arm_armor"
+      text="臂甲" />
+    <string
+      id="ret_item_body_armor"
+      text="護甲" />
+    <string
+      id="ret_item_head_armor"
+      text="頭盔" />
+    <string
+      id="ret_item_horse_charge"
+      text="衝鋒" />
+    <string
+      id="ret_item_horse_hit_points"
+      text="生命值" />
+    <string
+      id="ret_item_horse_maneuver"
+      text="機動" />
+    <string
+      id="ret_item_horse_speed"
+      text="速度" />
+    <string
+      id="ret_item_leg_armor"
+      text="腿甲" />
+    <string
+      id="ret_item_melee_handling"
+      text="操控" />
+    <string
+      id="ret_item_melee_length"
+      text="長度" />
+    <string
+      id="ret_item_melee_swing_damage"
+      text="揮砍傷害" />
+    <string
+      id="ret_item_melee_swing_speed"
+      text="揮砍速度" />
+    <string
+      id="ret_item_melee_thrust_damage"
+      text="刺擊傷害" />
+    <string
+      id="ret_item_melee_thrust_speed"
+      text="刺擊速度" />
+    <string
+      id="ret_item_ranged_accuracy"
+      text="準確度" />
+    <string
+      id="ret_item_ranged_damage"
+      text="傷害" />
+    <string
+      id="ret_item_ranged_missile_speed"
+      text="彈道速度" />
+    <string
+      id="ret_item_shield_hit_points"
+      text="生命值" />
+    <string
+      id="ret_item_shield_speed"
+      text="速度" />
+    <string
+      id="ret_items_unlocked"
+      text="新裝備已解鎖" />
+    <string
+      id="ret_king_guard"
+      text="國王衛隊" />
+    <string
+      id="ret_leg_slot_text"
+      text="腿部" />
+    <string
+      id="ret_lions_share"
+      text="獅子份額" />
+    <string
+      id="ret_lions_share_25_personal_kills"
+      text="在一場戰鬥中親自擊敗25名敵人。" />
+    <string
+      id="ret_lions_share_5_tier_5_plus"
+      text="在一場戰鬥中親自擊敗5名5級以上部隊。" />
+    <string
+      id="ret_lions_share_description"
+      text="英雄擊殺在解鎖中計為雙倍。" />
+    <string
+      id="ret_lions_share_kill_enemy_lord"
+      text="在戰鬥中親自擊敗一名敵方領主。" />
+    <string
+      id="ret_list_toggle_elite"
+      text="精銳" />
+    <string
+      id="ret_list_toggle_regular"
+      text="普通" />
+    <string
+      id="ret_loc_smoke_test"
+      text="本地化測試：預設回退 (EN)。" />
+    <string
+      id="ret_lower_skill_no_refund"
+      text="降低此部隊技能不會返還經驗值。仍要繼續嗎？" />
+    <string
+      id="ret_male"
+      text="男性" />
+    <string
+      id="ret_masters_at_arms"
+      text="武器大師" />
+    <string
+      id="ret_masters_at_arms_1000_elite_kills"
+      text="使用精銳部隊累計獲得1000擊殺。" />
+    <string
+      id="ret_masters_at_arms_description"
+      text="精銳部隊的第二條升級分支。" />
+    <string
+      id="ret_masters_at_arms_ko_50_opponents"
+      text="在競技場擊倒50名對手。" />
+    <string
+      id="ret_masters_at_arms_upgrade_100_elite_to_max"
+      text="將100名精銳部隊升級至最高等級。" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="所有裝備已解鎖" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="遊戲開始時所有裝備已解鎖。" />
+    <string
+      id="ret_mcm_option_allowed_tier_difference"
+      text="允許的等級差" />
+    <string
+      id="ret_mcm_option_allowed_tier_difference_hint"
+      text="部隊與裝備之間允許的最大等級差。" />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost"
+      text="基礎技能經驗消耗" />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost_hint"
+      text="提升技能所需的基礎經驗。" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_tier_1"
+      text="禁止1級部隊騎乘" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
+      text="1級部隊不能擁有坐騎。" />
+    <string
+      id="ret_mcm_option_enable_doctrines"
+      text="啟用教義（不穩定）" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint"
+      text="啟用教義系統及其功能。" />
+    <string
+      id="ret_mcm_option_max_basic_retinue_ratio"
+      text="基礎隨從比例上限" />
+    <string
+      id="ret_mcm_option_max_basic_retinue_ratio_hint"
+      text="玩家隊伍中基礎隨從的最大比例。" />
+    <string
+      id="ret_mcm_option_max_elite_retinue_ratio"
+      text="精銳隨從比例上限" />
+    <string
+      id="ret_mcm_option_max_elite_retinue_ratio_hint"
+      text="玩家隊伍中精銳隨從的最大比例。" />
+    <string
+      id="ret_mcm_option_own_culture_unlock_bonuses"
+      text="擊殺也可解鎖自定義部隊文化的物品" />
+    <string
+      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
+      text="決定擊殺是否也能解鎖自定義部隊文化物品。" />
+    <string
+      id="ret_mcm_option_pay_for_equipment"
+      text="支付部隊裝備費用" />
+    <string
+      id="ret_mcm_option_pay_for_equipment_hint"
+      text="升級部隊裝備需要金錢。" />
+    <string
+      id="ret_mcm_option_recruit_anywhere"
+      text="任意地點招募家族部隊" />
+    <string
+      id="ret_mcm_option_recruit_anywhere_hint"
+      text="玩家可在任何定居點招募家族部隊。" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="解鎖所需擊殺數" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="解鎖一件物品所需擊敗的敵人數量。" />
+    <string
+      id="ret_mcm_option_retinue_conversion_cost_per_tier"
+      text="隨從轉換每級費用" />
+    <string
+      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
+      text="隨從按等級轉換所需的費用。" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
+      text="隨從晉升每級費用" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
+      text="隨從按等級晉升所需的費用。" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_per_point"
+      text="技能經驗每點消耗" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_per_point_hint"
+      text="提升每點技能所需的可變經驗消耗。" />
+    <string
+      id="ret_mcm_option_unlock_from_culture"
+      text="從文化解鎖" />
+    <string
+      id="ret_mcm_option_unlock_from_culture_hint"
+      text="玩家文化和玩家領導的王國文化裝備始終可用。" />
+    <string
+      id="ret_mcm_option_unlock_from_kills"
+      text="從擊殺解鎖" />
+    <string
+      id="ret_mcm_option_unlock_from_kills_hint"
+      text="透過擊敗穿戴裝備的敵人來解鎖裝備。" />
+    <string
+      id="ret_mcm_section_doctrines"
+      text="教義" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="裝備" />
+    <string
+      id="ret_mcm_section_general"
+      text="通用" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="招募" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="隨從" />
+    <string
+      id="ret_mcm_section_skills"
+      text="技能" />
+    <string
+      id="ret_mcm_section_unlocks"
+      text="解鎖" />
+    <string
+      id="ret_name_header_text"
+      text="名稱" />
+    <string
+      id="ret_no"
+      text="否" />
+    <string
+      id="ret_not_enough_gold"
+      text="金幣不足" />
+    <string
+      id="ret_not_enough_gold_text"
+      text="你沒有足夠的金幣購買此物品。" />
+    <string
+      id="ret_ok"
+      text="確定" />
+    <string
+      id="ret_pragmatic_scavengers"
+      text="實用清道夫" />
+    <string
+      id="ret_pragmatic_scavengers_army_win_allies_50"
+      text="作為盟友領主的軍隊一員連續贏得三場戰鬥。" />
+    <string
+      id="ret_pragmatic_scavengers_defense_allies_100"
+      text="贏得一場盟軍損失超過100人的戰鬥。" />
+    <string
+      id="ret_pragmatic_scavengers_description"
+      text="可透過盟友損失解鎖物品。" />
+    <string
+      id="ret_pragmatic_scavengers_rescue_lord"
+      text="從敵軍押送隊中解救一名戰敗領主。" />
+    <string
+      id="ret_queen_guard"
+      text="女王衛隊" />
+    <string
+      id="ret_rank_up"
+      text="晉升" />
+    <string
+      id="ret_rank_up_costs_text"
+      text="這將花費 {COST_GOLD} 金幣和 {COST_XP} 經驗。" />
+    <string
+      id="ret_rank_up_gold_cost_text"
+      text="這將花費 {COST} 金幣。" />
+    <string
+      id="ret_rank_up_not_enough_gold_text"
+      text="你沒有足夠的金幣晉升 {TROOP_NAME}。\n\n晉升費用: {COST} 金幣。" />
+    <string
+      id="ret_rank_up_not_enough_gold_title"
+      text="金幣不足" />
+    <string
+      id="ret_rank_up_not_enough_xp_text"
+      text="你沒有足夠的經驗晉升 {TROOP_NAME}。\n\n晉升費用: {COST} 經驗。" />
+    <string
+      id="ret_rank_up_not_enough_xp_title"
+      text="經驗不足" />
+    <string
+      id="ret_remove_button_text"
+      text="移除" />
+    <string
+      id="ret_remove_troop"
+      text="移除部隊" />
+    <string
+      id="ret_remove_troop_text"
+      text="確定要永久移除 {TROOP_NAME} 嗎？\n\n他們的裝備將被存入庫存以供後用。" />
+    <string
+      id="ret_rename_troop"
+      text="重命名部隊" />
+    <string
+      id="ret_retinue"
+      text="隨從" />
+    <string
+      id="ret_retinue_female_kingdom"
+      text="{FACTION} 女王勇士" />
+    <string
+      id="ret_retinue_house_champion"
+      text="{FACTION} 家族勇士" />
+    <string
+      id="ret_retinue_house_guard"
+      text="{FACTION} 家族衛士" />
+    <string
+      id="ret_retinue_male_kingdom"
+      text="{FACTION} 國王勇士" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="隨從（榮譽束縛）" />
+    <string
+      id="ret_retinue_royal_guard"
+      text="{FACTION} 皇家衛隊" />
+    <string
+      id="ret_royal_patronage"
+      text="王室資助" />
+    <string
+      id="ret_royal_patronage_1000_kills_custom_kingdom"
+      text="使用自定義王國部隊累計獲得1000擊殺。" />
+    <string
+      id="ret_royal_patronage_companion_governor_30_days"
+      text="讓與你王國同文化的同伴治理一個王國封地30天。" />
+    <string
+      id="ret_royal_patronage_description"
+      text="王國文化物品享受10%折扣。" />
+    <string
+      id="ret_royal_patronage_recruit_100_custom_kingdom"
+      text="招募100名自定義王國部隊。" />
+    <string
+      id="ret_skill_cap_text"
+      text="技能上限 {CAP}" />
+    <string
+      id="ret_skills_header_text"
+      text="技能" />
+    <string
+      id="ret_steadfast_soldiers"
+      text="堅定士兵" />
+    <string
+      id="ret_steadfast_soldiers_defend_village_only_custom"
+      text="僅用自定義部隊防禦村莊免遭掠奪。" />
+    <string
+      id="ret_steadfast_soldiers_description"
+      text="+10 技能點。" />
+    <string
+      id="ret_steadfast_soldiers_siege_defense_only_custom"
+      text="僅用自定義部隊贏得一場防禦攻城戰。" />
+    <string
+      id="ret_steadfast_soldiers_troops_maxed_skills"
+      text="讓15名自定義部隊技能達到滿值。" />
+    <string
+      id="ret_switch_to_clan_troops"
+      text="切換至\n家族部隊" />
+    <string
+      id="ret_switch_to_kingdom_troops"
+      text="切換至\n王國部隊" />
+    <string
+      id="ret_tier"
+      text="等級" />
+    <string
+      id="ret_transfer_header_text"
+      text="轉移" />
+    <string
+      id="ret_troops_tab_text"
+      text="部隊" />
+    <string
+      id="ret_unequip_all"
+      text="卸下全部" />
+    <string
+      id="ret_unequip_all_button_text"
+      text="卸下全部" />
+    <string
+      id="ret_unequip_all_text"
+      text="卸下 {TROOP_NAME} 穿戴的所有物品？\n\n它們將被存入庫存以供後用。" />
+    <string
+      id="ret_unlock_btn"
+      text="解鎖" />
+    <string
+      id="ret_unlock_failed"
+      text="無法解鎖。" />
+    <string
+      id="ret_upgrades_header_text"
+      text="升級" />
+    <string
+      id="ret_vanguard"
+      text="先鋒" />
+    <string
+      id="ret_vanguard_clear_hideout_retinue_only"
+      text="僅用隨從清剿一個山寨。" />
+    <string
+      id="ret_vanguard_description"
+      text="+15% 隨從上限。" />
+    <string
+      id="ret_vanguard_first_melee_kill_in_siege"
+      text="讓隨從在攻城突擊中取得首次近戰擊殺。" />
+    <string
+      id="ret_vanguard_win_100_retinue_only"
+      text="僅用隨從贏得一場100+敵人的戰鬥。" />
+    <string
+      id="ret_warning"
+      text="警告" />
+    <string
+      id="ret_weapon_1_slot_text"
+      text="武器1" />
+    <string
+      id="ret_weapon_2_slot_text"
+      text="武器2" />
+    <string
+      id="ret_weapon_3_slot_text"
+      text="武器3" />
+    <string
+      id="ret_weapon_4_slot_text"
+      text="武器4" />
+    <string
+      id="ret_yes"
+      text="是" />
   </strings>
 </base>
