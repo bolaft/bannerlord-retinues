@@ -23,9 +23,11 @@
         </ButtonWidget>
 
         <TextWidget
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+            SuggestedWidth="400"
             Brush="Clan.Tuple.Name.Text"
             VerticalAlignment="Center" HorizontalAlignment="Center"
+            Brush.TextHorizontalAlignment="Center"
             MarginBottom="0" MarginTop="0"
             Text="@Description"/>
 
