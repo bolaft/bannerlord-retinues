@@ -18,6 +18,8 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - on recreating kingdom, troops are replaced
 - \n in translated texts
 - agent helper for unlock behavior fix may be needed for 1.2.12
+- bug with troop conversion counts set to 0 may be needed for 1.2.12
+- retinues can be garrisoned in 1.3
 
 ## Other
 
