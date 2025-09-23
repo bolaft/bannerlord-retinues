@@ -1,5 +1,4 @@
 using Retinues.Core.Game.Wrappers;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
@@ -11,14 +10,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
         [DataSourceProperty]
         public bool DisplayEmptyMessage => Troop is null;
 
         [DataSourceProperty]
         public bool DisplayTroop => Troop is not null;
 
-        [DataSourceProperty]
-        public ImageIdentifierVM Image => Troop?.Image;
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
         public string IndentedName
@@ -40,6 +40,17 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string EmptyMessage =>
             L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops.");
 
+        /* ━━━━━━━━━ Image ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public string AdditionalArgs => Troop?.Image?.AdditionalArgs;
+
+        [DataSourceProperty]
+        public string Id => Troop?.Image?.Id;
+
+        [DataSourceProperty]
+        public string TextureProviderName => Troop?.Image?.TextureProviderName;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -53,6 +64,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             OnPropertyChanged(nameof(IndentedName));
             OnPropertyChanged(nameof(TierText));
             OnPropertyChanged(nameof(EmptyMessage));
+            OnPropertyChanged(nameof(Id));
+            OnPropertyChanged(nameof(TextureProviderName));
+            OnPropertyChanged(nameof(AdditionalArgs));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

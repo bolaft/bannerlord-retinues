@@ -12,7 +12,6 @@
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
             Brush="{{brush}}"/>
         <ImageIdentifierWidget
-            DataSource="{Image}"
             AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"/>

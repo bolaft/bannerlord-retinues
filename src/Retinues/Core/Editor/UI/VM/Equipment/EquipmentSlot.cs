@@ -2,7 +2,6 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
@@ -86,7 +85,13 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
         [DataSourceProperty]
-        public ImageIdentifierVM Image => Item?.Image;
+        public string AdditionalArgs => Item?.Image?.AdditionalArgs;
+
+        [DataSourceProperty]
+        public string Id => Item?.Image?.Id;
+
+        [DataSourceProperty]
+        public string TextureProviderName => Item?.Image?.TextureProviderName;
 
         /* ━━━━━━━━━ Hint ━━━━━━━━━ */
 
@@ -127,8 +132,10 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(IsEnabled));
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(Name));
-            OnPropertyChanged(nameof(Image));
             OnPropertyChanged(nameof(Hint));
+            OnPropertyChanged(nameof(Id));
+            OnPropertyChanged(nameof(TextureProviderName));
+            OnPropertyChanged(nameof(AdditionalArgs));
         }
     }
 }

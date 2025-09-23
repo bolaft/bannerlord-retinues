@@ -69,15 +69,11 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
             // Count each equipped item once per fallen agent
             var seen = new HashSet<WItem>();
-            Log.Info($"Counting items from fallen agent {victim.Name} ({victim.Character?.StringId}).");
+
             foreach (var item in EnumerateEquippedItems(victim))
             {
-                Log.Info($" - Found item: {item?.Name} ({item?.StringId})");
                 if (item == null || !seen.Add(item))
-                {
-                    Log.Info("   (skipped)");
                     continue;
-                }
 
                 _battleCounts[item.Base] = _battleCounts.TryGetValue(item.Base, out var c)
                     ? c + updateValue
