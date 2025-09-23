@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
+using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -12,20 +13,20 @@ namespace Retinues.Core.Editor
 {
     public static class EquipmentManager
     {
-        public static List<WItem> CollectAvailableItems(
+        public static List<(WItem, int?)> CollectAvailableItems(
             WCharacter troop,
             WFaction faction,
             EquipmentIndex slot
         )
         {
             // Initialize item list
-            var items = new List<WItem>();
+            var items = new List<(WItem, int?)>();
 
             // Load items
             foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
             {
                 if (Config.GetOption<bool>("AllEquipmentUnlocked"))
-                    items.Add(new WItem(item)); // All items
+                    items.Add((new WItem(item), null)); // All items
                 else
                 {
                     var wItem = new WItem(item); // Wrap item
@@ -39,12 +40,12 @@ namespace Retinues.Core.Editor
                         continue; // Skip items that exceed the allowed tier difference unless Ironclad is unlocked
 
                     if (wItem.IsUnlocked)
-                        items.Add(wItem); // Unlocked items
+                        items.Add((wItem, null)); // Unlocked items
                     else if (
                         Config.GetOption<bool>("UnlockFromCulture")
                         && item.Culture?.StringId == faction?.Culture?.StringId
                     )
-                        items.Add(wItem); // Items of the faction's culture
+                        items.Add((wItem, null)); // Items of the faction's culture
                     else if (
                         DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>()
                         && (
@@ -52,18 +53,27 @@ namespace Retinues.Core.Editor
                             || item.Culture?.StringId == Player.Kingdom?.Culture?.StringId
                         )
                     )
-                        items.Add(wItem); // Items of the clan or kingdom's culture
+                        items.Add((wItem, null)); // Items of the clan or kingdom's culture
+                    else if (
+                        UnlocksBehavior.IdsToProgress.ContainsKey(item.StringId)
+                        && Config.GetOption<bool>("UnlockFromKills")
+                    )
+                        items.Add((wItem, UnlocksBehavior.IdsToProgress[item.StringId])); // Items that are in progress
                 }
             }
 
             // Filter by selected slot
-            items = [.. items.Where(i => i is null || i.Slots.Contains(slot))];
+            items = [.. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot))];
 
-            // Sort by type, then name
-            items = [.. items.OrderBy(i => i.Type).ThenBy(i => i.Name)];
+            // Sort by int? (nulls first, then descending), then type, then name
+            items = [.. items
+                .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0)))
+                .ThenBy(pair => pair.Item1?.Type)
+                .ThenBy(pair => pair.Item1?.Name)
+            ];
 
             // Empty item to allow unequipping
-            items.Insert(0, null);
+            items.Insert(0, (null, null));
 
             return items;
         }

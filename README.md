@@ -16,6 +16,8 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 - fix hints not appearing on disabled buttons
 - on recreating kingdom, troops are replaced
+- \n in translated texts
+- agent helper for unlock behavior fix may be needed for 1.2.12
 
 ## Other
 
@@ -40,7 +42,7 @@ Retinues are a special kind of unit that are hired from regular troops of the sa
 They are limited in numbers and cannot be garrisoned.
 
 Here in the equipment screen, you can see all the items that are available. At first, only a handful of basic items are unlocked.
-
+-----
 So how do you unlock more items? Well it's simple: by doing battle.
 
 As you defeat enemy troops, you will progressively unlock the items they were wearing.
@@ -90,7 +92,7 @@ When you do, you will unlock access to your kingdom's custom troop trees.
 Kingdom troops are based on the kingdom culture, which can be different from your own clan's culture.
 
 You will also be able to recruit king's guard retinues, doubling the amount of retinue troops you can have in your party.
-
+----
 Of course you'll have to equip and train them first, but at this point in the game you probably have the resources to do so.
 
 Most of the mod's features are optional, and can be toggled on or off.

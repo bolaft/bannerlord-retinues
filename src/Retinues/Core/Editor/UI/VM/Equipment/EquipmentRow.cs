@@ -10,7 +10,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list)
+    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress)
         : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -25,28 +25,65 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public int Value => Config.GetOption<bool>("PayForEquipment") ? EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop) : 0;
 
+        private readonly int? _progress = progress;
+
+        [DataSourceProperty]
+        public bool InProgress => _progress.HasValue;
+
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public string ProgressText => L.T(
+            "unlock_progress_text",
+            "Unlocking ({PROGRESS}/{REQUIRED})"
+        ).SetTextVariable(
+            "PROGRESS", _progress ?? 0
+        ).SetTextVariable(
+            "REQUIRED", Config.GetOption<int>("KillsForUnlock")
+        ).ToString();
+
+        [DataSourceProperty]
+        public string SkillRequirementText => L.T(
+            "skill_requirement_text",
+            "{SKILL}: {LEVEL}"
+        ).SetTextVariable(
+            "SKILL", Item?.RelevantSkill?.Name.ToString() ?? "N/A"
+        ).SetTextVariable(
+            "LEVEL", Item?.Difficulty ?? 0
+        ).ToString();
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool CanEquip
+        public bool IsEnabled
         {
             get
             {
                 if (RowList?.Screen?.SelectedTroop == null)
                     return false; // No troop selected yet
+                if (InProgress)
+                    return false; // Cannot equip items that are still in progress
                 if (Item == null)
                     return true; // Always allow unequipping
 
                 // Check if the selected troop can equip this item
-                return RowList.Screen.SelectedTroop.CanEquip(Item);
+                return CanEquip;
             }
         }
+
+        [DataSourceProperty]
+        public bool CanEquip =>  RowList?.Screen?.SelectedTroop?.CanEquip(Item) ?? false;
+
+        [DataSourceProperty]
+        public bool CantEquip => Item is not null && RowList?.Screen?.SelectedTroop != null && !CanEquip && !InProgress;
 
         [DataSourceProperty]
         public bool ShowValue
         {
             get
             {
+                if (InProgress)
+                    return false;
                 if (!Config.GetOption<bool>("PayForEquipment"))
                     return false;
                 if (Item == null)
@@ -76,6 +113,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         {
             get
             {
+                if (InProgress)
+                    return false;
                 if (!Config.GetOption<bool>("PayForEquipment"))
                     return false;
                 if (Item == null)
@@ -186,8 +225,14 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(ShowValue));
             OnPropertyChanged(nameof(Stock));
             OnPropertyChanged(nameof(ShowStock));
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(CantEquip));
             OnPropertyChanged(nameof(CanEquip));
             OnPropertyChanged(nameof(Image));
+            OnPropertyChanged(nameof(InProgress));
+            OnPropertyChanged(nameof(ProgressText));
+            OnPropertyChanged(nameof(SkillRequirementText));
+
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
