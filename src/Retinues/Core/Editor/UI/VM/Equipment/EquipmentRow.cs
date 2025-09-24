@@ -9,7 +9,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress, int? progress)
+    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress)
         : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
