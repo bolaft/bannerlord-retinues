@@ -23,10 +23,10 @@ namespace Retinues.Core.Utils
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Lowest level written to file
-        public const LogLevel MinFileLevel = LogLevel.Debug;
+        public static LogLevel MinFileLevel = Config.GetOption<bool>("DebugMode") ? LogLevel.Debug : LogLevel.Info;
 
         // Lowest level shown in-game (InformationManager)
-        public const LogLevel MinInGameLevel = LogLevel.Info;
+        public static LogLevel MinInGameLevel = Config.GetOption<bool>("DebugMode") ? LogLevel.Info : LogLevel.Critical;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Log File Setup                     //

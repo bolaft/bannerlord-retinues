@@ -278,6 +278,20 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
+            /* ━━━━━━━━━ Debug ━━━━━━━━ */
+            
+            AddOption(
+                section: L.S("mcm_section_debug", "Debug"),
+                name: L.S("mcm_option_debug_mode", "Debug Mode"),
+                key: "DebugMode",
+                hint: L.S(
+                    "mcm_option_debug_mode_hint",
+                    "Outputs much more logs (may impact performance)."
+                ),
+                @default: false,
+                type: typeof(bool)
+            );
+
             Load();
 
             try
