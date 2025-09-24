@@ -47,6 +47,17 @@ namespace Retinues.Core
             {
                 Log.Exception(e);
             }
+
+            try
+            {
+                Log.Debug("Active modules:");
+                foreach (var m in ModuleChecker.GetActiveModules())
+                    Log.Debug($" - {m.Id} {m.Version} — {m.Name}");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
