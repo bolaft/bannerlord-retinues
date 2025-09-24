@@ -377,7 +377,7 @@ namespace Retinues.Core.Utils
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(ConfigFile)!);
                 using var w = new StreamWriter(ConfigFile, false);
-                w.WriteLine("# Custom Clan Troops Configuration");
+                w.WriteLine("# Retinues Configuration");
 
                 foreach (var grp in _options.GroupBy(o => o.Section))
                 {
