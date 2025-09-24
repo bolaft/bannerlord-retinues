@@ -1,17 +1,17 @@
 <Module>
   <Name value="Retinues" />
   <Id value="Retinues.Core" />
-  <Version value="v1.3.0.0" />
+  <Version value="v1.3.0" />
   <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
   <Official value="false" />
   <DependedModules>
-    <DependedModule Id="Bannerlord.Harmony" />
-    <DependedModule Id="Bannerlord.UIExtenderEx" />
-    <DependedModule Id="Native" />
-    <DependedModule Id="SandBoxCore" />
-    <DependedModule Id="Sandbox" />
+    <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.6" Optional="false"/>
+    <DependedModule Id="Bannerlord.UIExtenderEx" DependentVersion="v2.13.0" Optional="false"/>
+    <DependedModule Id="Native" DependentVersion="v1.3.0" Optional="false"/>
+    <DependedModule Id="SandBoxCore" DependentVersion="v1.3.0" Optional="false"/>
+    <DependedModule Id="Sandbox" DependentVersion="v1.3.0" Optional="false"/>
   </DependedModules>
   <SubModules>
     <SubModule>
