@@ -15,11 +15,21 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 {
     public sealed class UnlocksBehavior : CampaignBehaviorBase
     {
+        // Singleton instance
+        public static UnlocksBehavior Instance { get; private set; }
+
         // Persistent total defeats per item id
         private Dictionary<string, int> _defeatsByItemId = [];
 
         // Transient: items newly unlocked this battle (to show in post-battle UI)
         private readonly List<ItemObject> _newlyUnlockedThisBattle = [];
+
+        public static Dictionary<string, int> IdsToProgress => Instance._defeatsByItemId;
+
+        public UnlocksBehavior()
+        {
+            Instance = this;
+        }
 
         public override void RegisterEvents()
         {
@@ -97,6 +107,8 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         {
             if (battleCounts == null || battleCounts.Count == 0)
                 return;
+            
+            Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
             int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
 

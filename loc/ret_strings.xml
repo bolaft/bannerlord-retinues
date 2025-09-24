@@ -620,6 +620,9 @@
       id="ret_skill_cap_text"
       text="{CAP} skill cap" />
     <string
+      id="ret_skill_requirement_text"
+      text="Requires {SKILL}: {LEVEL}" />
+    <string
       id="ret_skills_header_text"
       text="Skills" />
     <string
@@ -667,6 +670,9 @@
     <string
       id="ret_unlock_failed"
       text="Cannot unlock." />
+    <string
+      id="ret_unlock_progress_text"
+      text="Unlocking ({PROGRESS}/{REQUIRED})" />
     <string
       id="ret_upgrades_header_text"
       text="Upgrades" />

@@ -245,6 +245,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public bool CanEquip(WItem item)
         {
+            if (item == null)
+                return true;
             if (item.RelevantSkill == null)
                 return true;
             return item.Difficulty <= GetSkill(item.RelevantSkill);

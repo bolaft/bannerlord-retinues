@@ -3,7 +3,7 @@ using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game;
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem.AgentOrigins;
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -19,8 +19,7 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
         private bool IsPlayerTroop(Agent agent)
         {
-            var party = (agent?.Origin as PartyAgentOrigin)?.Party;
-            return party?.MobileParty?.StringId == Player.Party?.StringId;
+             return new WAgent(agent).IsPlayerTroop;
         }
 
         private bool IsAlliedTroop(Agent agent)
@@ -47,6 +46,7 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 return;
             if (Mission?.PlayerTeam == null)
                 return;
+            
 
             if (IsPlayerTroop(victim))
                 return; // No unlock from player troop casualty
@@ -67,13 +67,14 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                     updateValue = 2; // Double count if player personally landed the killing blow
 
             // Count each equipped item once per fallen agent
-            var seen = new HashSet<ItemObject>();
+            var seen = new HashSet<WItem>();
+
             foreach (var item in EnumerateEquippedItems(victim))
             {
                 if (item == null || !seen.Add(item))
                     continue;
 
-                _battleCounts[item] = _battleCounts.TryGetValue(item, out var c)
+                _battleCounts[item.Base] = _battleCounts.TryGetValue(item.Base, out var c)
                     ? c + updateValue
                     : updateValue;
             }
@@ -92,41 +93,17 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             _battleCounts.Clear();
         }
 
-        private static IEnumerable<ItemObject> EnumerateEquippedItems(Agent agent)
+        private static IEnumerable<WItem> EnumerateEquippedItems(Agent agent)
         {
-            var eq = agent?.Equipment;
-            if (eq == null)
+            var eq = new WEquipment(agent?.SpawnEquipment);
+
+            if (eq.Base == null)
                 yield break;
-
-            // Only iterate the slots you care about, but always use SafeGet to avoid OOB.
-            // (Order doesn’t matter; keep it consistent for readability.)
-            yield return SafeGet(eq, EquipmentIndex.Weapon0);
-            yield return SafeGet(eq, EquipmentIndex.Weapon1);
-            yield return SafeGet(eq, EquipmentIndex.Weapon2);
-            yield return SafeGet(eq, EquipmentIndex.Weapon3);
-
-            yield return SafeGet(eq, EquipmentIndex.Head);
-            yield return SafeGet(eq, EquipmentIndex.Body);
-            yield return SafeGet(eq, EquipmentIndex.Leg);
-            yield return SafeGet(eq, EquipmentIndex.Gloves);
-            yield return SafeGet(eq, EquipmentIndex.Cape);
-
-            // Mount slots can be absent in some agent equipment layouts; still safe via SafeGet
-            yield return SafeGet(eq, EquipmentIndex.Horse);
-            yield return SafeGet(eq, EquipmentIndex.HorseHarness);
-        }
-
-        private static ItemObject SafeGet(MissionEquipment eq, EquipmentIndex idx)
-        {
-            try
+            
+            foreach (var item in eq.Items)
             {
-                // If the slot exists, this returns an EquipmentElement whose .Item can be null.
-                return eq[idx].Item;
-            }
-            catch
-            {
-                // Index out of range (or any other access issue) → treat as "no item in that slot".
-                return null;
+                if (item != null)
+                    yield return item;
             }
         }
     }

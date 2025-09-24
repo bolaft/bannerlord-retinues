@@ -3280,6 +3280,22 @@
     "TR": "{CAP} beceri sınırı"
   },
   {
+    "id": "ret_skill_requirement_text",
+    "default": "Requires {SKILL}: {LEVEL}",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_skills_header_text",
     "default": "Skills",
     "BR": "Habilidades",
@@ -3534,6 +3550,22 @@
     "RU": "Невозможно разблокировать.",
     "SP": "No se puede desbloquear.",
     "TR": "Açılamaz."
+  },
+  {
+    "id": "ret_unlock_progress_text",
+    "default": "Unlocking ({PROGRESS}/{REQUIRED})",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_upgrades_header_text",
