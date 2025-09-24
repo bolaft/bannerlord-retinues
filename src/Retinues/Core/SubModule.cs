@@ -50,9 +50,9 @@ namespace Retinues.Core
 
             try
             {
-                Log.Debug("Active modules:");
+                Log.Info("Active modules:");
                 foreach (var m in ModuleChecker.GetActiveModules())
-                    Log.Debug($" - {m.Id} {m.Version} — {m.Name}");
+                    Log.Info($" - {m.Id} {m.Version} — {m.Name}");
             }
             catch (Exception e)
             {
