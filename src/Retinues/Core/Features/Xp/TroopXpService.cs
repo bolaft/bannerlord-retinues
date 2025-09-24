@@ -2,30 +2,36 @@ using System.Collections.Generic;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Xp
 {
     public static class TroopXpService
     {
+        internal static bool SharedPool => Config.GetOption<bool>("SharedXpPool");
+
         internal static Dictionary<string, int> _pool = [];
 
+        public static string PoolKey(WCharacter troop)
+        {
+            return SharedPool ? "shared" : troop?.StringId ?? "unknown";
+        }
+
         public static int GetPool(WCharacter troop) =>
-            troop == null ? 0 : (_pool.TryGetValue(troop.StringId, out var v) ? v : 0);
+            troop == null ? 0 : (_pool.TryGetValue(PoolKey(troop), out var v) ? v : 0);
 
         public static void SetPool(WCharacter troop, int amount)
         {
             if (troop == null || amount < 0)
                 return;
-            var key = troop.StringId;
-            _pool[key] = amount;
+            _pool[PoolKey(troop)] = amount;
         }
 
         public static void AddToPool(WCharacter troop, int amount)
         {
             if (troop == null || amount <= 0)
                 return;
-            var key = troop.StringId;
-            _pool[key] = GetPool(troop) + amount;
+            _pool[PoolKey(troop)] = GetPool(troop) + amount;
         }
 
         public static bool TrySpend(WCharacter troop, int amount)
@@ -34,11 +40,10 @@ namespace Retinues.Core.Features.Xp
                 return true;
             if (troop == null)
                 return false;
-            var key = troop.StringId;
             var have = GetPool(troop);
             if (have < amount)
                 return false;
-            _pool[key] = have - amount;
+            _pool[PoolKey(troop)] = have - amount;
             return true;
         }
 
@@ -51,8 +56,7 @@ namespace Retinues.Core.Features.Xp
 
             if (troop == null || amount <= 0)
                 return;
-            var key = troop.StringId;
-            _pool[key] = GetPool(troop) + amount;
+            _pool[PoolKey(troop)] = GetPool(troop) + amount;
         }
 
         public static void AccumulateFromMission(Dictionary<WCharacter, int> xpByTroop)
@@ -64,7 +68,7 @@ namespace Retinues.Core.Features.Xp
             {
                 if (kv.Key == null || kv.Value <= 0)
                     continue;
-                _pool[kv.Key.StringId] = GetPool(kv.Key) + kv.Value;
+                _pool[PoolKey(kv.Key)] = GetPool(kv.Key) + kv.Value;
             }
         }
     }

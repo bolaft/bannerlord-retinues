@@ -210,6 +210,18 @@ namespace Retinues.Core.Utils
                 minValue: 0,
                 maxValue: 10
             );
+            
+            AddOption(
+                section: L.S("mcm_section_skills", "Skills"),
+                name: L.S("mcm_option_shared_xp_pool", "Shared XP Pool"),
+                key: "SharedXpPool",
+                hint: L.S(
+                    "mcm_option_shared_xp_pool_hint",
+                    "All troops share the same XP pool."
+                ),
+                @default: false,
+                type: typeof(bool)
+            );
 
             /* ━━━━━━━━ Unlocks ━━━━━━━ */
 
