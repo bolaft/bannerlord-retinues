@@ -36,8 +36,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     return; // No allies, no progress
 
                 int allyCasualties = battle
-                    .Kills.Where(k => k.Killer.Side == battle.EnemySide && !k.Victim.IsPlayer)
-                    .Count();
+                    .Kills.Where(k => k.Victim.IsAllyTroop).Count();
 
                 if (allyCasualties > Progress)
                     SetProgress(allyCasualties);
