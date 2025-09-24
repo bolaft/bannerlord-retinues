@@ -117,6 +117,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             bool addCultureBonuses = true
         )
         {
+            // Only add culture bonuses if enabled
+            addCultureBonuses = addCultureBonuses && Config.GetOption<bool>("OwnCultureUnlockBonuses");
+
             Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
             try
@@ -139,7 +142,6 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                     // accumulate in own culture as well
                     if (
                         addCultureBonuses
-                        && Config.GetOption<bool>("OwnCultureUnlockBonuses")
                         && item.Culture != null
                         && item.Culture != Clan.PlayerClan?.Culture
                     )
@@ -167,7 +169,8 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 }
 
                 // Apply accumulated own culture bonuses
-                AddOwnCultureBonuses(ownCultureBonuses);
+                if (addCultureBonuses)
+                    AddOwnCultureBonuses(ownCultureBonuses);
             }
             catch (Exception e)
             {
