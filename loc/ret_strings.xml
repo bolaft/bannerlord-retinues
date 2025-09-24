@@ -429,7 +429,7 @@
       text="Tier 1 troops cannot have mounts." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Enable Doctrines (Unstable)" />
+      text="Enable Doctrines" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Enable the Doctrines system and its features." />
@@ -447,7 +447,7 @@
       text="Maximum proportion of elite retinue troops in player party." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Kills also unlock items from the custom troop&apos;s culture" />
+      text="Own Culture Unlock Bonuses" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Whether kills also unlock items from the custom troop&apos;s culture." />
@@ -481,6 +481,12 @@
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Rank up cost for retinue troops per tier." />
+    <string
+      id="ret_mcm_option_shared_xp_pool"
+      text="Shared XP Pool" />
+    <string
+      id="ret_mcm_option_shared_xp_pool_hint"
+      text="All troops share the same XP pool." />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Skill XP Cost Per Point" />

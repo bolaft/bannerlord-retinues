@@ -2544,6 +2544,38 @@
     "TR": "Yandaş askerleri terfi ettirmenin seviye başına maliyeti."
   },
   {
+    "id": "ret_mcm_option_shared_xp_pool",
+    "default": "Shared XP Pool",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_mcm_option_shared_xp_pool_hint",
+    "default": "All troops share the same XP pool.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_mcm_option_skill_xp_cost_per_point",
     "default": "Skill XP Cost Per Point",
     "BR": "Custo de XP por Ponto de Habilidade",

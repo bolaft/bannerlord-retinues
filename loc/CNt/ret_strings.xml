@@ -423,7 +423,7 @@
       text="1級部隊不能擁有坐騎。" />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="啟用教義（不穩定）" />
+      text="啟用教義" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="啟用教義系統及其功能。" />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="玩家隊伍中精銳隨從的最大比例。" />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="擊殺也可解鎖自定義部隊文化的物品" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="決定擊殺是否也能解鎖自定義部隊文化物品。" />

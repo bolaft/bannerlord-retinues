@@ -423,7 +423,7 @@
       text="Jednostki poziomu 1 nie mogą mieć wierzchowców." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Włącz Doktryny (Niestabilne)" />
+      text="Włącz Doktryny" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Włącz system Doktryn i jego funkcje." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maksymalny udział elitarnych jednostek orszaku w drużynie gracza." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Zabójstwa również odblokowują przedmioty kultury własnej jednostki" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Czy zabójstwa również odblokowują przedmioty kultury własnej jednostki." />

@@ -440,9 +440,6 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proporção máxima de tropas de séquito de elite no grupo do jogador." />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Abates também desbloqueiam itens da cultura da tropa personalizada" />
-    <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Determina se abates também desbloqueiam itens da cultura da tropa personalizada." />
     <string

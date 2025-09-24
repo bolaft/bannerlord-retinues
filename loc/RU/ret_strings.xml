@@ -423,7 +423,7 @@
       text="Войска 1 ранга не могут иметь лошадей." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Включить Доктрины (Нестабильно)" />
+      text="Включить Доктрины" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Включить систему Доктрин и её функции." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Максимальная доля элитной свиты в отряде игрока." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Убийства также разблокируют предметы культуры собственных войск" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Разблокируют ли убийства также предметы культуры собственных войск." />

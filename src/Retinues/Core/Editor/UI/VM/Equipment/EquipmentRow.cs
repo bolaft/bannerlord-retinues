@@ -229,6 +229,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(Stock));
             OnPropertyChanged(nameof(ShowStock));
             OnPropertyChanged(nameof(CanEquip));
+            OnPropertyChanged(nameof(CantEquip));
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(InProgress));
+            OnPropertyChanged(nameof(ProgressText));
+            OnPropertyChanged(nameof(SkillRequirementText));
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));

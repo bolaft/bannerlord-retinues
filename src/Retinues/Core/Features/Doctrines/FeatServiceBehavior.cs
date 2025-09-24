@@ -32,7 +32,7 @@ namespace Retinues.Core.Features.Doctrines
 
         public override void RegisterEvents()
         {
-            Log.Info("Registering FeatServiceBehavior events.");
+            Log.Debug("Registering FeatServiceBehavior events.");
 
             try
             {

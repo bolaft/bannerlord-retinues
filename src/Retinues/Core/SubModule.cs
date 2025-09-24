@@ -117,7 +117,7 @@ namespace Retinues.Core
 
         private static void ClearAll()
         {
-            Log.Info("Clearing all static properties.");
+            Log.Debug("Clearing all static properties.");
             // Clear active troops
             WCharacter.ActiveTroops.Clear();
             // Clear vanilla id map

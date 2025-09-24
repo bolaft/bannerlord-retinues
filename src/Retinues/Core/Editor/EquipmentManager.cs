@@ -175,8 +175,6 @@ namespace Retinues.Core.Editor
 
         public static int GetItemValue(WItem item, WCharacter troop)
         {
-            Log.Debug($"Calculating item value for {item?.Name} for troop {troop?.Name}.");
-
             try
             {
                 if (item == null)

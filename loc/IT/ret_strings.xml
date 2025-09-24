@@ -423,7 +423,7 @@
       text="Le truppe di livello 1 non possono avere cavalcature." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Abilita Dottrine (Instabile)" />
+      text="Abilita Dottrine" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Abilita il sistema di Dottrine e le sue funzionalità." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proporzione massima di truppe del seguito élite nel gruppo del giocatore." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Le uccisioni sbloccano anche oggetti della cultura della truppa personalizzata" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Determina se le uccisioni sbloccano anche oggetti della cultura della truppa personalizzata." />
