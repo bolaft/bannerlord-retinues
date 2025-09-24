@@ -621,7 +621,7 @@
       text="{CAP} skill cap" />
     <string
       id="ret_skill_requirement_text"
-      text="{SKILL}: {LEVEL}" />
+      text="Requires {SKILL}: {LEVEL}" />
     <string
       id="ret_skills_header_text"
       text="Skills" />

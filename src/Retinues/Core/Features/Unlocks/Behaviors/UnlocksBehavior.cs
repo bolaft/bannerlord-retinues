@@ -107,6 +107,8 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         {
             if (battleCounts == null || battleCounts.Count == 0)
                 return;
+            
+            Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
             int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
 

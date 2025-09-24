@@ -9,7 +9,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress)
+    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress, int? progress)
         : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -44,7 +44,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public string SkillRequirementText => L.T(
             "skill_requirement_text",
-            "{SKILL}: {LEVEL}"
+            "Requires {SKILL}: {LEVEL}"
         ).SetTextVariable(
             "SKILL", Item?.RelevantSkill?.Name.ToString() ?? "N/A"
         ).SetTextVariable(
@@ -81,7 +81,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         {
             get
             {
-                if (InProgress)
+                if (!IsEnabled)
                     return false;
                 if (!Config.GetOption<bool>("PayForEquipment"))
                     return false;

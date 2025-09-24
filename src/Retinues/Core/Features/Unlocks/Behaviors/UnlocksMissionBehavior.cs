@@ -4,7 +4,6 @@ using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game;
 using Retinues.Core.Utils;
 using Retinues.Core.Game.Wrappers;
-using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 

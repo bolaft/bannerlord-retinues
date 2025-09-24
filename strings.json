@@ -3281,7 +3281,7 @@
   },
   {
     "id": "ret_skill_requirement_text",
-    "default": "{SKILL}: {LEVEL}",
+    "default": "Requires {SKILL}: {LEVEL}",
     "BR": null,
     "CNs": null,
     "CNt": null,
