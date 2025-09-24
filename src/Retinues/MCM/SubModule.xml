@@ -1,13 +1,13 @@
 <Module>
   <Name value="Retinues - MCM Support" />
   <Id value="Retinues.MCM" />
-  <Version value="v1.0.0" />
+  <Version value="v1.2.12" />
   <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
   <Official value="false" />
   <DependedModules>
-    <DependedModule Id="Retinues.Core" DependentVersion="v1.0.0"/>
+    <DependedModule Id="Retinues.Core" DependentVersion="v1.2.12"/>
     <DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.10.1"/>
   </DependedModules>
   <SubModules>
