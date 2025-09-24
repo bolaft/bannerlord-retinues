@@ -596,6 +596,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         internal int GetVirtualCount(WCharacter c)
         {
             int count = Player.Party.MemberRoster.CountOf(c);
+            Log.Debug($"GetVirtualCount {c?.Name}: base {count}");
             foreach (var o in _staged.Values)
             {
                 if (o.To == c)

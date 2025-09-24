@@ -60,7 +60,10 @@ namespace Retinues.Core.Game.Wrappers
         public int CountOf(WCharacter troop)
         {
             if (troop.Base == null)
+            {
+                Log.Warn($"CountOf: troop has no base!");
                 return 0;
+            }
             return _roster.GetTroopCount(troop.Base);
         }
 

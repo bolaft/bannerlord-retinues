@@ -34,17 +34,6 @@ namespace Retinues.Core.Game
             }
         }
 
-        private static WParty _party;
-
-        public static WParty Party
-        {
-            get
-            {
-                _party ??= new WParty(MobileParty.MainParty);
-                return _party;
-            }
-        }
-
         private static WCharacter _character;
         public static WCharacter Character
         {
@@ -54,6 +43,8 @@ namespace Retinues.Core.Game
                 return _character;
             }
         }
+
+        public static WParty Party => new(MobileParty.MainParty);
 
         public static IFaction MapFaction => Hero.MainHero.MapFaction;
 
