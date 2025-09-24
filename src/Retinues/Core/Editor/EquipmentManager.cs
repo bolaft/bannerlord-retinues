@@ -118,7 +118,7 @@ namespace Retinues.Core.Editor
             try
             {
                 // Deduct cost and equip
-                Player.ChangeGold(GetItemValue(item, troop)); // Deduct cost
+                Player.ChangeGold(-GetItemValue(item, troop)); // Deduct cost
                 Equip(troop, slot, item);
             }
             catch (Exception e)
