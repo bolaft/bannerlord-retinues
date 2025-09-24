@@ -243,7 +243,7 @@ namespace Retinues.Core.Utils
                 section: L.S("mcm_section_unlocks", "Unlocks"),
                 name: L.S(
                     "mcm_option_own_culture_unlock_bonuses",
-                    "Kills also unlock items from the custom troop's culture"
+                    "Own Culture Unlock Bonuses"
                 ),
                 key: "OwnCultureUnlockBonuses",
                 hint: L.S(
