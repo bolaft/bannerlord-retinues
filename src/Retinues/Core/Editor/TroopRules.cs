@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
@@ -17,133 +18,197 @@ namespace Retinues.Core.Editor
 
         public static int SkillCapByTier(int tier)
         {
-            int cap = tier switch
+            try
             {
-                1 => 20,
-                2 => 50,
-                3 => 80,
-                4 => 120,
-                5 => 160,
-                6 => 260,
-                _ => 260, // Higher tiers for retinues
-            };
+                int cap = tier switch
+                {
+                    1 => 20,
+                    2 => 50,
+                    3 => 80,
+                    4 => 120,
+                    5 => 160,
+                    6 => 260,
+                    _ => 260, // Higher tiers for retinues
+                };
 
-            if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
-                cap += 5; // +5 skill cap with Iron Discipline
+                if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
+                    cap += 5; // +5 skill cap with Iron Discipline
 
-            return cap;
+                return cap;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return 0;
+            }
         }
 
         public static int SkillTotalByTier(int tier)
         {
-            int total = tier switch
+            try
             {
-                1 => 90,
-                2 => 210,
-                3 => 360,
-                4 => 535,
-                5 => 710,
-                6 => 915,
-                _ => 915, // Higher tiers for retinues
-            };
+                int total = tier switch
+                {
+                    1 => 90,
+                    2 => 210,
+                    3 => 360,
+                    4 => 535,
+                    5 => 710,
+                    6 => 915,
+                    _ => 915, // Higher tiers for retinues
+                };
 
-            if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
-                total += 10; // +10 skill total with Steadfast Soldiers
+                if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
+                    total += 10; // +10 skill total with Steadfast Soldiers
 
-            return total;
+                return total;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return 0;
+            }
         }
 
         public static int SkillPointsLeft(WCharacter character)
         {
-            if (character == null)
-                return 0;
+            try
+            {
+                if (character == null)
+                    return 0;
 
-            return SkillTotalByTier(character.Tier) - character.Skills.Values.Sum();
+                return SkillTotalByTier(character.Tier) - character.Skills.Values.Sum();
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return 0;
+            }
         }
 
         public static bool CanIncrementSkill(WCharacter character, SkillObject skill)
         {
-            if (character == null || skill == null)
-                return false;
+            try
+            {
+                if (character == null || skill == null)
+                    return false;
 
-            if (character.GetSkill(skill) >= SkillCapByTier(character.Tier))
-                return false;
+                if (character.GetSkill(skill) >= SkillCapByTier(character.Tier))
+                    return false;
 
-            if (SkillPointsLeft(character) <= 0)
-                return false;
+                if (SkillPointsLeft(character) <= 0)
+                    return false;
 
-            // Must be able to afford the next point from the troop XP bank
-            if (!HasEnoughXpForNextPoint(character, skill))
-                return false;
+                // Must be able to afford the next point from the troop XP bank
+                if (!HasEnoughXpForNextPoint(character, skill))
+                    return false;
 
-            return true;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return false;
+            }
         }
 
         public static bool CanDecrementSkill(WCharacter character, SkillObject skill)
         {
-            if (character == null || skill == null)
-                return false;
+            try
+            {
+                if (character == null || skill == null)
+                    return false;
 
-            // Skills can't go below zero
-            if (character.GetSkill(skill) <= 0)
-                return false;
+                // Skills can't go below zero
+                if (character.GetSkill(skill) <= 0)
+                    return false;
 
-            // Check for equipment skill requirements
-            if (character.GetSkill(skill) <= character.Equipment.GetSkillRequirement(skill))
-                return false;
+                // Check for equipment skill requirements
+                if (character.GetSkill(skill) <= character.Equipment.GetSkillRequirement(skill))
+                    return false;
 
-            // Check for parent skill (can't go below parent's skill level)
-            if (
-                character.Parent != null
-                && character.GetSkill(skill) <= character.Parent.GetSkill(skill)
-            )
-                return false;
+                // Check for parent skill (can't go below parent's skill level)
+                if (
+                    character.Parent != null
+                    && character.GetSkill(skill) <= character.Parent.GetSkill(skill)
+                )
+                    return false;
 
-            return true;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return false;
+            }
         }
 
         public static bool CanUpgradeTroop(WCharacter character)
         {
-            if (character == null)
-                return false;
+            try
+            {
+                if (character == null)
+                    return false;
 
-            // Max tier reached
-            if (character.IsMaxTier)
-                return false;
+                // Max tier reached
+                if (character.IsMaxTier)
+                    return false;
 
-            int maxUpgrades;
+                int maxUpgrades;
 
-            if (character.IsRetinue)
-                maxUpgrades = 1; // 1 upgrade for retinues
-            else if (character.IsElite)
-                if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>())
-                    maxUpgrades = 2; // 2 upgrades for elite troops with Masters at Arms
+                if (character.IsRetinue)
+                    maxUpgrades = 1; // 1 upgrade for retinues
+                else if (character.IsElite)
+                    if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>())
+                        maxUpgrades = 2; // 2 upgrades for elite troops with Masters at Arms
+                    else
+                        maxUpgrades = 1; // 1 upgrade for elite troops without Masters at Arms
                 else
-                    maxUpgrades = 1; // 1 upgrade for elite troops without Masters at Arms
-            else
-                maxUpgrades = 2; // 2 upgrades for basic troops
+                    maxUpgrades = 2; // 2 upgrades for basic troops
 
-            // Max upgrades reached
-            if (character.UpgradeTargets.Count() >= maxUpgrades)
+                // Max upgrades reached
+                if (character.UpgradeTargets.Count() >= maxUpgrades)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
                 return false;
-
-            return true;
+            }
         }
 
         public static int SkillPointXpCost(int fromValue)
         {
-            int baseCost = Config.GetOption<int>("BaseSkillXpCost");
-            int perPoint = Config.GetOption<int>("SkillXpCostPerPoint");
+            try
+            {
+                int baseCost = Config.GetOption<int>("BaseSkillXpCost");
+                int perPoint = Config.GetOption<int>("SkillXpCostPerPoint");
 
-            return baseCost + perPoint * fromValue;
+                return baseCost + perPoint * fromValue;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return 0;
+            }
         }
 
         public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
         {
-            if (c == null || s == null)
+            try
+            {
+                if (c == null || s == null)
+                    return false;
+                int cost = SkillPointXpCost(c.GetSkill(s));
+                return TroopXpService.GetPool(c) >= cost;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
                 return false;
-            int cost = SkillPointXpCost(c.GetSkill(s));
-            return TroopXpService.GetPool(c) >= cost;
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -154,12 +219,21 @@ namespace Retinues.Core.Editor
         {
             get
             {
-                int maxEliteRetinue = (int)(
-                    Player.Party.PartySizeLimit * Config.GetOption<float>("MaxEliteRetinueRatio")
-                );
-                if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
-                    maxEliteRetinue = (int)(maxEliteRetinue * 1.15f);
-                return maxEliteRetinue;
+                try
+                {
+                    int maxEliteRetinue = (int)(
+                        Player.Party.PartySizeLimit
+                        * Config.GetOption<float>("MaxEliteRetinueRatio")
+                    );
+                    if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
+                        maxEliteRetinue = (int)(maxEliteRetinue * 1.15f);
+                    return maxEliteRetinue;
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e);
+                    return 0;
+                }
             }
         }
 
@@ -167,27 +241,52 @@ namespace Retinues.Core.Editor
         {
             get
             {
-                int maxBasicRetinue = (int)(
-                    Player.Party.PartySizeLimit * Config.GetOption<float>("MaxBasicRetinueRatio")
-                );
-                if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
-                    maxBasicRetinue = (int)(maxBasicRetinue * 1.15f);
-                return maxBasicRetinue;
+                try
+                {
+                    int maxBasicRetinue = (int)(
+                        Player.Party.PartySizeLimit
+                        * Config.GetOption<float>("MaxBasicRetinueRatio")
+                    );
+                    if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
+                        maxBasicRetinue = (int)(maxBasicRetinue * 1.15f);
+                    return maxBasicRetinue;
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e);
+                    return 0;
+                }
             }
         }
 
         public static int ConversionCostPerUnit(WCharacter retinue)
         {
-            int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
-            return tier * baseCost;
+            try
+            {
+                int tier = retinue?.Tier ?? 1;
+                int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
+                return tier * baseCost;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return 0;
+            }
         }
 
         public static int RankUpCost(WCharacter retinue)
         {
-            int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueRankUpCostPerTier");
-            return tier * baseCost;
+            try
+            {
+                int tier = retinue?.Tier ?? 1;
+                int baseCost = Config.GetOption<int>("RetinueRankUpCostPerTier");
+                return tier * baseCost;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return 0;
+            }
         }
 
         public static int RetinueCapFor(WCharacter retinue) =>

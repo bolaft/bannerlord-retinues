@@ -55,13 +55,17 @@ internal static class VolunteerSwapForPlayerSession
         var playerClan = Player.Clan;
         if (playerClan == null)
             return;
-        
+
         if (playerClan.BasicTroops.Count == 0 || playerClan.EliteTroops.Count == 0)
             return;
 
         var s = Hero.MainHero?.CurrentSettlement ?? Settlement.CurrentSettlement;
         if (s == null)
             return;
+
+        Log.Debug(
+            $"VolunteerSwapForPlayer: Attempting swap at {s.Name} for clan {playerClan.Name}."
+        );
 
         _settlement = s;
 

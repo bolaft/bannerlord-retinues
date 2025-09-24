@@ -20,6 +20,8 @@ public static class VolunteerSwap
         if (settlement.IsHideout)
             return; // no volunteers in hideouts
 
+        Log.Debug($"VolunteerSwap: Checking volunteers in {settlement?.Name}.");
+
         try
         {
             var clan = settlement?.OwnerClan;

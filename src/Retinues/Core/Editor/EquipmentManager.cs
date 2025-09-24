@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Doctrines;
@@ -19,79 +20,117 @@ namespace Retinues.Core.Editor
             EquipmentIndex slot
         )
         {
+            Log.Debug(
+                $"Collecting available items for troop {troop?.Name} (tier {troop?.Tier}), faction {faction?.Name}, slot {slot}."
+            );
+
             // Initialize item list
             var items = new List<(WItem, int?)>();
 
-            // Load items
-            foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
+            try
             {
-                if (Config.GetOption<bool>("AllEquipmentUnlocked"))
-                    items.Add((new WItem(item), null)); // All items
-                else
+                // Load items
+                foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
                 {
-                    var wItem = new WItem(item); // Wrap item
+                    if (Config.GetOption<bool>("AllEquipmentUnlocked"))
+                        items.Add((new WItem(item), null)); // All items
+                    else
+                    {
+                        var wItem = new WItem(item); // Wrap item
 
-                    if (wItem.IsCrafted)
-                        continue; // Skip crafted items
-                    if (
-                        Config.GetOption<int>("AllowedTierDifference") < (wItem.Tier - troop.Tier)
-                        && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
-                    )
-                        continue; // Skip items that exceed the allowed tier difference unless Ironclad is unlocked
-
-                    if (wItem.IsUnlocked)
-                        items.Add((wItem, null)); // Unlocked items
-                    else if (
-                        Config.GetOption<bool>("UnlockFromCulture")
-                        && item.Culture?.StringId == faction?.Culture?.StringId
-                    )
-                        items.Add((wItem, null)); // Items of the faction's culture
-                    else if (
-                        DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>()
-                        && (
-                            item.Culture?.StringId == Player.Clan?.Culture?.StringId
-                            || item.Culture?.StringId == Player.Kingdom?.Culture?.StringId
+                        if (wItem.IsCrafted)
+                            continue; // Skip crafted items
+                        if (
+                            Config.GetOption<int>("AllowedTierDifference")
+                                < (wItem.Tier - troop.Tier)
+                            && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
                         )
-                    )
-                        items.Add((wItem, null)); // Items of the clan or kingdom's culture
-                    else if (
-                        UnlocksBehavior.IdsToProgress.ContainsKey(item.StringId)
-                        && Config.GetOption<bool>("UnlockFromKills")
-                    )
-                        items.Add((wItem, UnlocksBehavior.IdsToProgress[item.StringId])); // Items that are in progress
+                            continue; // Skip items that exceed the allowed tier difference unless Ironclad is unlocked
+
+                        if (wItem.IsUnlocked)
+                            items.Add((wItem, null)); // Unlocked items
+                        else if (
+                            Config.GetOption<bool>("UnlockFromCulture")
+                            && item.Culture?.StringId == faction?.Culture?.StringId
+                        )
+                            items.Add((wItem, null)); // Items of the faction's culture
+                        else if (
+                            DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>()
+                            && (
+                                item.Culture?.StringId == Player.Clan?.Culture?.StringId
+                                || item.Culture?.StringId == Player.Kingdom?.Culture?.StringId
+                            )
+                        )
+                            items.Add((wItem, null)); // Items of the clan or kingdom's culture
+                        else if (
+                            UnlocksBehavior.IdsToProgress.ContainsKey(item.StringId)
+                            && Config.GetOption<bool>("UnlockFromKills")
+                        )
+                            items.Add((wItem, UnlocksBehavior.IdsToProgress[item.StringId])); // Items that are in progress
+                    }
                 }
+
+                // Filter by selected slot
+                items =
+                [
+                    .. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot)),
+                ];
+
+                // Sort by int? (nulls first, then descending), then type, then name
+                items =
+                [
+                    .. items
+                        .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0)))
+                        .ThenBy(pair => pair.Item1?.Type)
+                        .ThenBy(pair => pair.Item1?.Name),
+                ];
+
+                // Empty item to allow unequipping
+                items.Insert(0, (null, null));
             }
-
-            // Filter by selected slot
-            items = [.. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot))];
-
-            // Sort by int? (nulls first, then descending), then type, then name
-            items = [.. items
-                .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0)))
-                .ThenBy(pair => pair.Item1?.Type)
-                .ThenBy(pair => pair.Item1?.Name)
-            ];
-
-            // Empty item to allow unequipping
-            items.Insert(0, (null, null));
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
 
             return items;
         }
 
         public static void EquipFromStock(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            item.Unstock(); // Reduce stock by 1
-            Equip(troop, slot, item);
+            Log.Debug($"Equipping item {item?.Name} from stock to troop {troop?.Name}.");
+
+            try
+            {
+                item.Unstock(); // Reduce stock by 1
+                Equip(troop, slot, item);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         public static void EquipFromPurchase(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            Player.ChangeGold(GetItemValue(item, troop)); // Deduct cost
-            Equip(troop, slot, item);
+            Log.Debug($"Purchasing and equipping item {item?.Name} to troop {troop?.Name}.");
+
+            try
+            {
+                // Deduct cost and equip
+                Player.ChangeGold(GetItemValue(item, troop)); // Deduct cost
+                Equip(troop, slot, item);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item)
         {
+            Log.Debug($"Equipping item {item?.Name} to troop {troop?.Name}.");
+
             // If equipping a new item, unequip the old one (if any)
             var oldItem = troop.Unequip(slot);
 
@@ -117,39 +156,58 @@ namespace Retinues.Core.Editor
 
         public static void UnequipAll(WCharacter troop)
         {
-            foreach (var item in troop.UnequipAll())
+            Log.Debug($"Unequipping all items from troop {troop?.Name}.");
+
+            try
             {
-                // If the item had a value, restock it
-                if (item != null && item.Value > 0)
-                    item.Stock();
+                foreach (var item in troop.UnequipAll())
+                {
+                    // If the item had a value, restock it
+                    if (item != null && item.Value > 0)
+                        item.Stock();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
             }
         }
 
         public static int GetItemValue(WItem item, WCharacter troop)
         {
-            if (item == null)
-                return 0;
-
-            int baseValue = item?.Value ?? 0;
-            float rebate = 0.0f;
+            Log.Debug($"Calculating item value for {item?.Name} for troop {troop?.Name}.");
 
             try
             {
-                if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
-                    if (item?.Culture?.StringId == troop.Culture?.StringId)
-                        rebate += 0.10f; // 10% rebate on items of the clan's culture
+                if (item == null)
+                    return 0;
 
-                if (DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
-                    if (item?.Culture?.StringId == Player.Clan.Culture.StringId)
-                        rebate += 0.10f; // 10% rebate on items of the clan's culture
+                int baseValue = item?.Value ?? 0;
+                float rebate = 0.0f;
 
-                if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
-                    if (item?.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
-                        rebate += 0.10f; // 10% rebate on items of the kingdom's culture
+                try
+                {
+                    if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
+                        if (item?.Culture?.StringId == troop.Culture?.StringId)
+                            rebate += 0.10f; // 10% rebate on items of the clan's culture
+
+                    if (DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
+                        if (item?.Culture?.StringId == Player.Clan.Culture.StringId)
+                            rebate += 0.10f; // 10% rebate on items of the clan's culture
+
+                    if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+                        if (item?.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
+                            rebate += 0.10f; // 10% rebate on items of the kingdom's culture
+                }
+                catch { }
+
+                return (int)(baseValue * (1.0f - rebate));
             }
-            catch { }
-
-            return (int)(baseValue * (1.0f - rebate));
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return item?.Value ?? 0;
+            }
         }
     }
 }

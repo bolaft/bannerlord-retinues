@@ -28,7 +28,7 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
         public UnlocksBehavior()
         {
-            Instance = this;
+            Instance = this; // set singleton
         }
 
         public override void RegisterEvents()
@@ -44,7 +44,7 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         {
             ds.SyncData(nameof(_defeatsByItemId), ref _defeatsByItemId);
 
-            Log.Debug($"SyncData: {_defeatsByItemId.Count} item defeat counts.");
+            Log.Info($"SyncData: {_defeatsByItemId.Count} item defeat counts.");
         }
 
         private void OnMissionStarted(IMission mission)
@@ -52,6 +52,8 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             // Return if the feature is disabled
             if (!Config.GetOption<bool>("UnlockFromKills"))
                 return;
+
+            Log.Info("OnMissionStarted: Installing UnlocksMissionBehavior.");
 
             // Cast to concrete type
             Mission m = mission as Mission;
@@ -89,14 +91,24 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
         internal void AddOwnCultureBonuses(Dictionary<int, int> bonuses)
         {
-            Dictionary<ItemObject, int> randomItemsByTier = [];
+            Log.Info(
+                $"AddOwnCultureBonuses: {bonuses.Count} tiers to process for culture {Player.Clan?.Culture?.Name}."
+            );
 
-            foreach (var tier in bonuses.Keys)
-                randomItemsByTier[GetRandomItem(Player.Clan?.Culture?.StringId, tier)] = bonuses[
-                    tier
-                ];
+            try
+            {
+                Dictionary<ItemObject, int> randomItemsByTier = [];
 
-            AddBattleCounts(randomItemsByTier, false);
+                foreach (var tier in bonuses.Keys)
+                    randomItemsByTier[GetRandomItem(Player.Clan?.Culture?.StringId, tier)] =
+                        bonuses[tier];
+
+                AddBattleCounts(randomItemsByTier, false);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // Called by the mission behavior when a battle ends to flush its per-battle counts
@@ -105,55 +117,62 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             bool addCultureBonuses = true
         )
         {
-            if (battleCounts == null || battleCounts.Count == 0)
-                return;
-            
             Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
-            int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
-
-            Dictionary<int, int> ownCultureBonuses = [];
-
-            foreach (var kvp in battleCounts)
+            try
             {
-                var item = kvp.Key;
-                var inc = kvp.Value;
+                if (battleCounts == null || battleCounts.Count == 0)
+                    return;
 
-                if (item == null)
-                    continue;
+                int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
 
-                // accumulate in own culture as well
-                if (
-                    addCultureBonuses
-                    && Config.GetOption<bool>("OwnCultureUnlockBonuses")
-                    && item.Culture != null
-                    && item.Culture != Clan.PlayerClan?.Culture
-                )
+                Dictionary<int, int> ownCultureBonuses = [];
+
+                foreach (var kvp in battleCounts)
                 {
-                    if (!ownCultureBonuses.ContainsKey((int)item.Tier))
-                        ownCultureBonuses[(int)item.Tier] = 0;
-                    ownCultureBonuses[(int)item.Tier] += inc;
-                }
+                    var item = kvp.Key;
+                    var inc = kvp.Value;
 
-                var id = item.StringId;
-                _defeatsByItemId.TryGetValue(id, out int prev);
-                int now = prev + inc;
-                _defeatsByItemId[id] = now;
+                    if (item == null)
+                        continue;
 
-                // crossed the threshold? unlock once
-                if (prev < threshold && now >= threshold)
-                {
-                    var w = new WItem(item);
-                    if (!w.IsUnlocked) // if you expose it; else check your UnlockedItems set
+                    // accumulate in own culture as well
+                    if (
+                        addCultureBonuses
+                        && Config.GetOption<bool>("OwnCultureUnlockBonuses")
+                        && item.Culture != null
+                        && item.Culture != Clan.PlayerClan?.Culture
+                    )
                     {
-                        w.Unlock();
-                        _newlyUnlockedThisBattle.Add(item);
+                        if (!ownCultureBonuses.ContainsKey((int)item.Tier))
+                            ownCultureBonuses[(int)item.Tier] = 0;
+                        ownCultureBonuses[(int)item.Tier] += inc;
+                    }
+
+                    var id = item.StringId;
+                    _defeatsByItemId.TryGetValue(id, out int prev);
+                    int now = prev + inc;
+                    _defeatsByItemId[id] = now;
+
+                    // crossed the threshold? unlock once
+                    if (prev < threshold && now >= threshold)
+                    {
+                        var w = new WItem(item);
+                        if (!w.IsUnlocked) // if you expose it; else check your UnlockedItems set
+                        {
+                            w.Unlock();
+                            _newlyUnlockedThisBattle.Add(item);
+                        }
                     }
                 }
-            }
 
-            // Apply accumulated own culture bonuses
-            AddOwnCultureBonuses(ownCultureBonuses);
+                // Apply accumulated own culture bonuses
+                AddOwnCultureBonuses(ownCultureBonuses);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         private void OnMapEventEnded(MapEvent mapEvent)

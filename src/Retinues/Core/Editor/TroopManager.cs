@@ -16,17 +16,47 @@ namespace Retinues.Core.Editor
 
         public static List<WCharacter> CollectRetinueTroops(WFaction faction)
         {
-            return [faction.RetinueElite, faction.RetinueBasic];
+            Log.Debug(
+                $"Collecting retinue troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
+            );
+            try
+            {
+                return [faction.RetinueElite, faction.RetinueBasic];
+            }
+            catch
+            {
+                return [];
+            }
         }
 
         public static List<WCharacter> CollectEliteTroops(WFaction faction)
         {
-            return [.. faction.EliteTroops];
+            Log.Debug(
+                $"Collecting elite troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
+            );
+            try
+            {
+                return [.. faction.EliteTroops];
+            }
+            catch
+            {
+                return [];
+            }
         }
 
         public static List<WCharacter> CollectBasicTroops(WFaction faction)
         {
-            return [.. faction.BasicTroops];
+            Log.Debug(
+                $"Collecting basic troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
+            );
+            try
+            {
+                return [.. faction.BasicTroops];
+            }
+            catch
+            {
+                return [];
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -35,75 +65,127 @@ namespace Retinues.Core.Editor
 
         public static void Rename(WCharacter troop, string newName)
         {
-            troop.Name = newName.Trim();
+            Log.Debug($"Renaming troop {troop?.Name} to '{newName}'.");
+
+            try
+            {
+                troop.Name = newName.Trim();
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         public static void ChangeGender(WCharacter troop)
         {
-            troop.IsFemale = !troop.IsFemale;
+            Log.Debug($"Changing gender for troop {troop?.Name}.");
+            try
+            {
+                troop.IsFemale = !troop.IsFemale;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         public static void ModifySkill(WCharacter troop, SkillObject skill, int delta)
         {
-            if (troop == null || skill == null || delta == 0)
-                return;
+            Log.Debug(
+                $"Modifying skill {skill?.Name} for troop {troop?.Name} by {delta} (current: {troop?.GetSkill(skill)})."
+            );
 
-            int current = troop.GetSkill(skill);
-
-            if (delta > 0)
+            try
             {
-                // Cost to go from current -> current + 1
-                int cost = TroopRules.SkillPointXpCost(current);
-                if (!TroopXpService.TrySpend(troop, cost))
-                    return; // Not enough XP; a CanIncrement gate should already prevent this
-                troop.SetSkill(skill, current + 1);
-            }
-            else // delta < 0
-            {
-                // Respect your existing "CanDecrement" constraints upstream
-                int newValue = current - 1;
-                if (newValue < 0)
+                if (troop == null || skill == null || delta == 0)
                     return;
 
-                // Refund the cost of the point we're removing (i.e., the cost that was paid to go from newValue -> newValue + 1)
-                int refund = TroopRules.SkillPointXpCost(newValue);
-                troop.SetSkill(skill, newValue);
-                TroopXpService.Refund(troop, refund);
+                int current = troop.GetSkill(skill);
+
+                if (delta > 0)
+                {
+                    // Cost to go from current -> current + 1
+                    int cost = TroopRules.SkillPointXpCost(current);
+                    if (!TroopXpService.TrySpend(troop, cost))
+                        return; // Not enough XP; a CanIncrement gate should already prevent this
+                    troop.SetSkill(skill, current + 1);
+                }
+                else // delta < 0
+                {
+                    // Respect your existing "CanDecrement" constraints upstream
+                    int newValue = current - 1;
+                    if (newValue < 0)
+                        return;
+
+                    // Refund the cost of the point we're removing (i.e., the cost that was paid to go from newValue -> newValue + 1)
+                    int refund = TroopRules.SkillPointXpCost(newValue);
+                    troop.SetSkill(skill, newValue);
+                    TroopXpService.Refund(troop, refund);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
             }
         }
 
         public static WCharacter AddUpgradeTarget(WCharacter troop, string targetName)
         {
-            // Determine the position in the tree
-            List<int> path = [.. troop.PositionInTree, troop.UpgradeTargets.Length];
+            Log.Debug($"Adding upgrade target '{targetName}' to troop {troop?.Name}.");
 
-            // Wrap the custom troop
-            var child = new WCharacter(troop.Faction == Player.Kingdom, troop.IsElite, false, path);
+            try
+            {
+                // Determine the position in the tree
+                List<int> path = [.. troop.PositionInTree, troop.UpgradeTargets.Length];
 
-            // Copy from the original troop
-            child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);
+                // Wrap the custom troop
+                var child = new WCharacter(
+                    troop.Faction == Player.Kingdom,
+                    troop.IsElite,
+                    false,
+                    path
+                );
 
-            // Set name and level
-            child.Name = targetName.Trim();
-            child.Level = troop.Level + 5;
+                // Copy from the original troop
+                child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);
 
-            // Add to upgrade targets of the parent
-            troop.AddUpgradeTarget(child);
+                // Set name and level
+                child.Name = targetName.Trim();
+                child.Level = troop.Level + 5;
 
-            // Activate
-            child.Activate();
+                // Add to upgrade targets of the parent
+                troop.AddUpgradeTarget(child);
 
-            return child;
+                // Activate
+                child.Activate();
+
+                return child;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return null;
+            }
         }
 
         public static void Remove(WCharacter troop)
         {
-            // Stock the troop's equipment
-            foreach (var item in troop.Equipment.Items)
-                item.Stock();
+            Log.Debug($"Removing troop {troop?.Name}.");
 
-            // Remove the troop
-            troop.Remove();
+            try
+            {
+                // Stock the troop's equipment
+                foreach (var item in troop.Equipment.Items)
+                    item.Stock();
+
+                // Remove the troop
+                troop.Remove();
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -112,100 +194,139 @@ namespace Retinues.Core.Editor
 
         public static void RankUp(WCharacter troop)
         {
-            if (troop.IsMaxTier)
-                return;
+            Log.Debug($"Ranking up troop {troop?.Name} (current level: {troop?.Level}).");
 
-            int cost = TroopRules.RankUpCost(troop);
+            try
+            {
+                if (troop.IsMaxTier)
+                    return;
 
-            if (Player.Gold < cost)
-                return;
+                int cost = TroopRules.RankUpCost(troop);
 
-            // Pay the cost
-            Player.ChangeGold(-cost);
+                if (Player.Gold < cost)
+                    return;
 
-            // Spend the XP
-            TroopXpService.TrySpend(troop, cost);
+                // Pay the cost
+                Player.ChangeGold(-cost);
 
-            // Upgrade the troop
-            troop.Level += 5;
+                // Spend the XP
+                TroopXpService.TrySpend(troop, cost);
+
+                // Upgrade the troop
+                troop.Level += 5;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         public static List<WCharacter> GetRetinueSourceTroops(WCharacter retinue)
         {
+            Log.Debug($"Getting source troops for retinue {retinue?.Name}.");
+
             List<WCharacter> sources = [];
-            WCharacter cultureRoot;
-            WCharacter factionRoot;
 
-            if (retinue.StringId == retinue.Faction?.RetinueElite.StringId)
+            try
             {
-                cultureRoot = retinue.Culture?.RootElite;
-                factionRoot = retinue.Faction?.RootElite;
-            }
-            else if (retinue.StringId == retinue.Faction?.RetinueBasic.StringId)
-            {
-                cultureRoot = retinue.Culture?.RootBasic;
-                factionRoot = retinue.Faction?.RootBasic;
-            }
-            else
-            {
-                Log.Warn($"Troop {retinue.StringId} is not a retinue troop");
-                return sources;
-            }
+                WCharacter cultureRoot;
+                WCharacter factionRoot;
 
-            if (cultureRoot != null)
-                foreach (WCharacter troop in cultureRoot.Tree)
-                    if (IsEligibleForRetinue(troop, retinue))
-                    {
-                        sources.Add(troop);
-                        break; // Only take one
-                    }
+                if (retinue.StringId == retinue.Faction?.RetinueElite.StringId)
+                {
+                    cultureRoot = retinue.Culture?.RootElite;
+                    factionRoot = retinue.Faction?.RootElite;
+                }
+                else if (retinue.StringId == retinue.Faction?.RetinueBasic.StringId)
+                {
+                    cultureRoot = retinue.Culture?.RootBasic;
+                    factionRoot = retinue.Faction?.RootBasic;
+                }
+                else
+                {
+                    Log.Warn($"Troop {retinue.StringId} is not a retinue troop");
+                    return sources;
+                }
 
-            if (factionRoot != null)
-                foreach (WCharacter troop in factionRoot.Tree)
-                    if (IsEligibleForRetinue(troop, retinue))
-                    {
-                        sources.Add(troop);
-                        break; // Only take one
-                    }
+                if (cultureRoot != null)
+                    foreach (WCharacter troop in cultureRoot.Tree)
+                        if (IsEligibleForRetinue(troop, retinue))
+                        {
+                            sources.Add(troop);
+                            break; // Only take one
+                        }
+
+                if (factionRoot != null)
+                    foreach (WCharacter troop in factionRoot.Tree)
+                        if (IsEligibleForRetinue(troop, retinue))
+                        {
+                            sources.Add(troop);
+                            break; // Only take one
+                        }
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
 
             return sources;
         }
 
         private static bool IsEligibleForRetinue(WCharacter troop, WCharacter retinue)
         {
-            // Basic checks
-            if (!retinue.IsRetinue || troop.IsRetinue)
-                return false;
+            Log.Debug($"Checking if troop {troop?.Name} is eligible for retinue {retinue?.Name}.");
 
-            // Check for culture match
-            if (troop.Culture?.StringId != retinue.Culture?.StringId)
-                return false;
+            try
+            {
+                // Basic checks
+                if (!retinue.IsRetinue || troop.IsRetinue)
+                    return false;
 
-            // Check for tier match
-            if (troop.Tier != retinue.Tier)
-                return false;
+                // Check for culture match
+                if (troop.Culture?.StringId != retinue.Culture?.StringId)
+                    return false;
 
-            return true;
+                // Check for tier match
+                if (troop.Tier != retinue.Tier)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return false;
+            }
         }
 
         public static int GetMaxConvertible(WCharacter from, WCharacter to)
         {
-            // Number of 'from' troops available in party
-            int maxConvertible = Player.Party.MemberRoster.CountOf(from);
+            Log.Debug($"Getting max convertible from {from?.Name} to {to?.Name}.");
 
-            if (to.IsRetinue)
+            try
             {
-                // Number of 'to' troops already in party
-                int currentRetinue = Player.Party.MemberRoster.CountOf(to);
+                // Number of 'from' troops available in party
+                int maxConvertible = Player.Party.MemberRoster.CountOf(from);
 
-                // Cap left for retinue troops
-                int cap = TroopRules.RetinueCapFor(to);
+                if (to.IsRetinue)
+                {
+                    // Number of 'to' troops already in party
+                    int currentRetinue = Player.Party.MemberRoster.CountOf(to);
 
-                // Apply cap
-                maxConvertible = Math.Min(maxConvertible, Math.Max(0, cap - currentRetinue));
+                    // Cap left for retinue troops
+                    int cap = TroopRules.RetinueCapFor(to);
+
+                    // Apply cap
+                    maxConvertible = Math.Min(maxConvertible, Math.Max(0, cap - currentRetinue));
+                }
+
+                return maxConvertible;
             }
-
-            return maxConvertible;
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return 0;
+            }
         }
 
         public static void Convert(
@@ -215,16 +336,27 @@ namespace Retinues.Core.Editor
             int cost = 0
         )
         {
-            // Clamp to max possible
-            int max = GetMaxConvertible(from, to);
-            int amount = Math.Min(amountRequested, max);
+            Log.Debug(
+                $"Converting {amountRequested} of {from?.Name} to {to?.Name} at cost {cost} each."
+            );
 
-            // Apply cost
-            Player.ChangeGold(-cost);
+            try
+            {
+                // Clamp to max possible
+                int max = GetMaxConvertible(from, to);
+                int amount = Math.Min(amountRequested, max);
 
-            // Mutate roster
-            Player.Party.MemberRoster.RemoveTroop(from, amount);
-            Player.Party.MemberRoster.AddTroop(to, amount);
+                // Apply cost
+                Player.ChangeGold(-cost);
+
+                // Mutate roster
+                Player.Party.MemberRoster.RemoveTroop(from, amount);
+                Player.Party.MemberRoster.AddTroop(to, amount);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
     }
 }

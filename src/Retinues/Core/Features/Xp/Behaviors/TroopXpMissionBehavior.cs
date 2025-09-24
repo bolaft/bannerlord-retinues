@@ -43,10 +43,14 @@ namespace Retinues.Core.Features.Xp.Behaviors
 
         protected override void OnEndMission()
         {
+            Log.Info("TroopXpMissionBehavior: Mission ended, awarding XP.");
             if (_xpByTroop.Count == 0)
                 return;
+
+            Log.Info("XP earned this mission:");
             foreach (var kv in _xpByTroop)
                 Log.Info($"  {kv.Key.Name}: {kv.Value} XP");
+
             TroopXpService.AccumulateFromMission(_xpByTroop);
             _xpByTroop.Clear();
         }
