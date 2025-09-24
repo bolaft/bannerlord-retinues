@@ -15,7 +15,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 - fix hints not appearing on disabled buttons
 - on recreating kingdom, troops are replaced
-- troops are garrisonable in 1.3
 
 ## Other
 
