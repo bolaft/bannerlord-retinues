@@ -7,9 +7,8 @@
   <MultiplayerModule value="false" />
   <Official value="false" />
   <DependedModules>
-    <DependedModule Id="Retinues.Core" />
-    <DependedModule Id="Bannerlord.MBOptionScreen" />
-    <DependedModule Id="Native" />
+    <DependedModule Id="Retinues.Core" Optional="false"/>
+    <DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.10.1" Optional="false"/>
   </DependedModules>
   <SubModules>
     <SubModule>

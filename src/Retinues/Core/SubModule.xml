@@ -7,11 +7,11 @@
   <MultiplayerModule value="false" />
   <Official value="false" />
   <DependedModules>
-    <DependedModule Id="Bannerlord.Harmony" />
-    <DependedModule Id="Bannerlord.UIExtenderEx" />
-    <DependedModule Id="Native" />
-    <DependedModule Id="SandBoxCore" />
-    <DependedModule Id="Sandbox" />
+    <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.6" Optional="false"/>
+    <DependedModule Id="Bannerlord.UIExtenderEx" DependentVersion="v2.13.0" Optional="false"/>
+    <DependedModule Id="Native" DependentVersion="v1.2.12" Optional="false"/>
+    <DependedModule Id="SandBoxCore" DependentVersion="v1.2.12" Optional="false"/>
+    <DependedModule Id="Sandbox" DependentVersion="v1.2.12" Optional="false"/>
   </DependedModules>
   <SubModules>
     <SubModule>
