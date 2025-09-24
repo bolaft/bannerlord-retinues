@@ -131,7 +131,7 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_doctrines", "Doctrines"),
-                name: L.S("mcm_option_enable_doctrines", "Enable Doctrines (Unstable)"),
+                name: L.S("mcm_option_enable_doctrines", "Enable Doctrines"),
                 key: "EnableDoctrines",
                 hint: L.S(
                     "mcm_option_enable_doctrines_hint",

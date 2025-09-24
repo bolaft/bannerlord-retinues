@@ -1,476 +1,707 @@
 <?xml version="1.0" encoding="utf-8"?>
-<base
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  type="string"
->
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
     <tag language="TR" />
   </tags>
   <strings>
-    <string id="ret_acquire_fief_to_unlock" text="Bir tımar elde ederek klan askerlerini aç." />
-    <string id="ret_adaptive_training" text="Uyarlanabilir Eğitim" />
+    <string
+      id="ret_acquire_fief_to_unlock"
+      text="Bir tımar elde ederek klan askerlerini aç." />
+    <string
+      id="ret_adaptive_training"
+      text="Uyarlanabilir Eğitim" />
     <string
       id="ret_adaptive_training_150_in_each_skill"
-      text="Her beceri için, seviyesi 150 veya daha yüksek en az bir özel asker bulundur."
-    />
+      text="Her beceri için, seviyesi 150 veya daha yüksek en az bir özel asker bulundur." />
     <string
       id="ret_adaptive_training_5_weapons"
-      text="Tek bir savaşta beş farklı silah sınıfıyla düşman öldür."
-    />
+      text="Tek bir savaşta beş farklı silah sınıfıyla düşman öldür." />
     <string
       id="ret_adaptive_training_description"
-      text="Bir askerin becerisi düşürüldüğünde XP iade edilir."
-    />
+      text="Bir askerin becerisi düşürüldüğünde XP iade edilir." />
     <string
       id="ret_adaptive_training_win_with_even_split"
-      text="100’den fazla düşmana karşı, piyade, süvari ve menzilli klan askerleri eşit bölünmüş bir grupla savaş kazan."
-    />
-    <string id="ret_add_upgrade" text="Yükseltme Ekle" />
-    <string id="ret_add_upgrade_button_text" text="Yükseltme Ekle" />
-    <string id="ret_ancestral_heritage" text="Atasal Miras" />
+      text="100’den fazla düşmana karşı, piyade, süvari ve menzilli klan askerleri eşit bölünmüş bir grupla savaş kazan." />
+    <string
+      id="ret_add_upgrade"
+      text="Yükseltme Ekle" />
+    <string
+      id="ret_add_upgrade_button_text"
+      text="Yükseltme Ekle" />
+    <string
+      id="ret_ancestral_heritage"
+      text="Atasal Miras" />
     <string
       id="ret_ancestral_heritage_150_outnumbered_own_culture"
-      text="Kendi kültüründen sadece özel askerlerle, sayıca azınlıkta olduğun bir 150+ savaşını kazan."
-    />
+      text="Kendi kültüründen sadece özel askerlerle, sayıca azınlıkta olduğun bir 150+ savaşını kazan." />
     <string
       id="ret_ancestral_heritage_capture_own_culture_fief"
-      text="Düşman bir krallıktan kendi kültürüne ait bir tımar ele geçir."
-    />
+      text="Düşman bir krallıktan kendi kültürüne ait bir tımar ele geçir." />
     <string
       id="ret_ancestral_heritage_description"
-      text="Klan ve krallık kültürlerinin tüm eşyalarını açar."
-    />
+      text="Klan ve krallık kültürlerinin tüm eşyalarını açar." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
-      text="Kendi kültüründen bir şehirde bir turnuva kazan."
-    />
-    <string id="ret_apply_conversions_button_text" text="Dönüştür" />
-    <string id="ret_available_troop_xp" text="{XP} xp" />
-    <string id="ret_battlefield_tithes" text="Savaş Alanı Aşarı" />
+      text="Kendi kültüründen bir şehirde bir turnuva kazan." />
+    <string
+      id="ret_apply_conversions_button_text"
+      text="Dönüştür" />
+    <string
+      id="ret_available_troop_xp"
+      text="{XP} xp" />
+    <string
+      id="ret_battlefield_tithes"
+      text="Savaş Alanı Aşarı" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Müttefik birliklerin öldürdüğü düşmanlardan eşyalar açılabilir."
-    />
+      text="Müttefik birliklerin öldürdüğü düşmanlardan eşyalar açılabilir." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
-      text="Çoğunluğu müttefiklerden oluşan bir orduyu düşman ordusuna karşı zafere taşı."
-    />
+      text="Çoğunluğu müttefiklerden oluşan bir orduyu düşman ordusuna karşı zafere taşı." />
     <string
       id="ret_battlefield_tithes_quest_for_allied_lord"
-      text="Müttefik lordlar için 5 görev tamamla."
-    />
+      text="Müttefik lordlar için 5 görev tamamla." />
     <string
       id="ret_battlefield_tithes_turn_tide_allied_army_battle"
-      text="Müttefik bir ordunun dahil olduğu bir savaşın gidişatını değiştir."
-    />
-    <string id="ret_body_slot_text" text="Gövde" />
-    <string id="ret_bound_by_honor" text="Onura Bağlı" />
-    <string id="ret_bound_by_honor_defeat_10_bandits" text="10 haydut grubunu yok et." />
-    <string id="ret_bound_by_honor_description" text="+%20 yandaş morali." />
+      text="Müttefik bir ordunun dahil olduğu bir savaşın gidişatını değiştir." />
+    <string
+      id="ret_body_slot_text"
+      text="Gövde" />
+    <string
+      id="ret_bound_by_honor"
+      text="Onura Bağlı" />
+    <string
+      id="ret_bound_by_honor_defeat_10_bandits"
+      text="10 haydut grubunu yok et." />
+    <string
+      id="ret_bound_by_honor_description"
+      text="+%20 yandaş morali." />
     <string
       id="ret_bound_by_honor_protect_villagers_or_caravans"
-      text="3 kervanı veya köylü grubunu düşman saldırılarından kurtar."
-    />
+      text="3 kervanı veya köylü grubunu düşman saldırılarından kurtar." />
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
-      text="Sadece yandaşlardan oluşan bir grubun moralini 15 gün boyunca 90’ın üzerinde tut."
-    />
-    <string id="ret_buy_item" text="Eşya Satın Al" />
+      text="Sadece yandaşlardan oluşan bir grubun moralini 15 gün boyunca 90’ın üzerinde tut." />
+    <string
+      id="ret_buy_item"
+      text="Eşya Satın Al" />
     <string
       id="ret_buy_item_text"
-      text="{ITEM_NAME} adlı eşyayı {ITEM_VALUE} altına satın almak istediğine emin misin?"
-    />
-    <string id="ret_cancel" text="İptal" />
-    <string id="ret_cant_remove_root_troop" text="Kök askerler kaldırılamaz." />
+      text="{ITEM_NAME} adlı eşyayı {ITEM_VALUE} altına satın almak istediğine emin misin?" />
+    <string
+      id="ret_cancel"
+      text="İptal" />
+    <string
+      id="ret_cant_remove_root_troop"
+      text="Kök askerler kaldırılamaz." />
     <string
       id="ret_cant_remove_troop_with_targets"
-      text="Yükseltme hedefi olan askerler kaldırılamaz."
-    />
-    <string id="ret_cape_slot_text" text="Pelerin" />
-    <string id="ret_clanic_traditions" text="Klan Gelenekleri" />
-    <string id="ret_clanic_traditions_acquire_new_fief" text="Klanın için yeni bir tımar edin." />
+      text="Yükseltme hedefi olan askerler kaldırılamaz." />
+    <string
+      id="ret_cape_slot_text"
+      text="Pelerin" />
+    <string
+      id="ret_clanic_traditions"
+      text="Klan Gelenekleri" />
+    <string
+      id="ret_clanic_traditions_acquire_new_fief"
+      text="Klanın için yeni bir tımar edin." />
     <string
       id="ret_clanic_traditions_companions_50_kills"
-      text="Sen ve yoldaşların 50 veya daha fazla öldürme yaptığınız bir savaşı kazan."
-    />
+      text="Sen ve yoldaşların 50 veya daha fazla öldürme yaptığınız bir savaşı kazan." />
     <string
       id="ret_clanic_traditions_description"
-      text="Klan kültürünün eşyalarında %10 indirim."
-    />
+      text="Klan kültürünün eşyalarında %10 indirim." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
-      text="Klan kültüründen bir şehirde 30 gün boyunca demirci dükkanı bulundur."
-    />
-    <string id="ret_clear_conversions_button_text" text="Temizle" />
-    <string id="ret_close_doctrines_button_text" text="Geri" />
-    <string id="ret_close_equipment_button_text" text="Geri" />
-    <string id="ret_confirm" text="Onayla" />
-    <string id="ret_continue" text="Devam Et" />
-    <string id="ret_convert_not_enough_gold" text="Dönüşümleri uygulamak için yeterli altın yok." />
+      text="Klan kültüründen bir şehirde 30 gün boyunca demirci dükkanı bulundur." />
+    <string
+      id="ret_clear_conversions_button_text"
+      text="Temizle" />
+    <string
+      id="ret_close_doctrines_button_text"
+      text="Geri" />
+    <string
+      id="ret_close_equipment_button_text"
+      text="Geri" />
+    <string
+      id="ret_confirm"
+      text="Onayla" />
+    <string
+      id="ret_continue"
+      text="Devam Et" />
+    <string
+      id="ret_convert_not_enough_gold"
+      text="Dönüşümleri uygulamak için yeterli altın yok." />
     <string
       id="ret_convert_not_enough_gold_text"
-      text="Bu yandaşları kiralamak için yeterli altının yok."
-    />
-    <string id="ret_convert_not_enough_gold_title" text="Yetersiz altın" />
-    <string id="ret_cultural_pride" text="Kültürel Gurur" />
+      text="Bu yandaşları kiralamak için yeterli altının yok." />
+    <string
+      id="ret_convert_not_enough_gold_title"
+      text="Yetersiz altın" />
+    <string
+      id="ret_cultural_pride"
+      text="Kültürel Gurur" />
     <string
       id="ret_cultural_pride_defeat_foreign_ruler"
-      text="Farklı kültürden bir hükümdarı savaşta yen."
-    />
+      text="Farklı kültürden bir hükümdarı savaşta yen." />
     <string
       id="ret_cultural_pride_description"
-      text="Askerin kültürüne ait eşyalarda %10 indirim."
-    />
+      text="Askerin kültürüne ait eşyalarda %10 indirim." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
-      text="Yabancı teçhizat giymeyen askerlerle savaşta 100 öldürme yap."
-    />
+      text="Yabancı teçhizat giymeyen askerlerle savaşta 100 öldürme yap." />
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
-      text="Sadece kendi kültürünün zırhını giyerek bir turnuva kazan."
-    />
-    <string id="ret_doctrine_costs" text="Maliyet: {GOLD} Altın, {INFLUENCE} Nüfuz." />
-    <string id="ret_doctrine_service_unavailable" text="Doktrin hizmeti kullanılamıyor." />
-    <string id="ret_doctrines_button_text" text="Doktrinler" />
-    <string id="ret_doctrines_col_0" text="Açılışlar" />
-    <string id="ret_doctrines_col_1" text="Teçhizat" />
-    <string id="ret_doctrines_col_2" text="Askerler" />
-    <string id="ret_doctrines_col_3" text="Yandaşlar" />
-    <string id="ret_empty_item" text="Boş" />
-    <string id="ret_enter_new_name" text="Yeni bir ad gir:" />
-    <string id="ret_enter_new_troop_name" text="Yeni askerin adını gir:" />
-    <string id="ret_equipment_button_text" text="Teçhizat" />
-    <string id="ret_feat_completed_title" text="Başarı Tamamlandı" />
-    <string id="ret_feats_no_reqs" text="Gereklilik yok." />
-    <string id="ret_feats_reqs" text="Gereklilikler" />
-    <string id="ret_female" text="Kadın" />
-    <string id="ret_gender_header_text" text="Cinsiyet" />
-    <string id="ret_gloves_slot_text" text="Eldiven" />
-    <string id="ret_head_slot_text" text="Kafa" />
-    <string id="ret_horse_harness_slot_text" text="Koşum" />
-    <string id="ret_horse_slot_text" text="At" />
-    <string id="ret_immortals" text="Ölümsüzler" />
+      text="Sadece kendi kültürünün zırhını giyerek bir turnuva kazan." />
+    <string
+      id="ret_doctrine_costs"
+      text="Maliyet: {GOLD} Altın, {INFLUENCE} Nüfuz." />
+    <string
+      id="ret_doctrine_service_unavailable"
+      text="Doktrin hizmeti kullanılamıyor." />
+    <string
+      id="ret_doctrines_button_text"
+      text="Doktrinler" />
+    <string
+      id="ret_doctrines_col_0"
+      text="Açılışlar" />
+    <string
+      id="ret_doctrines_col_1"
+      text="Teçhizat" />
+    <string
+      id="ret_doctrines_col_2"
+      text="Askerler" />
+    <string
+      id="ret_doctrines_col_3"
+      text="Yandaşlar" />
+    <string
+      id="ret_empty_item"
+      text="Boş" />
+    <string
+      id="ret_enter_new_name"
+      text="Yeni bir ad gir:" />
+    <string
+      id="ret_enter_new_troop_name"
+      text="Yeni askerin adını gir:" />
+    <string
+      id="ret_equipment_button_text"
+      text="Teçhizat" />
+    <string
+      id="ret_feat_completed_title"
+      text="Başarı Tamamlandı" />
+    <string
+      id="ret_feats_no_reqs"
+      text="Gereklilik yok." />
+    <string
+      id="ret_feats_reqs"
+      text="Gereklilikler" />
+    <string
+      id="ret_female"
+      text="Kadın" />
+    <string
+      id="ret_gender_header_text"
+      text="Cinsiyet" />
+    <string
+      id="ret_gloves_slot_text"
+      text="Eldiven" />
+    <string
+      id="ret_head_slot_text"
+      text="Kafa" />
+    <string
+      id="ret_horse_harness_slot_text"
+      text="Koşum" />
+    <string
+      id="ret_horse_slot_text"
+      text="At" />
+    <string
+      id="ret_immortals"
+      text="Ölümsüzler" />
     <string
       id="ret_immortals_100_retinue_survive_struck_down"
-      text="Savaşta yere düşüp hayatta kalan 100 yandaş asker bulundur."
-    />
-    <string id="ret_immortals_description" text="+%20 yandaş hayatta kalma şansı." />
+      text="Savaşta yere düşüp hayatta kalan 100 yandaş asker bulundur." />
+    <string
+      id="ret_immortals_description"
+      text="+%20 yandaş hayatta kalma şansı." />
     <string
       id="ret_immortals_retinue_200_enemies"
-      text="Yandaşların tek bir savaşta 200 düşmanı yen."
-    />
+      text="Yandaşların tek bir savaşta 200 düşmanı yen." />
     <string
       id="ret_immortals_win_100_no_deaths"
-      text="Tarafında tek bir ölüm olmadan tek başına 100+ düşmana karşı kazan."
-    />
-    <string id="ret_in_stock" text="Stokta ({STOCK})" />
+      text="Tarafında tek bir ölüm olmadan tek başına 100+ düşmana karşı kazan." />
+    <string
+      id="ret_in_stock"
+      text="Stokta ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="{TROOP_NAME} biriminin seviyesini artırmak istiyor musun?\n\n{text}"
-    />
-    <string id="ret_indomitable" text="Boyun Eğmez" />
+      text="{TROOP_NAME} biriminin seviyesini artırmak istiyor musun?\n\n{text}" />
+    <string
+      id="ret_indomitable"
+      text="Boyun Eğmez" />
     <string
       id="ret_indomitable_25_equiv_no_casualty"
-      text="Yandaşlarının aynı seviyeden 25 düşman askerini kayıp vermeden yenmesini sağla."
-    />
-    <string id="ret_indomitable_description" text="Yandaşlara +5 HP." />
+      text="Yandaşlarının aynı seviyeden 25 düşman askerini kayıp vermeden yenmesini sağla." />
+    <string
+      id="ret_indomitable_description"
+      text="Yandaşlara +5 HP." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
-      text="En az 20 yandaşla savunmada bir kuşatma savaşı kazan."
-    />
+      text="En az 20 yandaşla savunmada bir kuşatma savaşı kazan." />
     <string
       id="ret_indomitable_win_3_defensive_battles"
-      text="Sadece yandaşlardan oluşan bir grupla 3 savunma savaşını üst üste kazan."
-    />
-    <string id="ret_iron_discipline" text="Demir Disiplin" />
+      text="Sadece yandaşlardan oluşan bir grupla 3 savunma savaşını üst üste kazan." />
+    <string
+      id="ret_iron_discipline"
+      text="Demir Disiplin" />
     <string
       id="ret_iron_discipline_defeat_twice_size_only_custom"
-      text="Sadece özel askerlerle senden iki kat büyük bir grubu yen."
-    />
-    <string id="ret_iron_discipline_description" text="Beceri sınırlarına +5." />
+      text="Sadece özel askerlerle senden iki kat büyük bir grubu yen." />
+    <string
+      id="ret_iron_discipline_description"
+      text="Beceri sınırlarına +5." />
     <string
       id="ret_iron_discipline_lead_army_10_days"
-      text="10 gün boyunca aralıksız bir ordu yönet."
-    />
+      text="10 gün boyunca aralıksız bir ordu yönet." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
-      text="100 temel özel askeri en üst seviyeye yükselt."
-    />
-    <string id="ret_ironclad" text="Zırhlı" />
+      text="100 temel özel askeri en üst seviyeye yükselt." />
+    <string
+      id="ret_ironclad"
+      text="Zırhlı" />
     <string
       id="ret_ironclad_100_battle_outnumbered_low_tier"
-      text="Sayısal olarak azınlıkta iken yalnızca seviye 1, 2 veya 3 özel askerlerle 100+ savaş kazan."
-    />
+      text="Sayısal olarak azınlıkta iken yalnızca seviye 1, 2 veya 3 özel askerlerle 100+ savaş kazan." />
     <string
       id="ret_ironclad_12_troops_athletics_90"
-      text="12 özel askeri Atletizm becerisinde 90’a ulaştır."
-    />
-    <string id="ret_ironclad_description" text="Silah ve zırh için seviye sınırlaması yok." />
+      text="12 özel askeri Atletizm becerisinde 90’a ulaştır." />
+    <string
+      id="ret_ironclad_description"
+      text="Silah ve zırh için seviye sınırlaması yok." />
     <string
       id="ret_ironclad_full_set_t6_100_kills"
-      text="Seviye 6 zırh ve miğfer giyen askerlerle savaşta 100 öldürme yap."
-    />
-    <string id="ret_item_ammo_damage" text="Hasar" />
-    <string id="ret_item_ammo_stack_size" text="Yığın Boyutu" />
-    <string id="ret_item_arm_armor" text="Kol Zırhı" />
-    <string id="ret_item_body_armor" text="Gövde Zırhı" />
-    <string id="ret_item_head_armor" text="Baş Zırhı" />
-    <string id="ret_item_horse_charge" text="Hücum" />
-    <string id="ret_item_horse_hit_points" text="Can Puanı" />
-    <string id="ret_item_horse_maneuver" text="Manevra" />
-    <string id="ret_item_horse_speed" text="Hız" />
-    <string id="ret_item_leg_armor" text="Bacak Zırhı" />
-    <string id="ret_item_melee_handling" text="Kullanım" />
-    <string id="ret_item_melee_length" text="Uzunluk" />
-    <string id="ret_item_melee_swing_damage" text="Kesme Hasarı" />
-    <string id="ret_item_melee_swing_speed" text="Kesme Hızı" />
-    <string id="ret_item_melee_thrust_damage" text="Saplama Hasarı" />
-    <string id="ret_item_melee_thrust_speed" text="Saplama Hızı" />
-    <string id="ret_item_ranged_accuracy" text="Doğruluk" />
-    <string id="ret_item_ranged_damage" text="Hasar" />
-    <string id="ret_item_ranged_missile_speed" text="Mermi Hızı" />
-    <string id="ret_item_shield_hit_points" text="Can Puanı" />
-    <string id="ret_item_shield_speed" text="Hız" />
-    <string id="ret_items_unlocked" text="Yeni Teçhizat Açıldı" />
-    <string id="ret_king_guard" text="Kralın Muhafızları" />
-    <string id="ret_leg_slot_text" text="Bacaklar" />
-    <string id="ret_lions_share" text="Aslan Payı" />
-    <string id="ret_lions_share_25_personal_kills" text="Tek bir savaşta bizzat 25 düşman öldür." />
+      text="Seviye 6 zırh ve miğfer giyen askerlerle savaşta 100 öldürme yap." />
+    <string
+      id="ret_item_ammo_damage"
+      text="Hasar" />
+    <string
+      id="ret_item_ammo_stack_size"
+      text="Yığın Boyutu" />
+    <string
+      id="ret_item_arm_armor"
+      text="Kol Zırhı" />
+    <string
+      id="ret_item_body_armor"
+      text="Gövde Zırhı" />
+    <string
+      id="ret_item_head_armor"
+      text="Baş Zırhı" />
+    <string
+      id="ret_item_horse_charge"
+      text="Hücum" />
+    <string
+      id="ret_item_horse_hit_points"
+      text="Can Puanı" />
+    <string
+      id="ret_item_horse_maneuver"
+      text="Manevra" />
+    <string
+      id="ret_item_horse_speed"
+      text="Hız" />
+    <string
+      id="ret_item_leg_armor"
+      text="Bacak Zırhı" />
+    <string
+      id="ret_item_melee_handling"
+      text="Kullanım" />
+    <string
+      id="ret_item_melee_length"
+      text="Uzunluk" />
+    <string
+      id="ret_item_melee_swing_damage"
+      text="Kesme Hasarı" />
+    <string
+      id="ret_item_melee_swing_speed"
+      text="Kesme Hızı" />
+    <string
+      id="ret_item_melee_thrust_damage"
+      text="Saplama Hasarı" />
+    <string
+      id="ret_item_melee_thrust_speed"
+      text="Saplama Hızı" />
+    <string
+      id="ret_item_ranged_accuracy"
+      text="Doğruluk" />
+    <string
+      id="ret_item_ranged_damage"
+      text="Hasar" />
+    <string
+      id="ret_item_ranged_missile_speed"
+      text="Mermi Hızı" />
+    <string
+      id="ret_item_shield_hit_points"
+      text="Can Puanı" />
+    <string
+      id="ret_item_shield_speed"
+      text="Hız" />
+    <string
+      id="ret_items_unlocked"
+      text="Yeni Teçhizat Açıldı" />
+    <string
+      id="ret_king_guard"
+      text="Kralın Muhafızları" />
+    <string
+      id="ret_leg_slot_text"
+      text="Bacaklar" />
+    <string
+      id="ret_lions_share"
+      text="Aslan Payı" />
+    <string
+      id="ret_lions_share_25_personal_kills"
+      text="Tek bir savaşta bizzat 25 düşman öldür." />
     <string
       id="ret_lions_share_5_tier_5_plus"
-      text="Tek bir savaşta seviye 5+ askerlerden 5’ini bizzat öldür."
-    />
+      text="Tek bir savaşta seviye 5+ askerlerden 5’ini bizzat öldür." />
     <string
       id="ret_lions_share_description"
-      text="Kahraman öldürmeleri açılışlarda iki kat sayılır."
-    />
-    <string id="ret_lions_share_kill_enemy_lord" text="Bir düşman lordunu savaşta bizzat öldür." />
-    <string id="ret_list_toggle_elite" text="Seçkin" />
-    <string id="ret_list_toggle_regular" text="Normal" />
-    <string id="ret_loc_smoke_test" text="Yerelleştirme testi: varsayılan fallback (EN)." />
+      text="Kahraman öldürmeleri açılışlarda iki kat sayılır." />
+    <string
+      id="ret_lions_share_kill_enemy_lord"
+      text="Bir düşman lordunu savaşta bizzat öldür." />
+    <string
+      id="ret_list_toggle_elite"
+      text="Seçkin" />
+    <string
+      id="ret_list_toggle_regular"
+      text="Normal" />
+    <string
+      id="ret_loc_smoke_test"
+      text="Yerelleştirme testi: varsayılan fallback (EN)." />
     <string
       id="ret_lower_skill_no_refund"
-      text="Bu askerin becerisini düşürmek deneyim puanı iadesi yapmayacak. Yine de devam edilsin mi?"
-    />
-    <string id="ret_male" text="Erkek" />
-    <string id="ret_masters_at_arms" text="Silah Ustaları" />
-    <string id="ret_masters_at_arms_1000_elite_kills" text="Seçkin askerlerle 1000 öldürme yap." />
-    <string id="ret_masters_at_arms_description" text="Seçkin askerler için 2. yükseltme dalı." />
-    <string id="ret_masters_at_arms_ko_50_opponents" text="Arenada 50 rakibi nakavt et." />
+      text="Bu askerin becerisini düşürmek deneyim puanı iadesi yapmayacak. Yine de devam edilsin mi?" />
+    <string
+      id="ret_male"
+      text="Erkek" />
+    <string
+      id="ret_masters_at_arms"
+      text="Silah Ustaları" />
+    <string
+      id="ret_masters_at_arms_1000_elite_kills"
+      text="Seçkin askerlerle 1000 öldürme yap." />
+    <string
+      id="ret_masters_at_arms_description"
+      text="Seçkin askerler için 2. yükseltme dalı." />
+    <string
+      id="ret_masters_at_arms_ko_50_opponents"
+      text="Arenada 50 rakibi nakavt et." />
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
-      text="100 seçkin askeri en yüksek seviyeye yükselt."
-    />
-    <string id="ret_mcm_option_all_equipment_unlocked" text="Tüm Teçhizat Açıldı" />
+      text="100 seçkin askeri en yüksek seviyeye yükselt." />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Tüm Teçhizat Açıldı" />
     <string
       id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Oyun başlangıcında tüm teçhizat açılmıştır."
-    />
-    <string id="ret_mcm_option_allowed_tier_difference" text="İzin Verilen Seviye Farkı" />
+      text="Oyun başlangıcında tüm teçhizat açılmıştır." />
+    <string
+      id="ret_mcm_option_allowed_tier_difference"
+      text="İzin Verilen Seviye Farkı" />
     <string
       id="ret_mcm_option_allowed_tier_difference_hint"
-      text="Askerlerle teçhizat arasındaki izin verilen maksimum seviye farkı."
-    />
-    <string id="ret_mcm_option_base_skill_xp_cost" text="Temel Beceri XP Maliyeti" />
+      text="Askerlerle teçhizat arasındaki izin verilen maksimum seviye farkı." />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost"
+      text="Temel Beceri XP Maliyeti" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Bir beceriyi artırmak için temel XP maliyeti."
-    />
-    <string id="ret_mcm_option_disallow_mounts_for_tier_1" text="Seviye 1 İçin Binekler Yasak" />
+      text="Bir beceriyi artırmak için temel XP maliyeti." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_tier_1"
+      text="Seviye 1 İçin Binekler Yasak" />
     <string
       id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
-      text="Seviye 1 askerlerin binekleri olamaz."
-    />
-    <string id="ret_mcm_option_enable_doctrines" text="Doktrinleri Etkinleştir (Kararsız)" />
+      text="Seviye 1 askerlerin binekleri olamaz." />
+    <string
+      id="ret_mcm_option_enable_doctrines"
+      text="Doktrinleri Etkinleştir (Kararsız)" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Doktrin sistemini ve özelliklerini etkinleştir."
-    />
-    <string id="ret_mcm_option_max_basic_retinue_ratio" text="Maksimum Temel Yandaş Oranı" />
+      text="Doktrin sistemini ve özelliklerini etkinleştir." />
+    <string
+      id="ret_mcm_option_max_basic_retinue_ratio"
+      text="Maksimum Temel Yandaş Oranı" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
-      text="Oyuncu grubundaki temel yandaş askerlerin azami oranı."
-    />
-    <string id="ret_mcm_option_max_elite_retinue_ratio" text="Maksimum Seçkin Yandaş Oranı" />
+      text="Oyuncu grubundaki temel yandaş askerlerin azami oranı." />
+    <string
+      id="ret_mcm_option_max_elite_retinue_ratio"
+      text="Maksimum Seçkin Yandaş Oranı" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
-      text="Oyuncu grubundaki seçkin yandaş askerlerin azami oranı."
-    />
+      text="Oyuncu grubundaki seçkin yandaş askerlerin azami oranı." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Öldürmeler ayrıca özel askerin kültüründen eşyaları da açar"
-    />
+      text="Öldürmeler ayrıca özel askerin kültüründen eşyaları da açar" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="Öldürmeler ayrıca özel askerin kültüründen eşyaları açar mı?"
-    />
-    <string id="ret_mcm_option_pay_for_equipment" text="Asker Teçhizatı İçin Ödeme" />
+      text="Öldürmeler ayrıca özel askerin kültüründen eşyaları açar mı?" />
+    <string
+      id="ret_mcm_option_pay_for_equipment"
+      text="Asker Teçhizatı İçin Ödeme" />
     <string
       id="ret_mcm_option_pay_for_equipment_hint"
-      text="Asker teçhizatını yükseltmek paraya mal olur."
-    />
-    <string id="ret_mcm_option_recruit_anywhere" text="Klan Askerlerini Her Yerde Topla" />
+      text="Asker teçhizatını yükseltmek paraya mal olur." />
+    <string
+      id="ret_mcm_option_recruit_anywhere"
+      text="Klan Askerlerini Her Yerde Topla" />
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
-      text="Oyuncu herhangi bir yerleşimde klan askerleri toplayabilir."
-    />
-    <string id="ret_mcm_option_required_kills_for_unlock" text="Açmak İçin Gerekli Öldürmeler" />
+      text="Oyuncu herhangi bir yerleşimde klan askerleri toplayabilir." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="Açmak İçin Gerekli Öldürmeler" />
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="Bir eşyayı açmak için kaç düşmanın yenilmesi gerektiği."
-    />
+      text="Bir eşyayı açmak için kaç düşmanın yenilmesi gerektiği." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Yandaş Dönüşüm Maliyeti (Seviye Başına)"
-    />
+      text="Yandaş Dönüşüm Maliyeti (Seviye Başına)" />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Yandaş askerleri dönüştürmenin seviye başına maliyeti."
-    />
+      text="Yandaş askerleri dönüştürmenin seviye başına maliyeti." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="Yandaş Terfi Maliyeti (Seviye Başına)"
-    />
+      text="Yandaş Terfi Maliyeti (Seviye Başına)" />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="Yandaş askerleri terfi ettirmenin seviye başına maliyeti."
-    />
-    <string id="ret_mcm_option_skill_xp_cost_per_point" text="Beceri Puanı Başına XP Maliyeti" />
+      text="Yandaş askerleri terfi ettirmenin seviye başına maliyeti." />
+    <string
+      id="ret_mcm_option_skill_xp_cost_per_point"
+      text="Beceri Puanı Başına XP Maliyeti" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Her beceri artışı için ölçeklenebilir XP maliyeti."
-    />
-    <string id="ret_mcm_option_unlock_from_culture" text="Kültürden Aç" />
+      text="Her beceri artışı için ölçeklenebilir XP maliyeti." />
+    <string
+      id="ret_mcm_option_unlock_from_culture"
+      text="Kültürden Aç" />
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
-      text="Oyuncunun kültürü ve oyuncunun yönettiği krallığın kültür teçhizatı her zaman kullanılabilir."
-    />
-    <string id="ret_mcm_option_unlock_from_kills" text="Öldürmelerden Aç" />
+      text="Oyuncunun kültürü ve oyuncunun yönettiği krallığın kültür teçhizatı her zaman kullanılabilir." />
+    <string
+      id="ret_mcm_option_unlock_from_kills"
+      text="Öldürmelerden Aç" />
     <string
       id="ret_mcm_option_unlock_from_kills_hint"
-      text="Düşmanı yenerek onun giydiği teçhizatı aç."
-    />
-    <string id="ret_mcm_section_doctrines" text="Doktrinler" />
-    <string id="ret_mcm_section_equipment" text="Teçhizat" />
-    <string id="ret_mcm_section_general" text="Genel" />
-    <string id="ret_mcm_section_recruitment" text="Toplama" />
-    <string id="ret_mcm_section_retinues" text="Yandaşlar" />
-    <string id="ret_mcm_section_skills" text="Beceriler" />
-    <string id="ret_mcm_section_unlocks" text="Açılışlar" />
-    <string id="ret_name_header_text" text="İsim" />
-    <string id="ret_no" text="Hayır" />
-    <string id="ret_not_enough_gold" text="Yetersiz altın" />
-    <string id="ret_not_enough_gold_text" text="Bu eşyayı satın almak için yeterli altının yok." />
-    <string id="ret_ok" text="Tamam" />
-    <string id="ret_pragmatic_scavengers" text="Pragmatik Yağmacılar" />
+      text="Düşmanı yenerek onun giydiği teçhizatı aç." />
+    <string
+      id="ret_mcm_section_doctrines"
+      text="Doktrinler" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="Teçhizat" />
+    <string
+      id="ret_mcm_section_general"
+      text="Genel" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="Toplama" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="Yandaşlar" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Beceriler" />
+    <string
+      id="ret_mcm_section_unlocks"
+      text="Açılışlar" />
+    <string
+      id="ret_name_header_text"
+      text="İsim" />
+    <string
+      id="ret_no"
+      text="Hayır" />
+    <string
+      id="ret_not_enough_gold"
+      text="Yetersiz altın" />
+    <string
+      id="ret_not_enough_gold_text"
+      text="Bu eşyayı satın almak için yeterli altının yok." />
+    <string
+      id="ret_ok"
+      text="Tamam" />
+    <string
+      id="ret_pragmatic_scavengers"
+      text="Pragmatik Yağmacılar" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Bir müttefik lordun ordusundayken üst üste üç savaş kazan."
-    />
+      text="Bir müttefik lordun ordusundayken üst üste üç savaş kazan." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
-      text="Müttefiklerin 100’den fazla kayıp verdiği bir savaşı kazan."
-    />
+      text="Müttefiklerin 100’den fazla kayıp verdiği bir savaşı kazan." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="Müttefik kayıplarından eşyalar açılabilir."
-    />
+      text="Müttefik kayıplarından eşyalar açılabilir." />
     <string
       id="ret_pragmatic_scavengers_rescue_lord"
-      text="Yenilen bir lordu düşman esir kervanından kurtar."
-    />
-    <string id="ret_queen_guard" text="Kraliçenin Muhafızları" />
-    <string id="ret_rank_up" text="Terfi" />
-    <string id="ret_rank_up_costs_text" text="{COST_GOLD} altın ve {COST_XP} XP’ye mal olacak." />
-    <string id="ret_rank_up_gold_cost_text" text="{COST} altına mal olacak." />
+      text="Yenilen bir lordu düşman esir kervanından kurtar." />
+    <string
+      id="ret_queen_guard"
+      text="Kraliçenin Muhafızları" />
+    <string
+      id="ret_rank_up"
+      text="Terfi" />
+    <string
+      id="ret_rank_up_costs_text"
+      text="{COST_GOLD} altın ve {COST_XP} XP’ye mal olacak." />
+    <string
+      id="ret_rank_up_gold_cost_text"
+      text="{COST} altına mal olacak." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="{TROOP_NAME} terfi ettirmek için yeterli altının yok.\n\nTerfi maliyeti: {COST} altın."
-    />
-    <string id="ret_rank_up_not_enough_gold_title" text="Yetersiz altın" />
+      text="{TROOP_NAME} terfi ettirmek için yeterli altının yok.\n\nTerfi maliyeti: {COST} altın." />
+    <string
+      id="ret_rank_up_not_enough_gold_title"
+      text="Yetersiz altın" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="{TROOP_NAME} terfi ettirmek için yeterli XP yok.\n\nTerfi maliyeti: {COST} XP."
-    />
-    <string id="ret_rank_up_not_enough_xp_title" text="Yetersiz XP" />
-    <string id="ret_remove_button_text" text="Kaldır" />
-    <string id="ret_remove_troop" text="Askeri Kaldır" />
+      text="{TROOP_NAME} terfi ettirmek için yeterli XP yok.\n\nTerfi maliyeti: {COST} XP." />
+    <string
+      id="ret_rank_up_not_enough_xp_title"
+      text="Yetersiz XP" />
+    <string
+      id="ret_remove_button_text"
+      text="Kaldır" />
+    <string
+      id="ret_remove_troop"
+      text="Askeri Kaldır" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} kalıcı olarak kaldırmak istediğine emin misin?\n\nTeçhizatı daha sonra kullanılmak üzere stoklanacaktır."
-    />
-    <string id="ret_rename_troop" text="Askerin Adını Değiştir" />
-    <string id="ret_retinue" text="Yandaş" />
-    <string id="ret_retinue_female_kingdom" text="{FACTION} Kraliçenin Şampiyonu" />
-    <string id="ret_retinue_house_champion" text="{FACTION} Hanenin Şampiyonu" />
-    <string id="ret_retinue_house_guard" text="{FACTION} Hanenin Muhafızı" />
-    <string id="ret_retinue_male_kingdom" text="{FACTION} Kralın Şampiyonu" />
-    <string id="ret_retinue_morale_bonus_bound_by_honor" text="Yandaş (Onura Bağlı)" />
-    <string id="ret_retinue_royal_guard" text="{FACTION} Kraliyet Muhafızı" />
-    <string id="ret_royal_patronage" text="Kraliyet Himayesi" />
+      text="{TROOP_NAME} kalıcı olarak kaldırmak istediğine emin misin?\n\nTeçhizatı daha sonra kullanılmak üzere stoklanacaktır." />
+    <string
+      id="ret_rename_troop"
+      text="Askerin Adını Değiştir" />
+    <string
+      id="ret_retinue"
+      text="Yandaş" />
+    <string
+      id="ret_retinue_female_kingdom"
+      text="{FACTION} Kraliçenin Şampiyonu" />
+    <string
+      id="ret_retinue_house_champion"
+      text="{FACTION} Hanenin Şampiyonu" />
+    <string
+      id="ret_retinue_house_guard"
+      text="{FACTION} Hanenin Muhafızı" />
+    <string
+      id="ret_retinue_male_kingdom"
+      text="{FACTION} Kralın Şampiyonu" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Yandaş (Onura Bağlı)" />
+    <string
+      id="ret_retinue_royal_guard"
+      text="{FACTION} Kraliyet Muhafızı" />
+    <string
+      id="ret_royal_patronage"
+      text="Kraliyet Himayesi" />
     <string
       id="ret_royal_patronage_1000_kills_custom_kingdom"
-      text="Krallık askerleriyle 1000 öldürme yap."
-    />
+      text="Krallık askerleriyle 1000 öldürme yap." />
     <string
       id="ret_royal_patronage_companion_governor_30_days"
-      text="Krallığınla aynı kültürden bir yoldaşın 30 gün boyunca bir krallık tımarını yönetmesini sağla."
-    />
+      text="Krallığınla aynı kültürden bir yoldaşın 30 gün boyunca bir krallık tımarını yönetmesini sağla." />
     <string
       id="ret_royal_patronage_description"
-      text="Krallık kültüründen eşyalar %10 indirimli."
-    />
-    <string id="ret_royal_patronage_recruit_100_custom_kingdom" text="100 krallık askeri topla." />
-    <string id="ret_skill_cap_text" text="{CAP} beceri sınırı" />
-    <string id="ret_skills_header_text" text="Beceriler" />
-    <string id="ret_steadfast_soldiers" text="Sarsılmaz Askerler" />
+      text="Krallık kültüründen eşyalar %10 indirimli." />
+    <string
+      id="ret_royal_patronage_recruit_100_custom_kingdom"
+      text="100 krallık askeri topla." />
+    <string
+      id="ret_skill_cap_text"
+      text="{CAP} beceri sınırı" />
+    <string
+      id="ret_skills_header_text"
+      text="Beceriler" />
+    <string
+      id="ret_steadfast_soldiers"
+      text="Sarsılmaz Askerler" />
     <string
       id="ret_steadfast_soldiers_defend_village_only_custom"
-      text="Sadece özel askerlerle bir köyü baskından savun."
-    />
-    <string id="ret_steadfast_soldiers_description" text="+10 beceri puanı." />
+      text="Sadece özel askerlerle bir köyü baskından savun." />
+    <string
+      id="ret_steadfast_soldiers_description"
+      text="+10 beceri puanı." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
-      text="Sadece özel askerlerle bir kuşatma savunmasını kazan."
-    />
+      text="Sadece özel askerlerle bir kuşatma savunmasını kazan." />
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
-      text="15 özel askerin becerilerini en üst düzeye çıkar."
-    />
-    <string id="ret_switch_to_clan_troops" text="Geçiş Yap\nKlan Askerleri" />
-    <string id="ret_switch_to_kingdom_troops" text="Geçiş Yap\nKrallık Askerleri" />
-    <string id="ret_tier" text="Seviye" />
-    <string id="ret_transfer_header_text" text="Aktar" />
-    <string id="ret_troops_tab_text" text="Askerler" />
-    <string id="ret_unequip_all" text="Tümünü Çıkar" />
-    <string id="ret_unequip_all_button_text" text="Tümünü Çıkar" />
+      text="15 özel askerin becerilerini en üst düzeye çıkar." />
+    <string
+      id="ret_switch_to_clan_troops"
+      text="Geçiş Yap\nKlan Askerleri" />
+    <string
+      id="ret_switch_to_kingdom_troops"
+      text="Geçiş Yap\nKrallık Askerleri" />
+    <string
+      id="ret_tier"
+      text="Seviye" />
+    <string
+      id="ret_transfer_header_text"
+      text="Aktar" />
+    <string
+      id="ret_troops_tab_text"
+      text="Askerler" />
+    <string
+      id="ret_unequip_all"
+      text="Tümünü Çıkar" />
+    <string
+      id="ret_unequip_all_button_text"
+      text="Tümünü Çıkar" />
     <string
       id="ret_unequip_all_text"
-      text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?\n\nEşyalar stoklanacaktır."
-    />
-    <string id="ret_unlock_btn" text="Aç" />
-    <string id="ret_unlock_failed" text="Açılamaz." />
-    <string id="ret_upgrades_header_text" text="Yükseltmeler" />
-    <string id="ret_vanguard" text="Öncü" />
+      text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?\n\nEşyalar stoklanacaktır." />
+    <string
+      id="ret_unlock_btn"
+      text="Aç" />
+    <string
+      id="ret_unlock_failed"
+      text="Açılamaz." />
+    <string
+      id="ret_upgrades_header_text"
+      text="Yükseltmeler" />
+    <string
+      id="ret_vanguard"
+      text="Öncü" />
     <string
       id="ret_vanguard_clear_hideout_retinue_only"
-      text="Yalnızca yandaşlarınla bir sığınağı temizle."
-    />
-    <string id="ret_vanguard_description" text="+%15 yandaş sınırı." />
+      text="Yalnızca yandaşlarınla bir sığınağı temizle." />
+    <string
+      id="ret_vanguard_description"
+      text="+%15 yandaş sınırı." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
-      text="Bir kuşatma saldırısında ilk yakın dövüş öldürmesini yandaşlarının almasını sağla."
-    />
+      text="Bir kuşatma saldırısında ilk yakın dövüş öldürmesini yandaşlarının almasını sağla." />
     <string
       id="ret_vanguard_win_100_retinue_only"
-      text="Yalnızca yandaşlarınla 100+ savaşı kazan."
-    />
-    <string id="ret_warning" text="Uyarı" />
-    <string id="ret_weapon_1_slot_text" text="Silah 1" />
-    <string id="ret_weapon_2_slot_text" text="Silah 2" />
-    <string id="ret_weapon_3_slot_text" text="Silah 3" />
-    <string id="ret_weapon_4_slot_text" text="Silah 4" />
-    <string id="ret_yes" text="Evet" />
+      text="Yalnızca yandaşlarınla 100+ savaşı kazan." />
+    <string
+      id="ret_warning"
+      text="Uyarı" />
+    <string
+      id="ret_weapon_1_slot_text"
+      text="Silah 1" />
+    <string
+      id="ret_weapon_2_slot_text"
+      text="Silah 2" />
+    <string
+      id="ret_weapon_3_slot_text"
+      text="Silah 3" />
+    <string
+      id="ret_weapon_4_slot_text"
+      text="Silah 4" />
+    <string
+      id="ret_yes"
+      text="Evet" />
   </strings>
 </base>
