@@ -66,6 +66,22 @@
                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                                     HorizontalAlignment="Right" VerticalAlignment="Center"
                                     IsVisible="@ShowStock"/>
+
+                                <!-- Stock -->
+                                <TextWidget
+                                    Text="@SkillRequirementText"
+                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    IsVisible="@CantEquip"/>
+
+                                <!-- Stock -->
+                                <TextWidget
+                                    Text="@ProgressText"
+                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    IsVisible="@InProgress"/>
                             </Children>
                         </ListPanel>
                     </Children>
