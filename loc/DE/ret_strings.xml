@@ -423,7 +423,7 @@
       text="Stufe-1-Truppen dürfen keine Reittiere haben." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Doktrinen aktivieren (instabil)" />
+      text="Doktrinen aktivieren" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Aktiviere das Doktrinensystem und seine Funktionen." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Kills schalten auch Gegenstände der Custom-Kultur frei" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Legt fest, ob Kills auch Gegenstände der Custom-Kultur freischalten." />

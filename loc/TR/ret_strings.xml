@@ -423,7 +423,7 @@
       text="Seviye 1 askerlerin binekleri olamaz." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Doktrinleri Etkinleştir (Kararsız)" />
+      text="Doktrinleri Etkinleştir" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Doktrin sistemini ve özelliklerini etkinleştir." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Oyuncu grubundaki seçkin yandaş askerlerin azami oranı." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Öldürmeler ayrıca özel askerin kültüründen eşyaları da açar" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Öldürmeler ayrıca özel askerin kültüründen eşyaları açar mı?" />

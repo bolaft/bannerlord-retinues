@@ -423,7 +423,7 @@
       text="1등급 병력은 탈것을 가질 수 없습니다." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="교리 활성화 (불안정)" />
+      text="교리 활성화" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="교리 시스템과 그 기능을 활성화합니다." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="플레이어 부대 내 정예 수행원의 최대 비율." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="킬은 커스텀 병력 문화의 아이템도 해제" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="킬이 커스텀 병력 문화의 아이템도 해제하는지 여부." />

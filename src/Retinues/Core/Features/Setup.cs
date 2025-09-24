@@ -15,6 +15,8 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionRetinue(WFaction faction)
         {
+            Log.Info($"Setting up retinue troops for faction {faction.Name}.");
+
             CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
 
             CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
@@ -81,6 +83,8 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionTroops(WFaction faction)
         {
+            Log.Info($"Setting up troops for faction {faction.Name}.");
+
             // Use the faction culture
             var culture = faction.Culture;
 

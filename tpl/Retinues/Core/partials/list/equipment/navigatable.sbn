@@ -18,7 +18,7 @@
                     WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
                     SuggestedHeight="68"  SuggestedWidth="!Clan.Management.Collapser.Width" 
                     Brush="Clan.Management.LeftTuple" 
-                    IsSelected="@IsSelected" IsEnabled="@CanEquip"
+                    IsSelected="@IsSelected" IsEnabled="@IsEnabled"
                     Command.Click="ExecuteSelect" 
                     UpdateChildrenStates="true">
                     <Children>

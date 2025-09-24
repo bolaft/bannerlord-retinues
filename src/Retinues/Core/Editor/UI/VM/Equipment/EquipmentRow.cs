@@ -22,7 +22,10 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public string Name => Item?.Name ?? L.S("empty_item", "Empty");
 
         [DataSourceProperty]
-        public int Value => Config.GetOption<bool>("PayForEquipment") ? EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop) : 0;
+        public int Value =>
+            Config.GetOption<bool>("PayForEquipment")
+                ? EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop)
+                : 0;
 
         private readonly int? _progress = progress;
 
@@ -32,24 +35,18 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
-        public string ProgressText => L.T(
-            "unlock_progress_text",
-            "Unlocking ({PROGRESS}/{REQUIRED})"
-        ).SetTextVariable(
-            "PROGRESS", _progress ?? 0
-        ).SetTextVariable(
-            "REQUIRED", Config.GetOption<int>("KillsForUnlock")
-        ).ToString();
+        public string ProgressText =>
+            L.T("unlock_progress_text", "Unlocking ({PROGRESS}/{REQUIRED})")
+                .SetTextVariable("PROGRESS", _progress ?? 0)
+                .SetTextVariable("REQUIRED", Config.GetOption<int>("KillsForUnlock"))
+                .ToString();
 
         [DataSourceProperty]
-        public string SkillRequirementText => L.T(
-            "skill_requirement_text",
-            "Requires {SKILL}: {LEVEL}"
-        ).SetTextVariable(
-            "SKILL", Item?.RelevantSkill?.Name.ToString() ?? "N/A"
-        ).SetTextVariable(
-            "LEVEL", Item?.Difficulty ?? 0
-        ).ToString();
+        public string SkillRequirementText =>
+            L.T("skill_requirement_text", "Requires {SKILL}: {LEVEL}")
+                .SetTextVariable("SKILL", Item?.RelevantSkill?.Name.ToString() ?? "N/A")
+                .SetTextVariable("LEVEL", Item?.Difficulty ?? 0)
+                .ToString();
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -71,10 +68,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         }
 
         [DataSourceProperty]
-        public bool CanEquip =>  RowList?.Screen?.SelectedTroop?.CanEquip(Item) ?? false;
+        public bool CanEquip => RowList?.Screen?.SelectedTroop?.CanEquip(Item) ?? false;
 
         [DataSourceProperty]
-        public bool CantEquip => Item is not null && RowList?.Screen?.SelectedTroop != null && !CanEquip && !InProgress;
+        public bool CantEquip =>
+            Item is not null && RowList?.Screen?.SelectedTroop != null && !CanEquip && !InProgress;
 
         [DataSourceProperty]
         public bool ShowValue
@@ -231,6 +229,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(Stock));
             OnPropertyChanged(nameof(ShowStock));
             OnPropertyChanged(nameof(CanEquip));
+            OnPropertyChanged(nameof(CantEquip));
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(InProgress));
+            OnPropertyChanged(nameof(ProgressText));
+            OnPropertyChanged(nameof(SkillRequirementText));
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));

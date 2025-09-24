@@ -423,7 +423,7 @@
       text="Las tropas de nivel 1 no pueden tener monturas." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Habilitar Doctrinas (Inestable)" />
+      text="Habilitar Doctrinas" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Habilita el sistema de Doctrinas y sus características." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proporción máxima de tropas de élite de séquito en el grupo del jugador." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Las muertes también desbloquean objetos de la cultura de la tropa personalizada" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Si las muertes también desbloquean objetos de la cultura de la tropa personalizada." />

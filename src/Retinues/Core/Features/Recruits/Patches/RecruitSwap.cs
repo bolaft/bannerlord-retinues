@@ -19,6 +19,9 @@ public static class RecruitSwap
         int count
     )
     {
+        Log.Debug(
+            $"RecruitSwap: Detected recruitment of {count}x {troop?.Name} by {recruiter?.Name} from {settlement?.Name} ({recruitmentSource?.Name})."
+        );
         try
         {
             if (recruiter?.PartyBelongedTo == null || troop == null || count <= 0)

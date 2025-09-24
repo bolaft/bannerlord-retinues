@@ -423,7 +423,7 @@
       text="1级部队不能拥有坐骑。" />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="启用教义（不稳定）" />
+      text="启用教义" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="启用教义系统及其功能。" />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="玩家队伍中精锐随从的最大比例。" />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="击杀也可解锁自定义部队文化的物品" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="决定击杀是否也能解锁自定义部队文化物品。" />

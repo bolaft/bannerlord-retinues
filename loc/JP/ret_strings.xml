@@ -423,7 +423,7 @@
       text="ランク1兵は騎乗できない。" />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="ドクトリンを有効化（不安定）" />
+      text="ドクトリンを有効化" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="ドクトリンシステムとその機能を有効化する。" />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="プレイヤー部隊内の精鋭随伴兵の最大比率。" />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="キルはカスタム兵文化のアイテムも解除する" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="キルがカスタム兵文化のアイテムも解除するかどうか。" />

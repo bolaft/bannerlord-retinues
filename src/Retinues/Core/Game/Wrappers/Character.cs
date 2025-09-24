@@ -330,8 +330,12 @@ namespace Retinues.Core.Game.Wrappers
         public void Activate()
         {
             HiddenInEncyclopedia = false;
-            IsNotTransferableInPartyScreen = false;
             IsNotTransferableInHideouts = false;
+
+            if (IsRetinue)
+                IsNotTransferableInPartyScreen = true;
+            else
+                IsNotTransferableInPartyScreen = false;
 
             if (!IsActive)
                 ActiveTroops.Add(StringId);

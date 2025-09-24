@@ -423,7 +423,7 @@
       text="Les troupes de rang 1 ne peuvent pas avoir de montures." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Activer Doctrines (Instable)" />
+      text="Activer Doctrines" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Active le système de Doctrines et ses fonctionnalités." />
@@ -439,9 +439,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proportion maximale de troupes de suite d’élite dans le groupe du joueur." />
-    <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Les éliminations débloquent aussi des objets de la culture des troupes personnalisées" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
       text="Détermine si les éliminations débloquent aussi des objets de la culture des troupes personnalisées." />

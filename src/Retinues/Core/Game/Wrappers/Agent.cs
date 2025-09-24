@@ -1,4 +1,5 @@
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -34,6 +35,10 @@ namespace Retinues.Core.Game.Wrappers
 
         public bool IsPlayer => _agent?.IsPlayerControlled == true;
 
-        public bool IsPlayerTroop => _agent?.Team?.IsPlayerTeam == true;
+        public bool IsPlayerTroop => _agent.Origin.Banner == Player.Clan.Base.Banner; // Hacky but works
+
+        public bool IsAllyTroop => !IsPlayerTroop && _agent?.Team?.IsPlayerAlly == true;
+
+        public bool IsEnemyTroop => _agent?.Team?.IsEnemyOf(_agent?.Mission?.PlayerTeam) == true;
     }
 }

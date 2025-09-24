@@ -31,7 +31,7 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
                 return;
             if (!new WCharacter(co).IsRetinue)
                 return;
-            
+
             agent.Health += Bonus;
         }
     }
