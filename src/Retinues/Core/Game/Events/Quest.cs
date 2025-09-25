@@ -16,8 +16,8 @@ namespace Retinues.Core.Game.Events
 
         public bool IsSuccessful = isSuccessful;
 
-        public Hero Giver => _quest.QuestGiver;
+        public Hero Giver => _quest?.QuestGiver;
 
-        public bool NoPayment => _quest.RewardGold == 0;
+        public bool NoPayment => _quest?.RewardGold == 0;
     }
 }

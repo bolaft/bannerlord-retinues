@@ -210,15 +210,12 @@ namespace Retinues.Core.Utils
                 minValue: 0,
                 maxValue: 10
             );
-            
+
             AddOption(
                 section: L.S("mcm_section_skills", "Skills"),
                 name: L.S("mcm_option_shared_xp_pool", "Shared XP Pool"),
                 key: "SharedXpPool",
-                hint: L.S(
-                    "mcm_option_shared_xp_pool_hint",
-                    "All troops share the same XP pool."
-                ),
+                hint: L.S("mcm_option_shared_xp_pool_hint", "All troops share the same XP pool."),
                 @default: false,
                 type: typeof(bool)
             );
@@ -253,10 +250,7 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_unlocks", "Unlocks"),
-                name: L.S(
-                    "mcm_option_own_culture_unlock_bonuses",
-                    "Own Culture Unlock Bonuses"
-                ),
+                name: L.S("mcm_option_own_culture_unlock_bonuses", "Own Culture Unlock Bonuses"),
                 key: "OwnCultureUnlockBonuses",
                 hint: L.S(
                     "mcm_option_own_culture_unlock_bonuses_hint",
@@ -291,7 +285,7 @@ namespace Retinues.Core.Utils
             );
 
             /* ━━━━━━━━━ Debug ━━━━━━━━ */
-            
+
             AddOption(
                 section: L.S("mcm_section_debug", "Debug"),
                 name: L.S("mcm_option_debug_mode", "Debug Mode"),

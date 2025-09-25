@@ -73,16 +73,18 @@ namespace Retinues.Core.Game.Events
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         public bool IsWon =>
-            PlayerSide != BattleSideEnum.None && MapEvent.WinningSide == PlayerSide;
+            MapEvent != null
+            && PlayerSide != BattleSideEnum.None
+            && MapEvent.WinningSide == PlayerSide;
         public bool IsLost => !IsWon;
 
-        public bool IsFieldBattle => MapEvent.IsFieldBattle;
-        public bool IsHideout => MapEvent.IsHideoutBattle;
-        public bool IsSiege => MapEvent.IsSiegeAssault;
+        public bool IsFieldBattle => MapEvent?.IsFieldBattle == true;
+        public bool IsHideout => MapEvent?.IsHideoutBattle == true;
+        public bool IsSiege => MapEvent?.IsSiegeAssault == true;
         public bool IsVillageRaid =>
-            !MapEvent.IsFieldBattle
-            && MapEvent.MapEventSettlement != null
-            && MapEvent.MapEventSettlement.IsVillage
+            MapEvent != null
+            && !MapEvent.IsFieldBattle
+            && MapEvent.MapEventSettlement?.IsVillage == true
             && !IsSiege;
 
         public bool PlayerIsDefender => PlayerSide == BattleSideEnum.Defender;
@@ -114,12 +116,15 @@ namespace Retinues.Core.Game.Events
         {
             get
             {
+                if (MapEvent == null || Player.Party == null)
+                    return BattleSideEnum.None;
+
                 foreach (var party in PartiesOnSide(BattleSideEnum.Attacker, includePlayer: true))
-                    if (party.StringId == Player.Party.StringId)
+                    if (party?.StringId == Player.Party.StringId)
                         return BattleSideEnum.Attacker;
 
                 foreach (var party in PartiesOnSide(BattleSideEnum.Defender, includePlayer: true))
-                    if (party.StringId == Player.Party.StringId)
+                    if (party?.StringId == Player.Party.StringId)
                         return BattleSideEnum.Defender;
 
                 return BattleSideEnum.None;
@@ -193,13 +198,15 @@ namespace Retinues.Core.Game.Events
 
         private IEnumerable<WParty> PartiesOnSide(BattleSideEnum side, bool includePlayer = false)
         {
+            if (MapEvent == null)
+                yield break;
             foreach (var p in MapEvent.PartiesOnSide(side))
             {
                 var mp = p?.Party?.MobileParty;
                 if (mp == null)
                     continue;
-                if (!includePlayer && mp.StringId == Player.Party.StringId)
-                    continue; // skip player party
+                if (!includePlayer && Player.Party != null && mp.StringId == Player.Party.StringId)
+                    continue;
                 yield return new WParty(mp);
             }
         }

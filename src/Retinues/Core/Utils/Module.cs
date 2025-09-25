@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using TaleWorlds.Library;
 using TaleWorlds.Engine;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Utils
 {
@@ -15,7 +15,7 @@ namespace Retinues.Core.Utils
             public string Name { get; set; }
             public string Version { get; set; }
             public string Path { get; set; }
-            public bool   IsOfficial { get; set; }
+            public bool IsOfficial { get; set; }
 
             public override string ToString() =>
                 $"{Id} [{Version}] - {Name}" + (IsOfficial ? " (official)" : "");
@@ -28,7 +28,10 @@ namespace Retinues.Core.Utils
                 var v = ApplicationVersion.FromParametersFile();
                 return v.ToString() ?? "unknown";
             }
-            catch { return "unknown"; }
+            catch
+            {
+                return "unknown";
+            }
         }
 
         public static List<ModuleEntry> GetActiveModules()
@@ -70,21 +73,24 @@ namespace Retinues.Core.Utils
 
                         // Name
                         name =
-                            (string)root?.Attribute("name") ??
-                            (string)root?.Element("Name")?.Value ??
-                            name;
+                            (string)root?.Attribute("name")
+                            ?? (string)root?.Element("Name")?.Value
+                            ?? name;
 
                         // Version — try attribute, then element patterns used by some tools
                         version =
-                            (string)root?.Attribute("version") ??
-                            (string)root?.Element("Version")?.Attribute("value") ??
-                            (string)root?.Element("Version")?.Value ??
-                            version;
+                            (string)root?.Attribute("version")
+                            ?? (string)root?.Element("Version")?.Attribute("value")
+                            ?? (string)root?.Element("Version")?.Value
+                            ?? version;
 
                         // Official flag (some SubModule.xml include an Official tag/attr)
                         var officialAttr = (string)root?.Attribute("official");
                         if (!string.IsNullOrEmpty(officialAttr))
-                            isOfficial = officialAttr.Equals("true", StringComparison.OrdinalIgnoreCase);
+                            isOfficial = officialAttr.Equals(
+                                "true",
+                                StringComparison.OrdinalIgnoreCase
+                            );
 
                         var officialEl = root?.Element("Official");
                         if (officialEl != null)
@@ -97,14 +103,16 @@ namespace Retinues.Core.Utils
                 }
                 catch { }
 
-                result.Add(new ModuleEntry
-                {
-                    Id = id,
-                    Name = name,
-                    Version = version,
-                    Path = modDir,
-                    IsOfficial = isOfficial
-                });
+                result.Add(
+                    new ModuleEntry
+                    {
+                        Id = id,
+                        Name = name,
+                        Version = version,
+                        Path = modDir,
+                        IsOfficial = isOfficial,
+                    }
+                );
             }
 
             return result;

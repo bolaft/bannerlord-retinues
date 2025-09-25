@@ -128,7 +128,7 @@ namespace Retinues.Core.Features.Doctrines
                         mission.AddMissionBehavior(battle);
                     }
 
-                    // Relay mission end back to us so we can call OnBattleEnd on feats.
+                    // Relay mission end back so we can call OnBattleEnd on feats.
                     if (mission.GetMissionBehavior<MissionEndRelay>() == null)
                         mission.AddMissionBehavior(new MissionEndRelay(this));
 
@@ -150,7 +150,7 @@ namespace Retinues.Core.Features.Doctrines
                         mission.AddMissionBehavior(combat);
                     }
 
-                    // Relay mission end back to us so we can call OnTournamentMatchEnd on feats.
+                    // Relay mission end back so we can call OnTournamentMatchEnd on feats.
                     if (mission.GetMissionBehavior<MissionEndRelay>() == null)
                         mission.AddMissionBehavior(new MissionEndRelay(this));
 
@@ -374,7 +374,7 @@ namespace Retinues.Core.Features.Doctrines
             if (t != null)
                 return t;
 
-            // Search all loaded assemblies (useful if you split your mod assemblies)
+            // Search all loaded assemblies
             foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
             {
                 try

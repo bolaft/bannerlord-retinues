@@ -113,12 +113,12 @@ namespace Retinues.Core.Editor
                 }
                 else // delta < 0
                 {
-                    // Respect your existing "CanDecrement" constraints upstream
+                    // Respect existing "CanDecrement" constraints upstream
                     int newValue = current - 1;
                     if (newValue < 0)
                         return;
 
-                    // Refund the cost of the point we're removing (i.e., the cost that was paid to go from newValue -> newValue + 1)
+                    // Refund the cost of the point (i.e., the cost that was paid to go from newValue -> newValue + 1)
                     int refund = TroopRules.SkillPointXpCost(newValue);
                     troop.SetSkill(skill, newValue);
                     TroopXpService.Refund(troop, refund);
@@ -141,7 +141,7 @@ namespace Retinues.Core.Editor
 
                 // Wrap the custom troop
                 var child = new WCharacter(
-                    troop.Faction == Player.Kingdom,
+                    troop.Faction?.StringId == Player.Kingdom?.StringId,
                     troop.IsElite,
                     false,
                     path
@@ -198,21 +198,19 @@ namespace Retinues.Core.Editor
 
             try
             {
-                if (troop.IsMaxTier)
+                if (troop == null || troop.IsMaxTier)
                     return;
 
                 int cost = TroopRules.RankUpCost(troop);
-
                 if (Player.Gold < cost)
                     return;
 
-                // Pay the cost
+                // check XP first
+                if (!TroopXpService.TrySpend(troop, cost))
+                    return;
+
+                // now charge gold and upgrade
                 Player.ChangeGold(-cost);
-
-                // Spend the XP
-                TroopXpService.TrySpend(troop, cost);
-
-                // Upgrade the troop
                 troop.Level += 5;
             }
             catch (Exception e)
@@ -337,7 +335,7 @@ namespace Retinues.Core.Editor
         )
         {
             Log.Debug(
-                $"Converting {amountRequested} of {from?.Name} to {to?.Name} at cost {cost} each."
+                $"Converting {amountRequested} of {from?.Name} to {to?.Name} at cost {cost}."
             );
 
             try
@@ -347,6 +345,8 @@ namespace Retinues.Core.Editor
                 int amount = Math.Min(amountRequested, max);
 
                 // Apply cost
+                if (Player.Gold < cost)
+                    return;
                 Player.ChangeGold(-cost);
 
                 // Mutate roster

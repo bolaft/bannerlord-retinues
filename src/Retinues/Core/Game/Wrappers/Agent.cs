@@ -31,7 +31,11 @@ namespace Retinues.Core.Game.Wrappers
 
             // Attributes
             BattleSideEnum side = BattleSideEnum.None;
-            try { side = agent.Team?.Side ?? BattleSideEnum.None; } catch { }
+            try
+            {
+                side = agent.Team?.Side ?? BattleSideEnum.None;
+            }
+            catch { }
             Side = side;
 
             // Flags — compute with guards so getters can’t NRE
@@ -39,11 +43,13 @@ namespace Retinues.Core.Game.Wrappers
             try
             {
                 isPlayer =
-                    agent.IsMainAgent ||
-                    agent.Controller == Agent.ControllerType.Player ||
-                    agent.IsPlayerControlled; // this one can throw during teardown
+                    agent.IsMainAgent
+                    || agent.Controller == Agent.ControllerType.Player
+                    || agent.IsPlayerControlled; // this one can throw during teardown
             }
-            catch { /* leave false */ }
+            catch
+            { /* leave false */
+            }
             IsPlayer = isPlayer;
 
             // Compare banners defensively (Player or Clan can be null in some contexts)
@@ -53,8 +59,9 @@ namespace Retinues.Core.Game.Wrappers
                 var myBanner = Player.Clan?.Base?.Banner;
                 var troopBanner = agent.Origin?.Banner;
                 if (myBanner != null && troopBanner != null)
-                    isPlayerTroop = ReferenceEquals(myBanner, troopBanner) ||
-                                    myBanner.GetHashCode() == troopBanner.GetHashCode(); // your “hacky” path
+                    isPlayerTroop =
+                        ReferenceEquals(myBanner, troopBanner)
+                        || myBanner.GetHashCode() == troopBanner.GetHashCode();
             }
             catch { }
             IsPlayerTroop = isPlayerTroop;
@@ -72,7 +79,8 @@ namespace Retinues.Core.Game.Wrappers
             try
             {
                 var playerTeam = agent.Mission?.PlayerTeam;
-                isEnemy = agent.Team != null && playerTeam != null && agent.Team.IsEnemyOf(playerTeam);
+                isEnemy =
+                    agent.Team != null && playerTeam != null && agent.Team.IsEnemyOf(playerTeam);
             }
             catch { }
             IsEnemyTroop = isEnemy;

@@ -39,8 +39,6 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
                 return;
             if (victim == null || !victim.IsHuman)
                 return;
-            if (killer == null || !killer.IsHuman)
-                return;
             if (state != AgentState.Killed)
                 return; // only actual deaths
             if (victim.Team != Mission.MainAgent.Team)

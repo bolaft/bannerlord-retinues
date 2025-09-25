@@ -39,7 +39,7 @@ namespace Retinues.Core.Features.Doctrines
                     _inMission = false;
                     TryFlush();
                 }
-            ); // if available in your build
+            );
             CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
 
             // Listen to feat completions

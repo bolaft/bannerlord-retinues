@@ -36,7 +36,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
             {
                 int diff = CountWoundedRetinues() - WoundedAtBattleStart;
 
-                if (diff >= 0)
+                if (diff > 0)
                     AdvanceProgress(diff);
             }
 

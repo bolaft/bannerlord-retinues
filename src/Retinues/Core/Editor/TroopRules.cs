@@ -221,13 +221,11 @@ namespace Retinues.Core.Editor
             {
                 try
                 {
-                    int maxEliteRetinue = (int)(
-                        Player.Party.PartySizeLimit
-                        * Config.GetOption<float>("MaxEliteRetinueRatio")
-                    );
+                    var limit = Player.Party?.PartySizeLimit ?? 0;
+                    int max = (int)(limit * Config.GetOption<float>("MaxEliteRetinueRatio"));
                     if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
-                        maxEliteRetinue = (int)(maxEliteRetinue * 1.15f);
-                    return maxEliteRetinue;
+                        max = (int)(max * 1.15f);
+                    return max;
                 }
                 catch (Exception e)
                 {
@@ -243,13 +241,11 @@ namespace Retinues.Core.Editor
             {
                 try
                 {
-                    int maxBasicRetinue = (int)(
-                        Player.Party.PartySizeLimit
-                        * Config.GetOption<float>("MaxBasicRetinueRatio")
-                    );
+                    var limit = Player.Party?.PartySizeLimit ?? 0;
+                    int max = (int)(limit * Config.GetOption<float>("MaxBasicRetinueRatio"));
                     if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
-                        maxBasicRetinue = (int)(maxBasicRetinue * 1.15f);
-                    return maxBasicRetinue;
+                        max = (int)(max * 1.15f);
+                    return max;
                 }
                 catch (Exception e)
                 {

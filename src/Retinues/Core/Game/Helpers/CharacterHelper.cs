@@ -70,7 +70,10 @@ namespace Retinues.Core.Game.Helpers
             F_persona.SetValue(tgt, F_persona.GetValue(src));
 
             var traitsSrc = (CharacterTraits)F_characterTraits.GetValue(src);
-            F_characterTraits.SetValue(tgt, new CharacterTraits(traitsSrc));
+            F_characterTraits.SetValue(
+                tgt,
+                traitsSrc != null ? new CharacterTraits(traitsSrc) : null
+            );
 
             F_civilianEquipmentTemplate.SetValue(tgt, F_civilianEquipmentTemplate.GetValue(src));
             F_battleEquipmentTemplate.SetValue(tgt, F_battleEquipmentTemplate.GetValue(src));

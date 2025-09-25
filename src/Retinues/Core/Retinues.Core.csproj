@@ -183,13 +183,13 @@
       <BLModuleDir>$(BannerlordGameDir)\Modules\Retinues.Core</BLModuleDir>
       <BLBin>$(BLModuleDir)\bin\Win64_Shipping_Client</BLBin>
     </PropertyGroup>
-
     <ItemGroup>
       <!-- add the PDB if it exists -->
-      <Artifacts Include="$(TargetDir)$(AssemblyName).pdb"
-                Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+      <Artifacts
+        Include="$(TargetDir)$(AssemblyName).pdb"
+        Condition="Exists('$(TargetDir)$(AssemblyName).pdb')"
+      />
     </ItemGroup>
-
     <MakeDir Directories="$(BLBin)" />
     <Copy SourceFiles="@(Artifacts)" DestinationFolder="$(BLBin)" SkipUnchangedFiles="true" />
   </Target>

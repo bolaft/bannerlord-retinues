@@ -79,7 +79,6 @@ public static class VolunteerSwap
 
                     var wVanilla = new WCharacter(vanilla);
 
-                    // if already our troop, skip
                     if (TroopSwapHelper.IsFactionTroop(faction, wVanilla))
                         continue;
 

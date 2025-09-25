@@ -14,5 +14,17 @@ namespace Retinues.Core.Utils
         public override bool Equals(object obj) => obj is StringIdentifier other && Equals(other);
 
         public override int GetHashCode() => StringId.GetHashCode();
+
+        public static bool operator ==(StringIdentifier left, StringIdentifier right)
+        {
+            if (ReferenceEquals(left, right))
+                return true;
+            if (left is null || right is null)
+                return false;
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(StringIdentifier left, StringIdentifier right) =>
+            !(left == right);
     }
 }

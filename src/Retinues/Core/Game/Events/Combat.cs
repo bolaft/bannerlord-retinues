@@ -30,12 +30,13 @@ namespace Retinues.Core.Game.Events
             public KillingBlow Blow { get; } = blow;
 
             public bool IsValid =>
-                Killer?.Agent != null &&
-                Victim?.Agent != null &&
-                Killer.Agent.IsHuman && Victim.Agent.IsHuman &&
-                (State == AgentState.Killed || State == AgentState.Unconscious) &&
-                Killer.Agent.Character is CharacterObject &&
-                Victim.Agent.Character is CharacterObject;
+                Killer?.Agent != null
+                && Victim?.Agent != null
+                && Killer.Agent.IsHuman
+                && Victim.Agent.IsHuman
+                && (State == AgentState.Killed || State == AgentState.Unconscious)
+                && Killer.Agent.Character is CharacterObject
+                && Victim.Agent.Character is CharacterObject;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -74,9 +75,22 @@ namespace Retinues.Core.Game.Events
 
         public void LogKill(Kill kill)
         {
-            string victimTeam = kill.Victim.IsPlayer ? "Player" : kill.Victim.IsPlayerTroop ? "PlayerTroop" : kill.Victim.IsAllyTroop ? "Ally" : kill.Victim.IsEnemyTroop ? "Enemy" : "Neutral";
-            string killerTeam = kill.Killer.IsPlayer ? "Player" : kill.Killer.IsPlayerTroop ? "PlayerTroop" : kill.Killer.IsAllyTroop ? "Ally" : kill.Killer.IsEnemyTroop ? "Enemy" : "Neutral";
-            string action = kill.State == AgentState.Killed ? "killed" : kill.State == AgentState.Unconscious ? "downed" : "removed";
+            string victimTeam =
+                kill.Victim.IsPlayer ? "Player"
+                : kill.Victim.IsPlayerTroop ? "PlayerTroop"
+                : kill.Victim.IsAllyTroop ? "Ally"
+                : kill.Victim.IsEnemyTroop ? "Enemy"
+                : "Neutral";
+            string killerTeam =
+                kill.Killer.IsPlayer ? "Player"
+                : kill.Killer.IsPlayerTroop ? "PlayerTroop"
+                : kill.Killer.IsAllyTroop ? "Ally"
+                : kill.Killer.IsEnemyTroop ? "Enemy"
+                : "Neutral";
+            string action =
+                kill.State == AgentState.Killed ? "killed"
+                : kill.State == AgentState.Unconscious ? "downed"
+                : "removed";
 
             Log.Info(
                 $"{kill.Victim?.Character?.Name} ({victimTeam}) {action} by {kill.Killer?.Character?.Name} ({killerTeam})"
@@ -85,11 +99,58 @@ namespace Retinues.Core.Game.Events
 
         public void LogCombatReport()
         {
+            int playerKills = 0;
+            int playerTroopKills = 0;
+            int allyKills = 0;
+            int enemyKills = 0;
+            int playerCasualties = 0;
+            int playerTroopCasualties = 0;
+            int allyCasualties = 0;
+            int enemyCasualties = 0;
+            int customKills = 0;
+            int retinueKills = 0;
+
+            foreach (var kill in Kills)
+            {
+                if (kill.Killer.IsPlayer)
+                    playerKills++;
+                if (kill.Killer.IsPlayerTroop)
+                    playerTroopKills++;
+                if (kill.Killer.IsAllyTroop)
+                    allyKills++;
+                if (kill.Killer.IsEnemyTroop)
+                    enemyKills++;
+
+                if (kill.Victim.IsPlayer)
+                    playerCasualties++;
+                if (kill.Victim.IsPlayerTroop)
+                    playerTroopCasualties++;
+                if (kill.Victim.IsAllyTroop)
+                    allyCasualties++;
+                if (kill.Victim.IsEnemyTroop)
+                    enemyCasualties++;
+
+                if (kill.Killer.Character?.IsCustom == true)
+                    customKills++;
+                if (kill.Killer.Character?.IsRetinue == true)
+                    retinueKills++;
+            }
+
             Log.Debug($"--- Combat Report ---");
             Log.Debug($"Kills: {Kills.Count} total");
-            Log.Debug($"PlayerKills = {Kills.Where(k => k.Killer.IsPlayer).Count()}");
-            Log.Debug($"CustomKills = {Kills.Where(k => k.Killer.Character.IsCustom).Count()}");
-            Log.Debug($"RetinueKills = {Kills.Where(k => k.Killer.Character.IsRetinue).Count()}");
+            Log.Debug($"PlayerKills = {playerKills}");
+            Log.Debug($"PlayerTroopKills = {playerTroopKills}");
+            Log.Debug($"AllyKills = {allyKills}");
+            Log.Debug($"EnemyKills = {enemyKills}");
+            Log.Debug($"---------------------");
+            Log.Debug($"Casualties: {Kills.Count} total");
+            Log.Debug($"PlayerCasualties = {playerCasualties}");
+            Log.Debug($"PlayerTroopCasualties = {playerTroopCasualties}");
+            Log.Debug($"AllyCasualties = {allyCasualties}");
+            Log.Debug($"EnemyCasualties = {enemyCasualties}");
+            Log.Debug($"---------------------");
+            Log.Debug($"CustomKills = {customKills}");
+            Log.Debug($"RetinueKills = {retinueKills}");
             Log.Debug($"---------------------");
         }
     }

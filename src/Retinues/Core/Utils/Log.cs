@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.IO;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Utils
@@ -27,10 +27,12 @@ namespace Retinues.Core.Utils
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Lowest level written to file
-        public static LogLevel MinFileLevel => Config.GetOption<bool>("DebugMode") ? LogLevel.Debug : LogLevel.Info;
+        public static LogLevel MinFileLevel =>
+            Config.GetOption<bool>("DebugMode") ? LogLevel.Debug : LogLevel.Info;
 
         // Lowest level shown in-game (InformationManager)
-        public static LogLevel MinInGameLevel => Config.GetOption<bool>("DebugMode") ? LogLevel.Info : LogLevel.Critical;
+        public static LogLevel MinInGameLevel =>
+            Config.GetOption<bool>("DebugMode") ? LogLevel.Info : LogLevel.Critical;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Log File Setup                     //
@@ -48,8 +50,7 @@ namespace Retinues.Core.Utils
                 var asmDir = Path.GetDirectoryName(
                     System.Reflection.Assembly.GetExecutingAssembly().Location
                 )!;
-                // e.g. .../Modules/YourModule/bin/Win64_Shipping_Client
-                // -> go up twice to module root
+                // Go up twice to module root
                 var moduleRoot = Directory.GetParent(asmDir)!.Parent!.FullName;
                 LogFile = Path.Combine(moduleRoot, LogFileName);
             }
@@ -110,8 +111,12 @@ namespace Retinues.Core.Utils
             while (inner != null)
             {
                 var ib = new StringBuilder();
-                ib.Append("[INNER ").Append(depth).Append("] ").Append(inner.GetType().Name)
-                .Append(": ").AppendLine(inner.Message);
+                ib.Append("[INNER ")
+                    .Append(depth)
+                    .Append("] ")
+                    .Append(inner.GetType().Name)
+                    .Append(": ")
+                    .AppendLine(inner.Message);
                 AppendStackTrace(ib, inner);
                 Write(LogLevel.Error, ib.ToString());
                 inner = inner.InnerException;
@@ -123,15 +128,15 @@ namespace Retinues.Core.Utils
         {
             // 'true' => capture file info if available
             var st = new StackTrace(ex, true);
-            var frames = st.GetFrames() ?? Array.Empty<StackFrame>();
+            var frames = st.GetFrames() ?? [];
 
-            // Optional: prioritize frames from your assemblies
-            string[] prefer = { "Retinues.", "YourModNamespace." };
+            string[] prefer = ["Retinues.", "Core."];
 
             foreach (var f in frames)
             {
                 var method = f.GetMethod();
-                if (method == null) continue;
+                if (method == null)
+                    continue;
 
                 var type = method.DeclaringType;
                 var typeName = type?.FullName ?? "<unknown>";
@@ -144,12 +149,23 @@ namespace Retinues.Core.Utils
                 // File/line/col (only if PDBs available)
                 var file = f.GetFileName();
                 var line = f.GetFileLineNumber();
-                var col  = f.GetFileColumnNumber();
+                var col = f.GetFileColumnNumber();
 
-                sb.Append("  at ").Append(typeName).Append(".").Append(methodName).Append("(").Append(sig).Append(")");
+                sb.Append("  at ")
+                    .Append(typeName)
+                    .Append(".")
+                    .Append(methodName)
+                    .Append("(")
+                    .Append(sig)
+                    .Append(")");
 
                 if (!string.IsNullOrEmpty(file) && line > 0)
-                    sb.Append(" in ").Append(file).Append(":line ").Append(line).Append(":col ").Append(col);
+                    sb.Append(" in ")
+                        .Append(file)
+                        .Append(":line ")
+                        .Append(line)
+                        .Append(":col ")
+                        .Append(col);
 
                 sb.AppendLine();
             }

@@ -24,7 +24,8 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         // Transient: items newly unlocked this battle (to show in post-battle UI)
         private readonly List<ItemObject> _newlyUnlockedThisBattle = [];
 
-        public static Dictionary<string, int> IdsToProgress => Instance._defeatsByItemId;
+        public static Dictionary<string, int> IdsToProgress =>
+            Instance?._defeatsByItemId ?? new Dictionary<string, int>();
 
         public UnlocksBehavior()
         {
@@ -100,10 +101,14 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 Dictionary<ItemObject, int> randomItemsByTier = [];
 
                 foreach (var tier in bonuses.Keys)
-                    randomItemsByTier[GetRandomItem(Player.Clan?.Culture?.StringId, tier)] =
-                        bonuses[tier];
+                {
+                    var it = GetRandomItem(Player.Clan?.Culture?.StringId, tier);
+                    if (it != null)
+                        randomItemsByTier[it] = bonuses[tier];
+                }
 
-                AddBattleCounts(randomItemsByTier, false);
+                if (randomItemsByTier.Count > 0)
+                    AddBattleCounts(randomItemsByTier, false);
             }
             catch (Exception e)
             {
@@ -118,7 +123,8 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         )
         {
             // Only add culture bonuses if enabled
-            addCultureBonuses = addCultureBonuses && Config.GetOption<bool>("OwnCultureUnlockBonuses");
+            addCultureBonuses =
+                addCultureBonuses && Config.GetOption<bool>("OwnCultureUnlockBonuses");
 
             Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
@@ -160,7 +166,7 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                     if (prev < threshold && now >= threshold)
                     {
                         var w = new WItem(item);
-                        if (!w.IsUnlocked) // if you expose it; else check your UnlockedItems set
+                        if (!w.IsUnlocked)
                         {
                             w.Unlock();
                             _newlyUnlockedThisBattle.Add(item);
@@ -193,7 +199,10 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
         private static void ShowUnlockInquiry(List<ItemObject> items)
         {
-            var body = string.Join("\n", items.Select(i => i.Name.ToString()));
+            var body = string.Join(
+                "\n",
+                items.Where(i => i != null).Select(i => i.Name?.ToString() ?? i.StringId)
+            );
 
             InformationManager.ShowInquiry(
                 new InquiryData(

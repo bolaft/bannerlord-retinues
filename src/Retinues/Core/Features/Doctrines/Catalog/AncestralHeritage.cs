@@ -38,13 +38,17 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
                 WRoster playerRoster = Player.Party.MemberRoster;
 
-                if (playerRoster.CustomRatio < 0.99f)
-                    return;
                 var culture = Player.Culture;
 
                 foreach (var e in playerRoster.Elements)
+                {
+                    if (e.Troop.IsHero)
+                        continue;
+                    if (!e.Troop.IsCustom)
+                        return;
                     if (e.Troop.Culture.StringId != culture.StringId)
                         return;
+                }
 
                 AdvanceProgress(1);
             }

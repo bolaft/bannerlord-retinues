@@ -19,7 +19,7 @@ namespace Retinues.Core.Features.Xp.Behaviors
             try
             {
                 Dictionary<WCharacter, int> xpPerTroop = [];
-                
+
                 foreach (var kill in Kills)
                 {
                     if (!kill.Killer.IsPlayerTroop)

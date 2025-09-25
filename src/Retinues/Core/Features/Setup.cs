@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game;
@@ -15,11 +16,17 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionRetinue(WFaction faction)
         {
-            Log.Info($"Setting up retinue troops for faction {faction.Name}.");
+            try
+            {
+                Log.Info($"Setting up retinue troops for faction {faction.Name}.");
 
-            CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
-
-            CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
+                CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
+                CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Failed to set up retinue troops for faction {faction.Name}: {e}");
+            }
         }
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
@@ -44,13 +51,18 @@ namespace Retinues.Core.Features
             return to.SetTextVariable("FACTION", faction.Name).ToString();
         }
 
-        private static WCharacter CreateRetinueTroop(
-            WFaction faction,
-            bool isElite,
-            string retinueName
-        )
+        private static void CreateRetinueTroop(WFaction faction, bool isElite, string retinueName)
         {
             var root = isElite ? faction.Culture.RootElite : faction.Culture.RootBasic;
+
+            if (root == null)
+            {
+                Log.Error(
+                    $"Cannot create retinue troop for faction {faction.Name} because its culture {faction.Culture.Name} has no {(isElite ? "elite" : "basic")} root troop."
+                );
+                return;
+            }
+
             var retinue = new WCharacter(faction == Player.Kingdom, isElite, true);
 
             retinue.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
@@ -73,8 +85,6 @@ namespace Retinues.Core.Features
 
             // Activate
             retinue.Activate();
-
-            return retinue;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -83,46 +93,67 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionTroops(WFaction faction)
         {
-            Log.Info($"Setting up troops for faction {faction.Name}.");
+            try
+            {
+                Log.Info($"Setting up troops for faction {faction.Name}.");
 
-            // Use the faction culture
-            var culture = faction.Culture;
+                // Use the faction culture
+                var culture = faction.Culture;
 
-            // Clone the elite tree from the elite root
-            var eliteClones = CloneTroopTreeRecursive(
-                    faction.Culture.RootElite,
-                    true,
-                    faction,
-                    null
-                )
-                .ToList();
+                var eliteClones = new List<WCharacter>();
 
-            Log.Debug(
-                $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
-            );
+                if (culture?.RootElite != null)
+                {
+                    // Clone the elite tree from the elite root
+                    eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
+                        .ToList();
 
-            // Clone the basic tree from the basic root
-            var basicClones = CloneTroopTreeRecursive(
-                    faction.Culture.RootBasic,
-                    false,
-                    faction,
-                    null
-                )
-                .ToList();
+                    Log.Debug(
+                        $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
+                    );
+                }
+                else
+                {
+                    Log.Warn(
+                        $"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop."
+                    );
+                }
 
-            Log.Debug(
-                $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
-            );
+                var basicClones = new List<WCharacter>();
 
-            // Unlock items from the added clones
-            foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
-            foreach (var equipment in troop.Equipments)
-            foreach (var item in equipment.Items)
-                item.Unlock();
+                if (culture?.RootBasic != null)
+                {
+                    // Clone the basic tree from the basic root
+                    basicClones =
+                    [
+                        .. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null),
+                    ];
 
-            Log.Debug(
-                $"Unlocked {WItem.UnlockedItems.Count()} items from {eliteClones.Count + basicClones.Count} troops"
-            );
+                    Log.Debug(
+                        $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
+                    );
+                }
+                else
+                {
+                    Log.Warn(
+                        $"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop."
+                    );
+                }
+
+                // Unlock items from the added clones
+                foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
+                foreach (var equipment in troop.Equipments)
+                foreach (var item in equipment.Items)
+                    item.Unlock();
+
+                Log.Debug(
+                    $"Unlocked {WItem.UnlockedItems.Count()} items from {eliteClones.Count + basicClones.Count} troops"
+                );
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Failed to set up troops for faction {faction.Name}: {e}");
+            }
         }
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */

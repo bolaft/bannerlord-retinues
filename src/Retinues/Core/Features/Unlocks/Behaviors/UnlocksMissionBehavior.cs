@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
+using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
-using Retinues.Core.Game.Events;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -28,18 +28,18 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 foreach (var kill in Kills)
                 {
                     if (kill.Victim.IsPlayerTroop || kill.Victim.IsPlayer)
-                        return; // No unlock from player troop casualty
+                        continue; // No unlock from player troop casualty
 
                     if (kill.Victim.IsAllyTroop)
                         if (!DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>())
-                            return; // No unlock from ally casualty unless doctrine is enabled
+                            continue; // No unlock from ally casualty unless doctrine is enabled
 
                     if (kill.Killer.IsEnemyTroop)
-                        return; // Enemies don't unlock anything
+                        continue; // Enemies don't unlock anything
 
                     if (kill.Killer.IsAllyTroop)
                         if (!DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>())
-                            return; // No unlock from ally killers unless doctrine is enabled
+                            continue; // No unlock from ally killers unless doctrine is enabled
 
                     int unlockModifier = 1;
 
@@ -49,7 +49,13 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
                     // Enumerate equipped items on the victim and add to the unlock counts
                     foreach (var item in EnumerateEquippedItems(kill.Victim.Agent))
-                        counts[item.Base] = counts.TryGetValue(item.Base, out var c) ? c + unlockModifier : unlockModifier;
+                    {
+                        if (!IsUnlockable(item.Base))
+                            continue;
+                        counts[item.Base] = counts.TryGetValue(item.Base, out var c)
+                            ? c + unlockModifier
+                            : unlockModifier;
+                    }
                 }
                 // Add the counts to the owner's battle counts
                 _owner.AddBattleCounts(counts);
@@ -58,6 +64,15 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             {
                 Log.Exception(e);
             }
+        }
+
+        private static bool IsUnlockable(ItemObject i)
+        {
+            if (i == null)
+                return false;
+            if (i.ItemType == ItemObject.ItemTypeEnum.Invalid)
+                return false;
+            return true;
         }
 
         private static IEnumerable<WItem> EnumerateEquippedItems(Agent agent)
