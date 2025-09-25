@@ -50,11 +50,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                     // Enumerate equipped items on the victim and add to the unlock counts
                     foreach (var item in EnumerateEquippedItems(kill.Victim.Agent))
                         counts[item.Base] = counts.TryGetValue(item.Base, out var c) ? c + unlockModifier : unlockModifier;
-
-                    // 
-                    _owner.AddBattleCounts(counts);
                 }
-
+                // Add the counts to the owner's battle counts
+                _owner.AddBattleCounts(counts);
             }
             catch (Exception e)
             {
