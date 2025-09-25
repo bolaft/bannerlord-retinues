@@ -24,30 +24,18 @@ namespace Retinues.Core.Game.Events
 
         public class Kill(Agent victim, Agent killer, AgentState state, KillingBlow blow)
         {
-            public WAgent Victim = new(victim);
-            public WAgent Killer = new(killer);
-            public AgentState State = state;
-            public KillingBlow Blow = blow;
+            public WAgent Victim { get; } = victim != null ? new WAgent(victim) : null;
+            public WAgent Killer { get; } = killer != null ? new WAgent(killer) : null;
+            public AgentState State { get; } = state;
+            public KillingBlow Blow { get; } = blow;
 
-            public bool IsValid
-            {
-                get
-                {
-                    if (killer == null || victim == null)
-                        return false;
-                    if (!killer.IsHuman || !victim.IsHuman)
-                        return false;
-                    if (State is not AgentState.Killed and not AgentState.Unconscious)
-                        return false;
-                    if (
-                        killer.Character is not CharacterObject
-                        || victim.Character is not CharacterObject
-                    )
-                        return false;
-
-                    return true;
-                }
-            }
+            public bool IsValid =>
+                Killer?.Agent != null &&
+                Victim?.Agent != null &&
+                Killer.Agent.IsHuman && Victim.Agent.IsHuman &&
+                (State == AgentState.Killed || State == AgentState.Unconscious) &&
+                Killer.Agent.Character is CharacterObject &&
+                Victim.Agent.Character is CharacterObject;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
