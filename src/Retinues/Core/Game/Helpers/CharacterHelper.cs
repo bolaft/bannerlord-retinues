@@ -5,6 +5,7 @@ using System.Reflection;
 using HarmonyLib;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.ObjectSystem;
@@ -40,6 +41,18 @@ namespace Retinues.Core.Game.Helpers
         private static readonly FieldInfo F_battleEquipmentTemplate = AccessTools.Field(
             typeof(CharacterObject),
             "_battleEquipmentTemplate"
+        );
+        private static readonly FieldInfo F_equipmentRoster = AccessTools.Field(
+            typeof(BasicCharacterObject),
+            "_equipmentRoster"
+        );
+        private static readonly FieldInfo F_roster_equipments = AccessTools.Field(
+            typeof(MBEquipmentRoster),
+            "_equipments"
+        );
+        private static readonly FieldInfo F_roster_default = AccessTools.Field(
+            typeof(MBEquipmentRoster),
+            "_defaultEquipment"
         );
         private static readonly MethodInfo M_fillFrom = AccessTools.Method(
             typeof(CharacterObject),
@@ -78,6 +91,53 @@ namespace Retinues.Core.Game.Helpers
 
             // Fill the rest
             M_fillFrom.Invoke(tgt, [src]);
+
+            // ── BREAK SHARING: install a fresh roster with deep-cloned Equipment ──
+            try
+            {
+                // Gather equipment codes from the source's battle equipments (1.3)
+                // Fallback: if BattleEquipments is empty, at least keep one battle set.
+                var srcEquipments = src.BattleEquipments?.ToList() ?? new List<Equipment>();
+                if (srcEquipments.Count == 0)
+                    srcEquipments.Add(new Equipment(Equipment.EquipmentType.Battle));
+
+                var cloned = new List<Equipment>(srcEquipments.Count);
+                foreach (var e in srcEquipments)
+                {
+                    var code = e?.CalculateEquipmentCode();
+                    var ne = (code != null)
+                        ? Equipment.CreateFromEquipmentCode(code)
+                        : new Equipment(Equipment.EquipmentType.Battle);
+                    // make sure these are battle sets (civilian uses a different list)
+                    // (harmless if already set)
+                    try { AccessTools.Field(typeof(Equipment), "_equipmentType")
+                            ?.SetValue(ne, Equipment.EquipmentType.Battle); } catch { }
+                    cloned.Add(ne);
+                }
+
+                // New roster instance
+                var newRoster = (MBEquipmentRoster)Activator.CreateInstance(typeof(MBEquipmentRoster), nonPublic: true);
+
+                // Write equipment list (field name in 1.3 is "_equipments")
+                if (F_roster_equipments != null)
+                    F_roster_equipments.SetValue(newRoster, new MBList<Equipment>(cloned));
+                else
+                    // older builds sometimes expose AllEquipments property
+                    AccessTools.Property(typeof(MBEquipmentRoster), "AllEquipments")
+                            ?.SetValue(newRoster, new MBReadOnlyList<Equipment>(cloned), null);
+
+                // Default equipment: first battle set
+                if (F_roster_default != null)
+                    F_roster_default.SetValue(newRoster, cloned[0]);
+
+                // Install the fresh roster on the target character
+                F_equipmentRoster.SetValue(tgt, newRoster);
+            }
+            catch
+            {
+                // If anything goes wrong, at least don’t leave tgt pointing at src’s roster
+                try { F_equipmentRoster.SetValue(tgt, (MBEquipmentRoster)Activator.CreateInstance(typeof(MBEquipmentRoster), nonPublic: true)); } catch { }
+            }
 
             return tgt;
         }

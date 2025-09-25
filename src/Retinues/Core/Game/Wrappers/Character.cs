@@ -252,8 +252,8 @@ namespace Retinues.Core.Game.Wrappers
             {
                 var first = Equipments.FirstOrDefault();
                 return first is null
-                    ? new WEquipment(MBEquipmentRoster.EmptyEquipment)
-                    : new WEquipment(first.Base);
+                    ? new WEquipment(new Equipment(TaleWorlds.Core.Equipment.EquipmentType.Battle))
+                    : Equipments[0];
             }
         }
 
