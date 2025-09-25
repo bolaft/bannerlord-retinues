@@ -1,0 +1,39 @@
+# ==========================
+# Line endings normalization
+# ==========================
+
+# C# source (Windows-style CRLF is fine)
+*.cs text eol=crlf
+
+# XML (force LF to match vanilla Bannerlord)
+*.xml text eol=lf
+
+# Python, Shell, JSON, YAML, Markdown, TXT → LF only
+*.py  text eol=lf
+*.sh  text eol=lf
+*.json text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+
+# ==========================
+# Binary files (never touch)
+# ==========================
+*.dll binary
+*.exe binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.dds binary
+*.tga binary
+*.otf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.zip binary
+*.7z binary
+*.rar binary
