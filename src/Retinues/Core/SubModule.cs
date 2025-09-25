@@ -53,7 +53,7 @@ namespace Retinues.Core
             {
                 Log.Info("Active modules:");
                 foreach (var m in ModuleChecker.GetActiveModules())
-                    Log.Info($" - {m.Id} {m.Version} — {m.Name}");
+                    Log.Info($" - {m.Id} {m.Version}");
             }
             catch (Exception e)
             {
