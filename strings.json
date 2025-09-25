@@ -2209,7 +2209,7 @@
   },
   {
     "id": "ret_mcm_option_debug_mode_hint",
-    "default": "Outputs much more logs (may impact performance).",
+    "default": "Outputs many more logs (may impact performance).",
     "BR": "Gera muito mais registros (pode impactar o desempenho).",
     "CNs": "输出更多日志（可能影响性能）。",
     "CNt": "輸出更多日誌（可能影響效能）。",

@@ -420,7 +420,7 @@
       text="Debug Mode" />
     <string
       id="ret_mcm_option_debug_mode_hint"
-      text="Outputs much more logs (may impact performance)." />
+      text="Outputs many more logs (may impact performance)." />
     <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Disallow Mounts For Tier 1" />
