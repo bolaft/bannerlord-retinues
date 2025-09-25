@@ -234,7 +234,7 @@
       text="En Stock ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="¿Aumentar el rango de {TROOP_NAME}?\n\n{text}" />
+      text="¿Aumentar el rango de {TROOP_NAME}?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Indomable" />
@@ -573,13 +573,13 @@
       text="Te costará {COST} de oro." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="No tienes suficiente oro para ascender a {TROOP_NAME}.\n\nCosto de ascenso: {COST} oro." />
+      text="No tienes suficiente oro para ascender a {TROOP_NAME}.{newline}{newline}Costo de ascenso: {COST} oro." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Oro insuficiente" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="No tienes suficiente experiencia para ascender a {TROOP_NAME}.\n\nCosto de ascenso: {COST} exp." />
+      text="No tienes suficiente experiencia para ascender a {TROOP_NAME}.{newline}{newline}Costo de ascenso: {COST} exp." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="Exp insuficiente" />
@@ -591,7 +591,7 @@
       text="Eliminar Tropa" />
     <string
       id="ret_remove_troop_text"
-      text="¿Seguro que quieres eliminar permanentemente a {TROOP_NAME}?\n\nSu equipo se almacenará para uso posterior." />
+      text="¿Seguro que quieres eliminar permanentemente a {TROOP_NAME}?{newline}{newline}Su equipo se almacenará para uso posterior." />
     <string
       id="ret_rename_troop"
       text="Renombrar Tropa" />
@@ -657,10 +657,10 @@
       text="Maximiza las habilidades de 15 tropas personalizadas." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Cambiar a\nTropas del Clan" />
+      text="Cambiar a{newline}Tropas del Clan" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Cambiar a\nTropas del Reino" />
+      text="Cambiar a{newline}Tropas del Reino" />
     <string
       id="ret_tier"
       text="Nivel" />
@@ -678,7 +678,7 @@
       text="Quitar Todo" />
     <string
       id="ret_unequip_all_text"
-      text="¿Quitar todo el equipo de {TROOP_NAME}?\n\nSe almacenará para uso posterior." />
+      text="¿Quitar todo el equipo de {TROOP_NAME}?{newline}{newline}Se almacenará para uso posterior." />
     <string
       id="ret_unlock_btn"
       text="Desbloquear" />

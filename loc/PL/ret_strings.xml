@@ -234,7 +234,7 @@
       text="Na stanie ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="Zwiększyć rangę {TROOP_NAME}?\n\n{text}" />
+      text="Zwiększyć rangę {TROOP_NAME}?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Nieugięty" />
@@ -573,13 +573,13 @@
       text="Będzie cię to kosztować {COST} złota." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="Nie masz wystarczająco złota, aby awansować {TROOP_NAME}.\n\nKoszt awansu: {COST} złota." />
+      text="Nie masz wystarczająco złota, aby awansować {TROOP_NAME}.{newline}{newline}Koszt awansu: {COST} złota." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Za mało złota" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="Nie masz wystarczająco PD, aby awansować {TROOP_NAME}.\n\nKoszt awansu: {COST} PD." />
+      text="Nie masz wystarczająco PD, aby awansować {TROOP_NAME}.{newline}{newline}Koszt awansu: {COST} PD." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="Za mało PD" />
@@ -591,7 +591,7 @@
       text="Usuń Jednostkę" />
     <string
       id="ret_remove_troop_text"
-      text="Czy na pewno chcesz trwale usunąć {TROOP_NAME}?\n\nJej ekwipunek zostanie zmagazynowany." />
+      text="Czy na pewno chcesz trwale usunąć {TROOP_NAME}?{newline}{newline}Jej ekwipunek zostanie zmagazynowany." />
     <string
       id="ret_rename_troop"
       text="Zmień Nazwę Jednostki" />
@@ -657,10 +657,10 @@
       text="Maksymalizuj umiejętności 15 własnych jednostek." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Przełącz na\nWojska Klanu" />
+      text="Przełącz na{newline}Wojska Klanu" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Przełącz na\nWojska Królestwa" />
+      text="Przełącz na{newline}Wojska Królestwa" />
     <string
       id="ret_tier"
       text="Poziom" />
@@ -678,7 +678,7 @@
       text="Zdejmij Wszystko" />
     <string
       id="ret_unequip_all_text"
-      text="Zdjąć wszystkie przedmioty noszone przez {TROOP_NAME}?\n\nZostaną one zmagazynowane." />
+      text="Zdjąć wszystkie przedmioty noszone przez {TROOP_NAME}?{newline}{newline}Zostaną one zmagazynowane." />
     <string
       id="ret_unlock_btn"
       text="Odblokuj" />

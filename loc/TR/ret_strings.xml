@@ -234,7 +234,7 @@
       text="Stokta ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="{TROOP_NAME} biriminin seviyesini artırmak istiyor musun?\n\n{text}" />
+      text="{TROOP_NAME} biriminin seviyesini artırmak istiyor musun?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Boyun Eğmez" />
@@ -573,13 +573,13 @@
       text="{COST} altına mal olacak." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="{TROOP_NAME} terfi ettirmek için yeterli altının yok.\n\nTerfi maliyeti: {COST} altın." />
+      text="{TROOP_NAME} terfi ettirmek için yeterli altının yok.{newline}{newline}Terfi maliyeti: {COST} altın." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Yetersiz altın" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="{TROOP_NAME} terfi ettirmek için yeterli XP yok.\n\nTerfi maliyeti: {COST} XP." />
+      text="{TROOP_NAME} terfi ettirmek için yeterli XP yok.{newline}{newline}Terfi maliyeti: {COST} XP." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="Yetersiz XP" />
@@ -591,7 +591,7 @@
       text="Askeri Kaldır" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} kalıcı olarak kaldırmak istediğine emin misin?\n\nTeçhizatı daha sonra kullanılmak üzere stoklanacaktır." />
+      text="{TROOP_NAME} kalıcı olarak kaldırmak istediğine emin misin?{newline}{newline}Teçhizatı daha sonra kullanılmak üzere stoklanacaktır." />
     <string
       id="ret_rename_troop"
       text="Askerin Adını Değiştir" />
@@ -657,10 +657,10 @@
       text="15 özel askerin becerilerini en üst düzeye çıkar." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Geçiş Yap\nKlan Askerleri" />
+      text="Geçiş Yap{newline}Klan Askerleri" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Geçiş Yap\nKrallık Askerleri" />
+      text="Geçiş Yap{newline}Krallık Askerleri" />
     <string
       id="ret_tier"
       text="Seviye" />
@@ -678,7 +678,7 @@
       text="Tümünü Çıkar" />
     <string
       id="ret_unequip_all_text"
-      text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?\n\nEşyalar stoklanacaktır." />
+      text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?{newline}{newline}Eşyalar stoklanacaktır." />
     <string
       id="ret_unlock_btn"
       text="Aç" />

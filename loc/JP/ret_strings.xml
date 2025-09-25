@@ -234,7 +234,7 @@
       text="在庫 ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="{TROOP_NAME} のランクを上げますか？\n\n{text}" />
+      text="{TROOP_NAME} のランクを上げますか？{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="不屈" />
@@ -573,13 +573,13 @@
       text="コスト: {COST} ゴールド。" />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="{TROOP_NAME} を昇進させるのに十分なゴールドがない。\n\n昇進コスト: {COST} ゴールド。" />
+      text="{TROOP_NAME} を昇進させるのに十分なゴールドがない。{newline}{newline}昇進コスト: {COST} ゴールド。" />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="ゴールド不足" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="{TROOP_NAME} を昇進させるのに十分なXPがない。\n\n昇進コスト: {COST} XP。" />
+      text="{TROOP_NAME} を昇進させるのに十分なXPがない。{newline}{newline}昇進コスト: {COST} XP。" />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="XP不足" />
@@ -591,7 +591,7 @@
       text="兵を削除" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} を完全に削除しますか？\n\n装備は保管されます。" />
+      text="{TROOP_NAME} を完全に削除しますか？{newline}{newline}装備は保管されます。" />
     <string
       id="ret_rename_troop"
       text="兵を改名" />
@@ -657,10 +657,10 @@
       text="カスタム兵15人のスキルを最大化する。" />
     <string
       id="ret_switch_to_clan_troops"
-      text="切り替え：\n一族兵" />
+      text="切り替え：{newline}一族兵" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="切り替え：\n王国兵" />
+      text="切り替え：{newline}王国兵" />
     <string
       id="ret_tier"
       text="ランク" />
@@ -678,7 +678,7 @@
       text="すべて外す" />
     <string
       id="ret_unequip_all_text"
-      text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？\n\n装備は保管されます。" />
+      text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？{newline}{newline}装備は保管されます。" />
     <string
       id="ret_unlock_btn"
       text="解除" />

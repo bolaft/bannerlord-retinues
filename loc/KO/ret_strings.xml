@@ -234,7 +234,7 @@
       text="재고 ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="{TROOP_NAME} 의 등급을 올리시겠습니까?\n\n{text}" />
+      text="{TROOP_NAME} 의 등급을 올리시겠습니까?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="불굴" />
@@ -573,13 +573,13 @@
       text="비용: {COST} 골드." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="{TROOP_NAME} 을(를) 승급시키기에 골드가 부족합니다.\n\n승급 비용: {COST} 골드." />
+      text="{TROOP_NAME} 을(를) 승급시키기에 골드가 부족합니다.{newline}{newline}승급 비용: {COST} 골드." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="골드 부족" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="{TROOP_NAME} 을(를) 승급시키기에 경험치가 부족합니다.\n\n승급 비용: {COST} 경험치." />
+      text="{TROOP_NAME} 을(를) 승급시키기에 경험치가 부족합니다.{newline}{newline}승급 비용: {COST} 경험치." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="경험치 부족" />
@@ -591,7 +591,7 @@
       text="병력 제거" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} 을(를) 영구적으로 제거하시겠습니까?\n\n장비는 보관됩니다." />
+      text="{TROOP_NAME} 을(를) 영구적으로 제거하시겠습니까?{newline}{newline}장비는 보관됩니다." />
     <string
       id="ret_rename_troop"
       text="병력 이름 변경" />
@@ -657,10 +657,10 @@
       text="커스텀 병력 15명의 기술을 최고치까지 올리십시오." />
     <string
       id="ret_switch_to_clan_troops"
-      text="전환 →\n가문 병력" />
+      text="전환 →{newline}가문 병력" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="전환 →\n왕국 병력" />
+      text="전환 →{newline}왕국 병력" />
     <string
       id="ret_tier"
       text="등급" />
@@ -678,7 +678,7 @@
       text="모두 해제" />
     <string
       id="ret_unequip_all_text"
-      text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?\n\n아이템은 보관됩니다." />
+      text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?{newline}{newline}아이템은 보관됩니다." />
     <string
       id="ret_unlock_btn"
       text="해제" />

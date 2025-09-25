@@ -234,7 +234,7 @@
       text="Auf Lager ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="{TROOP_NAME} aufwerten?\n\n{text}" />
+      text="{TROOP_NAME} aufwerten?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Unbezwingbar" />
@@ -573,13 +573,13 @@
       text="Es kostet dich {COST} Gold." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="Du hast nicht genug Gold, um {TROOP_NAME} aufzuwerten.\n\nKosten: {COST} Gold." />
+      text="Du hast nicht genug Gold, um {TROOP_NAME} aufzuwerten.{newline}{newline}Kosten: {COST} Gold." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Nicht genug Gold" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="Du hast nicht genug EP, um {TROOP_NAME} aufzuwerten.\n\nKosten: {COST} EP." />
+      text="Du hast nicht genug EP, um {TROOP_NAME} aufzuwerten.{newline}{newline}Kosten: {COST} EP." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="Nicht genug EP" />
@@ -591,7 +591,7 @@
       text="Truppe entfernen" />
     <string
       id="ret_remove_troop_text"
-      text="Bist du sicher, dass du {TROOP_NAME} dauerhaft entfernen willst?\n\nIhre Ausrüstung wird eingelagert." />
+      text="Bist du sicher, dass du {TROOP_NAME} dauerhaft entfernen willst?{newline}{newline}Ihre Ausrüstung wird eingelagert." />
     <string
       id="ret_rename_troop"
       text="Truppe umbenennen" />
@@ -657,10 +657,10 @@
       text="Maximiere die Fertigkeiten von 15 benutzerdefinierten Truppen." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Wechsel zu\nClantruppen" />
+      text="Wechsel zu{newline}Clantruppen" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Wechsel zu\nKönigreichstruppen" />
+      text="Wechsel zu{newline}Königreichstruppen" />
     <string
       id="ret_tier"
       text="Stufe" />
@@ -678,7 +678,7 @@
       text="Alles ablegen" />
     <string
       id="ret_unequip_all_text"
-      text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?\n\nSie werden eingelagert." />
+      text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?{newline}{newline}Sie werden eingelagert." />
     <string
       id="ret_unlock_btn"
       text="Freischalten" />

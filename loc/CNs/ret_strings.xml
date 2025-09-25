@@ -234,7 +234,7 @@
       text="库存 ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="提升 {TROOP_NAME} 的等级？\n\n{text}" />
+      text="提升 {TROOP_NAME} 的等级？{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="不屈" />
@@ -573,13 +573,13 @@
       text="这将花费 {COST} 金币。" />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="你没有足够的金币晋升 {TROOP_NAME}。\n\n晋升费用: {COST} 金币。" />
+      text="你没有足够的金币晋升 {TROOP_NAME}。{newline}{newline}晋升费用: {COST} 金币。" />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="金币不足" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="你没有足够的经验晋升 {TROOP_NAME}。\n\n晋升费用: {COST} 经验。" />
+      text="你没有足够的经验晋升 {TROOP_NAME}。{newline}{newline}晋升费用: {COST} 经验。" />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="经验不足" />
@@ -591,7 +591,7 @@
       text="移除部队" />
     <string
       id="ret_remove_troop_text"
-      text="确定要永久移除 {TROOP_NAME} 吗？\n\n他们的装备将被存入库存以供后用。" />
+      text="确定要永久移除 {TROOP_NAME} 吗？{newline}{newline}他们的装备将被存入库存以供后用。" />
     <string
       id="ret_rename_troop"
       text="重命名部队" />
@@ -657,10 +657,10 @@
       text="让15名自定义部队技能达到满值。" />
     <string
       id="ret_switch_to_clan_troops"
-      text="切换至\n家族部队" />
+      text="切换至{newline}家族部队" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="切换至\n王国部队" />
+      text="切换至{newline}王国部队" />
     <string
       id="ret_tier"
       text="等级" />
@@ -678,7 +678,7 @@
       text="卸下全部" />
     <string
       id="ret_unequip_all_text"
-      text="卸下 {TROOP_NAME} 穿戴的所有物品？\n\n它们将被存入库存以供后用。" />
+      text="卸下 {TROOP_NAME} 穿戴的所有物品？{newline}{newline}它们将被存入库存以供后用。" />
     <string
       id="ret_unlock_btn"
       text="解锁" />

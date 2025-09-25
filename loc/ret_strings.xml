@@ -234,7 +234,7 @@
       text="In Stock ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="Increase {TROOP_NAME}&apos;s tier?\n\n{text}" />
+      text="Increase {TROOP_NAME}&apos;s tier?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Indomitable" />
@@ -573,13 +573,13 @@
       text="It will cost you {COST} gold." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="You do not have enough gold to rank up {TROOP_NAME}.\n\nRank up cost: {COST} gold." />
+      text="You do not have enough gold to rank up {TROOP_NAME}.{newline}{newline}Rank up cost: {COST} gold." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Not enough gold" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="You do not have enough XP to rank up {TROOP_NAME}.\n\nRank up cost: {COST} XP." />
+      text="You do not have enough XP to rank up {TROOP_NAME}.{newline}{newline}Rank up cost: {COST} XP." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="Not enough XP" />
@@ -591,7 +591,7 @@
       text="Remove Troop" />
     <string
       id="ret_remove_troop_text"
-      text="Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use." />
+      text="Are you sure you want to permanently remove {TROOP_NAME}?{newline}{newline}Their equipment will be stocked for later use." />
     <string
       id="ret_rename_troop"
       text="Rename Troop" />
@@ -657,10 +657,10 @@
       text="Max out the skills of 15 custom troops." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Switch to\nClan Troops" />
+      text="Switch to{newline}Clan Troops" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Switch to\nKingdom Troops" />
+      text="Switch to{newline}Kingdom Troops" />
     <string
       id="ret_tier"
       text="Tier" />
@@ -678,7 +678,7 @@
       text="Unequip All" />
     <string
       id="ret_unequip_all_text"
-      text="Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use." />
+      text="Unequip all items worn by {TROOP_NAME}?{newline}{newline}They will be stocked for later use." />
     <string
       id="ret_unlock_btn"
       text="Unlock" />

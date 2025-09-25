@@ -234,7 +234,7 @@
       text="В наличии ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="Повысить ранг {TROOP_NAME}?\n\n{text}" />
+      text="Повысить ранг {TROOP_NAME}?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Неукротимый" />
@@ -573,13 +573,13 @@
       text="Это будет стоить {COST} золота." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="У вас недостаточно золота, чтобы повысить {TROOP_NAME}.\n\nСтоимость повышения: {COST} золота." />
+      text="У вас недостаточно золота, чтобы повысить {TROOP_NAME}.{newline}{newline}Стоимость повышения: {COST} золота." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Недостаточно золота" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="У вас недостаточно опыта, чтобы повысить {TROOP_NAME}.\n\nСтоимость повышения: {COST} опыта." />
+      text="У вас недостаточно опыта, чтобы повысить {TROOP_NAME}.{newline}{newline}Стоимость повышения: {COST} опыта." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="Недостаточно опыта" />
@@ -591,7 +591,7 @@
       text="Удалить Войска" />
     <string
       id="ret_remove_troop_text"
-      text="Вы уверены, что хотите навсегда удалить {TROOP_NAME}?\n\nИх снаряжение будет сохранено." />
+      text="Вы уверены, что хотите навсегда удалить {TROOP_NAME}?{newline}{newline}Их снаряжение будет сохранено." />
     <string
       id="ret_rename_troop"
       text="Переименовать Войска" />
@@ -657,10 +657,10 @@
       text="Максимизируйте навыки 15 собственных войск." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Переключиться на\nВойска Клана" />
+      text="Переключиться на{newline}Войска Клана" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Переключиться на\nВойска Королевства" />
+      text="Переключиться на{newline}Войска Королевства" />
     <string
       id="ret_tier"
       text="Ранг" />
@@ -678,7 +678,7 @@
       text="Снять Всё" />
     <string
       id="ret_unequip_all_text"
-      text="Снять все предметы с {TROOP_NAME}?\n\nОни будут сохранены." />
+      text="Снять все предметы с {TROOP_NAME}?{newline}{newline}Они будут сохранены." />
     <string
       id="ret_unlock_btn"
       text="Разблокировать" />

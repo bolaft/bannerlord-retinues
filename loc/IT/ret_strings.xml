@@ -234,7 +234,7 @@
       text="In Magazzino ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="Aumentare il rango di {TROOP_NAME}?\n\n{text}" />
+      text="Aumentare il rango di {TROOP_NAME}?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Indomito" />
@@ -573,13 +573,13 @@
       text="Ti costerà {COST} oro." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="Non hai abbastanza oro per promuovere {TROOP_NAME}.\n\nCosto: {COST} oro." />
+      text="Non hai abbastanza oro per promuovere {TROOP_NAME}.{newline}{newline}Costo: {COST} oro." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Oro insufficiente" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="Non hai abbastanza PE per promuovere {TROOP_NAME}.\n\nCosto: {COST} PE." />
+      text="Non hai abbastanza PE per promuovere {TROOP_NAME}.{newline}{newline}Costo: {COST} PE." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="PE insufficiente" />
@@ -591,7 +591,7 @@
       text="Rimuovi Truppa" />
     <string
       id="ret_remove_troop_text"
-      text="Sei sicuro di voler rimuovere definitivamente {TROOP_NAME}?\n\nIl suo equipaggiamento verrà immagazzinato." />
+      text="Sei sicuro di voler rimuovere definitivamente {TROOP_NAME}?{newline}{newline}Il suo equipaggiamento verrà immagazzinato." />
     <string
       id="ret_rename_troop"
       text="Rinomina Truppa" />
@@ -657,10 +657,10 @@
       text="Massimizza le abilità di 15 truppe personalizzate." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Passa a\nTruppe del Clan" />
+      text="Passa a{newline}Truppe del Clan" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Passa a\nTruppe del Regno" />
+      text="Passa a{newline}Truppe del Regno" />
     <string
       id="ret_tier"
       text="Livello" />
@@ -678,7 +678,7 @@
       text="Rimuovi Tutto" />
     <string
       id="ret_unequip_all_text"
-      text="Rimuovere tutti gli oggetti indossati da {TROOP_NAME}?\n\nSaranno immagazzinati." />
+      text="Rimuovere tutti gli oggetti indossati da {TROOP_NAME}?{newline}{newline}Saranno immagazzinati." />
     <string
       id="ret_unlock_btn"
       text="Sblocca" />

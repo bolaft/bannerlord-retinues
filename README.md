@@ -16,7 +16,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - fix hints not appearing on disabled buttons
 - on recreating kingdom, troops are replaced
 - hover equipped item in 1.3 ?
-- "\n" in localisation strings
 
 ## Other
 

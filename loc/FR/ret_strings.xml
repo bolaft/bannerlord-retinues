@@ -234,7 +234,7 @@
       text="En Stock ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="Augmenter le rang de {TROOP_NAME} ?\n\n{text}" />
+      text="Augmenter le rang de {TROOP_NAME} ?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
       text="Indomptable" />
@@ -573,13 +573,13 @@
       text="Cela coûtera {COST} or." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="Tu n’as pas assez d’or pour promouvoir {TROOP_NAME}.\n\nCoût de promotion : {COST} or." />
+      text="Tu n’as pas assez d’or pour promouvoir {TROOP_NAME}.{newline}{newline}Coût de promotion : {COST} or." />
     <string
       id="ret_rank_up_not_enough_gold_title"
       text="Or insuffisant" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="Tu n’as pas assez d’XP pour promouvoir {TROOP_NAME}.\n\nCoût de promotion : {COST} XP." />
+      text="Tu n’as pas assez d’XP pour promouvoir {TROOP_NAME}.{newline}{newline}Coût de promotion : {COST} XP." />
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="XP insuffisant" />
@@ -591,7 +591,7 @@
       text="Retirer Troupe" />
     <string
       id="ret_remove_troop_text"
-      text="Es-tu sûr de vouloir retirer définitivement {TROOP_NAME} ?\n\nSon équipement sera stocké pour une utilisation ultérieure." />
+      text="Es-tu sûr de vouloir retirer définitivement {TROOP_NAME} ?{newline}{newline}Son équipement sera stocké pour une utilisation ultérieure." />
     <string
       id="ret_rename_troop"
       text="Renommer Troupe" />
@@ -657,10 +657,10 @@
       text="Maximise les compétences de 15 troupes personnalisées." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Basculer vers\nTroupes de Clan" />
+      text="Basculer vers{newline}Troupes de Clan" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Basculer vers\nTroupes du Royaume" />
+      text="Basculer vers{newline}Troupes du Royaume" />
     <string
       id="ret_tier"
       text="Rang" />
@@ -678,7 +678,7 @@
       text="Tout retirer" />
     <string
       id="ret_unequip_all_text"
-      text="Retirer tout l’équipement porté par {TROOP_NAME} ?\n\nIl sera stocké pour une utilisation ultérieure." />
+      text="Retirer tout l’équipement porté par {TROOP_NAME} ?{newline}{newline}Il sera stocké pour une utilisation ultérieure." />
     <string
       id="ret_unlock_btn"
       text="Débloquer" />
