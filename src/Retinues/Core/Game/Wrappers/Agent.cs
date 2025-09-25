@@ -1,5 +1,4 @@
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -27,18 +26,18 @@ namespace Retinues.Core.Game.Wrappers
         //                       Attributes                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public BattleSideEnum Side => _agent?.Team?.Side ?? BattleSideEnum.None;
+        public BattleSideEnum Side = agent?.Team?.Side ?? BattleSideEnum.None;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsPlayer => _agent?.IsPlayerControlled == true;
+        public bool IsPlayer = agent?.IsPlayerControlled == true;
 
-        public bool IsPlayerTroop => _agent.Origin.Banner == Player.Clan.Base.Banner; // Hacky but works
+        public bool IsPlayerTroop = agent.Origin?.Banner?.GetHashCode() == Player.Clan?.Base?.Banner?.GetHashCode(); // Hacky but works
 
-        public bool IsAllyTroop => !IsPlayerTroop && _agent?.Team?.IsPlayerAlly == true;
+        public bool IsAllyTroop = agent?.Team?.IsPlayerAlly == true && agent.Origin?.Banner?.GetHashCode() != Player.Clan?.Base?.Banner?.GetHashCode();
 
-        public bool IsEnemyTroop => _agent?.Team?.IsEnemyOf(_agent?.Mission?.PlayerTeam) == true;
+        public bool IsEnemyTroop = agent?.Team?.IsEnemyOf(agent?.Mission?.PlayerTeam) == true;
     }
 }

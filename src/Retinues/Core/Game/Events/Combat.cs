@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Wrappers;
@@ -60,15 +61,22 @@ namespace Retinues.Core.Game.Events
             KillingBlow blow
         )
         {
-            var kill = new Kill(victim, killer, state, blow);
-            var logKills = false; // set to true for verbose logging of all kills
-
-            if (kill.IsValid)
+            try
             {
-                Kills.Add(kill);
+                var kill = new Kill(victim, killer, state, blow);
+                var logKills = false; // set to true for verbose logging of all kills
 
-                if (logKills)
-                    LogKill(kill);
+                if (kill.IsValid)
+                {
+                    Kills.Add(kill);
+
+                    if (logKills)
+                        LogKill(kill);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
             }
         }
 
@@ -79,7 +87,7 @@ namespace Retinues.Core.Game.Events
         public void LogKill(Kill kill)
         {
             string victimTeam = kill.Victim.IsPlayer ? "Player" : kill.Victim.IsPlayerTroop ? "PlayerTroop" : kill.Victim.IsAllyTroop ? "Ally" : kill.Victim.IsEnemyTroop ? "Enemy" : "Neutral";
-            string killerTeam = kill.Killer.IsPlayer ? "Player" : kill.Killer.IsPlayerTroop ? "Player" : kill.Killer.IsAllyTroop ? "Ally" : kill.Killer.IsEnemyTroop ? "Enemy" : "Neutral";
+            string killerTeam = kill.Killer.IsPlayer ? "Player" : kill.Killer.IsPlayerTroop ? "PlayerTroop" : kill.Killer.IsAllyTroop ? "Ally" : kill.Killer.IsEnemyTroop ? "Enemy" : "Neutral";
             string action = kill.State == AgentState.Killed ? "killed" : kill.State == AgentState.Unconscious ? "downed" : "removed";
 
             Log.Info(
