@@ -1,3 +1,5 @@
+using TaleWorlds.Core;
+using TaleWorlds.CampaignSystem;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
@@ -29,10 +31,25 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                 if (tournament.Winner?.StringId != Player.Character.StringId)
                     return;
 
-                foreach (var item in Player.Character.Equipment.Items)
+                // NOTE: Player character's wrapper gives wrong equipment for some reason in 1.3
+                // This is why we access the equipment directly from the CharacterObject's FirstBattleEquipment
+                Equipment eq = CharacterObject.PlayerCharacter.FirstBattleEquipment;
+
+                EquipmentIndex[] indices =
+                [
+                    EquipmentIndex.Head,
+                    EquipmentIndex.Cape,
+                    EquipmentIndex.Body,
+                    EquipmentIndex.Gloves,
+                    EquipmentIndex.Leg
+                ];
+                foreach (EquipmentIndex index in indices)
                 {
-                    if (!item.IsArmor)
-                        continue; // Ignore non-armor items
+                    var item = eq[index].Item;
+
+                    if (item == null)
+                        continue; // Missing armor piece
+
                     if (item.Culture?.StringId != Player.Culture.StringId)
                     {
                         Log.Info(
