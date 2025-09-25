@@ -302,9 +302,9 @@ namespace Retinues.Core.Utils
 
             try
             {
-                Log.Debug("Config loaded:");
+                Log.Info("Config loaded:");
                 foreach (var o in _options)
-                    Log.Debug($"  [{o.Section}] {o.Key} = {FormatValue(o.Value)}");
+                    Log.Info($"  [{o.Section}] {o.Key} = {FormatValue(o.Value)}");
             }
             catch { }
         }
