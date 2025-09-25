@@ -28,7 +28,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnTroopRecruited(WCharacter troop, int amount)
             {
-                if (troop.IsCustom && troop.Faction == Player.Kingdom)
+                if (troop.IsCustom && troop.Faction.StringId == Player.Kingdom.StringId)
                     AdvanceProgress(amount);
             }
         }
@@ -49,9 +49,9 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                 if (Player.Kingdom == null)
                     return;
 
-                foreach (var fief in Player.Clan.Fiefs)
+                foreach (var fief in Player.Clan?.Fiefs)
                 {
-                    if (fief.Town.Governor.Culture.StringId == Player.Kingdom?.Culture.StringId)
+                    if (fief.Town?.Governor?.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
                     {
                         AdvanceProgress(1);
                         return;
@@ -79,7 +79,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                 int kingdomTroopKills = battle.Kills.Count(k =>
                     k.Killer.IsPlayerTroop
                     && !k.Killer.IsPlayer
-                    && k.Killer.Character?.Faction == Player.Kingdom
+                    && k.Killer.Character?.Faction?.StringId == Player.Kingdom?.StringId
                 );
 
                 AdvanceProgress(kingdomTroopKills);

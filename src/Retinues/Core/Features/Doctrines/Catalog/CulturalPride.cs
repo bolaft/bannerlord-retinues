@@ -36,7 +36,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     if (item.Culture?.StringId != Player.Culture.StringId)
                     {
                         Log.Info(
-                            $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture.StringId}) does not match player culture ({Player.Culture.StringId})"
+                            $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture?.StringId}) does not match player culture ({Player.Culture?.StringId})"
                         );
                         return; // Item does not match player culture
                     }
@@ -105,7 +105,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
                 foreach (var leader in battle.EnemyLeaders)
                 {
-                    if (!leader?.IsRuler ?? true)
+                    if (!(leader?.IsRuler ?? false))
                         continue; // Not a ruler
 
                     if (leader?.Culture.StringId == Player.Culture.StringId)

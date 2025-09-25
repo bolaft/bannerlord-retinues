@@ -23,11 +23,11 @@ namespace Retinues.MCM.Options
                 // MCM may not be loaded or adapter not ready
                 if (create is null)
                     return false;
-                
+
                 var builder = create.SetFolderName(FolderName).SetFormat(FormatType);
                 if (builder is null)
                     return false;
-                
+
                 var options = Config.Options;
                 if (options == null || options.Count == 0)
                 {

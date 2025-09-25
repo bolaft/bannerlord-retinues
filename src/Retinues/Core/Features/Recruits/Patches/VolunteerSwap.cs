@@ -20,6 +20,8 @@ public static class VolunteerSwap
         if (settlement.IsHideout)
             return; // no volunteers in hideouts
 
+        Log.Debug($"VolunteerSwap: Checking volunteers in {settlement?.Name}.");
+
         try
         {
             var clan = settlement?.OwnerClan;
@@ -77,7 +79,6 @@ public static class VolunteerSwap
 
                     var wVanilla = new WCharacter(vanilla);
 
-                    // if already our troop, skip
                     if (TroopSwapHelper.IsFactionTroop(faction, wVanilla))
                         continue;
 

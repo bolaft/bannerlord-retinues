@@ -6,6 +6,7 @@ using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
+using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
@@ -42,6 +43,17 @@ namespace Retinues.Core
                 _harmony = new Harmony("Retinues.Core");
                 _harmony.PatchAll(Assembly.GetExecutingAssembly());
                 Log.Debug("Harmony patches applied.");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+
+            try
+            {
+                Log.Info("Active modules:");
+                foreach (var m in ModuleChecker.GetActiveModules())
+                    Log.Info($" - {m.Id} {m.Version} — {m.Name}");
             }
             catch (Exception e)
             {
@@ -111,13 +123,24 @@ namespace Retinues.Core
                 Log.Exception(e);
             }
 
+            try
+            {
+                _extender?.Disable();
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+
             base.OnSubModuleUnloaded();
             Log.Debug("SubModule unloaded.");
         }
 
         private static void ClearAll()
         {
-            Log.Info("Clearing all static properties.");
+            Log.Debug("Clearing all static properties.");
+            // Clear player info
+            Player.Reset();
             // Clear active troops
             WCharacter.ActiveTroops.Clear();
             // Clear vanilla id map

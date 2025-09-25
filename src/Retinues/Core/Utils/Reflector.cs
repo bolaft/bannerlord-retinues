@@ -13,9 +13,9 @@ namespace Retinues.Core.Utils
             | BindingFlags.NonPublic
             | BindingFlags.FlattenHierarchy;
 
-        // =========================================================================
-        // Core Resolvers
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Core Resolvers                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static PropertyInfo ResolveProperty(Type type, string name)
         {
@@ -59,9 +59,9 @@ namespace Retinues.Core.Utils
             return null;
         }
 
-        // =========================================================================
-        // Back-compat helpers
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Back-Compatibility                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal static PropertyInfo P<T>(T instance, string propertyName) =>
             ResolveProperty(instance?.GetType() ?? typeof(T), propertyName);
@@ -75,9 +75,9 @@ namespace Retinues.Core.Utils
             params Type[] parameterTypes
         ) => ResolveMethod(instance?.GetType() ?? typeof(T), methodName, parameterTypes);
 
-        // =========================================================================
-        // Public API
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static TReturn GetPropertyValue<TReturn>(object instance, string propertyName)
         {
@@ -215,9 +215,9 @@ namespace Retinues.Core.Utils
             return mi.Invoke(instance, args);
         }
 
-        // =========================================================================
-        // Helpers
-        // =========================================================================
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static object ConvertIfNeeded(object value, Type targetType)
         {

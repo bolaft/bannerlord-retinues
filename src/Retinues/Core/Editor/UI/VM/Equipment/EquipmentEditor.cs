@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -26,6 +27,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             {
                 if (Screen.IsDefaultMode)
                     return false; // Only show in equipment mode
+                if (SelectedTroop == null)
+                    return false;
                 if (SelectedTroop.Equipment.Items.Count == 0)
                     return false; // No equipment to unequip
 

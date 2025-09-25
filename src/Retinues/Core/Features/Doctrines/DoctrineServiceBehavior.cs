@@ -204,7 +204,7 @@ namespace Retinues.Core.Features.Doctrines
             if (_defsByKey.Count > 0)
                 return;
 
-            Log.Info("Building doctrine catalog...");
+            Log.Debug("Building doctrine catalog...");
 
             var doctrines = DoctrineDiscovery.DiscoverDoctrines(); // type discovery
             var defs = new List<DoctrineDefinition>();

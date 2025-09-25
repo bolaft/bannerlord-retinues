@@ -131,7 +131,7 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_doctrines", "Doctrines"),
-                name: L.S("mcm_option_enable_doctrines", "Enable Doctrines (Unstable)"),
+                name: L.S("mcm_option_enable_doctrines", "Enable Doctrines"),
                 key: "EnableDoctrines",
                 hint: L.S(
                     "mcm_option_enable_doctrines_hint",
@@ -211,6 +211,15 @@ namespace Retinues.Core.Utils
                 maxValue: 10
             );
 
+            AddOption(
+                section: L.S("mcm_section_skills", "Skills"),
+                name: L.S("mcm_option_shared_xp_pool", "Shared XP Pool"),
+                key: "SharedXpPool",
+                hint: L.S("mcm_option_shared_xp_pool_hint", "All troops share the same XP pool."),
+                @default: false,
+                type: typeof(bool)
+            );
+
             /* ━━━━━━━━ Unlocks ━━━━━━━ */
 
             AddOption(
@@ -241,10 +250,7 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_unlocks", "Unlocks"),
-                name: L.S(
-                    "mcm_option_own_culture_unlock_bonuses",
-                    "Kills also unlock items from the custom troop's culture"
-                ),
+                name: L.S("mcm_option_own_culture_unlock_bonuses", "Own Culture Unlock Bonuses"),
                 key: "OwnCultureUnlockBonuses",
                 hint: L.S(
                     "mcm_option_own_culture_unlock_bonuses_hint",
@@ -273,6 +279,20 @@ namespace Retinues.Core.Utils
                 hint: L.S(
                     "mcm_option_all_equipment_unlocked_hint",
                     "All equipment unlocked on game start."
+                ),
+                @default: false,
+                type: typeof(bool)
+            );
+
+            /* ━━━━━━━━━ Debug ━━━━━━━━ */
+
+            AddOption(
+                section: L.S("mcm_section_debug", "Debug"),
+                name: L.S("mcm_option_debug_mode", "Debug Mode"),
+                key: "DebugMode",
+                hint: L.S(
+                    "mcm_option_debug_mode_hint",
+                    "Outputs much more logs (may impact performance)."
                 ),
                 @default: false,
                 type: typeof(bool)

@@ -25,7 +25,7 @@ namespace Retinues.Core.Game.Events
         public void UpdateOnFinish(WCharacter winner, List<WCharacter> participants)
         {
             Winner = winner;
-            Participants = participants;
+            Participants = participants ?? Participants;
         }
     }
 }

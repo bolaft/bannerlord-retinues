@@ -18,6 +18,9 @@ namespace Retinues.Core.Features.Doctrines.Effects.Patches
             if (!DoctrineAPI.IsDoctrineUnlocked<BoundByHonor>())
                 return;
 
+            if (mobileParty?.StringId != Player.Party?.StringId)
+                return;
+
             var bonus = __result.ResultNumber * (Player.Party.MemberRoster.RetinueRatio * 0.2f);
             __result.Add(
                 bonus,

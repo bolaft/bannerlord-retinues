@@ -29,6 +29,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     return;
                 if (quest.Giver.MapFaction.StringId != Player.MapFaction.StringId)
                     return;
+                if (!quest.Giver.IsPartyLeader)
+                    return;
 
                 AdvanceProgress(1);
             }

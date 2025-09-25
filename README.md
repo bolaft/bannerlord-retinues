@@ -8,7 +8,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 
 - change troop culture?
 - tutorial on first game
-- provide translations in many languages
 - rm "Royal Patronage" => doctrine to use crafted gear
 - choose between clan & kingdom troops
 
@@ -20,6 +19,8 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - agent helper for unlock behavior fix may be needed for 1.2.12
 - bug with troop conversion counts set to 0 may be needed for 1.2.12
 - retinues can be garrisoned in 1.3
+- hover equipped item in 1.3 ?
+- "\n" in localisation strings
 
 ## Other
 

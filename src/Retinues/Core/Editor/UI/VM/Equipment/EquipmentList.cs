@@ -23,7 +23,12 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         public void Select(WItem item)
         {
-            var row = Rows.FirstOrDefault(r => r.Item.Equals(item));
+            var row = Rows.FirstOrDefault(r =>
+                (r.Item == null && item == null)
+                || (r.Item?.Equals(item) == true)
+                || (r.Item?.StringId != null && r.Item.StringId == item?.StringId)
+            );
+
             if (row is not null)
                 Select(row);
         }

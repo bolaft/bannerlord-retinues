@@ -21,6 +21,8 @@ namespace Retinues.Core.Features.Xp.Behaviors
 
         public override void RegisterEvents()
         {
+            Log.Debug("Registering TroopXpBehavior events.");
+
             CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
                 this,
                 mission =>
