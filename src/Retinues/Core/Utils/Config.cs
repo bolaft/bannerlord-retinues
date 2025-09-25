@@ -292,7 +292,7 @@ namespace Retinues.Core.Utils
                 key: "DebugMode",
                 hint: L.S(
                     "mcm_option_debug_mode_hint",
-                    "Outputs much more logs (may impact performance)."
+                    "Outputs many more logs (may impact performance)."
                 ),
                 @default: false,
                 type: typeof(bool)
