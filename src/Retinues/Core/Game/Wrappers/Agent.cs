@@ -74,7 +74,7 @@ namespace Retinues.Core.Game.Wrappers
             try
             {
                 // ally = same side but not our own troop
-                isAlly = !isPlayerTroop && (agent.Team?.IsPlayerAlly == true);
+                isAlly = !isPlayer && !isPlayerTroop && (agent.Team?.IsPlayerAlly == true);
             }
             catch { }
             IsAllyTroop = isAlly;
