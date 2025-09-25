@@ -1,451 +1,728 @@
 <?xml version="1.0" encoding="utf-8"?>
-<base
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  type="string"
->
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
     <tag language="KO" />
   </tags>
   <strings>
-    <string id="ret_acquire_fief_to_unlock" text="영지를 획득하여 가문 병력을 해제하십시오." />
-    <string id="ret_adaptive_training" text="적응 훈련" />
+    <string
+      id="ret_acquire_fief_to_unlock"
+      text="영지를 획득하여 가문 병력을 해제하십시오." />
+    <string
+      id="ret_adaptive_training"
+      text="적응 훈련" />
     <string
       id="ret_adaptive_training_150_in_each_skill"
-      text="각 기술마다 레벨 150 이상의 커스텀 병력을 최소 1명 보유하십시오."
-    />
+      text="각 기술마다 레벨 150 이상의 커스텀 병력을 최소 1명 보유하십시오." />
     <string
       id="ret_adaptive_training_5_weapons"
-      text="한 전투에서 5가지 다른 무기 유형으로 각각 킬을 기록하십시오."
-    />
+      text="한 전투에서 5가지 다른 무기 유형으로 각각 킬을 기록하십시오." />
     <string
       id="ret_adaptive_training_description"
-      text="병력의 기술을 낮출 경우 경험치가 환급됩니다."
-    />
+      text="병력의 기술을 낮출 경우 경험치가 환급됩니다." />
     <string
       id="ret_adaptive_training_win_with_even_split"
-      text="보병, 기병, 원거리 가문 병력이 균등하게 편성된 부대로 100명 이상의 적과 싸워 승리하십시오."
-    />
-    <string id="ret_add_upgrade" text="업그레이드 추가" />
-    <string id="ret_add_upgrade_button_text" text="업그레이드 추가" />
-    <string id="ret_ancestral_heritage" text="조상의 유산" />
+      text="보병, 기병, 원거리 가문 병력이 균등하게 편성된 부대로 100명 이상의 적과 싸워 승리하십시오." />
+    <string
+      id="ret_add_upgrade"
+      text="업그레이드 추가" />
+    <string
+      id="ret_add_upgrade_button_text"
+      text="업그레이드 추가" />
+    <string
+      id="ret_ancestral_heritage"
+      text="조상의 유산" />
     <string
       id="ret_ancestral_heritage_150_outnumbered_own_culture"
-      text="자신의 문화 병력만으로 150명 이상의 적과 싸워 수적 열세를 극복하고 승리하십시오."
-    />
+      text="자신의 문화 병력만으로 150명 이상의 적과 싸워 수적 열세를 극복하고 승리하십시오." />
     <string
       id="ret_ancestral_heritage_capture_own_culture_fief"
-      text="적 왕국으로부터 자신의 문화에 속한 영지를 점령하십시오."
-    />
+      text="적 왕국으로부터 자신의 문화에 속한 영지를 점령하십시오." />
     <string
       id="ret_ancestral_heritage_description"
-      text="가문과 왕국 문화의 모든 아이템을 해제합니다."
-    />
+      text="가문과 왕국 문화의 모든 아이템을 해제합니다." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
-      text="자신의 문화가 있는 마을에서 토너먼트에서 승리하십시오."
-    />
-    <string id="ret_apply_conversions_button_text" text="변환" />
-    <string id="ret_available_troop_xp" text="{XP} 경험치" />
-    <string id="ret_battlefield_tithes" text="전장의 십일조" />
+      text="자신의 문화가 있는 마을에서 토너먼트에서 승리하십시오." />
+    <string
+      id="ret_apply_conversions_button_text"
+      text="변환" />
+    <string
+      id="ret_available_troop_xp"
+      text="{XP} 경험치" />
+    <string
+      id="ret_battlefield_tithes"
+      text="전장의 십일조" />
     <string
       id="ret_battlefield_tithes_description"
-      text="아군의 킬로 아이템을 해제할 수 있습니다."
-    />
+      text="아군의 킬로 아이템을 해제할 수 있습니다." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
-      text="주로 아군으로 구성된 군대를 이끌고 적군을 물리치십시오."
-    />
+      text="주로 아군으로 구성된 군대를 이끌고 적군을 물리치십시오." />
     <string
       id="ret_battlefield_tithes_quest_for_allied_lord"
-      text="아군 영주를 위해 5개의 임무를 완수하십시오."
-    />
+      text="아군 영주를 위해 5개의 임무를 완수하십시오." />
     <string
       id="ret_battlefield_tithes_turn_tide_allied_army_battle"
-      text="아군이 참여한 전투에서 전세를 뒤집으십시오."
-    />
-    <string id="ret_body_slot_text" text="몸통" />
-    <string id="ret_bound_by_honor" text="명예에 묶인 자" />
-    <string id="ret_bound_by_honor_defeat_10_bandits" text="도적 무리를 10개 처치하십시오." />
-    <string id="ret_bound_by_honor_description" text="+20% 수행원 사기." />
+      text="아군이 참여한 전투에서 전세를 뒤집으십시오." />
+    <string
+      id="ret_body_slot_text"
+      text="몸통" />
+    <string
+      id="ret_bound_by_honor"
+      text="명예에 묶인 자" />
+    <string
+      id="ret_bound_by_honor_defeat_10_bandits"
+      text="도적 무리를 10개 처치하십시오." />
+    <string
+      id="ret_bound_by_honor_description"
+      text="+20% 수행원 사기." />
     <string
       id="ret_bound_by_honor_protect_villagers_or_caravans"
-      text="적의 공격으로부터 3개의 캐러밴이나 마을 주민 무리를 구하십시오."
-    />
+      text="적의 공격으로부터 3개의 캐러밴이나 마을 주민 무리를 구하십시오." />
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
-      text="수행원만으로 구성된 부대의 사기를 15일 동안 90 이상 유지하십시오."
-    />
-    <string id="ret_buy_item" text="아이템 구매" />
+      text="수행원만으로 구성된 부대의 사기를 15일 동안 90 이상 유지하십시오." />
+    <string
+      id="ret_buy_item"
+      text="아이템 구매" />
     <string
       id="ret_buy_item_text"
-      text="{ITEM_NAME} 을(를) {ITEM_VALUE} 골드에 구매하시겠습니까?"
-    />
-    <string id="ret_cancel" text="취소" />
-    <string id="ret_cant_remove_root_troop" text="뿌리 병력은 제거할 수 없습니다." />
+      text="{ITEM_NAME} 을(를) {ITEM_VALUE} 골드에 구매하시겠습니까?" />
+    <string
+      id="ret_cancel"
+      text="취소" />
+    <string
+      id="ret_cant_remove_root_troop"
+      text="뿌리 병력은 제거할 수 없습니다." />
     <string
       id="ret_cant_remove_troop_with_targets"
-      text="업그레이드 경로가 있는 병력은 제거할 수 없습니다."
-    />
-    <string id="ret_cape_slot_text" text="망토" />
-    <string id="ret_clanic_traditions" text="가문 전통" />
+      text="업그레이드 경로가 있는 병력은 제거할 수 없습니다." />
+    <string
+      id="ret_cape_slot_text"
+      text="망토" />
+    <string
+      id="ret_clanic_traditions"
+      text="가문 전통" />
     <string
       id="ret_clanic_traditions_acquire_new_fief"
-      text="가문을 위해 새로운 영지를 획득하십시오."
-    />
+      text="가문을 위해 새로운 영지를 획득하십시오." />
     <string
       id="ret_clanic_traditions_companions_50_kills"
-      text="자신과 동료가 50명 이상의 적을 처치한 전투에서 승리하십시오."
-    />
-    <string id="ret_clanic_traditions_description" text="가문 문화 아이템 10% 할인." />
+      text="자신과 동료가 50명 이상의 적을 처치한 전투에서 승리하십시오." />
+    <string
+      id="ret_clanic_traditions_description"
+      text="가문 문화 아이템 10% 할인." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
-      text="가문 문화의 마을에서 30일 동안 대장간을 소유하십시오."
-    />
-    <string id="ret_clear_conversions_button_text" text="지우기" />
-    <string id="ret_close_doctrines_button_text" text="뒤로" />
-    <string id="ret_close_equipment_button_text" text="뒤로" />
-    <string id="ret_confirm" text="확인" />
-    <string id="ret_continue" text="계속" />
-    <string id="ret_convert_not_enough_gold" text="변환을 적용할 골드가 부족합니다." />
+      text="가문 문화의 마을에서 30일 동안 대장간을 소유하십시오." />
+    <string
+      id="ret_clear_conversions_button_text"
+      text="지우기" />
+    <string
+      id="ret_close_doctrines_button_text"
+      text="뒤로" />
+    <string
+      id="ret_close_equipment_button_text"
+      text="뒤로" />
+    <string
+      id="ret_confirm"
+      text="확인" />
+    <string
+      id="ret_continue"
+      text="계속" />
+    <string
+      id="ret_convert_not_enough_gold"
+      text="변환을 적용할 골드가 부족합니다." />
     <string
       id="ret_convert_not_enough_gold_text"
-      text="이 수행원을 고용할 충분한 골드가 없습니다."
-    />
-    <string id="ret_convert_not_enough_gold_title" text="골드 부족" />
-    <string id="ret_cultural_pride" text="문화적 자부심" />
+      text="이 수행원을 고용할 충분한 골드가 없습니다." />
+    <string
+      id="ret_convert_not_enough_gold_title"
+      text="골드 부족" />
+    <string
+      id="ret_cultural_pride"
+      text="문화적 자부심" />
     <string
       id="ret_cultural_pride_defeat_foreign_ruler"
-      text="다른 문화의 지배자를 전투에서 물리치십시오."
-    />
-    <string id="ret_cultural_pride_description" text="병력 문화 아이템 10% 할인." />
+      text="다른 문화의 지배자를 전투에서 물리치십시오." />
+    <string
+      id="ret_cultural_pride_description"
+      text="병력 문화 아이템 10% 할인." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
-      text="외국 장비를 착용하지 않은 병력으로 전투에서 100킬을 기록하십시오."
-    />
+      text="외국 장비를 착용하지 않은 병력으로 전투에서 100킬을 기록하십시오." />
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
-      text="자신의 문화 방어구만 착용하고 토너먼트에서 승리하십시오."
-    />
-    <string id="ret_doctrine_costs" text="비용: {GOLD} 골드, {INFLUENCE} 영향력." />
-    <string id="ret_doctrine_service_unavailable" text="교리 서비스 이용 불가." />
-    <string id="ret_doctrines_button_text" text="교리" />
-    <string id="ret_doctrines_col_0" text="해제" />
-    <string id="ret_doctrines_col_1" text="장비" />
-    <string id="ret_doctrines_col_2" text="병력" />
-    <string id="ret_doctrines_col_3" text="수행원" />
-    <string id="ret_empty_item" text="비어 있음" />
-    <string id="ret_enter_new_name" text="새 이름 입력:" />
-    <string id="ret_enter_new_troop_name" text="새 병력의 이름을 입력:" />
-    <string id="ret_equipment_button_text" text="장비" />
-    <string id="ret_feat_completed_title" text="위업 달성" />
-    <string id="ret_feats_no_reqs" text="요구 사항 없음." />
-    <string id="ret_feats_reqs" text="요구 사항" />
-    <string id="ret_female" text="여성" />
-    <string id="ret_gender_header_text" text="성별" />
-    <string id="ret_gloves_slot_text" text="장갑" />
-    <string id="ret_head_slot_text" text="머리" />
-    <string id="ret_horse_harness_slot_text" text="마구" />
-    <string id="ret_horse_slot_text" text="말" />
-    <string id="ret_immortals" text="불멸자" />
+      text="자신의 문화 방어구만 착용하고 토너먼트에서 승리하십시오." />
+    <string
+      id="ret_doctrine_costs"
+      text="비용: {GOLD} 골드, {INFLUENCE} 영향력." />
+    <string
+      id="ret_doctrine_service_unavailable"
+      text="교리 서비스 이용 불가." />
+    <string
+      id="ret_doctrines_button_text"
+      text="교리" />
+    <string
+      id="ret_doctrines_col_0"
+      text="해제" />
+    <string
+      id="ret_doctrines_col_1"
+      text="장비" />
+    <string
+      id="ret_doctrines_col_2"
+      text="병력" />
+    <string
+      id="ret_doctrines_col_3"
+      text="수행원" />
+    <string
+      id="ret_empty_item"
+      text="비어 있음" />
+    <string
+      id="ret_enter_new_name"
+      text="새 이름 입력:" />
+    <string
+      id="ret_enter_new_troop_name"
+      text="새 병력의 이름을 입력:" />
+    <string
+      id="ret_equipment_button_text"
+      text="장비" />
+    <string
+      id="ret_feat_completed_title"
+      text="위업 달성" />
+    <string
+      id="ret_feats_no_reqs"
+      text="요구 사항 없음." />
+    <string
+      id="ret_feats_reqs"
+      text="요구 사항" />
+    <string
+      id="ret_female"
+      text="여성" />
+    <string
+      id="ret_gender_header_text"
+      text="성별" />
+    <string
+      id="ret_gloves_slot_text"
+      text="장갑" />
+    <string
+      id="ret_head_slot_text"
+      text="머리" />
+    <string
+      id="ret_horse_harness_slot_text"
+      text="마구" />
+    <string
+      id="ret_horse_slot_text"
+      text="말" />
+    <string
+      id="ret_immortals"
+      text="불멸자" />
     <string
       id="ret_immortals_100_retinue_survive_struck_down"
-      text="전투에서 쓰러졌다가 살아남은 수행원 병력 100명을 확보하십시오."
-    />
-    <string id="ret_immortals_description" text="+20% 수행원 생존 확률." />
+      text="전투에서 쓰러졌다가 살아남은 수행원 병력 100명을 확보하십시오." />
+    <string
+      id="ret_immortals_description"
+      text="+20% 수행원 생존 확률." />
     <string
       id="ret_immortals_retinue_200_enemies"
-      text="수행원으로 한 전투에서 200명의 적을 쓰러뜨리십시오."
-    />
+      text="수행원으로 한 전투에서 200명의 적을 쓰러뜨리십시오." />
     <string
       id="ret_immortals_win_100_no_deaths"
-      text="아군이 단 한 명도 죽지 않고 혼자서 100명 이상의 적을 물리치십시오."
-    />
-    <string id="ret_in_stock" text="재고 ({STOCK})" />
-    <string id="ret_increase_troop_tier" text="{TROOP_NAME} 의 등급을 올리시겠습니까?\n\n{text}" />
-    <string id="ret_indomitable" text="불굴" />
+      text="아군이 단 한 명도 죽지 않고 혼자서 100명 이상의 적을 물리치십시오." />
+    <string
+      id="ret_in_stock"
+      text="재고 ({STOCK})" />
+    <string
+      id="ret_increase_troop_tier"
+      text="{TROOP_NAME} 의 등급을 올리시겠습니까?{newline}{newline}{text}" />
+    <string
+      id="ret_indomitable"
+      text="불굴" />
     <string
       id="ret_indomitable_25_equiv_no_casualty"
-      text="동일 등급의 적 25명을 수행원으로 사상자 없이 처치하십시오."
-    />
-    <string id="ret_indomitable_description" text="수행원에게 HP +5." />
+      text="동일 등급의 적 25명을 수행원으로 사상자 없이 처치하십시오." />
+    <string
+      id="ret_indomitable_description"
+      text="수행원에게 HP +5." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
-      text="수비측으로서 최소 20명의 수행원을 이끌고 공성전을 승리하십시오."
-    />
+      text="수비측으로서 최소 20명의 수행원을 이끌고 공성전을 승리하십시오." />
     <string
       id="ret_indomitable_win_3_defensive_battles"
-      text="수행원만으로 구성된 부대로 방어전을 3연승 하십시오."
-    />
-    <string id="ret_iron_discipline" text="철의 규율" />
+      text="수행원만으로 구성된 부대로 방어전을 3연승 하십시오." />
+    <string
+      id="ret_iron_discipline"
+      text="철의 규율" />
     <string
       id="ret_iron_discipline_defeat_twice_size_only_custom"
-      text="커스텀 병력만으로 두 배 규모의 부대를 격파하십시오."
-    />
-    <string id="ret_iron_discipline_description" text="기술 한계 +5." />
-    <string id="ret_iron_discipline_lead_army_10_days" text="연속 10일 동안 군대를 지휘하십시오." />
+      text="커스텀 병력만으로 두 배 규모의 부대를 격파하십시오." />
+    <string
+      id="ret_iron_discipline_description"
+      text="기술 한계 +5." />
+    <string
+      id="ret_iron_discipline_lead_army_10_days"
+      text="연속 10일 동안 군대를 지휘하십시오." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
-      text="기본 커스텀 병력 100명을 최대 등급으로 업그레이드하십시오."
-    />
-    <string id="ret_ironclad" text="철갑" />
+      text="기본 커스텀 병력 100명을 최대 등급으로 업그레이드하십시오." />
+    <string
+      id="ret_ironclad"
+      text="철갑" />
     <string
       id="ret_ironclad_100_battle_outnumbered_low_tier"
-      text="수적 열세에서 1~3등급 커스텀 병력만으로 100명 이상의 전투에서 승리하십시오."
-    />
+      text="수적 열세에서 1~3등급 커스텀 병력만으로 100명 이상의 전투에서 승리하십시오." />
     <string
       id="ret_ironclad_12_troops_athletics_90"
-      text="커스텀 병력 12명을 운동 능력 90에 도달시키십시오."
-    />
-    <string id="ret_ironclad_description" text="무기와 방어구에 등급 제한 없음." />
+      text="커스텀 병력 12명을 운동 능력 90에 도달시키십시오." />
+    <string
+      id="ret_ironclad_description"
+      text="무기와 방어구에 등급 제한 없음." />
     <string
       id="ret_ironclad_full_set_t6_100_kills"
-      text="6등급 방어구와 투구를 착용한 병력으로 전투에서 100킬을 달성하십시오."
-    />
-    <string id="ret_item_ammo_damage" text="피해" />
-    <string id="ret_item_ammo_stack_size" text="스택 크기" />
-    <string id="ret_item_arm_armor" text="팔 방어구" />
-    <string id="ret_item_body_armor" text="몸통 방어구" />
-    <string id="ret_item_head_armor" text="머리 방어구" />
-    <string id="ret_item_horse_charge" text="돌격" />
-    <string id="ret_item_horse_hit_points" text="체력" />
-    <string id="ret_item_horse_maneuver" text="기동성" />
-    <string id="ret_item_horse_speed" text="속도" />
-    <string id="ret_item_leg_armor" text="다리 방어구" />
-    <string id="ret_item_melee_handling" text="조작성" />
-    <string id="ret_item_melee_length" text="길이" />
-    <string id="ret_item_melee_swing_damage" text="베기 피해" />
-    <string id="ret_item_melee_swing_speed" text="베기 속도" />
-    <string id="ret_item_melee_thrust_damage" text="찌르기 피해" />
-    <string id="ret_item_melee_thrust_speed" text="찌르기 속도" />
-    <string id="ret_item_ranged_accuracy" text="정확도" />
-    <string id="ret_item_ranged_damage" text="피해" />
-    <string id="ret_item_ranged_missile_speed" text="투사체 속도" />
-    <string id="ret_item_shield_hit_points" text="체력" />
-    <string id="ret_item_shield_speed" text="속도" />
-    <string id="ret_items_unlocked" text="새 장비 해제됨" />
-    <string id="ret_king_guard" text="왕의 근위대" />
-    <string id="ret_leg_slot_text" text="다리" />
-    <string id="ret_lions_share" text="사자의 몫" />
+      text="6등급 방어구와 투구를 착용한 병력으로 전투에서 100킬을 달성하십시오." />
+    <string
+      id="ret_item_ammo_damage"
+      text="피해" />
+    <string
+      id="ret_item_ammo_stack_size"
+      text="스택 크기" />
+    <string
+      id="ret_item_arm_armor"
+      text="팔 방어구" />
+    <string
+      id="ret_item_body_armor"
+      text="몸통 방어구" />
+    <string
+      id="ret_item_head_armor"
+      text="머리 방어구" />
+    <string
+      id="ret_item_horse_charge"
+      text="돌격" />
+    <string
+      id="ret_item_horse_hit_points"
+      text="체력" />
+    <string
+      id="ret_item_horse_maneuver"
+      text="기동성" />
+    <string
+      id="ret_item_horse_speed"
+      text="속도" />
+    <string
+      id="ret_item_leg_armor"
+      text="다리 방어구" />
+    <string
+      id="ret_item_melee_handling"
+      text="조작성" />
+    <string
+      id="ret_item_melee_length"
+      text="길이" />
+    <string
+      id="ret_item_melee_swing_damage"
+      text="베기 피해" />
+    <string
+      id="ret_item_melee_swing_speed"
+      text="베기 속도" />
+    <string
+      id="ret_item_melee_thrust_damage"
+      text="찌르기 피해" />
+    <string
+      id="ret_item_melee_thrust_speed"
+      text="찌르기 속도" />
+    <string
+      id="ret_item_ranged_accuracy"
+      text="정확도" />
+    <string
+      id="ret_item_ranged_damage"
+      text="피해" />
+    <string
+      id="ret_item_ranged_missile_speed"
+      text="투사체 속도" />
+    <string
+      id="ret_item_shield_hit_points"
+      text="체력" />
+    <string
+      id="ret_item_shield_speed"
+      text="속도" />
+    <string
+      id="ret_items_unlocked"
+      text="새 장비 해제됨" />
+    <string
+      id="ret_king_guard"
+      text="왕의 근위대" />
+    <string
+      id="ret_leg_slot_text"
+      text="다리" />
+    <string
+      id="ret_lions_share"
+      text="사자의 몫" />
     <string
       id="ret_lions_share_25_personal_kills"
-      text="한 전투에서 직접 25명의 적을 처치하십시오."
-    />
+      text="한 전투에서 직접 25명의 적을 처치하십시오." />
     <string
       id="ret_lions_share_5_tier_5_plus"
-      text="한 전투에서 직접 5등급 이상의 병력 5명을 처치하십시오."
-    />
-    <string id="ret_lions_share_description" text="영웅 킬은 해제 조건에서 두 배로 계산됩니다." />
-    <string id="ret_lions_share_kill_enemy_lord" text="전투에서 직접 적 영주를 처치하십시오." />
-    <string id="ret_list_toggle_elite" text="정예" />
-    <string id="ret_list_toggle_regular" text="보통" />
-    <string id="ret_loc_smoke_test" text="현지화 테스트: 기본 폴백 (EN)." />
+      text="한 전투에서 직접 5등급 이상의 병력 5명을 처치하십시오." />
+    <string
+      id="ret_lions_share_description"
+      text="영웅 킬은 해제 조건에서 두 배로 계산됩니다." />
+    <string
+      id="ret_lions_share_kill_enemy_lord"
+      text="전투에서 직접 적 영주를 처치하십시오." />
+    <string
+      id="ret_list_toggle_elite"
+      text="정예" />
+    <string
+      id="ret_list_toggle_regular"
+      text="보통" />
+    <string
+      id="ret_loc_smoke_test"
+      text="현지화 테스트: 기본 폴백 (EN)." />
     <string
       id="ret_lower_skill_no_refund"
-      text="이 병력의 기술을 낮춰도 경험치가 환급되지 않습니다. 계속하시겠습니까?"
-    />
-    <string id="ret_male" text="남성" />
-    <string id="ret_masters_at_arms" text="무기 대가" />
-    <string id="ret_masters_at_arms_1000_elite_kills" text="정예 병력으로 1000킬을 기록하십시오." />
-    <string id="ret_masters_at_arms_description" text="정예 병력의 두 번째 업그레이드 분기." />
+      text="이 병력의 기술을 낮춰도 경험치가 환급되지 않습니다. 계속하시겠습니까?" />
+    <string
+      id="ret_male"
+      text="남성" />
+    <string
+      id="ret_masters_at_arms"
+      text="무기 대가" />
+    <string
+      id="ret_masters_at_arms_1000_elite_kills"
+      text="정예 병력으로 1000킬을 기록하십시오." />
+    <string
+      id="ret_masters_at_arms_description"
+      text="정예 병력의 두 번째 업그레이드 분기." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
-      text="투기장에서 50명의 적을 기절시키십시오."
-    />
+      text="투기장에서 50명의 적을 기절시키십시오." />
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
-      text="정예 병력 100명을 최대 등급으로 업그레이드하십시오."
-    />
-    <string id="ret_mcm_option_all_equipment_unlocked" text="모든 장비 해제됨" />
+      text="정예 병력 100명을 최대 등급으로 업그레이드하십시오." />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="모든 장비 해제됨" />
     <string
       id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="게임 시작 시 모든 장비가 해제됨."
-    />
-    <string id="ret_mcm_option_allowed_tier_difference" text="허용 등급 차이" />
+      text="게임 시작 시 모든 장비가 해제됨." />
+    <string
+      id="ret_mcm_option_allowed_tier_difference"
+      text="허용 등급 차이" />
     <string
       id="ret_mcm_option_allowed_tier_difference_hint"
-      text="병력과 장비 사이의 허용 최대 등급 차이."
-    />
-    <string id="ret_mcm_option_base_skill_xp_cost" text="기본 기술 경험치 비용" />
-    <string id="ret_mcm_option_base_skill_xp_cost_hint" text="기술 상승에 필요한 기본 경험치." />
-    <string id="ret_mcm_option_disallow_mounts_for_tier_1" text="1등급에 탈것 금지" />
+      text="병력과 장비 사이의 허용 최대 등급 차이." />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost"
+      text="기본 기술 경험치 비용" />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost_hint"
+      text="기술 상승에 필요한 기본 경험치." />
+    <string
+      id="ret_mcm_option_debug_mode"
+      text="디버그 모드" />
+    <string
+      id="ret_mcm_option_debug_mode_hint"
+      text="더 많은 로그를 출력합니다 (성능에 영향을 줄 수 있음)." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_tier_1"
+      text="1등급에 탈것 금지" />
     <string
       id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
-      text="1등급 병력은 탈것을 가질 수 없습니다."
-    />
-    <string id="ret_mcm_option_enable_doctrines" text="교리 활성화" />
+      text="1등급 병력은 탈것을 가질 수 없습니다." />
+    <string
+      id="ret_mcm_option_enable_doctrines"
+      text="교리 활성화" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="교리 시스템과 그 기능을 활성화합니다."
-    />
-    <string id="ret_mcm_option_max_basic_retinue_ratio" text="기본 수행원 비율 상한" />
+      text="교리 시스템과 그 기능을 활성화합니다." />
+    <string
+      id="ret_mcm_option_max_basic_retinue_ratio"
+      text="기본 수행원 비율 상한" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
-      text="플레이어 부대 내 기본 수행원의 최대 비율."
-    />
-    <string id="ret_mcm_option_max_elite_retinue_ratio" text="정예 수행원 비율 상한" />
+      text="플레이어 부대 내 기본 수행원의 최대 비율." />
+    <string
+      id="ret_mcm_option_max_elite_retinue_ratio"
+      text="정예 수행원 비율 상한" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
-      text="플레이어 부대 내 정예 수행원의 최대 비율."
-    />
+      text="플레이어 부대 내 정예 수행원의 최대 비율." />
+    <string
+      id="ret_mcm_option_own_culture_unlock_bonuses"
+      text="자신의 문화 해제 보너스" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="킬이 커스텀 병력 문화의 아이템도 해제하는지 여부."
-    />
-    <string id="ret_mcm_option_pay_for_equipment" text="병력 장비 비용 지불" />
-    <string id="ret_mcm_option_pay_for_equipment_hint" text="병력 장비 업그레이드는 돈이 듭니다." />
-    <string id="ret_mcm_option_recruit_anywhere" text="어디서든 가문 병력 모집" />
+      text="킬이 커스텀 병력 문화의 아이템도 해제하는지 여부." />
+    <string
+      id="ret_mcm_option_pay_for_equipment"
+      text="병력 장비 비용 지불" />
+    <string
+      id="ret_mcm_option_pay_for_equipment_hint"
+      text="병력 장비 업그레이드는 돈이 듭니다." />
+    <string
+      id="ret_mcm_option_recruit_anywhere"
+      text="어디서든 가문 병력 모집" />
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
-      text="플레이어는 모든 정착지에서 가문 병력을 모집할 수 있습니다."
-    />
-    <string id="ret_mcm_option_required_kills_for_unlock" text="해제를 위한 필요 킬 수" />
+      text="플레이어는 모든 정착지에서 가문 병력을 모집할 수 있습니다." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="해제를 위한 필요 킬 수" />
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="아이템을 해제하려면 몇 명의 적을 처치해야 하는지."
-    />
-    <string id="ret_mcm_option_retinue_conversion_cost_per_tier" text="등급당 수행원 변환 비용" />
+      text="아이템을 해제하려면 몇 명의 적을 처치해야 하는지." />
+    <string
+      id="ret_mcm_option_retinue_conversion_cost_per_tier"
+      text="등급당 수행원 변환 비용" />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="수행원 변환 시 등급당 비용."
-    />
-    <string id="ret_mcm_option_retinue_rank_up_cost_per_tier" text="등급당 수행원 승급 비용" />
+      text="수행원 변환 시 등급당 비용." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
+      text="등급당 수행원 승급 비용" />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="수행원 승급 시 등급당 비용."
-    />
-    <string id="ret_mcm_option_skill_xp_cost_per_point" text="스킬 포인트당 경험치 비용" />
+      text="수행원 승급 시 등급당 비용." />
+    <string
+      id="ret_mcm_option_shared_xp_pool"
+      text="공유 경험치 풀" />
+    <string
+      id="ret_mcm_option_shared_xp_pool_hint"
+      text="모든 부대가 동일한 경험치 풀을 공유합니다." />
+    <string
+      id="ret_mcm_option_skill_xp_cost_per_point"
+      text="스킬 포인트당 경험치 비용" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="스킬 증가 시 포인트당 경험치 비용."
-    />
-    <string id="ret_mcm_option_unlock_from_culture" text="문화에서 해제" />
+      text="스킬 증가 시 포인트당 경험치 비용." />
+    <string
+      id="ret_mcm_option_unlock_from_culture"
+      text="문화에서 해제" />
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
-      text="플레이어 문화와 플레이어가 이끄는 왕국 문화 장비는 항상 이용 가능."
-    />
-    <string id="ret_mcm_option_unlock_from_kills" text="킬로 해제" />
-    <string id="ret_mcm_option_unlock_from_kills_hint" text="착용한 적을 처치하여 장비를 해제." />
-    <string id="ret_mcm_section_doctrines" text="교리" />
-    <string id="ret_mcm_section_equipment" text="장비" />
-    <string id="ret_mcm_section_general" text="일반" />
-    <string id="ret_mcm_section_recruitment" text="모집" />
-    <string id="ret_mcm_section_retinues" text="수행원" />
-    <string id="ret_mcm_section_skills" text="기술" />
-    <string id="ret_mcm_section_unlocks" text="해제" />
-    <string id="ret_name_header_text" text="이름" />
-    <string id="ret_no" text="아니오" />
-    <string id="ret_not_enough_gold" text="골드 부족" />
-    <string id="ret_not_enough_gold_text" text="이 아이템을 구매할 충분한 골드가 없습니다." />
-    <string id="ret_ok" text="확인" />
-    <string id="ret_pragmatic_scavengers" text="실용주의 청소부" />
+      text="플레이어 문화와 플레이어가 이끄는 왕국 문화 장비는 항상 이용 가능." />
+    <string
+      id="ret_mcm_option_unlock_from_kills"
+      text="킬로 해제" />
+    <string
+      id="ret_mcm_option_unlock_from_kills_hint"
+      text="착용한 적을 처치하여 장비를 해제." />
+    <string
+      id="ret_mcm_section_debug"
+      text="디버그" />
+    <string
+      id="ret_mcm_section_doctrines"
+      text="교리" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="장비" />
+    <string
+      id="ret_mcm_section_general"
+      text="일반" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="모집" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="수행원" />
+    <string
+      id="ret_mcm_section_skills"
+      text="기술" />
+    <string
+      id="ret_mcm_section_unlocks"
+      text="해제" />
+    <string
+      id="ret_name_header_text"
+      text="이름" />
+    <string
+      id="ret_no"
+      text="아니오" />
+    <string
+      id="ret_not_enough_gold"
+      text="골드 부족" />
+    <string
+      id="ret_not_enough_gold_text"
+      text="이 아이템을 구매할 충분한 골드가 없습니다." />
+    <string
+      id="ret_ok"
+      text="확인" />
+    <string
+      id="ret_pragmatic_scavengers"
+      text="실용주의 청소부" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="동맹 영주의 군대에 속해 3연승을 하십시오."
-    />
+      text="동맹 영주의 군대에 속해 3연승을 하십시오." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
-      text="아군이 100명 이상의 피해를 입은 전투에서 승리하십시오."
-    />
+      text="아군이 100명 이상의 피해를 입은 전투에서 승리하십시오." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="아군 피해로 아이템을 해제할 수 있습니다."
-    />
+      text="아군 피해로 아이템을 해제할 수 있습니다." />
     <string
       id="ret_pragmatic_scavengers_rescue_lord"
-      text="적 포로 호송대에서 패배한 영주를 구출하십시오."
-    />
-    <string id="ret_queen_guard" text="여왕의 근위대" />
-    <string id="ret_rank_up" text="승급" />
-    <string id="ret_rank_up_costs_text" text="{COST_GOLD} 골드와 {COST_XP} 경험치가 필요합니다." />
-    <string id="ret_rank_up_gold_cost_text" text="비용: {COST} 골드." />
+      text="적 포로 호송대에서 패배한 영주를 구출하십시오." />
+    <string
+      id="ret_queen_guard"
+      text="여왕의 근위대" />
+    <string
+      id="ret_rank_up"
+      text="승급" />
+    <string
+      id="ret_rank_up_costs_text"
+      text="{COST_GOLD} 골드와 {COST_XP} 경험치가 필요합니다." />
+    <string
+      id="ret_rank_up_gold_cost_text"
+      text="비용: {COST} 골드." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="{TROOP_NAME} 을(를) 승급시키기에 골드가 부족합니다.\n\n승급 비용: {COST} 골드."
-    />
-    <string id="ret_rank_up_not_enough_gold_title" text="골드 부족" />
+      text="{TROOP_NAME} 을(를) 승급시키기에 골드가 부족합니다.{newline}{newline}승급 비용: {COST} 골드." />
+    <string
+      id="ret_rank_up_not_enough_gold_title"
+      text="골드 부족" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="{TROOP_NAME} 을(를) 승급시키기에 경험치가 부족합니다.\n\n승급 비용: {COST} 경험치."
-    />
-    <string id="ret_rank_up_not_enough_xp_title" text="경험치 부족" />
-    <string id="ret_remove_button_text" text="제거" />
-    <string id="ret_remove_troop" text="병력 제거" />
+      text="{TROOP_NAME} 을(를) 승급시키기에 경험치가 부족합니다.{newline}{newline}승급 비용: {COST} 경험치." />
+    <string
+      id="ret_rank_up_not_enough_xp_title"
+      text="경험치 부족" />
+    <string
+      id="ret_remove_button_text"
+      text="제거" />
+    <string
+      id="ret_remove_troop"
+      text="병력 제거" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} 을(를) 영구적으로 제거하시겠습니까?\n\n장비는 보관됩니다."
-    />
-    <string id="ret_rename_troop" text="병력 이름 변경" />
-    <string id="ret_retinue" text="수행원" />
-    <string id="ret_retinue_female_kingdom" text="{FACTION} 여왕의 용사" />
-    <string id="ret_retinue_house_champion" text="{FACTION} 가문의 용사" />
-    <string id="ret_retinue_house_guard" text="{FACTION} 가문의 수호병" />
-    <string id="ret_retinue_male_kingdom" text="{FACTION} 왕의 용사" />
-    <string id="ret_retinue_morale_bonus_bound_by_honor" text="수행원 (명예에 묶인 자)" />
-    <string id="ret_retinue_royal_guard" text="{FACTION} 왕립 근위대" />
-    <string id="ret_royal_patronage" text="왕실 후원" />
+      text="{TROOP_NAME} 을(를) 영구적으로 제거하시겠습니까?{newline}{newline}장비는 보관됩니다." />
+    <string
+      id="ret_rename_troop"
+      text="병력 이름 변경" />
+    <string
+      id="ret_retinue"
+      text="수행원" />
+    <string
+      id="ret_retinue_female_kingdom"
+      text="{FACTION} 여왕의 용사" />
+    <string
+      id="ret_retinue_house_champion"
+      text="{FACTION} 가문의 용사" />
+    <string
+      id="ret_retinue_house_guard"
+      text="{FACTION} 가문의 수호병" />
+    <string
+      id="ret_retinue_male_kingdom"
+      text="{FACTION} 왕의 용사" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="수행원 (명예에 묶인 자)" />
+    <string
+      id="ret_retinue_royal_guard"
+      text="{FACTION} 왕립 근위대" />
+    <string
+      id="ret_royal_patronage"
+      text="왕실 후원" />
     <string
       id="ret_royal_patronage_1000_kills_custom_kingdom"
-      text="커스텀 왕국 병력으로 1000킬을 기록하십시오."
-    />
+      text="커스텀 왕국 병력으로 1000킬을 기록하십시오." />
     <string
       id="ret_royal_patronage_companion_governor_30_days"
-      text="왕국과 같은 문화의 동료가 왕국 영지를 30일간 통치하게 하십시오."
-    />
-    <string id="ret_royal_patronage_description" text="왕국 문화 아이템 10% 할인." />
+      text="왕국과 같은 문화의 동료가 왕국 영지를 30일간 통치하게 하십시오." />
+    <string
+      id="ret_royal_patronage_description"
+      text="왕국 문화 아이템 10% 할인." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
-      text="커스텀 왕국 병력 100명을 모집하십시오."
-    />
-    <string id="ret_skill_cap_text" text="스킬 한계 {CAP}" />
-    <string id="ret_skills_header_text" text="기술" />
-    <string id="ret_steadfast_soldiers" text="굳건한 병사" />
+      text="커스텀 왕국 병력 100명을 모집하십시오." />
+    <string
+      id="ret_skill_cap_text"
+      text="스킬 한계 {CAP}" />
+    <string
+      id="ret_skill_requirement_text"
+      text="{SKILL}: {LEVEL} 필요" />
+    <string
+      id="ret_skills_header_text"
+      text="기술" />
+    <string
+      id="ret_steadfast_soldiers"
+      text="굳건한 병사" />
     <string
       id="ret_steadfast_soldiers_defend_village_only_custom"
-      text="커스텀 병력만으로 마을을 습격으로부터 방어하십시오."
-    />
-    <string id="ret_steadfast_soldiers_description" text="+10 기술 포인트." />
+      text="커스텀 병력만으로 마을을 습격으로부터 방어하십시오." />
+    <string
+      id="ret_steadfast_soldiers_description"
+      text="+10 기술 포인트." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
-      text="커스텀 병력만으로 공성 방어에서 승리하십시오."
-    />
+      text="커스텀 병력만으로 공성 방어에서 승리하십시오." />
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
-      text="커스텀 병력 15명의 기술을 최고치까지 올리십시오."
-    />
-    <string id="ret_switch_to_clan_troops" text="전환 →\n가문 병력" />
-    <string id="ret_switch_to_kingdom_troops" text="전환 →\n왕국 병력" />
-    <string id="ret_tier" text="등급" />
-    <string id="ret_transfer_header_text" text="이동" />
-    <string id="ret_troops_tab_text" text="병력" />
-    <string id="ret_unequip_all" text="모두 해제" />
-    <string id="ret_unequip_all_button_text" text="모두 해제" />
+      text="커스텀 병력 15명의 기술을 최고치까지 올리십시오." />
+    <string
+      id="ret_switch_to_clan_troops"
+      text="전환 →{newline}가문 병력" />
+    <string
+      id="ret_switch_to_kingdom_troops"
+      text="전환 →{newline}왕국 병력" />
+    <string
+      id="ret_tier"
+      text="등급" />
+    <string
+      id="ret_transfer_header_text"
+      text="이동" />
+    <string
+      id="ret_troops_tab_text"
+      text="병력" />
+    <string
+      id="ret_unequip_all"
+      text="모두 해제" />
+    <string
+      id="ret_unequip_all_button_text"
+      text="모두 해제" />
     <string
       id="ret_unequip_all_text"
-      text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?\n\n아이템은 보관됩니다."
-    />
-    <string id="ret_unlock_btn" text="해제" />
-    <string id="ret_unlock_failed" text="해제할 수 없음." />
-    <string id="ret_upgrades_header_text" text="업그레이드" />
-    <string id="ret_vanguard" text="선봉" />
+      text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?{newline}{newline}아이템은 보관됩니다." />
+    <string
+      id="ret_unlock_btn"
+      text="해제" />
+    <string
+      id="ret_unlock_failed"
+      text="해제할 수 없음." />
+    <string
+      id="ret_unlock_progress_text"
+      text="해제 중 ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrades_header_text"
+      text="업그레이드" />
+    <string
+      id="ret_vanguard"
+      text="선봉" />
     <string
       id="ret_vanguard_clear_hideout_retinue_only"
-      text="수행원만으로 은신처를 소탕하십시오."
-    />
-    <string id="ret_vanguard_description" text="수행원 한도 +15%." />
+      text="수행원만으로 은신처를 소탕하십시오." />
+    <string
+      id="ret_vanguard_description"
+      text="수행원 한도 +15%." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
-      text="공성 공격에서 수행원으로 첫 근접 킬을 기록하십시오."
-    />
+      text="공성 공격에서 수행원으로 첫 근접 킬을 기록하십시오." />
     <string
       id="ret_vanguard_win_100_retinue_only"
-      text="수행원만으로 100명 이상의 전투에서 승리하십시오."
-    />
-    <string id="ret_warning" text="경고" />
-    <string id="ret_weapon_1_slot_text" text="무기 1" />
-    <string id="ret_weapon_2_slot_text" text="무기 2" />
-    <string id="ret_weapon_3_slot_text" text="무기 3" />
-    <string id="ret_weapon_4_slot_text" text="무기 4" />
-    <string id="ret_yes" text="예" />
+      text="수행원만으로 100명 이상의 전투에서 승리하십시오." />
+    <string
+      id="ret_warning"
+      text="경고" />
+    <string
+      id="ret_weapon_1_slot_text"
+      text="무기 1" />
+    <string
+      id="ret_weapon_2_slot_text"
+      text="무기 2" />
+    <string
+      id="ret_weapon_3_slot_text"
+      text="무기 3" />
+    <string
+      id="ret_weapon_4_slot_text"
+      text="무기 4" />
+    <string
+      id="ret_yes"
+      text="예" />
   </strings>
 </base>

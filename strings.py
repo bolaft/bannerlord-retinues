@@ -64,8 +64,9 @@ def unescape_verbatim(s: str) -> str:
     return s.replace('""', '"')
 
 def xml_escape(s: str) -> str:
-    # First map actual line breaks to entities
-    s = s.replace("\r\n", "&#13;&#10;").replace("\r", "&#13;").replace("\n", "&#10;")
+    s = s.replace("\\n", "{newline}")
+    # First, replace Python newlines with Bannerlord's {newline}
+    s = s.replace("\r\n", "{newline}").replace("\r", "{newline}").replace("\n", "{newline}")
     # Then escape XML meta-characters
     return (s.replace("&", "&amp;")
              .replace("<", "&lt;")
