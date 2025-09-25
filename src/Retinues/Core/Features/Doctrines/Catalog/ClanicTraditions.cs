@@ -57,12 +57,16 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                var companionKills = battle.Kills.Count(k =>
-                    k.Killer.Character.IsHero && k.Killer.IsPlayerTroop
-                );
+                int heroKills = 0;
 
-                if (companionKills > Progress)
-                    SetProgress(companionKills);
+                foreach (var kill in battle.Kills)
+                {
+                    if (kill.Killer.IsPlayer || (kill.Killer.IsPlayerTroop && kill.Killer.Character.IsHero))
+                        heroKills++;
+                }
+
+                if (heroKills > Progress)
+                    SetProgress(heroKills);
             }
         }
 
