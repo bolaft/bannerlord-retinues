@@ -1,490 +1,728 @@
 <?xml version="1.0" encoding="utf-8"?>
-<base
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  type="string"
->
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
     <tag language="DE" />
   </tags>
   <strings>
     <string
       id="ret_acquire_fief_to_unlock"
-      text="Erobere ein Lehen, um die Clantruppen freizuschalten."
-    />
-    <string id="ret_adaptive_training" text="Adaptives Training" />
+      text="Erobere ein Lehen, um die Clantruppen freizuschalten." />
+    <string
+      id="ret_adaptive_training"
+      text="Adaptives Training" />
     <string
       id="ret_adaptive_training_150_in_each_skill"
-      text="Habe für jede Fertigkeit mindestens eine benutzerdefinierte Truppe mit Stufe 150 oder höher."
-    />
+      text="Habe für jede Fertigkeit mindestens eine benutzerdefinierte Truppe mit Stufe 150 oder höher." />
     <string
       id="ret_adaptive_training_5_weapons"
-      text="Erziele in einer einzigen Schlacht einen Kill mit fünf verschiedenen Waffenkategorien."
-    />
+      text="Erziele in einer einzigen Schlacht einen Kill mit fünf verschiedenen Waffenkategorien." />
     <string
       id="ret_adaptive_training_description"
-      text="EP werden zurückerstattet, wenn eine Truppenfertigkeit gesenkt wird."
-    />
+      text="EP werden zurückerstattet, wenn eine Truppenfertigkeit gesenkt wird." />
     <string
       id="ret_adaptive_training_win_with_even_split"
-      text="Gewinne eine Schlacht gegen über 100 Feinde mit einer Gruppe, die gleichmäßig auf Infanterie, Kavallerie und Fernkampf-Clantruppen verteilt ist."
-    />
-    <string id="ret_add_upgrade" text="Upgrade hinzufügen" />
-    <string id="ret_add_upgrade_button_text" text="Upgrade hinzufügen" />
-    <string id="ret_ancestral_heritage" text="Ahnen-Erbe" />
+      text="Gewinne eine Schlacht gegen über 100 Feinde mit einer Gruppe, die gleichmäßig auf Infanterie, Kavallerie und Fernkampf-Clantruppen verteilt ist." />
+    <string
+      id="ret_add_upgrade"
+      text="Upgrade hinzufügen" />
+    <string
+      id="ret_add_upgrade_button_text"
+      text="Upgrade hinzufügen" />
+    <string
+      id="ret_ancestral_heritage"
+      text="Ahnen-Erbe" />
     <string
       id="ret_ancestral_heritage_150_outnumbered_own_culture"
-      text="Gewinne eine Schlacht gegen 150+ Feinde, während du in der Unterzahl bist und nur benutzerdefinierte Truppen deiner eigenen Kultur einsetzt."
-    />
+      text="Gewinne eine Schlacht gegen 150+ Feinde, während du in der Unterzahl bist und nur benutzerdefinierte Truppen deiner eigenen Kultur einsetzt." />
     <string
       id="ret_ancestral_heritage_capture_own_culture_fief"
-      text="Erobere ein Lehen deiner eigenen Kultur von einem feindlichen Königreich."
-    />
+      text="Erobere ein Lehen deiner eigenen Kultur von einem feindlichen Königreich." />
     <string
       id="ret_ancestral_heritage_description"
-      text="Schaltet alle Gegenstände der Clan- und Königreichskulturen frei."
-    />
+      text="Schaltet alle Gegenstände der Clan- und Königreichskulturen frei." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
-      text="Gewinne ein Turnier in einer Stadt deiner eigenen Kultur."
-    />
-    <string id="ret_apply_conversions_button_text" text="Umwandeln" />
-    <string id="ret_available_troop_xp" text="{XP} EP" />
-    <string id="ret_battlefield_tithes" text="Schlachtfeldzehnten" />
+      text="Gewinne ein Turnier in einer Stadt deiner eigenen Kultur." />
+    <string
+      id="ret_apply_conversions_button_text"
+      text="Umwandeln" />
+    <string
+      id="ret_available_troop_xp"
+      text="{XP} EP" />
+    <string
+      id="ret_battlefield_tithes"
+      text="Schlachtfeldzehnten" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Kann Gegenstände durch Kills verbündeter Truppen freischalten."
-    />
+      text="Kann Gegenstände durch Kills verbündeter Truppen freischalten." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
-      text="Führe eine Armee, die größtenteils aus Verbündeten besteht, zum Sieg über eine feindliche Armee."
-    />
+      text="Führe eine Armee, die größtenteils aus Verbündeten besteht, zum Sieg über eine feindliche Armee." />
     <string
       id="ret_battlefield_tithes_quest_for_allied_lord"
-      text="Schließe 5 Quests für verbündete Herren ab."
-    />
+      text="Schließe 5 Quests für verbündete Herren ab." />
     <string
       id="ret_battlefield_tithes_turn_tide_allied_army_battle"
-      text="Wende das Blatt in einer Schlacht mit einer verbündeten Armee."
-    />
-    <string id="ret_body_slot_text" text="Körper" />
-    <string id="ret_bound_by_honor" text="An Ehre gebunden" />
-    <string id="ret_bound_by_honor_defeat_10_bandits" text="Beseitige 10 Banditengruppen." />
-    <string id="ret_bound_by_honor_description" text="+20% Gefolgschaftsmoral." />
+      text="Wende das Blatt in einer Schlacht mit einer verbündeten Armee." />
+    <string
+      id="ret_body_slot_text"
+      text="Körper" />
+    <string
+      id="ret_bound_by_honor"
+      text="An Ehre gebunden" />
+    <string
+      id="ret_bound_by_honor_defeat_10_bandits"
+      text="Beseitige 10 Banditengruppen." />
+    <string
+      id="ret_bound_by_honor_description"
+      text="+20% Gefolgschaftsmoral." />
     <string
       id="ret_bound_by_honor_protect_villagers_or_caravans"
-      text="Rette 3 Karawanen oder Dorfbewohnergruppen vor feindlichen Angriffen."
-    />
+      text="Rette 3 Karawanen oder Dorfbewohnergruppen vor feindlichen Angriffen." />
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
-      text="Halte die Moral einer reinen Gefolgsgruppe 15 Tage lang über 90."
-    />
-    <string id="ret_buy_item" text="Gegenstand kaufen" />
+      text="Halte die Moral einer reinen Gefolgsgruppe 15 Tage lang über 90." />
+    <string
+      id="ret_buy_item"
+      text="Gegenstand kaufen" />
     <string
       id="ret_buy_item_text"
-      text="Bist du sicher, dass du {ITEM_NAME} für {ITEM_VALUE} Gold kaufen willst?"
-    />
-    <string id="ret_cancel" text="Abbrechen" />
-    <string id="ret_cant_remove_root_troop" text="Stammtruppen können nicht entfernt werden." />
+      text="Bist du sicher, dass du {ITEM_NAME} für {ITEM_VALUE} Gold kaufen willst?" />
+    <string
+      id="ret_cancel"
+      text="Abbrechen" />
+    <string
+      id="ret_cant_remove_root_troop"
+      text="Stammtruppen können nicht entfernt werden." />
     <string
       id="ret_cant_remove_troop_with_targets"
-      text="Truppen mit Aufrüstungszielen können nicht entfernt werden."
-    />
-    <string id="ret_cape_slot_text" text="Umhang" />
-    <string id="ret_clanic_traditions" text="Clantraditionen" />
+      text="Truppen mit Aufrüstungszielen können nicht entfernt werden." />
+    <string
+      id="ret_cape_slot_text"
+      text="Umhang" />
+    <string
+      id="ret_clanic_traditions"
+      text="Clantraditionen" />
     <string
       id="ret_clanic_traditions_acquire_new_fief"
-      text="Erwirb ein neues Lehen für deinen Clan."
-    />
+      text="Erwirb ein neues Lehen für deinen Clan." />
     <string
       id="ret_clanic_traditions_companions_50_kills"
-      text="Gewinne eine Schlacht, in der du und deine Gefährten zusammen mindestens 50 Kills erzielen."
-    />
+      text="Gewinne eine Schlacht, in der du und deine Gefährten zusammen mindestens 50 Kills erzielen." />
     <string
       id="ret_clanic_traditions_description"
-      text="10% Rabatt auf Gegenstände der Clan-Kultur."
-    />
+      text="10% Rabatt auf Gegenstände der Clan-Kultur." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
-      text="Besitze 30 Tage lang eine Schmiede in einer Stadt deiner Clan-Kultur."
-    />
-    <string id="ret_clear_conversions_button_text" text="Löschen" />
-    <string id="ret_close_doctrines_button_text" text="Zurück" />
-    <string id="ret_close_equipment_button_text" text="Zurück" />
-    <string id="ret_confirm" text="Bestätigen" />
-    <string id="ret_continue" text="Fortfahren" />
-    <string id="ret_convert_not_enough_gold" text="Nicht genug Gold für Umwandlungen." />
+      text="Besitze 30 Tage lang eine Schmiede in einer Stadt deiner Clan-Kultur." />
+    <string
+      id="ret_clear_conversions_button_text"
+      text="Löschen" />
+    <string
+      id="ret_close_doctrines_button_text"
+      text="Zurück" />
+    <string
+      id="ret_close_equipment_button_text"
+      text="Zurück" />
+    <string
+      id="ret_confirm"
+      text="Bestätigen" />
+    <string
+      id="ret_continue"
+      text="Fortfahren" />
+    <string
+      id="ret_convert_not_enough_gold"
+      text="Nicht genug Gold für Umwandlungen." />
     <string
       id="ret_convert_not_enough_gold_text"
-      text="Du hast nicht genug Gold, um diese Gefolgschaften anzuheuern."
-    />
-    <string id="ret_convert_not_enough_gold_title" text="Nicht genug Gold" />
-    <string id="ret_cultural_pride" text="Kultureller Stolz" />
+      text="Du hast nicht genug Gold, um diese Gefolgschaften anzuheuern." />
+    <string
+      id="ret_convert_not_enough_gold_title"
+      text="Nicht genug Gold" />
+    <string
+      id="ret_cultural_pride"
+      text="Kultureller Stolz" />
     <string
       id="ret_cultural_pride_defeat_foreign_ruler"
-      text="Besiege in einer Schlacht einen Herrscher einer anderen Kultur."
-    />
+      text="Besiege in einer Schlacht einen Herrscher einer anderen Kultur." />
     <string
       id="ret_cultural_pride_description"
-      text="10% Rabatt auf Gegenstände der Truppenkultur."
-    />
+      text="10% Rabatt auf Gegenstände der Truppenkultur." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
-      text="Erziele 100 Kills in einer Schlacht mit Truppen ohne fremde Ausrüstung."
-    />
+      text="Erziele 100 Kills in einer Schlacht mit Truppen ohne fremde Ausrüstung." />
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
-      text="Gewinne ein Turnier, während du nur Rüstung deiner eigenen Kultur trägst."
-    />
-    <string id="ret_doctrine_costs" text="Kosten: {GOLD} Gold, {INFLUENCE} Einfluss." />
-    <string id="ret_doctrine_service_unavailable" text="Doktrinendienst nicht verfügbar." />
-    <string id="ret_doctrines_button_text" text="Doktrinen" />
-    <string id="ret_doctrines_col_0" text="Freischaltungen" />
-    <string id="ret_doctrines_col_1" text="Ausrüstung" />
-    <string id="ret_doctrines_col_2" text="Truppen" />
-    <string id="ret_doctrines_col_3" text="Gefolgschaften" />
-    <string id="ret_empty_item" text="Leer" />
-    <string id="ret_enter_new_name" text="Neuen Namen eingeben:" />
-    <string id="ret_enter_new_troop_name" text="Gib den Namen der neuen Truppe ein:" />
-    <string id="ret_equipment_button_text" text="Ausrüstung" />
-    <string id="ret_feat_completed_title" text="Errungenschaft abgeschlossen" />
-    <string id="ret_feats_no_reqs" text="Keine Anforderungen." />
-    <string id="ret_feats_reqs" text="Anforderungen" />
-    <string id="ret_female" text="Weiblich" />
-    <string id="ret_gender_header_text" text="Geschlecht" />
-    <string id="ret_gloves_slot_text" text="Handschuhe" />
-    <string id="ret_head_slot_text" text="Kopf" />
-    <string id="ret_horse_harness_slot_text" text="Zaumzeug" />
-    <string id="ret_horse_slot_text" text="Pferd" />
-    <string id="ret_immortals" text="Unsterbliche" />
+      text="Gewinne ein Turnier, während du nur Rüstung deiner eigenen Kultur trägst." />
+    <string
+      id="ret_doctrine_costs"
+      text="Kosten: {GOLD} Gold, {INFLUENCE} Einfluss." />
+    <string
+      id="ret_doctrine_service_unavailable"
+      text="Doktrinendienst nicht verfügbar." />
+    <string
+      id="ret_doctrines_button_text"
+      text="Doktrinen" />
+    <string
+      id="ret_doctrines_col_0"
+      text="Freischaltungen" />
+    <string
+      id="ret_doctrines_col_1"
+      text="Ausrüstung" />
+    <string
+      id="ret_doctrines_col_2"
+      text="Truppen" />
+    <string
+      id="ret_doctrines_col_3"
+      text="Gefolgschaften" />
+    <string
+      id="ret_empty_item"
+      text="Leer" />
+    <string
+      id="ret_enter_new_name"
+      text="Neuen Namen eingeben:" />
+    <string
+      id="ret_enter_new_troop_name"
+      text="Gib den Namen der neuen Truppe ein:" />
+    <string
+      id="ret_equipment_button_text"
+      text="Ausrüstung" />
+    <string
+      id="ret_feat_completed_title"
+      text="Errungenschaft abgeschlossen" />
+    <string
+      id="ret_feats_no_reqs"
+      text="Keine Anforderungen." />
+    <string
+      id="ret_feats_reqs"
+      text="Anforderungen" />
+    <string
+      id="ret_female"
+      text="Weiblich" />
+    <string
+      id="ret_gender_header_text"
+      text="Geschlecht" />
+    <string
+      id="ret_gloves_slot_text"
+      text="Handschuhe" />
+    <string
+      id="ret_head_slot_text"
+      text="Kopf" />
+    <string
+      id="ret_horse_harness_slot_text"
+      text="Zaumzeug" />
+    <string
+      id="ret_horse_slot_text"
+      text="Pferd" />
+    <string
+      id="ret_immortals"
+      text="Unsterbliche" />
     <string
       id="ret_immortals_100_retinue_survive_struck_down"
-      text="Lass 100 Gefolgstruppen einen Niederschlag im Kampf überleben."
-    />
-    <string id="ret_immortals_description" text="+20% Überlebenschance für Gefolgschaften." />
+      text="Lass 100 Gefolgstruppen einen Niederschlag im Kampf überleben." />
+    <string
+      id="ret_immortals_description"
+      text="+20% Überlebenschance für Gefolgschaften." />
     <string
       id="ret_immortals_retinue_200_enemies"
-      text="Lass deine Gefolgschaft in einer Schlacht 200 Feinde besiegen."
-    />
+      text="Lass deine Gefolgschaft in einer Schlacht 200 Feinde besiegen." />
     <string
       id="ret_immortals_win_100_no_deaths"
-      text="Gewinne allein gegen 100+ Feinde ohne einen einzigen Verlust auf deiner Seite."
-    />
-    <string id="ret_in_stock" text="Auf Lager ({STOCK})" />
-    <string id="ret_increase_troop_tier" text="{TROOP_NAME} aufwerten?\n\n{text}" />
-    <string id="ret_indomitable" text="Unbezwingbar" />
+      text="Gewinne allein gegen 100+ Feinde ohne einen einzigen Verlust auf deiner Seite." />
+    <string
+      id="ret_in_stock"
+      text="Auf Lager ({STOCK})" />
+    <string
+      id="ret_increase_troop_tier"
+      text="{TROOP_NAME} aufwerten?\n\n{text}" />
+    <string
+      id="ret_indomitable"
+      text="Unbezwingbar" />
     <string
       id="ret_indomitable_25_equiv_no_casualty"
-      text="Lass deine Gefolgschaft 25 gleichwertige Feinde ohne Verluste besiegen."
-    />
-    <string id="ret_indomitable_description" text="+5 LP für Gefolgschaften." />
+      text="Lass deine Gefolgschaft 25 gleichwertige Feinde ohne Verluste besiegen." />
+    <string
+      id="ret_indomitable_description"
+      text="+5 LP für Gefolgschaften." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
-      text="Führe als Verteidiger eine Belagerungsschlacht mit mindestens 20 Gefolgstruppen und gewinne."
-    />
+      text="Führe als Verteidiger eine Belagerungsschlacht mit mindestens 20 Gefolgstruppen und gewinne." />
     <string
       id="ret_indomitable_win_3_defensive_battles"
-      text="Gewinne 3 Verteidigungsschlachten in Folge mit einer reinen Gefolgsgruppe."
-    />
-    <string id="ret_iron_discipline" text="Eiserne Disziplin" />
+      text="Gewinne 3 Verteidigungsschlachten in Folge mit einer reinen Gefolgsgruppe." />
+    <string
+      id="ret_iron_discipline"
+      text="Eiserne Disziplin" />
     <string
       id="ret_iron_discipline_defeat_twice_size_only_custom"
-      text="Besiege eine doppelt so große Gruppe nur mit benutzerdefinierten Truppen."
-    />
-    <string id="ret_iron_discipline_description" text="+5 zu Fertigkeitsobergrenzen." />
-    <string id="ret_iron_discipline_lead_army_10_days" text="Führe 10 Tage in Folge eine Armee." />
+      text="Besiege eine doppelt so große Gruppe nur mit benutzerdefinierten Truppen." />
+    <string
+      id="ret_iron_discipline_description"
+      text="+5 zu Fertigkeitsobergrenzen." />
+    <string
+      id="ret_iron_discipline_lead_army_10_days"
+      text="Führe 10 Tage in Folge eine Armee." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
-      text="Rüste 100 Basis-Custom-Truppen bis zur Maximalstufe auf."
-    />
-    <string id="ret_ironclad" text="Gepanzert" />
+      text="Rüste 100 Basis-Custom-Truppen bis zur Maximalstufe auf." />
+    <string
+      id="ret_ironclad"
+      text="Gepanzert" />
     <string
       id="ret_ironclad_100_battle_outnumbered_low_tier"
-      text="Gewinne eine 100+ Schlacht, in Unterzahl, nur mit benutzerdefinierten Truppen der Stufe 1–3."
-    />
+      text="Gewinne eine 100+ Schlacht, in Unterzahl, nur mit benutzerdefinierten Truppen der Stufe 1–3." />
     <string
       id="ret_ironclad_12_troops_athletics_90"
-      text="Lass 12 Custom-Truppen 90 Punkte in Athletik erreichen."
-    />
+      text="Lass 12 Custom-Truppen 90 Punkte in Athletik erreichen." />
     <string
       id="ret_ironclad_description"
-      text="Keine Stufenbeschränkung für Waffen und Rüstungen."
-    />
+      text="Keine Stufenbeschränkung für Waffen und Rüstungen." />
     <string
       id="ret_ironclad_full_set_t6_100_kills"
-      text="Erziele 100 Kills in einer Schlacht mit Truppen in Stufe-6-Rüstung und Helm."
-    />
-    <string id="ret_item_ammo_damage" text="Schaden" />
-    <string id="ret_item_ammo_stack_size" text="Stapelgröße" />
-    <string id="ret_item_arm_armor" text="Armschutz" />
-    <string id="ret_item_body_armor" text="Körperrüstung" />
-    <string id="ret_item_head_armor" text="Helm" />
-    <string id="ret_item_horse_charge" text="Ansturm" />
-    <string id="ret_item_horse_hit_points" text="Lebenspunkte" />
-    <string id="ret_item_horse_maneuver" text="Manövrierfähigkeit" />
-    <string id="ret_item_horse_speed" text="Geschwindigkeit" />
-    <string id="ret_item_leg_armor" text="Beinschutz" />
-    <string id="ret_item_melee_handling" text="Handhabung" />
-    <string id="ret_item_melee_length" text="Länge" />
-    <string id="ret_item_melee_swing_damage" text="Hiebschaden" />
-    <string id="ret_item_melee_swing_speed" text="Hiebgeschwindigkeit" />
-    <string id="ret_item_melee_thrust_damage" text="Stichschaden" />
-    <string id="ret_item_melee_thrust_speed" text="Stichgeschwindigkeit" />
-    <string id="ret_item_ranged_accuracy" text="Genauigkeit" />
-    <string id="ret_item_ranged_damage" text="Schaden" />
-    <string id="ret_item_ranged_missile_speed" text="Geschossgeschwindigkeit" />
-    <string id="ret_item_shield_hit_points" text="Lebenspunkte" />
-    <string id="ret_item_shield_speed" text="Geschwindigkeit" />
-    <string id="ret_items_unlocked" text="Neue Ausrüstung freigeschaltet" />
-    <string id="ret_king_guard" text="Königsgarde" />
-    <string id="ret_leg_slot_text" text="Beine" />
-    <string id="ret_lions_share" text="Löwenanteil" />
+      text="Erziele 100 Kills in einer Schlacht mit Truppen in Stufe-6-Rüstung und Helm." />
+    <string
+      id="ret_item_ammo_damage"
+      text="Schaden" />
+    <string
+      id="ret_item_ammo_stack_size"
+      text="Stapelgröße" />
+    <string
+      id="ret_item_arm_armor"
+      text="Armschutz" />
+    <string
+      id="ret_item_body_armor"
+      text="Körperrüstung" />
+    <string
+      id="ret_item_head_armor"
+      text="Helm" />
+    <string
+      id="ret_item_horse_charge"
+      text="Ansturm" />
+    <string
+      id="ret_item_horse_hit_points"
+      text="Lebenspunkte" />
+    <string
+      id="ret_item_horse_maneuver"
+      text="Manövrierfähigkeit" />
+    <string
+      id="ret_item_horse_speed"
+      text="Geschwindigkeit" />
+    <string
+      id="ret_item_leg_armor"
+      text="Beinschutz" />
+    <string
+      id="ret_item_melee_handling"
+      text="Handhabung" />
+    <string
+      id="ret_item_melee_length"
+      text="Länge" />
+    <string
+      id="ret_item_melee_swing_damage"
+      text="Hiebschaden" />
+    <string
+      id="ret_item_melee_swing_speed"
+      text="Hiebgeschwindigkeit" />
+    <string
+      id="ret_item_melee_thrust_damage"
+      text="Stichschaden" />
+    <string
+      id="ret_item_melee_thrust_speed"
+      text="Stichgeschwindigkeit" />
+    <string
+      id="ret_item_ranged_accuracy"
+      text="Genauigkeit" />
+    <string
+      id="ret_item_ranged_damage"
+      text="Schaden" />
+    <string
+      id="ret_item_ranged_missile_speed"
+      text="Geschossgeschwindigkeit" />
+    <string
+      id="ret_item_shield_hit_points"
+      text="Lebenspunkte" />
+    <string
+      id="ret_item_shield_speed"
+      text="Geschwindigkeit" />
+    <string
+      id="ret_items_unlocked"
+      text="Neue Ausrüstung freigeschaltet" />
+    <string
+      id="ret_king_guard"
+      text="Königsgarde" />
+    <string
+      id="ret_leg_slot_text"
+      text="Beine" />
+    <string
+      id="ret_lions_share"
+      text="Löwenanteil" />
     <string
       id="ret_lions_share_25_personal_kills"
-      text="Besiege persönlich 25 Feinde in einer Schlacht."
-    />
+      text="Besiege persönlich 25 Feinde in einer Schlacht." />
     <string
       id="ret_lions_share_5_tier_5_plus"
-      text="Besiege persönlich 5 Truppen der Stufe 5+ in einer Schlacht."
-    />
+      text="Besiege persönlich 5 Truppen der Stufe 5+ in einer Schlacht." />
     <string
       id="ret_lions_share_description"
-      text="Heldenkills zählen doppelt für Freischaltungen."
-    />
+      text="Heldenkills zählen doppelt für Freischaltungen." />
     <string
       id="ret_lions_share_kill_enemy_lord"
-      text="Besiege persönlich einen feindlichen Lord in einer Schlacht."
-    />
-    <string id="ret_list_toggle_elite" text="Elite" />
-    <string id="ret_list_toggle_regular" text="Regulär" />
-    <string id="ret_loc_smoke_test" text="Lokalisierungstest: Standard (EN)." />
+      text="Besiege persönlich einen feindlichen Lord in einer Schlacht." />
+    <string
+      id="ret_list_toggle_elite"
+      text="Elite" />
+    <string
+      id="ret_list_toggle_regular"
+      text="Regulär" />
+    <string
+      id="ret_loc_smoke_test"
+      text="Lokalisierungstest: Standard (EN)." />
     <string
       id="ret_lower_skill_no_refund"
-      text="Das Senken dieser Truppenfertigkeit erstattet keine EP zurück. Trotzdem fortfahren?"
-    />
-    <string id="ret_male" text="Männlich" />
-    <string id="ret_masters_at_arms" text="Waffenmeister" />
-    <string id="ret_masters_at_arms_1000_elite_kills" text="Erziele 1000 Kills mit Elitetruppen." />
-    <string id="ret_masters_at_arms_description" text="Zweiter Upgrade-Zweig für Elitetruppen." />
-    <string id="ret_masters_at_arms_ko_50_opponents" text="Schalte 50 Gegner in der Arena aus." />
+      text="Das Senken dieser Truppenfertigkeit erstattet keine EP zurück. Trotzdem fortfahren?" />
+    <string
+      id="ret_male"
+      text="Männlich" />
+    <string
+      id="ret_masters_at_arms"
+      text="Waffenmeister" />
+    <string
+      id="ret_masters_at_arms_1000_elite_kills"
+      text="Erziele 1000 Kills mit Elitetruppen." />
+    <string
+      id="ret_masters_at_arms_description"
+      text="Zweiter Upgrade-Zweig für Elitetruppen." />
+    <string
+      id="ret_masters_at_arms_ko_50_opponents"
+      text="Schalte 50 Gegner in der Arena aus." />
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
-      text="Rüste 100 Elitetruppen bis zur Maximalstufe auf."
-    />
-    <string id="ret_mcm_option_all_equipment_unlocked" text="Alle Ausrüstungen freigeschaltet" />
+      text="Rüste 100 Elitetruppen bis zur Maximalstufe auf." />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Alle Ausrüstungen freigeschaltet" />
     <string
       id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Zu Spielbeginn sind alle Ausrüstungen freigeschaltet."
-    />
-    <string id="ret_mcm_option_allowed_tier_difference" text="Zulässiger Stufenunterschied" />
+      text="Zu Spielbeginn sind alle Ausrüstungen freigeschaltet." />
+    <string
+      id="ret_mcm_option_allowed_tier_difference"
+      text="Zulässiger Stufenunterschied" />
     <string
       id="ret_mcm_option_allowed_tier_difference_hint"
-      text="Maximal zulässiger Stufenunterschied zwischen Truppen und Ausrüstung."
-    />
-    <string id="ret_mcm_option_base_skill_xp_cost" text="Basis-Fertigkeits-EP-Kosten" />
+      text="Maximal zulässiger Stufenunterschied zwischen Truppen und Ausrüstung." />
+    <string
+      id="ret_mcm_option_base_skill_xp_cost"
+      text="Basis-Fertigkeits-EP-Kosten" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Basis-EP-Kosten zur Steigerung einer Fertigkeit."
-    />
-    <string id="ret_mcm_option_disallow_mounts_for_tier_1" text="Reittiere für Stufe 1 verbieten" />
+      text="Basis-EP-Kosten zur Steigerung einer Fertigkeit." />
+    <string
+      id="ret_mcm_option_debug_mode"
+      text="Debug-Modus" />
+    <string
+      id="ret_mcm_option_debug_mode_hint"
+      text="Gibt deutlich mehr Protokolle aus (kann die Leistung beeinträchtigen)." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_tier_1"
+      text="Reittiere für Stufe 1 verbieten" />
     <string
       id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
-      text="Stufe-1-Truppen dürfen keine Reittiere haben."
-    />
-    <string id="ret_mcm_option_enable_doctrines" text="Doktrinen aktivieren" />
+      text="Stufe-1-Truppen dürfen keine Reittiere haben." />
+    <string
+      id="ret_mcm_option_enable_doctrines"
+      text="Doktrinen aktivieren" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Aktiviere das Doktrinensystem und seine Funktionen."
-    />
-    <string id="ret_mcm_option_max_basic_retinue_ratio" text="Maximales Basis-Gefolgsverhältnis" />
+      text="Aktiviere das Doktrinensystem und seine Funktionen." />
+    <string
+      id="ret_mcm_option_max_basic_retinue_ratio"
+      text="Maximales Basis-Gefolgsverhältnis" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
-      text="Maximaler Anteil von Basis-Gefolgschaften in der Spielergruppe."
-    />
-    <string id="ret_mcm_option_max_elite_retinue_ratio" text="Maximales Elite-Gefolgsverhältnis" />
+      text="Maximaler Anteil von Basis-Gefolgschaften in der Spielergruppe." />
+    <string
+      id="ret_mcm_option_max_elite_retinue_ratio"
+      text="Maximales Elite-Gefolgsverhältnis" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
-      text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe."
-    />
+      text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe." />
+    <string
+      id="ret_mcm_option_own_culture_unlock_bonuses"
+      text="Eigene Kultur-Freischaltboni" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="Legt fest, ob Kills auch Gegenstände der Custom-Kultur freischalten."
-    />
-    <string id="ret_mcm_option_pay_for_equipment" text="Für Truppenausrüstung bezahlen" />
+      text="Legt fest, ob Kills auch Gegenstände der Custom-Kultur freischalten." />
+    <string
+      id="ret_mcm_option_pay_for_equipment"
+      text="Für Truppenausrüstung bezahlen" />
     <string
       id="ret_mcm_option_pay_for_equipment_hint"
-      text="Das Aufrüsten von Truppenausrüstung kostet Geld."
-    />
-    <string id="ret_mcm_option_recruit_anywhere" text="Clantruppen überall rekrutieren" />
+      text="Das Aufrüsten von Truppenausrüstung kostet Geld." />
+    <string
+      id="ret_mcm_option_recruit_anywhere"
+      text="Clantruppen überall rekrutieren" />
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
-      text="Der Spieler kann Clantruppen in jeder Siedlung rekrutieren."
-    />
+      text="Der Spieler kann Clantruppen in jeder Siedlung rekrutieren." />
     <string
       id="ret_mcm_option_required_kills_for_unlock"
-      text="Erforderliche Kills zum Freischalten"
-    />
+      text="Erforderliche Kills zum Freischalten" />
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="Wie viele Gegner mit einem Gegenstand besiegt werden müssen, um ihn freizuschalten."
-    />
+      text="Wie viele Gegner mit einem Gegenstand besiegt werden müssen, um ihn freizuschalten." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Gefolgs-Umwandlungskosten pro Stufe"
-    />
+      text="Gefolgs-Umwandlungskosten pro Stufe" />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Umwandlungskosten pro Stufe für Gefolgschaften."
-    />
+      text="Umwandlungskosten pro Stufe für Gefolgschaften." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="Gefolgs-Aufstiegskosten pro Stufe"
-    />
+      text="Gefolgs-Aufstiegskosten pro Stufe" />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="Aufstiegskosten pro Stufe für Gefolgschaften."
-    />
-    <string id="ret_mcm_option_skill_xp_cost_per_point" text="EP-Kosten pro Fertigkeitspunkt" />
+      text="Aufstiegskosten pro Stufe für Gefolgschaften." />
+    <string
+      id="ret_mcm_option_shared_xp_pool"
+      text="Geteilter EP-Pool" />
+    <string
+      id="ret_mcm_option_shared_xp_pool_hint"
+      text="Alle Truppen teilen sich denselben EP-Pool." />
+    <string
+      id="ret_mcm_option_skill_xp_cost_per_point"
+      text="EP-Kosten pro Fertigkeitspunkt" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Skalierende EP-Kosten pro Fertigkeitspunkt."
-    />
-    <string id="ret_mcm_option_unlock_from_culture" text="Von Kultur freischalten" />
+      text="Skalierende EP-Kosten pro Fertigkeitspunkt." />
+    <string
+      id="ret_mcm_option_unlock_from_culture"
+      text="Von Kultur freischalten" />
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
-      text="Ausrüstung der Spieler- und Königreichskultur ist immer verfügbar."
-    />
-    <string id="ret_mcm_option_unlock_from_kills" text="Durch Kills freischalten" />
+      text="Ausrüstung der Spieler- und Königreichskultur ist immer verfügbar." />
+    <string
+      id="ret_mcm_option_unlock_from_kills"
+      text="Durch Kills freischalten" />
     <string
       id="ret_mcm_option_unlock_from_kills_hint"
-      text="Schalte Ausrüstung frei, indem du Gegner besiegst, die sie tragen."
-    />
-    <string id="ret_mcm_section_doctrines" text="Doktrinen" />
-    <string id="ret_mcm_section_equipment" text="Ausrüstung" />
-    <string id="ret_mcm_section_general" text="Allgemein" />
-    <string id="ret_mcm_section_recruitment" text="Rekrutierung" />
-    <string id="ret_mcm_section_retinues" text="Gefolgschaften" />
-    <string id="ret_mcm_section_skills" text="Fertigkeiten" />
-    <string id="ret_mcm_section_unlocks" text="Freischaltungen" />
-    <string id="ret_name_header_text" text="Name" />
-    <string id="ret_no" text="Nein" />
-    <string id="ret_not_enough_gold" text="Nicht genug Gold" />
+      text="Schalte Ausrüstung frei, indem du Gegner besiegst, die sie tragen." />
+    <string
+      id="ret_mcm_section_debug"
+      text="Debug" />
+    <string
+      id="ret_mcm_section_doctrines"
+      text="Doktrinen" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="Ausrüstung" />
+    <string
+      id="ret_mcm_section_general"
+      text="Allgemein" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="Rekrutierung" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="Gefolgschaften" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Fertigkeiten" />
+    <string
+      id="ret_mcm_section_unlocks"
+      text="Freischaltungen" />
+    <string
+      id="ret_name_header_text"
+      text="Name" />
+    <string
+      id="ret_no"
+      text="Nein" />
+    <string
+      id="ret_not_enough_gold"
+      text="Nicht genug Gold" />
     <string
       id="ret_not_enough_gold_text"
-      text="Du hast nicht genug Gold, um diesen Gegenstand zu kaufen."
-    />
-    <string id="ret_ok" text="OK" />
-    <string id="ret_pragmatic_scavengers" text="Pragmatische Plünderer" />
+      text="Du hast nicht genug Gold, um diesen Gegenstand zu kaufen." />
+    <string
+      id="ret_ok"
+      text="OK" />
+    <string
+      id="ret_pragmatic_scavengers"
+      text="Pragmatische Plünderer" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Gewinne drei Schlachten in Folge als Teil der Armee eines verbündeten Lords."
-    />
+      text="Gewinne drei Schlachten in Folge als Teil der Armee eines verbündeten Lords." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
-      text="Gewinne eine Schlacht, in der Verbündete über 100 Verluste erleiden."
-    />
+      text="Gewinne eine Schlacht, in der Verbündete über 100 Verluste erleiden." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="Kann Gegenstände durch Verluste verbündeter Truppen freischalten."
-    />
+      text="Kann Gegenstände durch Verluste verbündeter Truppen freischalten." />
     <string
       id="ret_pragmatic_scavengers_rescue_lord"
-      text="Rette einen besiegten Lord aus dem Gefangenentransport einer feindlichen Gruppe."
-    />
-    <string id="ret_queen_guard" text="Königsgarde" />
-    <string id="ret_rank_up" text="Aufstieg" />
-    <string id="ret_rank_up_costs_text" text="Es kostet dich {COST_GOLD} Gold und {COST_XP} EP." />
-    <string id="ret_rank_up_gold_cost_text" text="Es kostet dich {COST} Gold." />
+      text="Rette einen besiegten Lord aus dem Gefangenentransport einer feindlichen Gruppe." />
+    <string
+      id="ret_queen_guard"
+      text="Königsgarde" />
+    <string
+      id="ret_rank_up"
+      text="Aufstieg" />
+    <string
+      id="ret_rank_up_costs_text"
+      text="Es kostet dich {COST_GOLD} Gold und {COST_XP} EP." />
+    <string
+      id="ret_rank_up_gold_cost_text"
+      text="Es kostet dich {COST} Gold." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="Du hast nicht genug Gold, um {TROOP_NAME} aufzuwerten.\n\nKosten: {COST} Gold."
-    />
-    <string id="ret_rank_up_not_enough_gold_title" text="Nicht genug Gold" />
+      text="Du hast nicht genug Gold, um {TROOP_NAME} aufzuwerten.\n\nKosten: {COST} Gold." />
+    <string
+      id="ret_rank_up_not_enough_gold_title"
+      text="Nicht genug Gold" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="Du hast nicht genug EP, um {TROOP_NAME} aufzuwerten.\n\nKosten: {COST} EP."
-    />
-    <string id="ret_rank_up_not_enough_xp_title" text="Nicht genug EP" />
-    <string id="ret_remove_button_text" text="Entfernen" />
-    <string id="ret_remove_troop" text="Truppe entfernen" />
+      text="Du hast nicht genug EP, um {TROOP_NAME} aufzuwerten.\n\nKosten: {COST} EP." />
+    <string
+      id="ret_rank_up_not_enough_xp_title"
+      text="Nicht genug EP" />
+    <string
+      id="ret_remove_button_text"
+      text="Entfernen" />
+    <string
+      id="ret_remove_troop"
+      text="Truppe entfernen" />
     <string
       id="ret_remove_troop_text"
-      text="Bist du sicher, dass du {TROOP_NAME} dauerhaft entfernen willst?\n\nIhre Ausrüstung wird eingelagert."
-    />
-    <string id="ret_rename_troop" text="Truppe umbenennen" />
-    <string id="ret_retinue" text="Gefolgschaft" />
-    <string id="ret_retinue_female_kingdom" text="{FACTION} Champion der Königin" />
-    <string id="ret_retinue_house_champion" text="{FACTION} Haus-Champion" />
-    <string id="ret_retinue_house_guard" text="{FACTION} Hauswache" />
-    <string id="ret_retinue_male_kingdom" text="{FACTION} Champion des Königs" />
-    <string id="ret_retinue_morale_bonus_bound_by_honor" text="Gefolgschaft (An Ehre gebunden)" />
-    <string id="ret_retinue_royal_guard" text="{FACTION} Königliche Wache" />
-    <string id="ret_royal_patronage" text="Königliche Schirmherrschaft" />
+      text="Bist du sicher, dass du {TROOP_NAME} dauerhaft entfernen willst?\n\nIhre Ausrüstung wird eingelagert." />
+    <string
+      id="ret_rename_troop"
+      text="Truppe umbenennen" />
+    <string
+      id="ret_retinue"
+      text="Gefolgschaft" />
+    <string
+      id="ret_retinue_female_kingdom"
+      text="{FACTION} Champion der Königin" />
+    <string
+      id="ret_retinue_house_champion"
+      text="{FACTION} Haus-Champion" />
+    <string
+      id="ret_retinue_house_guard"
+      text="{FACTION} Hauswache" />
+    <string
+      id="ret_retinue_male_kingdom"
+      text="{FACTION} Champion des Königs" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Gefolgschaft (An Ehre gebunden)" />
+    <string
+      id="ret_retinue_royal_guard"
+      text="{FACTION} Königliche Wache" />
+    <string
+      id="ret_royal_patronage"
+      text="Königliche Schirmherrschaft" />
     <string
       id="ret_royal_patronage_1000_kills_custom_kingdom"
-      text="Erziele 1000 Kills mit benutzerdefinierten Königreichstruppen."
-    />
+      text="Erziele 1000 Kills mit benutzerdefinierten Königreichstruppen." />
     <string
       id="ret_royal_patronage_companion_governor_30_days"
-      text="Lass einen Gefährten derselben Kultur wie dein Königreich 30 Tage lang ein Lehen verwalten."
-    />
+      text="Lass einen Gefährten derselben Kultur wie dein Königreich 30 Tage lang ein Lehen verwalten." />
     <string
       id="ret_royal_patronage_description"
-      text="10% Rabatt auf Gegenstände der Königreichskultur."
-    />
+      text="10% Rabatt auf Gegenstände der Königreichskultur." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
-      text="Rekrutiere 100 benutzerdefinierte Königreichstruppen."
-    />
-    <string id="ret_skill_cap_text" text="Fertigkeitsobergrenze {CAP}" />
-    <string id="ret_skills_header_text" text="Fertigkeiten" />
-    <string id="ret_steadfast_soldiers" text="Standhafte Soldaten" />
+      text="Rekrutiere 100 benutzerdefinierte Königreichstruppen." />
+    <string
+      id="ret_skill_cap_text"
+      text="Fertigkeitsobergrenze {CAP}" />
+    <string
+      id="ret_skill_requirement_text"
+      text="Benötigt {SKILL}: {LEVEL}" />
+    <string
+      id="ret_skills_header_text"
+      text="Fertigkeiten" />
+    <string
+      id="ret_steadfast_soldiers"
+      text="Standhafte Soldaten" />
     <string
       id="ret_steadfast_soldiers_defend_village_only_custom"
-      text="Verteidige ein Dorf gegen einen Überfall nur mit benutzerdefinierten Truppen."
-    />
-    <string id="ret_steadfast_soldiers_description" text="+10 Fertigkeitspunkte." />
+      text="Verteidige ein Dorf gegen einen Überfall nur mit benutzerdefinierten Truppen." />
+    <string
+      id="ret_steadfast_soldiers_description"
+      text="+10 Fertigkeitspunkte." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
-      text="Gewinne eine Belagerungsverteidigung nur mit benutzerdefinierten Truppen."
-    />
+      text="Gewinne eine Belagerungsverteidigung nur mit benutzerdefinierten Truppen." />
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
-      text="Maximiere die Fertigkeiten von 15 benutzerdefinierten Truppen."
-    />
-    <string id="ret_switch_to_clan_troops" text="Wechsel zu\nClantruppen" />
-    <string id="ret_switch_to_kingdom_troops" text="Wechsel zu\nKönigreichstruppen" />
-    <string id="ret_tier" text="Stufe" />
-    <string id="ret_transfer_header_text" text="Übertragen" />
-    <string id="ret_troops_tab_text" text="Truppen" />
-    <string id="ret_unequip_all" text="Alles ablegen" />
-    <string id="ret_unequip_all_button_text" text="Alles ablegen" />
+      text="Maximiere die Fertigkeiten von 15 benutzerdefinierten Truppen." />
+    <string
+      id="ret_switch_to_clan_troops"
+      text="Wechsel zu\nClantruppen" />
+    <string
+      id="ret_switch_to_kingdom_troops"
+      text="Wechsel zu\nKönigreichstruppen" />
+    <string
+      id="ret_tier"
+      text="Stufe" />
+    <string
+      id="ret_transfer_header_text"
+      text="Übertragen" />
+    <string
+      id="ret_troops_tab_text"
+      text="Truppen" />
+    <string
+      id="ret_unequip_all"
+      text="Alles ablegen" />
+    <string
+      id="ret_unequip_all_button_text"
+      text="Alles ablegen" />
     <string
       id="ret_unequip_all_text"
-      text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?\n\nSie werden eingelagert."
-    />
-    <string id="ret_unlock_btn" text="Freischalten" />
-    <string id="ret_unlock_failed" text="Kann nicht freigeschaltet werden." />
-    <string id="ret_upgrades_header_text" text="Upgrades" />
-    <string id="ret_vanguard" text="Vorhut" />
+      text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?\n\nSie werden eingelagert." />
+    <string
+      id="ret_unlock_btn"
+      text="Freischalten" />
+    <string
+      id="ret_unlock_failed"
+      text="Kann nicht freigeschaltet werden." />
+    <string
+      id="ret_unlock_progress_text"
+      text="Wird freigeschaltet ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrades_header_text"
+      text="Upgrades" />
+    <string
+      id="ret_vanguard"
+      text="Vorhut" />
     <string
       id="ret_vanguard_clear_hideout_retinue_only"
-      text="Räume ein Versteck nur mit deiner Gefolgschaft."
-    />
-    <string id="ret_vanguard_description" text="+15% Gefolgschaftsobergrenze." />
+      text="Räume ein Versteck nur mit deiner Gefolgschaft." />
+    <string
+      id="ret_vanguard_description"
+      text="+15% Gefolgschaftsobergrenze." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
-      text="Lass eine Gefolgschaft den ersten Nahkampfkills in einem Belagerungsangriff erzielen."
-    />
+      text="Lass eine Gefolgschaft den ersten Nahkampfkills in einem Belagerungsangriff erzielen." />
     <string
       id="ret_vanguard_win_100_retinue_only"
-      text="Gewinne eine 100+ Schlacht nur mit deiner Gefolgschaft."
-    />
-    <string id="ret_warning" text="Warnung" />
-    <string id="ret_weapon_1_slot_text" text="Waffe 1" />
-    <string id="ret_weapon_2_slot_text" text="Waffe 2" />
-    <string id="ret_weapon_3_slot_text" text="Waffe 3" />
-    <string id="ret_weapon_4_slot_text" text="Waffe 4" />
-    <string id="ret_yes" text="Ja" />
+      text="Gewinne eine 100+ Schlacht nur mit deiner Gefolgschaft." />
+    <string
+      id="ret_warning"
+      text="Warnung" />
+    <string
+      id="ret_weapon_1_slot_text"
+      text="Waffe 1" />
+    <string
+      id="ret_weapon_2_slot_text"
+      text="Waffe 2" />
+    <string
+      id="ret_weapon_3_slot_text"
+      text="Waffe 3" />
+    <string
+      id="ret_weapon_4_slot_text"
+      text="Waffe 4" />
+    <string
+      id="ret_yes"
+      text="Ja" />
   </strings>
 </base>
