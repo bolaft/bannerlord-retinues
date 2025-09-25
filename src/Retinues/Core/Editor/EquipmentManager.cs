@@ -24,6 +24,9 @@ namespace Retinues.Core.Editor
                 $"Collecting available items for troop {troop?.Name} (tier {troop?.Tier}), faction {faction?.Name}, slot {slot}."
             );
 
+            // Check if all equipment is unlocked
+            bool allEquipmentUnlocked = Config.GetOption<bool>("AllEquipmentUnlocked");
+
             // Initialize item list
             var items = new List<(WItem, int?)>();
 
@@ -32,7 +35,7 @@ namespace Retinues.Core.Editor
                 // Load items
                 foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
                 {
-                    if (Config.GetOption<bool>("AllEquipmentUnlocked"))
+                    if (allEquipmentUnlocked)
                         items.Add((new WItem(item), null)); // All items
                     else
                     {
