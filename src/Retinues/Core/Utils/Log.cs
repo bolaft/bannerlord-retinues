@@ -1,6 +1,10 @@
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Utils
@@ -23,10 +27,12 @@ namespace Retinues.Core.Utils
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Lowest level written to file
-        public static LogLevel MinFileLevel => Config.GetOption<bool>("DebugMode") ? LogLevel.Debug : LogLevel.Info;
+        public static LogLevel MinFileLevel =>
+            Config.GetOption<bool>("DebugMode") ? LogLevel.Debug : LogLevel.Info;
 
         // Lowest level shown in-game (InformationManager)
-        public static LogLevel MinInGameLevel => Config.GetOption<bool>("DebugMode") ? LogLevel.Info : LogLevel.Critical;
+        public static LogLevel MinInGameLevel =>
+            Config.GetOption<bool>("DebugMode") ? LogLevel.Info : LogLevel.Critical;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Log File Setup                     //
@@ -44,8 +50,7 @@ namespace Retinues.Core.Utils
                 var asmDir = Path.GetDirectoryName(
                     System.Reflection.Assembly.GetExecutingAssembly().Location
                 )!;
-                // e.g. .../Modules/YourModule/bin/Win64_Shipping_Client
-                // -> go up twice to module root
+                // Go up twice to module root
                 var moduleRoot = Directory.GetParent(asmDir)!.Parent!.FullName;
                 LogFile = Path.Combine(moduleRoot, LogFileName);
             }
@@ -76,23 +81,98 @@ namespace Retinues.Core.Utils
 
         public static void Exception(Exception ex, string context = "")
         {
-            var msg =
-                $"[EXCEPTION] {ex.GetType().Name}: {ex.Message}"
-                + (string.IsNullOrWhiteSpace(context) ? "" : $" | {context}")
-                + Environment.NewLine
-                + ex.StackTrace;
+            var sb = new StringBuilder();
+            sb.Append("[EXCEPTION] ").Append(ex.GetType().Name).Append(": ").Append(ex.Message);
+            if (!string.IsNullOrWhiteSpace(context))
+                sb.Append(" | ").Append(context);
+            sb.AppendLine();
 
-            Write(LogLevel.Error, msg);
-            // Include inner exceptions if present
+            // Rich stack trace (with file/line when PDBs exist)
+            AppendStackTrace(sb, ex);
+
+            // Extra exception metadata
+            sb.AppendLine("Source: " + ex.Source);
+            sb.AppendLine("TargetSite: " + ex.TargetSite);
+            sb.AppendLine("HResult: 0x" + ex.HResult.ToString("X"));
+
+            // Exception.Data
+            if (ex.Data?.Count > 0)
+            {
+                sb.AppendLine("Data:");
+                foreach (DictionaryEntry kv in ex.Data)
+                    sb.Append("  ").Append(kv.Key).Append(": ").AppendLine(kv.Value?.ToString());
+            }
+
+            Write(LogLevel.Error, sb.ToString());
+
+            // Chain inner exceptions (recursively, with rich stacks)
             var inner = ex.InnerException;
+            int depth = 1;
             while (inner != null)
             {
-                Write(
-                    LogLevel.Error,
-                    $"[INNER] {inner.GetType().Name}: {inner.Message}{Environment.NewLine}{inner.StackTrace}"
-                );
+                var ib = new StringBuilder();
+                ib.Append("[INNER ")
+                    .Append(depth)
+                    .Append("] ")
+                    .Append(inner.GetType().Name)
+                    .Append(": ")
+                    .AppendLine(inner.Message);
+                AppendStackTrace(ib, inner);
+                Write(LogLevel.Error, ib.ToString());
                 inner = inner.InnerException;
+                depth++;
             }
+        }
+
+        private static void AppendStackTrace(StringBuilder sb, Exception ex)
+        {
+            // 'true' => capture file info if available
+            var st = new StackTrace(ex, true);
+            var frames = st.GetFrames() ?? [];
+
+            string[] prefer = ["Retinues.", "Core."];
+
+            foreach (var f in frames)
+            {
+                var method = f.GetMethod();
+                if (method == null)
+                    continue;
+
+                var type = method.DeclaringType;
+                var typeName = type?.FullName ?? "<unknown>";
+                var methodName = method.Name;
+
+                // Params
+                var pars = method.GetParameters();
+                var sig = string.Join(", ", pars.Select(p => p.ParameterType.Name + " " + p.Name));
+
+                // File/line/col (only if PDBs available)
+                var file = f.GetFileName();
+                var line = f.GetFileLineNumber();
+                var col = f.GetFileColumnNumber();
+
+                sb.Append("  at ")
+                    .Append(typeName)
+                    .Append(".")
+                    .Append(methodName)
+                    .Append("(")
+                    .Append(sig)
+                    .Append(")");
+
+                if (!string.IsNullOrEmpty(file) && line > 0)
+                    sb.Append(" in ")
+                        .Append(file)
+                        .Append(":line ")
+                        .Append(line)
+                        .Append(":col ")
+                        .Append(col);
+
+                sb.AppendLine();
+            }
+
+            // If no frames (no PDBs), fall back to default
+            if (frames.Length == 0)
+                sb.AppendLine(ex.StackTrace);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

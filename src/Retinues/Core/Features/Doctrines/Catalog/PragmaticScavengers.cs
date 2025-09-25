@@ -2,6 +2,7 @@ using System.Linq;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
@@ -35,8 +36,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                 if (battle.AllyTroopCount == 0)
                     return; // No allies, no progress
 
-                int allyCasualties = battle
-                    .Kills.Where(k => k.Victim.IsAllyTroop).Count();
+                int allyCasualties = battle.Kills.Where(k => k.Victim.IsAllyTroop).Count();
 
                 if (allyCasualties > Progress)
                     SetProgress(allyCasualties);
@@ -78,6 +78,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnBattleStart(Battle battle)
             {
+                LordInCaptivity = false;
+
                 foreach (var p in battle.EnemyPrisoners)
                 {
                     if (p.IsHero)
@@ -85,7 +87,6 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                         LordInCaptivity = true;
                         return;
                     }
-                    LordInCaptivity = false;
                 }
             }
 

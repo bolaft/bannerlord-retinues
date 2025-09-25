@@ -240,8 +240,16 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        // Convenience for accessing the first equipment set.
-        public WEquipment Equipment => new(Equipments.FirstOrDefault().Base);
+        public WEquipment Equipment
+        {
+            get
+            {
+                var first = Equipments.FirstOrDefault();
+                return first is null
+                    ? new WEquipment(MBEquipmentRoster.EmptyEquipment)
+                    : new WEquipment(first.Base);
+            }
+        }
 
         public bool CanEquip(WItem item)
         {
@@ -369,11 +377,11 @@ namespace Retinues.Core.Game.Wrappers
             VanillaStringIdMap[StringId] = src.VanillaStringId;
 
             // Upgrades
-            UpgradeTargets = keepUpgrades ? [.. UpgradeTargets] : [];
+            UpgradeTargets = keepUpgrades ? [.. src.UpgradeTargets] : [];
 
             // Equipment — re-create from code to avoid shared references
             if (keepEquipment)
-                Equipments = [WEquipment.FromCode(Equipment.Code)];
+                Equipments = [WEquipment.FromCode(src.Equipment.Code)];
             else
                 Equipments = [WEquipment.FromCode(null)];
 

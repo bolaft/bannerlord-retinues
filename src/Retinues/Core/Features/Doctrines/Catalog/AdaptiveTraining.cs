@@ -89,20 +89,11 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                var weaponClasses = new List<int>();
-
-                foreach (var kill in battle.Kills)
-                {
-                    if (!kill.Killer.IsPlayer)
-                        continue; // Only count player kills
-
-                    var weapon = kill.Blow.WeaponClass;
-                    if (!weaponClasses.Contains(weapon))
-                        weaponClasses.Add(weapon);
-                }
-
-                if (weaponClasses.Count >= Progress)
-                    SetProgress(weaponClasses.Count);
+                var classes = new HashSet<int>();
+                foreach (var k in battle.Kills)
+                    if (k.Killer.IsPlayer)
+                        classes.Add(k.Blow.WeaponClass);
+                SetProgress(System.Math.Max(Progress, classes.Count));
             }
         }
     }

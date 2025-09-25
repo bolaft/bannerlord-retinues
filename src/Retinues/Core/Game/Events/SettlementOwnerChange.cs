@@ -24,8 +24,8 @@ namespace Retinues.Core.Game.Events
 
         public Settlement Settlement = settlement;
 
-        public WCharacter OldOwner = oldOwner;
-        public WCharacter NewOwner = newOwner;
+        public WCharacter OldOwner = oldOwner ?? null;
+        public WCharacter NewOwner = newOwner ?? null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //

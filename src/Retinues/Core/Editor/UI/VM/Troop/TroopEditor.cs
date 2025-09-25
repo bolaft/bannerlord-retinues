@@ -174,8 +174,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             get
             {
+                var tier = SelectedTroop?.Tier ?? 0;
                 return L.T("skill_cap_text", "{CAP} skill cap")
-                    .SetTextVariable("CAP", TroopRules.SkillCapByTier(SelectedTroop.Tier))
+                    .SetTextVariable("CAP", TroopRules.SkillCapByTier(tier))
                     .ToString();
             }
         }
@@ -447,7 +448,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             // Re-validate & apply in a deterministic order
             foreach (var order in _staged.Values.ToList())
             {
-                // Clamp to current max (no virtuals now; roster will change as we go)
+                // Clamp to current max (no virtuals now; roster will change)
                 int maxNow = TroopManager.GetMaxConvertible(order.From, order.To);
                 int amount = Math.Min(order.Amount, maxNow);
                 if (amount <= 0)
@@ -505,9 +506,18 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool PlayerWarnedAboutRetraining { get; set; } = false;
+        private string _stagedForTroopId;
 
         public void Refresh()
         {
+            // If the selected retinue changed, clear staged orders
+            var currentTo = SelectedTroop?.IsRetinue == true ? SelectedTroop.StringId : null;
+            if (!string.Equals(_stagedForTroopId, currentTo, StringComparison.Ordinal))
+            {
+                _staged.Clear();
+                _stagedForTroopId = currentTo;
+            }
+
             RebuildSkillRows();
             RebuildRetinueRows();
 
@@ -597,8 +607,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             int count = Player.Party.MemberRoster.CountOf(c);
 
-            Log.Debug($"GetVirtualCount {c?.Name}: base {count}");
-
             foreach (var o in _staged.Values)
             {
                 if (o.To == c)
@@ -649,6 +657,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         internal void StageConversion(WCharacter from, WCharacter to, int amountRequested)
         {
+            if (
+                to?.IsRetinue == true
+                && !string.Equals(_stagedForTroopId, to.StringId, StringComparison.Ordinal)
+            )
+            {
+                _staged.Clear();
+                _stagedForTroopId = to.StringId;
+            }
+
             int max = GetMaxStageable(from, to);
             int amount = Math.Min(amountRequested, max);
             if (amount <= 0)

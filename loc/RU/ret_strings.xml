@@ -1,704 +1,484 @@
 <?xml version="1.0" encoding="utf-8"?>
-<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+<base
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  type="string"
+>
   <tags>
     <tag language="RU" />
   </tags>
   <strings>
     <string
       id="ret_acquire_fief_to_unlock"
-      text="Получите феод, чтобы разблокировать войска клана." />
-    <string
-      id="ret_adaptive_training"
-      text="Адаптивная Тренировка" />
+      text="Получите феод, чтобы разблокировать войска клана."
+    />
+    <string id="ret_adaptive_training" text="Адаптивная Тренировка" />
     <string
       id="ret_adaptive_training_150_in_each_skill"
-      text="Для каждого навыка имейте хотя бы одного собственного воина с уровнем 150 или выше." />
+      text="Для каждого навыка имейте хотя бы одного собственного воина с уровнем 150 или выше."
+    />
     <string
       id="ret_adaptive_training_5_weapons"
-      text="В одном бою убейте врагов, используя пять разных классов оружия." />
+      text="В одном бою убейте врагов, используя пять разных классов оружия."
+    />
     <string
       id="ret_adaptive_training_description"
-      text="Опыт возвращается при снижении навыка войска." />
+      text="Опыт возвращается при снижении навыка войска."
+    />
     <string
       id="ret_adaptive_training_win_with_even_split"
-      text="Выиграйте бой против более чем 100 врагов, имея отряд, поровну разделённый на пехоту, кавалерию и дальнобойные войска клана." />
-    <string
-      id="ret_add_upgrade"
-      text="Добавить Улучшение" />
-    <string
-      id="ret_add_upgrade_button_text"
-      text="Добавить Улучшение" />
-    <string
-      id="ret_ancestral_heritage"
-      text="Наследие Предков" />
+      text="Выиграйте бой против более чем 100 врагов, имея отряд, поровну разделённый на пехоту, кавалерию и дальнобойные войска клана."
+    />
+    <string id="ret_add_upgrade" text="Добавить Улучшение" />
+    <string id="ret_add_upgrade_button_text" text="Добавить Улучшение" />
+    <string id="ret_ancestral_heritage" text="Наследие Предков" />
     <string
       id="ret_ancestral_heritage_150_outnumbered_own_culture"
-      text="Выиграйте битву с 150+ врагами, будучи в меньшинстве и используя только войска своей культуры." />
+      text="Выиграйте битву с 150+ врагами, будучи в меньшинстве и используя только войска своей культуры."
+    />
     <string
       id="ret_ancestral_heritage_capture_own_culture_fief"
-      text="Захватите феод своей культуры у вражеского королевства." />
+      text="Захватите феод своей культуры у вражеского королевства."
+    />
     <string
       id="ret_ancestral_heritage_description"
-      text="Разблокирует все предметы культур клана и королевства." />
+      text="Разблокирует все предметы культур клана и королевства."
+    />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
-      text="Выиграйте турнир в городе своей культуры." />
-    <string
-      id="ret_apply_conversions_button_text"
-      text="Преобразовать" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} опыт" />
-    <string
-      id="ret_battlefield_tithes"
-      text="Полевая Десятина" />
+      text="Выиграйте турнир в городе своей культуры."
+    />
+    <string id="ret_apply_conversions_button_text" text="Преобразовать" />
+    <string id="ret_available_troop_xp" text="{XP} опыт" />
+    <string id="ret_battlefield_tithes" text="Полевая Десятина" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Можно разблокировать предметы из убийств союзных отрядов." />
+      text="Можно разблокировать предметы из убийств союзных отрядов."
+    />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
-      text="Возглавьте армию, состоящую в основном из союзников, и победите вражескую армию." />
+      text="Возглавьте армию, состоящую в основном из союзников, и победите вражескую армию."
+    />
     <string
       id="ret_battlefield_tithes_quest_for_allied_lord"
-      text="Выполните 5 заданий для союзных лордов." />
+      text="Выполните 5 заданий для союзных лордов."
+    />
     <string
       id="ret_battlefield_tithes_turn_tide_allied_army_battle"
-      text="Переломите ход сражения с участием союзной армии." />
-    <string
-      id="ret_body_slot_text"
-      text="Торс" />
-    <string
-      id="ret_bound_by_honor"
-      text="Связанные Честью" />
-    <string
-      id="ret_bound_by_honor_defeat_10_bandits"
-      text="Уничтожьте 10 бандитских отрядов." />
-    <string
-      id="ret_bound_by_honor_description"
-      text="+20% морали свиты." />
+      text="Переломите ход сражения с участием союзной армии."
+    />
+    <string id="ret_body_slot_text" text="Торс" />
+    <string id="ret_bound_by_honor" text="Связанные Честью" />
+    <string id="ret_bound_by_honor_defeat_10_bandits" text="Уничтожьте 10 бандитских отрядов." />
+    <string id="ret_bound_by_honor_description" text="+20% морали свиты." />
     <string
       id="ret_bound_by_honor_protect_villagers_or_caravans"
-      text="Спасите 3 каравана или крестьянских отряда от нападения врагов." />
+      text="Спасите 3 каравана или крестьянских отряда от нападения врагов."
+    />
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
-      text="Поддерживайте мораль отряда только из свиты выше 90 в течение 15 дней." />
-    <string
-      id="ret_buy_item"
-      text="Купить Предмет" />
+      text="Поддерживайте мораль отряда только из свиты выше 90 в течение 15 дней."
+    />
+    <string id="ret_buy_item" text="Купить Предмет" />
     <string
       id="ret_buy_item_text"
-      text="Вы уверены, что хотите купить {ITEM_NAME} за {ITEM_VALUE} золота?" />
-    <string
-      id="ret_cancel"
-      text="Отмена" />
-    <string
-      id="ret_cant_remove_root_troop"
-      text="Базовые войска не могут быть удалены." />
+      text="Вы уверены, что хотите купить {ITEM_NAME} за {ITEM_VALUE} золота?"
+    />
+    <string id="ret_cancel" text="Отмена" />
+    <string id="ret_cant_remove_root_troop" text="Базовые войска не могут быть удалены." />
     <string
       id="ret_cant_remove_troop_with_targets"
-      text="Войска, у которых есть ветки улучшений, не могут быть удалены." />
-    <string
-      id="ret_cape_slot_text"
-      text="Плащ" />
-    <string
-      id="ret_clanic_traditions"
-      text="Клановые Традиции" />
+      text="Войска, у которых есть ветки улучшений, не могут быть удалены."
+    />
+    <string id="ret_cape_slot_text" text="Плащ" />
+    <string id="ret_clanic_traditions" text="Клановые Традиции" />
     <string
       id="ret_clanic_traditions_acquire_new_fief"
-      text="Получите новый феод для своего клана." />
+      text="Получите новый феод для своего клана."
+    />
     <string
       id="ret_clanic_traditions_companions_50_kills"
-      text="Выиграйте бой, в котором вы и ваши спутники убьёте 50 или более врагов." />
-    <string
-      id="ret_clanic_traditions_description"
-      text="10% скидка на предметы культуры клана." />
+      text="Выиграйте бой, в котором вы и ваши спутники убьёте 50 или более врагов."
+    />
+    <string id="ret_clanic_traditions_description" text="10% скидка на предметы культуры клана." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
-      text="Владейте кузницей в городе своей культуры в течение 30 дней." />
-    <string
-      id="ret_clear_conversions_button_text"
-      text="Очистить" />
-    <string
-      id="ret_close_doctrines_button_text"
-      text="Назад" />
-    <string
-      id="ret_close_equipment_button_text"
-      text="Назад" />
-    <string
-      id="ret_confirm"
-      text="Подтвердить" />
-    <string
-      id="ret_continue"
-      text="Продолжить" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Недостаточно золота для преобразования." />
+      text="Владейте кузницей в городе своей культуры в течение 30 дней."
+    />
+    <string id="ret_clear_conversions_button_text" text="Очистить" />
+    <string id="ret_close_doctrines_button_text" text="Назад" />
+    <string id="ret_close_equipment_button_text" text="Назад" />
+    <string id="ret_confirm" text="Подтвердить" />
+    <string id="ret_continue" text="Продолжить" />
+    <string id="ret_convert_not_enough_gold" text="Недостаточно золота для преобразования." />
     <string
       id="ret_convert_not_enough_gold_text"
-      text="У вас недостаточно золота, чтобы нанять эту свиту." />
-    <string
-      id="ret_convert_not_enough_gold_title"
-      text="Недостаточно золота" />
-    <string
-      id="ret_cultural_pride"
-      text="Культурная Гордость" />
+      text="У вас недостаточно золота, чтобы нанять эту свиту."
+    />
+    <string id="ret_convert_not_enough_gold_title" text="Недостаточно золота" />
+    <string id="ret_cultural_pride" text="Культурная Гордость" />
     <string
       id="ret_cultural_pride_defeat_foreign_ruler"
-      text="Победите правителя другой культуры в бою." />
-    <string
-      id="ret_cultural_pride_description"
-      text="10% скидка на предметы культуры войска." />
+      text="Победите правителя другой культуры в бою."
+    />
+    <string id="ret_cultural_pride_description" text="10% скидка на предметы культуры войска." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
-      text="Совершите 100 убийств в бою войсками без иностранного снаряжения." />
+      text="Совершите 100 убийств в бою войсками без иностранного снаряжения."
+    />
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
-      text="Выиграйте турнир, надев только доспехи своей культуры." />
-    <string
-      id="ret_doctrine_costs"
-      text="Стоимость: {GOLD} Золото, {INFLUENCE} Влияние." />
-    <string
-      id="ret_doctrine_service_unavailable"
-      text="Сервис доктрин недоступен." />
-    <string
-      id="ret_doctrines_button_text"
-      text="Доктрины" />
-    <string
-      id="ret_doctrines_col_0"
-      text="Разблокировки" />
-    <string
-      id="ret_doctrines_col_1"
-      text="Снаряжение" />
-    <string
-      id="ret_doctrines_col_2"
-      text="Войска" />
-    <string
-      id="ret_doctrines_col_3"
-      text="Свита" />
-    <string
-      id="ret_empty_item"
-      text="Пусто" />
-    <string
-      id="ret_enter_new_name"
-      text="Введите новое имя:" />
-    <string
-      id="ret_enter_new_troop_name"
-      text="Введите имя нового войска:" />
-    <string
-      id="ret_equipment_button_text"
-      text="Снаряжение" />
-    <string
-      id="ret_feat_completed_title"
-      text="Подвиг Завершён" />
-    <string
-      id="ret_feats_no_reqs"
-      text="Нет требований." />
-    <string
-      id="ret_feats_reqs"
-      text="Требования" />
-    <string
-      id="ret_female"
-      text="Женский" />
-    <string
-      id="ret_gender_header_text"
-      text="Пол" />
-    <string
-      id="ret_gloves_slot_text"
-      text="Перчатки" />
-    <string
-      id="ret_head_slot_text"
-      text="Голова" />
-    <string
-      id="ret_horse_harness_slot_text"
-      text="Сбруя" />
-    <string
-      id="ret_horse_slot_text"
-      text="Лошадь" />
-    <string
-      id="ret_immortals"
-      text="Бессмертные" />
+      text="Выиграйте турнир, надев только доспехи своей культуры."
+    />
+    <string id="ret_doctrine_costs" text="Стоимость: {GOLD} Золото, {INFLUENCE} Влияние." />
+    <string id="ret_doctrine_service_unavailable" text="Сервис доктрин недоступен." />
+    <string id="ret_doctrines_button_text" text="Доктрины" />
+    <string id="ret_doctrines_col_0" text="Разблокировки" />
+    <string id="ret_doctrines_col_1" text="Снаряжение" />
+    <string id="ret_doctrines_col_2" text="Войска" />
+    <string id="ret_doctrines_col_3" text="Свита" />
+    <string id="ret_empty_item" text="Пусто" />
+    <string id="ret_enter_new_name" text="Введите новое имя:" />
+    <string id="ret_enter_new_troop_name" text="Введите имя нового войска:" />
+    <string id="ret_equipment_button_text" text="Снаряжение" />
+    <string id="ret_feat_completed_title" text="Подвиг Завершён" />
+    <string id="ret_feats_no_reqs" text="Нет требований." />
+    <string id="ret_feats_reqs" text="Требования" />
+    <string id="ret_female" text="Женский" />
+    <string id="ret_gender_header_text" text="Пол" />
+    <string id="ret_gloves_slot_text" text="Перчатки" />
+    <string id="ret_head_slot_text" text="Голова" />
+    <string id="ret_horse_harness_slot_text" text="Сбруя" />
+    <string id="ret_horse_slot_text" text="Лошадь" />
+    <string id="ret_immortals" text="Бессмертные" />
     <string
       id="ret_immortals_100_retinue_survive_struck_down"
-      text="Сделайте так, чтобы 100 воинов свиты выжили после того, как их сбили в бою." />
-    <string
-      id="ret_immortals_description"
-      text="+20% шанса выживания свиты." />
+      text="Сделайте так, чтобы 100 воинов свиты выжили после того, как их сбили в бою."
+    />
+    <string id="ret_immortals_description" text="+20% шанса выживания свиты." />
     <string
       id="ret_immortals_retinue_200_enemies"
-      text="Пусть ваша свита победит 200 врагов в одном бою." />
+      text="Пусть ваша свита победит 200 врагов в одном бою."
+    />
     <string
       id="ret_immortals_win_100_no_deaths"
-      text="Одержите победу в одиночку против 100+ врагов без единой смерти с вашей стороны." />
-    <string
-      id="ret_in_stock"
-      text="В наличии ({STOCK})" />
-    <string
-      id="ret_increase_troop_tier"
-      text="Повысить ранг {TROOP_NAME}?\n\n{text}" />
-    <string
-      id="ret_indomitable"
-      text="Неукротимый" />
+      text="Одержите победу в одиночку против 100+ врагов без единой смерти с вашей стороны."
+    />
+    <string id="ret_in_stock" text="В наличии ({STOCK})" />
+    <string id="ret_increase_troop_tier" text="Повысить ранг {TROOP_NAME}?\n\n{text}" />
+    <string id="ret_indomitable" text="Неукротимый" />
     <string
       id="ret_indomitable_25_equiv_no_casualty"
-      text="Пусть ваша свита победит 25 врагов равного уровня без потерь." />
-    <string
-      id="ret_indomitable_description"
-      text="+5 HP для свиты." />
+      text="Пусть ваша свита победит 25 врагов равного уровня без потерь."
+    />
+    <string id="ret_indomitable_description" text="+5 HP для свиты." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
-      text="Сразитесь в осаде в защите, имея не менее 20 воинов свиты, и победите." />
+      text="Сразитесь в осаде в защите, имея не менее 20 воинов свиты, и победите."
+    />
     <string
       id="ret_indomitable_win_3_defensive_battles"
-      text="Выиграйте 3 оборонительных боя подряд с отрядом только из свиты." />
-    <string
-      id="ret_iron_discipline"
-      text="Железная Дисциплина" />
+      text="Выиграйте 3 оборонительных боя подряд с отрядом только из свиты."
+    />
+    <string id="ret_iron_discipline" text="Железная Дисциплина" />
     <string
       id="ret_iron_discipline_defeat_twice_size_only_custom"
-      text="Победите отряд вдвое больше, используя только собственные войска." />
-    <string
-      id="ret_iron_discipline_description"
-      text="+5 к лимитам навыков." />
-    <string
-      id="ret_iron_discipline_lead_army_10_days"
-      text="Возглавляйте армию 10 дней подряд." />
+      text="Победите отряд вдвое больше, используя только собственные войска."
+    />
+    <string id="ret_iron_discipline_description" text="+5 к лимитам навыков." />
+    <string id="ret_iron_discipline_lead_army_10_days" text="Возглавляйте армию 10 дней подряд." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
-      text="Улучшите 100 базовых собственных войск до максимального ранга." />
-    <string
-      id="ret_ironclad"
-      text="Железный Панцирь" />
+      text="Улучшите 100 базовых собственных войск до максимального ранга."
+    />
+    <string id="ret_ironclad" text="Железный Панцирь" />
     <string
       id="ret_ironclad_100_battle_outnumbered_low_tier"
-      text="Победите в битве 100+, будучи в меньшинстве, используя только войска 1, 2 или 3 ранга." />
+      text="Победите в битве 100+, будучи в меньшинстве, используя только войска 1, 2 или 3 ранга."
+    />
     <string
       id="ret_ironclad_12_troops_athletics_90"
-      text="Повысите 12 собственных войск до 90 в Атлетике." />
-    <string
-      id="ret_ironclad_description"
-      text="Нет ограничений по рангу для оружия и доспехов." />
+      text="Повысите 12 собственных войск до 90 в Атлетике."
+    />
+    <string id="ret_ironclad_description" text="Нет ограничений по рангу для оружия и доспехов." />
     <string
       id="ret_ironclad_full_set_t6_100_kills"
-      text="Совершите 100 убийств в бою войсками в доспехах и шлемах 6 ранга." />
-    <string
-      id="ret_item_ammo_damage"
-      text="Урон" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Размер стака" />
-    <string
-      id="ret_item_arm_armor"
-      text="Броня рук" />
-    <string
-      id="ret_item_body_armor"
-      text="Броня тела" />
-    <string
-      id="ret_item_head_armor"
-      text="Шлем" />
-    <string
-      id="ret_item_horse_charge"
-      text="Атака" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Здоровье" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Манёвренность" />
-    <string
-      id="ret_item_horse_speed"
-      text="Скорость" />
-    <string
-      id="ret_item_leg_armor"
-      text="Броня ног" />
-    <string
-      id="ret_item_melee_handling"
-      text="Управление" />
-    <string
-      id="ret_item_melee_length"
-      text="Длина" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Урон от рубящего удара" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Скорость рубящего удара" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Урон от колющего удара" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Скорость колющего удара" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Точность" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Урон" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Скорость снаряда" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Здоровье" />
-    <string
-      id="ret_item_shield_speed"
-      text="Скорость" />
-    <string
-      id="ret_items_unlocked"
-      text="Новая Экипировка Разблокирована" />
-    <string
-      id="ret_king_guard"
-      text="Королевская Гвардия" />
-    <string
-      id="ret_leg_slot_text"
-      text="Ноги" />
-    <string
-      id="ret_lions_share"
-      text="Львиная Доля" />
-    <string
-      id="ret_lions_share_25_personal_kills"
-      text="Лично победите 25 врагов в одной битве." />
+      text="Совершите 100 убийств в бою войсками в доспехах и шлемах 6 ранга."
+    />
+    <string id="ret_item_ammo_damage" text="Урон" />
+    <string id="ret_item_ammo_stack_size" text="Размер стака" />
+    <string id="ret_item_arm_armor" text="Броня рук" />
+    <string id="ret_item_body_armor" text="Броня тела" />
+    <string id="ret_item_head_armor" text="Шлем" />
+    <string id="ret_item_horse_charge" text="Атака" />
+    <string id="ret_item_horse_hit_points" text="Здоровье" />
+    <string id="ret_item_horse_maneuver" text="Манёвренность" />
+    <string id="ret_item_horse_speed" text="Скорость" />
+    <string id="ret_item_leg_armor" text="Броня ног" />
+    <string id="ret_item_melee_handling" text="Управление" />
+    <string id="ret_item_melee_length" text="Длина" />
+    <string id="ret_item_melee_swing_damage" text="Урон от рубящего удара" />
+    <string id="ret_item_melee_swing_speed" text="Скорость рубящего удара" />
+    <string id="ret_item_melee_thrust_damage" text="Урон от колющего удара" />
+    <string id="ret_item_melee_thrust_speed" text="Скорость колющего удара" />
+    <string id="ret_item_ranged_accuracy" text="Точность" />
+    <string id="ret_item_ranged_damage" text="Урон" />
+    <string id="ret_item_ranged_missile_speed" text="Скорость снаряда" />
+    <string id="ret_item_shield_hit_points" text="Здоровье" />
+    <string id="ret_item_shield_speed" text="Скорость" />
+    <string id="ret_items_unlocked" text="Новая Экипировка Разблокирована" />
+    <string id="ret_king_guard" text="Королевская Гвардия" />
+    <string id="ret_leg_slot_text" text="Ноги" />
+    <string id="ret_lions_share" text="Львиная Доля" />
+    <string id="ret_lions_share_25_personal_kills" text="Лично победите 25 врагов в одной битве." />
     <string
       id="ret_lions_share_5_tier_5_plus"
-      text="Лично победите 5 войск 5+ ранга в одной битве." />
+      text="Лично победите 5 войск 5+ ранга в одной битве."
+    />
     <string
       id="ret_lions_share_description"
-      text="Убийства героя считаются вдвое для разблокировок." />
-    <string
-      id="ret_lions_share_kill_enemy_lord"
-      text="Лично победите вражеского лорда в бою." />
-    <string
-      id="ret_list_toggle_elite"
-      text="Элитные" />
-    <string
-      id="ret_list_toggle_regular"
-      text="Обычные" />
-    <string
-      id="ret_loc_smoke_test"
-      text="Тест локализации: стандартный откат (EN)." />
+      text="Убийства героя считаются вдвое для разблокировок."
+    />
+    <string id="ret_lions_share_kill_enemy_lord" text="Лично победите вражеского лорда в бою." />
+    <string id="ret_list_toggle_elite" text="Элитные" />
+    <string id="ret_list_toggle_regular" text="Обычные" />
+    <string id="ret_loc_smoke_test" text="Тест локализации: стандартный откат (EN)." />
     <string
       id="ret_lower_skill_no_refund"
-      text="Понижение навыка этого войска не вернёт опыт. Всё равно продолжить?" />
-    <string
-      id="ret_male"
-      text="Мужской" />
-    <string
-      id="ret_masters_at_arms"
-      text="Мастера Оружия" />
+      text="Понижение навыка этого войска не вернёт опыт. Всё равно продолжить?"
+    />
+    <string id="ret_male" text="Мужской" />
+    <string id="ret_masters_at_arms" text="Мастера Оружия" />
     <string
       id="ret_masters_at_arms_1000_elite_kills"
-      text="Совершите 1000 убийств элитными войсками." />
-    <string
-      id="ret_masters_at_arms_description"
-      text="Вторая ветка улучшений для элитных войск." />
+      text="Совершите 1000 убийств элитными войсками."
+    />
+    <string id="ret_masters_at_arms_description" text="Вторая ветка улучшений для элитных войск." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
-      text="Выведите из строя 50 противников на арене." />
+      text="Выведите из строя 50 противников на арене."
+    />
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
-      text="Повысите 100 элитных войск до максимального ранга." />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="Вся Экипировка Разблокирована" />
+      text="Повысите 100 элитных войск до максимального ранга."
+    />
+    <string id="ret_mcm_option_all_equipment_unlocked" text="Вся Экипировка Разблокирована" />
     <string
       id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Вся экипировка разблокирована при старте игры." />
-    <string
-      id="ret_mcm_option_allowed_tier_difference"
-      text="Допустимая Разница Рангов" />
+      text="Вся экипировка разблокирована при старте игры."
+    />
+    <string id="ret_mcm_option_allowed_tier_difference" text="Допустимая Разница Рангов" />
     <string
       id="ret_mcm_option_allowed_tier_difference_hint"
-      text="Максимальная допустимая разница рангов между войсками и снаряжением." />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Базовая Стоимость Опыта за Навык" />
+      text="Максимальная допустимая разница рангов между войсками и снаряжением."
+    />
+    <string id="ret_mcm_option_base_skill_xp_cost" text="Базовая Стоимость Опыта за Навык" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Базовая стоимость опыта для повышения навыка." />
-    <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1"
-      text="Запрет на Лошадей для 1 Ранга" />
+      text="Базовая стоимость опыта для повышения навыка."
+    />
+    <string id="ret_mcm_option_disallow_mounts_for_tier_1" text="Запрет на Лошадей для 1 Ранга" />
     <string
       id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
-      text="Войска 1 ранга не могут иметь лошадей." />
-    <string
-      id="ret_mcm_option_enable_doctrines"
-      text="Включить Доктрины" />
+      text="Войска 1 ранга не могут иметь лошадей."
+    />
+    <string id="ret_mcm_option_enable_doctrines" text="Включить Доктрины" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Включить систему Доктрин и её функции." />
-    <string
-      id="ret_mcm_option_max_basic_retinue_ratio"
-      text="Макс. Доля Базовой Свиты" />
+      text="Включить систему Доктрин и её функции."
+    />
+    <string id="ret_mcm_option_max_basic_retinue_ratio" text="Макс. Доля Базовой Свиты" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
-      text="Максимальная доля базовой свиты в отряде игрока." />
-    <string
-      id="ret_mcm_option_max_elite_retinue_ratio"
-      text="Макс. Доля Элитной Свиты" />
+      text="Максимальная доля базовой свиты в отряде игрока."
+    />
+    <string id="ret_mcm_option_max_elite_retinue_ratio" text="Макс. Доля Элитной Свиты" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
-      text="Максимальная доля элитной свиты в отряде игрока." />
+      text="Максимальная доля элитной свиты в отряде игрока."
+    />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="Разблокируют ли убийства также предметы культуры собственных войск." />
-    <string
-      id="ret_mcm_option_pay_for_equipment"
-      text="Оплата за Снаряжение Войск" />
+      text="Разблокируют ли убийства также предметы культуры собственных войск."
+    />
+    <string id="ret_mcm_option_pay_for_equipment" text="Оплата за Снаряжение Войск" />
     <string
       id="ret_mcm_option_pay_for_equipment_hint"
-      text="Улучшение снаряжения войск стоит денег." />
-    <string
-      id="ret_mcm_option_recruit_anywhere"
-      text="Нанимать Войска Клана Где Угодно" />
+      text="Улучшение снаряжения войск стоит денег."
+    />
+    <string id="ret_mcm_option_recruit_anywhere" text="Нанимать Войска Клана Где Угодно" />
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
-      text="Игрок может нанимать войска клана в любом поселении." />
+      text="Игрок может нанимать войска клана в любом поселении."
+    />
     <string
       id="ret_mcm_option_required_kills_for_unlock"
-      text="Необходимые Убийства для Разблокировки" />
+      text="Необходимые Убийства для Разблокировки"
+    />
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="Сколько врагов с предметом нужно победить, чтобы его разблокировать." />
+      text="Сколько врагов с предметом нужно победить, чтобы его разблокировать."
+    />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Стоимость Преобразования Свиты за Ранг" />
+      text="Стоимость Преобразования Свиты за Ранг"
+    />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Стоимость преобразования свиты за ранг." />
+      text="Стоимость преобразования свиты за ранг."
+    />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="Стоимость Повышения Свиты за Ранг" />
+      text="Стоимость Повышения Свиты за Ранг"
+    />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="Стоимость повышения свиты за ранг." />
-    <string
-      id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Стоимость Опыта за Очко Навыка" />
+      text="Стоимость повышения свиты за ранг."
+    />
+    <string id="ret_mcm_option_skill_xp_cost_per_point" text="Стоимость Опыта за Очко Навыка" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Масштабируемая стоимость опыта за каждое очко навыка." />
-    <string
-      id="ret_mcm_option_unlock_from_culture"
-      text="Разблокировать по Культуре" />
+      text="Масштабируемая стоимость опыта за каждое очко навыка."
+    />
+    <string id="ret_mcm_option_unlock_from_culture" text="Разблокировать по Культуре" />
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
-      text="Снаряжение культуры игрока и возглавляемого им королевства всегда доступно." />
-    <string
-      id="ret_mcm_option_unlock_from_kills"
-      text="Разблокировать по Убийствам" />
+      text="Снаряжение культуры игрока и возглавляемого им королевства всегда доступно."
+    />
+    <string id="ret_mcm_option_unlock_from_kills" text="Разблокировать по Убийствам" />
     <string
       id="ret_mcm_option_unlock_from_kills_hint"
-      text="Разблокировать снаряжение, побеждая врагов, которые его носят." />
-    <string
-      id="ret_mcm_section_doctrines"
-      text="Доктрины" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="Снаряжение" />
-    <string
-      id="ret_mcm_section_general"
-      text="Общее" />
-    <string
-      id="ret_mcm_section_recruitment"
-      text="Вербовка" />
-    <string
-      id="ret_mcm_section_retinues"
-      text="Свита" />
-    <string
-      id="ret_mcm_section_skills"
-      text="Навыки" />
-    <string
-      id="ret_mcm_section_unlocks"
-      text="Разблокировки" />
-    <string
-      id="ret_name_header_text"
-      text="Имя" />
-    <string
-      id="ret_no"
-      text="Нет" />
-    <string
-      id="ret_not_enough_gold"
-      text="Недостаточно золота" />
+      text="Разблокировать снаряжение, побеждая врагов, которые его носят."
+    />
+    <string id="ret_mcm_section_doctrines" text="Доктрины" />
+    <string id="ret_mcm_section_equipment" text="Снаряжение" />
+    <string id="ret_mcm_section_general" text="Общее" />
+    <string id="ret_mcm_section_recruitment" text="Вербовка" />
+    <string id="ret_mcm_section_retinues" text="Свита" />
+    <string id="ret_mcm_section_skills" text="Навыки" />
+    <string id="ret_mcm_section_unlocks" text="Разблокировки" />
+    <string id="ret_name_header_text" text="Имя" />
+    <string id="ret_no" text="Нет" />
+    <string id="ret_not_enough_gold" text="Недостаточно золота" />
     <string
       id="ret_not_enough_gold_text"
-      text="У вас недостаточно золота, чтобы купить этот предмет." />
-    <string
-      id="ret_ok"
-      text="ОК" />
-    <string
-      id="ret_pragmatic_scavengers"
-      text="Прагматичные Собиратели" />
+      text="У вас недостаточно золота, чтобы купить этот предмет."
+    />
+    <string id="ret_ok" text="ОК" />
+    <string id="ret_pragmatic_scavengers" text="Прагматичные Собиратели" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Выиграйте три боя подряд в армии союзного лорда." />
+      text="Выиграйте три боя подряд в армии союзного лорда."
+    />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
-      text="Выиграйте бой, в котором союзники понесли более 100 потерь." />
+      text="Выиграйте бой, в котором союзники понесли более 100 потерь."
+    />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="Можно разблокировать предметы из потерь союзников." />
+      text="Можно разблокировать предметы из потерь союзников."
+    />
     <string
       id="ret_pragmatic_scavengers_rescue_lord"
-      text="Спасите поверженного лорда из плена вражеского отряда." />
-    <string
-      id="ret_queen_guard"
-      text="Гвардия Королевы" />
-    <string
-      id="ret_rank_up"
-      text="Повышение" />
+      text="Спасите поверженного лорда из плена вражеского отряда."
+    />
+    <string id="ret_queen_guard" text="Гвардия Королевы" />
+    <string id="ret_rank_up" text="Повышение" />
     <string
       id="ret_rank_up_costs_text"
-      text="Это будет стоить {COST_GOLD} золота и {COST_XP} опыта." />
-    <string
-      id="ret_rank_up_gold_cost_text"
-      text="Это будет стоить {COST} золота." />
+      text="Это будет стоить {COST_GOLD} золота и {COST_XP} опыта."
+    />
+    <string id="ret_rank_up_gold_cost_text" text="Это будет стоить {COST} золота." />
     <string
       id="ret_rank_up_not_enough_gold_text"
-      text="У вас недостаточно золота, чтобы повысить {TROOP_NAME}.\n\nСтоимость повышения: {COST} золота." />
-    <string
-      id="ret_rank_up_not_enough_gold_title"
-      text="Недостаточно золота" />
+      text="У вас недостаточно золота, чтобы повысить {TROOP_NAME}.\n\nСтоимость повышения: {COST} золота."
+    />
+    <string id="ret_rank_up_not_enough_gold_title" text="Недостаточно золота" />
     <string
       id="ret_rank_up_not_enough_xp_text"
-      text="У вас недостаточно опыта, чтобы повысить {TROOP_NAME}.\n\nСтоимость повышения: {COST} опыта." />
-    <string
-      id="ret_rank_up_not_enough_xp_title"
-      text="Недостаточно опыта" />
-    <string
-      id="ret_remove_button_text"
-      text="Удалить" />
-    <string
-      id="ret_remove_troop"
-      text="Удалить Войска" />
+      text="У вас недостаточно опыта, чтобы повысить {TROOP_NAME}.\n\nСтоимость повышения: {COST} опыта."
+    />
+    <string id="ret_rank_up_not_enough_xp_title" text="Недостаточно опыта" />
+    <string id="ret_remove_button_text" text="Удалить" />
+    <string id="ret_remove_troop" text="Удалить Войска" />
     <string
       id="ret_remove_troop_text"
-      text="Вы уверены, что хотите навсегда удалить {TROOP_NAME}?\n\nИх снаряжение будет сохранено." />
-    <string
-      id="ret_rename_troop"
-      text="Переименовать Войска" />
-    <string
-      id="ret_retinue"
-      text="Свита" />
-    <string
-      id="ret_retinue_female_kingdom"
-      text="{FACTION} Чемпион Королевы" />
-    <string
-      id="ret_retinue_house_champion"
-      text="{FACTION} Чемпион Дома" />
-    <string
-      id="ret_retinue_house_guard"
-      text="{FACTION} Стража Дома" />
-    <string
-      id="ret_retinue_male_kingdom"
-      text="{FACTION} Чемпион Короля" />
-    <string
-      id="ret_retinue_morale_bonus_bound_by_honor"
-      text="Свита (Связанные Честью)" />
-    <string
-      id="ret_retinue_royal_guard"
-      text="{FACTION} Королевская Гвардия" />
-    <string
-      id="ret_royal_patronage"
-      text="Королевское Покровительство" />
+      text="Вы уверены, что хотите навсегда удалить {TROOP_NAME}?\n\nИх снаряжение будет сохранено."
+    />
+    <string id="ret_rename_troop" text="Переименовать Войска" />
+    <string id="ret_retinue" text="Свита" />
+    <string id="ret_retinue_female_kingdom" text="{FACTION} Чемпион Королевы" />
+    <string id="ret_retinue_house_champion" text="{FACTION} Чемпион Дома" />
+    <string id="ret_retinue_house_guard" text="{FACTION} Стража Дома" />
+    <string id="ret_retinue_male_kingdom" text="{FACTION} Чемпион Короля" />
+    <string id="ret_retinue_morale_bonus_bound_by_honor" text="Свита (Связанные Честью)" />
+    <string id="ret_retinue_royal_guard" text="{FACTION} Королевская Гвардия" />
+    <string id="ret_royal_patronage" text="Королевское Покровительство" />
     <string
       id="ret_royal_patronage_1000_kills_custom_kingdom"
-      text="Совершите 1000 убийств войсками собственного королевства." />
+      text="Совершите 1000 убийств войсками собственного королевства."
+    />
     <string
       id="ret_royal_patronage_companion_governor_30_days"
-      text="Позвольте спутнику той же культуры, что и ваше королевство, управлять феодом в течение 30 дней." />
+      text="Позвольте спутнику той же культуры, что и ваше королевство, управлять феодом в течение 30 дней."
+    />
     <string
       id="ret_royal_patronage_description"
-      text="10% скидка на предметы культуры королевства." />
+      text="10% скидка на предметы культуры королевства."
+    />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
-      text="Нанимайте 100 собственных войск королевства." />
-    <string
-      id="ret_skill_cap_text"
-      text="Лимит навыка {CAP}" />
-    <string
-      id="ret_skills_header_text"
-      text="Навыки" />
-    <string
-      id="ret_steadfast_soldiers"
-      text="Стойкие Солдаты" />
+      text="Нанимайте 100 собственных войск королевства."
+    />
+    <string id="ret_skill_cap_text" text="Лимит навыка {CAP}" />
+    <string id="ret_skills_header_text" text="Навыки" />
+    <string id="ret_steadfast_soldiers" text="Стойкие Солдаты" />
     <string
       id="ret_steadfast_soldiers_defend_village_only_custom"
-      text="Защитите деревню от налёта, используя только собственные войска." />
-    <string
-      id="ret_steadfast_soldiers_description"
-      text="+10 очков навыков." />
+      text="Защитите деревню от налёта, используя только собственные войска."
+    />
+    <string id="ret_steadfast_soldiers_description" text="+10 очков навыков." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
-      text="Выиграйте оборону осады, используя только собственные войска." />
+      text="Выиграйте оборону осады, используя только собственные войска."
+    />
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
-      text="Максимизируйте навыки 15 собственных войск." />
-    <string
-      id="ret_switch_to_clan_troops"
-      text="Переключиться на\nВойска Клана" />
-    <string
-      id="ret_switch_to_kingdom_troops"
-      text="Переключиться на\nВойска Королевства" />
-    <string
-      id="ret_tier"
-      text="Ранг" />
-    <string
-      id="ret_transfer_header_text"
-      text="Передать" />
-    <string
-      id="ret_troops_tab_text"
-      text="Войска" />
-    <string
-      id="ret_unequip_all"
-      text="Снять Всё" />
-    <string
-      id="ret_unequip_all_button_text"
-      text="Снять Всё" />
+      text="Максимизируйте навыки 15 собственных войск."
+    />
+    <string id="ret_switch_to_clan_troops" text="Переключиться на\nВойска Клана" />
+    <string id="ret_switch_to_kingdom_troops" text="Переключиться на\nВойска Королевства" />
+    <string id="ret_tier" text="Ранг" />
+    <string id="ret_transfer_header_text" text="Передать" />
+    <string id="ret_troops_tab_text" text="Войска" />
+    <string id="ret_unequip_all" text="Снять Всё" />
+    <string id="ret_unequip_all_button_text" text="Снять Всё" />
     <string
       id="ret_unequip_all_text"
-      text="Снять все предметы с {TROOP_NAME}?\n\nОни будут сохранены." />
-    <string
-      id="ret_unlock_btn"
-      text="Разблокировать" />
-    <string
-      id="ret_unlock_failed"
-      text="Невозможно разблокировать." />
-    <string
-      id="ret_upgrades_header_text"
-      text="Улучшения" />
-    <string
-      id="ret_vanguard"
-      text="Авангард" />
+      text="Снять все предметы с {TROOP_NAME}?\n\nОни будут сохранены."
+    />
+    <string id="ret_unlock_btn" text="Разблокировать" />
+    <string id="ret_unlock_failed" text="Невозможно разблокировать." />
+    <string id="ret_upgrades_header_text" text="Улучшения" />
+    <string id="ret_vanguard" text="Авангард" />
     <string
       id="ret_vanguard_clear_hideout_retinue_only"
-      text="Очистите логово, используя только свиту." />
-    <string
-      id="ret_vanguard_description"
-      text="+15% лимита свиты." />
+      text="Очистите логово, используя только свиту."
+    />
+    <string id="ret_vanguard_description" text="+15% лимита свиты." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
-      text="Пусть свита совершит первое убийство в рукопашной в штурме осады." />
+      text="Пусть свита совершит первое убийство в рукопашной в штурме осады."
+    />
     <string
       id="ret_vanguard_win_100_retinue_only"
-      text="Выиграйте бой 100+, используя только свиту." />
-    <string
-      id="ret_warning"
-      text="Предупреждение" />
-    <string
-      id="ret_weapon_1_slot_text"
-      text="Оружие 1" />
-    <string
-      id="ret_weapon_2_slot_text"
-      text="Оружие 2" />
-    <string
-      id="ret_weapon_3_slot_text"
-      text="Оружие 3" />
-    <string
-      id="ret_weapon_4_slot_text"
-      text="Оружие 4" />
-    <string
-      id="ret_yes"
-      text="Да" />
+      text="Выиграйте бой 100+, используя только свиту."
+    />
+    <string id="ret_warning" text="Предупреждение" />
+    <string id="ret_weapon_1_slot_text" text="Оружие 1" />
+    <string id="ret_weapon_2_slot_text" text="Оружие 2" />
+    <string id="ret_weapon_3_slot_text" text="Оружие 3" />
+    <string id="ret_weapon_4_slot_text" text="Оружие 4" />
+    <string id="ret_yes" text="Да" />
   </strings>
 </base>
