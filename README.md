@@ -20,7 +20,6 @@ A Mount & Blade II: Bannerlord mod that adds troop customization features to the
 - bug with troop conversion counts set to 0 may be needed for 1.2.12
 - retinues can be garrisoned in 1.3
 - hover equipped item in 1.3 ?
-- "\n" in localisation strings
 
 ## Other
 
