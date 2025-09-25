@@ -56,12 +56,16 @@ namespace Retinues.Core.Game.Wrappers
             bool isPlayerTroop = false;
             try
             {
-                var myBanner = Player.Clan?.Base?.Banner;
-                var troopBanner = agent.Origin?.Banner;
-                if (myBanner != null && troopBanner != null)
-                    isPlayerTroop =
-                        ReferenceEquals(myBanner, troopBanner)
+                if (isPlayer) isPlayerTroop = false;
+                else
+                {
+                    var myBanner = Player.Clan?.Base?.Banner;
+                    var troopBanner = agent.Origin?.Banner;
+                    if (myBanner != null && troopBanner != null)
+                        isPlayerTroop =
+                            ReferenceEquals(myBanner, troopBanner)
                         || myBanner.GetHashCode() == troopBanner.GetHashCode();
+                }
             }
             catch { }
             IsPlayerTroop = isPlayerTroop;
