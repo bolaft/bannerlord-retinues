@@ -375,7 +375,7 @@
       text="Normal" />
     <string
       id="ret_loc_smoke_test"
-      text="Yerelleştirme testi: varsayılan fallback (EN)." />
+      text="Yerelleştirme testi: TR." />
     <string
       id="ret_lower_skill_no_refund"
       text="Bu askerin becerisini düşürmek deneyim puanı iadesi yapmayacak. Yine de devam edilsin mi?" />

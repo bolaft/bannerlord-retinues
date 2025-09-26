@@ -375,7 +375,7 @@
       text="Regolari" />
     <string
       id="ret_loc_smoke_test"
-      text="Test di localizzazione: fallback predefinito (EN)." />
+      text="Test di localizzazione: IT." />
     <string
       id="ret_lower_skill_no_refund"
       text="Abbassare l’abilità di questa truppa non rimborserà punti esperienza. Continuare comunque?" />
