@@ -92,6 +92,8 @@ internal static class VolunteerSwapForPlayerSession
                         continue;
 
                     var root = TroopSwapHelper.GetFactionRootFor(wrapped, playerClan);
+                    if (root == null)
+                        continue;
                     var replacement = TroopSwapHelper.MatchTier(root, wrapped.Tier);
 
                     if (replacement != null)
