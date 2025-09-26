@@ -375,7 +375,7 @@
       text="Regulares" />
     <string
       id="ret_loc_smoke_test"
-      text="Teste de localização: padrão de reserva (EN)." />
+      text="Teste de localização: BR." />
     <string
       id="ret_lower_skill_no_refund"
       text="Reduzir a habilidade desta tropa não reembolsará pontos de experiência. Continuar mesmo assim?" />

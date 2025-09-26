@@ -375,7 +375,7 @@
       text="普通" />
     <string
       id="ret_loc_smoke_test"
-      text="本地化測試：預設回退 (EN)。" />
+      text="本地化測試： CNt。" />
     <string
       id="ret_lower_skill_no_refund"
       text="降低此部隊技能不會返還經驗值。仍要繼續嗎？" />
