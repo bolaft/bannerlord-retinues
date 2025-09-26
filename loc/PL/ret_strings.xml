@@ -375,7 +375,7 @@
       text="Zwykły" />
     <string
       id="ret_loc_smoke_test"
-      text="Test lokalizacji: domyślny fallback (EN)." />
+      text="Test lokalizacji: PL." />
     <string
       id="ret_lower_skill_no_refund"
       text="Obniżenie umiejętności tej jednostki nie zwróci punktów doświadczenia. Kontynuować mimo to?" />

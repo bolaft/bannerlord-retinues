@@ -375,7 +375,7 @@
       text="보통" />
     <string
       id="ret_loc_smoke_test"
-      text="현지화 테스트: 기본 폴백 (EN)." />
+      text="현지화 테스트: KO." />
     <string
       id="ret_lower_skill_no_refund"
       text="이 병력의 기술을 낮춰도 경험치가 환급되지 않습니다. 계속하시겠습니까?" />

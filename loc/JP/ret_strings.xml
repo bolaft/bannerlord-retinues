@@ -375,7 +375,7 @@
       text="通常" />
     <string
       id="ret_loc_smoke_test"
-      text="ローカライズテスト：デフォルトフォールバック (EN)。" />
+      text="ローカライズテスト：JP。" />
     <string
       id="ret_lower_skill_no_refund"
       text="この兵のスキルを下げても経験値は返還されません。続行しますか？" />
