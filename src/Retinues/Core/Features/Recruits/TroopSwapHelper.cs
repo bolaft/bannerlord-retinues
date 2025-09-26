@@ -31,7 +31,13 @@ namespace Retinues.Core.Features.Recruits
                 return null;
 
             var isElite = IsEliteLine(vanilla);
-            return isElite ? faction.RootElite : faction.RootBasic;
+            var troop = isElite ? faction.RootElite : faction.RootBasic;
+
+            // Heuristic to check if initialized
+            if (troop == null || troop.StringId == troop.Name)
+                return null;
+
+            return troop;
         }
 
         // Find a node in the faction tree that best matches the requested tier.
