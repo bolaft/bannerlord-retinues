@@ -69,6 +69,9 @@ namespace Retinues.Core.Persistence.Troop
             // Activate
             troop.Activate();
 
+            // Force recalculation of formation class based on equipment
+            troop.ResetFormationClass();
+
             // Return the created troop
             return troop;
         }
