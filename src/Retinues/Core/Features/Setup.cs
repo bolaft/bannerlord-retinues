@@ -83,6 +83,9 @@ namespace Retinues.Core.Features
             foreach (var item in equipment.Items)
                 item.Unlock();
 
+            // Force recalculation of formation class based on equipment
+            retinue.ResetFormationClass();
+
             // Activate
             retinue.Activate();
         }
@@ -186,6 +189,9 @@ namespace Retinues.Core.Features
             foreach (var equipment in vanilla.Equipments)
             foreach (var item in equipment.Items)
                 item.Unlock();
+
+            // Force recalculation of formation class based on equipment
+            troop.ResetFormationClass();
 
             // Activate
             troop.Activate();

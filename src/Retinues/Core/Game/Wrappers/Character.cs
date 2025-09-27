@@ -122,7 +122,47 @@ namespace Retinues.Core.Game.Wrappers
 
         public WCulture Culture => new(Base.Culture);
 
-        public FormationClass FormationClass => Base.GetFormationClass();
+        public FormationClass FormationClass
+        {
+            get => Base.GetFormationClass();
+            set
+            {
+                try
+                {
+                    if (!IsCustom)
+                        return;
+                    // protected setter -> set via reflection
+                    Reflector.SetPropertyValue(Base, "DefaultFormationClass", value);
+                    Reflector.SetPropertyValue(Base, "DefaultFormationGroup", (int)value);
+                    var isRanged = value == FormationClass.Ranged || value == FormationClass.HorseArcher;
+                    var isMounted = value == FormationClass.Cavalry || value == FormationClass.HorseArcher;
+                    Reflector.SetFieldValue(Base, "_isRanged", isRanged);
+                    Reflector.SetFieldValue(Base, "_isMounted", isMounted);
+                }
+                catch (Exception ex) { Log.Exception(ex); }
+            }
+        }
+
+        public void ResetFormationClass()
+        {
+            // Reset to default formation class based on equipment
+            FormationClass = GetFormationClass();
+            Log.Info($"New formation class: {FormationClass}");
+        }
+
+        public FormationClass GetFormationClass()
+        {
+            if (!IsCustom)
+                return Base.GetFormationClass();
+
+            return (IsRanged, IsMounted) switch
+            {
+                (true, true) => FormationClass.HorseArcher,
+                (true, false) => FormationClass.Ranged,
+                (false, true) => FormationClass.Cavalry,
+                (false, false) => FormationClass.Infantry
+            };
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Flags & Toggles                    //
@@ -260,19 +300,33 @@ namespace Retinues.Core.Game.Wrappers
             return item.Difficulty <= GetSkill(item.RelevantSkill);
         }
 
-        public void Equip(WItem item, EquipmentIndex slot) => Equipment.SetItem(slot, item);
+        public void Equip(WItem item, EquipmentIndex slot)
+        {
+            Equipment.SetItem(slot, item);
+            
+            // Force recalculation of formation class based on equipment
+            ResetFormationClass();
+        }
 
-        public WItem Unequip(EquipmentIndex slot)
+        public WItem Unequip(EquipmentIndex slot, bool resetFormation = true)
         {
             var item = Equipment.GetItem(slot);
             Equipment.SetItem(slot, null);
+            
+            // Force recalculation of formation class based on equipment
+            if (resetFormation)
+                ResetFormationClass();
+
             return item;
         }
 
         public IEnumerable<WItem> UnequipAll()
         {
             foreach (var slot in WEquipment.Slots)
-                yield return Unequip(slot);
+                yield return Unequip(slot, resetFormation: false);
+            
+            // After all items are unequipped, reset formation class once
+            ResetFormationClass();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
