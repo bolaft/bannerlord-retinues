@@ -148,7 +148,6 @@ namespace Retinues.Core.Game.Wrappers
         {
             // Reset to default formation class based on equipment
             FormationClass = GetFormationClass();
-            Log.Info($"New formation class: {FormationClass}");
         }
 
         public FormationClass GetFormationClass()
@@ -198,7 +197,7 @@ namespace Retinues.Core.Game.Wrappers
             set => Base.SetTransferableInPartyScreen(!value);
         }
 
-        public bool IsRanged => Equipment.HasRangedWeapons;
+        public bool IsRanged => Equipment.HasNonThrowableRangedWeapons;
 
         public bool IsMounted => Equipment.HasMount;
 
