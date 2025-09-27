@@ -142,6 +142,20 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        public bool HasNonThrowableRangedWeapons
+        {
+            get
+            {
+                foreach (var slot in Slots)
+                {
+                    var item = GetItem(slot);
+                    if (item != null && item.IsRangedWeapon && item.Type != ItemObject.ItemTypeEnum.Thrown)
+                        return true;
+                }
+                return false;
+            }
+        }
+
         public bool HasMount
         {
             get
