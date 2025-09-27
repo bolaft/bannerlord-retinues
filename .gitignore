@@ -34,3 +34,6 @@ GlobalSuppressions.cs
 
 # Ignore media
 media/
+
+# Ignore TODO
+TODO.md
