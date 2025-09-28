@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
@@ -14,6 +15,24 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         [DataSourceProperty]
         public MBBindingList<EquipmentRowVM> Equipments { get; set; } = [];
+    
+        private string _searchText;
+
+        [DataSourceProperty]
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText == value) return;
+                _searchText = value;
+                foreach (var equipment in Equipments)
+                {
+                    equipment.RefreshVisibility(_searchText);
+                }
+                OnPropertyChanged(nameof(SearchText));
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //

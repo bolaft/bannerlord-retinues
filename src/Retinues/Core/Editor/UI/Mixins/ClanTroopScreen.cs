@@ -14,6 +14,7 @@ namespace Retinues.Core.Editor.UI.Mixins
     )]
     public sealed class ClanTroopScreen : BaseViewModelMixin<ClanManagementVM>, ITroopScreen
     {
+        
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
