@@ -12,7 +12,8 @@
             SuggestedWidth="588" SuggestedHeight="!Clan.Members.Sort.1.Height"
             Brush="Clan.Members.Sort.1"
             SortVisualWidget="TextWidget\NameSortVisualWidget"
-            UpdateChildrenStates="true" GamepadNavigationIndex="0">
+            UpdateChildrenStates="true" GamepadNavigationIndex="0"
+            IsEnabled="false">
             <Children>
                 <TextWidget
                     Id="TextWidget"
@@ -38,6 +39,8 @@
             SuggestedWidth="!Scroll.Header.Width" SuggestedHeight="!Scroll.Header.Height" 
             Sprite="StdAssets\scroll_header" 
             ExtendRight="3" ExtendTop="6" ExtendLeft="3" ExtendBottom="4" 
-            HorizontalAlignment="Right"/>
+            MarginLeft="2"
+            HorizontalAlignment="Right"
+            IsEnabled="false"/>
     </Children>
 </ListPanel>

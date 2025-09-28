@@ -111,7 +111,7 @@
       text="Gagne une bataille dans laquelle toi et tes compagnons réalisez 50 éliminations ou plus." />
     <string
       id="ret_clanic_traditions_description"
-      text="10% de réduction sur les objets de la culture du clan." />
+      text="Les troupes peuvent équiper les armes forgées." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="Possède une forge dans une ville de la culture de ton clan pendant 30 jours." />
@@ -337,6 +337,9 @@
     <string
       id="ret_item_ranged_missile_speed"
       text="Vitesse du projectile" />
+    <string
+      id="ret_item_search_label"
+      text="Filtre:" />
     <string
       id="ret_item_shield_hit_points"
       text="Points de vie" />
@@ -583,6 +586,12 @@
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="XP insuffisant" />
+    <string
+      id="ret_rank_up_not_maxed_out"
+      text="Pas au Maximum" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Maximise les compétences de cette rétinue avant de pouvoir la promouvoir." />
     <string
       id="ret_remove_button_text"
       text="Retirer" />

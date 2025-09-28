@@ -111,7 +111,7 @@
       text="Выиграйте бой, в котором вы и ваши спутники убьёте 50 или более врагов." />
     <string
       id="ret_clanic_traditions_description"
-      text="10% скидка на предметы культуры клана." />
+      text="Войска могут экипировать созданные предметы." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="Владейте кузницей в городе своей культуры в течение 30 дней." />
@@ -337,6 +337,9 @@
     <string
       id="ret_item_ranged_missile_speed"
       text="Скорость снаряда" />
+    <string
+      id="ret_item_search_label"
+      text="Фильтр:" />
     <string
       id="ret_item_shield_hit_points"
       text="Здоровье" />
@@ -583,6 +586,12 @@
     <string
       id="ret_rank_up_not_enough_xp_title"
       text="Недостаточно опыта" />
+    <string
+      id="ret_rank_up_not_maxed_out"
+      text="Не Максимум" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Максимизируйте навыки этой свиты, прежде чем повышать ее." />
     <string
       id="ret_remove_button_text"
       text="Удалить" />

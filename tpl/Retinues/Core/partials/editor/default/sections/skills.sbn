@@ -32,7 +32,7 @@
         <!-- Tier & Tier Upgrade  -->
         {{ small_text(" - ", "Center", "0", "0", "0", "0", "@IsRetinue") }}
         {{ small_text("@TierText", "Center", "0", "8", "0", "0", "@IsRetinue") }}
-        {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "30", "@IsRetinueIsNotMaxTier", "@CanRankUp") }}
+        {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "30", "@IsRetinueIsNotMaxTier") }}
     </Children>
 </ListPanel>
 
