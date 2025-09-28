@@ -338,6 +338,9 @@
       id="ret_item_ranged_missile_speed"
       text="Velocidad del Proyectil" />
     <string
+      id="ret_item_search_label"
+      text="Filtro:" />
+    <string
       id="ret_item_shield_hit_points"
       text="Puntos de Vida" />
     <string

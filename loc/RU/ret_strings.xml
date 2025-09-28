@@ -338,6 +338,9 @@
       id="ret_item_ranged_missile_speed"
       text="Скорость снаряда" />
     <string
+      id="ret_item_search_label"
+      text="Фильтр:" />
+    <string
       id="ret_item_shield_hit_points"
       text="Здоровье" />
     <string

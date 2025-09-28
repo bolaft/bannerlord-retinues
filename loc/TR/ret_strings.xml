@@ -338,6 +338,9 @@
       id="ret_item_ranged_missile_speed"
       text="Mermi Hızı" />
     <string
+      id="ret_item_search_label"
+      text="Filtre:" />
+    <string
       id="ret_item_shield_hit_points"
       text="Can Puanı" />
     <string

@@ -338,6 +338,9 @@
       id="ret_item_ranged_missile_speed"
       text="Missile Speed" />
     <string
+      id="ret_item_search_label"
+      text="Filter:" />
+    <string
       id="ret_item_shield_hit_points"
       text="Hit Points" />
     <string

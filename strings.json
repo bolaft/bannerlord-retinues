@@ -1776,6 +1776,22 @@
     "TR": "Mermi Hızı"
   },
   {
+    "id": "ret_item_search_label",
+    "default": "Filter:",
+    "BR": "Filtro:",
+    "CNs": "筛选器:",
+    "CNt": "篩選器:",
+    "DE": "Filter:",
+    "FR": "Filtre:",
+    "IT": "Filtro:",
+    "JP": "フィルター:",
+    "KO": "필터:",
+    "PL": "Filtr:",
+    "RU": "Фильтр:",
+    "SP": "Filtro:",
+    "TR": "Filtre:"
+  },
+  {
     "id": "ret_item_shield_hit_points",
     "default": "Hit Points",
     "BR": "Pontos de Vida",

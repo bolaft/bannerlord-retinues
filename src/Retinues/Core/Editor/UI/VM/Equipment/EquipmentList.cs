@@ -16,6 +16,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public MBBindingList<EquipmentRowVM> Equipments { get; set; } = [];
     
+        [DataSourceProperty]
+        public string SearchLabel => L.S("item_search_label", "Filter:");
+
         private string _searchText;
 
         [DataSourceProperty]

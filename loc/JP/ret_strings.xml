@@ -338,6 +338,9 @@
       id="ret_item_ranged_missile_speed"
       text="射出速度" />
     <string
+      id="ret_item_search_label"
+      text="フィルター:" />
+    <string
       id="ret_item_shield_hit_points"
       text="HP" />
     <string

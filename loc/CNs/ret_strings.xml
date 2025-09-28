@@ -338,6 +338,9 @@
       id="ret_item_ranged_missile_speed"
       text="弹道速度" />
     <string
+      id="ret_item_search_label"
+      text="筛选器:" />
+    <string
       id="ret_item_shield_hit_points"
       text="生命值" />
     <string

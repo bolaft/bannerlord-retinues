@@ -338,6 +338,9 @@
       id="ret_item_ranged_missile_speed"
       text="투사체 속도" />
     <string
+      id="ret_item_search_label"
+      text="필터:" />
+    <string
       id="ret_item_shield_hit_points"
       text="체력" />
     <string
