@@ -111,7 +111,7 @@
       text="在一場戰鬥中，你與同伴合計擊殺50人以上。" />
     <string
       id="ret_clanic_traditions_description"
-      text="本家族文化物品享受10%折扣。" />
+      text="部隊可以裝備製作的物品。" />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="在本家族文化的城鎮擁有一家鐵匠鋪30天。" />
@@ -337,6 +337,9 @@
     <string
       id="ret_item_ranged_missile_speed"
       text="彈道速度" />
+    <string
+      id="ret_item_search_label"
+      text="篩選器:" />
     <string
       id="ret_item_shield_hit_points"
       text="生命值" />

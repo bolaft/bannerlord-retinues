@@ -111,7 +111,7 @@
       text="Wygraj bitwę, w której ty i twoi towarzysze dokonacie 50 lub więcej zabójstw." />
     <string
       id="ret_clanic_traditions_description"
-      text="10% zniżki na przedmioty kultury klanu." />
+      text="Oddziały mogą wyposażać wytworzone przedmioty." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="Posiadaj kuźnię w mieście swojej kultury przez 30 dni." />
@@ -337,6 +337,9 @@
     <string
       id="ret_item_ranged_missile_speed"
       text="Prędkość pocisku" />
+    <string
+      id="ret_item_search_label"
+      text="Filtr:" />
     <string
       id="ret_item_shield_hit_points"
       text="Punkty życia" />

@@ -111,7 +111,7 @@
       text="자신과 동료가 50명 이상의 적을 처치한 전투에서 승리하십시오." />
     <string
       id="ret_clanic_traditions_description"
-      text="가문 문화 아이템 10% 할인." />
+      text="부대는 제작된 아이템을 장착할 수 있습니다." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="가문 문화의 마을에서 30일 동안 대장간을 소유하십시오." />
@@ -337,6 +337,9 @@
     <string
       id="ret_item_ranged_missile_speed"
       text="투사체 속도" />
+    <string
+      id="ret_item_search_label"
+      text="필터:" />
     <string
       id="ret_item_shield_hit_points"
       text="체력" />

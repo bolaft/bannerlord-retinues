@@ -1,4 +1,4 @@
-{{ include "list/sort_header.sbn" }}
+{{ include "list/troops/sort_header.sbn" }}
 
 <ListPanel 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent">

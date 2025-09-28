@@ -111,7 +111,7 @@
       text="Vinci una battaglia in cui tu e i tuoi compagni ottenete 50 o più uccisioni." />
     <string
       id="ret_clanic_traditions_description"
-      text="10% di sconto sugli oggetti della cultura del clan." />
+      text="Le truppe possono equipaggiare oggetti creati." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="Possiedi una fucina in una città della cultura del tuo clan per 30 giorni." />
@@ -337,6 +337,9 @@
     <string
       id="ret_item_ranged_missile_speed"
       text="Velocità del proiettile" />
+    <string
+      id="ret_item_search_label"
+      text="Filtro:" />
     <string
       id="ret_item_shield_hit_points"
       text="Punti vita" />

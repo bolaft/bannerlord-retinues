@@ -16,4 +16,23 @@
   <Target Name="RunBuilder" AfterTargets="Build">
     <Exec Command="dotnet run --no-build --project &quot;$(MSBuildProjectFullPath)&quot;" />
   </Target>
+  <!-- Copy GUI files from Retinues.Core to the game folder after build -->
+  <Target Name="CopyRetinuesCoreGUI" AfterTargets="Build">
+    <PropertyGroup>
+      <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\'))</RepoRoot>
+      <RetinuesCoreGuiDir>$(RepoRoot)bin/Modules/Retinues.Core/GUI</RetinuesCoreGuiDir>
+      <BannerlordGameDir>C:/Program Files (x86)/Steam/steamapps/common/Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+      <GameGuiDir>$(BannerlordGameDir)/Modules/Retinues.Core/GUI</GameGuiDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <RetinuesCoreGuiFiles Include="$(RetinuesCoreGuiDir)/**/*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(GameGuiDir)" />
+    <Copy
+      SourceFiles="@(RetinuesCoreGuiFiles)"
+      DestinationFiles="@(RetinuesCoreGuiFiles-&gt;'$(GameGuiDir)/%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true"
+      Condition="@(RetinuesCoreGuiFiles-&gt;Count()) != 0"
+    />
+  </Target>
 </Project>

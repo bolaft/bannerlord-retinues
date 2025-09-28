@@ -10,7 +10,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
     {
         public override string Name => L.S("clanic_traditions", "Clanic Traditions");
         public override string Description =>
-            L.S("clanic_traditions_description", "10% rebate on items of the clan's culture.");
+            L.S("clanic_traditions_description", "Troops can equip smithed weapons.");
         public override int Column => 1;
         public override int Row => 1;
 

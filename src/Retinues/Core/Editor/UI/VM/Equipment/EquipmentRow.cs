@@ -50,6 +50,24 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
+        private bool _isVisible = true;
+
+        [DataSourceProperty]
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+
+            set
+            {
+                if (_isVisible == value) return;
+                _isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+
         [DataSourceProperty]
         public bool IsEnabled
         {
@@ -219,6 +237,27 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WItem Item { get; } = item;
+
+        public void RefreshVisibility(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                IsVisible = true;
+                return;
+            }
+
+            if (Item == null)
+            {
+                IsVisible = true;
+                return;
+            }
+
+            var search = searchText.Trim().ToLowerInvariant();
+            var name = Item.Name.ToString().ToLowerInvariant();
+            var category = Item.Category.ToString().ToLowerInvariant();
+            var type = Item.Type.ToString().ToLowerInvariant();
+            IsVisible = name.Contains(search) || category.Contains(search) || type.Contains(search);
+        }
 
         public void Refresh()
         {

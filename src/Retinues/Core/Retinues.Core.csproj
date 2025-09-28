@@ -49,6 +49,10 @@
       <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.Engine.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="TaleWorlds.Engine.GauntletUI">
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.Engine.GauntletUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.ScreenSystem">
       <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.ScreenSystem.dll</HintPath>
       <Private>false</Private>
@@ -167,15 +171,6 @@
       DestinationFiles="@(LocFilesToCopy-&gt;'$(GameModuleDir)/ModuleData/Languages/%(RecursiveDir)%(Filename)%(Extension)')"
       SkipUnchangedFiles="true"
       Condition="@(LocFilesToCopy-&gt;Count()) != 0"
-    />
-    <ItemGroup>
-      <GuiFilesToCopy Include="$(ModuleOutDir)/GUI/**/*.*" />
-    </ItemGroup>
-    <Copy
-      SourceFiles="@(GuiFilesToCopy)"
-      DestinationFiles="@(GuiFilesToCopy-&gt;'$(GameModuleDir)/GUI/%(RecursiveDir)%(Filename)%(Extension)')"
-      SkipUnchangedFiles="true"
-      Condition="@(GuiFilesToCopy-&gt;Count()) != 0"
     />
   </Target>
   <Target Name="CopyToBannerlord" AfterTargets="Build" Condition="'$(BannerlordGameDir)' != ''">
