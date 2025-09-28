@@ -27,11 +27,20 @@ namespace Retinues.Core.Editor.UI.Mixins
                 _screen = new EditorScreenVM(Player.Clan, this);
 
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
+
+                ClanHotkeyGate.Active = true;         // enable while your UI is present
+                ClanHotkeyGate.RequireShift = false;   // or false to just block L entirely
             }
             catch (Exception e)
             {
                 Log.Exception(e);
             }
+        }
+
+        public override void OnFinalize()
+        {
+            ClanHotkeyGate.Active = false;        // restore default behavior
+            base.OnFinalize();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
