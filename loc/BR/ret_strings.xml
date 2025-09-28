@@ -111,7 +111,7 @@
       text="Vença uma batalha na qual você e seus companheiros consigam 50 ou mais abates." />
     <string
       id="ret_clanic_traditions_description"
-      text="10% de desconto em itens da cultura do clã." />
+      text="As tropas podem equipar itens criados." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="Seja dono de uma forja em uma cidade da cultura do seu clã por 30 dias." />

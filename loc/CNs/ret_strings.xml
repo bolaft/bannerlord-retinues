@@ -111,7 +111,7 @@
       text="在一场战斗中，你与同伴合计击杀50人以上。" />
     <string
       id="ret_clanic_traditions_description"
-      text="本家族文化物品享受10%折扣。" />
+      text="部队可以装备制作的物品。" />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="在本家族文化的城镇拥有一家铁匠铺30天。" />

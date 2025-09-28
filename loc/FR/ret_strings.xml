@@ -111,7 +111,7 @@
       text="Gagne une bataille dans laquelle toi et tes compagnons réalisez 50 éliminations ou plus." />
     <string
       id="ret_clanic_traditions_description"
-      text="10% de réduction sur les objets de la culture du clan." />
+      text="Les troupes peuvent équiper les armes forgées." />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="Possède une forge dans une ville de la culture de ton clan pendant 30 jours." />

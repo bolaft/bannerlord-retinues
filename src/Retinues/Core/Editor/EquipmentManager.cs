@@ -41,7 +41,7 @@ namespace Retinues.Core.Editor
                     {
                         var wItem = new WItem(item); // Wrap item
 
-                        if (wItem.IsCrafted)
+                        if (wItem.IsCrafted && !DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
                             continue; // Skip crafted items
                         if (
                             Config.GetOption<int>("AllowedTierDifference")
@@ -190,10 +190,6 @@ namespace Retinues.Core.Editor
                 {
                     if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
                         if (item?.Culture?.StringId == troop.Culture?.StringId)
-                            rebate += 0.10f; // 10% rebate on items of the clan's culture
-
-                    if (DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
-                        if (item?.Culture?.StringId == Player.Clan.Culture.StringId)
                             rebate += 0.10f; // 10% rebate on items of the clan's culture
 
                     if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())

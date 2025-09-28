@@ -111,7 +111,7 @@
       text="仲間と共に50人以上の敵を倒す戦闘に勝利する。" />
     <string
       id="ret_clanic_traditions_description"
-      text="一族文化のアイテムが10%割引。" />
+      text="部隊は作成したアイテムを装備できる。" />
     <string
       id="ret_clanic_traditions_own_smithy_30_days"
       text="一族文化の町で30日間鍛冶場を所有する。" />
