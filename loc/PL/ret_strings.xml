@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="Za mało PD" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="Nie maksymalizowano" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Maksymalizuj umiejętności tego orszaku, zanim będziesz mógł go awansować." />
+    <string
       id="ret_remove_button_text"
       text="Usuń" />
     <string

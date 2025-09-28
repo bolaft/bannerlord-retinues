@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="XP insuficiente" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="Não no Máximo" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Maximize as habilidades deste séquito antes de promovê-lo." />
+    <string
       id="ret_remove_button_text"
       text="Remover" />
     <string

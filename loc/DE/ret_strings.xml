@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="Nicht genug EP" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="Nicht Maximal" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Maximiere die Fertigkeiten dieser Gefolgschaft, bevor du sie aufwertest." />
+    <string
       id="ret_remove_button_text"
       text="Entfernen" />
     <string

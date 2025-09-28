@@ -90,7 +90,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 // Refresh editor counters
                 _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
                 _editor.OnPropertyChanged(nameof(_editor.SkillPointsUsed));
-                _editor.OnPropertyChanged(nameof(_editor.CanRankUp));
                 _editor.OnPropertyChanged(nameof(_editor.AvailableTroopXpText));
 
                 // Refresh all skills buttons

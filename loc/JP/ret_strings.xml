@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="XP不足" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="最大ではない" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="この随伴兵のスキルを最大限にしてから昇進させてください。" />
+    <string
       id="ret_remove_button_text"
       text="削除" />
     <string

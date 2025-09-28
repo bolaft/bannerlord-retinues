@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="經驗不足" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="未滿級" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="在晉升之前先將該隨從的技能提升到最大。" />
+    <string
       id="ret_remove_button_text"
       text="移除" />
     <string

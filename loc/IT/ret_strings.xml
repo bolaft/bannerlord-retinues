@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="PE insufficiente" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="Non al Massimo" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Massimizza le abilità di questo seguito prima di poterlo promuovere." />
+    <string
       id="ret_remove_button_text"
       text="Rimuovi" />
     <string
