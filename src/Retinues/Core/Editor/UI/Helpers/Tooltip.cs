@@ -42,12 +42,19 @@ namespace Retinues.Core.Editor.UI.Helpers
 
             return new BasicTooltipViewModel(() =>
             {
+                string titleText;
+
+                if (item.Culture?.Name != null)
+                    titleText = $"T{item.Tier} {item.Class} ({item.Culture.Name})";
+                else
+                    titleText = $"T{item.Tier} {item.Class}";
+
                 var props = new List<TooltipProperty>
                 {
                     // Title
                     new(
                         string.Empty,
-                        $"T{item.Tier} {item.Class}",
+                        titleText,
                         0,
                         false,
                         TooltipProperty.TooltipPropertyFlags.Title
