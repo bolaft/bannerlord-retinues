@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="Not enough XP" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="Not Maxed Out" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Max out this retinue&apos;s skills before you can rank up." />
+    <string
       id="ret_remove_button_text"
       text="Remove" />
     <string

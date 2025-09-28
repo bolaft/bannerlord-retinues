@@ -138,10 +138,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
 
         [DataSourceProperty]
-        public bool CanRankUp =>
-            IsRetinue && TroopRules.SkillPointsLeft(SelectedTroop) == 0 && !SelectedTroop.IsMaxTier;
-
-        [DataSourceProperty]
         public bool HasPendingConversions => _staged.Count > 0;
 
         [DataSourceProperty]
@@ -342,12 +338,28 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             if (SelectedTroop == null)
                 return;
-            if (!CanRankUp)
-                return;
-
+            
             int cost = TroopRules.RankUpCost(SelectedTroop);
 
-            if (Player.Gold < cost)
+            if (TroopRules.SkillPointsLeft(SelectedTroop) > 0)
+            {
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: L.S("rank_up_not_maxed_out", "Not Maxed Out"),
+                        text: L.S(
+                            "rank_up_not_maxed_out_text",
+                            "Max out this retinue's skills before you can rank up."
+                        ),
+                        isAffirmativeOptionShown: false,
+                        isNegativeOptionShown: true,
+                        affirmativeText: null,
+                        negativeText: L.S("ok", "OK"),
+                        affirmativeAction: null,
+                        negativeAction: () => { }
+                    )
+                );
+            }
+            else if (Player.Gold < cost)
             {
                 InformationManager.ShowInquiry(
                     new InquiryData(
@@ -542,7 +554,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
             OnPropertyChanged(nameof(CanUpgrade));
             OnPropertyChanged(nameof(CanRemove));
-            OnPropertyChanged(nameof(CanRankUp));
             OnPropertyChanged(nameof(RemoveButtonHint));
 
             OnPropertyChanged(nameof(SkillsRow1));

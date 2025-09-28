@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="XP insuffisant" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="Pas au Maximum" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Maximise les compétences de cette rétinue avant de pouvoir la promouvoir." />
+    <string
       id="ret_remove_button_text"
       text="Retirer" />
     <string

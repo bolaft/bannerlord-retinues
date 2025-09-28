@@ -3104,6 +3104,38 @@
     "TR": "Yetersiz XP"
   },
   {
+    "id": "ret_rank_up_not_maxed_out",
+    "default": "Not Maxed Out",
+    "BR": "Não no Máximo",
+    "CNs": "未满级",
+    "CNt": "未滿級",
+    "DE": "Nicht Maximal",
+    "FR": "Pas au Maximum",
+    "IT": "Non al Massimo",
+    "JP": "最大ではない",
+    "KO": "최대치 아님",
+    "PL": "Nie maksymalizowano",
+    "RU": "Не Максимум",
+    "SP": "No al Máximo",
+    "TR": "Maksimum Değil"
+  },
+  {
+    "id": "ret_rank_up_not_maxed_out_text",
+    "default": "Max out this retinue's skills before you can rank up.",
+    "BR": "Maximize as habilidades deste séquito antes de promovê-lo.",
+    "CNs": "在晋升之前先将该随从的技能提升到最大。",
+    "CNt": "在晉升之前先將該隨從的技能提升到最大。",
+    "DE": "Maximiere die Fertigkeiten dieser Gefolgschaft, bevor du sie aufwertest.",
+    "FR": "Maximise les compétences de cette rétinue avant de pouvoir la promouvoir.",
+    "IT": "Massimizza le abilità di questo seguito prima di poterlo promuovere.",
+    "JP": "この随伴兵のスキルを最大限にしてから昇進させてください。",
+    "KO": "이 수행원의 기술을 최대한으로 올린 후 승급시키십시오.",
+    "PL": "Maksymalizuj umiejętności tego orszaku, zanim będziesz mógł go awansować.",
+    "RU": "Максимизируйте навыки этой свиты, прежде чем повышать ее.",
+    "SP": "Maximiza las habilidades de este séquito antes de poder ascenderlo.",
+    "TR": "Bu ordunun becerilerini en üst seviyeye çıkarın, ardından terfi ettirin."
+  },
+  {
     "id": "ret_remove_button_text",
     "default": "Remove",
     "BR": "Remover",

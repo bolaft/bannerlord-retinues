@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="Недостаточно опыта" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="Не Максимум" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="Максимизируйте навыки этой свиты, прежде чем повышать ее." />
+    <string
       id="ret_remove_button_text"
       text="Удалить" />
     <string

@@ -587,6 +587,12 @@
       id="ret_rank_up_not_enough_xp_title"
       text="경험치 부족" />
     <string
+      id="ret_rank_up_not_maxed_out"
+      text="최대치 아님" />
+    <string
+      id="ret_rank_up_not_maxed_out_text"
+      text="이 수행원의 기술을 최대한으로 올린 후 승급시키십시오." />
+    <string
       id="ret_remove_button_text"
       text="제거" />
     <string
