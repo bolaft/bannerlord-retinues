@@ -38,6 +38,33 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
+        private bool _isVisible = true;
+
+        [DataSourceProperty]
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+
+            set
+            {
+                if (_isVisible == value) return;
+                _isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+
+        [DataSourceProperty]
+        public string ImageId => Troop?.Image.Id;
+
+        [DataSourceProperty]
+        public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
+
+        [DataSourceProperty]
+        public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
+
         [DataSourceProperty]
         public string IndentedName
         {
