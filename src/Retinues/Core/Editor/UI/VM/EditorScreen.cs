@@ -180,7 +180,7 @@ namespace Retinues.Core.Editor.UI.VM
         public bool CanSwitchFaction => Player.Kingdom != null && !IsDoctrinesMode;
 
         [DataSourceProperty]
-        public bool ShowRemoveButton => IsDefaultMode && SelectedTroop?.IsRetinue == false;
+        public bool ShowRemoveButton => IsDefaultMode && SelectedTroop?.IsRetinue == false && SelectedTroop?.IsMilitia == false;
 
         /* ━━━━━━━ Doctrines ━━━━━━ */
 
