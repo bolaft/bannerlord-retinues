@@ -1,76 +1,80 @@
 using System;
-using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
-static class RosterSanitizer
+namespace Retinues.Core.Safety
 {
-    public static void CleanParty(MobileParty mp)
+    public static class RosterSanitizer
     {
-        try
+        public static void CleanRoster(TroopRoster roster)
         {
-            if (mp?.Party == null) return;
+            if (roster == null) return;
 
-            var party = mp.Party;
-
-            var newMembers = RebuildSafe(party.MemberRoster, party);
-            var newPrison  = RebuildSafe(party.PrisonRoster, party);
-
-            TrySwapRoster(party, newMembers,  member: true);
-            TrySwapRoster(party, newPrison,   member: false);
-        }
-        catch (Exception e)
-        {
-            Log.Exception(e, $"[RosterSanitizer] Failed to sanitize party {mp?.StringId }.");
-        }
-    }
-
-    private static TroopRoster RebuildSafe(TroopRoster src, PartyBase owner)
-    {
-        try
+            try
             {
-            if (src == null) return null;
-
-            var dst = new TroopRoster(owner);
-
-            // Only keep valid, non-stub entries
-            var elems = src.GetTroopRoster();
-            for (int i = 0; i < elems.Count; i++)
-            {
-                var e = elems[i];
-                var ch = e.Character;
-                if (ch == null || e.Number <= 0) continue;
-
-                bool customInactive = false;
-                try
+                for (int i = roster.Count - 1; i >= 0; i--)
                 {
-                    var w = new WCharacter(ch);
-                    customInactive = w.IsCustom && !w.IsActive;
-                }
-                catch { /* be defensive; if wrapper explodes, keep the troop */ }
+                    var element = roster.GetElementCopyAtIndex(i);
+                    if (element.Character == null)
+                    {
+                        Log.Warn($"[RosterSanitizer] Null troop at index {i}, removing.");
+                        PruneElement(roster, element, i);
+                        continue;
+                    }
 
-                if (customInactive)
-                {
-                    Log.Warn($"[RosterSanitizer] Dropping inactive custom troop {ch.Name} from {owner?.Name?.ToString() }.");
-                    continue; // drop stubs
+                    var wChar = new WCharacter(element.Character);
+
+                    // Any custom troop stub (inactive) must not exist in rosters
+                    if (wChar.IsCustom && !wChar.IsActive)
+                    {
+                        Log.Warn($"[RosterSanitizer] Removing inactive custom troop {wChar.StringId} at index {i}.");
+                        PruneElement(roster, element, i);
+                    }
                 }
-                dst.AddToCounts(ch, e.Number);
             }
-
-            return dst;
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "[RosterSanitizer] Failed while cleaning roster");
+            }
         }
-        catch (Exception e)
+
+        private static void PruneElement(TroopRoster roster, TroopRosterElement element, int index)
         {
-            Log.Exception(e, $"[RosterSanitizer] Failed to rebuild roster for party {owner?.Name?.ToString() }.");
-            return src;
-        }
-    }
+            try
+            {
+                var total = element.Number;
+                var wounded = element.WoundedNumber;
+                var xp = element.Xp;
 
-    private static void TrySwapRoster(PartyBase party, TroopRoster newRoster, bool member)
-    {
-        if (newRoster == null) return;
-        var prop = member ? "MemberRoster" : "PrisonRoster";
-        Reflector.SetPropertyValue(party, prop, newRoster);
+                if (total > 0)
+                {
+                    roster.AddToCounts(
+                        element.Character,
+                        -total,
+                        insertAtFront: false,
+                        woundedCount: -wounded,
+                        xpChange: -xp,
+                        removeDepleted: true,
+                        index: index
+                    );
+                }
+
+                Log.Info($"[RosterSanitizer] Pruned {element.Character?.StringId ?? "NULL"} (total:{total}, wounded:{wounded}, xp:{xp})");
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "[RosterSanitizer] Failed pruning element");
+            }
+        }
+
+        public static void CleanParty(MobileParty mp)
+        {
+            if (mp == null) return;
+
+            CleanRoster(mp.MemberRoster);
+            CleanRoster(mp.PrisonRoster);
+        }
     }
 }
