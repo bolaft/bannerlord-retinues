@@ -76,7 +76,6 @@ namespace Retinues.Core
                 // Persistence behaviors
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
-                cs.AddBehavior(new MilitiaSwapBehavior());
 
                 // XP behavior (skip if both costs are 0)
                 if (
