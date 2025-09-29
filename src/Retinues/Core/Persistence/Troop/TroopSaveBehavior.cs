@@ -140,6 +140,19 @@ namespace Retinues.Core.Persistence.Troop
             {
                 Log.Debug("No root troops found.");
             }
+
+            if (faction.MilitiaMelee.IsActive && faction.MilitiaMeleeElite.IsActive && faction.MilitiaRanged.IsActive && faction.MilitiaRangedElite.IsActive)
+            {
+                Log.Debug("Collecting militia troops.");
+                list.Add(TroopSave.Save(faction.MilitiaMelee));
+                list.Add(TroopSave.Save(faction.MilitiaMeleeElite));
+                list.Add(TroopSave.Save(faction.MilitiaRanged));
+                list.Add(TroopSave.Save(faction.MilitiaRangedElite));
+            }
+            else
+            {
+                Log.Debug("No militia troops found.");
+            }
         }
     }
 }
