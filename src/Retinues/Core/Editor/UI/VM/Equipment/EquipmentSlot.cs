@@ -53,6 +53,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     if (value)
                         OnSelect();
 
+                    if (_editor.Screen?.EquipmentList is not null)
+                        _editor.Screen.EquipmentList.SearchText = ""; // Clear search on selection change
+
                     OnPropertyChanged(nameof(IsSelected));
                 }
             }
