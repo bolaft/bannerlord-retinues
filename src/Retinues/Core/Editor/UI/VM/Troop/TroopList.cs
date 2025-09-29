@@ -34,6 +34,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
+        public string MilitiaToggleText => L.S("list_toggle_militia", "Militia");
+
+        [DataSourceProperty]
         public MBBindingList<TroopRowVM> RetinueTroops { get; set; } = [];
 
         [DataSourceProperty]
@@ -41,7 +44,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> BasicTroops { get; set; } = [];
-    
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> MilitiaTroops { get; set; } = [];
+
         [DataSourceProperty]
         public string SearchLabel => L.S("item_search_label", "Filter:");
 
@@ -68,7 +74,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override System.Collections.Generic.List<TroopRowVM> Rows =>
-            [.. RetinueTroops, .. EliteTroops, .. BasicTroops];
+            [.. RetinueTroops, .. EliteTroops, .. BasicTroops, .. MilitiaTroops];
 
         public void Select(WCharacter troop)
         {
@@ -103,6 +109,14 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             )
                 AddTroopTreeInOrder(root, BasicTroops);
 
+            MilitiaTroops.Clear();
+            foreach (
+                var root in TroopManager
+                    .CollectMilitiaTroops(Screen.Faction)
+                    .Where(t => t.Parent is null)
+            )
+                AddTroopTreeInOrder(root, MilitiaTroops);
+
             if (SelectedRow is null)
             {
                 Select(
@@ -118,11 +132,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (BasicTroops.Count == 0)
                 BasicTroops.Add(new TroopRowVM(null, this));
 
+            if (MilitiaTroops.Count == 0)
+                MilitiaTroops.Add(new TroopRowVM(null, this));
+
             OnPropertyChanged(nameof(SelectedRow));
             OnPropertyChanged(nameof(RetinueToggleText));
             OnPropertyChanged(nameof(RetinueTroops));
             OnPropertyChanged(nameof(EliteTroops));
             OnPropertyChanged(nameof(BasicTroops));
+            OnPropertyChanged(nameof(MilitiaTroops));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -133,6 +151,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             var row = new TroopRowVM(troop, this);
             list.Add(row);
+
+            if (troop.IsRetinue || troop.IsMilitiaMelee || troop.IsMilitiaRanged)
+                return; // Retinue and Militia troops do not have children
 
             var children = Screen
                 .Faction.BasicTroops.Concat(Screen.Faction.EliteTroops)

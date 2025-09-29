@@ -59,6 +59,21 @@ namespace Retinues.Core.Editor
             }
         }
 
+        public static List<WCharacter> CollectMilitiaTroops(WFaction faction)
+        {
+            Log.Debug(
+                $"Collecting militia troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
+            );
+            try
+            {
+                return [faction.MilitiaMelee, faction.MilitiaMeleeElite, faction.MilitiaRanged, faction.MilitiaRangedElite];
+            }
+            catch
+            {
+                return [];
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -143,8 +158,7 @@ namespace Retinues.Core.Editor
                 var child = new WCharacter(
                     troop.Faction?.StringId == Player.Kingdom?.StringId,
                     troop.IsElite,
-                    false,
-                    path
+                    path: path
                 );
 
                 // Copy from the original troop

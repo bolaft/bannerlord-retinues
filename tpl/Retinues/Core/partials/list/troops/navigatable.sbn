@@ -72,6 +72,7 @@
         {{ troop_list("Retinue", "{RetinueTroops}") }}
         {{ troop_list("Elite", "{EliteTroops}") }}
         {{ troop_list("Regular", "{BasicTroops}") }}
+        {{ troop_list("Militia", "{MilitiaTroops}") }}
 
     </Children>
 </NavigatableListPanel>

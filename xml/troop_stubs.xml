@@ -641,6 +641,46 @@
     is_female="false"
   />
   <NPCCharacter
+    id="ret_clan_basic_mmilitia"
+    name="ret_clan_basic_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
+    id="ret_clan_elite_mmilitia"
+    name="ret_clan_elite_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
+    id="ret_clan_basic_rmilitia"
+    name="ret_clan_basic_rmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
+    id="ret_clan_elite_rmilitia"
+    name="ret_clan_elite_rmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
     id="ret_kingdom_basic_r"
     name="ret_kingdom_basic_r"
     is_hidden_encyclopedia="true"
@@ -1273,6 +1313,46 @@
   <NPCCharacter
     id="ret_kingdom_elite_retinue"
     name="ret_kingdom_elite_retinue"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
+    id="ret_kingdom_basic_mmilitia"
+    name="ret_kingdom_basic_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
+    id="ret_kingdom_elite_mmilitia"
+    name="ret_kingdom_elite_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
+    id="ret_kingdom_basic_rmilitia"
+    name="ret_kingdom_basic_rmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    is_female="false"
+  />
+  <NPCCharacter
+    id="ret_kingdom_elite_rmilitia"
+    name="ret_kingdom_elite_rmilitia"
     is_hidden_encyclopedia="true"
     default_group="Infantry"
     level="1"
