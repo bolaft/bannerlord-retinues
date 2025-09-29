@@ -17,7 +17,6 @@ static class SafeRemoveTroopPatch
         if (idx < 0)
         {
             Log.Error($"[SafeRemoveTroop] Tried to remove {troop?.StringId ?? "NULL"} not in roster. ");
-            // Cancel original to avoid AddToCountsAtIndex(-1, …) crash
             return false;
         }
         return true; // proceed normally
@@ -38,7 +37,7 @@ static class TeleportHero_PreparePatch
                 if (idx < 0)
                 {
                     src.MemberRoster.AddToCounts(hero.CharacterObject, +1, insertAtFront: true);
-                    Log.Warn($"[TeleportPrep] Re-added {hero?.Name} to {src.Name} before teleport.");
+                    Log.Warn($"[TeleportPrep] Re-added {hero?.Name} to {src?.Name} before teleport.");
                 }
             }
         }
