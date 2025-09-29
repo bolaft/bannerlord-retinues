@@ -1,12 +1,36 @@
+{{- func party_toggle(type, name, is_visible = "true") -}}
+<PartyHeaderToggleWidget
+    Id="CCT_{{type}}Toggle"
+    RenderLate="true"
+    IsVisible="{{is_visible}}"
+    IsEnable="false"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height"
+    CollapseIndicator="{{type}}Collapser\{{type}}CollapseIndicator"
+    ListPanel="..\CCT_ListTroopsRect\CCT_ListTroopsListPanel\CCT_{{type}}List"
+    HorizontalAlignment="Left" VerticalAlignment="Top"
+    Brush="Clan.Management.Collapser"
+    WidgetToClose="..\CCT_ListTroopsRect\CCT_ListTroopsListPanel\CCT_{{type}}List">
+    <Children>
+        <ListPanel
+            Id="{{type}}Collapser"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Clan.Management.Collapser.Text"
+                    Text="{{name}}"/>
+            </Children>
+        </ListPanel>
+    </Children>
+</PartyHeaderToggleWidget>
+{{- end -}}
+
+
 {{- func troop_list(kind, datasource) -}}
 <NavigationAutoScrollWidget TrackedWidget=".\CCT_{{kind}}Header"/>
-
-<ScrollablePanelFixedHeaderWidget 
-    Id="CCT_{{kind}}Header" 
-    FixedHeader="..\..\..\CCT_{{kind}}Toggle" 
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
-    SuggestedWidth="!Clan.Management.Collapser.Width" HeaderHeight="!Clan.Management.Collapser.Height" 
-    AdditionalBottomOffset="!Clan.Members.Sort.1.Height"/>
 
 <NavigatableListPanel 
     Id="CCT_{{kind}}List" 
@@ -65,13 +89,16 @@
 <NavigatableListPanel 
     Id="CCT_ListTroopsListPanel" 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-    StackLayout.LayoutMethod="VerticalBottomToTop" 
-    MinIndex="0" StepSize="1000">
+    StackLayout.LayoutMethod="VerticalBottomToTop" >
     <Children>
 
+        {{ party_toggle("Retinue", "@RetinueToggleText") }}
         {{ troop_list("Retinue", "{RetinueTroops}") }}
+        {{ party_toggle("Elite", "@EliteToggleText") }}
         {{ troop_list("Elite", "{EliteTroops}") }}
+        {{ party_toggle("Regular", "@RegularToggleText") }}
         {{ troop_list("Regular", "{BasicTroops}") }}
+        {{ party_toggle("Militia", "@MilitiaToggleText") }}
         {{ troop_list("Militia", "{MilitiaTroops}") }}
 
     </Children>
