@@ -374,6 +374,9 @@
       id="ret_list_toggle_elite"
       text="Elite" />
     <string
+      id="ret_list_toggle_militia"
+      text="Militia" />
+    <string
       id="ret_list_toggle_regular"
       text="Regular" />
     <string

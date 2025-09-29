@@ -121,7 +121,10 @@ namespace Retinues.Core.Features
             Log.Info($"troop vanilla id set to {militia.VanillaStringId}");
 
             // Rename it
-            militia.Name = $"{faction.Name} {root.Name}";
+            if (militia.Name.Contains(faction.Culture?.Name) == true)
+                militia.Name = militia.Name.Replace(faction.Culture.Name, faction.Name);
+            else
+                militia.Name = $"{faction.Name} {root.Name}";
 
             // Non-transferable
             militia.IsNotTransferableInPartyScreen = true;
@@ -244,7 +247,10 @@ namespace Retinues.Core.Features
             troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
             // Rename it
-            troop.Name = $"{faction.Name} {vanilla.Name}";
+            if (vanilla.Name.Contains(faction.Culture?.Name) == true)
+                troop.Name = vanilla.Name.Replace(faction.Culture.Name, faction.Name);
+            else
+                troop.Name = $"{faction.Name} {vanilla.Name}";
 
             // Add to upgrade targets of the parent, if any
             parent?.AddUpgradeTarget(troop);

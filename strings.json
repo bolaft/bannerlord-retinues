@@ -1968,6 +1968,22 @@
     "TR": "Seçkin"
   },
   {
+    "id": "ret_list_toggle_militia",
+    "default": "Militia",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_list_toggle_regular",
     "default": "Regular",
     "BR": "Regulares",
