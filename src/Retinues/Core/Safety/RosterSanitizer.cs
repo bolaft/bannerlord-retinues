@@ -1,5 +1,7 @@
 using System;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.ObjectSystem;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Roster;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -48,8 +50,12 @@ namespace Retinues.Core.Safety
                 var wounded = element.WoundedNumber;
                 var xp = element.Xp;
 
-                if (total > 0)
+                // Fallback replacement troop (always valid in vanilla)
+                var looter = MBObjectManager.Instance.GetObject<CharacterObject>("looter");
+
+                if (element.Character == null || (new WCharacter(element.Character)).IsCustom == false)
                 {
+                    // If null, just remove safely
                     roster.AddToCounts(
                         element.Character,
                         -total,
@@ -59,13 +65,38 @@ namespace Retinues.Core.Safety
                         removeDepleted: true,
                         index: index
                     );
+                    Log.Info($"[RosterSanitizer] Removed NULL element at {index}");
                 }
+                else
+                {
+                    // Replace invalid custom troop with looter
+                    roster.AddToCounts(
+                        element.Character,
+                        -total,
+                        insertAtFront: false,
+                        woundedCount: -wounded,
+                        xpChange: -xp,
+                        removeDepleted: true,
+                        index: index
+                    );
 
-                Log.Info($"[RosterSanitizer] Pruned {element.Character?.StringId ?? "NULL"} (total:{total}, wounded:{wounded}, xp:{xp})");
+                    roster.AddToCounts(
+                        looter,
+                        total,
+                        insertAtFront: false,
+                        woundedCount: wounded,
+                        xpChange: xp,
+                        removeDepleted: true,
+                        index: index
+                    );
+
+                    Log.Info($"[RosterSanitizer] Replaced {element.Character?.StringId ?? "NULL"} with {looter.StringId} " +
+                            $"(total:{total}, wounded:{wounded}, xp:{xp})");
+                }
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "[RosterSanitizer] Failed pruning element");
+                Log.Exception(ex, "[RosterSanitizer] Failed pruning/replacing element");
             }
         }
 
