@@ -41,6 +41,27 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> BasicTroops { get; set; } = [];
+    
+        [DataSourceProperty]
+        public string SearchLabel => L.S("item_search_label", "Filter:");
+
+        private string _searchText;
+
+        [DataSourceProperty]
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText == value) return;
+                _searchText = value;
+                foreach (var troop in Rows)
+                {
+                    troop.RefreshVisibility(_searchText);
+                }
+                OnPropertyChanged(nameof(SearchText));
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //

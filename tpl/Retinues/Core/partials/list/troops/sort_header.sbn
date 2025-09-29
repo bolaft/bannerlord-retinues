@@ -3,36 +3,44 @@
 
 <ListPanel
     Id="SortButtons"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    DataSource="{TroopList}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="57"
     RenderLate="true">
     <Children>
-        <SortButtonWidget
-            DoNotPassEventsToChildren="true"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="588" SuggestedHeight="!Clan.Members.Sort.1.Height"
-            Brush="Clan.Members.Sort.1"
-            SortVisualWidget="TextWidget\NameSortVisualWidget"
-            UpdateChildrenStates="true" GamepadNavigationIndex="0"
-            IsEnabled="false">
+        <TextWidget
+            Id="TextWidget"
+            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+            SuggestedWidth="118"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="Clan.LeftPanel.Header.Text"
+            ClipContents="false" Text="@SearchLabel">
             <Children>
-                <TextWidget
-                    Id="TextWidget"
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Brush="Clan.LeftPanel.Header.Text"
-                    ClipContents="false" Text="">
-                    <Children>
-                        <BrushWidget
-                            Id="NameSortVisualWidget"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="20" SuggestedHeight="20"
-                            HorizontalAlignment="Right" VerticalAlignment="Center"
-                            PositionXOffset="20"
-                            Brush="ArmyManagement.Sort.ArrowBrush"/>
-                    </Children>
-                </TextWidget>
+                <BrushWidget
+                    Id="NameSortVisualWidget"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    PositionXOffset="20"
+                    Brush="ArmyManagement.Sort.ArrowBrush"/>
             </Children>
-        </SortButtonWidget>
+        </TextWidget>
+
+        <BrushWidget
+            VerticalAlignment="Center" HorizontalAlignment="Right"
+            DoNotAcceptEvents="false"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="470" SuggestedHeight="40"
+            Brush="SPOptions.Dropdown.Center">
+            <Children>
+                <EditableTextWidget
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Brush="Crafting.NameInput.Text"
+                    GamepadNavigationIndex="0"
+                    Text="@SearchText"
+                    DoNotPassEvents="true" />
+            </Children>
+        </BrushWidget>
 
         <Widget 
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
@@ -40,7 +48,6 @@
             Sprite="StdAssets\scroll_header" 
             ExtendRight="3" ExtendTop="6" ExtendLeft="3" ExtendBottom="4" 
             MarginLeft="2"
-            HorizontalAlignment="Right"
-            IsEnabled="false"/>
+            HorizontalAlignment="Right"/>
     </Children>
 </ListPanel>
