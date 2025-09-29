@@ -84,9 +84,9 @@ namespace Retinues.Core.Persistence.Troop
                 {
                     RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
                     RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
-                }
 
-                VolunteerSanitizer.CleanAllSettlementVolunteers();
+                    VolunteerSanitizer.CleanSettlement(s);
+                }
             }
             catch (Exception e)
             {
