@@ -64,7 +64,10 @@ namespace Retinues.Core.Editor
                 };
 
                 if (troop.IsMilitia)
-                    total += 30; // +30 skill total for militia
+                    if (troop.IsElite)
+                        total = 520; // 520 skill total for elite militia
+                    else
+                        total += 30; // +30 skill total for militia
 
                 if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
                         total += 10; // +10 skill total with Steadfast Soldiers
