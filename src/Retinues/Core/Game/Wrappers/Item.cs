@@ -102,6 +102,8 @@ namespace Retinues.Core.Game.Wrappers
                     case ItemObject.ItemTypeEnum.Pistol:
                     case ItemObject.ItemTypeEnum.Musket:
                     case ItemObject.ItemTypeEnum.Bullets:
+                    case ItemObject.ItemTypeEnum.Sling:
+                    case ItemObject.ItemTypeEnum.SlingStones:
                         AddWeaponSlots();
                         break;
                 }
