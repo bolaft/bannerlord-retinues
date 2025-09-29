@@ -170,16 +170,16 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             get
             {
-                var tier = SelectedTroop?.Tier ?? 0;
+                int cap = SelectedTroop == null ? 0 : TroopRules.SkillCapByTier(SelectedTroop);
                 return L.T("skill_cap_text", "{CAP} skill cap")
-                    .SetTextVariable("CAP", TroopRules.SkillCapByTier(tier))
+                    .SetTextVariable("CAP", cap)
                     .ToString();
             }
         }
 
         [DataSourceProperty]
         public int SkillTotal =>
-            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop.Tier) : 0;
+            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop) : 0;
 
         [DataSourceProperty]
         public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
