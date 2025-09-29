@@ -21,6 +21,9 @@ public static class RecruitSwap
     {
         try
         {
+            if (troop == null || count <= 0)
+                return;
+
             if (recruiter?.PartyBelongedTo == null || troop == null || count <= 0)
                 return;
 
@@ -33,7 +36,7 @@ public static class RecruitSwap
 
             // Find the best custom equivalent for this faction
             var replacement = TroopSwapHelper.FindReplacement(vanilla, targetFaction);
-            if (replacement == null || replacement.StringId == vanilla.StringId)
+            if (replacement == null || replacement.StringId == vanilla.StringId || !replacement.IsActive)
                 return;
 
             var roster = recruiter.PartyBelongedTo.MemberRoster;

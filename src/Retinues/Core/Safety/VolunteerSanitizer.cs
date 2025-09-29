@@ -1,6 +1,7 @@
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Safety
@@ -17,14 +18,21 @@ namespace Retinues.Core.Safety
 
                 foreach (var notable in stl.Notables)
                 {
-                    if (notable == null) continue;
-
-                    var fixedForHero = CleanNotableVolunteers(notable, stl.Culture);
-                    if (fixedForHero > 0)
+                    try
                     {
-                        fixedHeroes++;
-                        fixedSlots += fixedForHero;
-                        Log.Warn($"[VolunteerSanitizer] Fixed {fixedForHero} volunteer slot(s) for {notable.Name} in {stl.Name}.");
+                        if (notable == null) continue;
+
+                        var fixedForHero = CleanNotableVolunteers(notable, stl.Culture);
+                        if (fixedForHero > 0)
+                        {
+                            fixedHeroes++;
+                            fixedSlots += fixedForHero;
+                            Log.Warn($"[VolunteerSanitizer] Fixed {fixedForHero} volunteer slot(s) for {notable.Name} in {stl.Name}.");
+                        }
+                    }
+                    catch
+                    {
+                        continue; // notable is broken
                     }
                 }
             }
@@ -39,8 +47,7 @@ namespace Retinues.Core.Safety
         // Works across versions by trying common property/field names.
         private static int CleanNotableVolunteers(Hero notable, CultureObject culture)
         {
-            // Try to read the volunteer array.
-            CharacterObject[] volunteers = TryGetVolunteerArray(notable);
+            var volunteers = TryGetVolunteerArray(notable);
             if (volunteers == null || volunteers.Length == 0) return 0;
 
             int fixedCount = 0;
@@ -48,22 +55,31 @@ namespace Retinues.Core.Safety
             {
                 var troop = volunteers[i];
 
-                // null or (very defensive) unresolved object id
-                bool broken = troop == null || string.IsNullOrEmpty(troop.StringId) ||
-                              MBObjectManager.Instance.GetObject<CharacterObject>(troop.StringId) == null;
+                bool broken = troop == null
+                        || string.IsNullOrEmpty(troop.StringId)
+                        || MBObjectManager.Instance.GetObject<CharacterObject>(troop.StringId) == null;
 
-                if (broken)
+                // NEW: treat custom-inactive as invalid
+                bool customInactive = false;
+                try
                 {
-                    // Choose a safe fallback from culture (militia first; else basic troop)
-                    var fallback = GetFallbackVolunteer(culture);
+                    if (troop != null)
+                    {
+                        var w = new WCharacter(troop);
+                        customInactive = w.IsCustom && !w.IsActive;
+                    }
+                }
+                catch { }
 
+                if (broken || customInactive)
+                {
+                    var fallback = GetFallbackVolunteer(culture);
                     if (fallback != null)
                     {
                         if (TrySetVolunteerAtIndex(notable, i, fallback))
                             fixedCount++;
                         else
                         {
-                            // If there is no setter method, write the array and assign back.
                             volunteers[i] = fallback;
                             if (TrySetVolunteerArray(notable, volunteers))
                                 fixedCount++;

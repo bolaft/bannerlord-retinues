@@ -96,7 +96,7 @@ internal static class VolunteerSwapForPlayerSession
                         continue;
                     var replacement = TroopSwapHelper.MatchTier(root, wrapped.Tier);
 
-                    if (replacement != null)
+                    if (replacement != null && replacement.IsActive)
                         arr[i] = replacement.Base;
                 }
             }
@@ -123,7 +123,7 @@ internal static class VolunteerSwapForPlayerSession
                 if (notable?.VolunteerTypes == null || orig == null)
                     continue;
 
-                var n = System.Math.Min(notable.VolunteerTypes.Length, orig.Length);
+                var n = Math.Min(notable.VolunteerTypes.Length, orig.Length);
                 for (int i = 0; i < n; i++)
                     notable.VolunteerTypes[i] = orig[i];
             }
