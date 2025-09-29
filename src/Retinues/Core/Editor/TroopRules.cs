@@ -85,7 +85,7 @@ namespace Retinues.Core.Editor
                 if (character == null)
                     return 0;
 
-                return SkillTotalByTier(character.Tier) - character.Skills.Values.Sum();
+                return SkillTotalByTier(character) - character.Skills.Values.Sum();
             }
             catch (Exception e)
             {
@@ -101,7 +101,7 @@ namespace Retinues.Core.Editor
                 if (character == null || skill == null)
                     return false;
 
-                if (character.GetSkill(skill) >= SkillCapByTier(character.Tier))
+                if (character.GetSkill(skill) >= SkillCapByTier(character))
                     return false;
 
                 if (SkillPointsLeft(character) <= 0)
