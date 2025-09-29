@@ -32,19 +32,24 @@ public static class VolunteerSwap
 
             bool didSwap = false;
 
-            if (playerClan != null && clan != null && clan?.StringId == playerClan?.StringId)
-                didSwap = SwapVolunteers(settlement, playerClan);
+            if (Config.GetOption<bool>("ClanTroopsOverKingdomTroops"))
+            {
+                // Try clan first, then kingdom
+                if (playerClan != null && clan != null && clan?.StringId == playerClan?.StringId)
+                    didSwap = SwapVolunteers(settlement, playerClan);
 
-            if (playerKingdom is null)
-                return;
+                if (!didSwap && playerKingdom != null && kingdom != null && kingdom?.StringId == playerKingdom?.StringId)
+                    didSwap = SwapVolunteers(settlement, playerKingdom);
+            }
+            else
+            {
+                // Try kingdom first, then clan
+                if (playerKingdom != null && kingdom != null && kingdom?.StringId == playerKingdom?.StringId)
+                    didSwap = SwapVolunteers(settlement, playerKingdom);
 
-            if (
-                !didSwap
-                && playerKingdom != null
-                && kingdom != null
-                && kingdom?.StringId == playerKingdom?.StringId
-            )
-                didSwap = SwapVolunteers(settlement, playerKingdom);
+                if (!didSwap && playerClan != null && clan != null && clan?.StringId == playerClan?.StringId)
+                    didSwap = SwapVolunteers(settlement, playerClan);
+            }
         }
         catch (Exception e)
         {
@@ -55,6 +60,9 @@ public static class VolunteerSwap
 
     static bool SwapVolunteers(Settlement settlement, WFaction faction)
     {
+        if (settlement == null || faction == null)
+            return false;
+
         // no custom tree, nothing to do
         if ((faction?.EliteTroops?.Count ?? 0) == 0 && (faction?.BasicTroops?.Count ?? 0) == 0)
             return false;
