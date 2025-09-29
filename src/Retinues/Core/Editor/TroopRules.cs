@@ -22,6 +22,7 @@ namespace Retinues.Core.Editor
             {
                 int cap = tier switch
                 {
+                    0 => 20,
                     1 => 20,
                     2 => 50,
                     3 => 80,
@@ -49,6 +50,7 @@ namespace Retinues.Core.Editor
             {
                 int total = tier switch
                 {
+                    0 => 90,
                     1 => 90,
                     2 => 210,
                     3 => 360,
