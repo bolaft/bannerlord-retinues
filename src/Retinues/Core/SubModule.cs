@@ -11,7 +11,9 @@ using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
 using Retinues.Core.Utils;
+using Retinues.Core.Safety;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -64,7 +66,22 @@ namespace Retinues.Core
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
+
             Log.Debug($"{game?.GameType?.GetType().Name}");
+
+            // Sanitize all parties
+            foreach (var mp in MobileParty.All)
+                RosterSanitizer.CleanParty(mp);
+
+            // Sanitize garrisons & militias
+            foreach (var s in Campaign.Current.Settlements)
+            {
+                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
+                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
+            }
+
+            // Fix null/missing volunteers for notables
+            VolunteerSanitizer.CleanAllSettlementVolunteers();
 
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {
