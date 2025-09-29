@@ -64,17 +64,6 @@ namespace Retinues.Core.Editor.UI.Helpers
                         ),
                     };
 
-                    if (item.Culture != null)
-                        props.Add(
-                            new TooltipProperty(
-                                string.Empty,
-                                item.Culture.Name,
-                                0,
-                                false,
-                                TooltipProperty.TooltipPropertyFlags.None
-                            )
-                        );
-
                     // Description
                     foreach (var stat in item.Statistics)
                     {
