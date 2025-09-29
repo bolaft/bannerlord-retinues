@@ -127,6 +127,19 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
+            AddOption(
+                section: L.S("mcm_section_recruitment", "Recruitment"),
+                name: L.S("mcm_option_clan_troops_over_kingdom_troops", "Clan Troops Over Kingdom Troops"),
+                key: "ClanTroopsOverKingdomTroops",
+                hint: L.S(
+                    "mcm_option_clan_troops_over_kingdom_troops_hint",
+                    "If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops."
+                ),
+                @default: true,
+                type: typeof(bool)
+            );
+
+
             /* ━━━━━━━ Doctrines ━━━━━━ */
 
             AddOption(

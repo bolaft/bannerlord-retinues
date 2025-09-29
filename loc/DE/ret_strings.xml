@@ -419,6 +419,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Basis-EP-Kosten zur Steigerung einer Fertigkeit." />
     <string
+      id="ret_mcm_option_clan_troops_over_kingdom_troops"
+      text="Klantruppen über Königreichstruppen" />
+    <string
+      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
+      text="Wenn ein Lehen sowohl ein Klanlehen als auch ein Königreichslehen ist, werden Klantruppen gegenüber Königreichstruppen priorisiert." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
     <string

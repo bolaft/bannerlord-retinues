@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Features.Recruits
@@ -129,17 +130,30 @@ namespace Retinues.Core.Features.Recruits
 
             var playerClan = Player.Clan;
             var playerKingdom = Player.Kingdom;
+            bool clanTroopsOverKingdomTroops = Config.GetOption<bool>("ClanTroopsOverKingdomTroops");
 
-            if (playerClan != null && recruiter.Clan.StringId == playerClan.StringId)
-                return playerClan;
-
-            if (
-                playerKingdom != null
-                && recruiter.Clan?.Kingdom != null
-                && recruiter.Clan.Kingdom.StringId == playerKingdom.StringId
-            )
-                return playerKingdom;
-
+            if (clanTroopsOverKingdomTroops)
+            {
+                if (playerClan != null && recruiter.Clan.StringId == playerClan.StringId)
+                    return playerClan;
+                if (
+                    playerKingdom != null
+                    && recruiter.Clan?.Kingdom != null
+                    && recruiter.Clan.Kingdom.StringId == playerKingdom.StringId
+                )
+                    return playerKingdom;
+            }
+            else
+            {
+                if (
+                    playerKingdom != null
+                    && recruiter.Clan?.Kingdom != null
+                    && recruiter.Clan.Kingdom.StringId == playerKingdom.StringId
+                )
+                    return playerKingdom;
+                if (playerClan != null && recruiter.Clan.StringId == playerClan.StringId)
+                    return playerClan;
+            }
             return null;
         }
     }
