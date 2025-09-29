@@ -19,16 +19,23 @@ namespace Retinues.Core.Safety
 
                     for (int i = 0; i < notable.VolunteerTypes.Length; i++)
                     {
-                        var character = notable.VolunteerTypes[i];
-                        if (character == null)
-                            continue;
-
-                        var wChar = new WCharacter(character);
-
-                        if (wChar.IsCustom && !wChar.IsActive)
+                        try
                         {
-                            Log.Warn($"[VolunteerSanitizer] Removing inactive custom volunteer {wChar.StringId} from notable {notable.Name} ({settlement.Name}).");
-                            notable.VolunteerTypes[i] = null;
+                            var character = notable.VolunteerTypes[i];
+                            if (character == null)
+                                continue;
+
+                            var wChar = new WCharacter(character);
+
+                            if (wChar.IsCustom && !wChar.IsActive)
+                            {
+                                Log.Warn($"[VolunteerSanitizer] Removing inactive custom volunteer {wChar?.StringId} from notable {notable?.Name} ({settlement?.Name}).");
+                                notable.VolunteerTypes[i] = null;
+                            }
+                        }
+                        catch (Exception exInner)
+                        {
+                            Log.Exception(exInner, $"[VolunteerSanitizer] Failed cleaning volunteer index {i} for notable {notable?.Name} ({settlement?.Name})");
                         }
                     }
                 }

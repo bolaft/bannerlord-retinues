@@ -29,7 +29,7 @@ namespace Retinues.Core.Safety
                     // Any custom troop stub (inactive) must not exist in rosters
                     if (wChar.IsCustom && !wChar.IsActive)
                     {
-                        Log.Warn($"[RosterSanitizer] Removing inactive custom troop {wChar.StringId} at index {i}.");
+                        Log.Warn($"[RosterSanitizer] Removing inactive custom troop {wChar?.StringId} at index {i}.");
                         PruneElement(roster, element, i);
                     }
                 }
@@ -73,8 +73,8 @@ namespace Retinues.Core.Safety
         {
             if (mp == null) return;
 
-            CleanRoster(mp.MemberRoster);
-            CleanRoster(mp.PrisonRoster);
+            CleanRoster(mp?.MemberRoster);
+            CleanRoster(mp?.PrisonRoster);
         }
     }
 }
