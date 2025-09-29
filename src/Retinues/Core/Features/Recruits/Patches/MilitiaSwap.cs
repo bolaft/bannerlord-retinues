@@ -44,14 +44,20 @@ namespace Retinues.Core.Features.Recruits.Patches
                     .CalculateMilitiaSpawnRate(__instance, out float meleeRatio, out float rangedRatio);
 
                 // Pull your choices via wrapper (these already fall back to culture if custom is inactive)
-                var melee       = ws.MilitiaMelee?.Base;
-                var meleeElite  = ws.MilitiaMeleeElite?.Base;
-                var ranged      = ws.MilitiaRanged?.Base;
-                var rangedElite = ws.MilitiaRangedElite?.Base;
+                var melee       = ws.MilitiaMelee;
+                var meleeElite  = ws.MilitiaMeleeElite;
+                var ranged      = ws.MilitiaRanged;
+                var rangedElite = ws.MilitiaRangedElite;
+
+                if (melee == null || meleeElite == null || ranged == null || rangedElite == null)
+                    return true; // no custom militia set, let vanilla run
+                
+                if (!melee.IsActive || !meleeElite.IsActive || !ranged.IsActive || !rangedElite.IsActive)
+                    return true; // inactive custom troops, let vanilla run
 
                 // Spawn using the same internal helper the game uses
-                AddLane(__instance, militiaParty, melee,  meleeElite,  meleeRatio,  militiaNumberToAdd);
-                AddLane(__instance, militiaParty, ranged, rangedElite, rangedRatio, militiaNumberToAdd);
+                AddLane(__instance, militiaParty, melee.Base,  meleeElite.Base,  meleeRatio,  militiaNumberToAdd);
+                AddLane(__instance, militiaParty, ranged.Base, rangedElite.Base, rangedRatio, militiaNumberToAdd);
 
                 Log.Debug($"[MilitiaPatch] Custom militia for {ws.Name}: " +
                          $"melee={melee?.StringId}/{meleeElite?.StringId}, " +
