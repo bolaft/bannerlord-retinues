@@ -19,7 +19,7 @@ namespace Retinues.Core.Game.Wrappers
 
         public string Name => _culture?.Name.ToString();
 
-        public override string StringId => _culture?.StringId.ToString();
+        public override string StringId => _culture?.StringId?.ToString() ?? Name; // Some cultures have no StringId?
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
