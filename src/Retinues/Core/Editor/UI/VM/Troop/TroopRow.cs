@@ -1,5 +1,4 @@
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
