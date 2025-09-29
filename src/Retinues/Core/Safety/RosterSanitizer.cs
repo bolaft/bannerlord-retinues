@@ -48,7 +48,7 @@ namespace Retinues.Core.Safety
                 var wounded = element.WoundedNumber;
                 var xp = element.Xp;
 
-                if (total > 0)
+                if (total >= 0)
                 {
                     roster.AddToCounts(
                         element.Character,
