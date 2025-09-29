@@ -138,7 +138,7 @@ namespace Retinues.Core.Features
             militia.Activate();
         }
 
-        public static void SetupFactionMilitias(WFaction faction)
+        public static void SetupFactionMilitia(WFaction faction)
         {
             try
             {
