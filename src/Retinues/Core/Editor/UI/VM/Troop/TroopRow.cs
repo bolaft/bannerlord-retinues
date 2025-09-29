@@ -26,6 +26,33 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
 
+        private bool _isVisible = true;
+
+        [DataSourceProperty]
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+
+            set
+            {
+                if (_isVisible == value) return;
+                _isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+
+        [DataSourceProperty]
+        public string ImageId => Troop?.Image.Id;
+
+        [DataSourceProperty]
+        public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
+
+        [DataSourceProperty]
+        public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
+
         [DataSourceProperty]
         public string IndentedName
         {
@@ -51,6 +78,25 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter Troop { get; } = troop;
+
+        public void RefreshVisibility(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                IsVisible = true;
+                return;
+            }
+
+            if (Troop == null)
+            {
+                IsVisible = true;
+                return;
+            }
+
+            var search = searchText.Trim().ToLowerInvariant();
+            var name = Troop.Name.ToString().ToLowerInvariant();
+            IsVisible = name.Contains(search);
+        }
 
         public void Refresh()
         {
