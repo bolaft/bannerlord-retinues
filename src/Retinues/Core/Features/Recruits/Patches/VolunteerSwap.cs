@@ -20,8 +20,6 @@ public static class VolunteerSwap
         if (settlement.IsHideout)
             return; // no volunteers in hideouts
 
-        Log.Debug($"VolunteerSwap: Checking volunteers in {settlement?.Name}.");
-
         try
         {
             var clan = settlement?.OwnerClan;
@@ -50,6 +48,9 @@ public static class VolunteerSwap
                 if (!didSwap && playerClan != null && clan != null && clan?.StringId == playerClan?.StringId)
                     didSwap = SwapVolunteers(settlement, playerClan);
             }
+
+            if (didSwap)
+                Log.Debug($"VolunteerSwap: Swapped volunteers in {settlement?.Name}.");
         }
         catch (Exception e)
         {
@@ -95,6 +96,8 @@ public static class VolunteerSwap
                         continue;
 
                     var replacement = TroopSwapHelper.MatchTier(root, wVanilla.Tier);
+                    if (replacement == null || replacement.StringId == wVanilla.StringId || !replacement.IsActive)
+                        continue;
                     if (replacement?.Base != null)
                         arr[i] = replacement.Base;
                 }

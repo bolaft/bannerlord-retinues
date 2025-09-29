@@ -35,7 +35,7 @@ namespace Retinues.Core.Features.Recruits
             var troop = isElite ? faction.RootElite : faction.RootBasic;
 
             // Heuristic to check if initialized
-            if (troop == null || troop.StringId == troop.Name)
+            if (troop == null || troop.StringId == troop.Name || !troop.IsActive)
                 return null;
 
             return troop;
@@ -59,7 +59,7 @@ namespace Retinues.Core.Features.Recruits
                 var n = q.Dequeue();
                 var delta = Math.Abs(n.Tier - targetTier);
 
-                if (delta < bestDelta)
+                if (delta < bestDelta && n.IsActive)
                 {
                     best = n;
                     bestDelta = delta;

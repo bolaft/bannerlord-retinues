@@ -69,20 +69,6 @@ namespace Retinues.Core
 
             Log.Debug($"{game?.GameType?.GetType().Name}");
 
-            // Sanitize all parties
-            foreach (var mp in MobileParty.All)
-                RosterSanitizer.CleanParty(mp);
-
-            // Sanitize garrisons & militias
-            foreach (var s in Campaign.Current.Settlements)
-            {
-                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
-                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
-            }
-
-            // Fix null/missing volunteers for notables
-            VolunteerSanitizer.CleanAllSettlementVolunteers();
-
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
             {
                 // Clear all static lists
