@@ -325,7 +325,7 @@ namespace Retinues.Core.Editor.UI.VM
                 {
                     Log.Info("Initializing militia troops.");
 
-                    Setup.SetupFactionMilita(faction);
+                    Setup.SetupFactionMilitia(faction);
                 }
             }
 
