@@ -10,10 +10,9 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
+using Retinues.Core.Features.Recruits;
 using Retinues.Core.Utils;
-using Retinues.Core.Safety;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -77,6 +76,7 @@ namespace Retinues.Core
                 // Persistence behaviors
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
+                cs.AddBehavior(new MilitiaSwapBehavior());
 
                 // XP behavior (skip if both costs are 0)
                 if (
