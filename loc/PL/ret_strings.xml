@@ -419,6 +419,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Podstawowy koszt PD zwiększenia umiejętności." />
     <string
+      id="ret_mcm_option_clan_troops_over_kingdom_troops"
+      text="Jednostki Klanu ponad Jednostkami Królestwa" />
+    <string
+      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
+      text="Jeśli lenno jest zarówno lennem klanu, jak i lennem królestwa, jednostki klanu będą miały priorytet nad jednostkami królestwa." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
     <string
