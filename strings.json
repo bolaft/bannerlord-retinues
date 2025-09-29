@@ -2208,6 +2208,38 @@
     "TR": "Bir beceriyi artırmak için temel XP maliyeti."
   },
   {
+    "id": "ret_mcm_option_clan_troops_over_kingdom_troops",
+    "default": "Clan Troops Over Kingdom Troops",
+    "BR": "Tropas de Clã Sobre Tropas de Reino",
+    "CNs": "氏族部队优先于王国部队",
+    "CNt": "氏族部隊優先於王國部隊",
+    "DE": "Klantruppen über Königreichstruppen",
+    "FR": "Troupes de Clan avant Troupes Royales",
+    "IT": "Troppe di Clan su Troppe del Regno",
+    "JP": "王国軍より氏族軍優先",
+    "KO": "왕국 병력보다 씨족 병력 우선",
+    "PL": "Jednostki Klanu ponad Jednostkami Królestwa",
+    "RU": "Клановые войска выше королевских войск",
+    "SP": "Tropas de Clan sobre Tropas del Reino",
+    "TR": "Krallık Askerlerinden Üstün"
+  },
+  {
+    "id": "ret_mcm_option_clan_troops_over_kingdom_troops_hint",
+    "default": "If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops.",
+    "BR": "Se um feudo for tanto de clã quanto de reino, as tropas do clã terão prioridade sobre as tropas do reino.",
+    "CNs": "如果一个领地既是氏族领地又是王国领地，则氏族部队将优先于王国部队。",
+    "CNt": "如果一個領地既是氏族領地又是王國領地，則氏族部隊將優先於王國部隊。",
+    "DE": "Wenn ein Lehen sowohl ein Klanlehen als auch ein Königreichslehen ist, werden Klantruppen gegenüber Königreichstruppen priorisiert.",
+    "FR": "Si un fief est à la fois un fief de clan et un fief royal, les troupes de clan seront prioritaires sur les troupes royales.",
+    "IT": "Se un feudo è sia un feudo di clan che un feudo del regno, le truppe di clan avranno la priorità sulle truppe del regno.",
+    "JP": "領地が氏族領地であり王国領地である場合、氏族軍が王国軍より優先される。",
+    "KO": "영지가 씨족 영지이자 왕국 영지인 경우 씨족 병력이 왕국 병력보다 우선합니다.",
+    "PL": "Jeśli lenno jest zarówno lennem klanu, jak i lennem królestwa, jednostki klanu będą miały priorytet nad jednostkami królestwa.",
+    "RU": "Если феод является как клановым, так и королевским, клановые войска будут иметь приоритет над королевскими.",
+    "SP": "Si un feudo es tanto de clan como del reino, las tropas de clan tendrán prioridad sobre las tropas del reino.",
+    "TR": "Eğer bir toprak hem klan toprağı hem de krallık toprağı ise, klan askerleri krallık askerlerine göre öncelikli olacaktır."
+  },
+  {
     "id": "ret_mcm_option_debug_mode",
     "default": "Debug Mode",
     "BR": "Modo de Depuração",
