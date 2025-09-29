@@ -316,6 +316,19 @@ namespace Retinues.Core.Editor.UI.VM
                 }
             }
 
+            if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
+            {
+                // Always have militia troops if clan has fiefs or if player leads a kingdom
+                if (
+                    faction.HasFiefs || Player.Kingdom != null
+                )
+                {
+                    Log.Info("Initializing militia troops.");
+
+                    Setup.SetupFactionMilita(faction);
+                }
+            }
+
             _faction = faction;
 
             TroopEditor = new TroopEditorVM(this);

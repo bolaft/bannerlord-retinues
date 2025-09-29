@@ -60,6 +60,11 @@ namespace Retinues.Core.Game.Wrappers
         public WCharacter RootElite => new(this == Player.Kingdom, true, false);
         public WCharacter RootBasic => new(this == Player.Kingdom, false, false);
 
+        public WCharacter MilitiaMelee => new(this == Player.Kingdom, false, false, true, false);
+        public WCharacter MilitiaMeleeElite => new(this == Player.Kingdom, true, false, true, false);
+        public WCharacter MilitiaRanged => new(this == Player.Kingdom, false, false, false, true);
+        public WCharacter MilitiaRangedElite => new(this == Player.Kingdom, true, false, false, true);
+
         public List<WCharacter> EliteTroops =>
             [.. RootElite.Tree.Where(t => t.IsActive && t.IsElite)];
         public List<WCharacter> BasicTroops =>

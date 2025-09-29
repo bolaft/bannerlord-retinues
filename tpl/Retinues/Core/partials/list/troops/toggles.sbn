@@ -33,6 +33,7 @@
 </PartyHeaderToggleWidget>
 {{- end -}}
 
+{{ party_toggle("Militia", "@MilitiaToggleText") }}
 {{ party_toggle("Regular", "@RegularToggleText") }}
 {{ party_toggle("Elite", "@EliteToggleText") }}
 {{ party_toggle("Retinue", "@RetinueToggleText") }}
