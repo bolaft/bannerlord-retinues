@@ -80,6 +80,7 @@ namespace Retinues.Core.Game.Wrappers
         public bool IsCustom => CharacterHelper.IsCustom(StringId);
         public bool IsElite => CharacterHelper.IsElite(StringId);
         public bool IsRetinue => CharacterHelper.IsRetinue(StringId);
+        public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
         public bool IsMilitiaMelee => CharacterHelper.IsMilitiaMelee(StringId);
         public bool IsMilitiaRanged => CharacterHelper.IsMilitiaRanged(StringId);
 

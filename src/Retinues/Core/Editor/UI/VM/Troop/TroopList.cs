@@ -149,10 +149,13 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         private void AddTroopTreeInOrder(WCharacter troop, MBBindingList<TroopRowVM> list)
         {
+            if (troop == null || !troop.IsActive)
+                return;
+
             var row = new TroopRowVM(troop, this);
             list.Add(row);
 
-            if (troop.IsRetinue || troop.IsMilitiaMelee || troop.IsMilitiaRanged)
+            if (troop.IsRetinue || troop.IsMilitia)
                 return; // Retinue and Militia troops do not have children
 
             var children = Screen
