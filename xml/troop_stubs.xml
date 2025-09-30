@@ -1,1363 +1,3812 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NPCCharacters>
-  <NPCCharacter
-    id="ret_clan_basic_r"
-    name="ret_clan_basic_r"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0"
-    name="ret_clan_basic_0"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1"
-    name="ret_clan_basic_1"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_00"
-    name="ret_clan_basic_00"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_01"
-    name="ret_clan_basic_01"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_10"
-    name="ret_clan_basic_10"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_11"
-    name="ret_clan_basic_11"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_000"
-    name="ret_clan_basic_000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_001"
-    name="ret_clan_basic_001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_010"
-    name="ret_clan_basic_010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_011"
-    name="ret_clan_basic_011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_100"
-    name="ret_clan_basic_100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_101"
-    name="ret_clan_basic_101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_110"
-    name="ret_clan_basic_110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_111"
-    name="ret_clan_basic_111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0000"
-    name="ret_clan_basic_0000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0001"
-    name="ret_clan_basic_0001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0010"
-    name="ret_clan_basic_0010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0011"
-    name="ret_clan_basic_0011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0100"
-    name="ret_clan_basic_0100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0101"
-    name="ret_clan_basic_0101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0110"
-    name="ret_clan_basic_0110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_0111"
-    name="ret_clan_basic_0111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1000"
-    name="ret_clan_basic_1000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1001"
-    name="ret_clan_basic_1001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1010"
-    name="ret_clan_basic_1010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1011"
-    name="ret_clan_basic_1011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1100"
-    name="ret_clan_basic_1100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1101"
-    name="ret_clan_basic_1101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1110"
-    name="ret_clan_basic_1110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_1111"
-    name="ret_clan_basic_1111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_r"
-    name="ret_clan_elite_r"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0"
-    name="ret_clan_elite_0"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1"
-    name="ret_clan_elite_1"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_00"
-    name="ret_clan_elite_00"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_01"
-    name="ret_clan_elite_01"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_10"
-    name="ret_clan_elite_10"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_11"
-    name="ret_clan_elite_11"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_000"
-    name="ret_clan_elite_000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_001"
-    name="ret_clan_elite_001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_010"
-    name="ret_clan_elite_010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_011"
-    name="ret_clan_elite_011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_100"
-    name="ret_clan_elite_100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_101"
-    name="ret_clan_elite_101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_110"
-    name="ret_clan_elite_110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_111"
-    name="ret_clan_elite_111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0000"
-    name="ret_clan_elite_0000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0001"
-    name="ret_clan_elite_0001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0010"
-    name="ret_clan_elite_0010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0011"
-    name="ret_clan_elite_0011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0100"
-    name="ret_clan_elite_0100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0101"
-    name="ret_clan_elite_0101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0110"
-    name="ret_clan_elite_0110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_0111"
-    name="ret_clan_elite_0111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1000"
-    name="ret_clan_elite_1000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1001"
-    name="ret_clan_elite_1001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1010"
-    name="ret_clan_elite_1010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1011"
-    name="ret_clan_elite_1011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1100"
-    name="ret_clan_elite_1100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1101"
-    name="ret_clan_elite_1101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1110"
-    name="ret_clan_elite_1110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_1111"
-    name="ret_clan_elite_1111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_retinue"
-    name="ret_clan_basic_retinue"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_retinue"
-    name="ret_clan_elite_retinue"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_mmilitia"
-    name="ret_clan_basic_mmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_mmilitia"
-    name="ret_clan_elite_mmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_basic_rmilitia"
-    name="ret_clan_basic_rmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_clan_elite_rmilitia"
-    name="ret_clan_elite_rmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_r"
-    name="ret_kingdom_basic_r"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0"
-    name="ret_kingdom_basic_0"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1"
-    name="ret_kingdom_basic_1"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_00"
-    name="ret_kingdom_basic_00"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_01"
-    name="ret_kingdom_basic_01"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_10"
-    name="ret_kingdom_basic_10"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_11"
-    name="ret_kingdom_basic_11"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_000"
-    name="ret_kingdom_basic_000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_001"
-    name="ret_kingdom_basic_001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_010"
-    name="ret_kingdom_basic_010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_011"
-    name="ret_kingdom_basic_011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_100"
-    name="ret_kingdom_basic_100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_101"
-    name="ret_kingdom_basic_101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_110"
-    name="ret_kingdom_basic_110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_111"
-    name="ret_kingdom_basic_111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0000"
-    name="ret_kingdom_basic_0000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0001"
-    name="ret_kingdom_basic_0001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0010"
-    name="ret_kingdom_basic_0010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0011"
-    name="ret_kingdom_basic_0011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0100"
-    name="ret_kingdom_basic_0100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0101"
-    name="ret_kingdom_basic_0101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0110"
-    name="ret_kingdom_basic_0110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_0111"
-    name="ret_kingdom_basic_0111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1000"
-    name="ret_kingdom_basic_1000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1001"
-    name="ret_kingdom_basic_1001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1010"
-    name="ret_kingdom_basic_1010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1011"
-    name="ret_kingdom_basic_1011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1100"
-    name="ret_kingdom_basic_1100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1101"
-    name="ret_kingdom_basic_1101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1110"
-    name="ret_kingdom_basic_1110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_1111"
-    name="ret_kingdom_basic_1111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_r"
-    name="ret_kingdom_elite_r"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0"
-    name="ret_kingdom_elite_0"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1"
-    name="ret_kingdom_elite_1"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_00"
-    name="ret_kingdom_elite_00"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_01"
-    name="ret_kingdom_elite_01"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_10"
-    name="ret_kingdom_elite_10"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_11"
-    name="ret_kingdom_elite_11"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_000"
-    name="ret_kingdom_elite_000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_001"
-    name="ret_kingdom_elite_001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_010"
-    name="ret_kingdom_elite_010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_011"
-    name="ret_kingdom_elite_011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_100"
-    name="ret_kingdom_elite_100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_101"
-    name="ret_kingdom_elite_101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_110"
-    name="ret_kingdom_elite_110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_111"
-    name="ret_kingdom_elite_111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0000"
-    name="ret_kingdom_elite_0000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0001"
-    name="ret_kingdom_elite_0001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0010"
-    name="ret_kingdom_elite_0010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0011"
-    name="ret_kingdom_elite_0011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0100"
-    name="ret_kingdom_elite_0100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0101"
-    name="ret_kingdom_elite_0101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0110"
-    name="ret_kingdom_elite_0110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_0111"
-    name="ret_kingdom_elite_0111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1000"
-    name="ret_kingdom_elite_1000"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1001"
-    name="ret_kingdom_elite_1001"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1010"
-    name="ret_kingdom_elite_1010"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1011"
-    name="ret_kingdom_elite_1011"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1100"
-    name="ret_kingdom_elite_1100"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1101"
-    name="ret_kingdom_elite_1101"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1110"
-    name="ret_kingdom_elite_1110"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_1111"
-    name="ret_kingdom_elite_1111"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_retinue"
-    name="ret_kingdom_basic_retinue"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_retinue"
-    name="ret_kingdom_elite_retinue"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_mmilitia"
-    name="ret_kingdom_basic_mmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_mmilitia"
-    name="ret_kingdom_elite_mmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_basic_rmilitia"
-    name="ret_kingdom_basic_rmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
-  <NPCCharacter
-    id="ret_kingdom_elite_rmilitia"
-    name="ret_kingdom_elite_rmilitia"
-    is_hidden_encyclopedia="true"
-    default_group="Infantry"
-    level="1"
-    is_basic_troop="true"
-    occupation="Soldier"
-    is_female="false"
-  />
+
+  <NPCCharacter
+    id="ret_clan_basic_r" name="ret_clan_basic_r"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0" name="ret_clan_basic_0"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1" name="ret_clan_basic_1"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_00" name="ret_clan_basic_00"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_01" name="ret_clan_basic_01"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_10" name="ret_clan_basic_10"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_11" name="ret_clan_basic_11"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_000" name="ret_clan_basic_000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_001" name="ret_clan_basic_001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_010" name="ret_clan_basic_010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_011" name="ret_clan_basic_011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_100" name="ret_clan_basic_100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_101" name="ret_clan_basic_101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_110" name="ret_clan_basic_110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_111" name="ret_clan_basic_111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0000" name="ret_clan_basic_0000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0001" name="ret_clan_basic_0001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0010" name="ret_clan_basic_0010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0011" name="ret_clan_basic_0011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0100" name="ret_clan_basic_0100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0101" name="ret_clan_basic_0101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0110" name="ret_clan_basic_0110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_0111" name="ret_clan_basic_0111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1000" name="ret_clan_basic_1000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1001" name="ret_clan_basic_1001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1010" name="ret_clan_basic_1010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1011" name="ret_clan_basic_1011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1100" name="ret_clan_basic_1100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1101" name="ret_clan_basic_1101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1110" name="ret_clan_basic_1110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_1111" name="ret_clan_basic_1111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_r" name="ret_clan_elite_r"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0" name="ret_clan_elite_0"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1" name="ret_clan_elite_1"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_00" name="ret_clan_elite_00"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_01" name="ret_clan_elite_01"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_10" name="ret_clan_elite_10"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_11" name="ret_clan_elite_11"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_000" name="ret_clan_elite_000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_001" name="ret_clan_elite_001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_010" name="ret_clan_elite_010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_011" name="ret_clan_elite_011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_100" name="ret_clan_elite_100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_101" name="ret_clan_elite_101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_110" name="ret_clan_elite_110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_111" name="ret_clan_elite_111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0000" name="ret_clan_elite_0000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0001" name="ret_clan_elite_0001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0010" name="ret_clan_elite_0010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0011" name="ret_clan_elite_0011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0100" name="ret_clan_elite_0100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0101" name="ret_clan_elite_0101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0110" name="ret_clan_elite_0110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_0111" name="ret_clan_elite_0111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1000" name="ret_clan_elite_1000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1001" name="ret_clan_elite_1001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1010" name="ret_clan_elite_1010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1011" name="ret_clan_elite_1011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1100" name="ret_clan_elite_1100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1101" name="ret_clan_elite_1101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1110" name="ret_clan_elite_1110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_1111" name="ret_clan_elite_1111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_retinue" name="ret_clan_basic_retinue"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_retinue" name="ret_clan_elite_retinue"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_mmilitia" name="ret_clan_basic_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_mmilitia" name="ret_clan_elite_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_basic_rmilitia" name="ret_clan_basic_rmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_clan_elite_rmilitia" name="ret_clan_elite_rmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_r" name="ret_kingdom_basic_r"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0" name="ret_kingdom_basic_0"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1" name="ret_kingdom_basic_1"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_00" name="ret_kingdom_basic_00"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_01" name="ret_kingdom_basic_01"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_10" name="ret_kingdom_basic_10"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_11" name="ret_kingdom_basic_11"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_000" name="ret_kingdom_basic_000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_001" name="ret_kingdom_basic_001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_010" name="ret_kingdom_basic_010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_011" name="ret_kingdom_basic_011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_100" name="ret_kingdom_basic_100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_101" name="ret_kingdom_basic_101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_110" name="ret_kingdom_basic_110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_111" name="ret_kingdom_basic_111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0000" name="ret_kingdom_basic_0000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0001" name="ret_kingdom_basic_0001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0010" name="ret_kingdom_basic_0010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0011" name="ret_kingdom_basic_0011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0100" name="ret_kingdom_basic_0100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0101" name="ret_kingdom_basic_0101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0110" name="ret_kingdom_basic_0110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_0111" name="ret_kingdom_basic_0111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1000" name="ret_kingdom_basic_1000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1001" name="ret_kingdom_basic_1001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1010" name="ret_kingdom_basic_1010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1011" name="ret_kingdom_basic_1011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1100" name="ret_kingdom_basic_1100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1101" name="ret_kingdom_basic_1101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1110" name="ret_kingdom_basic_1110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_1111" name="ret_kingdom_basic_1111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_r" name="ret_kingdom_elite_r"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0" name="ret_kingdom_elite_0"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1" name="ret_kingdom_elite_1"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_00" name="ret_kingdom_elite_00"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_01" name="ret_kingdom_elite_01"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_10" name="ret_kingdom_elite_10"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_11" name="ret_kingdom_elite_11"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_000" name="ret_kingdom_elite_000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_001" name="ret_kingdom_elite_001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_010" name="ret_kingdom_elite_010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_011" name="ret_kingdom_elite_011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_100" name="ret_kingdom_elite_100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_101" name="ret_kingdom_elite_101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_110" name="ret_kingdom_elite_110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_111" name="ret_kingdom_elite_111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0000" name="ret_kingdom_elite_0000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0001" name="ret_kingdom_elite_0001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0010" name="ret_kingdom_elite_0010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0011" name="ret_kingdom_elite_0011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0100" name="ret_kingdom_elite_0100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0101" name="ret_kingdom_elite_0101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0110" name="ret_kingdom_elite_0110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_0111" name="ret_kingdom_elite_0111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1000" name="ret_kingdom_elite_1000"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1001" name="ret_kingdom_elite_1001"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1010" name="ret_kingdom_elite_1010"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1011" name="ret_kingdom_elite_1011"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1100" name="ret_kingdom_elite_1100"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1101" name="ret_kingdom_elite_1101"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1110" name="ret_kingdom_elite_1110"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_1111" name="ret_kingdom_elite_1111"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_retinue" name="ret_kingdom_basic_retinue"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_retinue" name="ret_kingdom_elite_retinue"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_mmilitia" name="ret_kingdom_basic_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_mmilitia" name="ret_kingdom_elite_mmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_basic_rmilitia" name="ret_kingdom_basic_rmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
+  <NPCCharacter
+    id="ret_kingdom_elite_rmilitia" name="ret_kingdom_elite_rmilitia"
+    is_hidden_encyclopedia="true"
+    default_group="Infantry"
+    level="1"
+    is_basic_troop="true"
+    occupation="Soldier"
+    culture="Culture.empire">
+		<face>
+			<face_key_template
+				value="BodyProperty.fighter_empire" />
+		</face>
+		<skills>
+			<skill id="Athletics" value="0" />
+			<skill id="Riding" value="0" />
+			<skill id="OneHanded" value="0" />
+			<skill id="TwoHanded" value="0" />
+			<skill id="Polearm" value="0" />
+			<skill id="Bow" value="0" />
+			<skill id="Crossbow" value="0" />
+			<skill id="Throwing" value="0" />
+		</skills>
+		<upgrade_targets></upgrade_targets>
+		<Equipments>
+			<EquipmentRoster></EquipmentRoster>
+    </Equipments>
+  </NPCCharacter>
+
 </NPCCharacters>
