@@ -51,7 +51,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 if (Troop?.IsRetinue == true || Troop?.IsMilitia == true)
                     return Troop.Name; // Retinue and militia troops are not indented
 
-                var indent = new string(' ', (Troop?.Tier - 1 ?? 0) * 4);
+                int n = Troop?.Tier - 1 ?? 0; // Tier 1 = 0 indents, Tier 2 = 1 indent, etc.
+                if (n < 0) n = 0; // Safeguard for tier 0 troops
+                var indent = new string(' ', (n) * 4);
                 return $"{indent}{Troop?.Name}"; // Indent based on tier
             }
         }
