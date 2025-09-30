@@ -5,110 +5,84 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Settlements;
+using TaleWorlds.CampaignSystem;
 
-[HarmonyPatch(
-    typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.RecruitmentCampaignBehavior),
-    "UpdateVolunteersOfNotablesInSettlement"
-)]
+[HarmonyPatch(typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.RecruitmentCampaignBehavior), "UpdateVolunteersOfNotablesInSettlement")]
 public static class VolunteerSwap
 {
     static void Postfix(Settlement settlement)
     {
-        if (settlement == null)
-            return;
-
-        if (settlement.IsHideout)
-            return; // no volunteers in hideouts
-
         try
         {
-            var clan = settlement?.OwnerClan;
-            var kingdom = clan?.Kingdom;
+            if (settlement == null || settlement.IsHideout) return;
 
+            var clan = settlement.OwnerClan;
+            var kingdom = clan?.Kingdom;
             var playerClan = Player.Clan;
             var playerKingdom = Player.Kingdom;
 
-            bool didSwap = false;
+            bool preferClan = Config.GetOption<bool>("ClanTroopsOverKingdomTroops");
+            bool did = false;
 
-            if (Config.GetOption<bool>("ClanTroopsOverKingdomTroops"))
+            if (preferClan)
             {
-                // Try clan first, then kingdom
-                if (playerClan != null && clan != null && clan?.StringId == playerClan?.StringId)
-                    didSwap = SwapVolunteers(settlement, playerClan);
-
-                if (!didSwap && playerKingdom != null && kingdom != null && kingdom?.StringId == playerKingdom?.StringId)
-                    didSwap = SwapVolunteers(settlement, playerKingdom);
+                if (!did && playerClan    != null && clan    != null && playerClan.StringId    == clan.StringId)     did = SwapVolunteers(settlement, playerClan);
+                if (!did && playerKingdom != null && kingdom != null && playerKingdom.StringId == kingdom.StringId) did = SwapVolunteers(settlement, playerKingdom);
             }
             else
             {
-                // Try kingdom first, then clan
-                if (playerKingdom != null && kingdom != null && kingdom?.StringId == playerKingdom?.StringId)
-                    didSwap = SwapVolunteers(settlement, playerKingdom);
-
-                if (!didSwap && playerClan != null && clan != null && clan?.StringId == playerClan?.StringId)
-                    didSwap = SwapVolunteers(settlement, playerClan);
+                if (!did && playerKingdom != null && kingdom != null && playerKingdom.StringId == kingdom.StringId) did = SwapVolunteers(settlement, playerKingdom);
+                if (!did && playerClan    != null && clan    != null && playerClan.StringId    == clan.StringId)    did = SwapVolunteers(settlement, playerClan);
             }
 
-            if (didSwap)
-                Log.Debug($"VolunteerSwap: Swapped volunteers in {settlement?.Name}.");
+            if (did) Log.Debug($"VolunteerSwap: swapped volunteer lists in {settlement.Name}.");
         }
         catch (Exception e)
         {
-            Log.Exception(e);
-            return;
+            Log.Exception(e, "VolunteerSwap Postfix failed.");
         }
     }
 
-    static bool SwapVolunteers(Settlement settlement, WFaction faction)
+    private static bool SwapVolunteers(Settlement settlement, WFaction faction)
     {
-        if (settlement == null || faction == null)
-            return false;
+        if (settlement?.Notables == null || settlement.Notables.Count == 0) return false;
+        if ((faction?.EliteTroops?.Count ?? 0) == 0 && (faction?.BasicTroops?.Count ?? 0) == 0) return false;
 
-        // no custom tree, nothing to do
-        if ((faction?.EliteTroops?.Count ?? 0) == 0 && (faction?.BasicTroops?.Count ?? 0) == 0)
-            return false;
-
-        var notables = settlement?.Notables; // could be null on some settlements
-        if (notables == null || notables.Count == 0)
-            return false;
-
-        foreach (var notable in notables)
+        foreach (var notable in settlement.Notables)
         {
             try
             {
                 var arr = notable?.VolunteerTypes;
-                if (arr == null || arr.Length == 0)
-                    continue;
+                if (arr == null || arr.Length == 0) continue;
 
                 for (int i = 0; i < arr.Length; i++)
                 {
                     var vanilla = arr[i];
-                    if (vanilla == null)
-                        continue;
+
+                    // If TW fed us partially initialized entries, hard-fix to safe vanilla baseline.
+                    if (TroopSwapHelper.LooksCorrupt(vanilla))
+                    {
+                        var safe = TroopSwapHelper.SafeVanillaFallback(settlement);
+                        if (TroopSwapHelper.IsValidChar(safe)) arr[i] = safe;
+                        vanilla = safe;
+                    }
 
                     var wVanilla = new WCharacter(vanilla);
-
-                    if (TroopSwapHelper.IsFactionTroop(faction, wVanilla))
-                        continue;
+                    if (!TroopSwapHelper.IsValid(wVanilla)) continue;
+                    if (TroopSwapHelper.IsFactionTroop(faction, wVanilla)) continue;
 
                     var root = TroopSwapHelper.GetFactionRootFor(wVanilla, faction);
-                    if (root == null)
-                        continue;
+                    if (!TroopSwapHelper.IsValid(root)) continue;
 
-                    var replacement = TroopSwapHelper.MatchTier(root, wVanilla.Tier);
-                    if (replacement == null || replacement.StringId == wVanilla.StringId || !replacement.IsActive)
-                        continue;
-                    if (replacement?.Base != null)
-                        arr[i] = replacement.Base;
+                    var repl = TroopSwapHelper.MatchTier(root, wVanilla.Tier);
+                    if (TroopSwapHelper.IsValid(repl)) arr[i] = repl.Base;
                 }
             }
             catch (Exception e)
             {
-                Log.Exception(e);
-                // continue to next notable
+                Log.Exception(e, $"VolunteerSwap: notable {notable?.Name} in {settlement?.Name}");
             }
         }
-
         return true;
     }
 }

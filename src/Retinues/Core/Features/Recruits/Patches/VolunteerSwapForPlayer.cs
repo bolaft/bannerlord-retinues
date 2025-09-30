@@ -3,69 +3,46 @@ using System.Collections.Generic;
 using HarmonyLib;
 using Retinues.Core.Features.Recruits;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
-[HarmonyPatch(
-    typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.PlayerTownVisitCampaignBehavior),
-    "game_menu_recruit_volunteers_on_consequence"
-)]
+[HarmonyPatch(typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.PlayerTownVisitCampaignBehavior), "game_menu_recruit_volunteers_on_consequence")]
 internal static class VolunteerSwapForPlayer_Begin
 {
-    [HarmonyPostfix]
-    private static void Postfix() => VolunteerSwapForPlayerSession.BeginIfNeeded();
+    [HarmonyPostfix] private static void Postfix() => VolunteerSwapForPlayerSession.BeginIfNeeded();
 }
 
-[HarmonyPatch(
-    typeof(TaleWorlds.CampaignSystem.ViewModelCollection.GameMenu.Recruitment.RecruitmentVM),
-    "Deactivate"
-)]
+[HarmonyPatch(typeof(TaleWorlds.CampaignSystem.ViewModelCollection.GameMenu.Recruitment.RecruitmentVM), "Deactivate")]
 internal static class VolunteerSwapForPlayer_End_Deactivate
 {
-    [HarmonyPostfix]
-    private static void Postfix() => VolunteerSwapForPlayerSession.End();
+    [HarmonyPostfix] private static void Postfix() => VolunteerSwapForPlayerSession.End();
 }
 
-[HarmonyPatch(
-    typeof(TaleWorlds.CampaignSystem.ViewModelCollection.GameMenu.Recruitment.RecruitmentVM),
-    "OnFinalize"
-)]
+[HarmonyPatch(typeof(TaleWorlds.CampaignSystem.ViewModelCollection.GameMenu.Recruitment.RecruitmentVM), "OnFinalize")]
 internal static class VolunteerSwapForPlayer_End_Finalize
 {
-    [HarmonyPostfix]
-    private static void Postfix() => VolunteerSwapForPlayerSession.End();
+    [HarmonyPostfix] private static void Postfix() => VolunteerSwapForPlayerSession.End();
 }
 
 internal static class VolunteerSwapForPlayerSession
 {
-    private static readonly Dictionary<Hero, CharacterObject[]> _backup = [];
+    private static readonly Dictionary<Hero, CharacterObject[]> _backup = new();
     private static Settlement _settlement;
-
     public static bool IsActive => _settlement != null;
 
     public static void BeginIfNeeded()
     {
-        if (!Config.GetOption<bool>("RecruitAnywhere"))
-            return;
+        if (!Config.GetOption<bool>("RecruitAnywhere")) return;
 
-        if (IsActive)
-            End();
+        if (IsActive) End();
 
         var playerClan = Player.Clan;
-        if (playerClan == null)
-            return;
-
-        if (playerClan.BasicTroops.Count == 0 || playerClan.EliteTroops.Count == 0)
-            return;
+        if (playerClan == null || (playerClan.BasicTroops.Count == 0 && playerClan.EliteTroops.Count == 0)) return;
 
         var s = Hero.MainHero?.CurrentSettlement ?? Settlement.CurrentSettlement;
-        if (s == null)
-            return;
-
-        Log.Debug(
-            $"VolunteerSwapForPlayer: Attempting swap at {s.Name} for clan {playerClan.Name}."
-        );
+        if (s == null) return;
 
         _settlement = s;
 
@@ -74,45 +51,45 @@ internal static class VolunteerSwapForPlayerSession
             try
             {
                 var arr = notable?.VolunteerTypes;
-                if (arr == null)
-                    continue;
+                if (arr == null) continue;
 
-                // backup
                 _backup[notable] = (CharacterObject[])arr.Clone();
 
                 for (int i = 0; i < arr.Length; i++)
                 {
                     var vanilla = arr[i];
-                    if (vanilla == null)
-                        continue;
 
-                    var wrapped = new Retinues.Core.Game.Wrappers.WCharacter(vanilla);
+                    // sanitize corrupt slots first
+                    if (TroopSwapHelper.LooksCorrupt(vanilla))
+                    {
+                        var safe = TroopSwapHelper.SafeVanillaFallback(s);
+                        if (TroopSwapHelper.IsValidChar(safe)) arr[i] = safe;
+                        vanilla = safe;
+                    }
 
-                    if (TroopSwapHelper.IsFactionTroop(playerClan, wrapped))
-                        continue;
+                    var w = new WCharacter(vanilla);
+                    if (!TroopSwapHelper.IsValid(w)) continue;
+                    if (TroopSwapHelper.IsFactionTroop(playerClan, w)) continue;
 
-                    var root = TroopSwapHelper.GetFactionRootFor(wrapped, playerClan);
-                    if (root == null)
-                        continue;
-                    var replacement = TroopSwapHelper.MatchTier(root, wrapped.Tier);
+                    var root = TroopSwapHelper.GetFactionRootFor(w, playerClan);
+                    if (!TroopSwapHelper.IsValid(root)) continue;
 
-                    if (replacement != null && replacement.IsActive)
-                        arr[i] = replacement.Base;
+                    var repl = TroopSwapHelper.MatchTier(root, w.Tier);
+                    if (TroopSwapHelper.IsValid(repl)) arr[i] = repl.Base;
                 }
             }
             catch (Exception e)
             {
-                Log.Exception(e);
+                Log.Exception(e, $"VolunteerSwapForPlayer: notable {notable?.Name} in {s?.Name}");
             }
         }
 
-        Log.Debug($"Temporary swap applied at {s.Name}.");
+        Log.Debug($"VolunteerSwapForPlayer: temporary swap applied at {s.Name}.");
     }
 
     public static void End()
     {
-        if (!IsActive)
-            return;
+        if (!IsActive) return;
 
         foreach (var kv in _backup)
         {
@@ -120,21 +97,19 @@ internal static class VolunteerSwapForPlayerSession
             {
                 var notable = kv.Key;
                 var orig = kv.Value;
-                if (notable?.VolunteerTypes == null || orig == null)
-                    continue;
+                if (notable?.VolunteerTypes == null || orig == null) continue;
 
                 var n = Math.Min(notable.VolunteerTypes.Length, orig.Length);
-                for (int i = 0; i < n; i++)
-                    notable.VolunteerTypes[i] = orig[i];
+                for (int i = 0; i < n; i++) notable.VolunteerTypes[i] = orig[i];
             }
             catch (Exception e)
             {
-                Log.Exception(e);
+                Log.Exception(e, "VolunteerSwapForPlayer: restore failed.");
             }
         }
 
         _backup.Clear();
-        Log.Debug($"Swap restored at {_settlement?.Name}.");
+        Log.Debug($"VolunteerSwapForPlayer: swap restored at {_settlement?.Name}.");
         _settlement = null;
     }
 }

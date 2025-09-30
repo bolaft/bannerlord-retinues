@@ -13,78 +13,64 @@ namespace Retinues.Core.Features.Recruits.Patches
     [HarmonyPatch(typeof(Settlement), "AddMilitiasToParty")]
     internal static class PlayerMilitiaSpawnPatch
     {
-        private static readonly MethodInfo Helper_RefInt = typeof(Settlement)
-            .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
-            .FirstOrDefault(m =>
-            {
-                if (m.Name != "AddTroopToMilitiaParty") return false;
-                var p = m.GetParameters();
-                return p.Length == 5
-                       && p[0].ParameterType == typeof(MobileParty)
-                       && p[1].ParameterType == typeof(CharacterObject)
-                       && p[2].ParameterType == typeof(CharacterObject)
-                       && p[3].ParameterType == typeof(float)
-                       && p[4].ParameterType.IsByRef
-                       && p[4].ParameterType.GetElementType() == typeof(int);
-            });
+        // Cache reflection to the private helper once
+        private static readonly MethodInfo _addTroopMI =
+            typeof(Settlement).GetMethod("AddTroopToMilitiaParty",
+                BindingFlags.Instance | BindingFlags.NonPublic);
 
-        static bool Prefix(
-            Settlement __instance,
-            [HarmonyArgument(0)] MobileParty militaParty,
-            [HarmonyArgument(1)] int militiaToAdd)
+        private static void AddLane(Settlement s, MobileParty party,
+                                    CharacterObject basic, CharacterObject elite,
+                                    float ratio, int total)
         {
-            if (Helper_RefInt == null || __instance == null || militaParty == null || militiaToAdd <= 0)
-                return true;
+            if ((basic == null && elite == null) || _addTroopMI == null) return;
+            _addTroopMI.Invoke(s, [party, basic, elite, ratio, total]);
+        }
 
+        // Prefix: if settlement belongs to player side, use WSettlement militia, then skip original
+        static bool Prefix(Settlement __instance, MobileParty militiaParty, int militiaNumberToAdd)
+        {
             try
             {
+                if (__instance == null || militiaParty == null || militiaNumberToAdd <= 0)
+                    return true; // let vanilla handle bad inputs
+
                 var ws = new WSettlement(__instance);
 
+                // If your wrapper resolved no player-side faction (not player clan/kingdom), let vanilla run
                 if (ws.Faction == null)
-                    return true; // no faction -> vanilla
-                
-                Log.Info($"[MilitiaPatch] Settlement {ws.Name} faction={ws.Faction.Name} add={militiaToAdd}");
+                    return true;
 
-                // pull custom militia; if any is missing/inactive, leave vanilla behavior
+                // Compute vanilla split ratios (melee/ranged)
+                Campaign.Current.Models.SettlementMilitiaModel
+                    .CalculateMilitiaSpawnRate(__instance, out float meleeRatio, out float rangedRatio);
+
+                // Pull your choices via wrapper (these already fall back to culture if custom is inactive)
                 var melee       = ws.MilitiaMelee;
                 var meleeElite  = ws.MilitiaMeleeElite;
                 var ranged      = ws.MilitiaRanged;
                 var rangedElite = ws.MilitiaRangedElite;
 
-                bool allActive = melee?.IsActive == true
-                              && meleeElite?.IsActive == true
-                              && ranged?.IsActive == true
-                              && rangedElite?.IsActive == true;
+                if (melee == null || meleeElite == null || ranged == null || rangedElite == null)
+                    return true; // no custom militia set, let vanilla run
+                
+                if (!melee.IsActive || !meleeElite.IsActive || !ranged.IsActive || !rangedElite.IsActive)
+                    return true; // inactive custom troops, let vanilla run
 
-                if (!allActive)
-                    return true; // vanilla
+                // Spawn using the same internal helper the game uses
+                AddLane(__instance, militiaParty, melee.Base,  meleeElite.Base,  meleeRatio,  militiaNumberToAdd);
+                AddLane(__instance, militiaParty, ranged.Base, rangedElite.Base, rangedRatio, militiaNumberToAdd);
 
-                // vanilla 1.2 uses calculated melee ratio and hard-coded 1f for ranged
-                Campaign.Current.Models.SettlementMilitiaModel
-                    .CalculateMilitiaSpawnRate(__instance, out float meleeRatio, out _);
+                Log.Debug($"[MilitiaPatch] Custom militia for {ws.Name}: " +
+                         $"melee={melee?.StringId}/{meleeElite?.StringId}, " +
+                         $"ranged={ranged?.StringId}/{rangedElite?.StringId}, add={militiaNumberToAdd}");
 
-                int remaining = militiaToAdd;
-
-                // invoke private helper with ref int
-                object[] args;
-
-                args = [militaParty, melee.Base, meleeElite.Base, meleeRatio, remaining];
-                Helper_RefInt.Invoke(__instance, args);
-                remaining = (int)args[4];
-
-                args = [militaParty, ranged.Base, rangedElite.Base, 1f, remaining];
-                Helper_RefInt.Invoke(__instance, args);
-                remaining = (int)args[4];
-
-                Log.Debug($"[MilitiaPatch] Custom militia for {ws.Name} add={militiaToAdd} rem={remaining}");
-
-                // handled -> skip original
+                // We handled it—skip original
                 return false;
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "[MilitiaPatch] Fallback to vanilla");
-                return true; // let vanilla proceed on failure
+                Log.Exception(ex, "[MilitiaPatch] Failed; falling back to vanilla");
+                return true;
             }
         }
     }

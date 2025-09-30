@@ -391,7 +391,7 @@ namespace Retinues.Core.Game.Wrappers
         }
 
         public static List<string> ActiveTroops { get; } = [];
-        public bool IsActive => ActiveTroops.Contains(StringId);
+        public bool IsActive => !IsCustom || ActiveTroops.Contains(StringId);
 
         public void Activate()
         {
