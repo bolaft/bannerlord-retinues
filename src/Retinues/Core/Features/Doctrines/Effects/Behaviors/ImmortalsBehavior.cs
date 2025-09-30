@@ -79,6 +79,8 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
 
                 if (restored > 0)
                 {
+                    if (troop == null)
+                        continue;
                     // Add back as wounded survivors
                     try
                     {

@@ -89,10 +89,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public bool IsRetinueIsNotMaxTier => !IsMaxTier && IsRetinue;
 
         [DataSourceProperty]
-        public bool IsRegular => !SelectedTroop.IsRetinue;
+        public bool IsRegular => !SelectedTroop.IsRetinue && !SelectedTroop.IsMilitia;
 
         [DataSourceProperty]
-        public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false;
+        public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false || SelectedTroop.IsMilitia;
 
         [DataSourceProperty]
         public bool TroopXpIsEnabled =>
@@ -170,16 +170,16 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             get
             {
-                var tier = SelectedTroop?.Tier ?? 0;
+                int cap = SelectedTroop == null ? 0 : TroopRules.SkillCapByTier(SelectedTroop);
                 return L.T("skill_cap_text", "{CAP} skill cap")
-                    .SetTextVariable("CAP", TroopRules.SkillCapByTier(tier))
+                    .SetTextVariable("CAP", cap)
                     .ToString();
             }
         }
 
         [DataSourceProperty]
         public int SkillTotal =>
-            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop.Tier) : 0;
+            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop) : 0;
 
         [DataSourceProperty]
         public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
@@ -206,6 +206,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     return false; // Cannot remove root troops
                 if (SelectedTroop?.UpgradeTargets.Count() > 0)
                     return false; // Cannot remove troops that are upgrade targets
+                if (SelectedTroop?.IsRetinue == true || SelectedTroop?.IsMilitia == true)
+                    return false; // Cannot remove retinues or militia
 
                 return true;
             }

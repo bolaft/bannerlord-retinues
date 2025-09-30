@@ -29,5 +29,10 @@ namespace Retinues.Core.Game.Wrappers
             _culture?.BasicTroop != null ? new(_culture.BasicTroop) : null;
         public WCharacter RootElite =>
             _culture?.EliteBasicTroop != null ? new(_culture.EliteBasicTroop) : null;
+
+        public WCharacter MilitiaMelee => _culture?.MeleeMilitiaTroop != null ? new(_culture.MeleeMilitiaTroop) : null;
+        public WCharacter MilitiaMeleeElite => _culture?.MeleeEliteMilitiaTroop != null ? new(_culture.MeleeEliteMilitiaTroop) : null;
+        public WCharacter MilitiaRanged => _culture?.RangedMilitiaTroop != null ? new(_culture.RangedMilitiaTroop) : null;
+        public WCharacter MilitiaRangedElite => _culture?.RangedEliteMilitiaTroop != null ? new(_culture.RangedEliteMilitiaTroop) : null;
     }
 }

@@ -21,9 +21,11 @@ namespace Retinues.Core.Game.Wrappers
             bool isKingdom,
             bool isElite,
             bool isRetinue = false,
+            bool isMilitiaMelee = false,
+            bool isMilitiaRanged = false,
             IReadOnlyList<int> path = null
         )
-            : this(CharacterHelper.GetCharacterObject(isKingdom, isElite, isRetinue, path)) { }
+            : this(CharacterHelper.GetCharacterObject(isKingdom, isElite, isRetinue, isMilitiaMelee, isMilitiaRanged, path)) { }
 
         public WCharacter(string stringId)
             : this(CharacterHelper.GetCharacterObject(stringId)) { }
@@ -78,6 +80,9 @@ namespace Retinues.Core.Game.Wrappers
         public bool IsCustom => CharacterHelper.IsCustom(StringId);
         public bool IsElite => CharacterHelper.IsElite(StringId);
         public bool IsRetinue => CharacterHelper.IsRetinue(StringId);
+        public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
+        public bool IsMilitiaMelee => CharacterHelper.IsMilitiaMelee(StringId);
+        public bool IsMilitiaRanged => CharacterHelper.IsMilitiaRanged(StringId);
 
         public WCharacter Parent => CharacterHelper.GetParent(this);
         public WFaction Faction => CharacterHelper.ResolveFaction(StringId);

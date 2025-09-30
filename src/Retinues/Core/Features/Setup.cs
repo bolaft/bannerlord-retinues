@@ -91,6 +91,74 @@ namespace Retinues.Core.Features
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Militias                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void CreateMilitiaTroop(WFaction faction, bool isElite, bool isMelee)
+        {
+            WCharacter root;
+
+            if (isMelee)
+                root = isElite ? faction.Culture.MilitiaMeleeElite : faction.Culture.MilitiaMelee;
+            else
+                root = isElite ? faction.Culture.MilitiaRangedElite : faction.Culture.MilitiaRanged;
+
+            if (root == null)
+            {
+                Log.Error(
+                    $"Cannot create militia troop for faction {faction.Name} because its culture {faction.Culture.Name} has no {(isElite ? "elite" : "basic")} {(isMelee ? "melee" : "ranged")} militia troop."
+                );
+                return;
+            }
+
+            var militia = new WCharacter(faction == Player.Kingdom, isElite, false, isMelee, !isMelee);
+
+            militia.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+
+            Log.Info(
+                $"Created militia troop {militia.StringId} for {faction.Name} (from {root.StringId})"
+            );
+            Log.Info($"troop vanilla id set to {militia.VanillaStringId}");
+
+            // Rename it
+            if (militia.Name.Contains(faction.Culture?.Name) == true)
+                militia.Name = militia.Name.Replace(faction.Culture.Name, faction.Name);
+            else
+                militia.Name = $"{faction.Name} {root.Name}";
+
+            // Non-transferable
+            militia.IsNotTransferableInPartyScreen = true;
+
+            // Unlock items
+            foreach (var equipment in root.Equipments)
+                foreach (var item in equipment.Items)
+                    item.Unlock();
+
+            // Force recalculation of formation class based on equipment
+            militia.ResetFormationClass();
+
+            // Activate
+            militia.Activate();
+        }
+
+        public static void SetupFactionMilitia(WFaction faction)
+        {
+            try
+            {
+                Log.Info($"Setting up militia troops for faction {faction.Name}.");
+
+                CreateMilitiaTroop(faction, false, true);
+                CreateMilitiaTroop(faction, true, true);
+                CreateMilitiaTroop(faction, false, false);
+                CreateMilitiaTroop(faction, true, false);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Failed to set up militia troops for faction {faction.Name}: {e}");
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -108,8 +176,7 @@ namespace Retinues.Core.Features
                 if (culture?.RootElite != null)
                 {
                     // Clone the elite tree from the elite root
-                    eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
-                        .ToList();
+                    eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)];
 
                     Log.Debug(
                         $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
@@ -145,9 +212,9 @@ namespace Retinues.Core.Features
 
                 // Unlock items from the added clones
                 foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
-                foreach (var equipment in troop.Equipments)
-                foreach (var item in equipment.Items)
-                    item.Unlock();
+                    foreach (var equipment in troop.Equipments)
+                        foreach (var item in equipment.Items)
+                            item.Unlock();
 
                 Log.Debug(
                     $"Unlocked {WItem.UnlockedItems.Count()} items from {eliteClones.Count + basicClones.Count} troops"
@@ -174,13 +241,16 @@ namespace Retinues.Core.Features
                 path = [.. parent.PositionInTree, parent.UpgradeTargets.Length];
 
             // Wrap the custom troop
-            var troop = new WCharacter(faction == Player.Kingdom, isElite, false, path);
+            var troop = new WCharacter(faction == Player.Kingdom, isElite, false, path: path);
 
             // Copy from the original troop
             troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
             // Rename it
-            troop.Name = $"{faction.Name} {vanilla.Name}";
+            if (vanilla.Name.Contains(faction.Culture?.Name) == true)
+                troop.Name = vanilla.Name.Replace(faction.Culture.Name, faction.Name);
+            else
+                troop.Name = $"{faction.Name} {vanilla.Name}";
 
             // Add to upgrade targets of the parent, if any
             parent?.AddUpgradeTarget(troop);

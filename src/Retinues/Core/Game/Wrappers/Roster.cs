@@ -75,6 +75,9 @@ namespace Retinues.Core.Game.Wrappers
             int index = -1
         )
         {
+            if (troop.Base == null)
+                return;
+
             _roster.AddToCounts(
                 troop.Base,
                 healthy,

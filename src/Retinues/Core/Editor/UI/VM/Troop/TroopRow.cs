@@ -44,21 +44,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
-        public string ImageId => Troop?.Image.Id;
-
-        [DataSourceProperty]
-        public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
-
-        [DataSourceProperty]
-        public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
-
-        [DataSourceProperty]
         public string IndentedName
         {
             get
             {
-                if (Troop?.IsRetinue == true)
-                    return Troop.Name; // Retinue troops are not indented
+                if (Troop?.IsRetinue == true || Troop?.IsMilitia == true)
+                    return Troop.Name; // Retinue and militia troops are not indented
 
                 var indent = new string(' ', (Troop?.Tier - 1 ?? 0) * 4);
                 return $"{indent}{Troop?.Name}"; // Indent based on tier

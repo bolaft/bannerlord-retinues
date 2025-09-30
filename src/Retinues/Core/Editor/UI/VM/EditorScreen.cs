@@ -180,7 +180,7 @@ namespace Retinues.Core.Editor.UI.VM
         public bool CanSwitchFaction => Player.Kingdom != null && !IsDoctrinesMode;
 
         [DataSourceProperty]
-        public bool ShowRemoveButton => IsDefaultMode && SelectedTroop?.IsRetinue == false;
+        public bool ShowRemoveButton => IsDefaultMode && SelectedTroop?.IsRetinue == false && SelectedTroop?.IsMilitia == false;
 
         /* ━━━━━━━ Doctrines ━━━━━━ */
 
@@ -313,6 +313,19 @@ namespace Retinues.Core.Editor.UI.VM
                     Log.Info("Initializing default troops.");
 
                     Setup.SetupFactionTroops(faction);
+                }
+            }
+
+            if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
+            {
+                // Always have militia troops if clan has fiefs or if player leads a kingdom
+                if (
+                    faction.HasFiefs || Player.Kingdom != null
+                )
+                {
+                    Log.Info("Initializing militia troops.");
+
+                    Setup.SetupFactionMilitia(faction);
                 }
             }
 

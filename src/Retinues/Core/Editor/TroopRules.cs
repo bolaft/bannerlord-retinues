@@ -16,12 +16,13 @@ namespace Retinues.Core.Editor
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static int SkillCapByTier(int tier)
+        public static int SkillCapByTier(WCharacter troop)
         {
             try
             {
-                int cap = tier switch
+                int cap = troop.Tier switch
                 {
+                    0 => 20,
                     1 => 20,
                     2 => 50,
                     3 => 80,
@@ -30,6 +31,9 @@ namespace Retinues.Core.Editor
                     6 => 260,
                     _ => 260, // Higher tiers for retinues
                 };
+
+                if (troop.IsMilitia && troop.IsElite)
+                    cap += 20; // +20 cap for elite militia
 
                 if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                     cap += 5; // +5 skill cap with Iron Discipline
@@ -43,12 +47,13 @@ namespace Retinues.Core.Editor
             }
         }
 
-        public static int SkillTotalByTier(int tier)
+        public static int SkillTotalByTier(WCharacter troop)
         {
             try
             {
-                int total = tier switch
+                int total = troop.Tier switch
                 {
+                    0 => 90,
                     1 => 90,
                     2 => 210,
                     3 => 360,
@@ -58,8 +63,14 @@ namespace Retinues.Core.Editor
                     _ => 915, // Higher tiers for retinues
                 };
 
+                if (troop.IsMilitia)
+                    if (troop.IsElite)
+                        total = 520; // 520 skill total for elite militia
+                    else
+                        total += 30; // +30 skill total for militia
+
                 if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
-                    total += 10; // +10 skill total with Steadfast Soldiers
+                        total += 10; // +10 skill total with Steadfast Soldiers
 
                 return total;
             }
@@ -77,7 +88,7 @@ namespace Retinues.Core.Editor
                 if (character == null)
                     return 0;
 
-                return SkillTotalByTier(character.Tier) - character.Skills.Values.Sum();
+                return SkillTotalByTier(character) - character.Skills.Values.Sum();
             }
             catch (Exception e)
             {
@@ -93,7 +104,7 @@ namespace Retinues.Core.Editor
                 if (character == null || skill == null)
                     return false;
 
-                if (character.GetSkill(skill) >= SkillCapByTier(character.Tier))
+                if (character.GetSkill(skill) >= SkillCapByTier(character))
                     return false;
 
                 if (SkillPointsLeft(character) <= 0)
@@ -149,6 +160,9 @@ namespace Retinues.Core.Editor
             {
                 if (character == null)
                     return false;
+
+                if (character.IsMilitia)
+                    return false; // Militia cannot be upgraded
 
                 // Max tier reached
                 if (character.IsMaxTier)

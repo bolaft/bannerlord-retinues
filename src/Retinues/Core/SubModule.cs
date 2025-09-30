@@ -10,6 +10,7 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
+using Retinues.Core.Features.Recruits;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -64,6 +65,7 @@ namespace Retinues.Core
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
+
             Log.Debug($"{game?.GameType?.GetType().Name}");
 
             if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)

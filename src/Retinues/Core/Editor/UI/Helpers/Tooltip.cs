@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
 
 namespace Retinues.Core.Editor.UI.Helpers
@@ -37,46 +38,54 @@ namespace Retinues.Core.Editor.UI.Helpers
 
         public static BasicTooltipViewModel MakeItemTooltip(WItem item)
         {
-            if (item == null)
-                return null;
-
-            return new BasicTooltipViewModel(() =>
+            try
             {
-                string titleText;
+                if (item == null)
+                    return null;
 
-                if (item.Culture?.Name != null)
-                    titleText = $"T{item.Tier} {item.Class} ({item.Culture.Name})";
-                else
-                    titleText = $"T{item.Tier} {item.Class}";
-
-                var props = new List<TooltipProperty>
+                return new BasicTooltipViewModel(() =>
                 {
-                    // Title
-                    new(
-                        string.Empty,
-                        titleText,
-                        0,
-                        false,
-                        TooltipProperty.TooltipPropertyFlags.Title
-                    ),
-                };
+                    string titleText;
 
-                // Description
-                foreach (var stat in item.Statistics)
-                {
-                    props.Add(
-                        new TooltipProperty(
+                    if (item.Culture?.Name != null)
+                        titleText = $"T{item.Tier} {item.Class} ({item.Culture.Name})";
+                    else
+                        titleText = $"T{item.Tier} {item.Class}";
+
+                    var props = new List<TooltipProperty>
+                    {
+                        // Title
+                        new(
                             string.Empty,
-                            $"{stat.Key}: {stat.Value}",
+                            titleText,
                             0,
                             false,
-                            TooltipProperty.TooltipPropertyFlags.None
-                        )
-                    );
-                }
+                            TooltipProperty.TooltipPropertyFlags.Title
+                        ),
+                    };
 
-                return props;
-            });
+                    // Description
+                    foreach (var stat in item.Statistics)
+                    {
+                        props.Add(
+                            new TooltipProperty(
+                                string.Empty,
+                                $"{stat.Key}: {stat.Value}",
+                                0,
+                                false,
+                                TooltipProperty.TooltipPropertyFlags.None
+                            )
+                        );
+                    }
+
+                    return props;
+                });
+            }
+            catch (System.Exception ex)
+            {
+                Log.Exception(ex, "[Tooltip] Failed to create item tooltip.");
+                return null;
+            }
         }
     }
 }
