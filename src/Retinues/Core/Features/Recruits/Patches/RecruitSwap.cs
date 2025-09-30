@@ -5,10 +5,7 @@ using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
-[HarmonyPatch(
-    typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.RecruitmentCampaignBehavior),
-    "OnTroopRecruited"
-)]
+[HarmonyPatch(typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.RecruitmentCampaignBehavior), "OnTroopRecruited")]
 public static class RecruitSwap
 {
     static void Postfix(
@@ -21,38 +18,28 @@ public static class RecruitSwap
     {
         try
         {
-            if (troop == null || count <= 0)
-                return;
+            if (recruiter?.PartyBelongedTo == null || count <= 0) return;
+            if (TroopSwapHelper.LooksCorrupt(troop)) return; // never touch suspicious input
 
-            if (recruiter?.PartyBelongedTo == null || troop == null || count <= 0)
-                return;
+            var faction = TroopSwapHelper.ResolveTargetFaction(recruiter);
+            if (faction == null) return;
 
-            var targetFaction = TroopSwapHelper.ResolveTargetFaction(recruiter);
-            if (targetFaction == null)
-                return;
-
-            // Wrap the vanilla recruit
             var vanilla = new WCharacter(troop);
+            if (!TroopSwapHelper.IsValid(vanilla)) return; // defensive
 
-            // Find the best custom equivalent for this faction
-            var replacement = TroopSwapHelper.FindReplacement(vanilla, targetFaction);
-            if (replacement == null || replacement.StringId == vanilla.StringId || !replacement.IsActive)
-                return;
+            var replacement = TroopSwapHelper.FindReplacement(vanilla, faction);
+            if (!TroopSwapHelper.IsValid(replacement)) return;
 
+            // Perform atomic stack swap
             var roster = recruiter.PartyBelongedTo.MemberRoster;
-
-            Log.Info(
-                $"RecruitSwap: Swapping {count}x {troop.Name} for {replacement.Name} in {recruiter.Name}'s party."
-            );
-
-            // Swap stacks
-            roster.AddToCounts(troop, -count);
+            roster.AddToCounts(troop, -count, insertAtFront: false, woundedCount: 0, xpChange: 0, removeDepleted: true);
             roster.AddToCounts(replacement.Base, count);
+
+            Log.Info($"RecruitSwap: {recruiter?.Name} swapped {count}x {troop?.StringId} → {replacement?.StringId}.");
         }
         catch (Exception e)
         {
-            Log.Exception(e);
-            return;
+            Log.Exception(e, "RecruitSwap failed; leaving vanilla recruit intact.");
         }
     }
 }
