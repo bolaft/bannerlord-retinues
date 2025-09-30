@@ -44,15 +44,6 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
-        public string ImageId => Troop?.Image.Id;
-
-        [DataSourceProperty]
-        public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
-
-        [DataSourceProperty]
-        public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
-
-        [DataSourceProperty]
         public string IndentedName
         {
             get
