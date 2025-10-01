@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Safety;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Persistence.Troop
 {
@@ -66,26 +64,6 @@ namespace Retinues.Core.Persistence.Troop
                 else
                 {
                     Log.Debug("No root troops in save.");
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
-
-            Log.Info("Performing safety checks...");
-
-            try
-            {
-                foreach (var mp in MobileParty.All)
-                    RosterSanitizer.CleanParty(mp);
-
-                foreach (var s in Campaign.Current.Settlements)
-                {
-                    RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
-                    RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
-
-                    VolunteerSanitizer.CleanSettlement(s);
                 }
             }
             catch (Exception e)

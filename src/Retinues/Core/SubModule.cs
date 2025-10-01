@@ -8,9 +8,9 @@ using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Safety;
 using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
-using Retinues.Core.Features.Recruits;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -76,6 +76,9 @@ namespace Retinues.Core
                 // Persistence behaviors
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
+
+                // Safety behavior
+                cs.AddBehavior(new SafetyBehavior());
 
                 // XP behavior (skip if both costs are 0)
                 if (
