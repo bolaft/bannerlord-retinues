@@ -22,8 +22,10 @@ namespace Retinues.Core.Game.Wrappers
         public override string StringId => _settlement?.StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Faction                        //
+        //                         Members                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WParty Garrison => _settlement?.Town?.GarrisonParty != null ? new WParty(_settlement.Town.GarrisonParty) : null;
 
         public WCulture Culture => new(_settlement?.Culture);
 

@@ -32,7 +32,7 @@ public static class RecruitSwap
 
             // Perform atomic stack swap
             var roster = recruiter.PartyBelongedTo.MemberRoster;
-            roster.AddToCounts(troop, -count, insertAtFront: false, woundedCount: 0, xpChange: 0, removeDepleted: true);
+            roster.RemoveTroop(troop, count);
             roster.AddToCounts(replacement.Base, count);
 
             Log.Info($"RecruitSwap: {recruiter?.Name} swapped {count}x {troop?.StringId} → {replacement?.StringId}.");

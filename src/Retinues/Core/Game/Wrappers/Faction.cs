@@ -16,6 +16,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public IFaction Base => _faction;
 
+        public IFaction Kingdom => IsClan ? null : Reflector.GetPropertyValue<Kingdom>(_faction, "Kingdom");
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -71,9 +73,11 @@ namespace Retinues.Core.Game.Wrappers
             [.. RootBasic.Tree.Where(t => t.IsActive && !t.IsElite)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Fiefs                         //
+        //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
+        public bool IsClan => Base is Clan;
+        public bool IsKingdom => Base is Kingdom;
     }
 }

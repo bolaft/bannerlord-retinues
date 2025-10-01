@@ -5,6 +5,8 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Features.Recruits
@@ -99,12 +101,35 @@ namespace Retinues.Core.Features.Recruits
         }
 
         // Map a vanilla troop to the best faction replacement (or null if no safe replacement).
-        public static WCharacter FindReplacement(WCharacter vanilla, WFaction faction)
+        public static WCharacter FindReplacement(WCharacter vanilla, WFaction faction, bool militia = false)
         {
             if (!IsValid(vanilla) || faction == null) return null;
 
             // If vanilla already belongs to faction, no replacement
             if (IsFactionTroop(faction, vanilla)) return null;
+
+            // If militia flag is set, replace using militia lines if available
+            if (militia)
+            {
+                List<WCharacter> candidates =
+                [
+                    faction.MilitiaMelee,
+                    faction.MilitiaMeleeElite,
+                    faction.MilitiaRanged,
+                    faction.MilitiaRangedElite
+                ];
+
+                foreach (var c in candidates)
+                {
+                    if (!IsValid(c)) continue;
+
+                    if (c.Tier != vanilla.Tier) continue;
+                    if (c.IsRanged != vanilla.IsRanged) continue;
+                    if (c.IsElite != vanilla.IsElite) continue;
+
+                    return c; // exact match
+                }
+            }
 
             var root = GetFactionRootFor(vanilla, faction);
             if (!IsValid(root)) return null;
@@ -169,6 +194,95 @@ namespace Retinues.Core.Features.Recruits
             // If literally nothing else, looter (is registered in all games)
             var looter = CharacterObject.Find("looter");
             return IsValidChar(looter) ? looter : null;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Rosters                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static void SwapParty(MobileParty p)
+        {
+            try
+            {
+                WParty party = new(p);
+                WFaction faction;
+
+                if (party.IsPlayerKingdomParty)
+                {
+                    Log.Info($"TroopSwapHelper: Party '{party.Name}' is a player kingdom party. Using Player.Kingdom.");
+                    faction = Player.Kingdom;
+                }
+                else if (party.IsPlayerClanParty)
+                {
+                    Log.Info($"TroopSwapHelper: Party '{party.Name}' is a player clan party. Using Player.Clan.");
+                    faction = Player.Clan;
+                }
+                else
+                {
+                    Log.Info($"TroopSwapHelper: Party '{party.Name}' (clan: {party.Clan?.Name}, kingdom: {party.Kingdom?.Name}) is not a player faction party. Skipping swap.");
+                    return; // only swap for player factions
+                }
+
+                Log.Info($"TroopSwapHelper: Swapping roster for party '{party.Name}' with faction '{faction?.Name ?? "NULL"}'.");
+                SwapRoster(party, faction);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, $"TroopSwapHelper: Failed swapping party '{(p?.Name != null ? p.Name.ToString() : "NULL")}'.");
+                Log.Error($"Clan: {p.ActualClan?.Name} ({p.ActualClan?.StringId}) Kingdom: {p.ActualClan?.Kingdom?.Name} ({p.ActualClan?.Kingdom?.StringId})");
+            }
+        }
+
+        public static int SwapRoster(WParty party, WFaction faction)
+        {
+            int replaced = 0;
+            try
+            {
+                if (party.Base == null || party.MemberRoster == null || faction == null) return 0;
+
+                // Build a fresh roster to avoid in-place index/XpChanged issues.
+                var dst = new TroopRoster(party.Base.Party);
+
+                // Enumerate snapshot so we don't fight internal mutations.
+                foreach (var e in party.MemberRoster.Base.GetTroopRoster())
+                {
+                    var ch = e.Character;
+                    if (ch == null || e.Number <= 0)
+                        continue;
+
+                    // never touch heroes
+                    if (ch.IsHero)
+                    {
+                        dst.AddToCounts(ch, e.Number, insertAtFront: false, woundedCount: e.WoundedNumber, xpChange: e.Xp);
+                        continue;
+                    }
+
+                    // Wrap and look for a faction replacement using your helpers
+                    var vanilla = new WCharacter(ch);
+                    var replacement = FindReplacement(vanilla, faction, militia: party.IsMilitia);
+
+                    // If no good replacement, keep as-is
+                    if (replacement == null || !replacement.IsActive || replacement.StringId == vanilla.StringId)
+                    {
+                        dst.AddToCounts(ch, e.Number, insertAtFront: false, woundedCount: e.WoundedNumber, xpChange: e.Xp);
+                        continue;
+                    }
+
+                    // Apply replacement, preserving totals
+                    dst.AddToCounts(replacement.Base, e.Number, insertAtFront: false, woundedCount: e.WoundedNumber, xpChange: e.Xp);
+                    replaced++;
+                }
+
+                // Swap onto PartyBase (properties are read-only; use same reflection approach as your sanitizer)
+                Reflector.SetPropertyValue(party.Base, "MemberRoster", dst);
+
+                Log.Debug($"TroopSwapHelper.SwapRoster: Members swapped for {party?.Name}; stacks replaced={replaced}.");
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+            return replaced;
         }
     }
 }

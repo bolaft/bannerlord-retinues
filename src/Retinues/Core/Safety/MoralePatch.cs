@@ -69,7 +69,7 @@ namespace Retinues.Core.Safety
                 {
                     try
                     {
-                        SkillHelper.AddSkillBonusForCharacter(DefaultSkillEffects.LeadershipMoraleBonus, leader, ref bonus);
+                        SkillHelper.AddSkillBonusForCharacter(DefaultSkills.Leadership, DefaultSkillEffects.LeadershipMoraleBonus, leader, ref bonus);
                     }
                     catch (Exception exAdd)
                     {
