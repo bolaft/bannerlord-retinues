@@ -8,7 +8,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class ClanicTraditions : Doctrine
     {
-        public override string Name => L.S("clanic_traditions", "Clanic Traditions");
+        public override string Name => L.S("clanic_traditions", "Clan Traditions");
         public override string Description =>
             L.S("clanic_traditions_description", "Troops can equip smithed weapons.");
         public override int Column => 1;
