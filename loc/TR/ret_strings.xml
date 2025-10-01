@@ -200,6 +200,12 @@
       id="ret_female"
       text="Kadın" />
     <string
+      id="ret_first_run_text"
+      text="Yandaşlara hoş geldiniz!{newline}{newline}Görünüşe göre mevcut bir kayıtla Yandaşları kullanıyorsunuz. Yandaşlar, birlik verilerini değiştirir ve oyun dünyasına yeni birlikler ekler, bu nedenle devam etmeden önce kaydınızın bir yedeğini oluşturmanız şiddetle tavsiye edilir. Bu, bir şeyler ters giderse oyununuzu geri yüklemenizi sağlar.{newline}{newline}Şimdi otomatik olarak bir yedek oluşturmak ister misiniz?" />
+    <string
+      id="ret_first_run_title"
+      text="Retinues - Mevcut Kayıt Tespit Edildi" />
+    <string
       id="ret_gender_header_text"
       text="Cinsiyet" />
     <string
@@ -373,6 +379,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Seçkin" />
+    <string
+      id="ret_list_toggle_militia"
+      text="Milis" />
     <string
       id="ret_list_toggle_regular"
       text="Normal" />

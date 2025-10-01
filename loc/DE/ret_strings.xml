@@ -200,6 +200,12 @@
       id="ret_female"
       text="Weiblich" />
     <string
+      id="ret_first_run_text"
+      text="Willkommen bei Gefolgschaften!{newline}{newline}Es sieht so aus, als würdest du Gefolgschaften mit einem bestehenden Spielstand verwenden. Da Gefolgschaften Truppendaten ändert und neue Truppen in die Spielwelt einführt, wird dringend empfohlen, vor dem Fortfahren eine Sicherungskopie deines Spielstands zu erstellen. Dadurch kannst du dein Spiel wiederherstellen, falls etwas schiefgeht.{newline}{newline}Möchtest du jetzt automatisch eine Sicherung erstellen?" />
+    <string
+      id="ret_first_run_title"
+      text="Gefolgschaften - Bestehender Spielstand erkannt" />
+    <string
       id="ret_gender_header_text"
       text="Geschlecht" />
     <string
@@ -373,6 +379,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Elite" />
+    <string
+      id="ret_list_toggle_militia"
+      text="Miliz" />
     <string
       id="ret_list_toggle_regular"
       text="Regulär" />

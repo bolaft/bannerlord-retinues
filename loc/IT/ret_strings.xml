@@ -200,6 +200,12 @@
       id="ret_female"
       text="Femminile" />
     <string
+      id="ret_first_run_text"
+      text="Benvenuto in Seguiti!{newline}{newline}Sembra che tu stia usando Seguiti con un salvataggio esistente. Poiché Seguiti modifica i dati delle truppe e introduce nuove truppe nel mondo di gioco, si consiglia vivamente di creare un backup del salvataggio prima di procedere. Questo ti permetterà di ripristinare il gioco se qualcosa dovesse andare storto.{newline}{newline}Vuoi creare automaticamente un backup ora?" />
+    <string
+      id="ret_first_run_title"
+      text="Seguiti - Rilevato Salvataggio Esistente" />
+    <string
       id="ret_gender_header_text"
       text="Genere" />
     <string
@@ -373,6 +379,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Élite" />
+    <string
+      id="ret_list_toggle_militia"
+      text="Milizia" />
     <string
       id="ret_list_toggle_regular"
       text="Regolari" />

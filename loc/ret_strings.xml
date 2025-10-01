@@ -200,6 +200,12 @@
       id="ret_female"
       text="Female" />
     <string
+      id="ret_first_run_text"
+      text="Welcome to Retinues!{newline}{newline}It looks like you are using Retinues with an existing save. Since Retinues modifies troop data and introduces new troops in the game world, it is strongly recommended to create a backup of your save before proceeding. This will allow you to restore your game if anything goes wrong.{newline}{newline}Would you like to automatically create a backup now?" />
+    <string
+      id="ret_first_run_title"
+      text="Retinues - Existing Save Detected" />
+    <string
       id="ret_gender_header_text"
       text="Gender" />
     <string

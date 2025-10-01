@@ -200,6 +200,12 @@
       id="ret_female"
       text="女性" />
     <string
+      id="ret_first_run_text"
+      text="欢迎使用随从！{newline}{newline}看起来你正在使用一个已有存档的随从。由于随从会修改部队数据并在游戏世界中引入新的部队，强烈建议在继续之前创建存档备份。这将允许你在出现问题时恢复游戏。{newline}{newline}你现在想自动创建一个备份吗？" />
+    <string
+      id="ret_first_run_title"
+      text="随从 - 检测到现有存档" />
+    <string
       id="ret_gender_header_text"
       text="性别" />
     <string
@@ -373,6 +379,9 @@
     <string
       id="ret_list_toggle_elite"
       text="精锐" />
+    <string
+      id="ret_list_toggle_militia"
+      text="民兵" />
     <string
       id="ret_list_toggle_regular"
       text="普通" />

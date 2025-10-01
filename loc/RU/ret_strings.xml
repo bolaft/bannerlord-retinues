@@ -200,6 +200,12 @@
       id="ret_female"
       text="Женский" />
     <string
+      id="ret_first_run_text"
+      text="Добро пожаловать в Свиту!{newline}{newline}Похоже, вы используете Свиту с существующим сохранением. Поскольку Свита изменяет данные войск и вводит новые войска в игровой мир, настоятельно рекомендуется создать резервную копию вашего сохранения перед продолжением. Это позволит вам восстановить игру, если что-то пойдет не так.{newline}{newline}Хотите ли вы автоматически создать резервную копию сейчас?" />
+    <string
+      id="ret_first_run_title"
+      text="Свита - Обнаружено существующее сохранение" />
+    <string
       id="ret_gender_header_text"
       text="Пол" />
     <string
@@ -373,6 +379,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Элитные" />
+    <string
+      id="ret_list_toggle_militia"
+      text="Милиция" />
     <string
       id="ret_list_toggle_regular"
       text="Обычные" />
