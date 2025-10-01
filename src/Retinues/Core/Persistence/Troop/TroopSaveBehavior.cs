@@ -7,6 +7,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Persistence.Troop
 {
+    [SafeClass(SwallowByDefault = false)]
     public class TroopSaveBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -119,7 +120,12 @@ namespace Retinues.Core.Persistence.Troop
                 Log.Debug("No root troops found.");
             }
 
-            if (faction.MilitiaMelee.IsActive && faction.MilitiaMeleeElite.IsActive && faction.MilitiaRanged.IsActive && faction.MilitiaRangedElite.IsActive)
+            if (
+                faction.MilitiaMelee.IsActive
+                && faction.MilitiaMeleeElite.IsActive
+                && faction.MilitiaRanged.IsActive
+                && faction.MilitiaRangedElite.IsActive
+            )
             {
                 Log.Debug("Collecting militia troops.");
                 list.Add(TroopSave.Save(faction.MilitiaMelee));

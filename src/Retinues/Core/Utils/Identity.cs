@@ -4,6 +4,7 @@ namespace Retinues.Core.Utils
     //                    Identity & Hashes                   //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    [SafeClass]
     public abstract class StringIdentifier
     {
         public abstract string StringId { get; }

@@ -1,7 +1,9 @@
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WRosterElement(TroopRosterElement element, WRoster roster, int index)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -3,6 +3,7 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 
 namespace Retinues.Core.Features.Doctrines.Catalog

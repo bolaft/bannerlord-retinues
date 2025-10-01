@@ -1,7 +1,7 @@
 using System;
 using HarmonyLib;
-using TaleWorlds.CampaignSystem.Party;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Safety
 {
@@ -10,7 +10,8 @@ namespace Retinues.Core.Safety
     {
         static Exception Finalizer(MobileParty __instance, Exception __exception)
         {
-            if (__exception == null) return null;
+            if (__exception == null)
+                return null;
 
             try
             {

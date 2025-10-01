@@ -1,15 +1,15 @@
 using System;
 using System.Reflection;
 using HarmonyLib;
+using Helpers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.Localization;
 using TaleWorlds.Core;
-using Retinues.Core.Utils;
-using Helpers;
+using TaleWorlds.Localization;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Safety.Patches
 {
     [HarmonyPatch]
     internal static class GetMoraleEffectsFromSkill_SafePatch
@@ -20,18 +20,21 @@ namespace Retinues.Core.Safety
             return AccessTools.Method(
                 typeof(DefaultPartyMoraleModel),
                 "GetMoraleEffectsFromSkill",
-                new Type[] { typeof(MobileParty), typeof(ExplainedNumber).MakeByRefType() }
+                [typeof(MobileParty), typeof(ExplainedNumber).MakeByRefType()]
             );
         }
 
         [HarmonyPrefix]
+        [SafeMethod]
         private static bool Prefix(MobileParty party, ref ExplainedNumber bonus)
         {
             try
             {
                 if (party == null || party.Party == null)
                 {
-                    Log.Error("[MoraleDiag] GetMoraleEffectsFromSkill: party/party.Party is null - skipping.");
+                    Log.Error(
+                        "[MoraleDiag] GetMoraleEffectsFromSkill: party/party.Party is null - skipping."
+                    );
                     return false; // skip original
                 }
 
@@ -43,7 +46,10 @@ namespace Retinues.Core.Safety
                 catch (Exception exLeader)
                 {
                     Log.Error("[MoraleDiag] GetEffectivePartyLeaderForSkill failed: " + exLeader);
-                    MoralePatchesShared.DumpPartySnapshot("GetMoraleEffectsFromSkill:LeaderErr", party);
+                    MoralePatchesShared.DumpPartySnapshot(
+                        "GetMoraleEffectsFromSkill:LeaderErr",
+                        party
+                    );
                     return false; // skip original
                 }
 
@@ -61,7 +67,10 @@ namespace Retinues.Core.Safety
                 catch (Exception exSkill)
                 {
                     Log.Error("[MoraleDiag] leader.GetSkillValue(Leadership) threw: " + exSkill);
-                    MoralePatchesShared.DumpPartySnapshot("GetMoraleEffectsFromSkill:SkillErr", party);
+                    MoralePatchesShared.DumpPartySnapshot(
+                        "GetMoraleEffectsFromSkill:SkillErr",
+                        party
+                    );
                     return false; // skip original
                 }
 
@@ -69,7 +78,12 @@ namespace Retinues.Core.Safety
                 {
                     try
                     {
-                        SkillHelper.AddSkillBonusForCharacter(DefaultSkills.Leadership, DefaultSkillEffects.LeadershipMoraleBonus, leader, ref bonus);
+                        SkillHelper.AddSkillBonusForCharacter(
+                            DefaultSkills.Leadership,
+                            DefaultSkillEffects.LeadershipMoraleBonus,
+                            leader,
+                            ref bonus
+                        );
                     }
                     catch (Exception exAdd)
                     {
@@ -89,7 +103,10 @@ namespace Retinues.Core.Safety
         }
     }
 
-    [HarmonyPatch(typeof(DefaultPartyMoraleModel), nameof(DefaultPartyMoraleModel.GetEffectivePartyMorale))]
+    [HarmonyPatch(
+        typeof(DefaultPartyMoraleModel),
+        nameof(DefaultPartyMoraleModel.GetEffectivePartyMorale)
+    )]
     internal static class GetEffectivePartyMorale_FailSafe
     {
         [HarmonyFinalizer]
@@ -98,9 +115,11 @@ namespace Retinues.Core.Safety
             MobileParty mobileParty,
             bool includeDescription,
             ref ExplainedNumber __result,
-            Exception __exception)
+            Exception __exception
+        )
         {
-            if (__exception == null) return;
+            if (__exception == null)
+                return;
 
             try
             {
@@ -114,7 +133,11 @@ namespace Retinues.Core.Safety
             catch (Exception dumpEx)
             {
                 __result = new ExplainedNumber(50f, includeDescription);
-                Log.Error("[MoraleDiag] Dump failed (" + dumpEx.GetType().Name + "). Returned default morale = 50.");
+                Log.Error(
+                    "[MoraleDiag] Dump failed ("
+                        + dumpEx.GetType().Name
+                        + "). Returned default morale = 50."
+                );
             }
         }
     }
@@ -125,7 +148,11 @@ namespace Retinues.Core.Safety
         {
             try
             {
-                if (p == null) { Log.Error($"[MoraleDiag] {where}: party = <null>"); return; }
+                if (p == null)
+                {
+                    Log.Error($"[MoraleDiag] {where}: party = <null>");
+                    return;
+                }
 
                 var partyBase = p.Party;
                 string pid = Safe(() => partyBase?.Id.ToString(), "<no-id>");
@@ -134,9 +161,15 @@ namespace Retinues.Core.Safety
                 string clan = Safe(() => p.LeaderHero?.Clan?.Name?.ToString(), "<no-clan>");
                 string settlement = Safe(() => p.CurrentSettlement?.Name?.ToString(), "<none>");
 
-                Log.Error($"[MoraleDiag] {where}: PartyId={pid} Name={pname} Owner={owner} Clan={clan}");
-                Log.Error($"[MoraleDiag] Flags: IsMain={p.IsMainParty}, IsMilitia={p.IsMilitia}, IsGarrison={p.IsGarrison}, IsStarving={Safe(() => p.Party?.IsStarving, false)}");
-                Log.Error($"[MoraleDiag] Wages: HasUnpaid={Safe(() => p.HasUnpaidWages, 0f)}  Loc={settlement}");
+                Log.Error(
+                    $"[MoraleDiag] {where}: PartyId={pid} Name={pname} Owner={owner} Clan={clan}"
+                );
+                Log.Error(
+                    $"[MoraleDiag] Flags: IsMain={p.IsMainParty}, IsMilitia={p.IsMilitia}, IsGarrison={p.IsGarrison}, IsStarving={Safe(() => p.Party?.IsStarving, false)}"
+                );
+                Log.Error(
+                    $"[MoraleDiag] Wages: HasUnpaid={Safe(() => p.HasUnpaidWages, 0f)}  Loc={settlement}"
+                );
 
                 var r = p.MemberRoster;
                 int count = Safe(() => (int)(r?.Count ?? -1), -1);
@@ -159,11 +192,13 @@ namespace Retinues.Core.Safety
                             bool hero = Safe(() => ch?.IsHero ?? false, false);
                             int tier = Safe(() => ch?.Tier ?? -1, -1);
 
-                            slotMsg = $"[{i}] CharId={cid} Name={cname} Num={num} Wounded={wounded} Xp={xp} Hero={hero} Tier={tier}";
+                            slotMsg =
+                                $"[{i}] CharId={cid} Name={cname} Num={num} Wounded={wounded} Xp={xp} Hero={hero} Tier={tier}";
                         }
                         catch (Exception exSlot)
                         {
-                            slotMsg = $"[{i}] <slot read failed: {exSlot.GetType().Name}: {exSlot.Message}>";
+                            slotMsg =
+                                $"[{i}] <slot read failed: {exSlot.GetType().Name}: {exSlot.Message}>";
                         }
                         Log.Error("[MoraleDiag] " + slotMsg);
                     }
@@ -177,7 +212,14 @@ namespace Retinues.Core.Safety
 
         private static T Safe<T>(Func<T> f, T fallback)
         {
-            try { return f(); } catch { return fallback; }
+            try
+            {
+                return f();
+            }
+            catch
+            {
+                return fallback;
+            }
         }
     }
 }

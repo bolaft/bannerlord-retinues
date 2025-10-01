@@ -10,6 +10,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Doctrines
 {
+    [SafeClass]
     public sealed class DoctrineVM : ViewModel
     {
         private readonly string _id;
@@ -101,119 +102,113 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        [SafeMethod]
         public void ExecuteShowPopup()
         {
-            try
+            var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
+            var def = svc?.GetDoctrine(_id);
+
+            if (svc == null || def == null)
+                return;
+
+            // Build feats text from real data
+            var feats = def.Feats ?? [];
+            int total = feats.Count;
+            int complete = 0;
+
+            var sb = new StringBuilder();
+            foreach (var f in feats)
             {
-                var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
-                var def = svc?.GetDoctrine(_id);
+                bool done = svc.IsFeatComplete(f.Key);
+                if (done)
+                    complete++;
 
-                if (svc == null || def == null)
-                    return;
+                string status = done ? "■" : "□";
+                int prog = svc.GetFeatProgress(f.Key);
+                int target = svc.GetFeatTarget(f.Key);
 
-                // Build feats text from real data
-                var feats = def.Feats ?? [];
-                int total = feats.Count;
-                int complete = 0;
-
-                var sb = new StringBuilder();
-                foreach (var f in feats)
-                {
-                    bool done = svc.IsFeatComplete(f.Key);
-                    if (done)
-                        complete++;
-
-                    string status = done ? "■" : "□";
-                    int prog = svc.GetFeatProgress(f.Key);
-                    int target = svc.GetFeatTarget(f.Key);
-
-                    if (target > 0)
-                        sb.Append("    ")
-                            .Append(status)
-                            .Append("  ")
-                            .Append(f.Description)
-                            .Append(" (")
-                            .Append(prog)
-                            .Append('/')
-                            .Append(target)
-                            .Append(")\n");
-                    else
-                        sb.Append("    ")
-                            .Append(status)
-                            .Append("  ")
-                            .Append(f.Description)
-                            .Append('\n');
-                }
-
-                string featsText =
-                    total == 0
-                        ? L.S("feats_no_reqs", "No requirements.")
-                        : $"{L.S("feats_reqs", "Requirements")}:\n\n{sb}";
-
-                var costs = L.T("doctrine_costs", "Cost: {GOLD} Gold, {INFLUENCE} Influence.")
-                    .SetTextVariable("GOLD", GoldCost)
-                    .SetTextVariable("INFLUENCE", InfluenceCost)
-                    .ToString();
-
-                var text = $"{Description}\n\n{featsText}\n\n{costs}";
-
-                bool allComplete = total == 0 || complete == total;
-                bool alreadyUnlocked = svc.IsDoctrineUnlocked(_id);
-
-                if (allComplete && !alreadyUnlocked)
-                {
-                    // Show Cancel / Unlock
-                    InformationManager.ShowInquiry(
-                        new InquiryData(
-                            _name,
-                            text.ToString(),
-                            isAffirmativeOptionShown: true,
-                            isNegativeOptionShown: true,
-                            affirmativeText: L.S("unlock_btn", "Unlock"),
-                            negativeText: GameTexts.FindText("str_cancel").ToString(),
-                            affirmativeAction: () =>
-                            {
-                                if (DoctrineAPI.TryAcquireDoctrine(_id, out var reason))
-                                {
-                                    Column?.Refresh();
-                                }
-                                else
-                                {
-                                    InformationManager.DisplayMessage(
-                                        new InformationMessage(
-                                            string.IsNullOrEmpty(reason)
-                                                ? L.S("unlock_failed", "Cannot unlock.")
-                                                : reason
-                                        )
-                                    );
-                                }
-                            },
-                            negativeAction: () => { }
-                        ),
-                        true
-                    );
-                }
+                if (target > 0)
+                    sb.Append("    ")
+                        .Append(status)
+                        .Append("  ")
+                        .Append(f.Description)
+                        .Append(" (")
+                        .Append(prog)
+                        .Append('/')
+                        .Append(target)
+                        .Append(")\n");
                 else
-                {
-                    // Show OK only
-                    InformationManager.ShowInquiry(
-                        new InquiryData(
-                            _name,
-                            text.ToString(),
-                            isAffirmativeOptionShown: true,
-                            isNegativeOptionShown: false,
-                            affirmativeText: GameTexts.FindText("str_ok").ToString(),
-                            negativeText: null,
-                            affirmativeAction: null,
-                            negativeAction: null
-                        ),
-                        true
-                    );
-                }
+                    sb.Append("    ")
+                        .Append(status)
+                        .Append("  ")
+                        .Append(f.Description)
+                        .Append('\n');
             }
-            catch (Exception ex)
+
+            string featsText =
+                total == 0
+                    ? L.S("feats_no_reqs", "No requirements.")
+                    : $"{L.S("feats_reqs", "Requirements")}:\n\n{sb}";
+
+            var costs = L.T("doctrine_costs", "Cost: {GOLD} Gold, {INFLUENCE} Influence.")
+                .SetTextVariable("GOLD", GoldCost)
+                .SetTextVariable("INFLUENCE", InfluenceCost)
+                .ToString();
+
+            var text = $"{Description}\n\n{featsText}\n\n{costs}";
+
+            bool allComplete = total == 0 || complete == total;
+            bool alreadyUnlocked = svc.IsDoctrineUnlocked(_id);
+
+            if (allComplete && !alreadyUnlocked)
             {
-                Log.Exception(ex);
+                // Show Cancel / Unlock
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        _name,
+                        text.ToString(),
+                        isAffirmativeOptionShown: true,
+                        isNegativeOptionShown: true,
+                        affirmativeText: L.S("unlock_btn", "Unlock"),
+                        negativeText: GameTexts.FindText("str_cancel").ToString(),
+                        affirmativeAction: () =>
+                        {
+                            if (DoctrineAPI.TryAcquireDoctrine(_id, out var reason))
+                            {
+                                Column?.Refresh();
+                            }
+                            else
+                            {
+                                InformationManager.DisplayMessage(
+                                    new InformationMessage(
+                                        string.IsNullOrEmpty(reason)
+                                            ? L.S("unlock_failed", "Cannot unlock.")
+                                            : reason
+                                    )
+                                );
+                            }
+                        },
+                        negativeAction: () => { }
+                    ),
+                    true
+                );
+            }
+            else
+            {
+                // Show OK only
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        _name,
+                        text.ToString(),
+                        isAffirmativeOptionShown: true,
+                        isNegativeOptionShown: false,
+                        affirmativeText: GameTexts.FindText("str_ok").ToString(),
+                        negativeText: null,
+                        affirmativeAction: null,
+                        negativeAction: null
+                    ),
+                    true
+                );
             }
         }
 

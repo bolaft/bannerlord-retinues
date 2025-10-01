@@ -14,6 +14,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM
 {
+    [SafeClass]
     public class EditorScreenVM : ViewModel
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -180,7 +181,8 @@ namespace Retinues.Core.Editor.UI.VM
         public bool CanSwitchFaction => Player.Kingdom != null && !IsDoctrinesMode;
 
         [DataSourceProperty]
-        public bool ShowRemoveButton => IsDefaultMode && SelectedTroop?.IsRetinue == false && SelectedTroop?.IsMilitia == false;
+        public bool ShowRemoveButton =>
+            IsDefaultMode && SelectedTroop?.IsRetinue == false && SelectedTroop?.IsMilitia == false;
 
         /* ━━━━━━━ Doctrines ━━━━━━ */
 
@@ -225,25 +227,19 @@ namespace Retinues.Core.Editor.UI.VM
         /* ━━━━━━━ Selection ━━━━━━ */
 
         [DataSourceMethod]
+        [SafeMethod]
         public void ExecuteSelectTroops()
         {
             Log.Debug("Selecting Troops tab.");
 
-            try
-            {
-                if (IsTroopsSelected == true)
-                    return;
+            if (IsTroopsSelected == true)
+                return;
 
-                _screen.UnselectVanillaTabs();
+            _screen.UnselectVanillaTabs();
 
-                IsTroopsSelected = true;
+            IsTroopsSelected = true;
 
-                SwitchMode(EditorMode.Default);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            SwitchMode(EditorMode.Default);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -289,6 +285,7 @@ namespace Retinues.Core.Editor.UI.VM
             OnPropertyChanged(nameof(CanSwitchFaction));
         }
 
+        [SafeMethod]
         public void SwitchFaction(WFaction faction)
         {
             Log.Debug($"Switching to faction: {faction?.Name ?? "null"}");
@@ -319,9 +316,7 @@ namespace Retinues.Core.Editor.UI.VM
             if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
             {
                 // Always have militia troops if clan has fiefs or if player leads a kingdom
-                if (
-                    faction.HasFiefs || Player.Kingdom != null
-                )
+                if (faction.HasFiefs || Player.Kingdom != null)
                 {
                     Log.Info("Initializing militia troops.");
 

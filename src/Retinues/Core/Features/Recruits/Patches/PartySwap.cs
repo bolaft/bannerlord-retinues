@@ -1,7 +1,7 @@
 using HarmonyLib;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Party.PartyComponents;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Recruits.Patches
 {

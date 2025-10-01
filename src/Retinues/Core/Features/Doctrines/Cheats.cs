@@ -6,14 +6,6 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Features.Doctrines
 {
-    // Console cheats for Retinues (enable cheats; open console; type "retinues.feat_list" etc.)
-    //
-    // Examples:
-    //     retinues.feat_list
-    //     retinues.feat_add MAA_1000EliteKills 25
-    //     retinues.feat_set LionsShare.LS_25PersonalKills 25 (full name or short name both work)
-    //     retinues.feat_unlock CH_TournamentOwnCultureTown
-    //     retinues.feat_unlock_all
     public static class Cheats
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

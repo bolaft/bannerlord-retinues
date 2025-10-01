@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WParty(MobileParty party) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -66,10 +67,14 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        public WFaction Kingdom => Clan?.Kingdom != null ? new WFaction(_party.ActualClan.Kingdom) : null;
+        public WFaction Kingdom =>
+            Clan?.Kingdom != null ? new WFaction(_party.ActualClan.Kingdom) : null;
 
         public bool IsPlayerClanParty => Clan?.StringId == Player.Clan.StringId;
-        public bool IsPlayerKingdomParty => Kingdom != null && Player.Kingdom != null && Kingdom.StringId == Player.Kingdom.StringId;
+        public bool IsPlayerKingdomParty =>
+            Kingdom != null
+            && Player.Kingdom != null
+            && Kingdom.StringId == Player.Kingdom.StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //

@@ -36,7 +36,7 @@
         <GameType value="CampaignStoryMode" />
         <GameType value="CustomGame" />
         <GameType value="EditorGame" />
-        <GameType value="ShokuhoCampaign"/>
+        <GameType value="ShokuhoCampaign" />
       </IncludedGameTypes>
     </XmlNode>
   </Xmls>

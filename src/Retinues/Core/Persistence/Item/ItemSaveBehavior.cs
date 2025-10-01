@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Persistence.Item
 {
+    [SafeClass(SwallowByDefault = false)]
     public class ItemSaveBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

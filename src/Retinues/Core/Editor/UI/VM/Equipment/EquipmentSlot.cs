@@ -7,6 +7,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    [SafeClass]
     public sealed class EquipmentSlotVM(
         EquipmentIndex slot,
         string label,

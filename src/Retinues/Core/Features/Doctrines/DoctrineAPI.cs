@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Doctrines.Model;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    [SafeClass]
     public static class DoctrineAPI
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

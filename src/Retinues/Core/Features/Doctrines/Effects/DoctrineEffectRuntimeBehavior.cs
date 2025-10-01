@@ -7,6 +7,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines.Effects
 {
+    [SafeClass]
     public sealed class DoctrineEffectRuntimeBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

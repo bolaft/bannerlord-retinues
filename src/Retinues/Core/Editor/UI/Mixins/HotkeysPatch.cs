@@ -1,4 +1,3 @@
-
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.InputSystem;
@@ -24,13 +23,18 @@ public static class ClanHotkeyGate
 {
     // true while your ClanTroopScreen mixin is active
     public static volatile bool Active;
+
     // set to true if you want to require Shift+L instead of plain L
     public static bool RequireShift = true;
+
     public static bool Matches(InputKey key)
     {
-        if (!Active) return false;
-        if (key != InputKey.L) return false; // only the L key
-        if (!RequireShift) return true;
+        if (!Active)
+            return false;
+        if (key != InputKey.L)
+            return false; // only the L key
+        if (!RequireShift)
+            return true;
 
         // Require either Shift key to be down
         return !(Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift));

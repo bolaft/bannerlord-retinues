@@ -9,7 +9,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines
 {
-    // Shows a popup when a feat is completed, as soon as the player is on the world map.
+    [SafeClass]
     public sealed class FeatNotificationBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

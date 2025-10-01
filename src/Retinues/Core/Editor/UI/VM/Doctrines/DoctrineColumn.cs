@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Doctrines;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Doctrines
 {
+    [SafeClass]
     public sealed class DoctrineColumnVM : ViewModel
     {
         public DoctrineColumnVM(string name, IEnumerable<DoctrineVM> doctrines)
@@ -28,6 +30,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
         //                         Static                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [SafeMethod]
         public static MBBindingList<DoctrineColumnVM> CreateColumns()
         {
             var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();

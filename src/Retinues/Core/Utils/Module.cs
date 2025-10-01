@@ -7,6 +7,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Utils
 {
+    [SafeClass]
     public static class ModuleChecker
     {
         public sealed class ModuleEntry

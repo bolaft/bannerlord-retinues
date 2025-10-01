@@ -47,9 +47,7 @@ namespace Retinues.Core.Utils
         {
             try
             {
-                var asmDir = Path.GetDirectoryName(
-                    System.Reflection.Assembly.GetExecutingAssembly().Location
-                )!;
+                var asmDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
                 // Go up twice to module root
                 var moduleRoot = Directory.GetParent(asmDir)!.Parent!.FullName;
                 LogFile = Path.Combine(moduleRoot, LogFileName);
