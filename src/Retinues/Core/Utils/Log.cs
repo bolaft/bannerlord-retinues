@@ -77,21 +77,16 @@ namespace Retinues.Core.Utils
 
         public static void Critical(string message) => Write(LogLevel.Critical, message);
 
-        public static void Exception(Exception ex, string context = "")
+        public static void Exception(Exception ex, string context = "", string caller = null)
         {
             var sb = new StringBuilder();
-            sb.Append("[EXCEPTION] ").Append(ex.GetType().Name).Append(": ").Append(ex.Message);
+            sb.Append(ex.GetType().Name).Append(": ").Append(ex.Message);
             if (!string.IsNullOrWhiteSpace(context))
                 sb.Append(" | ").Append(context);
             sb.AppendLine();
 
             // Rich stack trace (with file/line when PDBs exist)
             AppendStackTrace(sb, ex);
-
-            // Extra exception metadata
-            sb.AppendLine("Source: " + ex.Source);
-            sb.AppendLine("TargetSite: " + ex.TargetSite);
-            sb.AppendLine("HResult: 0x" + ex.HResult.ToString("X"));
 
             // Exception.Data
             if (ex.Data?.Count > 0)
@@ -101,7 +96,7 @@ namespace Retinues.Core.Utils
                     sb.Append("  ").Append(kv.Key).Append(": ").AppendLine(kv.Value?.ToString());
             }
 
-            Write(LogLevel.Error, sb.ToString());
+            Write(LogLevel.Error, sb.ToString(), caller: caller);
 
             // Chain inner exceptions (recursively, with rich stacks)
             var inner = ex.InnerException;
@@ -116,7 +111,7 @@ namespace Retinues.Core.Utils
                     .Append(": ")
                     .AppendLine(inner.Message);
                 AppendStackTrace(ib, inner);
-                Write(LogLevel.Error, ib.ToString());
+                Write(LogLevel.Error, ib.ToString(), caller: caller);
                 inner = inner.InnerException;
                 depth++;
             }
@@ -177,11 +172,11 @@ namespace Retinues.Core.Utils
         //                         Writers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static void Write(LogLevel level, string message)
+        private static void Write(LogLevel level, string message, string caller = null)
         {
-            var caller = FindCaller();
+            caller ??= FindCaller();
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            var line = $"[{timestamp}] [{level}] {caller}{message}";
+            var line = $"[{timestamp}] [{level}] {caller}: {message}";
 
             if (level >= MinFileLevel)
                 WriteToFile(line);
@@ -262,7 +257,7 @@ namespace Retinues.Core.Utils
 
                     var typeName = type.Name;
                     var methodName = method!.Name is ".ctor" or ".cctor" ? typeName : method.Name;
-                    return $"{typeName}.{methodName}: ";
+                    return $"{typeName}.{methodName}";
                 }
             }
             catch
