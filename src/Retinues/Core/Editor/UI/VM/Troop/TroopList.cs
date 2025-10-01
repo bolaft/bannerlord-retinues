@@ -6,6 +6,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    [SafeClass]
     public sealed class TroopListVM(EditorScreenVM screen)
         : BaseList<TroopListVM, TroopRowVM>(screen)
     {
@@ -59,7 +60,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             get => _searchText;
             set
             {
-                if (_searchText == value) return;
+                if (_searchText == value)
+                    return;
                 _searchText = value;
                 foreach (var troop in Rows)
                 {

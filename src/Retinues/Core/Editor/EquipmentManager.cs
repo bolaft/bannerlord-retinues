@@ -12,6 +12,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Editor
 {
+    [SafeClass]
     public static class EquipmentManager
     {
         public static List<(WItem, int?)> CollectAvailableItems(
@@ -30,10 +31,10 @@ namespace Retinues.Core.Editor
             // Initialize item list
             var items = new List<(WItem, int?)>();
 
-            try
+            // Load items
+            foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
             {
-                // Load items
-                foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
+                try
                 {
                     if (allEquipmentUnlocked)
                         items.Add((new WItem(item), null)); // All items
@@ -72,29 +73,26 @@ namespace Retinues.Core.Editor
                             items.Add((wItem, UnlocksBehavior.IdsToProgress[item.StringId])); // Items that are in progress
                     }
                 }
-
-                // Filter by selected slot
-                items =
-                [
-                    .. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot)),
-                ];
-
-                // Sort by int? (nulls first, then descending), then type, then name
-                items =
-                [
-                    .. items
-                        .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0)))
-                        .ThenBy(pair => pair.Item1?.Type)
-                        .ThenBy(pair => pair.Item1?.Name),
-                ];
-
-                // Empty item to allow unequipping
-                items.Insert(0, (null, null));
+                catch (Exception e)
+                {
+                    Log.Exception(e);
+                }
             }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+
+            // Filter by selected slot
+            items = [.. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot))];
+
+            // Sort by int? (nulls first, then descending), then type, then name
+            items =
+            [
+                .. items
+                    .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0)))
+                    .ThenBy(pair => pair.Item1?.Type)
+                    .ThenBy(pair => pair.Item1?.Name),
+            ];
+
+            // Empty item to allow unequipping
+            items.Insert(0, (null, null));
 
             return items;
         }
@@ -103,31 +101,17 @@ namespace Retinues.Core.Editor
         {
             Log.Debug($"Equipping item {item?.Name} from stock to troop {troop?.Name}.");
 
-            try
-            {
-                item.Unstock(); // Reduce stock by 1
-                Equip(troop, slot, item);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            item.Unstock(); // Reduce stock by 1
+            Equip(troop, slot, item);
         }
 
         public static void EquipFromPurchase(WCharacter troop, EquipmentIndex slot, WItem item)
         {
             Log.Debug($"Purchasing and equipping item {item?.Name} to troop {troop?.Name}.");
 
-            try
-            {
-                // Deduct cost and equip
-                Player.ChangeGold(-GetItemValue(item, troop)); // Deduct cost
-                Equip(troop, slot, item);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Deduct cost and equip
+            Player.ChangeGold(-GetItemValue(item, troop)); // Deduct cost
+            Equip(troop, slot, item);
         }
 
         public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item)
@@ -161,50 +145,35 @@ namespace Retinues.Core.Editor
         {
             Log.Debug($"Unequipping all items from troop {troop?.Name}.");
 
-            try
+            foreach (var item in troop.UnequipAll())
             {
-                foreach (var item in troop.UnequipAll())
-                {
-                    // If the item had a value, restock it
-                    if (item != null && item.Value > 0)
-                        item.Stock();
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
+                // If the item had a value, restock it
+                if (item != null && item.Value > 0)
+                    item.Stock();
             }
         }
 
         public static int GetItemValue(WItem item, WCharacter troop)
         {
+            if (item == null)
+                return 0;
+
+            int baseValue = item?.Value ?? 0;
+            float rebate = 0.0f;
+
             try
             {
-                if (item == null)
-                    return 0;
+                if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
+                    if (item?.Culture?.StringId == troop.Culture?.StringId)
+                        rebate += 0.10f; // 10% rebate on items of the clan's culture
 
-                int baseValue = item?.Value ?? 0;
-                float rebate = 0.0f;
-
-                try
-                {
-                    if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
-                        if (item?.Culture?.StringId == troop.Culture?.StringId)
-                            rebate += 0.10f; // 10% rebate on items of the clan's culture
-
-                    if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
-                        if (item?.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
-                            rebate += 0.10f; // 10% rebate on items of the kingdom's culture
-                }
-                catch { }
-
-                return (int)(baseValue * (1.0f - rebate));
+                if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+                    if (item?.Culture?.StringId == Player.Kingdom?.Culture?.StringId)
+                        rebate += 0.10f; // 10% rebate on items of the kingdom's culture
             }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-                return item?.Value ?? 0;
-            }
+            catch { }
+
+            return (int)(baseValue * (1.0f - rebate));
         }
     }
 }

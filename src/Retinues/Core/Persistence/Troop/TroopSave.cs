@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Xp;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Persistence.Troop
 {
+    [SafeClass(SwallowByDefault = false)]
     public static class TroopSave
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

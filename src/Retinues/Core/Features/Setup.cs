@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Game;
@@ -8,6 +7,7 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features
 {
+    [SafeClass(SwallowByDefault = false)]
     public static class Setup
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -16,17 +16,10 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionRetinue(WFaction faction)
         {
-            try
-            {
-                Log.Info($"Setting up retinue troops for faction {faction.Name}.");
+            Log.Info($"Setting up retinue troops for faction {faction.Name}.");
 
-                CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
-                CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Failed to set up retinue troops for faction {faction.Name}: {e}");
-            }
+            CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
+            CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
         }
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
@@ -111,7 +104,13 @@ namespace Retinues.Core.Features
                 return;
             }
 
-            var militia = new WCharacter(faction == Player.Kingdom, isElite, false, isMelee, !isMelee);
+            var militia = new WCharacter(
+                faction == Player.Kingdom,
+                isElite,
+                false,
+                isMelee,
+                !isMelee
+            );
 
             militia.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
@@ -131,8 +130,8 @@ namespace Retinues.Core.Features
 
             // Unlock items
             foreach (var equipment in root.Equipments)
-                foreach (var item in equipment.Items)
-                    item.Unlock();
+            foreach (var item in equipment.Items)
+                item.Unlock();
 
             // Force recalculation of formation class based on equipment
             militia.ResetFormationClass();
@@ -143,19 +142,12 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionMilitia(WFaction faction)
         {
-            try
-            {
-                Log.Info($"Setting up militia troops for faction {faction.Name}.");
+            Log.Info($"Setting up militia troops for faction {faction.Name}.");
 
-                CreateMilitiaTroop(faction, false, true);
-                CreateMilitiaTroop(faction, true, true);
-                CreateMilitiaTroop(faction, false, false);
-                CreateMilitiaTroop(faction, true, false);
-            }
-            catch (Exception e)
-            {
-                Log.Error($"Failed to set up militia troops for faction {faction.Name}: {e}");
-            }
+            CreateMilitiaTroop(faction, false, true);
+            CreateMilitiaTroop(faction, true, true);
+            CreateMilitiaTroop(faction, false, false);
+            CreateMilitiaTroop(faction, true, false);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -164,66 +156,56 @@ namespace Retinues.Core.Features
 
         public static void SetupFactionTroops(WFaction faction)
         {
-            try
+            Log.Info($"Setting up troops for faction {faction.Name}.");
+
+            // Use the faction culture
+            var culture = faction.Culture;
+
+            var eliteClones = new List<WCharacter>();
+
+            if (culture?.RootElite != null)
             {
-                Log.Info($"Setting up troops for faction {faction.Name}.");
-
-                // Use the faction culture
-                var culture = faction.Culture;
-
-                var eliteClones = new List<WCharacter>();
-
-                if (culture?.RootElite != null)
-                {
-                    // Clone the elite tree from the elite root
-                    eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)];
-
-                    Log.Debug(
-                        $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
-                    );
-                }
-                else
-                {
-                    Log.Warn(
-                        $"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop."
-                    );
-                }
-
-                var basicClones = new List<WCharacter>();
-
-                if (culture?.RootBasic != null)
-                {
-                    // Clone the basic tree from the basic root
-                    basicClones =
-                    [
-                        .. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null),
-                    ];
-
-                    Log.Debug(
-                        $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
-                    );
-                }
-                else
-                {
-                    Log.Warn(
-                        $"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop."
-                    );
-                }
-
-                // Unlock items from the added clones
-                foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
-                    foreach (var equipment in troop.Equipments)
-                        foreach (var item in equipment.Items)
-                            item.Unlock();
+                // Clone the elite tree from the elite root
+                eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)];
 
                 Log.Debug(
-                    $"Unlocked {WItem.UnlockedItems.Count()} items from {eliteClones.Count + basicClones.Count} troops"
+                    $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
                 );
             }
-            catch (Exception e)
+            else
             {
-                Log.Error($"Failed to set up troops for faction {faction.Name}: {e}");
+                Log.Warn(
+                    $"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop."
+                );
             }
+
+            var basicClones = new List<WCharacter>();
+
+            if (culture?.RootBasic != null)
+            {
+                // Clone the basic tree from the basic root
+                basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)];
+
+                Log.Debug(
+                    $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
+                );
+            }
+            else
+            {
+                Log.Warn(
+                    $"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop."
+                );
+            }
+
+            // Unlock items from the added clones
+            foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
+            foreach (var equipment in troop.Equipments)
+            foreach (var item in equipment.Items)
+                item.Unlock();
+
+            Log.Debug(
+                $"Unlocked {WItem.UnlockedItems.Count()} items from {eliteClones.Count + basicClones.Count} troops"
+            );
         }
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */

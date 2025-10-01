@@ -5,6 +5,7 @@ using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WRoster(TroopRoster roster, WParty party)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

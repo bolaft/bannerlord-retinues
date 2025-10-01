@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Persistence.Item
 {
+    [SafeClass(SwallowByDefault = false)]
     public class ItemSaveBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -11,6 +12,8 @@ namespace Retinues.Core.Persistence.Item
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private ItemSaveData _itemData = null;
+
+        public bool HasItemData => _itemData != null;
 
         public override void SyncData(IDataStore dataStore)
         {

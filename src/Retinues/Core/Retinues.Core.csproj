@@ -22,6 +22,7 @@
     <Optimize>true</Optimize>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->

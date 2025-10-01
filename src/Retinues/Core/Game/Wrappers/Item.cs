@@ -8,6 +8,7 @@ using TaleWorlds.MountAndBlade.GauntletUI.Widgets;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WItem(ItemObject itemObject) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

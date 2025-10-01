@@ -9,6 +9,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
 {
+    [SafeClass]
     public sealed class ImmortalsBehavior : MissionBehavior
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;

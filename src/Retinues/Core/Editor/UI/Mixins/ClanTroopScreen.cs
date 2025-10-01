@@ -14,7 +14,6 @@ namespace Retinues.Core.Editor.UI.Mixins
     )]
     public sealed class ClanTroopScreen : BaseViewModelMixin<ClanManagementVM>, ITroopScreen
     {
-        
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -28,8 +27,8 @@ namespace Retinues.Core.Editor.UI.Mixins
 
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 
-                ClanHotkeyGate.Active = true;         // enable while your UI is present
-                ClanHotkeyGate.RequireShift = false;   // or false to just block L entirely
+                ClanHotkeyGate.Active = true; // enable while your UI is present
+                ClanHotkeyGate.RequireShift = false; // or false to just block L entirely
             }
             catch (Exception e)
             {
@@ -39,7 +38,7 @@ namespace Retinues.Core.Editor.UI.Mixins
 
         public override void OnFinalize()
         {
-            ClanHotkeyGate.Active = false;        // restore default behavior
+            ClanHotkeyGate.Active = false; // restore default behavior
             base.OnFinalize();
         }
 

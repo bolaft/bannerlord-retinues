@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Core.Game.Wrappers;
-using TaleWorlds.Library;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Features.Unlocks

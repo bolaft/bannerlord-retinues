@@ -6,6 +6,7 @@ using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Xp
 {
+    [SafeClass]
     public static class TroopXpService
     {
         internal static bool SharedPool => Config.GetOption<bool>("SharedXpPool");

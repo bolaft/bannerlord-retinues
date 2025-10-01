@@ -1,14 +1,14 @@
-using System.Linq;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class ClanicTraditions : Doctrine
     {
-        public override string Name => L.S("clanic_traditions", "Clanic Traditions");
+        public override string Name => L.S("clanic_traditions", "Clan Traditions");
         public override string Description =>
             L.S("clanic_traditions_description", "Troops can equip smithed weapons.");
         public override int Column => 1;
@@ -61,7 +61,10 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
                 foreach (var kill in battle.Kills)
                 {
-                    if (kill.Killer.IsPlayer || (kill.Killer.IsPlayerTroop && kill.Killer.Character.IsHero))
+                    if (
+                        kill.Killer.IsPlayer
+                        || (kill.Killer.IsPlayerTroop && kill.Killer.Character.IsHero)
+                    )
                         heroKills++;
                 }
 

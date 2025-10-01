@@ -1,25 +1,28 @@
 using System;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.ObjectSystem;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 
 namespace Retinues.Core.Safety
 {
+    [SafeClass]
     public static class RosterSanitizer
     {
         public static void CleanParty(MobileParty mp)
         {
-            if (mp == null) return;
+            if (mp == null)
+                return;
             CleanRoster(mp.MemberRoster, mp);
             CleanRoster(mp.PrisonRoster, mp);
         }
 
         public static void CleanRoster(TroopRoster roster, MobileParty contextParty = null)
         {
-            if (roster == null) return;
+            if (roster == null)
+                return;
 
             try
             {
@@ -30,7 +33,9 @@ namespace Retinues.Core.Safety
                     // Null character
                     if (elem.Character == null)
                     {
-                        Log.Warn($"[RosterSanitizer] Null troop at index {i} in {DescribeParty(contextParty)} – replacing.");
+                        Log.Warn(
+                            $"[RosterSanitizer] Null troop at index {i} in {DescribeParty(contextParty)} – replacing."
+                        );
                         ReplaceElementWithFallback(roster, i, elem, contextParty);
                         continue;
                     }
@@ -38,7 +43,9 @@ namespace Retinues.Core.Safety
                     // Validate
                     if (!IsCharacterValid(elem.Character))
                     {
-                        Log.Warn($"[RosterSanitizer] Invalid troop '{elem.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} – replacing.");
+                        Log.Warn(
+                            $"[RosterSanitizer] Invalid troop '{elem.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} – replacing."
+                        );
                         ReplaceElementWithFallback(roster, i, elem, contextParty);
                         continue;
                     }
@@ -53,8 +60,10 @@ namespace Retinues.Core.Safety
                         // Normalize counts by removing the old entry and re-adding with clamped values.
                         // Do "replace with itself" to keep the same CharacterObject.
                         SafeReplace(roster, i, elem.Character, total, wounded, xp);
-                        Log.Info($"[RosterSanitizer] Normalized counts for '{elem.Character.StringId}' at index {i} " +
-                                 $"(total:{elem.Number}->{total}, wounded:{elem.WoundedNumber}->{wounded}, xp:{elem.Xp}->{xp})");
+                        Log.Info(
+                            $"[RosterSanitizer] Normalized counts for '{elem.Character.StringId}' at index {i} "
+                                + $"(total:{elem.Number}->{total}, wounded:{elem.WoundedNumber}->{wounded}, xp:{elem.Xp}->{xp})"
+                        );
                     }
                 }
             }
@@ -64,7 +73,12 @@ namespace Retinues.Core.Safety
             }
         }
 
-        private static void ReplaceElementWithFallback(TroopRoster roster, int index, TroopRosterElement elem, MobileParty contextParty)
+        private static void ReplaceElementWithFallback(
+            TroopRoster roster,
+            int index,
+            TroopRosterElement elem,
+            MobileParty contextParty
+        )
         {
             int total = Math.Max(0, elem.Number);
             if (total == 0)
@@ -77,25 +91,44 @@ namespace Retinues.Core.Safety
             var fallback = GetFallbackTroop(contextParty);
             fallback ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter"); // always present fallback
             if (fallback == null)
-                {
-                    // Last resort: remove the bad entry entirely.
-                    if (elem.Character != null)
-                        roster.RemoveTroop(elem.Character, total);
-                    Log.Warn($"[RosterSanitizer] No fallback troop; removed '{elem.Character?.StringId ?? "NULL"}' x{total}.");
-                    return;
-                }
+            {
+                // Last resort: remove the bad entry entirely.
+                if (elem.Character != null)
+                    roster.RemoveTroop(elem.Character, total);
+                Log.Warn(
+                    $"[RosterSanitizer] No fallback troop; removed '{elem.Character?.StringId ?? "NULL"}' x{total}."
+                );
+                return;
+            }
 
             // 1) Add the fallback (no wounds/xp)
-            roster.AddToCounts(fallback, total, insertAtFront: false, woundedCount: 0, xpChange: 0, removeDepleted: true, index: -1);
+            roster.AddToCounts(
+                fallback,
+                total,
+                insertAtFront: false,
+                woundedCount: 0,
+                xpChange: 0,
+                removeDepleted: true,
+                index: -1
+            );
 
             // 2) Remove the bad ones via the public helper (lets TW do the indexing safely)
             if (elem.Character != null)
                 roster.RemoveTroop(elem.Character, total);
 
-            Log.Info($"[RosterSanitizer] Replaced '{elem.Character?.StringId ?? "NULL"}' with '{fallback.StringId}' (count:{total}).");
+            Log.Info(
+                $"[RosterSanitizer] Replaced '{elem.Character?.StringId ?? "NULL"}' with '{fallback.StringId}' (count:{total})."
+            );
         }
 
-        private static void SafeReplace(TroopRoster roster, int index, CharacterObject newChar, int total, int wounded, int xp)
+        private static void SafeReplace(
+            TroopRoster roster,
+            int index,
+            CharacterObject newChar,
+            int total,
+            int wounded,
+            int xp
+        )
         {
             // Remove whatever is currently there.
             var old = roster.GetElementCopyAtIndex(index);
@@ -132,8 +165,8 @@ namespace Retinues.Core.Safety
             // Prefer the context party's culture basic troop if we can reach it
             CharacterObject pick = null;
 
-            var culture = contextParty?.MapFaction?.Culture
-                          ?? contextParty?.HomeSettlement?.Culture;
+            var culture =
+                contextParty?.MapFaction?.Culture ?? contextParty?.HomeSettlement?.Culture;
 
             try
             {
@@ -153,29 +186,36 @@ namespace Retinues.Core.Safety
 
         private static bool IsCharacterValid(CharacterObject c)
         {
-            if (c == null) return false;
+            if (c == null)
+                return false;
 
             // Wrapper knows how to detect inactive/unregistered TW objects.
             var w = new WCharacter(c);
-            if (!w.IsActive) return false;
+            if (!w.IsActive)
+                return false;
 
             // StringId & Name must exist
-            if (string.IsNullOrWhiteSpace(c.StringId)) return false;
-            if (c.Name == null) return false;
+            if (string.IsNullOrWhiteSpace(c.StringId))
+                return false;
+            if (c.Name == null)
+                return false;
 
             // Tier sanity
-            if (c.Tier < 0 || c.Tier > 10) return false;
+            if (c.Tier < 0 || c.Tier > 10)
+                return false;
 
             // Ensure the object manager can resolve it back
             var fromDb = MBObjectManager.Instance?.GetObject<CharacterObject>(c.StringId);
-            if (!ReferenceEquals(fromDb, c) && fromDb == null) return false;
+            if (!ReferenceEquals(fromDb, c) && fromDb == null)
+                return false;
 
             return true;
         }
 
         private static string DescribeParty(MobileParty mp)
         {
-            if (mp == null) return "unknown party";
+            if (mp == null)
+                return "unknown party";
             try
             {
                 return $"party '{mp?.Name?.ToString() ?? "?"}' [{mp?.Party?.Id?.ToString() ?? "no-id"}]";

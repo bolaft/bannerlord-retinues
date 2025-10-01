@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
@@ -9,6 +8,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Events
 {
+    [SafeClass]
     public class Combat : MissionBehavior
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
@@ -50,22 +50,15 @@ namespace Retinues.Core.Game.Events
             KillingBlow blow
         )
         {
-            try
-            {
-                var kill = new Kill(victim, killer, state, blow);
-                var logKills = false; // set to true for verbose logging of all kills
+            var kill = new Kill(victim, killer, state, blow);
+            var logKills = false; // set to true for verbose logging of all kills
 
-                if (kill.IsValid)
-                {
-                    Kills.Add(kill);
-
-                    if (logKills)
-                        LogKill(kill);
-                }
-            }
-            catch (Exception e)
+            if (kill.IsValid)
             {
-                Log.Exception(e);
+                Kills.Add(kill);
+
+                if (logKills)
+                    LogKill(kill);
             }
         }
 

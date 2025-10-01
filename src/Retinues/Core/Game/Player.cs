@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game
 {
+    [SafeClass(SwallowByDefault = false)]
     public static class Player
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

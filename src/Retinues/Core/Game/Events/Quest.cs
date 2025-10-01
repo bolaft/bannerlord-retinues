@@ -1,7 +1,9 @@
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Events
 {
+    [SafeClass]
     public class Quest(QuestBase quest, bool isSuccessful)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

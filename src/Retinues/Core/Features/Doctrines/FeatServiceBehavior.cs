@@ -15,6 +15,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    [SafeClass]
     public sealed class FeatServiceBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -34,60 +35,44 @@ namespace Retinues.Core.Features.Doctrines
         {
             Log.Debug("Registering FeatServiceBehavior events.");
 
-            try
-            {
-                // Build once session launches (after Doctrines are discovered)
-                CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
-                    this,
-                    _ =>
-                    {
-                        // Keep list up to date when feats/doctrines complete
-                        DoctrineAPI.AddCatalogBuiltListener(RefreshActiveFeats);
-                        DoctrineAPI.AddFeatCompletedListener(_ => RefreshActiveFeats());
-                        DoctrineAPI.AddDoctrineUnlockedListener(_ => RefreshActiveFeats());
-                    }
-                );
+            // Build once session launches (after Doctrines are discovered)
+            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
+                this,
+                _ =>
+                {
+                    // Keep list up to date when feats/doctrines complete
+                    DoctrineAPI.AddCatalogBuiltListener(RefreshActiveFeats);
+                    DoctrineAPI.AddFeatCompletedListener(_ => RefreshActiveFeats());
+                    DoctrineAPI.AddDoctrineUnlockedListener(_ => RefreshActiveFeats());
+                }
+            );
 
-                // Daily
-                CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnDailyTick);
+            // Daily
+            CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnDailyTick);
 
-                // Missions (player enters a scene)
-                CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
-                    this,
-                    OnMissionStarted
-                );
+            // Missions (player enters a scene)
+            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
 
-                // Fief captures
-                CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(
-                    this,
-                    OnSettlementOwnerChanged
-                );
+            // Fief captures
+            CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(
+                this,
+                OnSettlementOwnerChanged
+            );
 
-                // Tournaments
-                CampaignEvents.TournamentFinished.AddNonSerializedListener(
-                    this,
-                    OnTournamentFinished
-                );
+            // Tournaments
+            CampaignEvents.TournamentFinished.AddNonSerializedListener(this, OnTournamentFinished);
 
-                // Quests
-                CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(
-                    this,
-                    OnQuestCompleted
-                );
+            // Quests
+            CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(this, OnQuestCompleted);
 
-                // Recruitement
-                CampaignEvents.OnUnitRecruitedEvent.AddNonSerializedListener(this, OnUnitRecruited);
+            // Recruitement
+            CampaignEvents.OnUnitRecruitedEvent.AddNonSerializedListener(this, OnUnitRecruited);
 
-                // Upgrading
-                CampaignEvents.PlayerUpgradedTroopsEvent.AddNonSerializedListener(
-                    this,
-                    PlayerUpgradedTroops
-                );
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Upgrading
+            CampaignEvents.PlayerUpgradedTroopsEvent.AddNonSerializedListener(
+                this,
+                PlayerUpgradedTroops
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -107,102 +92,88 @@ namespace Retinues.Core.Features.Doctrines
 
         private void OnMissionStarted(IMission iMission)
         {
-            try
+            if (iMission is not Mission mission)
+                return; // Not a battle or a tournament
+
+            Log.Info("Feat Runtime Event: OnMissionStarted");
+
+            // Only care about player-involved map battles.
+            var mapEvent = MobileParty.MainParty?.MapEvent;
+            if (mapEvent != null && mapEvent.IsPlayerMapEvent)
             {
-                if (iMission is not Mission mission)
-                    return; // Not a battle or a tournament
+                Log.Info("Mission Type: Battle");
 
-                Log.Info("Feat Runtime Event: OnMissionStarted");
-
-                // Only care about player-involved map battles.
-                var mapEvent = MobileParty.MainParty?.MapEvent;
-                if (mapEvent != null && mapEvent.IsPlayerMapEvent)
+                // Attach Battle behavior (captures kills etc.)
+                var battle = mission.GetMissionBehavior<Battle>();
+                if (battle == null)
                 {
-                    Log.Info("Mission Type: Battle");
-
-                    // Attach Battle behavior (captures kills etc.)
-                    var battle = mission.GetMissionBehavior<Battle>();
-                    if (battle == null)
-                    {
-                        battle = new Battle();
-                        mission.AddMissionBehavior(battle);
-                    }
-
-                    // Relay mission end back so we can call OnBattleEnd on feats.
-                    if (mission.GetMissionBehavior<MissionEndRelay>() == null)
-                        mission.AddMissionBehavior(new MissionEndRelay(this));
-
-                    // Notify feats: battle start
-                    NotifyFeats((feat, args) => feat.OnBattleStart((Battle)args[0]), battle);
+                    battle = new Battle();
+                    mission.AddMissionBehavior(battle);
                 }
-                else if (
-                    mission.CombatType == Mission.MissionCombatType.Combat
-                    && mission.Mode == MissionMode.StartUp
-                )
-                {
-                    Log.Info("Mission Type: Arena");
 
-                    // Attach Combat behavior (captures kills etc.)
-                    var combat = mission.GetMissionBehavior<Combat>();
-                    if (combat == null)
-                    {
-                        combat = new Combat();
-                        mission.AddMissionBehavior(combat);
-                    }
+                // Relay mission end back so we can call OnBattleEnd on feats.
+                if (mission.GetMissionBehavior<MissionEndRelay>() == null)
+                    mission.AddMissionBehavior(new MissionEndRelay(this));
 
-                    // Relay mission end back so we can call OnTournamentMatchEnd on feats.
-                    if (mission.GetMissionBehavior<MissionEndRelay>() == null)
-                        mission.AddMissionBehavior(new MissionEndRelay(this));
-
-                    // Notify feats: combat start
-                    NotifyFeats((feat, args) => feat.OnArenaStart((Combat)args[0]), combat);
-                }
+                // Notify feats: battle start
+                NotifyFeats((feat, args) => feat.OnBattleStart((Battle)args[0]), battle);
             }
-            catch (Exception ex)
+            else if (
+                mission.CombatType == Mission.MissionCombatType.Combat
+                && mission.Mode == MissionMode.StartUp
+            )
             {
-                Log.Exception(ex);
+                Log.Info("Mission Type: Arena");
+
+                // Attach Combat behavior (captures kills etc.)
+                var combat = mission.GetMissionBehavior<Combat>();
+                if (combat == null)
+                {
+                    combat = new Combat();
+                    mission.AddMissionBehavior(combat);
+                }
+
+                // Relay mission end back so we can call OnTournamentMatchEnd on feats.
+                if (mission.GetMissionBehavior<MissionEndRelay>() == null)
+                    mission.AddMissionBehavior(new MissionEndRelay(this));
+
+                // Notify feats: combat start
+                NotifyFeats((feat, args) => feat.OnArenaStart((Combat)args[0]), combat);
             }
         }
 
         internal void OnMissionEnded(Mission mission)
         {
-            try
+            Log.Info("Feat Runtime Event: OnMissionEnded");
+
+            var battle = mission?.GetMissionBehavior<Battle>();
+            if (battle != null)
             {
-                Log.Info("Feat Runtime Event: OnMissionEnded");
+                Log.Info("Mission Type: Battle");
 
-                var battle = mission?.GetMissionBehavior<Battle>();
-                if (battle != null)
-                {
-                    Log.Info("Mission Type: Battle");
+                // Notify feats: battle end
+                NotifyFeats((feat, args) => feat.OnBattleEnd((Battle)args[0]), battle);
 
-                    // Notify feats: battle end
-                    NotifyFeats((feat, args) => feat.OnBattleEnd((Battle)args[0]), battle);
+                // Log battle report
+                battle.LogBattleReport();
 
-                    // Log battle report
-                    battle.LogBattleReport();
-
-                    return; // Don't also process as arena
-                }
-
-                var combat = mission?.GetMissionBehavior<Combat>();
-                if (combat != null)
-                {
-                    Log.Info("Mission Type: Arena");
-
-                    // Notify feats: combat end
-                    NotifyFeats((feat, args) => feat.OnArenaEnd((Combat)args[0]), combat);
-
-                    // Log combat report
-                    combat.LogCombatReport();
-                }
-
-                // Display feat unlock popups if any
-                Campaign.Current?.GetCampaignBehavior<FeatNotificationBehavior>()?.TryFlush();
+                return; // Don't also process as arena
             }
-            catch (Exception ex)
+
+            var combat = mission?.GetMissionBehavior<Combat>();
+            if (combat != null)
             {
-                Log.Exception(ex);
+                Log.Info("Mission Type: Arena");
+
+                // Notify feats: combat end
+                NotifyFeats((feat, args) => feat.OnArenaEnd((Combat)args[0]), combat);
+
+                // Log combat report
+                combat.LogCombatReport();
             }
+
+            // Display feat unlock popups if any
+            Campaign.Current?.GetCampaignBehavior<FeatNotificationBehavior>()?.TryFlush();
         }
 
         /* ━━━━━━ Tournaments ━━━━━ */
@@ -214,28 +185,18 @@ namespace Retinues.Core.Features.Doctrines
             ItemObject prize
         )
         {
-            try
-            {
-                Log.Info("Feat Runtime Event: OnTournamentFinished");
-                var tournament = new Tournament(
-                    town,
-                    new WCharacter(winner),
-                    [.. participants.ToList().Select(p => new WCharacter(p))]
-                );
+            Log.Info("Feat Runtime Event: OnTournamentFinished");
+            var tournament = new Tournament(
+                town,
+                new WCharacter(winner),
+                [.. participants.ToList().Select(p => new WCharacter(p))]
+            );
 
-                // Notify feats
-                NotifyFeats(
-                    (feat, args) => feat.OnTournamentFinished((Tournament)args[0]),
-                    tournament
-                );
+            // Notify feats
+            NotifyFeats((feat, args) => feat.OnTournamentFinished((Tournament)args[0]), tournament);
 
-                // Display feat unlock popups if any
-                Campaign.Current?.GetCampaignBehavior<FeatNotificationBehavior>()?.TryFlush();
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
+            // Display feat unlock popups if any
+            Campaign.Current?.GetCampaignBehavior<FeatNotificationBehavior>()?.TryFlush();
         }
 
         /* ━━━━━ Fief Captures ━━━━ */
@@ -322,47 +283,38 @@ namespace Retinues.Core.Features.Doctrines
 
         private void RefreshActiveFeats()
         {
-            try
+            _activeFeats.Clear();
+
+            // Ask the service for the discovered doctrine defs; filter by status.
+            var svcDoctrines = DoctrineAPI.AllDoctrines();
+            if (svcDoctrines == null || svcDoctrines.Count == 0)
+                return;
+
+            foreach (var def in svcDoctrines)
             {
-                _activeFeats.Clear();
+                var status = DoctrineAPI.GetDoctrineStatus(def.Key);
+                // Track feats if the doctrine is not unlocked and not locked by prereq.
+                if (status == DoctrineStatus.Unlocked || status == DoctrineStatus.Locked)
+                    continue;
 
-                // Ask the service for the discovered doctrine defs; filter by status.
-                var svcDoctrines = DoctrineAPI.AllDoctrines();
-                if (svcDoctrines == null || svcDoctrines.Count == 0)
-                    return;
-
-                foreach (var def in svcDoctrines)
+                // For each feat that isn't complete, instantiate and keep it live.
+                foreach (var f in def.Feats)
                 {
-                    var status = DoctrineAPI.GetDoctrineStatus(def.Key);
-                    // Track feats if the doctrine is not unlocked and not locked by prereq.
-                    if (status == DoctrineStatus.Unlocked || status == DoctrineStatus.Locked)
+                    if (DoctrineAPI.IsFeatComplete(f.Key))
                         continue;
 
-                    // For each feat that isn't complete, instantiate and keep it live.
-                    foreach (var f in def.Feats)
-                    {
-                        if (DoctrineAPI.IsFeatComplete(f.Key))
-                            continue;
+                    var featType = GetTypeByFullName(f.Key);
+                    if (featType == null)
+                        continue;
 
-                        var featType = GetTypeByFullName(f.Key);
-                        if (featType == null)
-                            continue;
-
-                        if (Activator.CreateInstance(featType) is Feat feat)
-                            _activeFeats.Add(feat);
-                    }
+                    if (Activator.CreateInstance(featType) is Feat feat)
+                        _activeFeats.Add(feat);
                 }
+            }
 
-                Log.Debug(
-                    $"Refreshed active feats; now tracking {_activeFeats.Count} active feats:"
-                );
-                foreach (var feat in _activeFeats.ToList())
-                    Log.Debug($" - {feat.GetType().Name}");
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
+            Log.Debug($"Refreshed active feats; now tracking {_activeFeats.Count} active feats:");
+            foreach (var feat in _activeFeats.ToList())
+                Log.Debug($" - {feat.GetType().Name}");
         }
 
         private static Type GetTypeByFullName(string fullName)
@@ -383,9 +335,7 @@ namespace Retinues.Core.Features.Doctrines
                     if (t != null)
                         return t;
                 }
-                catch
-                { // ignore dynamic/ReflectionTypeLoadException cases //
-                }
+                catch { }
             }
             return null;
         }

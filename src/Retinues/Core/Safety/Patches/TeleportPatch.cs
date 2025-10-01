@@ -1,22 +1,30 @@
 using HarmonyLib;
-using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Roster;
-using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.CampaignSystem.Party;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.CampaignSystem.Settlements;
+using TaleWorlds.Core;
 
 [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.RemoveTroop))]
 static class SafeRemoveTroopPatch
 {
-    static bool Prefix(TroopRoster __instance, CharacterObject troop, int numberToRemove,
-                       UniqueTroopDescriptor troopSeed, int xp)
+    [SafeMethod]
+    static bool Prefix(
+        TroopRoster __instance,
+        CharacterObject troop,
+        int numberToRemove,
+        UniqueTroopDescriptor troopSeed,
+        int xp
+    )
     {
         int idx = __instance.FindIndexOfTroop(troop);
         if (idx < 0)
         {
-            Log.Error($"[SafeRemoveTroop] Tried to remove {troop?.StringId ?? "NULL"} not in roster. ");
+            Log.Error(
+                $"[SafeRemoveTroop] Tried to remove {troop?.StringId ?? "NULL"} not in roster. "
+            );
             return false;
         }
         return true; // proceed normally
@@ -26,6 +34,7 @@ static class SafeRemoveTroopPatch
 [HarmonyPatch(typeof(TeleportHeroAction), "ApplyInternal")]
 static class TeleportHero_PreparePatch
 {
+    [SafeMethod]
     static void Prefix(Hero hero, Settlement targetSettlement, MobileParty targetParty)
     {
         try
@@ -37,7 +46,9 @@ static class TeleportHero_PreparePatch
                 if (idx < 0)
                 {
                     src.MemberRoster.AddToCounts(hero.CharacterObject, +1, insertAtFront: true);
-                    Log.Warn($"[TeleportPrep] Re-added {hero?.Name} to {src?.Name} before teleport.");
+                    Log.Warn(
+                        $"[TeleportPrep] Re-added {hero?.Name} to {src?.Name} before teleport."
+                    );
                 }
             }
         }

@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Retinues.Core.Utils
 {
+    [SafeClass]
     public static class Config
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -129,7 +130,10 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_recruitment", "Recruitment"),
-                name: L.S("mcm_option_clan_troops_over_kingdom_troops", "Clan Troops Over Kingdom Troops"),
+                name: L.S(
+                    "mcm_option_clan_troops_over_kingdom_troops",
+                    "Clan Troops Over Kingdom Troops"
+                ),
                 key: "ClanTroopsOverKingdomTroops",
                 hint: L.S(
                     "mcm_option_clan_troops_over_kingdom_troops_hint",
@@ -138,7 +142,6 @@ namespace Retinues.Core.Utils
                 @default: true,
                 type: typeof(bool)
             );
-
 
             /* ━━━━━━━ Doctrines ━━━━━━ */
 

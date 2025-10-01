@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WEquipment(Equipment equipment)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -149,7 +151,11 @@ namespace Retinues.Core.Game.Wrappers
                 foreach (var slot in Slots)
                 {
                     var item = GetItem(slot);
-                    if (item != null && item.IsRangedWeapon && item.Type != ItemObject.ItemTypeEnum.Thrown)
+                    if (
+                        item != null
+                        && item.IsRangedWeapon
+                        && item.Type != ItemObject.ItemTypeEnum.Thrown
+                    )
                         return true;
                 }
                 return false;

@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Features.Xp.Behaviors
 {
+    [SafeClass]
     public sealed class TroopXpBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

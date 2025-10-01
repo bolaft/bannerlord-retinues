@@ -12,6 +12,7 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -26,7 +27,16 @@ namespace Retinues.Core.Game.Wrappers
             bool isMilitiaRanged = false,
             IReadOnlyList<int> path = null
         )
-            : this(CharacterHelper.GetCharacterObject(isKingdom, isElite, isRetinue, isMilitiaMelee, isMilitiaRanged, path)) { }
+            : this(
+                CharacterHelper.GetCharacterObject(
+                    isKingdom,
+                    isElite,
+                    isRetinue,
+                    isMilitiaMelee,
+                    isMilitiaRanged,
+                    path
+                )
+            ) { }
 
         public WCharacter(string stringId)
             : this(CharacterHelper.GetCharacterObject(stringId)) { }
@@ -140,12 +150,17 @@ namespace Retinues.Core.Game.Wrappers
                     // protected setter -> set via reflection
                     Reflector.SetPropertyValue(Base, "DefaultFormationClass", value);
                     Reflector.SetPropertyValue(Base, "DefaultFormationGroup", (int)value);
-                    var isRanged = value == FormationClass.Ranged || value == FormationClass.HorseArcher;
-                    var isMounted = value == FormationClass.Cavalry || value == FormationClass.HorseArcher;
+                    var isRanged =
+                        value == FormationClass.Ranged || value == FormationClass.HorseArcher;
+                    var isMounted =
+                        value == FormationClass.Cavalry || value == FormationClass.HorseArcher;
                     Reflector.SetFieldValue(Base, "_isRanged", isRanged);
                     Reflector.SetFieldValue(Base, "_isMounted", isMounted);
                 }
-                catch (Exception ex) { Log.Exception(ex); }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex);
+                }
             }
         }
 
@@ -165,7 +180,7 @@ namespace Retinues.Core.Game.Wrappers
                 (true, true) => FormationClass.HorseArcher,
                 (true, false) => FormationClass.Ranged,
                 (false, true) => FormationClass.Cavalry,
-                (false, false) => FormationClass.Infantry
+                (false, false) => FormationClass.Infantry,
             };
         }
 
@@ -226,33 +241,13 @@ namespace Retinues.Core.Game.Wrappers
 
         public Dictionary<SkillObject, int> Skills
         {
-            get
-            {
-                try
-                {
-                    return CoreSkills.ToDictionary(skill => skill, GetSkill);
-                }
-                catch (Exception ex)
-                {
-                    // Handle or log the exception as needed
-                    Log.Exception(ex);
-                    return [];
-                }
-            }
+            get { return CoreSkills.ToDictionary(skill => skill, GetSkill); }
             set
             {
-                try
+                foreach (var skill in CoreSkills)
                 {
-                    foreach (var skill in CoreSkills)
-                    {
-                        var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
-                        SetSkill(skill, v);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle or log the exception as needed
-                    Log.Exception(ex);
+                    var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
+                    SetSkill(skill, v);
                 }
             }
         }
@@ -313,7 +308,7 @@ namespace Retinues.Core.Game.Wrappers
         public void Equip(WItem item, EquipmentIndex slot)
         {
             Equipment.SetItem(slot, item);
-            
+
             // Force recalculation of formation class based on equipment
             ResetFormationClass();
         }
@@ -322,7 +317,7 @@ namespace Retinues.Core.Game.Wrappers
         {
             var item = Equipment.GetItem(slot);
             Equipment.SetItem(slot, null);
-            
+
             // Force recalculation of formation class based on equipment
             if (resetFormation)
                 ResetFormationClass();
@@ -334,7 +329,7 @@ namespace Retinues.Core.Game.Wrappers
         {
             foreach (var slot in WEquipment.Slots)
                 yield return Unequip(slot, resetFormation: false);
-            
+
             // After all items are unequipped, reset formation class once
             ResetFormationClass();
         }

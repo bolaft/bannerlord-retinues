@@ -1,23 +1,16 @@
-using System;
-using Retinues.Core.Features.Doctrines.Effects.Behaviors;
-using Retinues.Core.Utils;
+using Retinues.Core.Features.Recruits.Patches;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
+using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Core.Features.Doctrines.Effects
+namespace Retinues.Core.Features.Recruits.Behaviors
 {
-    [SafeClass]
-    public sealed class DoctrineEffectRuntimeBehavior : CampaignBehaviorBase
+    public sealed class VolunteerSwapBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void SyncData(IDataStore dataStore)
-        {
-            // No persistent state here — feat progress is persisted by DoctrineServiceBehavior.
-        }
+        public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
@@ -25,31 +18,19 @@ namespace Retinues.Core.Features.Doctrines.Effects
 
         public override void RegisterEvents()
         {
-            // Missions
-            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
+            CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(
+                this,
+                DailyTickSettlement
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnMissionStarted(IMission iMission)
+        private void DailyTickSettlement(Settlement settlement)
         {
-            try
-            {
-                if (iMission is not Mission mission)
-                    return; // Not a battle or a tournament
-
-                if (mission.GetMissionBehavior<ImmortalsBehavior>() == null)
-                    mission.AddMissionBehavior(new ImmortalsBehavior());
-
-                if (mission.GetMissionBehavior<IndomitableBehavior>() == null)
-                    mission.AddMissionBehavior(new IndomitableBehavior());
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
+            VolunteerSwap.SwapVolunteersInSettlement(settlement);
         }
     }
 }

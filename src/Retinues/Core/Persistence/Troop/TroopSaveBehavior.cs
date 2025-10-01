@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Safety;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Persistence.Troop
 {
+    [SafeClass(SwallowByDefault = false)]
     public class TroopSaveBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -16,6 +15,8 @@ namespace Retinues.Core.Persistence.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private List<TroopSaveData> _troopData = [];
+
+        public bool HasTroopData => _troopData.Count > 0;
 
         public override void SyncData(IDataStore dataStore)
         {
@@ -72,26 +73,6 @@ namespace Retinues.Core.Persistence.Troop
             {
                 Log.Exception(e);
             }
-
-            Log.Info("Performing safety checks...");
-
-            try
-            {
-                foreach (var mp in MobileParty.All)
-                    RosterSanitizer.CleanParty(mp);
-
-                foreach (var s in Campaign.Current.Settlements)
-                {
-                    RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
-                    RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
-
-                    VolunteerSanitizer.CleanSettlement(s);
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -141,7 +122,12 @@ namespace Retinues.Core.Persistence.Troop
                 Log.Debug("No root troops found.");
             }
 
-            if (faction.MilitiaMelee.IsActive && faction.MilitiaMeleeElite.IsActive && faction.MilitiaRanged.IsActive && faction.MilitiaRangedElite.IsActive)
+            if (
+                faction.MilitiaMelee.IsActive
+                && faction.MilitiaMeleeElite.IsActive
+                && faction.MilitiaRanged.IsActive
+                && faction.MilitiaRangedElite.IsActive
+            )
             {
                 Log.Debug("Collecting militia troops.");
                 list.Add(TroopSave.Save(faction.MilitiaMelee));

@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WParty(MobileParty party) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -46,6 +47,40 @@ namespace Retinues.Core.Game.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Faction                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private Clan _ownerClan;
+
+        public WFaction Clan
+        {
+            get
+            {
+                if (_ownerClan == null)
+                {
+                    if (_party.ActualClan != null)
+                        _ownerClan = _party.ActualClan;
+
+                    if (_party.LeaderHero?.Clan != null)
+                        _ownerClan = _party.LeaderHero.Clan;
+
+                    if (_party.HomeSettlement?.OwnerClan != null)
+                        _ownerClan = _party.HomeSettlement.OwnerClan;
+                }
+
+                return _ownerClan != null ? new WFaction(_ownerClan) : null;
+            }
+        }
+
+        public WFaction Kingdom => Clan != null ? new WFaction(_ownerClan.Kingdom) : null;
+
+        public bool IsPlayerClanParty => Clan?.StringId == Player.Clan.StringId;
+        public bool IsPlayerKingdomParty =>
+            Kingdom != null
+            && Player.Kingdom != null
+            && Kingdom.StringId == Player.Kingdom.StringId;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -58,6 +93,10 @@ namespace Retinues.Core.Game.Wrappers
         public bool IsCaravan => _party.IsCaravan;
 
         public bool IsBandit => _party.IsBandit;
+
+        public bool IsGarrison => _party.IsGarrison;
+
+        public bool IsMilitia => _party.IsMilitia;
 
         public int PartySizeLimit => _party.Party.PartySizeLimit;
 

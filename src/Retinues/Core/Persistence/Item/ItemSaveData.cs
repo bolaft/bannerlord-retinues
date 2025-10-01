@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Retinues.Core.Utils;
 using TaleWorlds.SaveSystem;
 
 namespace Retinues.Core.Persistence.Item
 {
+    [SafeClass(SwallowByDefault = false)]
     public class ItemSaveData
     {
         [SaveableField(1)]

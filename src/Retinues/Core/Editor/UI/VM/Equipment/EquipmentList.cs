@@ -6,6 +6,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    [SafeClass]
     public sealed class EquipmentListVM(EditorScreenVM screen)
         : BaseList<EquipmentListVM, EquipmentRowVM>(screen)
     {
@@ -15,7 +16,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         [DataSourceProperty]
         public MBBindingList<EquipmentRowVM> Equipments { get; set; } = [];
-    
+
         [DataSourceProperty]
         public string SearchLabel => L.S("item_search_label", "Filter:");
 
@@ -27,7 +28,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             get => _searchText;
             set
             {
-                if (_searchText == value) return;
+                if (_searchText == value)
+                    return;
                 _searchText = value;
                 foreach (var equipment in Equipments)
                 {

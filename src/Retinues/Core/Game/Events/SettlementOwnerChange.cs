@@ -1,9 +1,11 @@
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Events
 {
+    [SafeClass]
     public class SettlementOwnerChange(
         Settlement settlement,
         ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail,

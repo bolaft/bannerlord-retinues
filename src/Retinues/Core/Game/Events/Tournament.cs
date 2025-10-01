@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Events
 {
+    [SafeClass]
     public class Tournament(
         Town town,
         WCharacter winner = null,
