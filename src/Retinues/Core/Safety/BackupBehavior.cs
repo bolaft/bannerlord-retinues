@@ -1,9 +1,9 @@
+using Retinues.Core.Game;
+using Retinues.Core.Persistence.Item;
+using Retinues.Core.Persistence.Troop;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
-using Retinues.Core.Utils;
-using Retinues.Core.Persistence.Troop;
-using Retinues.Core.Persistence.Item;
-using Retinues.Core.Game;
 
 namespace Retinues.Core.Safety
 {
@@ -55,7 +55,6 @@ namespace Retinues.Core.Safety
                 Log.Debug("No Retinues save data found; assuming first run.");
                 ShowFirstRunPopup();
             }
-
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -50,25 +50,29 @@ namespace Retinues.Core.Game.Wrappers
         //                         Faction                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private Clan _ownerClan;
+
         public WFaction Clan
         {
             get
             {
-                if (_party.ActualClan != null)
-                    return new WFaction(_party.ActualClan);
+                if (_ownerClan == null)
+                {
+                    if (_party.ActualClan != null)
+                        _ownerClan = _party.ActualClan;
 
-                if (_party.LeaderHero?.Clan != null)
-                    return new WFaction(_party.LeaderHero.Clan);
+                    if (_party.LeaderHero?.Clan != null)
+                        _ownerClan = _party.LeaderHero.Clan;
 
-                if (_party.HomeSettlement?.OwnerClan != null)
-                    return new WFaction(_party.HomeSettlement.OwnerClan);
+                    if (_party.HomeSettlement?.OwnerClan != null)
+                        _ownerClan = _party.HomeSettlement.OwnerClan;
+                }
 
-                return null;
+                return _ownerClan != null ? new WFaction(_ownerClan) : null;
             }
         }
 
-        public WFaction Kingdom =>
-            Clan?.Kingdom != null ? new WFaction(_party.ActualClan.Kingdom) : null;
+        public WFaction Kingdom => Clan != null ? new WFaction(_ownerClan.Kingdom) : null;
 
         public bool IsPlayerClanParty => Clan?.StringId == Player.Clan.StringId;
         public bool IsPlayerKingdomParty =>

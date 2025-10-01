@@ -1,12 +1,10 @@
-using System;
-using Retinues.Core.Utils;
+using Retinues.Core.Features.Recruits.Patches;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Features.Recruits.Behaviors
 {
-    [SafeClass]
-    public class SafetyBehavior : CampaignBehaviorBase
+    public sealed class VolunteerSwapBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -20,9 +18,9 @@ namespace Retinues.Core.Safety
 
         public override void RegisterEvents()
         {
-            CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+            CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(
                 this,
-                OnGameLoadFinished
+                DailyTickSettlement
             );
         }
 
@@ -30,20 +28,9 @@ namespace Retinues.Core.Safety
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnGameLoadFinished()
+        private void DailyTickSettlement(Settlement settlement)
         {
-            Log.Info("Performing safety checks...");
-
-            foreach (var mp in MobileParty.All)
-                RosterSanitizer.CleanParty(mp);
-
-            foreach (var s in Campaign.Current.Settlements)
-            {
-                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
-                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
-
-                VolunteerSanitizer.CleanSettlement(s);
-            }
+            VolunteerSwap.SwapVolunteersInSettlement(settlement);
         }
     }
 }

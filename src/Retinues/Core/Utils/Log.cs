@@ -255,6 +255,11 @@ namespace Retinues.Core.Utils
                     if (type == typeof(Log))
                         continue; // skip logger frames
 
+                    var nameSpace = type.Namespace ?? "";
+
+                    if (!nameSpace.StartsWith("Retinues."))
+                        continue; // skip non-retinues frames
+
                     var typeName = type.Name;
                     var methodName = method!.Name is ".ctor" or ".cctor" ? typeName : method.Name;
                     return $"{typeName}.{methodName}";

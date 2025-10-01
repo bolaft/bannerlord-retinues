@@ -4,6 +4,7 @@ using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
+using Retinues.Core.Features.Recruits.Behaviors;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
@@ -86,6 +87,9 @@ namespace Retinues.Core
 
                 // Safety behavior
                 cs.AddBehavior(new SafetyBehavior());
+
+                // Volunteer swap behavior
+                cs.AddBehavior(new VolunteerSwapBehavior());
 
                 // XP behavior (skip if both costs are 0)
                 if (
