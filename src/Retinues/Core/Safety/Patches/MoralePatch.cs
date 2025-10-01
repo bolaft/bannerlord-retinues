@@ -79,7 +79,6 @@ namespace Retinues.Core.Safety.Patches
                     try
                     {
                         SkillHelper.AddSkillBonusForCharacter(
-                            DefaultSkills.Leadership,
                             DefaultSkillEffects.LeadershipMoraleBonus,
                             leader,
                             ref bonus
