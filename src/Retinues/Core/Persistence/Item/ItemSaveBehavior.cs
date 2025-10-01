@@ -13,6 +13,8 @@ namespace Retinues.Core.Persistence.Item
 
         private ItemSaveData _itemData = null;
 
+        public bool HasItemData => _itemData != null;
+
         public override void SyncData(IDataStore dataStore)
         {
             // Persist the troops inside the native save.
