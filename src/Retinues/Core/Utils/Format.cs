@@ -4,6 +4,7 @@ namespace Retinues.Core.Utils
     //                    String Formatting                   //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    [SafeClass]
     public static class Format
     {
         public static string CamelCaseToTitle(string text)

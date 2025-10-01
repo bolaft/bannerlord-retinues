@@ -9,6 +9,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Events
 {
+    [SafeClass]
     public class Battle : Combat
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
@@ -39,21 +40,11 @@ namespace Retinues.Core.Game.Events
                 EnemyIsInArmy = PartiesOnSide(EnemySide).Any(p => p?.IsInArmy ?? false);
 
                 // Leaders
-                try
-                {
-                    EnemyLeaders = GetLeaders(EnemySide);
-                    AllyLeaders =
-                    [
-                        .. GetLeaders(PlayerSide)
-                            .Where(l => l?.StringId != Player.Character?.StringId),
-                    ];
-                }
-                catch (System.Exception e)
-                {
-                    Log.Exception(e);
-                    EnemyLeaders = [];
-                    AllyLeaders = [];
-                }
+                EnemyLeaders = GetLeaders(EnemySide);
+                AllyLeaders =
+                [
+                    .. GetLeaders(PlayerSide).Where(l => l?.StringId != Player.Character?.StringId),
+                ];
             }
             catch (System.Exception e)
             {
@@ -67,8 +58,8 @@ namespace Retinues.Core.Game.Events
 
         /* ━━━━━━━━ Leaders ━━━━━━━ */
 
-        public List<WCharacter> AllyLeaders;
-        public List<WCharacter> EnemyLeaders;
+        public List<WCharacter> AllyLeaders = [];
+        public List<WCharacter> EnemyLeaders = [];
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 

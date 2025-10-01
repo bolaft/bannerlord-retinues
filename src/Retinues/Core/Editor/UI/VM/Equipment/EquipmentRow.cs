@@ -9,6 +9,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    [SafeClass]
     public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress)
         : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
     {
@@ -55,14 +56,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public bool IsVisible
         {
-            get
-            {
-                return _isVisible;
-            }
-
+            get { return _isVisible; }
             set
             {
-                if (_isVisible == value) return;
+                if (_isVisible == value)
+                    return;
                 _isVisible = value;
                 OnPropertyChanged(nameof(IsVisible));
             }

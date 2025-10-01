@@ -1,11 +1,13 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    [SafeClass]
     public sealed class TroopConversionRowVM : ViewModel
     {
         public TroopConversionRowVM(WCharacter from, WCharacter to, TroopEditorVM editor)

@@ -1,6 +1,7 @@
 using HarmonyLib;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.CampaignSystem.Party;
@@ -13,6 +14,7 @@ namespace Retinues.Core.Features.Doctrines.Effects.Patches
     )]
     internal static class RetinuePartyMoralePatch
     {
+        [SafeMethod]
         static void Postfix(MobileParty mobileParty, ref ExplainedNumber __result)
         {
             if (!DoctrineAPI.IsDoctrineUnlocked<BoundByHonor>())

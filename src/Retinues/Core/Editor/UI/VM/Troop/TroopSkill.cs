@@ -10,6 +10,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    [SafeClass]
     public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopEditorVM editor)
         : ViewModel
     {

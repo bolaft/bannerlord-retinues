@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WParty(MobileParty party) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -46,6 +47,36 @@ namespace Retinues.Core.Game.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Faction                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WFaction Clan
+        {
+            get
+            {
+                if (_party.ActualClan != null)
+                    return new WFaction(_party.ActualClan);
+
+                if (_party.LeaderHero?.Clan != null)
+                    return new WFaction(_party.LeaderHero.Clan);
+
+                if (_party.HomeSettlement?.OwnerClan != null)
+                    return new WFaction(_party.HomeSettlement.OwnerClan);
+
+                return null;
+            }
+        }
+
+        public WFaction Kingdom =>
+            Clan?.Kingdom != null ? new WFaction(_party.ActualClan.Kingdom) : null;
+
+        public bool IsPlayerClanParty => Clan?.StringId == Player.Clan.StringId;
+        public bool IsPlayerKingdomParty =>
+            Kingdom != null
+            && Player.Kingdom != null
+            && Kingdom.StringId == Player.Kingdom.StringId;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -58,6 +89,10 @@ namespace Retinues.Core.Game.Wrappers
         public bool IsCaravan => _party.IsCaravan;
 
         public bool IsBandit => _party.IsBandit;
+
+        public bool IsGarrison => _party.IsGarrison;
+
+        public bool IsMilitia => _party.IsMilitia;
 
         public int PartySizeLimit => _party.Party.PartySizeLimit;
 

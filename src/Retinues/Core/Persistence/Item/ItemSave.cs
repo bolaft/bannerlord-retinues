@@ -1,10 +1,12 @@
 using System.Linq;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Persistence.Item
 {
+    [SafeClass(SwallowByDefault = false)]
     public static class ItemSave
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

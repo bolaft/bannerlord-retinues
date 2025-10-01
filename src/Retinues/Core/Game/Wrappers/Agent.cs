@@ -1,9 +1,11 @@
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WAgent
     {
         private readonly Agent _agent;
@@ -26,68 +28,52 @@ namespace Retinues.Core.Game.Wrappers
         {
             _agent = agent ?? throw new System.ArgumentNullException(nameof(agent));
 
-            // Components
-            Character = agent.Character is CharacterObject co ? new WCharacter(co) : null;
+            Character = InitCharacter(agent);
+            Side = InitSide(agent);
+            IsPlayer = InitIsPlayer(agent);
+            IsPlayerTroop = InitIsPlayerTroop(agent, IsPlayer);
+            IsAllyTroop = InitIsAllyTroop(agent, IsPlayer, IsPlayerTroop);
+            IsEnemyTroop = InitIsEnemyTroop(agent);
+        }
 
-            // Attributes
-            BattleSideEnum side = BattleSideEnum.None;
-            try
-            {
-                side = agent.Team?.Side ?? BattleSideEnum.None;
-            }
-            catch { }
-            Side = side;
+        private WCharacter InitCharacter(Agent agent)
+        {
+            return agent.Character is CharacterObject co ? new WCharacter(co) : null;
+        }
 
-            // Flags — compute with guards so getters can’t NRE
-            bool isPlayer = false;
-            try
-            {
-                isPlayer =
-                    agent.IsMainAgent
-                    || agent.Controller == Agent.ControllerType.Player
-                    || agent.IsPlayerControlled; // this one can throw during teardown
-            }
-            catch
-            { /* leave false */
-            }
-            IsPlayer = isPlayer;
+        private BattleSideEnum InitSide(Agent agent)
+        {
+            return agent.Team?.Side ?? BattleSideEnum.None;
+        }
 
-            // Compare banners defensively (Player or Clan can be null in some contexts)
-            bool isPlayerTroop = false;
-            try
-            {
-                if (isPlayer) isPlayerTroop = false;
-                else
-                {
-                    var myBanner = Player.Clan?.Base?.Banner;
-                    var troopBanner = agent.Origin?.Banner;
-                    if (myBanner != null && troopBanner != null)
-                        isPlayerTroop =
-                            ReferenceEquals(myBanner, troopBanner)
-                        || myBanner.GetHashCode() == troopBanner.GetHashCode();
-                }
-            }
-            catch { }
-            IsPlayerTroop = isPlayerTroop;
+        private bool InitIsPlayer(Agent agent)
+        {
+            return agent.IsMainAgent
+                || agent.Controller == Agent.ControllerType.Player
+                || agent.IsPlayerControlled;
+        }
 
-            bool isAlly = false;
-            try
-            {
-                // ally = same side but not our own troop
-                isAlly = !isPlayer && !isPlayerTroop && (agent.Team?.IsPlayerAlly == true);
-            }
-            catch { }
-            IsAllyTroop = isAlly;
+        private bool InitIsPlayerTroop(Agent agent, bool isPlayer)
+        {
+            if (isPlayer)
+                return false;
+            var myBanner = Player.Clan?.Base?.Banner;
+            var troopBanner = agent.Origin?.Banner;
+            if (myBanner != null && troopBanner != null)
+                return ReferenceEquals(myBanner, troopBanner)
+                    || myBanner.GetHashCode() == troopBanner.GetHashCode();
+            return false;
+        }
 
-            bool isEnemy = false;
-            try
-            {
-                var playerTeam = agent.Mission?.PlayerTeam;
-                isEnemy =
-                    agent.Team != null && playerTeam != null && agent.Team.IsEnemyOf(playerTeam);
-            }
-            catch { }
-            IsEnemyTroop = isEnemy;
+        private bool InitIsAllyTroop(Agent agent, bool isPlayer, bool isPlayerTroop)
+        {
+            return !isPlayer && !isPlayerTroop && (agent.Team?.IsPlayerAlly == true);
+        }
+
+        private bool InitIsEnemyTroop(Agent agent)
+        {
+            var playerTeam = agent.Mission?.PlayerTeam;
+            return agent.Team != null && playerTeam != null && agent.Team.IsEnemyOf(playerTeam);
         }
     }
 }

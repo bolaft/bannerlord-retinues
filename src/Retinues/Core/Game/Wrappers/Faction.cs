@@ -6,6 +6,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WFaction(IFaction faction) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -15,6 +16,9 @@ namespace Retinues.Core.Game.Wrappers
         private readonly IFaction _faction = faction;
 
         public IFaction Base => _faction;
+
+        public IFaction Kingdom =>
+            IsClan ? null : Reflector.GetPropertyValue<Kingdom>(_faction, "Kingdom");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
@@ -61,9 +65,11 @@ namespace Retinues.Core.Game.Wrappers
         public WCharacter RootBasic => new(this == Player.Kingdom, false, false);
 
         public WCharacter MilitiaMelee => new(this == Player.Kingdom, false, false, true, false);
-        public WCharacter MilitiaMeleeElite => new(this == Player.Kingdom, true, false, true, false);
+        public WCharacter MilitiaMeleeElite =>
+            new(this == Player.Kingdom, true, false, true, false);
         public WCharacter MilitiaRanged => new(this == Player.Kingdom, false, false, false, true);
-        public WCharacter MilitiaRangedElite => new(this == Player.Kingdom, true, false, false, true);
+        public WCharacter MilitiaRangedElite =>
+            new(this == Player.Kingdom, true, false, false, true);
 
         public List<WCharacter> EliteTroops =>
             [.. RootElite.Tree.Where(t => t.IsActive && t.IsElite)];
@@ -71,9 +77,11 @@ namespace Retinues.Core.Game.Wrappers
             [.. RootBasic.Tree.Where(t => t.IsActive && !t.IsElite)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Fiefs                         //
+        //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
+        public bool IsClan => Base is Clan;
+        public bool IsKingdom => Base is Kingdom;
     }
 }

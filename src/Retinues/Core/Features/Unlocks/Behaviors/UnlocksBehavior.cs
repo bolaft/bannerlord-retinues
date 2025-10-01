@@ -13,6 +13,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Features.Unlocks.Behaviors
 {
+    [SafeClass]
     public sealed class UnlocksBehavior : CampaignBehaviorBase
     {
         // Singleton instance
@@ -96,24 +97,17 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 $"AddOwnCultureBonuses: {bonuses.Count} tiers to process for culture {Player.Clan?.Culture?.Name}."
             );
 
-            try
-            {
-                Dictionary<ItemObject, int> randomItemsByTier = [];
+            Dictionary<ItemObject, int> randomItemsByTier = [];
 
-                foreach (var tier in bonuses.Keys)
-                {
-                    var it = GetRandomItem(Player.Clan?.Culture?.StringId, tier);
-                    if (it != null)
-                        randomItemsByTier[it] = bonuses[tier];
-                }
-
-                if (randomItemsByTier.Count > 0)
-                    AddBattleCounts(randomItemsByTier, false);
-            }
-            catch (Exception e)
+            foreach (var tier in bonuses.Keys)
             {
-                Log.Exception(e);
+                var it = GetRandomItem(Player.Clan?.Culture?.StringId, tier);
+                if (it != null)
+                    randomItemsByTier[it] = bonuses[tier];
             }
+
+            if (randomItemsByTier.Count > 0)
+                AddBattleCounts(randomItemsByTier, false);
         }
 
         // Called by the mission behavior when a battle ends to flush its per-battle counts
@@ -128,60 +122,53 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
             Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
-            try
+            if (battleCounts == null || battleCounts.Count == 0)
+                return;
+
+            int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
+
+            Dictionary<int, int> ownCultureBonuses = [];
+
+            foreach (var kvp in battleCounts)
             {
-                if (battleCounts == null || battleCounts.Count == 0)
-                    return;
+                var item = kvp.Key;
+                var inc = kvp.Value;
 
-                int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
+                if (item == null)
+                    continue;
 
-                Dictionary<int, int> ownCultureBonuses = [];
-
-                foreach (var kvp in battleCounts)
+                // accumulate in own culture as well
+                if (
+                    addCultureBonuses
+                    && item.Culture != null
+                    && item.Culture != Clan.PlayerClan?.Culture
+                )
                 {
-                    var item = kvp.Key;
-                    var inc = kvp.Value;
-
-                    if (item == null)
-                        continue;
-
-                    // accumulate in own culture as well
-                    if (
-                        addCultureBonuses
-                        && item.Culture != null
-                        && item.Culture != Clan.PlayerClan?.Culture
-                    )
-                    {
-                        if (!ownCultureBonuses.ContainsKey((int)item.Tier))
-                            ownCultureBonuses[(int)item.Tier] = 0;
-                        ownCultureBonuses[(int)item.Tier] += inc;
-                    }
-
-                    var id = item.StringId;
-                    _defeatsByItemId.TryGetValue(id, out int prev);
-                    int now = prev + inc;
-                    _defeatsByItemId[id] = now;
-
-                    // crossed the threshold? unlock once
-                    if (prev < threshold && now >= threshold)
-                    {
-                        var w = new WItem(item);
-                        if (!w.IsUnlocked)
-                        {
-                            w.Unlock();
-                            _newlyUnlockedThisBattle.Add(item);
-                        }
-                    }
+                    if (!ownCultureBonuses.ContainsKey((int)item.Tier))
+                        ownCultureBonuses[(int)item.Tier] = 0;
+                    ownCultureBonuses[(int)item.Tier] += inc;
                 }
 
-                // Apply accumulated own culture bonuses
-                if (addCultureBonuses)
-                    AddOwnCultureBonuses(ownCultureBonuses);
+                var id = item.StringId;
+                _defeatsByItemId.TryGetValue(id, out int prev);
+                int now = prev + inc;
+                _defeatsByItemId[id] = now;
+
+                // crossed the threshold? unlock once
+                if (prev < threshold && now >= threshold)
+                {
+                    var w = new WItem(item);
+                    if (!w.IsUnlocked)
+                    {
+                        w.Unlock();
+                        _newlyUnlockedThisBattle.Add(item);
+                    }
+                }
             }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+
+            // Apply accumulated own culture bonuses
+            if (addCultureBonuses)
+                AddOwnCultureBonuses(ownCultureBonuses);
         }
 
         private void OnMapEventEnded(MapEvent mapEvent)

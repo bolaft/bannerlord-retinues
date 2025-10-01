@@ -1,14 +1,24 @@
+using TaleWorlds.Library;
 
-public static class Version
+namespace Retinues.Core.Utils
 {
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+    //                   Bannerlord Version                   //
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+    public static class BannerlordVersion
+    {
+        public static readonly ApplicationVersion Version = ApplicationVersion.FromParametersFile();
+
         // quick version gate: only handle on 1.2.x; on other versions let vanilla run
         public static bool Is12()
         {
-            try
-            {
-                var v = TaleWorlds.Library.ApplicationVersion.FromParametersFile();
-                return v.Major == 1 && v.Minor == 2;
-            }
-            catch { return true; } // fail-safe: treat as 1.2 if version lookup fails
+            return Version.Major == 1 && Version.Minor == 2;
         }
+
+        public static bool Is13()
+        {
+            return Version.Major == 1 && Version.Minor == 3;
+        }
+    }
 }

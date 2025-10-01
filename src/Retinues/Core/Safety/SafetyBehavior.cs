@@ -1,23 +1,18 @@
 using System;
-using Retinues.Core.Features.Doctrines.Effects.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
+using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Core.Features.Doctrines.Effects
+namespace Retinues.Core.Safety
 {
     [SafeClass]
-    public sealed class DoctrineEffectRuntimeBehavior : CampaignBehaviorBase
+    public class SafetyBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void SyncData(IDataStore dataStore)
-        {
-            // No persistent state here — feat progress is persisted by DoctrineServiceBehavior.
-        }
+        public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
@@ -25,30 +20,26 @@ namespace Retinues.Core.Features.Doctrines.Effects
 
         public override void RegisterEvents()
         {
-            // Missions
-            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
+            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnMissionStarted(IMission iMission)
+        private void OnGameLoaded(CampaignGameStarter _)
         {
-            try
-            {
-                if (iMission is not Mission mission)
-                    return; // Not a battle or a tournament
+            Log.Info("Performing safety checks...");
 
-                if (mission.GetMissionBehavior<ImmortalsBehavior>() == null)
-                    mission.AddMissionBehavior(new ImmortalsBehavior());
+            foreach (var mp in MobileParty.All)
+                RosterSanitizer.CleanParty(mp);
 
-                if (mission.GetMissionBehavior<IndomitableBehavior>() == null)
-                    mission.AddMissionBehavior(new IndomitableBehavior());
-            }
-            catch (Exception ex)
+            foreach (var s in Campaign.Current.Settlements)
             {
-                Log.Exception(ex);
+                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
+                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
+
+                VolunteerSanitizer.CleanSettlement(s);
             }
         }
     }

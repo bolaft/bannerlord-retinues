@@ -3,6 +3,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    [SafeClass(SwallowByDefault = false)]
     public class WSettlement(Settlement settlement) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -22,8 +23,13 @@ namespace Retinues.Core.Game.Wrappers
         public override string StringId => _settlement?.StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Faction                        //
+        //                         Members                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WParty Garrison =>
+            _settlement?.Town?.GarrisonParty != null
+                ? new WParty(_settlement.Town.GarrisonParty)
+                : null;
 
         public WCulture Culture => new(_settlement?.Culture);
 
@@ -34,8 +40,12 @@ namespace Retinues.Core.Game.Wrappers
                 var clan = _settlement?.OwnerClan;
                 var kingdom = clan?.Kingdom;
 
-                bool inPlayerClan = Player.Clan != null && clan != null && Player.Clan.StringId == clan.StringId;
-                bool inPlayerKingdom = Player.Kingdom != null && kingdom != null && Player.Kingdom.StringId == kingdom.StringId;
+                bool inPlayerClan =
+                    Player.Clan != null && clan != null && Player.Clan.StringId == clan.StringId;
+                bool inPlayerKingdom =
+                    Player.Kingdom != null
+                    && kingdom != null
+                    && Player.Kingdom.StringId == kingdom.StringId;
 
                 if (Config.GetOption<bool>("ClanTroopsOverKingdomTroops"))
                 {
@@ -60,9 +70,17 @@ namespace Retinues.Core.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter MilitiaMelee => Faction?.MilitiaMelee.IsActive == true ? Faction.MilitiaMelee : Culture.MilitiaMelee;
-        public WCharacter MilitiaMeleeElite => Faction?.MilitiaMeleeElite.IsActive == true ? Faction.MilitiaMeleeElite : Culture.MilitiaMeleeElite;
-        public WCharacter MilitiaRanged => Faction?.MilitiaRanged.IsActive == true ? Faction.MilitiaRanged : Culture.MilitiaRanged;
-        public WCharacter MilitiaRangedElite => Faction?.MilitiaRangedElite.IsActive == true ? Faction.MilitiaRangedElite : Culture.MilitiaRangedElite;
+        public WCharacter MilitiaMelee =>
+            Faction?.MilitiaMelee.IsActive == true ? Faction.MilitiaMelee : Culture.MilitiaMelee;
+        public WCharacter MilitiaMeleeElite =>
+            Faction?.MilitiaMeleeElite.IsActive == true
+                ? Faction.MilitiaMeleeElite
+                : Culture.MilitiaMeleeElite;
+        public WCharacter MilitiaRanged =>
+            Faction?.MilitiaRanged.IsActive == true ? Faction.MilitiaRanged : Culture.MilitiaRanged;
+        public WCharacter MilitiaRangedElite =>
+            Faction?.MilitiaRangedElite.IsActive == true
+                ? Faction.MilitiaRangedElite
+                : Culture.MilitiaRangedElite;
     }
 }

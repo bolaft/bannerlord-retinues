@@ -1,4 +1,3 @@
-using System.Linq;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;

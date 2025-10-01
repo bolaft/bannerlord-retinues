@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
@@ -10,60 +9,54 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Unlocks.Behaviors
 {
+    [SafeClass]
     public sealed class UnlocksMissionBehavior(UnlocksBehavior owner) : Combat
     {
         private readonly UnlocksBehavior _owner = owner;
 
         protected override void OnEndMission()
         {
-            try
+            if (IsDefeat)
+                return; // No unlocks on defeat
+
+            Log.Info("OnEndMission (victory): counting items for unlocks.");
+
+            Dictionary<ItemObject, int> counts = [];
+
+            foreach (var kill in Kills)
             {
-                if (IsDefeat)
-                    return; // No unlocks on defeat
+                if (kill.Victim.IsPlayerTroop || kill.Victim.IsPlayer)
+                    continue; // No unlock from player troop casualty
 
-                Log.Info("OnEndMission (victory): counting items for unlocks.");
+                if (kill.Victim.IsAllyTroop)
+                    if (!DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>())
+                        continue; // No unlock from ally casualty unless doctrine is enabled
 
-                Dictionary<ItemObject, int> counts = [];
+                if (kill.Killer.IsEnemyTroop)
+                    continue; // Enemies don't unlock anything
 
-                foreach (var kill in Kills)
+                if (kill.Killer.IsAllyTroop)
+                    if (!DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>())
+                        continue; // No unlock from ally killers unless doctrine is enabled
+
+                int unlockModifier = 1;
+
+                if (DoctrineAPI.IsDoctrineUnlocked<LionsShare>())
+                    if (kill.Killer.IsPlayer)
+                        unlockModifier = 2; // Double count if player personally landed the killing blow
+
+                // Enumerate equipped items on the victim and add to the unlock counts
+                foreach (var item in EnumerateEquippedItems(kill.Victim.Agent))
                 {
-                    if (kill.Victim.IsPlayerTroop || kill.Victim.IsPlayer)
-                        continue; // No unlock from player troop casualty
-
-                    if (kill.Victim.IsAllyTroop)
-                        if (!DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>())
-                            continue; // No unlock from ally casualty unless doctrine is enabled
-
-                    if (kill.Killer.IsEnemyTroop)
-                        continue; // Enemies don't unlock anything
-
-                    if (kill.Killer.IsAllyTroop)
-                        if (!DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>())
-                            continue; // No unlock from ally killers unless doctrine is enabled
-
-                    int unlockModifier = 1;
-
-                    if (DoctrineAPI.IsDoctrineUnlocked<LionsShare>())
-                        if (kill.Killer.IsPlayer)
-                            unlockModifier = 2; // Double count if player personally landed the killing blow
-
-                    // Enumerate equipped items on the victim and add to the unlock counts
-                    foreach (var item in EnumerateEquippedItems(kill.Victim.Agent))
-                    {
-                        if (!IsUnlockable(item.Base))
-                            continue;
-                        counts[item.Base] = counts.TryGetValue(item.Base, out var c)
-                            ? c + unlockModifier
-                            : unlockModifier;
-                    }
+                    if (!IsUnlockable(item.Base))
+                        continue;
+                    counts[item.Base] = counts.TryGetValue(item.Base, out var c)
+                        ? c + unlockModifier
+                        : unlockModifier;
                 }
-                // Add the counts to the owner's battle counts
-                _owner.AddBattleCounts(counts);
             }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Add the counts to the owner's battle counts
+            _owner.AddBattleCounts(counts);
         }
 
         private static bool IsUnlockable(ItemObject i)

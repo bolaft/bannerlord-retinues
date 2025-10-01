@@ -1,8 +1,10 @@
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    [SafeClass]
     public sealed class TroopRowVM(WCharacter troop, TroopListVM list)
         : BaseRow<TroopListVM, TroopRowVM>(list)
     {
@@ -30,14 +32,11 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceProperty]
         public bool IsVisible
         {
-            get
-            {
-                return _isVisible;
-            }
-
+            get { return _isVisible; }
             set
             {
-                if (_isVisible == value) return;
+                if (_isVisible == value)
+                    return;
                 _isVisible = value;
                 OnPropertyChanged(nameof(IsVisible));
             }
@@ -51,7 +50,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 if (Troop?.IsRetinue == true || Troop?.IsMilitia == true)
                     return Troop.Name; // Retinue and militia troops are not indented
 
-                var indent = new string(' ', (Troop?.Tier - 1 ?? 0) * 4);
+                int n = Troop?.Tier - 1 ?? 0; // Tier 1 = 0 indents, Tier 2 = 1 indent, etc.
+                if (n < 0)
+                    n = 0; // Safeguard for tier 0 troops
+                var indent = new string(' ', (n) * 4);
                 return $"{indent}{Troop?.Name}"; // Indent based on tier
             }
         }

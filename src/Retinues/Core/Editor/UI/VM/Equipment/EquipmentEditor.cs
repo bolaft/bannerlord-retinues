@@ -6,6 +6,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    [SafeClass]
     public sealed class EquipmentEditorVM(EditorScreenVM screen)
         : BaseEditor<EquipmentEditorVM>(screen)
     {

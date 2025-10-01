@@ -11,6 +11,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    [SafeClass]
     public sealed class TroopEditorVM(EditorScreenVM screen) : BaseEditor<TroopEditorVM>(screen)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -340,7 +341,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             if (SelectedTroop == null)
                 return;
-            
+
             int cost = TroopRules.RankUpCost(SelectedTroop);
 
             if (TroopRules.SkillPointsLeft(SelectedTroop) > 0)

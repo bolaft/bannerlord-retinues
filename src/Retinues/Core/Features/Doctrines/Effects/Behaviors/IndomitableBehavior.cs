@@ -7,6 +7,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
 {
+    [SafeClass]
     public sealed class IndomitableBehavior : MissionBehavior
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;

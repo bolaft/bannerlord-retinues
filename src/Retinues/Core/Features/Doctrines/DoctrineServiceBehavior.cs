@@ -7,6 +7,7 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    [SafeClass]
     public sealed class DoctrineServiceBehavior : CampaignBehaviorBase
     {
         /* ━━━━━━━━━ State ━━━━━━━━ */

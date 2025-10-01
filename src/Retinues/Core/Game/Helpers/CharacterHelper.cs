@@ -1,15 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Game.Helpers
 {
+    [SafeClass(SwallowByDefault = false)]
     public static class CharacterHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -52,7 +53,6 @@ namespace Retinues.Core.Game.Helpers
 
         public static CharacterObject CopyInto(CharacterObject src, CharacterObject tgt)
         {
-            // origin
             var origin = (CharacterObject)F_originCharacter.GetValue(src) ?? src;
             F_originCharacter.SetValue(tgt, origin);
 
@@ -146,11 +146,17 @@ namespace Retinues.Core.Game.Helpers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static bool IsCustom(string id) => id?.Contains("ret_") == true;
+
         public static bool IsRetinue(string id) => ExtractToken(id) == "retinue";
+
         public static bool IsMilitiaMelee(string id) => ExtractToken(id) == "mmilitia";
+
         public static bool IsMilitiaRanged(string id) => ExtractToken(id) == "rmilitia";
+
         public static bool IsElite(string id) => id?.Contains("_elite_") == true;
+
         public static bool IsKingdom(string id) => id?.Contains("_kingdom_") == true;
+
         public static bool IsClan(string id) => id?.Contains("_clan_") == true;
 
         public static IReadOnlyList<int> GetPath(string id)
@@ -190,7 +196,14 @@ namespace Retinues.Core.Game.Helpers
             if (path.Count == 0)
                 return null; // already root
             var parentPath = path.Take(path.Count - 1).ToList();
-            return BuildId(IsKingdom(id), IsElite(id), isRetinue: false, isMilitiaMelee: false, isMilitiaRanged: false, parentPath);
+            return BuildId(
+                IsKingdom(id),
+                IsElite(id),
+                isRetinue: false,
+                isMilitiaMelee: false,
+                isMilitiaRanged: false,
+                parentPath
+            );
         }
 
         public static IEnumerable<string> GetChildrenIds(string id)
@@ -203,14 +216,16 @@ namespace Retinues.Core.Game.Helpers
                 IsKingdom(id),
                 IsElite(id),
                 isRetinue: false,
-                isMilitiaMelee: false, isMilitiaRanged: false,
+                isMilitiaMelee: false,
+                isMilitiaRanged: false,
                 path.Concat([0]).ToList()
             );
             yield return BuildId(
                 IsKingdom(id),
                 IsElite(id),
                 isRetinue: false,
-                isMilitiaMelee: false, isMilitiaRanged: false,
+                isMilitiaMelee: false,
+                isMilitiaRanged: false,
                 path.Concat([1]).ToList()
             );
         }
@@ -222,7 +237,7 @@ namespace Retinues.Core.Game.Helpers
         public static WCharacter GetParent(WCharacter node)
         {
             if (node.IsRetinue || node.IsMilitiaMelee || node.IsMilitiaRanged)
-                return null;  // leaves
+                return null; // leaves
             if (node == null)
                 return null;
             var pid = GetParentId(node.StringId);
