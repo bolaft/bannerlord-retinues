@@ -3,6 +3,7 @@ using TaleWorlds.Library;
 using Retinues.Core.Utils;
 using Retinues.Core.Persistence.Troop;
 using Retinues.Core.Persistence.Item;
+using Retinues.Core.Game;
 
 namespace Retinues.Core.Safety
 {
@@ -13,7 +14,7 @@ namespace Retinues.Core.Safety
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private bool _retUsed;
+        private bool _retUsed = false;
 
         public override void SyncData(IDataStore dataStore)
         {
@@ -36,7 +37,11 @@ namespace Retinues.Core.Safety
 
         private void OnGameLoaded(CampaignGameStarter starter)
         {
-            if (_retUsed) return; // already handled for this save
+            if (_retUsed == true)
+            {
+                Log.Debug("Backup prompt already handled for this save.");
+                return; // already handled for this save
+            }
 
             _retUsed = true;
 
@@ -81,27 +86,18 @@ namespace Retinues.Core.Safety
 
         private void CreateBackupSave()
         {
-            string backupName = $"[RetinuesBackup] {Campaign.Current.UniqueGameId}";
+            string backupName = $"[RetinuesBackup] {Player.Name} - {Player.Clan.Name}";
             Campaign.Current.SaveHandler.SaveAs(backupName);
-
-            InformationManager.DisplayMessage(
-                new InformationMessage(
-                    L.S(
-                        "backup_created",
-                        $"Backup save '{backupName}' created successfully."
-                    )
-                )
-            );
         }
 
         private void ShowFirstRunPopup()
         {
             InformationManager.ShowInquiry(
                 new InquiryData(
-                    titleText: L.S("first_run_title", "Retinues - Existing Save Detected"),
+                    titleText: L.S("first_run_title", "Retinues\nExisting Save Detected"),
                     text: L.S(
                         "first_run_text",
-                        "Welcome to Retinues!\n\nIt looks like you are using Retinues with an existing save. Since Retinues modifies troop data and introduces new troops in the game world, it is strongly recommended to create a backup of your save before proceeding. This will allow you to restore your game if anything goes wrong.\n\nWould you like to automatically create a backup now?"
+                        "Welcome to Retinues!\n\nIt looks like you are using Retinues for the first time with an existing save. Since Retinues modifies troop data and introduces new ones in the game world, it is recommended to create a backup of your save before proceeding, just in case.\n\nWould you like to automatically create a backup now?"
                     ),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,

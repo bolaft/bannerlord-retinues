@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
@@ -235,36 +236,16 @@ namespace Retinues.Core.Utils
 
             foreach (var m in type.GetMethods(flags))
             {
-                if (m.IsAbstract || m.IsConstructor)
-                    continue;
-                if (m.GetCustomAttribute<UnsafeMethodAttribute>() != null)
-                    continue;
-                if (m.IsSpecialName)
-                    continue; // accessors handled below if IncludeAccessors
+                if (m.IsSpecialName) continue;                // accessors handled below
+                if (m.GetCustomAttribute<UnsafeMethodAttribute>() != null) continue;
+                if (!IsHarmonyPatchable(m)) continue;
 
-                var overrideA = m.GetCustomAttribute<SafeMethodAttribute>();
-                if (overrideA != null)
-                {
-                    PatchOne(
-                        harmony,
-                        m,
-                        new Behavior
-                        {
-                            Fallback = overrideA.Fallback,
-                            FallbackType = overrideA.FallbackType,
-                            Swallow = overrideA.Swallow,
-                            ClassCfg = cfg,
-                        }
-                    );
-                }
-                else
-                {
-                    PatchOne(
-                        harmony,
-                        m,
-                        new Behavior { Swallow = cfg.SwallowByDefault, ClassCfg = cfg }
-                    );
-                }
+                var overrideAttr = m.GetCustomAttribute<SafeMethodAttribute>();
+                var behavior = overrideAttr != null
+                    ? new Behavior { Fallback = overrideAttr.Fallback, FallbackType = overrideAttr.FallbackType, Swallow = overrideAttr.Swallow, ClassCfg = cfg }
+                    : new Behavior { Swallow = cfg.SwallowByDefault, ClassCfg = cfg };
+
+                PatchOne(harmony, m, behavior);
             }
 
             if (!cfg.IncludeAccessors)
@@ -331,30 +312,23 @@ namespace Retinues.Core.Utils
 
         private static void PatchOne(Harmony harmony, MethodBase method, Behavior behavior)
         {
+            // already-patched guard (unchanged)
             var info = Harmony.GetPatchInfo(method);
             if (info?.Finalizers?.Any(p => p.owner == harmony.Id) == true)
                 return;
 
             _behaviorCache[method] = behavior;
 
-            HarmonyMethod fin =
+            HarmonyMethod finalizer =
                 (method is MethodInfo mi && mi.ReturnType != typeof(void))
-                    ? new HarmonyMethod(
-                        typeof(SafeMethodPatcher)
-                            .GetMethod(
-                                nameof(FinalizerGeneric),
-                                BindingFlags.Static | BindingFlags.NonPublic
-                            )!
-                            .MakeGenericMethod(mi.ReturnType)
-                    )
-                    : new HarmonyMethod(
-                        typeof(SafeMethodPatcher).GetMethod(
-                            nameof(FinalizerVoid),
-                            BindingFlags.Static | BindingFlags.NonPublic
-                        )
-                    );
+                ? new HarmonyMethod(typeof(SafeMethodPatcher).GetMethod(nameof(FinalizerGeneric), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(mi.ReturnType))
+                : new HarmonyMethod(typeof(SafeMethodPatcher).GetMethod(nameof(FinalizerVoid),    BindingFlags.Static | BindingFlags.NonPublic));
 
-            harmony.Patch(method, finalizer: fin);
+            try
+            {
+                harmony.Patch(method, finalizer: finalizer);
+            }
+            catch (Exception) { }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -601,7 +575,7 @@ namespace Retinues.Core.Utils
             {
                 var owner = method.DeclaringType?.FullName ?? "<unknown>";
                 var sig = $"{owner}.{method.Name}";
-                Log.Exception(ex, $"[Safe] {sig} threw.");
+                Log.Exception(ex, caller: sig);
             }
             catch { }
         }
@@ -615,6 +589,62 @@ namespace Retinues.Core.Utils
             catch (ReflectionTypeLoadException rtle)
             {
                 return rtle.Types.Where(t => t != null)!;
+            }
+        }
+
+        private static bool IsHarmonyPatchable(MethodBase m)
+        {
+            // No body? (abstract/interface/PInvoke) -> skip
+            if (m.IsAbstract || m.GetMethodBody() == null)
+                return false;
+
+            // Declaring type open-generic? (rare in your codebase, but be safe)
+            if (m.DeclaringType != null && m.DeclaringType.ContainsGenericParameters)
+                return false;
+
+            // Generic method definition or any generic parameters in the signature? -> skip
+            if (m is MethodInfo mi)
+            {
+                if (mi.ContainsGenericParameters) return false;
+
+                var rt = mi.ReturnType;
+                if (rt.IsGenericParameter || rt.ContainsGenericParameters) return false;
+
+                // Hard-skip byref-like patterns that Harmony/MonoMod can’t import cleanly on net472
+                if (IsByRefLikeOrUnsupported(rt)) return false;
+            }
+
+            foreach (var p in m.GetParameters())
+            {
+                var pt = p.ParameterType;
+
+                if (pt.IsGenericParameter || pt.ContainsGenericParameters)
+                    return false;
+
+                if (IsByRefLikeOrUnsupported(pt))
+                    return false;
+            }
+
+            // Optional: avoid compiler-generated state machines (iterator/async MoveNext)
+            // Harmony can patch them, but they’re noisy. Skip if you don’t need them.
+            if (m.GetCustomAttribute<CompilerGeneratedAttribute>() != null &&
+                m.Name == "MoveNext")
+                return false;
+
+            return true;
+
+            static bool IsByRefLikeOrUnsupported(Type t)
+            {
+                // Skip pointers
+                if (t.IsPointer) return true;
+
+                // Quick filters for Span<T>/ReadOnlySpan<T> on net472 where IsByRefLike isn't available
+                var n = t.IsByRef ? t.GetElementType()?.FullName : t.FullName;
+                if (n == null) return false;
+
+                return n.StartsWith("System.Span`1", StringComparison.Ordinal)
+                    || n.StartsWith("System.ReadOnlySpan`1", StringComparison.Ordinal)
+                    || n == "System.TypedReference";
             }
         }
     }
