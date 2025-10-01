@@ -175,7 +175,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                             {
                                 if (DoctrineAPI.TryAcquireDoctrine(_id, out var reason))
                                 {
-                                    Column?.Refresh(); // update bindings (Status, ButtonText, costs if you vary them post-unlock)
+                                    Column?.Refresh();
                                 }
                                 else
                                 {
