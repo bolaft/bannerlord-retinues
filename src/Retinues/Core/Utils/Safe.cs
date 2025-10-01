@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using HarmonyLib;
 
 namespace Retinues.Core.Utils
@@ -236,14 +236,24 @@ namespace Retinues.Core.Utils
 
             foreach (var m in type.GetMethods(flags))
             {
-                if (m.IsSpecialName) continue;                // accessors handled below
-                if (m.GetCustomAttribute<UnsafeMethodAttribute>() != null) continue;
-                if (!IsHarmonyPatchable(m)) continue;
+                if (m.IsSpecialName)
+                    continue; // accessors handled below
+                if (m.GetCustomAttribute<UnsafeMethodAttribute>() != null)
+                    continue;
+                if (!IsHarmonyPatchable(m))
+                    continue;
 
                 var overrideAttr = m.GetCustomAttribute<SafeMethodAttribute>();
-                var behavior = overrideAttr != null
-                    ? new Behavior { Fallback = overrideAttr.Fallback, FallbackType = overrideAttr.FallbackType, Swallow = overrideAttr.Swallow, ClassCfg = cfg }
-                    : new Behavior { Swallow = cfg.SwallowByDefault, ClassCfg = cfg };
+                var behavior =
+                    overrideAttr != null
+                        ? new Behavior
+                        {
+                            Fallback = overrideAttr.Fallback,
+                            FallbackType = overrideAttr.FallbackType,
+                            Swallow = overrideAttr.Swallow,
+                            ClassCfg = cfg,
+                        }
+                        : new Behavior { Swallow = cfg.SwallowByDefault, ClassCfg = cfg };
 
                 PatchOne(harmony, m, behavior);
             }
@@ -321,8 +331,20 @@ namespace Retinues.Core.Utils
 
             HarmonyMethod finalizer =
                 (method is MethodInfo mi && mi.ReturnType != typeof(void))
-                ? new HarmonyMethod(typeof(SafeMethodPatcher).GetMethod(nameof(FinalizerGeneric), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(mi.ReturnType))
-                : new HarmonyMethod(typeof(SafeMethodPatcher).GetMethod(nameof(FinalizerVoid),    BindingFlags.Static | BindingFlags.NonPublic));
+                    ? new HarmonyMethod(
+                        typeof(SafeMethodPatcher)
+                            .GetMethod(
+                                nameof(FinalizerGeneric),
+                                BindingFlags.Static | BindingFlags.NonPublic
+                            )!
+                            .MakeGenericMethod(mi.ReturnType)
+                    )
+                    : new HarmonyMethod(
+                        typeof(SafeMethodPatcher).GetMethod(
+                            nameof(FinalizerVoid),
+                            BindingFlags.Static | BindingFlags.NonPublic
+                        )
+                    );
 
             try
             {
@@ -605,13 +627,16 @@ namespace Retinues.Core.Utils
             // Generic method definition or any generic parameters in the signature? -> skip
             if (m is MethodInfo mi)
             {
-                if (mi.ContainsGenericParameters) return false;
+                if (mi.ContainsGenericParameters)
+                    return false;
 
                 var rt = mi.ReturnType;
-                if (rt.IsGenericParameter || rt.ContainsGenericParameters) return false;
+                if (rt.IsGenericParameter || rt.ContainsGenericParameters)
+                    return false;
 
                 // Hard-skip byref-like patterns that Harmony/MonoMod can’t import cleanly on net472
-                if (IsByRefLikeOrUnsupported(rt)) return false;
+                if (IsByRefLikeOrUnsupported(rt))
+                    return false;
             }
 
             foreach (var p in m.GetParameters())
@@ -627,8 +652,7 @@ namespace Retinues.Core.Utils
 
             // Optional: avoid compiler-generated state machines (iterator/async MoveNext)
             // Harmony can patch them, but they’re noisy. Skip if you don’t need them.
-            if (m.GetCustomAttribute<CompilerGeneratedAttribute>() != null &&
-                m.Name == "MoveNext")
+            if (m.GetCustomAttribute<CompilerGeneratedAttribute>() != null && m.Name == "MoveNext")
                 return false;
 
             return true;
@@ -636,11 +660,13 @@ namespace Retinues.Core.Utils
             static bool IsByRefLikeOrUnsupported(Type t)
             {
                 // Skip pointers
-                if (t.IsPointer) return true;
+                if (t.IsPointer)
+                    return true;
 
                 // Quick filters for Span<T>/ReadOnlySpan<T> on net472 where IsByRefLike isn't available
                 var n = t.IsByRef ? t.GetElementType()?.FullName : t.FullName;
-                if (n == null) return false;
+                if (n == null)
+                    return false;
 
                 return n.StartsWith("System.Span`1", StringComparison.Ordinal)
                     || n.StartsWith("System.ReadOnlySpan`1", StringComparison.Ordinal)
