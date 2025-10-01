@@ -10,7 +10,6 @@ using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Recruits.Patches
 {
-    // BN 1.2.x signature (ref int in the helper; ranged lane uses 1f ratio)
     [HarmonyPatch(typeof(Settlement), "AddMilitiasToParty")]
     internal static class PlayerMilitiaSpawnPatch
     {

@@ -173,17 +173,13 @@ namespace Retinues.Core.Features.Recruits
         //                        Fallback                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static CharacterObject SafeVanillaFallback(Settlement s, WCharacter like = null)
+        public static CharacterObject SafeVanillaFallback(Settlement s)
         {
             try
             {
                 // prefer settlement culture basic
                 var basic = s?.Culture?.BasicTroop;
                 if (IsValidChar(basic)) return basic;
-
-                // else volunteer/militia basics by culture
-                var m = s?.Culture?.MeleeMilitiaTroop;
-                if (IsValidChar(m)) return m;
 
                 // absolute minimum: villager of settlement culture
                 var v = s?.Culture?.Villager;
@@ -274,7 +270,7 @@ namespace Retinues.Core.Features.Recruits
                 }
 
                 // Swap onto PartyBase (properties are read-only; use same reflection approach as your sanitizer)
-                Reflector.SetPropertyValue(party.Base, "MemberRoster", dst);
+                Reflector.SetPropertyValue(party.Base.Party, "MemberRoster", dst);
 
                 Log.Debug($"TroopSwapHelper.SwapRoster: Members swapped for {party?.Name}; stacks replaced={replaced}.");
             }

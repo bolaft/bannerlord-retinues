@@ -12,7 +12,7 @@ namespace Retinues.Core.Features.Recruits.Patches
         {
             if (__result == null)
             {
-                Log.Info("CaravanSwap: Party is null, skipping.");
+                Log.Debug("CaravanSwap: Party is null, skipping.");
                 return;
             }
             TroopSwapHelper.SwapParty(__result);
@@ -26,7 +26,7 @@ namespace Retinues.Core.Features.Recruits.Patches
         {
             if (__result == null)
             {
-                Log.Info("MilitiaSwap: Party is null, skipping.");
+                Log.Debug("MilitiaSwap: Party is null, skipping.");
                 return;
             }
             TroopSwapHelper.SwapParty(__result);
@@ -40,7 +40,7 @@ namespace Retinues.Core.Features.Recruits.Patches
         {
             if (__result == null)
             {
-                Log.Info("GarrisonSwap: Party is null, skipping.");
+                Log.Debug("GarrisonSwap: Party is null, skipping.");
                 return;
             }
             TroopSwapHelper.SwapParty(__result);
