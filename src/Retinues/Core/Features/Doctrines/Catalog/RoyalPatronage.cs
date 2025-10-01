@@ -28,7 +28,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnTroopRecruited(WCharacter troop, int amount)
             {
-                if (troop.IsCustom && troop.Faction.StringId == Player.Kingdom.StringId)
+                if (troop.IsCustom && troop.Faction.StringId == Player.Kingdom?.StringId)
                     AdvanceProgress(amount);
             }
         }

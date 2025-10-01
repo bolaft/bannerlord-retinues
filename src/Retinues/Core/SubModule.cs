@@ -81,6 +81,9 @@ namespace Retinues.Core
                 cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
 
+                // Backup behavior
+                cs.AddBehavior(new BackupBehavior());
+
                 // Safety behavior
                 cs.AddBehavior(new SafetyBehavior());
 

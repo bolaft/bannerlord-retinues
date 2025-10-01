@@ -16,6 +16,8 @@ namespace Retinues.Core.Persistence.Troop
 
         private List<TroopSaveData> _troopData = [];
 
+        public bool HasTroopData => _troopData != null && _troopData.Count > 0;
+
         public override void SyncData(IDataStore dataStore)
         {
             // Persist the troops inside the native save.
