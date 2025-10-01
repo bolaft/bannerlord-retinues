@@ -204,7 +204,7 @@
       text="¡Bienvenido a Séquitos!{newline}{newline}Parece que estás usando Séquitos con una partida existente. Dado que Séquitos modifica los datos de las tropas e introduce nuevas tropas en el mundo del juego, se recomienda encarecidamente crear una copia de seguridad de tu partida antes de continuar. Esto te permitirá restaurar tu juego si algo sale mal.{newline}{newline}¿Te gustaría crear una copia de seguridad automáticamente ahora?" />
     <string
       id="ret_first_run_title"
-      text="Retinues - Guardado Existente Detectado" />
+      text="Retinues{newline}Guardado Existente Detectado" />
     <string
       id="ret_gender_header_text"
       text="Género" />

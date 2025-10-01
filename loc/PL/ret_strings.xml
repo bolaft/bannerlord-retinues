@@ -204,7 +204,7 @@
       text="Witamy w Orszaku!{newline}{newline}Wygląda na to, że używasz Orszaku z istniejącym zapisem. Ponieważ Orszak modyfikuje dane jednostek i wprowadza nowe jednostki do świata gry, zdecydowanie zaleca się utworzenie kopii zapasowej zapisu przed kontynuowaniem. Pozwoli to na przywrócenie gry, jeśli coś pójdzie nie tak.{newline}{newline}Czy chcesz teraz automatycznie utworzyć kopię zapasową?" />
     <string
       id="ret_first_run_title"
-      text="Retinues - Wykryto istniejące zapisane dane" />
+      text="Retinues{newline}Wykryto istniejące zapisane dane" />
     <string
       id="ret_gender_header_text"
       text="Płeć" />

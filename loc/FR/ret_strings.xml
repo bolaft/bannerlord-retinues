@@ -204,7 +204,7 @@
       text="Bienvenue dans Rétinues !{newline}{newline}Il semble que tu utilises Rétinues avec une sauvegarde existante. Comme Rétinues modifie les données des troupes et introduit de nouvelles troupes dans le monde du jeu, il est fortement recommandé de créer une sauvegarde de ta partie avant de continuer. Cela te permettra de restaurer ta partie si quelque chose tourne mal.{newline}{newline}Souhaites-tu créer automatiquement une sauvegarde maintenant ?" />
     <string
       id="ret_first_run_title"
-      text="Rétinues - Sauvegarde Existante Détectée" />
+      text="Rétinues{newline}Sauvegarde Existante Détectée" />
     <string
       id="ret_gender_header_text"
       text="Genre" />

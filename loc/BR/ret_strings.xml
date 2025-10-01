@@ -204,7 +204,7 @@
       text="Bem-vindo ao Séquitos!{newline}{newline}Parece que você está usando o Séquitos com um save existente. Como o Séquitos modifica os dados das tropas e introduz novas tropas no mundo do jogo, é altamente recomendável criar um backup do seu save antes de prosseguir. Isso permitirá que você restaure seu jogo se algo der errado.{newline}{newline}Você gostaria de criar um backup automaticamente agora?" />
     <string
       id="ret_first_run_title"
-      text="Retinues - Save Existente Detectado" />
+      text="Retinues{newline}Save Existente Detectado" />
     <string
       id="ret_gender_header_text"
       text="Gênero" />
