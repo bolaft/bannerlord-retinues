@@ -17,9 +17,6 @@ namespace Retinues.Core.Game.Wrappers
 
         public IFaction Base => _faction;
 
-        public IFaction Kingdom =>
-            IsClan ? null : Reflector.GetPropertyValue<Kingdom>(_faction, "Kingdom");
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

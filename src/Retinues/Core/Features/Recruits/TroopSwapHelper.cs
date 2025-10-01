@@ -238,29 +238,25 @@ namespace Retinues.Core.Features.Recruits
             try
             {
                 WParty party = new(p);
-                WFaction faction;
+                WFaction faction = null;
 
-                if (party.IsPlayerKingdomParty)
+                if (Config.GetOption<bool>("ClanTroopsOverKingdomTroops"))
                 {
-                    Log.Info(
-                        $"TroopSwapHelper: Party '{party.Name}' is a player kingdom party. Using Player.Kingdom."
-                    );
-                    faction = Player.Kingdom;
-                }
-                else if (party.IsPlayerClanParty)
-                {
-                    Log.Info(
-                        $"TroopSwapHelper: Party '{party.Name}' is a player clan party. Using Player.Clan."
-                    );
-                    faction = Player.Clan;
+                    if (party.IsPlayerClanParty)
+                        faction = Player.Clan;
+                    else if (party.IsPlayerKingdomParty)
+                        faction = Player.Kingdom;
                 }
                 else
                 {
-                    Log.Info(
-                        $"TroopSwapHelper: Party '{party.Name}' (clan: {party.Clan?.Name}, kingdom: {party.Kingdom?.Name}) is not a player faction party. Skipping swap."
-                    );
-                    return; // only swap for player factions
+                    if (party.IsPlayerKingdomParty)
+                        faction = Player.Kingdom;
+                    else if (party.IsPlayerClanParty)
+                        faction = Player.Clan;
                 }
+
+                if (faction == null)
+                    return;
 
                 Log.Info(
                     $"TroopSwapHelper: Swapping roster for party '{party.Name}' with faction '{faction?.Name ?? "NULL"}'."
