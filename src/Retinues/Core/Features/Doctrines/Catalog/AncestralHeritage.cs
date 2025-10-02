@@ -3,14 +3,15 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class AncestralHeritage : Doctrine
     {
-        public override string Name => L.S("ancestral_heritage", "Ancestral Heritage");
-        public override string Description =>
-            L.S(
+        public override TextObject Name => L.T("ancestral_heritage", "Ancestral Heritage");
+        public override TextObject Description =>
+            L.T(
                 "ancestral_heritage_description",
                 "Unlocks all items of clan and kingdom cultures."
             );
@@ -21,8 +22,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class AH_150OutnumberedOwnCulture : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "ancestral_heritage_150_outnumbered_own_culture",
                     "Win a 150+ battle while outnumbered and fielding only custom troops of your own culture."
                 );
@@ -59,8 +60,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class AH_TournamentOwnCultureTown : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "ancestral_heritage_tournament_own_culture_town",
                     "Win a tournament in a town of your own culture."
                 );
@@ -81,8 +82,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class AH_CaptureOwnCultureFief : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "ancestral_heritage_capture_own_culture_fief",
                     "Capture a fief of your own culture from an enemy kingdom."
                 );

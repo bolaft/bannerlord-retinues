@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines
 {
@@ -13,15 +14,15 @@ namespace Retinues.Core.Features.Doctrines
     public sealed class FeatDefinition
     {
         public string Key;
-        public string Description;
+        public TextObject Description;
         public int Target;
     }
 
     public sealed class DoctrineDefinition
     {
         public string Key;
-        public string Name;
-        public string Description;
+        public TextObject Name;
+        public TextObject Description;
 
         public int Column;
         public int Row;

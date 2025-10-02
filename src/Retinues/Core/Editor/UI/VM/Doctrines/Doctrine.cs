@@ -25,7 +25,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
                 _id = doctrineId;
                 _svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
                 _def = _svc?.GetDoctrine(_id);
-                _name = _def?.Name ?? _id;
+                _name = _def?.Name?.ToString() ?? _id;
 
                 Refresh();
             }
@@ -82,7 +82,7 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
         [DataSourceProperty]
         public string Description
         {
-            get { return _def?.Description ?? string.Empty; }
+            get { return _def?.Description?.ToString() ?? string.Empty; }
         }
 
         [DataSourceProperty]
