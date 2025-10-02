@@ -70,7 +70,19 @@ namespace Retinues.Core.Editor
                             UnlocksBehavior.IdsToProgress.ContainsKey(item.StringId)
                             && Config.GetOption<bool>("UnlockFromKills")
                         )
-                            items.Add((wItem, UnlocksBehavior.IdsToProgress[item.StringId])); // Items that are in progress
+                        {
+                            int progress = UnlocksBehavior.IdsToProgress[item.StringId];
+
+                            if (progress >= Config.GetOption<int>("KillsForUnlock"))
+                            {
+                                wItem.Unlock(); // Unlock now if necessary
+                                items.Add((wItem, null));
+                            }
+                            else
+                            {
+                                items.Add((wItem, progress)); // Items that are in progress
+                            }
+                        }
                     }
                 }
                 catch (Exception e)
