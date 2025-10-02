@@ -506,6 +506,18 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="所有部隊共享同一個經驗池。" />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="等級上限 {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="等級 {TIER} 部隊的最高技能水平。" />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="等級 {TIER} 技能總數" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="等級 {TIER} 部隊可用的總技能點數。" />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="技能經驗每點消耗" />
     <string
@@ -547,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="隨從" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="技能上限" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="技能總數" />
     <string
       id="ret_mcm_section_skills"
       text="技能" />

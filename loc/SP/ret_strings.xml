@@ -506,6 +506,18 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="Todas las tropas comparten la misma reserva de XP." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Tope de Nivel {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="El nivel máximo de habilidad para las tropas de nivel {TIER}." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Total de Habilidades del Nivel {TIER}" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="El total de puntos de habilidad disponibles para las tropas de nivel {TIER}." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Costo de Exp de Habilidad por Punto" />
     <string
@@ -547,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Séquitos" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Topes de Habilidad" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Totales de Habilidad" />
     <string
       id="ret_mcm_section_skills"
       text="Habilidades" />

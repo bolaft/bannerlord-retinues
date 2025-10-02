@@ -20,14 +20,14 @@ namespace Retinues.Core.Editor
         {
             int cap = troop.Tier switch
             {
-                0 => 20,
-                1 => 20,
-                2 => 50,
-                3 => 80,
-                4 => 120,
-                5 => 160,
-                6 => 260,
-                _ => 260, // Higher tiers for retinues
+                0 => Config.GetOption<int>("SkillCapTier0"), // was 10
+                1 => Config.GetOption<int>("SkillCapTier1"), // was 20
+                2 => Config.GetOption<int>("SkillCapTier2"), // was 40
+                3 => Config.GetOption<int>("SkillCapTier3"), // was 80
+                4 => Config.GetOption<int>("SkillCapTier4"), // was 120
+                5 => Config.GetOption<int>("SkillCapTier5"), // was 180
+                6 => Config.GetOption<int>("SkillCapTier6"), // was 220
+                _ => Config.GetOption<int>("SkillCapTier7Plus"), // was 260
             };
 
             if (troop.IsMilitia && troop.IsElite)
@@ -43,14 +43,14 @@ namespace Retinues.Core.Editor
         {
             int total = troop.Tier switch
             {
-                0 => 90,
-                1 => 90,
-                2 => 210,
-                3 => 360,
-                4 => 535,
-                5 => 710,
-                6 => 915,
-                _ => 915, // Higher tiers for retinues
+                0 => Config.GetOption<int>("SkillTotalTier0"), // was 90
+                1 => Config.GetOption<int>("SkillTotalTier1"), // was 120
+                2 => Config.GetOption<int>("SkillTotalTier2"), // was 180
+                3 => Config.GetOption<int>("SkillTotalTier3"), // was 360
+                4 => Config.GetOption<int>("SkillTotalTier4"), // was 510
+                5 => Config.GetOption<int>("SkillTotalTier5"), // was 750
+                6 => Config.GetOption<int>("SkillTotalTier6"), // was 900
+                _ => Config.GetOption<int>("SkillTotalTier7Plus"), // was 1500
             };
 
             if (troop.IsMilitia)

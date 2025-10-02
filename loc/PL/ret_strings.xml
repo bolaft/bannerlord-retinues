@@ -506,6 +506,18 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="Wszystkie oddziały dzielą ten sam zasób XP." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Limit Poziomu {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Maksymalny poziom umiejętności dla jednostek poziomu {TIER}." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Łączna Liczba Umiejętności Poziomu {TIER}" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Łączna liczba dostępnych punktów umiejętności dla jednostek poziomu {TIER}." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Koszt PD na Punkt Umiejętności" />
     <string
@@ -547,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Orszak" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Limity Umiejętności" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Łączna Liczba Umiejętności" />
     <string
       id="ret_mcm_section_skills"
       text="Umiejętności" />

@@ -506,6 +506,18 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="Tüm birlikler aynı XP havuzunu paylaşır." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="{TIER} Seviye Limiti" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="{TIER} seviye askerler için maksimum beceri seviyesi." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="{TIER} Seviye Toplam Becerisi" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="{TIER} seviye askerler için toplam kullanılabilir beceri puanı." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Beceri Puanı Başına XP Maliyeti" />
     <string
@@ -547,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Yandaşlar" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Beceri Limitleri" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Toplam Beceriler" />
     <string
       id="ret_mcm_section_skills"
       text="Beceriler" />
