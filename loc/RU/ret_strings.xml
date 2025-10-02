@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Масштабируемая стоимость опыта за каждое очко навыка." />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Менять Добровольцев только на соответствующую культуру" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Добровольцы в поселениях другой культуры не будут заменены на собственные войска." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Разблокировать по Культуре" />
     <string

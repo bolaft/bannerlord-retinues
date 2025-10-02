@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Custo de XP escalável para cada ponto de aumento de habilidade." />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Trocar Voluntários Apenas pela Cultura Correta" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Voluntários em assentamentos de uma cultura diferente não serão substituídos por tropas personalizadas." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Desbloquear pela Cultura" />
     <string

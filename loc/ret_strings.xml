@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Scalable XP cost for each point of skill increase." />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Swap Volunteers Only For Correct Culture" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Volunteers in settlements of a different culture will not be replaced by custom troops." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Unlock From Culture" />
     <string

@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="提升每点技能所需的可变经验消耗。" />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="仅为正确文化更换志愿者" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="不同文化定居点的志愿者将不会被自定义部队替换。" />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="从文化解锁" />
     <string

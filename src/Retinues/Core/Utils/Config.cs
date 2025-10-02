@@ -131,6 +131,21 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_recruitment", "Recruitment"),
                 name: L.S(
+                    "mcm_option_swap_only_for_correct_culture",
+                    "Swap Volunteers Only For Correct Culture"
+                ),
+                key: "SwapOnlyForCorrectCulture",
+                hint: L.S(
+                    "mcm_option_swap_only_for_correct_culture_hint",
+                    "Volunteers in settlements of a different culture will not be replaced by custom troops."
+                ),
+                @default: false,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_recruitment", "Recruitment"),
+                name: L.S(
                     "mcm_option_clan_troops_over_kingdom_troops",
                     "Clan Troops Over Kingdom Troops"
                 ),

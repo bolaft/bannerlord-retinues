@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Skalierende EP-Kosten pro Fertigkeitspunkt." />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Freiwillige nur für die richtige Kultur austauschen" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Freiwillige in Siedlungen einer anderen Kultur werden nicht durch Custom-Truppen ersetzt." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Von Kultur freischalten" />
     <string

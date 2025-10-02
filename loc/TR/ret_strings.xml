@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Her beceri artışı için ölçeklenebilir XP maliyeti." />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Yalnızca Doğru Kültür İçin Gönüllü Değiştir" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Farklı kültürdeki yerleşimlerdeki gönüllüler, özel birliklerle değiştirilmez." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Kültürden Aç" />
     <string

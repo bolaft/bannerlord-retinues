@@ -81,6 +81,10 @@ namespace Retinues.Core.Features.Recruits.Patches
 
         private static bool SwapVolunteers(Settlement settlement, WFaction faction)
         {
+            if (Config.GetOption<bool>("SwapOnlyForCorrectCulture"))
+                if (settlement.Culture?.StringId != faction.Culture?.StringId)
+                    return false;
+
             if (settlement?.Notables == null || settlement.Notables.Count == 0)
                 return false;
             if ((faction?.EliteTroops?.Count ?? 0) == 0 && (faction?.BasicTroops?.Count ?? 0) == 0)
