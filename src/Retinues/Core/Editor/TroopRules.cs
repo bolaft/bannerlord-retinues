@@ -32,6 +32,8 @@ namespace Retinues.Core.Editor
 
             if (troop.IsMilitia && troop.IsElite)
                 cap += 20; // +20 cap for elite militia
+            else if (troop.IsRetinue)
+                cap += 5; // +5 cap for retinues
 
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                 cap += 5; // +5 skill cap with Iron Discipline
