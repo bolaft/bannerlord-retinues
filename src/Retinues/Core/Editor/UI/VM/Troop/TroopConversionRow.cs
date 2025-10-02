@@ -30,11 +30,20 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceProperty]
-        public string FromDisplay => $"{_from?.Name} ({FromAvailableVirtual})";
+        public string CappedName(WCharacter troop)
+        {
+            var name = troop?.Name;
+            if (string.IsNullOrEmpty(name)) return name;
+            if (name.Length > 40)
+                return name.Substring(0, 40) + "(...)";
+            return name;
+        }
 
         [DataSourceProperty]
-        public string ToDisplay => $"{_to?.Name} ({ToAvailableVirtual}/{_editor.RetinueCap})";
+        public string FromDisplay => $"{CappedName(_from)} ({FromAvailableVirtual})";
+
+        [DataSourceProperty]
+        public string ToDisplay => $"{CappedName(_to)} ({ToAvailableVirtual}/{_editor.RetinueCap})";
 
         [DataSourceProperty]
         public bool CanRecruit => _editor.GetMaxStageable(_from, _to) > 0;

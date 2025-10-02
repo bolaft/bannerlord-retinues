@@ -73,7 +73,17 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
-        public string Name => SelectedTroop?.Name;
+        public string Name
+        {
+            get
+            {
+                var name = SelectedTroop?.Name;
+                if (string.IsNullOrEmpty(name)) return name;
+                if (name.Length > 40)
+                    return name.Substring(0, 40) + "(...)";
+                return name;
+            }
+        }
 
         [DataSourceProperty]
         public string Gender =>
