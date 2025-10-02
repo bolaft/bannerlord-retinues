@@ -2,13 +2,14 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class Vanguard : Doctrine
     {
-        public override string Name => L.S("vanguard", "Vanguard");
-        public override string Description => L.S("vanguard_description", "+15% retinue cap.");
+        public override TextObject Name => L.T("vanguard", "Vanguard");
+        public override TextObject Description => L.T("vanguard_description", "+15% retinue cap.");
         public override int Column => 3;
         public override int Row => 2;
 
@@ -16,8 +17,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class VG_ClearHideoutRetinueOnly : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "vanguard_clear_hideout_retinue_only",
                     "Clear a hideout using only your retinue."
                 );
@@ -53,8 +54,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class VG_Win100RetinueOnly : Feat
         {
-            public override string Description =>
-                L.S("vanguard_win_100_retinue_only", "Win a 100+ battle using only your retinue.");
+            public override TextObject Description =>
+                L.T("vanguard_win_100_retinue_only", "Win a 100+ battle using only your retinue.");
             public override int Target => 1;
 
             public override void OnBattleEnd(Battle battle)
@@ -76,8 +77,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class VG_FirstMeleeKillInSiege : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "vanguard_first_melee_kill_in_siege",
                     "Have a retinue get the first melee kill in a siege assault."
                 );

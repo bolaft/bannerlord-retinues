@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Model
 {
@@ -10,8 +11,8 @@ namespace Retinues.Core.Features.Doctrines.Model
         //                        Metadata                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public abstract string Name { get; }
-        public abstract string Description { get; }
+        public abstract TextObject Name { get; }
+        public abstract TextObject Description { get; }
         public virtual int Column => 0; // 0..3
         public virtual int Row => 0; // 0..3
         public int GoldCost

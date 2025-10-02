@@ -2,14 +2,15 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class CulturalPride : Doctrine
     {
-        public override string Name => L.S("cultural_pride", "Cultural Pride");
-        public override string Description =>
-            L.S("cultural_pride_description", "10% rebate on items of the troop's culture.");
+        public override TextObject Name => L.T("cultural_pride", "Cultural Pride");
+        public override TextObject Description =>
+            L.T("cultural_pride_description", "10% rebate on items of the troop's culture.");
         public override int Column => 1;
         public override int Row => 0;
 
@@ -17,8 +18,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class CP_TournamentOwnCultureGear : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "cultural_pride_tournament_own_culture_gear",
                     "Win a tournament wearing only armor of your own culture."
                 );
@@ -50,8 +51,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class CP_FullSet100Kills : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "cultural_pride_full_set_100_kills",
                     "Get 100 kills in battle with troops wearing no foreign gear."
                 );
@@ -91,8 +92,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class CP_DefeatForeignRuler : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "cultural_pride_defeat_foreign_ruler",
                     "Defeat a ruler of a different culture in battle."
                 );

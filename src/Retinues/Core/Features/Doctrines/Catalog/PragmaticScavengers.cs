@@ -3,14 +3,15 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class PragmaticScavengers : Doctrine
     {
-        public override string Name => L.S("pragmatic_scavengers", "Pragmatic Scavengers");
-        public override string Description =>
-            L.S(
+        public override TextObject Name => L.T("pragmatic_scavengers", "Pragmatic Scavengers");
+        public override TextObject Description =>
+            L.T(
                 "pragmatic_scavengers_description",
                 "Can unlock items from allied party casualties."
             );
@@ -21,8 +22,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class PS_Allies100Casualties : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "pragmatic_scavengers_defense_allies_100",
                     "Win a battle in which allies suffer over 100 casualties."
                 );
@@ -47,8 +48,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class PS_AllyArmyWin3 : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "pragmatic_scavengers_army_win_allies_50",
                     "Win three battles in a row while part of an allied lord's army."
                 );
@@ -67,8 +68,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class PS_RescueLord : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "pragmatic_scavengers_rescue_lord",
                     "Rescue a defeated lord from a enemy party's prisoner train."
                 );

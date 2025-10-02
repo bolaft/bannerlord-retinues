@@ -2,14 +2,15 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class BattlefieldTithes : Doctrine
     {
-        public override string Name => L.S("battlefield_tithes", "Battlefield Tithes");
-        public override string Description =>
-            L.S("battlefield_tithes_description", "Can unlock items from allied party kills.");
+        public override TextObject Name => L.T("battlefield_tithes", "Battlefield Tithes");
+        public override TextObject Description =>
+            L.T("battlefield_tithes_description", "Can unlock items from allied party kills.");
         public override int Column => 0;
         public override int Row => 1;
 
@@ -17,8 +18,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class BT_QuestForAlliedLord : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "battlefield_tithes_quest_for_allied_lord",
                     "Complete 5 quests for allied lords."
                 );
@@ -41,8 +42,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class BT_LeadArmyVictory : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "battlefield_tithes_lead_army_victory",
                     "Lead an army of mostly allied troops to victory against an enemy army."
                 );
@@ -67,8 +68,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class BT_TurnTideAlliedArmyBattle : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "battlefield_tithes_turn_tide_allied_army_battle",
                     "Turn the tide of a battle involving an allied army."
                 );

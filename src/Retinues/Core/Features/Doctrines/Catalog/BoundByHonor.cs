@@ -3,14 +3,15 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class BoundByHonor : Doctrine
     {
-        public override string Name => L.S("bound_by_honor", "Bound by Honor");
-        public override string Description =>
-            L.S("bound_by_honor_description", "+20% retinue morale.");
+        public override TextObject Name => L.T("bound_by_honor", "Bound by Honor");
+        public override TextObject Description =>
+            L.T("bound_by_honor_description", "+20% retinue morale.");
         public override int Column => 3;
         public override int Row => 1;
 
@@ -18,8 +19,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class BBH_ProtectVillagersOrCaravans : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "bound_by_honor_protect_villagers_or_caravans",
                     "Save 3 caravans or villager parties from enemy attacks."
                 );
@@ -40,8 +41,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class BBH_RetinueOnlyMorale90For15Days : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "bound_by_honor_retinue_only_morale_90_for_15_days",
                     "Maintain a retinue-only party's morale above 90 for 15 days."
                 );
@@ -60,8 +61,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class BBH_Defeat10Bandits : Feat
         {
-            public override string Description =>
-                L.S("bound_by_honor_defeat_10_bandits", "Get rid of 10 bandit parties.");
+            public override TextObject Description =>
+                L.T("bound_by_honor_defeat_10_bandits", "Get rid of 10 bandit parties.");
             public override int Target => 10;
 
             public override void OnBattleEnd(Battle battle)

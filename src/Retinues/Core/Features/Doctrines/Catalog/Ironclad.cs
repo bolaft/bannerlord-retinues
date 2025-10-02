@@ -3,14 +3,15 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class Ironclad : Doctrine
     {
-        public override string Name => L.S("ironclad", "Ironclad");
-        public override string Description =>
-            L.S("ironclad_description", "No tier restriction for arms and armor.");
+        public override TextObject Name => L.T("ironclad", "Ironclad");
+        public override TextObject Description =>
+            L.T("ironclad_description", "No tier restriction for arms and armor.");
         public override int Column => 1;
         public override int Row => 3;
 
@@ -18,8 +19,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class IC_FullSetT6100Kills : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "ironclad_full_set_t6_100_kills",
                     "Get 100 kills in battle with troops wearing a tier 6 armor and helmet."
                 );
@@ -52,8 +53,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class IC_12TroopsAthletics90 : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "ironclad_12_troops_athletics_90",
                     "Have 12 custom troops reach 90 in Athletics skill."
                 );
@@ -73,8 +74,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class IC_100BattleOutnumberedLowTier : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "ironclad_100_battle_outnumbered_low_tier",
                     "Win a 100+ battle, while outnumbered, and fielding only custom troops of tier 1, 2, or 3."
                 );
