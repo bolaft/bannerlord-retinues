@@ -15,8 +15,6 @@ public static class RetinueSources
 
     public static List<WCharacter> GetRetinueSourceTroops(WCharacter retinue)
     {
-        Log.Debug($"RetinueSources: get sources for {retinue?.Name}.");
-
         var sources = new List<WCharacter>(2);
 
         if (retinue is null || !retinue.IsRetinue)
@@ -54,9 +52,8 @@ public static class RetinueSources
 
     private static WCharacter PickBestFromTree(WCharacter root, WCharacter retinue, WCharacter exclude = null)
     {
-        Log.Info($"RetinueSources: picking best from '{root?.Name}' tree for {retinue?.Name}.");
         if (!IsValid(root)) return null;
-        Log.Info("RetinueSources: root is valid.");
+
         // Hard filter by Tier & IsElite first
         var candidates = root.Tree?
             .Where(t => IsValid(t)
@@ -74,7 +71,6 @@ public static class RetinueSources
             .ThenBy(x => x.Troop.StringId, StringComparer.Ordinal)
             .First().Troop;
 
-        Log.Debug($"RetinueSources: best from '{root?.Name}' tree => {best?.Name}");
         return best;
     }
 
