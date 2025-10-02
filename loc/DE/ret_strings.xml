@@ -506,6 +506,18 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="Alle Truppen teilen sich denselben EP-Pool." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Stufe {TIER} Limit" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Das maximale Fähigkeitsniveau für Stufe {TIER} Truppen." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Stufe {TIER} Gesamtfertigkeiten" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Die insgesamt verfügbaren Fertigkeitspunkte für Stufe {TIER} Truppen." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="EP-Kosten pro Fertigkeitspunkt" />
     <string
@@ -547,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Gefolgschaften" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Fertigkeiten-Limits" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Gesamtfertigkeiten" />
     <string
       id="ret_mcm_section_skills"
       text="Fertigkeiten" />

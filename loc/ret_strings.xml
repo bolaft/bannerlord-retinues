@@ -506,6 +506,18 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="All troops share the same XP pool." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Tier {TIER} Cap" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="The maximum skill level for tier {TIER} troops." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Tier {TIER} Skill Total" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="The total available skill points for tier {TIER} troops." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Skill XP Cost Per Point" />
     <string
@@ -547,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Skill Caps" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Skill Totals" />
     <string
       id="ret_mcm_section_skills"
       text="Skills" />
