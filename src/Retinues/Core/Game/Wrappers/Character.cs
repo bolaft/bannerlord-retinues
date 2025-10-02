@@ -279,6 +279,12 @@ namespace Retinues.Core.Game.Wrappers
                     // Ensure IsBattle
                     Reflector.SetFieldValue(eq, "_equipmentType", TaleWorlds.Core.Equipment.EquipmentType.Battle);
                 }
+
+                // Add a civilian equipment identical to the first battle one
+                var civilian = new Equipment(equipments[0]);
+                Reflector.SetFieldValue(civilian, "_equipmentType", TaleWorlds.Core.Equipment.EquipmentType.Civilian);
+                equipments.Add(civilian);
+
                 MBEquipmentRoster roster = Reflector.GetFieldValue<MBEquipmentRoster>(Base, "_equipmentRoster");
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(equipments));
                 Reflector.SetFieldValue(Base, "_equipmentRoster", roster);
@@ -294,6 +300,12 @@ namespace Retinues.Core.Game.Wrappers
                     ? new WEquipment(new Equipment(TaleWorlds.Core.Equipment.EquipmentType.Battle))
                     : Equipments[0];
             }
+        }
+
+        public void UpdateCivilianEquipment()
+        {
+            // Setter will recreate civilian equipment identical to the first battle one
+            Equipments = [.. Equipments.Take(Equipments.Count - 1)];
         }
 
         public bool CanEquip(WItem item)
@@ -321,6 +333,9 @@ namespace Retinues.Core.Game.Wrappers
                 foreach (var child in UpgradeTargets)
                     child.ResetUpgradeRequiresItemFromCategory();
             }
+
+            // Update civilian equipment to match the new battle equipment
+            UpdateCivilianEquipment();
         }
 
         public WItem Unequip(EquipmentIndex slot, bool resetFormation = true)
