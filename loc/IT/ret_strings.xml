@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Costo PE scalabile per ogni punto di abilità aggiuntivo." />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Scambia Volontari Solo per la Cultura Corretta" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="I volontari negli insediamenti di una cultura diversa non saranno sostituiti da truppe personalizzate." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Sblocco da Cultura" />
     <string

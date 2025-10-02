@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="スキル上昇ごとのスケーラブルXPコスト。" />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="正しい文化の志願者のみ交換" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="異なる文化の集落にいる志願者はカスタム兵に置き換えられません。" />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="文化から解除" />
     <string

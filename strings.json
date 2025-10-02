@@ -2704,6 +2704,38 @@
     "TR": "Her beceri artışı için ölçeklenebilir XP maliyeti."
   },
   {
+    "id": "ret_mcm_option_swap_only_for_correct_culture",
+    "default": "Swap Volunteers Only For Correct Culture",
+    "BR": "Trocar Voluntários Apenas pela Cultura Correta",
+    "CNs": "仅为正确文化更换志愿者",
+    "CNt": "僅為正確文化更換志願者",
+    "DE": "Freiwillige nur für die richtige Kultur austauschen",
+    "FR": "Volontaires remplacés uniquement si même Culture",
+    "IT": "Scambia Volontari Solo per la Cultura Corretta",
+    "JP": "正しい文化の志願者のみ交換",
+    "KO": "올바른 문화의 자원봉사자만 교체",
+    "PL": "Zamieniaj Ochotników Tylko na Właściwą Kulturę",
+    "RU": "Менять Добровольцев только на соответствующую культуру",
+    "SP": "Cambiar Voluntarios Solo por la Cultura Correcta",
+    "TR": "Yalnızca Doğru Kültür İçin Gönüllü Değiştir"
+  },
+  {
+    "id": "ret_mcm_option_swap_only_for_correct_culture_hint",
+    "default": "Volunteers in settlements of a different culture will not be replaced by custom troops.",
+    "BR": "Voluntários em assentamentos de uma cultura diferente não serão substituídos por tropas personalizadas.",
+    "CNs": "不同文化定居点的志愿者将不会被自定义部队替换。",
+    "CNt": "不同文化定居點的志願者將不會被自定義部隊替換。",
+    "DE": "Freiwillige in Siedlungen einer anderen Kultur werden nicht durch Custom-Truppen ersetzt.",
+    "FR": "Les volontaires dans les villes ou villages d’une culture différente ne seront pas remplacés par des troupes personnalisées.",
+    "IT": "I volontari negli insediamenti di una cultura diversa non saranno sostituiti da truppe personalizzate.",
+    "JP": "異なる文化の集落にいる志願者はカスタム兵に置き換えられません。",
+    "KO": "다른 문화의 정착지에 있는 자원봉사자는 커스텀 병력으로 교체되지 않습니다.",
+    "PL": "Ochotnicy w osadach o innej kulturze nie będą zastępowani przez jednostki niestandardowe.",
+    "RU": "Добровольцы в поселениях другой культуры не будут заменены на собственные войска.",
+    "SP": "Los voluntarios en asentamientos de una cultura diferente no serán reemplazados por tropas personalizadas.",
+    "TR": "Farklı kültürdeki yerleşimlerdeki gönüllüler, özel birliklerle değiştirilmez."
+  },
+  {
     "id": "ret_mcm_option_unlock_from_culture",
     "default": "Unlock From Culture",
     "BR": "Desbloquear pela Cultura",

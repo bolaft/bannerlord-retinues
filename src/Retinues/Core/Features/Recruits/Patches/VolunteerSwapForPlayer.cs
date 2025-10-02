@@ -65,49 +65,53 @@ internal static class VolunteerSwapForPlayerSession
 
         _settlement = s;
 
+        if (Config.GetOption<bool>("SwapOnlyForCorrectCulture"))
+            if (s.Culture?.StringId != playerClan.Culture?.StringId)
+                return;
+
         foreach (var notable in s.Notables)
-        {
-            try
             {
-                var arr = notable?.VolunteerTypes;
-                if (arr == null)
-                    continue;
-
-                _backup[notable] = (CharacterObject[])arr.Clone();
-
-                for (int i = 0; i < arr.Length; i++)
+                try
                 {
-                    var vanilla = arr[i];
+                    var arr = notable?.VolunteerTypes;
+                    if (arr == null)
+                        continue;
 
-                    // sanitize corrupt slots first
-                    if (TroopSwapHelper.LooksCorrupt(vanilla))
+                    _backup[notable] = (CharacterObject[])arr.Clone();
+
+                    for (int i = 0; i < arr.Length; i++)
                     {
-                        var safe = TroopSwapHelper.SafeVanillaFallback(s);
-                        if (TroopSwapHelper.IsValidChar(safe))
-                            arr[i] = safe;
-                        vanilla = safe;
+                        var vanilla = arr[i];
+
+                        // sanitize corrupt slots first
+                        if (TroopSwapHelper.LooksCorrupt(vanilla))
+                        {
+                            var safe = TroopSwapHelper.SafeVanillaFallback(s);
+                            if (TroopSwapHelper.IsValidChar(safe))
+                                arr[i] = safe;
+                            vanilla = safe;
+                        }
+
+                        var w = new WCharacter(vanilla);
+                        if (!TroopSwapHelper.IsValid(w))
+                            continue;
+                        if (TroopSwapHelper.IsFactionTroop(playerClan, w))
+                            continue;
+
+                        var root = TroopSwapHelper.GetFactionRootFor(w, playerClan);
+                        if (!TroopSwapHelper.IsValid(root))
+                            continue;
+
+                        var repl = TroopSwapHelper.MatchTier(root, w.Tier);
+                        if (TroopSwapHelper.IsValid(repl))
+                            arr[i] = repl.Base;
                     }
-
-                    var w = new WCharacter(vanilla);
-                    if (!TroopSwapHelper.IsValid(w))
-                        continue;
-                    if (TroopSwapHelper.IsFactionTroop(playerClan, w))
-                        continue;
-
-                    var root = TroopSwapHelper.GetFactionRootFor(w, playerClan);
-                    if (!TroopSwapHelper.IsValid(root))
-                        continue;
-
-                    var repl = TroopSwapHelper.MatchTier(root, w.Tier);
-                    if (TroopSwapHelper.IsValid(repl))
-                        arr[i] = repl.Base;
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e, $"VolunteerSwapForPlayer: notable {notable?.Name} in {s?.Name}");
                 }
             }
-            catch (Exception e)
-            {
-                Log.Exception(e, $"VolunteerSwapForPlayer: notable {notable?.Name} in {s?.Name}");
-            }
-        }
 
         Log.Debug($"VolunteerSwapForPlayer: temporary swap applied at {s.Name}.");
     }

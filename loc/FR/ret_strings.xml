@@ -512,6 +512,12 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Coût en XP évolutif pour chaque point de compétence supplémentaire." />
     <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Volontaires remplacés uniquement si même Culture" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Les volontaires dans les villes ou villages d’une culture différente ne seront pas remplacés par des troupes personnalisées." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Débloquer par Culture" />
     <string
