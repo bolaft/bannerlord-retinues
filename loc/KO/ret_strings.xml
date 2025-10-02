@@ -506,11 +506,29 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="모든 부대가 동일한 경험치 풀을 공유합니다." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="등급 {TIER} 상한" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="{TIER} 등급 병력의 최대 스킬 레벨." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="{TIER} 등급 스킬 총합" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="{TIER} 등급 병력의 사용 가능한 총 스킬 포인트." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="스킬 포인트당 경험치 비용" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="스킬 증가 시 포인트당 경험치 비용." />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="올바른 문화의 자원봉사자만 교체" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="다른 문화의 정착지에 있는 자원봉사자는 커스텀 병력으로 교체되지 않습니다." />
     <string
       id="ret_mcm_option_unlock_from_culture"
       text="문화에서 해제" />
@@ -541,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="수행원" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="스킬 상한" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="스킬 총합" />
     <string
       id="ret_mcm_section_skills"
       text="기술" />

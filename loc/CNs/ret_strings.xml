@@ -506,11 +506,29 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="所有部队共享同一个经验池。" />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="等级上限 {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="等级 {TIER} 部队的最高技能水平。" />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="等级 {TIER} 技能总数" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="等级 {TIER} 部队可用的总技能点数。" />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="技能经验每点消耗" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="提升每点技能所需的可变经验消耗。" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="仅为正确文化更换志愿者" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="不同文化定居点的志愿者将不会被自定义部队替换。" />
     <string
       id="ret_mcm_option_unlock_from_culture"
       text="从文化解锁" />
@@ -541,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="随从" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="技能上限" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="技能总数" />
     <string
       id="ret_mcm_section_skills"
       text="技能" />

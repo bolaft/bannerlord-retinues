@@ -506,11 +506,29 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="Toutes les troupes partagent la même réserve d&apos;XP." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Plafond de Compétence {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Le niveau de compétence maximum pour les troupes de rang {TIER}." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Total de Compétences pour le Rang {TIER}" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Le total des points de compétence disponibles pour les troupes de rang {TIER}." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Coût en XP par Point de Compétence" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Coût en XP évolutif pour chaque point de compétence supplémentaire." />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Volontaires remplacés uniquement si même Culture" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Les volontaires dans les villes ou villages d’une culture différente ne seront pas remplacés par des troupes personnalisées." />
     <string
       id="ret_mcm_option_unlock_from_culture"
       text="Débloquer par Culture" />
@@ -541,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Rétinues" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Plafonds de Compétence" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Totaux de Compétence" />
     <string
       id="ret_mcm_section_skills"
       text="Compétences" />

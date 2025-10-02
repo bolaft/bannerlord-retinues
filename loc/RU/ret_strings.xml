@@ -506,11 +506,29 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="Все войска используют один общий пул опыта." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Макс. {TIER} Ранг" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Максимальный уровень навыков для войск {TIER} ранга." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Общее Количество Навыков {TIER} Ранга" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Общее количество доступных очков навыков для войск {TIER} ранга." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Стоимость Опыта за Очко Навыка" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Масштабируемая стоимость опыта за каждое очко навыка." />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Менять Добровольцев только на соответствующую культуру" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Добровольцы в поселениях другой культуры не будут заменены на собственные войска." />
     <string
       id="ret_mcm_option_unlock_from_culture"
       text="Разблокировать по Культуре" />
@@ -541,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Свита" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Максимумы Навыков" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Общее Количество Навыков" />
     <string
       id="ret_mcm_section_skills"
       text="Навыки" />

@@ -73,7 +73,17 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
-        public string Name => SelectedTroop?.Name;
+        public string Name
+        {
+            get
+            {
+                var name = SelectedTroop?.Name;
+                if (string.IsNullOrEmpty(name)) return name;
+                if (name.Length > 40)
+                    return name.Substring(0, 40) + "(...)";
+                return name;
+            }
+        }
 
         [DataSourceProperty]
         public string Gender =>
@@ -612,7 +622,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (SelectedTroop.IsRetinue)
             {
                 // From regulars in party → this retinue
-                foreach (var troop in TroopManager.GetRetinueSourceTroops(SelectedTroop))
+                foreach (var troop in RetinueSources.GetRetinueSourceTroops(SelectedTroop))
                     _conversionRows.Add(new TroopConversionRowVM(troop, SelectedTroop, this));
             }
         }

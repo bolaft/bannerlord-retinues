@@ -506,11 +506,29 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="Todas las tropas comparten la misma reserva de XP." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Tope de Nivel {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="El nivel máximo de habilidad para las tropas de nivel {TIER}." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Total de Habilidades del Nivel {TIER}" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="El total de puntos de habilidad disponibles para las tropas de nivel {TIER}." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="Costo de Exp de Habilidad por Punto" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Costo escalable de experiencia por cada punto de habilidad." />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="Cambiar Voluntarios Solo por la Cultura Correcta" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="Los voluntarios en asentamientos de una cultura diferente no serán reemplazados por tropas personalizadas." />
     <string
       id="ret_mcm_option_unlock_from_culture"
       text="Desbloquear por Cultura" />
@@ -541,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="Séquitos" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Topes de Habilidad" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Totales de Habilidad" />
     <string
       id="ret_mcm_section_skills"
       text="Habilidades" />

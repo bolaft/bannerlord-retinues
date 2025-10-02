@@ -7,6 +7,7 @@ using Retinues.Core.Features.Doctrines.Effects;
 using Retinues.Core.Features.Recruits.Behaviors;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
+using Retinues.Core.Features.Retinues.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
@@ -87,6 +88,9 @@ namespace Retinues.Core
 
                 // Safety behavior
                 cs.AddBehavior(new SafetyBehavior());
+
+                // Retinue buff behavior
+                cs.AddBehavior(new RetinueBuffBehavior());
 
                 // Volunteer swap behavior
                 cs.AddBehavior(new VolunteerSwapBehavior());

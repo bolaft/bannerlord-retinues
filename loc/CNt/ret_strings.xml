@@ -506,11 +506,29 @@
       id="ret_mcm_option_shared_xp_pool_hint"
       text="所有部隊共享同一個經驗池。" />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="等級上限 {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="等級 {TIER} 部隊的最高技能水平。" />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="等級 {TIER} 技能總數" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="等級 {TIER} 部隊可用的總技能點數。" />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
       text="技能經驗每點消耗" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="提升每點技能所需的可變經驗消耗。" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture"
+      text="僅為正確文化更換志願者" />
+    <string
+      id="ret_mcm_option_swap_only_for_correct_culture_hint"
+      text="不同文化定居點的志願者將不會被自定義部隊替換。" />
     <string
       id="ret_mcm_option_unlock_from_culture"
       text="從文化解鎖" />
@@ -541,6 +559,12 @@
     <string
       id="ret_mcm_section_retinues"
       text="隨從" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="技能上限" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="技能總數" />
     <string
       id="ret_mcm_section_skills"
       text="技能" />
