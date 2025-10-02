@@ -311,6 +311,16 @@ namespace Retinues.Core.Game.Wrappers
 
             // Force recalculation of formation class based on equipment
             ResetFormationClass();
+
+            if (slot == EquipmentIndex.Horse)
+            {
+                // Horse change may affect upgrade requirements
+                ResetUpgradeRequiresItemFromCategory();
+
+                // Same for children, if any
+                foreach (var child in UpgradeTargets)
+                    child.ResetUpgradeRequiresItemFromCategory();
+            }
         }
 
         public WItem Unequip(EquipmentIndex slot, bool resetFormation = true)
@@ -351,6 +361,47 @@ namespace Retinues.Core.Game.Wrappers
                 return [.. raw.Select(obj => new WCharacter(obj))];
             }
             set => Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(value));
+        }
+
+        public ItemCategory UpgradeRequiresItemFromCategory
+        {
+            get
+            {
+                return Base.UpgradeRequiresItemFromCategory;
+            }
+            set
+            {
+                if (!IsCustom)
+                    return;
+
+                Reflector.SetPropertyValue(Base, "UpgradeRequiresItemFromCategory", value);
+            }
+        }
+
+        public void ResetUpgradeRequiresItemFromCategory()
+        {
+            if (!IsCustom)
+                return;
+
+            var horse = Equipment?.GetItem(EquipmentIndex.Horse);
+            if (horse == null)
+            {
+                // Target isn’t mounted, no upgrade requirement.
+                UpgradeRequiresItemFromCategory = null;
+                return;
+            }
+
+            var parentHorse = Parent?.Equipment?.GetItem(EquipmentIndex.Horse);
+
+            // Parent mounted with the same category, no upgrade requirement.
+            if (parentHorse != null && parentHorse.Category == horse.Category)
+            {
+                UpgradeRequiresItemFromCategory = null;
+                return;
+            }
+
+            // Otherwise, pay for this step (first time getting a mount or switching to war horse).
+            UpgradeRequiresItemFromCategory = horse.Category;
         }
 
         public void AddUpgradeTarget(WCharacter target)
@@ -448,6 +499,9 @@ namespace Retinues.Core.Game.Wrappers
             var freshSkills = (MBCharacterSkills)
                 Activator.CreateInstance(typeof(MBCharacterSkills), nonPublic: true);
             Reflector.SetFieldValue(_co, "DefaultCharacterSkills", freshSkills);
+
+            // Upgrade item requirement
+            ResetUpgradeRequiresItemFromCategory();
 
             // Skills
             if (keepSkills)
