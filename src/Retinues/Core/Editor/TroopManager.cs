@@ -198,69 +198,6 @@ namespace Retinues.Core.Editor
             troop.Level += 5;
         }
 
-        public static List<WCharacter> GetRetinueSourceTroops(WCharacter retinue)
-        {
-            Log.Debug($"Getting source troops for retinue {retinue?.Name}.");
-
-            List<WCharacter> sources = [];
-
-            WCharacter cultureRoot;
-            WCharacter factionRoot;
-
-            if (retinue.StringId == retinue.Faction?.RetinueElite.StringId)
-            {
-                cultureRoot = retinue.Culture?.RootElite;
-                factionRoot = retinue.Faction?.RootElite;
-            }
-            else if (retinue.StringId == retinue.Faction?.RetinueBasic.StringId)
-            {
-                cultureRoot = retinue.Culture?.RootBasic;
-                factionRoot = retinue.Faction?.RootBasic;
-            }
-            else
-            {
-                Log.Warn($"Troop {retinue.StringId} is not a retinue troop");
-                return sources;
-            }
-
-            if (cultureRoot != null)
-                foreach (WCharacter troop in cultureRoot.Tree)
-                    if (IsEligibleForRetinue(troop, retinue))
-                    {
-                        sources.Add(troop);
-                        break; // Only take one
-                    }
-
-            if (factionRoot != null)
-                foreach (WCharacter troop in factionRoot.Tree)
-                    if (IsEligibleForRetinue(troop, retinue))
-                    {
-                        sources.Add(troop);
-                        break; // Only take one
-                    }
-
-            return sources;
-        }
-
-        private static bool IsEligibleForRetinue(WCharacter troop, WCharacter retinue)
-        {
-            Log.Debug($"Checking if troop {troop?.Name} is eligible for retinue {retinue?.Name}.");
-
-            // Basic checks
-            if (!retinue.IsRetinue || troop.IsRetinue)
-                return false;
-
-            // Check for culture match
-            if (troop.Culture?.StringId != retinue.Culture?.StringId)
-                return false;
-
-            // Check for tier match
-            if (troop.Tier != retinue.Tier)
-                return false;
-
-            return true;
-        }
-
         public static int GetMaxConvertible(WCharacter from, WCharacter to)
         {
             Log.Debug($"Getting max convertible from {from?.Name} to {to?.Name}.");
