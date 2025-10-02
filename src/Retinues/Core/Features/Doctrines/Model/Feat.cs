@@ -1,4 +1,5 @@
 using System;
+using TaleWorlds.Localization;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -11,7 +12,7 @@ namespace Retinues.Core.Features.Doctrines.Model
         //                        Metadata                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public abstract string Description { get; }
+        public abstract TextObject Description { get; }
         public virtual int Target => 0;
 
         // Type-based key used internally/persisted

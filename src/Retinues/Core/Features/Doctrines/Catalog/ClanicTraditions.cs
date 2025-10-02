@@ -3,14 +3,15 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class ClanicTraditions : Doctrine
     {
-        public override string Name => L.S("clanic_traditions", "Clan Traditions");
-        public override string Description =>
-            L.S("clanic_traditions_description", "Troops can equip smithed weapons.");
+        public override TextObject Name => L.T("clanic_traditions", "Clan Traditions");
+        public override TextObject Description =>
+            L.T("clanic_traditions_description", "Troops can equip smithed weapons.");
         public override int Column => 1;
         public override int Row => 1;
 
@@ -18,8 +19,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class CT_OwnSmithy30Days : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "clanic_traditions_own_smithy_30_days",
                     "Own a smithy in a town of your clan's culture for 30 days."
                 );
@@ -48,8 +49,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class CT_Companions50Kills : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "clanic_traditions_companions_50_kills",
                     "Win a battle in which you and your companions get 50 or more kills."
                 );
@@ -77,8 +78,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class CT_AcquireNewFief : Feat
         {
-            public override string Description =>
-                L.S("clanic_traditions_acquire_new_fief", "Acquire a new fief for your clan.");
+            public override TextObject Description =>
+                L.T("clanic_traditions_acquire_new_fief", "Acquire a new fief for your clan.");
             public override int Target => 1;
 
             public override void OnSettlementOwnerChanged(SettlementOwnerChange change)

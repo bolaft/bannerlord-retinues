@@ -4,14 +4,15 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class Immortals : Doctrine
     {
-        public override string Name => L.S("immortals", "Immortals");
-        public override string Description =>
-            L.S("immortals_description", "+20% retinue survival chance.");
+        public override TextObject Name => L.T("immortals", "Immortals");
+        public override TextObject Description =>
+            L.T("immortals_description", "+20% retinue survival chance.");
         public override int Column => 3;
         public override int Row => 3;
 
@@ -19,8 +20,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class IM_100RetinueSurviveStruckDown : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "immortals_100_retinue_survive_struck_down",
                     "Have 100 retinue troops survive being struck down in battle."
                 );
@@ -61,8 +62,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class IM_Win100NoDeaths : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "immortals_win_100_no_deaths",
                     "Win by yourself against 100+ enemies without a single death on your side."
                 );
@@ -93,8 +94,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class IM_Retinue200Enemies : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "immortals_retinue_200_enemies",
                     "Have your retinue defeat 200 enemies in a single battle."
                 );

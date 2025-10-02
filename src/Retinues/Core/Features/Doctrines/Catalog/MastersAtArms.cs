@@ -3,14 +3,15 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class MastersAtArms : Doctrine
     {
-        public override string Name => L.S("masters_at_arms", "Masters-At-Arms");
-        public override string Description =>
-            L.S("masters_at_arms_description", "2nd upgrade branch for elite troops.");
+        public override TextObject Name => L.T("masters_at_arms", "Masters-At-Arms");
+        public override TextObject Description =>
+            L.T("masters_at_arms_description", "2nd upgrade branch for elite troops.");
         public override int Column => 2;
         public override int Row => 2;
 
@@ -18,8 +19,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class MAA_Upgrade100EliteToMax : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "masters_at_arms_upgrade_100_elite_to_max",
                     "Upgrade 100 elite troops to max tier."
                 );
@@ -44,8 +45,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class MAA_KO50Opponents : Feat
         {
-            public override string Description =>
-                L.S("masters_at_arms_ko_50_opponents", "Knock out 50 opponents in the arena.");
+            public override TextObject Description =>
+                L.T("masters_at_arms_ko_50_opponents", "Knock out 50 opponents in the arena.");
             public override int Target => 50;
 
             public override void OnArenaEnd(Combat combat)
@@ -59,8 +60,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class MAA_1000EliteKills : Feat
         {
-            public override string Description =>
-                L.S("masters_at_arms_1000_elite_kills", "Get 1000 kills with elite troops.");
+            public override TextObject Description =>
+                L.T("masters_at_arms_1000_elite_kills", "Get 1000 kills with elite troops.");
             public override int Target => 1000;
 
             public override void OnBattleEnd(Battle battle)

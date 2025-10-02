@@ -3,14 +3,15 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class IronDiscipline : Doctrine
     {
-        public override string Name => L.S("iron_discipline", "Iron Discipline");
-        public override string Description =>
-            L.S("iron_discipline_description", "+5 to skill caps.");
+        public override TextObject Name => L.T("iron_discipline", "Iron Discipline");
+        public override TextObject Description =>
+            L.T("iron_discipline_description", "+5 to skill caps.");
         public override int Column => 2;
         public override int Row => 0;
 
@@ -18,8 +19,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class ID_Upgrade100BasicToMax : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "iron_discipline_upgrade_100_basic_to_max",
                     "Upgrade 100 basic custom troops to max tier."
                 );
@@ -46,8 +47,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class ID_LeadArmy10Days : Feat
         {
-            public override string Description =>
-                L.S("iron_discipline_lead_army_10_days", "Lead an army for 10 days in a row.");
+            public override TextObject Description =>
+                L.T("iron_discipline_lead_army_10_days", "Lead an army for 10 days in a row.");
             public override int Target => 10;
 
             public override void OnDailyTick()
@@ -63,8 +64,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class ID_DefeatTwiceSizeOnlyCustom : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "iron_discipline_defeat_twice_size_only_custom",
                     "Defeat a party twice your size using only custom troops."
                 );

@@ -4,14 +4,15 @@ using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class RoyalPatronage : Doctrine
     {
-        public override string Name => L.S("royal_patronage", "Royal Patronage");
-        public override string Description =>
-            L.S("royal_patronage_description", "10% rebate on items of the kingdom's culture.");
+        public override TextObject Name => L.T("royal_patronage", "Royal Patronage");
+        public override TextObject Description =>
+            L.T("royal_patronage_description", "10% rebate on items of the kingdom's culture.");
         public override int Column => 1;
         public override int Row => 2;
 
@@ -19,8 +20,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class RP_Recruit100CustomKingdom : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "royal_patronage_recruit_100_custom_kingdom",
                     "Recruit 100 custom kingdom troops."
                 );
@@ -37,8 +38,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class RP_CompanionGovernor30Days : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "royal_patronage_companion_governor_30_days",
                     "Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days."
                 );
@@ -64,8 +65,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class RP_1000KillsCustomKingdom : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "royal_patronage_1000_kills_custom_kingdom",
                     "Get 1000 kills with custom kingdom troops."
                 );

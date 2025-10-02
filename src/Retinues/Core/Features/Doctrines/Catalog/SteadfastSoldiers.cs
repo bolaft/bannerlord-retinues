@@ -3,14 +3,15 @@ using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
 {
     public sealed class SteadfastSoldiers : Doctrine
     {
-        public override string Name => L.S("steadfast_soldiers", "Steadfast Soldiers");
-        public override string Description =>
-            L.S("steadfast_soldiers_description", "+10 skill points.");
+        public override TextObject Name => L.T("steadfast_soldiers", "Steadfast Soldiers");
+        public override TextObject Description =>
+            L.T("steadfast_soldiers_description", "+10 skill points.");
         public override int Column => 2;
         public override int Row => 1;
 
@@ -18,8 +19,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class SS_TroopsMaxedSkills : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "steadfast_soldiers_troops_maxed_skills",
                     "Max out the skills of 15 custom troops."
                 );
@@ -41,8 +42,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class SS_SiegeDefenseOnlyCustom : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "steadfast_soldiers_siege_defense_only_custom",
                     "Win a siege defense using only custom troops."
                 );
@@ -67,8 +68,8 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
         public sealed class SS_DefendVillageOnlyCustom : Feat
         {
-            public override string Description =>
-                L.S(
+            public override TextObject Description =>
+                L.T(
                     "steadfast_soldiers_defend_village_only_custom",
                     "Defend a village from a raid using only custom troops."
                 );

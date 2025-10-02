@@ -79,8 +79,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 var name = SelectedTroop?.Name;
                 if (string.IsNullOrEmpty(name)) return name;
-                if (name.Length > 40)
-                    return name.Substring(0, 40) + "(...)";
+                if (name.Length > 35)
+                    return name.Substring(0, 35) + "(...)";
                 return name;
             }
         }

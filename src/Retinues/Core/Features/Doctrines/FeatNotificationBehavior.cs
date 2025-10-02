@@ -109,7 +109,7 @@ namespace Retinues.Core.Features.Doctrines
             InformationManager.ShowInquiry(
                 new InquiryData(
                     title.ToString(),
-                    feat.Description,
+                    feat.Description.ToString(),
                     true,
                     false,
                     affirmativeText: GameTexts.FindText("str_ok").ToString(),
