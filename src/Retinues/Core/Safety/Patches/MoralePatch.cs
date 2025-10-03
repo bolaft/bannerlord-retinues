@@ -48,10 +48,7 @@ namespace Retinues.Core.Safety.Patches
                 }
 
                 if (leader == null)
-                {
-                    // No leader (e.g., odd template parties) - just skip without adding bonus
                     return false;
-                }
 
                 int leadership = 0;
                 try
@@ -77,8 +74,8 @@ namespace Retinues.Core.Safety.Patches
                     }
                     catch (Exception e)
                     {
-                        Log.Exception(e);
                         // swallow, still skip original
+                        Log.Exception(e);
                     }
                 }
 
