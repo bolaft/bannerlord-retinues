@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
-using TaleWorlds.MountAndBlade.GauntletUI.Widgets;
 
 namespace Retinues.Core.Game.Wrappers
 {
