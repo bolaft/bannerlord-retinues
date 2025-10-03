@@ -15,6 +15,7 @@ namespace Retinues.Core.Safety.Sanitizer
         {
             if (mp == null)
                 return;
+
             CleanRoster(mp.MemberRoster, mp);
             CleanRoster(mp.PrisonRoster, mp);
         }
@@ -28,41 +29,41 @@ namespace Retinues.Core.Safety.Sanitizer
             {
                 for (int i = roster.Count - 1; i >= 0; i--)
                 {
-                    var elem = roster.GetElementCopyAtIndex(i);
+                    var e = roster.GetElementCopyAtIndex(i);
 
                     // Null character
-                    if (elem.Character == null)
+                    if (e.Character == null)
                     {
                         Log.Warn(
                             $"Null troop at index {i} in {DescribeParty(contextParty)} - replacing."
                         );
-                        ReplaceElementWithFallback(roster, i, elem, contextParty);
+                        ReplaceElementWithFallback(roster, i, e, contextParty);
                         continue;
                     }
 
                     // Validate
-                    if (!IsCharacterValid(elem.Character))
+                    if (!IsCharacterValid(e.Character))
                     {
                         Log.Warn(
-                            $"Invalid troop '{elem.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} - replacing."
+                            $"Invalid troop '{e.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} - replacing."
                         );
-                        ReplaceElementWithFallback(roster, i, elem, contextParty);
+                        ReplaceElementWithFallback(roster, i, e, contextParty);
                         continue;
                     }
 
                     // Clamp weird counts to avoid TW index math surprises later.
-                    int total = Math.Max(0, elem.Number);
-                    int wounded = Math.Max(0, Math.Min(elem.WoundedNumber, total));
-                    int xp = Math.Max(0, elem.Xp);
+                    int total = Math.Max(0, e.Number);
+                    int wounded = Math.Max(0, Math.Min(e.WoundedNumber, total));
+                    int xp = Math.Max(0, e.Xp);
 
-                    if (total != elem.Number || wounded != elem.WoundedNumber || xp != elem.Xp)
+                    if (total != e.Number || wounded != e.WoundedNumber || xp != e.Xp)
                     {
                         // Normalize counts by removing the old entry and re-adding with clamped values.
                         // Do "replace with itself" to keep the same CharacterObject.
-                        SafeReplace(roster, i, elem.Character, total, wounded, xp);
+                        SafeReplace(roster, i, e.Character, total, wounded, xp);
                         Log.Info(
-                            $"Normalized counts for '{elem.Character.StringId}' at index {i} "
-                                + $"(total:{elem.Number}->{total}, wounded:{elem.WoundedNumber}->{wounded}, xp:{elem.Xp}->{xp})"
+                            $"Normalized counts for '{e.Character.StringId}' at index {i} "
+                                + $"(total:{e.Number}->{total}, wounded:{e.WoundedNumber}->{wounded}, xp:{e.Xp}->{xp})"
                         );
                     }
                 }

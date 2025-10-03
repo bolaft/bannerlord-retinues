@@ -80,10 +80,7 @@ namespace Retinues.Core.Safety.Sanitizer
             }
             catch { }
 
-            if (pick == null)
-            {
-                pick = MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
-            }
+            pick ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
 
             return IsCharacterValid(pick) ? pick : null;
         }
