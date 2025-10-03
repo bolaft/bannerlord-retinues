@@ -24,9 +24,7 @@ namespace Retinues.Core.Safety.Patches
             int idx = __instance.FindIndexOfTroop(troop);
             if (idx < 0)
             {
-                Log.Error(
-                    $"Tried to remove {troop?.StringId ?? "NULL"} not in roster. "
-                );
+                Log.Error($"Tried to remove {troop?.StringId ?? "NULL"} not in roster. ");
                 return false;
             }
             return true; // proceed normally
@@ -48,9 +46,7 @@ namespace Retinues.Core.Safety.Patches
                     if (idx < 0)
                     {
                         src.MemberRoster.AddToCounts(hero.CharacterObject, +1, insertAtFront: true);
-                        Log.Warn(
-                            $"Re-added {hero?.Name} to {src?.Name} before teleport."
-                        );
+                        Log.Warn($"Re-added {hero?.Name} to {src?.Name} before teleport.");
                     }
                 }
             }

@@ -10,10 +10,8 @@ using TaleWorlds.MountAndBlade;
 namespace Retinues.Core.Features.Unlocks.Behaviors
 {
     [SafeClass]
-    public sealed class UnlocksMissionBehavior(UnlocksBehavior owner) : Combat
+    public sealed class UnlocksMissionBehavior : Combat
     {
-        private readonly UnlocksBehavior _owner = owner;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -62,8 +60,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                         : unlockModifier;
                 }
             }
+
             // Add the counts to the owner's battle counts
-            _owner.AddBattleCounts(counts);
+            UnlocksBehavior.Instance.AddBattleCounts(counts);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

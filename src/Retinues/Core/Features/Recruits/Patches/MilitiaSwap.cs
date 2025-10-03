@@ -61,10 +61,7 @@ namespace Retinues.Core.Features.Recruits.Patches
             }
             catch (Exception ex)
             {
-                Log.Exception(
-                    ex,
-                    "AddLane failed (continuing with remaining lanes)"
-                );
+                Log.Exception(ex, "AddLane failed (continuing with remaining lanes)");
             }
         }
 
@@ -131,9 +128,7 @@ namespace Retinues.Core.Features.Recruits.Patches
                     ref remaining
                 );
 
-                Log.Debug(
-                    $"{ws.Name}: custom militia used (add={militiaToAdd}, rem={remaining})."
-                );
+                Log.Debug($"{ws.Name}: custom militia used (add={militiaToAdd}, rem={remaining}).");
 
                 // skip original
                 return false;

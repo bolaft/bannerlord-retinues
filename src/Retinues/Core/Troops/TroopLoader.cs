@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Core.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
@@ -40,9 +39,6 @@ namespace Retinues.Core.Troops
             foreach (var child in data.UpgradeTargets ?? [])
                 troop.AddUpgradeTarget(Load(child));
 
-            // Restore XP pool
-            TroopXpService.SetPool(troop, data.XpPool);
-
             // Retinues are not transferable
             if (troop.IsRetinue)
                 troop.IsNotTransferableInPartyScreen = true;
@@ -73,7 +69,6 @@ namespace Retinues.Core.Troops
                 IsFemale = character.IsFemale,
                 SkillCode = CodeFromSkills(character.Skills),
                 EquipmentCode = character.Equipment.Code,
-                XpPool = TroopXpService.GetPool(character),
             };
 
             return data;

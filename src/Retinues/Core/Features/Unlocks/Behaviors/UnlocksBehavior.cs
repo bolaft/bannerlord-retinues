@@ -46,9 +46,10 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 ds.SyncData(nameof(_unlockedItemIds), ref list);
 
                 // convert to HashSet<string>
-                _unlockedItemIds = list != null
-                    ? new HashSet<string>(list, StringComparer.Ordinal)
-                    : new HashSet<string>(StringComparer.Ordinal);
+                _unlockedItemIds =
+                    list != null
+                        ? new HashSet<string>(list, StringComparer.Ordinal)
+                        : new HashSet<string>(StringComparer.Ordinal);
             }
 
             // Defeats by item ID
@@ -79,13 +80,13 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             if (!Config.GetOption<bool>("UnlockFromKills"))
                 return;
 
-            Log.Info("OnMissionStarted: Installing UnlocksMissionBehavior.");
+            Log.Debug("Adding UnlocksMissionBehavior.");
 
             // Cast to concrete type
             Mission m = mission as Mission;
 
-            // Add our per-battle tracker
-            m?.AddMissionBehavior(new UnlocksMissionBehavior(this));
+            // Attach per-battle tracker
+            m?.AddMissionBehavior(new UnlocksMissionBehavior());
             _newlyUnlockedThisBattle.Clear();
         }
 
