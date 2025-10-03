@@ -12,7 +12,7 @@ namespace Retinues.Core.Features.Retinues.Behaviors
         private const float Bonus = 5;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Mission Events                     //
+        //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override void OnAgentCreated(Agent agent)

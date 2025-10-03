@@ -2,37 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Core.Features.Xp;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Core.Persistence.Troop
+namespace Retinues.Core.Troops
 {
     [SafeClass(SwallowByDefault = false)]
-    public static class TroopSave
+    public static class TroopLoader
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Saving                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static TroopSaveData Save(WCharacter character)
-        {
-            var data = new TroopSaveData
-            {
-                StringId = character.StringId,
-                VanillaStringId = character.VanillaStringId,
-                UpgradeTargets = character.UpgradeTargets?.Select(Save).ToList(),
-                Name = character.Name,
-                Level = character.Level,
-                IsFemale = character.IsFemale,
-                SkillCode = CodeFromSkills(character.Skills),
-                EquipmentCode = character.Equipment.Code,
-                XpPool = TroopXpService.GetPool(character),
-            };
-
-            return data;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Loading                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -76,6 +55,28 @@ namespace Retinues.Core.Persistence.Troop
 
             // Return the created troop
             return troop;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Saving                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static TroopSaveData Save(WCharacter character)
+        {
+            var data = new TroopSaveData
+            {
+                StringId = character.StringId,
+                VanillaStringId = character.VanillaStringId,
+                UpgradeTargets = character.UpgradeTargets?.Select(Save).ToList(),
+                Name = character.Name,
+                Level = character.Level,
+                IsFemale = character.IsFemale,
+                SkillCode = CodeFromSkills(character.Skills),
+                EquipmentCode = character.Equipment.Code,
+                XpPool = TroopXpService.GetPool(character),
+            };
+
+            return data;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
