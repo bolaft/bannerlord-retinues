@@ -2,7 +2,7 @@ using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Core.Compatibility.Shokuho
+namespace Retinues.Core.Mods.Shokuho
 {
     public sealed class ShokuhoVolunteerSwapBehavior : CampaignBehaviorBase
     {

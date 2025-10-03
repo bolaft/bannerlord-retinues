@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
-using Retinues.Core.Compatibility.Shokuho;
+using Retinues.Core.Mods.Shokuho;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
 using Retinues.Core.Features.Retinues.Behaviors;
