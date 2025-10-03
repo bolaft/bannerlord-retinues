@@ -1,7 +1,7 @@
 using Retinues.Core.Features.Stocks.Behaviors;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Game;
-using Retinues.Core.Persistence.Troop;
+using Retinues.Core.Troops;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
@@ -79,7 +79,7 @@ namespace Retinues.Core.Safety.Behaviors
             foreach (
                 var behavior in new CampaignBehaviorBase[]
                 {
-                    Campaign.Current.GetCampaignBehavior<TroopSaveBehavior>(),
+                    Campaign.Current.GetCampaignBehavior<TroopBehavior>(),
                     Campaign.Current.GetCampaignBehavior<StocksBehavior>(),
                     Campaign.Current.GetCampaignBehavior<UnlocksBehavior>(),
                 }

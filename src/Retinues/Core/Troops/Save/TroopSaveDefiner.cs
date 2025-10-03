@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Retinues.Core.Persistence.Troop;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Core.Persistence
+namespace Retinues.Core.Troops.Save
 {
-    public sealed class SaveDefiner : SaveableTypeDefiner
+    public sealed class TroopSaveDefiner : SaveableTypeDefiner
     {
-        public SaveDefiner()
+        public TroopSaveDefiner()
             : base(090_787) { }
 
         protected override void DefineClassTypes()

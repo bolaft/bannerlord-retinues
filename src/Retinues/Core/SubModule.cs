@@ -11,8 +11,8 @@ using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Persistence.Troop;
 using Retinues.Core.Safety.Behaviors;
+using Retinues.Core.Troops;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -93,8 +93,8 @@ namespace Retinues.Core
                 // Clear all static lists
                 ClearAll();
 
-                // Persistence behaviors
-                cs.AddBehavior(new TroopSaveBehavior());
+                // Troop behaviors
+                cs.AddBehavior(new TroopBehavior());
 
                 // Safety behaviors
                 cs.AddBehavior(new SafetyBehavior());
