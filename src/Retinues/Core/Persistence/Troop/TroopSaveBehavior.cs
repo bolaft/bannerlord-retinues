@@ -16,7 +16,7 @@ namespace Retinues.Core.Persistence.Troop
 
         private List<TroopSaveData> _troopData = [];
 
-        public bool HasTroopData => _troopData.Count > 0;
+        public bool HasSyncData => _troopData != null && _troopData.Count > 0;
 
         public override void SyncData(IDataStore dataStore)
         {

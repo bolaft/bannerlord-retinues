@@ -197,14 +197,20 @@ namespace Retinues.Core.Features
                 );
             }
 
+            // Count unlocks
+            int unlocks = 0;
+
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
             foreach (var equipment in troop.Equipments)
             foreach (var item in equipment.Items)
+            {
                 item.Unlock();
+                unlocks++;
+            }
 
             Log.Debug(
-                $"Unlocked {WItem.UnlockedItems.Count()} items from {eliteClones.Count + basicClones.Count} troops"
+                $"Unlocked {unlocks} items from {eliteClones.Count + basicClones.Count} troops"
             );
         }
 

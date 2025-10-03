@@ -634,7 +634,7 @@ namespace Retinues.Core.Utils
                 if (rt.IsGenericParameter || rt.ContainsGenericParameters)
                     return false;
 
-                // Hard-skip byref-like patterns that Harmony/MonoMod can’t import cleanly on net472
+                // Hard-skip byref-like patterns that Harmony/MonoMod can't import cleanly on net472
                 if (IsByRefLikeOrUnsupported(rt))
                     return false;
             }
@@ -651,7 +651,7 @@ namespace Retinues.Core.Utils
             }
 
             // Optional: avoid compiler-generated state machines (iterator/async MoveNext)
-            // Harmony can patch them, but they’re noisy. Skip if you don’t need them.
+            // Harmony can patch them, but they're noisy. Skip if you don't need them.
             if (m.GetCustomAttribute<CompilerGeneratedAttribute>() != null && m.Name == "MoveNext")
                 return false;
 

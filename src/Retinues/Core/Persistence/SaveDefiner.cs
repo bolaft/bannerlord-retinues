@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
 using TaleWorlds.SaveSystem;
 
@@ -15,7 +14,6 @@ namespace Retinues.Core.Persistence
             base.DefineContainerDefinitions();
 
             AddClassDefinition(typeof(TroopSaveData), 070_992);
-            AddClassDefinition(typeof(ItemSaveData), 070_993);
         }
 
         protected override void DefineContainerDefinitions()
@@ -23,9 +21,6 @@ namespace Retinues.Core.Persistence
             base.DefineContainerDefinitions();
 
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
-            ConstructContainerDefinition(typeof(Dictionary<string, int>));
-            ConstructContainerDefinition(typeof(List<string>));
-            ConstructContainerDefinition(typeof(List<int>));
         }
     }
 }

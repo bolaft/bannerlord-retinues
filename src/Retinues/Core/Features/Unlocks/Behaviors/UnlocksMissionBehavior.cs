@@ -14,8 +14,15 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
     {
         private readonly UnlocksBehavior _owner = owner;
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         protected override void OnEndMission()
         {
+            if (Config.GetOption<bool>("UnlockFromKills") == false)
+                return; // Unlocks from kills disabled
+
             if (IsDefeat)
                 return; // No unlocks on defeat
 
@@ -58,6 +65,10 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             // Add the counts to the owner's battle counts
             _owner.AddBattleCounts(counts);
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static bool IsUnlockable(ItemObject i)
         {

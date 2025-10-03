@@ -3,7 +3,7 @@ using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Safety.Behaviors
 {
     [SafeClass]
     public class SafetyBehavior : CampaignBehaviorBase
