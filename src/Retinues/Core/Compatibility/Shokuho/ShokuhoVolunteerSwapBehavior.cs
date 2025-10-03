@@ -2,9 +2,9 @@ using Retinues.Core.Features.Recruits.Patches;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Core.Features.Recruits.Behaviors
+namespace Retinues.Core.Compatibility.Shokuho
 {
-    public sealed class VolunteerSwapBehavior : CampaignBehaviorBase
+    public sealed class ShokuhoVolunteerSwapBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //

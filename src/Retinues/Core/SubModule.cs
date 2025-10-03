@@ -4,7 +4,7 @@ using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
-using Retinues.Core.Features.Recruits.Behaviors;
+using Retinues.Core.Compatibility.Shokuho;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Features.Retinues.Behaviors;
@@ -56,11 +56,21 @@ namespace Retinues.Core
                 Log.Exception(e);
             }
 
+            var knownIncompatibilities = new string[] {
+                "WarlordsBattlefield",
+                "SimpleBank"
+            };
+
             try
             {
                 Log.Info("Active modules:");
                 foreach (var m in ModuleChecker.GetActiveModules())
+                {
                     Log.Info($" - {m.Id} {m.Version}");
+                    foreach (var inc in knownIncompatibilities)
+                        if (string.Equals(m.Id, inc, StringComparison.OrdinalIgnoreCase))
+                            Log.Critical($"WARNING: {m.Id} is known to be incompatible with Retinues!");
+                }
             }
             catch (Exception e)
             {
@@ -93,7 +103,11 @@ namespace Retinues.Core
                 cs.AddBehavior(new RetinueBuffBehavior());
 
                 // Volunteer swap behavior
-                cs.AddBehavior(new VolunteerSwapBehavior());
+                if (ShokuhoDetect.IsShokuhoCampaign())
+                {
+                    Log.Debug("Shokuho detected, using ShokuhoVolunteerSwapBehavior.");
+                    cs.AddBehavior(new ShokuhoVolunteerSwapBehavior());
+                }
 
                 // XP behavior (skip if both costs are 0)
                 if (

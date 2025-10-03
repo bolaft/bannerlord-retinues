@@ -1,6 +1,5 @@
 using System;
 using HarmonyLib;
-using Retinues.Core.Features.Recruits.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -18,11 +17,7 @@ namespace Retinues.Core.Features.Recruits.Patches
         [SafeMethod]
         static void Postfix(Settlement settlement)
         {
-            if (SwapVolunteersInSettlement(settlement))
-            {
-                // The patch works, no need to use the behavior anymore
-                Campaign.Current.CampaignBehaviorManager.RemoveBehavior<VolunteerSwapBehavior>();
-            }
+            SwapVolunteersInSettlement(settlement);
         }
 
         public static bool SwapVolunteersInSettlement(Settlement settlement)
