@@ -100,7 +100,7 @@ namespace Retinues.Core.Game.Helpers.Character
         {
             try
             {
-                var srcEquipments = src.BattleEquipments?.ToList() ?? new List<Equipment>();
+                var srcEquipments = src.BattleEquipments?.ToList() ?? [];
                 if (srcEquipments.Count == 0)
                     srcEquipments.Add(new Equipment(Equipment.EquipmentType.Battle));
 

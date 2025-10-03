@@ -6,13 +6,13 @@ using Retinues.Core.Compatibility.Shokuho;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
 using Retinues.Core.Features.Retinues.Behaviors;
+using Retinues.Core.Features.Stocks.Behaviors;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
-using Retinues.Core.Safety;
+using Retinues.Core.Safety.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -94,19 +94,21 @@ namespace Retinues.Core
                 ClearAll();
 
                 // Persistence behaviors
-                cs.AddBehavior(new ItemSaveBehavior());
                 cs.AddBehavior(new TroopSaveBehavior());
 
-                // Backup behavior
-                cs.AddBehavior(new BackupBehavior());
-
-                // Safety behavior
+                // Safety behaviors
                 cs.AddBehavior(new SafetyBehavior());
+                cs.AddBehavior(new BackupBehavior());
+                cs.AddBehavior(new SaveBackCompatibilityBehavior());
+
+                // Item behaviors
+                cs.AddBehavior(new UnlocksBehavior());
+                cs.AddBehavior(new StocksBehavior());
 
                 // Retinue buff behavior
                 cs.AddBehavior(new RetinueBuffBehavior());
 
-                // Volunteer swap behavior
+                // Shokuho behavior (skip if not Shokuho)
                 if (ShokuhoDetect.IsShokuhoCampaign())
                 {
                     Log.Debug("Shokuho detected, using ShokuhoVolunteerSwapBehavior.");
@@ -120,17 +122,6 @@ namespace Retinues.Core
                 )
                 {
                     cs.AddBehavior(new TroopXpBehavior());
-                    Log.Debug("Troop XP enabled.");
-                }
-
-                // Unlocks behavior (skip if disabled)
-                if (
-                    Config.GetOption<bool>("UnlockFromKills")
-                    && !Config.GetOption<bool>("AllEquipmentUnlocked")
-                )
-                {
-                    cs.AddBehavior(new UnlocksBehavior());
-                    Log.Debug("Item unlocks enabled.");
                 }
 
                 // Doctrine behaviors (skip if doctrines disabled)
@@ -140,7 +131,6 @@ namespace Retinues.Core
                     cs.AddBehavior(new FeatServiceBehavior());
                     cs.AddBehavior(new FeatNotificationBehavior());
                     cs.AddBehavior(new DoctrineEffectRuntimeBehavior());
-                    Log.Debug("Doctrines enabled.");
                 }
 
                 Log.Debug("Behaviors registered.");
@@ -183,10 +173,6 @@ namespace Retinues.Core
             WCharacter.ActiveTroops.Clear();
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
-            // Clear item unlocks
-            WItem.UnlockedItems.Clear();
-            // Clear item stocks
-            WItem.Stocks.Clear();
         }
     }
 }

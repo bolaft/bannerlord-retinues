@@ -395,7 +395,7 @@ namespace Retinues.Core.Game.Wrappers
             var horse = Equipment?.GetItem(EquipmentIndex.Horse);
             if (horse == null)
             {
-                // Target isn’t mounted, no upgrade requirement.
+                // Target isn't mounted, no upgrade requirement.
                 UpgradeRequiresItemFromCategory = null;
                 return;
             }

@@ -1,11 +1,12 @@
+using Retinues.Core.Features.Stocks.Behaviors;
+using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Game;
-using Retinues.Core.Persistence.Item;
 using Retinues.Core.Persistence.Troop;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Safety.Behaviors
 {
     [SafeClass]
     public sealed class BackupBehavior : CampaignBehaviorBase
@@ -61,26 +62,38 @@ namespace Retinues.Core.Safety
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private bool HasSyncData(CampaignBehaviorBase behavior)
+        {
+            if (behavior == null)
+                return false;
+
+            var prop = behavior.GetType().GetProperty("HasSyncData");
+            if (prop == null || prop.PropertyType != typeof(bool))
+                return false;
+
+            return (bool)prop.GetValue(behavior);
+        }
+
         private bool HasSaveData()
         {
-            // Check for TroopSaveBehavior data
-            var troopBehavior = Campaign.Current.GetCampaignBehavior<TroopSaveBehavior>();
-            if (troopBehavior.HasTroopData)
+            foreach (
+                var behavior in new CampaignBehaviorBase[]
+                {
+                    Campaign.Current.GetCampaignBehavior<TroopSaveBehavior>(),
+                    Campaign.Current.GetCampaignBehavior<StocksBehavior>(),
+                    Campaign.Current.GetCampaignBehavior<UnlocksBehavior>(),
+                }
+            )
             {
-                Log.Debug("Troop save data found.");
-                return true;
-            }
-
-            // Check for ItemSaveBehavior data
-            var itemBehavior = Campaign.Current.GetCampaignBehavior<ItemSaveBehavior>();
-            if (itemBehavior.HasItemData)
-            {
-                Log.Debug("Item save data found.");
-                return true;
+                if (HasSyncData(behavior))
+                {
+                    Log.Debug($"{behavior.GetType().Name} save data found.");
+                    return true;
+                }
             }
 
             Log.Debug("No Retinues save data found.");
-            return false; // no relevant save data found
+            return false;
         }
 
         private void CreateBackupSave()
