@@ -35,6 +35,24 @@ namespace Retinues.Core.Game.Helpers
             return PickBestFromTree(root, troop);
         }
 
+        public static WCharacter PickMilitiaFromFaction(WFaction faction, WCharacter troop)
+        {
+            if (faction == null || troop == null || !troop.IsValid)
+                return null;
+
+            WCharacter pick;
+
+            if (troop.IsElite)
+                pick = troop.IsRanged ? faction.MilitiaRangedElite : faction.MilitiaMeleeElite;
+            else
+                pick = troop.IsRanged ? faction.MilitiaRanged : faction.MilitiaMelee;
+
+            if (pick == null || !pick.IsValid)
+                return null;
+
+            return pick;
+        }
+
         public static WCharacter PickBestFromTree(
             WCharacter root,
             WCharacter troop,

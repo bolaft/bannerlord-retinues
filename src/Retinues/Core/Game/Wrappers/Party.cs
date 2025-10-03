@@ -152,20 +152,17 @@ namespace Retinues.Core.Game.Wrappers
                     continue;
                 }
 
-                var replacement = TroopMatcher.PickBestFromFaction(faction, e.Troop);
+                // Defaults to same troop
+                var replacement = e.Troop;
+
+                if (IsMilitia)
+                    replacement = TroopMatcher.PickMilitiaFromFaction(faction, e.Troop);
+                else
+                    replacement = TroopMatcher.PickBestFromFaction(faction, e.Troop);
 
                 // If no good replacement, keep as-is
                 if (replacement == null)
-                {
-                    dst.AddToCounts(
-                        e.Troop.Base,
-                        e.Number,
-                        insertAtFront: false,
-                        woundedCount: e.WoundedNumber,
-                        xpChange: e.Xp
-                    );
-                    continue;
-                }
+                    replacement = e.Troop;
 
                 // Apply replacement, preserving totals
                 dst.AddToCounts(
