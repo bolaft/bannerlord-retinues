@@ -345,11 +345,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier0",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "0").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "0").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
                 @default: 20,
                 type: typeof(int),
                 minValue: 20,
@@ -359,11 +363,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier1",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "1").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "1").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
                 @default: 20,
                 type: typeof(int),
                 minValue: 20,
@@ -373,11 +381,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier2",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "2").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "2").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
                 @default: 50,
                 type: typeof(int),
                 minValue: 20,
@@ -387,11 +399,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier3",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "3").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "3").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
                 @default: 80,
                 type: typeof(int),
                 minValue: 20,
@@ -401,11 +417,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier4",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "4").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "4").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
                 @default: 120,
                 type: typeof(int),
                 minValue: 20,
@@ -415,11 +435,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier5",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "5").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "5").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
                 @default: 160,
                 type: typeof(int),
                 minValue: 20,
@@ -429,11 +453,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier6",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "6").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "6").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
                 @default: 260,
                 type: typeof(int),
                 minValue: 20,
@@ -443,11 +471,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier7Plus",
-                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap").SetTextVariable("TIER", "7+").ToString(),
+                name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                ).SetTextVariable("TIER", "7+").ToString(),
+                        "mcm_option_skill_cap_hint",
+                        "The maximum skill level for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
                 @default: 360,
                 type: typeof(int),
                 minValue: 20,
@@ -459,11 +491,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier0",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "0").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "0").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
                 @default: 90,
                 type: typeof(int),
                 minValue: 90,
@@ -473,11 +509,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier1",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "1").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "1").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
                 @default: 90,
                 type: typeof(int),
                 minValue: 90,
@@ -487,11 +527,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier2",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "2").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "2").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
                 @default: 210,
                 type: typeof(int),
                 minValue: 90,
@@ -501,11 +545,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier3",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "3").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "3").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
                 @default: 360,
                 type: typeof(int),
                 minValue: 90,
@@ -515,11 +563,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier4",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "4").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "4").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
                 @default: 535,
                 type: typeof(int),
                 minValue: 90,
@@ -529,11 +581,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier5",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "5").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "5").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
                 @default: 710,
                 type: typeof(int),
                 minValue: 90,
@@ -543,11 +599,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier6",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "6").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "6").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
                 @default: 915,
                 type: typeof(int),
                 minValue: 90,
@@ -557,11 +617,15 @@ namespace Retinues.Core.Utils
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),
                 key: "SkillTotalTier7Plus",
-                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total").SetTextVariable("TIER", "7+").ToString(),
+                name: L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
                 hint: L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                ).SetTextVariable("TIER", "7+").ToString(),
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
                 @default: 1600,
                 type: typeof(int),
                 minValue: 90,

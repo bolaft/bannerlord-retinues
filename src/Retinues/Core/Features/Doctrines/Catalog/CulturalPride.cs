@@ -1,9 +1,9 @@
-using TaleWorlds.Core;
-using TaleWorlds.CampaignSystem;
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Catalog
@@ -42,7 +42,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     EquipmentIndex.Cape,
                     EquipmentIndex.Body,
                     EquipmentIndex.Gloves,
-                    EquipmentIndex.Leg
+                    EquipmentIndex.Leg,
                 ];
                 foreach (EquipmentIndex index in indices)
                 {

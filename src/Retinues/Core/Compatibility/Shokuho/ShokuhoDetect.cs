@@ -1,6 +1,6 @@
 using System;
-using TaleWorlds.Core;
 using Retinues.Core.Utils;
+using TaleWorlds.Core;
 
 public static class ShokuhoDetect
 {
@@ -31,7 +31,9 @@ public static class ShokuhoDetect
                     if (string.Equals(m.Id, "Shokuho", StringComparison.OrdinalIgnoreCase))
                         return true;
             }
-            catch { /* ignore */ }
+            catch
+            { /* ignore */
+            }
 
             return false;
         }

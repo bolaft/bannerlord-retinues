@@ -1,8 +1,8 @@
 using System;
-using TaleWorlds.Localization;
 using Retinues.Core.Game.Events;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Model
 {

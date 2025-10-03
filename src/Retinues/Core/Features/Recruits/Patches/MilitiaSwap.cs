@@ -86,7 +86,7 @@ namespace Retinues.Core.Features.Recruits.Patches
             {
                 var ws = new WSettlement(__instance);
 
-                if (ws.Faction == null)
+                if (ws.PlayerFaction == null)
                     return true; // vanilla
 
                 // Pull custom militia set

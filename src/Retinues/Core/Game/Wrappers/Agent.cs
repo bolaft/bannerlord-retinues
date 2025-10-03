@@ -46,9 +46,7 @@ namespace Retinues.Core.Game.Wrappers
             bool isPlayer = false;
             try
             {
-                isPlayer =
-                    agent.IsMainAgent
-                    || agent.IsPlayerControlled; // this one can throw during teardown
+                isPlayer = agent.IsMainAgent || agent.IsPlayerControlled; // this one can throw during teardown
             }
             catch { }
             return isPlayer;

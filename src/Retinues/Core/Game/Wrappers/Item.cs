@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.MountAndBlade.GauntletUI.Widgets;
 
 namespace Retinues.Core.Game.Wrappers
@@ -56,7 +56,6 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
-
                 List<EquipmentIndex> slots = [];
 
                 void AddWeaponSlots()

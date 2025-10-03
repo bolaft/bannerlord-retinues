@@ -2,12 +2,12 @@ using System;
 using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
+using Retinues.Core.Compatibility.Shokuho;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
-using Retinues.Core.Compatibility.Shokuho;
+using Retinues.Core.Features.Retinues.Behaviors;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
-using Retinues.Core.Features.Retinues.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Persistence.Item;
@@ -56,9 +56,11 @@ namespace Retinues.Core
                 Log.Exception(e);
             }
 
-            var knownIncompatibilities = new string[] {
+            var knownIncompatibilities = new string[]
+            {
                 "WarlordsBattlefield",
-                "SimpleBank"
+                // "AdonnaysTroopChanger",
+                "SimpleBank",
             };
 
             try
@@ -69,7 +71,9 @@ namespace Retinues.Core
                     Log.Info($" - {m.Id} {m.Version}");
                     foreach (var inc in knownIncompatibilities)
                         if (string.Equals(m.Id, inc, StringComparison.OrdinalIgnoreCase))
-                            Log.Critical($"WARNING: {m.Id} is known to be incompatible with Retinues!");
+                            Log.Critical(
+                                $"WARNING: {m.Id} is known to be incompatible with Retinues!"
+                            );
                 }
             }
             catch (Exception e)

@@ -80,5 +80,9 @@ namespace Retinues.Core.Game.Wrappers
         public bool HasFiefs => Base.Fiefs?.Count > 0;
         public bool IsClan => Base is Clan;
         public bool IsKingdom => Base is Kingdom;
+
+        public bool IsPlayerFaction => this == Player.Clan || this == Player.Kingdom;
+        public bool IsPlayerClan => this == Player.Clan;
+        public bool IsPlayerKingdom => this == Player.Kingdom;
     }
 }

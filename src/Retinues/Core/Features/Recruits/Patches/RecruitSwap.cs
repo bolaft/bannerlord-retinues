@@ -1,7 +1,9 @@
 using HarmonyLib;
+using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Features.Recruits.Patches
 {
@@ -13,37 +15,39 @@ namespace Retinues.Core.Features.Recruits.Patches
     {
         [SafeMethod]
         static void Postfix(
-            Hero recruiter,
-            TaleWorlds.CampaignSystem.Settlements.Settlement settlement,
+            Hero hero,
+            Settlement settlement,
             Hero recruitmentSource,
-            CharacterObject troop,
+            CharacterObject co,
             int count
         )
         {
-            if (recruiter?.PartyBelongedTo == null || count <= 0)
-                return;
-            if (TroopSwapHelper.LooksCorrupt(troop))
+            if (hero?.PartyBelongedTo == null || count <= 0 || co == null)
                 return; // never touch suspicious input
 
-            var faction = TroopSwapHelper.ResolveTargetFaction(recruiter);
-            if (faction == null)
-                return;
-
-            var vanilla = new WCharacter(troop);
-            if (!TroopSwapHelper.IsValid(vanilla))
+            var troop = new WCharacter(co);
+            if (!troop.IsValid)
                 return; // defensive
 
-            var replacement = TroopSwapHelper.FindReplacement(vanilla, faction);
-            if (!TroopSwapHelper.IsValid(replacement))
+            var faction = new WHero(hero).PlayerFaction;
+            if (faction == null)
+                return; // non-player faction, skip
+
+            var root = troop.IsElite ? faction.RootElite : faction.RootBasic;
+            if (root == null)
+                return; // no tree, skip
+
+            var replacement = TroopMatcher.PickBestFromTree(root, troop);
+            if (replacement == null)
                 return;
 
-            // Perform atomic stack swap
-            var roster = recruiter.PartyBelongedTo.MemberRoster;
-            roster.RemoveTroop(troop, count);
+            // Swap in party roster
+            var roster = hero.PartyBelongedTo.MemberRoster;
+            roster.RemoveTroop(troop.Base, count);
             roster.AddToCounts(replacement.Base, count);
 
             Log.Info(
-                $"RecruitSwap: {recruiter?.Name} swapped {count}x {troop?.StringId} → {replacement?.StringId}."
+                $"RecruitSwap: {hero?.Name} swapped {count}x {troop?.StringId} → {replacement?.StringId}."
             );
         }
     }
