@@ -35,14 +35,14 @@ namespace Retinues.Core.Features.Stocks.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public static bool HasStock(string itemId) => Get(itemId) > 0;
+
         public static int Get(string itemId)
         {
             if (Instance == null || itemId == null)
                 return 0;
             return Instance._stockByItemId.TryGetValue(itemId, out var c) ? c : 0;
         }
-
-        public static bool HasStock(string itemId) => Get(itemId) > 0;
 
         public static void Set(string itemId, int count)
         {

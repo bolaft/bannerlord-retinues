@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using Retinues.Core.Game.Events;
-using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Xp.Behaviors
@@ -16,8 +14,6 @@ namespace Retinues.Core.Features.Xp.Behaviors
 
         protected override void OnEndMission()
         {
-            Dictionary<WCharacter, int> xpPerTroop = [];
-
             foreach (var kill in Kills)
             {
                 if (!kill.Killer.IsPlayerTroop)
@@ -32,15 +28,8 @@ namespace Retinues.Core.Features.Xp.Behaviors
                 if (xp <= 0)
                     continue;
 
-                xpPerTroop.TryGetValue(kill.Killer.Character, out var current);
-                xpPerTroop[kill.Killer.Character] = current + xp;
+                TroopXpBehavior.Add(kill.Killer.Character, xp);
             }
-
-            Log.Info("XP earned this mission:");
-            foreach (var kv in xpPerTroop)
-                Log.Info($"  {kv.Key.Name}: {kv.Value} XP");
-
-            TroopXpService.AccumulateFromMission(xpPerTroop);
         }
     }
 }

@@ -9,17 +9,6 @@ using TaleWorlds.SaveSystem;
 
 namespace Retinues.Core.Safety.Legacy
 {
-    /* ━━━━━━━ Save Data ━━━━━━ */
-
-    public class ItemSaveData
-    {
-        [SaveableField(1)]
-        public List<string> UnlockedItemIds = [];
-
-        [SaveableField(2)]
-        public Dictionary<string, int> StockedItems = [];
-    }
-
     [SafeClass]
     public sealed class ItemSaveBehavior : CampaignBehaviorBase
     {
@@ -80,5 +69,16 @@ namespace Retinues.Core.Safety.Legacy
                 $"Items migrated: unlocked={_items.UnlockedItemIds?.Count ?? 0}, stocks={_items.StockedItems?.Count ?? 0}"
             );
         }
+    }
+
+    /* ━━━━━━━ Save Data ━━━━━━ */
+
+    public class ItemSaveData
+    {
+        [SaveableField(1)]
+        public List<string> UnlockedItemIds = [];
+
+        [SaveableField(2)]
+        public Dictionary<string, int> StockedItems = [];
     }
 }

@@ -32,9 +32,7 @@ namespace Retinues.Core.Safety.Patches
             {
                 if (party == null || party.Party == null)
                 {
-                    Log.Error(
-                        "GetMoraleEffectsFromSkill: party/party.Party is null - skipping."
-                    );
+                    Log.Error("GetMoraleEffectsFromSkill: party/party.Party is null - skipping.");
                     return false; // skip original
                 }
 
@@ -134,9 +132,7 @@ namespace Retinues.Core.Safety.Patches
             {
                 __result = new ExplainedNumber(50f, includeDescription);
                 Log.Error(
-                    "Dump failed ("
-                        + dumpEx.GetType().Name
-                        + "). Returned default morale = 50."
+                    "Dump failed (" + dumpEx.GetType().Name + "). Returned default morale = 50."
                 );
             }
         }
@@ -161,15 +157,11 @@ namespace Retinues.Core.Safety.Patches
                 string clan = Safe(() => p.LeaderHero?.Clan?.Name?.ToString(), "<no-clan>");
                 string settlement = Safe(() => p.CurrentSettlement?.Name?.ToString(), "<none>");
 
-                Log.Error(
-                    $"{where}: PartyId={pid} Name={pname} Owner={owner} Clan={clan}"
-                );
+                Log.Error($"{where}: PartyId={pid} Name={pname} Owner={owner} Clan={clan}");
                 Log.Error(
                     $"Flags: IsMain={p.IsMainParty}, IsMilitia={p.IsMilitia}, IsGarrison={p.IsGarrison}, IsStarving={Safe(() => p.Party?.IsStarving, false)}"
                 );
-                Log.Error(
-                    $"Wages: HasUnpaid={Safe(() => p.HasUnpaidWages, 0f)}  Loc={settlement}"
-                );
+                Log.Error($"Wages: HasUnpaid={Safe(() => p.HasUnpaidWages, 0f)}  Loc={settlement}");
 
                 var r = p.MemberRoster;
                 int count = Safe(() => (int)(r?.Count ?? -1), -1);
