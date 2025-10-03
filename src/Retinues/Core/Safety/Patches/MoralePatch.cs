@@ -33,7 +33,7 @@ namespace Retinues.Core.Safety.Patches
                 if (party == null || party.Party == null)
                 {
                     Log.Error(
-                        "[MoraleDiag] GetMoraleEffectsFromSkill: party/party.Party is null - skipping."
+                        "GetMoraleEffectsFromSkill: party/party.Party is null - skipping."
                     );
                     return false; // skip original
                 }
@@ -45,7 +45,7 @@ namespace Retinues.Core.Safety.Patches
                 }
                 catch (Exception exLeader)
                 {
-                    Log.Error("[MoraleDiag] GetEffectivePartyLeaderForSkill failed: " + exLeader);
+                    Log.Error("GetEffectivePartyLeaderForSkill failed: " + exLeader);
                     MoralePatchesShared.DumpPartySnapshot(
                         "GetMoraleEffectsFromSkill:LeaderErr",
                         party
@@ -66,7 +66,7 @@ namespace Retinues.Core.Safety.Patches
                 }
                 catch (Exception exSkill)
                 {
-                    Log.Error("[MoraleDiag] leader.GetSkillValue(Leadership) threw: " + exSkill);
+                    Log.Error("leader.GetSkillValue(Leadership) threw: " + exSkill);
                     MoralePatchesShared.DumpPartySnapshot(
                         "GetMoraleEffectsFromSkill:SkillErr",
                         party
@@ -86,7 +86,7 @@ namespace Retinues.Core.Safety.Patches
                     }
                     catch (Exception exAdd)
                     {
-                        Log.Error("[MoraleDiag] AddSkillBonusForCharacter threw: " + exAdd);
+                        Log.Error("AddSkillBonusForCharacter threw: " + exAdd);
                         // swallow, still skip original
                     }
                 }
@@ -95,7 +95,7 @@ namespace Retinues.Core.Safety.Patches
             }
             catch (Exception ex)
             {
-                Log.Error("[MoraleDiag] SafePrefix outer catch: " + ex);
+                Log.Error("SafePrefix outer catch: " + ex);
                 MoralePatchesShared.DumpPartySnapshot("GetMoraleEffectsFromSkill:Outer", party);
                 return false; // skip original on any unexpected issue
             }
@@ -122,18 +122,18 @@ namespace Retinues.Core.Safety.Patches
 
             try
             {
-                Log.Error("[MoraleDiag] GetEffectivePartyMorale threw: " + __exception);
+                Log.Error("GetEffectivePartyMorale threw: " + __exception);
                 MoralePatchesShared.DumpPartySnapshot("GetEffectivePartyMorale", mobileParty);
 
                 __result = new ExplainedNumber(50f, includeDescription);
                 __result.Add(0f, new TextObject("Retinues: fail-safe morale"));
-                Log.Error("[MoraleDiag] Returned safe default morale = 50.");
+                Log.Error("Returned safe default morale = 50.");
             }
             catch (Exception dumpEx)
             {
                 __result = new ExplainedNumber(50f, includeDescription);
                 Log.Error(
-                    "[MoraleDiag] Dump failed ("
+                    "Dump failed ("
                         + dumpEx.GetType().Name
                         + "). Returned default morale = 50."
                 );
@@ -149,7 +149,7 @@ namespace Retinues.Core.Safety.Patches
             {
                 if (p == null)
                 {
-                    Log.Error($"[MoraleDiag] {where}: party = <null>");
+                    Log.Error($"{where}: party = <null>");
                     return;
                 }
 
@@ -161,18 +161,18 @@ namespace Retinues.Core.Safety.Patches
                 string settlement = Safe(() => p.CurrentSettlement?.Name?.ToString(), "<none>");
 
                 Log.Error(
-                    $"[MoraleDiag] {where}: PartyId={pid} Name={pname} Owner={owner} Clan={clan}"
+                    $"{where}: PartyId={pid} Name={pname} Owner={owner} Clan={clan}"
                 );
                 Log.Error(
-                    $"[MoraleDiag] Flags: IsMain={p.IsMainParty}, IsMilitia={p.IsMilitia}, IsGarrison={p.IsGarrison}, IsStarving={Safe(() => p.Party?.IsStarving, false)}"
+                    $"Flags: IsMain={p.IsMainParty}, IsMilitia={p.IsMilitia}, IsGarrison={p.IsGarrison}, IsStarving={Safe(() => p.Party?.IsStarving, false)}"
                 );
                 Log.Error(
-                    $"[MoraleDiag] Wages: HasUnpaid={Safe(() => p.HasUnpaidWages, 0f)}  Loc={settlement}"
+                    $"Wages: HasUnpaid={Safe(() => p.HasUnpaidWages, 0f)}  Loc={settlement}"
                 );
 
                 var r = p.MemberRoster;
                 int count = Safe(() => (int)(r?.Count ?? -1), -1);
-                Log.Error($"[MoraleDiag] Roster count={count}");
+                Log.Error($"Roster count={count}");
                 if (count > 0)
                 {
                     for (int i = 0; i < count; i++)
@@ -199,13 +199,13 @@ namespace Retinues.Core.Safety.Patches
                             slotMsg =
                                 $"[{i}] <slot read failed: {exSlot.GetType().Name}: {exSlot.Message}>";
                         }
-                        Log.Error("[MoraleDiag] " + slotMsg);
+                        Log.Error("" + slotMsg);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Error("[MoraleDiag] DumpPartySnapshot failed: " + ex);
+                Log.Error("DumpPartySnapshot failed: " + ex);
             }
         }
 
