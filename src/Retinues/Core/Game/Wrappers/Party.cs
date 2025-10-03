@@ -1,11 +1,14 @@
+using Retinues.Core.Game.Helpers;
+using Retinues.Core.Game.Wrappers.Base;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Core.Game.Wrappers
 {
     [SafeClass(SwallowByDefault = false)]
-    public class WParty(MobileParty party) : StringIdentifier
+    public class WParty(MobileParty party) : FactionObject
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
@@ -52,7 +55,7 @@ namespace Retinues.Core.Game.Wrappers
 
         private Clan _ownerClan;
 
-        public WFaction Clan
+        public override WFaction Clan
         {
             get
             {
@@ -72,13 +75,7 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        public WFaction Kingdom => Clan != null ? new WFaction(_ownerClan.Kingdom) : null;
-
-        public bool IsPlayerClanParty => Clan?.StringId == Player.Clan.StringId;
-        public bool IsPlayerKingdomParty =>
-            Kingdom != null
-            && Player.Kingdom != null
-            && Kingdom.StringId == Player.Kingdom.StringId;
+        public override WFaction Kingdom => Clan != null ? new WFaction(_ownerClan.Kingdom) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
@@ -105,5 +102,85 @@ namespace Retinues.Core.Game.Wrappers
         public Army Army => _party.Army;
 
         public bool IsInArmy => Army != null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public void SwapTroops(WFaction faction = null, bool members = true, bool prisoners = false)
+        {
+            if (faction == null)
+                faction = PlayerFaction;
+
+            if (faction == null)
+                return; // non-player faction, skip
+
+            if (members)
+                SwapRosterTroops(MemberRoster, faction);
+            if (prisoners)
+                SwapRosterTroops(PrisonRoster, faction);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public void SwapRosterTroops(WRoster roster, WFaction faction)
+        {
+            if (roster == null || roster == null || Base == null)
+                return; // should not happen
+
+            // Build a fresh roster to avoid in-place index/XpChanged issues.
+            var dst = new TroopRoster(Base.Party);
+
+            // Enumerate snapshot so we don't fight internal mutations.
+            foreach (var e in roster.Elements)
+            {
+                if (e == null || e.Troop == null || e.Troop.Base == null)
+                    continue; // should not happen
+
+                // Keep heroes as-is
+                if (e.Troop.IsHero)
+                {
+                    dst.AddToCounts(
+                        e.Troop.Base,
+                        e.Number,
+                        insertAtFront: false,
+                        woundedCount: e.WoundedNumber,
+                        xpChange: e.Xp
+                    );
+                    continue;
+                }
+
+                var replacement = TroopMatcher.PickBestFromFaction(faction, e.Troop);
+
+                // If no good replacement, keep as-is
+                if (replacement == null)
+                {
+                    dst.AddToCounts(
+                        e.Troop.Base,
+                        e.Number,
+                        insertAtFront: false,
+                        woundedCount: e.WoundedNumber,
+                        xpChange: e.Xp
+                    );
+                    continue;
+                }
+
+                // Apply replacement, preserving totals
+                dst.AddToCounts(
+                    replacement.Base,
+                    e.Number,
+                    insertAtFront: false,
+                    woundedCount: e.WoundedNumber,
+                    xpChange: e.Xp
+                );
+            }
+
+            // Swap onto PartyBase
+            Reflector.SetPropertyValue(Base.Party, "MemberRoster", dst);
+
+            Log.Debug($"Roster swapped for {Name}.");
+        }
     }
 }

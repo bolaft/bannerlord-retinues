@@ -1,10 +1,13 @@
+using System.Collections.Generic;
+using System.Linq;
+using Retinues.Core.Game.Wrappers.Base;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Wrappers
 {
     [SafeClass(SwallowByDefault = false)]
-    public class WSettlement(Settlement settlement) : StringIdentifier
+    public class WSettlement(Settlement settlement) : FactionObject
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
@@ -26,6 +29,9 @@ namespace Retinues.Core.Game.Wrappers
         //                         Members                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public List<WNotable> Notables =>
+            _settlement?.Notables.Where(n => n != null).Select(n => new WNotable(n)).ToList() ?? [];
+
         public WParty Garrison =>
             _settlement?.Town?.GarrisonParty != null
                 ? new WParty(_settlement.Town.GarrisonParty)
@@ -33,54 +39,69 @@ namespace Retinues.Core.Game.Wrappers
 
         public WCulture Culture => new(_settlement?.Culture);
 
-        public WFaction Faction
+        public override WFaction Clan
         {
             get
             {
                 var clan = _settlement?.OwnerClan;
-                var kingdom = clan?.Kingdom;
-
-                bool inPlayerClan =
-                    Player.Clan != null && clan != null && Player.Clan.StringId == clan.StringId;
-                bool inPlayerKingdom =
-                    Player.Kingdom != null
-                    && kingdom != null
-                    && Player.Kingdom.StringId == kingdom.StringId;
-
-                if (Config.GetOption<bool>("ClanTroopsOverKingdomTroops"))
-                {
-                    if (inPlayerClan && clan != null)
-                        return new WFaction(clan);
-                    if (inPlayerKingdom && kingdom != null)
-                        return new WFaction(kingdom);
-                }
-                else
-                {
-                    if (inPlayerKingdom && kingdom != null)
-                        return new WFaction(kingdom);
-                    if (inPlayerClan && clan != null)
-                        return new WFaction(clan);
-                }
-
+                if (clan != null)
+                    return new WFaction(clan);
                 return null;
             }
         }
+
+        public override WFaction Kingdom =>
+            Clan != null ? new WFaction(_settlement?.OwnerClan.Kingdom) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter MilitiaMelee =>
-            Faction?.MilitiaMelee.IsActive == true ? Faction.MilitiaMelee : Culture.MilitiaMelee;
+            PlayerFaction?.MilitiaMelee.IsActive == true
+                ? PlayerFaction.MilitiaMelee
+                : Culture.MilitiaMelee;
         public WCharacter MilitiaMeleeElite =>
-            Faction?.MilitiaMeleeElite.IsActive == true
-                ? Faction.MilitiaMeleeElite
+            PlayerFaction?.MilitiaMeleeElite.IsActive == true
+                ? PlayerFaction.MilitiaMeleeElite
                 : Culture.MilitiaMeleeElite;
         public WCharacter MilitiaRanged =>
-            Faction?.MilitiaRanged.IsActive == true ? Faction.MilitiaRanged : Culture.MilitiaRanged;
+            PlayerFaction?.MilitiaRanged.IsActive == true
+                ? PlayerFaction.MilitiaRanged
+                : Culture.MilitiaRanged;
         public WCharacter MilitiaRangedElite =>
-            Faction?.MilitiaRangedElite.IsActive == true
-                ? Faction.MilitiaRangedElite
+            PlayerFaction?.MilitiaRangedElite.IsActive == true
+                ? PlayerFaction.MilitiaRangedElite
                 : Culture.MilitiaRangedElite;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public void SwapVolunteers(WFaction faction = null)
+        {
+            if (faction == null)
+                faction = PlayerFaction;
+            if (faction == null)
+                return;
+
+            Log.Debug(
+                $"[Settlement] Swapping volunteers in settlement '{StringId}' for faction '{faction.StringId}'"
+            );
+
+            foreach (var notable in Notables)
+            {
+                try
+                {
+                    notable.SwapVolunteers(faction);
+                }
+                catch (System.Exception ex)
+                {
+                    Log.Error(
+                        $"VolunteerSwapHelper: Exception while processing notable {notable.StringId} in settlement {StringId}: {ex}"
+                    );
+                }
+            }
+        }
     }
 }

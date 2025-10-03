@@ -1,4 +1,4 @@
-using Retinues.Core.Features.Recruits.Patches;
+using Retinues.Core.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
@@ -30,7 +30,8 @@ namespace Retinues.Core.Compatibility.Shokuho
 
         private void DailyTickSettlement(Settlement settlement)
         {
-            VolunteerSwap.SwapVolunteersInSettlement(settlement);
+            var s = new WSettlement(settlement);
+            s.SwapVolunteers();
         }
     }
 }

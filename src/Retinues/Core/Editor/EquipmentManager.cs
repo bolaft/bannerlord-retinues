@@ -25,65 +25,96 @@ namespace Retinues.Core.Editor
                 $"Collecting available items for troop {troop?.Name} (tier {troop?.Tier}), faction {faction?.Name}, slot {slot}."
             );
 
-            // Check if all equipment is unlocked
-            bool allEquipmentUnlocked = Config.GetOption<bool>("AllEquipmentUnlocked");
-
             // Initialize item list
             var items = new List<(WItem, int?)>();
 
+            // Configuration
+            var allUnlocked = Config.GetOption<bool>("AllEquipmentUnlocked");
+            var allowFromCulture = Config.GetOption<bool>("UnlockFromCulture");
+            var allowFromKills = Config.GetOption<bool>("UnlockFromKills");
+            var killsForUnlock = Config.GetOption<int>("KillsForUnlock");
+            var allowedTierDiff = Config.GetOption<int>("AllowedTierDifference");
+
+            // Doctrines
+            var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
+            var hasIronclad = DoctrineAPI.IsDoctrineUnlocked<Ironclad>();
+            var hasAncestral = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
+
+            // Ids
+            var factionCultureId = faction?.Culture?.StringId;
+            var clanCultureId = Player.Clan?.Culture?.StringId;
+            var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
+
             // Load items
-            foreach (var item in MBObjectManager.Instance.GetObjectTypeList<ItemObject>())
+            foreach (
+                var item in MBObjectManager
+                    .Instance.GetObjectTypeList<ItemObject>()
+                    .Select(i => new WItem(i))
+            )
             {
                 try
                 {
-                    if (allEquipmentUnlocked)
-                        items.Add((new WItem(item), null)); // All items
-                    else
+                    // All equipment unlocked: take everything
+                    if (allUnlocked)
                     {
-                        var wItem = new WItem(item); // Wrap item
+                        items.Add((item, null));
+                        continue;
+                    }
 
-                        if (wItem.IsCrafted && !DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
-                            continue; // Skip crafted items
-                        if (
-                            Config.GetOption<int>("AllowedTierDifference")
-                                < (wItem.Tier - troop.Tier)
-                            && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
-                        )
-                            continue; // Skip items that exceed the allowed tier difference unless Ironclad is unlocked
+                    // 1) Crafted items gated by Clanic Traditions
+                    if (item.IsCrafted && !hasClanicTraditions)
+                        continue;
 
-                        if (wItem.IsUnlocked)
-                            items.Add((wItem, null)); // Unlocked items
-                        else if (
-                            Config.GetOption<bool>("UnlockFromCulture")
-                            && item.Culture?.StringId == faction?.Culture?.StringId
+                    // 2) Tier constraint unless Ironclad is unlocked
+                    var tierDelta = item.Tier - troop.Tier;
+                    if (!hasIronclad && tierDelta > allowedTierDiff)
+                        continue;
+
+                    // 3) Already unlocked
+                    if (item.IsUnlocked)
+                    {
+                        items.Add((item, null));
+                        continue;
+                    }
+
+                    // 4) Culture-based unlocks
+                    var itemCultureId = item.Culture?.StringId;
+
+                    if (allowFromCulture && itemCultureId == factionCultureId)
+                    {
+                        items.Add((item, null));
+                        continue;
+                    }
+
+                    if (
+                        hasAncestral
+                        && (itemCultureId == clanCultureId || itemCultureId == kingdomCultureId)
+                    )
+                    {
+                        items.Add((item, null));
+                        continue;
+                    }
+
+                    // 5) Kill-progress unlocks
+                    if (
+                        allowFromKills
+                        && UnlocksBehavior.IdsToProgress.TryGetValue(
+                            item.StringId,
+                            out var progress
                         )
-                            items.Add((wItem, null)); // Items of the faction's culture
-                        else if (
-                            DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>()
-                            && (
-                                item.Culture?.StringId == Player.Clan?.Culture?.StringId
-                                || item.Culture?.StringId == Player.Kingdom?.Culture?.StringId
-                            )
-                        )
-                            items.Add((wItem, null)); // Items of the clan or kingdom's culture
-                        else if (
-                            UnlocksBehavior.IdsToProgress.ContainsKey(item.StringId)
-                            && Config.GetOption<bool>("UnlockFromKills")
-                        )
+                    )
+                    {
+                        if (progress >= killsForUnlock)
                         {
-                            int progress = UnlocksBehavior.IdsToProgress[item.StringId];
-
-                            if (progress >= Config.GetOption<int>("KillsForUnlock"))
-                            {
-                                wItem.Unlock(); // Unlock now if necessary
-                                items.Add((wItem, null));
-                            }
-                            else
-                            {
-                                items.Add((wItem, progress)); // Items that are in progress
-                            }
+                            item.Unlock(); // unlock now
+                            items.Add((item, null));
+                        }
+                        else
+                        {
+                            items.Add((item, progress)); // still in progress
                         }
                     }
+                    // else: not eligible this pass
                 }
                 catch (Exception e)
                 {
@@ -94,7 +125,7 @@ namespace Retinues.Core.Editor
             // Filter by selected slot
             items = [.. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot))];
 
-            // Sort by int? (nulls first, then descending), then type, then name
+            // Sort by progress (nulls first, then descending), then type, then name
             items =
             [
                 .. items

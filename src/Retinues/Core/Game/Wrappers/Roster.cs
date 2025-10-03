@@ -97,7 +97,7 @@ namespace Retinues.Core.Game.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
+        //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public int HeroCount
@@ -162,7 +162,11 @@ namespace Retinues.Core.Game.Wrappers
         public float ArchersRatio => Count == 0 ? 0 : (float)ArchersCount / (Count - HeroCount);
         public float CavalryRatio => Count == 0 ? 0 : (float)CavalryCount / (Count - HeroCount);
 
-        public int CountByFormation(FormationClass cls)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private int CountByFormation(FormationClass cls)
         {
             int count = 0;
             foreach (var e in Elements)
@@ -172,15 +176,6 @@ namespace Retinues.Core.Game.Wrappers
                 if (c == cls)
                     count += e.Number;
             }
-            return count;
-        }
-
-        public int CountByCulture(WCulture culture)
-        {
-            int count = 0;
-            foreach (var e in Elements)
-                if (e.Troop.Culture.StringId == culture.StringId)
-                    count += e.Number;
             return count;
         }
     }

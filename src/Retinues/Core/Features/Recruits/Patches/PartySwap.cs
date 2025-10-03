@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Party.PartyComponents;
@@ -11,11 +12,10 @@ namespace Retinues.Core.Features.Recruits.Patches
         static void Postfix(CaravanPartyComponent __instance, MobileParty __result)
         {
             if (__result == null)
-            {
-                Log.Debug("CaravanSwap: Party is null, skipping.");
-                return;
-            }
-            TroopSwapHelper.SwapParty(__result);
+                return; // should not happen
+
+            var party = new WParty(__result);
+            party.SwapTroops();
         }
     }
 
@@ -25,11 +25,10 @@ namespace Retinues.Core.Features.Recruits.Patches
         static void Postfix(MilitiaPartyComponent __instance, MobileParty __result)
         {
             if (__result == null)
-            {
-                Log.Debug("MilitiaSwap: Party is null, skipping.");
-                return;
-            }
-            TroopSwapHelper.SwapParty(__result);
+                return; // should not happen
+
+            var party = new WParty(__result);
+            party.SwapTroops();
         }
     }
 
@@ -39,11 +38,10 @@ namespace Retinues.Core.Features.Recruits.Patches
         static void Postfix(GarrisonPartyComponent __instance, MobileParty __result)
         {
             if (__result == null)
-            {
-                Log.Debug("GarrisonSwap: Party is null, skipping.");
-                return;
-            }
-            TroopSwapHelper.SwapParty(__result);
+                return; // should not happen
+
+            var party = new WParty(__result);
+            party.SwapTroops();
         }
     }
 }

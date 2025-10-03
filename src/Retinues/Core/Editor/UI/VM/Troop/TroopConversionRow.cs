@@ -33,7 +33,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public string CappedName(WCharacter troop)
         {
             var name = troop?.Name;
-            if (string.IsNullOrEmpty(name)) return name;
+            if (string.IsNullOrEmpty(name))
+                return name;
             if (name.Length > 40)
                 return name.Substring(0, 40) + "(...)";
             return name;
