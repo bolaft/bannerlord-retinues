@@ -622,7 +622,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
             if (SelectedTroop.IsRetinue)
             {
-                // From regulars in party → this retinue
+                // From regulars in party to this retinue
                 foreach (var troop in TroopManager.GetRetinueSourceTroops(SelectedTroop))
                     _conversionRows.Add(new TroopConversionRowVM(troop, SelectedTroop, this));
             }

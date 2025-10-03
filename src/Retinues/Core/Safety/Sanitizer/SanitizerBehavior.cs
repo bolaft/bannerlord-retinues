@@ -1,12 +1,11 @@
-using System;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Core.Safety.Behaviors
+namespace Retinues.Core.Safety.Sanitizer
 {
     [SafeClass]
-    public class SafetyBehavior : CampaignBehaviorBase
+    public class SanitizerBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //

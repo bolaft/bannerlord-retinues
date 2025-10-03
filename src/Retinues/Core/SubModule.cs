@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
-using Retinues.Core.Mods.Shokuho;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
 using Retinues.Core.Features.Retinues.Behaviors;
@@ -11,7 +10,10 @@ using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Safety.Behaviors;
+using Retinues.Core.Mods;
+using Retinues.Core.Safety.Backup;
+using Retinues.Core.Safety.Legacy;
+using Retinues.Core.Safety.Sanitizer;
 using Retinues.Core.Troops;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
@@ -86,9 +88,7 @@ namespace Retinues.Core
         {
             base.OnGameStart(game, gameStarter);
 
-            Log.Debug($"{game?.GameType?.GetType().Name}");
-
-            if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
+            if (gameStarter is CampaignGameStarter cs)
             {
                 // Clear all static lists
                 ClearAll();
@@ -97,9 +97,8 @@ namespace Retinues.Core
                 cs.AddBehavior(new TroopBehavior());
 
                 // Safety behaviors
-                cs.AddBehavior(new SafetyBehavior());
+                cs.AddBehavior(new SanitizerBehavior());
                 cs.AddBehavior(new BackupBehavior());
-                cs.AddBehavior(new SaveBackCompatibilityBehavior());
 
                 // Item behaviors
                 cs.AddBehavior(new UnlocksBehavior());
@@ -107,13 +106,6 @@ namespace Retinues.Core
 
                 // Retinue buff behavior
                 cs.AddBehavior(new RetinueBuffBehavior());
-
-                // Shokuho behavior (skip if not Shokuho)
-                if (ShokuhoDetect.IsShokuhoCampaign())
-                {
-                    Log.Debug("Shokuho detected, using ShokuhoVolunteerSwapBehavior.");
-                    cs.AddBehavior(new ShokuhoVolunteerSwapBehavior());
-                }
 
                 // XP behavior (skip if both costs are 0)
                 if (
@@ -132,6 +124,12 @@ namespace Retinues.Core
                     cs.AddBehavior(new FeatNotificationBehavior());
                     cs.AddBehavior(new DoctrineEffectRuntimeBehavior());
                 }
+
+                // Legacy compatibility behaviors
+                LegacyCompatibility.AddBehaviors(cs);
+
+                // Mod compatibility behaviors
+                ModCompatibility.AddBehaviors(cs);
 
                 Log.Debug("Behaviors registered.");
             }

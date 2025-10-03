@@ -1,6 +1,5 @@
 using HarmonyLib;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Party.PartyComponents;
 

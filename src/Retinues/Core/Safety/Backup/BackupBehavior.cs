@@ -6,7 +6,7 @@ using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.Core.Safety.Behaviors
+namespace Retinues.Core.Safety.Backup
 {
     [SafeClass]
     public sealed class BackupBehavior : CampaignBehaviorBase

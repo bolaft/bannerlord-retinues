@@ -23,25 +23,39 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private Dictionary<string, int> _defeatsByItemId = [];
+        private Dictionary<string, int> _defeatsByItemId;
 
         private HashSet<string> _unlockedItemIds = [];
 
         public bool HasSyncData =>
-            _defeatsByItemId != null
-            && _unlockedItemIds != null
-            && _unlockedItemIds.Count > 0
-            && _defeatsByItemId.Count > 0;
+            (_defeatsByItemId != null && _defeatsByItemId.Count > 0)
+            || (_unlockedItemIds != null && _unlockedItemIds.Count > 0);
 
         public override void SyncData(IDataStore ds)
         {
+            if (ds.IsSaving)
+            {
+                // write as List<string>
+                var list = _unlockedItemIds?.ToList() ?? [];
+                ds.SyncData(nameof(_unlockedItemIds), ref list);
+            }
+            else
+            {
+                // read as List<string>
+                List<string> list = null;
+                ds.SyncData(nameof(_unlockedItemIds), ref list);
+
+                // convert to HashSet<string>
+                _unlockedItemIds = list != null
+                    ? new HashSet<string>(list, StringComparer.Ordinal)
+                    : new HashSet<string>(StringComparer.Ordinal);
+            }
+
+            // Defeats by item ID
             ds.SyncData(nameof(_defeatsByItemId), ref _defeatsByItemId);
 
-            // NEW: persist unlocked item ids
-            ds.SyncData(nameof(_unlockedItemIds), ref _unlockedItemIds);
-
             Log.Info(
-                $"SyncData: {_defeatsByItemId.Count} item defeat counts, {_unlockedItemIds.Count} unlocked."
+                $"{_defeatsByItemId.Count} item defeat counts, {_unlockedItemIds.Count} unlocked."
             );
         }
 
