@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Safety.Sanitizer
 {
     [SafeClass]
     public static class RosterSanitizer
@@ -34,7 +34,7 @@ namespace Retinues.Core.Safety
                     if (elem.Character == null)
                     {
                         Log.Warn(
-                            $"[RosterSanitizer] Null troop at index {i} in {DescribeParty(contextParty)} – replacing."
+                            $"Null troop at index {i} in {DescribeParty(contextParty)} - replacing."
                         );
                         ReplaceElementWithFallback(roster, i, elem, contextParty);
                         continue;
@@ -44,7 +44,7 @@ namespace Retinues.Core.Safety
                     if (!IsCharacterValid(elem.Character))
                     {
                         Log.Warn(
-                            $"[RosterSanitizer] Invalid troop '{elem.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} – replacing."
+                            $"Invalid troop '{elem.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} - replacing."
                         );
                         ReplaceElementWithFallback(roster, i, elem, contextParty);
                         continue;
@@ -61,7 +61,7 @@ namespace Retinues.Core.Safety
                         // Do "replace with itself" to keep the same CharacterObject.
                         SafeReplace(roster, i, elem.Character, total, wounded, xp);
                         Log.Info(
-                            $"[RosterSanitizer] Normalized counts for '{elem.Character.StringId}' at index {i} "
+                            $"Normalized counts for '{elem.Character.StringId}' at index {i} "
                                 + $"(total:{elem.Number}->{total}, wounded:{elem.WoundedNumber}->{wounded}, xp:{elem.Xp}->{xp})"
                         );
                     }
@@ -69,7 +69,7 @@ namespace Retinues.Core.Safety
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "[RosterSanitizer] Failed while cleaning roster");
+                Log.Exception(ex, "Failed while cleaning roster");
             }
         }
 
@@ -96,7 +96,7 @@ namespace Retinues.Core.Safety
                 if (elem.Character != null)
                     roster.RemoveTroop(elem.Character, total);
                 Log.Warn(
-                    $"[RosterSanitizer] No fallback troop; removed '{elem.Character?.StringId ?? "NULL"}' x{total}."
+                    $"No fallback troop; removed '{elem.Character?.StringId ?? "NULL"}' x{total}."
                 );
                 return;
             }
@@ -117,7 +117,7 @@ namespace Retinues.Core.Safety
                 roster.RemoveTroop(elem.Character, total);
 
             Log.Info(
-                $"[RosterSanitizer] Replaced '{elem.Character?.StringId ?? "NULL"}' with '{fallback.StringId}' (count:{total})."
+                $"Replaced '{elem.Character?.StringId ?? "NULL"}' with '{fallback.StringId}' (count:{total})."
             );
         }
 
@@ -175,10 +175,7 @@ namespace Retinues.Core.Safety
             catch { }
 
             // Otherwise try a safe, always-present fallback
-            if (pick == null)
-            {
-                pick = MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
-            }
+            pick ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
 
             // Final sanity: ensure it's a valid, active CharacterObject
             return IsCharacterValid(pick) ? pick : null;
@@ -191,17 +188,7 @@ namespace Retinues.Core.Safety
 
             // Wrapper knows how to detect inactive/unregistered TW objects.
             var w = new WCharacter(c);
-            if (!w.IsActive)
-                return false;
-
-            // StringId & Name must exist
-            if (string.IsNullOrWhiteSpace(c.StringId))
-                return false;
-            if (c.Name == null)
-                return false;
-
-            // Tier sanity
-            if (c.Tier < 0 || c.Tier > 10)
+            if (!w.IsValid)
                 return false;
 
             // Ensure the object manager can resolve it back

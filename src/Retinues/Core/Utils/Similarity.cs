@@ -12,8 +12,10 @@ namespace Retinues.Core.Utils
     {
         public static double Jaccard(HashSet<string> a, HashSet<string> b)
         {
-            if (a.Count == 0 && b.Count == 0) return 1.0;
-            if (a.Count == 0 || b.Count == 0) return 0.0;
+            if (a.Count == 0 && b.Count == 0)
+                return 1.0;
+            if (a.Count == 0 || b.Count == 0)
+                return 0.0;
             int inter = a.Count(s => b.Contains(s));
             int union = a.Count + b.Count - inter;
             return union == 0 ? 0.0 : (double)inter / union;
@@ -21,8 +23,10 @@ namespace Retinues.Core.Utils
 
         public static double Cosine(Dictionary<string, int> a, Dictionary<string, int> b)
         {
-            if (a.Count == 0 && b.Count == 0) return 1.0;
-            if (a.Count == 0 || b.Count == 0) return 0.0;
+            if (a.Count == 0 && b.Count == 0)
+                return 1.0;
+            if (a.Count == 0 || b.Count == 0)
+                return 0.0;
 
             long dot = 0;
             long na2 = 0;
@@ -41,7 +45,8 @@ namespace Retinues.Core.Utils
                 nb2 += bj * bj;
             }
 
-            if (na2 == 0 || nb2 == 0) return 0.0;
+            if (na2 == 0 || nb2 == 0)
+                return 0.0;
             return dot / (Math.Sqrt(na2) * Math.Sqrt(nb2));
         }
     }

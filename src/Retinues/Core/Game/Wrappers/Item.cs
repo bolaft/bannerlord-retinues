@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Core.Features.Stocks.Behaviors;
+using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -275,61 +278,25 @@ namespace Retinues.Core.Game.Wrappers
         //                         Unlocks                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static HashSet<WItem> UnlockedItems { get; } = [];
+        public bool IsUnlocked => UnlocksBehavior.IsUnlocked(StringId);
 
-        public bool IsUnlocked => UnlockedItems.Contains(this);
+        public void Unlock() => UnlocksBehavior.Unlock(Base);
 
-        public void Unlock()
-        {
-            if (!IsUnlocked)
-                UnlockedItems.Add(this);
-        }
-
-        public void Lock()
-        {
-            if (IsUnlocked)
-                UnlockedItems.Remove(this);
-        }
+        public void Lock() => UnlocksBehavior.Lock(Base);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Stocks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static Dictionary<WItem, int> Stocks { get; } = [];
+        public bool IsStocked => StocksBehavior.HasStock(StringId);
 
-        public bool IsStocked => Stocks.ContainsKey(this);
+        public static void SetStock(WItem item, int count) =>
+            StocksBehavior.Set(item?.StringId, count);
 
-        public static void SetStock(WItem item, int count)
-        {
-            if (count <= 0)
-                Stocks.Remove(item);
-            else
-                Stocks[item] = count;
-        }
+        public int GetStock() => StocksBehavior.Get(StringId);
 
-        public int GetStock()
-        {
-            if (Stocks.TryGetValue(this, out int count))
-                return count;
-            return 0;
-        }
+        public void Stock() => StocksBehavior.Add(StringId, 1);
 
-        public void Stock()
-        {
-            if (Stocks.ContainsKey(this))
-                Stocks[this]++;
-            else
-                Stocks[this] = 1;
-        }
-
-        public void Unstock()
-        {
-            if (Stocks.ContainsKey(this))
-            {
-                Stocks[this]--;
-                if (Stocks[this] <= 0)
-                    Stocks.Remove(this);
-            }
-        }
+        public void Unstock() => StocksBehavior.Add(StringId, -1);
     }
 }

@@ -5,16 +5,59 @@ using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Localization;
 
-namespace Retinues.Core.Features
+namespace Retinues.Core.Troops
 {
     [SafeClass(SwallowByDefault = false)]
-    public static class Setup
+    public static class TroopBuilder
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       All Troops                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static void EnsureTroopsExist(WFaction faction)
+        {
+            Log.Debug($"Switching to faction: {faction?.Name ?? "null"}");
+
+            if (!faction.RetinueElite.IsActive || !faction.RetinueBasic.IsActive)
+            {
+                Log.Info("No retinue troops found, initializing default retinue troops.");
+                BuildRetinue(faction);
+            }
+
+            if (faction.BasicTroops.Count == 0 && faction.EliteTroops.Count == 0)
+            {
+                Log.Debug("No custom troops found for faction.");
+
+                // Always have clan troops if clan has fiefs, if player leads a kingdom or if can recruit anywhere is enabled
+                if (
+                    faction.HasFiefs
+                    || Player.Kingdom != null
+                    || Config.GetOption<bool>("RecruitAnywhere")
+                )
+                {
+                    Log.Info("Initializing default troops.");
+
+                    BuildTroops(faction);
+                }
+            }
+
+            if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
+            {
+                // Always have militia troops if clan has fiefs or if player leads a kingdom
+                if (faction.HasFiefs || Player.Kingdom != null)
+                {
+                    Log.Info("Initializing militia troops.");
+
+                    BuildMilitia(faction);
+                }
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Retinues                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void SetupFactionRetinue(WFaction faction)
+        public static void BuildRetinue(WFaction faction)
         {
             Log.Info($"Setting up retinue troops for faction {faction.Name}.");
 
@@ -87,6 +130,16 @@ namespace Retinues.Core.Features
         //                        Militias                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public static void BuildMilitia(WFaction faction)
+        {
+            Log.Info($"Setting up militia troops for faction {faction.Name}.");
+
+            CreateMilitiaTroop(faction, false, true);
+            CreateMilitiaTroop(faction, true, true);
+            CreateMilitiaTroop(faction, false, false);
+            CreateMilitiaTroop(faction, true, false);
+        }
+
         private static void CreateMilitiaTroop(WFaction faction, bool isElite, bool isMelee)
         {
             WCharacter root;
@@ -140,21 +193,11 @@ namespace Retinues.Core.Features
             militia.Activate();
         }
 
-        public static void SetupFactionMilitia(WFaction faction)
-        {
-            Log.Info($"Setting up militia troops for faction {faction.Name}.");
-
-            CreateMilitiaTroop(faction, false, true);
-            CreateMilitiaTroop(faction, true, true);
-            CreateMilitiaTroop(faction, false, false);
-            CreateMilitiaTroop(faction, true, false);
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void SetupFactionTroops(WFaction faction)
+        public static void BuildTroops(WFaction faction)
         {
             Log.Info($"Setting up troops for faction {faction.Name}.");
 
@@ -197,14 +240,20 @@ namespace Retinues.Core.Features
                 );
             }
 
+            // Count unlocks
+            int unlocks = 0;
+
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
             foreach (var equipment in troop.Equipments)
             foreach (var item in equipment.Items)
+            {
                 item.Unlock();
+                unlocks++;
+            }
 
             Log.Debug(
-                $"Unlocked {WItem.UnlockedItems.Count()} items from {eliteClones.Count + basicClones.Count} troops"
+                $"Unlocked {unlocks} items from {eliteClones.Count + basicClones.Count} troops"
             );
         }
 

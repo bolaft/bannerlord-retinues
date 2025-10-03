@@ -78,7 +78,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             get
             {
                 var name = SelectedTroop?.Name;
-                if (string.IsNullOrEmpty(name)) return name;
+                if (string.IsNullOrEmpty(name))
+                    return name;
                 if (name.Length > 35)
                     return name.Substring(0, 35) + "(...)";
                 return name;
@@ -621,8 +622,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
             if (SelectedTroop.IsRetinue)
             {
-                // From regulars in party → this retinue
-                foreach (var troop in RetinueSources.GetRetinueSourceTroops(SelectedTroop))
+                // From regulars in party to this retinue
+                foreach (var troop in TroopManager.GetRetinueSourceTroops(SelectedTroop))
                     _conversionRows.Add(new TroopConversionRowVM(troop, SelectedTroop, this));
             }
         }

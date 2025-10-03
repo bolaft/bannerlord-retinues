@@ -4,15 +4,17 @@ using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Effects;
-using Retinues.Core.Features.Recruits.Behaviors;
+using Retinues.Core.Features.Retinues.Behaviors;
+using Retinues.Core.Features.Stocks.Behaviors;
 using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
-using Retinues.Core.Features.Retinues.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Persistence.Item;
-using Retinues.Core.Persistence.Troop;
-using Retinues.Core.Safety;
+using Retinues.Core.Mods;
+using Retinues.Core.Safety.Backup;
+using Retinues.Core.Safety.Legacy;
+using Retinues.Core.Safety.Sanitizer;
+using Retinues.Core.Troops;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -56,11 +58,25 @@ namespace Retinues.Core
                 Log.Exception(e);
             }
 
+            var knownIncompatibilities = new string[]
+            {
+                "WarlordsBattlefield",
+                // "AdonnaysTroopChanger",
+                "SimpleBank",
+            };
+
             try
             {
                 Log.Info("Active modules:");
                 foreach (var m in ModuleChecker.GetActiveModules())
+                {
                     Log.Info($" - {m.Id} {m.Version}");
+                    foreach (var inc in knownIncompatibilities)
+                        if (string.Equals(m.Id, inc, StringComparison.OrdinalIgnoreCase))
+                            Log.Critical(
+                                $"WARNING: {m.Id} is known to be incompatible with Retinues!"
+                            );
+                }
             }
             catch (Exception e)
             {
@@ -72,28 +88,24 @@ namespace Retinues.Core
         {
             base.OnGameStart(game, gameStarter);
 
-            Log.Debug($"{game?.GameType?.GetType().Name}");
-
-            if (game.GameType is Campaign && gameStarter is CampaignGameStarter cs)
+            if (gameStarter is CampaignGameStarter cs)
             {
                 // Clear all static lists
                 ClearAll();
 
-                // Persistence behaviors
-                cs.AddBehavior(new ItemSaveBehavior());
-                cs.AddBehavior(new TroopSaveBehavior());
+                // Troop behaviors
+                cs.AddBehavior(new TroopBehavior());
 
-                // Backup behavior
+                // Safety behaviors
+                cs.AddBehavior(new SanitizerBehavior());
                 cs.AddBehavior(new BackupBehavior());
 
-                // Safety behavior
-                cs.AddBehavior(new SafetyBehavior());
+                // Item behaviors
+                cs.AddBehavior(new UnlocksBehavior());
+                cs.AddBehavior(new StocksBehavior());
 
                 // Retinue buff behavior
                 cs.AddBehavior(new RetinueBuffBehavior());
-
-                // Volunteer swap behavior
-                cs.AddBehavior(new VolunteerSwapBehavior());
 
                 // XP behavior (skip if both costs are 0)
                 if (
@@ -102,17 +114,6 @@ namespace Retinues.Core
                 )
                 {
                     cs.AddBehavior(new TroopXpBehavior());
-                    Log.Debug("Troop XP enabled.");
-                }
-
-                // Unlocks behavior (skip if disabled)
-                if (
-                    Config.GetOption<bool>("UnlockFromKills")
-                    && !Config.GetOption<bool>("AllEquipmentUnlocked")
-                )
-                {
-                    cs.AddBehavior(new UnlocksBehavior());
-                    Log.Debug("Item unlocks enabled.");
                 }
 
                 // Doctrine behaviors (skip if doctrines disabled)
@@ -122,8 +123,13 @@ namespace Retinues.Core
                     cs.AddBehavior(new FeatServiceBehavior());
                     cs.AddBehavior(new FeatNotificationBehavior());
                     cs.AddBehavior(new DoctrineEffectRuntimeBehavior());
-                    Log.Debug("Doctrines enabled.");
                 }
+
+                // Legacy compatibility behaviors
+                LegacyCompatibility.AddBehaviors(cs);
+
+                // Mod compatibility behaviors
+                ModCompatibility.AddBehaviors(cs);
 
                 Log.Debug("Behaviors registered.");
             }
@@ -165,10 +171,6 @@ namespace Retinues.Core
             WCharacter.ActiveTroops.Clear();
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
-            // Clear item unlocks
-            WItem.UnlockedItems.Clear();
-            // Clear item stocks
-            WItem.Stocks.Clear();
         }
     }
 }

@@ -1,0 +1,37 @@
+using Retinues.Core.Game.Wrappers;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Settlements;
+
+namespace Retinues.Core.Mods.Shokuho
+{
+    public sealed class ShokuhoVolunteerSwapBehavior : CampaignBehaviorBase
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Sync Data                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override void SyncData(IDataStore dataStore) { }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Event Registration                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override void RegisterEvents()
+        {
+            CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(
+                this,
+                DailyTickSettlement
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void DailyTickSettlement(Settlement settlement)
+        {
+            var s = new WSettlement(settlement);
+            s.SwapVolunteers();
+        }
+    }
+}

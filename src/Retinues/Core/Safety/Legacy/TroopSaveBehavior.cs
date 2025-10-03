@@ -1,18 +1,28 @@
 using System;
+using System.Collections.Generic;
+using Retinues.Core.Troops;
+using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Safety.Legacy
 {
     [SafeClass]
-    public class SafetyBehavior : CampaignBehaviorBase
+    public sealed class TroopSaveBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void SyncData(IDataStore dataStore) { }
+        private List<TroopSaveData> _troops;
+
+        public override void SyncData(IDataStore ds)
+        {
+            if (ds.IsSaving)
+                _troops = null; // Clear reference before saving
+
+            ds.SyncData("Retinues_Troops", ref _troops);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
@@ -20,9 +30,9 @@ namespace Retinues.Core.Safety
 
         public override void RegisterEvents()
         {
-            CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+            CampaignEvents.OnAfterSessionLaunchedEvent.AddNonSerializedListener(
                 this,
-                OnGameLoadFinished
+                OnAfterSessionLaunched
             );
         }
 
@@ -30,19 +40,14 @@ namespace Retinues.Core.Safety
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnGameLoadFinished()
+        private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
-            Log.Info("Performing safety checks...");
-
-            foreach (var mp in MobileParty.All)
-                RosterSanitizer.CleanParty(mp);
-
-            foreach (var s in Campaign.Current.Settlements)
+            if (_troops is { Count: > 0 })
             {
-                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
-                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
+                foreach (var data in _troops)
+                    TroopLoader.Load(data);
 
-                VolunteerSanitizer.CleanSettlement(s);
+                Log.Info($"Troops migrated: {_troops.Count} roots.");
             }
         }
     }

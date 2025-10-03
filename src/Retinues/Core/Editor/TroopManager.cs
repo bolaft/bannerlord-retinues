@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Retinues.Core.Features.Xp;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -243,6 +244,48 @@ namespace Retinues.Core.Editor
             // Mutate roster
             Player.Party.MemberRoster.RemoveTroop(from, amount);
             Player.Party.MemberRoster.AddTroop(to, amount);
+        }
+
+        public static List<WCharacter> GetRetinueSourceTroops(WCharacter retinue)
+        {
+            var sources = new List<WCharacter>(2);
+
+            if (retinue is null || !retinue.IsRetinue)
+            {
+                Log.Error($"RetinueSources: {retinue?.StringId} is not a retinue.");
+                return sources;
+            }
+
+            // Identify which root to look under for culture and faction
+            WCharacter cultureRoot = null,
+                factionRoot = null;
+
+            if (retinue.IsElite)
+            {
+                cultureRoot = retinue.Culture?.RootElite;
+                factionRoot = retinue.Faction?.RootElite;
+            }
+            else
+            {
+                cultureRoot = retinue.Culture?.RootBasic;
+                factionRoot = retinue.Faction?.RootBasic;
+            }
+
+            // Culture pick
+            var culturePick = TroopMatcher.PickBestFromTree(cultureRoot, retinue);
+            if (culturePick.IsValid)
+                sources.Add(culturePick);
+
+            // Faction pick (avoid duplicate)
+            var factionPick = TroopMatcher.PickBestFromTree(
+                factionRoot,
+                retinue,
+                exclude: culturePick
+            );
+            if (factionPick.IsValid)
+                sources.Add(factionPick);
+
+            return sources;
         }
     }
 }

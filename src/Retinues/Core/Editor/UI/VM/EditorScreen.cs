@@ -4,11 +4,10 @@ using Retinues.Core.Editor.UI.Mixins;
 using Retinues.Core.Editor.UI.VM.Doctrines;
 using Retinues.Core.Editor.UI.VM.Equipment;
 using Retinues.Core.Editor.UI.VM.Troop;
-using Retinues.Core.Features;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Troops;
 using Retinues.Core.Utils;
-using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -288,43 +287,10 @@ namespace Retinues.Core.Editor.UI.VM
         [SafeMethod]
         public void SwitchFaction(WFaction faction)
         {
-            Log.Debug($"Switching to faction: {faction?.Name ?? "null"}");
-
-            if (!faction.RetinueElite.IsActive || !faction.RetinueBasic.IsActive)
-            {
-                Log.Info("No retinue troops found, initializing default retinue troops.");
-                Setup.SetupFactionRetinue(faction);
-            }
-
-            if (faction.BasicTroops.IsEmpty() && faction.EliteTroops.IsEmpty())
-            {
-                Log.Debug("No custom troops found for faction.");
-
-                // Always have clan troops if clan has fiefs, if player leads a kingdom or if can recruit anywhere is enabled
-                if (
-                    faction.HasFiefs
-                    || Player.Kingdom != null
-                    || Config.GetOption<bool>("RecruitAnywhere")
-                )
-                {
-                    Log.Info("Initializing default troops.");
-
-                    Setup.SetupFactionTroops(faction);
-                }
-            }
-
-            if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
-            {
-                // Always have militia troops if clan has fiefs or if player leads a kingdom
-                if (faction.HasFiefs || Player.Kingdom != null)
-                {
-                    Log.Info("Initializing militia troops.");
-
-                    Setup.SetupFactionMilitia(faction);
-                }
-            }
-
             _faction = faction;
+
+            // Build troops if missing
+            TroopBuilder.EnsureTroopsExist(faction);
 
             TroopEditor = new TroopEditorVM(this);
             TroopEditor.Refresh();

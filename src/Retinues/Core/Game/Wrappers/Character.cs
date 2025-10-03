@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Core.Game.Helpers;
+using Retinues.Core.Game.Helpers.Character;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -14,6 +15,19 @@ namespace Retinues.Core.Game.Wrappers
     [SafeClass(SwallowByDefault = false)]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Character Helper                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly ICharacterHelper _customHelper = new CustomCharacterHelper();
+        private static readonly ICharacterHelper _vanillaHelper = new VanillaCharacterHelper();
+        private readonly ICharacterHelper _helper = LooksCustomId(characterObject?.StringId)
+            ? _customHelper
+            : _vanillaHelper;
+
+        private static bool LooksCustomId(string id) =>
+            id?.StartsWith("ret_", StringComparison.Ordinal) == true;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -27,7 +41,7 @@ namespace Retinues.Core.Game.Wrappers
             IReadOnlyList<int> path = null
         )
             : this(
-                CharacterHelper.GetCharacterObject(
+                _customHelper.GetCharacterObject(
                     isKingdom,
                     isElite,
                     isRetinue,
@@ -38,7 +52,11 @@ namespace Retinues.Core.Game.Wrappers
             ) { }
 
         public WCharacter(string stringId)
-            : this(CharacterHelper.GetCharacterObject(stringId)) { }
+            : this(
+                (LooksCustomId(stringId) ? _customHelper : _vanillaHelper).GetCharacterObject(
+                    stringId
+                )
+            ) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Identity                        //
@@ -87,17 +105,17 @@ namespace Retinues.Core.Game.Wrappers
         //                Tree, Relations & Faction               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsCustom => CharacterHelper.IsCustom(StringId);
-        public bool IsElite => CharacterHelper.IsElite(StringId);
-        public bool IsRetinue => CharacterHelper.IsRetinue(StringId);
+        public bool IsCustom => _helper.IsCustom(StringId);
+        public bool IsElite => _helper.IsElite(StringId);
+        public bool IsRetinue => _helper.IsRetinue(StringId);
         public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
-        public bool IsMilitiaMelee => CharacterHelper.IsMilitiaMelee(StringId);
-        public bool IsMilitiaRanged => CharacterHelper.IsMilitiaRanged(StringId);
+        public bool IsMilitiaMelee => _helper.IsMilitiaMelee(StringId);
+        public bool IsMilitiaRanged => _helper.IsMilitiaRanged(StringId);
 
-        public WCharacter Parent => CharacterHelper.GetParent(this);
-        public WFaction Faction => CharacterHelper.ResolveFaction(StringId);
+        public WCharacter Parent => _helper.GetParent(this);
+        public WFaction Faction => _helper.ResolveFaction(StringId);
 
-        public IReadOnlyList<int> PositionInTree => CharacterHelper.GetPath(StringId);
+        public IReadOnlyList<int> PositionInTree => _helper.GetPath(StringId);
         public IEnumerable<WCharacter> Tree
         {
             get
@@ -372,10 +390,7 @@ namespace Retinues.Core.Game.Wrappers
 
         public ItemCategory UpgradeRequiresItemFromCategory
         {
-            get
-            {
-                return Base.UpgradeRequiresItemFromCategory;
-            }
+            get { return Base.UpgradeRequiresItemFromCategory; }
             set
             {
                 if (!IsCustom)
@@ -393,7 +408,7 @@ namespace Retinues.Core.Game.Wrappers
             var horse = Equipment?.GetItem(EquipmentIndex.Horse);
             if (horse == null)
             {
-                // Target isn’t mounted, no upgrade requirement.
+                // Target isn't mounted, no upgrade requirement.
                 UpgradeRequiresItemFromCategory = null;
                 return;
             }
@@ -451,6 +466,11 @@ namespace Retinues.Core.Game.Wrappers
 
         public static List<string> ActiveTroops { get; } = [];
         public bool IsActive => !IsCustom || ActiveTroops.Contains(StringId);
+        public bool IsValid =>
+            IsActive
+            && Base != null
+            && !string.IsNullOrWhiteSpace(StringId)
+            && !string.IsNullOrWhiteSpace(Name);
 
         public void Activate()
         {
@@ -488,7 +508,7 @@ namespace Retinues.Core.Game.Wrappers
         )
         {
             // Character object copy
-            CharacterHelper.CopyInto(src.Base, _co);
+            _helper.CopyInto(src.Base, _co);
 
             // Vanilla id
             VanillaStringIdMap[StringId] = src.VanillaStringId;

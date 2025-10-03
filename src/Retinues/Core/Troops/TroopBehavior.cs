@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Core.Persistence.Troop
+namespace Retinues.Core.Troops
 {
     [SafeClass(SwallowByDefault = false)]
-    public class TroopSaveBehavior : CampaignBehaviorBase
+    public sealed class TroopBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -16,12 +17,14 @@ namespace Retinues.Core.Persistence.Troop
 
         private List<TroopSaveData> _troopData = [];
 
-        public bool HasTroopData => _troopData.Count > 0;
+        public bool HasSyncData => _troopData != null && _troopData.Count > 0;
 
-        public override void SyncData(IDataStore dataStore)
+        public override void SyncData(IDataStore ds)
         {
-            // Persist the troops inside the native save.
-            dataStore.SyncData("Retinues_Troops", ref _troopData);
+            // Persist custom troop roots in the save file.
+            ds.SyncData(nameof(_troopData), ref _troopData);
+
+            Log.Info($"{_troopData.Count} root troops.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -30,98 +33,93 @@ namespace Retinues.Core.Persistence.Troop
 
         public override void RegisterEvents()
         {
-            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
+            // Save roots before saving
             CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener(this, OnBeforeSave);
+
+            // Rebuild all trees from serialized roots after a save is loaded
+            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━━━ Saving ━━━━━━━━ */
+
         private void OnBeforeSave()
         {
             try
             {
-                Log.Debug("Collecting root troops.");
                 _troopData = CollectAllDefinedCustomTroops();
-                Log.Debug($"{_troopData.Count} root troops serialized.");
+                Log.Debug($"Serialized {_troopData.Count} root troops.");
             }
             catch (Exception e)
             {
-                Log.Exception(e);
+                Log.Exception(e, "OnBeforeSave failed");
             }
         }
+
+        /* ━━━━━━━━ Loading ━━━━━━━ */
 
         private void OnGameLoaded(CampaignGameStarter _)
         {
             try
             {
-                // Rebuild all custom trees first
-                if (_troopData != null && _troopData.Count > 0)
+                if (_troopData is { Count: > 0 })
                 {
                     foreach (var root in _troopData)
-                        TroopSave.Load(root);
+                        TroopLoader.Load(root); // rebuild every tree from the save payload
 
-                    Log.Debug($"Rebuilt {_troopData.Count} root troops.");
+                    Log.Debug($"Rebuilt {_troopData.Count} root troops from save.");
                 }
                 else
                 {
-                    Log.Debug("No root troops in save.");
+                    Log.Debug("No custom roots found in save.");
                 }
             }
             catch (Exception e)
             {
-                Log.Exception(e);
+                Log.Exception(e, "OnGameLoaded failed");
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Troop Collection                    //
+        //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static List<TroopSaveData> CollectAllDefinedCustomTroops()
+        private static List<Save.TroopSaveData> CollectAllDefinedCustomTroops()
         {
-            var list = new List<TroopSaveData>();
+            var list = new List<Save.TroopSaveData>();
 
-            Log.Debug("Collecting from clan.");
             CollectFromFaction(Player.Clan, list);
-
-            Log.Debug("Collecting from kingdom.");
             CollectFromFaction(Player.Kingdom, list);
 
             return list;
         }
 
-        private static void CollectFromFaction(WFaction faction, List<TroopSaveData> list)
+        private static void CollectFromFaction(WFaction faction, List<Save.TroopSaveData> list)
         {
             if (faction is null)
             {
-                Log.Debug("No faction, skipping.");
+                Log.Debug("Collect: no faction, skipping.");
                 return;
             }
 
+            // Retinues
             if (faction.RetinueElite.IsActive && faction.RetinueBasic.IsActive)
             {
-                Log.Debug("Collecting retinue troops.");
-                list.Add(TroopSave.Save(faction.RetinueElite));
-                list.Add(TroopSave.Save(faction.RetinueBasic));
-            }
-            else
-            {
-                Log.Debug("No retinue troops found.");
+                list.Add(TroopLoader.Save(faction.RetinueElite));
+                list.Add(TroopLoader.Save(faction.RetinueBasic));
             }
 
+            // Roots
             if (faction.RootElite.IsActive && faction.RootBasic.IsActive)
             {
-                Log.Debug("Collecting root troops.");
-                list.Add(TroopSave.Save(faction.RootElite));
-                list.Add(TroopSave.Save(faction.RootBasic));
-            }
-            else
-            {
-                Log.Debug("No root troops found.");
+                list.Add(TroopLoader.Save(faction.RootElite));
+                list.Add(TroopLoader.Save(faction.RootBasic));
             }
 
+            // Militias
             if (
                 faction.MilitiaMelee.IsActive
                 && faction.MilitiaMeleeElite.IsActive
@@ -129,15 +127,10 @@ namespace Retinues.Core.Persistence.Troop
                 && faction.MilitiaRangedElite.IsActive
             )
             {
-                Log.Debug("Collecting militia troops.");
-                list.Add(TroopSave.Save(faction.MilitiaMelee));
-                list.Add(TroopSave.Save(faction.MilitiaMeleeElite));
-                list.Add(TroopSave.Save(faction.MilitiaRanged));
-                list.Add(TroopSave.Save(faction.MilitiaRangedElite));
-            }
-            else
-            {
-                Log.Debug("No militia troops found.");
+                list.Add(TroopLoader.Save(faction.MilitiaMelee));
+                list.Add(TroopLoader.Save(faction.MilitiaMeleeElite));
+                list.Add(TroopLoader.Save(faction.MilitiaRanged));
+                list.Add(TroopLoader.Save(faction.MilitiaRangedElite));
             }
         }
     }

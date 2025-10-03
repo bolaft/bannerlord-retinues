@@ -529,7 +529,6 @@ namespace Retinues.Core.Utils
             value = null;
             try
             {
-                // If toConstruct is open generic (e.g., List<>), we can't construct without a type arg.
                 if (toConstruct.ContainsGenericParameters)
                     return false;
 
@@ -616,15 +615,12 @@ namespace Retinues.Core.Utils
 
         private static bool IsHarmonyPatchable(MethodBase m)
         {
-            // No body? (abstract/interface/PInvoke) -> skip
             if (m.IsAbstract || m.GetMethodBody() == null)
                 return false;
 
-            // Declaring type open-generic? (rare in your codebase, but be safe)
             if (m.DeclaringType != null && m.DeclaringType.ContainsGenericParameters)
                 return false;
 
-            // Generic method definition or any generic parameters in the signature? -> skip
             if (m is MethodInfo mi)
             {
                 if (mi.ContainsGenericParameters)
@@ -634,7 +630,6 @@ namespace Retinues.Core.Utils
                 if (rt.IsGenericParameter || rt.ContainsGenericParameters)
                     return false;
 
-                // Hard-skip byref-like patterns that Harmony/MonoMod can’t import cleanly on net472
                 if (IsByRefLikeOrUnsupported(rt))
                     return false;
             }
@@ -651,7 +646,6 @@ namespace Retinues.Core.Utils
             }
 
             // Optional: avoid compiler-generated state machines (iterator/async MoveNext)
-            // Harmony can patch them, but they’re noisy. Skip if you don’t need them.
             if (m.GetCustomAttribute<CompilerGeneratedAttribute>() != null && m.Name == "MoveNext")
                 return false;
 

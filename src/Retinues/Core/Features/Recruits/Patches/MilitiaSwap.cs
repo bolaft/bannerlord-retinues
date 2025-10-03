@@ -63,7 +63,7 @@ namespace Retinues.Core.Features.Recruits.Patches
             {
                 Log.Exception(
                     ex,
-                    "[MilitiaPatch] AddLane failed (continuing with remaining lanes)"
+                    "AddLane failed (continuing with remaining lanes)"
                 );
             }
         }
@@ -86,7 +86,7 @@ namespace Retinues.Core.Features.Recruits.Patches
             {
                 var ws = new WSettlement(__instance);
 
-                if (ws.Faction == null)
+                if (ws.PlayerFaction == null)
                     return true; // vanilla
 
                 // Pull custom militia set
@@ -132,15 +132,15 @@ namespace Retinues.Core.Features.Recruits.Patches
                 );
 
                 Log.Debug(
-                    $"[MilitiaPatch] {ws.Name}: custom militia used (add={militiaToAdd}, rem={remaining})."
+                    $"{ws.Name}: custom militia used (add={militiaToAdd}, rem={remaining})."
                 );
 
-                // handled → skip original
+                // skip original
                 return false;
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "[MilitiaPatch] failure → fall back to vanilla");
+                Log.Exception(ex, "Fall back to vanilla");
                 return true; // let vanilla proceed on any failure
             }
         }

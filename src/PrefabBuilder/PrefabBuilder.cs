@@ -10,7 +10,6 @@ class PrefabBuilder
 {
     static async Task<int> Main(string[] args)
     {
-        // repo root = .../ (we're under src/PrefabBuilder/bin/* when running)
         var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
 
         Console.WriteLine($"[PrefabBuilder] Root directory: {root}");
@@ -40,27 +39,22 @@ class PrefabBuilder
         {
             TemplateLoader = new LocalFileTemplateLoader(partialsDir),
             NewLine = "\n",
+            MemberRenamer = m => m.Name,
         };
-        context.MemberRenamer = m => m.Name;
 
-        // Find all .sbn under /templates (recursively). Output is same structure, but .xml
         var templates = Directory.GetFiles(templatesDir, "*.sbn", SearchOption.AllDirectories);
         int count = 0;
 
         foreach (var tpl in templates)
         {
-            var rel = Path.GetRelativePath(templatesDir, tpl); // e.g. "ClanScreen_TroopsTab.sbn" or "Constants\X.sbn"
-            var outRel = Path.ChangeExtension(rel, ".xml"); // -> *.xml
+            var rel = Path.GetRelativePath(templatesDir, tpl);
+            var outRel = Path.ChangeExtension(rel, ".xml");
             var outPath = Path.Combine(
                 outGui,
                 "PrefabExtensions",
                 rel.Contains("Clan") ? "ClanScreen" : "",
                 outRel
             );
-
-            // Better: if your templates already contain subfolders like PrefabExtensions\ClanScreen\..., just mirror them:
-            // var outRel = rel.Replace(".sbn", ".xml");
-            // var outPath = Path.Combine(outGui, outRel);
 
             Directory.CreateDirectory(Path.GetDirectoryName(outPath)!);
 
