@@ -7,54 +7,57 @@ using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 
-[HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.RemoveTroop))]
-static class SafeRemoveTroopPatch
+namespace Retinues.Core.Safety.Patches
 {
-    [SafeMethod]
-    static bool Prefix(
-        TroopRoster __instance,
-        CharacterObject troop,
-        int numberToRemove,
-        UniqueTroopDescriptor troopSeed,
-        int xp
-    )
+    [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.RemoveTroop))]
+    static class SafeRemoveTroopPatch
     {
-        int idx = __instance.FindIndexOfTroop(troop);
-        if (idx < 0)
+        [SafeMethod]
+        static bool Prefix(
+            TroopRoster __instance,
+            CharacterObject troop,
+            int numberToRemove,
+            UniqueTroopDescriptor troopSeed,
+            int xp
+        )
         {
-            Log.Error(
-                $"[SafeRemoveTroop] Tried to remove {troop?.StringId ?? "NULL"} not in roster. "
-            );
-            return false;
-        }
-        return true; // proceed normally
-    }
-}
-
-[HarmonyPatch(typeof(TeleportHeroAction), "ApplyInternal")]
-static class TeleportHero_PreparePatch
-{
-    [SafeMethod]
-    static void Prefix(Hero hero, Settlement targetSettlement, MobileParty targetParty)
-    {
-        try
-        {
-            var src = hero?.PartyBelongedTo;
-            if (src?.MemberRoster != null)
+            int idx = __instance.FindIndexOfTroop(troop);
+            if (idx < 0)
             {
-                int idx = src.MemberRoster.FindIndexOfTroop(hero.CharacterObject);
-                if (idx < 0)
+                Log.Error(
+                    $"Tried to remove {troop?.StringId ?? "NULL"} not in roster. "
+                );
+                return false;
+            }
+            return true; // proceed normally
+        }
+    }
+
+    [HarmonyPatch(typeof(TeleportHeroAction), "ApplyInternal")]
+    static class TeleportHero_PreparePatch
+    {
+        [SafeMethod]
+        static void Prefix(Hero hero, Settlement targetSettlement, MobileParty targetParty)
+        {
+            try
+            {
+                var src = hero?.PartyBelongedTo;
+                if (src?.MemberRoster != null)
                 {
-                    src.MemberRoster.AddToCounts(hero.CharacterObject, +1, insertAtFront: true);
-                    Log.Warn(
-                        $"[TeleportPrep] Re-added {hero?.Name} to {src?.Name} before teleport."
-                    );
+                    int idx = src.MemberRoster.FindIndexOfTroop(hero.CharacterObject);
+                    if (idx < 0)
+                    {
+                        src.MemberRoster.AddToCounts(hero.CharacterObject, +1, insertAtFront: true);
+                        Log.Warn(
+                            $"Re-added {hero?.Name} to {src?.Name} before teleport."
+                        );
+                    }
                 }
             }
-        }
-        catch (System.Exception ex)
-        {
-            Log.Exception(ex, "[TeleportPrep] Prefix failed");
+            catch (System.Exception ex)
+            {
+                Log.Exception(ex, "Prefix failed");
+            }
         }
     }
 }

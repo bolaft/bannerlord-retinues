@@ -22,7 +22,7 @@ namespace Retinues.Core.Features.Stocks.Behaviors
         public override void SyncData(IDataStore ds)
         {
             ds.SyncData(nameof(_stockByItemId), ref _stockByItemId);
-            Log.Info($"Stocks SyncData: {_stockByItemId.Count} entries.");
+            Log.Info($"{_stockByItemId.Count} entries.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

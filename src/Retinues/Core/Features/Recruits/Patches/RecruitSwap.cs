@@ -15,39 +15,39 @@ namespace Retinues.Core.Features.Recruits.Patches
     {
         [SafeMethod]
         static void Postfix(
-            Hero hero,
+            Hero recruiter,
             Settlement settlement,
             Hero recruitmentSource,
-            CharacterObject co,
+            CharacterObject troop,
             int count
         )
         {
-            if (hero?.PartyBelongedTo == null || count <= 0 || co == null)
+            if (recruiter?.PartyBelongedTo == null || count <= 0 || troop == null)
                 return; // never touch suspicious input
 
-            var troop = new WCharacter(co);
-            if (!troop.IsValid)
+            var wt = new WCharacter(troop);
+            if (!wt.IsValid)
                 return; // defensive
 
-            var faction = new WHero(hero).PlayerFaction;
+            var faction = new WHero(recruiter).PlayerFaction;
             if (faction == null)
                 return; // non-player faction, skip
 
-            var root = troop.IsElite ? faction.RootElite : faction.RootBasic;
+            var root = wt.IsElite ? faction.RootElite : faction.RootBasic;
             if (root == null)
                 return; // no tree, skip
 
-            var replacement = TroopMatcher.PickBestFromTree(root, troop);
+            var replacement = TroopMatcher.PickBestFromTree(root, wt);
             if (replacement == null)
                 return;
 
             // Swap in party roster
-            var roster = hero.PartyBelongedTo.MemberRoster;
-            roster.RemoveTroop(troop.Base, count);
+            var roster = recruiter.PartyBelongedTo.MemberRoster;
+            roster.RemoveTroop(wt.Base, count);
             roster.AddToCounts(replacement.Base, count);
 
             Log.Info(
-                $"RecruitSwap: {hero?.Name} swapped {count}x {troop?.StringId} → {replacement?.StringId}."
+                $"RecruitSwap: {recruiter?.Name} swapped {count}x {wt?.StringId} to {replacement?.StringId}."
             );
         }
     }

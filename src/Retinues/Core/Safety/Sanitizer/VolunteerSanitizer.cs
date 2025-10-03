@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Safety.Sanitizer
 {
     [SafeClass]
     public static class VolunteerSanitizer
@@ -45,7 +45,7 @@ namespace Retinues.Core.Safety
                     if (fallback != null)
                     {
                         Log.Warn(
-                            $"[VolunteerSanitizer] Replacing invalid volunteer at [{settlement?.Name}] "
+                            $"Replacing invalid volunteer at [{settlement?.Name}] "
                                 + $"notable '{notable?.Name}' slot {i} "
                                 + $"('{c?.StringId ?? "NULL"}' -> '{fallback.StringId}')."
                         );
@@ -54,7 +54,7 @@ namespace Retinues.Core.Safety
                     else
                     {
                         Log.Warn(
-                            $"[VolunteerSanitizer] Removing invalid volunteer at [{settlement?.Name}] "
+                            $"Removing invalid volunteer at [{settlement?.Name}] "
                                 + $"notable '{notable?.Name}' slot {i} ('{c?.StringId ?? "NULL"}')."
                         );
                         notable.VolunteerTypes[i] = null;
@@ -64,7 +64,7 @@ namespace Retinues.Core.Safety
                 {
                     Log.Exception(
                         e,
-                        $"[VolunteerSanitizer] Exception while processing notable '{notable?.Name}' in settlement '{settlement?.Name}'"
+                        $"Exception while processing notable '{notable?.Name}' in settlement '{settlement?.Name}'"
                     );
                 }
             }
@@ -91,43 +91,17 @@ namespace Retinues.Core.Safety
         private static bool IsCharacterValid(CharacterObject c)
         {
             if (c == null)
-            {
-                Log.Warn("IsCharacterValid: CharacterObject is null");
                 return false;
-            }
 
+            // Wrapper knows how to detect inactive/unregistered TW objects.
             var w = new WCharacter(c);
+            if (!w.IsValid)
+                return false;
 
-            if (!w.IsActive)
-            {
-                Log.Warn($"IsCharacterValid: Character '{c.StringId}' is not active");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(c.StringId))
-            {
-                Log.Warn("IsCharacterValid: StringId is null or whitespace");
-                return false;
-            }
-            if (c.Name == null)
-            {
-                Log.Warn($"IsCharacterValid: Character '{c.StringId}' has null Name");
-                return false;
-            }
-            if (c.Tier < 0 || c.Tier > 10)
-            {
-                Log.Warn($"IsCharacterValid: Character '{c.StringId}' has invalid Tier {c.Tier}");
-                return false;
-            }
-
+            // Ensure the object manager can resolve it back
             var fromDb = MBObjectManager.Instance?.GetObject<CharacterObject>(c.StringId);
             if (!ReferenceEquals(fromDb, c) && fromDb == null)
-            {
-                Log.Warn(
-                    $"IsCharacterValid: Character '{c.StringId}' not found in MBObjectManager"
-                );
                 return false;
-            }
 
             return true;
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
@@ -14,14 +15,16 @@ namespace Retinues.Core.Troops
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private List<Save.TroopSaveData> _troopData = [];
+        private List<TroopSaveData> _troopData = [];
 
-        public bool HasSerializedRoots => _troopData is { Count: > 0 };
+        public bool HasSyncData => _troopData != null && _troopData.Count > 0;
 
-        public override void SyncData(IDataStore dataStore)
+        public override void SyncData(IDataStore ds)
         {
             // Persist custom troop roots in the save file.
-            dataStore.SyncData("Retinues_Troops", ref _troopData);
+            ds.SyncData(nameof(_troopData), ref _troopData);
+
+            Log.Info($"{_troopData.Count} root troops.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -48,11 +51,11 @@ namespace Retinues.Core.Troops
             try
             {
                 _troopData = CollectAllDefinedCustomTroops();
-                Log.Debug($"[Troops] Serialized {_troopData.Count} root troops.");
+                Log.Debug($"Serialized {_troopData.Count} root troops.");
             }
             catch (Exception e)
             {
-                Log.Exception(e, "[Troops] OnBeforeSave failed");
+                Log.Exception(e, "OnBeforeSave failed");
             }
         }
 
@@ -67,17 +70,16 @@ namespace Retinues.Core.Troops
                     foreach (var root in _troopData)
                         TroopLoader.Load(root); // rebuild every tree from the save payload
 
-                    Log.Debug($"[Troops] Rebuilt {_troopData.Count} root troops from save.");
+                    Log.Debug($"Rebuilt {_troopData.Count} root troops from save.");
                 }
                 else
                 {
-                    Log.Debug("[Troops] No custom roots found in save.");
-                    // Future: you could trigger initial builds here via TroopBuilder if desired.
+                    Log.Debug("No custom roots found in save.");
                 }
             }
             catch (Exception e)
             {
-                Log.Exception(e, "[Troops] OnGameLoaded failed");
+                Log.Exception(e, "OnGameLoaded failed");
             }
         }
 
@@ -99,7 +101,7 @@ namespace Retinues.Core.Troops
         {
             if (faction is null)
             {
-                Log.Debug("[Troops] Collect: no faction, skipping.");
+                Log.Debug("Collect: no faction, skipping.");
                 return;
             }
 

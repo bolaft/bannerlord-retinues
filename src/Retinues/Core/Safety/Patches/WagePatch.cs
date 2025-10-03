@@ -1,9 +1,10 @@
 using System;
 using HarmonyLib;
+using Retinues.Core.Safety.Sanitizer;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Core.Safety
+namespace Retinues.Core.Safety.Patches
 {
     [HarmonyPatch(typeof(MobileParty), "get_TotalWage")]
     public static class MobileParty_TotalWage_Diag
@@ -19,7 +20,7 @@ namespace Retinues.Core.Safety
             }
             catch (Exception exDump)
             {
-                Log.Error($"[WageDiag] Dump failed: {exDump}");
+                Log.Error($"Dump failed: {exDump}");
             }
 
             // keep original behavior (still crash) but now with one precise dump
