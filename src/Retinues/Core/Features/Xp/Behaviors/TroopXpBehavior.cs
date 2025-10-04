@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Core.Game.Wrappers;
-using Retinues.Core.Utils;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
+using Retinues.Core.Game.Wrappers;
+using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;

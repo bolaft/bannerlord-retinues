@@ -13,10 +13,13 @@ namespace Retinues.Core.Game.Wrappers.Base
         {
             get
             {
+                var clan = Clan?.IsPlayerClan == true ? Clan : null;
+                var kingdom = Kingdom?.IsPlayerKingdom == true ? Kingdom : null;
+
                 if (Config.GetOption<bool>("ClanTroopsOverKingdomTroops"))
-                    return Clan ?? Kingdom;
+                    return clan ?? kingdom;
                 else
-                    return Kingdom ?? Clan;
+                    return kingdom ?? clan;
             }
         }
     }

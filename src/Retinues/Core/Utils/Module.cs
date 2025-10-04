@@ -10,6 +10,10 @@ namespace Retinues.Core.Utils
     [SafeClass]
     public static class ModuleChecker
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Entry                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public sealed class ModuleEntry
         {
             public string Id { get; set; }
@@ -22,21 +26,28 @@ namespace Retinues.Core.Utils
                 $"{Id} [{Version}] - {Name}" + (IsOfficial ? " (official)" : "");
         }
 
-        public static string GetGameVersionString()
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static ModuleEntry GetModule(string id)
         {
-            try
+            var modules = GetActiveModules();
+            foreach (var mod in modules)
             {
-                var v = ApplicationVersion.FromParametersFile();
-                return v.ToString() ?? "unknown";
+                if (mod.Id.Equals(id, StringComparison.OrdinalIgnoreCase))
+                    return mod;
             }
-            catch
-            {
-                return "unknown";
-            }
+            return null;
         }
+
+        private static List<ModuleEntry> _cachedActiveModules;
 
         public static List<ModuleEntry> GetActiveModules()
         {
+            if (_cachedActiveModules != null)
+                return _cachedActiveModules;
+
             var result = new List<ModuleEntry>();
 
             // 1) Load order from the engine (official + mods)
@@ -116,8 +127,15 @@ namespace Retinues.Core.Utils
                 );
             }
 
+            // Cache for future calls
+            _cachedActiveModules = result;
+
             return result;
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static bool IsOfficialModuleId(string id)
         {

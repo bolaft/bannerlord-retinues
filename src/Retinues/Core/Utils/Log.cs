@@ -174,7 +174,7 @@ namespace Retinues.Core.Utils
 
         private static void Write(LogLevel level, string message, string caller = null)
         {
-            caller ??= FindCaller();
+            caller ??= Caller.GetLabel();
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var line = $"[{timestamp}] [{level}] {caller}: {message}";
 
@@ -237,34 +237,6 @@ namespace Retinues.Core.Utils
         private static Color FromHex(string rrggbbaa)
         {
             return Color.ConvertStringToColor(rrggbbaa);
-        }
-
-        private static string FindCaller()
-        {
-            try
-            {
-                var stack = new StackTrace(skipFrames: 1, fNeedFileInfo: false);
-                for (int i = 0; i < stack.FrameCount; i++)
-                {
-                    var frame = stack.GetFrame(i);
-                    var method = frame?.GetMethod();
-                    var type = method?.DeclaringType;
-                    if (type == null)
-                        continue;
-
-                    if (type == typeof(Log))
-                        continue; // skip logger frames
-
-                    var typeName = type.Name;
-                    var methodName = method!.Name is ".ctor" or ".cctor" ? typeName : method.Name;
-                    return $"{typeName}.{methodName}";
-                }
-            }
-            catch
-            {
-                // ignore stack issues
-            }
-            return "";
         }
     }
 }

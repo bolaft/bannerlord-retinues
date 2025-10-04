@@ -15,11 +15,11 @@ namespace Retinues.Core.Safety.Backup
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private bool _retUsed = false;
+        private bool _retinuesWasUsed = false;
 
         public override void SyncData(IDataStore dataStore)
         {
-            dataStore.SyncData("Retinues_Backup", ref _retUsed);
+            dataStore.SyncData(nameof(_retinuesWasUsed), ref _retinuesWasUsed);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -38,13 +38,13 @@ namespace Retinues.Core.Safety.Backup
 
         private void OnGameLoaded(CampaignGameStarter starter)
         {
-            if (_retUsed == true)
+            if (_retinuesWasUsed == true)
             {
                 Log.Debug("Backup prompt already handled for this save.");
                 return; // already handled for this save
             }
 
-            _retUsed = true;
+            _retinuesWasUsed = true;
 
             if (HasSaveData())
             {
