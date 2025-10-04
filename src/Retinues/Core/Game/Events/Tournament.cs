@@ -7,7 +7,7 @@ namespace Retinues.Core.Game.Events
 {
     [SafeClass]
     public class Tournament(
-        Town town,
+        WSettlement town = null,
         WCharacter winner = null,
         List<WCharacter> participants = null
     )
@@ -16,7 +16,7 @@ namespace Retinues.Core.Game.Events
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public Town Town = town;
+        public WSettlement Town = town;
         public WCharacter Winner = winner;
         public List<WCharacter> Participants = participants ?? [];
 

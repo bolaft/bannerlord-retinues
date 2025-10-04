@@ -59,7 +59,7 @@ namespace Retinues.Core.Features.Xp
                 return $"Failed to add XP: {e.Message}";
             }
 
-            return $"Added {amount} XP to {troop.Name} ({troop.StringId}).";
+            return $"Added {amount} XP to {troop.Name} ({troop}).";
         }
     }
 }

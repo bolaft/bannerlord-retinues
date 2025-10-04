@@ -187,7 +187,7 @@ namespace Retinues.Core.Features.Doctrines
         {
             Log.Info("Feat Runtime Event: OnTournamentFinished");
             var tournament = new Tournament(
-                town,
+                new WSettlement(town?.Settlement),
                 new WCharacter(winner),
                 [.. participants.ToList().Select(p => new WCharacter(p))]
             );
@@ -210,20 +210,17 @@ namespace Retinues.Core.Features.Doctrines
             ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail d
         )
         {
-            // Only care about player clan captures
-            if (s == null || n?.Clan?.StringId != Clan.PlayerClan?.StringId)
-                return;
+            if (s == null)
+                return; // No settlement
+
+            if (new WFaction(n?.Clan).IsPlayerClan == false)
+                return; // Not player clan gaining a fief
 
             Log.Info("Feat Runtime Event: OnSettlementOwnerChanged");
 
             NotifyFeats(
                 (feat, args) => feat.OnSettlementOwnerChanged((SettlementOwnerChange)args[0]),
-                new SettlementOwnerChange(
-                    s,
-                    d,
-                    new WCharacter(o.CharacterObject),
-                    new WCharacter(n.CharacterObject)
-                )
+                new SettlementOwnerChange(new WSettlement(s), d, new WHero(o), new WHero(n))
             );
         }
 

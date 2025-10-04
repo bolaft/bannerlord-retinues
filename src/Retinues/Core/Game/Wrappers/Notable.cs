@@ -37,7 +37,7 @@ namespace Retinues.Core.Game.Wrappers
                     continue;
                 }
 
-                if (troop.Faction?.StringId == faction.StringId)
+                if (troop.Faction == faction)
                     continue; // Already correct faction troop
 
                 var replacement = TroopMatcher.PickBestFromFaction(faction, troop);

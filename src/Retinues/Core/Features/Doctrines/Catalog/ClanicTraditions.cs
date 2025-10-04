@@ -1,6 +1,7 @@
 using Retinues.Core.Features.Doctrines.Model;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Events;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
@@ -34,7 +35,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                         continue;
                     if (ws.WorkshopType?.StringId != "smithy")
                         continue;
-                    if (ws.Settlement.Culture.StringId != Player.Culture.StringId)
+                    if (new WCulture(ws.Settlement.Culture) != Player.Culture)
                         continue;
 
                     AdvanceProgress(1);
@@ -84,8 +85,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnSettlementOwnerChanged(SettlementOwnerChange change)
             {
-                var newOwner = change.NewOwner.Base;
-                if (newOwner.HeroObject?.Clan?.StringId != Player.Clan.StringId)
+                if (change.NewOwner.Clan != Player.Clan)
                     return;
 
                 AdvanceProgress(1);

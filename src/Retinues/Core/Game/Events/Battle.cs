@@ -41,10 +41,7 @@ namespace Retinues.Core.Game.Events
 
                 // Leaders
                 EnemyLeaders = GetLeaders(EnemySide);
-                AllyLeaders =
-                [
-                    .. GetLeaders(PlayerSide).Where(l => l?.StringId != Player.Character?.StringId),
-                ];
+                AllyLeaders = [.. GetLeaders(PlayerSide).Where(l => l != Player.Character)];
             }
             catch (System.Exception e)
             {
@@ -111,11 +108,11 @@ namespace Retinues.Core.Game.Events
                     return BattleSideEnum.None;
 
                 foreach (var party in PartiesOnSide(BattleSideEnum.Attacker, includePlayer: true))
-                    if (party?.StringId == Player.Party.StringId)
+                    if (party == Player.Party)
                         return BattleSideEnum.Attacker;
 
                 foreach (var party in PartiesOnSide(BattleSideEnum.Defender, includePlayer: true))
-                    if (party?.StringId == Player.Party.StringId)
+                    if (party == Player.Party)
                         return BattleSideEnum.Defender;
 
                 return BattleSideEnum.None;

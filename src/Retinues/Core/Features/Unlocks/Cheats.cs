@@ -41,7 +41,7 @@ namespace Retinues.Core.Features.Unlocks
                 return $"Failed to unlock item: {e.Message}";
             }
 
-            return $"Unlocked item {item.Name} ({item.StringId}).";
+            return $"Unlocked item {item.Name} ({item}).";
         }
     }
 }

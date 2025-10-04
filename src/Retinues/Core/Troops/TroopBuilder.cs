@@ -103,10 +103,7 @@ namespace Retinues.Core.Troops
 
             retinue.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
-            Log.Info(
-                $"Created retinue troop {retinue.StringId} for {faction.Name} (from {root.StringId})"
-            );
-            Log.Info($"troop vanilla id set to {retinue.VanillaStringId}");
+            Log.Info($"Created retinue troop {retinue.Name} for {faction.Name} (from {root})");
 
             // Rename it
             retinue.Name = retinueName;
@@ -167,9 +164,7 @@ namespace Retinues.Core.Troops
 
             militia.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
-            Log.Info(
-                $"Created militia troop {militia.StringId} for {faction.Name} (from {root.StringId})"
-            );
+            Log.Info($"Created militia troop {militia.Name} for {faction.Name} (from {root})");
             Log.Info($"troop vanilla id set to {militia.VanillaStringId}");
 
             // Rename it
