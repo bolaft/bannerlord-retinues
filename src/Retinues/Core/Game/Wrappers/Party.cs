@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers.Base;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
-using System.Collections.Generic;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -131,7 +131,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public void SwapRosterTroops(WRoster roster, WFaction faction)
         {
-            if (roster == null || Base == null) return;
+            if (roster == null || Base == null)
+                return;
 
             try
             {
@@ -143,7 +144,8 @@ namespace Retinues.Core.Game.Wrappers
 
                 foreach (var e in elements)
                 {
-                    if (e?.Troop?.Base == null) continue;
+                    if (e?.Troop?.Base == null)
+                        continue;
 
                     // Keep heroes as-is
                     if (e.Troop.IsHero)
@@ -160,9 +162,11 @@ namespace Retinues.Core.Game.Wrappers
 
                     // Default replacement = same troop
                     WCharacter replacement =
-                        (IsMilitia
-                        ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
-                        : TroopMatcher.PickBestFromFaction(faction, e.Troop)) ?? e.Troop;
+                        (
+                            IsMilitia
+                                ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
+                                : TroopMatcher.PickBestFromFaction(faction, e.Troop)
+                        ) ?? e.Troop;
 
                     // Stage into temp roster, preserving totals
                     tmp.AddToCounts(

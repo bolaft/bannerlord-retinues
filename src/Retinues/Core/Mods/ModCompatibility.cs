@@ -11,7 +11,7 @@ namespace Retinues.Core.Mods
         private static readonly List<string> IncompatibleMods =
         [
             "WarlordsBattlefield",
-            "SimpleBank"
+            "SimpleBank",
         ];
 
         public static void AddBehaviors(CampaignGameStarter cs)

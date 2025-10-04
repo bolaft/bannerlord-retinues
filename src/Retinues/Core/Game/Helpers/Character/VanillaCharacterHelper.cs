@@ -150,14 +150,19 @@ namespace Retinues.Core.Game.Helpers.Character
                 return false;
 
             // Fast path: explicit militia elites / basics
-            if (ReferenceEquals(co, c.MilitiaMeleeElite) || ReferenceEquals(co, c.MilitiaRangedElite))
+            if (
+                ReferenceEquals(co, c.MilitiaMeleeElite)
+                || ReferenceEquals(co, c.MilitiaRangedElite)
+            )
                 return true;
             if (ReferenceEquals(co, c.MilitiaMelee) || ReferenceEquals(co, c.MilitiaRanged))
                 return false;
 
             // In-culture trees
-            if (c.EliteSet.Contains(id)) return true;
-            if (c.BasicSet.Contains(id)) return false;
+            if (c.EliteSet.Contains(id))
+                return true;
+            if (c.BasicSet.Contains(id))
+                return false;
 
             return false;
         }
