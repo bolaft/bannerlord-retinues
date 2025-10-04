@@ -55,7 +55,7 @@ namespace Retinues.Core.Game.Wrappers
                 int idx = 0;
                 foreach (var e in Elements)
                 {
-                    if (e.Troop.StringId == Player.Character.StringId)
+                    if (e.Troop == Player.Character)
                         return new WRosterElement(e.Base, this, idx);
                     idx++;
                 }
