@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
+using Retinues.Core.Features.Doctrines;
+using Retinues.Core.Features.Doctrines.Catalog;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -66,12 +68,43 @@ namespace Retinues.Core.Features.Xp.Behaviors
             return Instance.GetPool(PoolKey(troop));
         }
 
+        public static void Set(WCharacter troop, int value)
+        {
+            if (troop == null || Instance == null || value < 0)
+                return;
+            Instance._xpPools[PoolKey(troop)] = value;
+        }
+
         public static void Add(WCharacter troop, int delta)
         {
             if (troop == null || Instance == null || delta == 0)
                 return;
             var cur = Instance.GetPool(PoolKey(troop));
             Instance._xpPools[PoolKey(troop)] = Math.Max(0, cur + delta);
+        }
+
+        public static bool TrySpend(WCharacter troop, int amount)
+        {
+            if (amount <= 0)
+                return true;
+            if (troop == null)
+                return false;
+            var have = Get(troop);
+            if (have < amount)
+                return false;
+            Add(troop, -amount);
+            return true;
+        }
+
+        public static void Refund(WCharacter troop, int amount)
+        {
+            if (troop == null || amount <= 0)
+                return;
+
+            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>())
+                return;
+
+            Add(troop, amount);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
