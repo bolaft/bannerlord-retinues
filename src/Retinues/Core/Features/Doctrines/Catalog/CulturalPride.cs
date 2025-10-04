@@ -29,7 +29,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnTournamentFinished(Tournament tournament)
             {
-                if (tournament.Winner?.StringId != Player.Character.StringId)
+                if (tournament.Winner != Player.Character)
                     return;
 
                 // NOTE: Player character's wrapper gives wrong equipment for some reason in 1.3
@@ -54,7 +54,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     if (item.Culture?.StringId != Player.Culture.StringId)
                     {
                         Log.Info(
-                            $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture?.StringId}) does not match player culture ({Player.Culture?.StringId})"
+                            $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture?.StringId}) does not match player culture ({Player.Culture})"
                         );
                         return; // Item does not match player culture
                     }
@@ -92,7 +92,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     {
                         if (item.Culture == null)
                             continue; // Ignore culture-less items
-                        if (item.Culture?.StringId != troop.Culture.StringId)
+                        if (item.Culture != troop.Culture)
                         {
                             hasFullSet = false;
                             break; // Item does not match troop culture
@@ -126,7 +126,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                     if (!(leader?.IsRuler ?? false))
                         continue; // Not a ruler
 
-                    if (leader?.Culture.StringId == Player.Culture.StringId)
+                    if (leader?.Culture == Player.Culture)
                         continue; // Same culture
 
                     AdvanceProgress(1);
