@@ -1,9 +1,11 @@
+using System;
 using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers.Base;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
+using System.Collections.Generic;
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -85,6 +87,8 @@ namespace Retinues.Core.Game.Wrappers
 
         public string Name => _party.Name.ToString();
 
+        public bool IsMainParty => _party.IsMainParty;
+
         public bool IsVillager => _party.IsVillager;
 
         public bool IsCaravan => _party.IsCaravan;
@@ -127,57 +131,60 @@ namespace Retinues.Core.Game.Wrappers
 
         public void SwapRosterTroops(WRoster roster, WFaction faction)
         {
-            if (roster == null || roster == null || Base == null)
-                return; // should not happen
+            if (roster == null || Base == null) return;
 
-            // Build a fresh roster to avoid in-place index/XpChanged issues.
-            var dst = new TroopRoster(Base.Party);
-
-            // Enumerate snapshot so we don't fight internal mutations.
-            foreach (var e in roster.Elements)
+            try
             {
-                if (e == null || e.Troop == null || e.Troop.Base == null)
-                    continue; // should not happen
+                // Build temp roster (dummy so it won’t fire OwnerParty events during staging)
+                var tmp = TroopRoster.CreateDummyTroopRoster();
 
-                // Keep heroes as-is
-                if (e.Troop.IsHero)
+                // Enumerate a snapshot so we don't fight internal mutations while staging
+                var elements = new List<WRosterElement>(roster.Elements);
+
+                foreach (var e in elements)
                 {
-                    dst.AddToCounts(
-                        e.Troop.Base,
+                    if (e?.Troop?.Base == null) continue;
+
+                    // Keep heroes as-is
+                    if (e.Troop.IsHero)
+                    {
+                        tmp.AddToCounts(
+                            e.Troop.Base,
+                            e.Number,
+                            insertAtFront: false,
+                            woundedCount: e.WoundedNumber,
+                            xpChange: e.Xp
+                        );
+                        continue;
+                    }
+
+                    // Default replacement = same troop
+                    WCharacter replacement =
+                        (IsMilitia
+                        ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
+                        : TroopMatcher.PickBestFromFaction(faction, e.Troop)) ?? e.Troop;
+
+                    // Stage into temp roster, preserving totals
+                    tmp.AddToCounts(
+                        replacement.Base,
                         e.Number,
                         insertAtFront: false,
                         woundedCount: e.WoundedNumber,
                         xpChange: e.Xp
                     );
-                    continue;
                 }
 
-                // Defaults to same troop
-                var replacement = e.Troop;
+                // Apply to the original instance to keep engine refs intact
+                var original = roster.Base;
+                original.Clear();
+                original.Add(tmp);
 
-                if (IsMilitia)
-                    replacement = TroopMatcher.PickMilitiaFromFaction(faction, e.Troop);
-                else
-                    replacement = TroopMatcher.PickBestFromFaction(faction, e.Troop);
-
-                // If no good replacement, keep as-is
-                if (replacement == null)
-                    replacement = e.Troop;
-
-                // Apply replacement, preserving totals
-                dst.AddToCounts(
-                    replacement.Base,
-                    e.Number,
-                    insertAtFront: false,
-                    woundedCount: e.WoundedNumber,
-                    xpChange: e.Xp
-                );
+                Log.Debug($"Roster rebuilt in-place for {Name}.");
             }
-
-            // Swap onto PartyBase
-            Reflector.SetPropertyValue(Base.Party, "MemberRoster", dst);
-
-            Log.Debug($"Roster swapped for {Name}.");
+            catch (Exception ex)
+            {
+                Log.Exception(ex, $"SwapRosterTroops failed for {Name}");
+            }
         }
     }
 }

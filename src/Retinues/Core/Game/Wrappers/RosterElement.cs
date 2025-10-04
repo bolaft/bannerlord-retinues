@@ -27,8 +27,8 @@ namespace Retinues.Core.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public int Index => _index;
-        public int Number => _element.Number;
-        public int WoundedNumber => _element.WoundedNumber;
-        public int Xp => _element.Xp;
+        public int Number => _roster.Base.GetElementNumber(_index);
+        public int WoundedNumber => _roster.Base.GetElementWoundedNumber(_index);
+        public int Xp => _roster.Base.GetElementXp(_index);
     }
 }
