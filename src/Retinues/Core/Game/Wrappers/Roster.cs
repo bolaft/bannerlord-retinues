@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Core.Utils;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 
@@ -19,6 +20,16 @@ namespace Retinues.Core.Game.Wrappers
         private readonly WParty _party = party;
 
         public WParty Party => _party;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WRoster(TroopRoster roster)
+            : this(
+                roster,
+                new WParty(Reflector.GetPropertyValue<PartyBase>(roster, "OwnerParty").MobileParty)
+            ) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Elements                        //

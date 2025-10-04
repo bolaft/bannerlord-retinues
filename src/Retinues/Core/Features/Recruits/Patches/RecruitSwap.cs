@@ -46,7 +46,7 @@ namespace Retinues.Core.Features.Recruits.Patches
             roster.RemoveTroop(wt.Base, count);
             roster.AddToCounts(replacement.Base, count);
 
-            Log.Info(
+            Log.Debug(
                 $"RecruitSwap: {recruiter?.Name} swapped {count}x {wt?.StringId} to {replacement?.StringId}."
             );
         }
