@@ -26,6 +26,9 @@ TODO.md
 # Ignore VS Code settings
 .vscode/
 
+# Ignore Github settings
+.github/
+
 # Ignore SaveData
 SaveData/
 
@@ -34,6 +37,3 @@ GlobalSuppressions.cs
 
 # Ignore media
 media/
-
-# Ignore TODO
-TODO.md

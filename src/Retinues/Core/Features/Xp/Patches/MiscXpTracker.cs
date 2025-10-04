@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.Roster;
 namespace Retinues.Core.Features.Xp.Patches
 {
     [HarmonyPatch]
-    internal static class TroopXpTracker
+    internal static class MiscXpTracker
     {
         static MethodBase TargetMethod() =>
             AccessTools.Method(
@@ -27,6 +27,7 @@ namespace Retinues.Core.Features.Xp.Patches
         };
 
         public const float xpMultiplier = 0.02f; // 2% of the original XP
+        public const float xpMultiplierNonMain = 0.25f; // 25% of XP for non-main parties
 
         [SafeMethod]
         static void Postfix(TroopRoster __instance, int index, int xpAmount)
@@ -51,10 +52,17 @@ namespace Retinues.Core.Features.Xp.Patches
             // Add to XP pool only if the troop is custom
             if (troop.IsCustom)
             {
+                // Normalize XP gain
                 xpAmount = (int)(xpAmount * xpMultiplier);
+
+                // Reduce XP for non-main parties
+                if (party.IsMainParty == false)
+                    xpAmount = (int)(xpAmount * xpMultiplierNonMain);
+
                 if (xpAmount <= 0)
                     return; // no XP to add after multiplier
-                Log.Info($"TroopXpTracker: Adding {xpAmount} XP to {troop.StringId}.");
+
+                Log.Debug($"Adding {xpAmount} XP to {troop.StringId}.");
                 TroopXpBehavior.Add(troop, xpAmount);
             }
         }
