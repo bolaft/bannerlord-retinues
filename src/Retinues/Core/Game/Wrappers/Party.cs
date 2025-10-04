@@ -168,6 +168,11 @@ namespace Retinues.Core.Game.Wrappers
                                 : TroopMatcher.PickBestFromFaction(faction, e.Troop)
                         ) ?? e.Troop;
 
+                    if (replacement != e.Troop)
+                        Log.Debug(
+                            $"{Name}: swapping {e.Number}x {e.Troop.Name} to {replacement.Name}."
+                        );
+
                     // Stage into temp roster, preserving totals
                     tmp.AddToCounts(
                         replacement.Base,
@@ -182,8 +187,6 @@ namespace Retinues.Core.Game.Wrappers
                 var original = roster.Base;
                 original.Clear();
                 original.Add(tmp);
-
-                Log.Debug($"Roster rebuilt in-place for {Name}.");
             }
             catch (Exception ex)
             {
