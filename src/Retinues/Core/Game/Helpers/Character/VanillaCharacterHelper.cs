@@ -148,12 +148,18 @@ namespace Retinues.Core.Game.Helpers.Character
             var c = GetOrBuildCache(co);
             if (c == null || co == null)
                 return false;
-            if (c.EliteSet.Contains(id))
+
+            // Fast path: explicit militia elites / basics
+            if (ReferenceEquals(co, c.MilitiaMeleeElite) || ReferenceEquals(co, c.MilitiaRangedElite))
                 return true;
-            if (c.BasicSet.Contains(id))
+            if (ReferenceEquals(co, c.MilitiaMelee) || ReferenceEquals(co, c.MilitiaRanged))
                 return false;
-            // Fallback to wrapper heuristic if outside known tree
-            return new WCharacter(co).IsElite;
+
+            // In-culture trees
+            if (c.EliteSet.Contains(id)) return true;
+            if (c.BasicSet.Contains(id)) return false;
+
+            return false;
         }
 
         public bool IsKingdom(string id) => false;
