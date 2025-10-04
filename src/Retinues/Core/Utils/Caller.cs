@@ -1,4 +1,3 @@
-// Retinues.Core/Utils/Caller.cs
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -74,7 +73,7 @@ namespace Retinues.Core.Utils
                         continue;
                     if (_skipTypes.Contains(fullType))
                         continue;
-                    if (m.Name is "Invoke" or "InvokeImpl")
+                    if (m.Name.Contains("Invoke"))
                         continue; // delegate wrappers
                     if (extraSkipPredicate != null && extraSkipPredicate(m))
                         continue;
