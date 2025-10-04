@@ -48,9 +48,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         public void Select(WItem item)
         {
             var row = Rows.FirstOrDefault(r =>
-                (r.Item == null && item == null)
-                || (r.Item?.Equals(item) == true)
-                || (r.Item?.StringId != null && r.Item.StringId == item?.StringId)
+                (r.Item == null && item == null) || (r.Item == item)
             );
 
             if (row is not null)
@@ -80,7 +78,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     var row = new EquipmentRowVM(item, this, progress);
 
                     // Preselect equipped item row
-                    if (item == slot.Item || item?.StringId == slot.Item?.StringId)
+                    if (item == slot.Item)
                         row.IsSelected = true;
 
                     // Add to list

@@ -48,7 +48,7 @@ namespace Retinues.Core.Features.Doctrines.Catalog
                         continue;
                     if (!e.Troop.IsCustom)
                         return;
-                    if (e.Troop.Culture.StringId != culture.StringId)
+                    if (e.Troop.Culture != culture)
                         return;
                 }
 
@@ -69,9 +69,9 @@ namespace Retinues.Core.Features.Doctrines.Catalog
 
             public override void OnTournamentFinished(Tournament tournament)
             {
-                if (tournament.Winner?.StringId != Player.Character.StringId)
+                if (tournament.Winner != Player.Character)
                     return;
-                if (tournament.Town?.Culture.StringId != Player.Culture.StringId)
+                if (tournament.Town?.Culture != Player.Culture)
                     return;
 
                 AdvanceProgress(1);
@@ -93,9 +93,9 @@ namespace Retinues.Core.Features.Doctrines.Catalog
             {
                 if (!change.WasCaptured)
                     return;
-                if (change.NewOwner?.StringId != Player.Character.StringId)
+                if (change.NewOwner != Player.Character)
                     return;
-                if (change.Settlement?.Culture.StringId != Player.Culture.StringId)
+                if (change.Settlement?.Culture != Player.Culture)
                     return;
 
                 AdvanceProgress(1);

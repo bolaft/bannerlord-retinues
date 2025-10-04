@@ -7,10 +7,10 @@ namespace Retinues.Core.Game.Events
 {
     [SafeClass]
     public class SettlementOwnerChange(
-        Settlement settlement,
+        WSettlement settlement,
         ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail,
-        WCharacter oldOwner,
-        WCharacter newOwner
+        WHero oldOwner,
+        WHero newOwner
     )
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -24,10 +24,10 @@ namespace Retinues.Core.Game.Events
         //                          Info                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public Settlement Settlement = settlement;
+        public WSettlement Settlement = settlement;
 
-        public WCharacter OldOwner = oldOwner ?? null;
-        public WCharacter NewOwner = newOwner ?? null;
+        public WHero OldOwner = oldOwner ?? null;
+        public WHero NewOwner = newOwner ?? null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //

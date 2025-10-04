@@ -142,11 +142,7 @@ namespace Retinues.Core.Editor
             List<int> path = [.. troop.PositionInTree, troop.UpgradeTargets.Length];
 
             // Wrap the custom troop
-            var child = new WCharacter(
-                troop.Faction?.StringId == Player.Kingdom?.StringId,
-                troop.IsElite,
-                path: path
-            );
+            var child = new WCharacter(troop.Faction == Player.Kingdom, troop.IsElite, path: path);
 
             // Copy from the original troop
             child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);
@@ -253,7 +249,7 @@ namespace Retinues.Core.Editor
 
             if (retinue is null || !retinue.IsRetinue)
             {
-                Log.Error($"RetinueSources: {retinue?.StringId} is not a retinue.");
+                Log.Error($"RetinueSources: {retinue} is not a retinue.");
                 return sources;
             }
 

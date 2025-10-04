@@ -85,9 +85,7 @@ namespace Retinues.Core.Game.Wrappers
             if (faction == null)
                 return;
 
-            Log.Debug(
-                $"Swapping volunteers in settlement '{StringId}' for faction '{faction.StringId}'"
-            );
+            Log.Debug($"Swapping volunteers in settlement '{this}' for faction '{faction}'");
 
             foreach (var notable in Notables)
             {
@@ -98,7 +96,7 @@ namespace Retinues.Core.Game.Wrappers
                 catch (System.Exception ex)
                 {
                     Log.Error(
-                        $"Exception while processing notable {notable.StringId} in settlement {StringId}: {ex}"
+                        $"Exception while processing notable {notable} in settlement {this}: {ex}"
                     );
                 }
             }

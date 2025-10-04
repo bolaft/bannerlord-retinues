@@ -23,9 +23,13 @@ namespace Retinues.Core.Game.Wrappers
 
         public override string StringId => _hero?.StringId;
 
+        public WCulture Culture => _hero?.Culture == null ? null : new(_hero.Culture);
+
         public override WFaction Clan => _hero?.Clan == null ? null : new(_hero.Clan);
 
         public override WFaction Kingdom =>
             _hero?.Clan?.Kingdom == null ? null : new(_hero.Clan.Kingdom);
+
+        public bool IsPartyLeader => _hero?.IsPartyLeader ?? false;
     }
 }
