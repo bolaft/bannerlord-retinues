@@ -254,7 +254,8 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             var name = Item.Name.ToString().ToLowerInvariant();
             var category = Item.Category.ToString().ToLowerInvariant();
             var type = Item.Type.ToString().ToLowerInvariant();
-            IsVisible = name.Contains(search) || category.Contains(search) || type.Contains(search);
+            var culture = Item.Culture?.Name?.ToString().ToLowerInvariant() ?? "";
+            IsVisible = name.Contains(search) || category.Contains(search) || type.Contains(search) || culture.Contains(search);
         }
 
         public void Refresh()
