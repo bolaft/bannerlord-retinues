@@ -14,6 +14,7 @@ using Retinues.Core.Mods;
 using Retinues.Core.Safety.Backup;
 using Retinues.Core.Safety.Legacy;
 using Retinues.Core.Safety.Sanitizer;
+using Retinues.Core.Safety.Version;
 using Retinues.Core.Troops;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
@@ -58,30 +59,8 @@ namespace Retinues.Core
                 Log.Exception(e);
             }
 
-            var knownIncompatibilities = new string[]
-            {
-                "WarlordsBattlefield",
-                // "AdonnaysTroopChanger",
-                "SimpleBank",
-            };
-
-            try
-            {
-                Log.Info("Active modules:");
-                foreach (var m in ModuleChecker.GetActiveModules())
-                {
-                    Log.Info($" - {m.Id} {m.Version}");
-                    foreach (var inc in knownIncompatibilities)
-                        if (string.Equals(m.Id, inc, StringComparison.OrdinalIgnoreCase))
-                            Log.Critical(
-                                $"WARNING: {m.Id} is known to be incompatible with Retinues!"
-                            );
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Check for incompatible mods and display warnings
+            ModCompatibility.IncompatibilityCheck();
         }
 
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
@@ -99,6 +78,7 @@ namespace Retinues.Core
                 // Safety behaviors
                 cs.AddBehavior(new SanitizerBehavior());
                 cs.AddBehavior(new BackupBehavior());
+                cs.AddBehavior(new VersionBehavior());
 
                 // Item behaviors
                 cs.AddBehavior(new UnlocksBehavior());

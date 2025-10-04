@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Library;
 
@@ -51,14 +52,14 @@ namespace Retinues.Core.Features.Xp
             // Add the XP
             try
             {
-                TroopXpService.AddToPool(troop, amount);
+                TroopXpBehavior.Add(troop, amount);
             }
             catch (Exception e)
             {
                 return $"Failed to add XP: {e.Message}";
             }
 
-            return $"Added {amount} XP to {troop.Name} ({troop.StringId}).";
+            return $"Added {amount} XP to {troop.Name} ({troop}).";
         }
     }
 }

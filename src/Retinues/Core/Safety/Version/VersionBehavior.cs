@@ -1,34 +1,47 @@
 using Retinues.Core.Utils;
-using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Core.Game.Wrappers
+namespace Retinues.Core.Safety.Version
 {
-    [SafeClass(SwallowByDefault = false)]
-    public class WRosterElement(TroopRosterElement element, WRoster roster, int index)
+    [SafeClass]
+    public class VersionBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
+        //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly int _index = index;
-        private readonly TroopRosterElement _element = element;
-        private readonly WRoster _roster = roster;
-        private readonly WCharacter _troop = new(element.Character);
+        private string _retinuesVersion;
+
+        public override void SyncData(IDataStore dataStore)
+        {
+            if (dataStore.IsSaving)
+            {
+                // Update to current version on save
+                _retinuesVersion = ModuleChecker.GetModule("Retinues.Core").Version;
+            }
+
+            dataStore.SyncData("Retinues_Version", ref _retinuesVersion);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Components                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        public TroopRosterElement Base => _element;
-        public WRoster Roster => _roster;
-        public WCharacter Troop => _troop;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Attributes                       //
+        //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public int Index => _index;
-        public int Number => _roster.Base.GetElementNumber(_index);
-        public int WoundedNumber => _roster.Base.GetElementWoundedNumber(_index);
-        public int Xp => _roster.Base.GetElementXp(_index);
+        public override void RegisterEvents()
+        {
+            CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+                this,
+                OnGameLoadFinished
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void OnGameLoadFinished()
+        {
+            Log.Info($"Save File: Retinues {_retinuesVersion ?? "unknown"}");
+        }
     }
 }

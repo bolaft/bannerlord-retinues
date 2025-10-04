@@ -119,27 +119,25 @@ namespace Retinues.Core.Utils
 
         private static void AppendStackTrace(StringBuilder sb, Exception ex)
         {
-            // 'true' => capture file info if available
-            var st = new StackTrace(ex, true);
-            var frames = st.GetFrames() ?? [];
+            // 1) Symbol-aware exception stack (same as before)
+            sb.AppendLine("Exception stack:");
 
-            string[] prefer = ["Retinues.", "Core."];
+            var st = new StackTrace(ex, true);
+            var frames = st.GetFrames() ?? Array.Empty<StackFrame>();
 
             foreach (var f in frames)
             {
-                var method = f.GetMethod();
-                if (method == null)
+                var m = f.GetMethod();
+                if (m == null)
                     continue;
 
-                var type = method.DeclaringType;
-                var typeName = type?.FullName ?? "<unknown>";
-                var methodName = method.Name;
+                var t = m.DeclaringType;
+                var typeName = t?.FullName ?? "<unknown>";
+                var methodName = m.Name;
 
-                // Params
-                var pars = method.GetParameters();
+                var pars = m.GetParameters();
                 var sig = string.Join(", ", pars.Select(p => p.ParameterType.Name + " " + p.Name));
 
-                // File/line/col (only if PDBs available)
                 var file = f.GetFileName();
                 var line = f.GetFileLineNumber();
                 var col = f.GetFileColumnNumber();
@@ -163,9 +161,79 @@ namespace Retinues.Core.Utils
                 sb.AppendLine();
             }
 
-            // If no frames (no PDBs), fall back to default
-            if (frames.Length == 0)
+            if (frames.Length == 0 && !string.IsNullOrEmpty(ex.StackTrace))
+            {
+                sb.AppendLine("(raw ex.StackTrace follows)");
                 sb.AppendLine(ex.StackTrace);
+            }
+
+            // 2) Managed call stack at the catch site, pruned
+            var managed = PruneManagedStack(Environment.StackTrace);
+            if (!string.IsNullOrEmpty(managed))
+            {
+                sb.AppendLine("Managed call stack:");
+                sb.AppendLine(managed);
+            }
+        }
+
+        private static string PruneManagedStack(string envStack, int maxLines = 100)
+        {
+            if (string.IsNullOrEmpty(envStack))
+                return null;
+
+            // Things we never want at the top of the managed stack
+            // (add/remove entries as needed)
+            var skipTopHints = new[]
+            {
+                // BCL plumbing
+                "System.Environment.GetStackTrace",
+                "System.Environment.get_StackTrace",
+                // Logging plumbing
+                "Retinues.Core.Utils.Log.AppendStackTrace",
+                "Retinues.Core.Utils.Log.Exception",
+                "Retinues.Core.Utils.Log.Error",
+                "Retinues.Core.Utils.Caller",
+                // Patcher wrappers
+                "Retinues.Core.Utils.SafeMethodPatcher",
+                // Harmony scaffolding
+                "HarmonyLib.",
+                // JIT helpers / runtime
+                "System.RuntimeMethodHandle",
+                "System.Reflection.RuntimeMethodInfo",
+            };
+
+            var lines = envStack
+                .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries)
+                .Select(l => l.TrimEnd())
+                .ToList();
+
+            // Find the first frame that is NOT one of the "skipTopHints"
+            int start = 0;
+            while (start < lines.Count && ContainsAny(lines[start], skipTopHints))
+                start++;
+
+            if (start >= lines.Count)
+                return null;
+
+            // Optionally also drop any *immediate* Harmony wrappers that follow
+            while (
+                start < lines.Count
+                && lines[start].IndexOf("HarmonyLib.", StringComparison.Ordinal) >= 0
+            )
+                start++;
+
+            // Cap length to keep logs readable
+            var kept = lines.Skip(start).Take(maxLines);
+
+            return string.Join(Environment.NewLine, kept);
+        }
+
+        private static bool ContainsAny(string line, string[] hints)
+        {
+            foreach (var h in hints)
+                if (line.IndexOf(h, StringComparison.Ordinal) >= 0)
+                    return true;
+            return false;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -174,7 +242,7 @@ namespace Retinues.Core.Utils
 
         private static void Write(LogLevel level, string message, string caller = null)
         {
-            caller ??= FindCaller();
+            caller ??= Caller.GetLabel();
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var line = $"[{timestamp}] [{level}] {caller}: {message}";
 
@@ -182,7 +250,7 @@ namespace Retinues.Core.Utils
                 WriteToFile(line);
 
             if (level >= MinInGameLevel)
-                WriteInGame($"{caller}{message}", level);
+                WriteInGame(message, level);
         }
 
         private static void WriteInGame(string message, LogLevel level)
@@ -237,34 +305,6 @@ namespace Retinues.Core.Utils
         private static Color FromHex(string rrggbbaa)
         {
             return Color.ConvertStringToColor(rrggbbaa);
-        }
-
-        private static string FindCaller()
-        {
-            try
-            {
-                var stack = new StackTrace(skipFrames: 1, fNeedFileInfo: false);
-                for (int i = 0; i < stack.FrameCount; i++)
-                {
-                    var frame = stack.GetFrame(i);
-                    var method = frame?.GetMethod();
-                    var type = method?.DeclaringType;
-                    if (type == null)
-                        continue;
-
-                    if (type == typeof(Log))
-                        continue; // skip logger frames
-
-                    var typeName = type.Name;
-                    var methodName = method!.Name is ".ctor" or ".cctor" ? typeName : method.Name;
-                    return $"{typeName}.{methodName}";
-                }
-            }
-            catch
-            {
-                // ignore stack issues
-            }
-            return "";
         }
     }
 }

@@ -15,14 +15,15 @@ namespace Retinues.Core.Features.Stocks.Behaviors
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private Dictionary<string, int> _stockByItemId = [];
+        private Dictionary<string, int> _stocksByItemId;
+        public Dictionary<string, int> StocksByItemId => _stocksByItemId ??= [];
 
-        public bool HasSyncData => _stockByItemId != null && _stockByItemId.Count > 0;
+        public bool HasSyncData => StocksByItemId.Count > 0;
 
         public override void SyncData(IDataStore ds)
         {
-            ds.SyncData(nameof(_stockByItemId), ref _stockByItemId);
-            Log.Info($"{_stockByItemId.Count} entries.");
+            ds.SyncData("Retinues_Stocks", ref _stocksByItemId);
+            Log.Info($"{StocksByItemId.Count} entries.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -35,35 +36,35 @@ namespace Retinues.Core.Features.Stocks.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public static bool HasStock(string itemId) => Get(itemId) > 0;
+
         public static int Get(string itemId)
         {
             if (Instance == null || itemId == null)
                 return 0;
-            return Instance._stockByItemId.TryGetValue(itemId, out var c) ? c : 0;
+            return Instance.StocksByItemId.TryGetValue(itemId, out var c) ? c : 0;
         }
-
-        public static bool HasStock(string itemId) => Get(itemId) > 0;
 
         public static void Set(string itemId, int count)
         {
             if (Instance == null || itemId == null)
                 return;
             if (count <= 0)
-                Instance._stockByItemId.Remove(itemId);
+                Instance.StocksByItemId.Remove(itemId);
             else
-                Instance._stockByItemId[itemId] = count;
+                Instance.StocksByItemId[itemId] = count;
         }
 
         public static void Add(string itemId, int delta)
         {
             if (Instance == null || itemId == null || delta == 0)
                 return;
-            Instance._stockByItemId.TryGetValue(itemId, out var cur);
+            Instance.StocksByItemId.TryGetValue(itemId, out var cur);
             var next = cur + delta;
             if (next <= 0)
-                Instance._stockByItemId.Remove(itemId);
+                Instance.StocksByItemId.Remove(itemId);
             else
-                Instance._stockByItemId[itemId] = next;
+                Instance.StocksByItemId[itemId] = next;
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Core.Features.Xp;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
@@ -29,7 +28,7 @@ namespace Retinues.Core.Troops
                 keepSkills: false
             );
 
-            // Create the wrapped character
+            // Set properties
             troop.Name = data.Name;
             troop.Level = data.Level;
             troop.IsFemale = data.IsFemale;
@@ -39,9 +38,6 @@ namespace Retinues.Core.Troops
             // Restore upgrade targets
             foreach (var child in data.UpgradeTargets ?? [])
                 troop.AddUpgradeTarget(Load(child));
-
-            // Restore XP pool
-            TroopXpService.SetPool(troop, data.XpPool);
 
             // Retinues are not transferable
             if (troop.IsRetinue)
@@ -73,7 +69,6 @@ namespace Retinues.Core.Troops
                 IsFemale = character.IsFemale,
                 SkillCode = CodeFromSkills(character.Skills),
                 EquipmentCode = character.Equipment.Code,
-                XpPool = TroopXpService.GetPool(character),
             };
 
             return data;

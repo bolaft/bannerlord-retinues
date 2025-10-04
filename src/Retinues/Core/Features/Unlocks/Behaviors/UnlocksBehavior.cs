@@ -23,39 +23,23 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private Dictionary<string, int> _defeatsByItemId;
+        private Dictionary<string, int> _progressByItemId;
+        public Dictionary<string, int> ProgressByItemId => _progressByItemId ??= [];
 
-        private HashSet<string> _unlockedItemIds = [];
+        private List<string> _unlockedItemIds;
+        public List<string> UnlockedItemIds => _unlockedItemIds ??= [];
 
-        public bool HasSyncData =>
-            (_defeatsByItemId != null && _defeatsByItemId.Count > 0)
-            || (_unlockedItemIds != null && _unlockedItemIds.Count > 0);
+        public bool HasSyncData => UnlockedItemIds.Count > 0 || ProgressByItemId.Count > 0;
 
         public override void SyncData(IDataStore ds)
         {
-            if (ds.IsSaving)
-            {
-                // write as List<string>
-                var list = _unlockedItemIds?.ToList() ?? [];
-                ds.SyncData(nameof(_unlockedItemIds), ref list);
-            }
-            else
-            {
-                // read as List<string>
-                List<string> list = null;
-                ds.SyncData(nameof(_unlockedItemIds), ref list);
-
-                // convert to HashSet<string>
-                _unlockedItemIds = list != null
-                    ? new HashSet<string>(list, StringComparer.Ordinal)
-                    : new HashSet<string>(StringComparer.Ordinal);
-            }
-
+            // Unlocked item IDs
+            ds.SyncData("Retinues_Unlocks_Unlocked", ref _unlockedItemIds);
             // Defeats by item ID
-            ds.SyncData(nameof(_defeatsByItemId), ref _defeatsByItemId);
+            ds.SyncData("Retinues_Unlocks_Progress", ref _progressByItemId);
 
             Log.Info(
-                $"{_defeatsByItemId.Count} item defeat counts, {_unlockedItemIds.Count} unlocked."
+                $"{ProgressByItemId.Count} item defeat counts, {UnlockedItemIds.Count} unlocked."
             );
         }
 
@@ -79,13 +63,13 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             if (!Config.GetOption<bool>("UnlockFromKills"))
                 return;
 
-            Log.Info("OnMissionStarted: Installing UnlocksMissionBehavior.");
+            Log.Debug("Adding UnlocksMissionBehavior.");
 
             // Cast to concrete type
             Mission m = mission as Mission;
 
-            // Add our per-battle tracker
-            m?.AddMissionBehavior(new UnlocksMissionBehavior(this));
+            // Attach per-battle tracker
+            m?.AddMissionBehavior(new UnlocksMissionBehavior());
             _newlyUnlockedThisBattle.Clear();
         }
 
@@ -106,24 +90,29 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static Dictionary<string, int> IdsToProgress => Instance?._defeatsByItemId ?? [];
-
         public static bool IsUnlocked(string itemId) =>
-            Instance != null && itemId != null && Instance._unlockedItemIds.Contains(itemId);
+            Instance != null && itemId != null && Instance.UnlockedItemIds.Contains(itemId);
 
         public static void Unlock(ItemObject item)
         {
             if (Instance == null || item == null)
                 return;
 
-            Instance._unlockedItemIds.Add(item.StringId);
+            if (Instance.UnlockedItemIds.Contains(item.StringId))
+                return;
+
+            Instance.UnlockedItemIds.Add(item.StringId);
         }
 
         public static void Lock(ItemObject item)
         {
             if (Instance == null || item == null)
                 return;
-            Instance._unlockedItemIds.Remove(item.StringId);
+
+            if (!Instance.UnlockedItemIds.Contains(item.StringId))
+                return;
+
+            Instance.UnlockedItemIds.Remove(item.StringId);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -196,35 +185,49 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
             Dictionary<int, int> ownCultureBonuses = [];
 
+            int loopIndex = 0;
             foreach (var kvp in battleCounts)
             {
-                var item = kvp.Key;
-                var inc = kvp.Value;
-
-                if (item == null)
-                    continue;
-
-                // accumulate in own culture as well
-                if (
-                    addCultureBonuses
-                    && item.Culture != null
-                    && item.Culture != Clan.PlayerClan?.Culture
-                )
+                loopIndex++;
+                try
                 {
-                    if (!ownCultureBonuses.ContainsKey((int)item.Tier))
-                        ownCultureBonuses[(int)item.Tier] = 0;
-                    ownCultureBonuses[(int)item.Tier] += inc;
+                    var item = kvp.Key;
+                    var inc = kvp.Value;
+
+                    if (item == null)
+                        continue;
+
+                    // accumulate in own culture as well
+                    if (
+                        addCultureBonuses
+                        && item.Culture != null
+                        && Player.Clan != null
+                        && item.Culture?.StringId != Player.Clan.StringId
+                    )
+                    {
+                        if (!ownCultureBonuses.ContainsKey((int)item.Tier))
+                            ownCultureBonuses[(int)item.Tier] = 0;
+                        ownCultureBonuses[(int)item.Tier] += inc;
+                    }
+
+                    var id = item.StringId;
+                    ProgressByItemId.TryGetValue(id, out int prev);
+                    int now = prev + inc;
+                    ProgressByItemId[id] = now;
+
+                    if (prev < threshold && now >= threshold)
+                    {
+                        if (!UnlockedItemIds.Contains(id))
+                        {
+                            UnlockedItemIds.Add(id);
+                            _newlyUnlockedThisBattle.Add(item);
+                        }
+                    }
                 }
-
-                var id = item.StringId;
-                _defeatsByItemId.TryGetValue(id, out int prev);
-                int now = prev + inc;
-                _defeatsByItemId[id] = now;
-
-                if (prev < threshold && now >= threshold)
+                catch (Exception e)
                 {
-                    if (_unlockedItemIds.Add(item.StringId))
-                        _newlyUnlockedThisBattle.Add(item);
+                    Log.Exception(e);
+                    continue;
                 }
             }
 

@@ -1,40 +1,29 @@
 using System.Collections.Generic;
-using Retinues.Core.Features.Stocks.Behaviors;
-using Retinues.Core.Features.Unlocks.Behaviors;
+using Retinues.Core.Features.Xp.Behaviors;
+using Retinues.Core.Troops;
+using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.ObjectSystem;
-using TaleWorlds.SaveSystem;
 
-namespace Retinues.Core.Safety.Legacy
+namespace Retinues.Core.Safety.Legacy.Behaviors
 {
-    /* ━━━━━━━ Save Data ━━━━━━ */
-
-    public class ItemSaveData
-    {
-        [SaveableField(1)]
-        public List<string> UnlockedItemIds = [];
-
-        [SaveableField(2)]
-        public Dictionary<string, int> StockedItems = [];
-    }
-
     [SafeClass]
-    public sealed class ItemSaveBehavior : CampaignBehaviorBase
+    public sealed class TroopSaveBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private ItemSaveData _items;
+        private List<TroopSaveData> _troops;
+
+        public bool HasSyncData => _troops != null && _troops.Count > 0;
 
         public override void SyncData(IDataStore ds)
         {
             if (ds.IsSaving)
-                _items = null; // Clear reference before saving
+                _troops = null; // Clear reference before saving
 
-            ds.SyncData("Retinues_Items", ref _items);
+            ds.SyncData("Retinues_Troops", ref _troops);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -55,30 +44,16 @@ namespace Retinues.Core.Safety.Legacy
 
         private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
-            if (_items == null)
-                return;
-
-            // Unlocks
-            if (_items.UnlockedItemIds is { Count: > 0 })
+            if (_troops is { Count: > 0 })
             {
-                foreach (var id in _items.UnlockedItemIds)
+                foreach (var data in _troops)
                 {
-                    var item = MBObjectManager.Instance.GetObject<ItemObject>(id);
-                    if (item != null)
-                        UnlocksBehavior.Unlock(item);
+                    var troop = TroopLoader.Load(data);
+                    TroopXpBehavior.Add(troop, data.XpPool);
                 }
-            }
 
-            // Stocks
-            if (_items.StockedItems is { Count: > 0 } && StocksBehavior.Instance != null)
-            {
-                foreach (var kv in _items.StockedItems)
-                    StocksBehavior.Set(kv.Key, kv.Value);
+                Log.Info($"Troops migrated: {_troops.Count} roots.");
             }
-
-            Log.Info(
-                $"Items migrated: unlocked={_items.UnlockedItemIds?.Count ?? 0}, stocks={_items.StockedItems?.Count ?? 0}"
-            );
         }
     }
 }

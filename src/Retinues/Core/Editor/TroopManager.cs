@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Core.Features.Xp;
+using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers;
@@ -115,7 +116,7 @@ namespace Retinues.Core.Editor
             {
                 // Cost to go from current -> current + 1
                 int cost = TroopRules.SkillPointXpCost(current);
-                if (!TroopXpService.TrySpend(troop, cost))
+                if (!TroopXpBehavior.TrySpend(troop, cost))
                     return; // Not enough XP; a CanIncrement gate should already prevent this
                 troop.SetSkill(skill, current + 1);
             }
@@ -129,7 +130,7 @@ namespace Retinues.Core.Editor
                 // Refund the cost of the point (i.e., the cost that was paid to go from newValue -> newValue + 1)
                 int refund = TroopRules.SkillPointXpCost(newValue);
                 troop.SetSkill(skill, newValue);
-                TroopXpService.Refund(troop, refund);
+                TroopXpBehavior.Refund(troop, refund);
             }
         }
 
@@ -141,11 +142,7 @@ namespace Retinues.Core.Editor
             List<int> path = [.. troop.PositionInTree, troop.UpgradeTargets.Length];
 
             // Wrap the custom troop
-            var child = new WCharacter(
-                troop.Faction?.StringId == Player.Kingdom?.StringId,
-                troop.IsElite,
-                path: path
-            );
+            var child = new WCharacter(troop.Faction == Player.Kingdom, troop.IsElite, path: path);
 
             // Copy from the original troop
             child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);
@@ -191,7 +188,7 @@ namespace Retinues.Core.Editor
                 return;
 
             // check XP first
-            if (!TroopXpService.TrySpend(troop, cost))
+            if (!TroopXpBehavior.TrySpend(troop, cost))
                 return;
 
             // now charge gold and upgrade
@@ -252,7 +249,7 @@ namespace Retinues.Core.Editor
 
             if (retinue is null || !retinue.IsRetinue)
             {
-                Log.Error($"RetinueSources: {retinue?.StringId} is not a retinue.");
+                Log.Error($"RetinueSources: {retinue} is not a retinue.");
                 return sources;
             }
 
@@ -273,7 +270,7 @@ namespace Retinues.Core.Editor
 
             // Culture pick
             var culturePick = TroopMatcher.PickBestFromTree(cultureRoot, retinue);
-            if (culturePick.IsValid)
+            if (culturePick?.IsValid == true)
                 sources.Add(culturePick);
 
             // Faction pick (avoid duplicate)
@@ -282,7 +279,7 @@ namespace Retinues.Core.Editor
                 retinue,
                 exclude: culturePick
             );
-            if (factionPick.IsValid)
+            if (factionPick?.IsValid == true)
                 sources.Add(factionPick);
 
             return sources;

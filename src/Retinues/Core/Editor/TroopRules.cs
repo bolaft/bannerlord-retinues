@@ -1,7 +1,7 @@
 using System.Linq;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
-using Retinues.Core.Features.Xp;
+using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -160,7 +160,7 @@ namespace Retinues.Core.Editor
             if (c == null || s == null)
                 return false;
             int cost = SkillPointXpCost(c.GetSkill(s));
-            return TroopXpService.GetPool(c) >= cost;
+            return TroopXpBehavior.Get(c) >= cost;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

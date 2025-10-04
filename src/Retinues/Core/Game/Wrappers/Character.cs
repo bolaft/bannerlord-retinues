@@ -428,7 +428,7 @@ namespace Retinues.Core.Game.Wrappers
 
         public void AddUpgradeTarget(WCharacter target)
         {
-            if (UpgradeTargets.Any(wc => wc.StringId == target.StringId))
+            if (UpgradeTargets.Any(wc => wc == target))
                 return;
 
             var list = UpgradeTargets?.ToList() ?? [];
@@ -439,7 +439,7 @@ namespace Retinues.Core.Game.Wrappers
         public void RemoveUpgradeTarget(WCharacter target)
         {
             var list = UpgradeTargets?.ToList() ?? [];
-            list.RemoveAll(wc => wc.StringId == target.StringId);
+            list.RemoveAll(wc => wc == target);
             Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(list));
         }
 
@@ -516,7 +516,7 @@ namespace Retinues.Core.Game.Wrappers
             // Upgrades
             UpgradeTargets = keepUpgrades ? [.. src.UpgradeTargets] : [];
 
-            // Equipment — re-create from code to avoid shared references
+            // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
                 Equipments = [WEquipment.FromCode(src.Equipment.Code)];
             else

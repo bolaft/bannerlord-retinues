@@ -1,27 +1,30 @@
-using System;
 using System.Collections.Generic;
-using Retinues.Core.Troops;
-using Retinues.Core.Troops.Save;
+using Retinues.Core.Features.Stocks.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
+using TaleWorlds.SaveSystem;
 
-namespace Retinues.Core.Safety.Legacy
+namespace Retinues.Core.Safety.Legacy.Behaviors
 {
     [SafeClass]
-    public sealed class TroopSaveBehavior : CampaignBehaviorBase
+    public sealed class ItemSaveBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private List<TroopSaveData> _troops;
+        private ItemSaveData _items;
+
+        public bool HasSyncData => _items != null;
 
         public override void SyncData(IDataStore ds)
         {
             if (ds.IsSaving)
-                _troops = null; // Clear reference before saving
+                _items = null; // Clear reference before saving
 
-            ds.SyncData("Retinues_Troops", ref _troops);
+            ds.SyncData("Retinues_Items", ref _items);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -42,13 +45,41 @@ namespace Retinues.Core.Safety.Legacy
 
         private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
-            if (_troops is { Count: > 0 })
-            {
-                foreach (var data in _troops)
-                    TroopLoader.Load(data);
+            if (_items == null)
+                return;
 
-                Log.Info($"Troops migrated: {_troops.Count} roots.");
+            // Unlocks
+            if (_items.UnlockedItemIds is { Count: > 0 })
+            {
+                foreach (var id in _items.UnlockedItemIds)
+                {
+                    var item = MBObjectManager.Instance.GetObject<ItemObject>(id);
+                    if (item != null)
+                        Features.Unlocks.Behaviors.UnlocksBehavior.Unlock(item);
+                }
             }
+
+            // Stocks
+            if (_items.StockedItems is { Count: > 0 } && StocksBehavior.Instance != null)
+            {
+                foreach (var kv in _items.StockedItems)
+                    StocksBehavior.Set(kv.Key, kv.Value);
+            }
+
+            Log.Info(
+                $"Items migrated: unlocked={_items.UnlockedItemIds?.Count ?? 0}, stocks={_items.StockedItems?.Count ?? 0}"
+            );
         }
+    }
+
+    /* ━━━━━━━ Save Data ━━━━━━ */
+
+    public class ItemSaveData
+    {
+        [SaveableField(1)]
+        public List<string> UnlockedItemIds = [];
+
+        [SaveableField(2)]
+        public Dictionary<string, int> StockedItems = [];
     }
 }

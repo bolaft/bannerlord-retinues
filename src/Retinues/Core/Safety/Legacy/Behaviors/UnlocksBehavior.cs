@@ -1,20 +1,27 @@
-using System;
-using Retinues.Core.Features.Doctrines.Effects.Behaviors;
+using System.Collections.Generic;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Core.Features.Doctrines.Effects
+namespace Retinues.Core.Safety.Legacy.Behaviors
 {
     [SafeClass]
-    public sealed class DoctrineEffectRuntimeBehavior : CampaignBehaviorBase
+    public sealed class UnlocksBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void SyncData(IDataStore dataStore) { }
+        private Dictionary<string, int> _defeatsByItemId = [];
+
+        public bool HasSyncData => _defeatsByItemId != null && _defeatsByItemId.Count > 0;
+
+        public override void SyncData(IDataStore ds)
+        {
+            if (ds.IsSaving)
+                _defeatsByItemId = null; // Clear reference before saving
+
+            ds.SyncData(nameof(_defeatsByItemId), ref _defeatsByItemId);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
@@ -22,31 +29,37 @@ namespace Retinues.Core.Features.Doctrines.Effects
 
         public override void RegisterEvents()
         {
-            // Missions
-            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
+            CampaignEvents.OnAfterSessionLaunchedEvent.AddNonSerializedListener(
+                this,
+                OnAfterSessionLaunched
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnMissionStarted(IMission iMission)
+        private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
-            try
-            {
-                if (iMission is not Mission mission)
-                    return; // Not a battle or a tournament
+            if (_defeatsByItemId == null)
+                return;
 
-                if (mission.GetMissionBehavior<ImmortalsBehavior>() == null)
-                    mission.AddMissionBehavior(new ImmortalsBehavior());
-
-                if (mission.GetMissionBehavior<IndomitableBehavior>() == null)
-                    mission.AddMissionBehavior(new IndomitableBehavior());
-            }
-            catch (Exception ex)
+            if (_defeatsByItemId.Count > 0)
             {
-                Log.Exception(ex);
+                foreach (var kvp in _defeatsByItemId)
+                {
+                    var progress = Features
+                        .Unlocks
+                        .Behaviors
+                        .UnlocksBehavior
+                        .Instance
+                        .ProgressByItemId;
+                    progress.TryGetValue(kvp.Key, out int prev);
+                    progress[kvp.Key] = prev + kvp.Value;
+                }
             }
+
+            Log.Info($"Item unlock progress migrated: items={_defeatsByItemId.Count}");
         }
     }
 }

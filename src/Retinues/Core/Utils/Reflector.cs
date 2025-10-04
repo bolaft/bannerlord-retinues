@@ -63,13 +63,13 @@ namespace Retinues.Core.Utils
         //                   Back-Compatibility                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal static PropertyInfo P<T>(T instance, string propertyName) =>
+        private static PropertyInfo P<T>(T instance, string propertyName) =>
             ResolveProperty(instance?.GetType() ?? typeof(T), propertyName);
 
-        internal static FieldInfo F<T>(T instance, string fieldName) =>
+        private static FieldInfo F<T>(T instance, string fieldName) =>
             ResolveField(instance?.GetType() ?? typeof(T), fieldName);
 
-        internal static MethodInfo M<T>(
+        private static MethodInfo M<T>(
             T instance,
             string methodName,
             params Type[] parameterTypes
@@ -88,10 +88,11 @@ namespace Retinues.Core.Utils
                 ResolveProperty(type, propertyName)
                 ?? throw new MissingMemberException(type.FullName, propertyName);
 
-            var getter = pi.GetGetMethod(true);
-            if (getter == null)
-                throw new MissingMethodException($"{type.FullName}.{propertyName} has no getter.");
-
+            var getter =
+                pi.GetGetMethod(true)
+                ?? throw new MissingMethodException(
+                    $"{type.FullName}.{propertyName} has no getter."
+                );
             var val = getter.Invoke(instance, null);
             return (TReturn)ConvertIfNeeded(val, typeof(TReturn));
         }
@@ -105,10 +106,11 @@ namespace Retinues.Core.Utils
                 ResolveProperty(type, propertyName)
                 ?? throw new MissingMemberException(type.FullName, propertyName);
 
-            var getter = pi.GetGetMethod(true);
-            if (getter == null)
-                throw new MissingMethodException($"{type.FullName}.{propertyName} has no getter.");
-
+            var getter =
+                pi.GetGetMethod(true)
+                ?? throw new MissingMethodException(
+                    $"{type.FullName}.{propertyName} has no getter."
+                );
             return getter.Invoke(instance, null);
         }
 

@@ -17,12 +17,13 @@
     <!-- Set to true to copy into the game's Modules folder -->
     <DeployToGame>true</DeployToGame>
   </PropertyGroup>
-  <!-- emit a .pdb -->
-  <PropertyGroup>
+  <!-- embed pdb in dll -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>true</Optimize>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
+    <DebugType>embedded</DebugType>
+    <!-- no separate .pdb file -->
     <Deterministic>true</Deterministic>
+    <PathMap>$(MSBuildProjectDirectory)=/src</PathMap>
   </PropertyGroup>
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->
@@ -179,13 +180,6 @@
       <BLModuleDir>$(BannerlordGameDir)\Modules\Retinues.Core</BLModuleDir>
       <BLBin>$(BLModuleDir)\bin\Win64_Shipping_Client</BLBin>
     </PropertyGroup>
-    <ItemGroup>
-      <!-- add the PDB if it exists -->
-      <Artifacts
-        Include="$(TargetDir)$(AssemblyName).pdb"
-        Condition="Exists('$(TargetDir)$(AssemblyName).pdb')"
-      />
-    </ItemGroup>
     <MakeDir Directories="$(BLBin)" />
     <Copy SourceFiles="@(Artifacts)" DestinationFolder="$(BLBin)" SkipUnchangedFiles="true" />
   </Target>

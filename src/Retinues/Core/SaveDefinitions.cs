@@ -1,12 +1,13 @@
 using System.Collections.Generic;
-using TaleWorlds.SaveSystem;
 using Retinues.Core.Troops.Save;
+using TaleWorlds.SaveSystem;
 
 namespace Retinues.Core
 {
     public sealed class SaveDefinitions : SaveableTypeDefiner
     {
-        public SaveDefinitions() : base(090_787) { }
+        public SaveDefinitions()
+            : base(090_787) { }
 
         protected override void DefineClassTypes()
         {
@@ -15,7 +16,7 @@ namespace Retinues.Core
             AddClassDefinition(typeof(TroopSaveData), 070_992);
 
             // Legacy definitions for backwards compatibility
-            AddClassDefinition(typeof(Safety.Legacy.ItemSaveData), 070_993);
+            AddClassDefinition(typeof(Safety.Legacy.Behaviors.ItemSaveData), 070_993);
         }
 
         protected override void DefineContainerDefinitions()

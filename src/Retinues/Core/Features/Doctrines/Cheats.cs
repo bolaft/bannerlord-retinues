@@ -23,7 +23,7 @@ namespace Retinues.Core.Features.Doctrines
             foreach (var d in docs.OrderBy(x => x.Column).ThenBy(x => x.Row))
             {
                 var status = DoctrineAPI.GetDoctrineStatus(d.Key);
-                sb.AppendLine($"[{TrimType(d.Key)}] {d.Name}  —  {status}");
+                sb.AppendLine($"[{TrimType(d.Key)}] {d.Name}  -  {status}");
                 if (d.Feats == null || d.Feats.Count == 0)
                 {
                     sb.AppendLine("  (no feats)");
@@ -36,7 +36,7 @@ namespace Retinues.Core.Features.Doctrines
                     int tgt = DoctrineAPI.GetFeatTarget(f.Key);
                     bool done = DoctrineAPI.IsFeatComplete(f.Key);
                     sb.AppendLine(
-                        $"  - {TrimType(f.Key)} : {prog}/{tgt} {(done ? "[DONE]" : "")} — {f.Description}"
+                        $"  - {TrimType(f.Key)} : {prog}/{tgt} {(done ? "[DONE]" : "")} - {f.Description}"
                     );
                 }
                 sb.AppendLine();

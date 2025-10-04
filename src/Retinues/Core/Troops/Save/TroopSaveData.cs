@@ -32,6 +32,6 @@ namespace Retinues.Core.Troops.Save
         public List<TroopSaveData> UpgradeTargets = [];
 
         [SaveableField(9)]
-        public int XpPool = 0;
+        public int XpPool = 0; // Legacy, required for backwards compatibility
     }
 }

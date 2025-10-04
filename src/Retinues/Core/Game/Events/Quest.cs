@@ -1,3 +1,4 @@
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
@@ -18,7 +19,7 @@ namespace Retinues.Core.Game.Events
 
         public bool IsSuccessful = isSuccessful;
 
-        public Hero Giver => _quest?.QuestGiver;
+        public WHero Giver => new(_quest?.QuestGiver);
 
         public bool NoPayment => _quest?.RewardGold == 0;
     }

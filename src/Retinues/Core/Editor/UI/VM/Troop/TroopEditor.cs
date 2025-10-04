@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Features.Xp;
+using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -31,7 +32,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             public int Amount;
             public int CostPer => TroopRules.ConversionCostPerUnit(To);
             public int TotalCost => Amount * CostPer;
-            public string Key => $"{From?.StringId}->{To?.StringId}";
+            public string Key => $"{From}->{To}";
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -172,7 +173,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             get
             {
                 return L.T("available_troop_xp", "{XP} xp")
-                    .SetTextVariable("XP", TroopXpService.GetPool(SelectedTroop))
+                    .SetTextVariable("XP", TroopXpBehavior.Get(SelectedTroop))
                     .ToString();
             }
         }
@@ -394,7 +395,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                     )
                 );
             }
-            else if (TroopXpService.GetPool(SelectedTroop) < cost && TroopXpIsEnabled)
+            else if (TroopXpBehavior.Get(SelectedTroop) < cost && TroopXpIsEnabled)
             {
                 InformationManager.ShowInquiry(
                     new InquiryData(
@@ -644,7 +645,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         internal int GetPendingAmount(WCharacter from, WCharacter to)
         {
-            var key = $"{from?.StringId}->{to?.StringId}";
+            var key = $"{from}->{to}";
             return _staged.TryGetValue(key, out var o) ? o.Amount : 0;
         }
 
@@ -696,8 +697,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (amount <= 0)
                 return;
 
-            string key = $"{from.StringId}->{to.StringId}";
-            string oppKey = $"{to.StringId}->{from.StringId}";
+            string key = $"{from}->{to}";
+            string oppKey = $"{to}->{from}";
 
             // 1) Cancel against any opposite staged flow first.
             if (_staged.TryGetValue(oppKey, out var opp) && opp.Amount > 0)
