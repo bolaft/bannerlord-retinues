@@ -88,10 +88,7 @@ namespace Retinues.Core.Utils
                 ResolveProperty(type, propertyName)
                 ?? throw new MissingMemberException(type.FullName, propertyName);
 
-            var getter = pi.GetGetMethod(true);
-            if (getter == null)
-                throw new MissingMethodException($"{type.FullName}.{propertyName} has no getter.");
-
+            var getter = pi.GetGetMethod(true) ?? throw new MissingMethodException($"{type.FullName}.{propertyName} has no getter.");
             var val = getter.Invoke(instance, null);
             return (TReturn)ConvertIfNeeded(val, typeof(TReturn));
         }
@@ -105,10 +102,7 @@ namespace Retinues.Core.Utils
                 ResolveProperty(type, propertyName)
                 ?? throw new MissingMemberException(type.FullName, propertyName);
 
-            var getter = pi.GetGetMethod(true);
-            if (getter == null)
-                throw new MissingMethodException($"{type.FullName}.{propertyName} has no getter.");
-
+            var getter = pi.GetGetMethod(true) ?? throw new MissingMethodException($"{type.FullName}.{propertyName} has no getter.");
             return getter.Invoke(instance, null);
         }
 
