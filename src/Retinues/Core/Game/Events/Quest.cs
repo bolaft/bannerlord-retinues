@@ -19,7 +19,7 @@ namespace Retinues.Core.Game.Events
 
         public bool IsSuccessful = isSuccessful;
 
-        public WHero Giver => new(_quest?.QuestGiver);
+        public WHero Giver => _quest?.QuestGiver != null ? new WHero(_quest.QuestGiver) : null;
 
         public bool NoPayment => _quest?.RewardGold == 0;
     }
