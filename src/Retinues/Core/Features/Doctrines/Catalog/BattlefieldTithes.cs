@@ -29,9 +29,9 @@ namespace Retinues.Core.Features.Doctrines.Catalog
             {
                 if (!quest.IsSuccessful)
                     return;
-                if (quest.Giver.Base.MapFaction.StringId != Player.MapFaction.StringId)
+                if (quest.Giver?.Base.MapFaction.StringId != Player.MapFaction.StringId)
                     return;
-                if (!quest.Giver.IsPartyLeader)
+                if (!quest.Giver?.IsPartyLeader ?? true)
                     return;
 
                 AdvanceProgress(1);
