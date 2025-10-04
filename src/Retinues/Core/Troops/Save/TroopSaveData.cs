@@ -5,6 +5,8 @@ namespace Retinues.Core.Troops.Save
 {
     public class TroopSaveData
     {
+        /* ━━━━━━━━ Fields ━━━━━━━━ */
+
         [SaveableField(1)]
         public string StringId;
 
@@ -28,5 +30,8 @@ namespace Retinues.Core.Troops.Save
 
         [SaveableField(8)]
         public List<TroopSaveData> UpgradeTargets = [];
+
+        [SaveableField(9)]
+        public int XpPool = 0; // Legacy, required for backwards compatibility
     }
 }
