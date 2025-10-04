@@ -21,20 +21,20 @@ namespace Retinues.Core.Game.Wrappers
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => _faction.Name.ToString();
+        public string Name => _faction?.Name.ToString();
 
-        public override string StringId => _faction.StringId;
+        public override string StringId => _faction?.StringId;
 
-        public string BannerCodeText => _faction.Banner.Serialize();
+        public string BannerCodeText => _faction?.Banner.Serialize();
 
-        public uint Color => _faction.Color;
+        public uint Color => _faction?.Color ?? 0;
 
-        public uint Color2 => _faction.Color2;
+        public uint Color2 => _faction?.Color2 ?? 0;
 
-        public WCulture Culture => new(_faction.Culture);
+        public WCulture Culture => new(_faction?.Culture);
 
         public IReadOnlyList<Settlement> Fiefs =>
-            [.. _faction.Settlements.Where(s => s.IsTown || s.IsCastle)];
+            [.. _faction?.Settlements.Where(s => s.IsTown || s.IsCastle)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //

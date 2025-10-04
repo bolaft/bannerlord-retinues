@@ -29,10 +29,8 @@ namespace Retinues.Core.Troops
                 Log.Debug("No custom troops found for faction.");
 
                 // Always have clan troops if clan has fiefs, if player leads a kingdom or if can recruit anywhere is enabled
-                if (
-                    faction.HasFiefs
-                    || Player.Kingdom != null
-                    || Config.GetOption<bool>("RecruitAnywhere")
+                if (faction.HasFiefs || Player.Kingdom != null
+                // || Config.GetOption<bool>("RecruitAnywhere")
                 )
                 {
                     Log.Info("Initializing default troops.");
@@ -168,10 +166,7 @@ namespace Retinues.Core.Troops
             Log.Info($"troop vanilla id set to {militia.VanillaStringId}");
 
             // Rename it
-            if (militia.Name.Contains(faction.Culture?.Name) == true)
-                militia.Name = militia.Name.Replace(faction.Culture.Name, faction.Name);
-            else
-                militia.Name = $"{faction.Name} {root.Name}";
+            militia.Name = BuildTroopName(root, faction);
 
             // Non-transferable
             militia.IsNotTransferableInPartyScreen = true;
@@ -252,7 +247,9 @@ namespace Retinues.Core.Troops
             );
         }
 
-        /* ━━━━━━━━ Helpers ━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         HELPERS                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static IEnumerable<WCharacter> CloneTroopTreeRecursive(
             WCharacter vanilla,
@@ -273,10 +270,7 @@ namespace Retinues.Core.Troops
             troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
             // Rename it
-            if (vanilla.Name.Contains(faction.Culture?.Name) == true)
-                troop.Name = vanilla.Name.Replace(faction.Culture.Name, faction.Name);
-            else
-                troop.Name = $"{faction.Name} {vanilla.Name}";
+            troop.Name = BuildTroopName(vanilla, faction);
 
             // Add to upgrade targets of the parent, if any
             parent?.AddUpgradeTarget(troop);
@@ -298,6 +292,36 @@ namespace Retinues.Core.Troops
                 foreach (var child in vanilla.UpgradeTargets)
                 foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
                     yield return descendant;
+        }
+
+        private static string BuildTroopName(WCharacter vanilla, WFaction faction)
+        {
+            var cultureName = faction.Culture?.Name;
+            if (
+                string.IsNullOrEmpty(cultureName)
+                || string.IsNullOrEmpty(faction.Name)
+                || string.IsNullOrEmpty(vanilla.Name)
+            )
+                return vanilla.Name;
+
+            // Try to find a word containing the culture name
+            var words = vanilla.Name.Split(' ');
+            for (int i = 0; i < words.Length; i++)
+            {
+                var word = words[i];
+                if (word.Contains(cultureName))
+                {
+                    // If the word is mostly the culture name (e.g., 'Battanian' contains 'Battania'), replace the whole word
+                    int overlap = cultureName.Length * 100 / word.Length;
+                    if (overlap >= 80) // 80% or more of the word is the culture name
+                    {
+                        words[i] = faction.Name;
+                        return string.Join(" ", words);
+                    }
+                }
+            }
+            // Fallback: prepend faction name
+            return $"{faction.Name} {vanilla.Name}";
         }
     }
 }

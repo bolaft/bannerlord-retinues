@@ -1,26 +1,26 @@
+using System.Collections.Generic;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Core.Safety.Version
+namespace Retinues.Core.Safety.Legacy.Behaviors
 {
     [SafeClass]
-    public class VersionBehavior : CampaignBehaviorBase
+    public sealed class UnlocksBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private string _retinuesVersion;
+        private Dictionary<string, int> _defeatsByItemId = [];
 
-        public override void SyncData(IDataStore dataStore)
+        public bool HasSyncData => _defeatsByItemId != null && _defeatsByItemId.Count > 0;
+
+        public override void SyncData(IDataStore ds)
         {
-            if (dataStore.IsSaving)
-            {
-                // Update to current version on save
-                _retinuesVersion = ModuleChecker.GetModule("Retinues.Core").Version;
-            }
+            if (ds.IsSaving)
+                _defeatsByItemId = null; // Clear reference before saving
 
-            dataStore.SyncData("Retinues_Version", ref _retinuesVersion);
+            ds.SyncData(nameof(_defeatsByItemId), ref _defeatsByItemId);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -29,9 +29,9 @@ namespace Retinues.Core.Safety.Version
 
         public override void RegisterEvents()
         {
-            CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+            CampaignEvents.OnAfterSessionLaunchedEvent.AddNonSerializedListener(
                 this,
-                OnGameLoadFinished
+                OnAfterSessionLaunched
             );
         }
 
@@ -39,9 +39,27 @@ namespace Retinues.Core.Safety.Version
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnGameLoadFinished()
+        private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
-            Log.Info($"Save File: Retinues {_retinuesVersion ?? "unknown"}");
+            if (_defeatsByItemId == null)
+                return;
+
+            if (_defeatsByItemId.Count > 0)
+            {
+                foreach (var kvp in _defeatsByItemId)
+                {
+                    var progress = Features
+                        .Unlocks
+                        .Behaviors
+                        .UnlocksBehavior
+                        .Instance
+                        .ProgressByItemId;
+                    progress.TryGetValue(kvp.Key, out int prev);
+                    progress[kvp.Key] = prev + kvp.Value;
+                }
+            }
+
+            Log.Info($"Item unlock progress migrated: items={_defeatsByItemId.Count}");
         }
     }
 }

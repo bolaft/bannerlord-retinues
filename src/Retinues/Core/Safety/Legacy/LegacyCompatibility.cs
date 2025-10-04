@@ -8,8 +8,9 @@ namespace Retinues.Core.Safety.Legacy
     {
         public static void AddBehaviors(CampaignGameStarter cs)
         {
-            cs.AddBehavior(new TroopSaveBehavior());
-            cs.AddBehavior(new ItemSaveBehavior());
+            cs.AddBehavior(new Behaviors.TroopSaveBehavior());
+            cs.AddBehavior(new Behaviors.ItemSaveBehavior());
+            cs.AddBehavior(new Behaviors.UnlocksBehavior());
         }
     }
 }

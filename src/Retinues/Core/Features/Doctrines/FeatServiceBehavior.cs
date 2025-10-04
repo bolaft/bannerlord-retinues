@@ -22,10 +22,7 @@ namespace Retinues.Core.Features.Doctrines
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void SyncData(IDataStore dataStore)
-        {
-            // No persistent state here — feat progress is persisted by DoctrineServiceBehavior.
-        }
+        public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //

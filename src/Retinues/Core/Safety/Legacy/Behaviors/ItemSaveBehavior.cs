@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Retinues.Core.Features.Stocks.Behaviors;
-using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Core.Safety.Legacy
+namespace Retinues.Core.Safety.Legacy.Behaviors
 {
     [SafeClass]
     public sealed class ItemSaveBehavior : CampaignBehaviorBase
@@ -17,6 +16,8 @@ namespace Retinues.Core.Safety.Legacy
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private ItemSaveData _items;
+
+        public bool HasSyncData => _items != null;
 
         public override void SyncData(IDataStore ds)
         {
@@ -54,7 +55,7 @@ namespace Retinues.Core.Safety.Legacy
                 {
                     var item = MBObjectManager.Instance.GetObject<ItemObject>(id);
                     if (item != null)
-                        UnlocksBehavior.Unlock(item);
+                        Features.Unlocks.Behaviors.UnlocksBehavior.Unlock(item);
                 }
             }
 

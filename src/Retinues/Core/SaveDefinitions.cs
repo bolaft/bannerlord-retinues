@@ -16,7 +16,7 @@ namespace Retinues.Core
             AddClassDefinition(typeof(TroopSaveData), 070_992);
 
             // Legacy definitions for backwards compatibility
-            AddClassDefinition(typeof(Safety.Legacy.ItemSaveData), 070_993);
+            AddClassDefinition(typeof(Safety.Legacy.Behaviors.ItemSaveData), 070_993);
         }
 
         protected override void DefineContainerDefinitions()

@@ -270,7 +270,7 @@ namespace Retinues.Core.Editor
 
             // Culture pick
             var culturePick = TroopMatcher.PickBestFromTree(cultureRoot, retinue);
-            if (culturePick.IsValid)
+            if (culturePick?.IsValid == true)
                 sources.Add(culturePick);
 
             // Faction pick (avoid duplicate)
@@ -279,7 +279,7 @@ namespace Retinues.Core.Editor
                 retinue,
                 exclude: culturePick
             );
-            if (factionPick.IsValid)
+            if (factionPick?.IsValid == true)
                 sources.Add(factionPick);
 
             return sources;

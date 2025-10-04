@@ -1,6 +1,6 @@
 using Retinues.Core.Features.Stocks.Behaviors;
-using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Game;
+using Retinues.Core.Safety.Legacy.Behaviors;
 using Retinues.Core.Troops;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
@@ -19,7 +19,7 @@ namespace Retinues.Core.Safety.Backup
 
         public override void SyncData(IDataStore dataStore)
         {
-            dataStore.SyncData(nameof(_retinuesWasUsed), ref _retinuesWasUsed);
+            dataStore.SyncData("Retinues_Backup_WasUsed", ref _retinuesWasUsed);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -82,6 +82,8 @@ namespace Retinues.Core.Safety.Backup
                     Campaign.Current.GetCampaignBehavior<TroopBehavior>(),
                     Campaign.Current.GetCampaignBehavior<StocksBehavior>(),
                     Campaign.Current.GetCampaignBehavior<UnlocksBehavior>(),
+                    Campaign.Current.GetCampaignBehavior<ItemSaveBehavior>(),
+                    Campaign.Current.GetCampaignBehavior<TroopSaveBehavior>(),
                 }
             )
             {

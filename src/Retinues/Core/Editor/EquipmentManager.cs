@@ -98,7 +98,7 @@ namespace Retinues.Core.Editor
                     // 5) Kill-progress unlocks
                     if (
                         allowFromKills
-                        && UnlocksBehavior.IdsToProgress.TryGetValue(
+                        && UnlocksBehavior.Instance.ProgressByItemId.TryGetValue(
                             item.StringId,
                             out var progress
                         )

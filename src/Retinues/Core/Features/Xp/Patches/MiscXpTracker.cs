@@ -62,7 +62,6 @@ namespace Retinues.Core.Features.Xp.Patches
                 if (xpAmount <= 0)
                     return; // no XP to add after multiplier
 
-                Log.Debug($"Adding {xpAmount} XP to {troop.StringId}.");
                 TroopXpBehavior.Add(troop, xpAmount);
             }
         }
