@@ -182,7 +182,7 @@ namespace Retinues.Core.Utils
                 WriteToFile(line);
 
             if (level >= MinInGameLevel)
-                WriteInGame($"{caller}{message}", level);
+                WriteInGame(message, level);
         }
 
         private static void WriteInGame(string message, LogLevel level)

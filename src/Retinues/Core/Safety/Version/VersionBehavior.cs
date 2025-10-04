@@ -27,6 +27,21 @@ namespace Retinues.Core.Safety.Version
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void RegisterEvents() { }
+        public override void RegisterEvents()
+        {
+            CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+                this,
+                OnGameLoadFinished
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void OnGameLoadFinished()
+        {
+            Log.Info($"Save File: Retinues {_retinuesVersion ?? "unknown"}");
+        }
     }
 }
