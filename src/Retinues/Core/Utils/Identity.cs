@@ -16,8 +16,12 @@ namespace Retinues.Core.Utils
 
         public override int GetHashCode() => StringId.GetHashCode();
 
+        public override string ToString() => StringId;
+
         public static bool operator ==(StringIdentifier left, StringIdentifier right)
         {
+            if (left is null || right is null)
+                return left is null == right is null;
             if (ReferenceEquals(left, right))
                 return true;
             if (left is null || right is null)
