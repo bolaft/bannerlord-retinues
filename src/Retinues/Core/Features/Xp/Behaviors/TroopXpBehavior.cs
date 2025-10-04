@@ -5,8 +5,6 @@ using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Xp.Behaviors
 {
@@ -37,25 +35,7 @@ namespace Retinues.Core.Features.Xp.Behaviors
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void RegisterEvents()
-        {
-            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Events                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private void OnMissionStarted(IMission mission)
-        {
-            Log.Debug("Adding TroopXpMissionBehavior.");
-
-            // Cast to concrete type
-            Mission m = mission as Mission;
-
-            // Attach per-battle tracker
-            m?.AddMissionBehavior(new TroopXpMissionBehavior());
-        }
+        public override void RegisterEvents() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
@@ -66,13 +46,6 @@ namespace Retinues.Core.Features.Xp.Behaviors
             if (troop == null || Instance == null)
                 return 0;
             return Instance.GetPool(PoolKey(troop));
-        }
-
-        public static void Set(WCharacter troop, int value)
-        {
-            if (troop == null || Instance == null || value < 0)
-                return;
-            Instance._xpPools[PoolKey(troop)] = value;
         }
 
         public static void Add(WCharacter troop, int delta)
