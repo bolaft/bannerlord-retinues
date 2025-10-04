@@ -23,7 +23,7 @@ namespace Retinues.Core.Features.Xp.Patches
         {
             "CampaignEvents.OnTroopRecruited", // skip recruitment XP
             "PartyScreenLogic.TransferTroop", // skip transfer XP
-            "MapEventParty.CommitXpGain", // battle xp handled by the behavior directly
+            "MapEventParty.CommitXpGain", // separately handled in BattleXpTracker
         };
 
         public const float xpMultiplier = 0.02f; // 2% of the original XP
