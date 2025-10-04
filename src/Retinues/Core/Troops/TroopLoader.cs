@@ -28,7 +28,7 @@ namespace Retinues.Core.Troops
                 keepSkills: false
             );
 
-            // Create the wrapped character
+            // Set properties
             troop.Name = data.Name;
             troop.Level = data.Level;
             troop.IsFemale = data.IsFemale;
