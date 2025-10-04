@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Core.Features.Xp;
+using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Helpers;
 using Retinues.Core.Game.Wrappers;
@@ -115,7 +116,7 @@ namespace Retinues.Core.Editor
             {
                 // Cost to go from current -> current + 1
                 int cost = TroopRules.SkillPointXpCost(current);
-                if (!TroopXpService.TrySpend(troop, cost))
+                if (!TroopXpBehavior.TrySpend(troop, cost))
                     return; // Not enough XP; a CanIncrement gate should already prevent this
                 troop.SetSkill(skill, current + 1);
             }
@@ -129,7 +130,7 @@ namespace Retinues.Core.Editor
                 // Refund the cost of the point (i.e., the cost that was paid to go from newValue -> newValue + 1)
                 int refund = TroopRules.SkillPointXpCost(newValue);
                 troop.SetSkill(skill, newValue);
-                TroopXpService.Refund(troop, refund);
+                TroopXpBehavior.Refund(troop, refund);
             }
         }
 
@@ -191,7 +192,7 @@ namespace Retinues.Core.Editor
                 return;
 
             // check XP first
-            if (!TroopXpService.TrySpend(troop, cost))
+            if (!TroopXpBehavior.TrySpend(troop, cost))
                 return;
 
             // now charge gold and upgrade
