@@ -503,7 +503,7 @@ namespace Retinues.Core.Game.Wrappers
             // Upgrades
             UpgradeTargets = keepUpgrades ? [.. src.UpgradeTargets] : [];
 
-            // Equipment — re-create from code to avoid shared references
+            // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
                 Equipments = [WEquipment.FromCode(src.Equipment.Code)];
             else

@@ -92,7 +92,6 @@ namespace Retinues.Core.Features.Xp.Patches
                     if (gain <= 0)
                         continue; // no XP to give after multiplier
 
-                    Log.Debug($"Adding {gain} XP to {troop.Name}.");
                     TroopXpBehavior.Add(troop, gain);
                     awarded++;
                 }

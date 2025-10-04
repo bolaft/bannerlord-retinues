@@ -15,16 +15,17 @@ namespace Retinues.Core.Troops
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private List<TroopSaveData> _troopData = [];
+        private List<TroopSaveData> _troopData;
+        public List<TroopSaveData> TroopData => _troopData ??= [];
 
-        public bool HasSyncData => _troopData != null && _troopData.Count > 0;
+        public bool HasSyncData => TroopData.Count > 0;
 
         public override void SyncData(IDataStore ds)
         {
             // Persist custom troop roots in the save file.
-            ds.SyncData(nameof(_troopData), ref _troopData);
+            ds.SyncData("Retinues_Troops_Data", ref _troopData);
 
-            Log.Info($"{_troopData.Count} root troops.");
+            Log.Info($"{TroopData.Count} root troops.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -51,7 +52,7 @@ namespace Retinues.Core.Troops
             try
             {
                 _troopData = CollectAllDefinedCustomTroops();
-                Log.Debug($"Serialized {_troopData.Count} root troops.");
+                Log.Debug($"Serialized {TroopData.Count} root troops.");
             }
             catch (Exception e)
             {
@@ -65,12 +66,12 @@ namespace Retinues.Core.Troops
         {
             try
             {
-                if (_troopData is { Count: > 0 })
+                if (TroopData.Count > 0)
                 {
-                    foreach (var root in _troopData)
+                    foreach (var root in TroopData)
                         TroopLoader.Load(root); // rebuild every tree from the save payload
 
-                    Log.Debug($"Rebuilt {_troopData.Count} root troops from save.");
+                    Log.Debug($"Rebuilt {TroopData.Count} root troops from save.");
                 }
                 else
                 {
@@ -87,9 +88,9 @@ namespace Retinues.Core.Troops
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static List<Save.TroopSaveData> CollectAllDefinedCustomTroops()
+        private static List<TroopSaveData> CollectAllDefinedCustomTroops()
         {
-            var list = new List<Save.TroopSaveData>();
+            var list = new List<TroopSaveData>();
 
             CollectFromFaction(Player.Clan, list);
             CollectFromFaction(Player.Kingdom, list);
@@ -97,7 +98,7 @@ namespace Retinues.Core.Troops
             return list;
         }
 
-        private static void CollectFromFaction(WFaction faction, List<Save.TroopSaveData> list)
+        private static void CollectFromFaction(WFaction faction, List<TroopSaveData> list)
         {
             if (faction is null)
             {

@@ -26,7 +26,7 @@ namespace Retinues.Core.Features.Xp.Behaviors
 
         public override void SyncData(IDataStore dataStore)
         {
-            dataStore.SyncData(nameof(_xpPools), ref _xpPools);
+            dataStore.SyncData("Retinues_Xp_Pools", ref _xpPools);
 
             Log.Debug($"{_xpPools.Count} troop XP pools.");
         }
@@ -84,12 +84,11 @@ namespace Retinues.Core.Features.Xp.Behaviors
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal static bool SharedPool => Config.GetOption<bool>("SharedXpPool");
+        private static bool SharedPool => Config.GetOption<bool>("SharedXpPool");
 
-        internal static string PoolKey(WCharacter troop) =>
-            SharedPool ? "_shared" : troop?.StringId;
+        private static string PoolKey(WCharacter troop) => SharedPool ? "_shared" : troop?.StringId;
 
-        internal int GetPool(string key) =>
+        private int GetPool(string key) =>
             (key != null && _xpPools.TryGetValue(key, out var v)) ? v : 0;
     }
 }

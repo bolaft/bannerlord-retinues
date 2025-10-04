@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Troops;
 using Retinues.Core.Troops.Save;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Core.Safety.Legacy
+namespace Retinues.Core.Safety.Legacy.Behaviors
 {
     [SafeClass]
     public sealed class TroopSaveBehavior : CampaignBehaviorBase
@@ -14,6 +15,8 @@ namespace Retinues.Core.Safety.Legacy
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private List<TroopSaveData> _troops;
+
+        public bool HasSyncData => _troops != null && _troops.Count > 0;
 
         public override void SyncData(IDataStore ds)
         {
@@ -44,7 +47,10 @@ namespace Retinues.Core.Safety.Legacy
             if (_troops is { Count: > 0 })
             {
                 foreach (var data in _troops)
-                    TroopLoader.Load(data);
+                {
+                    var troop = TroopLoader.Load(data);
+                    TroopXpBehavior.Add(troop, data.XpPool);
+                }
 
                 Log.Info($"Troops migrated: {_troops.Count} roots.");
             }

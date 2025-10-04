@@ -63,13 +63,13 @@ namespace Retinues.Core.Utils
         //                   Back-Compatibility                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal static PropertyInfo P<T>(T instance, string propertyName) =>
+        private static PropertyInfo P<T>(T instance, string propertyName) =>
             ResolveProperty(instance?.GetType() ?? typeof(T), propertyName);
 
-        internal static FieldInfo F<T>(T instance, string fieldName) =>
+        private static FieldInfo F<T>(T instance, string fieldName) =>
             ResolveField(instance?.GetType() ?? typeof(T), fieldName);
 
-        internal static MethodInfo M<T>(
+        private static MethodInfo M<T>(
             T instance,
             string methodName,
             params Type[] parameterTypes

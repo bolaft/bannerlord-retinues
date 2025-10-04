@@ -86,14 +86,14 @@ namespace Retinues.Core.Utils
                         // Name
                         name =
                             (string)root?.Attribute("name")
-                            ?? (string)root?.Element("Name")?.Value
+                            ?? (root?.Element("Name")?.Value)
                             ?? name;
 
-                        // Version — try attribute, then element patterns used by some tools
+                        // Version - try attribute, then element patterns used by some tools
                         version =
                             (string)root?.Attribute("version")
                             ?? (string)root?.Element("Version")?.Attribute("value")
-                            ?? (string)root?.Element("Version")?.Value
+                            ?? (root?.Element("Version")?.Value)
                             ?? version;
 
                         // Official flag (some SubModule.xml include an Official tag/attr)
