@@ -5,7 +5,7 @@ using System.Linq;
 namespace Retinues.Core.Utils
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                  Localization Helpers                  //
+    //                   Similarity  Helpers                  //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     public static class Similarity
