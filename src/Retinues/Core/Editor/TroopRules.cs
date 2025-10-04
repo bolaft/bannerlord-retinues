@@ -57,7 +57,7 @@ namespace Retinues.Core.Editor
 
             if (troop.IsMilitia)
                 if (troop.IsElite)
-                    total = 520; // 520 skill total for elite militia
+                    total += 160; // +160 skill total for elite militia
                 else
                     total += 30; // +30 skill total for militia
 
