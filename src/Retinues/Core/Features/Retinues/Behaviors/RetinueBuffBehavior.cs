@@ -6,6 +6,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Retinues.Behaviors
 {
+    /// <summary>
+    /// Campaign behavior for adding retinue buff mission behavior to battles and tournaments.
+    /// </summary>
     [SafeClass]
     public sealed class RetinueBuffBehavior : CampaignBehaviorBase
     {
@@ -13,12 +16,18 @@ namespace Retinues.Core.Features.Retinues.Behaviors
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// No sync data needed for retinue buff behavior.
+        /// </summary>
         public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for mission start to add retinue buff mission behavior.
+        /// </summary>
         public override void RegisterEvents()
         {
             // Missions
@@ -29,6 +38,9 @@ namespace Retinues.Core.Features.Retinues.Behaviors
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds RetinueBuffMissionBehavior to the mission if not already present.
+        /// </summary>
         private void OnMissionStarted(IMission iMission)
         {
             try

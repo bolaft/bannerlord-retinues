@@ -9,6 +9,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
 {
+    /// <summary>
+    /// Mission behavior for Immortals doctrine. Tracks retinue deaths and restores a chance of them as wounded after battle.
+    /// </summary>
     [SafeClass]
     public sealed class ImmortalsBehavior : MissionBehavior
     {
@@ -29,6 +32,9 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
         //                     Mission Events                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Tracks retinue deaths on agent removal (player-side only).
+        /// </summary>
         public override void OnAgentRemoved(
             Agent victim,
             Agent killer,
@@ -59,6 +65,9 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
             _retinueDeaths[charObj] = c + 1;
         }
 
+        /// <summary>
+        /// Restores a chance of fallen retinues as wounded after mission ends.
+        /// </summary>
         protected override void OnEndMission()
         {
             if (!Enabled)

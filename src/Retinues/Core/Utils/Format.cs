@@ -4,9 +4,16 @@ namespace Retinues.Core.Utils
     //                    String Formatting                   //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Utility for formatting strings for display, e.g. converting code-style names to readable titles.
+    /// </summary>
     [SafeClass]
     public static class Format
     {
+        /// <summary>
+        /// Converts a camelCase or PascalCase string (optionally with underscores) to a human-readable title.
+        /// Example: "maxEliteRetinueRatio" → "Max Elite Retinue Ratio"
+        /// </summary>
         public static string CamelCaseToTitle(string text)
         {
             if (string.IsNullOrEmpty(text))

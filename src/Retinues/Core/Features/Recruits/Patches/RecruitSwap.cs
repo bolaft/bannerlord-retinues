@@ -7,6 +7,10 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Features.Recruits.Patches
 {
+    /// <summary>
+    /// Harmony patch for OnTroopRecruited.
+    /// Swaps recruited troops to best match from player faction's tree if available.
+    /// </summary>
     [HarmonyPatch(
         typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.RecruitmentCampaignBehavior),
         "OnTroopRecruited"

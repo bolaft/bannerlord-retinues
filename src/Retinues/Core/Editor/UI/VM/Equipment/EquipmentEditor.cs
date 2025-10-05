@@ -6,6 +6,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    /// <summary>
+    /// ViewModel for equipment editor. Handles slot selection, unequip logic, and UI refresh.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentEditorVM(EditorScreenVM screen)
         : BaseEditor<EquipmentEditorVM>(screen)
@@ -98,6 +101,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Unequips all items from the selected troop and restocks them.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteUnequipAll()
         {
@@ -135,6 +141,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns all equipment slot view models.
+        /// </summary>
         public IEnumerable<EquipmentSlotVM> Slots
         {
             get
@@ -155,6 +164,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             }
         }
 
+        /// <summary>
+        /// Returns the currently selected equipment slot.
+        /// </summary>
         public EquipmentSlotVM SelectedSlot
         {
             get
@@ -169,12 +181,18 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             }
         }
 
+        /// <summary>
+        /// Selects the given equipment slot.
+        /// </summary>
         public void Select(EquipmentSlotVM slot)
         {
             foreach (var r in Slots)
                 r.IsSelected = ReferenceEquals(r, slot);
         }
 
+        /// <summary>
+        /// Refreshes all equipment slots and bindings.
+        /// </summary>
         public void Refresh()
         {
             // Recreate all slot VMs
@@ -197,10 +215,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(Weapon3Slot));
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Creates all equipment slot view models.
+        /// </summary>
         public void CreateAllSlots()
         {
             // Helper to create slot VMs

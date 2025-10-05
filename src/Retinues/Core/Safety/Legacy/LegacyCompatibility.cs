@@ -3,9 +3,15 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Safety.Legacy
 {
+    /// <summary>
+    /// Registers legacy campaign behaviors for save compatibility with older Retinues versions.
+    /// </summary>
     [SafeClass]
     public static class LegacyCompatibility
     {
+        /// <summary>
+        /// Adds legacy save behaviors to the campaign starter.
+        /// </summary>
         public static void AddBehaviors(CampaignGameStarter cs)
         {
             cs.AddBehavior(new Behaviors.TroopSaveBehavior());

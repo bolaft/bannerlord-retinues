@@ -7,6 +7,9 @@ using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for TroopRoster, provides helpers for accessing elements, troop counts, ratios, and adding/removing troops.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WRoster(TroopRoster roster, WParty party)
     {
@@ -36,6 +39,9 @@ namespace Retinues.Core.Game.Wrappers
         //                        Elements                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Enumerates all elements in the roster as WRosterElement.
+        /// </summary>
         public IEnumerable<WRosterElement> Elements
         {
             get
@@ -49,27 +55,18 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        public WRosterElement PlayerElement
-        {
-            get
-            {
-                int idx = 0;
-                foreach (var e in Elements)
-                {
-                    if (e.Troop == Player.Character)
-                        return new WRosterElement(e.Base, this, idx);
-                    idx++;
-                }
-                return null;
-            }
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the number of healthy troops in the roster.
+        /// </summary>
         public int Count => _roster.TotalHealthyCount;
 
+        /// <summary>
+        /// Gets the count of a specific troop type.
+        /// </summary>
         public int CountOf(WCharacter troop)
         {
             if (troop.Base == null)
@@ -80,6 +77,9 @@ namespace Retinues.Core.Game.Wrappers
             return _roster.GetTroopCount(troop.Base);
         }
 
+        /// <summary>
+        /// Adds a troop to the roster with healthy, wounded, xp, and index.
+        /// </summary>
         public void AddTroop(
             WCharacter troop,
             int healthy,
@@ -100,6 +100,9 @@ namespace Retinues.Core.Game.Wrappers
             );
         }
 
+        /// <summary>
+        /// Removes a troop from the roster.
+        /// </summary>
         public void RemoveTroop(WCharacter troop, int healthy, int wounded = 0)
         {
             if (troop.Base == null)
@@ -112,6 +115,9 @@ namespace Retinues.Core.Game.Wrappers
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the number of hero troops in the roster.
+        /// </summary>
         public int HeroCount
         {
             get
@@ -124,6 +130,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Gets the number of elite troops in the roster.
+        /// </summary>
         public int EliteCount
         {
             get
@@ -136,8 +145,14 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Ratio of elite troops (excluding heroes).
+        /// </summary>
         public float EliteRatio => Count == 0 ? 0 : (float)EliteCount / (Count - HeroCount);
 
+        /// <summary>
+        /// Gets the number of custom troops in the roster.
+        /// </summary>
         public int CustomCount
         {
             get
@@ -150,8 +165,14 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Ratio of custom troops (excluding heroes).
+        /// </summary>
         public float CustomRatio => Count == 0 ? 0 : (float)CustomCount / (Count - HeroCount);
 
+        /// <summary>
+        /// Gets the number of retinue troops in the roster.
+        /// </summary>
         public int RetinueCount
         {
             get
@@ -164,20 +185,44 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Ratio of retinue troops (excluding heroes).
+        /// </summary>
         public float RetinueRatio => Count == 0 ? 0 : (float)RetinueCount / (Count - HeroCount);
 
+        /// <summary>
+        /// Gets the number of infantry troops in the roster.
+        /// </summary>
         public int InfantryCount => CountByFormation(FormationClass.Infantry);
+
+        /// <summary>
+        /// Gets the number of archer troops in the roster.
+        /// </summary>
         public int ArchersCount => CountByFormation(FormationClass.Ranged);
+
+        /// <summary>
+        /// Gets the number of cavalry troops in the roster.
+        /// </summary>
         public int CavalryCount => CountByFormation(FormationClass.Cavalry);
 
+        /// <summary>
+        /// Ratio of infantry troops (excluding heroes).
+        /// </summary>
         public float InfantryRatio => Count == 0 ? 0 : (float)InfantryCount / (Count - HeroCount);
+
+        /// <summary>
+        /// Ratio of archer troops (excluding heroes).
+        /// </summary>
         public float ArchersRatio => Count == 0 ? 0 : (float)ArchersCount / (Count - HeroCount);
+
+        /// <summary>
+        /// Ratio of cavalry troops (excluding heroes).
+        /// </summary>
         public float CavalryRatio => Count == 0 ? 0 : (float)CavalryCount / (Count - HeroCount);
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Helper to count troops by formation class.
+        /// </summary>
         private int CountByFormation(FormationClass cls)
         {
             int count = 0;

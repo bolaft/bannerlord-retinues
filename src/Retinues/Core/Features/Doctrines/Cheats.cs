@@ -6,12 +6,18 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    /// <summary>
+    /// Console cheats for doctrine feats. Allows listing, advancing, setting, and unlocking feats via command.
+    /// </summary>
     public static class Cheats
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Commands                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Lists all doctrines and their feats, including progress and completion status.
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_list", "retinues")]
         public static string FeatList(List<string> args)
         {
@@ -44,6 +50,9 @@ namespace Retinues.Core.Features.Doctrines
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Advances a feat's progress by amount.
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_add", "retinues")]
         public static string FeatAdd(List<string> args)
         {
@@ -62,6 +71,9 @@ namespace Retinues.Core.Features.Doctrines
             return $"{TrimType(key)} advanced by {amount}. Now {after}/{tgt}.";
         }
 
+        /// <summary>
+        /// Sets a feat's progress to a specific amount.
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_set", "retinues")]
         public static string FeatSet(List<string> args)
         {
@@ -79,6 +91,9 @@ namespace Retinues.Core.Features.Doctrines
             return $"{TrimType(key)} set to {amount}/{tgt} {(done ? "[DONE]" : "")}.";
         }
 
+        /// <summary>
+        /// Marks a feat as complete.
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_unlock", "retinues")]
         public static string FeatUnlock(List<string> args)
         {
@@ -93,6 +108,9 @@ namespace Retinues.Core.Features.Doctrines
             return $"{TrimType(key)} marked complete.";
         }
 
+        /// <summary>
+        /// Marks all feats as complete.
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("feat_unlock_all", "retinues")]
         public static string FeatUnlockAll(List<string> args)
         {

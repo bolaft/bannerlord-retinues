@@ -5,6 +5,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Retinues.Behaviors
 {
+    /// <summary>
+    /// Mission behavior that gives a health bonus to retinue troops on the player's team when spawned.
+    /// </summary>
     [SafeClass]
     public sealed class RetinueBuffMissionBehavior : MissionBehavior
     {
@@ -15,6 +18,9 @@ namespace Retinues.Core.Features.Retinues.Behaviors
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds health bonus to retinue agents on the player's team when created.
+        /// </summary>
         public override void OnAgentCreated(Agent agent)
         {
             if (agent == null || !agent.IsHuman)

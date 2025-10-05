@@ -13,6 +13,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM
 {
+    /// <summary>
+    /// ViewModel for the troop editor screen. Handles mode switching, faction switching, selection, and refresh logic.
+    /// </summary>
     [SafeClass]
     public class EditorScreenVM : ViewModel
     {
@@ -249,6 +252,9 @@ namespace Retinues.Core.Editor.UI.VM
 
         public WCharacter SelectedTroop => TroopList?.SelectedRow?.Troop;
 
+        /// <summary>
+        /// Switches the editor mode (Default, Equipment, Doctrines) and refreshes relevant VMs.
+        /// </summary>
         public void SwitchMode(EditorMode mode)
         {
             if (_editorMode == mode)
@@ -284,6 +290,9 @@ namespace Retinues.Core.Editor.UI.VM
             OnPropertyChanged(nameof(CanSwitchFaction));
         }
 
+        /// <summary>
+        /// Switches the editor to a new faction and rebuilds all editor VMs.
+        /// </summary>
         [SafeMethod]
         public void SwitchFaction(WFaction faction)
         {
@@ -307,6 +316,9 @@ namespace Retinues.Core.Editor.UI.VM
             Refresh();
         }
 
+        /// <summary>
+        /// Refreshes all bindings and VMs for the editor screen.
+        /// </summary>
         public void Refresh()
         {
             OnPropertyChanged(nameof(DoctrineColumns));

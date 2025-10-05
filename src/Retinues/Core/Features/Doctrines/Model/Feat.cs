@@ -6,6 +6,9 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Model
 {
+    /// <summary>
+    /// Base class for doctrine feats. Provides metadata, progress tracking, registration, and event hooks.
+    /// </summary>
     public abstract class Feat
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -27,12 +30,18 @@ namespace Retinues.Core.Features.Doctrines.Model
 
         public int Progress => DoctrineAPI.GetFeatProgress(GetType());
 
+        /// <summary>
+        /// Set progress for this feat.
+        /// </summary>
         protected void SetProgress(int progress)
         {
             Log.Info($"Setting progress of feat {GetType().FullName} to {progress}");
             DoctrineAPI.SetFeatProgress(GetType(), progress);
         }
 
+        /// <summary>
+        /// Advance progress for this feat by amount.
+        /// </summary>
         protected int AdvanceProgress(int amount = 1)
         {
             Log.Info($"Advancing progress of feat {GetType().FullName} by {amount}");

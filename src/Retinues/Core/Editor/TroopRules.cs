@@ -9,6 +9,10 @@ using TaleWorlds.Core;
 
 namespace Retinues.Core.Editor
 {
+    /// <summary>
+    /// Static helpers for troop skill caps, totals, upgrade rules, and retinue limits.
+    /// Used by the troop editor and validation logic.
+    /// </summary>
     [SafeClass]
     public static class TroopRules
     {
@@ -16,6 +20,9 @@ namespace Retinues.Core.Editor
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the skill cap for a troop based on tier, type, and unlocked doctrines.
+        /// </summary>
         public static int SkillCapByTier(WCharacter troop)
         {
             int cap = troop.Tier switch
@@ -41,6 +48,9 @@ namespace Retinues.Core.Editor
             return cap;
         }
 
+        /// <summary>
+        /// Returns the total skill points allowed for a troop based on tier, type, and unlocked doctrines.
+        /// </summary>
         public static int SkillTotalByTier(WCharacter troop)
         {
             int total = troop.Tier switch
@@ -67,6 +77,9 @@ namespace Retinues.Core.Editor
             return total;
         }
 
+        /// <summary>
+        /// Returns the number of skill points left for a troop.
+        /// </summary>
         public static int SkillPointsLeft(WCharacter character)
         {
             if (character == null)
@@ -75,6 +88,9 @@ namespace Retinues.Core.Editor
             return SkillTotalByTier(character) - character.Skills.Values.Sum();
         }
 
+        /// <summary>
+        /// Returns true if the troop can increment the given skill.
+        /// </summary>
         public static bool CanIncrementSkill(WCharacter character, SkillObject skill)
         {
             if (character == null || skill == null)
@@ -93,6 +109,9 @@ namespace Retinues.Core.Editor
             return true;
         }
 
+        /// <summary>
+        /// Returns true if the troop can decrement the given skill.
+        /// </summary>
         public static bool CanDecrementSkill(WCharacter character, SkillObject skill)
         {
             if (character == null || skill == null)
@@ -116,6 +135,9 @@ namespace Retinues.Core.Editor
             return true;
         }
 
+        /// <summary>
+        /// Returns true if the troop can be upgraded (not militia, not max tier, upgrade slots available).
+        /// </summary>
         public static bool CanUpgradeTroop(WCharacter character)
         {
             if (character == null)
@@ -147,6 +169,9 @@ namespace Retinues.Core.Editor
             return true;
         }
 
+        /// <summary>
+        /// Returns the XP cost for the next skill point, based on current value.
+        /// </summary>
         public static int SkillPointXpCost(int fromValue)
         {
             int baseCost = Config.GetOption<int>("BaseSkillXpCost");
@@ -155,6 +180,9 @@ namespace Retinues.Core.Editor
             return baseCost + perPoint * fromValue;
         }
 
+        /// <summary>
+        /// Returns true if the troop has enough XP for the next skill point.
+        /// </summary>
         public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
         {
             if (c == null || s == null)
@@ -167,6 +195,9 @@ namespace Retinues.Core.Editor
         //                        Retinues                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the max number of elite retinues allowed in the party.
+        /// </summary>
         public static int MaxEliteRetinue
         {
             get
@@ -179,6 +210,9 @@ namespace Retinues.Core.Editor
             }
         }
 
+        /// <summary>
+        /// Returns the max number of basic retinues allowed in the party.
+        /// </summary>
         public static int MaxBasicRetinue
         {
             get
@@ -191,6 +225,9 @@ namespace Retinues.Core.Editor
             }
         }
 
+        /// <summary>
+        /// Returns the gold cost per unit for converting a retinue, based on tier.
+        /// </summary>
         public static int ConversionCostPerUnit(WCharacter retinue)
         {
             int tier = retinue?.Tier ?? 1;
@@ -198,6 +235,9 @@ namespace Retinues.Core.Editor
             return tier * baseCost;
         }
 
+        /// <summary>
+        /// Returns the gold cost for ranking up a retinue, based on tier.
+        /// </summary>
         public static int RankUpCost(WCharacter retinue)
         {
             int tier = retinue?.Tier ?? 1;
@@ -205,6 +245,9 @@ namespace Retinues.Core.Editor
             return tier * baseCost;
         }
 
+        /// <summary>
+        /// Returns the retinue cap for a troop (elite or basic).
+        /// </summary>
         public static int RetinueCapFor(WCharacter retinue) =>
             retinue.IsElite ? MaxEliteRetinue : MaxBasicRetinue;
     }

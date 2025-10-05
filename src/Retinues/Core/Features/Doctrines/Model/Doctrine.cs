@@ -5,6 +5,9 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines.Model
 {
+    /// <summary>
+    /// Base class for doctrines. Provides metadata, costs, and auto-discovery of nested feats.
+    /// </summary>
     public abstract class Doctrine
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -52,7 +55,9 @@ namespace Retinues.Core.Features.Doctrines.Model
         // Type-based key used internally/persisted
         public string Key => GetType().FullName;
 
-        // Auto-discover nested feats (public sealed classes w/ parameterless ctor)
+        /// <summary>
+        /// Auto-discovers and instantiates nested Feat types for this doctrine.
+        /// </summary>
         public virtual IEnumerable<Feat> InstantiateFeats()
         {
             var t = GetType();

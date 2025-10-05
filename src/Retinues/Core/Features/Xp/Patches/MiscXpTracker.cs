@@ -9,6 +9,10 @@ using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Core.Features.Xp.Patches
 {
+    /// <summary>
+    /// Harmony patch for TroopRoster.AddXpToTroopAtIndex.
+    /// Tracks and awards XP to custom troops, skipping blacklisted sources and normalizing XP gain.
+    /// </summary>
     [HarmonyPatch]
     internal static class MiscXpTracker
     {
@@ -29,6 +33,9 @@ namespace Retinues.Core.Features.Xp.Patches
         public const float xpMultiplier = 0.05f; // 5% of the original XP
         public const float xpMultiplierNonMain = 0.25f; // 25% of XP for non-main parties
 
+        /// <summary>
+        /// Postfix: awards normalized XP to custom troops, skips blacklisted sources and non-player factions.
+        /// </summary>
         [SafeMethod]
         static void Postfix(TroopRoster __instance, int index, int xpAmount)
         {

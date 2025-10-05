@@ -16,7 +16,7 @@ ADDED:
       ...
     ]
   * If missing, it is created.
-  * If present, it’s merged (new keys/locales added; default refreshed).
+  * If present, it's merged (new keys/locales added; default refreshed).
 - For each locale subfolder under ./loc/<LOCALE>/, create ./loc/<LOCALE>/ret_strings.xml
   with only the <string> entries whose JSON value for that locale is not null.
 """
@@ -177,7 +177,6 @@ def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
         f.write('<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">\n')
         f.write('  <tags>\n')
-        # Use the folder name as the language tag (keeps it simple; change if you want pretty names)
         f.write(f'    <tag language="{xml_escape(locale_code)}" />\n')
         f.write('  </tags>\n')
         f.write('  <strings>\n')

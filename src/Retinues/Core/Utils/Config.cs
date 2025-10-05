@@ -7,6 +7,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Utils
 {
+    /// <summary>
+    /// Central configuration manager for mod options.
+    /// Handles loading, saving, and type conversion for all runtime and MCM options.
+    /// </summary>
     [SafeClass]
     public static class Config
     {
@@ -14,6 +18,9 @@ namespace Retinues.Core.Utils
         //                      Option Model                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Represents a single configuration option, including metadata for UI and serialization.
+        /// </summary>
         public sealed class ConfigOption
         {
             public string Section { get; set; } // e.g., "Recruitment"
@@ -637,8 +644,15 @@ namespace Retinues.Core.Utils
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// List of all config options, grouped by section for UI and serialization.
+        /// </summary>
         public static IReadOnlyList<ConfigOption> Options => _options;
 
+        /// <summary>
+        /// Gets the value of a config option by key, with type conversion and fallback.
+        /// Returns the fallback if the key is missing or conversion fails.
+        /// </summary>
         public static T GetOption<T>(string key, T fallback = default)
         {
             if (!_byKey.TryGetValue(key, out var opt))
@@ -656,6 +670,11 @@ namespace Retinues.Core.Utils
             }
         }
 
+        /// <summary>
+        /// Sets the value of a config option by key, with type conversion.
+        /// Optionally saves the config file after setting.
+        /// Returns true if successful.
+        /// </summary>
         public static bool SetOption<T>(string key, T value, bool save = false)
         {
             if (!_byKey.TryGetValue(key, out var opt))
@@ -674,6 +693,9 @@ namespace Retinues.Core.Utils
             }
         }
 
+        /// <summary>
+        /// Loads config values from the config.ini file, applying type conversion and falling back to defaults on error.
+        /// </summary>
         public static void Load()
         {
             try
@@ -715,6 +737,9 @@ namespace Retinues.Core.Utils
             }
         }
 
+        /// <summary>
+        /// Saves all config options to config.ini, grouped by section and with hints as comments.
+        /// </summary>
         public static void Save()
         {
             try
@@ -741,6 +766,10 @@ namespace Retinues.Core.Utils
             }
         }
 
+        /// <summary>
+        /// Enumerates all config option keys and their default values.
+        /// Used for MCM preset generation.
+        /// </summary>
         public static IEnumerable<(string Id, object Default)> Defaults()
         {
             foreach (var opt in _options)

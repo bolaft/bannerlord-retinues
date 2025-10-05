@@ -8,6 +8,10 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Troops
 {
+    /// <summary>
+    /// Static helpers for saving and loading custom troop data.
+    /// Handles serialization to TroopSaveData and reconstruction from save payloads.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public static class TroopLoader
     {
@@ -15,6 +19,9 @@ namespace Retinues.Core.Troops
         //                         Loading                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Loads a WCharacter from TroopSaveData, recursively restoring upgrades and properties.
+        /// </summary>
         public static WCharacter Load(TroopSaveData data)
         {
             // Wrap it
@@ -57,6 +64,9 @@ namespace Retinues.Core.Troops
         //                         Saving                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Serializes a WCharacter to TroopSaveData, including upgrades and key properties.
+        /// </summary>
         public static TroopSaveData Save(WCharacter character)
         {
             var data = new TroopSaveData
@@ -78,11 +88,17 @@ namespace Retinues.Core.Troops
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Serializes a skill dictionary to a string code for saving.
+        /// </summary>
         public static string CodeFromSkills(Dictionary<SkillObject, int> skills)
         {
             return string.Join(";", skills.Select(kv => $"{kv.Key.StringId}:{kv.Value}"));
         }
 
+        /// <summary>
+        /// Parses a skill code string into a skill dictionary for loading.
+        /// </summary>
         public static Dictionary<SkillObject, int> SkillsFromCode(string skillsString)
         {
             var result = new Dictionary<SkillObject, int>();

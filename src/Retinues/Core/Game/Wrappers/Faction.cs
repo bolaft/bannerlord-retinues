@@ -6,6 +6,9 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for IFaction (Clan or Kingdom), exposes troop roots, retinues, and helpers for custom logic.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WFaction(IFaction faction) : StringIdentifier
     {
@@ -40,6 +43,22 @@ namespace Retinues.Core.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public WCharacter RetinueElite => new(this == Player.Kingdom, true, true);
+        public WCharacter RetinueBasic => new(this == Player.Kingdom, false, true);
+
+        public WCharacter RootElite => new(this == Player.Kingdom, true, false);
+        public WCharacter RootBasic => new(this == Player.Kingdom, false, false);
+
+        public WCharacter MilitiaMelee => new(this == Player.Kingdom, false, false, true, false);
+        public WCharacter MilitiaMeleeElite =>
+            new(this == Player.Kingdom, true, false, true, false);
+        public WCharacter MilitiaRanged => new(this == Player.Kingdom, false, false, false, true);
+        public WCharacter MilitiaRangedElite =>
+            new(this == Player.Kingdom, true, false, false, true);
+
+        /// <summary>
+        /// Gets all custom troops for this faction, including retinues and active tree members.
+        /// </summary>
         public IEnumerable<WCharacter> Troops
         {
             get
@@ -55,21 +74,15 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
-        public WCharacter RetinueElite => new(this == Player.Kingdom, true, true);
-        public WCharacter RetinueBasic => new(this == Player.Kingdom, false, true);
-
-        public WCharacter RootElite => new(this == Player.Kingdom, true, false);
-        public WCharacter RootBasic => new(this == Player.Kingdom, false, false);
-
-        public WCharacter MilitiaMelee => new(this == Player.Kingdom, false, false, true, false);
-        public WCharacter MilitiaMeleeElite =>
-            new(this == Player.Kingdom, true, false, true, false);
-        public WCharacter MilitiaRanged => new(this == Player.Kingdom, false, false, false, true);
-        public WCharacter MilitiaRangedElite =>
-            new(this == Player.Kingdom, true, false, false, true);
-
+        /// <summary>
+        /// Gets all elite troops in the upgrade tree that are active.
+        /// </summary>
         public List<WCharacter> EliteTroops =>
             [.. RootElite.Tree.Where(t => t.IsActive && t.IsElite)];
+
+        /// <summary>
+        /// Gets all basic troops in the upgrade tree that are active.
+        /// </summary>
         public List<WCharacter> BasicTroops =>
             [.. RootBasic.Tree.Where(t => t.IsActive && !t.IsElite)];
 

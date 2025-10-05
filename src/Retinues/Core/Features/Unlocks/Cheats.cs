@@ -7,12 +7,18 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Features.Unlocks
 {
+    /// <summary>
+    /// Console cheats for item unlocks. Allows unlocking items via command.
+    /// </summary>
     public static class Cheats
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Commands                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Unlocks an item by ID. Usage: retinues.unlock_item [id]
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("unlock_item", "retinues")]
         public static string UnlockItem(List<string> args)
         {

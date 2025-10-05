@@ -9,6 +9,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    /// <summary>
+    /// ViewModel for an equipment row. Handles item display, equipping, stock, progress, and UI refresh logic.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress)
         : BaseRow<EquipmentListVM, EquipmentRowVM>(list)

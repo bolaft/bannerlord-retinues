@@ -12,6 +12,10 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for CharacterObject, providing helpers for custom troop logic, equipment, skills, upgrades, and lifecycle.
+    /// Used for all custom troop operations and UI integration.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {

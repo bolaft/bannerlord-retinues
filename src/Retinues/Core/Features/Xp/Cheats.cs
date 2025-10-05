@@ -6,12 +6,18 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Features.Xp
 {
+    /// <summary>
+    /// Console cheats for troop XP. Allows adding XP to custom troops via command.
+    /// </summary>
     public static class Cheats
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Commands                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds XP to a troop by ID. Usage: retinues.troop_xp_add [id] [amount]
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("troop_xp_add", "retinues")]
         public static string TroopXpAdd(List<string> args)
         {

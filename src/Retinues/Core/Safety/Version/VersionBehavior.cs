@@ -3,6 +3,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Safety.Version
 {
+    /// <summary>
+    /// Campaign behavior for tracking and displaying the Retinues mod version in save files.
+    /// Updates version info on save and logs it after game load.
+    /// </summary>
     [SafeClass]
     public class VersionBehavior : CampaignBehaviorBase
     {
@@ -12,6 +16,10 @@ namespace Retinues.Core.Safety.Version
 
         private string _retinuesVersion;
 
+        /// <summary>
+        /// Syncs the Retinues mod version to and from the campaign save file.
+        /// Updates to current version on save.
+        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             if (dataStore.IsSaving)
@@ -27,6 +35,9 @@ namespace Retinues.Core.Safety.Version
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for game load finished to log the mod version.
+        /// </summary>
         public override void RegisterEvents()
         {
             CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
@@ -39,6 +50,9 @@ namespace Retinues.Core.Safety.Version
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Logs the Retinues mod version after game load.
+        /// </summary>
         private void OnGameLoadFinished()
         {
             Log.Info($"Save File: Retinues {_retinuesVersion ?? "unknown"}");

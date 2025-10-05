@@ -12,6 +12,10 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Features.Unlocks.Behaviors
 {
+    /// <summary>
+    /// Campaign behavior for tracking item unlocks and defeat progress.
+    /// Handles unlocking items from kills, culture bonuses, and showing unlock popups.
+    /// </summary>
     [SafeClass]
     public sealed class UnlocksBehavior : CampaignBehaviorBase
     {
@@ -90,9 +94,15 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the item is unlocked.
+        /// </summary>
         public static bool IsUnlocked(string itemId) =>
             Instance != null && itemId != null && Instance.UnlockedItemIds.Contains(itemId);
 
+        /// <summary>
+        /// Unlocks the item if not already unlocked.
+        /// </summary>
         public static void Unlock(ItemObject item)
         {
             if (Instance == null || item == null)
@@ -104,6 +114,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             Instance.UnlockedItemIds.Add(item.StringId);
         }
 
+        /// <summary>
+        /// Locks the item if currently unlocked.
+        /// </summary>
         public static void Lock(ItemObject item)
         {
             if (Instance == null || item == null)
@@ -121,6 +134,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
 
         private readonly List<ItemObject> _newlyUnlockedThisBattle = [];
 
+        /// <summary>
+        /// Get a random item of a given culture and tier.
+        /// </summary>
         internal ItemObject GetRandomItem(string cultureId, int tier)
         {
             // Look up the culture once (optional: compare by StringId instead)
@@ -147,6 +163,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             return list[idx];
         }
 
+        /// <summary>
+        /// Add unlock bonuses for player's own culture.
+        /// </summary>
         internal void AddOwnCultureBonuses(Dictionary<int, int> bonuses)
         {
             Log.Info(
@@ -166,7 +185,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
                 AddBattleCounts(randomItemsByTier, false);
         }
 
-        // Called by the mission behavior when a battle ends to flush its per-battle counts
+        /// <summary>
+        /// Add battle defeat counts and unlock items if threshold reached.
+        /// </summary>
         internal void AddBattleCounts(
             Dictionary<ItemObject, int> battleCounts,
             bool addCultureBonuses = true

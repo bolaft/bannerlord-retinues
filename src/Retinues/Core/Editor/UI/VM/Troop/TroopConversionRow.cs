@@ -7,6 +7,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    /// <summary>
+    /// ViewModel for a troop conversion row. Handles recruiting, releasing, cost calculation, and UI refresh.
+    /// </summary>
     [SafeClass]
     public sealed class TroopConversionRowVM : ViewModel
     {

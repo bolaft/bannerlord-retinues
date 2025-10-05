@@ -1,6 +1,7 @@
 using HarmonyLib;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game;
+using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
@@ -8,6 +9,10 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Features.Doctrines.Effects.Patches
 {
+    /// <summary>
+    /// Harmony patch for DefaultPartyMoraleModel.GetEffectivePartyMorale.
+    /// Adds a morale bonus for retinue ratio if Bound by Honor doctrine is unlocked.
+    /// </summary>
     [HarmonyPatch(
         typeof(DefaultPartyMoraleModel),
         nameof(DefaultPartyMoraleModel.GetEffectivePartyMorale)
@@ -20,10 +25,12 @@ namespace Retinues.Core.Features.Doctrines.Effects.Patches
             if (!DoctrineAPI.IsDoctrineUnlocked<BoundByHonor>())
                 return;
 
-            if (mobileParty?.StringId != Player.Party?.StringId)
-                return;
+            var party = new WParty(mobileParty);
 
-            var bonus = __result.ResultNumber * (Player.Party.MemberRoster.RetinueRatio * 0.2f);
+            if (party != Player.Party)
+                return; // player party only
+
+            var bonus = __result.ResultNumber * (party.MemberRoster.RetinueRatio * 0.2f);
             __result.Add(
                 bonus,
                 L.T("retinue_morale_bonus_bound_by_honor", "Retinue (Bound by Honor)")

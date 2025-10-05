@@ -4,6 +4,10 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Safety.Sanitizer
 {
+    /// <summary>
+    /// Campaign behavior for running safety checks and sanitizing rosters after game load.
+    /// Cleans up invalid party and settlement data to prevent save corruption and crashes.
+    /// </summary>
     [SafeClass]
     public class SanitizerBehavior : CampaignBehaviorBase
     {
@@ -11,12 +15,18 @@ namespace Retinues.Core.Safety.Sanitizer
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// No sync data needed for sanitizer behavior.
+        /// </summary>
         public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for game load finished to trigger safety checks.
+        /// </summary>
         public override void RegisterEvents()
         {
             CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
@@ -29,6 +39,9 @@ namespace Retinues.Core.Safety.Sanitizer
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Performs safety checks and sanitizes all parties and settlements after game load.
+        /// </summary>
         private void OnGameLoadFinished()
         {
             Log.Info("Performing safety checks...");

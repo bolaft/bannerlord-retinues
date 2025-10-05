@@ -7,6 +7,10 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Troops
 {
+    /// <summary>
+    /// Static helpers for creating, cloning, and initializing custom troops for a faction.
+    /// Handles retinues, militias, and troop trees, including item unlocks and naming.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public static class TroopBuilder
     {
@@ -14,6 +18,9 @@ namespace Retinues.Core.Troops
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Ensures all required custom troops exist for the given faction, creating defaults if needed.
+        /// </summary>
         public static void EnsureTroopsExist(WFaction faction)
         {
             Log.Debug($"Switching to faction: {faction?.Name ?? "null"}");
@@ -55,6 +62,9 @@ namespace Retinues.Core.Troops
         //                        Retinues                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Builds retinue troops for the given faction.
+        /// </summary>
         public static void BuildRetinue(WFaction faction)
         {
             Log.Info($"Setting up retinue troops for faction {faction.Name}.");
@@ -125,6 +135,9 @@ namespace Retinues.Core.Troops
         //                        Militias                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Builds militia troops for the given faction.
+        /// </summary>
         public static void BuildMilitia(WFaction faction)
         {
             Log.Info($"Setting up militia troops for faction {faction.Name}.");
@@ -187,6 +200,9 @@ namespace Retinues.Core.Troops
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Builds regular troop trees for the given faction, cloning from culture roots.
+        /// </summary>
         public static void BuildTroops(WFaction faction)
         {
             Log.Info($"Setting up troops for faction {faction.Name}.");
@@ -251,6 +267,9 @@ namespace Retinues.Core.Troops
         //                         HELPERS                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Recursively clones a vanilla troop tree for a faction, setting up upgrades and unlocking items.
+        /// </summary>
         private static IEnumerable<WCharacter> CloneTroopTreeRecursive(
             WCharacter vanilla,
             bool isElite,
@@ -294,6 +313,9 @@ namespace Retinues.Core.Troops
                     yield return descendant;
         }
 
+        /// <summary>
+        /// Builds a troop name for a custom troop, replacing culture name with faction name if possible.
+        /// </summary>
         private static string BuildTroopName(WCharacter vanilla, WFaction faction)
         {
             var cultureName = faction.Culture?.Name;

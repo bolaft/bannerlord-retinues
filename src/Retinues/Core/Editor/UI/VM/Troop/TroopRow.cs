@@ -4,6 +4,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    /// <summary>
+    /// ViewModel for a troop row in the troop list. Handles display, search filtering, and selection refresh logic.
+    /// </summary>
     [SafeClass]
     public sealed class TroopRowVM(WCharacter troop, TroopListVM list)
         : BaseRow<TroopListVM, TroopRowVM>(list)

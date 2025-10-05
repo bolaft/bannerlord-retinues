@@ -8,6 +8,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Troops
 {
+    /// <summary>
+    /// Campaign behavior for saving and loading custom troop definitions.
+    /// Handles serialization, event registration, and tree rebuilding for custom troops.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public sealed class TroopBehavior : CampaignBehaviorBase
     {
@@ -18,8 +22,14 @@ namespace Retinues.Core.Troops
         private List<TroopSaveData> _troopData;
         public List<TroopSaveData> TroopData => _troopData ??= [];
 
+        /// <summary>
+        /// Returns true if there is any troop sync data present.
+        /// </summary>
         public bool HasSyncData => TroopData.Count > 0;
 
+        /// <summary>
+        /// Syncs custom troop data to and from the campaign save file.
+        /// </summary>
         public override void SyncData(IDataStore ds)
         {
             // Persist custom troop roots in the save file.
@@ -47,6 +57,9 @@ namespace Retinues.Core.Troops
 
         /* ━━━━━━━━ Saving ━━━━━━━━ */
 
+        /// <summary>
+        /// Collects all defined custom troops before saving.
+        /// </summary>
         private void OnBeforeSave()
         {
             try
@@ -62,6 +75,9 @@ namespace Retinues.Core.Troops
 
         /* ━━━━━━━━ Loading ━━━━━━━ */
 
+        /// <summary>
+        /// Loads and rebuilds all custom troop trees after a save is loaded.
+        /// </summary>
         private void OnGameLoaded(CampaignGameStarter _)
         {
             try
@@ -88,6 +104,9 @@ namespace Retinues.Core.Troops
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Collects all custom troop roots from player clan and kingdom.
+        /// </summary>
         private static List<TroopSaveData> CollectAllDefinedCustomTroops()
         {
             var list = new List<TroopSaveData>();
@@ -98,6 +117,9 @@ namespace Retinues.Core.Troops
             return list;
         }
 
+        /// <summary>
+        /// Adds all active custom troop types from a faction to the list.
+        /// </summary>
         private static void CollectFromFaction(WFaction faction, List<TroopSaveData> list)
         {
             if (faction is null)

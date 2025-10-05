@@ -12,9 +12,16 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Editor
 {
+    /// <summary>
+    /// Static helpers for managing troop equipment, available items, equipping, unequipping, and item value logic.
+    /// Used by the equipment editor UI and backend.
+    /// </summary>
     [SafeClass]
     public static class EquipmentManager
     {
+        /// <summary>
+        /// Collects all available items for a troop, faction, and slot, considering unlocks, doctrines, and config.
+        /// </summary>
         public static List<(WItem, int?)> CollectAvailableItems(
             WCharacter troop,
             WFaction faction,
@@ -140,6 +147,9 @@ namespace Retinues.Core.Editor
             return items;
         }
 
+        /// <summary>
+        /// Equips an item from stock to a troop, reducing stock by 1.
+        /// </summary>
         public static void EquipFromStock(WCharacter troop, EquipmentIndex slot, WItem item)
         {
             Log.Debug($"Equipping item {item?.Name} from stock to troop {troop?.Name}.");
@@ -148,6 +158,9 @@ namespace Retinues.Core.Editor
             Equip(troop, slot, item);
         }
 
+        /// <summary>
+        /// Purchases and equips an item to a troop, deducting gold.
+        /// </summary>
         public static void EquipFromPurchase(WCharacter troop, EquipmentIndex slot, WItem item)
         {
             Log.Debug($"Purchasing and equipping item {item?.Name} to troop {troop?.Name}.");
@@ -157,6 +170,9 @@ namespace Retinues.Core.Editor
             Equip(troop, slot, item);
         }
 
+        /// <summary>
+        /// Equips an item to a troop, unequipping old item and handling horse/harness logic.
+        /// </summary>
         public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item)
         {
             Log.Debug($"Equipping item {item?.Name} to troop {troop?.Name}.");
@@ -184,6 +200,9 @@ namespace Retinues.Core.Editor
             troop.Equip(item, slot);
         }
 
+        /// <summary>
+        /// Unequips all items from a troop and restocks them.
+        /// </summary>
         public static void UnequipAll(WCharacter troop)
         {
             Log.Debug($"Unequipping all items from troop {troop?.Name}.");
@@ -196,6 +215,9 @@ namespace Retinues.Core.Editor
             }
         }
 
+        /// <summary>
+        /// Gets the value of an item for a troop, applying doctrine rebates.
+        /// </summary>
         public static int GetItemValue(WItem item, WCharacter troop)
         {
             if (item == null)

@@ -10,6 +10,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    /// <summary>
+    /// ViewModel for a troop skill. Handles increment/decrement logic, retraining warnings, and UI refresh.
+    /// </summary>
     [SafeClass]
     public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopEditorVM editor)
         : ViewModel

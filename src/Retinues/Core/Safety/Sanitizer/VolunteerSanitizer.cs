@@ -7,9 +7,16 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Safety.Sanitizer
 {
+    /// <summary>
+    /// Utility for sanitizing settlement volunteers.
+    /// Replaces or removes invalid volunteer troops for notables in settlements.
+    /// </summary>
     [SafeClass]
     public static class VolunteerSanitizer
     {
+        /// <summary>
+        /// Cleans all notables' volunteers in a settlement, replacing invalid entries.
+        /// </summary>
         public static void CleanSettlement(Settlement settlement)
         {
             if (settlement == null)
@@ -24,6 +31,9 @@ namespace Retinues.Core.Safety.Sanitizer
             }
         }
 
+        /// <summary>
+        /// Swaps or removes invalid volunteers for a notable in a settlement.
+        /// </summary>
         private static void SwapNotable(Hero notable, Settlement settlement)
         {
             if (notable?.VolunteerTypes == null)
@@ -70,6 +80,9 @@ namespace Retinues.Core.Safety.Sanitizer
             }
         }
 
+        /// <summary>
+        /// Gets a fallback volunteer for a settlement, preferring culture basic troop or "looter".
+        /// </summary>
         private static CharacterObject GetFallbackVolunteer(Settlement settlement)
         {
             CharacterObject pick = null;
@@ -85,6 +98,9 @@ namespace Retinues.Core.Safety.Sanitizer
             return IsCharacterValid(pick) ? pick : null;
         }
 
+        /// <summary>
+        /// Checks if a CharacterObject is valid and active in the object manager.
+        /// </summary>
         private static bool IsCharacterValid(CharacterObject c)
         {
             if (c == null)

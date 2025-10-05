@@ -6,6 +6,9 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Game.Helpers.Character
 {
+    /// <summary>
+    /// Helper for vanilla troops. Handles culture caching, parent/child lookup, and wrapper convenience for vanilla troop logic.
+    /// </summary>
     public sealed class VanillaCharacterHelper : CharacterHelperBase, ICharacterHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -99,6 +102,9 @@ namespace Retinues.Core.Game.Helpers.Character
         //                      Public API                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets a CharacterObject by vanilla troop ID.
+        /// </summary>
         public CharacterObject GetCharacterObject(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -106,6 +112,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return MBObjectManager.Instance.GetObject<CharacterObject>(id);
         }
 
+        /// <summary>
+        /// Not applicable for vanilla; always returns null.
+        /// </summary>
         public CharacterObject GetCharacterObject(
             bool isKingdom,
             bool isElite,
@@ -119,10 +128,19 @@ namespace Retinues.Core.Game.Helpers.Character
             return null;
         }
 
+        /// <summary>
+        /// Returns true if the ID is a custom troop (always false for vanilla).
+        /// </summary>
         public bool IsCustom(string id) => false;
 
+        /// <summary>
+        /// Returns true if the ID is a retinue troop (always false for vanilla).
+        /// </summary>
         public bool IsRetinue(string id) => false;
 
+        /// <summary>
+        /// Returns true if the ID is a melee militia troop.
+        /// </summary>
         public bool IsMilitiaMelee(string id)
         {
             var co = GetCharacterObject(id);
@@ -132,6 +150,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return ReferenceEquals(co, c.MilitiaMelee) || ReferenceEquals(co, c.MilitiaMeleeElite);
         }
 
+        /// <summary>
+        /// Returns true if the ID is a ranged militia troop.
+        /// </summary>
         public bool IsMilitiaRanged(string id)
         {
             var co = GetCharacterObject(id);
@@ -142,6 +163,9 @@ namespace Retinues.Core.Game.Helpers.Character
                 || ReferenceEquals(co, c.MilitiaRangedElite);
         }
 
+        /// <summary>
+        /// Returns true if the ID is an elite troop.
+        /// </summary>
         public bool IsElite(string id)
         {
             var co = GetCharacterObject(id);
@@ -167,10 +191,19 @@ namespace Retinues.Core.Game.Helpers.Character
             return false;
         }
 
+        /// <summary>
+        /// Returns true if the ID is a kingdom troop (always false for vanilla).
+        /// </summary>
         public bool IsKingdom(string id) => false;
 
+        /// <summary>
+        /// Returns true if the ID is a clan troop (always false for vanilla).
+        /// </summary>
         public bool IsClan(string id) => false;
 
+        /// <summary>
+        /// Gets the path (upgrade tree) for a vanilla troop ID.
+        /// </summary>
         public IReadOnlyList<int> GetPath(string id)
         {
             var co = GetCharacterObject(id);
@@ -186,8 +219,14 @@ namespace Retinues.Core.Game.Helpers.Character
             return [];
         }
 
-        public WFaction ResolveFaction(string id) => null; // vanilla troops are not bound to custom WFaction here
+        /// <summary>
+        /// Resolves the faction for a vanilla troop ID (always null).
+        /// </summary>
+        public WFaction ResolveFaction(string id) => null;
 
+        /// <summary>
+        /// Gets the parent ID for a vanilla troop.
+        /// </summary>
         public string GetParentId(string id)
         {
             var co = GetCharacterObject(id);
@@ -198,6 +237,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return c.ParentMap.TryGetValue(id, out var pid) ? pid : null;
         }
 
+        /// <summary>
+        /// Gets the child IDs for a vanilla troop.
+        /// </summary>
         public IEnumerable<string> GetChildrenIds(string id)
         {
             var co = GetCharacterObject(id);
@@ -212,6 +254,9 @@ namespace Retinues.Core.Game.Helpers.Character
             }
         }
 
+        /// <summary>
+        /// Gets the parent troop for a node, or null if root.
+        /// </summary>
         public WCharacter GetParent(WCharacter node)
         {
             if (node == null)
@@ -224,6 +269,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return pco != null ? new WCharacter(pco) : null;
         }
 
+        /// <summary>
+        /// Gets the child troops for a node.
+        /// </summary>
         public IEnumerable<WCharacter> GetChildren(WCharacter node)
         {
             if (node == null)
@@ -241,6 +289,9 @@ namespace Retinues.Core.Game.Helpers.Character
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Helper to find the path from root to target using parent map.
+        /// </summary>
         private static bool TryPath(
             CharacterObject root,
             CharacterObject target,

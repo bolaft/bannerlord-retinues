@@ -4,6 +4,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Safety.Legacy.Behaviors
 {
+    /// <summary>
+    /// Legacy campaign behavior for migrating item unlock progress from older saves.
+    /// Transfers defeat counts to the new unlocks system after session launch.
+    /// </summary>
     [SafeClass]
     public sealed class UnlocksBehavior : CampaignBehaviorBase
     {
@@ -13,8 +17,14 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
 
         private Dictionary<string, int> _defeatsByItemId = [];
 
+        /// <summary>
+        /// Returns true if legacy item unlock progress data is present.
+        /// </summary>
         public bool HasSyncData => _defeatsByItemId != null && _defeatsByItemId.Count > 0;
 
+        /// <summary>
+        /// Syncs legacy item unlock progress to and from the campaign save file.
+        /// </summary>
         public override void SyncData(IDataStore ds)
         {
             if (ds.IsSaving)
@@ -27,6 +37,9 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for session launch to migrate item unlock progress.
+        /// </summary>
         public override void RegisterEvents()
         {
             CampaignEvents.OnAfterSessionLaunchedEvent.AddNonSerializedListener(
@@ -39,6 +52,9 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Migrates item unlock progress from legacy save data after session launch.
+        /// </summary>
         private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
             if (_defeatsByItemId == null)

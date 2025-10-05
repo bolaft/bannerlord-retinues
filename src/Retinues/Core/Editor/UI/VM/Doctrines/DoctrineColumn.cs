@@ -7,6 +7,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Doctrines
 {
+    /// <summary>
+    /// ViewModel for a doctrine column. Handles grouping, display, and refreshing doctrine VMs.
+    /// </summary>
     [SafeClass]
     public sealed class DoctrineColumnVM : ViewModel
     {
@@ -30,6 +33,9 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
         //                         Static                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Creates all doctrine columns from the service, grouping by column and ordering by row.
+        /// </summary>
         [SafeMethod]
         public static MBBindingList<DoctrineColumnVM> CreateColumns()
         {
@@ -88,6 +94,9 @@ namespace Retinues.Core.Editor.UI.VM.Doctrines
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Refreshes all doctrine VMs in the column and updates bindings.
+        /// </summary>
         public void Refresh()
         {
             // If you update items, call each item.Refresh() first.

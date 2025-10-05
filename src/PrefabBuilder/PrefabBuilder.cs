@@ -6,6 +6,10 @@ using Scriban;
 using Scriban.Parsing;
 using Scriban.Runtime;
 
+/// <summary>
+/// CLI tool for generating GUI prefabs from Scriban templates.
+/// Loads templates and partials, renders to XML, and writes output files.
+/// </summary>
 class PrefabBuilder
 {
     static async Task<int> Main(string[] args)
@@ -85,6 +89,9 @@ class PrefabBuilder
     }
 }
 
+/// <summary>
+/// Template loader for Scriban that loads partials from a local directory.
+/// </summary>
 class LocalFileTemplateLoader : ITemplateLoader
 {
     private readonly string _baseDir;
