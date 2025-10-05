@@ -148,6 +148,16 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
+#if BL13
+        [DataSourceProperty]
+        public string AdditionalArgs => Item?.Image?.AdditionalArgs;
+
+        [DataSourceProperty]
+        public string Id => Item?.Image?.Id;
+
+        [DataSourceProperty]
+        public string TextureProviderName => Item?.Image?.TextureProviderName;
+#else
         [DataSourceProperty]
         public string ImageId => Item?.Image.Id;
 
@@ -156,6 +166,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
+#endif
 
         /* ━━━━━━━━ Tooltip ━━━━━━━ */
 
@@ -273,15 +284,24 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(ShowValue));
             OnPropertyChanged(nameof(Stock));
             OnPropertyChanged(nameof(ShowStock));
+#if BL13
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(CantEquip));
+            OnPropertyChanged(nameof(CanEquip));
+            OnPropertyChanged(nameof(Id));
+            OnPropertyChanged(nameof(TextureProviderName));
+            OnPropertyChanged(nameof(AdditionalArgs));
+#else
             OnPropertyChanged(nameof(CanEquip));
             OnPropertyChanged(nameof(CantEquip));
             OnPropertyChanged(nameof(IsEnabled));
-            OnPropertyChanged(nameof(InProgress));
-            OnPropertyChanged(nameof(ProgressText));
-            OnPropertyChanged(nameof(SkillRequirementText));
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
+#endif
+            OnPropertyChanged(nameof(InProgress));
+            OnPropertyChanged(nameof(ProgressText));
+            OnPropertyChanged(nameof(SkillRequirementText));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

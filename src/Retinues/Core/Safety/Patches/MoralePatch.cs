@@ -65,12 +65,20 @@ namespace Retinues.Core.Safety.Patches
                 {
                     try
                     {
+#if BL13
+                        SkillHelper.AddSkillBonusForCharacter(
+                            DefaultSkillEffects.LeadershipMoraleBonus,
+                            leader,
+                            ref bonus
+                        );
+#else
                         SkillHelper.AddSkillBonusForCharacter(
                             DefaultSkills.Leadership,
                             DefaultSkillEffects.LeadershipMoraleBonus,
                             leader,
                             ref bonus
                         );
+#endif
                     }
                     catch (Exception e)
                     {

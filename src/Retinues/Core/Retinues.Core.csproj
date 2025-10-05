@@ -8,7 +8,6 @@
     <ModuleName>Retinues.Core</ModuleName>
     <IsGameModule>true</IsGameModule>
   </PropertyGroup>
-
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->
     <Reference Include="TaleWorlds.MountAndBlade">
@@ -75,23 +74,6 @@
       <HintPath>$(ReferenceRoot)/TaleWorlds.SaveSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <!-- Sandbox assemblies -->
-    <Reference Include="SandBox">
-      <HintPath>$(ReferenceRoot)/bin/Win64_Shipping_Client/SandBox.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="SandBox.GauntletUI">
-      <HintPath>$(ReferenceRoot)/bin/Win64_Shipping_Client/SandBox.GauntletUI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="SandBox.ViewModelCollection">
-      <HintPath>$(ReferenceRoot)/bin/Win64_Shipping_Client/SandBox.ViewModelCollection.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="SandBox.View">
-      <HintPath>$(ReferenceRoot)/bin/Win64_Shipping_Client/SandBox.View.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
     <!-- UIExtenderEx -->
     <Reference Include="Bannerlord.UIExtenderEx">
       <HintPath>$(BannerlordGameDir)/Modules/Bannerlord.UIExtenderEx/bin/Win64_Shipping_Client/Bannerlord.UIExtenderEx.dll</HintPath>
@@ -103,4 +85,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  <Target Name="EchoDefinesInProject" BeforeTargets="CoreCompile">
+    <Message Text="(proj) DefineConstants=$(DefineConstants)" Importance="High" />
+  </Target>
 </Project>

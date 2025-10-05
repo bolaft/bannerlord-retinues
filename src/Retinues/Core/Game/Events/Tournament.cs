@@ -8,11 +8,7 @@ namespace Retinues.Core.Game.Events
     /// Tournament event wrapper, provides info about town, winner, and participants.
     /// </summary>
     [SafeClass]
-    public class Tournament(
-        WSettlement town,
-        WCharacter winner,
-        List<WCharacter> participants
-    )
+    public class Tournament(WSettlement town, WCharacter winner, List<WCharacter> participants)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //

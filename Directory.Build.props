@@ -1,22 +1,17 @@
 <Project>
-  <!-- Target BL game version: 12 or 13 (default to 13 if not specified) -->
-  <PropertyGroup>
-    <BL Condition="'$(BL)' == ''">13</BL>
-  </PropertyGroup>
-
-  <!-- ReferenceRoot for 1.2 -->
-  <PropertyGroup Condition="'$(BL)' == '12'">
-    <ReferenceRoot>$(BannerlordSdkDir_12)</ReferenceRoot>
-  </PropertyGroup>
-
-  <!-- ReferenceRoot for 1.3 -->
-  <PropertyGroup Condition="'$(BL)' == '13'">
-    <ReferenceRoot>$(BannerlordSdkDir_13)</ReferenceRoot>
-  </PropertyGroup>
-
   <PropertyGroup>
     <!-- Root of the repo, absolute path -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
+  
+    <!-- Bannerlord version selector (12 or 13) -->
+    <BL Condition="'$(BL)' == ''">13</BL>
+
+    <!-- Append a preprocessor symbol BL12 or BL13 -->
+    <DefineConstants Condition="'$(DefineConstants)' != ''">$(DefineConstants);BL$(BL)</DefineConstants>
+    <DefineConstants Condition="'$(DefineConstants)' == ''">BL$(BL)</DefineConstants>
+  
+    <!-- Where references come from: ./dll/12 or ./dll/13 -->
+    <ReferenceRoot>$(RepoRoot)dll\$(BL)</ReferenceRoot>
 
     <!-- Build artifacts go under bin/build/... not src/*/bin -->
     <BaseOutputPath>$(RepoRoot)bin\build\</BaseOutputPath>
@@ -34,6 +29,10 @@
     <!-- Toggleable build features -->
     <DeployToGame Condition="'$(DeployToGame)' == ''">true</DeployToGame>
     <RunStrings Condition="'$(RunStrings)' == ''">true</RunStrings>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateCompilerCommandLine>true</GenerateCompilerCommandLine>
   </PropertyGroup>
 
   <!-- Allow per-dev overrides without committing secrets -->

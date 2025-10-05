@@ -3,10 +3,6 @@
     <!-- Absolute path to your Bannerlord install -->
     <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
 
-    <!-- Local SDK caches for references -->
-    <BannerlordSdkDir_12>$(MSBuildThisFileDirectory)\dlls\12</BannerlordSdkDir_12>
-    <BannerlordSdkDir_13>$(MSBuildThisFileDirectory)\dlls\13</BannerlordSdkDir_13>
-
     <!-- Optional: where built modules are staged before copy -->
     <StagingRoot>$(MSBuildThisFileDirectory)bin\Modules\</StagingRoot>
 

@@ -30,7 +30,11 @@ namespace Retinues.Core.Game.Wrappers
             Equipment obj;
 
             if (code is null)
+#if BL13
+                obj = new Equipment(Equipment.EquipmentType.Battle);
+#else
                 obj = new Equipment(false);
+#endif
             else
                 obj = Equipment.CreateFromEquipmentCode(code);
 

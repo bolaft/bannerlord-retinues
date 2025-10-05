@@ -69,7 +69,9 @@ namespace Retinues.Core.Features.Xp.Patches
                 if (xpAmount <= 0)
                     return; // no XP to add after multiplier
 
-                Log.Debug($"Awarding {xpAmount} XP to {troop.Name} in party {party} ({Caller.GetLabel()}).");
+                Log.Debug(
+                    $"Awarding {xpAmount} XP to {troop.Name} in party {party} ({Caller.GetLabel()})."
+                );
                 TroopXpBehavior.Add(troop, xpAmount);
             }
         }

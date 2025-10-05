@@ -91,6 +91,16 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
+#if BL13
+        [DataSourceProperty]
+        public string AdditionalArgs => Item?.Image?.AdditionalArgs;
+
+        [DataSourceProperty]
+        public string Id => Item?.Image?.Id;
+
+        [DataSourceProperty]
+        public string TextureProviderName => Item?.Image?.TextureProviderName;
+#else
         [DataSourceProperty]
         public string ImageId => Item?.Image.Id;
 
@@ -99,6 +109,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => Item?.Image.AdditionalArgs;
+#endif
 
         /* ━━━━━━━━━ Hint ━━━━━━━━━ */
 
@@ -139,9 +150,15 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             OnPropertyChanged(nameof(IsEnabled));
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(Name));
+#if BL13
+            OnPropertyChanged(nameof(Id));
+            OnPropertyChanged(nameof(TextureProviderName));
+            OnPropertyChanged(nameof(AdditionalArgs));
+#else
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
+#endif
             OnPropertyChanged(nameof(Hint));
         }
     }

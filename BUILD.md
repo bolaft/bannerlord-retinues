@@ -2,11 +2,11 @@
 
 ## Prerequisites
 
-- **.NET SDK 8.0+** - `dotnet --version` should show 8.x or newer.
+- **.NET SDK 8.0+** — `dotnet --version` should show 8.x or newer.
 - Read access to your Bannerlord installation directory, e.g.  
   `C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord`.
 
-> Game assemblies target **.NET Framework 4.7.2**. You don't need to install it separately on the build machine; the SDK compiles against the referenced game DLLs via `BannerlordGameDir`.
+> Game assemblies target **.NET Framework 4.7.2**. You don't need to install it separately; the SDK compiles against your local DLL cache.
 
 ---
 
@@ -21,7 +21,7 @@
 <Project>
   <PropertyGroup>
     <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
-    <!-- Optional: the default build config when you omit -c/‑Config -->
+    <!-- Optional: the default build config when not using --release -->
     <DefaultConfiguration>dev</DefaultConfiguration>
   </PropertyGroup>
 </Project>
@@ -29,11 +29,14 @@
 
 - Keep this file at the repo root.
 - Do **not** commit it; it's already in `.gitignore`.
-- You can override any property at build time with `-p:Name=Value`.
+
+3) **Copy TaleWorld DLLs** into `dll/12/` and `dll/13/`.
+
+4) **Download and extract** Harmony, MCM and UIExtenderEx into the game's Modules folder.
 
 ---
 
-## Project layout (relevant to build)
+## Project layout
 
 ```
 ./build.sh                     # Bash build wrapper (Linux/macOS/Windows Git Bash)
@@ -41,6 +44,7 @@
 ./Directory.Build.targets      # Centralized staging + deploy targets
 ./Retinues.Local.props         # (optional) per‑dev overrides (git‑ignored)
 
+./dll/**                       # TaleWorld DLLs
 ./cfg/core.config.ini          # Copied as config.ini to Retinues.Core module root
 ./xml/**                       # Copied to Retinues.Core/ModuleData/**
 ./loc/Languages/**             # Copied to Retinues.Core/ModuleData/Languages/**
@@ -63,9 +67,10 @@
 ## Quick build
 
 ### Bash (Linux/macOS or Windows Git Bash)
+
 ```bash
-# Core module, dev mode, deploy into the game's Modules/
-./build.sh -t core -c dev --deploy
+# Core module, dev mode (default), deploy into the game's Modules/
+./build.sh -t core --deploy
 ```
 
 **Outputs**
@@ -84,31 +89,68 @@ The build system wipes the target module folder before deploy (configurable) so 
 
 ---
 
+## Release builds (with version bump)
+
+Use **`--release <N>`** to:
+1) switch to **release** configuration, and
+2) set the **last number** in `<Version value="vX.Y.Z.N" />` to `N` in the module’s SubModule XML.
+
+This updates any of these files if present (in `src/Retinues/Core/`):
+- `SubModule.BL12.xml`
+- `SubModule.BL13.xml`
+- `SubModule.xml`
+
+Examples:
+```bash
+# Release for BL 1.3, set vX.Y.Z.7
+./build.sh -t core --release 7 --deploy
+
+# Release for BL 1.2, set vX.Y.Z.8
+./build.sh -t core --release 8 --v 12 --deploy
+```
+
+> The version edit happens **before** the build so the staged & deployed SubModule use the new value.
+
+---
+
+## Targeting Bannerlord versions
+
+If you support multiple BL versions, select with `-v`:
+
+```bash
+# Build against BL 1.3 (default)
+./build.sh -t core --deploy -v 13
+
+# Build against BL 1.2
+./build.sh -t core --deploy -v 12
+```
+
+---
+
+## Prefabs (optional GUI generation)
+
+Generate GUI **prefabs** before building Core:
+```bash
+./build.sh -t prefabs --prefabs
+./build.sh -t core --deploy
+```
+Prefabs read from `./tpl/templates` + `./tpl/partials` and write to `bin/Modules/Retinues.Core/GUI/**`, which the Core deploy then mirrors to the game folder.
+
+---
+
 ## Common commands
 
 Build **everything** (Core + MCM), dev mode, deploy:
 ```bash
-./build.sh -t all -c dev --deploy
+./build.sh -t all --deploy
 ```
 
-Build **release** (no UIExtenderDebug.xml), deploy:
+Build **release** (no UIExtenderDebug.xml), bump version patch to `8`, deploy:
 ```bash
-./build.sh -t core -c release --deploy
+./build.sh -t core --release 8 --deploy
 ```
 
 Build without deploying (just stage to `bin/Modules`):
 ```bash
 ./build.sh -t core --no-deploy
 ```
-
-Override the game directory on the fly:
-```bash
-./build.sh -t core -g "D:\Games\Bannerlord"
-```
-
-(Optional) Generate GUI **prefabs** before building Core:
-```bash
-./build.sh -t prefabs --prefabs
-./build.sh -t core --deploy
-```
-Prefabs read from `./tpl/templates` + `./tpl/partials` and write to `bin/Modules/Retinues.Core/GUI/**`, which the Core deploy then mirrors to the game folder.

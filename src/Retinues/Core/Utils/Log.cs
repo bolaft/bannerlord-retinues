@@ -349,7 +349,8 @@ namespace Retinues.Core.Utils
         /// </summary>
         public static void Truncate(int keepLastNLines)
         {
-            if (keepLastNLines < 0) keepLastNLines = 0;
+            if (keepLastNLines < 0)
+                keepLastNLines = 0;
 
             try
             {
@@ -368,13 +369,27 @@ namespace Retinues.Core.Utils
                     // Ring buffer of the last N lines
                     var ring = new Queue<string>(keepLastNLines);
 
-                    using (var fs = new FileStream(LogFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (var sr = new StreamReader(fs, Encoding.UTF8, detectEncodingFromByteOrderMarks: true))
+                    using (
+                        var fs = new FileStream(
+                            LogFile,
+                            FileMode.Open,
+                            FileAccess.Read,
+                            FileShare.ReadWrite
+                        )
+                    )
+                    using (
+                        var sr = new StreamReader(
+                            fs,
+                            Encoding.UTF8,
+                            detectEncodingFromByteOrderMarks: true
+                        )
+                    )
                     {
                         string line;
                         while ((line = sr.ReadLine()) != null)
                         {
-                            if (ring.Count == keepLastNLines) ring.Dequeue();
+                            if (ring.Count == keepLastNLines)
+                                ring.Dequeue();
                             ring.Enqueue(line);
                         }
                     }
@@ -386,7 +401,8 @@ namespace Retinues.Core.Utils
                         bool first = true;
                         foreach (var l in ring)
                         {
-                            if (!first) sw.Write(Environment.NewLine);
+                            if (!first)
+                                sw.Write(Environment.NewLine);
                             sw.Write(l);
                             first = false;
                         }

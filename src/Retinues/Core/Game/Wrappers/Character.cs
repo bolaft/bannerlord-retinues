@@ -8,6 +8,9 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+#if BL13
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
+#endif
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -81,7 +84,11 @@ namespace Retinues.Core.Game.Wrappers
         //                View-Model (VM) Accessors               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+#if BL13
+        public CharacterImageIdentifierVM Image => new(CharacterCode.CreateFrom(Base));
+#else
         public ImageIdentifierVM Image => new(CharacterCode.CreateFrom(Base));
+#endif
 
         public CharacterViewModel Model
         {
@@ -220,9 +227,15 @@ namespace Retinues.Core.Game.Wrappers
 
         public bool HiddenInEncyclopedia
         {
+#if BL13
+            // NOTE: fixed typo in 1.3.0
+            get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncyclopedia");
+            set => Reflector.SetPropertyValue(Base, "HiddenInEncyclopedia", value);
+#else
             // NOTE: game-side property is misspelled "HiddenInEncylopedia"
             get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncylopedia");
             set => Reflector.SetPropertyValue(Base, "HiddenInEncylopedia", value);
+#endif
         }
 
         public bool IsNotTransferableInHideouts
@@ -288,21 +301,62 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
+#if BL13
+                MBEquipmentRoster roster = Reflector.GetFieldValue<MBEquipmentRoster>(
+                    Base,
+                    "_equipmentRoster"
+                );
+                return [.. roster.AllEquipments.Select(e => new WEquipment(e))];
+#else
                 var equipments = Base.AllEquipments.ToList();
                 return [.. equipments.Select(e => new WEquipment(e))];
+#endif
             }
             set
             {
+#if BL13
                 var equipments = value.Select(e => e.Base).ToList();
-    
+                foreach (var eq in equipments)
+                {
+                    // Ensure IsBattle
+                    Reflector.SetFieldValue(
+                        eq,
+                        "_equipmentType",
+                        TaleWorlds.Core.Equipment.EquipmentType.Battle
+                    );
+                }
+
                 // Add a civilian equipment identical to the first battle one
                 var civilian = new Equipment(equipments[0]);
-                Reflector.SetFieldValue(civilian, "_equipmentType", TaleWorlds.Core.Equipment.EquipmentType.Civilian);
+                Reflector.SetFieldValue(
+                    civilian,
+                    "_equipmentType",
+                    TaleWorlds.Core.Equipment.EquipmentType.Civilian
+                );
+                equipments.Add(civilian);
+
+                MBEquipmentRoster roster = Reflector.GetFieldValue<MBEquipmentRoster>(
+                    Base,
+                    "_equipmentRoster"
+                );
+                Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(equipments));
+                Reflector.SetFieldValue(Base, "_equipmentRoster", roster);
+#else
+                var equipments = value.Select(e => e.Base).ToList();
+
+                // Add a civilian equipment identical to the first battle one
+                var civilian = new Equipment(equipments[0]);
+                Reflector.SetFieldValue(
+                    civilian,
+                    "_equipmentType",
+                    TaleWorlds.Core.Equipment.EquipmentType.Civilian
+                );
                 equipments.Add(civilian);
                 var roster = new MBEquipmentRoster();
                 // Set the internal equipment list via reflection.
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(equipments));
                 Reflector.SetFieldValue(Base, "_equipmentRoster", roster);
+#endif
             }
         }
 
@@ -310,18 +364,27 @@ namespace Retinues.Core.Game.Wrappers
         {
             get
             {
+#if BL13
+                var first = Equipments.FirstOrDefault();
+                return first is null
+                    ? new WEquipment(new Equipment(TaleWorlds.Core.Equipment.EquipmentType.Battle))
+                    : Equipments[0];
+#else
                 var first = Equipments.FirstOrDefault();
                 return first is null
                     ? new WEquipment(MBEquipmentRoster.EmptyEquipment)
                     : new WEquipment(first.Base);
+#endif
             }
         }
 
+#if BL13
         public void UpdateCivilianEquipment()
         {
             // Setter will recreate civilian equipment identical to the first battle one
             Equipments = [.. Equipments.Take(Equipments.Count - 1)];
         }
+#endif
 
         public bool CanEquip(WItem item)
         {
@@ -348,8 +411,10 @@ namespace Retinues.Core.Game.Wrappers
                 foreach (var child in UpgradeTargets)
                     child.ResetUpgradeRequiresItemFromCategory();
             }
-
+#if BL13
+            // Update civilian equipment to match the new battle equipment
             UpdateCivilianEquipment();
+#endif
         }
 
         public WItem Unequip(EquipmentIndex slot, bool resetFormation = true)

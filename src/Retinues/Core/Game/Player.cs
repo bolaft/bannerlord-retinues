@@ -62,6 +62,7 @@ namespace Retinues.Core.Game
         }
 
         private static WCharacter _character;
+
         /// <summary>
         /// Returns the player's character as a WCharacter wrapper.
         /// </summary>

@@ -6,20 +6,33 @@
     <Exec Command="python $(RepoRoot)loc\strings.py" IgnoreExitCode="false" />
   </Target>
 
-  <!-- After build: stage DLL into /bin/Modules/<ModuleName>/bin/Win64_Shipping_Client -->
-  <Target Name="StageToModuleBin" AfterTargets="Build" Condition="'$(ModuleName)' != '' AND '$(IsGameModule)' == 'true'">
+  <!-- Stage DLL + versioned SubModule.xml -->
+  <Target Name="StageToModuleBin"
+          AfterTargets="Build"
+          Condition="'$(IsGameModule)' == 'true' AND '$(ModuleName)' != ''">
     <PropertyGroup>
       <ModuleOutDir>$(StagingRoot)$(ModuleName)</ModuleOutDir>
       <BinOutDir>$(ModuleOutDir)\bin\Win64_Shipping_Client</BinOutDir>
+
+      <!-- Resolve SubModule by BL version -->
+      <SubModuleCandidate>$(ProjectDir)SubModule.BL$(BL).xml</SubModuleCandidate>
+      <SubModuleFallback>$(ProjectDir)SubModule.xml</SubModuleFallback>
+      <ResolvedSubModule Condition="Exists('$(SubModuleCandidate)')">$(SubModuleCandidate)</ResolvedSubModule>
+      <ResolvedSubModule Condition="'$(ResolvedSubModule)' == '' AND Exists('$(SubModuleFallback)')">$(SubModuleFallback)</ResolvedSubModule>
     </PropertyGroup>
+
     <MakeDir Directories="$(BinOutDir)" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(BinOutDir)" SkipUnchangedFiles="true" />
-    <!-- If SubModule.xml exists in the project, copy it to the module root -->
-    <Copy SourceFiles="SubModule.xml"
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFolder="$(BinOutDir)"
+          SkipUnchangedFiles="true" />
+
+    <!-- Copy resolved SubModule as SubModule.xml -->
+    <Copy SourceFiles="$(ResolvedSubModule)"
           DestinationFiles="$(ModuleOutDir)\SubModule.xml"
           SkipUnchangedFiles="true"
-          Condition="Exists('SubModule.xml')" />
+          Condition="'$(ResolvedSubModule)' != ''" />
   </Target>
+
 
   <!-- Optional: deploy to the live game Modules folder (toggle with DeployToGame=false) -->
   <Target Name="DeployToGame" AfterTargets="StageToModuleBin" Condition="'$(DeployToGame)' == 'true' AND '$(ModuleName)' != '' AND '$(IsGameModule)' == 'true'">
@@ -198,10 +211,15 @@
     <Message Text="Cleaning game module directory: $(GameModuleDir)" Importance="High" />
     <Message Text="(Set CleanGameModuleOnDeploy=false to disable this step)" Importance="Low" />
 
+    <!-- Remove the existing game module directory -->
     <RemoveDir
       Directories="$(GameModuleDir)"
       Condition="$([System.String]::Copy('$(GameModuleDir)').Contains('\Modules\'))" />
     <MakeDir Directories="$(GameModuleDir)" />
   </Target>
 
+  <!-- Debug: echo BL and DefineConstants before compile -->
+  <Target Name="EchoDefines" BeforeTargets="PrepareForBuild">
+    <Message Text="[Defines] $(MSBuildProjectName): BL=$(BL) | DefineConstants=$(DefineConstants)" Importance="High" />
+  </Target>
 </Project>

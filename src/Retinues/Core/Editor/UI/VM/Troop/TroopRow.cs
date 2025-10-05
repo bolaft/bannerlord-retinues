@@ -15,12 +15,26 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
         [DataSourceProperty]
         public bool DisplayEmptyMessage => Troop is null;
 
         [DataSourceProperty]
         public bool DisplayTroop => Troop is not null;
 
+#if BL13
+        /* ━━━━━━━━━ Image ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public string AdditionalArgs => Troop?.Image?.AdditionalArgs;
+
+        [DataSourceProperty]
+        public string Id => Troop?.Image?.Id;
+
+        [DataSourceProperty]
+        public string TextureProviderName => Troop?.Image?.TextureProviderName;
+#else
         [DataSourceProperty]
         public string ImageId => Troop?.Image.Id;
 
@@ -29,6 +43,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
+#endif
 
         private bool _isVisible = true;
 
@@ -44,6 +59,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 OnPropertyChanged(nameof(IsVisible));
             }
         }
+
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
         public string IndentedName
@@ -97,9 +114,15 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             OnPropertyChanged(nameof(DisplayEmptyMessage));
             OnPropertyChanged(nameof(DisplayTroop));
+#if BL13
+            OnPropertyChanged(nameof(Id));
+            OnPropertyChanged(nameof(TextureProviderName));
+            OnPropertyChanged(nameof(AdditionalArgs));
+#else
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageTypeCode));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
+#endif
             OnPropertyChanged(nameof(IndentedName));
             OnPropertyChanged(nameof(TierText));
             OnPropertyChanged(nameof(EmptyMessage));

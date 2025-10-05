@@ -43,11 +43,28 @@ namespace Retinues.Core.Game.Wrappers
             IsEnemyTroop = InitIsEnemyTroop(agent);
         }
 
-        private WCharacter InitCharacter(Agent agent)
+        private static WCharacter InitCharacter(Agent agent)
         {
             return agent.Character is CharacterObject co ? new WCharacter(co) : null;
         }
 
+#if BL13
+        private bool InitIsPlayer(Agent agent)
+        {
+            bool isPlayer = false;
+            try
+            {
+                isPlayer = agent.IsMainAgent || agent.IsPlayerControlled; // this one can throw during teardown
+            }
+            catch { }
+            return isPlayer;
+        }
+
+        private BattleSideEnum InitSide(Agent agent)
+        {
+            return agent.Team?.Side ?? BattleSideEnum.None;
+        }
+#else
         private BattleSideEnum InitSide(Agent agent)
         {
             return agent.Team?.Side ?? BattleSideEnum.None;
@@ -59,6 +76,7 @@ namespace Retinues.Core.Game.Wrappers
                 || agent.Controller == Agent.ControllerType.Player
                 || agent.IsPlayerControlled;
         }
+#endif
 
         private bool InitIsPlayerTroop(Agent agent, bool isPlayer)
         {

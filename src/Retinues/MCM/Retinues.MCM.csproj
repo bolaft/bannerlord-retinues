@@ -8,7 +8,6 @@
     <ModuleName>Retinues.MCM</ModuleName>
     <IsGameModule>true</IsGameModule>
   </PropertyGroup>
-
   <!-- MCM dependency -->
   <ItemGroup>
     <Reference Include="MCM">

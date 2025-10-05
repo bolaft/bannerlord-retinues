@@ -5,6 +5,9 @@ using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+#if BL13
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
+#endif
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -26,7 +29,11 @@ namespace Retinues.Core.Game.Wrappers
         //                      VM properties                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+#if BL13
+        public ItemImageIdentifierVM Image => new(Base);
+#else
         public ImageIdentifierVM Image => new(_itemObject);
+#endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
@@ -108,6 +115,10 @@ namespace Retinues.Core.Game.Wrappers
                     case ItemObject.ItemTypeEnum.Pistol:
                     case ItemObject.ItemTypeEnum.Musket:
                     case ItemObject.ItemTypeEnum.Bullets:
+#if BL13
+                    case ItemObject.ItemTypeEnum.Sling:
+                    case ItemObject.ItemTypeEnum.SlingStones:
+#endif
                         AddWeaponSlots();
                         break;
                 }
@@ -134,7 +145,7 @@ namespace Retinues.Core.Game.Wrappers
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsUniqueItem => _itemObject.IsUniqueItem;
+        // public bool IsUniqueItem => _itemObject.IsUniqueItem;
 
         public bool IsCrafted => _itemObject.IsCraftedByPlayer;
 
