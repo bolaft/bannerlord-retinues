@@ -6,7 +6,6 @@ using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -295,6 +294,11 @@ namespace Retinues.Core.Game.Wrappers
             set
             {
                 var equipments = value.Select(e => e.Base).ToList();
+    
+                // Add a civilian equipment identical to the first battle one
+                var civilian = new Equipment(equipments[0]);
+                Reflector.SetFieldValue(civilian, "_equipmentType", TaleWorlds.Core.Equipment.EquipmentType.Civilian);
+                equipments.Add(civilian);
                 var roster = new MBEquipmentRoster();
                 // Set the internal equipment list via reflection.
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(equipments));
@@ -311,6 +315,12 @@ namespace Retinues.Core.Game.Wrappers
                     ? new WEquipment(MBEquipmentRoster.EmptyEquipment)
                     : new WEquipment(first.Base);
             }
+        }
+
+        public void UpdateCivilianEquipment()
+        {
+            // Setter will recreate civilian equipment identical to the first battle one
+            Equipments = [.. Equipments.Take(Equipments.Count - 1)];
         }
 
         public bool CanEquip(WItem item)
@@ -338,6 +348,8 @@ namespace Retinues.Core.Game.Wrappers
                 foreach (var child in UpgradeTargets)
                     child.ResetUpgradeRequiresItemFromCategory();
             }
+
+            UpdateCivilianEquipment();
         }
 
         public WItem Unequip(EquipmentIndex slot, bool resetFormation = true)

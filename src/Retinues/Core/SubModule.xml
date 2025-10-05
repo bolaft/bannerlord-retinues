@@ -1,7 +1,7 @@
 <Module>
   <Name value="Retinues" />
   <Id value="Retinues.Core" />
-  <Version value="v1.0.0" />
+  <Version value="v1.2.12.7" />
   <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />

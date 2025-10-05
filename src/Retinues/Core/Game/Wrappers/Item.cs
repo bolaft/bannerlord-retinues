@@ -5,7 +5,6 @@ using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 
 namespace Retinues.Core.Game.Wrappers
 {
