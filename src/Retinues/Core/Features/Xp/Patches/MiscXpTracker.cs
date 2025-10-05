@@ -26,7 +26,7 @@ namespace Retinues.Core.Features.Xp.Patches
             "MapEventParty.CommitXpGain", // separately handled in BattleXpTracker
         };
 
-        public const float xpMultiplier = 0.02f; // 2% of the original XP
+        public const float xpMultiplier = 0.05f; // 5% of the original XP
         public const float xpMultiplierNonMain = 0.25f; // 25% of XP for non-main parties
 
         [SafeMethod]
@@ -62,6 +62,7 @@ namespace Retinues.Core.Features.Xp.Patches
                 if (xpAmount <= 0)
                     return; // no XP to add after multiplier
 
+                Log.Debug($"Awarding {xpAmount} XP to {troop.Name} in party {party} ({Caller.GetLabel()}).");
                 TroopXpBehavior.Add(troop, xpAmount);
             }
         }

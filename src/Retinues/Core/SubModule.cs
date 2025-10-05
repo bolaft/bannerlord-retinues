@@ -34,6 +34,17 @@ namespace Retinues.Core
 
             try
             {
+                // Keep log file size manageable
+                if (Log.LogFileLength > 10000)
+                    Log.Truncate(5000);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+
+            try
+            {
                 _extender = UIExtender.Create("Retinues.Core");
                 _extender.Register(typeof(SubModule).Assembly);
                 _extender.Enable();
