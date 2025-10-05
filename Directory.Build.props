@@ -1,0 +1,26 @@
+<Project>
+  <PropertyGroup>
+    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
+
+    <!-- Build artifacts go under bin/build/... not src/*/bin -->
+    <BaseOutputPath>$(RepoRoot)bin\build\</BaseOutputPath>
+    <OutputPath>$(BaseOutputPath)$(MSBuildProjectName)\$(Configuration)\</OutputPath>
+
+    <!-- obj centralized too -->
+    <BaseIntermediateOutputPath>$(RepoRoot)obj\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+
+    <!-- Defaults (can be overridden by Local props or CLI -p:) -->
+    <BannerlordGameDir Condition="'$(BannerlordGameDir)' == ''">/path/to/Bannerlord</BannerlordGameDir>
+    <StagingRoot Condition="'$(StagingRoot)' == ''">$(RepoRoot)bin\Modules\</StagingRoot>
+    <DefaultConfiguration Condition="'$(DefaultConfiguration)' == ''">dev</DefaultConfiguration>
+
+    <!-- Toggleable build features -->
+    <DeployToGame Condition="'$(DeployToGame)' == ''">true</DeployToGame>
+    <RunStrings Condition="'$(RunStrings)' == ''">true</RunStrings>
+  </PropertyGroup>
+
+  <!-- Allow per-dev overrides without committing secrets -->
+  <Import Project="$(MSBuildThisFileDirectory)Retinues.Local.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)Retinues.Local.props')" />
+</Project>
