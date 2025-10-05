@@ -1,5 +1,5 @@
 ########################################
-# Build artifacts
+# Build
 ########################################
 /bin/
 /obj/
@@ -9,6 +9,10 @@
 # Staging & deploy artifacts
 /bin/build/
 /bin/Modules/
+
+# DLLs & NuGet packages
+*.dll
+*.nupkg
 
 ########################################
 # Logs & diagnostics
