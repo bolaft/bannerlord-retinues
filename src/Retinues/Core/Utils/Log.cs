@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -116,6 +117,10 @@ namespace Retinues.Core.Utils
                 depth++;
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Stack Trace                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void AppendStackTrace(StringBuilder sb, Exception ex)
         {
@@ -305,6 +310,84 @@ namespace Retinues.Core.Utils
         private static Color FromHex(string rrggbbaa)
         {
             return Color.ConvertStringToColor(rrggbbaa);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Truncation                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static int LogFileLength
+        {
+            get
+            {
+                try
+                {
+                    lock (_fileLock)
+                    {
+                        if (!File.Exists(LogFile))
+                            return 0;
+
+                        return File.ReadLines(LogFile).Count();
+                    }
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public static void Truncate(int keepLastNLines)
+        {
+            if (keepLastNLines < 0) keepLastNLines = 0;
+
+            try
+            {
+                lock (_fileLock)
+                {
+                    if (!File.Exists(LogFile))
+                        return;
+
+                    // Fast path: clear the file if asked to keep 0 lines
+                    if (keepLastNLines == 0)
+                    {
+                        File.WriteAllText(LogFile, string.Empty);
+                        return;
+                    }
+
+                    // Ring buffer of the last N lines
+                    var ring = new Queue<string>(keepLastNLines);
+
+                    using (var fs = new FileStream(LogFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (var sr = new StreamReader(fs, Encoding.UTF8, detectEncodingFromByteOrderMarks: true))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (ring.Count == keepLastNLines) ring.Dequeue();
+                            ring.Enqueue(line);
+                        }
+                    }
+
+                    // Write back via temp file, then swap in
+                    var tmp = LogFile + ".tmp";
+                    using (var sw = new StreamWriter(tmp, false, Encoding.UTF8))
+                    {
+                        bool first = true;
+                        foreach (var l in ring)
+                        {
+                            if (!first) sw.Write(Environment.NewLine);
+                            sw.Write(l);
+                            first = false;
+                        }
+                    }
+
+                    // Replace original content
+                    File.Copy(tmp, LogFile, overwrite: true);
+                    File.Delete(tmp);
+                }
+            }
+            catch { }
         }
     }
 }
