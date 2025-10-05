@@ -1,42 +1,70 @@
-# Ignore build output
-bin/
-obj/
+########################################
+# Build artifacts
+########################################
+/bin/
+/obj/
+/**/bin/
+/**/obj/
 
-# Ignore logs
+# Staging & deploy artifacts
+/bin/build/
+/bin/Modules/
+
+########################################
+# Logs & diagnostics
+########################################
 *.log
+*.tlog
+*.svclog
 
-# Ignore TODO
+########################################
+# TODO notes
+########################################
 *.todo
 TODO.md
 
-# Ignore solution files
-*.sln
-
-# Ignore decompiled files
+########################################
+# Decompiled outputs
+########################################
 *decompiled*
 
-# Ignore user-specific and temp files
+########################################
+# IDE & user-specific
+########################################
+.vs/
+.vscode/
+.idea/
 *.user
 *.suo
+*.rsuser
+*.cache
 *.tmp
 *.bak
-*.cache
-*.vs/
+*.swp
+*.orig
+*.VC.db
+*.VC.VC.opendb
 
-# Ignore VS Code settings
-.vscode/
+########################################
+# OS metadata
+########################################
+.DS_Store
+Thumbs.db
 
-# Ignore Github settings
+########################################
+# GitHub config
+########################################
 .github/
 
-# Ignore SaveData
+########################################
+# Project-specific
+########################################
 SaveData/
-
-# Ignore global suppressions
+media/
 GlobalSuppressions.cs
 
-# Ignore media
-media/
-
-# Local props file
+########################################
+# Local developer overrides
+########################################
+Retinues.Local.props
 Retinues.Local.Props
