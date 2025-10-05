@@ -6,6 +6,7 @@
     <AssemblyName>Retinues.Core</AssemblyName>
     <RootNamespace>Retinues.Core</RootNamespace>
     <ModuleName>Retinues.Core</ModuleName>
+    <IsGameModule>true</IsGameModule>
   </PropertyGroup>
 
   <ItemGroup>
