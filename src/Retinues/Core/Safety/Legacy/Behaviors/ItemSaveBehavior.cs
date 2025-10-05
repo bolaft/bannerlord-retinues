@@ -8,6 +8,10 @@ using TaleWorlds.SaveSystem;
 
 namespace Retinues.Core.Safety.Legacy.Behaviors
 {
+    /// <summary>
+    /// Legacy campaign behavior for migrating unlocked items and stocks from older saves.
+    /// Unlocks items and restores stocks on session launch if legacy save data is present.
+    /// </summary>
     [SafeClass]
     public sealed class ItemSaveBehavior : CampaignBehaviorBase
     {
@@ -17,8 +21,14 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
 
         private ItemSaveData _items;
 
+        /// <summary>
+        /// Returns true if legacy item save data is present.
+        /// </summary>
         public bool HasSyncData => _items != null;
 
+        /// <summary>
+        /// Syncs legacy item data to and from the campaign save file.
+        /// </summary>
         public override void SyncData(IDataStore ds)
         {
             if (ds.IsSaving)
@@ -31,6 +41,9 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for session launch to migrate items and stocks.
+        /// </summary>
         public override void RegisterEvents()
         {
             CampaignEvents.OnAfterSessionLaunchedEvent.AddNonSerializedListener(
@@ -43,6 +56,9 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Migrates unlocked items and stocks from legacy save data after session launch.
+        /// </summary>
         private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
             if (_items == null)
@@ -72,8 +88,9 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
         }
     }
 
-    /* ━━━━━━━ Save Data ━━━━━━ */
-
+    /// <summary>
+    /// Legacy save data for unlocked items and stocks.
+    /// </summary>
     public class ItemSaveData
     {
         [SaveableField(1)]

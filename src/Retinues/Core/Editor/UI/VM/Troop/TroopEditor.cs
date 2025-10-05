@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Core.Features.Xp;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
@@ -12,6 +11,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    /// <summary>
+    /// ViewModel for troop editor. Handles skill editing, upgrades, conversions, retinue logic, and UI actions.
+    /// </summary>
     [SafeClass]
     public sealed class TroopEditorVM(EditorScreenVM screen) : BaseEditor<TroopEditorVM>(screen)
     {
@@ -535,6 +537,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public bool PlayerWarnedAboutRetraining { get; set; } = false;
         private string _stagedForTroopId;
 
+        /// <summary>
+        /// Refreshes skill rows, retinue rows, and all bindings for the selected troop.
+        /// </summary>
         public void Refresh()
         {
             // If the selected retinue changed, clear staged orders
@@ -598,6 +603,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         /* ━━━━━━━━ Skills ━━━━━━━━ */
 
+        /// <summary>
+        /// Rebuilds skill rows for the selected troop.
+        /// </summary>
         private void RebuildSkillRows()
         {
             _skillsRow1.Clear();
@@ -615,6 +623,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         /* ━━━━━━━━ Retinue ━━━━━━━ */
 
+        /// <summary>
+        /// Rebuilds retinue conversion rows for the selected troop.
+        /// </summary>
         private void RebuildRetinueRows()
         {
             _conversionRows.Clear();
@@ -629,6 +640,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             }
         }
 
+        /// <summary>
+        /// Gets the virtual count of a troop, including staged conversions.
+        /// </summary>
         internal int GetVirtualCount(WCharacter c)
         {
             int count = Player.Party.MemberRoster.CountOf(c);
@@ -643,12 +657,18 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             return count;
         }
 
+        /// <summary>
+        /// Gets the pending staged amount for a conversion.
+        /// </summary>
         internal int GetPendingAmount(WCharacter from, WCharacter to)
         {
             var key = $"{from}->{to}";
             return _staged.TryGetValue(key, out var o) ? o.Amount : 0;
         }
 
+        /// <summary>
+        /// Gets the max number of troops that can be staged for conversion.
+        /// </summary>
         internal int GetMaxStageable(WCharacter from, WCharacter to)
         {
             if (from == null || to == null)
@@ -681,6 +701,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             return Math.Max(0, availableFrom);
         }
 
+        /// <summary>
+        /// Stages a conversion order, handling cancellation and updating UI.
+        /// </summary>
         internal void StageConversion(WCharacter from, WCharacter to, int amountRequested)
         {
             if (
@@ -729,6 +752,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             RecomputeConversionSummaryAndRefreshRows();
         }
 
+        /// <summary>
+        /// Recomputes conversion summary and refreshes conversion rows.
+        /// </summary>
         private void RecomputeConversionSummaryAndRefreshRows()
         {
             OnPropertyChanged(nameof(HasPendingConversions));

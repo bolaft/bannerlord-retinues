@@ -9,6 +9,9 @@ using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for MobileParty, provides helpers for accessing rosters, leader, faction, and swapping troops to match a faction.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WParty(MobileParty party) : FactionObject
     {
@@ -111,6 +114,9 @@ namespace Retinues.Core.Game.Wrappers
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Swap all troops in member and/or prisoner rosters to match the given faction.
+        /// </summary>
         public void SwapTroops(WFaction faction = null, bool members = true, bool prisoners = false)
         {
             if (faction == null)
@@ -125,10 +131,10 @@ namespace Retinues.Core.Game.Wrappers
                 SwapRosterTroops(PrisonRoster, faction);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Swap all troops in a roster to the best match from the given faction.
+        /// Preserves heroes and logs replacements.
+        /// </summary>
         public void SwapRosterTroops(WRoster roster, WFaction faction)
         {
             if (roster == null || Base == null)

@@ -5,12 +5,18 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Helpers.Character
 {
+    /// <summary>
+    /// Helper for custom troops. Handles ID building, parsing, graph navigation, and wrapper convenience for custom troop logic.
+    /// </summary>
     public sealed class CustomCharacterHelper : CharacterHelperBase, ICharacterHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Build / Resolve                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Build a custom troop ID from flags and path.
+        /// </summary>
         private string BuildId(
             bool isKingdom,
             bool isElite,
@@ -36,6 +42,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return $"ret_{scope}_{kind}_{token}";
         }
 
+        /// <summary>
+        /// Get a CharacterObject by custom troop flags and path.
+        /// </summary>
         public CharacterObject GetCharacterObject(
             bool isKingdom,
             bool isElite,
@@ -48,6 +57,9 @@ namespace Retinues.Core.Game.Helpers.Character
                 BuildId(isKingdom, isElite, isRetinue, isMilitiaMelee, isMilitiaRanged, path)
             );
 
+        /// <summary>
+        /// Get a CharacterObject by custom troop ID.
+        /// </summary>
         public CharacterObject GetCharacterObject(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -59,20 +71,44 @@ namespace Retinues.Core.Game.Helpers.Character
         //                      Public API                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the ID is a custom troop.
+        /// </summary>
         public bool IsCustom(string id) => id != null && id.Contains("ret_");
 
+        /// <summary>
+        /// Returns true if the ID is a retinue troop.
+        /// </summary>
         public bool IsRetinue(string id) => ExtractToken(id) == "retinue";
 
+        /// <summary>
+        /// Returns true if the ID is a melee militia troop.
+        /// </summary>
         public bool IsMilitiaMelee(string id) => ExtractToken(id) == "mmilitia";
 
+        /// <summary>
+        /// Returns true if the ID is a ranged militia troop.
+        /// </summary>
         public bool IsMilitiaRanged(string id) => ExtractToken(id) == "rmilitia";
 
+        /// <summary>
+        /// Returns true if the ID is an elite troop.
+        /// </summary>
         public bool IsElite(string id) => id != null && id.Contains("_elite_");
 
+        /// <summary>
+        /// Returns true if the ID is a kingdom troop.
+        /// </summary>
         public bool IsKingdom(string id) => id != null && id.Contains("_kingdom_");
 
+        /// <summary>
+        /// Returns true if the ID is a clan troop.
+        /// </summary>
         public bool IsClan(string id) => id != null && id.Contains("_clan_");
 
+        /// <summary>
+        /// Gets the path (upgrade tree) for a custom troop ID.
+        /// </summary>
         public IReadOnlyList<int> GetPath(string id)
         {
             var token = ExtractToken(id);
@@ -94,6 +130,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return path;
         }
 
+        /// <summary>
+        /// Resolves the faction for a custom troop ID.
+        /// </summary>
         public WFaction ResolveFaction(string id)
         {
             if (IsKingdom(id))
@@ -101,6 +140,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return IsClan(id) ? Player.Clan : null;
         }
 
+        /// <summary>
+        /// Gets the parent ID for a custom troop (null for retinues or roots).
+        /// </summary>
         public string GetParentId(string id)
         {
             if (IsRetinue(id))
@@ -121,6 +163,9 @@ namespace Retinues.Core.Game.Helpers.Character
             );
         }
 
+        /// <summary>
+        /// Gets the child IDs for a custom troop.
+        /// </summary>
         public IEnumerable<string> GetChildrenIds(string id)
         {
             if (IsRetinue(id))
@@ -151,6 +196,9 @@ namespace Retinues.Core.Game.Helpers.Character
         //                   Wrapper Convenience                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the parent troop for a node, or null if root/retinue/militia.
+        /// </summary>
         public WCharacter GetParent(WCharacter node)
         {
             if (node == null || node.IsRetinue || node.IsMilitiaMelee || node.IsMilitiaRanged)
@@ -164,6 +212,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return pco != null ? new WCharacter(pco) : null;
         }
 
+        /// <summary>
+        /// Gets the child troops for a node.
+        /// </summary>
         public IEnumerable<WCharacter> GetChildren(WCharacter node)
         {
             if (node == null)
@@ -181,6 +232,9 @@ namespace Retinues.Core.Game.Helpers.Character
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Builds the token string for a path.
+        /// </summary>
         private static string BuildTokenForPath(IReadOnlyList<int> path)
         {
             if (path == null || path.Count == 0)
@@ -188,6 +242,9 @@ namespace Retinues.Core.Game.Helpers.Character
             return string.Concat(path.Select(i => i == 0 ? '0' : '1'));
         }
 
+        /// <summary>
+        /// Extracts the token from a custom troop ID.
+        /// </summary>
         private static string ExtractToken(string id)
         {
             if (string.IsNullOrWhiteSpace(id))

@@ -7,6 +7,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Safety.Legacy.Behaviors
 {
+    /// <summary>
+    /// Legacy campaign behavior for migrating custom troop roots and XP from older saves.
+    /// Loads troop data and restores XP pools after session launch if legacy save data is present.
+    /// </summary>
     [SafeClass]
     public sealed class TroopSaveBehavior : CampaignBehaviorBase
     {
@@ -16,8 +20,14 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
 
         private List<TroopSaveData> _troops;
 
+        /// <summary>
+        /// Returns true if legacy troop save data is present.
+        /// </summary>
         public bool HasSyncData => _troops != null && _troops.Count > 0;
 
+        /// <summary>
+        /// Syncs legacy troop data to and from the campaign save file.
+        /// </summary>
         public override void SyncData(IDataStore ds)
         {
             if (ds.IsSaving)
@@ -30,6 +40,9 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for session launch to migrate troop roots and XP.
+        /// </summary>
         public override void RegisterEvents()
         {
             CampaignEvents.OnAfterSessionLaunchedEvent.AddNonSerializedListener(
@@ -42,6 +55,9 @@ namespace Retinues.Core.Safety.Legacy.Behaviors
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Migrates troop roots and XP pools from legacy save data after session launch.
+        /// </summary>
         private void OnAfterSessionLaunched(CampaignGameStarter starter)
         {
             if (_troops is { Count: > 0 })

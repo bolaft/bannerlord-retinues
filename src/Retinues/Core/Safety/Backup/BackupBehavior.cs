@@ -8,6 +8,10 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Safety.Backup
 {
+    /// <summary>
+    /// Campaign behavior for prompting the user to back up their save on first run with Retinues.
+    /// Checks for existing Retinues save data and shows a backup prompt if needed.
+    /// </summary>
     [SafeClass]
     public sealed class BackupBehavior : CampaignBehaviorBase
     {
@@ -17,6 +21,9 @@ namespace Retinues.Core.Safety.Backup
 
         private bool _retinuesWasUsed = false;
 
+        /// <summary>
+        /// Syncs the backup prompt state to the campaign save file.
+        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData("Retinues_Backup_WasUsed", ref _retinuesWasUsed);
@@ -26,6 +33,9 @@ namespace Retinues.Core.Safety.Backup
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for game loaded to trigger backup prompt.
+        /// </summary>
         public override void RegisterEvents()
         {
             // Fire when the campaign UI is ready (works for both new and loaded games)
@@ -36,6 +46,9 @@ namespace Retinues.Core.Safety.Backup
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Handles game loaded event, showing backup prompt if Retinues save data is missing.
+        /// </summary>
         private void OnGameLoaded(CampaignGameStarter starter)
         {
             if (_retinuesWasUsed == true)
@@ -62,6 +75,9 @@ namespace Retinues.Core.Safety.Backup
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Checks if a behavior has sync data by looking for a HasSyncData property.
+        /// </summary>
         private bool HasSyncData(CampaignBehaviorBase behavior)
         {
             if (behavior == null)
@@ -74,6 +90,9 @@ namespace Retinues.Core.Safety.Backup
             return (bool)prop.GetValue(behavior);
         }
 
+        /// <summary>
+        /// Checks if any Retinues-related campaign behavior has save data.
+        /// </summary>
         private bool HasSaveData()
         {
             foreach (
@@ -98,12 +117,18 @@ namespace Retinues.Core.Safety.Backup
             return false;
         }
 
+        /// <summary>
+        /// Creates a backup save with a custom name.
+        /// </summary>
         private void CreateBackupSave()
         {
             string backupName = $"[RetinuesBackup] {Player.Name} - {Player.Clan.Name}";
             Campaign.Current.SaveHandler.SaveAs(backupName);
         }
 
+        /// <summary>
+        /// Shows the first-run popup to prompt the user for a backup.
+        /// </summary>
         private void ShowFirstRunPopup()
         {
             InformationManager.ShowInquiry(

@@ -3,6 +3,10 @@ using TaleWorlds.SaveSystem;
 
 namespace Retinues.Core.Troops.Save
 {
+    /// <summary>
+    /// Serializable save data for a troop, including identity, stats, skills, equipment, and upgrade targets.
+    /// Used for saving and loading custom troop state.
+    /// </summary>
     public class TroopSaveData
     {
         /* ━━━━━━━━ Fields ━━━━━━━━ */

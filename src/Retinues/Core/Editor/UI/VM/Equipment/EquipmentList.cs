@@ -6,6 +6,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    /// <summary>
+    /// ViewModel for equipment list. Handles item search, selection, and refreshing available equipment rows.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentListVM(EditorScreenVM screen)
         : BaseList<EquipmentListVM, EquipmentRowVM>(screen)
@@ -45,6 +48,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
 
         public override List<EquipmentRowVM> Rows => [.. Equipments];
 
+        /// <summary>
+        /// Selects the row for the given item, if present.
+        /// </summary>
         public void Select(WItem item)
         {
             var row = Rows.FirstOrDefault(r =>
@@ -55,6 +61,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                 Select(row);
         }
 
+        /// <summary>
+        /// Refreshes all equipment rows for the selected slot and troop.
+        /// </summary>
         public void Refresh()
         {
             // Clear existing VM list

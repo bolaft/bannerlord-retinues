@@ -4,6 +4,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI
 {
+    /// <summary>
+    /// Base class for editor row view models. Handles selection logic, bindings, and row list access.
+    /// </summary>
     public abstract class BaseRow<TList, TRow>(TList rowList) : ViewModel
         where TList : BaseList<TList, TRow>
         where TRow : BaseRow<TList, TRow>

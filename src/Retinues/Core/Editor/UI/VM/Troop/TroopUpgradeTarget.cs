@@ -4,6 +4,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    /// <summary>
+    /// ViewModel for a troop upgrade target. Handles display and refresh logic.
+    /// </summary>
     [SafeClass]
     public sealed class TroopUpgradeTargetVM(WCharacter troop) : ViewModel
     {

@@ -4,6 +4,9 @@ using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for Equipment, provides helpers for slot/item access, skill requirements, and equipment code serialization.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WEquipment(Equipment equipment)
     {
@@ -19,6 +22,9 @@ namespace Retinues.Core.Game.Wrappers
         //                          Code                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Creates a WEquipment from an equipment code string.
+        /// </summary>
         public static WEquipment FromCode(string code)
         {
             Equipment obj;
@@ -31,6 +37,9 @@ namespace Retinues.Core.Game.Wrappers
             return new WEquipment(obj);
         }
 
+        /// <summary>
+        /// Gets the equipment code string for this equipment.
+        /// </summary>
         public string Code
         {
             get
@@ -63,6 +72,9 @@ namespace Retinues.Core.Game.Wrappers
         //                          Items                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets all equipped items in defined slots as WItem list.
+        /// </summary>
         public List<WItem> Items
         {
             get
@@ -77,6 +89,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Gets the item in the specified equipment slot.
+        /// </summary>
         public WItem GetItem(EquipmentIndex slot)
         {
             var obj = _equipment[slot].Item;
@@ -85,6 +100,9 @@ namespace Retinues.Core.Game.Wrappers
             return new WItem(obj);
         }
 
+        /// <summary>
+        /// Sets the item in the specified equipment slot.
+        /// </summary>
         public void SetItem(EquipmentIndex slot, WItem item)
         {
             _equipment[slot] = new EquipmentElement(item?.Base);
@@ -94,6 +112,9 @@ namespace Retinues.Core.Game.Wrappers
         //                   Skill Requirements                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the skill requirements for all equipped items.
+        /// </summary>
         public Dictionary<SkillObject, int> SkillRequirements
         {
             get
@@ -119,6 +140,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Gets the skill requirement for a specific skill.
+        /// </summary>
         public int GetSkillRequirement(SkillObject skill)
         {
             if (SkillRequirements.TryGetValue(skill, out int req))
@@ -130,6 +154,9 @@ namespace Retinues.Core.Game.Wrappers
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if any equipped item is a ranged weapon.
+        /// </summary>
         public bool HasRangedWeapons
         {
             get
@@ -144,6 +171,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Returns true if any equipped item is a non-throwable ranged weapon.
+        /// </summary>
         public bool HasNonThrowableRangedWeapons
         {
             get
@@ -162,6 +192,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Returns true if any equipped item is a mount (horse).
+        /// </summary>
         public bool HasMount
         {
             get

@@ -4,6 +4,9 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Events
 {
+    /// <summary>
+    /// Quest event wrapper, provides helpers for quest status, giver, and payment logic.
+    /// </summary>
     [SafeClass]
     public class Quest(QuestBase quest, bool isSuccessful)
     {

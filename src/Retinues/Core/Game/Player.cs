@@ -7,6 +7,10 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Game
 {
+    /// <summary>
+    /// Static helpers for accessing player-related game state and attributes.
+    /// Provides wrappers for clan, kingdom, character, party, and resources.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public static class Player
     {
@@ -14,6 +18,9 @@ namespace Retinues.Core.Game
         //                          Reset                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Resets cached player state (clan, culture, character, kingdom).
+        /// </summary>
         public static void Reset()
         {
             _clan = null;
@@ -28,6 +35,9 @@ namespace Retinues.Core.Game
 
         private static WFaction _clan;
 
+        /// <summary>
+        /// Returns the player's clan as a WFaction wrapper.
+        /// </summary>
         public static WFaction Clan
         {
             get
@@ -39,6 +49,9 @@ namespace Retinues.Core.Game
 
         private static WCulture _culture;
 
+        /// <summary>
+        /// Returns the player's culture as a WCulture wrapper.
+        /// </summary>
         public static WCulture Culture
         {
             get
@@ -49,6 +62,9 @@ namespace Retinues.Core.Game
         }
 
         private static WCharacter _character;
+        /// <summary>
+        /// Returns the player's character as a WCharacter wrapper.
+        /// </summary>
         public static WCharacter Character
         {
             get
@@ -58,30 +74,51 @@ namespace Retinues.Core.Game
             }
         }
 
+        /// <summary>
+        /// Returns the player's main party as a WParty wrapper.
+        /// </summary>
         public static WParty Party => new(MobileParty.MainParty);
 
+        /// <summary>
+        /// Returns the player's map faction.
+        /// </summary>
         public static IFaction MapFaction => Hero.MainHero.MapFaction;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Attributes                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the player's name.
+        /// </summary>
         public static string Name => Hero.MainHero.Name.ToString();
 
+        /// <summary>
+        /// Returns true if the player is female.
+        /// </summary>
         public static bool IsFemale => Hero.MainHero.IsFemale;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Renown                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the player's clan renown.
+        /// </summary>
         public static float Renown => Hero.MainHero.Clan.Renown;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Gold                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the player's gold.
+        /// </summary>
         public static int Gold => Hero.MainHero.Gold;
 
+        /// <summary>
+        /// Changes the player's gold by the given amount.
+        /// </summary>
         public static void ChangeGold(int amount)
         {
             Hero.MainHero.ChangeHeroGold(amount);
@@ -91,6 +128,9 @@ namespace Retinues.Core.Game
         //                        Influence                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the player's clan influence.
+        /// </summary>
         public static int Influence
         {
             get
@@ -101,6 +141,9 @@ namespace Retinues.Core.Game
             }
         }
 
+        /// <summary>
+        /// Changes the player's clan influence by the given amount.
+        /// </summary>
         public static void ChangeInfluence(int amount)
         {
             if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
@@ -112,17 +155,26 @@ namespace Retinues.Core.Game
         //                         Kingdom                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the player is a kingdom leader.
+        /// </summary>
         public static bool IsKingdomLeader => Hero.MainHero.IsKingdomLeader;
 
-        private static WFaction _kingdom;
-
+        /// <summary>
+        /// Returns the player's kingdom as a WFaction wrapper, if leader.
+        /// </summary>
         public static WFaction Kingdom =>
             IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom) : null;
+
+        private static WFaction _kingdom;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Enumerates all custom troops for the player's clan and kingdom.
+        /// </summary>
         public static IEnumerable<WCharacter> Troops
         {
             get
@@ -141,6 +193,9 @@ namespace Retinues.Core.Game
         //                          Army                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the player is the leader of their army.
+        /// </summary>
         public static bool IsArmyLeader => Party.Army?.LeaderParty?.StringId == Party.StringId;
     }
 }

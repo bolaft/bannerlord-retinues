@@ -6,9 +6,15 @@ using System.Runtime.CompilerServices;
 
 namespace Retinues.Core.Utils
 {
+    /// <summary>
+    /// Utility for inspecting the call stack and extracting caller information.
+    /// Used for logging, debugging, and filtering out noise from stack traces.
+    /// </summary>
     public static class Caller
     {
-        // What we return when you want details
+        /// <summary>
+        /// Represents detailed information about a method call site, including type, method, label, and optional file/line info.
+        /// </summary>
         public sealed class Info
         {
             public MethodBase Method { get; set; }
@@ -40,7 +46,10 @@ namespace Retinues.Core.Utils
             "Retinues.Core.Utils.Caller",
         };
 
-        // Find the first meaningful caller on the stack.
+        /// <summary>
+        /// Finds the first meaningful caller on the stack, skipping known noise and optionally extra predicates.
+        /// Returns an Info object with details about the call site.
+        /// </summary>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static Info Get(
             int skip = 0,
@@ -119,7 +128,9 @@ namespace Retinues.Core.Utils
             return new Info { Label = "<unknown>" };
         }
 
-        // Convenience: get just a label like "Type.Method" (or with namespace).
+        /// <summary>
+        /// Convenience method to get just a label for the caller, e.g. "Type.Method" or "Namespace.Type.Method".
+        /// </summary>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static string GetLabel(
             int skip = 0,
@@ -134,7 +145,10 @@ namespace Retinues.Core.Utils
                 )?.Label ?? "<unknown>";
         }
 
-        // Check whether the current call site matches a blacklist. If any entry equals or is contained in the label, returns true.
+        /// <summary>
+        /// Checks whether the current call site matches any entry in a blacklist.
+        /// Returns true if the label equals or contains any blacklist entry.
+        /// </summary>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static bool IsBlocked(
             IReadOnlyCollection<string> blacklist,

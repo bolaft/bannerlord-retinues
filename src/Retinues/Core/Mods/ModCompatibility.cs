@@ -5,6 +5,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Mods
 {
+    /// <summary>
+    /// Handles compatibility checks and integration with other mods.
+    /// Registers behaviors for detected mods and warns about known incompatibilities.
+    /// </summary>
     [SafeClass]
     public static class ModCompatibility
     {
@@ -14,6 +18,9 @@ namespace Retinues.Core.Mods
             "SimpleBank",
         ];
 
+        /// <summary>
+        /// Adds mod-specific behaviors to the campaign starter if compatible mods are detected.
+        /// </summary>
         public static void AddBehaviors(CampaignGameStarter cs)
         {
             if (ModuleChecker.GetModule("Shokuho") != null)
@@ -23,6 +30,9 @@ namespace Retinues.Core.Mods
             }
         }
 
+        /// <summary>
+        /// Checks for incompatible mods and logs critical warnings if any are found.
+        /// </summary>
         public static void IncompatibilityCheck()
         {
             foreach (var modId in IncompatibleMods)

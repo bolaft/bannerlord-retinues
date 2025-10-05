@@ -7,6 +7,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
 {
+    /// <summary>
+    /// Mission behavior for Indomitable doctrine. Adds health bonus to retinue agents on player's team if doctrine is unlocked.
+    /// </summary>
     [SafeClass]
     public sealed class IndomitableBehavior : MissionBehavior
     {
@@ -21,6 +24,9 @@ namespace Retinues.Core.Features.Doctrines.Effects.Behaviors
         //                     Mission Events                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds health bonus to retinue agents on player's team when created, if doctrine is enabled.
+        /// </summary>
         public override void OnAgentCreated(Agent agent)
         {
             if (!Enabled || agent == null || !agent.IsHuman)

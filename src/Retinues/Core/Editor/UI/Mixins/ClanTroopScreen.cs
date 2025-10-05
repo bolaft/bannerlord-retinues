@@ -9,6 +9,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.Mixins
 {
+    /// <summary>
+    /// Mixin for ClanManagementVM to inject the custom troop editor screen and manage tab selection.
+    /// </summary>
     [ViewModelMixin(
         "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM"
     )]
@@ -27,8 +30,8 @@ namespace Retinues.Core.Editor.UI.Mixins
 
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 
-                ClanHotkeyGate.Active = true; // enable while your UI is present
-                ClanHotkeyGate.RequireShift = false; // or false to just block L entirely
+                ClanHotkeyGate.Active = true;
+                ClanHotkeyGate.RequireShift = false;
             }
             catch (Exception e)
             {
@@ -55,6 +58,9 @@ namespace Retinues.Core.Editor.UI.Mixins
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Unselects all vanilla clan management tabs when switching to troop editor.
+        /// </summary>
         public void UnselectVanillaTabs()
         {
             ViewModel.IsMembersSelected = false;
@@ -72,6 +78,9 @@ namespace Retinues.Core.Editor.UI.Mixins
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Handles vanilla tab selection changes to keep troop editor tab state in sync.
+        /// </summary>
         private void OnVanillaTabChanged(object sender, PropertyChangedWithBoolValueEventArgs e)
         {
             if (!e.Value)

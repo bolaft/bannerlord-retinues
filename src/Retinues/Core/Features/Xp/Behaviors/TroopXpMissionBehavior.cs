@@ -3,6 +3,9 @@ using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Xp.Behaviors
 {
+    /// <summary>
+    /// Mission behavior for awarding XP to custom player-side troops for kills at mission end.
+    /// </summary>
     [SafeClass]
     public sealed class TroopXpMissionBehavior : Combat
     {
@@ -12,6 +15,9 @@ namespace Retinues.Core.Features.Xp.Behaviors
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Awards XP to custom player-side troops for each valid kill at mission end.
+        /// </summary>
         protected override void OnEndMission()
         {
             foreach (var kill in Kills)

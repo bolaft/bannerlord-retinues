@@ -5,9 +5,15 @@ using TaleWorlds.Core.ViewModelCollection.Information;
 
 namespace Retinues.Core.Editor.UI.Helpers
 {
+    /// <summary>
+    /// Static helpers for building tooltips for UI elements and items.
+    /// </summary>
     [SafeClass]
     public static class Tooltip
     {
+        /// <summary>
+        /// Builds a tooltip with a title and description.
+        /// </summary>
         public static BasicTooltipViewModel MakeTooltip(string title, string description)
         {
             return new BasicTooltipViewModel(() =>
@@ -37,6 +43,9 @@ namespace Retinues.Core.Editor.UI.Helpers
             });
         }
 
+        /// <summary>
+        /// Builds a tooltip for an item, showing tier, class, culture, and statistics.
+        /// </summary>
         public static BasicTooltipViewModel MakeItemTooltip(WItem item)
         {
             if (item == null)

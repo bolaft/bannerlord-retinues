@@ -8,6 +8,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Events
 {
+    /// <summary>
+    /// Combat event wrapper, tracks kills and provides helpers for logging kill details and combat reports.
+    /// </summary>
     [SafeClass]
     public class Combat : MissionBehavior
     {
@@ -22,6 +25,9 @@ namespace Retinues.Core.Game.Events
 
         public readonly List<Kill> Kills = [];
 
+        /// <summary>
+        /// Kill event details, including victim, killer, state, and blow.
+        /// </summary>
         public class Kill(Agent victim, Agent killer, AgentState state, KillingBlow blow)
         {
             public WAgent Victim { get; } = victim != null ? new WAgent(victim) : null;
@@ -66,6 +72,9 @@ namespace Retinues.Core.Game.Events
         //                         Logging                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Log details of a single kill event.
+        /// </summary>
         public void LogKill(Kill kill)
         {
             string victimTeam =
@@ -90,6 +99,9 @@ namespace Retinues.Core.Game.Events
             );
         }
 
+        /// <summary>
+        /// Log a summary report of all kills and casualties in the combat.
+        /// </summary>
         public void LogCombatReport()
         {
             int playerKills = 0;

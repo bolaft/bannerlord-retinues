@@ -7,187 +7,196 @@ using Retinues.Core.Utils;
 
 namespace Retinues.MCM.Options
 {
-    public static class Bootstrap
-    {
-        private const string Id = "Retinues.Core.Settings";
-        private const string DisplayName = "Retinues";
-        private const string FolderName = "Retinues.Core";
-        private const string FormatType = "xml";
+	/// <summary>
+	/// Entry point for registering mod configuration options with MCM (Mod Configuration Menu).
+	/// Builds the settings UI dynamically from Config.Options and registers it globally.
+	/// </summary>
+	public static class Bootstrap
+	{
+		private const string Id = "Retinues.Core.Settings";
+		private const string DisplayName = "Retinues";
+		private const string FolderName = "Retinues.Core";
+		private const string FormatType = "xml";
 
-        public static bool Register()
-        {
-            try
-            {
-                var create = BaseSettingsBuilder.Create(Id, DisplayName);
+		/// <summary>
+		/// Attempts to build and register the mod's configuration menu with MCM.
+		/// Returns true if registration succeeds, false if MCM is not ready or config options are missing.
+		/// Safe to call repeatedly; will only register once MCM and config are available.
+		/// </summary>
+		public static bool Register()
+		{
+			try
+			{
+				var create = BaseSettingsBuilder.Create(Id, DisplayName);
 
-                // MCM may not be loaded or adapter not ready
-                if (create is null)
-                    return false;
+				// MCM may not be loaded or adapter not ready
+				if (create is null)
+					return false;
 
-                var builder = create.SetFolderName(FolderName).SetFormat(FormatType);
-                if (builder is null)
-                    return false;
+				var builder = create.SetFolderName(FolderName).SetFormat(FormatType);
+				if (builder is null)
+					return false;
 
-                var options = Config.Options;
-                if (options == null || options.Count == 0)
-                {
-                    // nothing to build (or Config not initialized yet)
-                    return false;
-                }
+				var options = Config.Options;
+				if (options == null || options.Count == 0)
+				{
+					// nothing to build (or Config not initialized yet)
+					return false;
+				}
 
-                foreach (
-                    var section in options.GroupBy(o =>
-                        string.IsNullOrWhiteSpace(o.Section) ? "General" : o.Section
-                    )
-                )
-                {
-                    var sectionName = section.Key; // never null/empty due to GroupBy key above
+				foreach (
+					var section in options.GroupBy(o =>
+						string.IsNullOrWhiteSpace(o.Section) ? "General" : o.Section
+					)
+				)
+				{
+					var sectionName = section.Key; // never null/empty due to GroupBy key above
 
-                    builder.CreateGroup(
-                        sectionName,
-                        group =>
-                        {
-                            int order = 0;
+					builder.CreateGroup(
+						sectionName,
+						group =>
+						{
+							int order = 0;
 
-                            foreach (var opt in section)
-                            {
-                                // Defensive defaults
-                                var id = string.IsNullOrWhiteSpace(opt.Key)
-                                    ? Guid.NewGuid().ToString("N")
-                                    : opt.Key;
-                                var name = string.IsNullOrWhiteSpace(opt.Name) ? id : opt.Name;
-                                var hint = opt.Hint ?? string.Empty;
-                                hint = $"{hint} Recommended: {opt.Default}.";
-                                var type = opt.Type ?? typeof(string);
-                                var def = opt.Default;
-                                var min = opt.MinValue;
-                                var max = opt.MaxValue;
+							foreach (var opt in section)
+							{
+								// Defensive defaults
+								var id = string.IsNullOrWhiteSpace(opt.Key)
+									? Guid.NewGuid().ToString("N")
+									: opt.Key;
+								var name = string.IsNullOrWhiteSpace(opt.Name) ? id : opt.Name;
+								var hint = opt.Hint ?? string.Empty;
+								hint = $"{hint} Recommended: {opt.Default}.";
+								var type = opt.Type ?? typeof(string);
+								var def = opt.Default;
+								var min = opt.MinValue;
+								var max = opt.MaxValue;
 
-                                try
-                                {
-                                    if (type == typeof(bool))
-                                    {
-                                        group.AddBool(
-                                            id,
-                                            name,
-                                            new ProxyRef<bool>(
-                                                () => Config.GetOption(id, def is bool b && b),
-                                                v => Config.SetOption(id, v, save: true)
-                                            ),
-                                            b =>
-                                                b.SetOrder(order++)
-                                                    .SetHintText(hint)
-                                                    .SetRequireRestart(false)
-                                        );
-                                    }
-                                    else if (type == typeof(int))
-                                    {
-                                        group.AddInteger(
-                                            id,
-                                            name,
-                                            min,
-                                            max,
-                                            new ProxyRef<int>(
-                                                () => Config.GetOption(id, def is int i ? i : 0),
-                                                v => Config.SetOption(id, v, save: true)
-                                            ),
-                                            b =>
-                                                b.SetOrder(order++)
-                                                    .SetHintText(hint)
-                                                    .SetRequireRestart(false)
-                                        );
-                                    }
-                                    else if (type == typeof(string))
-                                    {
-                                        group.AddText(
-                                            id,
-                                            name,
-                                            new ProxyRef<string>(
-                                                () =>
-                                                    Config.GetOption<string>(
-                                                        id,
-                                                        def as string ?? string.Empty
-                                                    ),
-                                                v => Config.SetOption(id, v, save: true)
-                                            ),
-                                            b =>
-                                                b.SetOrder(order++)
-                                                    .SetHintText(hint)
-                                                    .SetRequireRestart(false)
-                                        );
-                                    }
-                                    else if (type == typeof(float))
-                                    {
-                                        group.AddFloatingInteger(
-                                            id,
-                                            name,
-                                            minValue: min,
-                                            maxValue: max,
-                                            new ProxyRef<float>(
-                                                () => Config.GetOption<float>(id),
-                                                v => Config.SetOption(id, v, save: true)
-                                            ),
-                                            b =>
-                                                b.SetOrder(order++)
-                                                    .SetHintText(hint)
-                                                    .SetRequireRestart(false)
-                                        );
-                                    }
-                                }
-                                catch
-                                {
-                                    // Skip bad entry
-                                }
-                            }
-                        }
-                    );
-                }
+								try
+								{
+									if (type == typeof(bool))
+									{
+										group.AddBool(
+											id,
+											name,
+											new ProxyRef<bool>(
+												() => Config.GetOption(id, def is bool b && b),
+												v => Config.SetOption(id, v, save: true)
+											),
+											b =>
+												b.SetOrder(order++)
+													.SetHintText(hint)
+													.SetRequireRestart(false)
+										);
+									}
+									else if (type == typeof(int))
+									{
+										group.AddInteger(
+											id,
+											name,
+											min,
+											max,
+											new ProxyRef<int>(
+												() => Config.GetOption(id, def is int i ? i : 0),
+												v => Config.SetOption(id, v, save: true)
+											),
+											b =>
+												b.SetOrder(order++)
+													.SetHintText(hint)
+													.SetRequireRestart(false)
+										);
+									}
+									else if (type == typeof(string))
+									{
+										group.AddText(
+											id,
+											name,
+											new ProxyRef<string>(
+												() =>
+													Config.GetOption<string>(
+														id,
+														def as string ?? string.Empty
+													),
+												v => Config.SetOption(id, v, save: true)
+											),
+											b =>
+												b.SetOrder(order++)
+													.SetHintText(hint)
+													.SetRequireRestart(false)
+										);
+									}
+									else if (type == typeof(float))
+									{
+										group.AddFloatingInteger(
+											id,
+											name,
+											minValue: min,
+											maxValue: max,
+											new ProxyRef<float>(
+												() => Config.GetOption<float>(id),
+												v => Config.SetOption(id, v, save: true)
+											),
+											b =>
+												b.SetOrder(order++)
+													.SetHintText(hint)
+													.SetRequireRestart(false)
+										);
+									}
+								}
+								catch
+								{
+									// Skip bad entry
+								}
+							}
+						}
+					);
+				}
 
-                // Default preset
-                builder.CreatePreset(
-                    BaseSettings.DefaultPresetId,
-                    BaseSettings.DefaultPresetName,
-                    p =>
-                    {
-                        foreach (var (id, def) in Config.Defaults())
-                        {
-                            if (def is float f)
-                                p.SetPropertyValue(
-                                    id,
-                                    float.Parse(
-                                        f.ToString(
-                                            "0.00",
-                                            System.Globalization.CultureInfo.InvariantCulture
-                                        )
-                                    )
-                                );
-                            else if (def is double d)
-                                p.SetPropertyValue(
-                                    id,
-                                    float.Parse(
-                                        d.ToString(
-                                            "0.00",
-                                            System.Globalization.CultureInfo.InvariantCulture
-                                        )
-                                    )
-                                );
-                            else
-                                p.SetPropertyValue(id, def);
-                        }
-                    }
-                );
+				// Default preset
+				builder.CreatePreset(
+					BaseSettings.DefaultPresetId,
+					BaseSettings.DefaultPresetName,
+					p =>
+					{
+						foreach (var (id, def) in Config.Defaults())
+						{
+							if (def is float f)
+								p.SetPropertyValue(
+									id,
+									float.Parse(
+										f.ToString(
+											"0.00",
+											System.Globalization.CultureInfo.InvariantCulture
+										)
+									)
+								);
+							else if (def is double d)
+								p.SetPropertyValue(
+									id,
+									float.Parse(
+										d.ToString(
+											"0.00",
+											System.Globalization.CultureInfo.InvariantCulture
+										)
+									)
+								);
+							else
+								p.SetPropertyValue(id, def);
+						}
+					}
+				);
 
-                var settings = builder.BuildAsGlobal();
-                if (settings is null)
-                    return false;
+				var settings = builder.BuildAsGlobal();
+				if (settings is null)
+					return false;
 
-                settings.Register();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-    }
+				settings.Register();
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+	}
 }

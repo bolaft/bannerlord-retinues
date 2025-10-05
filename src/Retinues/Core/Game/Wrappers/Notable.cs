@@ -5,6 +5,9 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for settlement notables, provides helpers for volunteer swapping and faction logic.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WNotable(Hero notable) : WHero(notable)
     {
@@ -12,6 +15,10 @@ namespace Retinues.Core.Game.Wrappers
         //                        Public API                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Swaps volunteers in the notable's array for the best matching troop from the given faction.
+        /// Preserves empty slots and fixes corrupt entries.
+        /// </summary>
         public void SwapVolunteers(WFaction faction)
         {
             if (Base == null || faction == null)

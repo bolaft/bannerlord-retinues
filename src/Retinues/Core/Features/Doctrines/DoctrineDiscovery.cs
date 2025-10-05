@@ -7,9 +7,15 @@ using Retinues.Core.Utils;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    /// <summary>
+    /// Static helper for discovering all Doctrine subclasses in the catalog namespace.
+    /// </summary>
     public static class DoctrineDiscovery
     {
         // Discover all Doctrine subclasses in the target namespace/assembly.
+        /// <summary>
+        /// Finds all Doctrine subclasses in the given namespace, orders by grid position.
+        /// </summary>
         public static IReadOnlyList<Doctrine> DiscoverDoctrines(
             string @namespaceStartsWith = "Retinues.Core.Features.Doctrines.Catalog"
         )

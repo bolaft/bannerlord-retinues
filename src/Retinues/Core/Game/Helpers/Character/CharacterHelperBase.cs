@@ -6,6 +6,10 @@ using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Helpers.Character
 {
+    /// <summary>
+    /// Base class for custom/vanilla character helpers.
+    /// Provides deep copy logic and helpers for copying and cloning character objects and equipment.
+    /// </summary>
     public abstract class CharacterHelperBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -58,6 +62,9 @@ namespace Retinues.Core.Game.Helpers.Character
         //                        Deep Copy                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Deep-copies all relevant fields from src to tgt, including traits, persona, equipment, and origin.
+        /// </summary>
         public virtual CharacterObject CopyInto(CharacterObject src, CharacterObject tgt)
         {
             var origin = (CharacterObject)F_originCharacter.GetValue(src) ?? src;

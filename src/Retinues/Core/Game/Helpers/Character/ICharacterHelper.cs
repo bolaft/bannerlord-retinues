@@ -4,6 +4,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Game.Helpers.Character
 {
+    /// <summary>
+    /// Interface for character helpers, provides methods for ID lookup, parsing, graph navigation, and deep copy.
+    /// Used to abstract custom/vanilla troop logic.
+    /// </summary>
     public interface ICharacterHelper
     {
         /* ━ ID Building / Lookup ━ */

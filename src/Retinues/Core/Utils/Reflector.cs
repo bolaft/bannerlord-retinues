@@ -4,6 +4,10 @@ using System.Reflection;
 
 namespace Retinues.Core.Utils
 {
+    /// <summary>
+    /// Reflection utility for accessing properties, fields, and methods on objects.
+    /// Handles private, protected, and inherited members, with type conversion and common backing field patterns.
+    /// </summary>
     public static class Reflector
     {
         public const BindingFlags Flags =
@@ -60,25 +64,13 @@ namespace Retinues.Core.Utils
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Back-Compatibility                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static PropertyInfo P<T>(T instance, string propertyName) =>
-            ResolveProperty(instance?.GetType() ?? typeof(T), propertyName);
-
-        private static FieldInfo F<T>(T instance, string fieldName) =>
-            ResolveField(instance?.GetType() ?? typeof(T), fieldName);
-
-        private static MethodInfo M<T>(
-            T instance,
-            string methodName,
-            params Type[] parameterTypes
-        ) => ResolveMethod(instance?.GetType() ?? typeof(T), methodName, parameterTypes);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the value of a property by name, with type conversion.
+        /// Throws if the property or getter is missing.
+        /// </summary>
         public static TReturn GetPropertyValue<TReturn>(object instance, string propertyName)
         {
             if (instance == null)
@@ -97,6 +89,10 @@ namespace Retinues.Core.Utils
             return (TReturn)ConvertIfNeeded(val, typeof(TReturn));
         }
 
+        /// <summary>
+        /// Gets the value of a property by name (untyped).
+        /// Throws if the property or getter is missing.
+        /// </summary>
         public static object GetPropertyValue(object instance, string propertyName)
         {
             if (instance == null)
@@ -114,6 +110,10 @@ namespace Retinues.Core.Utils
             return getter.Invoke(instance, null);
         }
 
+        /// <summary>
+        /// Sets the value of a property by name, using setter or common backing field names.
+        /// Throws if neither setter nor backing field is found.
+        /// </summary>
         public static void SetPropertyValue(object instance, string propertyName, object value)
         {
             if (instance == null)
@@ -163,6 +163,10 @@ namespace Retinues.Core.Utils
             );
         }
 
+        /// <summary>
+        /// Gets the value of a field by name, with type conversion.
+        /// Throws if the field is missing.
+        /// </summary>
         public static TReturn GetFieldValue<TReturn>(object instance, string fieldName)
         {
             if (instance == null)
@@ -174,6 +178,10 @@ namespace Retinues.Core.Utils
             return (TReturn)ConvertIfNeeded(val, typeof(TReturn));
         }
 
+        /// <summary>
+        /// Sets the value of a field by name, with type conversion.
+        /// Throws if the field is missing.
+        /// </summary>
         public static void SetFieldValue(object instance, string fieldName, object value)
         {
             if (instance == null)
@@ -184,6 +192,10 @@ namespace Retinues.Core.Utils
             fi.SetValue(instance, ConvertIfNeeded(value, fi.FieldType));
         }
 
+        /// <summary>
+        /// Invokes a method by name, with optional parameter types and arguments.
+        /// Throws if the method is missing.
+        /// </summary>
         public static object InvokeMethod(
             object instance,
             string methodName,

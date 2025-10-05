@@ -6,6 +6,10 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Core.Safety.Patches
 {
+    /// <summary>
+    /// Patch for MobileParty.TotalWage to sanitize party rosters on exception.
+    /// Cleans up invalid party data and logs errors before allowing the crash.
+    /// </summary>
     [HarmonyPatch(typeof(MobileParty), "get_TotalWage")]
     public static class MobileParty_TotalWage_Diag
     {

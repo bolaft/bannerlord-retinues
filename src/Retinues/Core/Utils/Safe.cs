@@ -12,7 +12,10 @@ namespace Retinues.Core.Utils
     //                       Attributes                       //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-    // Wrap a method/property accessor with a try/catch via Harmony finalizer.
+    /// <summary>
+    /// Attribute to wrap a method or property accessor with a try/catch via Harmony finalizer.
+    /// Allows specifying fallback value and whether to swallow exceptions.
+    /// </summary>
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Property,
         Inherited = false,
@@ -34,7 +37,10 @@ namespace Retinues.Core.Utils
         public bool Swallow { get; } = swallow;
     }
 
-    // Mark a class to auto-wrap its methods (and accessors) with safe finalizers.
+    /// <summary>
+    /// Attribute to mark a class for auto-wrapping its methods and accessors with safe finalizers.
+    /// Supports configuration for fallback values and scope.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class SafeClassAttribute : Attribute
     {
@@ -64,16 +70,22 @@ namespace Retinues.Core.Utils
         public Type OpenGenericListFallback { get; set; } = typeof(List<>);
     }
 
+    /// <summary>
+    /// Attribute to mark a method as unsafe (excluded from safe patching).
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     public sealed class UnsafeMethodAttribute : Attribute { }
 
+    /// <summary>
+    /// Attribute to mark a property as unsafe (excluded from safe patching).
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class UnsafePropertyAttribute : Attribute { }
 
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                         Patcher                        //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+    /// <summary>
+    /// Harmony patcher for safe method/property wrappers.
+    /// Applies finalizers to catch exceptions and provide fallback values.
+    /// </summary>
     public static class SafeMethodPatcher
     {
         private static bool _applied;
@@ -89,6 +101,9 @@ namespace Retinues.Core.Utils
             public SafeClassAttribute ClassCfg; // may be null
         }
 
+        /// <summary>
+        /// Applies safe patching to all eligible methods and properties in the given assemblies.
+        /// </summary>
         public static void ApplyAll(Harmony harmony, params Assembly[] assemblies)
         {
             if (harmony == null)

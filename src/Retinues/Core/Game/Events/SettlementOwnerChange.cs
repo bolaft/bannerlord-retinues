@@ -5,6 +5,9 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Events
 {
+    /// <summary>
+    /// Event wrapper for settlement owner changes, provides info and flags for capture, barter, or grant.
+    /// </summary>
     [SafeClass]
     public class SettlementOwnerChange(
         WSettlement settlement,

@@ -10,6 +10,10 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Features.Recruits.Patches
 {
+    /// <summary>
+    /// Harmony patch for Settlement.AddMilitiasToParty.
+    /// Spawns custom militia for player faction settlements if available, otherwise falls back to vanilla logic.
+    /// </summary>
     [HarmonyPatch(typeof(Settlement), "AddMilitiasToParty")]
     internal static class PlayerMilitiaSpawnPatch
     {
@@ -35,6 +39,9 @@ namespace Retinues.Core.Features.Recruits.Patches
         private static bool IsValid(WCharacter w) =>
             w != null && w.IsActive && !w.IsHero && w.Base != null && IsValidChar(w.Base);
 
+        /// <summary>
+        /// Adds a militia lane safely using reflection, updating remaining count.
+        /// </summary>
         private static void AddLaneSafe(
             Settlement s,
             MobileParty party,
@@ -65,6 +72,9 @@ namespace Retinues.Core.Features.Recruits.Patches
             }
         }
 
+        /// <summary>
+        /// Prefix: replaces vanilla militia spawn with custom militia if available and valid.
+        /// </summary>
         static bool Prefix(
             Settlement __instance,
             [HarmonyArgument(0)] MobileParty militaParty,
