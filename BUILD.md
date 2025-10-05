@@ -80,7 +80,7 @@ What gets deployed to **Retinues.Core**:
 - `config.ini` (from `./cfg/core.config.ini`, renamed on copy)
 - **Dev mode only:** `UIExtenderDebug.xml` (from `src/Retinues/Core/`)
 
-The build system wipes the target module folder before deploy (configurable) so Release builds don't keep dev‑only files.
+The build system wipes the target module folder before deploy (configurable) so release builds don't keep dev‑only files.
 
 ---
 
@@ -91,9 +91,9 @@ Build **everything** (Core + MCM), dev mode, deploy:
 ./build.sh -t all -c dev --deploy
 ```
 
-Build **Release** (no UIExtenderDebug.xml), deploy:
+Build **release** (no UIExtenderDebug.xml), deploy:
 ```bash
-./build.sh -t core -c Release --deploy
+./build.sh -t core -c release --deploy
 ```
 
 Build without deploying (just stage to `bin/Modules`):
