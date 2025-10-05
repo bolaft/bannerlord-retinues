@@ -6,6 +6,10 @@ using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Helpers
 {
+    /// <summary>
+    /// Static helpers for picking the best matching troop from a faction or tree.
+    /// Uses weighted similarity on mount, ranged, gender, weapons, and skills.
+    /// </summary>
     [SafeClass]
     public static class TroopMatcher
     {
@@ -23,6 +27,9 @@ namespace Retinues.Core.Game.Helpers
         //                         Matching                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Pick the best matching troop from a faction's tree for the given troop.
+        /// </summary>
         public static WCharacter PickBestFromFaction(WFaction faction, WCharacter troop)
         {
             if (faction == null || troop == null || !troop.IsValid)
@@ -35,6 +42,9 @@ namespace Retinues.Core.Game.Helpers
             return PickBestFromTree(root, troop);
         }
 
+        /// <summary>
+        /// Pick the best matching militia troop from a faction for the given troop.
+        /// </summary>
         public static WCharacter PickMilitiaFromFaction(WFaction faction, WCharacter troop)
         {
             if (faction == null || troop == null || !troop.IsValid)
@@ -53,6 +63,9 @@ namespace Retinues.Core.Game.Helpers
             return pick;
         }
 
+        /// <summary>
+        /// Pick the best matching troop from a tree for the given troop, optionally excluding one.
+        /// </summary>
         public static WCharacter PickBestFromTree(
             WCharacter root,
             WCharacter troop,
@@ -85,10 +98,9 @@ namespace Retinues.Core.Game.Helpers
             return best;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Compute a weighted eligibility score between two troops.
+        /// </summary>
         private static int EligibilityScore(WCharacter troop, WCharacter retinue)
         {
             int score = 0;
@@ -120,6 +132,9 @@ namespace Retinues.Core.Game.Helpers
             return score;
         }
 
+        /// <summary>
+        /// Get a set of weapon class strings for the equipped weapons of a troop.
+        /// </summary>
         private static HashSet<string> SafeWeaponClasses(WCharacter c)
         {
             try
@@ -135,6 +150,9 @@ namespace Retinues.Core.Game.Helpers
             }
         }
 
+        /// <summary>
+        /// Get a list of weapon class strings for all equipped weapons of a troop.
+        /// </summary>
         private static List<string> EquippedWeaponClasses(WCharacter c)
         {
             var classes = new List<string>();
@@ -147,6 +165,9 @@ namespace Retinues.Core.Game.Helpers
             return classes;
         }
 
+        /// <summary>
+        /// Get a dictionary of skill string IDs to values for a troop.
+        /// </summary>
         private static Dictionary<string, int> SafeSkills(WCharacter c)
         {
             try

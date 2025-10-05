@@ -4,6 +4,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI
 {
+    /// <summary>
+    /// Base class for editor view models. Provides access to the editor screen and selected troop.
+    /// </summary>
     public abstract class BaseEditor<TSelf>(EditorScreenVM screen) : ViewModel
         where TSelf : BaseEditor<TSelf>
     {

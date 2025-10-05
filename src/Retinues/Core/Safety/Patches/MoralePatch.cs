@@ -89,6 +89,10 @@ namespace Retinues.Core.Safety.Patches
         }
     }
 
+    /// <summary>
+    /// Harmony patch for DefaultPartyMoraleModel.GetEffectivePartyMorale.
+    /// Adds a fail-safe: if an exception occurs, sets morale to 50 with a Retinues marker.
+    /// </summary>
     [HarmonyPatch(
         typeof(DefaultPartyMoraleModel),
         nameof(DefaultPartyMoraleModel.GetEffectivePartyMorale)

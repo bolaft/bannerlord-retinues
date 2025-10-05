@@ -9,6 +9,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Events
 {
+    /// <summary>
+    /// Battle event wrapper, provides helpers for troop counts, sides, leaders, parties, prisoners, and battle reporting.
+    /// </summary>
     [SafeClass]
     public class Battle : Combat
     {
@@ -135,6 +138,9 @@ namespace Retinues.Core.Game.Events
         //                         Logging                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Log a summary report of the battle outcome, type, sides, counts, leaders, and army status.
+        /// </summary>
         public void LogBattleReport()
         {
             Log.Debug($"--- Battle Report ---");

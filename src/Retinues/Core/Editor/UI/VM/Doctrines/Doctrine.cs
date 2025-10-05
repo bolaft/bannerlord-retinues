@@ -10,6 +10,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Doctrines
 {
+    /// <summary>
+    /// ViewModel for a doctrine. Handles display, unlock logic, popup, and UI refresh.
+    /// </summary>
     [SafeClass]
     public sealed class DoctrineVM : ViewModel
     {

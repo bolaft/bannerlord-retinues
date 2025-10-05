@@ -12,6 +12,10 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for CharacterObject, providing helpers for custom troop logic, equipment, skills, upgrades, and lifecycle.
+    /// Used for all custom troop operations and UI integration.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
@@ -292,6 +296,7 @@ namespace Retinues.Core.Game.Wrappers
             {
                 var equipments = value.Select(e => e.Base).ToList();
                 var roster = new MBEquipmentRoster();
+                // Set the internal equipment list via reflection.
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(equipments));
                 Reflector.SetFieldValue(Base, "_equipmentRoster", roster);
             }

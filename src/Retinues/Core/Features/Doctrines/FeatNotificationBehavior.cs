@@ -9,6 +9,10 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    /// <summary>
+    /// Campaign behavior for showing popups when feats are completed.
+    /// Queues notifications and flushes them when on the world map.
+    /// </summary>
     [SafeClass]
     public sealed class FeatNotificationBehavior : CampaignBehaviorBase
     {
@@ -16,12 +20,18 @@ namespace Retinues.Core.Features.Doctrines
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// No sync data needed for feat notification behavior.
+        /// </summary>
         public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listeners for mission state, hourly tick, feat completion, and session launch.
+        /// </summary>
         public override void RegisterEvents()
         {
             // Track mission enter/leave to know when we're back on the map
@@ -68,7 +78,9 @@ namespace Retinues.Core.Features.Doctrines
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Try to display queued popups if we're on the world map and no inquiry is active.
+        /// <summary>
+        /// Try to display queued popups if we're on the world map and no inquiry is active.
+        /// </summary>
         public void TryFlush()
         {
             try
@@ -98,6 +110,9 @@ namespace Retinues.Core.Features.Doctrines
         private readonly Queue<string> _pendingFeatKeys = new(); // featKey queue (Type.FullName)
         private bool _inMission;
 
+        /// <summary>
+        /// Builds and shows the popup for a completed feat.
+        /// </summary>
         private void BuildAndShow(string featKey)
         {
             // Resolve feat + doctrine for nice text

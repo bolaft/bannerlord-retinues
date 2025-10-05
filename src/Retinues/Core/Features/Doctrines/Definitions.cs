@@ -3,6 +3,9 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    /// <summary>
+    /// Status of a doctrine: locked, unlockable, in progress, or unlocked.
+    /// </summary>
     public enum DoctrineStatus
     {
         Locked,
@@ -11,6 +14,9 @@ namespace Retinues.Core.Features.Doctrines
         Unlocked,
     }
 
+    /// <summary>
+    /// Definition for a feat, used for serialization and UI.
+    /// </summary>
     public sealed class FeatDefinition
     {
         public string Key;
@@ -18,6 +24,9 @@ namespace Retinues.Core.Features.Doctrines
         public int Target;
     }
 
+    /// <summary>
+    /// Definition for a doctrine, used for serialization and UI.
+    /// </summary>
     public sealed class DoctrineDefinition
     {
         public string Key;

@@ -7,6 +7,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Equipment
 {
+    /// <summary>
+    /// ViewModel for an equipment slot. Handles selection, enable/disable logic, item info, and UI refresh.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentSlotVM(
         EquipmentIndex slot,

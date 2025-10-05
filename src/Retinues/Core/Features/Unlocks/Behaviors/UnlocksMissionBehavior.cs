@@ -9,6 +9,10 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Unlocks.Behaviors
 {
+    /// <summary>
+    /// Mission behavior for unlocking items from kills at mission end.
+    /// Applies doctrine modifiers and counts equipped items on defeated agents.
+    /// </summary>
     [SafeClass]
     public sealed class UnlocksMissionBehavior : Combat
     {
@@ -16,6 +20,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// On mission end, count unlockable items from valid kills and apply doctrine effects.
+        /// </summary>
         protected override void OnEndMission()
         {
             if (Config.GetOption<bool>("UnlockFromKills") == false)
@@ -69,6 +76,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the item is unlockable (not null or invalid type).
+        /// </summary>
         private static bool IsUnlockable(ItemObject i)
         {
             if (i == null)
@@ -78,6 +88,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
             return true;
         }
 
+        /// <summary>
+        /// Enumerates all equipped items on the given agent.
+        /// </summary>
         private static IEnumerable<WItem> EnumerateEquippedItems(Agent agent)
         {
             var eq = new WEquipment(agent?.SpawnEquipment);

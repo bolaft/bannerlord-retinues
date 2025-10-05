@@ -8,9 +8,16 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Core.Safety.Sanitizer
 {
+    /// <summary>
+    /// Utility for sanitizing party and troop rosters.
+    /// Cleans up invalid, null, or corrupted troop entries and replaces them with safe fallbacks.
+    /// </summary>
     [SafeClass]
     public static class RosterSanitizer
     {
+        /// <summary>
+        /// Cleans both member and prison rosters of a MobileParty.
+        /// </summary>
         public static void CleanParty(MobileParty mp)
         {
             if (mp == null)
@@ -20,6 +27,9 @@ namespace Retinues.Core.Safety.Sanitizer
             CleanRoster(mp.PrisonRoster, mp);
         }
 
+        /// <summary>
+        /// Cleans a TroopRoster, replacing invalid or null entries and normalizing counts.
+        /// </summary>
         public static void CleanRoster(TroopRoster roster, MobileParty contextParty = null)
         {
             if (roster == null)
@@ -74,6 +84,9 @@ namespace Retinues.Core.Safety.Sanitizer
             }
         }
 
+        /// <summary>
+        /// Replaces a roster element with a fallback troop or removes it if no fallback is available.
+        /// </summary>
         private static void ReplaceElementWithFallback(
             TroopRoster roster,
             int index,
@@ -122,6 +135,9 @@ namespace Retinues.Core.Safety.Sanitizer
             );
         }
 
+        /// <summary>
+        /// Safely replaces a roster element with new values, normalizing counts.
+        /// </summary>
         private static void SafeReplace(
             TroopRoster roster,
             int index,
@@ -161,6 +177,9 @@ namespace Retinues.Core.Safety.Sanitizer
             }
         }
 
+        /// <summary>
+        /// Gets a fallback troop for the context party, preferring culture basic troop or "looter".
+        /// </summary>
         private static CharacterObject GetFallbackTroop(MobileParty contextParty)
         {
             // Prefer the context party's culture basic troop if we can reach it
@@ -182,6 +201,9 @@ namespace Retinues.Core.Safety.Sanitizer
             return IsCharacterValid(pick) ? pick : null;
         }
 
+        /// <summary>
+        /// Checks if a CharacterObject is valid and active in the object manager.
+        /// </summary>
         private static bool IsCharacterValid(CharacterObject c)
         {
             if (c == null)
@@ -200,6 +222,9 @@ namespace Retinues.Core.Safety.Sanitizer
             return true;
         }
 
+        /// <summary>
+        /// Returns a string description of the party for logging.
+        /// </summary>
         private static string DescribeParty(MobileParty mp)
         {
             if (mp == null)

@@ -8,8 +8,16 @@ namespace Retinues.Core.Utils
     //                   Similarity  Helpers                  //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Helpers for calculating set and vector similarity metrics.
+    /// Used for fuzzy matching and comparison of collections.
+    /// </summary>
     public static class Similarity
     {
+        /// <summary>
+        /// Computes the Jaccard similarity between two sets of strings.
+        /// Returns 1.0 for identical/empty sets, 0.0 for disjoint sets.
+        /// </summary>
         public static double Jaccard(HashSet<string> a, HashSet<string> b)
         {
             if (a.Count == 0 && b.Count == 0)
@@ -21,6 +29,10 @@ namespace Retinues.Core.Utils
             return union == 0 ? 0.0 : (double)inter / union;
         }
 
+        /// <summary>
+        /// Computes the cosine similarity between two string→int vectors.
+        /// Returns 1.0 for identical/empty, 0.0 for orthogonal.
+        /// </summary>
         public static double Cosine(Dictionary<string, int> a, Dictionary<string, int> b)
         {
             if (a.Count == 0 && b.Count == 0)

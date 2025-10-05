@@ -6,6 +6,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Editor.UI.VM.Troop
 {
+    /// <summary>
+    /// ViewModel for troop list. Handles toggles, search, selection, and refreshing troop rows by category.
+    /// </summary>
     [SafeClass]
     public sealed class TroopListVM(EditorScreenVM screen)
         : BaseList<TroopListVM, TroopRowVM>(screen)
@@ -78,6 +81,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public override System.Collections.Generic.List<TroopRowVM> Rows =>
             [.. RetinueTroops, .. EliteTroops, .. BasicTroops, .. MilitiaTroops];
 
+        /// <summary>
+        /// Selects the row for the given troop, if present.
+        /// </summary>
         public void Select(WCharacter troop)
         {
             var row = Rows.FirstOrDefault(r => r.Troop.Equals(troop));
@@ -85,6 +91,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 Select(row);
         }
 
+        /// <summary>
+        /// Refreshes all troop rows for each category and updates selection.
+        /// </summary>
         public void Refresh()
         {
             RetinueTroops.Clear();
@@ -149,6 +158,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds a troop and its children to the list in tree order.
+        /// </summary>
         private void AddTroopTreeInOrder(WCharacter troop, MBBindingList<TroopRowVM> list)
         {
             if (troop == null || !troop.IsActive)

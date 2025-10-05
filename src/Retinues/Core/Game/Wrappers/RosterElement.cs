@@ -3,6 +3,9 @@ using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for TroopRosterElement, provides access to troop, counts, wounded, xp, and index in the roster.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WRosterElement(TroopRosterElement element, WRoster roster, int index)
     {

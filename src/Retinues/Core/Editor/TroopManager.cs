@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Core.Features.Xp;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Helpers;
@@ -10,6 +9,10 @@ using TaleWorlds.Core;
 
 namespace Retinues.Core.Editor
 {
+    /// <summary>
+    /// Static helpers for managing troop editing, upgrades, conversions, and retinue logic.
+    /// Used by the troop editor UI and backend.
+    /// </summary>
     [SafeClass]
     public static class TroopManager
     {
@@ -17,6 +20,9 @@ namespace Retinues.Core.Editor
         //                       Collection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Collects retinue troops for a faction (elite and basic).
+        /// </summary>
         public static List<WCharacter> CollectRetinueTroops(WFaction faction)
         {
             Log.Debug(
@@ -32,6 +38,9 @@ namespace Retinues.Core.Editor
             }
         }
 
+        /// <summary>
+        /// Collects elite troops for a faction.
+        /// </summary>
         public static List<WCharacter> CollectEliteTroops(WFaction faction)
         {
             Log.Debug(
@@ -47,6 +56,9 @@ namespace Retinues.Core.Editor
             }
         }
 
+        /// <summary>
+        /// Collects basic troops for a faction.
+        /// </summary>
         public static List<WCharacter> CollectBasicTroops(WFaction faction)
         {
             Log.Debug(
@@ -62,6 +74,9 @@ namespace Retinues.Core.Editor
             }
         }
 
+        /// <summary>
+        /// Collects militia troops for a faction.
+        /// </summary>
         public static List<WCharacter> CollectMilitiaTroops(WFaction faction)
         {
             Log.Debug(
@@ -87,6 +102,9 @@ namespace Retinues.Core.Editor
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Renames a troop.
+        /// </summary>
         public static void Rename(WCharacter troop, string newName)
         {
             Log.Debug($"Renaming troop {troop?.Name} to '{newName}'.");
@@ -94,6 +112,9 @@ namespace Retinues.Core.Editor
             troop.Name = newName.Trim();
         }
 
+        /// <summary>
+        /// Changes the gender of a troop.
+        /// </summary>
         public static void ChangeGender(WCharacter troop)
         {
             Log.Debug($"Changing gender for troop {troop?.Name}.");
@@ -101,6 +122,9 @@ namespace Retinues.Core.Editor
             troop.IsFemale = !troop.IsFemale;
         }
 
+        /// <summary>
+        /// Modifies a troop's skill by delta, spending or refunding XP as needed.
+        /// </summary>
         public static void ModifySkill(WCharacter troop, SkillObject skill, int delta)
         {
             Log.Debug(
@@ -134,6 +158,9 @@ namespace Retinues.Core.Editor
             }
         }
 
+        /// <summary>
+        /// Adds an upgrade target to a troop, creating and activating the child.
+        /// </summary>
         public static WCharacter AddUpgradeTarget(WCharacter troop, string targetName)
         {
             Log.Debug($"Adding upgrade target '{targetName}' to troop {troop?.Name}.");
@@ -160,6 +187,9 @@ namespace Retinues.Core.Editor
             return child;
         }
 
+        /// <summary>
+        /// Removes a troop and stocks its equipment.
+        /// </summary>
         public static void Remove(WCharacter troop)
         {
             Log.Debug($"Removing troop {troop?.Name}.");
@@ -176,6 +206,9 @@ namespace Retinues.Core.Editor
         //                        Retinues                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Ranks up a troop, spending gold and XP, and increasing level.
+        /// </summary>
         public static void RankUp(WCharacter troop)
         {
             Log.Debug($"Ranking up troop {troop?.Name} (current level: {troop?.Level}).");
@@ -196,6 +229,9 @@ namespace Retinues.Core.Editor
             troop.Level += 5;
         }
 
+        /// <summary>
+        /// Gets the maximum number of troops that can be converted from one type to another.
+        /// </summary>
         public static int GetMaxConvertible(WCharacter from, WCharacter to)
         {
             Log.Debug($"Getting max convertible from {from?.Name} to {to?.Name}.");
@@ -218,6 +254,9 @@ namespace Retinues.Core.Editor
             return maxConvertible;
         }
 
+        /// <summary>
+        /// Converts troops from one type to another, spending gold and mutating the roster.
+        /// </summary>
         public static void Convert(
             WCharacter from,
             WCharacter to,
@@ -243,6 +282,9 @@ namespace Retinues.Core.Editor
             Player.Party.MemberRoster.AddTroop(to, amount);
         }
 
+        /// <summary>
+        /// Gets the source troops for a retinue (culture and faction best matches).
+        /// </summary>
         public static List<WCharacter> GetRetinueSourceTroops(WCharacter retinue)
         {
             var sources = new List<WCharacter>(2);

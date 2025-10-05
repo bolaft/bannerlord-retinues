@@ -7,13 +7,16 @@ using TaleWorlds.Library;
 
 namespace Retinues.Core.Utils
 {
+    /// <summary>
+    /// Utility for querying Bannerlord modules and their metadata.
+    /// Provides access to active modules, their names, versions, and official status.
+    /// </summary>
     [SafeClass]
     public static class ModuleChecker
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Entry                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Represents a module entry with metadata parsed from SubModule.xml.
+        /// </summary>
         public sealed class ModuleEntry
         {
             public string Id { get; set; }
@@ -26,10 +29,9 @@ namespace Retinues.Core.Utils
                 $"{Id} [{Version}] - {Name}" + (IsOfficial ? " (official)" : "");
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Gets a module entry by its ID, or null if not found.
+        /// </summary>
         public static ModuleEntry GetModule(string id)
         {
             var modules = GetActiveModules();
@@ -43,6 +45,10 @@ namespace Retinues.Core.Utils
 
         private static List<ModuleEntry> _cachedActiveModules;
 
+        /// <summary>
+        /// Returns a list of all active modules, with metadata parsed from SubModule.xml.
+        /// Results are cached for future calls.
+        /// </summary>
         public static List<ModuleEntry> GetActiveModules()
         {
             if (_cachedActiveModules != null)

@@ -7,6 +7,10 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    /// <summary>
+    /// Campaign behavior for doctrine and feat management.
+    /// Tracks unlocked doctrines, feat progress, and builds doctrine catalog from discovered types.
+    /// </summary>
     [SafeClass]
     public sealed class DoctrineServiceBehavior : CampaignBehaviorBase
     {
@@ -24,6 +28,9 @@ namespace Retinues.Core.Features.Doctrines
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Syncs unlocked doctrines and feat progress by string keys.
+        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             // Persist state by string keys (Type.FullName)
@@ -39,6 +46,9 @@ namespace Retinues.Core.Features.Doctrines
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers session launch event to build doctrine catalog.
+        /// </summary>
         public override void RegisterEvents()
         {
             Log.Debug("Registering doctrine service events");
@@ -63,14 +73,26 @@ namespace Retinues.Core.Features.Doctrines
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns all doctrine definitions, ordered by grid position.
+        /// </summary>
         public IEnumerable<DoctrineDefinition> AllDoctrines() =>
             _defsByKey.Values.OrderBy(d => d.Column).ThenBy(d => d.Row);
 
+        /// <summary>
+        /// Returns the doctrine definition for the given key.
+        /// </summary>
         public DoctrineDefinition GetDoctrine(string key) =>
             _defsByKey.TryGetValue(key, out var d) ? d : null;
 
+        /// <summary>
+        /// Returns true if the doctrine is unlocked.
+        /// </summary>
         public bool IsDoctrineUnlocked(string key) => _unlocked.Contains(key);
 
+        /// <summary>
+        /// Gets the status of a doctrine (locked, unlockable, in progress, unlocked).
+        /// </summary>
         public DoctrineStatus GetDoctrineStatus(string key)
         {
             var def = GetDoctrine(key);
@@ -97,6 +119,9 @@ namespace Retinues.Core.Features.Doctrines
             return DoctrineStatus.InProgress;
         }
 
+        /// <summary>
+        /// Attempts to acquire a doctrine, paying costs if eligible.
+        /// </summary>
         public bool TryAcquireDoctrine(string key, out string reason)
         {
             reason = null;
@@ -139,6 +164,9 @@ namespace Retinues.Core.Features.Doctrines
 
         /* ━━━━ Feats (by key) ━━━━ */
 
+        /// <summary>
+        /// Gets the target value for a feat by key.
+        /// </summary>
         public int GetFeatTarget(string featKey)
         {
             var dKey = _featToDoctrine.TryGetValue(featKey, out var did) ? did : null;
@@ -148,9 +176,15 @@ namespace Retinues.Core.Features.Doctrines
             return feat?.Target ?? 0;
         }
 
+        /// <summary>
+        /// Gets the current progress for a feat by key.
+        /// </summary>
         public int GetFeatProgress(string featKey) =>
             _featProgress.TryGetValue(featKey, out var v) ? v : 0;
 
+        /// <summary>
+        /// Returns true if the feat is complete (progress >= target).
+        /// </summary>
         public bool IsFeatComplete(string featKey)
         {
             int target = GetFeatTarget(featKey);
@@ -159,6 +193,9 @@ namespace Retinues.Core.Features.Doctrines
             return GetFeatProgress(featKey) >= target;
         }
 
+        /// <summary>
+        /// Sets the progress for a feat by key.
+        /// </summary>
         public void SetFeatProgress(string featKey, int amount)
         {
             if (string.IsNullOrEmpty(featKey) || amount < 0)
@@ -175,6 +212,9 @@ namespace Retinues.Core.Features.Doctrines
                 FeatCompleted?.Invoke(featKey);
         }
 
+        /// <summary>
+        /// Advances the progress for a feat by key.
+        /// </summary>
         public int AdvanceFeat(string featKey, int amount = 1)
         {
             if (string.IsNullOrEmpty(featKey) || amount <= 0)
@@ -200,6 +240,9 @@ namespace Retinues.Core.Features.Doctrines
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Builds the doctrine catalog from discovered types and sets up prerequisites.
+        /// </summary>
         private void BuildCatalogIfNeeded()
         {
             if (_defsByKey.Count > 0)

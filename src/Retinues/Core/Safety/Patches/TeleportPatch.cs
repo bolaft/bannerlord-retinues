@@ -9,6 +9,10 @@ using TaleWorlds.Core;
 
 namespace Retinues.Core.Safety.Patches
 {
+    /// <summary>
+    /// Patch for TroopRoster.RemoveTroop to prevent errors when removing a troop not present in the roster.
+    /// Logs an error and skips removal if the troop is missing.
+    /// </summary>
     [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.RemoveTroop))]
     static class SafeRemoveTroopPatch
     {
@@ -31,6 +35,10 @@ namespace Retinues.Core.Safety.Patches
         }
     }
 
+    /// <summary>
+    /// Patch for TeleportHeroAction.ApplyInternal to ensure the hero is present in the source party before teleporting.
+    /// Re-adds the hero if missing and logs a warning.
+    /// </summary>
     [HarmonyPatch(typeof(TeleportHeroAction), "ApplyInternal")]
     static class TeleportHero_PreparePatch
     {

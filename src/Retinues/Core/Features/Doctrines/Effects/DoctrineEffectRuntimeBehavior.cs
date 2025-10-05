@@ -7,6 +7,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines.Effects
 {
+    /// <summary>
+    /// Campaign behavior for adding doctrine effect mission behaviors to battles and tournaments.
+    /// </summary>
     [SafeClass]
     public sealed class DoctrineEffectRuntimeBehavior : CampaignBehaviorBase
     {
@@ -14,12 +17,18 @@ namespace Retinues.Core.Features.Doctrines.Effects
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// No sync data needed for doctrine effect runtime behavior.
+        /// </summary>
         public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers event listener for mission start to add doctrine effect mission behaviors.
+        /// </summary>
         public override void RegisterEvents()
         {
             // Missions
@@ -30,6 +39,9 @@ namespace Retinues.Core.Features.Doctrines.Effects
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds ImmortalsBehavior and IndomitableBehavior to the mission if not already present.
+        /// </summary>
         private void OnMissionStarted(IMission iMission)
         {
             try

@@ -4,9 +4,16 @@ namespace Retinues.Core.Utils
     //                    Identity & Hashes                   //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Base class for objects with a unique string identifier.
+    /// Implements equality, hashing, and string conversion based on StringId.
+    /// </summary>
     [SafeClass]
     public abstract class StringIdentifier
     {
+        /// <summary>
+        /// The unique string identifier for this object.
+        /// </summary>
         public abstract string StringId { get; }
 
         public bool Equals(StringIdentifier other) =>

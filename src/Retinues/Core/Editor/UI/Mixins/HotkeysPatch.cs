@@ -2,6 +2,9 @@ using HarmonyLib;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.InputSystem;
 
+/// <summary>
+/// Harmony patches and helpers for blocking vanilla clan management hotkeys while custom UI is active.
+/// </summary>
 public static class HotkeyBlocker
 {
     public static volatile bool BlockHotkeys = true;
@@ -19,12 +22,15 @@ static class ClanManagementVM_HotkeyGuards
     static bool Next_Prefix() => !HotkeyBlocker.BlockHotkeys;
 }
 
+/// <summary>
+/// Gate for blocking the L key in clan management UI, optionally requiring Shift+L.
+/// </summary>
 public static class ClanHotkeyGate
 {
-    // true while your ClanTroopScreen mixin is active
+    // true while the ClanTroopScreen mixin is active
     public static volatile bool Active;
 
-    // set to true if you want to require Shift+L instead of plain L
+    // if true, requires Shift+L instead of plain L
     public static bool RequireShift = true;
 
     public static bool Matches(InputKey key)
@@ -38,7 +44,6 @@ public static class ClanHotkeyGate
 
         // Require either Shift key to be down
         return !(Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift));
-        // ^ returns true when we should block plain L
     }
 }
 
@@ -58,7 +63,7 @@ static class Input_LKey_Blockers
     static void IsKeyPressed_Postfix(InputKey key, ref bool __result)
     {
         if (__result && ClanHotkeyGate.Matches(key))
-            __result = false; // block the “just pressed” tick
+            __result = false; // block the "just pressed" tick
     }
 
     [HarmonyPostfix]
@@ -66,6 +71,6 @@ static class Input_LKey_Blockers
     static void IsKeyReleased_Postfix(InputKey key, ref bool __result)
     {
         if (__result && ClanHotkeyGate.Matches(key))
-            __result = false; // block the “just released” tick
+            __result = false; // block the "just released" tick
     }
 }

@@ -6,6 +6,9 @@ using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for Settlement, provides helpers for notables, garrison, culture, faction, and volunteer swapping.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WSettlement(Settlement settlement) : FactionObject
     {
@@ -78,6 +81,9 @@ namespace Retinues.Core.Game.Wrappers
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Swap all volunteers in notables to match the given faction.
+        /// </summary>
         public void SwapVolunteers(WFaction faction = null)
         {
             if (faction == null)

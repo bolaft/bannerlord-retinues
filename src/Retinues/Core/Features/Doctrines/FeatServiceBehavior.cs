@@ -15,6 +15,10 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    /// <summary>
+    /// Campaign behavior for doctrine feat event management.
+    /// Tracks active feats, relays game events to feat hooks, and manages feat lifecycle.
+    /// </summary>
     [SafeClass]
     public sealed class FeatServiceBehavior : CampaignBehaviorBase
     {
@@ -275,6 +279,9 @@ namespace Retinues.Core.Features.Doctrines
 
         private readonly List<Feat> _activeFeats = [];
 
+        /// <summary>
+        /// Refreshes the list of active feats based on doctrine status and feat completion.
+        /// </summary>
         private void RefreshActiveFeats()
         {
             _activeFeats.Clear();
@@ -334,6 +341,9 @@ namespace Retinues.Core.Features.Doctrines
             return null;
         }
 
+        /// <summary>
+        /// Notifies all active feats of a game event by invoking the given action.
+        /// </summary>
         private void NotifyFeats(Action<Feat, object[]> action, params object[] args)
         {
             foreach (var feat in _activeFeats.ToList())
@@ -350,10 +360,9 @@ namespace Retinues.Core.Features.Doctrines
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Mission relay                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Mission behavior that relays mission end to the host FeatServiceBehavior.
+        /// </summary>
         private sealed class MissionEndRelay(FeatServiceBehavior host) : MissionBehavior
         {
             private readonly FeatServiceBehavior _host = host;

@@ -23,145 +23,168 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core
 {
-    public class SubModule : MBSubModuleBase
-    {
-        private UIExtender _extender;
-        private Harmony _harmony;
+	/// <summary>
+	/// Module entry point used by Bannerlord.
+	/// </summary>
+	public class SubModule : MBSubModuleBase
+	{
+		/// <summary>
+		/// UIExtender instance used to register and enable UI-related modifications.
+		/// </summary>
+		private UIExtender _extender;
 
-        protected override void OnSubModuleLoad()
-        {
-            base.OnSubModuleLoad();
+		/// <summary>
+		/// Harmony instance used to apply and remove runtime patches.
+		/// </summary>
+		private Harmony _harmony;
 
-            try
-            {
-                // Keep log file size manageable
-                if (Log.LogFileLength > 10000)
-                    Log.Truncate(5000);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+		/// <summary>
+		/// Called when the module DLL is loaded by the game.
+		/// </summary>
+		protected override void OnSubModuleLoad()
+		{
+			base.OnSubModuleLoad();
 
-            try
-            {
-                _extender = UIExtender.Create("Retinues.Core");
-                _extender.Register(typeof(SubModule).Assembly);
-                _extender.Enable();
-                Log.Debug("UIExtender enabled & assembly registered.");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+			try
+			{
+				// Keep log file size manageable
+				if (Log.LogFileLength > 10000)
+					Log.Truncate(5000);
+			}
+			catch (Exception e)
+			{
+				Log.Exception(e);
+			}
 
-            try
-            {
-                _harmony = new Harmony("Retinues.Core");
-                _harmony.PatchAll(Assembly.GetExecutingAssembly());
+			try
+			{
+				_extender = UIExtender.Create("Retinues.Core");
+				_extender.Register(typeof(SubModule).Assembly);
+				_extender.Enable();
+				Log.Debug("UIExtender enabled & assembly registered.");
+			}
+			catch (Exception e)
+			{
+				Log.Exception(e);
+			}
 
-                // Apply safe method patcher
-                SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
+			try
+			{
+				_harmony = new Harmony("Retinues.Core");
+				_harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-                Log.Debug("Harmony patches applied.");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+				// Apply safe method patcher
+				SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
 
-            // Check for incompatible mods and display warnings
-            ModCompatibility.IncompatibilityCheck();
-        }
+				Log.Debug("Harmony patches applied.");
+			}
+			catch (Exception e)
+			{
+				Log.Exception(e);
+			}
 
-        protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
-        {
-            base.OnGameStart(game, gameStarter);
+			// Check for incompatible mods and display warnings
+			ModCompatibility.IncompatibilityCheck();
+		}
 
-            if (gameStarter is CampaignGameStarter cs)
-            {
-                // Clear all static lists
-                ClearAll();
+		/// <summary>
+		/// Called when a game (campaign) starts or loads.
+		/// </summary>
+		protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
+		{
+			base.OnGameStart(game, gameStarter);
 
-                // Troop behaviors
-                cs.AddBehavior(new TroopBehavior());
+			if (gameStarter is CampaignGameStarter cs)
+			{
+				// Clear all static lists
+				ClearAll();
 
-                // Safety behaviors
-                cs.AddBehavior(new SanitizerBehavior());
-                cs.AddBehavior(new BackupBehavior());
-                cs.AddBehavior(new VersionBehavior());
+				// Troop behaviors
+				cs.AddBehavior(new TroopBehavior());
 
-                // Item behaviors
-                cs.AddBehavior(new UnlocksBehavior());
-                cs.AddBehavior(new StocksBehavior());
+				// Safety behaviors
+				cs.AddBehavior(new SanitizerBehavior());
+				cs.AddBehavior(new BackupBehavior());
+				cs.AddBehavior(new VersionBehavior());
 
-                // Retinue buff behavior
-                cs.AddBehavior(new RetinueBuffBehavior());
+				// Item behaviors
+				cs.AddBehavior(new UnlocksBehavior());
+				cs.AddBehavior(new StocksBehavior());
 
-                // XP behavior (skip if both costs are 0)
-                if (
-                    Config.GetOption<int>("BaseSkillXpCost") > 0
-                    || Config.GetOption<int>("SkillXpCostPerPoint") > 0
-                )
-                {
-                    cs.AddBehavior(new TroopXpBehavior());
-                }
+				// Retinue buff behavior
+				cs.AddBehavior(new RetinueBuffBehavior());
 
-                // Doctrine behaviors (skip if doctrines disabled)
-                if (Config.GetOption<bool>("EnableDoctrines"))
-                {
-                    cs.AddBehavior(new DoctrineServiceBehavior());
-                    cs.AddBehavior(new FeatServiceBehavior());
-                    cs.AddBehavior(new FeatNotificationBehavior());
-                    cs.AddBehavior(new DoctrineEffectRuntimeBehavior());
-                }
+				// XP behavior (skip if both costs are 0)
+				if (
+					Config.GetOption<int>("BaseSkillXpCost") > 0
+					|| Config.GetOption<int>("SkillXpCostPerPoint") > 0
+				)
+				{
+					cs.AddBehavior(new TroopXpBehavior());
+				}
 
-                // Legacy compatibility behaviors
-                LegacyCompatibility.AddBehaviors(cs);
+				// Doctrine behaviors (skip if doctrines disabled)
+				if (Config.GetOption<bool>("EnableDoctrines"))
+				{
+					cs.AddBehavior(new DoctrineServiceBehavior());
+					cs.AddBehavior(new FeatServiceBehavior());
+					cs.AddBehavior(new FeatNotificationBehavior());
+					cs.AddBehavior(new DoctrineEffectRuntimeBehavior());
+				}
 
-                // Mod compatibility behaviors
-                ModCompatibility.AddBehaviors(cs);
+				// Legacy compatibility behaviors
+				LegacyCompatibility.AddBehaviors(cs);
 
-                Log.Debug("Behaviors registered.");
-            }
+				// Mod compatibility behaviors
+				ModCompatibility.AddBehaviors(cs);
 
-            // Smoke test for localization
-            Log.Debug(L.S("loc_smoke_test", "Localization test: default fallback (EN)."));
-        }
+				Log.Debug("Behaviors registered.");
+			}
 
-        protected override void OnSubModuleUnloaded()
-        {
-            try
-            {
-                _harmony?.UnpatchAll("Retinues.Core");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+			// Smoke test for localization
+			Log.Debug(L.S("loc_smoke_test", "Localization test: default fallback (EN)."));
+		}
 
-            try
-            {
-                _extender?.Disable();
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+		/// <summary>
+		/// Called when the module is unloaded.
+		/// </summary>
+		protected override void OnSubModuleUnloaded()
+		{
+			try
+			{
+				_harmony?.UnpatchAll("Retinues.Core");
+			}
+			catch (Exception e)
+			{
+				Log.Exception(e);
+			}
 
-            base.OnSubModuleUnloaded();
-            Log.Debug("SubModule unloaded.");
-        }
+			try
+			{
+				_extender?.Disable();
+			}
+			catch (Exception e)
+			{
+				Log.Exception(e);
+			}
 
-        private static void ClearAll()
-        {
-            Log.Debug("Clearing all static properties.");
-            // Clear player info
-            Player.Reset();
-            // Clear active troops
-            WCharacter.ActiveTroops.Clear();
-            // Clear vanilla id map
-            WCharacter.VanillaStringIdMap.Clear();
-        }
-    }
+			base.OnSubModuleUnloaded();
+			Log.Debug("SubModule unloaded.");
+		}
+
+		/// <summary>
+		/// Clears static caches and player-related state used by the mod to ensure a clean slate
+		/// when starting or loading a new campaign to prevent cross-save contamination.
+		/// </summary>
+		private static void ClearAll()
+		{
+			Log.Debug("Clearing all static properties.");
+			// Clear player info
+			Player.Reset();
+			// Clear active troops
+			WCharacter.ActiveTroops.Clear();
+			// Clear vanilla id map
+			WCharacter.VanillaStringIdMap.Clear();
+		}
+	}
 }

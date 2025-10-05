@@ -5,6 +5,10 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for Agent, providing convenience properties for troop type and allegiance.
+    /// Used to distinguish player, ally, and enemy agents in battles.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WAgent
     {
@@ -24,6 +28,9 @@ namespace Retinues.Core.Game.Wrappers
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Constructs a WAgent wrapper and initializes troop type and allegiance properties.
+        /// </summary>
         public WAgent(Agent agent)
         {
             _agent = agent ?? throw new System.ArgumentNullException(nameof(agent));

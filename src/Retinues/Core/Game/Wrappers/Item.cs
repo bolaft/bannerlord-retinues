@@ -9,6 +9,9 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 
 namespace Retinues.Core.Game.Wrappers
 {
+    /// <summary>
+    /// Wrapper for ItemObject, provides helpers for slot logic, computed stats, unlocks, and stocks.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public class WItem(ItemObject itemObject) : StringIdentifier
     {
@@ -53,6 +56,9 @@ namespace Retinues.Core.Game.Wrappers
 
         public int Difficulty => _itemObject.Difficulty;
 
+        /// <summary>
+        /// Gets the equipment slots this item can be placed in, based on its type.
+        /// </summary>
         public List<EquipmentIndex> Slots
         {
             get
@@ -191,6 +197,9 @@ namespace Retinues.Core.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Gets the computed statistics for the item, such as armor, damage, speed, etc.
+        /// </summary>
         public Dictionary<string, int> Statistics
         {
             get
@@ -278,25 +287,49 @@ namespace Retinues.Core.Game.Wrappers
         //                         Unlocks                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the item is unlocked.
+        /// </summary>
         public bool IsUnlocked => UnlocksBehavior.IsUnlocked(StringId);
 
+        /// <summary>
+        /// Unlocks the item.
+        /// </summary>
         public void Unlock() => UnlocksBehavior.Unlock(Base);
 
+        /// <summary>
+        /// Locks the item.
+        /// </summary>
         public void Lock() => UnlocksBehavior.Lock(Base);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Stocks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the item is stocked.
+        /// </summary>
         public bool IsStocked => StocksBehavior.HasStock(StringId);
 
+        /// <summary>
+        /// Sets the stock count for the item.
+        /// </summary>
         public static void SetStock(WItem item, int count) =>
             StocksBehavior.Set(item?.StringId, count);
 
+        /// <summary>
+        /// Gets the current stock count for the item.
+        /// </summary>
         public int GetStock() => StocksBehavior.Get(StringId);
 
+        /// <summary>
+        /// Increases the stock count for the item by 1.
+        /// </summary>
         public void Stock() => StocksBehavior.Add(StringId, 1);
 
+        /// <summary>
+        /// Decreases the stock count for the item by 1.
+        /// </summary>
         public void Unstock() => StocksBehavior.Add(StringId, -1);
     }
 }

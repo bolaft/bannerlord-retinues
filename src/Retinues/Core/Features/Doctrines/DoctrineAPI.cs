@@ -7,6 +7,9 @@ using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Core.Features.Doctrines
 {
+    /// <summary>
+    /// Static API for doctrine and feat management. Provides helpers for querying, unlocking, progressing, and listening to doctrine/feat events.
+    /// </summary>
     [SafeClass]
     public static class DoctrineAPI
     {
@@ -27,7 +30,9 @@ namespace Retinues.Core.Features.Doctrines
         //                   Discovery / Catalog                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // All doctrine definitions (ordered by Column, then Row).
+        /// <summary>
+        /// Get all doctrine definitions, ordered by column and row.
+        /// </summary>
         public static IReadOnlyList<DoctrineDefinition> AllDoctrines()
         {
             return EnsureSvc(out var svc)
@@ -35,11 +40,15 @@ namespace Retinues.Core.Features.Doctrines
                 : Array.Empty<DoctrineDefinition>();
         }
 
-        // Get a doctrine definition by type.
+        /// <summary>
+        /// Get a doctrine definition by type.
+        /// </summary>
         public static DoctrineDefinition GetDoctrine<TDoctrine>()
             where TDoctrine : Doctrine => GetDoctrine(typeof(TDoctrine));
 
-        // Get a doctrine definition by type.
+        /// <summary>
+        /// Get a doctrine definition by type.
+        /// </summary>
         public static DoctrineDefinition GetDoctrine(Type doctrineType)
         {
             if (doctrineType == null)
@@ -47,7 +56,9 @@ namespace Retinues.Core.Features.Doctrines
             return GetDoctrine(doctrineType.FullName);
         }
 
-        // Get a doctrine definition by key (Type.FullName).
+        /// <summary>
+        /// Get a doctrine definition by key (Type.FullName).
+        /// </summary>
         public static DoctrineDefinition GetDoctrine(string doctrineKey)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(doctrineKey))
@@ -55,13 +66,15 @@ namespace Retinues.Core.Features.Doctrines
             return svc.GetDoctrine(doctrineKey);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                Doctrine Status & Unlocks               //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Get doctrine status by type.
+        /// </summary>
         public static DoctrineStatus GetDoctrineStatus<TDoctrine>()
             where TDoctrine : Doctrine => GetDoctrineStatus(typeof(TDoctrine));
 
+        /// <summary>
+        /// Get doctrine status by type.
+        /// </summary>
         public static DoctrineStatus GetDoctrineStatus(Type doctrineType)
         {
             if (!EnsureSvc(out var svc) || doctrineType == null)
@@ -69,6 +82,9 @@ namespace Retinues.Core.Features.Doctrines
             return svc.GetDoctrineStatus(doctrineType.FullName);
         }
 
+        /// <summary>
+        /// Get doctrine status by key.
+        /// </summary>
         public static DoctrineStatus GetDoctrineStatus(string doctrineKey)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(doctrineKey))
@@ -76,9 +92,15 @@ namespace Retinues.Core.Features.Doctrines
             return svc.GetDoctrineStatus(doctrineKey);
         }
 
+        /// <summary>
+        /// Returns true if the doctrine is unlocked.
+        /// </summary>
         public static bool IsDoctrineUnlocked<TDoctrine>()
             where TDoctrine : Doctrine => IsDoctrineUnlocked(typeof(TDoctrine));
 
+        /// <summary>
+        /// Returns true if the doctrine is unlocked.
+        /// </summary>
         public static bool IsDoctrineUnlocked(Type doctrineType)
         {
             if (!EnsureSvc(out var svc) || doctrineType == null)
@@ -86,6 +108,9 @@ namespace Retinues.Core.Features.Doctrines
             return svc.IsDoctrineUnlocked(doctrineType.FullName);
         }
 
+        /// <summary>
+        /// Returns true if the doctrine is unlocked.
+        /// </summary>
         public static bool IsDoctrineUnlocked(string doctrineKey)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(doctrineKey))
@@ -93,10 +118,15 @@ namespace Retinues.Core.Features.Doctrines
             return svc.IsDoctrineUnlocked(doctrineKey);
         }
 
-        // Try to acquire a doctrine (pays costs if eligible).
+        /// <summary>
+        /// Try to acquire a doctrine (pays costs if eligible).
+        /// </summary>
         public static bool TryAcquireDoctrine<TDoctrine>(out string reason)
             where TDoctrine : Doctrine => TryAcquireDoctrine(typeof(TDoctrine), out reason);
 
+        /// <summary>
+        /// Try to acquire a doctrine (pays costs if eligible).
+        /// </summary>
         public static bool TryAcquireDoctrine(Type doctrineType, out string reason)
         {
             if (!EnsureSvc(out var svc) || doctrineType == null)
@@ -107,6 +137,9 @@ namespace Retinues.Core.Features.Doctrines
             return svc.TryAcquireDoctrine(doctrineType.FullName, out reason);
         }
 
+        /// <summary>
+        /// Try to acquire a doctrine (pays costs if eligible).
+        /// </summary>
         public static bool TryAcquireDoctrine(string doctrineKey, out string reason)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(doctrineKey))
@@ -117,13 +150,15 @@ namespace Retinues.Core.Features.Doctrines
             return svc.TryAcquireDoctrine(doctrineKey, out reason);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //               Feat Progress (Type-Based)               //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Get feat progress by type.
+        /// </summary>
         public static int GetFeatProgress<TFeat>()
             where TFeat : Feat => GetFeatProgress(typeof(TFeat));
 
+        /// <summary>
+        /// Get feat progress by type.
+        /// </summary>
         public static int GetFeatProgress(Type featType)
         {
             if (!EnsureSvc(out var svc) || featType == null)
@@ -131,9 +166,15 @@ namespace Retinues.Core.Features.Doctrines
             return svc.GetFeatProgress(featType.FullName);
         }
 
+        /// <summary>
+        /// Get feat target by type.
+        /// </summary>
         public static int GetFeatTarget<TFeat>()
             where TFeat : Feat => GetFeatTarget(typeof(TFeat));
 
+        /// <summary>
+        /// Get feat target by type.
+        /// </summary>
         public static int GetFeatTarget(Type featType)
         {
             if (!EnsureSvc(out var svc) || featType == null)
@@ -141,9 +182,15 @@ namespace Retinues.Core.Features.Doctrines
             return svc.GetFeatTarget(featType.FullName);
         }
 
+        /// <summary>
+        /// Returns true if the feat is complete.
+        /// </summary>
         public static bool IsFeatComplete<TFeat>()
             where TFeat : Feat => IsFeatComplete(typeof(TFeat));
 
+        /// <summary>
+        /// Returns true if the feat is complete.
+        /// </summary>
         public static bool IsFeatComplete(Type featType)
         {
             if (!EnsureSvc(out var svc) || featType == null)
@@ -151,9 +198,15 @@ namespace Retinues.Core.Features.Doctrines
             return svc.IsFeatComplete(featType.FullName);
         }
 
+        /// <summary>
+        /// Set feat progress by type.
+        /// </summary>
         public static void SetFeatProgress<TFeat>(int amount)
             where TFeat : Feat => SetFeatProgress(typeof(TFeat), amount);
 
+        /// <summary>
+        /// Set feat progress by type.
+        /// </summary>
         public static void SetFeatProgress(Type featType, int amount)
         {
             if (!EnsureSvc(out var svc) || featType == null)
@@ -161,9 +214,15 @@ namespace Retinues.Core.Features.Doctrines
             svc.SetFeatProgress(featType.FullName, amount);
         }
 
+        /// <summary>
+        /// Advance feat progress by type.
+        /// </summary>
         public static int AdvanceFeat<TFeat>(int amount = 1)
             where TFeat : Feat => AdvanceFeat(typeof(TFeat), amount);
 
+        /// <summary>
+        /// Advance feat progress by type.
+        /// </summary>
         public static int AdvanceFeat(Type featType, int amount = 1)
         {
             if (!EnsureSvc(out var svc) || featType == null)
@@ -171,10 +230,9 @@ namespace Retinues.Core.Features.Doctrines
             return svc.AdvanceFeat(featType.FullName, amount);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                Feat Progress (Key-Based)               //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Get feat progress by key.
+        /// </summary>
         public static int GetFeatProgress(string featKey)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(featKey))
@@ -182,6 +240,9 @@ namespace Retinues.Core.Features.Doctrines
             return svc.GetFeatProgress(featKey);
         }
 
+        /// <summary>
+        /// Get feat target by key.
+        /// </summary>
         public static int GetFeatTarget(string featKey)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(featKey))
@@ -189,6 +250,9 @@ namespace Retinues.Core.Features.Doctrines
             return svc.GetFeatTarget(featKey);
         }
 
+        /// <summary>
+        /// Returns true if the feat is complete.
+        /// </summary>
         public static bool IsFeatComplete(string featKey)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(featKey))
@@ -196,6 +260,9 @@ namespace Retinues.Core.Features.Doctrines
             return svc.IsFeatComplete(featKey);
         }
 
+        /// <summary>
+        /// Set feat progress by key.
+        /// </summary>
         public static void SetFeatProgress(string featKey, int amount)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(featKey))
@@ -203,6 +270,9 @@ namespace Retinues.Core.Features.Doctrines
             svc.SetFeatProgress(featKey, amount);
         }
 
+        /// <summary>
+        /// Advance feat progress by key.
+        /// </summary>
         public static int AdvanceFeat(string featKey, int amount = 1)
         {
             if (!EnsureSvc(out var svc) || string.IsNullOrEmpty(featKey))
@@ -214,7 +284,9 @@ namespace Retinues.Core.Features.Doctrines
         //                     Events Helpers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Add a listener for doctrine unlocked (key = Doctrine type full name).
+        /// <summary>
+        /// Add a listener for doctrine unlocked (key = Doctrine type full name).
+        /// </summary>
         public static void AddDoctrineUnlockedListener(Action<string> listener)
         {
             if (!EnsureSvc(out var svc) || listener == null)
@@ -222,6 +294,9 @@ namespace Retinues.Core.Features.Doctrines
             svc.DoctrineUnlocked += listener;
         }
 
+        /// <summary>
+        /// Remove a listener for doctrine unlocked.
+        /// </summary>
         public static void RemoveDoctrineUnlockedListener(Action<string> listener)
         {
             if (!EnsureSvc(out var svc) || listener == null)
@@ -229,6 +304,9 @@ namespace Retinues.Core.Features.Doctrines
             svc.DoctrineUnlocked -= listener;
         }
 
+        /// <summary>
+        /// Add a listener for catalog built.
+        /// </summary>
         public static void AddCatalogBuiltListener(Action listener)
         {
             if (!EnsureSvc(out var svc) || listener == null)
@@ -236,7 +314,9 @@ namespace Retinues.Core.Features.Doctrines
             svc.CatalogBuilt += listener;
         }
 
-        // Add a listener for feat completed (key = Feat type full name).
+        /// <summary>
+        /// Add a listener for feat completed (key = Feat type full name).
+        /// </summary>
         public static void AddFeatCompletedListener(Action<string> listener)
         {
             if (!EnsureSvc(out var svc) || listener == null)
@@ -244,6 +324,9 @@ namespace Retinues.Core.Features.Doctrines
             svc.FeatCompleted += listener;
         }
 
+        /// <summary>
+        /// Remove a listener for feat completed.
+        /// </summary>
         public static void RemoveFeatCompletedListener(Action<string> listener)
         {
             if (!EnsureSvc(out var svc) || listener == null)

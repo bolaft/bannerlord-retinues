@@ -2,6 +2,9 @@ using Retinues.Core.Utils;
 
 namespace Retinues.Core.Game.Wrappers.Base
 {
+    /// <summary>
+    /// Abstract base for faction-related wrappers, provides access to clan, kingdom, and player faction logic.
+    /// </summary>
     [SafeClass(SwallowByDefault = false)]
     public abstract class FactionObject : StringIdentifier
     {
@@ -9,6 +12,9 @@ namespace Retinues.Core.Game.Wrappers.Base
 
         public abstract WFaction Kingdom { get; }
 
+        /// <summary>
+        /// Gets the player faction, preferring clan or kingdom based on config.
+        /// </summary>
         public WFaction PlayerFaction
         {
             get

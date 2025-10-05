@@ -21,6 +21,10 @@ namespace Retinues.Core.Utils
         Critical = 6,
     }
 
+    /// <summary>
+    /// Logging utility for mod diagnostics and debugging.
+    /// Supports log levels, file and in-game output, exception reporting, and log file truncation.
+    /// </summary>
     public static class Log
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -316,6 +320,9 @@ namespace Retinues.Core.Utils
         //                       Truncation                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the current number of lines in the log file.
+        /// </summary>
         public static int LogFileLength
         {
             get
@@ -337,6 +344,9 @@ namespace Retinues.Core.Utils
             }
         }
 
+        /// <summary>
+        /// Truncates the log file, keeping only the last N lines.
+        /// </summary>
         public static void Truncate(int keepLastNLines)
         {
             if (keepLastNLines < 0) keepLastNLines = 0;

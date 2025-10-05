@@ -10,6 +10,10 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Core.Features.Xp.Behaviors
 {
+    /// <summary>
+    /// Campaign behavior for tracking and managing XP pools for custom troops.
+    /// Provides static API for getting, setting, spending, and refunding troop XP.
+    /// </summary>
     [SafeClass]
     public sealed class TroopXpBehavior : CampaignBehaviorBase
     {
@@ -61,6 +65,9 @@ namespace Retinues.Core.Features.Xp.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Get the XP pool for a troop.
+        /// </summary>
         public static int Get(WCharacter troop)
         {
             if (troop == null || Instance == null)
@@ -68,6 +75,9 @@ namespace Retinues.Core.Features.Xp.Behaviors
             return Instance.GetPool(PoolKey(troop));
         }
 
+        /// <summary>
+        /// Set the XP pool for a troop.
+        /// </summary>
         public static void Set(WCharacter troop, int value)
         {
             if (troop == null || Instance == null || value < 0)
@@ -75,6 +85,9 @@ namespace Retinues.Core.Features.Xp.Behaviors
             Instance._xpPools[PoolKey(troop)] = value;
         }
 
+        /// <summary>
+        /// Add delta to the XP pool for a troop.
+        /// </summary>
         public static void Add(WCharacter troop, int delta)
         {
             if (troop == null || Instance == null || delta == 0)
@@ -83,6 +96,9 @@ namespace Retinues.Core.Features.Xp.Behaviors
             Instance._xpPools[PoolKey(troop)] = Math.Max(0, cur + delta);
         }
 
+        /// <summary>
+        /// Try to spend XP from a troop's pool. Returns true if successful.
+        /// </summary>
         public static bool TrySpend(WCharacter troop, int amount)
         {
             if (amount <= 0)
@@ -96,6 +112,9 @@ namespace Retinues.Core.Features.Xp.Behaviors
             return true;
         }
 
+        /// <summary>
+        /// Refund XP to a troop's pool if AdaptiveTraining doctrine is unlocked.
+        /// </summary>
         public static void Refund(WCharacter troop, int amount)
         {
             if (troop == null || amount <= 0)
