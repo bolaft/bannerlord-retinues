@@ -69,11 +69,10 @@ namespace Retinues.Core.Features.Xp.Patches
                         continue; // skip killed lines
 
                     // Compute the same numbers vanilla uses
-                    var explained = model.CalculateXpGainFromBattles(
+                    var baseXp = model.CalculateXpGainFromBattles(
                         (FlattenedTroopRosterElement)row,
                         party.Base.Party
                     );
-                    int baseXp = MathF.Round(explained.ResultNumber);
                     if (baseXp <= 0)
                         continue; // no XP to give
 
