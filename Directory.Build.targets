@@ -1,0 +1,34 @@
+<Project>
+  <!-- Pre-build: optionally run strings.py once for the Core project -->
+  <Target Name="GenerateStrings" BeforeTargets="BeforeBuild"
+          Condition="'$(RunStrings)' == 'true' AND '$(MSBuildProjectName)' == 'Retinues.Core'">
+    <Message Text="Running strings.py…" Importance="High" />
+    <Exec Command="python $(RepoRoot)strings.py" IgnoreExitCode="false" />
+  </Target>
+
+  <!-- After build: stage DLL into /bin/Modules/<ModuleName>/bin/Win64_Shipping_Client -->
+  <Target Name="StageToModuleBin" AfterTargets="Build" Condition="'$(ModuleName)' != ''">
+    <PropertyGroup>
+      <ModuleOutDir>$(StagingRoot)$(ModuleName)</ModuleOutDir>
+      <BinOutDir>$(ModuleOutDir)\bin\Win64_Shipping_Client</BinOutDir>
+    </PropertyGroup>
+    <MakeDir Directories="$(BinOutDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(BinOutDir)" SkipUnchangedFiles="true" />
+    <!-- If SubModule.xml exists in the project, copy it to the module root -->
+    <Copy SourceFiles="SubModule.xml"
+          DestinationFiles="$(ModuleOutDir)\SubModule.xml"
+          SkipUnchangedFiles="true"
+          Condition="Exists('SubModule.xml')" />
+  </Target>
+
+  <!-- Optional: deploy to the live game Modules folder (toggle with DeployToGame=false) -->
+  <Target Name="DeployToGame" AfterTargets="StageToModuleBin" Condition="'$(DeployToGame)' == 'true' AND '$(ModuleName)' != ''">
+    <PropertyGroup>
+      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
+    </PropertyGroup>
+    <MakeDir Directories="$(GameModuleDir)\bin\Win64_Shipping_Client" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameModuleDir)\bin\Win64_Shipping_Client" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(ModuleOutDir)\SubModule.xml" DestinationFiles="$(GameModuleDir)\SubModule.xml"
+          SkipUnchangedFiles="true" Condition="Exists('$(ModuleOutDir)\SubModule.xml')" />
+  </Target>
+</Project>

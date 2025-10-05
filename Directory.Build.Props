@@ -1,10 +1,23 @@
 <Project>
   <PropertyGroup>
-    <!-- Resolve repo root as an absolute path -->
+    <!-- Absolute repo root -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
-    <!-- Put *all* obj folders here instead of beside each .csproj -->
+
+    <!-- Put all obj folders under /obj/<Project>/<Config>/ -->
     <BaseIntermediateOutputPath>$(RepoRoot)obj\</BaseIntermediateOutputPath>
-    <!-- Per-project, per-config subfolder; add $(TargetFramework) if you multi-target -->
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+
+    <!-- Defaults (can be overridden by Local props or CLI -p:) -->
+    <BannerlordGameDir Condition="'$(BannerlordGameDir)' == ''">/path/to/Bannerlord</BannerlordGameDir>
+    <StagingRoot Condition="'$(StagingRoot)' == ''">$(RepoRoot)bin\Modules\</StagingRoot>
+    <DefaultConfiguration Condition="'$(DefaultConfiguration)' == ''">Debug</DefaultConfiguration>
+
+    <!-- Toggleable build features -->
+    <DeployToGame Condition="'$(DeployToGame)' == ''">true</DeployToGame>
+    <RunStrings Condition="'$(RunStrings)' == ''">true</RunStrings>
   </PropertyGroup>
+
+  <!-- Allow per-dev overrides without committing secrets -->
+  <Import Project="$(MSBuildThisFileDirectory)Retinues.Local.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)Retinues.Local.props')" />
 </Project>
