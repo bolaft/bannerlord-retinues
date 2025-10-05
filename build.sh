@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+
 # Defaults (overridden by Local.props and flags)
+BL="13"
 CONFIG=""
 GAME_DIR=""
 TARGET="core" # core|mcm|prefabs|all
@@ -36,6 +38,7 @@ while [[ $# -gt 0 ]]; do
     -t|--target) TARGET="$2"; shift 2;;
     -c|--config) CONFIG="$2"; shift 2;;
     -g|--game-dir) GAME_DIR="$2"; shift 2;;
+    --bl) BL="$2"; shift 2;;
     --no-deploy) DEPLOY="false"; shift;;
     --deploy) DEPLOY="true"; shift;;
     --prefabs) RUN_PREFABS="yes"; shift;;
@@ -55,6 +58,7 @@ MCM_PROJ="$ROOT_DIR/src/Retinues/MCM/Retinues.MCM.csproj"
 # Compute msbuild -p: args
 MSBUILD_PROPS=()
 
+
 if [[ -n "${GAME_DIR}" ]]; then
   MSBUILD_PROPS+=("-p:BannerlordGameDir=${GAME_DIR}")
 fi
@@ -62,6 +66,9 @@ if [[ "${DEPLOY}" == "false" ]]; then
   MSBUILD_PROPS+=("-p:DeployToGame=false")
 else
   MSBUILD_PROPS+=("-p:DeployToGame=true")
+fi
+if [[ -n "$BL" ]]; then
+  MSBUILD_PROPS+=("-p:BL=$BL")
 fi
 
 # If no config provided, let MSBuild default to $(DefaultConfiguration)
