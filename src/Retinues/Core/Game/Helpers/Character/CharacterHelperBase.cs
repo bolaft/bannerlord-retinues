@@ -1,7 +1,6 @@
 using System.Reflection;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 
 namespace Retinues.Core.Game.Helpers.Character
