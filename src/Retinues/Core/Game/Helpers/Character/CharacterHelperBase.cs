@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
-using TaleWorlds.Library;
 
 namespace Retinues.Core.Game.Helpers.Character
 {
@@ -64,91 +60,26 @@ namespace Retinues.Core.Game.Helpers.Character
 
         public virtual CharacterObject CopyInto(CharacterObject src, CharacterObject tgt)
         {
-            if (src == null || tgt == null)
-                return tgt;
-
             var origin = (CharacterObject)F_originCharacter.GetValue(src) ?? src;
             F_originCharacter.SetValue(tgt, origin);
 
-            // Fields the engine copies
+            // Copy the fields the engine copies
             F_occupation.SetValue(tgt, F_occupation.GetValue(src));
             F_persona.SetValue(tgt, F_persona.GetValue(src));
 
-            var traitsSrc = (PropertyOwner<TraitObject>)F_characterTraits.GetValue(src);
-            F_characterTraits.SetValue(tgt, new PropertyOwner<TraitObject>(traitsSrc));
+            var traitsSrc = (CharacterTraits)F_characterTraits.GetValue(src);
+            F_characterTraits.SetValue(
+                tgt,
+                traitsSrc != null ? new CharacterTraits(traitsSrc) : null
+            );
 
             F_civilianEquipmentTemplate.SetValue(tgt, F_civilianEquipmentTemplate.GetValue(src));
             F_battleEquipmentTemplate.SetValue(tgt, F_battleEquipmentTemplate.GetValue(src));
 
-            // Fill remaining data via CharacterObject.FillFrom
+            // Fill the rest
             M_fillFrom.Invoke(tgt, [src]);
 
-            // Fresh roster with deep-cloned Equipment
-            InstallFreshRosterFromSourceBattleSets(src, tgt);
-
             return tgt;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        protected void InstallFreshRosterFromSourceBattleSets(
-            CharacterObject src,
-            CharacterObject tgt
-        )
-        {
-            try
-            {
-                var srcEquipments = src.BattleEquipments?.ToList() ?? [];
-                if (srcEquipments.Count == 0)
-                    srcEquipments.Add(new Equipment(Equipment.EquipmentType.Battle));
-
-                var cloned = new List<Equipment>(srcEquipments.Count);
-                foreach (var e in srcEquipments)
-                {
-                    var code = e?.CalculateEquipmentCode();
-                    var ne =
-                        (code != null)
-                            ? Equipment.CreateFromEquipmentCode(code)
-                            : new Equipment(Equipment.EquipmentType.Battle);
-                    try
-                    {
-                        AccessTools
-                            .Field(typeof(Equipment), "_equipmentType")
-                            ?.SetValue(ne, Equipment.EquipmentType.Battle);
-                    }
-                    catch { }
-                    cloned.Add(ne);
-                }
-
-                var newRoster = (MBEquipmentRoster)
-                    Activator.CreateInstance(typeof(MBEquipmentRoster), nonPublic: true);
-
-                if (F_roster_equipments != null)
-                    F_roster_equipments.SetValue(newRoster, new MBList<Equipment>(cloned));
-                else
-                    AccessTools
-                        .Property(typeof(MBEquipmentRoster), "AllEquipments")
-                        ?.SetValue(newRoster, new MBReadOnlyList<Equipment>(cloned), null);
-
-                if (F_roster_default != null)
-                    F_roster_default.SetValue(newRoster, cloned[0]);
-
-                F_equipmentRoster.SetValue(tgt, newRoster);
-            }
-            catch
-            {
-                try
-                {
-                    F_equipmentRoster.SetValue(
-                        tgt,
-                        (MBEquipmentRoster)
-                            Activator.CreateInstance(typeof(MBEquipmentRoster), nonPublic: true)
-                    );
-                }
-                catch { }
-            }
         }
     }
 }
