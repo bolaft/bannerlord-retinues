@@ -1,141 +1,129 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ---------------------------
-# Defaults (override with -g)
-# ---------------------------
-GAME_DIR_DEFAULT='C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord'
-CONFIG_DEFAULT='Debug'
-
-# ---------------------------
-# Parse args
-# ---------------------------
-GAME_DIR="$GAME_DIR_DEFAULT"
-CONFIG="$CONFIG_DEFAULT"
-RUN_PREFABS=1
-PREFABS_ONLY=0
-BUILD_MCM=0
+# Defaults (overridden by Local.props and flags)
+CONFIG=""
+GAME_DIR=""
+TARGET="core" # core|mcm|prefabs|all
+DEPLOY="true"
+RUN_PREFABS="auto" # auto|yes|no
 
 usage() {
-  echo "Usage: $0 [-g \"<Bannerlord Game Dir>\"] [-c Debug|Release] [--no-prefabs] [--prefabs-only] [--MCM]"
-  echo "  -g, --game-dir      Path to the Mount & Blade II Bannerlord folder"
-  echo "  -c, --config        Build configuration (Debug/Release). Default: $CONFIG_DEFAULT"
-  echo "      --no-prefabs    Skip running PrefabBuilder"
-  echo "      --prefabs-only  Only run PrefabBuilder"
-  echo "      --MCM           Build Retinues.MCM"
+  cat <<'USAGE'
+Usage:
+  ./build.sh [options]
+
+Options:
+  -t, --target          core | mcm | prefabs | all               (default: core)
+  -c, --config          dev | release                            (default: from Local.props or dev)
+  -g, --game-dir        Path to Bannerlord folder                (overrides Local.props)
+      --no-deploy       Do not copy to game Modules
+      --deploy          Copy to game Modules (default)
+      --prefabs         Force run PrefabBuilder before build
+      --no-prefabs      Skip PrefabBuilder
+  -h, --help            Show help
+
+Examples:
+  ./build.sh -t core -c release
+  ./build.sh -t all --no-deploy --prefabs
+USAGE
   exit 1
 }
 
+# Parse args
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -g|--game-dir)
-      [[ $# -lt 2 ]] && usage
-      GAME_DIR="$2"
-      shift 2
-      ;;
-    -c|--config)
-      [[ $# -lt 2 ]] && usage
-      CONFIG="$2"
-      shift 2
-      ;;
-    --no-prefabs)
-      RUN_PREFABS=0
-      shift
-      ;;
-    --prefabs-only)
-      PREFABS_ONLY=1
-      shift
-      ;;
-    --MCM)
-      BUILD_MCM=1
-      shift
-      ;;
-    -h|--help)
-      usage
-      ;;
-    *)
-      echo "Unknown arg: $1"
-      usage
-      ;;
+    -t|--target) TARGET="$2"; shift 2;;
+    -c|--config) CONFIG="$2"; shift 2;;
+    -g|--game-dir) GAME_DIR="$2"; shift 2;;
+    --no-deploy) DEPLOY="false"; shift;;
+    --deploy) DEPLOY="true"; shift;;
+    --prefabs) RUN_PREFABS="yes"; shift;;
+    --no-prefabs) RUN_PREFABS="no"; shift;;
+    -h|--help) usage;;
+    *) echo "Unknown arg: $1"; usage;;
   esac
 done
 
-# ---------------------------
-# Resolve paths
-# ---------------------------
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+SLN_DIR="$ROOT_DIR"
+
 PREFAB_PROJ="$ROOT_DIR/src/PrefabBuilder/PrefabBuilder.csproj"
 CORE_PROJ="$ROOT_DIR/src/Retinues/Core/Retinues.Core.csproj"
 MCM_PROJ="$ROOT_DIR/src/Retinues/MCM/Retinues.MCM.csproj"
 
+# Compute msbuild -p: args
+MSBUILD_PROPS=()
+
+if [[ -n "${GAME_DIR}" ]]; then
+  MSBUILD_PROPS+=("-p:BannerlordGameDir=${GAME_DIR}")
+fi
+if [[ "${DEPLOY}" == "false" ]]; then
+  MSBUILD_PROPS+=("-p:DeployToGame=false")
+else
+  MSBUILD_PROPS+=("-p:DeployToGame=true")
+fi
+
+# If no config provided, let MSBuild default to $(DefaultConfiguration)
+if [[ -n "${CONFIG}" ]]; then
+  MSBUILD_CONFIG=(-c "${CONFIG}")
+else
+  MSBUILD_CONFIG=(-c dev) # overridden by $(DefaultConfiguration) inside props
+fi
+
+# Prefabs auto: run if project exists and target includes core/all
+if [[ "${RUN_PREFABS}" == "auto" ]]; then
+  if [[ -f "$PREFAB_PROJ" && ( "$TARGET" == "core" || "$TARGET" == "all" || "$TARGET" == "prefabs" ) ]]; then
+    RUN_PREFABS="yes"
+  else
+    RUN_PREFABS="no"
+  fi
+fi
+
 echo "== Retinues build =="
-echo " Game dir : $GAME_DIR"
-echo " Config   : $CONFIG"
-echo " Root     : $ROOT_DIR"
+echo " Target : $TARGET"
+echo " Config : ${MSBUILD_CONFIG[1]}"
+[[ -n "${GAME_DIR}" ]] && echo " Game   : $GAME_DIR"
+echo " Deploy : $DEPLOY"
+echo " Prefab : $RUN_PREFABS"
 echo
 
-# ---------------------------
-# Sanity checks
-# ---------------------------
-if [[ ! -f "$CORE_PROJ" ]]; then
-  echo "ERROR: Core project not found at: $CORE_PROJ" >&2
-  exit 2
-fi
-if [[ ! -f "$MCM_PROJ" ]]; then
-  echo "ERROR: MCM project not found at: $MCM_PROJ" >&2
-  exit 2
-fi
-if [[ $RUN_PREFABS -eq 1 && ! -f "$PREFAB_PROJ" ]]; then
-  echo "WARN: PrefabBuilder project not found, skipping prefab generation." >&2
-  RUN_PREFABS=0
-fi
-
-# Optional: pre-check the Bannerlord bin path
-BL_BIN="$GAME_DIR/bin/Win64_Shipping_Client"
-if [[ ! -d "$BL_BIN" ]]; then
-  echo "WARN: Bannerlord bin not found at: $BL_BIN" >&2
-  echo "     If this path is wrong, pass -g \"<correct path>\"." >&2
-fi
-
-# ---------------------------
-# 1) Build & run PrefabBuilder (optional)
-# ---------------------------
-if [[ $RUN_PREFABS -eq 1 ]]; then
+# 1) Prefabs
+if [[ "$RUN_PREFABS" == "yes" && -f "$PREFAB_PROJ" ]]; then
   echo "== Building PrefabBuilder =="
-  dotnet build "$PREFAB_PROJ" -c "$CONFIG"
+  dotnet build "$PREFAB_PROJ"
+
   echo "== Running PrefabBuilder =="
-  dotnet run --no-build --project "$PREFAB_PROJ"
+  PREFAB_OUT="$ROOT_DIR/bin/Modules/Retinues.Core/GUI"
+  TPL_TEMPLATES="$ROOT_DIR/tpl/templates"
+  TPL_PARTIALS="$ROOT_DIR/tpl/partials"
+
+  mkdir -p "$PREFAB_OUT"
+
+  dotnet run --no-build --project "$PREFAB_PROJ" -- \
+    --out "$PREFAB_OUT" \
+    --templates "$TPL_TEMPLATES" \
+    --partials "$TPL_PARTIALS"
   echo
 fi
 
-if [[ $PREFABS_ONLY -eq 1 ]]; then
-  echo "== Prefabs-only mode: skipping Core and MCM builds =="
-  echo "== Build finished ✅ =="
-  exit 0
-fi
-
-# ---------------------------
-# 2) Build Core or MCM
-# ---------------------------
-if [[ $BUILD_MCM -eq 1 ]]; then
-  echo "== Building Retinues.MCM =="
-  dotnet build "$MCM_PROJ" -c "$CONFIG" \
-    -p:BannerlordGameDir="$GAME_DIR"
-
-else
-  # Run strings.py before building Core
-  STRINGS_SCRIPT="$ROOT_DIR/strings.py"
-  if [[ -f "$STRINGS_SCRIPT" ]]; then
-    echo "== Running strings.py =="
-    python "$STRINGS_SCRIPT"
-  else
-    echo "WARN: strings.py not found at $STRINGS_SCRIPT, skipping."
-  fi
-
-  echo "== Building Retinues.Core =="
-  dotnet build "$CORE_PROJ" -c "$CONFIG" \
-    -p:BannerlordGameDir="$GAME_DIR"
-fi
-
+# 2) Main targets
+case "$TARGET" in
+  core)
+    dotnet build "$CORE_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
+    ;;
+  mcm)
+    dotnet build "$MCM_PROJ"  "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
+    ;;
+  prefabs)
+  # already done; nothing else
+    ;;
+  all)
+    dotnet build "$CORE_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
+    dotnet build "$MCM_PROJ"  "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
+    ;;
+  *)
+    echo "Unknown target: $TARGET"; exit 2;;
+esac
 
 echo "== Build finished ✅ == ($(date))"

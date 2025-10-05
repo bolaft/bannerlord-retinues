@@ -1,7 +1,7 @@
 [
   {
     "id": "ret_acquire_fief_to_unlock",
-    "default": "Acquire a fief to unlock clan troops.",
+    "EN": "Acquire a fief to unlock clan troops.",
     "BR": "Conquiste um feudo para desbloquear as tropas do clã.",
     "CNs": "占领一个封地以解锁家族部队。",
     "CNt": "佔領一個封地以解鎖家族部隊。",
@@ -17,7 +17,7 @@
   },
   {
     "id": "ret_adaptive_training",
-    "default": "Adaptive Training",
+    "EN": "Adaptive Training",
     "BR": "Treinamento Adaptativo",
     "CNs": "适应性训练",
     "CNt": "適應性訓練",
@@ -33,7 +33,7 @@
   },
   {
     "id": "ret_adaptive_training_150_in_each_skill",
-    "default": "For each skill, have at least one custom troop with a level of 150 or higher.",
+    "EN": "For each skill, have at least one custom troop with a level of 150 or higher.",
     "BR": "Para cada habilidade, tenha ao menos uma tropa personalizada com nível 150 ou superior.",
     "CNs": "对于每项技能，至少拥有一支自定义部队等级达到150或更高。",
     "CNt": "對於每項技能，至少擁有一支自定義部隊等級達到150或更高。",
@@ -49,7 +49,7 @@
   },
   {
     "id": "ret_adaptive_training_5_weapons",
-    "default": "In a single battle, get a kill using five different weapons classes.",
+    "EN": "In a single battle, get a kill using five different weapons classes.",
     "BR": "Em uma única batalha, consiga uma baixa usando cinco classes de armas diferentes.",
     "CNs": "在一场战斗中，使用五种不同武器类别各击杀一次。",
     "CNt": "在一場戰鬥中，使用五種不同武器類別各擊殺一次。",
@@ -65,7 +65,7 @@
   },
   {
     "id": "ret_adaptive_training_description",
-    "default": "XP is refunded when lowering a troop's skill.",
+    "EN": "XP is refunded when lowering a troop's skill.",
     "BR": "XP é reembolsado ao reduzir a habilidade de uma tropa.",
     "CNs": "降低部队技能时会返还经验值。",
     "CNt": "降低部隊技能時會返還經驗值。",
@@ -81,7 +81,7 @@
   },
   {
     "id": "ret_adaptive_training_win_with_even_split",
-    "default": "Win a battle against over 100 enemies using a party evenly split among infantry, cavalry and ranged clan troops",
+    "EN": "Win a battle against over 100 enemies using a party evenly split among infantry, cavalry and ranged clan troops",
     "BR": "Vença uma batalha contra mais de 100 inimigos usando um grupo dividido igualmente entre infantaria, cavalaria e tropas de clã à distância.",
     "CNs": "率领步兵、骑兵和远程家族部队平均分配的小队，在一场对抗超过100名敌人的战斗中取胜。",
     "CNt": "率領步兵、騎兵和遠程家族部隊平均分配的小隊，在一場對抗超過100名敵人的戰鬥中取勝。",
@@ -97,7 +97,7 @@
   },
   {
     "id": "ret_add_upgrade",
-    "default": "Add Upgrade",
+    "EN": "Add Upgrade",
     "BR": "Adicionar Aprimoramento",
     "CNs": "添加升级",
     "CNt": "新增升級",
@@ -113,7 +113,7 @@
   },
   {
     "id": "ret_add_upgrade_button_text",
-    "default": "Add Upgrade",
+    "EN": "Add Upgrade",
     "BR": "Adicionar Aprimoramento",
     "CNs": "添加升级",
     "CNt": "新增升級",
@@ -129,7 +129,7 @@
   },
   {
     "id": "ret_ancestral_heritage",
-    "default": "Ancestral Heritage",
+    "EN": "Ancestral Heritage",
     "BR": "Herança Ancestral",
     "CNs": "祖传遗产",
     "CNt": "祖傳遺產",
@@ -145,7 +145,7 @@
   },
   {
     "id": "ret_ancestral_heritage_150_outnumbered_own_culture",
-    "default": "Win a 150+ battle while outnumbered and fielding only custom troops of your own culture.",
+    "EN": "Win a 150+ battle while outnumbered and fielding only custom troops of your own culture.",
     "BR": "Vença uma batalha de 150+ inimigos, em desvantagem numérica, utilizando apenas tropas personalizadas da sua própria cultura.",
     "CNs": "在人数劣势下，仅使用本文化的自定义部队赢得一场150+敌人的战斗。",
     "CNt": "在人數劣勢下，僅使用本文化的自定義部隊贏得一場150+敵人的戰鬥。",
@@ -161,7 +161,7 @@
   },
   {
     "id": "ret_ancestral_heritage_capture_own_culture_fief",
-    "default": "Capture a fief of your own culture from an enemy kingdom.",
+    "EN": "Capture a fief of your own culture from an enemy kingdom.",
     "BR": "Conquiste de um reino inimigo um feudo da sua própria cultura.",
     "CNs": "从敌对王国手中夺取一个属于本文化的封地。",
     "CNt": "從敵對王國手中奪取一個屬於本文化的封地。",
@@ -177,7 +177,7 @@
   },
   {
     "id": "ret_ancestral_heritage_description",
-    "default": "Unlocks all items of clan and kingdom cultures.",
+    "EN": "Unlocks all items of clan and kingdom cultures.",
     "BR": "Desbloqueia todos os itens das culturas do clã e do reino.",
     "CNs": "解锁家族与王国文化的所有物品。",
     "CNt": "解鎖家族與王國文化的所有物品。",
@@ -193,7 +193,7 @@
   },
   {
     "id": "ret_ancestral_heritage_tournament_own_culture_town",
-    "default": "Win a tournament in a town of your own culture.",
+    "EN": "Win a tournament in a town of your own culture.",
     "BR": "Vença um torneio em uma cidade da sua própria cultura.",
     "CNs": "在本文化的城镇赢得一场锦标赛。",
     "CNt": "在本文化的城鎮贏得一場比武大會。",
@@ -209,7 +209,7 @@
   },
   {
     "id": "ret_apply_conversions_button_text",
-    "default": "Convert",
+    "EN": "Convert",
     "BR": "Converter",
     "CNs": "转换",
     "CNt": "轉換",
@@ -225,7 +225,7 @@
   },
   {
     "id": "ret_available_troop_xp",
-    "default": "{XP} xp",
+    "EN": "{XP} xp",
     "BR": "{XP} xp",
     "CNs": "{XP} 经验",
     "CNt": "{XP} 經驗",
@@ -241,7 +241,7 @@
   },
   {
     "id": "ret_battlefield_tithes",
-    "default": "Battlefield Tithes",
+    "EN": "Battlefield Tithes",
     "BR": "Dízimos de Campo de Batalha",
     "CNs": "战场什一税",
     "CNt": "戰場什一稅",
@@ -257,7 +257,7 @@
   },
   {
     "id": "ret_battlefield_tithes_description",
-    "default": "Can unlock items from allied party kills.",
+    "EN": "Can unlock items from allied party kills.",
     "BR": "Pode desbloquear itens a partir de abates do grupo aliado.",
     "CNs": "可通过盟友击杀解锁物品。",
     "CNt": "可透過盟友擊殺解鎖物品。",
@@ -273,7 +273,7 @@
   },
   {
     "id": "ret_battlefield_tithes_lead_army_victory",
-    "default": "Lead an army of mostly allied troops to victory against an enemy army.",
+    "EN": "Lead an army of mostly allied troops to victory against an enemy army.",
     "BR": "Conduza um exército composto majoritariamente por aliados à vitória contra um exército inimigo.",
     "CNs": "率领以盟军为主的军队战胜敌军。",
     "CNt": "率領以盟軍為主的軍隊戰勝敵軍。",
@@ -289,7 +289,7 @@
   },
   {
     "id": "ret_battlefield_tithes_quest_for_allied_lord",
-    "default": "Complete 5 quests for allied lords.",
+    "EN": "Complete 5 quests for allied lords.",
     "BR": "Complete 5 missões para lordes aliados.",
     "CNs": "为盟友领主完成5个任务。",
     "CNt": "為盟友領主完成5個任務。",
@@ -305,7 +305,7 @@
   },
   {
     "id": "ret_battlefield_tithes_turn_tide_allied_army_battle",
-    "default": "Turn the tide of a battle involving an allied army.",
+    "EN": "Turn the tide of a battle involving an allied army.",
     "BR": "Vire o jogo em uma batalha envolvendo um exército aliado.",
     "CNs": "在涉及盟军的战斗中扭转战局。",
     "CNt": "在涉及盟軍的戰鬥中扭轉戰局。",
@@ -321,7 +321,7 @@
   },
   {
     "id": "ret_body_slot_text",
-    "default": "Body",
+    "EN": "Body",
     "BR": "Corpo",
     "CNs": "身体",
     "CNt": "身體",
@@ -337,7 +337,7 @@
   },
   {
     "id": "ret_bound_by_honor",
-    "default": "Bound by Honor",
+    "EN": "Bound by Honor",
     "BR": "Vinculados pela Honra",
     "CNs": "荣誉束缚",
     "CNt": "榮譽束縛",
@@ -353,7 +353,7 @@
   },
   {
     "id": "ret_bound_by_honor_defeat_10_bandits",
-    "default": "Get rid of 10 bandit parties.",
+    "EN": "Get rid of 10 bandit parties.",
     "BR": "Derrote 10 grupos de bandidos.",
     "CNs": "消灭10个强盗队伍。",
     "CNt": "消滅10個強盜隊伍。",
@@ -369,7 +369,7 @@
   },
   {
     "id": "ret_bound_by_honor_description",
-    "default": "+20% retinue morale.",
+    "EN": "+20% retinue morale.",
     "BR": "+20% de moral do séquito.",
     "CNs": "+20% 随从士气。",
     "CNt": "+20% 隨從士氣。",
@@ -385,7 +385,7 @@
   },
   {
     "id": "ret_bound_by_honor_protect_villagers_or_caravans",
-    "default": "Save 3 caravans or villager parties from enemy attacks.",
+    "EN": "Save 3 caravans or villager parties from enemy attacks.",
     "BR": "Salve 3 caravanas ou grupos de camponeses de ataques inimigos.",
     "CNs": "拯救3支商队或村民队伍免受敌人攻击。",
     "CNt": "拯救3支商隊或村民隊伍免受敵人攻擊。",
@@ -401,7 +401,7 @@
   },
   {
     "id": "ret_bound_by_honor_retinue_only_morale_90_for_15_days",
-    "default": "Maintain a retinue-only party's morale above 90 for 15 days.",
+    "EN": "Maintain a retinue-only party's morale above 90 for 15 days.",
     "BR": "Mantenha a moral de um grupo apenas de séquito acima de 90 por 15 dias.",
     "CNs": "维持一支仅随从队伍的士气在90以上，持续15天。",
     "CNt": "維持一支僅隨從隊伍的士氣在90以上，持續15天。",
@@ -417,7 +417,7 @@
   },
   {
     "id": "ret_buy_item",
-    "default": "Buy Item",
+    "EN": "Buy Item",
     "BR": "Comprar Item",
     "CNs": "购买物品",
     "CNt": "購買物品",
@@ -433,7 +433,7 @@
   },
   {
     "id": "ret_buy_item_text",
-    "default": "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?",
+    "EN": "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?",
     "BR": "Tem certeza de que deseja comprar {ITEM_NAME} por {ITEM_VALUE} de ouro?",
     "CNs": "确定要花费 {ITEM_VALUE} 金币购买 {ITEM_NAME} 吗？",
     "CNt": "確定要花費 {ITEM_VALUE} 金幣購買 {ITEM_NAME} 嗎？",
@@ -449,7 +449,7 @@
   },
   {
     "id": "ret_cancel",
-    "default": "Cancel",
+    "EN": "Cancel",
     "BR": "Cancelar",
     "CNs": "取消",
     "CNt": "取消",
@@ -465,7 +465,7 @@
   },
   {
     "id": "ret_cant_remove_root_troop",
-    "default": "Root troops cannot be removed.",
+    "EN": "Root troops cannot be removed.",
     "BR": "Tropas base não podem ser removidas.",
     "CNs": "根部队无法被移除。",
     "CNt": "根部隊無法被移除。",
@@ -481,7 +481,7 @@
   },
   {
     "id": "ret_cant_remove_troop_with_targets",
-    "default": "Troops that have upgrade targets cannot be removed.",
+    "EN": "Troops that have upgrade targets cannot be removed.",
     "BR": "Tropas que possuem aprimoramentos não podem ser removidas.",
     "CNs": "拥有升级目标的部队无法被移除。",
     "CNt": "擁有升級目標的部隊無法被移除。",
@@ -497,7 +497,7 @@
   },
   {
     "id": "ret_cape_slot_text",
-    "default": "Cape",
+    "EN": "Cape",
     "BR": "Capa",
     "CNs": "披风",
     "CNt": "披風",
@@ -513,7 +513,7 @@
   },
   {
     "id": "ret_clanic_traditions",
-    "default": "Clan Traditions",
+    "EN": "Clan Traditions",
     "BR": "Tradições do Clã",
     "CNs": "家族传统",
     "CNt": "家族傳統",
@@ -529,7 +529,7 @@
   },
   {
     "id": "ret_clanic_traditions_acquire_new_fief",
-    "default": "Acquire a new fief for your clan.",
+    "EN": "Acquire a new fief for your clan.",
     "BR": "Adquira um novo feudo para o seu clã.",
     "CNs": "为家族获得一个新的封地。",
     "CNt": "為家族獲得一個新的封地。",
@@ -545,7 +545,7 @@
   },
   {
     "id": "ret_clanic_traditions_companions_50_kills",
-    "default": "Win a battle in which you and your companions get 50 or more kills.",
+    "EN": "Win a battle in which you and your companions get 50 or more kills.",
     "BR": "Vença uma batalha na qual você e seus companheiros consigam 50 ou mais abates.",
     "CNs": "在一场战斗中，你与同伴合计击杀50人以上。",
     "CNt": "在一場戰鬥中，你與同伴合計擊殺50人以上。",
@@ -561,7 +561,7 @@
   },
   {
     "id": "ret_clanic_traditions_description",
-    "default": "Troops can equip smithed weapons.",
+    "EN": "Troops can equip smithed weapons.",
     "BR": "As tropas podem equipar itens criados.",
     "CNs": "部队可以装备制作的物品。",
     "CNt": "部隊可以裝備製作的物品。",
@@ -577,7 +577,7 @@
   },
   {
     "id": "ret_clanic_traditions_own_smithy_30_days",
-    "default": "Own a smithy in a town of your clan's culture for 30 days.",
+    "EN": "Own a smithy in a town of your clan's culture for 30 days.",
     "BR": "Seja dono de uma forja em uma cidade da cultura do seu clã por 30 dias.",
     "CNs": "在本家族文化的城镇拥有一家铁匠铺30天。",
     "CNt": "在本家族文化的城鎮擁有一家鐵匠鋪30天。",
@@ -593,7 +593,7 @@
   },
   {
     "id": "ret_clear_conversions_button_text",
-    "default": "Clear",
+    "EN": "Clear",
     "BR": "Limpar",
     "CNs": "清除",
     "CNt": "清除",
@@ -609,7 +609,7 @@
   },
   {
     "id": "ret_close_doctrines_button_text",
-    "default": "Back",
+    "EN": "Back",
     "BR": "Voltar",
     "CNs": "返回",
     "CNt": "返回",
@@ -625,7 +625,7 @@
   },
   {
     "id": "ret_close_equipment_button_text",
-    "default": "Back",
+    "EN": "Back",
     "BR": "Voltar",
     "CNs": "返回",
     "CNt": "返回",
@@ -641,7 +641,7 @@
   },
   {
     "id": "ret_confirm",
-    "default": "Confirm",
+    "EN": "Confirm",
     "BR": "Confirmar",
     "CNs": "确认",
     "CNt": "確認",
@@ -657,7 +657,7 @@
   },
   {
     "id": "ret_continue",
-    "default": "Continue",
+    "EN": "Continue",
     "BR": "Continuar",
     "CNs": "继续",
     "CNt": "繼續",
@@ -673,7 +673,7 @@
   },
   {
     "id": "ret_convert_not_enough_gold",
-    "default": "Not enough gold to apply conversions.",
+    "EN": "Not enough gold to apply conversions.",
     "BR": "Ouro insuficiente para aplicar conversões.",
     "CNs": "金币不足，无法进行转换。",
     "CNt": "金幣不足，無法進行轉換。",
@@ -689,7 +689,7 @@
   },
   {
     "id": "ret_convert_not_enough_gold_text",
-    "default": "You do not have enough gold to hire these retinues.",
+    "EN": "You do not have enough gold to hire these retinues.",
     "BR": "Você não tem ouro suficiente para contratar esses séquitos.",
     "CNs": "你没有足够的金币雇佣这些随从。",
     "CNt": "你沒有足夠的金幣雇傭這些隨從。",
@@ -705,7 +705,7 @@
   },
   {
     "id": "ret_convert_not_enough_gold_title",
-    "default": "Not enough gold",
+    "EN": "Not enough gold",
     "BR": "Ouro insuficiente",
     "CNs": "金币不足",
     "CNt": "金幣不足",
@@ -721,7 +721,7 @@
   },
   {
     "id": "ret_cultural_pride",
-    "default": "Cultural Pride",
+    "EN": "Cultural Pride",
     "BR": "Orgulho Cultural",
     "CNs": "文化自豪",
     "CNt": "文化自豪",
@@ -737,7 +737,7 @@
   },
   {
     "id": "ret_cultural_pride_defeat_foreign_ruler",
-    "default": "Defeat a ruler of a different culture in battle.",
+    "EN": "Defeat a ruler of a different culture in battle.",
     "BR": "Derrote em batalha um governante de cultura diferente.",
     "CNs": "在战斗中击败一名不同文化的统治者。",
     "CNt": "在戰鬥中擊敗一名不同文化的統治者。",
@@ -753,7 +753,7 @@
   },
   {
     "id": "ret_cultural_pride_description",
-    "default": "10% rebate on items of the troop's culture.",
+    "EN": "10% rebate on items of the troop's culture.",
     "BR": "10% de desconto em itens da cultura da tropa.",
     "CNs": "部队文化物品享受10%折扣。",
     "CNt": "部隊文化物品享受10%折扣。",
@@ -769,7 +769,7 @@
   },
   {
     "id": "ret_cultural_pride_full_set_100_kills",
-    "default": "Get 100 kills in battle with troops wearing no foreign gear.",
+    "EN": "Get 100 kills in battle with troops wearing no foreign gear.",
     "BR": "Consiga 100 abates em batalha com tropas sem nenhum equipamento estrangeiro.",
     "CNs": "仅使用无外来装备的部队在战斗中获得100击杀。",
     "CNt": "僅使用無外來裝備的部隊在戰鬥中獲得100擊殺。",
@@ -785,7 +785,7 @@
   },
   {
     "id": "ret_cultural_pride_tournament_own_culture_gear",
-    "default": "Win a tournament wearing only armor of your own culture.",
+    "EN": "Win a tournament wearing only armor of your own culture.",
     "BR": "Vença um torneio vestindo apenas armaduras da sua própria cultura.",
     "CNs": "仅穿着本文化的护甲赢得一场锦标赛。",
     "CNt": "僅穿著本文化的護甲贏得一場比武大會。",
@@ -801,7 +801,7 @@
   },
   {
     "id": "ret_doctrine_costs",
-    "default": "Cost: {GOLD} Gold, {INFLUENCE} Influence.",
+    "EN": "Cost: {GOLD} Gold, {INFLUENCE} Influence.",
     "BR": "Custo: {GOLD} Ouro, {INFLUENCE} Influência.",
     "CNs": "花费: {GOLD} 金币, {INFLUENCE} 影响力。",
     "CNt": "花費: {GOLD} 金幣, {INFLUENCE} 影響力。",
@@ -817,7 +817,7 @@
   },
   {
     "id": "ret_doctrine_service_unavailable",
-    "default": "Doctrine service is unavailable.",
+    "EN": "Doctrine service is unavailable.",
     "BR": "Serviço de doutrinas indisponível.",
     "CNs": "教义服务不可用。",
     "CNt": "教義服務不可用。",
@@ -833,7 +833,7 @@
   },
   {
     "id": "ret_doctrines_button_text",
-    "default": "Doctrines",
+    "EN": "Doctrines",
     "BR": "Doutrinas",
     "CNs": "教义",
     "CNt": "教義",
@@ -849,7 +849,7 @@
   },
   {
     "id": "ret_doctrines_col_0",
-    "default": "Unlocks",
+    "EN": "Unlocks",
     "BR": "Desbloqueios",
     "CNs": "解锁",
     "CNt": "解鎖",
@@ -865,7 +865,7 @@
   },
   {
     "id": "ret_doctrines_col_1",
-    "default": "Equipment",
+    "EN": "Equipment",
     "BR": "Equipamento",
     "CNs": "装备",
     "CNt": "裝備",
@@ -881,7 +881,7 @@
   },
   {
     "id": "ret_doctrines_col_2",
-    "default": "Troops",
+    "EN": "Troops",
     "BR": "Tropas",
     "CNs": "部队",
     "CNt": "部隊",
@@ -897,7 +897,7 @@
   },
   {
     "id": "ret_doctrines_col_3",
-    "default": "Retinues",
+    "EN": "Retinues",
     "BR": "Séquitos",
     "CNs": "随从",
     "CNt": "隨從",
@@ -913,7 +913,7 @@
   },
   {
     "id": "ret_empty_item",
-    "default": "Empty",
+    "EN": "Empty",
     "BR": "Vazio",
     "CNs": "空",
     "CNt": "空",
@@ -929,7 +929,7 @@
   },
   {
     "id": "ret_enter_new_name",
-    "default": "Enter a new name:",
+    "EN": "Enter a new name:",
     "BR": "Insira um novo nome:",
     "CNs": "输入一个新名称：",
     "CNt": "輸入一個新名稱：",
@@ -945,7 +945,7 @@
   },
   {
     "id": "ret_enter_new_troop_name",
-    "default": "Enter the name of the new troop:",
+    "EN": "Enter the name of the new troop:",
     "BR": "Insira o nome da nova tropa:",
     "CNs": "输入新部队的名称：",
     "CNt": "輸入新部隊的名稱：",
@@ -961,7 +961,7 @@
   },
   {
     "id": "ret_equipment_button_text",
-    "default": "Equipment",
+    "EN": "Equipment",
     "BR": "Equipamento",
     "CNs": "装备",
     "CNt": "裝備",
@@ -977,7 +977,7 @@
   },
   {
     "id": "ret_feat_completed_title",
-    "default": "Feat Completed",
+    "EN": "Feat Completed",
     "BR": "Proeza Concluída",
     "CNs": "成就完成",
     "CNt": "成就完成",
@@ -993,7 +993,7 @@
   },
   {
     "id": "ret_feats_no_reqs",
-    "default": "No requirements.",
+    "EN": "No requirements.",
     "BR": "Sem requisitos.",
     "CNs": "无要求。",
     "CNt": "無要求。",
@@ -1009,7 +1009,7 @@
   },
   {
     "id": "ret_feats_reqs",
-    "default": "Requirements",
+    "EN": "Requirements",
     "BR": "Requisitos",
     "CNs": "要求",
     "CNt": "要求",
@@ -1025,7 +1025,7 @@
   },
   {
     "id": "ret_female",
-    "default": "Female",
+    "EN": "Female",
     "BR": "Feminino",
     "CNs": "女性",
     "CNt": "女性",
@@ -1041,7 +1041,7 @@
   },
   {
     "id": "ret_first_run_text",
-    "default": "Welcome to Retinues!\\n\\nIt looks like you are using Retinues for the first time with an existing save. Since Retinues modifies troop data and introduces new ones in the game world, it is recommended to create a backup of your save before proceeding, just in case.\\n\\nWould you like to automatically create a backup now?",
+    "EN": "Welcome to Retinues!\\n\\nIt looks like you are using Retinues for the first time with an existing save. Since Retinues modifies troop data and introduces new ones in the game world, it is recommended to create a backup of your save before proceeding, just in case.\\n\\nWould you like to automatically create a backup now?",
     "BR": "Bem-vindo ao Séquitos!\n\nParece que você está usando o Séquitos com um save existente. Como o Séquitos modifica os dados das tropas e introduz novas tropas no mundo do jogo, é altamente recomendável criar um backup do seu save antes de prosseguir. Isso permitirá que você restaure seu jogo se algo der errado.\n\nVocê gostaria de criar um backup automaticamente agora?",
     "CNs": "欢迎使用随从！\n\n看起来你正在使用一个已有存档的随从。由于随从会修改部队数据并在游戏世界中引入新的部队，强烈建议在继续之前创建存档备份。这将允许你在出现问题时恢复游戏。\n\n你现在想自动创建一个备份吗？",
     "CNt": "歡迎使用隨從！\n\n看起來你正在使用一個已有存檔的隨從。由於隨從會修改部隊數據並在遊戲世界中引入新的部隊，強烈建議在繼續之前創建存檔備份。這將允許你在出現問題時恢復遊戲。\n\n你現在想自動創建一個備份嗎？",
@@ -1057,7 +1057,7 @@
   },
   {
     "id": "ret_first_run_title",
-    "default": "Retinues\\nExisting Save Detected",
+    "EN": "Retinues\\nExisting Save Detected",
     "BR": "Retinues\\nSave Existente Detectado",
     "CNs": "随从\\n检测到现有存档",
     "CNt": "隨從\\n檢測到現有存檔",
@@ -1073,7 +1073,7 @@
   },
   {
     "id": "ret_gender_header_text",
-    "default": "Gender",
+    "EN": "Gender",
     "BR": "Gênero",
     "CNs": "性别",
     "CNt": "性別",
@@ -1089,7 +1089,7 @@
   },
   {
     "id": "ret_gloves_slot_text",
-    "default": "Gloves",
+    "EN": "Gloves",
     "BR": "Luvas",
     "CNs": "手套",
     "CNt": "手套",
@@ -1105,7 +1105,7 @@
   },
   {
     "id": "ret_head_slot_text",
-    "default": "Head",
+    "EN": "Head",
     "BR": "Cabeça",
     "CNs": "头部",
     "CNt": "頭部",
@@ -1121,7 +1121,7 @@
   },
   {
     "id": "ret_horse_harness_slot_text",
-    "default": "Harness",
+    "EN": "Harness",
     "BR": "Arreio",
     "CNs": "马具",
     "CNt": "馬具",
@@ -1137,7 +1137,7 @@
   },
   {
     "id": "ret_horse_slot_text",
-    "default": "Horse",
+    "EN": "Horse",
     "BR": "Cavalo",
     "CNs": "马匹",
     "CNt": "馬匹",
@@ -1153,7 +1153,7 @@
   },
   {
     "id": "ret_immortals",
-    "default": "Immortals",
+    "EN": "Immortals",
     "BR": "Imortais",
     "CNs": "不朽者",
     "CNt": "不朽者",
@@ -1169,7 +1169,7 @@
   },
   {
     "id": "ret_immortals_100_retinue_survive_struck_down",
-    "default": "Have 100 retinue troops survive being struck down in battle.",
+    "EN": "Have 100 retinue troops survive being struck down in battle.",
     "BR": "Faça 100 tropas do séquito sobreviverem após serem abatidas em combate.",
     "CNs": "让100名随从在战斗中倒下后仍存活。",
     "CNt": "讓100名隨從在戰鬥中倒下後仍存活。",
@@ -1185,7 +1185,7 @@
   },
   {
     "id": "ret_immortals_description",
-    "default": "+20% retinue survival chance.",
+    "EN": "+20% retinue survival chance.",
     "BR": "+20% de chance de sobrevivência do séquito.",
     "CNs": "+20% 随从生存率。",
     "CNt": "+20% 隨從生存率。",
@@ -1201,7 +1201,7 @@
   },
   {
     "id": "ret_immortals_retinue_200_enemies",
-    "default": "Have your retinue defeat 200 enemies in a single battle.",
+    "EN": "Have your retinue defeat 200 enemies in a single battle.",
     "BR": "Faça seu séquito derrotar 200 inimigos em uma única batalha.",
     "CNs": "让随从在一场战斗中击败200个敌人。",
     "CNt": "讓隨從在一場戰鬥中擊敗200個敵人。",
@@ -1217,7 +1217,7 @@
   },
   {
     "id": "ret_immortals_win_100_no_deaths",
-    "default": "Win by yourself against 100+ enemies without a single death on your side.",
+    "EN": "Win by yourself against 100+ enemies without a single death on your side.",
     "BR": "Vença sozinho contra 100+ inimigos sem uma única morte do seu lado.",
     "CNs": "单枪匹马战胜100+敌人，且我方无一阵亡。",
     "CNt": "單槍匹馬戰勝100+敵人，且我方無一陣亡。",
@@ -1233,7 +1233,7 @@
   },
   {
     "id": "ret_in_stock",
-    "default": "In Stock ({STOCK})",
+    "EN": "In Stock ({STOCK})",
     "BR": "Em Estoque ({STOCK})",
     "CNs": "库存 ({STOCK})",
     "CNt": "庫存 ({STOCK})",
@@ -1249,7 +1249,7 @@
   },
   {
     "id": "ret_increase_troop_tier",
-    "default": "Increase {TROOP_NAME}'s tier?\\n\\n{text}",
+    "EN": "Increase {TROOP_NAME}'s tier?\\n\\n{text}",
     "BR": "Aumentar o nível de {TROOP_NAME}?\\n\\n{text}",
     "CNs": "提升 {TROOP_NAME} 的等级？\\n\\n{text}",
     "CNt": "提升 {TROOP_NAME} 的等級？\\n\\n{text}",
@@ -1265,7 +1265,7 @@
   },
   {
     "id": "ret_indomitable",
-    "default": "Indomitable",
+    "EN": "Indomitable",
     "BR": "Indomável",
     "CNs": "不屈",
     "CNt": "不屈",
@@ -1281,7 +1281,7 @@
   },
   {
     "id": "ret_indomitable_25_equiv_no_casualty",
-    "default": "Have your retinues defeat 25 enemy troops of equivalent tier without a single casualty.",
+    "EN": "Have your retinues defeat 25 enemy troops of equivalent tier without a single casualty.",
     "BR": "Faça seus séquitos derrotarem 25 tropas inimigas de nível equivalente sem uma única baixa.",
     "CNs": "让随从在无一损失的情况下击败25个同等级敌军。",
     "CNt": "讓隨從在無一損失的情況下擊敗25個同等級敵軍。",
@@ -1297,7 +1297,7 @@
   },
   {
     "id": "ret_indomitable_description",
-    "default": "+5 HP to retinues.",
+    "EN": "+5 HP to retinues.",
     "BR": "+5 PV para os séquitos.",
     "CNs": "+5 生命值给随从。",
     "CNt": "+5 生命值給隨從。",
@@ -1313,7 +1313,7 @@
   },
   {
     "id": "ret_indomitable_join_siege_defender_full_strength",
-    "default": "Fight a siege battle as a defender with at least 20 retinue troops and win.",
+    "EN": "Fight a siege battle as a defender with at least 20 retinue troops and win.",
     "BR": "Vença uma batalha de cerco na defesa com pelo menos 20 tropas do séquito.",
     "CNs": "以防守方身份参战一场攻城战，并带领至少20名随从取胜。",
     "CNt": "以防守方身份參戰一場攻城戰，並帶領至少20名隨從取勝。",
@@ -1329,7 +1329,7 @@
   },
   {
     "id": "ret_indomitable_win_3_defensive_battles",
-    "default": "Win 3 defensive battles in a row with a retinue-only party.",
+    "EN": "Win 3 defensive battles in a row with a retinue-only party.",
     "BR": "Vença 3 batalhas defensivas seguidas com um grupo apenas de séquito.",
     "CNs": "仅随从队伍连续赢得3场防御战。",
     "CNt": "僅隨從隊伍連續贏得3場防禦戰。",
@@ -1345,7 +1345,7 @@
   },
   {
     "id": "ret_iron_discipline",
-    "default": "Iron Discipline",
+    "EN": "Iron Discipline",
     "BR": "Disciplina de Ferro",
     "CNs": "钢铁纪律",
     "CNt": "鋼鐵紀律",
@@ -1361,7 +1361,7 @@
   },
   {
     "id": "ret_iron_discipline_defeat_twice_size_only_custom",
-    "default": "Defeat a party twice your size using only custom troops.",
+    "EN": "Defeat a party twice your size using only custom troops.",
     "BR": "Derrote um grupo com o dobro do seu tamanho usando apenas tropas personalizadas.",
     "CNs": "仅用自定义部队击败规模为己方两倍的队伍。",
     "CNt": "僅用自定義部隊擊敗規模為己方兩倍的隊伍。",
@@ -1377,7 +1377,7 @@
   },
   {
     "id": "ret_iron_discipline_description",
-    "default": "+5 to skill caps.",
+    "EN": "+5 to skill caps.",
     "BR": "+5 aos limites de habilidade.",
     "CNs": "+5 技能上限。",
     "CNt": "+5 技能上限。",
@@ -1393,7 +1393,7 @@
   },
   {
     "id": "ret_iron_discipline_lead_army_10_days",
-    "default": "Lead an army for 10 days in a row.",
+    "EN": "Lead an army for 10 days in a row.",
     "BR": "Lidere um exército por 10 dias seguidos.",
     "CNs": "连续率领军队10天。",
     "CNt": "連續率領軍隊10天。",
@@ -1409,7 +1409,7 @@
   },
   {
     "id": "ret_iron_discipline_upgrade_100_basic_to_max",
-    "default": "Upgrade 100 basic custom troops to max tier.",
+    "EN": "Upgrade 100 basic custom troops to max tier.",
     "BR": "Aprimore 100 tropas personalizadas básicas até o nível máximo.",
     "CNs": "将100名基础自定义部队升级至最高等级。",
     "CNt": "將100名基礎自定義部隊升級至最高等級。",
@@ -1425,7 +1425,7 @@
   },
   {
     "id": "ret_ironclad",
-    "default": "Ironclad",
+    "EN": "Ironclad",
     "BR": "Couraçado",
     "CNs": "铁甲",
     "CNt": "鐵甲",
@@ -1441,7 +1441,7 @@
   },
   {
     "id": "ret_ironclad_100_battle_outnumbered_low_tier",
-    "default": "Win a 100+ battle, while outnumbered, and fielding only custom troops of tier 1, 2, or 3.",
+    "EN": "Win a 100+ battle, while outnumbered, and fielding only custom troops of tier 1, 2, or 3.",
     "BR": "Vença uma batalha de 100+ inimigos, em desvantagem numérica, utilizando apenas tropas personalizadas de nível 1, 2 ou 3.",
     "CNs": "在人数劣势下，仅使用1-3级自定义部队赢得一场100+敌人的战斗。",
     "CNt": "在人數劣勢下，僅使用1-3級自定義部隊贏得一場100+敵人的戰鬥。",
@@ -1457,7 +1457,7 @@
   },
   {
     "id": "ret_ironclad_12_troops_athletics_90",
-    "default": "Have 12 custom troops reach 90 in Athletics skill.",
+    "EN": "Have 12 custom troops reach 90 in Athletics skill.",
     "BR": "Faça 12 tropas personalizadas atingirem 90 na habilidade Atletismo.",
     "CNs": "让12名自定义部队达到90点运动技能。",
     "CNt": "讓12名自定義部隊達到90點運動技能。",
@@ -1473,7 +1473,7 @@
   },
   {
     "id": "ret_ironclad_description",
-    "default": "No tier restriction for arms and armor.",
+    "EN": "No tier restriction for arms and armor.",
     "BR": "Sem restrição de nível para armas e armaduras.",
     "CNs": "武器和护甲无等级限制。",
     "CNt": "武器和護甲無等級限制。",
@@ -1489,7 +1489,7 @@
   },
   {
     "id": "ret_ironclad_full_set_t6_100_kills",
-    "default": "Get 100 kills in battle with troops wearing a tier 6 armor and helmet.",
+    "EN": "Get 100 kills in battle with troops wearing a tier 6 armor and helmet.",
     "BR": "Consiga 100 abates em batalha com tropas vestindo armadura e elmo de nível 6.",
     "CNs": "让部队穿着6级护甲和头盔，在战斗中获得100击杀。",
     "CNt": "讓部隊穿著6級護甲和頭盔，在戰鬥中獲得100擊殺。",
@@ -1505,7 +1505,7 @@
   },
   {
     "id": "ret_item_ammo_damage",
-    "default": "Damage",
+    "EN": "Damage",
     "BR": "Dano",
     "CNs": "伤害",
     "CNt": "傷害",
@@ -1521,7 +1521,7 @@
   },
   {
     "id": "ret_item_ammo_stack_size",
-    "default": "Stack Size",
+    "EN": "Stack Size",
     "BR": "Tamanho da Pilha",
     "CNs": "堆叠大小",
     "CNt": "堆疊大小",
@@ -1537,7 +1537,7 @@
   },
   {
     "id": "ret_item_arm_armor",
-    "default": "Arm Armor",
+    "EN": "Arm Armor",
     "BR": "Armadura dos Braços",
     "CNs": "臂甲",
     "CNt": "臂甲",
@@ -1553,7 +1553,7 @@
   },
   {
     "id": "ret_item_body_armor",
-    "default": "Body Armor",
+    "EN": "Body Armor",
     "BR": "Armadura do Corpo",
     "CNs": "护甲",
     "CNt": "護甲",
@@ -1569,7 +1569,7 @@
   },
   {
     "id": "ret_item_head_armor",
-    "default": "Head Armor",
+    "EN": "Head Armor",
     "BR": "Armadura da Cabeça",
     "CNs": "头盔",
     "CNt": "頭盔",
@@ -1585,7 +1585,7 @@
   },
   {
     "id": "ret_item_horse_charge",
-    "default": "Charge",
+    "EN": "Charge",
     "BR": "Carga",
     "CNs": "冲锋",
     "CNt": "衝鋒",
@@ -1601,7 +1601,7 @@
   },
   {
     "id": "ret_item_horse_hit_points",
-    "default": "Hit Points",
+    "EN": "Hit Points",
     "BR": "Pontos de Vida",
     "CNs": "生命值",
     "CNt": "生命值",
@@ -1617,7 +1617,7 @@
   },
   {
     "id": "ret_item_horse_maneuver",
-    "default": "Maneuver",
+    "EN": "Maneuver",
     "BR": "Manobrabilidade",
     "CNs": "机动",
     "CNt": "機動",
@@ -1633,7 +1633,7 @@
   },
   {
     "id": "ret_item_horse_speed",
-    "default": "Speed",
+    "EN": "Speed",
     "BR": "Velocidade",
     "CNs": "速度",
     "CNt": "速度",
@@ -1649,7 +1649,7 @@
   },
   {
     "id": "ret_item_leg_armor",
-    "default": "Leg Armor",
+    "EN": "Leg Armor",
     "BR": "Armadura das Pernas",
     "CNs": "腿甲",
     "CNt": "腿甲",
@@ -1665,7 +1665,7 @@
   },
   {
     "id": "ret_item_melee_handling",
-    "default": "Handling",
+    "EN": "Handling",
     "BR": "Manuseio",
     "CNs": "操控",
     "CNt": "操控",
@@ -1681,7 +1681,7 @@
   },
   {
     "id": "ret_item_melee_length",
-    "default": "Length",
+    "EN": "Length",
     "BR": "Comprimento",
     "CNs": "长度",
     "CNt": "長度",
@@ -1697,7 +1697,7 @@
   },
   {
     "id": "ret_item_melee_swing_damage",
-    "default": "Swing Damage",
+    "EN": "Swing Damage",
     "BR": "Dano de Golpe",
     "CNs": "挥砍伤害",
     "CNt": "揮砍傷害",
@@ -1713,7 +1713,7 @@
   },
   {
     "id": "ret_item_melee_swing_speed",
-    "default": "Swing Speed",
+    "EN": "Swing Speed",
     "BR": "Velocidade de Golpe",
     "CNs": "挥砍速度",
     "CNt": "揮砍速度",
@@ -1729,7 +1729,7 @@
   },
   {
     "id": "ret_item_melee_thrust_damage",
-    "default": "Thrust Damage",
+    "EN": "Thrust Damage",
     "BR": "Dano de Estocada",
     "CNs": "刺击伤害",
     "CNt": "刺擊傷害",
@@ -1745,7 +1745,7 @@
   },
   {
     "id": "ret_item_melee_thrust_speed",
-    "default": "Thrust Speed",
+    "EN": "Thrust Speed",
     "BR": "Velocidade de Estocada",
     "CNs": "刺击速度",
     "CNt": "刺擊速度",
@@ -1761,7 +1761,7 @@
   },
   {
     "id": "ret_item_ranged_accuracy",
-    "default": "Accuracy",
+    "EN": "Accuracy",
     "BR": "Precisão",
     "CNs": "准确度",
     "CNt": "準確度",
@@ -1777,7 +1777,7 @@
   },
   {
     "id": "ret_item_ranged_damage",
-    "default": "Damage",
+    "EN": "Damage",
     "BR": "Dano",
     "CNs": "伤害",
     "CNt": "傷害",
@@ -1793,7 +1793,7 @@
   },
   {
     "id": "ret_item_ranged_missile_speed",
-    "default": "Missile Speed",
+    "EN": "Missile Speed",
     "BR": "Velocidade do Projétil",
     "CNs": "弹道速度",
     "CNt": "彈道速度",
@@ -1809,7 +1809,7 @@
   },
   {
     "id": "ret_item_search_label",
-    "default": "Filter:",
+    "EN": "Filter:",
     "BR": "Filtro:",
     "CNs": "筛选器:",
     "CNt": "篩選器:",
@@ -1825,7 +1825,7 @@
   },
   {
     "id": "ret_item_shield_hit_points",
-    "default": "Hit Points",
+    "EN": "Hit Points",
     "BR": "Pontos de Vida",
     "CNs": "生命值",
     "CNt": "生命值",
@@ -1841,7 +1841,7 @@
   },
   {
     "id": "ret_item_shield_speed",
-    "default": "Speed",
+    "EN": "Speed",
     "BR": "Velocidade",
     "CNs": "速度",
     "CNt": "速度",
@@ -1857,7 +1857,7 @@
   },
   {
     "id": "ret_items_unlocked",
-    "default": "New Gear Unlocked",
+    "EN": "New Gear Unlocked",
     "BR": "Novo Equipamento Desbloqueado",
     "CNs": "新装备已解锁",
     "CNt": "新裝備已解鎖",
@@ -1873,7 +1873,7 @@
   },
   {
     "id": "ret_king_guard",
-    "default": "King's Guard",
+    "EN": "King's Guard",
     "BR": "Guarda do Rei",
     "CNs": "国王卫队",
     "CNt": "國王衛隊",
@@ -1889,7 +1889,7 @@
   },
   {
     "id": "ret_leg_slot_text",
-    "default": "Legs",
+    "EN": "Legs",
     "BR": "Pernas",
     "CNs": "腿部",
     "CNt": "腿部",
@@ -1905,7 +1905,7 @@
   },
   {
     "id": "ret_lions_share",
-    "default": "Lion's Share",
+    "EN": "Lion's Share",
     "BR": "Quinhão do Leão",
     "CNs": "狮子份额",
     "CNt": "獅子份額",
@@ -1921,7 +1921,7 @@
   },
   {
     "id": "ret_lions_share_25_personal_kills",
-    "default": "Personally defeat 25 enemies in one battle.",
+    "EN": "Personally defeat 25 enemies in one battle.",
     "BR": "Derrote pessoalmente 25 inimigos em uma batalha.",
     "CNs": "在一场战斗中亲自击败25名敌人。",
     "CNt": "在一場戰鬥中親自擊敗25名敵人。",
@@ -1937,7 +1937,7 @@
   },
   {
     "id": "ret_lions_share_5_tier_5_plus",
-    "default": "Personally defeat 5 tier 5+ troops in one battle.",
+    "EN": "Personally defeat 5 tier 5+ troops in one battle.",
     "BR": "Derrote pessoalmente 5 tropas de nível 5+ em uma batalha.",
     "CNs": "在一场战斗中亲自击败5名5级以上部队。",
     "CNt": "在一場戰鬥中親自擊敗5名5級以上部隊。",
@@ -1953,7 +1953,7 @@
   },
   {
     "id": "ret_lions_share_description",
-    "default": "Hero kills count twice for unlocks.",
+    "EN": "Hero kills count twice for unlocks.",
     "BR": "Abates do herói contam em dobro para desbloqueios.",
     "CNs": "英雄击杀在解锁中计为双倍。",
     "CNt": "英雄擊殺在解鎖中計為雙倍。",
@@ -1969,7 +1969,7 @@
   },
   {
     "id": "ret_lions_share_kill_enemy_lord",
-    "default": "Personally defeat an enemy lord in battle.",
+    "EN": "Personally defeat an enemy lord in battle.",
     "BR": "Derrote pessoalmente um lorde inimigo em batalha.",
     "CNs": "在战斗中亲自击败一名敌方领主。",
     "CNt": "在戰鬥中親自擊敗一名敵方領主。",
@@ -1985,7 +1985,7 @@
   },
   {
     "id": "ret_list_toggle_elite",
-    "default": "Elite",
+    "EN": "Elite",
     "BR": "Elite",
     "CNs": "精锐",
     "CNt": "精銳",
@@ -2001,7 +2001,7 @@
   },
   {
     "id": "ret_list_toggle_militia",
-    "default": "Militia",
+    "EN": "Militia",
     "BR": "Milícia",
     "CNs": "民兵",
     "CNt": "民兵",
@@ -2017,7 +2017,7 @@
   },
   {
     "id": "ret_list_toggle_regular",
-    "default": "Regular",
+    "EN": "Regular",
     "BR": "Regulares",
     "CNs": "普通",
     "CNt": "普通",
@@ -2033,7 +2033,7 @@
   },
   {
     "id": "ret_loc_smoke_test",
-    "default": "Localization test: default fallback (EN).",
+    "EN": "Localization test: default fallback (EN).",
     "BR": "Teste de localização: BR.",
     "CNs": "本地化测试： CNs。",
     "CNt": "本地化測試： CNt。",
@@ -2049,7 +2049,7 @@
   },
   {
     "id": "ret_lower_skill_no_refund",
-    "default": "Lowering this troop's skill will not refund any experience points. Continue anyway?",
+    "EN": "Lowering this troop's skill will not refund any experience points. Continue anyway?",
     "BR": "Reduzir a habilidade desta tropa não reembolsará pontos de experiência. Continuar mesmo assim?",
     "CNs": "降低此部队技能不会返还经验值。仍要继续吗？",
     "CNt": "降低此部隊技能不會返還經驗值。仍要繼續嗎？",
@@ -2065,7 +2065,7 @@
   },
   {
     "id": "ret_male",
-    "default": "Male",
+    "EN": "Male",
     "BR": "Masculino",
     "CNs": "男性",
     "CNt": "男性",
@@ -2081,7 +2081,7 @@
   },
   {
     "id": "ret_masters_at_arms",
-    "default": "Masters-At-Arms",
+    "EN": "Masters-At-Arms",
     "BR": "Mestres de Armas",
     "CNs": "武器大师",
     "CNt": "武器大師",
@@ -2097,7 +2097,7 @@
   },
   {
     "id": "ret_masters_at_arms_1000_elite_kills",
-    "default": "Get 1000 kills with elite troops.",
+    "EN": "Get 1000 kills with elite troops.",
     "BR": "Consiga 1000 abates com tropas de elite.",
     "CNs": "使用精锐部队累计获得1000击杀。",
     "CNt": "使用精銳部隊累計獲得1000擊殺。",
@@ -2113,7 +2113,7 @@
   },
   {
     "id": "ret_masters_at_arms_description",
-    "default": "2nd upgrade branch for elite troops.",
+    "EN": "2nd upgrade branch for elite troops.",
     "BR": "2ª ramificação de aprimoramento para tropas de elite.",
     "CNs": "精锐部队的第二条升级分支。",
     "CNt": "精銳部隊的第二條升級分支。",
@@ -2129,7 +2129,7 @@
   },
   {
     "id": "ret_masters_at_arms_ko_50_opponents",
-    "default": "Knock out 50 opponents in the arena.",
+    "EN": "Knock out 50 opponents in the arena.",
     "BR": "Nocauteie 50 oponentes na arena.",
     "CNs": "在竞技场击倒50名对手。",
     "CNt": "在競技場擊倒50名對手。",
@@ -2145,7 +2145,7 @@
   },
   {
     "id": "ret_masters_at_arms_upgrade_100_elite_to_max",
-    "default": "Upgrade 100 elite troops to max tier.",
+    "EN": "Upgrade 100 elite troops to max tier.",
     "BR": "Aprimore 100 tropas de elite até o nível máximo.",
     "CNs": "将100名精锐部队升级至最高等级。",
     "CNt": "將100名精銳部隊升級至最高等級。",
@@ -2161,7 +2161,7 @@
   },
   {
     "id": "ret_mcm_option_all_equipment_unlocked",
-    "default": "All Equipment Unlocked",
+    "EN": "All Equipment Unlocked",
     "BR": "Todo Equipamento Desbloqueado",
     "CNs": "所有装备已解锁",
     "CNt": "所有裝備已解鎖",
@@ -2177,7 +2177,7 @@
   },
   {
     "id": "ret_mcm_option_all_equipment_unlocked_hint",
-    "default": "All equipment unlocked on game start.",
+    "EN": "All equipment unlocked on game start.",
     "BR": "Todo o equipamento é desbloqueado no início do jogo.",
     "CNs": "游戏开始时所有装备已解锁。",
     "CNt": "遊戲開始時所有裝備已解鎖。",
@@ -2193,7 +2193,7 @@
   },
   {
     "id": "ret_mcm_option_allowed_tier_difference",
-    "default": "Allowed Tier Difference",
+    "EN": "Allowed Tier Difference",
     "BR": "Diferença de Nível Permitida",
     "CNs": "允许的等级差",
     "CNt": "允許的等級差",
@@ -2209,7 +2209,7 @@
   },
   {
     "id": "ret_mcm_option_allowed_tier_difference_hint",
-    "default": "Maximum allowed tier difference between troops and equipment.",
+    "EN": "Maximum allowed tier difference between troops and equipment.",
     "BR": "Diferença máxima de nível permitida entre tropas e equipamentos.",
     "CNs": "部队与装备之间允许的最大等级差。",
     "CNt": "部隊與裝備之間允許的最大等級差。",
@@ -2225,7 +2225,7 @@
   },
   {
     "id": "ret_mcm_option_base_skill_xp_cost",
-    "default": "Base Skill XP Cost",
+    "EN": "Base Skill XP Cost",
     "BR": "Custo Base de XP por Habilidade",
     "CNs": "基础技能经验消耗",
     "CNt": "基礎技能經驗消耗",
@@ -2241,7 +2241,7 @@
   },
   {
     "id": "ret_mcm_option_base_skill_xp_cost_hint",
-    "default": "Base XP cost for increasing a skill.",
+    "EN": "Base XP cost for increasing a skill.",
     "BR": "Custo base de XP para aumentar uma habilidade.",
     "CNs": "提升技能所需的基础经验。",
     "CNt": "提升技能所需的基礎經驗。",
@@ -2257,7 +2257,7 @@
   },
   {
     "id": "ret_mcm_option_clan_troops_over_kingdom_troops",
-    "default": "Clan Troops Over Kingdom Troops",
+    "EN": "Clan Troops Over Kingdom Troops",
     "BR": "Tropas de Clã Sobre Tropas de Reino",
     "CNs": "氏族部队优先于王国部队",
     "CNt": "氏族部隊優先於王國部隊",
@@ -2273,7 +2273,7 @@
   },
   {
     "id": "ret_mcm_option_clan_troops_over_kingdom_troops_hint",
-    "default": "If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops.",
+    "EN": "If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops.",
     "BR": "Se um feudo for tanto de clã quanto de reino, as tropas do clã terão prioridade sobre as tropas do reino.",
     "CNs": "如果一个领地既是氏族领地又是王国领地，则氏族部队将优先于王国部队。",
     "CNt": "如果一個領地既是氏族領地又是王國領地，則氏族部隊將優先於王國部隊。",
@@ -2289,7 +2289,7 @@
   },
   {
     "id": "ret_mcm_option_debug_mode",
-    "default": "Debug Mode",
+    "EN": "Debug Mode",
     "BR": "Modo de Depuração",
     "CNs": "调试模式",
     "CNt": "除錯模式",
@@ -2305,7 +2305,7 @@
   },
   {
     "id": "ret_mcm_option_debug_mode_hint",
-    "default": "Outputs many more logs (may impact performance).",
+    "EN": "Outputs many more logs (may impact performance).",
     "BR": "Gera muito mais registros (pode impactar o desempenho).",
     "CNs": "输出更多日志（可能影响性能）。",
     "CNt": "輸出更多日誌（可能影響效能）。",
@@ -2321,7 +2321,7 @@
   },
   {
     "id": "ret_mcm_option_disallow_mounts_for_tier_1",
-    "default": "Disallow Mounts For Tier 1",
+    "EN": "Disallow Mounts For Tier 1",
     "BR": "Proibir Montarias para Nível 1",
     "CNs": "禁止1级部队骑乘",
     "CNt": "禁止1級部隊騎乘",
@@ -2337,7 +2337,7 @@
   },
   {
     "id": "ret_mcm_option_disallow_mounts_for_tier_1_hint",
-    "default": "Tier 1 troops cannot have mounts.",
+    "EN": "Tier 1 troops cannot have mounts.",
     "BR": "Tropas de nível 1 não podem ter montarias.",
     "CNs": "1级部队不能拥有坐骑。",
     "CNt": "1級部隊不能擁有坐騎。",
@@ -2353,7 +2353,7 @@
   },
   {
     "id": "ret_mcm_option_enable_doctrines",
-    "default": "Enable Doctrines",
+    "EN": "Enable Doctrines",
     "BR": "Ativar Doutrinas (Instável)",
     "CNs": "启用教义",
     "CNt": "啟用教義",
@@ -2369,7 +2369,7 @@
   },
   {
     "id": "ret_mcm_option_enable_doctrines_hint",
-    "default": "Enable the Doctrines system and its features.",
+    "EN": "Enable the Doctrines system and its features.",
     "BR": "Ativa o sistema de Doutrinas e seus recursos.",
     "CNs": "启用教义系统及其功能。",
     "CNt": "啟用教義系統及其功能。",
@@ -2385,7 +2385,7 @@
   },
   {
     "id": "ret_mcm_option_max_basic_retinue_ratio",
-    "default": "Max Basic Retinue Ratio",
+    "EN": "Max Basic Retinue Ratio",
     "BR": "Proporção Máxima de Séquito Básico",
     "CNs": "基础随从比例上限",
     "CNt": "基礎隨從比例上限",
@@ -2401,7 +2401,7 @@
   },
   {
     "id": "ret_mcm_option_max_basic_retinue_ratio_hint",
-    "default": "Maximum proportion of basic retinue troops in player party.",
+    "EN": "Maximum proportion of basic retinue troops in player party.",
     "BR": "Proporção máxima de tropas de séquito básico no grupo do jogador.",
     "CNs": "玩家队伍中基础随从的最大比例。",
     "CNt": "玩家隊伍中基礎隨從的最大比例。",
@@ -2417,7 +2417,7 @@
   },
   {
     "id": "ret_mcm_option_max_elite_retinue_ratio",
-    "default": "Max Elite Retinue Ratio",
+    "EN": "Max Elite Retinue Ratio",
     "BR": "Proporção Máxima de Séquito de Elite",
     "CNs": "精锐随从比例上限",
     "CNt": "精銳隨從比例上限",
@@ -2433,7 +2433,7 @@
   },
   {
     "id": "ret_mcm_option_max_elite_retinue_ratio_hint",
-    "default": "Maximum proportion of elite retinue troops in player party.",
+    "EN": "Maximum proportion of elite retinue troops in player party.",
     "BR": "Proporção máxima de tropas de séquito de elite no grupo do jogador.",
     "CNs": "玩家队伍中精锐随从的最大比例。",
     "CNt": "玩家隊伍中精銳隨從的最大比例。",
@@ -2449,7 +2449,7 @@
   },
   {
     "id": "ret_mcm_option_own_culture_unlock_bonuses",
-    "default": "Own Culture Unlock Bonuses",
+    "EN": "Own Culture Unlock Bonuses",
     "BR": "Bônus de Desbloqueio da Própria Cultura",
     "CNs": "自身文化解锁奖励",
     "CNt": "自身文化解鎖獎勵",
@@ -2465,7 +2465,7 @@
   },
   {
     "id": "ret_mcm_option_own_culture_unlock_bonuses_hint",
-    "default": "Whether kills also unlock items from the custom troop's culture.",
+    "EN": "Whether kills also unlock items from the custom troop's culture.",
     "BR": "Determina se abates também desbloqueiam itens da cultura da tropa personalizada.",
     "CNs": "决定击杀是否也能解锁自定义部队文化物品。",
     "CNt": "決定擊殺是否也能解鎖自定義部隊文化物品。",
@@ -2481,7 +2481,7 @@
   },
   {
     "id": "ret_mcm_option_pay_for_equipment",
-    "default": "Pay For Troop Equipment",
+    "EN": "Pay For Troop Equipment",
     "BR": "Pagar pelo Equipamento da Tropa",
     "CNs": "支付部队装备费用",
     "CNt": "支付部隊裝備費用",
@@ -2497,7 +2497,7 @@
   },
   {
     "id": "ret_mcm_option_pay_for_equipment_hint",
-    "default": "Upgrading troop equipment costs money.",
+    "EN": "Upgrading troop equipment costs money.",
     "BR": "Aprimorar o equipamento da tropa custa dinheiro.",
     "CNs": "升级部队装备需要金钱。",
     "CNt": "升級部隊裝備需要金錢。",
@@ -2513,7 +2513,7 @@
   },
   {
     "id": "ret_mcm_option_recruit_anywhere",
-    "default": "Recruit Clan Troops Anywhere",
+    "EN": "Recruit Clan Troops Anywhere",
     "BR": "Recrutar Tropas do Clã em Qualquer Lugar",
     "CNs": "任意地点招募家族部队",
     "CNt": "任意地點招募家族部隊",
@@ -2529,7 +2529,7 @@
   },
   {
     "id": "ret_mcm_option_recruit_anywhere_hint",
-    "default": "Player can recruit clan troops in any settlement.",
+    "EN": "Player can recruit clan troops in any settlement.",
     "BR": "O jogador pode recrutar tropas do clã em qualquer assentamento.",
     "CNs": "玩家可在任何定居点招募家族部队。",
     "CNt": "玩家可在任何定居點招募家族部隊。",
@@ -2545,7 +2545,7 @@
   },
   {
     "id": "ret_mcm_option_required_kills_for_unlock",
-    "default": "Required Kills For Unlock",
+    "EN": "Required Kills For Unlock",
     "BR": "Abates Necessários para Desbloquear",
     "CNs": "解锁所需击杀数",
     "CNt": "解鎖所需擊殺數",
@@ -2561,7 +2561,7 @@
   },
   {
     "id": "ret_mcm_option_required_kills_for_unlock_hint",
-    "default": "How many enemies wearing an item must be defeated to unlock it.",
+    "EN": "How many enemies wearing an item must be defeated to unlock it.",
     "BR": "Quantos inimigos usando um item devem ser derrotados para desbloqueá-lo.",
     "CNs": "解锁一件物品所需击败的敌人数量。",
     "CNt": "解鎖一件物品所需擊敗的敵人數量。",
@@ -2577,7 +2577,7 @@
   },
   {
     "id": "ret_mcm_option_retinue_conversion_cost_per_tier",
-    "default": "Retinue Conversion Cost Per Tier",
+    "EN": "Retinue Conversion Cost Per Tier",
     "BR": "Custo de Conversão do Séquito por Nível",
     "CNs": "随从转换每级费用",
     "CNt": "隨從轉換每級費用",
@@ -2593,7 +2593,7 @@
   },
   {
     "id": "ret_mcm_option_retinue_conversion_cost_per_tier_hint",
-    "default": "Conversion cost for retinue troops per tier.",
+    "EN": "Conversion cost for retinue troops per tier.",
     "BR": "Custo de conversão por nível para tropas do séquito.",
     "CNs": "随从按等级转换所需的费用。",
     "CNt": "隨從按等級轉換所需的費用。",
@@ -2609,7 +2609,7 @@
   },
   {
     "id": "ret_mcm_option_retinue_rank_up_cost_per_tier",
-    "default": "Retinue Rank Up Cost Per Tier",
+    "EN": "Retinue Rank Up Cost Per Tier",
     "BR": "Custo de Promoção do Séquito por Nível",
     "CNs": "随从晋升每级费用",
     "CNt": "隨從晉升每級費用",
@@ -2625,7 +2625,7 @@
   },
   {
     "id": "ret_mcm_option_retinue_rank_up_cost_per_tier_hint",
-    "default": "Rank up cost for retinue troops per tier.",
+    "EN": "Rank up cost for retinue troops per tier.",
     "BR": "Custo de promoção por nível para tropas do séquito.",
     "CNs": "随从按等级晋升所需的费用。",
     "CNt": "隨從按等級晉升所需的費用。",
@@ -2641,7 +2641,7 @@
   },
   {
     "id": "ret_mcm_option_shared_xp_pool",
-    "default": "Shared XP Pool",
+    "EN": "Shared XP Pool",
     "BR": "Reserva Compartilhada de XP",
     "CNs": "共享经验池",
     "CNt": "共享經驗池",
@@ -2657,7 +2657,7 @@
   },
   {
     "id": "ret_mcm_option_shared_xp_pool_hint",
-    "default": "All troops share the same XP pool.",
+    "EN": "All troops share the same XP pool.",
     "BR": "Todas as tropas compartilham a mesma reserva de XP.",
     "CNs": "所有部队共享同一个经验池。",
     "CNt": "所有部隊共享同一個經驗池。",
@@ -2673,7 +2673,7 @@
   },
   {
     "id": "ret_mcm_option_skill_cap",
-    "default": "Tier {TIER} Cap",
+    "EN": "Tier {TIER} Cap",
     "BR": "Nível Máximo de Nível {TIER}",
     "CNs": "等级上限 {TIER}",
     "CNt": "等級上限 {TIER}",
@@ -2689,7 +2689,7 @@
   },
   {
     "id": "ret_mcm_option_skill_cap_hint",
-    "default": "The maximum skill level for tier {TIER} troops.",
+    "EN": "The maximum skill level for tier {TIER} troops.",
     "BR": "O nível máximo de habilidade para tropas de nível {TIER}.",
     "CNs": "等级 {TIER} 部队的最高技能水平。",
     "CNt": "等級 {TIER} 部隊的最高技能水平。",
@@ -2705,7 +2705,7 @@
   },
   {
     "id": "ret_mcm_option_skill_total",
-    "default": "Tier {TIER} Skill Total",
+    "EN": "Tier {TIER} Skill Total",
     "BR": "Total de Habilidades do Nível {TIER}",
     "CNs": "等级 {TIER} 技能总数",
     "CNt": "等級 {TIER} 技能總數",
@@ -2721,7 +2721,7 @@
   },
   {
     "id": "ret_mcm_option_skill_total_hint",
-    "default": "The total available skill points for tier {TIER} troops.",
+    "EN": "The total available skill points for tier {TIER} troops.",
     "BR": "O total de pontos de habilidade disponíveis para tropas de nível {TIER}.",
     "CNs": "等级 {TIER} 部队可用的总技能点数。",
     "CNt": "等級 {TIER} 部隊可用的總技能點數。",
@@ -2737,7 +2737,7 @@
   },
   {
     "id": "ret_mcm_option_skill_xp_cost_per_point",
-    "default": "Skill XP Cost Per Point",
+    "EN": "Skill XP Cost Per Point",
     "BR": "Custo de XP por Ponto de Habilidade",
     "CNs": "技能经验每点消耗",
     "CNt": "技能經驗每點消耗",
@@ -2753,7 +2753,7 @@
   },
   {
     "id": "ret_mcm_option_skill_xp_cost_per_point_hint",
-    "default": "Scalable XP cost for each point of skill increase.",
+    "EN": "Scalable XP cost for each point of skill increase.",
     "BR": "Custo de XP escalável para cada ponto de aumento de habilidade.",
     "CNs": "提升每点技能所需的可变经验消耗。",
     "CNt": "提升每點技能所需的可變經驗消耗。",
@@ -2769,7 +2769,7 @@
   },
   {
     "id": "ret_mcm_option_swap_only_for_correct_culture",
-    "default": "Swap Volunteers Only For Correct Culture",
+    "EN": "Swap Volunteers Only For Correct Culture",
     "BR": "Trocar Voluntários Apenas pela Cultura Correta",
     "CNs": "仅为正确文化更换志愿者",
     "CNt": "僅為正確文化更換志願者",
@@ -2785,7 +2785,7 @@
   },
   {
     "id": "ret_mcm_option_swap_only_for_correct_culture_hint",
-    "default": "Volunteers in settlements of a different culture will not be replaced by custom troops.",
+    "EN": "Volunteers in settlements of a different culture will not be replaced by custom troops.",
     "BR": "Voluntários em assentamentos de uma cultura diferente não serão substituídos por tropas personalizadas.",
     "CNs": "不同文化定居点的志愿者将不会被自定义部队替换。",
     "CNt": "不同文化定居點的志願者將不會被自定義部隊替換。",
@@ -2801,7 +2801,7 @@
   },
   {
     "id": "ret_mcm_option_unlock_from_culture",
-    "default": "Unlock From Culture",
+    "EN": "Unlock From Culture",
     "BR": "Desbloquear pela Cultura",
     "CNs": "从文化解锁",
     "CNt": "從文化解鎖",
@@ -2817,7 +2817,7 @@
   },
   {
     "id": "ret_mcm_option_unlock_from_culture_hint",
-    "default": "Player culture and player-led kingdom culture equipment is always available.",
+    "EN": "Player culture and player-led kingdom culture equipment is always available.",
     "BR": "Equipamentos da cultura do jogador e da cultura do reino liderado pelo jogador estão sempre disponíveis.",
     "CNs": "玩家文化和玩家领导的王国文化装备始终可用。",
     "CNt": "玩家文化和玩家領導的王國文化裝備始終可用。",
@@ -2833,7 +2833,7 @@
   },
   {
     "id": "ret_mcm_option_unlock_from_kills",
-    "default": "Unlock From Kills",
+    "EN": "Unlock From Kills",
     "BR": "Desbloquear por Abates",
     "CNs": "从击杀解锁",
     "CNt": "從擊殺解鎖",
@@ -2849,7 +2849,7 @@
   },
   {
     "id": "ret_mcm_option_unlock_from_kills_hint",
-    "default": "Unlock equipment by defeating enemies wearing it.",
+    "EN": "Unlock equipment by defeating enemies wearing it.",
     "BR": "Desbloqueie equipamentos derrotando inimigos que os estejam usando.",
     "CNs": "通过击败穿戴装备的敌人来解锁装备。",
     "CNt": "透過擊敗穿戴裝備的敵人來解鎖裝備。",
@@ -2865,7 +2865,7 @@
   },
   {
     "id": "ret_mcm_section_debug",
-    "default": "Debug",
+    "EN": "Debug",
     "BR": "Depuração",
     "CNs": "调试",
     "CNt": "除錯",
@@ -2881,7 +2881,7 @@
   },
   {
     "id": "ret_mcm_section_doctrines",
-    "default": "Doctrines",
+    "EN": "Doctrines",
     "BR": "Doutrinas",
     "CNs": "教义",
     "CNt": "教義",
@@ -2897,7 +2897,7 @@
   },
   {
     "id": "ret_mcm_section_equipment",
-    "default": "Equipment",
+    "EN": "Equipment",
     "BR": "Equipamento",
     "CNs": "装备",
     "CNt": "裝備",
@@ -2913,7 +2913,7 @@
   },
   {
     "id": "ret_mcm_section_general",
-    "default": "General",
+    "EN": "General",
     "BR": "Geral",
     "CNs": "通用",
     "CNt": "通用",
@@ -2929,7 +2929,7 @@
   },
   {
     "id": "ret_mcm_section_recruitment",
-    "default": "Recruitment",
+    "EN": "Recruitment",
     "BR": "Recrutamento",
     "CNs": "招募",
     "CNt": "招募",
@@ -2945,7 +2945,7 @@
   },
   {
     "id": "ret_mcm_section_retinues",
-    "default": "Retinues",
+    "EN": "Retinues",
     "BR": "Séquitos",
     "CNs": "随从",
     "CNt": "隨從",
@@ -2961,7 +2961,7 @@
   },
   {
     "id": "ret_mcm_section_skill_caps",
-    "default": "Skill Caps",
+    "EN": "Skill Caps",
     "BR": "Níveis Máximos de Habilidade",
     "CNs": "技能上限",
     "CNt": "技能上限",
@@ -2977,7 +2977,7 @@
   },
   {
     "id": "ret_mcm_section_skill_totals",
-    "default": "Skill Totals",
+    "EN": "Skill Totals",
     "BR": "Totais de Habilidade",
     "CNs": "技能总数",
     "CNt": "技能總數",
@@ -2993,7 +2993,7 @@
   },
   {
     "id": "ret_mcm_section_skills",
-    "default": "Skills",
+    "EN": "Skills",
     "BR": "Habilidades",
     "CNs": "技能",
     "CNt": "技能",
@@ -3009,7 +3009,7 @@
   },
   {
     "id": "ret_mcm_section_unlocks",
-    "default": "Unlocks",
+    "EN": "Unlocks",
     "BR": "Desbloqueios",
     "CNs": "解锁",
     "CNt": "解鎖",
@@ -3025,7 +3025,7 @@
   },
   {
     "id": "ret_name_header_text",
-    "default": "Name",
+    "EN": "Name",
     "BR": "Nome",
     "CNs": "名称",
     "CNt": "名稱",
@@ -3041,7 +3041,7 @@
   },
   {
     "id": "ret_no",
-    "default": "No",
+    "EN": "No",
     "BR": "Não",
     "CNs": "否",
     "CNt": "否",
@@ -3057,7 +3057,7 @@
   },
   {
     "id": "ret_not_enough_gold",
-    "default": "Not enough gold",
+    "EN": "Not enough gold",
     "BR": "Ouro insuficiente",
     "CNs": "金币不足",
     "CNt": "金幣不足",
@@ -3073,7 +3073,7 @@
   },
   {
     "id": "ret_not_enough_gold_text",
-    "default": "You do not have enough gold to purchase this item.",
+    "EN": "You do not have enough gold to purchase this item.",
     "BR": "Você não tem ouro suficiente para comprar este item.",
     "CNs": "你没有足够的金币购买此物品。",
     "CNt": "你沒有足夠的金幣購買此物品。",
@@ -3089,7 +3089,7 @@
   },
   {
     "id": "ret_ok",
-    "default": "OK",
+    "EN": "OK",
     "BR": "OK",
     "CNs": "确定",
     "CNt": "確定",
@@ -3105,7 +3105,7 @@
   },
   {
     "id": "ret_pragmatic_scavengers",
-    "default": "Pragmatic Scavengers",
+    "EN": "Pragmatic Scavengers",
     "BR": "Catadores Pragmáticos",
     "CNs": "实用清道夫",
     "CNt": "實用清道夫",
@@ -3121,7 +3121,7 @@
   },
   {
     "id": "ret_pragmatic_scavengers_army_win_allies_50",
-    "default": "Win three battles in a row while part of an allied lord's army.",
+    "EN": "Win three battles in a row while part of an allied lord's army.",
     "BR": "Vença três batalhas seguidas enquanto fizer parte do exército de um lorde aliado.",
     "CNs": "作为盟友领主的军队一员连续赢得三场战斗。",
     "CNt": "作為盟友領主的軍隊一員連續贏得三場戰鬥。",
@@ -3137,7 +3137,7 @@
   },
   {
     "id": "ret_pragmatic_scavengers_defense_allies_100",
-    "default": "Win a battle in which allies suffer over 100 casualties.",
+    "EN": "Win a battle in which allies suffer over 100 casualties.",
     "BR": "Vença uma batalha na qual os aliados sofram mais de 100 baixas.",
     "CNs": "赢得一场盟军损失超过100人的战斗。",
     "CNt": "贏得一場盟軍損失超過100人的戰鬥。",
@@ -3153,7 +3153,7 @@
   },
   {
     "id": "ret_pragmatic_scavengers_description",
-    "default": "Can unlock items from allied party casualties.",
+    "EN": "Can unlock items from allied party casualties.",
     "BR": "Pode desbloquear itens a partir de baixas do grupo aliado.",
     "CNs": "可通过盟友损失解锁物品。",
     "CNt": "可透過盟友損失解鎖物品。",
@@ -3169,7 +3169,7 @@
   },
   {
     "id": "ret_pragmatic_scavengers_rescue_lord",
-    "default": "Rescue a defeated lord from a enemy party's prisoner train.",
+    "EN": "Rescue a defeated lord from a enemy party's prisoner train.",
     "BR": "Resgate um lorde derrotado do comboio de prisioneiros de um grupo inimigo.",
     "CNs": "从敌军押送队中解救一名战败领主。",
     "CNt": "從敵軍押送隊中解救一名戰敗領主。",
@@ -3185,7 +3185,7 @@
   },
   {
     "id": "ret_queen_guard",
-    "default": "Queen's Guard",
+    "EN": "Queen's Guard",
     "BR": "Guarda da Rainha",
     "CNs": "女王卫队",
     "CNt": "女王衛隊",
@@ -3201,7 +3201,7 @@
   },
   {
     "id": "ret_rank_up",
-    "default": "Rank Up",
+    "EN": "Rank Up",
     "BR": "Promover",
     "CNs": "晋升",
     "CNt": "晉升",
@@ -3217,7 +3217,7 @@
   },
   {
     "id": "ret_rank_up_costs_text",
-    "default": "It will cost you {COST_GOLD} gold and {COST_XP} XP.",
+    "EN": "It will cost you {COST_GOLD} gold and {COST_XP} XP.",
     "BR": "Isso vai custar {COST_GOLD} de ouro e {COST_XP} de XP.",
     "CNs": "这将花费 {COST_GOLD} 金币和 {COST_XP} 经验。",
     "CNt": "這將花費 {COST_GOLD} 金幣和 {COST_XP} 經驗。",
@@ -3233,7 +3233,7 @@
   },
   {
     "id": "ret_rank_up_gold_cost_text",
-    "default": "It will cost you {COST} gold.",
+    "EN": "It will cost you {COST} gold.",
     "BR": "Isso vai custar {COST} de ouro.",
     "CNs": "这将花费 {COST} 金币。",
     "CNt": "這將花費 {COST} 金幣。",
@@ -3249,7 +3249,7 @@
   },
   {
     "id": "ret_rank_up_not_enough_gold_text",
-    "default": "You do not have enough gold to rank up {TROOP_NAME}.\\n\\nRank up cost: {COST} gold.",
+    "EN": "You do not have enough gold to rank up {TROOP_NAME}.\\n\\nRank up cost: {COST} gold.",
     "BR": "Você não tem ouro suficiente para promover {TROOP_NAME}.\\n\\nCusto de promoção: {COST} de ouro.",
     "CNs": "你没有足够的金币晋升 {TROOP_NAME}。\\n\\n晋升费用: {COST} 金币。",
     "CNt": "你沒有足夠的金幣晉升 {TROOP_NAME}。\\n\\n晉升費用: {COST} 金幣。",
@@ -3265,7 +3265,7 @@
   },
   {
     "id": "ret_rank_up_not_enough_gold_title",
-    "default": "Not enough gold",
+    "EN": "Not enough gold",
     "BR": "Ouro insuficiente",
     "CNs": "金币不足",
     "CNt": "金幣不足",
@@ -3281,7 +3281,7 @@
   },
   {
     "id": "ret_rank_up_not_enough_xp_text",
-    "default": "You do not have enough XP to rank up {TROOP_NAME}.\\n\\nRank up cost: {COST} XP.",
+    "EN": "You do not have enough XP to rank up {TROOP_NAME}.\\n\\nRank up cost: {COST} XP.",
     "BR": "Você não tem XP suficiente para promover {TROOP_NAME}.\\n\\nCusto de promoção: {COST} XP.",
     "CNs": "你没有足够的经验晋升 {TROOP_NAME}。\\n\\n晋升费用: {COST} 经验。",
     "CNt": "你沒有足夠的經驗晉升 {TROOP_NAME}。\\n\\n晉升費用: {COST} 經驗。",
@@ -3297,7 +3297,7 @@
   },
   {
     "id": "ret_rank_up_not_enough_xp_title",
-    "default": "Not enough XP",
+    "EN": "Not enough XP",
     "BR": "XP insuficiente",
     "CNs": "经验不足",
     "CNt": "經驗不足",
@@ -3313,7 +3313,7 @@
   },
   {
     "id": "ret_rank_up_not_maxed_out",
-    "default": "Not Maxed Out",
+    "EN": "Not Maxed Out",
     "BR": "Não no Máximo",
     "CNs": "未满级",
     "CNt": "未滿級",
@@ -3329,7 +3329,7 @@
   },
   {
     "id": "ret_rank_up_not_maxed_out_text",
-    "default": "Max out this retinue's skills before you can rank up.",
+    "EN": "Max out this retinue's skills before you can rank up.",
     "BR": "Maximize as habilidades deste séquito antes de promovê-lo.",
     "CNs": "在晋升之前先将该随从的技能提升到最大。",
     "CNt": "在晉升之前先將該隨從的技能提升到最大。",
@@ -3345,7 +3345,7 @@
   },
   {
     "id": "ret_remove_button_text",
-    "default": "Remove",
+    "EN": "Remove",
     "BR": "Remover",
     "CNs": "移除",
     "CNt": "移除",
@@ -3361,7 +3361,7 @@
   },
   {
     "id": "ret_remove_troop",
-    "default": "Remove Troop",
+    "EN": "Remove Troop",
     "BR": "Remover Tropa",
     "CNs": "移除部队",
     "CNt": "移除部隊",
@@ -3377,7 +3377,7 @@
   },
   {
     "id": "ret_remove_troop_text",
-    "default": "Are you sure you want to permanently remove {TROOP_NAME}?\\n\\nTheir equipment will be stocked for later use.",
+    "EN": "Are you sure you want to permanently remove {TROOP_NAME}?\\n\\nTheir equipment will be stocked for later use.",
     "BR": "Tem certeza de que deseja remover permanentemente {TROOP_NAME}?\\n\\nO equipamento deles será guardado no estoque para uso posterior.",
     "CNs": "确定要永久移除 {TROOP_NAME} 吗？\\n\\n他们的装备将被存入库存以供后用。",
     "CNt": "確定要永久移除 {TROOP_NAME} 嗎？\\n\\n他們的裝備將被存入庫存以供後用。",
@@ -3393,7 +3393,7 @@
   },
   {
     "id": "ret_rename_troop",
-    "default": "Rename Troop",
+    "EN": "Rename Troop",
     "BR": "Renomear Tropa",
     "CNs": "重命名部队",
     "CNt": "重命名部隊",
@@ -3409,7 +3409,7 @@
   },
   {
     "id": "ret_retinue",
-    "default": "Retinue",
+    "EN": "Retinue",
     "BR": "Séquito",
     "CNs": "随从",
     "CNt": "隨從",
@@ -3425,7 +3425,7 @@
   },
   {
     "id": "ret_retinue_female_kingdom",
-    "default": "{FACTION} Queen's Champion",
+    "EN": "{FACTION} Queen's Champion",
     "BR": "{FACTION} Campeão da Rainha",
     "CNs": "{FACTION} 女王勇士",
     "CNt": "{FACTION} 女王勇士",
@@ -3441,7 +3441,7 @@
   },
   {
     "id": "ret_retinue_house_champion",
-    "default": "{FACTION} House Champion",
+    "EN": "{FACTION} House Champion",
     "BR": "{FACTION} Campeão da Casa",
     "CNs": "{FACTION} 家族勇士",
     "CNt": "{FACTION} 家族勇士",
@@ -3457,7 +3457,7 @@
   },
   {
     "id": "ret_retinue_house_guard",
-    "default": "{FACTION} House Guard",
+    "EN": "{FACTION} House Guard",
     "BR": "{FACTION} Guarda da Casa",
     "CNs": "{FACTION} 家族卫士",
     "CNt": "{FACTION} 家族衛士",
@@ -3473,7 +3473,7 @@
   },
   {
     "id": "ret_retinue_male_kingdom",
-    "default": "{FACTION} King's Champion",
+    "EN": "{FACTION} King's Champion",
     "BR": "{FACTION} Campeão do Rei",
     "CNs": "{FACTION} 国王勇士",
     "CNt": "{FACTION} 國王勇士",
@@ -3489,7 +3489,7 @@
   },
   {
     "id": "ret_retinue_morale_bonus_bound_by_honor",
-    "default": "Retinue (Bound by Honor)",
+    "EN": "Retinue (Bound by Honor)",
     "BR": "Séquito (Vinculados pela Honra)",
     "CNs": "随从（荣誉束缚）",
     "CNt": "隨從（榮譽束縛）",
@@ -3505,7 +3505,7 @@
   },
   {
     "id": "ret_retinue_royal_guard",
-    "default": "{FACTION} Royal Guard",
+    "EN": "{FACTION} Royal Guard",
     "BR": "{FACTION} Guarda Real",
     "CNs": "{FACTION} 皇家卫队",
     "CNt": "{FACTION} 皇家衛隊",
@@ -3521,7 +3521,7 @@
   },
   {
     "id": "ret_royal_patronage",
-    "default": "Royal Patronage",
+    "EN": "Royal Patronage",
     "BR": "Patrocínio Real",
     "CNs": "王室资助",
     "CNt": "王室資助",
@@ -3537,7 +3537,7 @@
   },
   {
     "id": "ret_royal_patronage_1000_kills_custom_kingdom",
-    "default": "Get 1000 kills with custom kingdom troops.",
+    "EN": "Get 1000 kills with custom kingdom troops.",
     "BR": "Consiga 1000 abates com tropas personalizadas do reino.",
     "CNs": "使用自定义王国部队累计获得1000击杀。",
     "CNt": "使用自定義王國部隊累計獲得1000擊殺。",
@@ -3553,7 +3553,7 @@
   },
   {
     "id": "ret_royal_patronage_companion_governor_30_days",
-    "default": "Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.",
+    "EN": "Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.",
     "BR": "Tenha um companheiro da mesma cultura do seu reino governando um feudo do reino por 30 dias.",
     "CNs": "让与你王国同文化的同伴治理一个王国封地30天。",
     "CNt": "讓與你王國同文化的同伴治理一個王國封地30天。",
@@ -3569,7 +3569,7 @@
   },
   {
     "id": "ret_royal_patronage_description",
-    "default": "10% rebate on items of the kingdom's culture.",
+    "EN": "10% rebate on items of the kingdom's culture.",
     "BR": "10% de desconto em itens da cultura do reino.",
     "CNs": "王国文化物品享受10%折扣。",
     "CNt": "王國文化物品享受10%折扣。",
@@ -3585,7 +3585,7 @@
   },
   {
     "id": "ret_royal_patronage_recruit_100_custom_kingdom",
-    "default": "Recruit 100 custom kingdom troops.",
+    "EN": "Recruit 100 custom kingdom troops.",
     "BR": "Recrute 100 tropas personalizadas do reino.",
     "CNs": "招募100名自定义王国部队。",
     "CNt": "招募100名自定義王國部隊。",
@@ -3601,7 +3601,7 @@
   },
   {
     "id": "ret_skill_cap_text",
-    "default": "{CAP} skill cap",
+    "EN": "{CAP} skill cap",
     "BR": "Limite de habilidade {CAP}",
     "CNs": "技能上限 {CAP}",
     "CNt": "技能上限 {CAP}",
@@ -3617,7 +3617,7 @@
   },
   {
     "id": "ret_skill_requirement_text",
-    "default": "Requires {SKILL}: {LEVEL}",
+    "EN": "Requires {SKILL}: {LEVEL}",
     "BR": "Requer {SKILL}: {LEVEL}",
     "CNs": "需要 {SKILL}: {LEVEL}",
     "CNt": "需要 {SKILL}: {LEVEL}",
@@ -3633,7 +3633,7 @@
   },
   {
     "id": "ret_skills_header_text",
-    "default": "Skills",
+    "EN": "Skills",
     "BR": "Habilidades",
     "CNs": "技能",
     "CNt": "技能",
@@ -3649,7 +3649,7 @@
   },
   {
     "id": "ret_steadfast_soldiers",
-    "default": "Steadfast Soldiers",
+    "EN": "Steadfast Soldiers",
     "BR": "Soldados Inabaláveis",
     "CNs": "坚定士兵",
     "CNt": "堅定士兵",
@@ -3665,7 +3665,7 @@
   },
   {
     "id": "ret_steadfast_soldiers_defend_village_only_custom",
-    "default": "Defend a village from a raid using only custom troops.",
+    "EN": "Defend a village from a raid using only custom troops.",
     "BR": "Defenda uma aldeia de um saque usando apenas tropas personalizadas.",
     "CNs": "仅用自定义部队防御村庄免遭掠夺。",
     "CNt": "僅用自定義部隊防禦村莊免遭掠奪。",
@@ -3681,7 +3681,7 @@
   },
   {
     "id": "ret_steadfast_soldiers_description",
-    "default": "+10 skill points.",
+    "EN": "+10 skill points.",
     "BR": "+10 pontos de habilidade.",
     "CNs": "+10 技能点。",
     "CNt": "+10 技能點。",
@@ -3697,7 +3697,7 @@
   },
   {
     "id": "ret_steadfast_soldiers_siege_defense_only_custom",
-    "default": "Win a siege defense using only custom troops.",
+    "EN": "Win a siege defense using only custom troops.",
     "BR": "Vença uma defesa de cerco usando apenas tropas personalizadas.",
     "CNs": "仅用自定义部队赢得一场防御攻城战。",
     "CNt": "僅用自定義部隊贏得一場防禦攻城戰。",
@@ -3713,7 +3713,7 @@
   },
   {
     "id": "ret_steadfast_soldiers_troops_maxed_skills",
-    "default": "Max out the skills of 15 custom troops.",
+    "EN": "Max out the skills of 15 custom troops.",
     "BR": "Maximiza as habilidades de 15 tropas personalizadas.",
     "CNs": "让15名自定义部队技能达到满值。",
     "CNt": "讓15名自定義部隊技能達到滿值。",
@@ -3729,7 +3729,7 @@
   },
   {
     "id": "ret_switch_to_clan_troops",
-    "default": "Switch to\\nClan Troops",
+    "EN": "Switch to\\nClan Troops",
     "BR": "Trocar para\\nTropas do Clã",
     "CNs": "切换至\\n家族部队",
     "CNt": "切換至\\n家族部隊",
@@ -3745,7 +3745,7 @@
   },
   {
     "id": "ret_switch_to_kingdom_troops",
-    "default": "Switch to\\nKingdom Troops",
+    "EN": "Switch to\\nKingdom Troops",
     "BR": "Trocar para\\nTropas do Reino",
     "CNs": "切换至\\n王国部队",
     "CNt": "切換至\\n王國部隊",
@@ -3761,7 +3761,7 @@
   },
   {
     "id": "ret_tier",
-    "default": "Tier",
+    "EN": "Tier",
     "BR": "Nível",
     "CNs": "等级",
     "CNt": "等級",
@@ -3777,7 +3777,7 @@
   },
   {
     "id": "ret_transfer_header_text",
-    "default": "Transfer",
+    "EN": "Transfer",
     "BR": "Transferir",
     "CNs": "转移",
     "CNt": "轉移",
@@ -3793,7 +3793,7 @@
   },
   {
     "id": "ret_troops_tab_text",
-    "default": "Troops",
+    "EN": "Troops",
     "BR": "Tropas",
     "CNs": "部队",
     "CNt": "部隊",
@@ -3809,7 +3809,7 @@
   },
   {
     "id": "ret_unequip_all",
-    "default": "Unequip All",
+    "EN": "Unequip All",
     "BR": "Remover Tudo",
     "CNs": "卸下全部",
     "CNt": "卸下全部",
@@ -3825,7 +3825,7 @@
   },
   {
     "id": "ret_unequip_all_button_text",
-    "default": "Unequip All",
+    "EN": "Unequip All",
     "BR": "Remover Tudo",
     "CNs": "卸下全部",
     "CNt": "卸下全部",
@@ -3841,7 +3841,7 @@
   },
   {
     "id": "ret_unequip_all_text",
-    "default": "Unequip all items worn by {TROOP_NAME}?\\n\\nThey will be stocked for later use.",
+    "EN": "Unequip all items worn by {TROOP_NAME}?\\n\\nThey will be stocked for later use.",
     "BR": "Remover todos os itens usados por {TROOP_NAME}?\\n\\nEles serão guardados no estoque para uso posterior.",
     "CNs": "卸下 {TROOP_NAME} 穿戴的所有物品？\\n\\n它们将被存入库存以供后用。",
     "CNt": "卸下 {TROOP_NAME} 穿戴的所有物品？\\n\\n它們將被存入庫存以供後用。",
@@ -3857,7 +3857,7 @@
   },
   {
     "id": "ret_unlock_btn",
-    "default": "Unlock",
+    "EN": "Unlock",
     "BR": "Desbloquear",
     "CNs": "解锁",
     "CNt": "解鎖",
@@ -3873,7 +3873,7 @@
   },
   {
     "id": "ret_unlock_failed",
-    "default": "Cannot unlock.",
+    "EN": "Cannot unlock.",
     "BR": "Não é possível desbloquear.",
     "CNs": "无法解锁。",
     "CNt": "無法解鎖。",
@@ -3889,7 +3889,7 @@
   },
   {
     "id": "ret_unlock_progress_text",
-    "default": "Unlocking ({PROGRESS}/{REQUIRED})",
+    "EN": "Unlocking ({PROGRESS}/{REQUIRED})",
     "BR": "Desbloqueando ({PROGRESS}/{REQUIRED})",
     "CNs": "解锁中 ({PROGRESS}/{REQUIRED})",
     "CNt": "解鎖中 ({PROGRESS}/{REQUIRED})",
@@ -3905,7 +3905,7 @@
   },
   {
     "id": "ret_upgrades_header_text",
-    "default": "Upgrades",
+    "EN": "Upgrades",
     "BR": "Aprimoramentos",
     "CNs": "升级",
     "CNt": "升級",
@@ -3921,7 +3921,7 @@
   },
   {
     "id": "ret_vanguard",
-    "default": "Vanguard",
+    "EN": "Vanguard",
     "BR": "Vanguarda",
     "CNs": "先锋",
     "CNt": "先鋒",
@@ -3937,7 +3937,7 @@
   },
   {
     "id": "ret_vanguard_clear_hideout_retinue_only",
-    "default": "Clear a hideout using only your retinue.",
+    "EN": "Clear a hideout using only your retinue.",
     "BR": "Limpe um esconderijo usando apenas seu séquito.",
     "CNs": "仅用随从清剿一个山寨。",
     "CNt": "僅用隨從清剿一個山寨。",
@@ -3953,7 +3953,7 @@
   },
   {
     "id": "ret_vanguard_description",
-    "default": "+15% retinue cap.",
+    "EN": "+15% retinue cap.",
     "BR": "+15% no limite do séquito.",
     "CNs": "+15% 随从上限。",
     "CNt": "+15% 隨從上限。",
@@ -3969,7 +3969,7 @@
   },
   {
     "id": "ret_vanguard_first_melee_kill_in_siege",
-    "default": "Have a retinue get the first melee kill in a siege assault.",
+    "EN": "Have a retinue get the first melee kill in a siege assault.",
     "BR": "Faça um séquito conseguir a primeira baixa corpo a corpo em um assalto de cerco.",
     "CNs": "让随从在攻城突击中取得首次近战击杀。",
     "CNt": "讓隨從在攻城突擊中取得首次近戰擊殺。",
@@ -3985,7 +3985,7 @@
   },
   {
     "id": "ret_vanguard_win_100_retinue_only",
-    "default": "Win a 100+ battle using only your retinue.",
+    "EN": "Win a 100+ battle using only your retinue.",
     "BR": "Vença uma batalha de 100+ inimigos usando apenas seu séquito.",
     "CNs": "仅用随从赢得一场100+敌人的战斗。",
     "CNt": "僅用隨從贏得一場100+敵人的戰鬥。",
@@ -4001,7 +4001,7 @@
   },
   {
     "id": "ret_warning",
-    "default": "Warning",
+    "EN": "Warning",
     "BR": "Aviso",
     "CNs": "警告",
     "CNt": "警告",
@@ -4017,7 +4017,7 @@
   },
   {
     "id": "ret_weapon_1_slot_text",
-    "default": "Weapon 1",
+    "EN": "Weapon 1",
     "BR": "Arma 1",
     "CNs": "武器1",
     "CNt": "武器1",
@@ -4033,7 +4033,7 @@
   },
   {
     "id": "ret_weapon_2_slot_text",
-    "default": "Weapon 2",
+    "EN": "Weapon 2",
     "BR": "Arma 2",
     "CNs": "武器2",
     "CNt": "武器2",
@@ -4049,7 +4049,7 @@
   },
   {
     "id": "ret_weapon_3_slot_text",
-    "default": "Weapon 3",
+    "EN": "Weapon 3",
     "BR": "Arma 3",
     "CNs": "武器3",
     "CNt": "武器3",
@@ -4065,7 +4065,7 @@
   },
   {
     "id": "ret_weapon_4_slot_text",
-    "default": "Weapon 4",
+    "EN": "Weapon 4",
     "BR": "Arma 4",
     "CNs": "武器4",
     "CNt": "武器4",
@@ -4081,7 +4081,7 @@
   },
   {
     "id": "ret_yes",
-    "default": "Yes",
+    "EN": "Yes",
     "BR": "Sim",
     "CNs": "是",
     "CNt": "是",

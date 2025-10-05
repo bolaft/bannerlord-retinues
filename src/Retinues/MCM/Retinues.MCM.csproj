@@ -5,84 +5,15 @@
     <Nullable>disable</Nullable>
     <AssemblyName>Retinues.MCM</AssemblyName>
     <RootNamespace>Retinues.MCM</RootNamespace>
-    <!-- Path to the Bannerlord game installation directory -->
-    <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
-    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\..\'))</RepoRoot>
     <ModuleName>Retinues.MCM</ModuleName>
-    <ModuleOutDir>$(RepoRoot)bin\Modules\$(ModuleName)</ModuleOutDir>
-    <BinOutDir>$(ModuleOutDir)\bin\Win64_Shipping_Client</BinOutDir>
-    <OutputPath>$(BinOutDir)\</OutputPath>
-    <DeployToGame>true</DeployToGame>
-    <McmDir>$(BannerlordGameDir)\Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client</McmDir>
+    <IsGameModule>true</IsGameModule>
   </PropertyGroup>
-  <Target Name="ValidateGameDir" BeforeTargets="ResolveReferences">
-    <Error
-      Text="You must pass -p:BannerlordGameDir=&quot;...&quot;"
-      Condition="'$(BannerlordGameDir)'==''"
-    />
-    <Error
-      Text="BannerlordGameDir not found: $(BannerlordGameDir)"
-      Condition=" '$(BannerlordGameDir)'!='' and !Exists('$(BannerlordGameDir)') "
-    />
-  </Target>
+
+  <!-- MCM dependency -->
   <ItemGroup>
-    <ProjectReference Include="..\Core\Retinues.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- TaleWorlds Assemblies -->
-    <Reference Include="TaleWorlds.Library">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Library.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.Core">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.MountAndBlade">
-      <HintPath>$(BannerlordGameDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <!-- MCM v5 -->
-    <Reference Include="MCMv5">
-      <HintPath>$(BannerlordGameDir)\Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv5.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="MCMv5.UI">
-      <HintPath>$(BannerlordGameDir)\Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCMv5.UI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="MCM.UI.Adapter.MCMv5">
-      <HintPath>$(BannerlordGameDir)\Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCM.UI.Adapter.MCMv5.dll</HintPath>
+    <Reference Include="MCM">
+      <HintPath>$(BannerlordGameDir)\Modules\Bannerlord.MBOptionScreen\bin\Win64_Shipping_Client\MCM.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="SubModule.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <Target Name="CopyModuleManifest" AfterTargets="Build">
-    <MakeDir Directories="$(ModuleOutDir)" />
-    <Copy
-      SourceFiles="SubModule.xml"
-      DestinationFiles="$(ModuleOutDir)\SubModule.xml"
-      SkipUnchangedFiles="true"
-    />
-  </Target>
-  <Target Name="DeployToGameModules" AfterTargets="Build" Condition="'$(DeployToGame)'=='true'">
-    <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
-    </PropertyGroup>
-    <MakeDir Directories="$(GameModuleDir)\bin\Win64_Shipping_Client" />
-    <Copy
-      SourceFiles="$(TargetPath)"
-      DestinationFolder="$(GameModuleDir)\bin\Win64_Shipping_Client"
-      SkipUnchangedFiles="true"
-    />
-    <Copy
-      SourceFiles="SubModule.xml"
-      DestinationFiles="$(GameModuleDir)\SubModule.xml"
-      SkipUnchangedFiles="true"
-    />
-  </Target>
 </Project>
