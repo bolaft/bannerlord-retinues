@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Retinues.Core.Features.Xp.Behaviors;
@@ -52,13 +54,11 @@ namespace Retinues.Core.Features.Xp.Patches
                 if (model == null)
                     return;
 
-                int processed = 0,
-                    awarded = 0;
+                Dictionary<WCharacter, float> awards = [];
+
                 foreach (var row in (System.Collections.IEnumerable)flattened)
                 {
-                    processed++;
-                    var co = _fteTroop?.GetValue(row) as CharacterObject;
-                    if (co == null)
+                    if (_fteTroop?.GetValue(row) is not CharacterObject co)
                         continue;
 
                     var troop = new WCharacter(co);
@@ -73,6 +73,7 @@ namespace Retinues.Core.Features.Xp.Patches
                         (FlattenedTroopRosterElement)row,
                         party.Base.Party
                     );
+
                     if (baseXp <= 0)
                         continue; // no XP to give
 
@@ -81,18 +82,26 @@ namespace Retinues.Core.Features.Xp.Patches
                     if (award <= 0)
                         continue; // no XP to give
 
+                    // Track awarded XP
+                    awards[troop] = awards.TryGetValue(troop, out var prev) ? prev + award : award;
+                }
+
+                // Apply all awards
+                foreach (var kvp in awards)
+                {
                     // Apply multiplier
-                    int gain = (int)(award * xpMultiplier);
+                    float gain = kvp.Value * xpMultiplier;
 
                     // Reduce for non-main parties
                     if (!mobile.IsMainParty)
-                        gain = (int)(gain * xpMultiplierNonMain);
+                        gain *= xpMultiplierNonMain;
 
-                    if (gain <= 0)
+                    var xp = (int)gain;
+                    if (xp <= 0)
                         continue; // no XP to give after multiplier
 
-                    TroopXpBehavior.Add(troop, gain);
-                    awarded++;
+                    Log.Debug($"Awarding {xp} XP to {kvp.Key.Name} from battle in party {party}.");
+                    TroopXpBehavior.Add(kvp.Key, xp);
                 }
             }
             catch (Exception e)
