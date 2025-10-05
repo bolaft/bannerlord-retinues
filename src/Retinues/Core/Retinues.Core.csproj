@@ -6,12 +6,17 @@
     <AssemblyName>Retinues.Core</AssemblyName>
     <RootNamespace>Retinues.Core</RootNamespace>
     <ModuleName>Retinues.Core</ModuleName>
+    <IsGameModule>true</IsGameModule>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->
     <Reference Include="TaleWorlds.MountAndBlade">
       <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.MountAndBlade.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.GauntletUI.Widgets">
+      <HintPath>$(BannerlordGameDir)/bin/Win64_Shipping_Client/TaleWorlds.MountAndBlade.GauntletUI.Widgets.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="TaleWorlds.DotNet">

@@ -4,27 +4,8 @@
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
-    <!-- Inherit RepoRoot/StagingRoot/BannerlordGameDir from Directory.Build.Props -->
-    <ModuleName>PrefabBuilder</ModuleName>
-
-    <!-- Local tool output (independent of module staging) -->
-    <BaseOutputPath>$(RepoRoot)bin\tools\</BaseOutputPath>
-    <OutputPath>$(BaseOutputPath)$(MSBuildProjectName)\</OutputPath>
-
-    <!-- Opt-in run right after build -->
-    <RunPrefabBuilder Condition="'$(RunPrefabBuilder)' == ''">false</RunPrefabBuilder>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Scriban" Version="6.2.1" />
   </ItemGroup>
-
-  <!-- Make running the generator opt-in -->
-  <Target Name="RunPrefabBuilder"
-          AfterTargets="Build"
-          Condition="'$(RunPrefabBuilder)' == 'true'">
-    <!-- Prefer running the built exe instead of 'dotnet run' -->
-    <Exec Command="&quot;$(TargetPath)&quot;" WorkingDirectory="$(ProjectDir)" />
-  </Target>
 </Project>

@@ -1,24 +1,9 @@
 #!/usr/bin/env python3
+
 """
-Extract localized strings from C# calls like:
-    L.S("unlock_btn", "Unlock")
-    L.T('confirm', 'Confirm')
-
-- Keys are automatically prefixed with 'ret_' (unless already prefixed).
-- If the same key has different fallbacks across files, a warning is printed and
-  the first encountered value is kept.
-- Output: ./loc/ret_strings.xml (relative to this script).
-
-ADDED:
-- Maintain ./strings.json alongside this script:
-    [
-      {"id":"ret_confirm","default":"Confirm","FR":null,"IT":null,"CNs":null,"CNt":null, ...},
-      ...
-    ]
-  * If missing, it is created.
-  * If present, it's merged (new keys/locales added; default refreshed).
-- For each locale subfolder under ./loc/<LOCALE>/, create ./loc/<LOCALE>/ret_strings.xml
-  with only the <string> entries whose JSON value for that locale is not null.
+Localization string extractor and synchronizer:
+- Scans .cs files for L.S("key", "text") calls
+- Keeps strings.json and per-locale XML files in sync.
 """
 
 import sys
@@ -26,13 +11,21 @@ import re
 import json
 from pathlib import Path
 
-# ---------- config ----------
-OUTPUT_REL = Path("loc/ret_strings.xml")  # relative to this script
-KEY_PREFIX = "ret_"
-JSON_NAME = "strings.json"                # next to this script
-LOCS_DIRNAME = "loc"                      # locales live under ./loc/<LOCALE>/
 
-# ---------- regexes ----------
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+#                        config                          #
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+
+OUTPUT_REL = Path("Languages/ret_strings.xml")  # relative to this script (now in ./loc)
+KEY_PREFIX = "ret_"
+JSON_NAME = "strings.json"  # next to this script
+LOCS_DIRNAME = "Languages"  # locales live under ./loc/Languages/<LOCALE>/
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+#                        regexes                         #
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+
 # Double-quoted: L.S("key", "text")
 RE_DQ = re.compile(
     r"""L\.(?:S|T)\(\s*"(?P<key>(?:\\.|[^"\\])*)"\s*,\s*"(?P<text>(?:\\.|[^"\\])*)"\s*\)""",
@@ -51,28 +44,34 @@ RE_VB = re.compile(
     re.DOTALL,
 )
 
+
 def unescape_regular(s: str) -> str:
     """Unescape C#-style regular string (very small subset)."""
-    return (
-        s.replace(r"\\", "\\")
-         .replace(r"\"" , '"')
-         .replace(r"\'" , "'")
-    )
+    return s.replace(r"\\", "\\").replace(r"\"", '"').replace(r"\'", "'")
+
 
 def unescape_verbatim(s: str) -> str:
     """Unescape C# verbatim string: only "" becomes "."""
     return s.replace('""', '"')
 
+
 def xml_escape(s: str) -> str:
     s = s.replace("\\n", "{newline}")
     # First, replace Python newlines with Bannerlord's {newline}
-    s = s.replace("\r\n", "{newline}").replace("\r", "{newline}").replace("\n", "{newline}")
+    s = (
+        s.replace("\r\n", "{newline}")
+        .replace("\r", "{newline}")
+        .replace("\n", "{newline}")
+    )
     # Then escape XML meta-characters
-    return (s.replace("&", "&amp;")
-             .replace("<", "&lt;")
-             .replace(">", "&gt;")
-             .replace('"', "&quot;")
-             .replace("'", "&apos;"))
+    return (
+        s.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&apos;")
+    )
+
 
 def scan_file(path: Path):
     text = path.read_text(encoding="utf-8", errors="ignore")
@@ -95,11 +94,15 @@ def scan_file(path: Path):
 
     return hits
 
-# ---------- NEW helpers for JSON & per-locale XML ----------
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+#            helpers for JSON & per-locale XML           #
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+
 
 def list_locale_codes(loc_root: Path) -> list[str]:
     """
-    Return the list of locale codes from subfolders of ./loc (relative to script),
+    Return the list of locale codes from subfolders of ./Languages (relative to script),
     e.g. ["FR", "IT", "CNs", "CNt"]. Ignores files; only directories.
     """
     if not loc_root.exists():
@@ -110,6 +113,7 @@ def list_locale_codes(loc_root: Path) -> list[str]:
             codes.append(p.name)
     return codes
 
+
 def load_or_init_json(json_path: Path) -> list[dict]:
     if json_path.exists():
         try:
@@ -119,7 +123,7 @@ def load_or_init_json(json_path: Path) -> list[dict]:
             # Normalize entries to ensure an 'id' exists (for resilience if a manual edit removed it)
             normalized = []
             for item in data:
-                if isinstance(item, dict) and "id" in item and "default" in item:
+                if isinstance(item, dict) and "id" in item and "EN" in item:
                     normalized.append(item)
             return normalized
         except Exception:
@@ -127,11 +131,14 @@ def load_or_init_json(json_path: Path) -> list[dict]:
             json_path.rename(json_path.with_suffix(".json.bak"))
     return []
 
-def ensure_json_contains_all_keys(json_list: list[dict], ids_to_default: dict[str, str], locale_codes: list[str]) -> list[dict]:
+
+def ensure_json_contains_all_keys(
+    json_list: list[dict], ids_to_default: dict[str, str], locale_codes: list[str]
+) -> list[dict]:
     """
     Merge scan results into the json list:
-    - Add missing keys with default + nulls per locale.
-    - Refresh default text from current scan.
+    - Add missing keys with EN + nulls per locale.
+    - Refresh EN text from current scan.
     - Add any new locale codes with null.
     """
     # Index existing by id
@@ -141,9 +148,9 @@ def ensure_json_contains_all_keys(json_list: list[dict], ids_to_default: dict[st
     for _id, default_text in ids_to_default.items():
         if _id in by_id:
             entry = by_id[_id]
-            entry["default"] = default_text
+            entry["EN"] = default_text
         else:
-            entry = {"id": _id, "default": default_text}
+            entry = {"id": _id, "EN": default_text}
             by_id[_id] = entry
         # Ensure locales present
         for lc in locale_codes:
@@ -159,8 +166,12 @@ def ensure_json_contains_all_keys(json_list: list[dict], ids_to_default: dict[st
     # Return stable order by id
     return [by_id[k] for k in sorted(by_id.keys(), key=str.lower)]
 
+
 def write_json(json_path: Path, json_list: list[dict]):
-    json_path.write_text(json.dumps(json_list, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    json_path.write_text(
+        json.dumps(json_list, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+
 
 def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
     """
@@ -169,23 +180,35 @@ def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
     """
     locale_dir.mkdir(parents=True, exist_ok=True)
     out_path = locale_dir / "ret_strings.xml"
-    strings = [(d["id"], d.get(locale_code)) for d in json_list if isinstance(d, dict) and "id" in d]
+    strings = [
+        (d["id"], d.get(locale_code))
+        for d in json_list
+        if isinstance(d, dict) and "id" in d
+    ]
     # Filter nulls
     strings = [(sid, txt) for (sid, txt) in strings if txt is not None]
 
     with out_path.open("w", encoding="utf-8", newline="\n") as f:
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        f.write('<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">\n')
-        f.write('  <tags>\n')
+        f.write(
+            '<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">\n'
+        )
+        f.write("  <tags>\n")
         f.write(f'    <tag language="{xml_escape(locale_code)}" />\n')
-        f.write('  </tags>\n')
-        f.write('  <strings>\n')
+        f.write("  </tags>\n")
+        f.write("  <strings>\n")
         for sid, txt in strings:
-            f.write(f'    <string\n      id="{xml_escape(sid)}"\n      text="{xml_escape(str(txt))}" />\n')
-        f.write('  </strings>\n')
-        f.write('</base>')
+            f.write(
+                f'    <string\n      id="{xml_escape(sid)}"\n      text="{xml_escape(str(txt))}" />\n'
+            )
+        f.write("  </strings>\n")
+        f.write("</base>")
 
-# ---------- main (kept original behavior + additions) ----------
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+#       main (kept original behavior + additions)        #
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+
 
 def main():
     # Root to scan: argv[1] or current working dir
@@ -223,16 +246,20 @@ def main():
     ids_sorted = sorted(entries.keys(), key=str.lower)
     with out_path.open("w", encoding="utf-8", newline="\n") as f:
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        f.write('<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">\n')
-        f.write('  <tags>\n')
+        f.write(
+            '<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">\n'
+        )
+        f.write("  <tags>\n")
         f.write('    <tag language="English" />\n')
-        f.write('  </tags>\n')
-        f.write('  <strings>\n')
+        f.write("  </tags>\n")
+        f.write("  <strings>\n")
         for _id in ids_sorted:
             text, _ = entries[_id]
-            f.write(f'    <string\n      id="{xml_escape(_id)}"\n      text="{xml_escape(text)}" />\n')
-        f.write('  </strings>\n')
-        f.write('</base>')
+            f.write(
+                f'    <string\n      id="{xml_escape(_id)}"\n      text="{xml_escape(text)}" />\n'
+            )
+        f.write("  </strings>\n")
+        f.write("</base>")
 
     # Report for default
     print(f"[OK] Extracted {len(ids_sorted)} strings from {len(cs_files)} .cs files.")
@@ -240,7 +267,10 @@ def main():
     if warnings:
         print("\n".join(warnings), file=sys.stderr)
 
-    # ---------- NEW: JSON + per-locale generation ----------
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+    #              JSON + per-locale generation              #
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
+
     loc_root = script_dir / LOCS_DIRNAME
     locale_codes = list_locale_codes(loc_root)
 
@@ -256,6 +286,7 @@ def main():
     for code in locale_codes:
         write_locale_xml(loc_root / code, code, json_list)
         print(f"[OK] Wrote locale XML: {(loc_root / code / 'ret_strings.xml')}")
+
 
 if __name__ == "__main__":
     main()

@@ -14,7 +14,7 @@ class PrefabBuilder
 {
     static async Task<int> Main(string[] args)
     {
-        var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+        var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
 
         Console.WriteLine($"[PrefabBuilder] Root directory: {root}");
 
@@ -76,7 +76,6 @@ class PrefabBuilder
             {
                 var result = await parsed.RenderAsync(context);
                 await File.WriteAllTextAsync(outPath, result);
-                Console.WriteLine($"[PrefabBuilder] Generated: {outPath}");
                 count++;
             }
             catch (Exception ex)
