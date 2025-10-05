@@ -142,7 +142,7 @@ namespace Retinues.Core.Game.Wrappers
 
             try
             {
-                // Build temp roster (dummy so it won’t fire OwnerParty events during staging)
+                // Build temp roster (dummy so it won't fire OwnerParty events during staging)
                 var tmp = TroopRoster.CreateDummyTroopRoster();
 
                 // Enumerate a snapshot so we don't fight internal mutations while staging

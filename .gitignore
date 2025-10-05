@@ -37,3 +37,6 @@ GlobalSuppressions.cs
 
 # Ignore media
 media/
+
+# Local props file
+Retinues.Local.Props
