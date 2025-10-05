@@ -14,9 +14,9 @@ Usage:
   ./build.sh [options]
 
 Options:
-  -t, --target          core | mcm | prefabs | all     (default: core)
-  -c, --config          Debug | Release                (default: from Local.props or Debug)
-  -g, --game-dir        Path to Bannerlord folder      (overrides Local.props)
+  -t, --target          core | mcm | prefabs | all               (default: core)
+  -c, --config          dev | release                            (default: from Local.props or dev)
+  -g, --game-dir        Path to Bannerlord folder                (overrides Local.props)
       --no-deploy       Do not copy to game Modules
       --deploy          Copy to game Modules (default)
       --prefabs         Force run PrefabBuilder before build
@@ -24,7 +24,7 @@ Options:
   -h, --help            Show help
 
 Examples:
-  ./build.sh -t core -c Release
+  ./build.sh -t core -c release
   ./build.sh -t all --no-deploy --prefabs
 USAGE
   exit 1
@@ -60,13 +60,15 @@ if [[ -n "${GAME_DIR}" ]]; then
 fi
 if [[ "${DEPLOY}" == "false" ]]; then
   MSBUILD_PROPS+=("-p:DeployToGame=false")
+else
+  MSBUILD_PROPS+=("-p:DeployToGame=true")
 fi
 
 # If no config provided, let MSBuild default to $(DefaultConfiguration)
 if [[ -n "${CONFIG}" ]]; then
   MSBUILD_CONFIG=(-c "${CONFIG}")
 else
-  MSBUILD_CONFIG=(-c Debug) # overridden by $(DefaultConfiguration) inside props
+  MSBUILD_CONFIG=(-c dev) # overridden by $(DefaultConfiguration) inside props
 fi
 
 # Prefabs auto: run if project exists and target includes core/all
@@ -89,9 +91,19 @@ echo
 # 1) Prefabs
 if [[ "$RUN_PREFABS" == "yes" && -f "$PREFAB_PROJ" ]]; then
   echo "== Building PrefabBuilder =="
-  dotnet build "$PREFAB_PROJ" "${MSBUILD_CONFIG[@]}"
+  dotnet build "$PREFAB_PROJ"
+
   echo "== Running PrefabBuilder =="
-  dotnet run --no-build --project "$PREFAB_PROJ"
+  PREFAB_OUT="$ROOT_DIR/bin/Modules/Retinues.Core/GUI"
+  TPL_TEMPLATES="$ROOT_DIR/tpl/templates"
+  TPL_PARTIALS="$ROOT_DIR/tpl/partials"
+
+  mkdir -p "$PREFAB_OUT"
+
+  dotnet run --no-build --project "$PREFAB_PROJ" -- \
+    --out "$PREFAB_OUT" \
+    --templates "$TPL_TEMPLATES" \
+    --partials "$TPL_PARTIALS"
   echo
 fi
 

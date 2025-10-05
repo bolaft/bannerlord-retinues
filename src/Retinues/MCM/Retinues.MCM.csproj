@@ -6,6 +6,7 @@
     <AssemblyName>Retinues.MCM</AssemblyName>
     <RootNamespace>Retinues.MCM</RootNamespace>
     <ModuleName>Retinues.MCM</ModuleName>
+    <IsGameModule>true</IsGameModule>
   </PropertyGroup>
 
   <!-- MCM dependency -->
