@@ -19,16 +19,18 @@ class PrefabBuilder
         Console.WriteLine($"[PrefabBuilder] Root directory: {root}");
 
         // template roots per submod
-        var tplRoot = Path.Combine(root, "tpl", "Retinues");
-        var coreTpl = Path.Combine(tplRoot, "Core");
-        var corePartials = Path.Combine(coreTpl, "partials");
-        var coreTemplates = Path.Combine(coreTpl, "templates");
+        var tplRoot = Path.Combine(root, "tpl");
+        var tplPartials = Path.Combine(tplRoot, "partials");
+        var tplTemplates = Path.Combine(tplRoot, "templates");
 
         // where generated files should go
         var outGuiCore = Path.Combine(root, "bin", "Modules", "Retinues.Core", "GUI");
 
+        Console.WriteLine($"[PrefabBuilder] Templates: {tplTemplates}");
+        Console.WriteLine($"[PrefabBuilder] Partials: {tplPartials}");
+
         int files = 0;
-        files += await RenderAll(coreTemplates, corePartials, outGuiCore);
+        files += await RenderAll(tplTemplates, tplPartials, outGuiCore);
 
         Console.WriteLine($"[PrefabBuilder] Generated {files} file(s).");
         return 0;
