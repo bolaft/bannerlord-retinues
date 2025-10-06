@@ -69,8 +69,11 @@ namespace Retinues.Core.Editor
                     }
 
                     // 1) Crafted items gated by Clanic Traditions
-                    if (item.IsCrafted && !hasClanicTraditions)
-                        continue;
+                    if (item.IsCrafted)
+                        if (!hasClanicTraditions)
+                            continue;
+                        else if (!item.IsUnlocked)
+                            item.Unlock(); // unlock now
 
                     // 2) Tier constraint unless Ironclad is unlocked
                     var tierDelta = item.Tier - troop.Tier;
