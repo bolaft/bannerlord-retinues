@@ -9,7 +9,7 @@ namespace Retinues.Core.Features.Xp.Behaviors
     [SafeClass]
     public sealed class TroopXpMissionBehavior : Combat
     {
-        private const int XpPerTier = 5;
+        private const int XpPerTier = 10;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //

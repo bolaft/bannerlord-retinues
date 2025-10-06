@@ -30,7 +30,7 @@ namespace Retinues.Core.Features.Xp.Patches
             "MapEventParty.CommitXpGain", // separately handled in BattleXpTracker
         };
 
-        public const float xpMultiplier = 0.05f; // 5% of the original XP
+        public const float xpMultiplier = 0.1f; // 10% of the original XP
         public const float xpMultiplierNonMain = 0.25f; // 25% of XP for non-main parties
 
         /// <summary>
