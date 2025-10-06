@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Core.Features.Xp.Behaviors;
+using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using TaleWorlds.Library;
 
@@ -66,6 +67,28 @@ namespace Retinues.Core.Features.Xp
             }
 
             return $"Added {amount} XP to {troop.Name} ({troop}).";
+        }
+
+        /// <summary>
+        /// Lists the IDs of all IsActive custom troops. Usage: retinues.list_custom_troops
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("list_custom_troops", "retinues")]
+        public static string ListCustomTroops(List<string> args)
+        {
+            var result = new List<string>();
+            foreach (var troop in Player.Troops)
+            {
+                if (troop.IsActive && troop.IsCustom)
+                {
+                    var name = troop.Name;
+                    var id = troop.StringId;
+                    var xp = TroopXpBehavior.Get(troop);
+                    result.Add($"{id}: {name} (XP: {xp})");
+                }
+            }
+            if (result.Count == 0)
+                return "No active custom troops found.";
+            return string.Join("\n", result);
         }
     }
 }
