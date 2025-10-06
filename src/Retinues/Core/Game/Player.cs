@@ -198,5 +198,14 @@ namespace Retinues.Core.Game
         /// Returns true if the player is the leader of their army.
         /// </summary>
         public static bool IsArmyLeader => Party.Army?.LeaderParty?.StringId == Party.StringId;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Settlement                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static WSettlement CurrentSettlement =>
+            Party?.Base?.CurrentSettlement != null
+                ? new WSettlement(Party.Base.CurrentSettlement)
+                : null;
     }
 }
