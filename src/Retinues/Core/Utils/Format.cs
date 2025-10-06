@@ -28,5 +28,17 @@ namespace Retinues.Core.Utils
 
             return text;
         }
+
+        /// <summary>
+        /// Crops a string to a maximum length, appending "(...)" if it was cropped.
+        /// </summary>
+        public static string Crop(string text, int maxLength)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+            if (text.Length > maxLength)
+                return text.Substring(0, maxLength) + "(...)";
+            return text;
+        }
     }
 }
