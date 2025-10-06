@@ -40,7 +40,7 @@
 
 ```
 ./build.sh                     # Bash build wrapper (Linux/macOS/Windows Git Bash)
-./Directory.Build.Props        # Centralized MSBuild configuration
+./Directory.Build.props        # Centralized MSBuild configuration
 ./Directory.Build.targets      # Centralized staging + deploy targets
 ./Retinues.Local.props         # (optional) per‑dev overrides (git‑ignored)
 
@@ -106,7 +106,7 @@ Examples:
 ./build.sh -t core --release 7 --deploy
 
 # Release for BL 1.2, set vX.Y.Z.8
-./build.sh -t core --release 8 --v 12 --deploy
+./build.sh -t core --release 8 --version 12 --deploy
 ```
 
 > The version edit happens **before** the build so the staged & deployed SubModule use the new value.
