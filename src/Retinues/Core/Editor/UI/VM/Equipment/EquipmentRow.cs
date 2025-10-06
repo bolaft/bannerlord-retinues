@@ -1,5 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Core.Editor.UI.Helpers;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -180,6 +181,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceMethod]
         public new void ExecuteSelect()
         {
+            if (RowList?.Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
             // Case 1: Item has a cost
             if (Value > 0)
             {
@@ -219,19 +223,11 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     // Case 1b2: Player cannot afford
                     else
                     {
-                        InformationManager.ShowInquiry(
-                            new InquiryData(
-                                L.S("not_enough_gold", "Not enough gold"),
-                                L.S(
-                                    "not_enough_gold_text",
-                                    "You do not have enough gold to purchase this item."
-                                ),
-                                false,
-                                true,
-                                null,
-                                L.S("ok", "OK"),
-                                null,
-                                null
+                        Popup.Display(
+                            L.T("not_enough_gold", "Not enough gold"),
+                            L.T(
+                                "not_enough_gold_text",
+                                "You do not have enough gold to purchase this item."
                             )
                         );
                     }

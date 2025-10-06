@@ -15,7 +15,7 @@ namespace Retinues.Core.Editor.UI.Mixins
     [ViewModelMixin(
         "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM"
     )]
-    public sealed class ClanTroopScreen : BaseViewModelMixin<ClanManagementVM>, ITroopScreen
+    public sealed class ClanTroopScreen : BaseViewModelMixin<ClanManagementVM>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //

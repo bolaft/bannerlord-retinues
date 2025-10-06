@@ -107,6 +107,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceMethod]
         public void ExecuteUnequipAll()
         {
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
             if (!CanUnequip)
                 return; // No-op if cannot unequip
 

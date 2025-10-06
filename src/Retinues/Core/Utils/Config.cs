@@ -166,6 +166,90 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
+            /* ━━━━━━━━ Editing ━━━━━━━ */
+
+            AddOption(
+                section: L.S("mcm_section_editing", "Editing"),
+                name: L.S("mcm_option_restrict_editing_to_fiefs", "Restrict Editing To Fiefs"),
+                key: "RestrictEditingToFiefs",
+                hint: L.S(
+                    "mcm_option_restrict_editing_to_fiefs_hint",
+                    "Player can only edit troops when in a fief owned by their clan or kingdom (clan retinues can be edited in any settlement)."
+                ),
+                @default: true,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_editing", "Editing"),
+                name: L.S(
+                    "mcm_option_restrict_conversion_to_fiefs",
+                    "Restrict Retinue Conversion To Fiefs"
+                ),
+                key: "RestrictConversionToFiefs",
+                hint: L.S(
+                    "mcm_option_restrict_conversion_to_fiefs_hint",
+                    "Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)."
+                ),
+                @default: true,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_editing", "Editing"),
+                name: L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
+                key: "TrainingTakesTime",
+                hint: L.S("mcm_option_training_takes_time_hint", "Troop training takes time."),
+                @default: true,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_editing", "Editing"),
+                name: L.S("mcm_option_training_time_modifier", "Training Time Modifier"),
+                key: "TrainingTimeModifier",
+                hint: L.S(
+                    "mcm_option_training_time_modifier_hint",
+                    "Modifier for troop training time."
+                ),
+                @default: 1.0,
+                type: typeof(float),
+                minValue: 0,
+                maxValue: 5
+            );
+
+            AddOption(
+                section: L.S("mcm_section_editing", "Editing"),
+                name: L.S(
+                    "mcm_option_equipment_change_takes_time",
+                    "Changing Troop Equipment Takes Time"
+                ),
+                key: "EquipmentChangeTakesTime",
+                hint: L.S(
+                    "mcm_option_equipment_change_takes_time_hint",
+                    "Changing a troop's equipment takes time."
+                ),
+                @default: true,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_editing", "Editing"),
+                name: L.S(
+                    "mcm_option_equipment_change_time_modifier",
+                    "Equipment Change Time Modifier"
+                ),
+                key: "EquipmentChangeTimeModifier",
+                hint: L.S(
+                    "mcm_option_equipment_change_time_modifier_hint",
+                    "Modifier for equipment change time."
+                ),
+                @default: 1.0,
+                type: typeof(float),
+                minValue: 0,
+                maxValue: 5
+            );
+
             /* ━━━━━━━ Doctrines ━━━━━━ */
 
             AddOption(

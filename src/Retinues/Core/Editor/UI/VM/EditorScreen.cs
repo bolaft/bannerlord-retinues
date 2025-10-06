@@ -23,7 +23,7 @@ namespace Retinues.Core.Editor.UI.VM
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly ITroopScreen _screen;
+        private readonly ClanTroopScreen _screen;
 
         private EditorMode _editorMode = EditorMode.Default;
 
@@ -33,7 +33,7 @@ namespace Retinues.Core.Editor.UI.VM
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public EditorScreenVM(WFaction faction, ITroopScreen screen)
+        public EditorScreenVM(WFaction faction, ClanTroopScreen screen)
         {
             try
             {
@@ -249,6 +249,21 @@ namespace Retinues.Core.Editor.UI.VM
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WFaction Faction => _faction;
+
+        public bool EditingIsAllowed =>
+            Config.GetOption<bool>("RestrictEditingToFiefs") == false
+            || TroopRules.IsAllowedInContext(
+                SelectedTroop,
+                Faction,
+                L.S("action_modify", "modify")
+            );
+        public bool ConversionIsAllowed =>
+            Config.GetOption<bool>("RestrictConversionToFiefs") == false
+            || TroopRules.IsAllowedInContext(
+                SelectedTroop,
+                Faction,
+                L.S("action_convert", "convert")
+            );
 
         public WCharacter SelectedTroop => TroopList?.SelectedRow?.Troop;
 

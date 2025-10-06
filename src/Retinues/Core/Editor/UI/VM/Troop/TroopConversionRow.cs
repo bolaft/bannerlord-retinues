@@ -33,21 +33,12 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string CappedName(WCharacter troop)
-        {
-            var name = troop?.Name;
-            if (string.IsNullOrEmpty(name))
-                return name;
-            if (name.Length > 40)
-                return name.Substring(0, 40) + "(...)";
-            return name;
-        }
+        [DataSourceProperty]
+        public string FromDisplay => $"{Format.Crop(_from?.Name, 40)} ({FromAvailableVirtual})";
 
         [DataSourceProperty]
-        public string FromDisplay => $"{CappedName(_from)} ({FromAvailableVirtual})";
-
-        [DataSourceProperty]
-        public string ToDisplay => $"{CappedName(_to)} ({ToAvailableVirtual}/{_editor.RetinueCap})";
+        public string ToDisplay =>
+            $"{Format.Crop(_to?.Name, 40)} ({ToAvailableVirtual}/{_editor.RetinueCap})";
 
         [DataSourceProperty]
         public bool CanRecruit => _editor.GetMaxStageable(_from, _to) > 0;
@@ -68,6 +59,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteRecruit()
         {
+            if (_editor.Screen?.ConversionIsAllowed == false)
+                return; // Conversion not allowed in current context
             int amount = ReadBatchAmount();
             _editor.StageConversion(_from, _to, amount);
             // Row visuals update via Refresh()
@@ -77,6 +70,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteRelease()
         {
+            if (_editor.Screen?.ConversionIsAllowed == false)
+                return; // Conversion not allowed in current context
             int amount = ReadBatchAmount();
             _editor.StageConversion(_to, _from, amount);
             Refresh();

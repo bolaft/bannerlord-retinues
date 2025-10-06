@@ -87,7 +87,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         /* ━━━━━━━ Item Info ━━━━━━ */
 
         [DataSourceProperty]
-        public string Name => Item?.Name;
+        public string Name => Format.Crop(Item?.Name, 25);
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 

@@ -71,6 +71,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         private void Modify(int delta)
         {
+            if (_editor.Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
             int repeat = 1;
 
             if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))

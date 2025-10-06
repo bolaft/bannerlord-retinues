@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Core.Editor.UI.Helpers;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
@@ -76,18 +77,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         }
 
         [DataSourceProperty]
-        public string Name
-        {
-            get
-            {
-                var name = SelectedTroop?.Name;
-                if (string.IsNullOrEmpty(name))
-                    return name;
-                if (name.Length > 35)
-                    return name.Substring(0, 35) + "(...)";
-                return name;
-            }
-        }
+        public string Name => Format.Crop(SelectedTroop?.Name, 35);
 
         [DataSourceProperty]
         public string Gender =>
@@ -236,7 +226,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 if (CanRemove)
                     return null; // No hint if can remove
 
-                return Helpers.Tooltip.MakeTooltip(null, CantRemoveTroopExplanation);
+                return Tooltip.MakeTooltip(null, CantRemoveTroopExplanation);
             }
         }
 
@@ -293,6 +283,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteAddUpgradeTarget()
         {
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
             InformationManager.ShowTextInquiry(
                 new TextInquiryData(
                     titleText: L.S("add_upgrade", "Add Upgrade"),
@@ -323,6 +316,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         [DataSourceMethod]
         public void ExecuteRemoveTroop()
         {
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
             InformationManager.ShowInquiry(
                 new InquiryData(
                     titleText: L.S("remove_troop", "Remove Troop"),
@@ -356,66 +352,43 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (SelectedTroop == null)
                 return;
 
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
             int cost = TroopRules.RankUpCost(SelectedTroop);
 
             if (TroopRules.SkillPointsLeft(SelectedTroop) > 0)
             {
-                InformationManager.ShowInquiry(
-                    new InquiryData(
-                        titleText: L.S("rank_up_not_maxed_out", "Not Maxed Out"),
-                        text: L.S(
-                            "rank_up_not_maxed_out_text",
-                            "Max out this retinue's skills before you can rank up."
-                        ),
-                        isAffirmativeOptionShown: false,
-                        isNegativeOptionShown: true,
-                        affirmativeText: null,
-                        negativeText: L.S("ok", "OK"),
-                        affirmativeAction: null,
-                        negativeAction: () => { }
+                Popup.Display(
+                    L.T("rank_up_not_maxed_out", "Not Maxed Out"),
+                    L.T(
+                        "rank_up_not_maxed_out_text",
+                        "Max out this retinue's skills before you can rank up."
                     )
                 );
             }
             else if (Player.Gold < cost)
             {
-                InformationManager.ShowInquiry(
-                    new InquiryData(
-                        titleText: L.S("rank_up_not_enough_gold_title", "Not enough gold"),
-                        text: L.T(
-                                "rank_up_not_enough_gold_text",
-                                "You do not have enough gold to rank up {TROOP_NAME}.\n\nRank up cost: {COST} gold."
-                            )
-                            .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
-                            .SetTextVariable("COST", cost)
-                            .ToString(),
-                        isAffirmativeOptionShown: false,
-                        isNegativeOptionShown: true,
-                        affirmativeText: null,
-                        negativeText: L.S("ok", "OK"),
-                        affirmativeAction: null,
-                        negativeAction: () => { }
-                    )
+                Popup.Display(
+                    L.T("rank_up_not_enough_gold_title", "Not enough gold"),
+                    L.T(
+                            "rank_up_not_enough_gold_text",
+                            "You do not have enough gold to rank up {TROOP_NAME}.\n\nRank up cost: {COST} gold."
+                        )
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("COST", cost)
                 );
             }
             else if (TroopXpBehavior.Get(SelectedTroop) < cost && TroopXpIsEnabled)
             {
-                InformationManager.ShowInquiry(
-                    new InquiryData(
-                        titleText: L.S("rank_up_not_enough_xp_title", "Not enough XP"),
-                        text: L.T(
-                                "rank_up_not_enough_xp_text",
-                                "You do not have enough XP to rank up {TROOP_NAME}.\n\nRank up cost: {COST} XP."
-                            )
-                            .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
-                            .SetTextVariable("COST", cost)
-                            .ToString(),
-                        isAffirmativeOptionShown: false,
-                        isNegativeOptionShown: true,
-                        affirmativeText: null,
-                        negativeText: L.S("ok", "OK"),
-                        affirmativeAction: null,
-                        negativeAction: () => { }
-                    )
+                Popup.Display(
+                    L.T("rank_up_not_enough_xp_title", "Not enough XP"),
+                    L.T(
+                            "rank_up_not_enough_xp_text",
+                            "You do not have enough XP to rank up {TROOP_NAME}.\n\nRank up cost: {COST} XP."
+                        )
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("COST", cost)
                 );
             }
             else

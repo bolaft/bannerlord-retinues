@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Core.Editor.UI.Helpers;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Features.Xp.Behaviors;
@@ -19,6 +20,67 @@ namespace Retinues.Core.Editor
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
+        /// </summary>
+        public static bool IsAllowedInContext(WCharacter troop, WFaction faction, string action)
+        {
+            if (faction == null)
+                return true; // No faction, allow by default
+
+            var settlement = Player.CurrentSettlement;
+
+            if (troop.IsRetinue == true && faction == Player.Clan)
+                if (settlement != null)
+                    return true; // Clan retinues can be edited in any settlement
+                else
+                {
+                    Popup.Display(
+                        L.T("not_in_settlement", "Not in Settlement"),
+                        L.T(
+                                "not_in_settlement_text",
+                                "You must be in a settlement to {ACTION} this troop."
+                            )
+                            .SetTextVariable("ACTION", action)
+                    );
+                    return false; // Clan retinues must be in settlement
+                }
+
+            if (faction.IsPlayerClan)
+            {
+                if (settlement?.Clan == Player.Clan)
+                    return true; // In clan fief, allow
+
+                Popup.Display(
+                    L.T("not_in_clan_fief", "Not in Clan Fief"),
+                    L.T(
+                            "not_in_clan_fief_text",
+                            "You must be in one of your clan's fiefs to {ACTION} this troop."
+                        )
+                        .SetTextVariable("ACTION", action)
+                );
+                return false; // In settlement but not clan fief, disallow
+            }
+
+            if (faction.IsPlayerKingdom)
+            {
+                if (settlement?.Kingdom == Player.Kingdom)
+                    return true; // In kingdom fief, allow
+
+                Popup.Display(
+                    L.T("not_in_kingdom_fief", "Not in Kingdom Fief"),
+                    L.T(
+                            "not_in_kingdom_fief_text",
+                            "You must be in one of your kingdom's fiefs to {ACTION} this troop."
+                        )
+                        .SetTextVariable("ACTION", action)
+                );
+                return false; // In settlement but not kingdom fief, disallow
+            }
+
+            return true; // Default allow if no faction
+        }
 
         /// <summary>
         /// Returns the skill cap for a troop based on tier, type, and unlocked doctrines.
