@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="領地を獲得して一族の兵を解放する。" />
     <string
+      id="ret_action_convert"
+      text="変換する" />
+    <string
+      id="ret_action_modify"
+      text="修正する" />
+    <string
       id="ret_adaptive_training"
       text="適応訓練" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="速度" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="街にいない" />
+    <string
+      id="ret_item_unavailable_text"
+      text="{SETTLEMENT}では販売されていません" />
+    <string
       id="ret_items_unlocked"
       text="新しい装備が解除された" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="ドクトリンシステムとその機能を有効化する。" />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="部隊の装備を変更するには時間がかかります" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="部隊の装備を変更するには時間がかかります。" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="装備変更時間修正" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="装備変更時間の修正。" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="装備価格修正" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="基本ゲーム価格と比較した装備価格の修正。" />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基礎随伴兵の比率上限" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="解除するには何人の敵を倒す必要があるか。" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="随伴兵の変換を領地に制限" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="プレイヤーは領地内でのみ随伴兵を変換できる（一族の随伴兵はどの集落でも変換可能）。" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="編集を領地に制限" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="プレイヤーは自分の一族または王国が所有する領地内でのみ部隊を編集できる（一族の随伴兵はどの集落でも編集可能）。" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="アイテムを町のインベントリに制限" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="プレイヤーは町のインベントリで利用可能なアイテムのみを購入できます。" />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="随伴兵変換のランクごとのコスト" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="異なる文化の集落にいる志願者はカスタム兵に置き換えられません。" />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="部隊の訓練には時間がかかる" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="部隊の訓練には時間がかかります。" />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="訓練時間修正" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="部隊の訓練時間の修正。" />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="文化から解除" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="ドクトリン" />
+    <string
+      id="ret_mcm_section_editing"
+      text="編集" />
     <string
       id="ret_mcm_section_equipment"
       text="装備" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="このアイテムを購入するのに十分なゴールドがない。" />
+    <string
+      id="ret_not_in_clan_fief"
+      text="氏族の領地にいない" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="あなたはクランの封地のいずれかにいて{ACTION}この部隊を行う必要があります。" />
+    <string
+      id="ret_not_in_faction_fief"
+      text="あなたは派閥の領地にいません。" />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="王国の領地にいません" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="王国の領地のいずれかにいて{ACTION}この部隊を行う必要があります。" />
+    <string
+      id="ret_not_in_settlement"
+      text="居住地にいません" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="居住地にいて{ACTION}この部隊を行う必要があります。" />
     <string
       id="ret_ok"
       text="OK" />

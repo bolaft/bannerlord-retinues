@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Conquiste um feudo para desbloquear as tropas do clã." />
     <string
+      id="ret_action_convert"
+      text="converter" />
+    <string
+      id="ret_action_modify"
+      text="modificar" />
+    <string
       id="ret_adaptive_training"
       text="Treinamento Adaptativo" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Velocidade" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="Não está em uma cidade" />
+    <string
+      id="ret_item_unavailable_text"
+      text="Não vendido em {SETTLEMENT}" />
+    <string
       id="ret_items_unlocked"
       text="Novo Equipamento Desbloqueado" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Ativa o sistema de Doutrinas e seus recursos." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Trocar Equipamento de Tropas Leva Tempo" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Trocar o equipamento de uma tropa leva tempo." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Modificador de Tempo para Troca de Equipamento" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Modificador para o tempo de troca de equipamento." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Modificador de Preço de Equipamento" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Modificador para o preço do equipamento em comparação com os preços do jogo base." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Proporção Máxima de Séquito Básico" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Quantos inimigos usando um item devem ser derrotados para desbloqueá-lo." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Restringir Conversão de Séquito a Feudos" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="O jogador só pode converter séquitos quando estiver em um feudo (séquitos de clã podem ser convertidos em qualquer assentamento)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Restringir Edição a Feudos" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="O jogador só pode editar tropas quando está em um feudo pertencente ao seu clã ou reino (as retinues de clã podem ser editadas em qualquer assentamento)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Restringir Itens ao Inventário da Cidade" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="O jogador só pode comprar itens disponíveis no inventário da cidade." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Custo de Conversão do Séquito por Nível" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Voluntários em assentamentos de uma cultura diferente não serão substituídos por tropas personalizadas." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="O Treinamento de Tropas Leva Tempo" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="O treinamento de tropas leva tempo." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Modificador de Tempo de Treinamento" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Modificador para o tempo de treinamento de tropas." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Desbloquear pela Cultura" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Doutrinas" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Edição" />
     <string
       id="ret_mcm_section_equipment"
       text="Equipamento" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="Você não tem ouro suficiente para comprar este item." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Não em Feudo do Clã" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="Você deve estar em um dos feudos do seu clã para {ACTION} esta tropa." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="Você não está em um feudo de facção." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Não está em feudo do reino" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="Você deve estar em um dos feudos do seu reino para {ACTION} esta tropa." />
+    <string
+      id="ret_not_in_settlement"
+      text="Não está em assentamento" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="Você deve estar em um assentamento para {ACTION} esta tropa." />
     <string
       id="ret_ok"
       text="OK" />

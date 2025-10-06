@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Acquiers un fief pour débloquer les troupes du clan." />
     <string
+      id="ret_action_convert"
+      text="convertir" />
+    <string
+      id="ret_action_modify"
+      text="modifier" />
+    <string
       id="ret_adaptive_training"
       text="Souplesse Martiale" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Vitesse" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="En ville uniquement" />
+    <string
+      id="ret_item_unavailable_text"
+      text="Non vendu à {SETTLEMENT}" />
+    <string
       id="ret_items_unlocked"
       text="Nouveaux Équipements Débloqués" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Active le système de doctrines et ses fonctionnalités." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Changer l’équipement des troupes prend du temps" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Changer l&apos;équipement d&apos;une troupe prend du temps." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Modificateur de Temps de Changement d’Équipement" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Modificateur pour le temps de changement d’équipement." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Modificateur de Prix d’Équipement" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Modificateur pour le prix de l’équipement par rapport aux prix du jeu de base." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Ratio Maximum de Rétinue Basique" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Combien d’ennemis portant un objet doivent être vaincus pour le débloquer." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Restreindre la Conversion de Rétinue aux Fiefs" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="Le joueur ne peut convertir des rétinues que lorsqu&apos;il est dans un fief (les rétinues de clan peuvent être converties dans n&apos;importe quelle ville ou village)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Restreindre l&apos;Édition aux Fiefs" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="Le joueur ne peut éditer des troupes que lorsqu&apos;il est dans un fief appartenant à son clan ou à son royaume (les rétinues de clan peuvent être éditées dans n&apos;importe quelle ville ou village)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Restreindre les objets à l&apos;inventaire de la ville" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="Le joueur ne peut acheter que les objets disponibles dans l&apos;inventaire de la ville." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Coût de Conversion de Rétinue par Rang" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Les volontaires dans les villes ou villages d’une culture différente ne seront pas remplacés par des troupes personnalisées." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="L&apos;Entraînement des Troupes Prend du Temps" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="L’entraînement des troupes prend du temps." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Modificateur de Temps d&apos;Entraînement" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Modificateur pour le temps d&apos;entraînement des troupes." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Débloquer par Culture" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Doctrines" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Édition" />
     <string
       id="ret_mcm_section_equipment"
       text="Équipement" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="Pas assez d’or pour acheter cet objet." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Pas dans un Fief de Clan" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="Vous devez être dans l&apos;un des fiefs de votre clan pour {ACTION} cette troupe." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="Vous n&apos;êtes pas dans un fief de faction." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Pas dans un fief du royaume" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="Vous devez être dans l&apos;un des fiefs de votre royaume pour {ACTION} cette troupe." />
+    <string
+      id="ret_not_in_settlement"
+      text="Pas dans un établissement" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="Vous devez être dans un établissement pour {ACTION} cette troupe." />
     <string
       id="ret_ok"
       text="OK" />

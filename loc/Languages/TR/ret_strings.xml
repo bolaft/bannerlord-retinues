@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Bir tımar elde ederek klan askerlerini aç." />
     <string
+      id="ret_action_convert"
+      text="dönüştürmek" />
+    <string
+      id="ret_action_modify"
+      text="değiştirmek" />
+    <string
       id="ret_adaptive_training"
       text="Uyarlanabilir Eğitim" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Hız" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="Bir kasabada değil" />
+    <string
+      id="ret_item_unavailable_text"
+      text="{SETTLEMENT} şehrinde satılmıyor" />
+    <string
       id="ret_items_unlocked"
       text="Yeni Teçhizat Açıldı" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Doktrin sistemini ve özelliklerini etkinleştir." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Asker Teçhizatını Değiştirmek Zaman Alır" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Bir askerin teçhizatını değiştirmek zaman alır." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Teçhizat Değiştirme Süresi Değiştiricisi" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Teçhizat değiştirme süresi için değiştirici." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Teçhizat Fiyat Değiştiricisi" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Teçhizat fiyatı için temel oyun fiyatlarına kıyasla değiştirici." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksimum Temel Yandaş Oranı" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Bir eşyayı açmak için kaç düşmanın yenilmesi gerektiği." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Yandaş Dönüşümünü Topraklarla Sınırla" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="Oyuncu ancak bir toprakta yandaşları dönüştürebilir (klan yandaşları herhangi bir yerleşimde dönüştürülebilir)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Düzenlemeyi Topraklarla Sınırla" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="Oyuncu ancak klanının veya krallığının sahip olduğu bir toprakta asker düzenleyebilir (klan yandaşları herhangi bir yerleşimde düzenlenebilir)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Eşyaları şehir envanteri ile sınırlayın" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="Oyuncu yalnızca şehir envanterinde bulunan eşyaları satın alabilir." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Yandaş Dönüşüm Maliyeti (Seviye Başına)" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Farklı kültürdeki yerleşimlerdeki gönüllüler, özel birliklerle değiştirilmez." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="Asker Eğitimi Zaman Alır" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Asker eğitimi zaman alır." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Eğitim Süresi Değiştirici" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Asker eğitimi için değiştirici." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Kültürden Aç" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Doktrinler" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Düzenleme" />
     <string
       id="ret_mcm_section_equipment"
       text="Teçhizat" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="Bu eşyayı satın almak için yeterli altının yok." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Klan Arazisinde Değil" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="Bu birliği {ACTION} için klanınızın mülklerinden birinde olmalısınız." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="Bir fraksiyon mülkünde değilsiniz." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Krallık mülkünde değil" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="Bu birliği {ACTION} için krallığınızın mülklerinden birinde olmalısınız." />
+    <string
+      id="ret_not_in_settlement"
+      text="Yerleşim yerinde değil" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="Bu birliği {ACTION} için bir yerleşim yerinde olmalısınız." />
     <string
       id="ret_ok"
       text="Tamam" />

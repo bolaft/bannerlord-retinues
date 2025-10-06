@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Acquire a fief to unlock clan troops." />
     <string
+      id="ret_action_convert"
+      text="convert" />
+    <string
+      id="ret_action_modify"
+      text="modify" />
+    <string
       id="ret_adaptive_training"
       text="Adaptive Training" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Speed" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="Not in a town" />
+    <string
+      id="ret_item_unavailable_text"
+      text="Not sold in {SETTLEMENT}" />
+    <string
       id="ret_items_unlocked"
       text="New Gear Unlocked" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Enable the Doctrines system and its features." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Changing Troop Equipment Takes Time" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Changing a troop&apos;s equipment takes time." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Equipment Change Time Modifier" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Modifier for equipment change time." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Equipment Price Modifier" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Modifier for equipment price compared to base game prices." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Max Basic Retinue Ratio" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="How many enemies wearing an item must be defeated to unlock it." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Restrict Retinue Conversion To Fiefs" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Restrict Editing To Fiefs" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="Player can only edit troops when in a fief owned by their clan or kingdom (clan retinues can be edited in any settlement)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Restrict Items To Town Inventory" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="Player can only purchase items available in the town inventory." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Retinue Conversion Cost Per Tier" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Volunteers in settlements of a different culture will not be replaced by custom troops." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="Troop Training Takes Time" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Troop training takes time." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Training Time Modifier" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Modifier for troop training time." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Unlock From Culture" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Doctrines" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Editing" />
     <string
       id="ret_mcm_section_equipment"
       text="Equipment" />
@@ -583,6 +646,24 @@
     <string
       id="ret_not_enough_gold_text"
       text="You do not have enough gold to purchase this item." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Not in Clan Fief" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="You must be in one of your clan&apos;s fiefs to {ACTION} this troop." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Not in Kingdom Fief" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="You must be in one of your kingdom&apos;s fiefs to {ACTION} this troop." />
+    <string
+      id="ret_not_in_settlement"
+      text="Not in Settlement" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="You must be in a settlement to {ACTION} this troop." />
     <string
       id="ret_ok"
       text="OK" />

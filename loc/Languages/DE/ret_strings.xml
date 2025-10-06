@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Erobere ein Lehen, um die Clantruppen freizuschalten." />
     <string
+      id="ret_action_convert"
+      text="konvertieren" />
+    <string
+      id="ret_action_modify"
+      text="modifizieren" />
+    <string
       id="ret_adaptive_training"
       text="Adaptives Training" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Geschwindigkeit" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="Nicht in einer Stadt" />
+    <string
+      id="ret_item_unavailable_text"
+      text="Nicht in {SETTLEMENT} verkauft" />
+    <string
       id="ret_items_unlocked"
       text="Neue Ausrüstung freigeschaltet" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Aktiviere das Doktrinensystem und seine Funktionen." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Das Ändern der Truppenausrüstung dauert" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Das Ändern der Ausrüstung einer Truppe dauert." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Ausrüstungswechsel-Zeitmodifikator" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Modifikator für die Ausrüstungswechselzeit." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Ausrüstungspreis-Modifikator" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Modifikator für den Ausrüstungspreis im Vergleich zu den Basis-Spielpreisen." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maximales Basis-Gefolgsverhältnis" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Wie viele Gegner mit einem Gegenstand besiegt werden müssen, um ihn freizuschalten." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Gefolgs-Umwandlung auf Lehen beschränken" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="Der Spieler kann Gefolgschaften nur in einem Lehen umwandeln (Clan-Gefolgschaften können in jeder Siedlung umgewandelt werden)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Bearbeitung auf Lehen beschränken" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="Der Spieler kann Truppen nur in einem Lehen bearbeiten, das seinem Clan oder Königreich gehört (Clan-Gefolgschaften können in jeder Siedlung bearbeitet werden)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Gegenstände auf Stadtinventar beschränken" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="Der Spieler kann nur Gegenstände kaufen, die im Stadtinventar verfügbar sind." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Gefolgs-Umwandlungskosten pro Stufe" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Freiwillige in Siedlungen einer anderen Kultur werden nicht durch Custom-Truppen ersetzt." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="Truppentraining braucht Zeit" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Die Ausbildung von Truppen braucht Zeit." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Trainingszeit-Modifikator" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Modifikator für die Trainingszeit von Truppen." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Von Kultur freischalten" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Doktrinen" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Bearbeitung" />
     <string
       id="ret_mcm_section_equipment"
       text="Ausrüstung" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="Du hast nicht genug Gold, um diesen Gegenstand zu kaufen." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Nicht im Clan-Lehen" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="Du musst in einem der Lehen deines Clans sein, um diese Truppe {ACTION} zu können." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="Du bist nicht in einem Fraktionslehen." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Nicht im Königreichslehen" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="Du musst in einem der Lehen deines Königreichs sein, um diese Truppe {ACTION} zu können." />
+    <string
+      id="ret_not_in_settlement"
+      text="Nicht in Siedlung" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="Du musst in einer Siedlung sein, um diese Truppe {ACTION} zu können." />
     <string
       id="ret_ok"
       text="OK" />

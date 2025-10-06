@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Acquisisci un feudo per sbloccare le truppe del clan." />
     <string
+      id="ret_action_convert"
+      text="convertire" />
+    <string
+      id="ret_action_modify"
+      text="modificare" />
+    <string
       id="ret_adaptive_training"
       text="Addestramento Adattivo" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Velocità" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="Non in una città" />
+    <string
+      id="ret_item_unavailable_text"
+      text="Non venduto a {SETTLEMENT}" />
+    <string
       id="ret_items_unlocked"
       text="Nuovo Equipaggiamento Sbloccato" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Abilita il sistema di Dottrine e le sue funzionalità." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Cambiare l’Equipaggiamento delle Truppe Richiede Tempo" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Cambiare l&apos;equipaggiamento di una truppa richiede tempo." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Modificatore del Tempo di Cambio Equipaggiamento" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Modificatore per il tempo di cambio equipaggiamento." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Modificatore del Prezzo dell’Equipaggiamento" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Modificatore per il prezzo dell’equipaggiamento rispetto ai prezzi del gioco base." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Rapporto Massimo Seguito Base" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Quanti nemici che indossano un oggetto devono essere sconfitti per sbloccarlo." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Restringi la Conversione del Seguito ai Feudi" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="Il giocatore può convertire i seguaci solo quando si trova in un feudo (i seguaci del clan possono essere convertiti in qualsiasi insediamento)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Restringi la Modifica ai Feudi" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="Il giocatore può modificare le truppe solo quando si trova in un feudo di proprietà del suo clan o regno (i seguaci del clan possono essere modificati in qualsiasi insediamento)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Restringi gli oggetti all&apos;inventario della città" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="Il giocatore può acquistare solo gli oggetti disponibili nell&apos;inventario della città." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Costo di Conversione del Seguito per Livello" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="I volontari negli insediamenti di una cultura diversa non saranno sostituiti da truppe personalizzate." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="L&apos;Addestramento delle Truppe Richiede Tempo" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="L’addestramento delle truppe richiede tempo." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Modificatore del Tempo di Addestramento" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Modificatore per il tempo di addestramento delle truppe." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Sblocco da Cultura" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Dottrine" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Modifica" />
     <string
       id="ret_mcm_section_equipment"
       text="Equipaggiamento" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="Non hai abbastanza oro per acquistare questo oggetto." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Non in Feudo del Clan" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="Devi essere in uno dei feudi del tuo clan per {ACTION} questa truppa." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="Non sei in un feudo di fazione." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Non in feudo del regno" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="Devi essere in uno dei feudi del tuo regno per {ACTION} questa truppa." />
+    <string
+      id="ret_not_in_settlement"
+      text="Non in insediamento" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="Devi essere in un insediamento per {ACTION} questa truppa." />
     <string
       id="ret_ok"
       text="OK" />

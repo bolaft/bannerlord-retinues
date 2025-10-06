@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Получите феод, чтобы разблокировать войска клана." />
     <string
+      id="ret_action_convert"
+      text="конвертировать" />
+    <string
+      id="ret_action_modify"
+      text="модифицировать" />
+    <string
       id="ret_adaptive_training"
       text="Адаптивная Тренировка" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Скорость" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="Не в городе" />
+    <string
+      id="ret_item_unavailable_text"
+      text="Не продается в {SETTLEMENT}" />
+    <string
       id="ret_items_unlocked"
       text="Новая Экипировка Разблокирована" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Включить систему Доктрин и её функции." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Смена Снаряжения Войск Занимает Время" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Смена снаряжения у войск занимает время." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Модификатор Времени Смены Снаряжения" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Модификатор времени смены снаряжения." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Модификатор Цены Экипировки" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Модификатор цены экипировки по сравнению с ценами базовой игры." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Макс. Доля Базовой Свиты" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Сколько врагов с предметом нужно победить, чтобы его разблокировать." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Ограничить Преобразование Свиты до Феодов" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="Игрок может преобразовывать свиту только в феоде (свиту клана можно преобразовывать в любом поселении)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Ограничить редактирование до феодов" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="Игрок может редактировать войска только в феоде, принадлежащем его клану или королевству (свиту клана можно редактировать в любом поселении)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Ограничить предметы до инвентаря города" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="Игрок может покупать только предметы, доступные в инвентаре города." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Стоимость Преобразования Свиты за Ранг" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Добровольцы в поселениях другой культуры не будут заменены на собственные войска." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="Обучение войск требует времени" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Обучение войск требует времени." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Модификатор Времени Обучения" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Модификатор времени обучения войск." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Разблокировать по Культуре" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Доктрины" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Редактирование" />
     <string
       id="ret_mcm_section_equipment"
       text="Снаряжение" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="У вас недостаточно золота, чтобы купить этот предмет." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Не в поместье клана" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="Вы должны находиться в одном из владений вашего клана, чтобы {ACTION} этот отряд." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="Вы не находитесь во владении фракции." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Не в владении королевства" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="Вы должны находиться в одном из владений вашего королевства, чтобы {ACTION} этот отряд." />
+    <string
+      id="ret_not_in_settlement"
+      text="Не в поселении" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="Вы должны находиться в поселении, чтобы {ACTION} этот отряд." />
     <string
       id="ret_ok"
       text="ОК" />

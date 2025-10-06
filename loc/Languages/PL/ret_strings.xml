@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="Zdobądź lenno, aby odblokować wojska klanu." />
     <string
+      id="ret_action_convert"
+      text="konwertować" />
+    <string
+      id="ret_action_modify"
+      text="modyfikować" />
+    <string
       id="ret_adaptive_training"
       text="Trening Adaptacyjny" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="Prędkość" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="Nie w mieście" />
+    <string
+      id="ret_item_unavailable_text"
+      text="Nie sprzedawane w {SETTLEMENT}" />
+    <string
       id="ret_items_unlocked"
       text="Nowy Ekwipunek Odblokowany" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Włącz system Doktryn i jego funkcje." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="Zmiana Wyposażenia Jednostek Zajmuje Czas" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="Zmiana wyposażenia jednostki zajmuje czas." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="Modyfikator Czasu Zmiany Ekwipunku" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="Modyfikator czasu zmiany ekwipunku." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="Modyfikator Ceny Ekwipunku" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="Modyfikator ceny ekwipunku w porównaniu do cen w podstawowej wersji gry." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksymalny Udział Orszaku Podstawowego" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Ilu wrogów noszących przedmiot należy pokonać, aby go odblokować." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="Ogranicz Konwersję Orszaku do Lenna" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="Gracz może konwertować orszaki tylko w lenie (orszaki klanu można konwertować w dowolnej osadzie)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="Ogranicz Edytowanie do Lenna" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="Gracz może edytować jednostki tylko w lenie należącym do jego klanu lub królestwa (orszaki klanu można edytować w dowolnej osadzie)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="Ogranicz przedmioty do inwentarza miasta" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="Gracz może kupować tylko przedmioty dostępne w inwentarzu miasta." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="Koszt Konwersji Orszaku na Poziom" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Ochotnicy w osadach o innej kulturze nie będą zastępowani przez jednostki niestandardowe." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="Szkolenie Oddziałów Zajmuje Czas" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Szkolenie oddziałów zajmuje czas." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="Modyfikator Czasu Szkolenia" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="Modyfikator czasu szkolenia oddziałów." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="Odblokuj z Kultury" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="Doktryny" />
+    <string
+      id="ret_mcm_section_editing"
+      text="Edycja" />
     <string
       id="ret_mcm_section_equipment"
       text="Ekwipunek" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="Nie masz wystarczająco złota, aby kupić ten przedmiot." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="Nie w lenie klanu" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="Musisz być w jednym z lenów swojego klanu, aby {ACTION} tę jednostkę." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="Nie jesteś w lenie frakcji." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="Nie w lenie królestwa" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="Musisz być w jednym z lenów swojego królestwa, aby {ACTION} tę jednostkę." />
+    <string
+      id="ret_not_in_settlement"
+      text="Nie w osadzie" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="Musisz być w osadzie, aby {ACTION} tę jednostkę." />
     <string
       id="ret_ok"
       text="OK" />

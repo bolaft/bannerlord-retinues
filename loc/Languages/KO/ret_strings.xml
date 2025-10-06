@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="영지를 획득하여 가문 병력을 해제하십시오." />
     <string
+      id="ret_action_convert"
+      text="변환하다" />
+    <string
+      id="ret_action_modify"
+      text="수정하다" />
+    <string
       id="ret_adaptive_training"
       text="적응 훈련" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="속도" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="마을에 없음" />
+    <string
+      id="ret_item_unavailable_text"
+      text="{SETTLEMENT}에서 판매되지 않음" />
+    <string
       id="ret_items_unlocked"
       text="새 장비 해제됨" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="교리 시스템과 그 기능을 활성화합니다." />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="병력 장비 변경에는 시간이 걸립니다" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="부대의 장비를 변경하는 데 시간이 걸립니다." />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="장비 변경 시간 수정자" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="장비 변경 시간 수정자." />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="장비 가격 수정자" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="기본 게임 가격과 비교한 장비 가격 수정자." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="기본 수행원 비율 상한" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="아이템을 해제하려면 몇 명의 적을 처치해야 하는지." />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="수행원 변환을 영지로 제한" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="플레이어는 영지에 있을 때만 수행원을 변환할 수 있습니다 (가문 수행원은 모든 정착지에서 변환할 수 있음)." />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="편집을 영지로 제한" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="플레이어는 자신의 가문이나 왕국이 소유한 영지에 있을 때만 병력을 편집할 수 있습니다 (가문 수행원은 모든 정착지에서 편집할 수 있음)." />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="아이템을 마을 인벤토리로 제한" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="플레이어는 마을 인벤토리에서 사용할 수 있는 아이템만 구매할 수 있습니다." />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="등급당 수행원 변환 비용" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="다른 문화의 정착지에 있는 자원봉사자는 커스텀 병력으로 교체되지 않습니다." />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="병력 훈련에는 시간이 걸립니다" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="병력 훈련에는 시간이 걸립니다." />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="훈련 시간 수정자" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="병력 훈련 시간에 대한 수정자." />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="문화에서 해제" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="교리" />
+    <string
+      id="ret_mcm_section_editing"
+      text="편집" />
     <string
       id="ret_mcm_section_equipment"
       text="장비" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="이 아이템을 구매할 충분한 골드가 없습니다." />
+    <string
+      id="ret_not_in_clan_fief"
+      text="씨족 영지에 없음" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="당신은 클랜의 영지 중 하나에 있어야 {ACTION} 이 부대를 할 수 있습니다." />
+    <string
+      id="ret_not_in_faction_fief"
+      text="당신은 세력 영지에 있지 않습니다." />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="왕국 영지에 있지 않음" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="왕국의 영지 중 하나에 있어야 {ACTION} 이 부대를 할 수 있습니다." />
+    <string
+      id="ret_not_in_settlement"
+      text="정착지에 있지 않음" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="정착지에 있어야 {ACTION} 이 부대를 할 수 있습니다." />
     <string
       id="ret_ok"
       text="확인" />

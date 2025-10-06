@@ -8,6 +8,12 @@
       id="ret_acquire_fief_to_unlock"
       text="占领一个封地以解锁家族部队。" />
     <string
+      id="ret_action_convert"
+      text="转换" />
+    <string
+      id="ret_action_modify"
+      text="修改" />
+    <string
       id="ret_adaptive_training"
       text="适应性训练" />
     <string
@@ -353,6 +359,12 @@
       id="ret_item_shield_speed"
       text="速度" />
     <string
+      id="ret_item_unavailable_no_settlement"
+      text="不在城镇中" />
+    <string
+      id="ret_item_unavailable_text"
+      text="不在{SETTLEMENT}出售" />
+    <string
       id="ret_items_unlocked"
       text="新装备已解锁" />
     <string
@@ -452,6 +464,24 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="启用教义系统及其功能。" />
     <string
+      id="ret_mcm_option_equipment_change_takes_time"
+      text="更换部队装备需要时间" />
+    <string
+      id="ret_mcm_option_equipment_change_takes_time_hint"
+      text="更换部队装备需要时间。" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier"
+      text="装备更换时间修正" />
+    <string
+      id="ret_mcm_option_equipment_change_time_modifier_hint"
+      text="装备更换时间的修正。" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier"
+      text="装备价格修正" />
+    <string
+      id="ret_mcm_option_equipment_price_modifier_hint"
+      text="与基础游戏价格相比的装备价格修正。" />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基础随从比例上限" />
     <string
@@ -487,6 +517,24 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="解锁一件物品所需击败的敌人数量。" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs"
+      text="限制随从转换到领地" />
+    <string
+      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
+      text="玩家只能在领地中转换随从（家族随从可以在任何定居点转换）。" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs"
+      text="限制编辑到领地" />
+    <string
+      id="ret_mcm_option_restrict_editing_to_fiefs_hint"
+      text="玩家只能在其家族或王国拥有的领地中编辑部队（家族随从可以在任何定居点编辑）。" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory"
+      text="限制物品到城镇库存" />
+    <string
+      id="ret_mcm_option_restrict_items_to_town_inventory_hint"
+      text="玩家只能购买城镇库存中可用的物品。" />
     <string
       id="ret_mcm_option_retinue_conversion_cost_per_tier"
       text="随从转换每级费用" />
@@ -530,6 +578,18 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="不同文化定居点的志愿者将不会被自定义部队替换。" />
     <string
+      id="ret_mcm_option_training_takes_time"
+      text="部队训练需要时间" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="部队训练需要时间。" />
+    <string
+      id="ret_mcm_option_training_time_modifier"
+      text="训练时间修正" />
+    <string
+      id="ret_mcm_option_training_time_modifier_hint"
+      text="部队训练时间的修正。" />
+    <string
       id="ret_mcm_option_unlock_from_culture"
       text="从文化解锁" />
     <string
@@ -547,6 +607,9 @@
     <string
       id="ret_mcm_section_doctrines"
       text="教义" />
+    <string
+      id="ret_mcm_section_editing"
+      text="编辑" />
     <string
       id="ret_mcm_section_equipment"
       text="装备" />
@@ -583,6 +646,27 @@
     <string
       id="ret_not_enough_gold_text"
       text="你没有足够的金币购买此物品。" />
+    <string
+      id="ret_not_in_clan_fief"
+      text="不在氏族领地" />
+    <string
+      id="ret_not_in_clan_fief_text"
+      text="您必须在您氏族的一个封地中才能{ACTION}这支部队。" />
+    <string
+      id="ret_not_in_faction_fief"
+      text="您不在派系封地中。" />
+    <string
+      id="ret_not_in_kingdom_fief"
+      text="不在王国封地中" />
+    <string
+      id="ret_not_in_kingdom_fief_text"
+      text="您必须在您王国的一个封地中才能{ACTION}这支部队。" />
+    <string
+      id="ret_not_in_settlement"
+      text="不在定居点" />
+    <string
+      id="ret_not_in_settlement_text"
+      text="您必须在一个定居点才能{ACTION}这支部队。" />
     <string
       id="ret_ok"
       text="确定" />
