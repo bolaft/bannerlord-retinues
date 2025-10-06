@@ -81,10 +81,10 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                     slot.Slot
                 );
 
-                foreach (var (item, progress) in items)
+                foreach (var (item, progress, available) in items)
                 {
                     // Create row VM
-                    var row = new EquipmentRowVM(item, this, progress);
+                    var row = new EquipmentRowVM(item, this, progress, available);
 
                     // Preselect equipped item row
                     if (item == slot.Item)

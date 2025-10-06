@@ -14,7 +14,7 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
     /// ViewModel for an equipment row. Handles item display, equipping, stock, progress, and UI refresh logic.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress)
+    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress, bool available)
         : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -37,6 +37,9 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         [DataSourceProperty]
         public bool InProgress => _progress.HasValue;
 
+        [DataSourceProperty]
+        public bool NotAvailable => !available && !InProgress && !CantEquip;
+
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -44,6 +47,12 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
             L.T("unlock_progress_text", "Unlocking ({PROGRESS}/{REQUIRED})")
                 .SetTextVariable("PROGRESS", _progress ?? 0)
                 .SetTextVariable("REQUIRED", Config.GetOption<int>("KillsForUnlock"))
+                .ToString();
+
+        [DataSourceProperty]
+        public string UnavailableText => Player.CurrentSettlement == null ? L.S("item_unavailable_no_settlement", "Not in a town") :
+            L.T("item_unavailable_text", "Not sold in {SETTLEMENT}")
+                .SetTextVariable("SETTLEMENT", Player.CurrentSettlement.Name)
                 .ToString();
 
         [DataSourceProperty]
@@ -75,12 +84,14 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
         {
             get
             {
-                if (RowList?.Screen?.SelectedTroop == null)
-                    return false; // No troop selected yet
-                if (InProgress)
-                    return false; // Cannot equip items that are still in progress
                 if (Item == null)
                     return true; // Always allow unequipping
+                if (RowList?.Screen?.SelectedTroop == null)
+                    return false; // No troop selected yet
+                if (NotAvailable)
+                    return false; // Item is not available in stores
+                if (InProgress)
+                    return false; // Cannot equip items that are still in progress
 
                 // Check if the selected troop can equip this item
                 return CanEquip;

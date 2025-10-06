@@ -280,6 +280,35 @@ namespace Retinues.Core.Utils
 
             AddOption(
                 section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S("mcm_option_equipment_price_modifier", "Equipment Price Modifier"),
+                key: "EquipmentPriceModifier",
+                hint: L.S(
+                    "mcm_option_equipment_price_modifier_hint",
+                    "Modifier for equipment price compared to base game prices."
+                ),
+                @default: 2.0,
+                type: typeof(float),
+                minValue: 0,
+                maxValue: 5
+            );
+
+            AddOption(
+                section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S(
+                    "mcm_option_restrict_items_to_town_inventory",
+                    "Restrict Items To Town Inventory"
+                ),
+                key: "RestrictItemsToTownInventory",
+                hint: L.S(
+                    "mcm_option_restrict_items_to_town_inventory_hint",
+                    "Player can only purchase items available in the town inventory."
+                ),
+                @default: false,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_equipment", "Equipment"),
                 name: L.S("mcm_option_allowed_tier_difference", "Allowed Tier Difference"),
                 key: "AllowedTierDifference",
                 hint: L.S(

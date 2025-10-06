@@ -112,6 +112,17 @@
 
                                 <!-- Progress -->
                                 <TextWidget
+                                    Text="@UnavailableText"
+                                    Brush="Clan.RightPanel.Name.Text"
+                                    Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    IsVisible="@NotAvailable"/>
+
+                                <!-- Progress -->
+                                <TextWidget
                                     Text="@ProgressText"
                                     Brush="Clan.RightPanel.Name.Text"
                                     Brush.FontSize="24"

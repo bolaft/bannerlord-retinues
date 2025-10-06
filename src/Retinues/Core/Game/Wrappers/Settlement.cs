@@ -29,6 +29,14 @@ namespace Retinues.Core.Game.Wrappers
         public override string StringId => _settlement?.StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Flags                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsTown => _settlement?.IsTown == true;
+        public bool IsVillage => _settlement?.IsVillage == true;
+        public bool IsCastle => _settlement?.IsCastle == true;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Members                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -80,6 +88,17 @@ namespace Retinues.Core.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns a list of all items in the settlement's inventory, along with their counts.
+        /// </summary>
+        public List<(WItem item, int count)> ItemCounts()
+        {
+            var items = new List<(WItem item, int count)>();
+            foreach (var e in _settlement.ItemRoster)
+                items.Add((new WItem(e.EquipmentElement.Item), e.Amount));
+            return items;
+        }
 
         /// <summary>
         /// Swap all volunteers in notables to match the given faction.

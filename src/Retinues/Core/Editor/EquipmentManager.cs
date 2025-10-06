@@ -22,7 +22,7 @@ namespace Retinues.Core.Editor
         /// <summary>
         /// Collects all available items for a troop, faction, and slot, considering unlocks, doctrines, and config.
         /// </summary>
-        public static List<(WItem, int?)> CollectAvailableItems(
+        public static List<(WItem, int?, bool)> CollectAvailableItems(
             WCharacter troop,
             WFaction faction,
             EquipmentIndex slot
@@ -33,7 +33,7 @@ namespace Retinues.Core.Editor
             );
 
             // Initialize item list
-            var items = new List<(WItem, int?)>();
+            var items = new List<(WItem, int?, bool)>();
 
             // Configuration
             var allUnlocked = Config.GetOption<bool>("AllEquipmentUnlocked");
@@ -59,12 +59,14 @@ namespace Retinues.Core.Editor
                     .Select(i => new WItem(i))
             )
             {
+                bool isAvailable = item.IsStocked || Config.GetOption<bool>("RestrictItemsToTownInventory") == false || CurrentTownHasItem(item);
+
                 try
                 {
                     // All equipment unlocked: take everything
                     if (allUnlocked)
                     {
-                        items.Add((item, null));
+                        items.Add((item, null, isAvailable));
                         continue;
                     }
 
@@ -83,7 +85,7 @@ namespace Retinues.Core.Editor
                     // 3) Already unlocked
                     if (item.IsUnlocked)
                     {
-                        items.Add((item, null));
+                        items.Add((item, null, isAvailable));
                         continue;
                     }
 
@@ -92,7 +94,7 @@ namespace Retinues.Core.Editor
 
                     if (allowFromCulture && itemCultureId == factionCultureId)
                     {
-                        items.Add((item, null));
+                        items.Add((item, null, isAvailable));
                         continue;
                     }
 
@@ -101,7 +103,7 @@ namespace Retinues.Core.Editor
                         && (itemCultureId == clanCultureId || itemCultureId == kingdomCultureId)
                     )
                     {
-                        items.Add((item, null));
+                        items.Add((item, null, isAvailable));
                         continue;
                     }
 
@@ -117,11 +119,11 @@ namespace Retinues.Core.Editor
                         if (progress >= killsForUnlock)
                         {
                             item.Unlock(); // unlock now
-                            items.Add((item, null));
+                            items.Add((item, null, isAvailable)); // now unlocked
                         }
                         else
                         {
-                            items.Add((item, progress)); // still in progress
+                            items.Add((item, progress, isAvailable)); // still in progress
                         }
                     }
                     // else: not eligible this pass
@@ -135,19 +137,33 @@ namespace Retinues.Core.Editor
             // Filter by selected slot
             items = [.. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot))];
 
-            // Sort by progress (nulls first, then descending), then type, then name
+            // Sort by progress (nulls first, then descending), then by bool value (true first for nulls), then type, then name
             items =
             [
                 .. items
-                    .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0)))
+                    .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0), pair.Item2 == null ? (pair.Item3 ? 0 : 1) : 0))
                     .ThenBy(pair => pair.Item1?.Type)
                     .ThenBy(pair => pair.Item1?.Name),
             ];
 
             // Empty item to allow unequipping
-            items.Insert(0, (null, null));
+            items.Insert(0, (null, null, true));
 
             return items;
+        }
+
+        /// <summary>
+        /// Checks if the current town has the specified item in its inventory.
+        /// </summary>
+        public static bool CurrentTownHasItem(WItem item)
+        {
+            var settlement = Player.CurrentSettlement;
+            if (settlement == null)
+                return false; // not in a settlement
+            if (!settlement.IsTown)
+                return false; // only towns have inventories
+
+            return settlement.ItemCounts().Any(pair => pair.item == item && pair.count > 0);
         }
 
         /// <summary>
@@ -241,7 +257,7 @@ namespace Retinues.Core.Editor
             }
             catch { }
 
-            return (int)(baseValue * (1.0f - rebate));
+            return (int)(baseValue * (1.0f - rebate) * Config.GetOption<float>("EquipmentPriceModifier"));
         }
     }
 }
