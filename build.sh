@@ -159,7 +159,11 @@ if [[ "$RUN_PREFABS" == "yes" && -f "$PREFAB_PROJ" ]]; then
   dotnet run --no-build --project "$PREFAB_PROJ" -- \
     --out "$PREFAB_OUT" \
     --templates "$TPL_TEMPLATES" \
-    --partials "$TPL_PARTIALS"
+    --partials "$TPL_PARTIALS" \
+    --bl "$BL" \
+    --config "${MSBUILD_CONFIG[1]}" \
+    --module "Retinues.Core"
+
   echo
 fi
 
