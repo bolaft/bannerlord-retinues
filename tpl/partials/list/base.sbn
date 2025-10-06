@@ -1,10 +1,24 @@
-<!-- List macro -->
+<!--
+    list/base.sbn
+    Macro and usage for displaying vertical lists in different modes.
+    Uses a brush panel with vertical stacking for troop and equipment lists.
+-->
+
+<!-- List panel macro
+    Parameters:
+    - include_file: file to include as list content
+    - is_visible: controls visibility of the panel
+    Displays a vertical list panel with a frame brush.
+-->
 {{- func list_panel(include_file, is_visible) -}}
 <BrushListPanel
     IsVisible="{{is_visible}}"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="StretchToParent"
     VerticalAlignment="Bottom"
-    MarginTop="6" MarginBottom="9" MarginLeft="27"
+    MarginTop="6"
+    MarginBottom="9"
+    MarginLeft="27"
     Brush="Frame1Brush"
     StackLayout.LayoutMethod="VerticalBottomToTop"
 >
@@ -14,8 +28,8 @@
 </BrushListPanel>
 {{- end -}}
 
-<!-- Defaut mode list -->
+<!-- Default mode: troop list -->
 {{ list_panel("list/troops/base.sbn", "@IsDefaultMode") }}
 
-<!-- Equipment mode list -->
+<!-- Equipment mode: equipment list -->
 {{ list_panel("list/equipment/base.sbn", "@IsEquipmentMode") }}

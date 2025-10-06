@@ -1,10 +1,19 @@
+<!--
+    doctrines/base.sbn
+    Displays doctrine columns in the doctrines editor.
+    Each column is included from doctrines/column.sbn.
+-->
+
 <ListPanel 
     DataSource="{DoctrineColumns}"
-    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="StretchToParent"
+    HeightSizePolicy="CoverChildren"
     DoNotAcceptEvents="false"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
-    PositionXOffset="60" PositionYOffset="0"
-    VerticalAlignment="Center" HorizontalAlignment="Center">
+    PositionXOffset="60"
+    PositionYOffset="0"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center">
     <ItemTemplate>
         {{ include "doctrines/column.sbn" }}
     </ItemTemplate>

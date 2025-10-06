@@ -1,4 +1,19 @@
-<!-- Text button -->
+<!--
+    button.sbn
+    Macro definitions for various button widgets.
+    Includes text buttons, icon buttons, and large action buttons.
+-->
+
+<!-- Text button macro
+    Parameters:
+    - text: button label
+    - command: click command
+    - brush: button style
+    - is_visible: visibility
+    - is_enabled: enabled state
+    - vertical_alignment, horizontal_alignment: alignment
+    - margin_*: margins
+-->
 {{- func button_text(text, command, brush, is_visible = "true", is_enabled = "true", vertical_alignment = "Center", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0") -}}
 <ButtonWidget
     IsVisible="{{is_visible}}" IsEnabled="{{is_enabled}}"
@@ -19,7 +34,15 @@
 </ButtonWidget>
 {{- end -}}
 
-<!-- Icon button -->
+<!-- Icon button macro
+    Parameters:
+    - command: click command
+    - brush: icon style
+    - size: icon size
+    - is_visible: visibility
+    - is_enabled: enabled state
+    - margin_*: margins
+-->
 {{- func button_icon(command, brush, size, is_visible = "true", is_enabled = "true", margin_top = "0", margin_bottom = "0", margin_left = "0", margin_right = "0") -}}
 <ButtonWidget
     IsVisible="{{is_visible}}"
@@ -39,6 +62,16 @@
 </ButtonWidget>
 {{- end -}}
 
+<!-- Big button macro
+    Parameters:
+    - text: button label
+    - command: click command
+    - is_visible: visibility
+    - vertical_alignment, horizontal_alignment: alignment
+    - margin_right: right margin
+    - brush: button style
+    Used for prominent actions (e.g., switching tabs).
+-->
 {{- func big_button(text, command, is_visible = "true", vertical_alignment = "Center", horizontal_alignment = "Center", margin_right = "20", brush = "ButtonBrush2") -}}
 <ButtonWidget
     IsVisible="{{is_visible}}"

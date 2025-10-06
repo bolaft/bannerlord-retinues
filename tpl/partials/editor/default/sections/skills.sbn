@@ -1,23 +1,30 @@
-<!-- Header -->
+<!--
+    editor/default/sections/skills.sbn
+    Displays skill points, experience, tier info, and a grid of skill controls for the troop.
+-->
+
+<!-- Header for skills section -->
 {{ header("@SkillsHeaderText") }}
 
-<!-- Skills points -->
+<!-- Skills points row -->
 <ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true">
     <Children>
-        <!-- Used skill points  -->
+        <!-- Used skill points -->
         {{ text_int("@SkillPointsUsed", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
         {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
         {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
     </Children>
 </ListPanel>
 
-<!-- Experience points -->
+<!-- Experience points and tier row -->
 <ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="Fixed"
     SuggestedHeight="30"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
@@ -27,18 +34,19 @@
         <!-- Available XP -->
         {{ small_text("@AvailableTroopXpText", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
         {{ small_text(" - ", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
-        <!-- Skill Caps  -->
+        <!-- Skill Caps -->
         {{ small_text("@SkillCapText") }}
-        <!-- Tier & Tier Upgrade  -->
+        <!-- Tier & Tier Upgrade -->
         {{ small_text(" - ", "Center", "0", "0", "0", "0", "@IsRetinue") }}
         {{ small_text("@TierText", "Center", "0", "8", "0", "0", "@IsRetinue") }}
         {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "30", "@IsRetinueIsNotMaxTier") }}
     </Children>
 </ListPanel>
 
-<!-- Skills grid -->
+<!-- Skills grid: two rows of skill controls -->
 <ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop"
     UpdateChildrenStates="true">
@@ -46,22 +54,26 @@
         <ListPanel
             DataSource="{SkillsRow1}"
             HorizontalAlignment="Center"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            MarginBottom="5" UpdateChildrenStates="true">
-        <ItemTemplate>
-            {{ include "editor/default/sections/skill.sbn" }}
-        </ItemTemplate>
+            MarginBottom="5"
+            UpdateChildrenStates="true">
+            <ItemTemplate>
+                {{ include "editor/default/sections/skill.sbn" }}
+            </ItemTemplate>
         </ListPanel>
         <ListPanel
             DataSource="{SkillsRow2}"
             HorizontalAlignment="Center"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            MarginBottom="5" UpdateChildrenStates="true">
-        <ItemTemplate>
-            {{ include "editor/default/sections/skill.sbn" }}
-        </ItemTemplate>
+            MarginBottom="5"
+            UpdateChildrenStates="true">
+            <ItemTemplate>
+                {{ include "editor/default/sections/skill.sbn" }}
+            </ItemTemplate>
         </ListPanel>
     </Children>
 </ListPanel>

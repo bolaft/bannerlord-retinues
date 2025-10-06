@@ -1,16 +1,30 @@
+<!--
+    doctrines/column.sbn
+    Displays a single doctrine column with a title and a list of doctrines.
+    Each doctrine is included from doctrines/doctrine.sbn.
+-->
+
 <Widget
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="StretchToParent"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop">
     <Children>
+        <!-- Column title -->
         {{ title("@Name") }}
         <ListPanel
             DataSource="{Doctrines}"
-            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="CoverChildren"
             SuggestedWidth="350"
-            MarginLeft="20" MarginRight="20" MarginTop="35" MarginBottom="0"
+            MarginLeft="20"
+            MarginRight="20"
+            MarginTop="35"
+            MarginBottom="0"
             StackLayout.LayoutMethod="VerticalBottomToTop">
             <ItemTemplate>
+                <!-- Doctrine item -->
                 {{ include "doctrines/doctrine.sbn" }}
             </ItemTemplate>
         </ListPanel>

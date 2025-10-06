@@ -1,12 +1,27 @@
+<!--
+    tableau.sbn
+    Displays a character tableau for a troop, including equipment, body properties, and banner.
+-->
+
 <Widget
     DataSource="{Model}"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center" VerticalAlignment="Center">
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center">
+
     <Children>
+        <!--
+            CharacterTableauWidget:
+            Renders the troop's visual representation with equipment, body, and banner.
+        -->
         <CharacterTableauWidget
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="800" SuggestedHeight="1000"
-            HorizontalAlignment="Center" VerticalAlignment="Center"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="800"
+            SuggestedHeight="1000"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
             DoNotUseCustomScale="true"
             BannerCodeText="@BannerCodeText"
             CharStringId="@CharStringId"
@@ -17,6 +32,7 @@
             Race="@Race"
             StanceIndex="@StanceIndex"
             ArmorColor1="@ArmorColor1"
-            ArmorColor2="@ArmorColor2"/>
+            ArmorColor2="@ArmorColor2"
+        />
     </Children>
 </Widget>

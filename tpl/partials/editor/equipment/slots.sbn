@@ -1,95 +1,116 @@
+<!--
+    editor/equipment/slots.sbn
+    Defines slot_row macro and lists all equipment slots for the troop.
+    Each slot row displays a selector button, equipment visual, and name.
+    Dividers separate weapon, armor, and mount sections.
+-->
+
 {{- func slot_row(datasource) -}}
 <ListPanel 
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
     DataSource="{{datasource}}"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     MarginTop="16">
     <Children>
-        <!-- Selector button -->
+        <!-- Selector button for slot -->
         <ButtonWidget
             DoNotPassEventsToChildren="true"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="120" SuggestedHeight="48"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="120"
+            SuggestedHeight="48"
             VerticalAlignment="Center"
-            IsSelected="@IsSelected" IsEnabled="@IsEnabled"
+            IsSelected="@IsSelected"
+            IsEnabled="@IsEnabled"
             Brush="ButtonBrush2"
             MarginRight="32"
             Command.Click="ExecuteSelect">
             <Children>
                 <TextWidget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
                     Text="@ButtonLabel"/>
             </Children>
         </ButtonWidget>
 
-        <!-- Equipment visual -->
+        <!-- Equipment visual for slot -->
         <Widget
-            HorizontalAlignment="Center" VerticalAlignment="Center"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="86" SuggestedHeight="42">
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="86"
+            SuggestedHeight="42">
             <Children>
                 <BrushWidget
-                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
                     Brush="Frame1Brush"/>
                 <ImageIdentifierWidget
-                    ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="86" SuggestedHeight="42">
+                    {{ if bl == 13 }}
+                        AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"
+                    {{ else }}
+                        ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
+                    {{ end }}
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="86"
+                    SuggestedHeight="42">
                     <Children>
                         <HintWidget
                             DataSource="{Hint}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                            Command.HoverBegin="ExecuteBeginHint"
+                            Command.HoverEnd="ExecuteEndHint"/>
                     </Children>
                 </ImageIdentifierWidget>
             </Children>
         </Widget>
 
-        <!-- Equipment name -->
+        <!-- Equipment name for slot -->
         <TextWidget
             Text="@Name"
-            Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            VerticalAlignment="Center" HorizontalAlignment="Left"
+            Brush="Clan.RightPanel.Name.Text"
+            Brush.FontSize="24"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
             MarginLeft="24"/>
     </Children>
 </ListPanel>
 {{- end -}}
 
+<!--
+    Equipment slots for troop:
+    - Weapons (begin slot, 1-3)
+    - Armor (head, cape, body, gloves, legs)
+    - Mount (horse, harness)
+    Dividers separate sections.
+-->
+
 <!-- Weapons 1..4 -->
-
 {{ slot_row "{WeaponItemBeginSlotSlot}" }}
-
 {{ slot_row "{Weapon1Slot}" }}
-
 {{ slot_row "{Weapon2Slot}" }}
-
 {{ slot_row "{Weapon3Slot}" }}
 
-<!-- Divider -->
+<!-- Divider between weapons and armor -->
 {{ divider() }}
 
-<!-- Head -->
+<!-- Armor slots -->
 {{ slot_row "{HeadSlot}" }}
-
-<!-- Cape -->
 {{ slot_row "{CapeSlot}" }}
-
-<!-- Body -->
 {{ slot_row "{BodySlot}" }}
-
-<!-- Gloves -->
 {{ slot_row "{GlovesSlot}" }}
-
-<!-- Legs -->
 {{ slot_row "{LegSlot}" }}
 
-<!-- Divider -->
+<!-- Divider between armor and mount -->
 {{ divider() }}
 
-<!-- Horse -->
+<!-- Mount slots -->
 {{ slot_row "{HorseSlot}" }}
-
-<!-- Harness -->
 {{ slot_row "{HorseHarnessSlot}" }}

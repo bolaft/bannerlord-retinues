@@ -1,17 +1,23 @@
-<!-- Header -->
+<!--
+    editor/default/sections/name.sbn
+    Displays troop name and provides a button to rename.
+-->
+
+<!-- Header for name section -->
 {{ header("@NameHeaderText") }}
 
 <ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true"
     MarginBottom="0">
     <Children>
-        <!-- Name text -->
+        <!-- Name text display -->
         {{ text("@Name", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
-        <!-- Clickable icon -->
+        <!-- Clickable icon to rename -->
         {{ button_icon("ExecuteRename", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
     </Children>
 </ListPanel>

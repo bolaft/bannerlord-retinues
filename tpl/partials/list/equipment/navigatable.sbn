@@ -1,45 +1,70 @@
+<!--
+    list/equipment/navigatable.sbn
+    Defines the navigatable equipment list panel and item template.
+    Displays equipment items with icons, name, value, stock, requirements, and progress.
+-->
+
 <NavigatableListPanel 
-    Id="CCT_ListItemsListPanel" 
-    WidthSizePolicy="CoverChildren"  HeightSizePolicy="CoverChildren" 
-    StackLayout.LayoutMethod="VerticalBottomToTop" 
-    MinIndex="0" StepSize="1000">
+    Id="RET_ListItemsListPanel" 
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    MinIndex="0"
+    StepSize="1000">
     <Children>
-        <NavigationAutoScrollWidget TrackedWidget=".\CCT_ItemHeader"/>
+        <!-- Auto-scroll to tracked header widget -->
+        <NavigationAutoScrollWidget TrackedWidget=".\RET_ItemHeader"/>
         <NavigatableListPanel 
-            Id="CCT_ItemList" 
-            DataSource="{Equipments}" 
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-            HorizontalAlignment="Right" 
-            StackLayout.LayoutMethod="VerticalBottomToTop" 
+            Id="RET_ItemList"
+            DataSource="{Equipments}"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Right"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
             UseSelfIndexForMinimum="true">
             <ItemTemplate>
+                <!-- Equipment item button -->
                 <ButtonWidget
                     DoNotPassEventsToChildren="true"
-                    WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" 
-                    SuggestedHeight="68"  SuggestedWidth="!Clan.Management.Collapser.Width" 
-                    Brush="Clan.Management.LeftTuple" 
-                    IsSelected="@IsSelected" IsEnabled="@IsEnabled" IsVisible="@IsVisible"
-                    Command.Click="ExecuteSelect" 
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedHeight="68"
+                    SuggestedWidth="!Clan.Management.Collapser.Width"
+                    Brush="Clan.Management.LeftTuple"
+                    IsSelected="@IsSelected"
+                    IsEnabled="@IsEnabled"
+                    IsVisible="@IsVisible"
+                    Command.Click="ExecuteSelect"
                     UpdateChildrenStates="true">
                     <Children>
+                        <!-- Hint widget for tooltips -->
                         <HintWidget
                             DataSource="{Hint}"
-                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                            WidthSizePolicy="StretchToParent"
+                            HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Command.HoverBegin="ExecuteBeginHint"
+                            Command.HoverEnd="ExecuteEndHint"/>
                         <ListPanel
-                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                            MarginLeft="10" MarginRight="10"
+                            WidthSizePolicy="StretchToParent"
+                            HeightSizePolicy="StretchToParent"
+                            MarginLeft="10"
+                            MarginRight="10"
                             StackLayout.LayoutMethod="HorizontalLeftToRight">
                             <Children>
                                 <!-- Icon -->
-                                {{ image("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "96", "48", "0", "24") }}
-
+                                {{ if bl == 13 }}
+                                    {{ image_13("96", "48", "0", "24") }}
+                                {{ else }}
+                                    {{ image_12("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "96", "48", "0", "24") }}
+                                {{ end }}
                                 <!-- Name -->
                                 <TextWidget
                                     Text="@Name"
                                     Brush="Clan.Tuple.Name.Text"
-                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+                                    WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="CoverChildren"
                                     VerticalAlignment="Center"
                                     MarginLeft="10"/>
 
@@ -47,40 +72,53 @@
                                 <TextWidget
                                     IntText="@Value"
                                     Brush="InventoryGoldFontBrush"
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
                                     IsVisible="@ShowValue"/>
                                 
                                 <!-- Coin icon -->
                                 <ImageWidget
-                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                    SuggestedWidth="20" SuggestedHeight="20"
+                                    WidthSizePolicy="Fixed"
+                                    HeightSizePolicy="Fixed"
+                                    SuggestedWidth="20"
+                                    SuggestedHeight="20"
                                     Sprite="General\Icons\Coin@2x"
-                                    VerticalAlignment="Center" 
+                                    VerticalAlignment="Center"
                                     IsVisible="@ShowValue"/>
 
                                 <!-- Stock -->
                                 <TextWidget
                                     Text="@InStockText"
-                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    Brush="Clan.RightPanel.Name.Text"
+                                    Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
                                     IsVisible="@ShowStock"/>
 
-                                <!-- Stock -->
+                                <!-- Skill requirement -->
                                 <TextWidget
                                     Text="@SkillRequirementText"
-                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    Brush="Clan.RightPanel.Name.Text"
+                                    Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
                                     IsVisible="@CantEquip"/>
 
-                                <!-- Stock -->
+                                <!-- Progress -->
                                 <TextWidget
                                     Text="@ProgressText"
-                                    Brush="Clan.RightPanel.Name.Text" Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    Brush="Clan.RightPanel.Name.Text"
+                                    Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
                                     IsVisible="@InProgress"/>
                             </Children>
                         </ListPanel>

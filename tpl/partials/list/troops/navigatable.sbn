@@ -1,6 +1,19 @@
+<!--
+    list/troops/navigatable.sbn
+    Defines macros and layout for navigatable troop lists with collapsible party headers.
+    Includes macros for party toggles and troop lists, and the main navigatable list panel.
+-->
+
+<!-- party_toggle macro
+    Parameters:
+    - type: party type (Retinue, Elite, etc.)
+    - name: display name
+    - is_visible: visibility
+    Displays a collapsible header for each troop party type.
+-->
 {{- func party_toggle(type, name, is_visible = "true") -}}
 <PartyHeaderToggleWidget
-    Id="CCT_{{type}}Toggle"
+    Id="RET_{{type}}Toggle"
     RenderLate="true"
     IsVisible="{{is_visible}}"
     IsEnable="false"
@@ -8,10 +21,10 @@
     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
     SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height"
     CollapseIndicator="{{type}}Collapser\{{type}}CollapseIndicator"
-    ListPanel="..\CCT_ListTroopsRect\CCT_ListTroopsListPanel\CCT_{{type}}List"
+    ListPanel="..\RET_ListTroopsRect\RET_ListTroopsListPanel\RET_{{type}}List"
     HorizontalAlignment="Left" VerticalAlignment="Top"
     Brush="Clan.Management.Collapser"
-    WidgetToClose="..\CCT_ListTroopsRect\CCT_ListTroopsListPanel\CCT_{{type}}List">
+    WidgetToClose="..\RET_ListTroopsRect\RET_ListTroopsListPanel\RET_{{type}}List">
     <Children>
         <ListPanel
             Id="{{type}}Collapser"
@@ -28,12 +41,17 @@
 </PartyHeaderToggleWidget>
 {{- end -}}
 
-
+<!-- troop_list macro
+    Parameters:
+    - kind: troop kind (Retinue, Elite, etc.)
+    - datasource: data source for the list
+    Displays a navigatable list of troops for the given kind.
+-->
 {{- func troop_list(kind, datasource) -}}
-<NavigationAutoScrollWidget TrackedWidget=".\CCT_{{kind}}Header"/>
+<NavigationAutoScrollWidget TrackedWidget=".\RET_{{kind}}Header"/>
 
 <NavigatableListPanel 
-    Id="CCT_{{kind}}List" 
+    Id="RET_{{kind}}List" 
     DataSource="{{datasource}}" 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
     HorizontalAlignment="Right" 
@@ -65,7 +83,11 @@
                             Text="@EmptyMessage"/>
 
                         <!-- Icon -->
-                        {{ image("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                        {{ if bl == 13 }}
+                            {{ image_13("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                        {{ else }}
+                            {{ image_12("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                        {{ end }}
 
                         <!-- Name -->
                         <TextWidget 
@@ -86,12 +108,15 @@
 </NavigatableListPanel>
 {{- end -}}
 
+<!--
+    Main navigatable troop list panel.
+    Contains collapsible headers and lists for each troop party type.
+-->
 <NavigatableListPanel 
-    Id="CCT_ListTroopsListPanel" 
+    Id="RET_ListTroopsListPanel" 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
     StackLayout.LayoutMethod="VerticalBottomToTop" >
     <Children>
-
         {{ party_toggle("Retinue", "@RetinueToggleText") }}
         {{ troop_list("Retinue", "{RetinueTroops}") }}
         {{ party_toggle("Elite", "@EliteToggleText") }}
@@ -100,6 +125,5 @@
         {{ troop_list("Regular", "{BasicTroops}") }}
         {{ party_toggle("Militia", "@MilitiaToggleText") }}
         {{ troop_list("Militia", "{MilitiaTroops}") }}
-
     </Children>
 </NavigatableListPanel>

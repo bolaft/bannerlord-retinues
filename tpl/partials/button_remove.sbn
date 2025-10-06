@@ -1,24 +1,51 @@
+<!--
+    button_remove.sbn
+    Displays a button to remove the selected troop from the retinue.
+    Shows a hint tooltip and is only visible when removal is allowed.
+-->
+
 <Widget
     Hint="{RemoveButtonHint}"
     IsVisible="@ShowRemoveButton"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center" VerticalAlignment="Top">
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Top">
+
     <Children>
+        <!--
+            ButtonWidget:
+            - Enabled if removal is possible (@CanRemove)
+            - Executes 'ExecuteRemoveTroop' command on click
+            - Shows "Remove" text
+        -->
         <ButtonWidget
             DataSource="{TroopEditor}"
             IsEnabled="@CanRemove"
-            DoNotPassEventsToChildren="true" UpdateChildrenStates="true"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
-            HorizontalAlignment="Center" VerticalAlignment="Top"
+            DoNotPassEventsToChildren="true"
+            UpdateChildrenStates="true"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width"
+            SuggestedHeight="!CancelButton.Height"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
             Brush="Popup.Delete.Button"
             Command.Click="ExecuteRemoveTroop">
+
             <Children>
+                <!--
+                    TextWidget:
+                    - Displays the "Remove" button text
+                -->
                 <TextWidget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Text="@RemoveButtonText"/>
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Text="@RemoveButtonText"
+                />
             </Children>
         </ButtonWidget>
     </Children>

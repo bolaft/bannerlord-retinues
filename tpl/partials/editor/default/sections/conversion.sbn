@@ -1,22 +1,29 @@
-<!-- Header -->
+<!--
+    editor/default/sections/conversion.sbn
+    Displays troop conversion options in the retinue editor.
+    Includes conversion rows with cost, arrows, and apply/clear buttons.
+-->
+
+<!-- Conversion header -->
 {{ header("@TransferHeaderText", "@IsRetinue", "0") }}
 
 <ListPanel
     DataSource="{ConversionRows}"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop">
   <ItemTemplate>
     <ListPanel
-        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="CoverChildren"
         HorizontalAlignment="Center"
         StackLayout.LayoutMethod="HorizontalLeftToRight">
         <Children>
-
-            <!-- From troop -->
+            <!-- From troop name -->
             {{ text("@FromDisplay", "Clan.Tuple.Name.Text", "Center", "0", "8") }}
             
-            <!-- Left arrow button -->
+            <!-- Left arrow button (release) -->
             {{ button_icon("ExecuteRelease", "ButtonRightBigArrowBrush1", "24", "true", "@CanRelease") }}
 
             <!-- Conversion cost -->
@@ -24,29 +31,34 @@
 
             <!-- Coin icon -->
             <ImageWidget
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="20" SuggestedHeight="20"
+                WidthSizePolicy="Fixed"
+                HeightSizePolicy="Fixed"
+                SuggestedWidth="20"
+                SuggestedHeight="20"
                 Sprite="General\Icons\Coin@2x"
                 VerticalAlignment="Center" />
 
-            <!-- Right arrow button -->
+            <!-- Right arrow button (recruit) -->
             {{ button_icon("ExecuteRecruit", "ButtonLeftBigArrowBrush1", "24", "true", "@CanRecruit") }}
 
-            <!-- To troop -->
+            <!-- To troop name -->
             {{ text("@ToDisplay", "Clan.Tuple.Name.Text", "Center", "8", "0") }}
-
         </Children>
     </ListPanel>
   </ItemTemplate>
 </ListPanel>
 
+<!-- Conversion action buttons -->
 <ListPanel
     IsVisible="@IsRetinue"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight">
     <Children>
+        <!-- Apply conversions button -->
         {{ button_text("@ButtonApplyConversionsText", "ExecuteApplyConversions", "Popup.Done.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
+        <!-- Clear conversions button -->
         {{ button_text("@ButtonClearConversionsText", "ExecuteClearConversions", "Popup.Delete.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
     </Children>
 </ListPanel>

@@ -1,4 +1,17 @@
-<!-- String text -->
+<!--
+    text.sbn
+    Macro definitions for various text widgets.
+    Provides reusable functions for string, integer, small, header, and title text.
+-->
+
+<!-- String text macro
+    Parameters:
+    - text: string to display
+    - brush: text brush style
+    - horizontal_alignment: horizontal alignment
+    - margin_*: margins
+    - is_visible: visibility
+-->
 {{- func text(text, brush = "Clan.Tuple.Name.Text", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -9,7 +22,14 @@
     ClipContents="false"/>
 {{- end -}}
 
-<!-- Int text -->
+<!-- Int text macro
+    Parameters:
+    - text: integer value to display
+    - brush: text brush style
+    - horizontal_alignment: horizontal alignment
+    - margin_*: margins
+    - is_visible: visibility
+-->
 {{- func text_int(text, brush = "Clan.Tuple.Name.Text", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -20,7 +40,14 @@
     ClipContents="false"/>
 {{- end -}}
 
-<!-- Small text -->
+<!-- Small text macro
+    Parameters:
+    - text: string to display
+    - horizontal_alignment: horizontal alignment
+    - margin_*: margins
+    - is_visible: visibility
+    Uses a smaller font and custom color.
+-->
 {{- func small_text(text, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -31,7 +58,14 @@
     ClipContents="false"/>
 {{- end -}}
 
-<!-- Title header -->
+<!-- Title header macro
+    Parameters:
+    - text: string to display
+    - is_visible: visibility
+    - margin_top: top margin
+    - margin_bottom: bottom margin
+    Displays a small title header.
+-->
 {{- func header(text, is_visible = "true", margin_top = "15", margin_bottom = "10") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -44,7 +78,11 @@
     MarginBottom="{{margin_bottom}}"/>
 {{- end -}}
 
-<!-- Bigger title -->
+<!-- Bigger title macro
+    Parameters:
+    - text: string to display
+    Displays a medium-sized title.
+-->
 {{- func title(text) -}}
 <TextWidget
     WidthSizePolicy="CoverChildren"

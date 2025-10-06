@@ -1,3 +1,9 @@
+<!--
+    editor/equipment/base.sbn
+    Equipment editor panel for the right pane.
+    Displays equipment slots for the selected troop.
+-->
+
 <ListPanel
     DataSource="{EquipmentEditor}"
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
@@ -12,10 +18,9 @@
             MarginBottom="24" MarginLeft="160"
         >
             <Children>
-                <!-- Equipment slots -->
+                <!-- Equipment slots for troop -->
                 {{ include "editor/equipment/slots.sbn" }}
             </Children>
         </ListPanel>
-
     </Children>
 </ListPanel>

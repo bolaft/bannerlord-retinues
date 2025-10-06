@@ -1,43 +1,63 @@
+<!--
+    list/troops/base.sbn
+    Defines the main troop list panel, including sorting header, scrollable list, navigation, and toggles.
+-->
+
 {{ include "list/troops/sort_header.sbn" }}
 
 <ListPanel 
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent">
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="StretchToParent">
     <Children>
+        <!--
+            ScrollablePanel:
+            - Displays the troop list with vertical scrolling.
+            - Uses NavigationScopeTargeter for keyboard/controller navigation.
+            - Contains the main troop list and toggles.
+        -->
         <ScrollablePanel 
             DataSource="{TroopList}"
-            Id="CCT_ListTroopsScrollablePanel" 
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" 
-            MinWidth="!Clan.Management.Collapser.Width" 
-            AutoHideScrollBars="true" 
-            ClipRect="CCT_ListTroopsRect" 
-            InnerPanel="CCT_ListTroopsRect\CCT_ListTroopsListPanel" 
-            MouseScrollAxis="Vertical" 
-            MarginLeft="3" MarginBottom="3" 
-            VerticalScrollbar="..\CCT_ListTroopsScrollbar\Scrollbar">
+            Id="RET_ListTroopsScrollablePanel"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="StretchToParent"
+            MinWidth="!Clan.Management.Collapser.Width"
+            AutoHideScrollBars="true"
+            ClipRect="RET_ListTroopsRect"
+            InnerPanel="RET_ListTroopsRect\RET_ListTroopsListPanel"
+            MouseScrollAxis="Vertical"
+            MarginLeft="3"
+            MarginBottom="3"
+            VerticalScrollbar="..\RET_ListTroopsScrollbar\Scrollbar">
             <Children>
+                <!-- Navigation scope for troop list -->
                 <NavigationScopeTargeter 
-                    ScopeID="CCT_TroopsScope" ScopeParent=".\CCT_ListTroopsRect" ScopeMovements="Vertical" 
-                    IsDefaultNavigationScope="true" DoNotAutoNavigateAfterSort="true"/>
+                    ScopeID="RET_TroopsScope"
+                    ScopeParent=".\RET_ListTroopsRect"
+                    ScopeMovements="Vertical"
+                    IsDefaultNavigationScope="true"
+                    DoNotAutoNavigateAfterSort="true"/>
                 <Widget 
-                    Id="CCT_ListTroopsRect" 
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" 
+                    Id="RET_ListTroopsRect"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="StretchToParent"
                     ClipContents="true">
                     <Children>
-
+                        <!-- Navigatable troop list items -->
                         {{ include "list/troops/navigatable.sbn" }}
-
                     </Children>
                 </Widget>
-
-                {{ include "list/troops/toggles.sbn" }}
 
             </Children>
         </ScrollablePanel>
 
+        <!-- Vertical scrollbar for the troop list -->
         <Standard.VerticalScrollbar 
-            Id="CCT_ListTroopsScrollbar" 
-            HeightSizePolicy="StretchToParent" 
-            HorizontalAlignment="Right" VerticalAlignment="Bottom" 
-            MarginLeft="2" MarginRight="2" MarginBottom="3"/>
+            Id="RET_ListTroopsScrollbar"
+            HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            MarginLeft="2"
+            MarginRight="2"
+            MarginBottom="3"/>
     </Children>
 </ListPanel>

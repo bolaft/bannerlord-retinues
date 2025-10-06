@@ -1,15 +1,22 @@
-<!-- Header -->
+<!--
+    editor/default/sections/upgrades.sbn
+    Displays upgrade options for regular troops.
+    Includes upgrade list and button to add new upgrade targets.
+-->
+
+<!-- Header for upgrades section -->
 {{ header("@UpgradesHeaderText", "@IsRegular") }}
 
 <!-- Upgrades list -->
 <ListPanel
     IsVisible="@IsRegular"
     DataSource="{UpgradeTargets}"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop">
     <ItemTemplate>
-        <!-- Upgrade name -->
+        <!-- Upgrade name display -->
         {{ text("@Name", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "8") }}
     </ItemTemplate>
 </ListPanel>
