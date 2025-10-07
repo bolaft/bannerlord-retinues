@@ -49,5 +49,15 @@ namespace Retinues.Core.Features.Unlocks
 
             return $"Unlocked item {item.Name} ({item}).";
         }
+
+        /// <summary>
+        /// Resets all unlocks. Usage: retinues.reset_unlocks
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("reset_unlocks", "retinues")]
+        public static string ResetUnlocks(List<string> args)
+        {
+            Behaviors.UnlocksBehavior.Instance?.Reset();
+            return "All unlocks have been reset.";
+        }
     }
 }
