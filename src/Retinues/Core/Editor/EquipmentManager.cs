@@ -59,7 +59,10 @@ namespace Retinues.Core.Editor
                     .Select(i => new WItem(i))
             )
             {
-                bool isAvailable = item.IsStocked || Config.GetOption<bool>("RestrictItemsToTownInventory") == false || CurrentTownHasItem(item);
+                bool isAvailable =
+                    item.IsStocked
+                    || Config.GetOption<bool>("RestrictItemsToTownInventory") == false
+                    || CurrentTownHasItem(item);
 
                 try
                 {
@@ -141,7 +144,13 @@ namespace Retinues.Core.Editor
             items =
             [
                 .. items
-                    .OrderBy(pair => (pair.Item2 == null ? 0 : 1, -(pair.Item2 ?? 0), pair.Item2 == null ? (pair.Item3 ? 0 : 1) : 0))
+                    .OrderBy(pair =>
+                        (
+                            pair.Item2 == null ? 0 : 1,
+                            -(pair.Item2 ?? 0),
+                            pair.Item2 == null ? (pair.Item3 ? 0 : 1) : 0
+                        )
+                    )
                     .ThenBy(pair => pair.Item1?.Type)
                     .ThenBy(pair => pair.Item1?.Name),
             ];
@@ -257,7 +266,9 @@ namespace Retinues.Core.Editor
             }
             catch { }
 
-            return (int)(baseValue * (1.0f - rebate) * Config.GetOption<float>("EquipmentPriceModifier"));
+            return (int)(
+                baseValue * (1.0f - rebate) * Config.GetOption<float>("EquipmentPriceModifier")
+            );
         }
     }
 }

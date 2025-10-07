@@ -5,12 +5,11 @@ using Retinues.Core.Game.Helpers.Character;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-#if BL13
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
-#endif
 
 namespace Retinues.Core.Game.Wrappers
 {
@@ -84,10 +83,13 @@ namespace Retinues.Core.Game.Wrappers
         //                View-Model (VM) Accessors               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public CharacterCode CharacterCode => CharacterCode.CreateFrom(Base);
+        public ImageIdentifier ImageIdentifier => new CharacterImageIdentifier(CharacterCode);
+
 #if BL13
-        public CharacterImageIdentifierVM Image => new(CharacterCode.CreateFrom(Base));
+        public CharacterImageIdentifierVM Image => new(CharacterCode);
 #else
-        public ImageIdentifierVM Image => new(CharacterCode.CreateFrom(Base));
+        public ImageIdentifierVM Image => new(CharacterCode);
 #endif
 
         public CharacterViewModel Model

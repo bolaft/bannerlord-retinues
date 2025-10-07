@@ -641,6 +641,9 @@
       id="ret_no"
       text="No" />
     <string
+      id="ret_no_training_required"
+      text="No training required" />
+    <string
       id="ret_not_enough_gold"
       text="Not enough gold" />
     <string
@@ -794,6 +797,15 @@
       id="ret_tier"
       text="Tier" />
     <string
+      id="ret_training_complete"
+      text="Training Complete" />
+    <string
+      id="ret_training_complete_text"
+      text="{TROOP} has completed their {SKILL} training." />
+    <string
+      id="ret_training_required"
+      text="{HOURS} hours of training required" />
+    <string
       id="ret_transfer_header_text"
       text="Transfer" />
     <string
@@ -817,6 +829,21 @@
     <string
       id="ret_unlock_progress_text"
       text="Unlocking ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_train_begin"
+      text="Begin training" />
+    <string
+      id="ret_upgrade_train_choose_troop"
+      text="Choose one pending troop to start training now." />
+    <string
+      id="ret_upgrade_train_pending_btn"
+      text="Train troops" />
+    <string
+      id="ret_upgrade_train_progress"
+      text="Training {NAME}..." />
+    <string
+      id="ret_upgrade_train_select_troop"
+      text="Select a troop to train" />
     <string
       id="ret_upgrades_header_text"
       text="Upgrades" />

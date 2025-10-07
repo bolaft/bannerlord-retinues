@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Editor.UI.Helpers;
+using Retinues.Core.Features.Upgrade.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
@@ -85,6 +86,22 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 ? L.S("female", "Female")
                 : L.S("male", "Male");
 
+        [DataSourceProperty]
+        public string TrainingRequiredText
+        {
+            get
+            {
+                var req = TroopTrainingBehavior.GetTrainingRequired(SelectedTroop);
+
+                if (req <= 0)
+                    return L.S("no_training_required", "No training required");
+
+                return L.T("training_required", "{HOURS} hours of training required")
+                    .SetTextVariable("HOURS", req)
+                    .ToString();
+            }
+        }
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -103,6 +120,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         public bool TroopXpIsEnabled =>
             Config.GetOption<int>("BaseSkillXpCost") > 0
             || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
+
+        [DataSourceProperty]
+        public bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
@@ -527,6 +547,8 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             RebuildRetinueRows();
 
             OnPropertyChanged(nameof(TroopXpIsEnabled));
+            OnPropertyChanged(nameof(TrainingTakesTime));
+            OnPropertyChanged(nameof(TrainingRequiredText));
 
             OnPropertyChanged(nameof(TroopCount));
             OnPropertyChanged(nameof(RetinueCap));

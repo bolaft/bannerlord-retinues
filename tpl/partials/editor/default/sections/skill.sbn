@@ -33,9 +33,10 @@
                 <!-- Decrement skill button -->
                 {{ button_icon("ExecuteDecrement", "ButtonRightBigArrowBrush1", "24", "true", "@CanDecrement") }}
 
-                <!-- Skill value display -->
+                <!-- Actual value display -->
                 <TextWidget
-                    IntText="@Value"
+                    IsVisible="@ShowAsActual"
+                    IntText="@StagedValue"
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
                     SuggestedWidth="32"
@@ -43,6 +44,19 @@
                     Brush="Encyclopedia.Skill.Text"
                     Brush.FontSize="24"
                     Brush.FontColor="#F4E1C4FF"
+                    HorizontalAlignment="Center"/>
+
+                <!-- Staged value display -->
+                <TextWidget
+                    IsVisible="@ShowAsStaged"
+                    IntText="@StagedValue"
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="32"
+                    SuggestedHeight="24"
+                    Brush="Encyclopedia.Skill.Text"
+                    Brush.FontSize="24"
+                    Brush.FontColor="#ebaf2fff"
                     HorizontalAlignment="Center"/>
 
                 <!-- Increment skill button -->

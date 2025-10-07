@@ -24,7 +24,12 @@ namespace Retinues.Core.Editor
         /// <summary>
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
-        public static bool IsAllowedInContext(WCharacter troop, WFaction faction, string action)
+        public static bool IsAllowedInContext(
+            WCharacter troop,
+            WFaction faction,
+            string action,
+            bool showPopup = true
+        )
         {
             if (faction == null)
                 return true; // No faction, allow by default
@@ -36,14 +41,15 @@ namespace Retinues.Core.Editor
                     return true; // Clan retinues can be edited in any settlement
                 else
                 {
-                    Popup.Display(
-                        L.T("not_in_settlement", "Not in Settlement"),
-                        L.T(
-                                "not_in_settlement_text",
-                                "You must be in a settlement to {ACTION} this troop."
-                            )
-                            .SetTextVariable("ACTION", action)
-                    );
+                    if (showPopup)
+                        Popup.Display(
+                            L.T("not_in_settlement", "Not in Settlement"),
+                            L.T(
+                                    "not_in_settlement_text",
+                                    "You must be in a settlement to {ACTION} this troop."
+                                )
+                                .SetTextVariable("ACTION", action)
+                        );
                     return false; // Clan retinues must be in settlement
                 }
 
@@ -52,14 +58,15 @@ namespace Retinues.Core.Editor
                 if (settlement?.Clan == Player.Clan)
                     return true; // In clan fief, allow
 
-                Popup.Display(
-                    L.T("not_in_clan_fief", "Not in Clan Fief"),
-                    L.T(
-                            "not_in_clan_fief_text",
-                            "You must be in one of your clan's fiefs to {ACTION} this troop."
-                        )
-                        .SetTextVariable("ACTION", action)
-                );
+                if (showPopup)
+                    Popup.Display(
+                        L.T("not_in_clan_fief", "Not in Clan Fief"),
+                        L.T(
+                                "not_in_clan_fief_text",
+                                "You must be in one of your clan's fiefs to {ACTION} this troop."
+                            )
+                            .SetTextVariable("ACTION", action)
+                    );
                 return false; // In settlement but not clan fief, disallow
             }
 
@@ -68,14 +75,15 @@ namespace Retinues.Core.Editor
                 if (settlement?.Kingdom == Player.Kingdom)
                     return true; // In kingdom fief, allow
 
-                Popup.Display(
-                    L.T("not_in_kingdom_fief", "Not in Kingdom Fief"),
-                    L.T(
-                            "not_in_kingdom_fief_text",
-                            "You must be in one of your kingdom's fiefs to {ACTION} this troop."
-                        )
-                        .SetTextVariable("ACTION", action)
-                );
+                if (showPopup)
+                    Popup.Display(
+                        L.T("not_in_kingdom_fief", "Not in Kingdom Fief"),
+                        L.T(
+                                "not_in_kingdom_fief_text",
+                                "You must be in one of your kingdom's fiefs to {ACTION} this troop."
+                            )
+                            .SetTextVariable("ACTION", action)
+                    );
                 return false; // In settlement but not kingdom fief, disallow
             }
 

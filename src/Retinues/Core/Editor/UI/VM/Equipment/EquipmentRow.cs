@@ -14,8 +14,12 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
     /// ViewModel for an equipment row. Handles item display, equipping, stock, progress, and UI refresh logic.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentRowVM(WItem item, EquipmentListVM list, int? progress, bool available)
-        : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
+    public sealed class EquipmentRowVM(
+        WItem item,
+        EquipmentListVM list,
+        int? progress,
+        bool available
+    ) : BaseRow<EquipmentListVM, EquipmentRowVM>(list)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -50,10 +54,12 @@ namespace Retinues.Core.Editor.UI.VM.Equipment
                 .ToString();
 
         [DataSourceProperty]
-        public string UnavailableText => Player.CurrentSettlement == null ? L.S("item_unavailable_no_settlement", "Not in a town") :
-            L.T("item_unavailable_text", "Not sold in {SETTLEMENT}")
-                .SetTextVariable("SETTLEMENT", Player.CurrentSettlement.Name)
-                .ToString();
+        public string UnavailableText =>
+            Player.CurrentSettlement == null
+                ? L.S("item_unavailable_no_settlement", "Not in a town")
+                : L.T("item_unavailable_text", "Not sold in {SETTLEMENT}")
+                    .SetTextVariable("SETTLEMENT", Player.CurrentSettlement.Name)
+                    .ToString();
 
         [DataSourceProperty]
         public string SkillRequirementText =>

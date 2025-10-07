@@ -2,6 +2,7 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
+using Retinues.Core.Features.Upgrade.Behaviors;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
 using TaleWorlds.Core;
@@ -32,7 +33,13 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public int Value => _troop.GetSkill(_skill);
+        public int StagedValue => Value + TroopTrainingBehavior.GetStaged(_troop, _skill);
+
+        [DataSourceProperty]
+        public bool ShowAsActual => StagedValue == Value;
+
+        [DataSourceProperty]
+        public bool ShowAsStaged => StagedValue != Value;
 
         [DataSourceProperty]
         public string StringId => _skill.StringId;
@@ -48,10 +55,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
-        public void ExecuteIncrement() => Modify(+1);
+        public void ExecuteIncrement() => Modify(true);
 
         [DataSourceMethod]
-        public void ExecuteDecrement() => Modify(-1);
+        public void ExecuteDecrement() => Modify(false);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
@@ -59,7 +66,9 @@ namespace Retinues.Core.Editor.UI.VM.Troop
 
         public void Refresh()
         {
-            OnPropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(StagedValue));
+            OnPropertyChanged(nameof(ShowAsActual));
+            OnPropertyChanged(nameof(ShowAsStaged));
             OnPropertyChanged(nameof(StringId));
             OnPropertyChanged(nameof(CanIncrement));
             OnPropertyChanged(nameof(CanDecrement));
@@ -69,10 +78,13 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void Modify(int delta)
+        private int Value => _troop?.GetSkill(_skill) ?? 0;
+
+        private void Modify(bool increment)
         {
-            if (_editor.Screen?.EditingIsAllowed == false)
-                return; // Editing not allowed in current context
+            if (!Config.GetOption<bool>("TrainingTakesTime")) // Allow edits since you need a settlement to train anyway
+                if (_editor.Screen?.EditingIsAllowed == false)
+                    return; // Editing not allowed in current context
 
             int repeat = 1;
 
@@ -83,21 +95,24 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             {
                 for (int i = 0; i < repeat; i++)
                 {
-                    if (delta > 0 && !CanIncrement)
+                    if (increment && !CanIncrement)
                         break;
-                    if (delta < 0 && !CanDecrement)
+                    if (!increment && !CanDecrement)
                         break;
 
-                    TroopManager.ModifySkill(_troop, _skill, delta);
+                    TroopManager.ModifySkill(_troop, _skill, increment);
                 }
 
                 // Refresh value
-                OnPropertyChanged(nameof(Value));
+                OnPropertyChanged(nameof(StagedValue));
+                OnPropertyChanged(nameof(ShowAsActual));
+                OnPropertyChanged(nameof(ShowAsStaged));
 
                 // Refresh editor counters
                 _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
                 _editor.OnPropertyChanged(nameof(_editor.SkillPointsUsed));
                 _editor.OnPropertyChanged(nameof(_editor.AvailableTroopXpText));
+                _editor.OnPropertyChanged(nameof(_editor.TrainingRequiredText));
 
                 // Refresh all skills buttons
                 foreach (var s in _editor.SkillsRow1.Concat(_editor.SkillsRow2))
@@ -107,10 +122,10 @@ namespace Retinues.Core.Editor.UI.VM.Troop
                 }
             }
 
-            // TODO: add a check for doctrine once retraining refunds are unlocked
             if (
                 !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>()
-                && delta < 0
+                && !increment
+                && TroopTrainingBehavior.GetStaged(_troop, _skill) <= 0
                 && !_editor.PlayerWarnedAboutRetraining
                 && Config.GetOption<int>("BaseSkillXpCost")
                     + Config.GetOption<int>("SkillXpCostPerPoint")

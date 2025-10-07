@@ -43,6 +43,21 @@
     </Children>
 </ListPanel>
 
+<!-- Staged training -->
+<ListPanel
+    IsVisible="@TrainingTakesTime"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="Fixed"
+    SuggestedHeight="30"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+    MarginBottom="15">
+    <Children>
+        {{ small_text("@RequiredTrainingText") }}
+    </Children>
+</ListPanel>
+
 <!-- Skills grid: two rows of skill controls -->
 <ListPanel
     WidthSizePolicy="CoverChildren"

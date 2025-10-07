@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using TaleWorlds.Library;
 using Retinues.Core.Features.Stocks.Behaviors;
+using TaleWorlds.Library;
 
 namespace Retinues.Core.Features.Stocks
 {

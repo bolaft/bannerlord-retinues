@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Core.Editor;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Game.Wrappers;
@@ -113,17 +114,31 @@ namespace Retinues.Core.Features.Xp.Behaviors
         }
 
         /// <summary>
-        /// Refund XP to a troop's pool if AdaptiveTraining doctrine is unlocked.
+        /// Refund XP to a troop's pool.
         /// </summary>
-        public static void Refund(WCharacter troop, int amount)
+        public static void Refund(WCharacter troop, int amount, bool force = false)
         {
             if (troop == null || amount <= 0)
                 return;
 
             if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>())
-                return;
+                if (!force) // If force is true, skip this check
+                    return;
 
             Add(troop, amount);
+        }
+
+        /// <summary>
+        /// Refund one skill point.
+        /// </summary>
+        public static void RefundOnePoint(WCharacter troop, int skillValue, bool force = false)
+        {
+            if (troop == null)
+                return;
+
+            int amount = TroopRules.SkillPointXpCost(skillValue - 1);
+
+            Refund(troop, amount, force);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

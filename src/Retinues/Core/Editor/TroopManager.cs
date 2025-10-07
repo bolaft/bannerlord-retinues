@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Core.Features.Upgrade.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Helpers;
@@ -125,36 +126,33 @@ namespace Retinues.Core.Editor
         /// <summary>
         /// Modifies a troop's skill by delta, spending or refunding XP as needed.
         /// </summary>
-        public static void ModifySkill(WCharacter troop, SkillObject skill, int delta)
+        public static void ModifySkill(WCharacter troop, SkillObject skill, bool increment)
         {
             Log.Debug(
-                $"Modifying skill {skill?.Name} for troop {troop?.Name} by {delta} (current: {troop?.GetSkill(skill)})."
+                $"Modifying skill {skill?.Name} for troop {troop?.Name} by {(increment ? 1 : -1)} (current: {troop?.GetSkill(skill)})."
             );
-
-            if (troop == null || skill == null || delta == 0)
+            if (troop == null || skill == null)
                 return;
 
-            int current = troop.GetSkill(skill);
+            // Already staged changes
+            int staged = TroopTrainingBehavior.GetStaged(troop, skill);
+            int stagedSkill = troop.GetSkill(skill) + staged;
 
-            if (delta > 0)
+            if (increment)
             {
-                // Cost to go from current -> current + 1
-                int cost = TroopRules.SkillPointXpCost(current);
-                if (!TroopXpBehavior.TrySpend(troop, cost))
-                    return; // Not enough XP; a CanIncrement gate should already prevent this
-                troop.SetSkill(skill, current + 1);
+                if (!TroopXpBehavior.TrySpend(troop, TroopRules.SkillPointXpCost(stagedSkill)))
+                    return; // Not enough XP to increment
+
+                // Stage timed training (or instant if TrainingTakesTime==false)
+                TroopTrainingBehavior.StageTraining(troop, skill);
             }
-            else // delta < 0
+            else
             {
-                // Respect existing "CanDecrement" constraints upstream
-                int newValue = current - 1;
-                if (newValue < 0)
-                    return;
-
-                // Refund the cost of the point (i.e., the cost that was paid to go from newValue -> newValue + 1)
-                int refund = TroopRules.SkillPointXpCost(newValue);
-                troop.SetSkill(skill, newValue);
-                TroopXpBehavior.Refund(troop, refund);
+                // Force refunds for staged skill points
+                var force = staged > 0;
+                // Refund one skill point, if allowed
+                TroopXpBehavior.RefundOnePoint(troop, stagedSkill, force);
+                TroopTrainingBehavior.ApplyChange(troop.StringId, skill, -1);
             }
         }
 

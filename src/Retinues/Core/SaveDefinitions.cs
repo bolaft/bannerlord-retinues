@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Core.Features.Upgrade.Behaviors;
 using Retinues.Core.Troops.Save;
 using TaleWorlds.SaveSystem;
 
@@ -24,6 +25,7 @@ namespace Retinues.Core
             base.DefineClassTypes();
 
             AddClassDefinition(typeof(TroopSaveData), 070_992);
+            AddClassDefinition(typeof(TroopTrainingBehavior.PendingSave), 070_001);
 
             // Legacy definitions for backwards compatibility
             AddClassDefinition(typeof(Safety.Legacy.Behaviors.ItemSaveData), 070_993);
@@ -37,6 +39,7 @@ namespace Retinues.Core
         {
             base.DefineContainerDefinitions();
 
+            ConstructContainerDefinition(typeof(List<TroopTrainingBehavior.PendingSave>));
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(List<string>));
 

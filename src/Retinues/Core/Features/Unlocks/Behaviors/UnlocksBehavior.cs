@@ -16,10 +16,9 @@ namespace Retinues.Core.Features.Unlocks.Behaviors
     /// Campaign behavior for tracking item unlocks and defeat progress.
     /// Handles unlocking items from kills, culture bonuses, and showing unlock popups.
     /// </summary>
-        [SafeClass]
-        public sealed class UnlocksBehavior : CampaignBehaviorBase
-        {
-
+    [SafeClass]
+    public sealed class UnlocksBehavior : CampaignBehaviorBase
+    {
         public static UnlocksBehavior Instance { get; private set; }
 
         public UnlocksBehavior() => Instance = this;

@@ -7,6 +7,7 @@ using Retinues.Core.Features.Doctrines.Effects;
 using Retinues.Core.Features.Retinues.Behaviors;
 using Retinues.Core.Features.Stocks.Behaviors;
 using Retinues.Core.Features.Unlocks.Behaviors;
+using Retinues.Core.Features.Upgrade.Behaviors;
 using Retinues.Core.Features.Xp.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
@@ -113,6 +114,12 @@ namespace Retinues.Core
 
                 // Retinue buff behavior
                 cs.AddBehavior(new RetinueBuffBehavior());
+
+                // Training behavior (skip if disabled)
+                if (Config.GetOption<bool>("TrainingTakesTime"))
+                {
+                    cs.AddBehavior(new TroopTrainingBehavior());
+                }
 
                 // XP behavior (skip if both costs are 0)
                 if (
