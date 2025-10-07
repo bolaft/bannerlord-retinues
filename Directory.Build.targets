@@ -211,10 +211,13 @@
     <Message Text="Cleaning game module directory: $(GameModuleDir)" Importance="High" />
     <Message Text="(Set CleanGameModuleOnDeploy=false to disable this step)" Importance="Low" />
 
-    <!-- Remove the existing game module directory -->
-    <RemoveDir
-      Directories="$(GameModuleDir)"
-      Condition="$([System.String]::Copy('$(GameModuleDir)').Contains('\Modules\'))" />
+    <!-- Remove all files and folders except *.log files -->
+    <ItemGroup>
+      <FilesToDelete Include="$(GameModuleDir)\**\*.*" Exclude="$(GameModuleDir)\**\*.log" />
+      <DirsToDelete Include="$(GameModuleDir)\*" Exclude="$(GameModuleDir)\*.log" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" />
+    <RemoveDir Directories="@(DirsToDelete)" />
     <MakeDir Directories="$(GameModuleDir)" />
   </Target>
 
