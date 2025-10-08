@@ -441,6 +441,108 @@ namespace Retinues.Core.Game.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Alternate Equipments                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns all battle equipments (excludes the trailing civilian mirror).
+        /// Index 0 is the master equipment used by .Equipment.
+        /// </summary>
+        public List<WEquipment> BattleEquipments
+        {
+            get
+            {
+                var all = Equipments;
+                if (all == null || all.Count == 0)
+                    return [];
+
+                // In setter we always append a civilian copy at the end; exclude it here.
+                return [.. all.Take(Math.Max(1, all.Count - 1))];
+            }
+        }
+
+        /// <summary>Convenience accessor for the master battle equipment (index 0).</summary>
+        public WEquipment MasterEquipment =>
+            BattleEquipments.Count > 0 ? BattleEquipments[0] : Equipment;
+
+        /// <summary>
+        /// Creates (or finds) an alternate battle equipment by changing 'slot' to 'item'
+        /// and filling any empty slots from the master equipment. Returns the alt index.
+        /// </summary>
+        public int EnsureAlternateEquipment(EquipmentIndex slot, WItem item)
+        {
+            // 1) Build a prospective alternate from a blank (so we can leverage FillEmptySlotsFrom)
+#if BL13
+            var blank = new WEquipment(
+                new TaleWorlds.Core.Equipment(TaleWorlds.Core.Equipment.EquipmentType.Battle)
+            );
+#else
+            var blank = new WEquipment(new TaleWorlds.Core.Equipment(false));
+#endif
+            blank.SetItem(slot, item);
+            blank.FillEmptySlotsFrom(MasterEquipment);
+
+            // 2) If an identical alt already exists, reuse it
+            var targetCode = blank.Code;
+            var battles = BattleEquipments;
+            for (int i = 1; i < battles.Count; i++)
+                if (battles[i].Code == targetCode)
+                    return i;
+
+            // 3) Otherwise append as a new alternate
+            battles.Add(blank);
+            // Re-assign through the property to rebuild the civilian mirror at the end.
+            Equipments = battles; // setter keeps/refreshes civilian copy
+            ResetFormationClass(); // equipment composition may alter formation class
+#if BL13
+            UpdateCivilianEquipment(); // keep civilian in sync with master behavior
+#endif
+            return battles.Count - 1;
+        }
+
+        /// <summary>
+        /// Sets an item into the given battle equipment index (0 = master).
+        /// Will also keep horse/harness + upgrade requirement logic consistent with Equip().
+        /// </summary>
+        public void EquipIntoBattleSet(int battleIndex, WItem item, EquipmentIndex slot)
+        {
+            var battles = BattleEquipments;
+            if (battleIndex < 0 || battleIndex >= battles.Count)
+                battleIndex = 0;
+
+            var target = battles[battleIndex];
+
+            // Unequip old (mirror current stock logic at manager level if needed)
+            var old = target.GetItem(slot);
+            target.SetItem(slot, item);
+
+            if (slot == EquipmentIndex.Horse)
+            {
+                // If removing horse, clear harness in the same set
+                if (item == null && target.GetItem(EquipmentIndex.HorseHarness) != null)
+                    target.SetItem(EquipmentIndex.HorseHarness, null);
+
+                // Upgrade requirement recalculation follows vanilla rule you already coded
+                ResetUpgradeRequiresItemFromCategory();
+                foreach (var child in UpgradeTargets)
+                    child.ResetUpgradeRequiresItemFromCategory();
+            }
+
+            // Push back into Equipments (rebuild civilian tail)
+            battles[ /*battleIndex*/
+                battleIndex
+            ] = target;
+            Equipments = battles;
+#if BL13
+            UpdateCivilianEquipment();
+#endif
+
+            // Only master affects immediate formation of preview; still recompute for consistency
+            if (battleIndex == 0)
+                ResetFormationClass();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Upgrades Targets                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

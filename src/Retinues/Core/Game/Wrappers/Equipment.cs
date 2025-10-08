@@ -158,6 +158,19 @@ namespace Retinues.Core.Game.Wrappers
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public void FillEmptySlotsFrom(WEquipment equipment)
+        {
+            foreach (var slot in Slots)
+            {
+                if (GetItem(slot) == null)
+                {
+                    var item = equipment.GetItem(slot);
+                    if (item != null)
+                        SetItem(slot, item);
+                }
+            }
+        }
+
         /// <summary>
         /// Returns true if any equipped item is a ranged weapon.
         /// </summary>
