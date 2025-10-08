@@ -101,13 +101,13 @@ namespace Retinues.Core.Troops
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
+        //                        Public API                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Collects all custom troop roots from player clan and kingdom.
         /// </summary>
-        private static List<TroopSaveData> CollectAllDefinedCustomTroops()
+        public static List<TroopSaveData> CollectAllDefinedCustomTroops()
         {
             var list = new List<TroopSaveData>();
 
@@ -116,6 +116,10 @@ namespace Retinues.Core.Troops
 
             return list;
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Adds all active custom troop types from a faction to the list.
