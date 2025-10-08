@@ -166,6 +166,36 @@ namespace Retinues.Core.Utils
                 type: typeof(bool)
             );
 
+            AddOption(
+                section: L.S("mcm_section_recruitment", "Recruitment"),
+                name: L.S(
+                    "mcm_option_vassal_lords_recruit_custom_troops",
+                    "Vassal Lords Recruit Custom Troops"
+                ),
+                key: "VassalLordsCanRecruitCustomTroops",
+                hint: L.S(
+                    "mcm_option_vassal_lords_recruit_custom_troops_hint",
+                    "Lords of the player's clan or kingdom can recruit custom troops in their fiefs."
+                ),
+                @default: true,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_recruitment", "Recruitment"),
+                name: L.S(
+                    "mcm_option_all_lords_recruit_custom_troops",
+                    "All Lords Recruit Custom Troops"
+                ),
+                key: "AllLordsCanRecruitCustomTroops",
+                hint: L.S(
+                    "mcm_option_all_lords_recruit_custom_troops_hint",
+                    "Any lord can recruit custom troops in the player's fiefs."
+                ),
+                @default: false,
+                type: typeof(bool)
+            );
+
             /* ━━━━━━━━ Editing ━━━━━━━ */
 
             AddOption(

@@ -26,16 +26,23 @@ namespace Retinues.Core.Features.Recruits.Patches
             int count
         )
         {
+            bool allowAllLords = Config.GetOption<bool>("AllLordsRecruitCustomTroops");
+            bool allowVassals =
+                allowAllLords || Config.GetOption<bool>("VassalLordsRecruitCustomTroops");
+
+            if (!allowVassals)
+                return; // feature disabled
+
             if (recruiter?.PartyBelongedTo == null || count <= 0 || troop == null)
                 return; // never touch suspicious input
+
+            var faction = new WHero(recruiter).PlayerFaction;
+            if (!allowAllLords && faction == null)
+                return; // not a vassal, skip
 
             var wt = new WCharacter(troop);
             if (!wt.IsValid)
                 return; // defensive
-
-            var faction = new WHero(recruiter).PlayerFaction;
-            if (faction == null)
-                return; // non-player faction, skip
 
             var root = wt.IsElite ? faction.RootElite : faction.RootBasic;
             if (root == null)
