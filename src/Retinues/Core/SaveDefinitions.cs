@@ -25,7 +25,8 @@ namespace Retinues.Core
             base.DefineClassTypes();
 
             AddClassDefinition(typeof(TroopSaveData), 070_992);
-            AddClassDefinition(typeof(TroopTrainingBehavior.PendingSave), 070_001);
+            AddClassDefinition(typeof(PendingTrainData), 070_001);
+            AddClassDefinition(typeof(PendingEquipData), 070_002);
 
             // Legacy definitions for backwards compatibility
             AddClassDefinition(typeof(Safety.Legacy.Behaviors.ItemSaveData), 070_993);
@@ -39,7 +40,9 @@ namespace Retinues.Core
         {
             base.DefineContainerDefinitions();
 
-            ConstructContainerDefinition(typeof(List<TroopTrainingBehavior.PendingSave>));
+            ConstructContainerDefinition(
+                typeof(Dictionary<string, Dictionary<string, PendingTrainData>>)
+            );
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(List<string>));
 

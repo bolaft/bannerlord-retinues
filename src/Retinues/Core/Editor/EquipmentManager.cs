@@ -4,6 +4,7 @@ using System.Linq;
 using Retinues.Core.Features.Doctrines;
 using Retinues.Core.Features.Doctrines.Catalog;
 using Retinues.Core.Features.Unlocks.Behaviors;
+using Retinues.Core.Features.Upgrade.Behaviors;
 using Retinues.Core.Game;
 using Retinues.Core.Game.Wrappers;
 using Retinues.Core.Utils;
@@ -183,7 +184,7 @@ namespace Retinues.Core.Editor
             Log.Debug($"Equipping item {item?.Name} from stock to troop {troop?.Name}.");
 
             item.Unstock(); // Reduce stock by 1
-            Equip(troop, slot, item);
+            TroopEquipBehavior.StageEquipmentChange(troop, slot, item);
         }
 
         /// <summary>
@@ -195,7 +196,7 @@ namespace Retinues.Core.Editor
 
             // Deduct cost and equip
             Player.ChangeGold(-GetItemValue(item, troop)); // Deduct cost
-            Equip(troop, slot, item);
+            TroopEquipBehavior.StageEquipmentChange(troop, slot, item);
         }
 
         /// <summary>

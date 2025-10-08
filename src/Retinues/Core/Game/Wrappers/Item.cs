@@ -5,6 +5,7 @@ using Retinues.Core.Features.Unlocks.Behaviors;
 using Retinues.Core.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 #if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 #endif
@@ -24,6 +25,10 @@ namespace Retinues.Core.Game.Wrappers
         private readonly ItemObject _itemObject = itemObject;
 
         public ItemObject Base => _itemObject;
+
+        // Construct from ID
+        public WItem(string itemId)
+            : this(MBObjectManager.Instance.GetObject<ItemObject>(itemId)) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      VM properties                     //

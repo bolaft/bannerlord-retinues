@@ -33,7 +33,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public int StagedValue => Value + TroopTrainingBehavior.GetStaged(_troop, _skill);
+        public int StagedValue => Value + TroopTrainBehavior.GetStaged(_troop, _skill);
 
         [DataSourceProperty]
         public bool ShowAsActual => StagedValue == Value;
@@ -125,7 +125,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
             if (
                 !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>()
                 && !increment
-                && TroopTrainingBehavior.GetStaged(_troop, _skill) <= 0
+                && TroopTrainBehavior.GetStaged(_troop, _skill) <= 0
                 && !_editor.PlayerWarnedAboutRetraining
                 && Config.GetOption<int>("BaseSkillXpCost")
                     + Config.GetOption<int>("SkillXpCostPerPoint")

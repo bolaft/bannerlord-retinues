@@ -118,7 +118,7 @@ namespace Retinues.Core
                 // Training behavior (skip if disabled)
                 if (Config.GetOption<bool>("TrainingTakesTime"))
                 {
-                    cs.AddBehavior(new TroopTrainingBehavior());
+                    cs.AddBehavior(new TroopTrainBehavior());
                 }
 
                 // XP behavior (skip if both costs are 0)

@@ -135,7 +135,7 @@ namespace Retinues.Core.Editor
                 return;
 
             // Already staged changes
-            int staged = TroopTrainingBehavior.GetStaged(troop, skill);
+            int staged = TroopTrainBehavior.GetStaged(troop, skill);
             int stagedSkill = troop.GetSkill(skill) + staged;
 
             if (increment)
@@ -144,7 +144,7 @@ namespace Retinues.Core.Editor
                     return; // Not enough XP to increment
 
                 // Stage timed training (or instant if TrainingTakesTime==false)
-                TroopTrainingBehavior.StageTraining(troop, skill);
+                TroopTrainBehavior.StageTraining(troop, skill);
             }
             else
             {
@@ -152,7 +152,7 @@ namespace Retinues.Core.Editor
                 var force = staged > 0;
                 // Refund one skill point, if allowed
                 TroopXpBehavior.RefundOnePoint(troop, stagedSkill, force);
-                TroopTrainingBehavior.ApplyChange(troop.StringId, skill, -1);
+                TroopTrainBehavior.ApplyChange(troop.StringId, skill, -1);
             }
         }
 

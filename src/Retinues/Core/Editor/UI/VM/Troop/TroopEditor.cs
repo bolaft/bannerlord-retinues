@@ -91,7 +91,7 @@ namespace Retinues.Core.Editor.UI.VM.Troop
         {
             get
             {
-                var req = TroopTrainingBehavior.GetTrainingRequired(SelectedTroop);
+                var req = TroopTrainBehavior.GetTrainingRequired(SelectedTroop);
 
                 if (req <= 0)
                     return L.S("no_training_required", "No training required");
