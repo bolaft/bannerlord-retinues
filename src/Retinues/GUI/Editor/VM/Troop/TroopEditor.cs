@@ -1,0 +1,776 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.GUI.Helpers;
+using Retinues.Troops.Edition;
+using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Features.Xp.Behaviors;
+using Retinues.Game;
+using Retinues.Game.Wrappers;
+using Retinues.Utils;
+using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Library;
+
+namespace Retinues.GUI.Editor.VM.Troop
+{
+    /// <summary>
+    /// ViewModel for troop editor. Handles skill editing, upgrades, conversions, retinue logic, and UI actions.
+    /// </summary>
+    [SafeClass]
+    public sealed class TroopEditorVM(EditorScreenVM screen) : BaseEditor<TroopEditorVM>(screen)
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly MBBindingList<TroopSkillVM> _skillsRow1 = [];
+        private readonly MBBindingList<TroopSkillVM> _skillsRow2 = [];
+
+        private readonly MBBindingList<TroopConversionRowVM> _conversionRows = [];
+        private readonly Dictionary<string, StagedOrder> _staged = [];
+
+        private sealed class StagedOrder
+        {
+            public WCharacter From;
+            public WCharacter To;
+            public int Amount;
+            public int CostPer => TroopRules.ConversionCostPerUnit(To);
+            public int TotalCost => Amount * CostPer;
+            public string Key => $"{From}->{To}";
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━━ Texts ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public string GenderHeaderText => L.S("gender_header_text", "Gender");
+
+        [DataSourceProperty]
+        public string NameHeaderText => L.S("name_header_text", "Name");
+
+        [DataSourceProperty]
+        public string SkillsHeaderText => L.S("skills_header_text", "Skills");
+
+        [DataSourceProperty]
+        public string UpgradesHeaderText => L.S("upgrades_header_text", "Upgrades");
+
+        [DataSourceProperty]
+        public string TierText
+        {
+            get
+            {
+                int? tier = SelectedTroop?.Tier;
+                string roman = tier switch
+                {
+                    1 => "I",
+                    2 => "II",
+                    3 => "III",
+                    4 => "IV",
+                    5 => "V",
+                    6 => "VI",
+                    _ => string.Empty,
+                };
+                return $"{L.S("tier", "Tier")} {roman}";
+            }
+        }
+
+        [DataSourceProperty]
+        public string Name => Format.Crop(SelectedTroop?.Name, 35);
+
+        [DataSourceProperty]
+        public string Gender =>
+            SelectedTroop != null && SelectedTroop.IsFemale
+                ? L.S("female", "Female")
+                : L.S("male", "Male");
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool IsRetinue => SelectedTroop.IsRetinue;
+
+        [DataSourceProperty]
+        public bool IsRetinueIsNotMaxTier => !IsMaxTier && IsRetinue;
+
+        [DataSourceProperty]
+        public bool IsRegular => !SelectedTroop.IsRetinue && !SelectedTroop.IsMilitia;
+
+        [DataSourceProperty]
+        public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false || SelectedTroop.IsMilitia;
+
+        [DataSourceProperty]
+        public bool TroopXpIsEnabled =>
+            Config.GetOption<int>("BaseSkillXpCost") > 0
+            || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
+
+        /* ━━━━━━━ Training ━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
+
+        [DataSourceProperty]
+        public int TrainingRequired => TroopTrainBehavior.GetTrainingRequired(SelectedTroop);
+
+        [DataSourceProperty]
+        public bool TrainingIsRequired => TrainingRequired > 0;
+
+        [DataSourceProperty]
+        public bool NoTrainingIsRequired => TrainingIsRequired == false;
+
+        [DataSourceProperty]
+        public string TrainingRequiredText
+        {
+            get
+            {
+                if (NoTrainingIsRequired)
+                    return L.S("no_training_required", "No training required");
+
+                return L.T("training_required", "{HOURS} hours of training required")
+                    .SetTextVariable("HOURS", TrainingRequired)
+                    .ToString();
+            }
+        }
+
+        /* ━━━━━━━ Upgrades ━━━━━━━ */
+
+        [DataSourceProperty]
+        public string AddUpgradeButtonText => L.S("add_upgrade_button_text", "Add Upgrade");
+
+        [DataSourceProperty]
+        public bool CanUpgrade =>
+            SelectedTroop != null && TroopRules.CanUpgradeTroop(SelectedTroop);
+
+        [DataSourceProperty]
+        public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets
+        {
+            get
+            {
+                var upgrades = new MBBindingList<TroopUpgradeTargetVM>();
+
+                if (SelectedTroop != null)
+                    foreach (var target in SelectedTroop.UpgradeTargets)
+                        upgrades.Add(new TroopUpgradeTargetVM(target));
+
+                return upgrades;
+            }
+        }
+
+        /* ━━━━━━ Conversion ━━━━━━ */
+
+        [DataSourceProperty]
+        public string TransferHeaderText => L.S("transfer_header_text", "Transfer");
+
+        [DataSourceProperty]
+        public string ButtonApplyConversionsText => L.S("apply_conversions_button_text", "Convert");
+
+        [DataSourceProperty]
+        public string ButtonClearConversionsText => L.S("clear_conversions_button_text", "Clear");
+
+        [DataSourceProperty]
+        public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
+
+        [DataSourceProperty]
+        public bool HasPendingConversions => _staged.Count > 0;
+
+        [DataSourceProperty]
+        public int PendingTotalCost => _staged.Values.Sum(o => o.TotalCost);
+
+        [DataSourceProperty]
+        public int PendingTotalCount => _staged.Values.Sum(o => o.Amount);
+
+        [DataSourceProperty]
+        public int TroopCount => GetVirtualCount(SelectedTroop);
+
+        [DataSourceProperty]
+        public int RetinueCap => TroopRules.RetinueCapFor(SelectedTroop);
+
+        /* ━━━━━━━━ Skills ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public string AvailableTroopXpText
+        {
+            get
+            {
+                return L.T("available_troop_xp", "{XP} xp")
+                    .SetTextVariable("XP", TroopXpBehavior.Get(SelectedTroop))
+                    .ToString();
+            }
+        }
+
+        [DataSourceProperty]
+        public string SkillCapText
+        {
+            get
+            {
+                int cap = SelectedTroop == null ? 0 : TroopRules.SkillCapByTier(SelectedTroop);
+                return L.T("skill_cap_text", "{CAP} skill cap")
+                    .SetTextVariable("CAP", cap)
+                    .ToString();
+            }
+        }
+
+        [DataSourceProperty]
+        public int SkillTotal =>
+            SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop) : 0;
+
+        [DataSourceProperty]
+        public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
+
+        [DataSourceProperty]
+        public MBBindingList<TroopSkillVM> SkillsRow1 => _skillsRow1;
+
+        [DataSourceProperty]
+        public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
+
+        /* ━━━━━━━━ Removal ━━━━━━━ */
+
+        [DataSourceProperty]
+        public string RemoveButtonText => L.S("remove_button_text", "Remove");
+
+        [DataSourceProperty]
+        public bool CanRemove
+        {
+            get
+            {
+                if (Screen.IsEquipmentMode)
+                    return false; // Only show in default mode
+                if (SelectedTroop?.Parent is null)
+                    return false; // Cannot remove root troops
+                if (SelectedTroop?.UpgradeTargets.Count() > 0)
+                    return false; // Cannot remove troops that are upgrade targets
+                if (SelectedTroop?.IsRetinue == true || SelectedTroop?.IsMilitia == true)
+                    return false; // Cannot remove retinues or militia
+
+                return true;
+            }
+        }
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel RemoveButtonHint
+        {
+            get
+            {
+                if (CanRemove)
+                    return null; // No hint if can remove
+
+                return Tooltip.MakeTooltip(null, CantRemoveTroopExplanation);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━ Generic ━━━━━━━ */
+
+        [DataSourceMethod]
+        public void ExecuteRename()
+        {
+            var oldName = SelectedTroop.Name;
+
+            InformationManager.ShowTextInquiry(
+                new TextInquiryData(
+                    titleText: L.S("rename_troop", "Rename Troop"),
+                    text: L.S("enter_new_name", "Enter a new name:"),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
+                    affirmativeAction: newName =>
+                    {
+                        if (string.IsNullOrWhiteSpace(newName))
+                            return;
+
+                        TroopManager.Rename(SelectedTroop, newName);
+
+                        // UI updates
+                        OnPropertyChanged(nameof(Name));
+                        foreach (var row in ConversionRows)
+                            row.Refresh(); // Update conversion rows
+
+                        Screen.TroopList.SelectedRow.Refresh();
+                    },
+                    negativeAction: () => { },
+                    defaultInputText: oldName
+                )
+            );
+        }
+
+        [DataSourceMethod]
+        public void ExecuteChangeGender()
+        {
+            TroopManager.ChangeGender(SelectedTroop);
+
+            // UI updates
+            OnPropertyChanged(nameof(Gender));
+            Screen.TroopList.SelectedRow.Refresh();
+            Screen.Refresh();
+        }
+
+        [DataSourceMethod]
+        public void ExecuteAddUpgradeTarget()
+        {
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
+            InformationManager.ShowTextInquiry(
+                new TextInquiryData(
+                    titleText: L.S("add_upgrade", "Add Upgrade"),
+                    text: L.S("enter_new_troop_name", "Enter the name of the new troop:"),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
+                    affirmativeAction: name =>
+                    {
+                        if (string.IsNullOrWhiteSpace(name))
+                            return;
+
+                        var target = TroopManager.AddUpgradeTarget(SelectedTroop, name);
+
+                        // Update the troop list
+                        Screen.TroopList.Refresh();
+
+                        // Select the new troop
+                        Screen.TroopList.Select(target);
+                    },
+                    negativeAction: () => { },
+                    defaultInputText: SelectedTroop.Name
+                )
+            );
+        }
+
+        [DataSourceMethod]
+        public void ExecuteRemoveTroop()
+        {
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    titleText: L.S("remove_troop", "Remove Troop"),
+                    text: L.T(
+                            "remove_troop_text",
+                            "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use."
+                        )
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .ToString(),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
+                    affirmativeAction: () =>
+                    {
+                        TroopManager.Remove(SelectedTroop);
+
+                        // Update the troop list
+                        Screen.TroopList.Refresh();
+                    },
+                    negativeAction: () => { }
+                )
+            );
+        }
+
+        /* ━━━━━━━━ Retinue ━━━━━━━ */
+
+        [DataSourceMethod]
+        public void ExecuteRankUp()
+        {
+            if (SelectedTroop == null)
+                return;
+
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
+            int cost = TroopRules.RankUpCost(SelectedTroop);
+
+            if (TroopRules.SkillPointsLeft(SelectedTroop) > 0)
+            {
+                Popup.Display(
+                    L.T("rank_up_not_maxed_out", "Not Maxed Out"),
+                    L.T(
+                        "rank_up_not_maxed_out_text",
+                        "Max out this retinue's skills before you can rank up."
+                    )
+                );
+            }
+            else if (Player.Gold < cost)
+            {
+                Popup.Display(
+                    L.T("rank_up_not_enough_gold_title", "Not enough gold"),
+                    L.T(
+                            "rank_up_not_enough_gold_text",
+                            "You do not have enough gold to rank up {TROOP_NAME}.\n\nRank up cost: {COST} gold."
+                        )
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("COST", cost)
+                );
+            }
+            else if (TroopXpBehavior.Get(SelectedTroop) < cost && TroopXpIsEnabled)
+            {
+                Popup.Display(
+                    L.T("rank_up_not_enough_xp_title", "Not enough XP"),
+                    L.T(
+                            "rank_up_not_enough_xp_text",
+                            "You do not have enough XP to rank up {TROOP_NAME}.\n\nRank up cost: {COST} XP."
+                        )
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("COST", cost)
+                );
+            }
+            else
+            {
+                string text = TroopXpIsEnabled
+                    ? L.T(
+                            "rank_up_costs_text",
+                            "It will cost you {COST_GOLD} gold and {COST_XP} XP."
+                        )
+                        .SetTextVariable("COST_GOLD", cost)
+                        .SetTextVariable("COST_XP", cost)
+                        .ToString()
+                    : L.T("rank_up_gold_cost_text", "It will cost you {COST} gold.")
+                        .SetTextVariable("COST", cost)
+                        .ToString();
+
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: L.S("rank_up", "Rank Up"),
+                        text: L.T("increase_troop_tier", "Increase {TROOP_NAME}'s tier?\n\n{text}")
+                            .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                            .SetTextVariable("text", text)
+                            .ToString(),
+                        isAffirmativeOptionShown: true,
+                        isNegativeOptionShown: true,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: () =>
+                        {
+                            TroopManager.RankUp(SelectedTroop);
+
+                            // UI updates
+                            Refresh();
+                            _screen.TroopList.SelectedRow.Refresh();
+                        },
+                        negativeAction: () => { }
+                    )
+                );
+            }
+        }
+
+        [DataSourceMethod]
+        public void ExecuteApplyConversions()
+        {
+            if (!HasPendingConversions)
+                return;
+
+            int totalCost = PendingTotalCost;
+            if (totalCost > Player.Gold)
+            {
+                InformationManager.DisplayMessage(
+                    new InformationMessage(
+                        L.S("convert_not_enough_gold", "Not enough gold to apply conversions.")
+                    )
+                );
+                return;
+            }
+
+            // Re-validate & apply in a deterministic order
+            foreach (var order in _staged.Values.ToList())
+            {
+                // Clamp to current max (no virtuals now; roster will change)
+                int maxNow = TroopManager.GetMaxConvertible(order.From, order.To);
+                int amount = Math.Min(order.Amount, maxNow);
+                if (amount <= 0)
+                    continue;
+
+                // Deduct gold for recruit-to-retinue only
+                int cost = amount * order.CostPer;
+                if (cost > 0)
+                {
+                    if (cost > Player.Gold)
+                    {
+                        InformationManager.ShowInquiry(
+                            new InquiryData(
+                                L.S("convert_not_enough_gold_title", "Not enough gold"),
+                                L.S(
+                                    "convert_not_enough_gold_text",
+                                    "You do not have enough gold to hire these retinues."
+                                ),
+                                false,
+                                true,
+                                null,
+                                L.S("ok", "OK"),
+                                null,
+                                null
+                            )
+                        );
+                        break;
+                    }
+                }
+
+                TroopManager.Convert(order.From, order.To, amount, cost);
+            }
+
+            _staged.Clear();
+            Refresh(); // full UI refresh (rows recount, caps, etc.)
+        }
+
+        [DataSourceMethod]
+        public void ExecuteClearConversions()
+        {
+            if (!HasPendingConversions)
+                return;
+            _staged.Clear();
+            // push UI updates
+            OnPropertyChanged(nameof(HasPendingConversions));
+            OnPropertyChanged(nameof(PendingTotalCost));
+            OnPropertyChanged(nameof(PendingTotalCount));
+            // rows need to recompute virtuals
+            foreach (var row in _conversionRows)
+                row.Refresh();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool PlayerWarnedAboutRetraining { get; set; } = false;
+        private string _stagedForTroopId;
+
+        /// <summary>
+        /// Refreshes skill rows, retinue rows, and all bindings for the selected troop.
+        /// </summary>
+        public void Refresh()
+        {
+            // If the selected retinue changed, clear staged orders
+            var currentTo = SelectedTroop?.IsRetinue == true ? SelectedTroop.StringId : null;
+            if (!string.Equals(_stagedForTroopId, currentTo, StringComparison.Ordinal))
+            {
+                _staged.Clear();
+                _stagedForTroopId = currentTo;
+            }
+
+            RebuildSkillRows();
+            RebuildRetinueRows();
+
+            OnPropertyChanged(nameof(TroopXpIsEnabled));
+            OnPropertyChanged(nameof(AvailableTroopXpText));
+
+            OnPropertyChanged(nameof(TrainingTakesTime));
+            OnPropertyChanged(nameof(TrainingRequiredText));
+            OnPropertyChanged(nameof(TrainingRequired));
+            OnPropertyChanged(nameof(TrainingIsRequired));
+            OnPropertyChanged(nameof(NoTrainingIsRequired));
+
+            OnPropertyChanged(nameof(TroopCount));
+            OnPropertyChanged(nameof(RetinueCap));
+
+            OnPropertyChanged(nameof(IsRetinue));
+            OnPropertyChanged(nameof(IsRegular));
+            OnPropertyChanged(nameof(IsRetinueIsNotMaxTier));
+
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Gender));
+            OnPropertyChanged(nameof(SkillTotal));
+            OnPropertyChanged(nameof(SkillCapText));
+            OnPropertyChanged(nameof(SkillPointsUsed));
+            OnPropertyChanged(nameof(TierText));
+            OnPropertyChanged(nameof(IsMaxTier));
+            OnPropertyChanged(nameof(UpgradeTargets));
+
+            OnPropertyChanged(nameof(CanUpgrade));
+            OnPropertyChanged(nameof(CanRemove));
+            OnPropertyChanged(nameof(RemoveButtonHint));
+
+            OnPropertyChanged(nameof(SkillsRow1));
+            OnPropertyChanged(nameof(SkillsRow2));
+
+            OnPropertyChanged(nameof(ConversionRows));
+            OnPropertyChanged(nameof(HasPendingConversions));
+            OnPropertyChanged(nameof(PendingTotalCost));
+            OnPropertyChanged(nameof(PendingTotalCount));
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━ Generic ━━━━━━━ */
+
+        private string CantRemoveTroopExplanation =>
+            SelectedTroop?.Parent is null
+                ? L.S("cant_remove_root_troop", "Root troops cannot be removed.")
+            : SelectedTroop?.UpgradeTargets.Count() > 0
+                ? L.S(
+                    "cant_remove_troop_with_targets",
+                    "Troops that have upgrade targets cannot be removed."
+                )
+            : string.Empty;
+
+        /* ━━━━━━━━ Skills ━━━━━━━━ */
+
+        /// <summary>
+        /// Rebuilds skill rows for the selected troop.
+        /// </summary>
+        private void RebuildSkillRows()
+        {
+            _skillsRow1.Clear();
+            _skillsRow2.Clear();
+
+            if (SelectedTroop == null)
+                return;
+
+            foreach (var s in SelectedTroop.Skills.Take(4))
+                _skillsRow1.Add(new TroopSkillVM(s.Key, SelectedTroop, this));
+
+            foreach (var s in SelectedTroop.Skills.Skip(4).Take(4))
+                _skillsRow2.Add(new TroopSkillVM(s.Key, SelectedTroop, this));
+        }
+
+        /* ━━━━━━━━ Retinue ━━━━━━━ */
+
+        /// <summary>
+        /// Rebuilds retinue conversion rows for the selected troop.
+        /// </summary>
+        private void RebuildRetinueRows()
+        {
+            _conversionRows.Clear();
+            if (SelectedTroop == null)
+                return;
+
+            if (SelectedTroop.IsRetinue)
+            {
+                // From regulars in party to this retinue
+                foreach (var troop in TroopManager.GetRetinueSourceTroops(SelectedTroop))
+                    _conversionRows.Add(new TroopConversionRowVM(troop, SelectedTroop, this));
+            }
+        }
+
+        /// <summary>
+        /// Gets the virtual count of a troop, including staged conversions.
+        /// </summary>
+        internal int GetVirtualCount(WCharacter c)
+        {
+            int count = Player.Party.MemberRoster.CountOf(c);
+
+            foreach (var o in _staged.Values)
+            {
+                if (o.To == c)
+                    count += o.Amount;
+                if (o.From == c)
+                    count -= o.Amount;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Gets the pending staged amount for a conversion.
+        /// </summary>
+        internal int GetPendingAmount(WCharacter from, WCharacter to)
+        {
+            var key = $"{from}->{to}";
+            return _staged.TryGetValue(key, out var o) ? o.Amount : 0;
+        }
+
+        /// <summary>
+        /// Gets the max number of troops that can be staged for conversion.
+        /// </summary>
+        internal int GetMaxStageable(WCharacter from, WCharacter to)
+        {
+            if (from == null || to == null)
+                return 0;
+
+            // availability from virtual roster
+            int availableFrom = GetVirtualCount(from);
+            if (availableFrom <= 0)
+                return 0;
+
+            // if converting into a retinue, respect cap using virtual "to" count
+            if (to.IsRetinue)
+            {
+                int cap = TroopRules.RetinueCapFor(to);
+                int currentTo = GetVirtualCount(to);
+                int capLeft = Math.Max(0, cap - currentTo);
+                availableFrom = Math.Min(availableFrom, capLeft);
+
+                // also respect gold virtually
+                int costPer = TroopRules.ConversionCostPerUnit(to);
+                if (costPer > 0)
+                {
+                    int alreadyCost = PendingTotalCost;
+                    int goldLeft = Math.Max(0, Player.Gold - alreadyCost);
+                    int byGold = costPer > 0 ? goldLeft / costPer : availableFrom;
+                    availableFrom = Math.Min(availableFrom, byGold);
+                }
+            }
+
+            return Math.Max(0, availableFrom);
+        }
+
+        /// <summary>
+        /// Stages a conversion order, handling cancellation and updating UI.
+        /// </summary>
+        internal void StageConversion(WCharacter from, WCharacter to, int amountRequested)
+        {
+            if (
+                to?.IsRetinue == true
+                && !string.Equals(_stagedForTroopId, to.StringId, StringComparison.Ordinal)
+            )
+            {
+                _staged.Clear();
+                _stagedForTroopId = to.StringId;
+            }
+
+            int max = GetMaxStageable(from, to);
+            int amount = Math.Min(amountRequested, max);
+            if (amount <= 0)
+                return;
+
+            string key = $"{from}->{to}";
+            string oppKey = $"{to}->{from}";
+
+            // 1) Cancel against any opposite staged flow first.
+            if (_staged.TryGetValue(oppKey, out var opp) && opp.Amount > 0)
+            {
+                int cancel = Math.Min(amount, opp.Amount);
+                opp.Amount -= cancel;
+                if (opp.Amount == 0)
+                    _staged.Remove(oppKey);
+                amount -= cancel;
+            }
+
+            // 2) Whatever remains is the net flow in this direction.
+            if (amount > 0)
+            {
+                if (!_staged.TryGetValue(key, out var order))
+                {
+                    order = new StagedOrder
+                    {
+                        From = from,
+                        To = to,
+                        Amount = 0,
+                    };
+                    _staged[key] = order;
+                }
+                order.Amount += amount;
+            }
+
+            RecomputeConversionSummaryAndRefreshRows();
+        }
+
+        /// <summary>
+        /// Recomputes conversion summary and refreshes conversion rows.
+        /// </summary>
+        private void RecomputeConversionSummaryAndRefreshRows()
+        {
+            OnPropertyChanged(nameof(HasPendingConversions));
+            OnPropertyChanged(nameof(PendingTotalCost));
+            OnPropertyChanged(nameof(PendingTotalCount));
+            foreach (var row in _conversionRows)
+                row.Refresh();
+        }
+    }
+}

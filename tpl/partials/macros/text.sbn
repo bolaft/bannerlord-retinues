@@ -48,10 +48,10 @@
     - is_visible: visibility
     Uses a smaller font and custom color.
 -->
-{{- func small_text(text, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
+{{- func small_text(text, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true", color = "#F4E1C4FF") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
-    Text="{{text}}" Brush="InventoryGoldFontBrush" Brush.FontColor="#F4E1C4FF"
+    Text="{{text}}" Brush="InventoryGoldFontBrush" Brush.FontColor="{{color}}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="{{horizontal_alignment}}" VerticalAlignment="Center"
     MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"

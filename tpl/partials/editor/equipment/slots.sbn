@@ -72,9 +72,21 @@
 
         <!-- Equipment name for slot -->
         <TextWidget
+            IsHidden="@IsStaged"
             Text="@Name"
             Brush="Clan.RightPanel.Name.Text"
             Brush.FontSize="24"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            MarginLeft="24"/>
+        <TextWidget
+            IsVisible="@IsStaged"
+            Text="@Name"
+            Brush="Clan.RightPanel.Name.Text"
+            Brush.FontSize="24"
+            Brush.FontColor="#ebaf2fff"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center"

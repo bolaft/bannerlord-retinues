@@ -49,10 +49,10 @@ class PrefabBuilder
         string version = opts.GetValueOrDefault("version", defaults.Version);
 
         Console.WriteLine("== PrefabBuilder ==");
-        Console.WriteLine($"  Root      : {defaults.Root}");
-        Console.WriteLine($"  Templates : {tplTemplates}");
-        Console.WriteLine($"  Partials  : {tplPartials}");
-        Console.WriteLine($"  Out       : {outGui}");
+        Console.WriteLine($"  Root      : {Os(defaults.Root)}");
+        Console.WriteLine($"  Templates : {Os(tplTemplates)}");
+        Console.WriteLine($"  Partials  : {Os(tplPartials)}");
+        Console.WriteLine($"  Out       : {Os(outGui)}");
         Console.WriteLine($"  bl        : {bl}");
         Console.WriteLine($"  config    : {config} (dev={dev})");
         if (!string.IsNullOrWhiteSpace(version))
@@ -153,6 +153,10 @@ class PrefabBuilder
 
     static int EnvInt(string name, int fallback) =>
         int.TryParse(Environment.GetEnvironmentVariable(name), out var v) ? v : fallback;
+
+    static string Os(string p) => Path.GetFullPath(p)
+    .Replace('/', Path.DirectorySeparatorChar)
+    .Replace('\\', Path.DirectorySeparatorChar);
 
     static Dictionary<string, string> ParseArgs(string[] args)
     {

@@ -1,0 +1,229 @@
+using System.Collections.Generic;
+using Retinues.Utils;
+using TaleWorlds.Core;
+
+namespace Retinues.Game.Wrappers
+{
+    /// <summary>
+    /// Wrapper for Equipment, provides helpers for slot/item access, skill requirements, and equipment code serialization.
+    /// </summary>
+    [SafeClass(SwallowByDefault = false)]
+    public class WEquipment(Equipment equipment)
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Base                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly Equipment _equipment = equipment;
+
+        public Equipment Base => _equipment;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Code                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Creates a WEquipment from an equipment code string.
+        /// </summary>
+        public static WEquipment FromCode(string code)
+        {
+            Equipment obj;
+
+            if (code is null)
+#if BL13
+                obj = new Equipment(Equipment.EquipmentType.Battle);
+#else
+                obj = new Equipment(false);
+#endif
+            else
+                obj = Equipment.CreateFromEquipmentCode(code);
+
+            return new WEquipment(obj);
+        }
+
+        /// <summary>
+        /// Gets the equipment code string for this equipment.
+        /// </summary>
+        public string Code
+        {
+            get
+            {
+                var obj = Base;
+                return obj.CalculateEquipmentCode();
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Slots                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly List<EquipmentIndex> Slots =
+        [
+            EquipmentIndex.Head,
+            EquipmentIndex.Cape,
+            EquipmentIndex.Body,
+            EquipmentIndex.Gloves,
+            EquipmentIndex.Leg,
+            EquipmentIndex.WeaponItemBeginSlot,
+            EquipmentIndex.Weapon1,
+            EquipmentIndex.Weapon2,
+            EquipmentIndex.Weapon3,
+            EquipmentIndex.Horse,
+            EquipmentIndex.HorseHarness,
+        ];
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Items                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets all equipped items in defined slots as WItem list.
+        /// </summary>
+        public List<WItem> Items
+        {
+            get
+            {
+                var items = new List<WItem>();
+                foreach (var slot in Slots)
+                {
+                    if (_equipment[slot].Item != null)
+                        items.Add(new WItem(_equipment[slot].Item));
+                }
+                return items;
+            }
+        }
+
+        /// <summary>
+        /// Gets the item in the specified equipment slot.
+        /// </summary>
+        public WItem GetItem(EquipmentIndex slot)
+        {
+            var obj = _equipment[slot].Item;
+            if (obj == null)
+                return null;
+            return new WItem(obj);
+        }
+
+        /// <summary>
+        /// Sets the item in the specified equipment slot.
+        /// </summary>
+        public void SetItem(EquipmentIndex slot, WItem item)
+        {
+            _equipment[slot] = new EquipmentElement(item?.Base);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Skill Requirements                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets the skill requirements for all equipped items.
+        /// </summary>
+        public Dictionary<SkillObject, int> SkillRequirements
+        {
+            get
+            {
+                var reqs = new Dictionary<SkillObject, int>();
+
+                foreach (var slot in Slots)
+                {
+                    var item = GetItem(slot);
+                    if (item != null && item.RelevantSkill != null)
+                    {
+                        // Initialize if not present
+                        if (!reqs.ContainsKey(item.RelevantSkill))
+                            reqs[item.RelevantSkill] = 0;
+
+                        // Update the requirement if this item's difficulty is higher
+                        if (item.Difficulty > reqs[item.RelevantSkill])
+                            reqs[item.RelevantSkill] = item.Difficulty;
+                    }
+                }
+
+                return reqs;
+            }
+        }
+
+        /// <summary>
+        /// Gets the skill requirement for a specific skill.
+        /// </summary>
+        public int GetSkillRequirement(SkillObject skill)
+        {
+            if (SkillRequirements.TryGetValue(skill, out int req))
+                return req;
+            return 0;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public void FillEmptySlotsFrom(WEquipment equipment)
+        {
+            foreach (var slot in Slots)
+            {
+                if (GetItem(slot) == null)
+                {
+                    var item = equipment.GetItem(slot);
+                    if (item != null)
+                        SetItem(slot, item);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns true if any equipped item is a ranged weapon.
+        /// </summary>
+        public bool HasRangedWeapons
+        {
+            get
+            {
+                foreach (var slot in Slots)
+                {
+                    var item = GetItem(slot);
+                    if (item != null && item.IsRangedWeapon)
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if any equipped item is a non-throwable ranged weapon.
+        /// </summary>
+        public bool HasNonThrowableRangedWeapons
+        {
+            get
+            {
+                foreach (var slot in Slots)
+                {
+                    var item = GetItem(slot);
+                    if (
+                        item != null
+                        && item.IsRangedWeapon
+                        && item.Type != ItemObject.ItemTypeEnum.Thrown
+                    )
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if any equipped item is a mount (horse).
+        /// </summary>
+        public bool HasMount
+        {
+            get
+            {
+                foreach (var slot in Slots)
+                {
+                    var item = GetItem(slot);
+                    if (item != null && item.IsHorse)
+                        return true;
+                }
+                return false;
+            }
+        }
+    }
+}
