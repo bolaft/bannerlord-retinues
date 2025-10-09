@@ -7,6 +7,9 @@
     <RootNamespace>Retinues</RootNamespace>
     <ModuleName>Retinues</ModuleName>
     <IsGameModule>true</IsGameModule>
+    <!-- Stop SDK-generated attributes to avoid duplicates -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->
@@ -90,7 +93,4 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-  <Target Name="EchoDefinesInProject" BeforeTargets="CoreCompile">
-    <Message Text="(proj) DefineConstants=$(DefineConstants)" Importance="High" />
-  </Target>
 </Project>
