@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
-using Retinues.Troops.Edition;
-using Retinues.GUI.Helpers;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
@@ -28,21 +27,38 @@ namespace Retinues.Features.Upgrade.Behaviors
         public string ItemId;
 
         [SaveableField(5)]
-        public EquipmentIndex Slot;
+        public int SlotValue;
 
-        string IPendingData.TroopId { get => TroopId; set => TroopId = value; }
-        int IPendingData.Remaining { get => Remaining; set => Remaining = value; }
-        float IPendingData.Carry { get => Carry; set => Carry = value; }
+        // convenience accessors for code
+        public EquipmentIndex Slot
+        {
+            get => (EquipmentIndex)SlotValue;
+            set => SlotValue = (int)value;
+        }
+
+        string IPendingData.TroopId
+        {
+            get => TroopId;
+            set => TroopId = value;
+        }
+        int IPendingData.Remaining
+        {
+            get => Remaining;
+            set => Remaining = value;
+        }
+        float IPendingData.Carry
+        {
+            get => Carry;
+            set => Carry = value;
+        }
     }
 
     [SafeClass]
     public sealed class TroopEquipBehavior : BaseUpgradeBehavior<PendingEquipData>
     {
-        private const float BaseEquipmentChangeTime = 0.01f;
-        private static bool EquipmentChangeTakesTime =>
-            Config.GetOption<bool>("EquipmentChangeTakesTime");
-        private static float EquipmentChangeTimeModifier =>
-            Config.GetOption<float>("EquipmentChangeTimeModifier");
+        private const float BaseEquipmentChangeTime = 0.005f;
+        private static int EquipmentChangeTimeModifier =>
+            Config.GetOption<int>("EquipmentChangeTimeModifier");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -54,103 +70,58 @@ namespace Retinues.Features.Upgrade.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static WItem GetStaged(WCharacter troop, EquipmentIndex slot)
+        public static PendingEquipData GetStagedChange(WCharacter troop, EquipmentIndex slot)
         {
-            if (troop == null)
+            if (troop == null || Instance == null || Instance.Pending == null)
                 return null;
-            if (Instance.Pending.TryGetValue(troop.StringId, out var dict))
-            {
-                foreach (var kvp in dict)
-                {
-                    var (s, itemId) = ParseObjKey(kvp.Key);
-                    if (s == slot)
-                        return itemId != null ? new WItem(itemId) : null;
-                }
-            }
+
+            var list = Instance.GetPending(troop.StringId);
+            if (list == null)
+                return null;
+
+            foreach (var data in list)
+                if (data?.Slot == slot)
+                    return data;
+
             return null;
         }
 
-        public static void UnstageEquipmentChange(WCharacter troop, EquipmentIndex slot)
-        {
-            if (troop == null)
-                return;
-            var troopId = troop.StringId;
-            if (string.IsNullOrEmpty(troopId))
-                return;
-
-            if (Instance.Pending.TryGetValue(troopId, out var dict))
-            {
-                var slotPrefix = ((int)slot).ToString() + ":";
-                // collect first to avoid modifying while enumerating
-                var toRemove = new List<string>();
-                foreach (var k in dict.Keys)
-                    if (k.StartsWith(slotPrefix, StringComparison.Ordinal))
-                        toRemove.Add(k);
-                foreach (var k in toRemove)
-                {
-                    var (_, oldItemId) = ParseObjKey(k);
-                    new WItem(oldItemId).Stock(); // Restock old item that was not equipped
-                    dict.Remove(k);
-                }
-                if (dict.Count == 0)
-                    Instance.Pending.Remove(troopId);
-            }
-
-            // Refresh settlement so the button updates immediately
-            if (IsInManagedMenu(out _))
-                RefreshManagedMenuOrDefault();
-        }
-
         /// <summary>
-        /// Stage an equipment change. If time is disabled, it equips immediately.
+        /// Stage an equipment change.
         /// </summary>
         public static void StageEquipmentChange(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            Log.Info($"Staging equipment change: {troop?.Name} - {slot} => {item?.Name ?? "NONE"}");
+            Log.Debug(
+                "[StageEquipmentChange] Called for troop "
+                    + troop?.Name
+                    + ", slot "
+                    + slot
+                    + ", item "
+                    + (item?.Name ?? "NONE")
+            );
 
             var troopId = troop?.StringId;
-            var itemId = item?.StringId; // null => unequip
-
+            var itemId = item?.StringId;
             if (string.IsNullOrEmpty(troopId))
-                return;
-
-            // If timing is off: clear any staged job for this slot, apply instantly, bail
-            if (!EquipmentChangeTakesTime)
             {
-                // remove any older staged change for this slot
-                if (Instance.Pending.TryGetValue(troopId, out var map))
-                {
-                    var slotPrefix = ((int)slot).ToString() + ":";
-                    // collect first to avoid modifying while enumerating
-                    var toRemove = new List<string>();
-                    foreach (var k in map.Keys)
-                        if (k.StartsWith(slotPrefix, StringComparison.Ordinal))
-                            toRemove.Add(k);
-                    foreach (var k in toRemove)
-                        map.Remove(k);
-                    if (map.Count == 0)
-                        Instance.Pending.Remove(troopId);
-                }
-
-                ApplyChange(troopId, slot, item);
+                Log.Debug("[StageEquipmentChange] troopId is null or empty, aborting.");
                 return;
             }
 
-            // compute hours
+            // compute time
             int hours;
             try
             {
                 if (item != null)
                 {
-                    var costForTroop = EquipmentManager.GetItemValue(
-                        item,
-                        new WCharacter(troopId)
-                    );
+                    Log.Debug("[StageEquipmentChange] Calculating hours for item.");
+                    var costForTroop = EquipmentManager.GetItemValue(item, new WCharacter(troopId));
                     var rawHours = costForTroop / 100f * EquipmentChangeTimeModifier;
                     hours = Math.Max(1, (int)Math.Ceiling(rawHours));
                 }
                 else
                 {
+                    Log.Debug("[StageEquipmentChange] Calculating hours for unequip.");
                     hours = Math.Max(
                         1,
                         (int)Math.Ceiling(BaseEquipmentChangeTime * EquipmentChangeTimeModifier)
@@ -159,86 +130,111 @@ namespace Retinues.Features.Upgrade.Behaviors
             }
             catch
             {
+                Log.Debug(
+                    "[StageEquipmentChange] Exception during hour calculation, defaulting to 1."
+                );
                 hours = 1;
             }
 
-            var objKey = ComposeObjKey(slot, itemId);
-            var slotPrefixKey = ((int)slot).ToString() + ":";
-
-            // Ensure only ONE staged job exists for this slot:
-            if (Instance.Pending.TryGetValue(troopId, out var dict))
+            // ensure only one staged job per (troop, slot)
+            if (Instance.Pending.TryGetValue(troopId, out var dict) && dict != null)
             {
-                // 1) purge any previous job for the same slot (different item or old leftovers)
-                var toRemove = new List<string>();
+                Log.Debug("[StageEquipmentChange] Removing previous staged jobs for slot.");
+                var slotPrefix = ((int)slot).ToString() + ":";
+                var toRemove = new System.Collections.Generic.List<string>();
                 foreach (var k in dict.Keys)
-                {
-                    if (k.StartsWith(slotPrefixKey, StringComparison.Ordinal) && k != objKey)
-                    {
-                        var (_, oldItemId) = ParseObjKey(k);
-                        new WItem(oldItemId).Stock(); // Restock old item that was not equipped
-                        // itemId is available here for further use if needed
+                    if (k.StartsWith(slotPrefix, StringComparison.Ordinal))
                         toRemove.Add(k);
-                    }
-                }
                 foreach (var k in toRemove)
                     dict.Remove(k);
-
-                // if that was the last one, remove troop entry too
                 if (dict.Count == 0)
                     Instance.Pending.Remove(troopId);
-
-                // 2) same job restaged, just add time; otherwise insert fresh
-                if (dict.TryGetValue(objKey, out var existing))
-                {
-                    existing.Remaining += hours;
-                    Instance.SetPending(troopId, objKey, existing);
-                }
-                else
-                {
-                    Instance.SetPending(
-                        troopId,
-                        objKey,
-                        new PendingEquipData
-                        {
-                            TroopId = troopId,
-                            Remaining = hours,
-                            ItemId = itemId,
-                            Slot = slot,
-                            Carry = 0f,
-                        }
-                    );
-                }
-            }
-            else
-            {
-                // first entry for this troop
-                Instance.SetPending(
-                    troopId,
-                    objKey,
-                    new PendingEquipData
-                    {
-                        TroopId = troopId,
-                        Remaining = hours,
-                        ItemId = itemId,
-                        Slot = slot,
-                        Carry = 0f,
-                    }
-                );
             }
 
-            // Refresh settlement so the button updates immediately
+            // set staged job with a non-null objId
+            var objId = ComposeObjKey(slot, itemId);
+            Log.Debug("[StageEquipmentChange] Setting new staged job: " + objId);
+            Instance.SetPending(
+                troopId,
+                objId,
+                new PendingEquipData
+                {
+                    TroopId = troopId,
+                    Remaining = hours,
+                    ItemId = itemId, // null => unequip
+                    Slot = slot,
+                    Carry = 0f,
+                }
+            );
+
             if (IsInManagedMenu(out _))
+            {
+                Log.Debug("[StageEquipmentChange] In managed menu, refreshing.");
                 RefreshManagedMenuOrDefault();
+            }
+        }
+
+        public static void UnstageEquipmentChange(WCharacter troop, EquipmentIndex slot)
+        {
+            Log.Debug(
+                "[UnstageEquipmentChange] Called for troop " + troop?.Name + ", slot " + slot
+            );
+
+            if (troop == null || Instance == null || Instance.Pending == null)
+            {
+                Log.Debug("[UnstageEquipmentChange] Null check failed, aborting.");
+                return;
+            }
+
+            if (
+                !Instance.Pending.TryGetValue(troop.StringId, out var dict)
+                || dict == null
+                || dict.Count == 0
+            )
+            {
+                Log.Debug("[UnstageEquipmentChange] No pending data for troop, aborting.");
+                return;
+            }
+
+            var slotPrefix = ((int)slot).ToString() + ":";
+            var toRemove = new System.Collections.Generic.List<string>();
+            foreach (var k in dict.Keys)
+                if (k.StartsWith(slotPrefix, StringComparison.Ordinal))
+                    toRemove.Add(k);
+
+            Log.Debug("[UnstageEquipmentChange] Removing staged jobs for slot.");
+            foreach (var k in toRemove)
+                dict.Remove(k);
+            if (dict.Count == 0)
+            {
+                Log.Debug(
+                    "[UnstageEquipmentChange] No more pending jobs for troop, removing entry."
+                );
+                Instance.Pending.Remove(troop.StringId);
+            }
         }
 
         /// <summary>Apply equipment change.</summary>
         public static void ApplyChange(string troopId, EquipmentIndex slot, WItem item)
         {
+            Log.Debug(
+                "[ApplyChange] Called for troopId "
+                    + troopId
+                    + ", slot "
+                    + slot
+                    + ", item "
+                    + (item?.Name ?? "NONE")
+            );
+
             if (string.IsNullOrEmpty(troopId))
+            {
+                Log.Debug("[ApplyChange] troopId is null or empty, aborting.");
                 return;
+            }
 
             var troop = new WCharacter(troopId);
-            EquipmentManager.Equip(troop, slot, item);
+            Log.Debug("[ApplyChange] Calling EquipmentManager.ApplyEquip.");
+            EquipmentManager.ApplyEquip(troop, slot, item);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -254,7 +250,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected override string InquiryAffirmative =>
             L.S("upgrade_equip_begin", "Begin upgrading equipment");
         protected override string InquiryNegative => L.S("cancel", "Cancel");
-        protected override string ActionString => L.S("action_modify", "equip");
+        protected override string ActionString => L.S("action_equip", "equip");
         protected override GameMenuOption.LeaveType LeaveType => GameMenuOption.LeaveType.Craft;
 
         protected override string BuildElementTitle(WCharacter troop, PendingEquipData data)
@@ -272,37 +268,35 @@ namespace Retinues.Features.Upgrade.Behaviors
             PendingEquipData data
         )
         {
-            var (slot, itemId) = ParseObjKey(objId);
             var troop = new WCharacter(troopId);
-            var item = itemId != null ? new WItem(itemId) : null;
+            var item = data.ItemId != null ? new WItem(data.ItemId) : null; // ← guard
 
             TimedWaitMenu.Start(
                 starter,
-                idSuffix: $"equip_{troopId}_{(int)slot}_{itemId ?? "NONE"}",
+                idSuffix: $"equip_{troopId}_{(int)data.Slot}_{data.ItemId ?? "NONE"}",
                 title: L.T("upgrade_equip_progress", "Equipping {NAME}...")
                     .SetTextVariable("NAME", troop.Name)
                     .ToString(),
                 durationHours: data.Remaining,
                 onCompleted: () =>
                 {
-                    // Atomic: apply once at the end
-                    ApplyChange(troopId, slot, item);
-
-                    // Remove this entry
-                    RemovePending(troopId, objId);
+                    ApplyChange(troopId, data.Slot, item);
+                    RemovePending(troopId, objId); // ← remove by the same key we staged
 
                     if (Pending.Count == 0)
                         RefreshManagedMenuOrDefault();
 
                     Popup.Display(
                         L.T("equip_complete", "Equipment Updated"),
-                        L.T("equip_complete_text", "{TROOP} has equipped ({ITEM}).")
+                        L.T("equip_complete_text", "{TROOP} has equipped {ITEM}.")
                             .SetTextVariable("TROOP", new WCharacter(troopId).Name)
-                            .SetTextVariable("ITEM", item?.Name)
+                            .SetTextVariable(
+                                "ITEM",
+                                item?.Name ?? L.S("upgrade_equip_unequip", "Unequip")
+                            )
                     );
                 },
-                onAborted: () => {
-                    // Keep remaining time as-is; player can resume later
+                onAborted: () => { /* keep pending */
                 },
                 overlay: GameMenu.MenuOverlayType.SettlementWithBoth,
                 onWholeHour: _ =>
@@ -310,7 +304,6 @@ namespace Retinues.Features.Upgrade.Behaviors
                     if (data.Remaining > 0)
                     {
                         data.Remaining -= 1;
-                        // (No partial application for equipment; it’s atomic.)
                         Log.Debug(
                             $"Equip progress: {troop.Name} – 1h done, {data.Remaining}h left."
                         );
@@ -324,19 +317,18 @@ namespace Retinues.Features.Upgrade.Behaviors
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static string ComposeObjKey(EquipmentIndex slot, string itemIdOrNull) =>
-            $"{(int)slot}:{itemIdOrNull ?? "NONE"}";
+            $"{(int)slot}:{(itemIdOrNull ?? "NONE")}";
 
-        private static (EquipmentIndex slot, string itemIdOrNull) ParseObjKey(string key)
+        private static (EquipmentIndex Slot, string ItemIdOrNull) ParseObjKey(string key)
         {
             if (string.IsNullOrEmpty(key))
                 return (default, null);
-            var idx = key.IndexOf(':');
-            if (idx < 0)
+            var i = key.IndexOf(':');
+            if (i < 0)
                 return (default, null);
-            var slotStr = key.Substring(0, idx);
-            var itemId = key.Substring(idx + 1);
-            int slotInt = 0;
-            int.TryParse(slotStr, out slotInt);
+            var slotStr = key.Substring(0, i);
+            var itemId = key.Substring(i + 1);
+            _ = int.TryParse(slotStr, out var slotInt);
             return ((EquipmentIndex)slotInt, itemId == "NONE" ? null : itemId);
         }
     }

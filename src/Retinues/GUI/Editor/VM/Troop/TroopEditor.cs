@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.GUI.Helpers;
-using Retinues.Troops.Edition;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
@@ -112,13 +112,15 @@ namespace Retinues.GUI.Editor.VM.Troop
         public bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
 
         [DataSourceProperty]
-        public int TrainingRequired => TroopTrainBehavior.GetTrainingRequired(SelectedTroop);
+        public int TrainingRequired =>
+            TroopTrainBehavior
+                .Instance.GetPending(SelectedTroop.StringId)
+                .Sum(data => data.Remaining);
 
         [DataSourceProperty]
         public bool TrainingIsRequired => TrainingRequired > 0;
 
-        [DataSourceProperty]
-        public bool NoTrainingIsRequired => TrainingIsRequired == false;
+        public bool NoTrainingIsRequired => TrainingRequired == 0;
 
         [DataSourceProperty]
         public string TrainingRequiredText

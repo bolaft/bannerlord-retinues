@@ -1,6 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game.Wrappers;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -91,6 +92,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public string Name => Format.Crop(Item?.Name, 25);
 
         [DataSourceProperty]
+        public string StagedName =>
+            $"{Format.Crop(StagedItem?.Name, 25)} ({StagedChangeDuration}h)";
+
+        [DataSourceProperty]
         public bool IsStaged => StagedItem != null;
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
@@ -131,11 +136,35 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WItem StagedItem => TroopEquipBehavior.GetStaged(_troop, _slot);
+        public PendingEquipData StagedChange => TroopEquipBehavior.GetStagedChange(_troop, _slot);
 
-        public WItem Item => StagedItem ?? _troop.Equipment.GetItem(_slot);
+        public int StagedChangeDuration => StagedChange?.Remaining ?? 0;
+
+        public WItem Item => IsStaged ? StagedItem : ActualItem;
+
+        public WItem ActualItem => _troop.Equipment.GetItem(_slot);
+
+        public WItem StagedItem
+        {
+            get
+            {
+                var itemId = StagedChange?.ItemId;
+                return itemId is null ? null : new WItem(itemId);
+            }
+        }
 
         public EquipmentIndex Slot => _slot;
+
+        public void Unstage()
+        {
+            if (!IsStaged)
+                return; // No-op if no staged change
+
+            var change = TroopEquipBehavior.GetStagedChange(_troop, _slot);
+            var item = new WItem(change.ItemId);
+            item.Stock();
+            TroopEquipBehavior.UnstageEquipmentChange(_troop, _slot);
+        }
 
         public void Select()
         {
@@ -157,6 +186,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(IsStaged));
             OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(StagedName));
+            OnPropertyChanged(nameof(StagedChangeDuration));
 #if BL13
             OnPropertyChanged(nameof(Id));
             OnPropertyChanged(nameof(TextureProviderName));

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Unlocks.Behaviors;
@@ -181,10 +182,15 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static void EquipFromStock(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            Log.Debug($"Equipping item {item?.Name} from stock to troop {troop?.Name}.");
+            Log.Debug(
+                "[EquipFromStock] Called for item " + item?.Name + " and troop " + troop?.Name
+            );
 
+            Log.Debug("[EquipFromStock] Unstocking item.");
             item.Unstock(); // Reduce stock by 1
-            TroopEquipBehavior.StageEquipmentChange(troop, slot, item);
+
+            Log.Debug("[EquipFromStock] Calling Equip.");
+            Equip(troop, slot, item);
         }
 
         /// <summary>
@@ -192,44 +198,44 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static void EquipFromPurchase(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            Log.Debug($"Purchasing and equipping item {item?.Name} to troop {troop?.Name}.");
+            Log.Debug(
+                "[EquipFromPurchase] Called for item " + item?.Name + " and troop " + troop?.Name
+            );
 
-            // Deduct cost and equip
+            Log.Debug("[EquipFromPurchase] Deducting gold: " + GetItemValue(item, troop));
             Player.ChangeGold(-GetItemValue(item, troop)); // Deduct cost
-            TroopEquipBehavior.StageEquipmentChange(troop, slot, item);
+
+            Log.Debug("[EquipFromPurchase] Calling Equip.");
+            Equip(troop, slot, item);
+        }
+
+        /// <summary>
+        /// Equips an item to a troop.
+        /// </summary>
+        public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item)
+        {
+            // If unequipping a horse, also unequip the harness
+            if (slot == EquipmentIndex.Horse && item == null)
+            {
+                Log.Debug("Unequipping horse also unequips harness.");
+                Equip(troop, EquipmentIndex.HorseHarness, null);
+            }
+
+            if (Config.GetOption<bool>("EquipmentChangeTakesTime") && item != null)
+                TroopEquipBehavior.StageEquipmentChange(troop, slot, item);
+            else
+                ApplyEquip(troop, slot, item);
         }
 
         /// <summary>
         /// Equips an item to a troop, unequipping old item and handling horse/harness logic.
         /// </summary>
-        public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item)
+        public static void ApplyEquip(WCharacter troop, EquipmentIndex slot, WItem item)
         {
-            Log.Debug($"Equipping item {item?.Name} to troop {troop?.Name}.");
-
-            // If null, also remove staged change
-            if (item == null)
-                TroopEquipBehavior.UnstageEquipmentChange(troop, slot);
-
-            // If equipping a new item, unequip the old one (if any)
-            var oldItem = troop.Unequip(slot);
-
-            // If the old item had a value, restock it
-            if (oldItem != null && oldItem.Value > 0)
-                oldItem.Stock();
-
-            // If unequipping a horse, also unequip the harness
-            if (slot == EquipmentIndex.Horse)
-            {
-                var harnessItem = troop.Equipment.GetItem(EquipmentIndex.HorseHarness);
-                if (harnessItem != null)
-                {
-                    var oldHarness = troop.Unequip(EquipmentIndex.HorseHarness);
-                    if (oldHarness != null && oldHarness.Value > 0)
-                        oldHarness.Stock();
-                }
-            }
-
-            // Equip item to selected troop
+            Log.Debug(
+                $"Applying equip of item {item?.Name} to troop {troop?.Name} in slot {slot}."
+            );
+            troop.Unequip(slot)?.Stock();
             troop.Equip(item, slot);
         }
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Troops.Edition;
 using Retinues.Game.Wrappers;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
@@ -201,6 +201,13 @@ namespace Retinues.Features.Upgrade.Behaviors
             return default;
         }
 
+        public List<T> GetPending(string troopId)
+        {
+            if (_pending.TryGetValue(troopId, out var dict))
+                return [.. dict.Values];
+            return [];
+        }
+
         public void SetPending(string troopId, string objId, T data)
         {
             if (!_pending.ContainsKey(troopId))
@@ -208,7 +215,7 @@ namespace Retinues.Features.Upgrade.Behaviors
             _pending[troopId][objId] = data;
         }
 
-        protected void RemovePending(string troopId, string objId)
+        public void RemovePending(string troopId, string objId)
         {
             if (Pending.TryGetValue(troopId, out var d))
             {
@@ -259,7 +266,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected static void RefreshManagedMenuOrDefault()
         {
             if (IsInManagedMenu(out var id))
-                GameMenu.SwitchToMenu(id);        // refresh same town/castle
+                GameMenu.SwitchToMenu(id); // refresh same town/castle
             else
                 GameMenu.SwitchToMenu(MenuIds[0]); // fallback: "town"
         }

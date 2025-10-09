@@ -3,8 +3,8 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Upgrade.Behaviors;
-using Retinues.Troops.Edition;
 using Retinues.Game.Wrappers;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
@@ -34,13 +34,10 @@ namespace Retinues.GUI.Editor.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public int StagedValue => Value + TroopTrainBehavior.GetStaged(_troop, _skill);
+        public int DisplayValue => Value + StagedPoints;
 
         [DataSourceProperty]
-        public bool ShowAsActual => StagedValue == Value;
-
-        [DataSourceProperty]
-        public bool ShowAsStaged => StagedValue != Value;
+        public bool IsStaged => Staged != null && StagedPoints > 0;
 
         [DataSourceProperty]
         public string StringId => _skill.StringId;
@@ -67,9 +64,8 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         public void Refresh()
         {
-            OnPropertyChanged(nameof(StagedValue));
-            OnPropertyChanged(nameof(ShowAsActual));
-            OnPropertyChanged(nameof(ShowAsStaged));
+            OnPropertyChanged(nameof(DisplayValue));
+            OnPropertyChanged(nameof(IsStaged));
             OnPropertyChanged(nameof(StringId));
             OnPropertyChanged(nameof(CanIncrement));
             OnPropertyChanged(nameof(CanDecrement));
@@ -80,6 +76,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private int Value => _troop?.GetSkill(_skill) ?? 0;
+        private int StagedPoints => Staged?.PointsRemaining ?? 0;
+        private PendingTrainData Staged =>
+            TroopTrainBehavior.Instance.GetPending(_troop.StringId, _skill.StringId);
 
         private void Modify(bool increment)
         {
@@ -105,9 +104,8 @@ namespace Retinues.GUI.Editor.VM.Troop
                 }
 
                 // Refresh value
-                OnPropertyChanged(nameof(StagedValue));
-                OnPropertyChanged(nameof(ShowAsActual));
-                OnPropertyChanged(nameof(ShowAsStaged));
+                OnPropertyChanged(nameof(DisplayValue));
+                OnPropertyChanged(nameof(IsStaged));
 
                 // Refresh editor counters
                 _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
@@ -129,7 +127,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (
                 !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>()
                 && !increment
-                && TroopTrainBehavior.GetStaged(_troop, _skill) <= 0
+                && !IsStaged
                 && !_editor.PlayerWarnedAboutRetraining
                 && Config.GetOption<int>("BaseSkillXpCost")
                     + Config.GetOption<int>("SkillXpCostPerPoint")

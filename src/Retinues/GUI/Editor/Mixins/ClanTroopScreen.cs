@@ -1,8 +1,8 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
-using Retinues.GUI.Editor.VM;
 using Retinues.Game;
+using Retinues.GUI.Editor.VM;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Library;

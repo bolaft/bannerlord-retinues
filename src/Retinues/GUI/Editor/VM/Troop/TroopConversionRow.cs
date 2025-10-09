@@ -1,8 +1,8 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.Utils;
 using Retinues.Troops.Edition;
+using Retinues.Utils;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 

@@ -1,10 +1,10 @@
 using System.Linq;
-using Retinues.GUI.Helpers;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 

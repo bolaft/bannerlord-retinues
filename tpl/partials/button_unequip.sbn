@@ -18,6 +18,7 @@
         -->
         <ButtonWidget
             DataSource="{EquipmentEditor}"
+            IsHidden="@HasStagedChanges"
             IsEnabled="@CanUnequip"
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed"
@@ -41,6 +42,40 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Text="@UnequipAllButtonText"
+                />
+            </Children>
+        </ButtonWidget>
+
+        <!--
+            ButtonWidget:
+            - Enabled if unstage is possible (@HasStagedChanges)
+            - Executes 'ExecuteUnstageAll' command on click
+        -->
+        <ButtonWidget
+            DataSource="{EquipmentEditor}"
+            IsVisible="@HasStagedChanges"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width"
+            SuggestedHeight="!CancelButton.Height"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Brush="Popup.Delete.Button"
+            Command.Click="ExecuteUnstageAll">
+
+            <Children>
+                <!--
+                    TextWidget:
+                    - Displays the "Unstage All" button text
+                -->
+                <TextWidget
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Text="@UnstageAllButtonText"
                 />
             </Children>
         </ButtonWidget>

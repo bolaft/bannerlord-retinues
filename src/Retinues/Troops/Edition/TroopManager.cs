@@ -135,7 +135,11 @@ namespace Retinues.Troops.Edition
                 return;
 
             // Already staged changes
-            int staged = TroopTrainBehavior.GetStaged(troop, skill);
+            int staged =
+                TroopTrainBehavior
+                    .Instance.GetPending(troop.StringId, skill.StringId)
+                    ?.PointsRemaining
+                ?? 0;
             int stagedSkill = troop.GetSkill(skill) + staged;
 
             if (increment)

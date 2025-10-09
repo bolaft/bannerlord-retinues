@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Troops.Edition;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Wrappers;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;

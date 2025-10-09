@@ -87,6 +87,16 @@
                                     Sprite="General\Icons\Coin@2x"
                                     VerticalAlignment="Center"
                                     IsVisible="@ShowValue"/>
+                                
+                                <!-- Equipped icon -->
+                                <ImageWidget
+                                    IsVisible="@IsActual"
+                                    WidthSizePolicy="Fixed"
+                                    HeightSizePolicy="Fixed"
+                                    SuggestedWidth="40"
+                                    SuggestedHeight="40"
+                                    Sprite="General\Icons\icon_quest_done_checkmark"
+                                    VerticalAlignment="Center"/>
 
                                 <!-- Stock -->
                                 <TextWidget

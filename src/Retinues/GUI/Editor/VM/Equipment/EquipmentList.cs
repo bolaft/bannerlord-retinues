@@ -87,8 +87,11 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     // Create row VM
                     var row = new EquipmentRowVM(item, this, progress, available);
 
-                    // Preselect equipped item row
-                    if (item == slot.Item)
+                    // Preselect equipped/staged item row
+                    if (
+                        (item != null && item == slot.StagedItem)
+                        || (slot.StagedItem == null && item == slot.Item)
+                    )
                         row.IsSelected = true;
 
                     // Add to list

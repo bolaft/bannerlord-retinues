@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -98,6 +99,9 @@ namespace Retinues.Game.Wrappers
             {
                 var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
                 vm.FillFrom(Base, seed: -1);
+
+                // Apply staged equipment changes (if any)
+                vm.SetEquipment(EquipmentPreview.BuildStagedEquipment(this));
 
                 if (Faction != null)
                 {

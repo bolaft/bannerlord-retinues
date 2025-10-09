@@ -81,7 +81,10 @@ namespace Retinues.Troops
                 string filePath = Path.Combine(DefaultDir, fileName);
 
                 // If file doesn't exist and doesn't end with .xml, try appending .xml and check again
-                if (!File.Exists(filePath) && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
+                if (
+                    !File.Exists(filePath)
+                    && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
+                )
                 {
                     string xmlFileName = fileName + ".xml";
                     string xmlFilePath = Path.Combine(DefaultDir, xmlFileName);

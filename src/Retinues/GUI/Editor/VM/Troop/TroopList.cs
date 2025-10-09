@@ -1,8 +1,8 @@
 using System.Linq;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.Utils;
 using Retinues.Troops.Edition;
+using Retinues.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop

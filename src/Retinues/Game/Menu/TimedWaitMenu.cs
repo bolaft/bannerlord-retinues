@@ -49,7 +49,7 @@ namespace Retinues.Game.Menu
             if (durationHours <= 0f)
                 durationHours = 0.01f;
 
-            Log.Info(
+            Log.Debug(
                 $"TimedWaitMenu.Start called: {idSuffix}, {durationHours:0.##}h, title='{title}'"
             );
 
@@ -78,7 +78,7 @@ namespace Retinues.Game.Menu
             GameMenu.MenuOverlayType overlay
         )
         {
-            Log.Info($"TimedWaitMenu.AddOrReplaceWaitMenu called: {_menuId}, title='{title}'");
+            Log.Debug($"TimedWaitMenu.AddOrReplaceWaitMenu called: {_menuId}, title='{title}'");
             // Vanilla-style wait menu with a per-tick callback and targeted hours.
             starter.AddWaitGameMenu(
                 _menuId,
@@ -106,7 +106,7 @@ namespace Retinues.Game.Menu
 
         private static void OpenWaitMenu()
         {
-            Log.Info($"TimedWaitMenu.OpenWaitMenu called: {_menuId}");
+            Log.Debug($"TimedWaitMenu.OpenWaitMenu called: {_menuId}");
             GameMenu.SwitchToMenu(_menuId);
         }
 
@@ -116,7 +116,7 @@ namespace Retinues.Game.Menu
 
         private static void WaitMenu_OnInit(MenuCallbackArgs args)
         {
-            Log.Info($"TimedWaitMenu.WaitMenu_OnInit called: {_menuId}");
+            Log.Debug($"TimedWaitMenu.WaitMenu_OnInit called: {_menuId}");
 
             if (PlayerEncounter.Current != null)
                 PlayerEncounter.Current.IsPlayerWaiting = true;
@@ -153,7 +153,7 @@ namespace Retinues.Game.Menu
 
         private static void WaitMenu_OnConsequence(MenuCallbackArgs args)
         {
-            Log.Info($"TimedWaitMenu.WaitMenu_OnConsequence called: {_menuId}");
+            Log.Debug($"TimedWaitMenu.WaitMenu_OnConsequence called: {_menuId}");
             // No-op; we finish from Tick (above) when time elapses.
         }
 
@@ -161,7 +161,7 @@ namespace Retinues.Game.Menu
 
         private static void WaitMenu_Cancel_OnConsequence(MenuCallbackArgs args)
         {
-            Log.Info($"TimedWaitMenu.WaitMenu_Cancel_OnConsequence called: {_menuId}");
+            Log.Debug($"TimedWaitMenu.WaitMenu_Cancel_OnConsequence called: {_menuId}");
             Finish(completed: false);
         }
 
@@ -171,7 +171,7 @@ namespace Retinues.Game.Menu
 
         private static void Finish(bool completed)
         {
-            Log.Info($"TimedWaitMenu.Finish called: {_menuId}, completed={completed}");
+            Log.Debug($"TimedWaitMenu.Finish called: {_menuId}, completed={completed}");
 
             try
             {
@@ -207,7 +207,7 @@ namespace Retinues.Game.Menu
 
         private static string GuessFallbackMenu()
         {
-            Log.Info("TimedWaitMenu.GuessFallbackMenu called.");
+            Log.Debug("TimedWaitMenu.GuessFallbackMenu called.");
             var s = Settlement.CurrentSettlement;
             if (s != null)
             {

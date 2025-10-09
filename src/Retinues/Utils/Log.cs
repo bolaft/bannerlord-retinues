@@ -98,7 +98,9 @@ namespace Retinues.Utils
                 // Handle IDictionary
                 if (o is IDictionary dict)
                 {
-                    sb.Append($"Dictionary<{type.GenericTypeArguments[0].Name},{type.GenericTypeArguments[1].Name}>[{dict.Count}] ");
+                    sb.Append(
+                        $"Dictionary<{type.GenericTypeArguments[0].Name},{type.GenericTypeArguments[1].Name}>[{dict.Count}] "
+                    );
                     foreach (DictionaryEntry entry in dict)
                     {
                         sb.Append("Key: ");
@@ -112,7 +114,9 @@ namespace Retinues.Utils
                 // Handle IEnumerable (but not string)
                 if (o is IEnumerable enumerable && !(o is string))
                 {
-                    sb.Append($"List<{type.GetElementType()?.Name ?? type.GenericTypeArguments.FirstOrDefault()?.Name ?? type.Name}>: ");
+                    sb.Append(
+                        $"List<{type.GetElementType()?.Name ?? type.GenericTypeArguments.FirstOrDefault()?.Name ?? type.Name}>: "
+                    );
                     int i = 0;
                     foreach (var item in enumerable)
                     {

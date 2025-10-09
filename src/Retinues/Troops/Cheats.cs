@@ -20,7 +20,7 @@ namespace Retinues.Troops
         {
             if (args.Count > 1)
                 return "Usage: retinues.export_custom_troops [fileName]";
-            
+
             var fileName = args.Count > 0 ? args[0] : "custom_troops.xml";
             var path = TroopImportExport.ExportAllToXml(fileName);
             if (path == null)

@@ -16,7 +16,6 @@ namespace Retinues.Mods
         [
             "WarlordsBattlefield",
             "SimpleBank",
-
             // Legacy
             "Retinues.Core",
             "Retinues.MCM",
@@ -46,7 +45,9 @@ namespace Retinues.Mods
                 {
                     if (modId.Contains("Retinues"))
                     {
-                        Log.Critical($"[Retinues] WARNING: detected legacy mod '{mod}'. Please uninstall it to avoid conflicts.");
+                        Log.Critical(
+                            $"[Retinues] WARNING: detected legacy mod '{mod}'. Please uninstall it to avoid conflicts."
+                        );
                     }
                     else
                     {

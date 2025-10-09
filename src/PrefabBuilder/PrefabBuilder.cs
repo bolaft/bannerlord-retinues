@@ -154,9 +154,10 @@ class PrefabBuilder
     static int EnvInt(string name, int fallback) =>
         int.TryParse(Environment.GetEnvironmentVariable(name), out var v) ? v : fallback;
 
-    static string Os(string p) => Path.GetFullPath(p)
-    .Replace('/', Path.DirectorySeparatorChar)
-    .Replace('\\', Path.DirectorySeparatorChar);
+    static string Os(string p) =>
+        Path.GetFullPath(p)
+            .Replace('/', Path.DirectorySeparatorChar)
+            .Replace('\\', Path.DirectorySeparatorChar);
 
     static Dictionary<string, string> ParseArgs(string[] args)
     {

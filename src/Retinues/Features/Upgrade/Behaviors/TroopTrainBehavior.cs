@@ -1,7 +1,7 @@
 using System;
-using Retinues.GUI.Helpers;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
@@ -32,9 +32,21 @@ namespace Retinues.Features.Upgrade.Behaviors
         [SaveableField(6)]
         public float PointsPerHour;
 
-        string IPendingData.TroopId { get => TroopId; set => TroopId = value; }
-        int IPendingData.Remaining { get => Remaining; set => Remaining = value; }
-        float IPendingData.Carry { get => Carry; set => Carry = value; }
+        string IPendingData.TroopId
+        {
+            get => TroopId;
+            set => TroopId = value;
+        }
+        int IPendingData.Remaining
+        {
+            get => Remaining;
+            set => Remaining = value;
+        }
+        float IPendingData.Carry
+        {
+            get => Carry;
+            set => Carry = value;
+        }
     }
 
     /// <summary>
@@ -43,46 +55,19 @@ namespace Retinues.Features.Upgrade.Behaviors
     [SafeClass]
     public sealed class TroopTrainBehavior : BaseUpgradeBehavior<PendingTrainData>
     {
-        private const float BaseTrainingTime = 2.0f;
+        private const int BaseTrainingTime = 2;
         private static bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
-        private static float TrainingTimeModifier =>
-            Config.GetOption<float>("TrainingTimeModifier");
+        private static int TrainingTimeModifier => Config.GetOption<int>("TrainingTimeModifier");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        protected override string SaveFieldName { get; set; } = "Retinues_Training_Pending";
+        protected override string SaveFieldName { get; set; } = "Retinues_Train_Pending";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static int GetTrainingRequired(WCharacter troop)
-        {
-            if (troop == null)
-                return 0;
-
-            if (!Instance.Pending.TryGetValue(troop.StringId, out var trainings))
-                return 0;
-
-            int total = 0;
-            foreach (var data in trainings.Values)
-                if (data.TroopId == troop.StringId)
-                    total += (int)(data.PointsRemaining / data.PointsPerHour);
-
-            return total;
-        }
-
-        public static int GetStaged(WCharacter troop, SkillObject skill)
-        {
-            if (troop == null || skill == null)
-                return 0;
-
-            var data = Instance.GetPending(troop.StringId, skill.StringId);
-
-            return data?.PointsRemaining ?? 0;
-        }
 
         public static void StageTraining(WCharacter troop, SkillObject skill)
         {
@@ -94,7 +79,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 return;
             }
 
-            var hours = Math.Max(1, (int)(BaseTrainingTime * TrainingTimeModifier));
+            var hours = Math.Max(1, BaseTrainingTime * TrainingTimeModifier);
             var pph = 1 / (float)hours;
 
             var troopId = troop.StringId;
@@ -104,23 +89,14 @@ namespace Retinues.Features.Upgrade.Behaviors
 
             if (v != null)
             {
-                int newRemaining = v.Remaining + hours;
-                int newPoints = v.PointsRemaining + 1;
-                float newPPH = newPoints / Math.Max(1, newRemaining);
-
-                Instance.SetPending(
-                    troopId,
-                    skillId,
-                    new PendingTrainData
-                    {
-                        TroopId = v.TroopId,
-                        Remaining = newRemaining,
-                        SkillId = v.SkillId,
-                        PointsRemaining = newPoints,
-                        PointsPerHour = newPPH,
-                        Carry = v.Carry,
-                    }
-                );
+                if (v != null)
+                {
+                    v.Remaining += hours;
+                    v.PointsRemaining += 1;
+                    v.PointsPerHour = (float)v.PointsRemaining / Math.Max(1, v.Remaining);
+                    if (v.PointsPerHour <= 0f)
+                        v.PointsPerHour = pph; // defensive
+                }
             }
             else
             {
@@ -170,6 +146,7 @@ namespace Retinues.Features.Upgrade.Behaviors
 
                     // Cancel them
                     v.PointsRemaining -= toCancel;
+                    v.Remaining -= (int)(toCancel / v.PointsPerHour); // decrease Remaining hours accordingly
 
                     // If no more staged points, remove entry
                     if (v.PointsRemaining <= 0)

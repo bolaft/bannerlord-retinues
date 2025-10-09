@@ -1,5 +1,5 @@
-using Retinues.GUI.Editor.VM;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor

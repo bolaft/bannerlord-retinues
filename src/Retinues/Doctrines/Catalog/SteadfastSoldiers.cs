@@ -1,7 +1,7 @@
-using Retinues.Troops.Edition;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 

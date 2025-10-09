@@ -35,8 +35,8 @@
 
                 <!-- Actual value display -->
                 <TextWidget
-                    IsVisible="@ShowAsActual"
-                    IntText="@StagedValue"
+                    IsHidden="@IsStaged"
+                    IntText="@DisplayValue"
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
                     SuggestedWidth="32"
@@ -48,8 +48,8 @@
 
                 <!-- Staged value display -->
                 <TextWidget
-                    IsVisible="@ShowAsStaged"
-                    IntText="@StagedValue"
+                    IsVisible="@IsStaged"
+                    IntText="@DisplayValue"
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
                     SuggestedWidth="32"

@@ -23,6 +23,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public string UnequipAllButtonText => L.S("unequip_all_button_text", "Unequip All");
 
+        [DataSourceProperty]
+        public string UnstageAllButtonText => L.S("unstage_all_button_text", "Unstage All");
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -38,6 +41,41 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     return false; // No equipment to unequip
 
                 return true;
+            }
+        }
+
+        [DataSourceProperty]
+        public bool HasStagedChanges
+        {
+            get
+            {
+                if (SelectedTroop == null)
+                    return false;
+
+                if (HeadSlot.IsStaged)
+                    return true;
+                if (CapeSlot.IsStaged)
+                    return true;
+                if (BodySlot.IsStaged)
+                    return true;
+                if (GlovesSlot.IsStaged)
+                    return true;
+                if (LegSlot.IsStaged)
+                    return true;
+                if (HorseSlot.IsStaged)
+                    return true;
+                if (HorseHarnessSlot.IsStaged)
+                    return true;
+                if (WeaponItemBeginSlotSlot.IsStaged)
+                    return true;
+                if (Weapon1Slot.IsStaged)
+                    return true;
+                if (Weapon2Slot.IsStaged)
+                    return true;
+                if (Weapon3Slot.IsStaged)
+                    return true;
+
+                return false;
             }
         }
 
@@ -141,6 +179,46 @@ namespace Retinues.GUI.Editor.VM.Equipment
             );
         }
 
+        /// <summary>
+        /// Unstages all staged equipment changes for the selected troop.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteUnstageAll()
+        {
+            if (Screen?.EditingIsAllowed == false)
+                return; // Editing not allowed in current context
+
+            if (!HasStagedChanges)
+                return; // No-op if nothing to unstage
+
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    titleText: L.S("unstage_all", "Unstage All"),
+                    text: L.T(
+                            "unstage_all_text",
+                            "Revert all staged equipment changes for {TROOP_NAME}?"
+                        )
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .ToString(),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
+                    affirmativeAction: () =>
+                    {
+                        foreach (var slot in Slots)
+                            slot.Unstage();
+
+                        // Refresh UI
+                        Screen.Refresh();
+                        Screen.EquipmentList.Refresh();
+                        Refresh();
+                    },
+                    negativeAction: () => { }
+                )
+            );
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -205,6 +283,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (SelectedSlot is null)
                 WeaponItemBeginSlotSlot.Select();
 
+            OnPropertyChanged(nameof(HasStagedChanges));
             OnPropertyChanged(nameof(CanUnequip));
             OnPropertyChanged(nameof(HeadSlot));
             OnPropertyChanged(nameof(CapeSlot));

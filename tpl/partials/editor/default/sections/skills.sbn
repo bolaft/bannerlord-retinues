@@ -54,7 +54,6 @@
     UpdateChildrenStates="true"
     MarginBottom="15">
     <Children>
-        {{ text_int("@TrainingRequired") }}
         <!-- Training Required -->
         {{ small_text("@TrainingRequiredText", "Center", "0", "0", "0", "0", "@NoTrainingIsRequired") }}
         <!-- No Training Required -->
