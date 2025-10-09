@@ -84,27 +84,27 @@ namespace Retinues.Utils
 
         public static void Dump(object obj, LogLevel level = LogLevel.Debug)
         {
+            var sb = new StringBuilder();
             void DumpRecursive(object o, int depth)
             {
                 if (o == null)
                 {
-                    Write(level, new string(' ', depth * 2) + "<null>");
+                    sb.Append("<null> ");
                     return;
                 }
 
                 var type = o.GetType();
-                string indent = new(' ', depth * 2);
 
                 // Handle IDictionary
                 if (o is IDictionary dict)
                 {
-                    Write(level, $"{indent}Dictionary<{type.GenericTypeArguments[0].Name}, {type.GenericTypeArguments[1].Name}> [{dict.Count}]");
+                    sb.Append($"Dictionary<{type.GenericTypeArguments[0].Name},{type.GenericTypeArguments[1].Name}>[{dict.Count}] ");
                     foreach (DictionaryEntry entry in dict)
                     {
-                        Write(level, $"{indent}  Key:");
-                        DumpRecursive(entry.Key, depth + 2);
-                        Write(level, $"{indent}  Value:");
-                        DumpRecursive(entry.Value, depth + 2);
+                        sb.Append("Key: ");
+                        DumpRecursive(entry.Key, depth + 1);
+                        sb.Append("Value: ");
+                        DumpRecursive(entry.Value, depth + 1);
                     }
                     return;
                 }
@@ -112,16 +112,16 @@ namespace Retinues.Utils
                 // Handle IEnumerable (but not string)
                 if (o is IEnumerable enumerable && !(o is string))
                 {
-                    Write(level, $"{indent}List<{type.GetElementType()?.Name ?? type.GenericTypeArguments.FirstOrDefault()?.Name ?? type.Name}>:");
+                    sb.Append($"List<{type.GetElementType()?.Name ?? type.GenericTypeArguments.FirstOrDefault()?.Name ?? type.Name}>: ");
                     int i = 0;
                     foreach (var item in enumerable)
                     {
-                        Write(level, $"{indent}  [{i}]:");
-                        DumpRecursive(item, depth + 2);
+                        sb.Append($"[{i}]: ");
+                        DumpRecursive(item, depth + 1);
                         i++;
                     }
                     if (i == 0)
-                        Write(level, $"{indent}  <empty>");
+                        sb.Append("<empty> ");
                     return;
                 }
 
@@ -131,18 +131,16 @@ namespace Retinues.Utils
                     var str = o.ToString();
                     if (string.IsNullOrEmpty(str))
                         str = $"<{type.FullName}>";
-                    Write(level, $"{indent}{str}");
+                    sb.Append($"{str} ");
                 }
                 catch (Exception ex)
                 {
-                    Write(
-                        LogLevel.Error,
-                        $"{indent}Log.Dump failed for object of type {type.FullName}: {ex.Message}"
-                    );
+                    sb.Append($"Log.Dump failed for object of type {type.FullName}: {ex.Message} ");
                 }
             }
 
             DumpRecursive(obj, 0);
+            Write(level, sb.ToString());
         }
 
         public static void Exception(Exception ex, string context = "", string caller = null)
