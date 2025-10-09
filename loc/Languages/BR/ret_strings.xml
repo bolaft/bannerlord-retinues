@@ -11,8 +11,14 @@
       id="ret_action_convert"
       text="converter" />
     <string
+      id="ret_action_equip"
+      text="equipar" />
+    <string
       id="ret_action_modify"
       text="modificar" />
+    <string
+      id="ret_actual_item"
+      text="Equipado" />
     <string
       id="ret_adaptive_training"
       text="Treinamento Adaptativo" />
@@ -97,6 +103,9 @@
     <string
       id="ret_cancel"
       text="Cancelar" />
+    <string
+      id="ret_cancel_change"
+      text="Cancelar alteração" />
     <string
       id="ret_cant_remove_root_troop"
       text="Tropas base não podem ser removidas." />
@@ -842,6 +851,9 @@
       id="ret_unequip_all_text"
       text="Remover todos os itens usados por {TROOP_NAME}?{newline}{newline}Eles serão guardados no estoque para uso posterior." />
     <string
+      id="ret_unequip_warning_text"
+      text="Você está prestes a remover {ITEM}, levará tempo para equipar um novo. Continuar assim mesmo?" />
+    <string
       id="ret_unlock_btn"
       text="Desbloquear" />
     <string
@@ -850,6 +862,15 @@
     <string
       id="ret_unlock_progress_text"
       text="Desbloqueando ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="Desfazer Tudo" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="Desfazer Tudo" />
+    <string
+      id="ret_unstage_all_text"
+      text="Reverter todas as alterações de equipamento preparadas para {TROOP_NAME}?" />
     <string
       id="ret_upgrade_equip_begin"
       text="Começar a aprimorar o equipamento" />

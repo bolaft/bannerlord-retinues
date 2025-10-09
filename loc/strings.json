@@ -32,8 +32,24 @@
     "TR": "dönüştürmek"
   },
   {
-    "id": "ret_action_modify",
+    "id": "ret_action_equip",
     "EN": "equip",
+    "BR": "equipar",
+    "CNs": "装备",
+    "CNt": "裝備",
+    "DE": "ausrüsten",
+    "FR": "équiper",
+    "IT": "equipaggiare",
+    "JP": "装備する",
+    "KO": "장비하다",
+    "PL": "wyposażyć",
+    "RU": "оснастить",
+    "SP": "equipar",
+    "TR": "donatmak"
+  },
+  {
+    "id": "ret_action_modify",
+    "EN": "modify",
     "BR": "modificar",
     "CNs": "修改",
     "CNt": "修改",
@@ -46,6 +62,22 @@
     "RU": "модифицировать",
     "SP": "modificar",
     "TR": "değiştirmek"
+  },
+  {
+    "id": "ret_actual_item",
+    "EN": "Equipped",
+    "BR": "Equipado",
+    "CNs": "已装备",
+    "CNt": "已裝備",
+    "DE": "Ausgerüstet",
+    "FR": "Équipé",
+    "IT": "Equipaggiato",
+    "JP": "装備済み",
+    "KO": "장착됨",
+    "PL": "Wyposażony",
+    "RU": "Экипировано",
+    "SP": "Equipado",
+    "TR": "Donatıldı"
   },
   {
     "id": "ret_adaptive_training",
@@ -494,6 +526,22 @@
     "RU": "Отмена",
     "SP": "Cancelar",
     "TR": "İptal"
+  },
+  {
+    "id": "ret_cancel_change",
+    "EN": "Cancel change",
+    "BR": "Cancelar alteração",
+    "CNs": "取消更改",
+    "CNt": "取消更改",
+    "DE": "Änderung abbrechen",
+    "FR": "Annuler la modification",
+    "IT": "Annulla modifica",
+    "JP": "変更をキャンセル",
+    "KO": "변경 취소",
+    "PL": "Anuluj zmianę",
+    "RU": "Отменить изменение",
+    "SP": "Cancelar cambio",
+    "TR": "Değişikliği iptal et"
   },
   {
     "id": "ret_cant_remove_root_troop",
@@ -1009,7 +1057,7 @@
   },
   {
     "id": "ret_equip_complete_text",
-    "EN": "{TROOP} has equipped ({ITEM}).",
+    "EN": "{TROOP} has equipped {ITEM}.",
     "BR": "{TROOP} equipou ({ITEM}).",
     "CNs": "{TROOP} 已装备 ({ITEM})。",
     "CNt": "{TROOP} 已裝備 ({ITEM})。",
@@ -4464,6 +4512,22 @@
     "TR": "{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?\\n\\nEşyalar stoklanacaktır."
   },
   {
+    "id": "ret_unequip_warning_text",
+    "EN": "You are about to unequip {ITEM}, it will take time to re-equip a new one. Continue anyway?",
+    "BR": "Você está prestes a remover {ITEM}, levará tempo para equipar um novo. Continuar assim mesmo?",
+    "CNs": "你即将卸下 {ITEM}，重新装备一个新物品需要时间。是否继续？",
+    "CNt": "你即將卸下 {ITEM}，重新裝備一個新物品需要時間。是否繼續？",
+    "DE": "Du bist dabei, {ITEM} abzulegen. Es wird Zeit brauchen, ein neues auszurüsten. Trotzdem fortfahren?",
+    "FR": "Tu es sur le point de retirer {ITEM}, il faudra du temps pour en équiper un nouveau. Continuer quand même ?",
+    "IT": "Stai per rimuovere {ITEM}, ci vorrà del tempo per equipaggiarne uno nuovo. Continuare comunque?",
+    "JP": "{ITEM} を外そうとしています。新しいものを装備するには時間がかかります。それでも続行しますか？",
+    "KO": "{ITEM} 을(를) 해제하려고 합니다. 새 아이템을 장착하는 데 시간이 걸립니다. 그래도 계속하시겠습니까?",
+    "PL": "Zamierzasz zdjąć {ITEM}, ponowne wyposażenie nowego zajmie trochę czasu. Kontynuować mimo to?",
+    "RU": "Вы собираетесь снять {ITEM}, на переоснащение новым предметом потребуется время. Всё равно продолжить?",
+    "SP": "Estás a punto de quitar {ITEM}, tomará tiempo equipar uno nuevo. ¿Continuar de todos modos?",
+    "TR": "{ITEM} eşyasını çıkarmak üzeresin, yenisini donatmak zaman alacak. Yine de devam etmek istiyor musun?"
+  },
+  {
     "id": "ret_unlock_btn",
     "EN": "Unlock",
     "BR": "Desbloquear",
@@ -4510,6 +4574,54 @@
     "RU": "Разблокировка ({PROGRESS}/{REQUIRED})",
     "SP": "Desbloqueando ({PROGRESS}/{REQUIRED})",
     "TR": "Açılıyor ({PROGRESS}/{REQUIRED})"
+  },
+  {
+    "id": "ret_unstage_all",
+    "EN": "Unstage All",
+    "BR": "Desfazer Tudo",
+    "CNs": "撤销全部",
+    "CNt": "撤銷全部",
+    "DE": "Alles zurücksetzen",
+    "FR": "Tout annuler",
+    "IT": "Annulla Tutto",
+    "JP": "すべて元に戻す",
+    "KO": "모두 취소",
+    "PL": "Cofnij Wszystko",
+    "RU": "Отменить Всё",
+    "SP": "Revertir Todo",
+    "TR": "Tümünü Geri Al"
+  },
+  {
+    "id": "ret_unstage_all_button_text",
+    "EN": "Unstage All",
+    "BR": "Desfazer Tudo",
+    "CNs": "撤销全部",
+    "CNt": "撤銷全部",
+    "DE": "Alles zurücksetzen",
+    "FR": "Tout annuler",
+    "IT": "Annulla Tutto",
+    "JP": "すべて元に戻す",
+    "KO": "모두 취소",
+    "PL": "Cofnij Wszystko",
+    "RU": "Отменить Всё",
+    "SP": "Revertir Todo",
+    "TR": "Tümünü Geri Al"
+  },
+  {
+    "id": "ret_unstage_all_text",
+    "EN": "Revert all staged equipment changes for {TROOP_NAME}?",
+    "BR": "Reverter todas as alterações de equipamento preparadas para {TROOP_NAME}?",
+    "CNs": "撤销 {TROOP_NAME} 的所有已准备装备更改？",
+    "CNt": "撤銷 {TROOP_NAME} 的所有已準備裝備更改？",
+    "DE": "Alle vorbereiteten Ausrüstungsänderungen für {TROOP_NAME} rückgängig machen?",
+    "FR": "Annuler toutes les modifications d’équipement préparées pour {TROOP_NAME} ?",
+    "IT": "Annulla tutte le modifiche di equipaggiamento preparate per {TROOP_NAME}?",
+    "JP": "{TROOP_NAME} のすべての準備された装備変更を元に戻しますか？",
+    "KO": "{TROOP_NAME} 의 모든 준비된 장비 변경 사항을 되돌리시겠습니까?",
+    "PL": "Cofnąć wszystkie przygotowane zmiany wyposażenia dla {TROOP_NAME}?",
+    "RU": "Отменить все подготовленные изменения снаряжения для {TROOP_NAME}?",
+    "SP": "¿Revertir todos los cambios de equipo preparados para {TROOP_NAME}?",
+    "TR": "{TROOP_NAME} için hazırlanan tüm donanım değişikliklerini geri al?"
   },
   {
     "id": "ret_upgrade_equip_begin",

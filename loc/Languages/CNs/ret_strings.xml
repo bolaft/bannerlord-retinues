@@ -11,8 +11,14 @@
       id="ret_action_convert"
       text="转换" />
     <string
+      id="ret_action_equip"
+      text="装备" />
+    <string
       id="ret_action_modify"
       text="修改" />
+    <string
+      id="ret_actual_item"
+      text="已装备" />
     <string
       id="ret_adaptive_training"
       text="适应性训练" />
@@ -97,6 +103,9 @@
     <string
       id="ret_cancel"
       text="取消" />
+    <string
+      id="ret_cancel_change"
+      text="取消更改" />
     <string
       id="ret_cant_remove_root_troop"
       text="根部队无法被移除。" />
@@ -842,6 +851,9 @@
       id="ret_unequip_all_text"
       text="卸下 {TROOP_NAME} 穿戴的所有物品？{newline}{newline}它们将被存入库存以供后用。" />
     <string
+      id="ret_unequip_warning_text"
+      text="你即将卸下 {ITEM}，重新装备一个新物品需要时间。是否继续？" />
+    <string
       id="ret_unlock_btn"
       text="解锁" />
     <string
@@ -850,6 +862,15 @@
     <string
       id="ret_unlock_progress_text"
       text="解锁中 ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="撤销全部" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="撤销全部" />
+    <string
+      id="ret_unstage_all_text"
+      text="撤销 {TROOP_NAME} 的所有已准备装备更改？" />
     <string
       id="ret_upgrade_equip_begin"
       text="开始升级装备" />

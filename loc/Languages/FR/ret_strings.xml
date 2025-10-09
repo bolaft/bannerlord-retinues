@@ -11,8 +11,14 @@
       id="ret_action_convert"
       text="convertir" />
     <string
+      id="ret_action_equip"
+      text="équiper" />
+    <string
       id="ret_action_modify"
       text="modifier" />
+    <string
+      id="ret_actual_item"
+      text="Équipé" />
     <string
       id="ret_adaptive_training"
       text="Souplesse Martiale" />
@@ -97,6 +103,9 @@
     <string
       id="ret_cancel"
       text="Annuler" />
+    <string
+      id="ret_cancel_change"
+      text="Annuler la modification" />
     <string
       id="ret_cant_remove_root_troop"
       text="Les troupes de base ne peuvent pas être supprimées." />
@@ -842,6 +851,9 @@
       id="ret_unequip_all_text"
       text="Retirer tout l’équipement porté par {TROOP_NAME} ?{newline}{newline}Il sera stocké pour une utilisation ultérieure." />
     <string
+      id="ret_unequip_warning_text"
+      text="Tu es sur le point de retirer {ITEM}, il faudra du temps pour en équiper un nouveau. Continuer quand même ?" />
+    <string
       id="ret_unlock_btn"
       text="Débloquer" />
     <string
@@ -850,6 +862,15 @@
     <string
       id="ret_unlock_progress_text"
       text="Déblocage ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="Tout annuler" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="Tout annuler" />
+    <string
+      id="ret_unstage_all_text"
+      text="Annuler toutes les modifications d’équipement préparées pour {TROOP_NAME} ?" />
     <string
       id="ret_upgrade_equip_begin"
       text="Commencer à améliorer l’équipement" />

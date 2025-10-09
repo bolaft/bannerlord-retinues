@@ -11,8 +11,14 @@
       id="ret_action_convert"
       text="convertire" />
     <string
+      id="ret_action_equip"
+      text="equipaggiare" />
+    <string
       id="ret_action_modify"
       text="modificare" />
+    <string
+      id="ret_actual_item"
+      text="Equipaggiato" />
     <string
       id="ret_adaptive_training"
       text="Addestramento Adattivo" />
@@ -97,6 +103,9 @@
     <string
       id="ret_cancel"
       text="Annulla" />
+    <string
+      id="ret_cancel_change"
+      text="Annulla modifica" />
     <string
       id="ret_cant_remove_root_troop"
       text="Le truppe radice non possono essere rimosse." />
@@ -842,6 +851,9 @@
       id="ret_unequip_all_text"
       text="Rimuovere tutti gli oggetti indossati da {TROOP_NAME}?{newline}{newline}Saranno immagazzinati." />
     <string
+      id="ret_unequip_warning_text"
+      text="Stai per rimuovere {ITEM}, ci vorrà del tempo per equipaggiarne uno nuovo. Continuare comunque?" />
+    <string
       id="ret_unlock_btn"
       text="Sblocca" />
     <string
@@ -850,6 +862,15 @@
     <string
       id="ret_unlock_progress_text"
       text="Sbloccando ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="Annulla Tutto" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="Annulla Tutto" />
+    <string
+      id="ret_unstage_all_text"
+      text="Annulla tutte le modifiche di equipaggiamento preparate per {TROOP_NAME}?" />
     <string
       id="ret_upgrade_equip_begin"
       text="Inizia a potenziare l’equipaggiamento" />

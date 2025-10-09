@@ -11,8 +11,11 @@
       id="ret_action_convert"
       text="convert" />
     <string
-      id="ret_action_modify"
+      id="ret_action_equip"
       text="equip" />
+    <string
+      id="ret_action_modify"
+      text="modify" />
     <string
       id="ret_adaptive_training"
       text="Adaptive Training" />
@@ -195,7 +198,7 @@
       text="Equipment Updated" />
     <string
       id="ret_equip_complete_text"
-      text="{TROOP} has equipped ({ITEM})." />
+      text="{TROOP} has equipped {ITEM}." />
     <string
       id="ret_equipment_button_text"
       text="Equipment" />
@@ -839,6 +842,9 @@
       id="ret_unequip_all_text"
       text="Unequip all items worn by {TROOP_NAME}?{newline}{newline}They will be stocked for later use." />
     <string
+      id="ret_unequip_warning_text"
+      text="You are about to unequip {ITEM}, it will take time to re-equip a new one. Continue anyway?" />
+    <string
       id="ret_unlock_btn"
       text="Unlock" />
     <string
@@ -847,6 +853,15 @@
     <string
       id="ret_unlock_progress_text"
       text="Unlocking ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="Unstage All" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="Unstage All" />
+    <string
+      id="ret_unstage_all_text"
+      text="Revert all staged equipment changes for {TROOP_NAME}?" />
     <string
       id="ret_upgrade_equip_begin"
       text="Begin upgrading equipment" />

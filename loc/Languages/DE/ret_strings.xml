@@ -11,8 +11,14 @@
       id="ret_action_convert"
       text="konvertieren" />
     <string
+      id="ret_action_equip"
+      text="ausrüsten" />
+    <string
       id="ret_action_modify"
       text="modifizieren" />
+    <string
+      id="ret_actual_item"
+      text="Ausgerüstet" />
     <string
       id="ret_adaptive_training"
       text="Adaptives Training" />
@@ -97,6 +103,9 @@
     <string
       id="ret_cancel"
       text="Abbrechen" />
+    <string
+      id="ret_cancel_change"
+      text="Änderung abbrechen" />
     <string
       id="ret_cant_remove_root_troop"
       text="Stammtruppen können nicht entfernt werden." />
@@ -842,6 +851,9 @@
       id="ret_unequip_all_text"
       text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?{newline}{newline}Sie werden eingelagert." />
     <string
+      id="ret_unequip_warning_text"
+      text="Du bist dabei, {ITEM} abzulegen. Es wird Zeit brauchen, ein neues auszurüsten. Trotzdem fortfahren?" />
+    <string
       id="ret_unlock_btn"
       text="Freischalten" />
     <string
@@ -850,6 +862,15 @@
     <string
       id="ret_unlock_progress_text"
       text="Wird freigeschaltet ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="Alles zurücksetzen" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="Alles zurücksetzen" />
+    <string
+      id="ret_unstage_all_text"
+      text="Alle vorbereiteten Ausrüstungsänderungen für {TROOP_NAME} rückgängig machen?" />
     <string
       id="ret_upgrade_equip_begin"
       text="Beginne mit der Ausrüstungsverbesserung" />

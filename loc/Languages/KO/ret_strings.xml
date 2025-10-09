@@ -11,8 +11,14 @@
       id="ret_action_convert"
       text="변환하다" />
     <string
+      id="ret_action_equip"
+      text="장비하다" />
+    <string
       id="ret_action_modify"
       text="수정하다" />
+    <string
+      id="ret_actual_item"
+      text="장착됨" />
     <string
       id="ret_adaptive_training"
       text="적응 훈련" />
@@ -97,6 +103,9 @@
     <string
       id="ret_cancel"
       text="취소" />
+    <string
+      id="ret_cancel_change"
+      text="변경 취소" />
     <string
       id="ret_cant_remove_root_troop"
       text="뿌리 병력은 제거할 수 없습니다." />
@@ -842,6 +851,9 @@
       id="ret_unequip_all_text"
       text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?{newline}{newline}아이템은 보관됩니다." />
     <string
+      id="ret_unequip_warning_text"
+      text="{ITEM} 을(를) 해제하려고 합니다. 새 아이템을 장착하는 데 시간이 걸립니다. 그래도 계속하시겠습니까?" />
+    <string
       id="ret_unlock_btn"
       text="해제" />
     <string
@@ -850,6 +862,15 @@
     <string
       id="ret_unlock_progress_text"
       text="해제 중 ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="모두 취소" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="모두 취소" />
+    <string
+      id="ret_unstage_all_text"
+      text="{TROOP_NAME} 의 모든 준비된 장비 변경 사항을 되돌리시겠습니까?" />
     <string
       id="ret_upgrade_equip_begin"
       text="장비 업그레이드 시작" />

@@ -11,8 +11,14 @@
       id="ret_action_convert"
       text="変換する" />
     <string
+      id="ret_action_equip"
+      text="装備する" />
+    <string
       id="ret_action_modify"
       text="修正する" />
+    <string
+      id="ret_actual_item"
+      text="装備済み" />
     <string
       id="ret_adaptive_training"
       text="適応訓練" />
@@ -97,6 +103,9 @@
     <string
       id="ret_cancel"
       text="キャンセル" />
+    <string
+      id="ret_cancel_change"
+      text="変更をキャンセル" />
     <string
       id="ret_cant_remove_root_troop"
       text="根幹兵は削除できない。" />
@@ -842,6 +851,9 @@
       id="ret_unequip_all_text"
       text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？{newline}{newline}装備は保管されます。" />
     <string
+      id="ret_unequip_warning_text"
+      text="{ITEM} を外そうとしています。新しいものを装備するには時間がかかります。それでも続行しますか？" />
+    <string
       id="ret_unlock_btn"
       text="解除" />
     <string
@@ -850,6 +862,15 @@
     <string
       id="ret_unlock_progress_text"
       text="アンロック中 ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_unstage_all"
+      text="すべて元に戻す" />
+    <string
+      id="ret_unstage_all_button_text"
+      text="すべて元に戻す" />
+    <string
+      id="ret_unstage_all_text"
+      text="{TROOP_NAME} のすべての準備された装備変更を元に戻しますか？" />
     <string
       id="ret_upgrade_equip_begin"
       text="装備のアップグレードを開始する" />
