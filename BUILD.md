@@ -1,12 +1,16 @@
 # Build instructions
 
+This repo builds a single **Bannerlord** module: **Retinues**. The build pipeline stages everything to `bin/Modules/Retinues/**` and, when asked, deploys to your game `Modules/Retinues/**` directory - cleaning out stale files while preserving logs.
+
+---
+
 ## Prerequisites
 
-- **.NET SDK 8.0+** — `dotnet --version` should show 8.x or newer.
-- Read access to your Bannerlord installation directory, e.g.  
-  `C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord`.
+- **.NET SDK 8.0+** - `dotnet --version` should show 8.x or newer.
+- Read access to your Bannerlord installation directory (e.g.  
+  `C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord`).
 
-> Game assemblies target **.NET Framework 4.7.2**. You don't need to install it separately; the SDK compiles against your local DLL cache.
+> Game assemblies target **.NET Framework 4.7.2**. You don't need to install it; compilation uses the game DLLs from your local install or cache.
 
 ---
 
@@ -14,15 +18,13 @@
 
 1) **Clone** the repository.
 
-2) **Create a local props override** (git‑ignored) to point at your Bannerlord install:
+2) **Create a local props override** (git‑ignored) to point at your Bannerlord install (optional if you pass `--game-dir` each time):
 
 ```xml
 <!-- Retinues.Local.props -->
 <Project>
   <PropertyGroup>
     <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
-    <!-- Optional: the default build config when not using --release -->
-    <DefaultConfiguration>dev</DefaultConfiguration>
   </PropertyGroup>
 </Project>
 ```
@@ -30,127 +32,80 @@
 - Keep this file at the repo root.
 - Do **not** commit it; it's already in `.gitignore`.
 
-3) **Copy TaleWorld DLLs** into `dll/12/` and `dll/13/`.
+3) Copy the game's DLLs to the local cache:
+```
+dll/12/**   # BL 1.2 DLL set
+dll/13/**   # BL 1.3 DLL set
+```
+The build picks the correct set based on `--version 12|13` (defaults to 13).
 
-4) **Download and extract** Harmony, MCM and UIExtenderEx into the game's Modules folder.
-
+4) Download Harmony, UIExtenderEx and MCM and extract them in the game's Modules folder.
 ---
 
 ## Project layout
 
 ```
-./build.sh                     # Bash build wrapper (Linux/macOS/Windows Git Bash)
-./Directory.Build.props        # Centralized MSBuild configuration
-./Directory.Build.targets      # Centralized staging + deploy targets
-./Retinues.Local.props         # (optional) per‑dev overrides (git‑ignored)
+build.sh                      # Build wrapper (Git Bash/WSL/macOS/Linux)
+Directory.Build.props         # Centralized MSBuild configuration
+Directory.Build.targets       # Staging + deploy targets
+Retinues.Local.props          # (optional) local overrides (git‑ignored)
 
-./dll/**                       # TaleWorld DLLs
-./cfg/core.config.ini          # Copied as config.ini to Retinues.Core module root
-./xml/**                       # Copied to Retinues.Core/ModuleData/**
-./loc/Languages/**             # Copied to Retinues.Core/ModuleData/Languages/**
-./tpl/{templates,partials}/    # Inputs for optional PrefabBuilder (GUI)
+cfg/core.config.ini           # -> Retinues/config.ini (on deploy)
+xml/**                        # -> Retinues/ModuleData/**
+loc/Languages/**              # -> Retinues/ModuleData/Languages/**
+tpl/{templates,partials}/     # Inputs for PrefabBuilder (GUI)
 
-./src/Retinues/Core/           # Core module (SubModule.xml here)
-./src/Retinues/MCM/            # MCM companion module (optional)
-./src/PrefabBuilder/           # Optional GUI generator (Scriban)
+src/Retinues/Retinues.csproj  # The game module project
+src/Retinues/SubModule*.xml   # SubModule files (BL‑specific)
+src/Retinues/UIExtenderDebug.xml  # Copied only in non‑Release builds
+src/PrefabBuilder/PrefabBuilder.csproj # GUI generator tool (not deployed)
 ```
 
-**Build artifacts**
-- Raw build outputs: `bin/build/<Project>/<Config>/...`
-- Staged modules: `bin/Modules/<ModuleName>/**`
-- Deployed modules (when enabled): `<BannerlordGameDir>/Modules/<ModuleName>/**`
+**Artifacts**
+- Raw project outputs: `bin/build/<Project>/<Config>/<TFM>/...`
+- **Staging** (what gets deployed): `bin/Modules/Retinues/**`
+- **Game deploy**: `<BannerlordGameDir>/Modules/Retinues/**`
 
-> The deploy step **cleans** the destination module directory by default to avoid stale dev files.
+> Deploy cleans the game module directory first while **keeping `*.log` files** by default.
 
 ---
 
-## Quick build
+## Quick builds
 
-### Bash (Linux/macOS or Windows Git Bash)
-
+### Dev (Debug), deploy to game
 ```bash
-# Core module, dev mode (default), deploy into the game's Modules/
-./build.sh -t core --deploy
+./build.sh --deploy
+```
+- Copies **UIExtenderDebug.xml** to the module root.
+- Generates GUI prefabs (if PrefabBuilder project exists) and deploys `GUI/**`.
+- Deploys `Retinues.dll`, `SubModule.xml`, `ModuleData/**`, `config.ini`.
+
+### Prefabs only (plus GUI deploy)
+```bash
+./build.sh --prefabs --deploy
+```
+- Runs PrefabBuilder to `bin/Modules/Retinues/GUI/**`.
+- Mirrors `GUI/**` to `<Game>/Modules/Retinues/GUI/**`.
+
+### Release build with version bump
+```bash
+# Set the last number in <Version value="vX.Y.Z.N" /> to 12 and build Release
+./build.sh --release 12 --deploy
+```
+- Updates `src/Retinues/SubModule.BL12.xml`, `src/Retinues/SubModule.BL13.xml`, and/or `src/Retinues/SubModule.xml` if present.
+- Builds **Release** (no `UIExtenderDebug.xml`).
+- Deploys to the game folder.
+
+### Target a specific Bannerlord version
+```bash
+# BL 1.3 (default)
+./build.sh --deploy --version 13
+
+# BL 1.2
+./build.sh --deploy --version 12
 ```
 
-**Outputs**
-- Staging: `bin/Modules/Retinues.Core/**`
-- Deployed: `<BannerlordGameDir>/Modules/Retinues.Core/**`
-
-What gets deployed to **Retinues.Core**:
-- `bin/Win64_Shipping_Client/*.dll` (built binaries)
-- `SubModule.xml` (from `src/Retinues/Core/`)
-- `ModuleData/**` (from `./xml/**`)
-- `ModuleData/Languages/**` (from `./loc/Languages/**`)
-- `config.ini` (from `./cfg/core.config.ini`, renamed on copy)
-- **Dev mode only:** `UIExtenderDebug.xml` (from `src/Retinues/Core/`)
-
-The build system wipes the target module folder before deploy (configurable) so release builds don't keep dev‑only files.
-
----
-
-## Release builds (with version bump)
-
-Use **`--release <N>`** to:
-1) switch to **release** configuration, and
-2) set the **last number** in `<Version value="vX.Y.Z.N" />` to `N` in the module’s SubModule XML.
-
-This updates any of these files if present (in `src/Retinues/Core/`):
-- `SubModule.BL12.xml`
-- `SubModule.BL13.xml`
-- `SubModule.xml`
-
-Examples:
+You can also force the game path inline:
 ```bash
-# Release for BL 1.3, set vX.Y.Z.7
-./build.sh -t core --release 7 --deploy
-
-# Release for BL 1.2, set vX.Y.Z.8
-./build.sh -t core --release 8 --version 12 --deploy
-```
-
-> The version edit happens **before** the build so the staged & deployed SubModule use the new value.
-
----
-
-## Targeting Bannerlord versions
-
-If you support multiple BL versions, select with `-v`:
-
-```bash
-# Build against BL 1.3 (default)
-./build.sh -t core --deploy -v 13
-
-# Build against BL 1.2
-./build.sh -t core --deploy -v 12
-```
-
----
-
-## Prefabs (optional GUI generation)
-
-Generate GUI **prefabs** before building Core:
-```bash
-./build.sh -t prefabs --prefabs
-./build.sh -t core --deploy
-```
-Prefabs read from `./tpl/templates` + `./tpl/partials` and write to `bin/Modules/Retinues.Core/GUI/**`, which the Core deploy then mirrors to the game folder.
-
----
-
-## Common commands
-
-Build **everything** (Core + MCM), dev mode, deploy:
-```bash
-./build.sh -t all --deploy
-```
-
-Build **release** (no UIExtenderDebug.xml), bump version patch to `8`, deploy:
-```bash
-./build.sh -t core --release 8 --deploy
-```
-
-Build without deploying (just stage to `bin/Modules`):
-```bash
-./build.sh -t core --no-deploy
+./build.sh --deploy --game-dir "D:\Steam\steamapps\common\Mount & Blade II Bannerlord"
 ```

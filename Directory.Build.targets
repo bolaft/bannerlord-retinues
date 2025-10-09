@@ -1,228 +1,291 @@
 <Project>
-  <!-- Pre-build: optionally run strings.py once for the Core project -->
-  <Target Name="GenerateStrings" BeforeTargets="BeforeBuild"
-          Condition="'$(RunStrings)' == 'true' AND '$(MSBuildProjectName)' == 'Retinues.Core' AND '$(IsGameModule)' == 'true'">
-    <Message Text="Running strings.py…" Importance="High" />
-    <Exec Command="python $(RepoRoot)loc\strings.py" IgnoreExitCode="false" />
-  </Target>
 
-  <!-- Stage DLL + versioned SubModule.xml -->
+  <!-- Defaults / safety -->
+
+  <PropertyGroup>
+    <!-- Defaults if not set in Directory.Build.props -->
+    <RepoRoot Condition="'$(RepoRoot)' == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
+    <StagingRoot Condition="'$(StagingRoot)' == ''">$(RepoRoot)bin\Modules\</StagingRoot>
+    <ModuleName Condition="'$(ModuleName)' == ''">$(MSBuildProjectName)</ModuleName>
+    <IsGameModule Condition="'$(IsGameModule)' == ''">false</IsGameModule>
+
+    <!-- Keep *.log in the live game module when cleaning; extend via Retinues.Local.props if needed -->
+    <CleanGameModuleExclude Condition="'$(CleanGameModuleExclude)' == ''">**\*.log</CleanGameModuleExclude>
+    <CleanGameModuleOnDeploy Condition="'$(CleanGameModuleOnDeploy)' == ''">true</CleanGameModuleOnDeploy>
+  </PropertyGroup>
+
+  <!-- Ensure DeployToGame triggers staging first -->
+  <PropertyGroup>
+    <DeployToGameDependsOn>
+      $(DeployToGameDependsOn);
+      StageToModuleBin;
+      StageRetinuesModuleData;
+      StageRetinuesLanguages;
+      StageRetinuesConfigIni;
+      StageUiExtenderDebug
+    </DeployToGameDependsOn>
+  </PropertyGroup>
+
+  <!-- STAGE (to bin/Modules/Retinues) -->
+
+  <!-- Stage this project's DLL (+pdb/xml) and resolve SubModule.xml -->
   <Target Name="StageToModuleBin"
           AfterTargets="Build"
-          Condition="'$(IsGameModule)' == 'true' AND '$(ModuleName)' != ''">
+          Condition="'$(IsGameModule)' == 'true' AND '$(ModuleName)' == 'Retinues'">
     <PropertyGroup>
       <ModuleOutDir>$(StagingRoot)$(ModuleName)</ModuleOutDir>
-      <BinOutDir>$(ModuleOutDir)\bin\Win64_Shipping_Client</BinOutDir>
+      <StageBinDir>$(ModuleOutDir)\bin\Win64_Shipping_Client</StageBinDir>
 
-      <!-- Resolve SubModule by BL version -->
+      <!-- Prefer BL-specific SubModule, fallback to generic -->
       <SubModuleCandidate>$(ProjectDir)SubModule.BL$(BL).xml</SubModuleCandidate>
       <SubModuleFallback>$(ProjectDir)SubModule.xml</SubModuleFallback>
       <ResolvedSubModule Condition="Exists('$(SubModuleCandidate)')">$(SubModuleCandidate)</ResolvedSubModule>
       <ResolvedSubModule Condition="'$(ResolvedSubModule)' == '' AND Exists('$(SubModuleFallback)')">$(SubModuleFallback)</ResolvedSubModule>
     </PropertyGroup>
 
-    <MakeDir Directories="$(BinOutDir)" />
-    <Copy SourceFiles="$(TargetPath)"
-          DestinationFolder="$(BinOutDir)"
-          SkipUnchangedFiles="true" />
+    <MakeDir Directories="$(StageBinDir)" />
 
-    <!-- Copy resolved SubModule as SubModule.xml -->
+    <!-- Copy ONLY this project's outputs to staging bin -->
+  <PropertyGroup>
+    <TargetPdb>$([System.IO.Path]::ChangeExtension($(TargetPath), '.pdb'))</TargetPdb>
+    <TargetXml>$([System.IO.Path]::ChangeExtension($(TargetPath), '.xml'))</TargetXml>
+  </PropertyGroup>
+
+  <Copy SourceFiles="$(TargetPdb)"
+        DestinationFolder="$(StageBinDir)"
+        SkipUnchangedFiles="true"
+        Condition="Exists('$(TargetPdb)')" />
+
+  <Copy SourceFiles="$(TargetXml)"
+        DestinationFolder="$(StageBinDir)"
+        SkipUnchangedFiles="true"
+        Condition="Exists('$(TargetXml)')" />
+
+    <!-- SubModule.xml -->
     <Copy SourceFiles="$(ResolvedSubModule)"
           DestinationFiles="$(ModuleOutDir)\SubModule.xml"
           SkipUnchangedFiles="true"
           Condition="'$(ResolvedSubModule)' != ''" />
   </Target>
 
-
-  <!-- Optional: deploy to the live game Modules folder (toggle with DeployToGame=false) -->
-  <Target Name="DeployToGame" AfterTargets="StageToModuleBin" Condition="'$(DeployToGame)' == 'true' AND '$(ModuleName)' != '' AND '$(IsGameModule)' == 'true'">
-    <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
-    </PropertyGroup>
-    <MakeDir Directories="$(GameModuleDir)\bin\Win64_Shipping_Client" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameModuleDir)\bin\Win64_Shipping_Client" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="$(ModuleOutDir)\SubModule.xml" DestinationFiles="$(GameModuleDir)\SubModule.xml"
-          SkipUnchangedFiles="true" Condition="Exists('$(ModuleOutDir)\SubModule.xml')" />
-  </Target>
-
-  <!-- Special case: copy UIExtenderDebug.xml to game folder for non-release builds of Retinues.Core -->
-  <Target Name="CopyUiExtenderDebugToDeployedCore"
-      AfterTargets="DeployToGame"
-      Condition="
-          '$(DeployToGame)' == 'true' AND
-          '$(Configuration)' != 'release' AND
-          '$(ModuleName)' == 'Retinues.Core' AND
-          Exists('$(RepoRoot)src\Retinues\Core\UIExtenderDebug.xml') AND
-          '$(IsGameModule)' == 'true'">
-    <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
-    </PropertyGroup>
-
-    <Copy
-      SourceFiles="$(RepoRoot)src\Retinues\Core\UIExtenderDebug.xml"
-      DestinationFiles="$(GameModuleDir)\UIExtenderDebug.xml"
-      SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- Stage ./xml/**/* into bin/Modules/Retinues.Core/ModuleData/ -->
-  <Target Name="StageCoreModuleData"
+  <!-- Remove any foreign binaries that might have slipped into staging -->
+  <Target Name="PruneRetinuesStagedBin"
           AfterTargets="StageToModuleBin"
-          Condition="
-            '$(ModuleName)' == 'Retinues.Core' AND
-            Exists('$(RepoRoot)xml') AND
-            '$(IsGameModule)' == 'true'">
+          Condition="'$(IsGameModule)' == 'true' AND '$(ModuleName)' == 'Retinues'">
+    <PropertyGroup>
+      <StageBinDir>$(StagingRoot)$(ModuleName)\bin\Win64_Shipping_Client</StageBinDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <_Keep Include="$(StageBinDir)\$(AssemblyName).dll" />
+      <_Keep Include="$(StageBinDir)\$(AssemblyName).pdb" Condition="Exists('$(StageBinDir)\$(AssemblyName).pdb')" />
+      <_Keep Include="$(StageBinDir)\$(AssemblyName).xml" Condition="Exists('$(StageBinDir)\$(AssemblyName).xml')" />
+      <_All  Include="$(StageBinDir)\*.*" />
+      <_Remove Include="@(_All)" Exclude="@(_Keep)" />
+    </ItemGroup>
+    <Delete Files="@(_Remove)" />
+  </Target>
+
+  <!-- Stage ./xml/**/* -> ModuleData/** -->
+  <Target Name="StageRetinuesModuleData"
+          AfterTargets="StageToModuleBin"
+          Condition="'$(IsGameModule)' == 'true' AND '$(ModuleName)' == 'Retinues' AND Exists('$(RepoRoot)xml')">
     <PropertyGroup>
       <ModuleOutDir>$(StagingRoot)$(ModuleName)</ModuleOutDir>
     </PropertyGroup>
-
     <ItemGroup>
       <XmlFiles Include="$(RepoRoot)xml\**\*.*" />
     </ItemGroup>
-
     <Copy SourceFiles="@(XmlFiles)"
           DestinationFiles="@(XmlFiles->'$(ModuleOutDir)\ModuleData\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true" />
   </Target>
 
-  <!-- Deploy staged ModuleData to the live game module -->
-  <Target Name="DeployCoreModuleData"
-          AfterTargets="DeployToGame"
-          Condition="
-            '$(DeployToGame)' == 'true' AND
-            '$(ModuleName)' == 'Retinues.Core' AND
-            Exists('$(StagingRoot)$(ModuleName)\ModuleData') AND
-            '$(IsGameModule)' == 'true'">
-    <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <StagedData Include="$(StagingRoot)$(ModuleName)\ModuleData\**\*.*" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(StagedData)"
-          DestinationFiles="@(StagedData->'$(GameModuleDir)\ModuleData\%(RecursiveDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- Stage ./loc/Languages/**/* -> bin/Modules/Retinues.Core/ModuleData/Languages/ -->
-  <Target Name="StageCoreLanguages"
+  <!-- Stage ./loc/Languages/**/* -> ModuleData/Languages/** -->
+  <Target Name="StageRetinuesLanguages"
           AfterTargets="StageToModuleBin"
-          Condition="'$(ModuleName)' == 'Retinues.Core' AND Exists('$(RepoRoot)loc\Languages') AND '$(IsGameModule)' == 'true'">
+          Condition="'$(IsGameModule)' == 'true' AND '$(ModuleName)' == 'Retinues' AND Exists('$(RepoRoot)loc\Languages')">
     <PropertyGroup>
       <ModuleOutDir>$(StagingRoot)$(ModuleName)</ModuleOutDir>
     </PropertyGroup>
-
     <ItemGroup>
       <LocFiles Include="$(RepoRoot)loc\Languages\**\*.*" />
     </ItemGroup>
-
     <MakeDir Directories="$(ModuleOutDir)\ModuleData\Languages" />
     <Copy SourceFiles="@(LocFiles)"
           DestinationFiles="@(LocFiles->'$(ModuleOutDir)\ModuleData\Languages\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true" />
   </Target>
 
-  <!-- Deploy staged Languages/ to the live game module -->
-  <Target Name="DeployCoreLanguages"
-          AfterTargets="DeployToGame"
-          Condition="'$(DeployToGame)' == 'true' AND '$(ModuleName)' == 'Retinues.Core' AND Exists('$(StagingRoot)$(ModuleName)\ModuleData\Languages') AND '$(IsGameModule)' == 'true'">
-    <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <StagedLang Include="$(StagingRoot)$(ModuleName)\ModuleData\Languages\**\*.*" />
-    </ItemGroup>
-
-    <MakeDir Directories="$(GameModuleDir)\ModuleData\Languages" />
-    <Copy SourceFiles="@(StagedLang)"
-          DestinationFiles="@(StagedLang->'$(GameModuleDir)\ModuleData\Languages\%(RecursiveDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- Stage ./cfg/core.config.ini -> bin/Modules/Retinues.Core/config.ini -->
-  <Target Name="StageCoreConfigIni"
+  <!-- Stage cfg/core.config.ini -> config.ini -->
+  <Target Name="StageRetinuesConfigIni"
           AfterTargets="StageToModuleBin"
-          Condition="'$(ModuleName)' == 'Retinues.Core' AND Exists('$(RepoRoot)cfg\core.config.ini') AND '$(IsGameModule)' == 'true'">
+          Condition="'$(IsGameModule)' == 'true' AND '$(ModuleName)' == 'Retinues' AND Exists('$(RepoRoot)cfg\core.config.ini')">
     <PropertyGroup>
       <ModuleOutDir>$(StagingRoot)$(ModuleName)</ModuleOutDir>
     </PropertyGroup>
-    <Copy
-      SourceFiles="$(RepoRoot)cfg\core.config.ini"
-      DestinationFiles="$(ModuleOutDir)\config.ini"
-      SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- Deploy staged config.ini -> <Game>\Modules\Retinues.Core\config.ini -->
-  <Target Name="DeployCoreConfigIni"
-          AfterTargets="DeployToGame"
-          Condition="'$(DeployToGame)' == 'true' AND '$(ModuleName)' == 'Retinues.Core' AND Exists('$(StagingRoot)$(ModuleName)\config.ini') AND '$(IsGameModule)' == 'true'">
-    <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
-    </PropertyGroup>
-    <Copy
-      SourceFiles="$(StagingRoot)$(ModuleName)\config.ini"
-      DestinationFiles="$(GameModuleDir)\config.ini"
-      SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- Deploy staged GUI/ to the live Retinues.Core module -->
-  <Target Name="DeployCoreGui"
-          AfterTargets="DeployToGame"
-          Condition="
-            '$(DeployToGame)' == 'true' AND
-            '$(IsGameModule)' == 'true' AND
-            '$(ModuleName)' == 'Retinues.Core' AND
-            Exists('$(StagingRoot)$(ModuleName)\GUI')">
-    <PropertyGroup>
-      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <GuiFiles Include="$(StagingRoot)$(ModuleName)\GUI\**\*.*" />
-    </ItemGroup>
-
-    <MakeDir Directories="$(GameModuleDir)\GUI" />
-    <Copy SourceFiles="@(GuiFiles)"
-          DestinationFiles="@(GuiFiles->'$(GameModuleDir)\GUI\%(RecursiveDir)%(Filename)%(Extension)')"
+    <Copy SourceFiles="$(RepoRoot)cfg\core.config.ini"
+          DestinationFiles="$(ModuleOutDir)\config.ini"
           SkipUnchangedFiles="true" />
   </Target>
 
-  <!-- Optional toggle: set -p:CleanGameModuleOnDeploy=false to skip -->
-  <PropertyGroup>
-    <CleanGameModuleOnDeploy Condition="'$(CleanGameModuleOnDeploy)' == ''">true</CleanGameModuleOnDeploy>
-  </PropertyGroup>
+  <!-- Stage UIExtenderDebug.xml for non-Release builds -->
+  <Target Name="StageUiExtenderDebug"
+          AfterTargets="StageToModuleBin"
+          Condition="'$(IsGameModule)' == 'true'
+                     AND '$(ModuleName)' == 'Retinues'
+                     AND '$(Configuration)' != 'Release'
+                     AND Exists('$(RepoRoot)src\Retinues\UIExtenderDebug.xml')">
+    <PropertyGroup>
+      <ModuleOutDir>$(StagingRoot)$(ModuleName)</ModuleOutDir>
+    </PropertyGroup>
+    <Copy SourceFiles="$(RepoRoot)src\Retinues\UIExtenderDebug.xml"
+          DestinationFiles="$(ModuleOutDir)\UIExtenderDebug.xml"
+          SkipUnchangedFiles="true" />
+  </Target>
 
-  <!-- Clean the live game's module dir before copying -->
+  <!-- DEPLOY (to <Game>\Modules\Retinues) -->
+  <Target Name="DeployToGame"
+          DependsOnTargets="
+            StageToModuleBin;
+            StageRetinuesModuleData;
+            StageRetinuesLanguages;
+            StageRetinuesConfigIni;
+            StageUiExtenderDebug;
+            CleanGameModuleDir;
+            DeployRetinuesGui;
+            DeployRetinuesModuleData;
+            DeployRetinuesConfigIni;
+            DeployUiExtenderDebug;
+            DeployRetinuesBinAndSubModule"
+          Condition="'$(DeployToGame)' == 'true'
+                    AND '$(IsGameModule)' == 'true'
+                    AND '$(ModuleName)' == 'Retinues'">
+    <Message Text="== DeployToGame (Retinues) ==" Importance="High" />
+  </Target>
+
+  <!-- Selective clean: remove everything except CleanGameModuleExclude (defaults to *.log) -->
   <Target Name="CleanGameModuleDir"
           BeforeTargets="DeployToGame"
-          Condition="
-            '$(DeployToGame)' == 'true' AND
-            '$(IsGameModule)' == 'true' AND
-            '$(ModuleName)' != '' AND
-            '$(CleanGameModuleOnDeploy)' == 'true'">
-
+          Condition="'$(DeployToGame)' == 'true'
+                     AND '$(IsGameModule)' == 'true'
+                     AND '$(ModuleName)' == 'Retinues'
+                     AND '$(CleanGameModuleOnDeploy)' == 'true'">
     <PropertyGroup>
       <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
     </PropertyGroup>
-
-    <!-- Safety guard: only remove if path clearly points inside \Modules\ -->
-    <Message Text="Cleaning game module directory: $(GameModuleDir)" Importance="High" />
-    <Message Text="(Set CleanGameModuleOnDeploy=false to disable this step)" Importance="Low" />
-
-    <!-- Remove all files and folders except *.log files -->
     <ItemGroup>
-      <FilesToDelete Include="$(GameModuleDir)\**\*.*" Exclude="$(GameModuleDir)\**\*.log" />
-      <DirsToDelete Include="$(GameModuleDir)\*" Exclude="$(GameModuleDir)\*.log" />
+      <_FilesAll  Include="$(GameModuleDir)\**\*.*" />
+      <_FilesKeep Include="$(GameModuleDir)\$(CleanGameModuleExclude)" />
+      <_FilesDelete Include="@(_FilesAll)" Exclude="@(_FilesKeep)" />
     </ItemGroup>
-    <Delete Files="@(FilesToDelete)" />
-    <RemoveDir Directories="@(DirsToDelete)" />
+    <Delete Files="@(_FilesDelete)" />
     <MakeDir Directories="$(GameModuleDir)" />
+    <MakeDir Directories="$(GameModuleDir)\bin\Win64_Shipping_Client" />
   </Target>
 
-  <!-- Debug: echo BL and DefineConstants before compile -->
-  <Target Name="EchoDefines" BeforeTargets="PrepareForBuild">
-    <Message Text="[Defines] $(MSBuildProjectName): BL=$(BL) | DefineConstants=$(DefineConstants)" Importance="High" />
+  <!-- Deploy GUI/ from staging to live module -->
+  <Target Name="DeployRetinuesGui"
+          AfterTargets="DeployToGame"
+          Condition="'$(DeployToGame)' == 'true'
+                     AND '$(IsGameModule)' == 'true'
+                     AND '$(ModuleName)' == 'Retinues'
+                     AND Exists('$(StagingRoot)$(ModuleName)\GUI')">
+    <PropertyGroup>
+      <StageGuiDir>$(StagingRoot)$(ModuleName)\GUI</StageGuiDir>
+      <GameGuiDir>$(BannerlordGameDir)\Modules\$(ModuleName)\GUI</GameGuiDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <GuiFiles Include="$(StageGuiDir)\**\*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(GameGuiDir)" />
+    <Copy SourceFiles="@(GuiFiles)"
+          DestinationFiles="@(GuiFiles->'$(GameGuiDir)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
   </Target>
+
+  <!-- Deploy ModuleData/** -->
+  <Target Name="DeployRetinuesModuleData"
+          AfterTargets="DeployToGame"
+          Condition="'$(DeployToGame)' == 'true'
+                     AND '$(IsGameModule)' == 'true'
+                     AND '$(ModuleName)' == 'Retinues'
+                     AND Exists('$(StagingRoot)$(ModuleName)\ModuleData')">
+    <PropertyGroup>
+      <StageModuleDir>$(StagingRoot)$(ModuleName)</StageModuleDir>
+      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <StagedData Include="$(StageModuleDir)\ModuleData\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(StagedData)"
+          DestinationFiles="@(StagedData->'$(GameModuleDir)\ModuleData\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Deploy config.ini -->
+  <Target Name="DeployRetinuesConfigIni"
+          AfterTargets="DeployToGame"
+          Condition="'$(DeployToGame)' == 'true'
+                     AND '$(IsGameModule)' == 'true'
+                     AND '$(ModuleName)' == 'Retinues'
+                     AND Exists('$(StagingRoot)$(ModuleName)\config.ini')">
+    <PropertyGroup>
+      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
+    </PropertyGroup>
+    <Copy SourceFiles="$(StagingRoot)$(ModuleName)\config.ini"
+          DestinationFiles="$(GameModuleDir)\config.ini"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Deploy UIExtenderDebug.xml (non-Release) -->
+  <Target Name="DeployUiExtenderDebug"
+          AfterTargets="DeployToGame"
+          Condition="'$(DeployToGame)' == 'true'
+                     AND '$(IsGameModule)' == 'true'
+                     AND '$(ModuleName)' == 'Retinues'
+                     AND '$(Configuration)' != 'Release'
+                     AND Exists('$(StagingRoot)$(ModuleName)\UIExtenderDebug.xml')">
+    <PropertyGroup>
+      <GameModuleDir>$(BannerlordGameDir)\Modules\$(ModuleName)</GameModuleDir>
+    </PropertyGroup>
+    <Copy SourceFiles="$(StagingRoot)$(ModuleName)\UIExtenderDebug.xml"
+          DestinationFiles="$(GameModuleDir)\UIExtenderDebug.xml"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Deploy ONLY this module's assembly + SubModule.xml -->
+  <Target Name="DeployRetinuesBinAndSubModule"
+          AfterTargets="DeployToGame"
+          Condition="'$(DeployToGame)' == 'true' AND '$(IsGameModule)' == 'true' AND '$(ModuleName)' == 'Retinues'">
+    <PropertyGroup>
+      <StageModuleDir>$(StagingRoot)$(ModuleName)</StageModuleDir>
+      <StageBinDir>$(StageModuleDir)\bin\Win64_Shipping_Client</StageBinDir>
+      <GameModuleBin>$(BannerlordGameDir)\Modules\$(ModuleName)\bin\Win64_Shipping_Client</GameModuleBin>
+    </PropertyGroup>
+
+    <!-- SubModule.xml -->
+    <Copy SourceFiles="$(StageModuleDir)\SubModule.xml"
+          DestinationFiles="$(BannerlordGameDir)\Modules\$(ModuleName)\SubModule.xml"
+          SkipUnchangedFiles="true"
+          Condition="Exists('$(StageModuleDir)\SubModule.xml')" />
+
+    <!-- Only this project's assembly (+pdb/xml) -->
+    <ItemGroup>
+      <_StagePrimary Include="$(StageBinDir)\$(AssemblyName).dll" />
+      <_StagePdb     Include="$(StageBinDir)\$(AssemblyName).pdb" Condition="Exists('$(StageBinDir)\$(AssemblyName).pdb')" />
+      <_StageXml     Include="$(StageBinDir)\$(AssemblyName).xml" Condition="Exists('$(StageBinDir)\$(AssemblyName).xml')" />
+    </ItemGroup>
+
+    <MakeDir Directories="$(GameModuleBin)" />
+    <Copy SourceFiles="@(_StagePrimary)"
+          DestinationFiles="@(_StagePrimary->'$(GameModuleBin)\%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_StagePdb)"
+          DestinationFiles="@(_StagePdb->'$(GameModuleBin)\%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_StageXml)"
+          DestinationFiles="@(_StageXml->'$(GameModuleBin)\%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

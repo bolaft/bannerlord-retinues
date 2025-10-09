@@ -7,6 +7,6 @@
     <StagingRoot>$(MSBuildThisFileDirectory)bin\Modules\</StagingRoot>
 
     <!-- Default config when not specified by CLI -->
-    <DefaultConfiguration>dev</DefaultConfiguration>
+    <DefaultConfiguration>Debug</DefaultConfiguration>
   </PropertyGroup>
 </Project>
