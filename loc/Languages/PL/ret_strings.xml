@@ -867,7 +867,7 @@
       text="Cofnij Wszystko" />
     <string
       id="ret_unstage_all_button_text"
-      text="Cofnij Wszystko" />
+      text="Resetuj Zmiany" />
     <string
       id="ret_unstage_all_text"
       text="Cofnąć wszystkie przygotowane zmiany wyposażenia dla {TROOP_NAME}?" />

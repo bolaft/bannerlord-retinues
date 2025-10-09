@@ -858,7 +858,7 @@
       text="Unstage All" />
     <string
       id="ret_unstage_all_button_text"
-      text="Unstage All" />
+      text="Reset Changes" />
     <string
       id="ret_unstage_all_text"
       text="Revert all staged equipment changes for {TROOP_NAME}?" />

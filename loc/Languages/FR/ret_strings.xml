@@ -867,7 +867,7 @@
       text="Tout annuler" />
     <string
       id="ret_unstage_all_button_text"
-      text="Tout annuler" />
+      text="Annuler les modifications" />
     <string
       id="ret_unstage_all_text"
       text="Annuler toutes les modifications d’équipement préparées pour {TROOP_NAME} ?" />

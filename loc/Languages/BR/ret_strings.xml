@@ -867,7 +867,7 @@
       text="Desfazer Tudo" />
     <string
       id="ret_unstage_all_button_text"
-      text="Desfazer Tudo" />
+      text="Redefinir Alterações" />
     <string
       id="ret_unstage_all_text"
       text="Reverter todas as alterações de equipamento preparadas para {TROOP_NAME}?" />

@@ -867,7 +867,7 @@
       text="Annulla Tutto" />
     <string
       id="ret_unstage_all_button_text"
-      text="Annulla Tutto" />
+      text="Reimposta Modifiche" />
     <string
       id="ret_unstage_all_text"
       text="Annulla tutte le modifiche di equipaggiamento preparate per {TROOP_NAME}?" />

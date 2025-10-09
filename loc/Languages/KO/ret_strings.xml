@@ -867,7 +867,7 @@
       text="모두 취소" />
     <string
       id="ret_unstage_all_button_text"
-      text="모두 취소" />
+      text="변경 사항 재설정" />
     <string
       id="ret_unstage_all_text"
       text="{TROOP_NAME} 의 모든 준비된 장비 변경 사항을 되돌리시겠습니까?" />

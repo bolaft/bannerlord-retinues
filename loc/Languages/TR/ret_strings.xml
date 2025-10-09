@@ -867,7 +867,7 @@
       text="Tümünü Geri Al" />
     <string
       id="ret_unstage_all_button_text"
-      text="Tümünü Geri Al" />
+      text="Değişiklikleri Sıfırla" />
     <string
       id="ret_unstage_all_text"
       text="{TROOP_NAME} için hazırlanan tüm donanım değişikliklerini geri al?" />

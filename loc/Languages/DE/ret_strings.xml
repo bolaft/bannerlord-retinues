@@ -867,7 +867,7 @@
       text="Alles zurücksetzen" />
     <string
       id="ret_unstage_all_button_text"
-      text="Alles zurücksetzen" />
+      text="Änderungen zurücksetzen" />
     <string
       id="ret_unstage_all_text"
       text="Alle vorbereiteten Ausrüstungsänderungen für {TROOP_NAME} rückgängig machen?" />

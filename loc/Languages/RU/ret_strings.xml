@@ -867,7 +867,7 @@
       text="Отменить Всё" />
     <string
       id="ret_unstage_all_button_text"
-      text="Отменить Всё" />
+      text="Сбросить Изменения" />
     <string
       id="ret_unstage_all_text"
       text="Отменить все подготовленные изменения снаряжения для {TROOP_NAME}?" />

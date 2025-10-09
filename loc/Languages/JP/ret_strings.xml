@@ -867,7 +867,7 @@
       text="すべて元に戻す" />
     <string
       id="ret_unstage_all_button_text"
-      text="すべて元に戻す" />
+      text="変更をリセット" />
     <string
       id="ret_unstage_all_text"
       text="{TROOP_NAME} のすべての準備された装備変更を元に戻しますか？" />

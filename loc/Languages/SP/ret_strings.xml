@@ -867,7 +867,7 @@
       text="Revertir Todo" />
     <string
       id="ret_unstage_all_button_text"
-      text="Revertir Todo" />
+      text="Restablecer Cambios" />
     <string
       id="ret_unstage_all_text"
       text="¿Revertir todos los cambios de equipo preparados para {TROOP_NAME}?" />

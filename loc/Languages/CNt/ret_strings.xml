@@ -867,7 +867,7 @@
       text="撤銷全部" />
     <string
       id="ret_unstage_all_button_text"
-      text="撤銷全部" />
+      text="重置更改" />
     <string
       id="ret_unstage_all_text"
       text="撤銷 {TROOP_NAME} 的所有已準備裝備更改？" />
