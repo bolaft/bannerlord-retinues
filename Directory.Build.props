@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <!-- Root of the repo, absolute path -->
+    <!-- Repo root (absolute) -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
   
     <!-- Bannerlord version selector (12 or 13) -->
@@ -13,29 +13,31 @@
     <!-- Where references come from: ./dll/12 or ./dll/13 -->
     <ReferenceRoot>$(RepoRoot)dll\$(BL)</ReferenceRoot>
 
-    <!-- Build artifacts go under bin/build/... not src/*/bin -->
-    <BaseOutputPath>$(RepoRoot)bin\build\</BaseOutputPath>
+    <!-- out/obj/<ProjectName>/ -->
+    <BaseIntermediateOutputPath>$(RepoRoot)out\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+
+    <!-- out/bin/<ProjectName>/<Configuration>/ -->
+    <BaseOutputPath>$(RepoRoot)out\bin\</BaseOutputPath>
     <OutputPath>$(BaseOutputPath)$(MSBuildProjectName)\$(Configuration)\</OutputPath>
 
-    <!-- obj centralized too -->
-    <BaseIntermediateOutputPath>$(RepoRoot)obj\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <!-- Flatten folder structure -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 
-    <!-- Defaults (can be overridden by Local props or CLI -p:) -->
-    <BannerlordGameDir Condition="'$(BannerlordGameDir)' == ''">/path/to/Bannerlord</BannerlordGameDir>
-    <StagingRoot Condition="'$(StagingRoot)' == ''">$(RepoRoot)bin\Modules\</StagingRoot>
-    <DefaultConfiguration Condition="'$(DefaultConfiguration)' == ''">dev</DefaultConfiguration>
+    <!-- Defaults -->
+    <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
+    <DefaultConfiguration Condition="'$(DefaultConfiguration)' == ''">Debug</DefaultConfiguration>
 
-    <!-- Toggleable build features -->
-    <DeployToGame Condition="'$(DeployToGame)' == ''">true</DeployToGame>
-    <RunStrings Condition="'$(RunStrings)' == ''">true</RunStrings>
+    <!-- Default flags -->
+    <DeployToGame>false</DeployToGame>
+    <IsGameModule>false</IsGameModule>
   </PropertyGroup>
 
   <PropertyGroup>
     <GenerateCompilerCommandLine>true</GenerateCompilerCommandLine>
   </PropertyGroup>
 
-  <!-- Allow per-dev overrides without committing secrets -->
+  <!-- Local overrides -->
   <Import Project="$(MSBuildThisFileDirectory)Retinues.Local.props"
           Condition="Exists('$(MSBuildThisFileDirectory)Retinues.Local.props')" />
 </Project>

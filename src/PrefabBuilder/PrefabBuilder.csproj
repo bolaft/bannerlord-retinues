@@ -4,12 +4,7 @@
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup>
-    <IsGameModule>false</IsGameModule>
     <AssemblyName>PrefabBuilder</AssemblyName>
-    <!-- Keep tool outputs out of module staging entirely -->
-    <OutputPath>$(RepoRoot)bin\tools\PrefabBuilder\$(TargetFramework)\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Scriban" Version="6.2.1" />

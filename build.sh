@@ -3,12 +3,11 @@ set -euo pipefail
 
 # Defaults (overridden by Local.props and flags)
 BL="13"
-GAME_DIR=""
-TARGET="retinues"   # retinues|prefabs|all
 DEPLOY="true"
-RUN_PREFABS="auto"  # auto|yes|no
-RELEASE_PATCH=""    # when set, force Release and bump last version segment
-DEBUG="${DEBUG:-0}"
+RUN_MAIN="true"
+RUN_PREFABS="true"
+RUN_STRINGS="true"
+RELEASE_PATCH="" # when set, force "release" and bump last version segment
 
 usage() {
   cat <<'USAGE'
@@ -16,57 +15,31 @@ Usage:
   ./build.sh [options]
 
 Options:
-  -t, --target          retinues | prefabs | all       (default: retinues)
-  -g, --game-dir        Path to Bannerlord folder      (overrides Local.props)
       --no-deploy       Do not copy to game Modules
-      --deploy          Copy to game Modules (default)
-      --prefabs         Force run PrefabBuilder
+      --prefabs         Only run PrefabBuilder
       --no-prefabs      Skip PrefabBuilder
+      --strings         Only run strings.py
+      --no-strings      Skip strings.py
   -v, --version         Bannerlord version: 12 or 13 (default: 13)
   -r, --release <N>     Build Release and set <Version value="vX.Y.Z.N" /> to N
   -h, --help            Show help
 
 Examples:
-  ./build.sh -t retinues --release 7
-  ./build.sh --prefabs --deploy --version 13
+  ./build.sh -t core --release 7
+  ./build.sh -t all --no-deploy --prefabs --bl 12
 USAGE
   exit 1
 }
 
-# ---------- small helper to deploy GUI tree if we only ran prefabs ----------
-deploy_gui() {
-  local src="$ROOT_DIR/bin/Modules/Retinues/GUI"
-  if [[ ! -d "$src" ]]; then
-    echo "No GUI dir to deploy (missing: $src)"; return 0
-  fi
-
-  if [[ -n "$GAME_DIR" ]]; then
-    local dest="$GAME_DIR/Modules/Retinues/GUI"
-    echo "== Deploying GUI to game dir =="
-    echo "  from: $src"
-    echo "  to  : $dest"
-    mkdir -p "$dest"
-    if command -v rsync >/dev/null 2>&1; then
-      rsync -a "$src"/ "$dest"/
-    else
-      cp -r "$src"/. "$dest"/
-    fi
-  else
-    echo "== Deploying GUI via MSBuild target (BannerlordGameDir from props) =="
-    dotnet build "$RET_PROJ" -p:DeployToGame=true -t:DeployRetinuesGui -v:m
-  fi
-}
-
-# ---------- parse args ----------
+# Parse args
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -t|--target) TARGET="$2"; shift 2;;
-    -g|--game-dir) GAME_DIR="$2"; shift 2;;
     -v|--version) BL="$2"; shift 2;;
     --no-deploy) DEPLOY="false"; shift;;
-    --deploy) DEPLOY="true"; shift;;
-    --prefabs) RUN_PREFABS="yes"; TARGET="prefabs"; shift;;
-    --no-prefabs) RUN_PREFABS="no"; shift;;
+    --prefabs) RUN_MAIN="false"; RUN_STRINGS="false"; shift;;
+    --no-prefabs) RUN_PREFABS="false"; shift;;
+    --strings) RUN_MAIN="false"; RUN_PREFABS="false"; shift;;
+    --no-strings) RUN_STRINGS="false"; shift;;
     -r|--release)
       RELEASE_PATCH="${2:-}"
       [[ -z "$RELEASE_PATCH" ]] && { echo "ERROR: --release requires a numeric argument (the last version segment)"; exit 2; }
@@ -74,146 +47,131 @@ while [[ $# -gt 0 ]]; do
       shift 2
       ;;
     -h|--help) usage;;
-    *) echo "Unknown arg: $1"; usage;;
+    *)
+      echo "Unknown arg: $1"
+      usage
+      ;;
   esac
 done
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-PREFAB_PROJ="$ROOT_DIR/src/PrefabBuilder/PrefabBuilder.csproj"
-RET_PROJ="$ROOT_DIR/src/Retinues/Retinues.csproj"
+MAIN_PROJ="$ROOT_DIR/src/Retinues/Retinues.csproj"
+PREFABS_PROJ="$ROOT_DIR/src/PrefabBuilder/PrefabBuilder.csproj"
+STRINGS_PY="$ROOT_DIR/loc/strings.py"
 
-PREFAB_OUT="${PREFAB_OUT:-$ROOT_DIR/bin/Modules/Retinues/GUI}"
-TPL_TEMPLATES="${TPL_TEMPLATES:-$ROOT_DIR/tpl/templates}"
-TPL_PARTIALS="${TPL_PARTIALS:-$ROOT_DIR/tpl/partials}"
+# Compute msbuild -p: args
+MSBUILD_PROPS=()
 
-# Run localization script before anything else
-if [[ -f "$ROOT_DIR/loc/strings.py" ]]; then
-  echo "== Generating localization files =="
-  python "$ROOT_DIR/loc/strings.py" || { echo "ERROR: loc/strings.py failed"; exit 3; }
-  echo
+if [[ "${DEPLOY}" == "false" ]]; then
+  MSBUILD_PROPS+=("-p:DeployToGame=false")
+else
+  MSBUILD_PROPS+=("-p:DeployToGame=true")
+fi
+if [[ -n "$BL" ]]; then
+  MSBUILD_PROPS+=("-p:BL=$BL")
 fi
 
-# ---------- msbuild props ----------
-MSBUILD_PROPS=()
-[[ -n "$GAME_DIR" ]] && MSBUILD_PROPS+=("-p:BannerlordGameDir=${GAME_DIR}")
-MSBUILD_PROPS+=("-p:DeployToGame=${DEPLOY}")
-MSBUILD_PROPS+=("-p:BL=$BL")
-
-# Config: Release when --release is used, otherwise use your default (Debug)
+# Config: Release when --release is used, otherwise use your default (dev)
 if [[ -n "$RELEASE_PATCH" ]]; then
   MSBUILD_CONFIG=(-c Release)
 else
   MSBUILD_CONFIG=(-c Debug)
 fi
 
-# Auto decide prefabs
-if [[ "${RUN_PREFABS}" == "auto" ]]; then
-  if [[ -f "$PREFAB_PROJ" && ( "$TARGET" == "retinues" || "$TARGET" == "all" || "$TARGET" == "prefabs" ) ]]; then
-    RUN_PREFABS="yes"
-  else
-    RUN_PREFABS="no"
-  fi
-fi
-
-# ---------- bump SubModule version if --release N ----------
+# If release, bump version in SubModule*.xml files
 bump_submodule_version() {
   local patch="$1"
-  local mod_dir="$ROOT_DIR/src/Retinues"
+  local core_dir="$ROOT_DIR/src/Retinues"
   local changed=0
+
+  # Which files to try (edit if you only use one naming scheme)
   local files=(
-    "$mod_dir/SubModule.BL12.xml"
-    "$mod_dir/SubModule.BL13.xml"
-    "$mod_dir/SubModule.xml"
+    "$core_dir/SubModule.BL12.xml"
+    "$core_dir/SubModule.BL13.xml"
+    "$core_dir/SubModule.xml"
   )
 
-  # sed/mv can return non-zero on some Windows sed builds; don't kill the script.
-  set +e
   for f in "${files[@]}"; do
-    [[ -f "$f" ]] || continue
-
-    # Only bump the LAST segment of vX.Y.Z.N
-    local tmp="${f}.tmp.$$"
-    sed -E 's/(<Version[[:space:]]+value="v[0-9]+\.[0-9]+\.[0-9]+\.)([0-9]+)"/\1'"$patch"'"/' "$f" > "$tmp"
-    if cmp -s "$f" "$tmp"; then
-      rm -f "$tmp"
-      continue
+    if [[ -f "$f" ]]; then
+      # Replace last numeric segment of vX.Y.Z.N with provided patch number
+      # Works even if X.Y.Z differ between BL12 and BL13.
+      # Make a backup, then move back over it (portable across sed variants)
+      local tmp="${f}.tmp.$$"
+      # shellcheck disable=SC2001
+      sed -E 's/(<Version[[:space:]]+value="v[0-9]+\.[0-9]+\.[0-9]+\.)([0-9]+)"/\1'"$patch"'"/' "$f" > "$tmp"
+      mv "$tmp" "$f"
+      echo "  - Set version patch -> $patch in $(basename "$f")"
+      changed=1
     fi
-
-    mv -f "$tmp" "$f"
-    echo "  - Set version patch -> $patch in $(basename "$f")"
-    changed=1
   done
-  set -e
-  set -e
-  if [[ "$changed" -eq 0 ]]; then
-    echo "No version bump needed (already at patch $patch) under $mod_dir."
-  fi
 }
 
-
+# Banner
 echo "== Retinues build =="
 echo " BL      : $BL"
-echo " Target  : $TARGET"
-echo " Config  : ${MSBUILD_CONFIG[1]}"
-[[ -n "$GAME_DIR" ]] && echo " Game    : $GAME_DIR"
-echo " Deploy  : $DEPLOY"
+echo " Build   : $RUN_MAIN"
 echo " Prefabs : $RUN_PREFABS"
-[[ -n "$RELEASE_PATCH" ]] && echo " Release : patch=$RELEASE_PATCH"
+echo " Strings : $RUN_STRINGS"
+echo " Config  : ${MSBUILD_CONFIG[1]}"
+echo " Deploy  : $DEPLOY"
+if [[ -n "$RELEASE_PATCH" ]]; then
+  echo " Release : $RELEASE_PATCH"
+fi
 echo
 
+# If --release N is set, bump SubModule version before building
 if [[ -n "$RELEASE_PATCH" ]]; then
-   echo "== Updating SubModule version =="
-   bump_submodule_version "$RELEASE_PATCH"
-   echo
+  echo "== Updating SubModule version =="
+  bump_submodule_version "$RELEASE_PATCH"
+  echo
 fi
 
-# PrefabBuilder build
-if [[ "$RUN_PREFABS" == "yes" && -f "$PREFAB_PROJ" ]]; then
-  echo "== Building PrefabBuilder ==" 
-  [[ "$DEBUG" == "1" ]] && echo "+ dotnet build $PREFAB_PROJ -v:m"
-  dotnet build "$PREFAB_PROJ" -v:m
+# 1) Prefabs
+if [[ "$RUN_PREFABS" == "true" && -f "$PREFABS_PROJ" ]]; then
+  echo "== Building PrefabBuilder =="
+  dotnet build "$PREFABS_PROJ" "${MSBUILD_CONFIG[@]}"
+  echo
 
   echo "== Running PrefabBuilder =="
-  [[ "$DEBUG" == "1" ]] && echo "+ BL=$BL CONFIG=${MSBUILD_CONFIG[1]} dotnet run --no-build --project $PREFAB_PROJ -- --out $PREFAB_OUT --templates $TPL_TEMPLATES --partials $TPL_PARTIALS --bl $BL --config ${MSBUILD_CONFIG[1]} --module Retinues"
-  BL="$BL" CONFIG="${MSBUILD_CONFIG[1]}" dotnet run --no-build --project "$PREFAB_PROJ" -- \
+  PREFAB_OUT="$ROOT_DIR/gui"
+  TPL_TEMPLATES="$ROOT_DIR/tpl/templates"
+  TPL_PARTIALS="$ROOT_DIR/tpl/partials"
+
+  rm -rf "$PREFAB_OUT"
+  mkdir -p "$PREFAB_OUT"
+
+  dotnet run --no-build --configuration "${MSBUILD_CONFIG[1]}" --project "$PREFABS_PROJ" -- \
     --out "$PREFAB_OUT" \
     --templates "$TPL_TEMPLATES" \
     --partials "$TPL_PARTIALS" \
     --bl "$BL" \
     --config "${MSBUILD_CONFIG[1]}" \
     --module "Retinues"
+
+  echo
 fi
 
-# Deploy GUI if only prefabs were requested
-if [[ "$TARGET" == "prefabs" && "$DEPLOY" == "true" ]]; then
-  deploy_gui
+# 1.b) Deploy prefabs-only (if requested)
+if [[ "$RUN_PREFABS" == "true" && "$DEPLOY" == "true" && -f "$MAIN_PROJ" ]]; then
+  echo "== Deploying generated GUI to module (prefabs-only) =="
+  # BL and DeployToGame flow through as MSBuild props
+  dotnet msbuild "$MAIN_PROJ" -t:DeployPrefabsOnly -p:BL="$BL" -p:DeployToGame=true
+  echo
 fi
 
-# ---------- 2) Main targets ----------
-case "$TARGET" in
-  retinues)
-    [[ "$DEBUG" == "1" ]] && echo "+ dotnet build $RET_PROJ ${MSBUILD_CONFIG[*]} ${MSBUILD_PROPS[*]} -v:m"
-    dotnet build "$RET_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}" -v:m
+# 2) Strings
+if [[ "$RUN_STRINGS" == "true" && -f "$STRINGS_PY" ]]; then
+  echo "== Running strings.py =="
+    python "$STRINGS_PY"
+  echo
+fi
 
-    if [[ "$DEPLOY" == "true" ]]; then
-      [[ "$DEBUG" == "1" ]] && echo "+ dotnet build $RET_PROJ ${MSBUILD_CONFIG[*]} ${MSBUILD_PROPS[*]} -t:DeployToGame -v:m"
-      dotnet build "$RET_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}" -t:DeployToGame -v:m
-    fi
-    ;;
-  prefabs)
-    dotnet build "$RET_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
-    if [[ "$DEPLOY" == "true" ]]; then
-      dotnet build "$RET_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}" -t:DeployToGame -v:m
-    fi
-    ;;
-  all)
-    dotnet build "$RET_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
-    if [[ "$DEPLOY" == "true" ]]; then
-      dotnet build "$RET_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}" -t:DeployToGame -v:m
-    fi
-    ;;
-  *)
-    echo "Unknown target: $TARGET"; exit 2;;
-esac
+# 3) Main project
+if [[ "$RUN_MAIN" == "true" && -f "$MAIN_PROJ" ]]; then
+  echo "== Building Retinues =="
+    dotnet build "$MAIN_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
+  echo
+fi
 
+# Done
 echo "== Build finished ✅ == ($(date))"

@@ -40,11 +40,30 @@ namespace Retinues
         private Harmony _harmony;
 
         /// <summary>
+        /// Flag indicating whether the mod has successfully registered with MCM.
+        /// </summary>
+        private bool _mcmRegistered;
+
+        /// <summary>
+        /// Called before the initial module screen is set as root. Used to register with MCM.
+        /// </summary>
+        protected override void OnBeforeInitialModuleScreenSetAsRoot()
+        {
+            base.OnBeforeInitialModuleScreenSetAsRoot();
+
+            if (!_mcmRegistered)
+                _mcmRegistered = Config.RegisterWithMCM();
+        }
+
+        /// <summary>
         /// Called when the module DLL is loaded by the game.
         /// </summary>
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
+
+            if (!_mcmRegistered)
+                _mcmRegistered = Config.RegisterWithMCM();
 
             try
             {

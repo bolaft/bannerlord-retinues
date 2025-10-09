@@ -1,11 +1,7 @@
 <Project>
   <PropertyGroup>
-    <!-- Absolute path to your Bannerlord install -->
+    <!-- Absolute path to the Bannerlord install -->
     <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
-
-    <!-- Optional: where built modules are staged before copy -->
-    <StagingRoot>$(MSBuildThisFileDirectory)bin\Modules\</StagingRoot>
-
     <!-- Default config when not specified by CLI -->
     <DefaultConfiguration>Debug</DefaultConfiguration>
   </PropertyGroup>

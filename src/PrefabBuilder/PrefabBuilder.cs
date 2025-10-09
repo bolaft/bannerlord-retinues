@@ -48,7 +48,7 @@ class PrefabBuilder
         string outGui = opts.GetValueOrDefault("out", defaults.Out);
         string version = opts.GetValueOrDefault("version", defaults.Version);
 
-        Console.WriteLine("== PrefabBuilder ==");
+        Console.WriteLine("Config:");
         Console.WriteLine($"  Root      : {Os(defaults.Root)}");
         Console.WriteLine($"  Templates : {Os(tplTemplates)}");
         Console.WriteLine($"  Partials  : {Os(tplPartials)}");

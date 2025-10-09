@@ -1,14 +1,14 @@
 ########################################
 # Build
 ########################################
+/out/
 /bin/
 /obj/
+/gui/
+
 /**/bin/
 /**/obj/
-
-# Staging & deploy artifacts
-/bin/build/
-/bin/Modules/
+/**/out/
 
 # DLLs & NuGet packages
 *.dll
