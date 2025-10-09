@@ -191,6 +191,12 @@
       id="ret_enter_new_troop_name"
       text="新しい兵の名前を入力：" />
     <string
+      id="ret_equip_complete"
+      text="装備更新完了" />
+    <string
+      id="ret_equip_complete_text"
+      text="{TROOP} が ({ITEM}) を装備した。" />
+    <string
       id="ret_equipment_button_text"
       text="装備" />
     <string
@@ -428,6 +434,12 @@
       id="ret_mcm_option_all_equipment_unlocked_hint"
       text="ゲーム開始時に全装備が解除されている。" />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops"
+      text="すべての領主がカスタム部隊を募集する" />
+    <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
+      text="どの領主でもプレイヤーの領地でカスタム部隊を募集できる。" />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="許容ランク差" />
     <string
@@ -602,6 +614,12 @@
       id="ret_mcm_option_unlock_from_kills_hint"
       text="敵を倒すことで装備を解除する。" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops"
+      text="封臣の領主がカスタム兵を募集" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
+      text="プレイヤーの一族または王国の領主は、自分の領地でカスタム兵を募集できます。" />
+    <string
       id="ret_mcm_section_debug"
       text="デバッグ" />
     <string
@@ -640,6 +658,9 @@
     <string
       id="ret_no"
       text="いいえ" />
+    <string
+      id="ret_no_training_required"
+      text="訓練不要" />
     <string
       id="ret_not_enough_gold"
       text="ゴールド不足" />
@@ -797,6 +818,15 @@
       id="ret_tier"
       text="ランク" />
     <string
+      id="ret_training_complete"
+      text="訓練完了" />
+    <string
+      id="ret_training_complete_text"
+      text="{TROOP} は {SKILL} の訓練を完了しました。" />
+    <string
+      id="ret_training_required"
+      text="{HOURS} 時間の訓練が必要" />
+    <string
       id="ret_transfer_header_text"
       text="移動" />
     <string
@@ -820,6 +850,39 @@
     <string
       id="ret_unlock_progress_text"
       text="アンロック中 ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_equip_begin"
+      text="装備のアップグレードを開始する" />
+    <string
+      id="ret_upgrade_equip_choose_troop"
+      text="保留中の兵を1人選んで、今すぐ装備を開始します。" />
+    <string
+      id="ret_upgrade_equip_pending_btn"
+      text="兵を装備する" />
+    <string
+      id="ret_upgrade_equip_progress"
+      text="{NAME} を装備中..." />
+    <string
+      id="ret_upgrade_equip_select_troop"
+      text="装備する兵を選択" />
+    <string
+      id="ret_upgrade_equip_unequip"
+      text="外す" />
+    <string
+      id="ret_upgrade_train_begin"
+      text="訓練を開始する" />
+    <string
+      id="ret_upgrade_train_choose_troop"
+      text="保留中の兵を1人選んで、今すぐ訓練を開始します。" />
+    <string
+      id="ret_upgrade_train_pending_btn"
+      text="兵を訓練する" />
+    <string
+      id="ret_upgrade_train_progress"
+      text="{NAME} を訓練中..." />
+    <string
+      id="ret_upgrade_train_select_troop"
+      text="訓練する兵を選択" />
     <string
       id="ret_upgrades_header_text"
       text="アップグレード" />

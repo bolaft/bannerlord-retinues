@@ -12,7 +12,7 @@
       text="convert" />
     <string
       id="ret_action_modify"
-      text="modify" />
+      text="equip" />
     <string
       id="ret_adaptive_training"
       text="Adaptive Training" />
@@ -190,6 +190,12 @@
     <string
       id="ret_enter_new_troop_name"
       text="Enter the name of the new troop:" />
+    <string
+      id="ret_equip_complete"
+      text="Equipment Updated" />
+    <string
+      id="ret_equip_complete_text"
+      text="{TROOP} has equipped ({ITEM})." />
     <string
       id="ret_equipment_button_text"
       text="Equipment" />
@@ -428,6 +434,12 @@
       id="ret_mcm_option_all_equipment_unlocked_hint"
       text="All equipment unlocked on game start." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops"
+      text="All Lords Recruit Custom Troops" />
+    <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
+      text="Any lord can recruit custom troops in the player&apos;s fiefs." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Allowed Tier Difference" />
     <string
@@ -601,6 +613,12 @@
     <string
       id="ret_mcm_option_unlock_from_kills_hint"
       text="Unlock equipment by defeating enemies wearing it." />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops"
+      text="Vassal Lords Recruit Custom Troops" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
+      text="Lords of the player&apos;s clan or kingdom can recruit custom troops in their fiefs." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
@@ -829,6 +847,24 @@
     <string
       id="ret_unlock_progress_text"
       text="Unlocking ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_equip_begin"
+      text="Begin upgrading equipment" />
+    <string
+      id="ret_upgrade_equip_choose_troop"
+      text="Choose one pending troop to start equipping now." />
+    <string
+      id="ret_upgrade_equip_pending_btn"
+      text="Equip troops" />
+    <string
+      id="ret_upgrade_equip_progress"
+      text="Equipping {NAME}..." />
+    <string
+      id="ret_upgrade_equip_select_troop"
+      text="Select a troop to equip" />
+    <string
+      id="ret_upgrade_equip_unequip"
+      text="Unequip" />
     <string
       id="ret_upgrade_train_begin"
       text="Begin training" />

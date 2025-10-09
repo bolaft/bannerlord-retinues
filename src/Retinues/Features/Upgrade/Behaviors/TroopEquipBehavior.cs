@@ -296,7 +296,7 @@ namespace Retinues.Features.Upgrade.Behaviors
 
                     Popup.Display(
                         L.T("equip_complete", "Equipment Updated"),
-                        L.T("equip_complete_text", "{TROOP} has been equipped ({ITEM}).")
+                        L.T("equip_complete_text", "{TROOP} has equipped ({ITEM}).")
                             .SetTextVariable("TROOP", new WCharacter(troopId).Name)
                             .SetTextVariable("ITEM", item?.Name)
                     );

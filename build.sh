@@ -86,6 +86,13 @@ PREFAB_OUT="${PREFAB_OUT:-$ROOT_DIR/bin/Modules/Retinues/GUI}"
 TPL_TEMPLATES="${TPL_TEMPLATES:-$ROOT_DIR/tpl/templates}"
 TPL_PARTIALS="${TPL_PARTIALS:-$ROOT_DIR/tpl/partials}"
 
+# Run localization script before anything else
+if [[ -f "$ROOT_DIR/loc/strings.py" ]]; then
+  echo "== Generating localization files =="
+  python "$ROOT_DIR/loc/strings.py" || { echo "ERROR: loc/strings.py failed"; exit 3; }
+  echo
+fi
+
 # ---------- msbuild props ----------
 MSBUILD_PROPS=()
 [[ -n "$GAME_DIR" ]] && MSBUILD_PROPS+=("-p:BannerlordGameDir=${GAME_DIR}")

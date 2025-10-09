@@ -191,6 +191,12 @@
       id="ret_enter_new_troop_name"
       text="Wpisz nazwę nowej jednostki:" />
     <string
+      id="ret_equip_complete"
+      text="Ekwipunek Zaktualizowany" />
+    <string
+      id="ret_equip_complete_text"
+      text="{TROOP} wyposażył(a) ({ITEM})." />
+    <string
       id="ret_equipment_button_text"
       text="Ekwipunek" />
     <string
@@ -428,6 +434,12 @@
       id="ret_mcm_option_all_equipment_unlocked_hint"
       text="Cały ekwipunek odblokowany na początku gry." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops"
+      text="Wszyscy Lordowie Rekrutują Niestandardowe Jednostki" />
+    <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
+      text="Każdy lord może rekrutować niestandardowe jednostki w lenna gracza." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Dozwolona Różnica Poziomów" />
     <string
@@ -602,6 +614,12 @@
       id="ret_mcm_option_unlock_from_kills_hint"
       text="Odblokuj ekwipunek, pokonując wrogów, którzy go noszą." />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops"
+      text="Wasalni Lordowie Rekrutują Niestandardowe Oddziały" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
+      text="Lordowie klanu lub królestwa gracza mogą rekrutować niestandardowe oddziały w swoich lenna." />
+    <string
       id="ret_mcm_section_debug"
       text="Debugowanie" />
     <string
@@ -640,6 +658,9 @@
     <string
       id="ret_no"
       text="Nie" />
+    <string
+      id="ret_no_training_required"
+      text="Nie wymaga szkolenia" />
     <string
       id="ret_not_enough_gold"
       text="Za mało złota" />
@@ -797,6 +818,15 @@
       id="ret_tier"
       text="Poziom" />
     <string
+      id="ret_training_complete"
+      text="Szkolenie Zakończone" />
+    <string
+      id="ret_training_complete_text"
+      text="{TROOP} ukończył szkolenie z {SKILL}." />
+    <string
+      id="ret_training_required"
+      text="Wymagane {HOURS} godzin szkolenia" />
+    <string
       id="ret_transfer_header_text"
       text="Przenieś" />
     <string
@@ -820,6 +850,39 @@
     <string
       id="ret_unlock_progress_text"
       text="Odblokowywanie ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_equip_begin"
+      text="Rozpocznij ulepszanie ekwipunku" />
+    <string
+      id="ret_upgrade_equip_choose_troop"
+      text="Wybierz jedną oczekującą jednostkę, aby rozpocząć jej wyposażanie." />
+    <string
+      id="ret_upgrade_equip_pending_btn"
+      text="Wyposaż jednostki" />
+    <string
+      id="ret_upgrade_equip_progress"
+      text="Wyposażanie {NAME}..." />
+    <string
+      id="ret_upgrade_equip_select_troop"
+      text="Wybierz jednostkę do wyposażenia" />
+    <string
+      id="ret_upgrade_equip_unequip"
+      text="Zdejmij" />
+    <string
+      id="ret_upgrade_train_begin"
+      text="Rozpocznij szkolenie" />
+    <string
+      id="ret_upgrade_train_choose_troop"
+      text="Wybierz jedną oczekującą jednostkę, aby rozpocząć jej szkolenie." />
+    <string
+      id="ret_upgrade_train_pending_btn"
+      text="Trenuj jednostki" />
+    <string
+      id="ret_upgrade_train_progress"
+      text="Szkolenie {NAME}..." />
+    <string
+      id="ret_upgrade_train_select_troop"
+      text="Wybierz jednostkę do szkolenia" />
     <string
       id="ret_upgrades_header_text"
       text="Ulepszenia" />

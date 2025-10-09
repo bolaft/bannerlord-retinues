@@ -191,6 +191,12 @@
       id="ret_enter_new_troop_name"
       text="새 병력의 이름을 입력:" />
     <string
+      id="ret_equip_complete"
+      text="장비 업데이트 완료" />
+    <string
+      id="ret_equip_complete_text"
+      text="{TROOP}이(가) ({ITEM})을(를) 장착했습니다." />
+    <string
       id="ret_equipment_button_text"
       text="장비" />
     <string
@@ -428,6 +434,12 @@
       id="ret_mcm_option_all_equipment_unlocked_hint"
       text="게임 시작 시 모든 장비가 해제됨." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops"
+      text="모든 영주가 맞춤 병력을 모집함" />
+    <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
+      text="어떤 영주라도 플레이어의 영지에서 맞춤 병력을 모집할 수 있습니다." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="허용 등급 차이" />
     <string
@@ -602,6 +614,12 @@
       id="ret_mcm_option_unlock_from_kills_hint"
       text="착용한 적을 처치하여 장비를 해제." />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops"
+      text="봉신 영주가 커스텀 병력 모집" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
+      text="플레이어의 가문 또는 왕국의 영주는 자신의 영지에서 커스텀 병력을 모집할 수 있습니다." />
+    <string
       id="ret_mcm_section_debug"
       text="디버그" />
     <string
@@ -640,6 +658,9 @@
     <string
       id="ret_no"
       text="아니오" />
+    <string
+      id="ret_no_training_required"
+      text="훈련 불필요" />
     <string
       id="ret_not_enough_gold"
       text="골드 부족" />
@@ -797,6 +818,15 @@
       id="ret_tier"
       text="등급" />
     <string
+      id="ret_training_complete"
+      text="훈련 완료" />
+    <string
+      id="ret_training_complete_text"
+      text="{TROOP} 이(가) {SKILL} 훈련을 완료했습니다." />
+    <string
+      id="ret_training_required"
+      text="{HOURS} 시간의 훈련 필요" />
+    <string
       id="ret_transfer_header_text"
       text="이동" />
     <string
@@ -820,6 +850,39 @@
     <string
       id="ret_unlock_progress_text"
       text="해제 중 ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_equip_begin"
+      text="장비 업그레이드 시작" />
+    <string
+      id="ret_upgrade_equip_choose_troop"
+      text="대기 중인 병력 중 한 명을 선택하여 지금 장비를 시작하십시오." />
+    <string
+      id="ret_upgrade_equip_pending_btn"
+      text="병력 장비" />
+    <string
+      id="ret_upgrade_equip_progress"
+      text="{NAME} 장비 중..." />
+    <string
+      id="ret_upgrade_equip_select_troop"
+      text="장비할 병력 선택" />
+    <string
+      id="ret_upgrade_equip_unequip"
+      text="해제" />
+    <string
+      id="ret_upgrade_train_begin"
+      text="훈련 시작" />
+    <string
+      id="ret_upgrade_train_choose_troop"
+      text="대기 중인 병력 중 한 명을 선택하여 지금 훈련을 시작하십시오." />
+    <string
+      id="ret_upgrade_train_pending_btn"
+      text="병력 훈련" />
+    <string
+      id="ret_upgrade_train_progress"
+      text="{NAME} 훈련 중..." />
+    <string
+      id="ret_upgrade_train_select_troop"
+      text="훈련할 병력 선택" />
     <string
       id="ret_upgrades_header_text"
       text="업그레이드" />

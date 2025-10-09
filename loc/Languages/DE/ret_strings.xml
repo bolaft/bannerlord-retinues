@@ -191,6 +191,12 @@
       id="ret_enter_new_troop_name"
       text="Gib den Namen der neuen Truppe ein:" />
     <string
+      id="ret_equip_complete"
+      text="Ausrüstung Aktualisiert" />
+    <string
+      id="ret_equip_complete_text"
+      text="{TROOP} hat ({ITEM}) ausgerüstet." />
+    <string
       id="ret_equipment_button_text"
       text="Ausrüstung" />
     <string
@@ -428,6 +434,12 @@
       id="ret_mcm_option_all_equipment_unlocked_hint"
       text="Zu Spielbeginn sind alle Ausrüstungen freigeschaltet." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops"
+      text="Alle Lords rekrutieren benutzerdefinierte Truppen" />
+    <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
+      text="Jeder Lord kann in den Lehen des Spielers benutzerdefinierte Truppen rekrutieren." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Zulässiger Stufenunterschied" />
     <string
@@ -602,6 +614,12 @@
       id="ret_mcm_option_unlock_from_kills_hint"
       text="Schalte Ausrüstung frei, indem du Gegner besiegst, die sie tragen." />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops"
+      text="Lehnsherren rekrutieren Custom-Truppen" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
+      text="Die Herren des Spielerklans oder -königreichs können in ihren Lehen Custom-Truppen rekrutieren." />
+    <string
       id="ret_mcm_section_debug"
       text="Debug" />
     <string
@@ -640,6 +658,9 @@
     <string
       id="ret_no"
       text="Nein" />
+    <string
+      id="ret_no_training_required"
+      text="Kein Training erforderlich" />
     <string
       id="ret_not_enough_gold"
       text="Nicht genug Gold" />
@@ -797,6 +818,15 @@
       id="ret_tier"
       text="Stufe" />
     <string
+      id="ret_training_complete"
+      text="Training Abgeschlossen" />
+    <string
+      id="ret_training_complete_text"
+      text="{TROOP} hat sein {SKILL}-Training abgeschlossen." />
+    <string
+      id="ret_training_required"
+      text="{HOURS} Stunden Training erforderlich" />
+    <string
       id="ret_transfer_header_text"
       text="Übertragen" />
     <string
@@ -820,6 +850,39 @@
     <string
       id="ret_unlock_progress_text"
       text="Wird freigeschaltet ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_equip_begin"
+      text="Beginne mit der Ausrüstungsverbesserung" />
+    <string
+      id="ret_upgrade_equip_choose_troop"
+      text="Wähle eine ausstehende Truppe, um jetzt mit der Ausrüstung zu beginnen." />
+    <string
+      id="ret_upgrade_equip_pending_btn"
+      text="Truppen ausrüsten" />
+    <string
+      id="ret_upgrade_equip_progress"
+      text="Rüste {NAME} aus..." />
+    <string
+      id="ret_upgrade_equip_select_troop"
+      text="Wähle eine Truppe zum Ausrüsten" />
+    <string
+      id="ret_upgrade_equip_unequip"
+      text="Ablegen" />
+    <string
+      id="ret_upgrade_train_begin"
+      text="Beginne mit dem Training" />
+    <string
+      id="ret_upgrade_train_choose_troop"
+      text="Wähle eine ausstehende Truppe, um jetzt mit dem Training zu beginnen." />
+    <string
+      id="ret_upgrade_train_pending_btn"
+      text="Truppen ausbilden" />
+    <string
+      id="ret_upgrade_train_progress"
+      text="Trainiere {NAME}..." />
+    <string
+      id="ret_upgrade_train_select_troop"
+      text="Wähle eine Truppe zum Trainieren" />
     <string
       id="ret_upgrades_header_text"
       text="Upgrades" />

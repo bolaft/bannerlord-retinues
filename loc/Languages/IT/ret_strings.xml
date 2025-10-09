@@ -191,6 +191,12 @@
       id="ret_enter_new_troop_name"
       text="Inserisci il nome della nuova truppa:" />
     <string
+      id="ret_equip_complete"
+      text="Equipaggiamento Aggiornato" />
+    <string
+      id="ret_equip_complete_text"
+      text="{TROOP} ha equipaggiato ({ITEM})." />
+    <string
       id="ret_equipment_button_text"
       text="Equipaggiamento" />
     <string
@@ -428,6 +434,12 @@
       id="ret_mcm_option_all_equipment_unlocked_hint"
       text="Tutto l’equipaggiamento è sbloccato all’avvio del gioco." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops"
+      text="Tutti i Signori Reclutano Truppe Personalizzate" />
+    <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
+      text="Qualsiasi signore può reclutare truppe personalizzate nei feudi del giocatore." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Differenza di Livello Consentita" />
     <string
@@ -602,6 +614,12 @@
       id="ret_mcm_option_unlock_from_kills_hint"
       text="Sblocca equipaggiamento sconfiggendo i nemici che lo indossano." />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops"
+      text="I Signori Vassalli Reclutano Truppe Personalizzate" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
+      text="I signori del clan o del regno del giocatore possono reclutare truppe personalizzate nei loro feudi." />
+    <string
       id="ret_mcm_section_debug"
       text="Debug" />
     <string
@@ -640,6 +658,9 @@
     <string
       id="ret_no"
       text="No" />
+    <string
+      id="ret_no_training_required"
+      text="Nessun addestramento richiesto" />
     <string
       id="ret_not_enough_gold"
       text="Oro insufficiente" />
@@ -797,6 +818,15 @@
       id="ret_tier"
       text="Livello" />
     <string
+      id="ret_training_complete"
+      text="Addestramento Completo" />
+    <string
+      id="ret_training_complete_text"
+      text="{TROOP} ha completato l’addestramento in {SKILL}." />
+    <string
+      id="ret_training_required"
+      text="Sono necessarie {HOURS} ore di addestramento" />
+    <string
       id="ret_transfer_header_text"
       text="Trasferisci" />
     <string
@@ -820,6 +850,39 @@
     <string
       id="ret_unlock_progress_text"
       text="Sbloccando ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_equip_begin"
+      text="Inizia a potenziare l’equipaggiamento" />
+    <string
+      id="ret_upgrade_equip_choose_troop"
+      text="Scegli una truppa in attesa per iniziare a equipaggiarla ora." />
+    <string
+      id="ret_upgrade_equip_pending_btn"
+      text="Equipa le truppe" />
+    <string
+      id="ret_upgrade_equip_progress"
+      text="Equipaggiamento di {NAME}..." />
+    <string
+      id="ret_upgrade_equip_select_troop"
+      text="Seleziona una truppa da equipaggiare" />
+    <string
+      id="ret_upgrade_equip_unequip"
+      text="Rimuovi" />
+    <string
+      id="ret_upgrade_train_begin"
+      text="Inizia l’addestramento" />
+    <string
+      id="ret_upgrade_train_choose_troop"
+      text="Scegli una truppa in attesa per iniziare l’addestramento ora." />
+    <string
+      id="ret_upgrade_train_pending_btn"
+      text="Addestra le truppe" />
+    <string
+      id="ret_upgrade_train_progress"
+      text="Addestramento di {NAME}..." />
+    <string
+      id="ret_upgrade_train_select_troop"
+      text="Seleziona una truppa da addestrare" />
     <string
       id="ret_upgrades_header_text"
       text="Potenziamenti" />

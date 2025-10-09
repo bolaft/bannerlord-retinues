@@ -191,6 +191,12 @@
       id="ret_enter_new_troop_name"
       text="Введите имя нового войска:" />
     <string
+      id="ret_equip_complete"
+      text="Снаряжение Обновлено" />
+    <string
+      id="ret_equip_complete_text"
+      text="{TROOP} экипировал ({ITEM})." />
+    <string
       id="ret_equipment_button_text"
       text="Снаряжение" />
     <string
@@ -428,6 +434,12 @@
       id="ret_mcm_option_all_equipment_unlocked_hint"
       text="Вся экипировка разблокирована при старте игры." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops"
+      text="Все Лорды Нанимают Пользовательские Войска" />
+    <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
+      text="Любой лорд может нанимать пользовательские войска в поместьях игрока." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Допустимая Разница Рангов" />
     <string
@@ -602,6 +614,12 @@
       id="ret_mcm_option_unlock_from_kills_hint"
       text="Разблокировать снаряжение, побеждая врагов, которые его носят." />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops"
+      text="Вассальные Лорды Вербуют Собственные Войска" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
+      text="Лорды клана или королевства игрока могут вербовать собственные войска в своих феодах." />
+    <string
       id="ret_mcm_section_debug"
       text="Отладка" />
     <string
@@ -640,6 +658,9 @@
     <string
       id="ret_no"
       text="Нет" />
+    <string
+      id="ret_no_training_required"
+      text="Обучение не требуется" />
     <string
       id="ret_not_enough_gold"
       text="Недостаточно золота" />
@@ -797,6 +818,15 @@
       id="ret_tier"
       text="Ранг" />
     <string
+      id="ret_training_complete"
+      text="Обучение Завершено" />
+    <string
+      id="ret_training_complete_text"
+      text="{TROOP} завершил обучение {SKILL}." />
+    <string
+      id="ret_training_required"
+      text="Требуется {HOURS} часов обучения" />
+    <string
       id="ret_transfer_header_text"
       text="Передать" />
     <string
@@ -820,6 +850,39 @@
     <string
       id="ret_unlock_progress_text"
       text="Разблокировка ({PROGRESS}/{REQUIRED})" />
+    <string
+      id="ret_upgrade_equip_begin"
+      text="Начать улучшение снаряжения" />
+    <string
+      id="ret_upgrade_equip_choose_troop"
+      text="Выберите одну ожидающую войска, чтобы начать экипировку сейчас." />
+    <string
+      id="ret_upgrade_equip_pending_btn"
+      text="Экипировать войска" />
+    <string
+      id="ret_upgrade_equip_progress"
+      text="Экипировка {NAME}..." />
+    <string
+      id="ret_upgrade_equip_select_troop"
+      text="Выберите войска для экипировки" />
+    <string
+      id="ret_upgrade_equip_unequip"
+      text="Снять" />
+    <string
+      id="ret_upgrade_train_begin"
+      text="Начать обучение" />
+    <string
+      id="ret_upgrade_train_choose_troop"
+      text="Выберите одну ожидающую войска, чтобы начать обучение сейчас." />
+    <string
+      id="ret_upgrade_train_pending_btn"
+      text="Обучить войска" />
+    <string
+      id="ret_upgrade_train_progress"
+      text="Обучение {NAME}..." />
+    <string
+      id="ret_upgrade_train_select_troop"
+      text="Выберите войска для обучения" />
     <string
       id="ret_upgrades_header_text"
       text="Улучшения" />

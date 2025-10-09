@@ -211,11 +211,11 @@ def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
 
 
 def main():
-    # Root to scan: argv[1] or current working dir
-    root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path.cwd()
+    # Always scan ../src/Retinues relative to this script
+    script_dir = Path(__file__).resolve().parent
+    root = (script_dir.parent / "src" / "Retinues").resolve()
 
     # Output path is relative to this script file
-    script_dir = Path(__file__).resolve().parent
     out_path = (script_dir / OUTPUT_REL).resolve()
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
