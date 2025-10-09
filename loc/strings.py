@@ -283,9 +283,12 @@ def main():
     print(f"[OK] Synced JSON: {json_path}")
 
     # For each locale subfolder, write a ret_strings.xml from JSON values
+    i = 0
     for code in locale_codes:
+        i += 1
         write_locale_xml(loc_root / code, code, json_list)
-        print(f"[OK] Wrote locale XML: {(loc_root / code / 'ret_strings.xml')}")
+
+    print(f"[OK] Wrote {i} locale XML files under {loc_root}")
 
 
 if __name__ == "__main__":
