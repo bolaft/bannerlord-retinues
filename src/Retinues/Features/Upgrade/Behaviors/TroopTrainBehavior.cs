@@ -55,7 +55,7 @@ namespace Retinues.Features.Upgrade.Behaviors
     [SafeClass]
     public sealed class TroopTrainBehavior : BaseUpgradeBehavior<PendingTrainData>
     {
-        private const int BaseTrainingTime = 2;
+        private const int BaseTrainingTime = 3; // hours per skill point
         private static bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
         private static int TrainingTimeModifier => Config.GetOption<int>("TrainingTimeModifier");
 

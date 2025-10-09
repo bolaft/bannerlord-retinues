@@ -56,7 +56,6 @@ namespace Retinues.Features.Upgrade.Behaviors
     [SafeClass]
     public sealed class TroopEquipBehavior : BaseUpgradeBehavior<PendingEquipData>
     {
-        private const float BaseEquipmentChangeTime = 0.005f;
         private static int EquipmentChangeTimeModifier =>
             Config.GetOption<int>("EquipmentChangeTimeModifier");
 
@@ -109,32 +108,9 @@ namespace Retinues.Features.Upgrade.Behaviors
             }
 
             // compute time
-            int hours;
-            try
-            {
-                if (item != null)
-                {
-                    Log.Debug("[StageEquipmentChange] Calculating hours for item.");
-                    var costForTroop = EquipmentManager.GetItemValue(item, new WCharacter(troopId));
-                    var rawHours = costForTroop / 100f * EquipmentChangeTimeModifier;
-                    hours = Math.Max(1, (int)Math.Ceiling(rawHours));
-                }
-                else
-                {
-                    Log.Debug("[StageEquipmentChange] Calculating hours for unequip.");
-                    hours = Math.Max(
-                        1,
-                        (int)Math.Ceiling(BaseEquipmentChangeTime * EquipmentChangeTimeModifier)
-                    );
-                }
-            }
-            catch
-            {
-                Log.Debug(
-                    "[StageEquipmentChange] Exception during hour calculation, defaulting to 1."
-                );
-                hours = 1;
-            }
+            var costForTroop =
+                item == null ? 100 : EquipmentManager.GetItemValue(item, new WCharacter(troopId));
+            var hours = HoursFromGold(costForTroop);
 
             // ensure only one staged job per (troop, slot)
             if (Instance.Pending.TryGetValue(troopId, out var dict) && dict != null)
@@ -330,6 +306,36 @@ namespace Retinues.Features.Upgrade.Behaviors
             var itemId = key.Substring(i + 1);
             _ = int.TryParse(slotStr, out var slotInt);
             return ((EquipmentIndex)slotInt, itemId == "NONE" ? null : itemId);
+        }
+
+        /// <summary>
+        /// Estimate hours required to equip an item based on its value in gold.
+        /// </summary>
+        private static int HoursFromGold(int gold)
+        {
+            double g = Math.Max(1, gold);
+            double x = Math.Log10(g);
+
+            // Precomputed slopes/intercepts
+            const double m1 = 10.0;
+            const double b1 = -18.0;
+
+            const double m2 = 17.16811869688072; // (24-12) / (log10(5000) - 3)
+            const double b2 = -39.504356090642155; // 12 - m2*3
+
+            const double m3 = 48.0; // (72-24) / (log10(50000)-log10(5000)) == 48
+            const double b3 = -153.5505602081289; // 24 - m3*log10(5000)
+
+            double raw =
+                g <= 1000.0 ? (m1 * x + b1)
+                : g <= 5000.0 ? (m2 * x + b2)
+                : (m3 * x + b3);
+
+            raw *= EquipmentChangeTimeModifier;
+            raw /= 3; // Hardcoded adjustment
+
+            // Round up to whole hours, keep a minimum of 1h.
+            return Math.Max(1, (int)Math.Ceiling(raw));
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public string UnequipAllButtonText => L.S("unequip_all_button_text", "Unequip All");
 
         [DataSourceProperty]
-        public string UnstageAllButtonText => L.S("unstage_all_button_text", "Unstage All");
+        public string UnstageAllButtonText => L.S("unstage_all_button_text", "Reset Changes");
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -146,9 +146,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteUnequipAll()
         {
-            if (Screen?.EditingIsAllowed == false)
-                return; // Editing not allowed in current context
-
             if (!CanUnequip)
                 return; // No-op if cannot unequip
 
@@ -185,9 +182,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteUnstageAll()
         {
-            if (Screen?.EditingIsAllowed == false)
-                return; // Editing not allowed in current context
-
             if (!HasStagedChanges)
                 return; // No-op if nothing to unstage
 

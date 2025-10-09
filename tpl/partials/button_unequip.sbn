@@ -61,7 +61,7 @@
             SuggestedHeight="!CancelButton.Height"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Brush="Popup.Delete.Button"
+            Brush="Popup.Done.Button"
             Command.Click="ExecuteUnstageAll">
 
             <Children>
