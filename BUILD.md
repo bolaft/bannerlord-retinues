@@ -1,9 +1,5 @@
 # Build instructions
 
-This repo builds a single **Bannerlord** module: **Retinues**. The build pipeline stages everything to `bin/Modules/Retinues/**` and, when asked, deploys to your game `Modules/Retinues/**` directory - cleaning out stale files while preserving logs.
-
----
-
 ## Prerequisites
 
 - **.NET SDK 8.0+** - `dotnet --version` should show 8.x or newer.
