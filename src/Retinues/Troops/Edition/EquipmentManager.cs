@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Unlocks.Behaviors;
@@ -27,7 +26,8 @@ namespace Retinues.Troops.Edition
         public static List<(WItem, int?, bool)> CollectAvailableItems(
             WCharacter troop,
             WFaction faction,
-            EquipmentIndex slot
+            EquipmentIndex slot,
+            bool civilianOnly = false
         )
         {
             Log.Debug(
@@ -61,6 +61,9 @@ namespace Retinues.Troops.Edition
                     .Select(i => new WItem(i))
             )
             {
+                if (civilianOnly && !item.IsCivilian)
+                    continue; // Skip non-civilian items if filtering for civilian only
+
                 bool isAvailable =
                     item.IsStocked
                     || Config.GetOption<bool>("RestrictItemsToTownInventory") == false
@@ -180,7 +183,13 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Equips an item from stock to a troop, reducing stock by 1.
         /// </summary>
-        public static void EquipFromStock(WCharacter troop, EquipmentIndex slot, WItem item)
+        public static void EquipFromStock(
+            WCharacter troop,
+            EquipmentIndex slot,
+            WItem item,
+            WLoadout.Category category,
+            int index = 0
+        )
         {
             Log.Debug(
                 "[EquipFromStock] Called for item " + item?.Name + " and troop " + troop?.Name
@@ -190,13 +199,19 @@ namespace Retinues.Troops.Edition
             item.Unstock(); // Reduce stock by 1
 
             Log.Debug("[EquipFromStock] Calling Equip.");
-            Equip(troop, slot, item);
+            Equip(troop, slot, item, category, index);
         }
 
         /// <summary>
         /// Purchases and equips an item to a troop, deducting gold.
         /// </summary>
-        public static void EquipFromPurchase(WCharacter troop, EquipmentIndex slot, WItem item)
+        public static void EquipFromPurchase(
+            WCharacter troop,
+            EquipmentIndex slot,
+            WItem item,
+            WLoadout.Category category,
+            int index = 0
+        )
         {
             Log.Debug(
                 "[EquipFromPurchase] Called for item " + item?.Name + " and troop " + troop?.Name
@@ -206,47 +221,59 @@ namespace Retinues.Troops.Edition
             Player.ChangeGold(-GetItemValue(item, troop)); // Deduct cost
 
             Log.Debug("[EquipFromPurchase] Calling Equip.");
-            Equip(troop, slot, item);
+            Equip(troop, slot, item, category, index);
         }
 
         /// <summary>
         /// Equips an item to a troop.
         /// </summary>
-        public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item)
+        public static void Equip(
+            WCharacter troop,
+            EquipmentIndex slot,
+            WItem item,
+            WLoadout.Category category,
+            int index = 0
+        )
         {
             // If unequipping a horse, also unequip the harness
             if (slot == EquipmentIndex.Horse && item == null)
             {
                 Log.Debug("Unequipping horse also unequips harness.");
-                Equip(troop, EquipmentIndex.HorseHarness, null);
+                Equip(troop, EquipmentIndex.HorseHarness, null, category, index);
             }
 
             if (Config.GetOption<bool>("EquipmentChangeTakesTime") && item != null)
-                TroopEquipBehavior.StageEquipmentChange(troop, slot, item);
+                TroopEquipBehavior.StageEquipmentChange(troop, slot, item, category, index);
             else
-                ApplyEquip(troop, slot, item);
+                ApplyEquip(troop, slot, item, category, index);
         }
 
         /// <summary>
         /// Equips an item to a troop, unequipping old item and handling horse/harness logic.
         /// </summary>
-        public static void ApplyEquip(WCharacter troop, EquipmentIndex slot, WItem item)
+        public static void ApplyEquip(
+            WCharacter troop,
+            EquipmentIndex slot,
+            WItem item,
+            WLoadout.Category category,
+            int index = 0
+        )
         {
             Log.Debug(
                 $"Applying equip of item {item?.Name} to troop {troop?.Name} in slot {slot}."
             );
-            troop.Unequip(slot)?.Stock();
-            troop.Equip(item, slot);
+            troop.Unequip(slot, category, index)?.Stock();
+            troop.Equip(item, slot, category, index);
         }
 
         /// <summary>
         /// Unequips all items from a troop and restocks them.
         /// </summary>
-        public static void UnequipAll(WCharacter troop)
+        public static void UnequipAll(WCharacter troop, WLoadout.Category category, int index = 0)
         {
             Log.Debug($"Unequipping all items from troop {troop?.Name}.");
 
-            foreach (var item in troop.UnequipAll())
+            foreach (var item in troop.UnequipAll(category, index))
             {
                 // If the item had a value, restock it
                 if (item != null && item.Value > 0)

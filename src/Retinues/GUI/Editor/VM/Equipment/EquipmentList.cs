@@ -79,7 +79,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 var items = EquipmentManager.CollectAvailableItems(
                     Screen.SelectedTroop,
                     Screen.Faction,
-                    slot.Slot
+                    slot.Slot,
+                    civilianOnly: Screen.EquipmentEditor.LoadoutCategory
+                        == WLoadout.Category.Civilian
                 );
 
                 foreach (var (item, progress, available) in items)

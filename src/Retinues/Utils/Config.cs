@@ -107,6 +107,21 @@ namespace Retinues.Utils
                 maxValue: 5000
             );
 
+            AddOption(
+                section: L.S("mcm_section_retinues", "Retinues"),
+                name: L.S(
+                    "mcm_option_restrict_conversion_to_fiefs",
+                    "Restrict Retinue Conversion To Fiefs"
+                ),
+                key: "RestrictConversionToFiefs",
+                hint: L.S(
+                    "mcm_option_restrict_conversion_to_fiefs_hint",
+                    "Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)."
+                ),
+                @default: true,
+                type: typeof(bool)
+            );
+
             /* ━━━━━━ Recruitment ━━━━━ */
 
             AddOption(
@@ -195,76 +210,6 @@ namespace Retinues.Utils
                 type: typeof(bool)
             );
 
-            AddOption(
-                section: L.S("mcm_section_troop_customization", "Troop Customization"),
-                name: L.S(
-                    "mcm_option_restrict_conversion_to_fiefs",
-                    "Restrict Retinue Conversion To Fiefs"
-                ),
-                key: "RestrictConversionToFiefs",
-                hint: L.S(
-                    "mcm_option_restrict_conversion_to_fiefs_hint",
-                    "Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)."
-                ),
-                @default: true,
-                type: typeof(bool)
-            );
-
-            AddOption(
-                section: L.S("mcm_section_troop_customization", "Troop Customization"),
-                name: L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
-                key: "TrainingTakesTime",
-                hint: L.S("mcm_option_training_takes_time_hint", "Troop training takes time."),
-                @default: true,
-                type: typeof(bool)
-            );
-
-            AddOption(
-                section: L.S("mcm_section_troop_customization", "Troop Customization"),
-                name: L.S("mcm_option_training_time_modifier", "Training Time Modifier"),
-                key: "TrainingTimeModifier",
-                hint: L.S(
-                    "mcm_option_training_time_modifier_hint",
-                    "Modifier for troop training time."
-                ),
-                @default: 2,
-                type: typeof(int),
-                minValue: 1,
-                maxValue: 5
-            );
-
-            AddOption(
-                section: L.S("mcm_section_troop_customization", "Troop Customization"),
-                name: L.S(
-                    "mcm_option_equipment_change_takes_time",
-                    "Changing Troop Equipment Takes Time"
-                ),
-                key: "EquipmentChangeTakesTime",
-                hint: L.S(
-                    "mcm_option_equipment_change_takes_time_hint",
-                    "Changing a troop's equipment takes time."
-                ),
-                @default: true,
-                type: typeof(bool)
-            );
-
-            AddOption(
-                section: L.S("mcm_section_troop_customization", "Troop Customization"),
-                name: L.S(
-                    "mcm_option_equipment_change_time_modifier",
-                    "Equipment Change Time Modifier"
-                ),
-                key: "EquipmentChangeTimeModifier",
-                hint: L.S(
-                    "mcm_option_equipment_change_time_modifier_hint",
-                    "Modifier for equipment change time."
-                ),
-                @default: 2,
-                type: typeof(int),
-                minValue: 1,
-                maxValue: 5
-            );
-
             /* ━━━━━━━ Doctrines ━━━━━━ */
 
             AddOption(
@@ -310,6 +255,38 @@ namespace Retinues.Utils
             AddOption(
                 section: L.S("mcm_section_equipment", "Equipment"),
                 name: L.S(
+                    "mcm_option_equipment_change_takes_time",
+                    "Changing Troop Equipment Takes Time"
+                ),
+                key: "EquipmentChangeTakesTime",
+                hint: L.S(
+                    "mcm_option_equipment_change_takes_time_hint",
+                    "Changing a troop's equipment takes time."
+                ),
+                @default: true,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S(
+                    "mcm_option_equipment_change_time_modifier",
+                    "Equipment Change Time Modifier"
+                ),
+                key: "EquipmentChangeTimeModifier",
+                hint: L.S(
+                    "mcm_option_equipment_change_time_modifier_hint",
+                    "Modifier for equipment change time."
+                ),
+                @default: 2,
+                type: typeof(int),
+                minValue: 1,
+                maxValue: 5
+            );
+
+            AddOption(
+                section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S(
                     "mcm_option_restrict_items_to_town_inventory",
                     "Restrict Items To Town Inventory"
                 ),
@@ -349,6 +326,29 @@ namespace Retinues.Utils
             );
 
             /* ━━━━━━━━ Skills ━━━━━━━━ */
+
+            AddOption(
+                section: L.S("mcm_section_skills", "Skills"),
+                name: L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
+                key: "TrainingTakesTime",
+                hint: L.S("mcm_option_training_takes_time_hint", "Troop training takes time."),
+                @default: true,
+                type: typeof(bool)
+            );
+
+            AddOption(
+                section: L.S("mcm_section_skills", "Skills"),
+                name: L.S("mcm_option_training_time_modifier", "Training Time Modifier"),
+                key: "TrainingTimeModifier",
+                hint: L.S(
+                    "mcm_option_training_time_modifier_hint",
+                    "Modifier for troop training time."
+                ),
+                @default: 2,
+                type: typeof(int),
+                minValue: 1,
+                maxValue: 5
+            );
 
             AddOption(
                 section: L.S("mcm_section_skills", "Skills"),
@@ -423,7 +423,7 @@ namespace Retinues.Utils
                     "mcm_option_own_culture_unlock_bonuses_hint",
                     "Whether kills also unlock items from the custom troop's culture."
                 ),
-                @default: false,
+                @default: true,
                 type: typeof(bool)
             );
 

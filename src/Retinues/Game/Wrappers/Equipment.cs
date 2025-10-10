@@ -25,15 +25,17 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Creates a WEquipment from an equipment code string.
         /// </summary>
-        public static WEquipment FromCode(string code)
+        public static WEquipment FromCode(string code, bool civilian = false)
         {
             Equipment obj;
 
             if (code is null)
 #if BL13
-                obj = new Equipment(Equipment.EquipmentType.Battle);
+                obj = new Equipment(
+                    civilian ? Equipment.EquipmentType.Civilian : Equipment.EquipmentType.Battle
+                );
 #else
-                obj = new Equipment(false);
+                obj = new Equipment(civilian);
 #endif
             else
                 obj = Equipment.CreateFromEquipmentCode(code);
@@ -112,6 +114,23 @@ namespace Retinues.Game.Wrappers
             _equipment[slot] = new EquipmentElement(item?.Base);
         }
 
+        /// <summary>
+        /// Unsets (removes) the item in the specified equipment slot.
+        /// </summary>
+        public void UnsetItem(EquipmentIndex slot)
+        {
+            _equipment[slot] = new EquipmentElement(null);
+        }
+
+        /// <summary>
+        /// Unsets (removes) all items in all defined equipment slots.
+        /// </summary>
+        public void UnsetAll()
+        {
+            foreach (var slot in Slots)
+                UnsetItem(slot);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Skill Requirements                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -147,7 +166,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets the skill requirement for a specific skill.
         /// </summary>
-        public int GetSkillRequirement(SkillObject skill)
+        public int ComputeSkillRequirement(SkillObject skill)
         {
             if (SkillRequirements.TryGetValue(skill, out int req))
                 return req;
@@ -155,21 +174,25 @@ namespace Retinues.Game.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
+        //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public void FillEmptySlotsFrom(WEquipment equipment)
+        public FormationClass ComputeFormationClass()
         {
-            foreach (var slot in Slots)
+            return (HasNonThrowableRangedWeapons, HasMount) switch
             {
-                if (GetItem(slot) == null)
-                {
-                    var item = equipment.GetItem(slot);
-                    if (item != null)
-                        SetItem(slot, item);
-                }
-            }
+                (true, true) => FormationClass.HorseArcher,
+                (true, false) => FormationClass.Ranged,
+                (false, true) => FormationClass.Cavalry,
+                (false, false) => FormationClass.Infantry,
+            };
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Flags                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsCivilian => _equipment.IsCivilian;
 
         /// <summary>
         /// Returns true if any equipped item is a ranged weapon.

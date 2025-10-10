@@ -158,7 +158,7 @@ namespace Retinues.Game.Helpers
             var classes = new List<string>();
             foreach (var slot in WEquipment.Slots)
             {
-                var item = c.Equipment.GetItem(slot);
+                var item = c.Loadout.Battle.GetItem(slot);
                 if (item != null && item.IsWeapon)
                     classes.Add(item.Class);
             }

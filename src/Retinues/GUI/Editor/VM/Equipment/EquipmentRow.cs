@@ -1,4 +1,3 @@
-using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
@@ -6,7 +5,6 @@ using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
-using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
@@ -213,7 +211,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
             Log.Debug("[Unstage] Unstaging item: " + slot.StagedItem.Name);
 
             slot.StagedItem.Stock(); // Restock the staged item
-            TroopEquipBehavior.UnstageEquipmentChange(RowList?.Screen?.SelectedTroop, slot.Slot);
+            TroopEquipBehavior.UnstageChange(
+                RowList?.Screen?.SelectedTroop,
+                slot.Slot,
+                LoadoutCategory,
+                LoadoutIndex
+            );
         }
 
         [DataSourceMethod]
@@ -289,7 +292,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
                                         // Unstage if something is staged
                                         Unstage();
                                         // Apply unequip
-                                        EquipmentManager.Equip(troop, slot.Slot, null);
+                                        EquipmentManager.Equip(
+                                            troop,
+                                            slot.Slot,
+                                            null,
+                                            LoadoutCategory,
+                                            LoadoutIndex
+                                        );
                                         // Select the row
                                         Select();
                                     },
@@ -326,7 +335,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
                             // Unstage if something is staged
                             Unstage();
                             // Apply the item change
-                            EquipmentManager.EquipFromStock(troop, slot.Slot, selectedItem);
+                            EquipmentManager.EquipFromStock(
+                                troop,
+                                slot.Slot,
+                                selectedItem,
+                                LoadoutCategory,
+                                LoadoutIndex
+                            );
                             // Select the row
                             Select();
                         }
@@ -365,7 +380,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                                             EquipmentManager.EquipFromPurchase(
                                                 troop,
                                                 slot.Slot,
-                                                selectedItem
+                                                selectedItem,
+                                                LoadoutCategory,
+                                                LoadoutIndex
                                             );
                                             // Select the row
                                             Select();
@@ -402,7 +419,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
                         // Unstage if something is staged
                         Unstage();
                         // Apply the item change
-                        EquipmentManager.Equip(troop, slot.Slot, selectedItem);
+                        EquipmentManager.Equip(
+                            troop,
+                            slot.Slot,
+                            selectedItem,
+                            LoadoutCategory,
+                            LoadoutIndex
+                        );
                         // Select the row
                         Select();
                     }
@@ -473,6 +496,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private WLoadout.Category LoadoutCategory =>
+            RowList?.Screen?.EquipmentEditor?.LoadoutCategory ?? WLoadout.Category.Battle;
+        private int LoadoutIndex => RowList?.Screen?.EquipmentEditor?.LoadoutIndex ?? 0;
 
         protected override void OnSelect()
         {

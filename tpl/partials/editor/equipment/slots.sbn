@@ -83,7 +83,7 @@
             MarginLeft="24"/>
         <TextWidget
             IsVisible="@IsStaged"
-            Text="@Name"
+            Text="@StagedName"
             Brush="Clan.RightPanel.Name.Text"
             Brush.FontSize="24"
             Brush.FontColor="#ebaf2fff"

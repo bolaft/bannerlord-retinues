@@ -30,12 +30,15 @@ namespace Retinues.Troops.Persistence
         public string SkillCode;
 
         [SaveableField(7)]
-        public string EquipmentCode;
+        public string EquipmentCode; // Legacy
 
         [SaveableField(8)]
         public List<TroopSaveData> UpgradeTargets = [];
 
         [SaveableField(9)]
-        public int XpPool = 0; // Legacy, required for backwards compatibility
+        public int XpPool = 0; // Legacy
+
+        [SaveableField(10)]
+        public List<string> EquipmentCodes = [];
     }
 }

@@ -192,7 +192,7 @@ namespace Retinues.Troops.Edition
                 return false;
 
             // Check for equipment skill requirements
-            if (character.GetSkill(skill) <= character.Equipment.GetSkillRequirement(skill))
+            if (character.GetSkill(skill) <= character.Loadout.ComputeSkillRequirement(skill))
                 return false;
 
             // Check for parent skill (can't go below parent's skill level)

@@ -134,6 +134,7 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         protected override void OnSelect()
         {
+            RowList.Screen.EquipmentEditor?.SelectEquipment();
             RowList.Screen.TroopEditor.Refresh();
             RowList.Screen.Refresh();
         }

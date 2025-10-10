@@ -40,7 +40,46 @@ namespace Retinues.Troops
             troop.Level = data.Level;
             troop.IsFemale = data.IsFemale;
             troop.Skills = SkillsFromCode(data.SkillCode);
-            troop.Equipments = [WEquipment.FromCode(data.EquipmentCode)];
+
+            if (data.EquipmentCode != null)
+            {
+                // Legacy support for single equipment code
+                Log.Warn(
+                    "TroopSaveData.EquipmentCode is deprecated, use EquipmentCodes list instead."
+                );
+                troop.Loadout.Equipments =
+                [
+                    WEquipment.FromCode(data.EquipmentCode),
+                    WEquipment.FromCode(data.EquipmentCode, civilian: true),
+                ];
+            }
+            else
+            {
+                if (troop.Loadout.Equipments.Count == 0)
+                {
+                    // create two empty equipments if none exist
+                    troop.Loadout.Clear();
+                }
+                else if (troop.Loadout.Equipments.Count == 1)
+                {
+                    // ensure we have a second equipment for civilian
+                    troop.Loadout.Equipments =
+                    [
+                        troop.Loadout.Equipments[0],
+                        WEquipment.FromCode(null, true),
+                    ];
+                }
+                else
+                {
+                    // set civilian flag for second equipment
+                    troop.Loadout.Equipments =
+                    [
+                        .. data.EquipmentCodes.Select(
+                            (code, idx) => WEquipment.FromCode(code, idx == 1)
+                        ),
+                    ];
+                }
+            }
 
             // Restore upgrade targets
             foreach (var child in data.UpgradeTargets ?? [])
@@ -52,9 +91,6 @@ namespace Retinues.Troops
 
             // Activate
             troop.Activate();
-
-            // Force recalculation of formation class based on equipment
-            troop.ResetFormationClass();
 
             // Return the created troop
             return troop;
@@ -78,7 +114,7 @@ namespace Retinues.Troops
                 Level = character.Level,
                 IsFemale = character.IsFemale,
                 SkillCode = CodeFromSkills(character.Skills),
-                EquipmentCode = character.Equipment.Code,
+                EquipmentCodes = [.. character.Loadout.Equipments.Select(we => we.Code)],
             };
 
             return data;

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -15,6 +17,55 @@ namespace Retinues.GUI.Editor.VM.Equipment
         : BaseEditor<EquipmentEditorVM>(screen)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Equipment                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WLoadout.Category LoadoutCategory = WLoadout.Category.Battle;
+        public int LoadoutIndex = 0;
+        public WEquipment Equipment => SelectedTroop?.Loadout.Get(LoadoutCategory, LoadoutIndex);
+
+        /// <summary>
+        /// Selects the given loadout category and index.
+        /// </summary>
+        public void SelectEquipment(
+            WLoadout.Category category = WLoadout.Category.Battle,
+            int index = 0
+        )
+        {
+            if (SelectedTroop == null)
+            {
+                LoadoutCategory = WLoadout.Category.Battle;
+                LoadoutIndex = 0;
+                Refresh();
+                return;
+            }
+
+            var altCount = SelectedTroop.Loadout.Alternates.Count;
+
+            if (category != WLoadout.Category.Alternate)
+            {
+                LoadoutCategory = category;
+                LoadoutIndex = 0; // Battle/Civilian always index 0
+            }
+            else
+            {
+                // Clamp to existing alternates
+                if (altCount == 0)
+                {
+                    LoadoutCategory = WLoadout.Category.Civilian;
+                    LoadoutIndex = 0;
+                    Refresh();
+                    return;
+                }
+                LoadoutCategory = WLoadout.Category.Alternate;
+                LoadoutIndex = Math.Max(0, Math.Min(index, altCount - 1));
+            }
+
+            Refresh();
+            Screen.Refresh();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -26,7 +77,57 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public string UnstageAllButtonText => L.S("unstage_all_button_text", "Reset Changes");
 
+        [DataSourceProperty]
+        public string CurrentSetText
+        {
+            get
+            {
+                if (LoadoutCategory == WLoadout.Category.Alternate)
+                    return L.T("set_alt_n", "Alt {N}")
+                        .SetTextVariable("N", LoadoutIndex + 1)
+                        .ToString();
+                return LoadoutCategory == WLoadout.Category.Civilian
+                    ? L.S("set_civilian", "Civilian")
+                    : L.S("set_battle", "Battle");
+            }
+        }
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool CanSelectPreviousSet
+        {
+            get
+            {
+                if (SelectedTroop == null)
+                    return false;
+                // Only Battle has no previous; Civilian always has Battle; Alternates have previous (Civilian or Alt-1)
+                return LoadoutCategory != WLoadout.Category.Battle;
+            }
+        }
+
+        [DataSourceProperty]
+        public bool CanSelectNextSet
+        {
+            get
+            {
+                if (SelectedTroop == null)
+                    return false;
+                var altCount = SelectedTroop.Loadout.Alternates.Count;
+
+                switch (LoadoutCategory)
+                {
+                    case WLoadout.Category.Battle:
+                        return true; // → Civilian
+                    case WLoadout.Category.Civilian:
+                        return altCount > 0; // → Alt 0 if any exist
+                    case WLoadout.Category.Alternate:
+                        return LoadoutIndex < altCount - 1; // → next Alt
+                    default:
+                        return false;
+                }
+            }
+        }
 
         [DataSourceProperty]
         public bool CanUnequip
@@ -37,12 +138,21 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     return false; // Only show in equipment mode
                 if (SelectedTroop == null)
                     return false;
-                if (SelectedTroop.Equipment.Items.Count == 0)
+                if (Equipment == null)
+                    return false;
+                if (Equipment.Items.Count == 0)
                     return false; // No equipment to unequip
 
                 return true;
             }
         }
+
+        [DataSourceProperty]
+        public bool CanRemoveSet =>
+            SelectedTroop != null
+            && LoadoutCategory == WLoadout.Category.Alternate
+            && LoadoutIndex >= 0
+            && LoadoutIndex < SelectedTroop.Loadout.Alternates.Count;
 
         [DataSourceProperty]
         public bool HasStagedChanges
@@ -52,28 +162,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 if (SelectedTroop == null)
                     return false;
 
-                if (HeadSlot.IsStaged)
-                    return true;
-                if (CapeSlot.IsStaged)
-                    return true;
-                if (BodySlot.IsStaged)
-                    return true;
-                if (GlovesSlot.IsStaged)
-                    return true;
-                if (LegSlot.IsStaged)
-                    return true;
-                if (HorseSlot.IsStaged)
-                    return true;
-                if (HorseHarnessSlot.IsStaged)
-                    return true;
-                if (WeaponItemBeginSlotSlot.IsStaged)
-                    return true;
-                if (Weapon1Slot.IsStaged)
-                    return true;
-                if (Weapon2Slot.IsStaged)
-                    return true;
-                if (Weapon3Slot.IsStaged)
-                    return true;
+                foreach (var slot in Slots)
+                    if (slot.IsStaged)
+                        return true;
 
                 return false;
             }
@@ -164,7 +255,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        EquipmentManager.UnequipAll(SelectedTroop);
+                        EquipmentManager.UnequipAll(SelectedTroop, LoadoutCategory, LoadoutIndex);
 
                         // Refresh UI
                         Screen.Refresh();
@@ -207,6 +298,121 @@ namespace Retinues.GUI.Editor.VM.Equipment
                         Screen.Refresh();
                         Screen.EquipmentList.Refresh();
                         Refresh();
+                    },
+                    negativeAction: () => { }
+                )
+            );
+        }
+
+        [DataSourceMethod]
+        public void ExecutePreviousSet()
+        {
+            if (SelectedTroop == null)
+                return;
+
+            switch (LoadoutCategory)
+            {
+                case WLoadout.Category.Battle:
+                    return; // no previous
+                case WLoadout.Category.Civilian:
+                    SelectEquipment(WLoadout.Category.Battle);
+                    return;
+                case WLoadout.Category.Alternate:
+                    if (LoadoutIndex > 0)
+                        SelectEquipment(WLoadout.Category.Alternate, LoadoutIndex - 1);
+                    else
+                        SelectEquipment(WLoadout.Category.Civilian);
+                    return;
+            }
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextSet()
+        {
+            if (SelectedTroop == null)
+                return;
+
+            switch (LoadoutCategory)
+            {
+                case WLoadout.Category.Battle:
+                    SelectEquipment(WLoadout.Category.Civilian);
+                    return;
+
+                case WLoadout.Category.Civilian:
+                    if (SelectedTroop.Loadout.Alternates.Count > 0)
+                        SelectEquipment(WLoadout.Category.Alternate, 0);
+                    return;
+
+                case WLoadout.Category.Alternate:
+                    if (LoadoutIndex < SelectedTroop.Loadout.Alternates.Count - 1)
+                        SelectEquipment(WLoadout.Category.Alternate, LoadoutIndex + 1);
+                    return;
+            }
+        }
+
+        [DataSourceMethod]
+        public void ExecuteCreateSet()
+        {
+            if (SelectedTroop == null) return;
+
+            // Create a brand-new EMPTY alternate set (independent, no free items)
+            var alternates = SelectedTroop.Loadout.Alternates;
+            alternates.Add(WEquipment.FromCode(null));
+            SelectedTroop.Loadout.Alternates = alternates; // re-assign to trigger any bindings
+
+            // Focus the newly created set
+            var newIndex = SelectedTroop.Loadout.Alternates.Count - 1;
+            SelectEquipment(WLoadout.Category.Alternate, newIndex);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteRemoveSet()
+        {
+            if (!CanRemoveSet) return;
+
+            var setLabel = $"Alt {LoadoutIndex + 1}";
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    titleText: L.S("remove_set_title", "Remove Set"),
+                    text: L.T("remove_set_text",
+                            "Remove {SET} for {TROOP_NAME}?\nAll staged changes will be cleared and items will be unequipped and stocked.")
+                        .SetTextVariable("SET", setLabel)
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .ToString(),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
+                    affirmativeAction: () =>
+                    {
+                        // 1) Unstage all for THIS set via slot VMs (no assumptions about behavior helpers)
+                        foreach (var s in Slots)
+                            s.Unstage();
+
+                        // 2) Unequip all for THIS set (restocks whatever was actually equipped there)
+                        EquipmentManager.UnequipAll(
+                            SelectedTroop,
+                            LoadoutCategory,
+                            LoadoutIndex
+                        );
+
+                        // 3) Remove the set
+                        var idx = LoadoutIndex; // cache before we mutate
+                        SelectedTroop.Loadout.Alternates.RemoveAt(idx);
+
+                        // 4) Move focus: stay on previous alt if any, else go to Civilian
+                        var altCount = SelectedTroop.Loadout.Alternates.Count;
+                        if (altCount > 0)
+                        {
+                            var nextIdx = Math.Min(idx, altCount - 1);
+                            SelectEquipment(WLoadout.Category.Alternate, nextIdx);
+                        }
+                        else
+                        {
+                            SelectEquipment(WLoadout.Category.Civilian);
+                        }
+
+                        // (SelectEquipment calls Refresh(); no extra refresh needed)
                     },
                     negativeAction: () => { }
                 )
@@ -279,6 +485,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             OnPropertyChanged(nameof(HasStagedChanges));
             OnPropertyChanged(nameof(CanUnequip));
+            OnPropertyChanged(nameof(CurrentSetText));
+            OnPropertyChanged(nameof(CanSelectPreviousSet));
+            OnPropertyChanged(nameof(CanSelectNextSet));
             OnPropertyChanged(nameof(HeadSlot));
             OnPropertyChanged(nameof(CapeSlot));
             OnPropertyChanged(nameof(BodySlot));

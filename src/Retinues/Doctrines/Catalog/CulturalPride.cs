@@ -101,7 +101,7 @@ namespace Retinues.Doctrines.Catalog
                         continue; // Only consider custom troops
 
                     bool hasFullSet = true;
-                    foreach (var item in troop.Equipment.Items)
+                    foreach (var item in troop.Loadout.Items)
                     {
                         if (item.Culture == null)
                             continue; // Ignore culture-less items

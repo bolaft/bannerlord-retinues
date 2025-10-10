@@ -38,13 +38,25 @@ namespace Retinues.Doctrines.Catalog
                     if (!troop.IsCustom)
                         continue; // Only consider custom troops
 
-                    if (troop.Equipment.GetItem(EquipmentIndex.Head).Tier < 6)
-                        continue; // Helmet does not meet tier requirement
+                    var hasFullSet = true;
 
-                    if (troop.Equipment.GetItem(EquipmentIndex.Body).Tier < 6)
-                        continue; // Body armor does not meet tier requirement
+                    foreach (var equipment in troop.Loadout.Equipments)
+                    {
+                        if (equipment.GetItem(EquipmentIndex.Head).Tier < 6)
+                        {
+                            hasFullSet = false; // Helmet does not meet tier requirement
+                            break;
+                        }
 
-                    AdvanceProgress(1);
+                        if (equipment.GetItem(EquipmentIndex.Body).Tier < 6)
+                        {
+                            hasFullSet = false; // Body armor does not meet tier requirement
+                            break;
+                        }
+                    }
+
+                    if (hasFullSet)
+                        AdvanceProgress(1);
                 }
             }
         }

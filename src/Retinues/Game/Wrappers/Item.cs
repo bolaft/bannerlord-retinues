@@ -57,6 +57,8 @@ namespace Retinues.Game.Wrappers
 
         public string Name => _itemObject.Name.ToString();
 
+        public bool IsCivilian => _itemObject.IsCivilian;
+
         public int Value => _itemObject.Value;
 
         public ItemCategory Category => _itemObject.ItemCategory;

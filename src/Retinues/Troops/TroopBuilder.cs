@@ -120,12 +120,9 @@ namespace Retinues.Troops
             retinue.IsNotTransferableInPartyScreen = true;
 
             // Unlock items
-            foreach (var equipment in root.Equipments)
+            foreach (var equipment in root.Loadout.Equipments)
             foreach (var item in equipment.Items)
                 item.Unlock();
-
-            // Force recalculation of formation class based on equipment
-            retinue.ResetFormationClass();
 
             // Activate
             retinue.Activate();
@@ -185,12 +182,9 @@ namespace Retinues.Troops
             militia.IsNotTransferableInPartyScreen = true;
 
             // Unlock items
-            foreach (var equipment in root.Equipments)
+            foreach (var equipment in root.Loadout.Equipments)
             foreach (var item in equipment.Items)
                 item.Unlock();
-
-            // Force recalculation of formation class based on equipment
-            militia.ResetFormationClass();
 
             // Activate
             militia.Activate();
@@ -251,7 +245,7 @@ namespace Retinues.Troops
 
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
-            foreach (var equipment in troop.Equipments)
+            foreach (var equipment in troop.Loadout.Equipments)
             foreach (var item in equipment.Items)
             {
                 item.Unlock();
@@ -295,12 +289,9 @@ namespace Retinues.Troops
             parent?.AddUpgradeTarget(troop);
 
             // Unlock items
-            foreach (var equipment in vanilla.Equipments)
+            foreach (var equipment in vanilla.Loadout.Equipments)
             foreach (var item in equipment.Items)
                 item.Unlock();
-
-            // Force recalculation of formation class based on equipment
-            troop.ResetFormationClass();
 
             // Activate
             troop.Activate();

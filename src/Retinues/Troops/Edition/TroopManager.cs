@@ -197,7 +197,8 @@ namespace Retinues.Troops.Edition
             Log.Debug($"Removing troop {troop?.Name}.");
 
             // Stock the troop's equipment
-            foreach (var item in troop.Equipment.Items)
+            foreach (var equipment in troop.Loadout.Equipments)
+            foreach (var item in equipment.Items)
                 item.Stock();
 
             // Remove the troop

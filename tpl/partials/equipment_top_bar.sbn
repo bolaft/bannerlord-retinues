@@ -89,9 +89,9 @@
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             HorizontalAlignment="Center">
             <Children>
-                {{ button_icon("ExecutePreviousSet", "ButtonRightBigArrowBrush1", "36", "true", "@CanGoLeft") }}
+                {{ button_icon("ExecutePreviousSet", "ButtonRightBigArrowBrush1", "36", "true", "@CanSelectPreviousSet") }}
                 {{ text("@CurrentSetText", "Clan.Tuple.Name.Text", "Center", "16", "16") }}
-                {{ button_icon("ExecuteNextSet", "ButtonLeftBigArrowBrush1", "36", "true", "@CanGoRight") }}
+                {{ button_icon("ExecuteNextSet", "ButtonLeftBigArrowBrush1", "36", "true", "@CanSelectNextSet") }}
             </Children>
         </ListPanel>
         <ListPanel

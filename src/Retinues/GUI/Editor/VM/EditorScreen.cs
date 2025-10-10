@@ -80,7 +80,7 @@ namespace Retinues.GUI.Editor.VM
         public EquipmentListVM EquipmentList { get; private set; }
 
         [DataSourceProperty]
-        public CharacterViewModel Model => SelectedTroop?.Model;
+        public CharacterViewModel Model => EquipmentEditor is null ? null : SelectedTroop?.GetModel(EquipmentEditor.LoadoutCategory, EquipmentEditor.LoadoutIndex);
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 

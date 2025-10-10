@@ -1,7 +1,6 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game.Wrappers;
-using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -79,7 +78,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
                 // Disable horse harness if no horse equipped
                 if (_slot == EquipmentIndex.HorseHarness)
-                    if (_troop.Equipment.GetItem(EquipmentIndex.Horse) == null)
+                    if (_editor.Equipment?.GetItem(EquipmentIndex.Horse) == null)
                         return false;
 
                 return true;
@@ -97,6 +96,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public bool IsStaged => StagedItem != null;
+
+        [DataSourceProperty]
+        public bool IsActual => IsStaged == false;
+
+        [DataSourceProperty]
+        public bool IsMirrored => false; // Not implemented yet
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
@@ -136,13 +141,19 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public PendingEquipData StagedChange => TroopEquipBehavior.GetStagedChange(_troop, _slot);
+        public PendingEquipData StagedChange =>
+            TroopEquipBehavior.GetStagedChange(
+                _troop,
+                _slot,
+                _editor.LoadoutCategory,
+                _editor.LoadoutIndex
+            );
 
         public int StagedChangeDuration => StagedChange?.Remaining ?? 0;
 
         public WItem Item => IsStaged ? StagedItem : ActualItem;
 
-        public WItem ActualItem => _troop.Equipment.GetItem(_slot);
+        public WItem ActualItem => _editor.Equipment.GetItem(_slot);
 
         public WItem StagedItem
         {
@@ -160,10 +171,20 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (!IsStaged)
                 return; // No-op if no staged change
 
-            var change = TroopEquipBehavior.GetStagedChange(_troop, _slot);
+            var change = TroopEquipBehavior.GetStagedChange(
+                _troop,
+                _slot,
+                _editor.LoadoutCategory,
+                _editor.LoadoutIndex
+            );
             var item = new WItem(change.ItemId);
             item.Stock();
-            TroopEquipBehavior.UnstageEquipmentChange(_troop, _slot);
+            TroopEquipBehavior.UnstageChange(
+                _troop,
+                _slot,
+                _editor.LoadoutCategory,
+                _editor.LoadoutIndex
+            );
         }
 
         public void Select()
