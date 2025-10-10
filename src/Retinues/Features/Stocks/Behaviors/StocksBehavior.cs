@@ -21,8 +21,6 @@ namespace Retinues.Features.Stocks.Behaviors
         private Dictionary<string, int> _stocksByItemId;
         public Dictionary<string, int> StocksByItemId => _stocksByItemId ??= [];
 
-        public bool HasSyncData => StocksByItemId.Count > 0;
-
         public override void SyncData(IDataStore ds)
         {
             ds.SyncData("Retinues_Stocks", ref _stocksByItemId);

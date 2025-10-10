@@ -33,8 +33,6 @@ namespace Retinues.Features.Unlocks.Behaviors
         private List<string> _unlockedItemIds;
         public List<string> UnlockedItemIds => _unlockedItemIds ??= [];
 
-        public bool HasSyncData => UnlockedItemIds.Count > 0 || ProgressByItemId.Count > 0;
-
         public override void SyncData(IDataStore ds)
         {
             // Unlocked item IDs
