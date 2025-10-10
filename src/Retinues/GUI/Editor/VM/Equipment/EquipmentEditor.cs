@@ -373,48 +373,31 @@ namespace Retinues.GUI.Editor.VM.Equipment
             var setLabel = $"Alt {LoadoutIndex + 1}";
             InformationManager.ShowInquiry(
                 new InquiryData(
-                    titleText: L.S("remove_set_title", "Remove Set"),
-                    text: L.T("remove_set_text",
-                            "Remove {SET} for {TROOP_NAME}?\nAll staged changes will be cleared and items will be unequipped and stocked.")
-                        .SetTextVariable("SET", setLabel)
-                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
-                        .ToString(),
-                    isAffirmativeOptionShown: true,
-                    isNegativeOptionShown: true,
-                    affirmativeText: L.S("confirm", "Confirm"),
-                    negativeText: L.S("cancel", "Cancel"),
-                    affirmativeAction: () =>
+                    L.S("remove_set_title", "Remove Set"),
+                    L.T("remove_set_text",
+                        "Remove {SET} for {TROOP_NAME}?\nAll staged changes will be cleared and items will be unequipped and stocked.")
+                    .SetTextVariable("SET", setLabel)
+                    .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                    .ToString(),
+                    true, true,
+                    L.S("confirm", "Confirm"),
+                    L.S("cancel", "Cancel"),
+                    () =>
                     {
-                        // 1) Unstage all for THIS set via slot VMs (no assumptions about behavior helpers)
-                        foreach (var s in Slots)
-                            s.Unstage();
+                        foreach (var s in Slots) s.Unstage();
+                        EquipmentManager.UnequipAll(SelectedTroop, LoadoutCategory, LoadoutIndex);
 
-                        // 2) Unequip all for THIS set (restocks whatever was actually equipped there)
-                        EquipmentManager.UnequipAll(
-                            SelectedTroop,
-                            LoadoutCategory,
-                            LoadoutIndex
-                        );
+                        var alts = SelectedTroop.Loadout.Alternates;
+                        alts.RemoveAt(LoadoutIndex);
+                        SelectedTroop.Loadout.Alternates = alts;
 
-                        // 3) Remove the set
-                        var idx = LoadoutIndex; // cache before we mutate
-                        SelectedTroop.Loadout.Alternates.RemoveAt(idx);
-
-                        // 4) Move focus: stay on previous alt if any, else go to Civilian
                         var altCount = SelectedTroop.Loadout.Alternates.Count;
                         if (altCount > 0)
-                        {
-                            var nextIdx = Math.Min(idx, altCount - 1);
-                            SelectEquipment(WLoadout.Category.Alternate, nextIdx);
-                        }
+                            SelectEquipment(WLoadout.Category.Alternate, Math.Min(LoadoutIndex, altCount - 1));
                         else
-                        {
                             SelectEquipment(WLoadout.Category.Civilian);
-                        }
-
-                        // (SelectEquipment calls Refresh(); no extra refresh needed)
                     },
-                    negativeAction: () => { }
+                    () => { }
                 )
             );
         }
