@@ -68,8 +68,23 @@ namespace Retinues
             try
             {
                 // Keep log file size manageable
-                if (Log.LogFileLength > 10000)
-                    Log.Truncate(5000);
+                if (Log.LogFileLength > 20000)
+                    Log.Truncate(10000);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+
+            try
+            {
+                Log.Info($"Bannerlord version: {BannerlordVersion.Version.Major}.{BannerlordVersion.Version.Minor}.{BannerlordVersion.Version.Revision}");
+                Log.Info("Modules:");
+
+                foreach (var mod in ModuleChecker.GetActiveModules())
+                {
+                    Log.Info($"    {(mod.IsOfficial ? "[Official]" : "[Community]")} {mod.Id} {mod.Version}");
+                }
             }
             catch (Exception e)
             {
