@@ -64,22 +64,6 @@
     "TR": "değiştirmek"
   },
   {
-    "id": "ret_actual_item",
-    "EN": "Equipped",
-    "BR": "Equipado",
-    "CNs": "已装备",
-    "CNt": "已裝備",
-    "DE": "Ausgerüstet",
-    "FR": "Équipé",
-    "IT": "Equipaggiato",
-    "JP": "装備済み",
-    "KO": "장착됨",
-    "PL": "Wyposażony",
-    "RU": "Экипировано",
-    "SP": "Equipado",
-    "TR": "Donatıldı"
-  },
-  {
     "id": "ret_adaptive_training",
     "EN": "Adaptive Training",
     "BR": "Treinamento Adaptativo",
@@ -526,22 +510,6 @@
     "RU": "Отмена",
     "SP": "Cancelar",
     "TR": "İptal"
-  },
-  {
-    "id": "ret_cancel_change",
-    "EN": "Cancel change",
-    "BR": "Cancelar alteração",
-    "CNs": "取消更改",
-    "CNt": "取消更改",
-    "DE": "Änderung abbrechen",
-    "FR": "Annuler la modification",
-    "IT": "Annulla modifica",
-    "JP": "変更をキャンセル",
-    "KO": "변경 취소",
-    "PL": "Anuluj zmianę",
-    "RU": "Отменить изменение",
-    "SP": "Cancelar cambio",
-    "TR": "Değişikliği iptal et"
   },
   {
     "id": "ret_cant_remove_root_troop",
@@ -3360,22 +3328,6 @@
     "TR": "Doktrinler"
   },
   {
-    "id": "ret_mcm_section_editing",
-    "EN": "Editing",
-    "BR": "Edição",
-    "CNs": "编辑",
-    "CNt": "編輯",
-    "DE": "Bearbeitung",
-    "FR": "Édition",
-    "IT": "Modifica",
-    "JP": "編集",
-    "KO": "편집",
-    "PL": "Edycja",
-    "RU": "Редактирование",
-    "SP": "Edición",
-    "TR": "Düzenleme"
-  },
-  {
     "id": "ret_mcm_section_equipment",
     "EN": "Equipment",
     "BR": "Equipamento",
@@ -3486,6 +3438,22 @@
     "RU": "Навыки",
     "SP": "Habilidades",
     "TR": "Beceriler"
+  },
+  {
+    "id": "ret_mcm_section_troop_customization",
+    "EN": "Troop Customization",
+    "BR": "Personalização de Tropas",
+    "CNs": "部队自定义",
+    "CNt": "部隊自定義",
+    "DE": "Truppen-Anpassung",
+    "FR": "Personnalisation des Troupes",
+    "IT": "Personalizzazione delle Truppe",
+    "JP": "部隊のカスタマイズ",
+    "KO": "병력 맞춤화",
+    "PL": "Dostosowanie Oddziałów",
+    "RU": "Настройка Войск",
+    "SP": "Personalización de Tropas",
+    "TR": "Asker Özelleştirme"
   },
   {
     "id": "ret_mcm_section_unlocks",
@@ -3614,22 +3582,6 @@
     "RU": "Вы должны находиться в одном из владений вашего клана, чтобы {ACTION} этот отряд.",
     "SP": "Debes estar en uno de los feudos de tu clan para {ACTION} esta tropa.",
     "TR": "Bu birliği {ACTION} için klanınızın mülklerinden birinde olmalısınız."
-  },
-  {
-    "id": "ret_not_in_faction_fief",
-    "EN": "You are not in a faction fief.",
-    "BR": "Você não está em um feudo de facção.",
-    "CNs": "您不在派系封地中。",
-    "CNt": "您不在派系封地中。",
-    "DE": "Du bist nicht in einem Fraktionslehen.",
-    "FR": "Vous n'êtes pas dans un fief de faction.",
-    "IT": "Non sei in un feudo di fazione.",
-    "JP": "あなたは派閥の領地にいません。",
-    "KO": "당신은 세력 영지에 있지 않습니다.",
-    "PL": "Nie jesteś w lenie frakcji.",
-    "RU": "Вы не находитесь во владении фракции.",
-    "SP": "No estás en un feudo de facción.",
-    "TR": "Bir fraksiyon mülkünde değilsiniz."
   },
   {
     "id": "ret_not_in_kingdom_fief",
@@ -3968,6 +3920,38 @@
     "TR": "Kaldır"
   },
   {
+    "id": "ret_remove_set_text",
+    "EN": "Remove {SET} for {TROOP_NAME}?\\nAll staged changes will be cleared and items will be unequipped and stocked.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_remove_set_title",
+    "EN": "Remove Set",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_remove_troop",
     "EN": "Remove Troop",
     "BR": "Remover Tropa",
@@ -4206,6 +4190,54 @@
     "RU": "Нанимайте 100 собственных войск королевства.",
     "SP": "Recluta 100 tropas personalizadas del reino.",
     "TR": "100 krallık askeri topla."
+  },
+  {
+    "id": "ret_set_alt_n",
+    "EN": "Alt {N}",
+    "BR": "Alt {N}",
+    "CNs": "备用 {N}",
+    "CNt": "備用 {N}",
+    "DE": "Alt {N}",
+    "FR": "Alt {N}",
+    "IT": "Alt {N}",
+    "JP": "予備 {N}",
+    "KO": "대체 {N}",
+    "PL": "Alt {N}",
+    "RU": "Альт {N}",
+    "SP": "Alt {N}",
+    "TR": "Yedek {N}"
+  },
+  {
+    "id": "ret_set_battle",
+    "EN": "Battle",
+    "BR": "Batalha",
+    "CNs": "战斗",
+    "CNt": "戰鬥",
+    "DE": "Schlacht",
+    "FR": "Bataille",
+    "IT": "Battaglia",
+    "JP": "戦闘",
+    "KO": "전투",
+    "PL": "Bitwa",
+    "RU": "Битва",
+    "SP": "Batalla",
+    "TR": "Savaş"
+  },
+  {
+    "id": "ret_set_civilian",
+    "EN": "Civilian",
+    "BR": "Civil",
+    "CNs": "平民",
+    "CNt": "平民",
+    "DE": "Zivilist",
+    "FR": "Civil",
+    "IT": "Civile",
+    "JP": "民間人",
+    "KO": "민간인",
+    "PL": "Cywil",
+    "RU": "Гражданский",
+    "SP": "Civil",
+    "TR": "Sivil"
   },
   {
     "id": "ret_skill_cap_text",

@@ -629,9 +629,6 @@
       id="ret_mcm_section_doctrines"
       text="Doctrines" />
     <string
-      id="ret_mcm_section_editing"
-      text="Editing" />
-    <string
       id="ret_mcm_section_equipment"
       text="Equipment" />
     <string
@@ -652,6 +649,9 @@
     <string
       id="ret_mcm_section_skills"
       text="Skills" />
+    <string
+      id="ret_mcm_section_troop_customization"
+      text="Troop Customization" />
     <string
       id="ret_mcm_section_unlocks"
       text="Unlocks" />
@@ -740,6 +740,12 @@
       id="ret_remove_button_text"
       text="Remove" />
     <string
+      id="ret_remove_set_text"
+      text="Remove {SET} for {TROOP_NAME}?{newline}All staged changes will be cleared and items will be unequipped and stocked." />
+    <string
+      id="ret_remove_set_title"
+      text="Remove Set" />
+    <string
       id="ret_remove_troop"
       text="Remove Troop" />
     <string
@@ -784,6 +790,15 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recruit 100 custom kingdom troops." />
+    <string
+      id="ret_set_alt_n"
+      text="Alt {N}" />
+    <string
+      id="ret_set_battle"
+      text="Battle" />
+    <string
+      id="ret_set_civilian"
+      text="Civilian" />
     <string
       id="ret_skill_cap_text"
       text="{CAP} skill cap" />

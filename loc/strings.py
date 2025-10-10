@@ -274,10 +274,31 @@ def main():
     loc_root = script_dir / LOCS_DIRNAME
     locale_codes = list_locale_codes(loc_root)
 
+    # Log keys present in JSON but not in code
     json_path = script_dir / JSON_NAME
     json_list = load_or_init_json(json_path)
+    json_ids = set(d["id"] for d in json_list if isinstance(d, dict) and "id" in d)
+    code_ids = set(entries.keys())
+    missing_in_code = json_ids - code_ids
+    if missing_in_code:
+        print(f"[INFO] {len(missing_in_code)} keys exist in JSON but not in code:")
+        for mid in sorted(missing_in_code):
+            print(f"       - {mid}")
 
+    # Log when EN value in JSON does not match code default
+    ids_sorted = sorted(entries.keys(), key=str.lower)
     ids_to_default = {sid: entries[sid][0] for sid in ids_sorted}
+    for d in json_list:
+        if isinstance(d, dict) and "id" in d and "EN" in d:
+            _id = d["id"]
+            if _id in ids_to_default:
+                code_default = ids_to_default[_id]
+                json_en = d["EN"]
+                if json_en != code_default:
+                    print(f"[WARN] EN value for key '{_id}' in JSON does not match code default:")
+                    print(f"       JSON:  '{json_en}'")
+                    print(f"       Code:  '{code_default}'")
+
     json_list = ensure_json_contains_all_keys(json_list, ids_to_default, locale_codes)
     write_json(json_path, json_list)
     print(f"[OK] Synced JSON: {json_path}")

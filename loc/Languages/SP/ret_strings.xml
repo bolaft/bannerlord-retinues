@@ -17,9 +17,6 @@
       id="ret_action_modify"
       text="modificar" />
     <string
-      id="ret_actual_item"
-      text="Equipado" />
-    <string
       id="ret_adaptive_training"
       text="Entrenamiento Adaptativo" />
     <string
@@ -103,9 +100,6 @@
     <string
       id="ret_cancel"
       text="Cancelar" />
-    <string
-      id="ret_cancel_change"
-      text="Cancelar cambio" />
     <string
       id="ret_cant_remove_root_troop"
       text="Las tropas raíz no pueden eliminarse." />
@@ -635,9 +629,6 @@
       id="ret_mcm_section_doctrines"
       text="Doctrinas" />
     <string
-      id="ret_mcm_section_editing"
-      text="Edición" />
-    <string
       id="ret_mcm_section_equipment"
       text="Equipo" />
     <string
@@ -658,6 +649,9 @@
     <string
       id="ret_mcm_section_skills"
       text="Habilidades" />
+    <string
+      id="ret_mcm_section_troop_customization"
+      text="Personalización de Tropas" />
     <string
       id="ret_mcm_section_unlocks"
       text="Desbloqueos" />
@@ -682,9 +676,6 @@
     <string
       id="ret_not_in_clan_fief_text"
       text="Debes estar en uno de los feudos de tu clan para {ACTION} esta tropa." />
-    <string
-      id="ret_not_in_faction_fief"
-      text="No estás en un feudo de facción." />
     <string
       id="ret_not_in_kingdom_fief"
       text="No en feudo del reino" />
@@ -793,6 +784,15 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recluta 100 tropas personalizadas del reino." />
+    <string
+      id="ret_set_alt_n"
+      text="Alt {N}" />
+    <string
+      id="ret_set_battle"
+      text="Batalla" />
+    <string
+      id="ret_set_civilian"
+      text="Civil" />
     <string
       id="ret_skill_cap_text"
       text="Límite de habilidad {CAP}" />

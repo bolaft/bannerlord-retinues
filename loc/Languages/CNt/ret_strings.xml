@@ -17,9 +17,6 @@
       id="ret_action_modify"
       text="修改" />
     <string
-      id="ret_actual_item"
-      text="已裝備" />
-    <string
       id="ret_adaptive_training"
       text="適應性訓練" />
     <string
@@ -103,9 +100,6 @@
     <string
       id="ret_cancel"
       text="取消" />
-    <string
-      id="ret_cancel_change"
-      text="取消更改" />
     <string
       id="ret_cant_remove_root_troop"
       text="根部隊無法被移除。" />
@@ -635,9 +629,6 @@
       id="ret_mcm_section_doctrines"
       text="教義" />
     <string
-      id="ret_mcm_section_editing"
-      text="編輯" />
-    <string
       id="ret_mcm_section_equipment"
       text="裝備" />
     <string
@@ -658,6 +649,9 @@
     <string
       id="ret_mcm_section_skills"
       text="技能" />
+    <string
+      id="ret_mcm_section_troop_customization"
+      text="部隊自定義" />
     <string
       id="ret_mcm_section_unlocks"
       text="解鎖" />
@@ -682,9 +676,6 @@
     <string
       id="ret_not_in_clan_fief_text"
       text="您必須在您氏族的一個封地中才能{ACTION}這支部隊。" />
-    <string
-      id="ret_not_in_faction_fief"
-      text="您不在派系封地中。" />
     <string
       id="ret_not_in_kingdom_fief"
       text="不在王國封地中" />
@@ -793,6 +784,15 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定義王國部隊。" />
+    <string
+      id="ret_set_alt_n"
+      text="備用 {N}" />
+    <string
+      id="ret_set_battle"
+      text="戰鬥" />
+    <string
+      id="ret_set_civilian"
+      text="平民" />
     <string
       id="ret_skill_cap_text"
       text="技能上限 {CAP}" />

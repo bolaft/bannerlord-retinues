@@ -17,9 +17,6 @@
       id="ret_action_modify"
       text="değiştirmek" />
     <string
-      id="ret_actual_item"
-      text="Donatıldı" />
-    <string
       id="ret_adaptive_training"
       text="Uyarlanabilir Eğitim" />
     <string
@@ -103,9 +100,6 @@
     <string
       id="ret_cancel"
       text="İptal" />
-    <string
-      id="ret_cancel_change"
-      text="Değişikliği iptal et" />
     <string
       id="ret_cant_remove_root_troop"
       text="Kök askerler kaldırılamaz." />
@@ -635,9 +629,6 @@
       id="ret_mcm_section_doctrines"
       text="Doktrinler" />
     <string
-      id="ret_mcm_section_editing"
-      text="Düzenleme" />
-    <string
       id="ret_mcm_section_equipment"
       text="Teçhizat" />
     <string
@@ -658,6 +649,9 @@
     <string
       id="ret_mcm_section_skills"
       text="Beceriler" />
+    <string
+      id="ret_mcm_section_troop_customization"
+      text="Asker Özelleştirme" />
     <string
       id="ret_mcm_section_unlocks"
       text="Açılışlar" />
@@ -682,9 +676,6 @@
     <string
       id="ret_not_in_clan_fief_text"
       text="Bu birliği {ACTION} için klanınızın mülklerinden birinde olmalısınız." />
-    <string
-      id="ret_not_in_faction_fief"
-      text="Bir fraksiyon mülkünde değilsiniz." />
     <string
       id="ret_not_in_kingdom_fief"
       text="Krallık mülkünde değil" />
@@ -793,6 +784,15 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="100 krallık askeri topla." />
+    <string
+      id="ret_set_alt_n"
+      text="Yedek {N}" />
+    <string
+      id="ret_set_battle"
+      text="Savaş" />
+    <string
+      id="ret_set_civilian"
+      text="Sivil" />
     <string
       id="ret_skill_cap_text"
       text="{CAP} beceri sınırı" />
