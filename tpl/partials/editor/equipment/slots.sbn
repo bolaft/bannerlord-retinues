@@ -72,7 +72,7 @@
 
         <!-- Equipment name for slot -->
         <TextWidget
-            IsHidden="@IsStaged"
+            IsVisible="@IsActual"
             Text="@Name"
             Brush="Clan.RightPanel.Name.Text"
             Brush.FontSize="24"
@@ -83,10 +83,21 @@
             MarginLeft="24"/>
         <TextWidget
             IsVisible="@IsStaged"
-            Text="@StagedName"
+            Text="@Name"
             Brush="Clan.RightPanel.Name.Text"
             Brush.FontSize="24"
             Brush.FontColor="#ebaf2fff"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            MarginLeft="24"/>
+        <TextWidget
+            IsVisible="@IsMirrored"
+            Text="@Name"
+            Brush="Clan.RightPanel.Name.Text"
+            Brush.FontSize="24"
+            Brush.FontColor="#9e9675ff"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center"

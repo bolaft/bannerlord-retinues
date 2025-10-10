@@ -50,7 +50,7 @@
                                         {{ include "button_remove.sbn" }}
 
                                         <!-- Unequip troop button -->
-                                        {{ include "button_unequip.sbn" }}
+                                        {{ include "equipment_top_bar.sbn" }}
 
                                         <!-- Edit equipment button -->
                                         {{ button_text("@EquipmentButtonText", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "true", "Bottom") }}

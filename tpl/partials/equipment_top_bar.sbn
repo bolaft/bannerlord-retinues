@@ -3,10 +3,11 @@
     Displays a button to unequip all items from the troop in equipment mode.
 -->
 
-<Widget
+<ListPanel
     IsVisible="@IsEquipmentMode"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
     HorizontalAlignment="Center"
     VerticalAlignment="Top">
 
@@ -79,5 +80,30 @@
                 />
             </Children>
         </ButtonWidget>
+
+        <!-- Equipment sets -->
+        <ListPanel
+            DataSource="{EquipmentEditor}"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <Children>
+                {{ button_icon("ExecutePreviousSet", "ButtonRightBigArrowBrush1", "36", "true", "@CanGoLeft") }}
+                {{ text("@CurrentSetText", "Clan.Tuple.Name.Text", "Center", "16", "16") }}
+                {{ button_icon("ExecuteNextSet", "ButtonLeftBigArrowBrush1", "36", "true", "@CanGoRight") }}
+            </Children>
+        </ListPanel>
+        <ListPanel
+            DataSource="{EquipmentEditor}"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <Children>
+                {{ button_icon("ExecuteRemoveSet", "Inventory.Tuple.Extension.MinusButton", "36", "true", "@CanRemoveSet") }}
+                {{ button_icon("ExecuteCreateSet", "Inventory.Tuple.Extension.PlusButton", "36", "true", "true") }}
+            </Children>
+        </ListPanel>
     </Children>
-</Widget>
+</ListPanel>
