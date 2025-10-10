@@ -184,7 +184,7 @@ namespace Retinues.Utils
             /* ━━━━━━━━ Editing ━━━━━━━ */
 
             AddOption(
-                section: L.S("mcm_section_editing", "Editing"),
+                section: L.S("mcm_section_troop_customization", "Troop Customization"),
                 name: L.S("mcm_option_restrict_editing_to_fiefs", "Restrict Editing To Fiefs"),
                 key: "RestrictEditingToFiefs",
                 hint: L.S(
@@ -196,7 +196,7 @@ namespace Retinues.Utils
             );
 
             AddOption(
-                section: L.S("mcm_section_editing", "Editing"),
+                section: L.S("mcm_section_troop_customization", "Troop Customization"),
                 name: L.S(
                     "mcm_option_restrict_conversion_to_fiefs",
                     "Restrict Retinue Conversion To Fiefs"
@@ -211,7 +211,7 @@ namespace Retinues.Utils
             );
 
             AddOption(
-                section: L.S("mcm_section_editing", "Editing"),
+                section: L.S("mcm_section_troop_customization", "Troop Customization"),
                 name: L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
                 key: "TrainingTakesTime",
                 hint: L.S("mcm_option_training_takes_time_hint", "Troop training takes time."),
@@ -220,7 +220,7 @@ namespace Retinues.Utils
             );
 
             AddOption(
-                section: L.S("mcm_section_editing", "Editing"),
+                section: L.S("mcm_section_troop_customization", "Troop Customization"),
                 name: L.S("mcm_option_training_time_modifier", "Training Time Modifier"),
                 key: "TrainingTimeModifier",
                 hint: L.S(
@@ -234,7 +234,7 @@ namespace Retinues.Utils
             );
 
             AddOption(
-                section: L.S("mcm_section_editing", "Editing"),
+                section: L.S("mcm_section_troop_customization", "Troop Customization"),
                 name: L.S(
                     "mcm_option_equipment_change_takes_time",
                     "Changing Troop Equipment Takes Time"
@@ -249,7 +249,7 @@ namespace Retinues.Utils
             );
 
             AddOption(
-                section: L.S("mcm_section_editing", "Editing"),
+                section: L.S("mcm_section_troop_customization", "Troop Customization"),
                 name: L.S(
                     "mcm_option_equipment_change_time_modifier",
                     "Equipment Change Time Modifier"
