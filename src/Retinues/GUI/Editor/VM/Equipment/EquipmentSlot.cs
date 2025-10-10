@@ -98,10 +98,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public bool IsStaged => StagedItem != null;
 
         [DataSourceProperty]
-        public bool IsActual => IsStaged == false;
+        public bool IsActual => !IsStaged && !IsMirrored;
 
         [DataSourceProperty]
-        public bool IsMirrored => false; // Not implemented yet
+        public bool IsMirrored => !IsStaged && Item?.IsMirrored == true;
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
@@ -163,6 +163,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 return itemId is null ? null : new WItem(itemId);
             }
         }
+
+        public WItem OriginItem => _editor.Equipment is WEquipmentMirror mirror ? mirror.GetOriginItem(_slot) : null;
 
         public EquipmentIndex Slot => _slot;
 

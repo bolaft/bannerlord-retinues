@@ -21,6 +21,9 @@ namespace Retinues.Game.Helpers
             // apply staged equip (if any)
             var beh = TroopEquipBehavior.Instance;
             var pending = beh?.GetPending(troop.StringId); // IEnumerable<PendingEquipData> in your base
+            if (pending == null)
+                return eq; // nothing staged
+
             foreach (var p in pending)
             {
                 if (p.Category != category || p.EquipmentIndex != index)

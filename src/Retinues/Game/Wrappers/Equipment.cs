@@ -14,7 +14,7 @@ namespace Retinues.Game.Wrappers
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly Equipment _equipment = equipment;
+        protected readonly Equipment _equipment = equipment;
 
         public Equipment Base => _equipment;
 
@@ -88,8 +88,9 @@ namespace Retinues.Game.Wrappers
                 var items = new List<WItem>();
                 foreach (var slot in Slots)
                 {
-                    if (_equipment[slot].Item != null)
-                        items.Add(new WItem(_equipment[slot].Item));
+                    var item = GetItem(slot);
+                    if (item != null)
+                        items.Add(item);
                 }
                 return items;
             }
@@ -98,7 +99,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets the item in the specified equipment slot.
         /// </summary>
-        public WItem GetItem(EquipmentIndex slot)
+        public virtual WItem GetItem(EquipmentIndex slot)
         {
             var obj = _equipment[slot].Item;
             if (obj == null)
@@ -109,7 +110,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Sets the item in the specified equipment slot.
         /// </summary>
-        public void SetItem(EquipmentIndex slot, WItem item)
+        public virtual void SetItem(EquipmentIndex slot, WItem item)
         {
             _equipment[slot] = new EquipmentElement(item?.Base);
         }
@@ -117,7 +118,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Unsets (removes) the item in the specified equipment slot.
         /// </summary>
-        public void UnsetItem(EquipmentIndex slot)
+        public virtual void UnsetItem(EquipmentIndex slot)
         {
             _equipment[slot] = new EquipmentElement(null);
         }

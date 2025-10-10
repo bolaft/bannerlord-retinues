@@ -306,6 +306,10 @@ namespace Retinues.Game.Wrappers
             foreach (var child in UpgradeTargets)
                 child.UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
 
+            // Don't return mirrored items
+            if (previous.IsMirrored)
+                return null;
+
             return previous;
         }
 

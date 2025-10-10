@@ -97,7 +97,7 @@
             Text="@Name"
             Brush="Clan.RightPanel.Name.Text"
             Brush.FontSize="24"
-            Brush.FontColor="#9e9675ff"
+            Brush.FontColor="#75849cff"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center"

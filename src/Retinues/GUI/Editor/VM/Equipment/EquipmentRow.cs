@@ -90,14 +90,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             get
             {
-                if (Item == null)
-                    return true; // Always allow unequipping
                 if (RowList?.Screen?.SelectedTroop == null)
                     return false; // No troop selected yet
                 if (NotAvailable)
                     return false; // Item is not available in stores
                 if (InProgress)
                     return false; // Cannot equip items that are still in progress
+                if (Item == null && OriginItem != null)
+                    return false; // Cannot unequip an item with backup
 
                 // Check if the selected troop can equip this item
                 return CanEquip;
@@ -105,9 +105,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceProperty]
-        public bool IsActual =>
+        public bool IsOrigin => Item != null && Item == OriginItem;
+
+        [DataSourceProperty]
+        public bool IsActual => IsOrigin || (
             RowList?.Screen?.EquipmentEditor?.SelectedSlot?.IsStaged == true
-            && Item == RowList?.Screen?.EquipmentEditor?.SelectedSlot?.ActualItem;
+            && Item == RowList?.Screen?.EquipmentEditor?.SelectedSlot?.ActualItem);
 
         [DataSourceProperty]
         public bool CanEquip => RowList?.Screen?.SelectedTroop?.CanEquip(Item) ?? false;
@@ -165,6 +168,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 if (Stock == 0)
                     return false;
                 if (IsSelected)
+                    return false;
+                if (IsActual)
                     return false;
 
                 return true;
@@ -245,6 +250,22 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (selectionIsStaged)
             {
                 Log.Debug("[ExecuteSelect] Already staged item selected, no-op.");
+            }
+            else if (IsOrigin)
+            {
+                Log.Debug("[ExecuteSelect] Origin item selected, proceeding to unequip.");
+                // Unstage if something is staged
+                Unstage();
+                // Apply unequip
+                EquipmentManager.Equip(
+                    troop,
+                    slot.Slot,
+                    null,
+                    LoadoutCategory,
+                    LoadoutIndex
+                );
+                // Select the row
+                Select();
             }
             // Something unstaged
             else
@@ -496,6 +517,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private WItem OriginItem => RowList?.Screen?.EquipmentEditor?.SelectedSlot?.OriginItem;
 
         private WLoadout.Category LoadoutCategory =>
             RowList?.Screen?.EquipmentEditor?.LoadoutCategory ?? WLoadout.Category.Battle;

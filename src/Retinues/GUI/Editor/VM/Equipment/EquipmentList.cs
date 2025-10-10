@@ -91,8 +91,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
                     // Preselect equipped/staged item row
                     if (
-                        (item != null && item == slot.StagedItem)
-                        || (slot.StagedItem == null && item == slot.Item)
+                        ((item != null && item == slot.StagedItem)
+                        || (slot.StagedItem == null && item == slot.Item))
                     )
                         row.IsSelected = true;
 

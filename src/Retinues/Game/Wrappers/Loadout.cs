@@ -112,7 +112,35 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public List<WEquipment> Equipments
         {
-            get => [.. BaseEquipments.Select(e => new WEquipment(e))];
+            get
+            {
+                var bases = BaseEquipments;
+                var list = new List<WEquipment>(bases.Count);
+                WEquipment battle = null;
+
+                for (int i = 0; i < bases.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        // first is always battle
+                        battle = new WEquipment(bases[i]);
+                        list.Add(battle);
+                    }
+                    else if (i == 1)
+                    {
+                        // second is always civilian
+                        list.Add(new WEquipment(bases[i]));
+                    }
+                    else
+                    {
+                        // alternates mirror battle by default
+                        list.Add(new WEquipmentMirror(
+                            bases[i], battle
+                        ));
+                    }
+                }
+                return list;
+            }
             set => BaseEquipments = [.. value.Select(we => we.Base)];
         }
 

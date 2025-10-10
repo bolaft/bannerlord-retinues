@@ -16,7 +16,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for ItemObject, provides helpers for slot logic, computed stats, unlocks, and stocks.
     /// </summary>
     [SafeClass(SwallowByDefault = false)]
-    public class WItem(ItemObject itemObject) : StringIdentifier
+    public class WItem(ItemObject itemObject, bool isMirrored = false) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
@@ -29,6 +29,8 @@ namespace Retinues.Game.Wrappers
         // Construct from ID
         public WItem(string itemId)
             : this(MBObjectManager.Instance.GetObject<ItemObject>(itemId)) { }
+
+        public bool IsMirrored { get; } = isMirrored;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      VM properties                     //
