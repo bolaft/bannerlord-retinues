@@ -37,7 +37,7 @@ namespace Retinues.Utils
 
         // Lowest level shown in-game (InformationManager)
         public static LogLevel MinInGameLevel =>
-            Config.GetOption<bool>("DebugMode") ? LogLevel.Info : LogLevel.Critical;
+            Config.GetOption<bool>("DebugMode") ? LogLevel.Debug : LogLevel.Critical;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Log File Setup                     //
@@ -355,25 +355,17 @@ namespace Retinues.Utils
         private static Color LevelColor(LogLevel level)
         {
             // Palette tuned for readability on most backgrounds
-            switch (level)
+            return level switch
             {
-                case LogLevel.Trace:
-                    return FromHex("#9E9E9EFF"); // grey 600
-                case LogLevel.Debug:
-                    return FromHex("#64B5F6FF"); // light blue
-                case LogLevel.Info:
-                    return FromHex("#2196F3FF"); // blue
-                case LogLevel.Success:
-                    return FromHex("#43A047FF"); // green
-                case LogLevel.Warn:
-                    return FromHex("#FFA000FF"); // amber
-                case LogLevel.Error:
-                    return FromHex("#E53935FF"); // red
-                case LogLevel.Critical:
-                    return FromHex("#B71C1CFF"); // deep red
-                default:
-                    return Color.White;
-            }
+                LogLevel.Trace => FromHex("#9E9E9EFF"),// grey 600
+                LogLevel.Debug => FromHex("#64B5F6FF"),// light blue
+                LogLevel.Info => FromHex("#2196F3FF"),// blue
+                LogLevel.Success => FromHex("#43A047FF"),// green
+                LogLevel.Warn => FromHex("#FFA000FF"),// amber
+                LogLevel.Error => FromHex("#E53935FF"),// red
+                LogLevel.Critical => FromHex("#B71C1CFF"),// deep red
+                _ => Color.White,
+            };
         }
 
         private static Color FromHex(string rrggbbaa)
