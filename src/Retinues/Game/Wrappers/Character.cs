@@ -435,8 +435,8 @@ namespace Retinues.Game.Wrappers
         public void Deactivate()
         {
             HiddenInEncyclopedia = true;
-            IsNotTransferableInPartyScreen = true;
-            IsNotTransferableInHideouts = true;
+            IsNotTransferableInPartyScreen = false;
+            IsNotTransferableInHideouts = false;
 
             if (IsActive)
                 ActiveTroops.Remove(StringId);
