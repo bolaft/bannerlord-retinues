@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Features.Recruits;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
@@ -54,6 +55,9 @@ namespace Retinues.Troops
                     Log.Info("Initializing militia troops.");
 
                     BuildMilitia(faction);
+
+                    // Update all existing militias and garrisons for this faction
+                    MilitiaBulkSwapper.Swap(faction);
                 }
             }
         }

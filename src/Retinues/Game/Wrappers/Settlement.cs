@@ -68,6 +68,15 @@ namespace Retinues.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public WParty MilitiaParty =>
+            _settlement?.MilitiaPartyComponent?.MobileParty != null
+                ? new WParty(_settlement.MilitiaPartyComponent.MobileParty)
+                : null;
+        
+        public WParty GarrisonParty => _settlement?.Town?.GarrisonParty != null
+                ? new WParty(_settlement.Town.GarrisonParty)
+                : null;
+
         public WCharacter MilitiaMelee =>
             PlayerFaction?.MilitiaMelee.IsActive == true
                 ? PlayerFaction.MilitiaMelee
