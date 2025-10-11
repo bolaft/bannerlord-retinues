@@ -16,7 +16,7 @@ namespace Retinues.GUI.Editor.VM.Troop
     /// ViewModel for a troop skill. Handles increment/decrement logic, retraining warnings, and UI refresh.
     /// </summary>
     [SafeClass]
-    public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopEditorVM editor)
+    public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopPanelVM editor)
         : ViewModel
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -27,7 +27,7 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         readonly WCharacter _troop = troop;
 
-        readonly TroopEditorVM _editor = editor;
+        readonly TroopPanelVM _editor = editor;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -59,19 +59,6 @@ namespace Retinues.GUI.Editor.VM.Troop
         public void ExecuteDecrement() => Modify(false);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(DisplayValue));
-            OnPropertyChanged(nameof(IsStaged));
-            OnPropertyChanged(nameof(StringId));
-            OnPropertyChanged(nameof(CanIncrement));
-            OnPropertyChanged(nameof(CanDecrement));
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -101,26 +88,6 @@ namespace Retinues.GUI.Editor.VM.Troop
                         break;
 
                     TroopManager.ModifySkill(_troop, _skill, increment);
-                }
-
-                // Refresh value
-                OnPropertyChanged(nameof(DisplayValue));
-                OnPropertyChanged(nameof(IsStaged));
-
-                // Refresh editor counters
-                _editor.OnPropertyChanged(nameof(_editor.SkillTotal));
-                _editor.OnPropertyChanged(nameof(_editor.SkillPointsUsed));
-                _editor.OnPropertyChanged(nameof(_editor.AvailableTroopXpText));
-                _editor.OnPropertyChanged(nameof(_editor.TrainingRequired));
-                _editor.OnPropertyChanged(nameof(_editor.TrainingRequiredText));
-                _editor.OnPropertyChanged(nameof(_editor.TrainingIsRequired));
-                _editor.OnPropertyChanged(nameof(_editor.NoTrainingIsRequired));
-
-                // Refresh all skills buttons
-                foreach (var s in _editor.SkillsRow1.Concat(_editor.SkillsRow2))
-                {
-                    s.OnPropertyChanged(nameof(s.CanIncrement));
-                    s.OnPropertyChanged(nameof(s.CanDecrement));
                 }
             }
 

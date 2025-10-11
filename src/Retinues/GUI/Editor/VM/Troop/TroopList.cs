@@ -11,12 +11,82 @@ namespace Retinues.GUI.Editor.VM.Troop
     /// ViewModel for troop list. Handles toggles, search, selection, and refreshing troop rows by category.
     /// </summary>
     [SafeClass]
-    public sealed class TroopListVM(EditorScreenVM screen)
-        : BaseList<TroopListVM, TroopRowVM>(screen)
+    public sealed class TroopListVM : BaseList<TroopListVM, TroopRowVM>
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Rebuilds all troop rows for each category and updates selection.
+        /// </summary>
+        public TroopListVM()
+        {
+            // Retinues
+            foreach (
+                var root in TroopManager
+                    .CollectRetinueTroops(Faction)
+                    .Where(t => t.Parent is null)
+            )
+                AddTroopTreeInOrder(root, RetinueTroops);
+
+            // Elite troops
+            foreach (
+                var root in TroopManager
+                    .CollectEliteTroops(Faction)
+                    .Where(t => t.Parent is null)
+            )
+                AddTroopTreeInOrder(root, EliteTroops);
+
+            // Basic troops
+            foreach (
+                var root in TroopManager
+                    .CollectBasicTroops(Faction)
+                    .Where(t => t.Parent is null)
+            )
+                AddTroopTreeInOrder(root, BasicTroops);
+
+            // Militias
+            foreach (
+                var root in TroopManager
+                    .CollectMilitiaTroops(Faction)
+                    .Where(t => t.Parent is null)
+            )
+                AddTroopTreeInOrder(root, MilitiaTroops);
+
+            // Select the first row by default
+            Select(Rows.FirstOrDefault());
+
+            // Elite troops placeholder
+            if (EliteTroops.Count == 0)
+                EliteTroops.Add(new TroopRowVM(null, this));
+
+            // Basic troops placeholder
+            if (BasicTroops.Count == 0)
+                BasicTroops.Add(new TroopRowVM(null, this));
+
+            // Militia troops placeholder
+            if (MilitiaTroops.Count == 0)
+                MilitiaTroops.Add(new TroopRowVM(null, this));
+            
+            // Refresh lists at the very end to ensure UI updates
+            @OnPropertyChanged(nameof(RetinueTroops));
+            @OnPropertyChanged(nameof(EliteTroops));
+            @OnPropertyChanged(nameof(BasicTroops));
+            @OnPropertyChanged(nameof(MilitiaTroops));
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Quick Access                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private WFaction Faction => EditorVM.Instance.Faction;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━ Toggle Texts ━━━━━ */
 
         [DataSourceProperty]
         public string RegularToggleText => L.S("list_toggle_regular", "Regular");
@@ -29,7 +99,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             get
             {
-                if (Screen.Faction == Player.Kingdom)
+                if (Faction == Player.Kingdom)
                     return Player.IsFemale
                         ? L.S("queen_guard", "Queen's Guard")
                         : L.S("king_guard", "King's Guard");
@@ -40,6 +110,8 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public string MilitiaToggleText => L.S("list_toggle_militia", "Militia");
+
+        /* ━━━━━━ Troop Lists ━━━━━ */
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> RetinueTroops { get; set; } = [];
@@ -56,107 +128,18 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceProperty]
         public string SearchLabel => L.S("item_search_label", "Filter:");
 
-        private string _searchText;
-
-        [DataSourceProperty]
-        public string SearchText
-        {
-            get => _searchText;
-            set
-            {
-                if (_searchText == value)
-                    return;
-                _searchText = value;
-                foreach (var troop in Rows)
-                {
-                    troop.RefreshVisibility(_searchText);
-                }
-                OnPropertyChanged(nameof(SearchText));
-            }
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Override for BaseList functionality.
+        /// </summary>
         public override System.Collections.Generic.List<TroopRowVM> Rows =>
             [.. RetinueTroops, .. EliteTroops, .. BasicTroops, .. MilitiaTroops];
 
-        /// <summary>
-        /// Selects the row for the given troop, if present.
-        /// </summary>
-        public void Select(WCharacter troop)
-        {
-            var row = Rows.FirstOrDefault(r => r.Troop.Equals(troop));
-            if (row is not null)
-                Select(row);
-        }
-
-        /// <summary>
-        /// Refreshes all troop rows for each category and updates selection.
-        /// </summary>
-        public void Refresh()
-        {
-            RetinueTroops.Clear();
-            foreach (
-                var root in TroopManager
-                    .CollectRetinueTroops(Screen.Faction)
-                    .Where(t => t.Parent is null)
-            )
-                AddTroopTreeInOrder(root, RetinueTroops);
-
-            EliteTroops.Clear();
-            foreach (
-                var root in TroopManager
-                    .CollectEliteTroops(Screen.Faction)
-                    .Where(t => t.Parent is null)
-            )
-                AddTroopTreeInOrder(root, EliteTroops);
-
-            BasicTroops.Clear();
-            foreach (
-                var root in TroopManager
-                    .CollectBasicTroops(Screen.Faction)
-                    .Where(t => t.Parent is null)
-            )
-                AddTroopTreeInOrder(root, BasicTroops);
-
-            MilitiaTroops.Clear();
-            foreach (
-                var root in TroopManager
-                    .CollectMilitiaTroops(Screen.Faction)
-                    .Where(t => t.Parent is null)
-            )
-                AddTroopTreeInOrder(root, MilitiaTroops);
-
-            if (SelectedRow is null)
-            {
-                Select(
-                    RetinueTroops.FirstOrDefault()
-                        ?? EliteTroops.FirstOrDefault()
-                        ?? BasicTroops.FirstOrDefault()
-                );
-            }
-
-            if (EliteTroops.Count == 0)
-                EliteTroops.Add(new TroopRowVM(null, this));
-
-            if (BasicTroops.Count == 0)
-                BasicTroops.Add(new TroopRowVM(null, this));
-
-            if (MilitiaTroops.Count == 0)
-                MilitiaTroops.Add(new TroopRowVM(null, this));
-
-            OnPropertyChanged(nameof(SelectedRow));
-            OnPropertyChanged(nameof(RetinueToggleText));
-            OnPropertyChanged(nameof(RetinueTroops));
-            OnPropertyChanged(nameof(EliteTroops));
-            OnPropertyChanged(nameof(BasicTroops));
-            OnPropertyChanged(nameof(MilitiaTroops));
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -164,19 +147,21 @@ namespace Retinues.GUI.Editor.VM.Troop
         /// </summary>
         private void AddTroopTreeInOrder(WCharacter troop, MBBindingList<TroopRowVM> list)
         {
-            if (troop == null || !troop.IsActive)
-                return;
+            if (troop == null || !troop.IsValid)
+                return; // Ignore null or invalid troops
 
+            // Create and add the row for this troop
             var row = new TroopRowVM(troop, this);
             list.Add(row);
 
             if (troop.IsRetinue || troop.IsMilitia)
                 return; // Retinue and Militia troops do not have children
 
-            var children = Screen
-                .Faction.BasicTroops.Concat(Screen.Faction.EliteTroops)
+            // Find the troop's children
+            var children = Faction.BasicTroops.Concat(Faction.EliteTroops)
                 .Where(t => t.Parent != null && t.Parent.Equals(troop));
 
+            // Recursively add each child and its subtree
             foreach (var child in children)
                 AddTroopTreeInOrder(child, list);
         }

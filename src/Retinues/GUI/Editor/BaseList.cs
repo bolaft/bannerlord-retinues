@@ -8,32 +8,50 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// Base class for editor list view models. Provides access to the editor screen, rows, and selection logic.
     /// </summary>
-    public abstract class BaseList<TSelf, TRow>(EditorScreenVM screen) : ViewModel
+    public abstract class BaseList<TSelf, TRow> : ViewModel
         where TSelf : BaseList<TSelf, TRow>
         where TRow : BaseRow<TSelf, TRow>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
+        //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        protected readonly EditorScreenVM _screen = screen;
+        private string _filterText;
+
+        [DataSourceProperty]
+        public string FilterText
+        {
+            get => _filterText;
+            set
+            {
+                if (_filterText == value)
+                    return;
+                _filterText = value;
+                foreach (var row in Rows)
+                {
+                    row.UpdateIsVisible(_filterText);
+                }
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public EditorScreenVM Screen => _screen;
-
         public virtual List<TRow> Rows { get; protected set; } = [];
 
-        public TRow SelectedRow => Rows.FirstOrDefault(r => r.IsSelected);
+    
+        public TRow Selection => Rows.FirstOrDefault(r => r.IsSelected);
 
+        /// <summary>
+        /// Selects the given row, deselecting all others.
+        /// </summary>
         public void Select(TRow row)
         {
             foreach (var r in Rows)
                 r.IsSelected = ReferenceEquals(r, row);
 
-            OnPropertyChanged(nameof(SelectedRow));
+            OnPropertyChanged(nameof(Selection));
         }
     }
 }

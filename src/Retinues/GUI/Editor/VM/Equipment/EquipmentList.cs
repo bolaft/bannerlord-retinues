@@ -11,8 +11,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
     /// ViewModel for equipment list. Handles item search, selection, and refreshing available equipment rows.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentListVM(EditorScreenVM screen)
-        : BaseList<EquipmentListVM, EquipmentRowVM>(screen)
+    public sealed class EquipmentListVM : BaseList<EquipmentListVM, EquipmentRowVM>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -36,10 +35,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     return;
                 _searchText = value;
                 foreach (var equipment in Equipments)
-                {
-                    equipment.RefreshVisibility(_searchText);
-                }
-                OnPropertyChanged(nameof(SearchText));
+                    equipment.UpdateIsVisible(_searchText);
             }
         }
 
@@ -63,9 +59,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         /// <summary>
-        /// Refreshes all equipment rows for the selected slot and troop.
+        /// Rebuilds all equipment rows for the selected slot and troop.
         /// </summary>
-        public void Refresh()
+        public void Rebuild()
         {
             // Clear existing VM list
             Equipments.Clear();
@@ -100,8 +96,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     Equipments.Add(row);
                 }
             }
-
-            OnPropertyChanged(nameof(Equipments));
         }
     }
 }

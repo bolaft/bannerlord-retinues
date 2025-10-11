@@ -211,6 +211,24 @@ namespace Retinues.Game.Wrappers
             set => Reflector.SetPropertyValue(Base, "IsFemale", value);
         }
 
+        public bool IsDeletable
+        {
+            get
+            {
+                if (!IsCustom)
+                    return false; // Vanilla troops cannot be deleted
+                if (IsRetinue)
+                    return false; // Retinues cannot be deleted
+                if (IsMilitia)
+                    return false; // Militias cannot be deleted
+                if (IsHero)
+                    return false; // Heroes cannot be deleted
+                if (UpgradeTargets.Any())
+                    return false; // Troops with upgrades cannot be deleted
+                return true;
+            }
+        }
+
         public bool HiddenInEncyclopedia
         {
 #if BL13

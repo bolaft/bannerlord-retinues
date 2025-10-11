@@ -7,21 +7,18 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// Base class for editor row view models. Handles selection logic, bindings, and row list access.
     /// </summary>
-    public abstract class BaseRow<TList, TRow>(TList rowList) : ViewModel
+    public abstract class BaseRow<TList, TRow>(TList list) : ViewModel
         where TList : BaseList<TList, TRow>
         where TRow : BaseRow<TList, TRow>
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private bool _isSelected;
-
-        protected readonly TList _rowList = rowList;
+        // Owned list for selection management
+        private readonly TList _list = list;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private bool _isSelected;
 
         [DataSourceProperty]
         public bool IsSelected
@@ -33,7 +30,7 @@ namespace Retinues.GUI.Editor
                 {
                     _isSelected = value;
 
-                    // Specific row selection logic
+                    // Trigger selection/deselection hooks
                     if (value)
                         OnSelect();
                     else
@@ -41,6 +38,36 @@ namespace Retinues.GUI.Editor
 
                     OnPropertyChanged(nameof(IsSelected));
                 }
+            }
+        }
+
+        private bool _isVisible = true;
+
+        [DataSourceProperty]
+        public virtual bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (_isVisible == value)
+                    return;
+                _isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+
+        private bool _isEnabled = true;
+
+        [DataSourceProperty]
+        public virtual bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                if (_isEnabled == value)
+                    return;
+                _isEnabled = value;
+                OnPropertyChanged(nameof(IsEnabled));
             }
         }
 
@@ -55,10 +82,11 @@ namespace Retinues.GUI.Editor
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public TList RowList => _rowList;
+        public TList List => _list;
 
-        public List<TRow> Rows => _rowList.Rows;
-
+        /// <summary>
+        /// Selects this row in its parent list.
+        /// </summary>
         public void Select()
         {
             // No-op if already selected
@@ -66,23 +94,37 @@ namespace Retinues.GUI.Editor
                 return;
 
             // Safe due to self-referential generic constraint
-            _rowList.Select((TRow)this);
+            _list.Select((TRow)this);
         }
 
-        public void Unselect()
+        /// <summary>
+        /// Updates the visibility of the row based on the given filter text.
+        /// </summary>
+        public void UpdateIsVisible(string filter)
         {
-            if (!IsSelected)
-                return;
-
-            IsSelected = false;
+            if (string.IsNullOrWhiteSpace(filter))
+                IsVisible = true;
+            else
+                IsVisible = FilterMatch(filter);
         }
 
+        /// <summary>
+        /// Determines if the row matches the given filter text.
+        /// </summary>
+        public abstract bool FilterMatch(string filter);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Placeholders                      //
+        //                          Hooks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called when the row is selected.
+        /// </summary>
         protected virtual void OnSelect() { }
 
+        /// <summary>
+        /// Called when the row is unselected.
+        /// </summary>
         protected virtual void OnUnselect() { }
     }
 }

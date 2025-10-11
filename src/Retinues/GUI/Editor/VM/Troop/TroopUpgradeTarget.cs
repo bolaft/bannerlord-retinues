@@ -22,10 +22,5 @@ namespace Retinues.GUI.Editor.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter Troop { get; } = troop;
-
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(Name));
-        }
     }
 }

@@ -7,7 +7,6 @@
 -->
 
 <ButtonWidget
-    DataSource="{EditorScreen}"
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="Fixed"
     HeightSizePolicy="Fixed"

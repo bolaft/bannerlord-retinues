@@ -16,7 +16,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         EquipmentIndex slot,
         string label,
         WCharacter troop,
-        EquipmentEditorVM editor
+        EquipmentPanelVM editor
     ) : ViewModel
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -27,7 +27,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         private readonly WCharacter _troop = troop;
 
-        private readonly EquipmentEditorVM _editor = editor;
+        private readonly EquipmentPanelVM _editor = editor;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -60,8 +60,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
                     if (_editor.Screen?.EquipmentList is not null)
                         _editor.Screen.EquipmentList.SearchText = ""; // Clear search on selection change
-
-                    OnPropertyChanged(nameof(IsSelected));
                 }
             }
         }
@@ -195,30 +193,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
             _editor.Select(this);
         }
 
-        public void OnSelect()
-        {
-            _editor.Screen.EquipmentList?.Refresh();
-            _editor.Screen.Refresh();
-        }
-
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(IsEnabled));
-            OnPropertyChanged(nameof(IsSelected));
-            OnPropertyChanged(nameof(IsStaged));
-            OnPropertyChanged(nameof(Name));
-            OnPropertyChanged(nameof(StagedName));
-            OnPropertyChanged(nameof(StagedChangeDuration));
-#if BL13
-            OnPropertyChanged(nameof(Id));
-            OnPropertyChanged(nameof(TextureProviderName));
-            OnPropertyChanged(nameof(AdditionalArgs));
-#else
-            OnPropertyChanged(nameof(ImageId));
-            OnPropertyChanged(nameof(ImageTypeCode));
-            OnPropertyChanged(nameof(ImageAdditionalArgs));
-#endif
-            OnPropertyChanged(nameof(Hint));
-        }
+        public void OnSelect() { }
     }
 }

@@ -33,7 +33,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public int Value =>
             Config.GetOption<bool>("PayForEquipment")
-                ? EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop)
+                ? EquipmentManager.GetItemValue(Item, List?.Screen?.SelectedTroop)
                 : 0;
 
         private readonly int? _progress = progress;
@@ -81,7 +81,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 if (_isVisible == value)
                     return;
                 _isVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
             }
         }
 
@@ -110,11 +109,11 @@ namespace Retinues.GUI.Editor.VM.Equipment
             && Item == RowList?.Screen?.EquipmentEditor?.SelectedSlot?.ActualItem;
 
         [DataSourceProperty]
-        public bool CanEquip => RowList?.Screen?.SelectedTroop?.CanEquip(Item) ?? false;
+        public bool CanEquip => List?.Screen?.SelectedTroop?.CanEquip(Item) ?? false;
 
         [DataSourceProperty]
         public bool CantEquip =>
-            Item is not null && RowList?.Screen?.SelectedTroop != null && !CanEquip && !InProgress;
+            Item is not null && List?.Screen?.SelectedTroop != null && !CanEquip && !InProgress;
 
         [DataSourceProperty]
         public bool ShowValue
@@ -204,7 +203,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         private void Unstage()
         {
-            var slot = RowList?.Screen?.EquipmentEditor?.SelectedSlot;
+            var slot = List?.Screen?.EquipmentEditor?.SelectedSlot;
             if (slot?.StagedItem == null)
                 return; // No slot or no staged item, cannot unstage
 
@@ -212,7 +211,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             slot.StagedItem.Stock(); // Restock the staged item
             TroopEquipBehavior.UnstageChange(
-                RowList?.Screen?.SelectedTroop,
+                List?.Screen?.SelectedTroop,
                 slot.Slot,
                 LoadoutCategory,
                 LoadoutIndex
@@ -222,7 +221,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public new void ExecuteSelect()
         {
-            var screen = RowList?.Screen;
+            var screen = List?.Screen;
             var slot = screen?.EquipmentEditor?.SelectedSlot;
             var troop = screen?.SelectedTroop;
 
@@ -439,7 +438,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         public WItem Item { get; } = item;
 
-        public void RefreshVisibility(string searchText)
+        public void UpdateIsVisible(string searchText)
         {
             if (string.IsNullOrWhiteSpace(searchText))
             {
@@ -465,54 +464,16 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 || culture.Contains(search);
         }
 
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(Hint));
-            OnPropertyChanged(nameof(Name));
-            OnPropertyChanged(nameof(Value));
-            OnPropertyChanged(nameof(ShowValue));
-            OnPropertyChanged(nameof(Stock));
-            OnPropertyChanged(nameof(ShowStock));
-#if BL13
-            OnPropertyChanged(nameof(IsEnabled));
-            OnPropertyChanged(nameof(CantEquip));
-            OnPropertyChanged(nameof(CanEquip));
-            OnPropertyChanged(nameof(Id));
-            OnPropertyChanged(nameof(TextureProviderName));
-            OnPropertyChanged(nameof(AdditionalArgs));
-#else
-            OnPropertyChanged(nameof(CanEquip));
-            OnPropertyChanged(nameof(CantEquip));
-            OnPropertyChanged(nameof(IsEnabled));
-            OnPropertyChanged(nameof(ImageId));
-            OnPropertyChanged(nameof(ImageTypeCode));
-            OnPropertyChanged(nameof(ImageAdditionalArgs));
-#endif
-            OnPropertyChanged(nameof(InProgress));
-            OnPropertyChanged(nameof(ProgressText));
-            OnPropertyChanged(nameof(SkillRequirementText));
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private WLoadout.Category LoadoutCategory =>
-            RowList?.Screen?.EquipmentEditor?.LoadoutCategory ?? WLoadout.Category.Battle;
-        private int LoadoutIndex => RowList?.Screen?.EquipmentEditor?.LoadoutIndex ?? 0;
+            List?.Screen?.EquipmentEditor?.LoadoutCategory ?? WLoadout.Category.Battle;
+        private int LoadoutIndex => List?.Screen?.EquipmentEditor?.LoadoutIndex ?? 0;
 
-        protected override void OnSelect()
-        {
-            RowList.Screen.EquipmentEditor.SelectedSlot.Refresh();
-            RowList.Screen.Refresh();
-            Refresh();
+        protected override void OnSelect() { }
 
-            OnPropertyChanged(nameof(RowList.Screen.EquipmentEditor.HasStagedChanges));
-        }
-
-        protected override void OnUnselect()
-        {
-            Refresh();
-        }
+        protected override void OnUnselect() { }
     }
 }

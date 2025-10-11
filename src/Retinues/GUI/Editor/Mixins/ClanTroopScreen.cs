@@ -3,6 +3,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.Game;
 using Retinues.GUI.Editor.VM;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Library;
@@ -26,7 +27,13 @@ namespace Retinues.GUI.Editor.Mixins
         {
             try
             {
-                _screen = new EditorScreenVM(Player.Clan, this);
+                // Ensure retinue troops exist for player factions
+                foreach (var f in new[] { Player.Clan, Player.Kingdom })
+                    if (f != null)
+                        TroopBuilder.EnsureTroopsExist(f);
+
+                // Initialize the editor screen ViewModel
+                _screen = new VM.EditorVM();
 
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 
@@ -49,10 +56,45 @@ namespace Retinues.GUI.Editor.Mixins
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly EditorScreenVM _screen;
+        private readonly EditorVM _screen;
 
         [DataSourceProperty]
-        public EditorScreenVM EditorScreen => _screen;
+        public EditorVM EditorScreen => _screen;
+
+        [DataSourceProperty]
+        public string TroopsTabText => L.S("troops_tab_text", "Troops");
+
+        private bool _isTroopsSelected;
+
+        [DataSourceProperty]
+        public bool IsTroopsSelected
+        {
+            get => _isTroopsSelected;
+            set
+            {
+                if (value == _isTroopsSelected)
+                    return;
+                _isTroopsSelected = value;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Action Bindings                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceMethod]
+        [SafeMethod]
+        public void ExecuteSelectTroops()
+        {
+            Log.Debug("Selecting Troops tab.");
+
+            if (IsTroopsSelected == true)
+                return;
+
+            UnselectVanillaTabs();
+
+            IsTroopsSelected = true;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
@@ -94,7 +136,7 @@ namespace Retinues.GUI.Editor.Mixins
             )
             {
                 if (EditorScreen != null)
-                    EditorScreen.IsTroopsSelected = false;
+                    IsTroopsSelected = false;
             }
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Library;
@@ -12,120 +13,82 @@ namespace Retinues.GUI.Editor.VM.Troop
         : BaseRow<TroopListVM, TroopRowVM>(list)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Troop                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WCharacter Troop = troop;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━━ Flags ━━━━━━━━ */
-
-        [DataSourceProperty]
-        public bool DisplayEmptyMessage => Troop is null;
-
-        [DataSourceProperty]
-        public bool DisplayTroop => Troop is not null;
-
-#if BL13
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
+#if BL13
         [DataSourceProperty]
-        public string AdditionalArgs => Troop?.Image?.AdditionalArgs;
+        public string AdditionalArgs => Troop.Image.AdditionalArgs;
 
         [DataSourceProperty]
-        public string Id => Troop?.Image?.Id;
+        public string Id => Troop.Image.Id;
 
         [DataSourceProperty]
-        public string TextureProviderName => Troop?.Image?.TextureProviderName;
+        public string TextureProviderName => Troop.Image.TextureProviderName;
 #else
         [DataSourceProperty]
-        public string ImageId => Troop?.Image.Id;
+        public string ImageId => Troop.Image.Id;
 
         [DataSourceProperty]
-        public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
+        public int ImageTypeCode => Troop.Image.ImageTypeCode ?? 0;
 
         [DataSourceProperty]
-        public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
+        public string ImageAdditionalArgs => Troop.Image.AdditionalArgs;
 #endif
-
-        private bool _isVisible = true;
-
-        [DataSourceProperty]
-        public bool IsVisible
-        {
-            get { return _isVisible; }
-            set
-            {
-                if (_isVisible == value)
-                    return;
-                _isVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
-            }
-        }
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
-        public string IndentedName
+        public string NameText
         {
             get
             {
-                if (Troop?.IsRetinue == true || Troop?.IsMilitia == true)
-                    return Troop.Name; // Retinue and militia troops are not indented
+                if (Troop.IsRetinue == true || Troop.IsMilitia == true)
+                    return Troop.Name;
 
-                int n = Troop?.Tier - 1 ?? 0; // Tier 1 = 0 indents, Tier 2 = 1 indent, etc.
-                if (n < 0)
-                    n = 0; // Safeguard for tier 0 troops
+                // Indent troops by tier
+                int n = Math.Max(0, Troop.Tier - 1);
                 var indent = new string(' ', n * 4);
-                return $"{indent}{Troop?.Name}"; // Indent based on tier
+                
+                return $"{indent}{Troop.Name}";
             }
         }
 
         [DataSourceProperty]
-        public string TierText => $"T{Troop?.Tier}";
+        public string TierText => $"T{Troop.Tier}";
 
         [DataSourceProperty]
-        public string EmptyMessage =>
+        public string PlaceholderText =>
             L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops.");
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        public bool IsPlaceholder => Troop == null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter Troop { get; } = troop;
-
-        public void RefreshVisibility(string searchText)
+        /// <summary>
+        /// Updates the visibility of the row based on the given filter text.
+        /// </summary>
+        public override bool FilterMatch(string filter)
         {
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                IsVisible = true;
-                return;
-            }
-
             if (Troop == null)
-            {
-                IsVisible = true;
-                return;
-            }
+                return true;
 
-            var search = searchText.Trim().ToLowerInvariant();
+            var search = filter.Trim().ToLowerInvariant();
             var name = Troop.Name.ToString().ToLowerInvariant();
-            IsVisible = name.Contains(search);
-        }
 
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(DisplayEmptyMessage));
-            OnPropertyChanged(nameof(DisplayTroop));
-#if BL13
-            OnPropertyChanged(nameof(Id));
-            OnPropertyChanged(nameof(TextureProviderName));
-            OnPropertyChanged(nameof(AdditionalArgs));
-#else
-            OnPropertyChanged(nameof(ImageId));
-            OnPropertyChanged(nameof(ImageTypeCode));
-            OnPropertyChanged(nameof(ImageAdditionalArgs));
-#endif
-            OnPropertyChanged(nameof(IndentedName));
-            OnPropertyChanged(nameof(TierText));
-            OnPropertyChanged(nameof(EmptyMessage));
+            return name.Contains(search);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -134,9 +97,7 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         protected override void OnSelect()
         {
-            RowList.Screen.EquipmentEditor?.SelectEquipment();
-            RowList.Screen.TroopEditor.Refresh();
-            RowList.Screen.Refresh();
+            EditorVM.Instance.Troop = Troop;
         }
     }
 }

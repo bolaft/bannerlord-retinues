@@ -12,23 +12,16 @@ namespace Retinues.GUI.Editor.VM.Troop
     /// ViewModel for a troop conversion row. Handles recruiting, releasing, cost calculation, and UI refresh.
     /// </summary>
     [SafeClass]
-    public sealed class TroopConversionRowVM : ViewModel
+    public sealed class TroopConversionRowVM(WCharacter from, WCharacter to, TroopPanelVM editor)
+        : ViewModel
     {
-        public TroopConversionRowVM(WCharacter from, WCharacter to, TroopEditorVM editor)
-        {
-            _from = from;
-            _to = to;
-            _editor = editor;
-            Refresh();
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly TroopEditorVM _editor;
-        private readonly WCharacter _from;
-        private readonly WCharacter _to;
+        private readonly TroopPanelVM _editor = editor;
+        private readonly WCharacter _from = from;
+        private readonly WCharacter _to = to;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -64,8 +57,6 @@ namespace Retinues.GUI.Editor.VM.Troop
                 return; // Conversion not allowed in current context
             int amount = ReadBatchAmount();
             _editor.StageConversion(_from, _to, amount);
-            // Row visuals update via Refresh()
-            Refresh();
         }
 
         [DataSourceMethod]
@@ -75,7 +66,6 @@ namespace Retinues.GUI.Editor.VM.Troop
                 return; // Conversion not allowed in current context
             int amount = ReadBatchAmount();
             _editor.StageConversion(_to, _from, amount);
-            Refresh();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -84,17 +74,6 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         public int FromAvailable => _from != null ? Player.Party.MemberRoster.CountOf(_from) : 0;
         public int ToAvailable => _to != null ? Player.Party.MemberRoster.CountOf(_to) : 0;
-
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(FromDisplay));
-            OnPropertyChanged(nameof(ToDisplay));
-            OnPropertyChanged(nameof(CanRecruit));
-            OnPropertyChanged(nameof(CanRelease));
-            OnPropertyChanged(nameof(ConversionCost));
-
-            _editor.OnPropertyChanged(nameof(_editor.TroopCount));
-        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //

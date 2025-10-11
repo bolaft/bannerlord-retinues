@@ -30,7 +30,13 @@ namespace Retinues.Troops
         /// </summary>
         public static void EnsureTroopsExist(WFaction faction)
         {
-            Log.Debug($"Switching to faction: {faction?.Name ?? "null"}");
+            if (faction == null)
+            {
+                Log.Warn("Cannot ensure troops exist for null faction.");
+                return;
+            }
+
+            Log.Debug($"Ensuring troops exist for faction: {faction?.Name ?? "null"}");
 
             if (!faction.RetinueElite.IsActive || !faction.RetinueBasic.IsActive)
             {
