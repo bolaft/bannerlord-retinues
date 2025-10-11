@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using MCM.Abstractions.Base;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
-using System.IO;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Library;
-using TaleWorlds.Core;
 using Retinues.Troops;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.Utils
 {
@@ -53,9 +53,14 @@ namespace Retinues.Utils
         private static void ConfirmTroopReplace(string title, string body, Action onConfirm)
         {
             var inquiry = new InquiryData(
-                title, body, true, true,
-                L.S("continue", "Continue"), L.S("cancel", "Cancel"),
-                onConfirm, () => { }
+                title,
+                body,
+                true,
+                true,
+                L.S("continue", "Continue"),
+                L.S("cancel", "Cancel"),
+                onConfirm,
+                () => { }
             );
             InformationManager.ShowInquiry(inquiry);
         }
@@ -897,34 +902,46 @@ namespace Retinues.Utils
                             L.S("mcm_ie_export_name", "File name"),
                             new ProxyRef<string>(
                                 () => _exportName,
-                                v => _exportName = string.IsNullOrWhiteSpace(v) ? SuggestDefaultExportName() : v
+                                v =>
+                                    _exportName = string.IsNullOrWhiteSpace(v)
+                                        ? SuggestDefaultExportName()
+                                        : v
                             ),
-                            b => b.SetOrder(order++).SetHintText(L.S("mcm_ie_export_hint", "Example: troops_myCampaignRun"))
+                            b =>
+                                b.SetOrder(order++)
+                                    .SetHintText(
+                                        L.S("mcm_ie_export_hint", "Example: troops_myCampaignRun")
+                                    )
                         );
 
                         // Export button — action via ProxyRef<Action>
                         group.AddButton(
                             "ExportButton",
                             L.S("mcm_ie_export_btn_text", "Export Troops to XML"),
-                            new ProxyRef<Action>(() =>
-                            {
-                                return delegate
+                            new ProxyRef<Action>(
+                                () =>
                                 {
-                                    if (!InCampaign())
+                                    return delegate
                                     {
-                                        Log.Message("Export aborted: not in a running campaign. Load a save first.");
-                                        return;
-                                    }
+                                        if (!InCampaign())
+                                        {
+                                            Log.Message(
+                                                "Export aborted: not in a running campaign. Load a save first."
+                                            );
+                                            return;
+                                        }
 
-                                    var used = TroopImportExport.ExportAllToXml(_exportName);
-                                    if (!string.IsNullOrWhiteSpace(used))
-                                        Log.Info($"Exported custom troops to: {used}");
-                                    else
-                                        Log.Warn("Export failed. See log for details.");
+                                        var used = TroopImportExport.ExportAllToXml(_exportName);
+                                        if (!string.IsNullOrWhiteSpace(used))
+                                            Log.Info($"Exported custom troops to: {used}");
+                                        else
+                                            Log.Warn("Export failed. See log for details.");
 
-                                    RefreshImportDropdown(); // newly exported file becomes selectable for import
-                                };
-                            }, _ => { }),
+                                        RefreshImportDropdown(); // newly exported file becomes selectable for import
+                                    };
+                                },
+                                _ => { }
+                            ),
                             L.S("mcm_ie_export_btn", "Export"),
                             b => b.SetOrder(order++).SetRequireRestart(false)
                         );
@@ -943,53 +960,73 @@ namespace Retinues.Utils
                         group.AddButton(
                             "ImportButton",
                             L.S("mcm_ie_import_btn_text", "Import Troops from XML"),
-                            new ProxyRef<Action>(() =>
-                            {
-                                return () =>
+                            new ProxyRef<Action>(
+                                () =>
                                 {
-                                    if (!InCampaign())
+                                    return () =>
                                     {
-                                        Log.Message("Import aborted: not in a running campaign. Load a save first.");
-                                        return;
-                                    }
-
-                                    var choice = _importDropdown?.SelectedValue;
-                                    if (string.IsNullOrWhiteSpace(choice) || choice.StartsWith("<"))
-                                    {
-                                        Log.Message("No valid file selected for import.");
-                                        return;
-                                    }
-
-                                    ConfirmTroopReplace(
-                                        L.S("mcm_ie_import_confirm_title", "Import Troops"),
-                                        L.S("mcm_ie_import_confirm_body",
-                                            "Importing new troop definitions will replace the existing ones. Are you sure?"),
-                                        () =>
+                                        if (!InCampaign())
                                         {
-                                            try
-                                            {
-                                                // 1) Safety backup
-                                                var backupName = "backup_" + SuggestDefaultExportName();
-                                                var backupPath = TroopImportExport.ExportAllToXml(backupName);
-                                                if (!string.IsNullOrWhiteSpace(backupPath))
-                                                    Log.Info($"Backup created: {backupPath}");
-                                                else
-                                                    Log.Warn("Backup export failed (continuing with import).");
-
-                                                // 2) Import
-                                                var count = TroopImportExport.ImportFromXml(choice);
-                                                Log.Message(count > 0
-                                                    ? $"Imported {count} root troop definitions from '{choice}'."
-                                                    : $"No troops were imported from '{choice}'.");
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                Log.Error($"Import failed: {ex}");
-                                            }
+                                            Log.Message(
+                                                "Import aborted: not in a running campaign. Load a save first."
+                                            );
+                                            return;
                                         }
-                                    );
-                                };
-                            }, _ => { }),
+
+                                        var choice = _importDropdown?.SelectedValue;
+                                        if (
+                                            string.IsNullOrWhiteSpace(choice)
+                                            || choice.StartsWith("<")
+                                        )
+                                        {
+                                            Log.Message("No valid file selected for import.");
+                                            return;
+                                        }
+
+                                        ConfirmTroopReplace(
+                                            L.S("mcm_ie_import_confirm_title", "Import Troops"),
+                                            L.S(
+                                                "mcm_ie_import_confirm_body",
+                                                "Importing new troop definitions will replace the existing ones. Are you sure?"
+                                            ),
+                                            () =>
+                                            {
+                                                try
+                                                {
+                                                    // 1) Safety backup
+                                                    var backupName =
+                                                        "backup_" + SuggestDefaultExportName();
+                                                    var backupPath =
+                                                        TroopImportExport.ExportAllToXml(
+                                                            backupName
+                                                        );
+                                                    if (!string.IsNullOrWhiteSpace(backupPath))
+                                                        Log.Info($"Backup created: {backupPath}");
+                                                    else
+                                                        Log.Warn(
+                                                            "Backup export failed (continuing with import)."
+                                                        );
+
+                                                    // 2) Import
+                                                    var count = TroopImportExport.ImportFromXml(
+                                                        choice
+                                                    );
+                                                    Log.Message(
+                                                        count > 0
+                                                            ? $"Imported {count} root troop definitions from '{choice}'."
+                                                            : $"No troops were imported from '{choice}'."
+                                                    );
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    Log.Error($"Import failed: {ex}");
+                                                }
+                                            }
+                                        );
+                                    };
+                                },
+                                _ => { }
+                            ),
                             L.S("mcm_ie_import_btn", "Import"),
                             b => b.SetOrder(order++).SetRequireRestart(false)
                         );

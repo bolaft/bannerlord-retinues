@@ -78,12 +78,16 @@ namespace Retinues
 
             try
             {
-                Log.Info($"Bannerlord version: {BannerlordVersion.Version.Major}.{BannerlordVersion.Version.Minor}.{BannerlordVersion.Version.Revision}");
+                Log.Info(
+                    $"Bannerlord version: {BannerlordVersion.Version.Major}.{BannerlordVersion.Version.Minor}.{BannerlordVersion.Version.Revision}"
+                );
                 Log.Info("Modules:");
 
                 foreach (var mod in ModuleChecker.GetActiveModules())
                 {
-                    Log.Info($"    {(mod.IsOfficial ? "[Official]" : "[Community]")} {mod.Id} {mod.Version}");
+                    Log.Info(
+                        $"    {(mod.IsOfficial ? "[Official]" : "[Community]")} {mod.Id} {mod.Version}"
+                    );
                 }
             }
             catch (Exception e)

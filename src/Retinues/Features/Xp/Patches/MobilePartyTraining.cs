@@ -1,12 +1,13 @@
 using System;
+using System.Collections.Generic;
 using HarmonyLib;
+using Retinues.Features.Xp.Behaviors;
+using Retinues.Game.Wrappers;
+using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;
-using Retinues.Game.Wrappers;
-using Retinues.Features.Xp.Behaviors;
-using Retinues.Utils;
 
 namespace Retinues.Core.Features.Xp.Patches
 {
@@ -25,6 +26,7 @@ namespace Retinues.Core.Features.Xp.Patches
             try
             {
                 var party = new WParty(mobileParty);
+                var xpTotals = new Dictionary<WCharacter, int>();
 
                 // Mirror vanilla enumeration order and math.
                 foreach (var element in party.MemberRoster.Elements)
@@ -33,7 +35,11 @@ namespace Retinues.Core.Features.Xp.Patches
                         continue; // only care about custom troops
 
                     // Vanilla uses PartyTrainingModel.GetEffectiveDailyExperience(...) per element.
-                    ExplainedNumber en = Campaign.Current.Models.PartyTrainingModel.GetEffectiveDailyExperience(mobileParty, element.Base);
+                    ExplainedNumber en =
+                        Campaign.Current.Models.PartyTrainingModel.GetEffectiveDailyExperience(
+                            mobileParty,
+                            element.Base
+                        );
                     int each = MathF.Round(en.ResultNumber);
                     int total = each * element.Number;
 
@@ -44,8 +50,17 @@ namespace Retinues.Core.Features.Xp.Patches
                     if (party.IsMainParty == false)
                         gain = (int)(gain * xpMultiplierNonMain);
 
-                    // Publish to the XP behavior
-                    TroopXpBehavior.Add(element.Troop, gain);
+                    // Track total XP per troop
+                    if (!xpTotals.ContainsKey(element.Troop))
+                        xpTotals[element.Troop] = 0;
+                    xpTotals[element.Troop] += gain;
+                }
+
+                // Publish XP gain
+                foreach (var kvp in xpTotals)
+                {
+                    Log.Debug($"Computed training XP for {kvp.Key.Name}: {kvp.Value} XP");
+                    TroopXpBehavior.Add(kvp.Key, kvp.Value);
                 }
             }
             catch (Exception e)

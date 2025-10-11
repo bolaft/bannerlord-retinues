@@ -15,7 +15,10 @@ namespace Retinues.Troops
     [SafeClass]
     public static class TroopImportExport
     {
-        public static readonly string DefaultDir = Path.Combine(ModuleChecker.GetModule("Retinues").Path, "Exports");
+        public static readonly string DefaultDir = Path.Combine(
+            ModuleChecker.GetModule("Retinues").Path,
+            "Exports"
+        );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Export                        //
@@ -122,7 +125,9 @@ namespace Retinues.Troops
                     built++;
                 }
 
-                Log.Message($"Imported and rebuilt {built} root troop definitions from '{filePath}'.");
+                Log.Message(
+                    $"Imported and rebuilt {built} root troop definitions from '{filePath}'."
+                );
                 return built;
             }
             catch (Exception e)

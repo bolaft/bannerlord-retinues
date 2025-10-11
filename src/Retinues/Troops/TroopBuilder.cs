@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Mods.WarlordsBattlefield;
+using Helpers;
 using Retinues.Features.Recruits;
 using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
+using Retinues.Mods.WarlordsBattlefield;
 using Retinues.Utils;
 using TaleWorlds.Localization;
-using Helpers;
 
 namespace Retinues.Troops
 {
@@ -18,8 +18,8 @@ namespace Retinues.Troops
     [SafeClass(SwallowByDefault = false)]
     public static class TroopBuilder
     {
-
-        public static bool WarlordsBattlefield = ModuleChecker.GetModule("WarlordsBattlefield") != null;
+        public static bool WarlordsBattlefield =
+            ModuleChecker.GetModule("WarlordsBattlefield") != null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
@@ -230,11 +230,15 @@ namespace Retinues.Troops
                 Log.Debug($"Cloning elite tree from root: {culture.RootElite.Name}");
                 eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)];
                 Log.Debug($"eliteClones after clone: {eliteClones.Count}");
-                Log.Debug($"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}");
+                Log.Debug(
+                    $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
+                );
             }
             else
             {
-                Log.Warn($"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop.");
+                Log.Warn(
+                    $"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop."
+                );
             }
 
             var basicClones = new List<WCharacter>();
@@ -245,11 +249,15 @@ namespace Retinues.Troops
                 Log.Debug($"Cloning basic tree from root: {culture.RootBasic.Name}");
                 basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)];
                 Log.Debug($"basicClones after clone: {basicClones.Count}");
-                Log.Debug($"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}");
+                Log.Debug(
+                    $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
+                );
             }
             else
             {
-                Log.Warn($"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop.");
+                Log.Warn(
+                    $"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop."
+                );
             }
 
             // Count unlocks
@@ -262,7 +270,9 @@ namespace Retinues.Troops
                 Log.Debug($"Processing troop: {troop?.Name ?? "null"}");
                 foreach (var equipment in troop.Loadout.Equipments)
                 {
-                    Log.Debug($"Processing equipment: {equipment?.ToString() ?? "null"}, Items count: {equipment.Items.Count}");
+                    Log.Debug(
+                        $"Processing equipment: {equipment?.ToString() ?? "null"}, Items count: {equipment.Items.Count}"
+                    );
                     foreach (var item in equipment.Items)
                     {
                         Log.Debug($"Unlocking item: {item?.ToString() ?? "null"}");
@@ -273,7 +283,9 @@ namespace Retinues.Troops
                 }
             }
 
-            Log.Debug($"Unlocked {unlocks} items from {eliteClones.Count + basicClones.Count} troops");
+            Log.Debug(
+                $"Unlocked {unlocks} items from {eliteClones.Count + basicClones.Count} troops"
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -300,7 +312,14 @@ namespace Retinues.Troops
                 path = [.. parent.PositionInTree, parent.UpgradeTargets.Length];
 
             // CharacterObject
-            var co = new CustomCharacterHelper().GetCharacterObject(faction == Player.Kingdom, isElite, false, false, false, path: path);
+            var co = new CustomCharacterHelper().GetCharacterObject(
+                faction == Player.Kingdom,
+                isElite,
+                false,
+                false,
+                false,
+                path: path
+            );
 
             if (co == null)
                 yield return null; // Should not happen, but other mods might interfere
@@ -331,7 +350,9 @@ namespace Retinues.Troops
                 if (vanilla.UpgradeTargets != null)
                 {
                     foreach (var child in vanilla.UpgradeTargets)
-                    foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
+                    foreach (
+                        var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop)
+                    )
                     {
                         if (descendant != null)
                             continue;

@@ -19,7 +19,7 @@ namespace Retinues.Utils
         Warn = 4,
         Error = 5,
         Critical = 6,
-        Message = 7
+        Message = 7,
     }
 
     /// <summary>
@@ -70,12 +70,19 @@ namespace Retinues.Utils
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static void Trace(string message) => Write(LogLevel.Trace, message);
+
         public static void Debug(string message) => Write(LogLevel.Debug, message);
+
         public static void Info(string message) => Write(LogLevel.Info, message);
+
         public static void Success(string message) => Write(LogLevel.Success, message);
+
         public static void Warn(string message) => Write(LogLevel.Warn, message);
+
         public static void Error(string message) => Write(LogLevel.Error, message);
+
         public static void Critical(string message) => Write(LogLevel.Critical, message);
+
         public static void Message(string message) => Write(LogLevel.Message, message);
 
         public static void Dump(object obj, LogLevel level = LogLevel.Debug)
