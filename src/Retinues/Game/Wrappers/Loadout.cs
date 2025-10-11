@@ -180,13 +180,15 @@ namespace Retinues.Game.Wrappers
                     else if (!eq.IsCivilian && battle == null)
                         battle = WEquipment.FromCode(eq.Code);
 
-                    if (battle != null && civilian != null) break;
+                    if (battle != null && civilian != null)
+                        break;
                 }
 
                 // Replace the entire list so no alternates leak in from source
-                Equipments = [
+                Equipments =
+                [
                     battle ?? WEquipment.FromCode(null),
-                    civilian ?? WEquipment.FromCode(null, civilian: true)
+                    civilian ?? WEquipment.FromCode(null, civilian: true),
                 ];
             }
         }

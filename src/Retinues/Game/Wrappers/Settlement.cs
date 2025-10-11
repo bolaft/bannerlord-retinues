@@ -72,8 +72,9 @@ namespace Retinues.Game.Wrappers
             _settlement?.MilitiaPartyComponent?.MobileParty != null
                 ? new WParty(_settlement.MilitiaPartyComponent.MobileParty)
                 : null;
-        
-        public WParty GarrisonParty => _settlement?.Town?.GarrisonParty != null
+
+        public WParty GarrisonParty =>
+            _settlement?.Town?.GarrisonParty != null
                 ? new WParty(_settlement.Town.GarrisonParty)
                 : null;
 

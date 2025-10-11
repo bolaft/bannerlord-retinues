@@ -7,7 +7,11 @@ namespace Retinues.Game.Helpers
 {
     public static class EquipmentPreview
     {
-        public static Equipment BuildStagedEquipment(WCharacter troop, WLoadout.Category category, int index = 0)
+        public static Equipment BuildStagedEquipment(
+            WCharacter troop,
+            WLoadout.Category category,
+            int index = 0
+        )
         {
             if (troop == null)
                 return null;
