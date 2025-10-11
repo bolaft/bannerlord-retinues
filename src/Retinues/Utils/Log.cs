@@ -19,6 +19,7 @@ namespace Retinues.Utils
         Warn = 4,
         Error = 5,
         Critical = 6,
+        Message = 7
     }
 
     /// <summary>
@@ -69,18 +70,13 @@ namespace Retinues.Utils
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static void Trace(string message) => Write(LogLevel.Trace, message);
-
         public static void Debug(string message) => Write(LogLevel.Debug, message);
-
         public static void Info(string message) => Write(LogLevel.Info, message);
-
         public static void Success(string message) => Write(LogLevel.Success, message);
-
         public static void Warn(string message) => Write(LogLevel.Warn, message);
-
         public static void Error(string message) => Write(LogLevel.Error, message);
-
         public static void Critical(string message) => Write(LogLevel.Critical, message);
+        public static void Message(string message) => Write(LogLevel.Message, message);
 
         public static void Dump(object obj, LogLevel level = LogLevel.Debug)
         {
@@ -357,13 +353,14 @@ namespace Retinues.Utils
             // Palette tuned for readability on most backgrounds
             return level switch
             {
-                LogLevel.Trace => FromHex("#9E9E9EFF"),// grey 600
-                LogLevel.Debug => FromHex("#64B5F6FF"),// light blue
-                LogLevel.Info => FromHex("#2196F3FF"),// blue
-                LogLevel.Success => FromHex("#43A047FF"),// green
-                LogLevel.Warn => FromHex("#FFA000FF"),// amber
-                LogLevel.Error => FromHex("#E53935FF"),// red
-                LogLevel.Critical => FromHex("#B71C1CFF"),// deep red
+                LogLevel.Trace => FromHex("#9E9E9EFF"), // grey 600
+                LogLevel.Debug => FromHex("#64B5F6FF"), // light blue
+                LogLevel.Info => FromHex("#2196F3FF"), // blue
+                LogLevel.Success => FromHex("#43A047FF"), // green
+                LogLevel.Warn => FromHex("#FFA000FF"), // amber
+                LogLevel.Error => FromHex("#E53935FF"), // red
+                LogLevel.Critical => FromHex("#B71C1CFF"), // deep red
+                LogLevel.Message => FromHex("#ffffffe0"), // off-white
                 _ => Color.White,
             };
         }
