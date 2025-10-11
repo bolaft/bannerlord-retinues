@@ -248,10 +248,6 @@ namespace Retinues.Features.Upgrade.Behaviors
                             data.PointsRemaining -= steps;
                             data.Carry -= steps;
                         }
-
-                        Log.Debug(
-                            $"Training hour applied: {troop.Name} +{steps} {skill.Name}; left {data.Remaining}h / {data.PointsRemaining}pts (carry {data.Carry:0.##})"
-                        );
                     }
                 }
             );
