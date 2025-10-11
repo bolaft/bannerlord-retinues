@@ -172,6 +172,7 @@ namespace Retinues
                 )
                 {
                     cs.AddBehavior(new TroopXpBehavior());
+                    cs.AddBehavior(new TroopXpAutoResolveBehavior());
                 }
 
                 // Doctrine behaviors (skip if doctrines disabled)

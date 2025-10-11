@@ -17,10 +17,13 @@ namespace Retinues.Game.Events
     {
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 
-        public Battle()
+        public Battle(MapEvent mapEvent = null)
         {
             try
             {
+                // If no map event provided, use the player's current map event if any
+                MapEvent = mapEvent ?? MobileParty.MainParty?.MapEvent;
+
                 // Initialize counts
                 PlayerTroopCount = Player.Party?.MemberRoster?.Count ?? 0;
                 EnemyTroopCount = GetRosters(EnemySide).Sum(r => r.Count);
@@ -93,7 +96,8 @@ namespace Retinues.Game.Events
         public int AllyTroopCount;
 
         /* ━━━━━━━━ Parties ━━━━━━━ */
-
+        public List<WParty> AllParties =>
+            [.. PartiesOnSide(BattleSideEnum.Attacker), .. PartiesOnSide(BattleSideEnum.Defender)];
         public List<WParty> EnemyParties => [.. PartiesOnSide(EnemySide)];
         public List<WParty> AllyParties => [.. PartiesOnSide(PlayerSide, includePlayer: false)];
 
@@ -169,7 +173,7 @@ namespace Retinues.Game.Events
 
         /* ━━━━━━━ Map Event ━━━━━━ */
 
-        private static MapEvent MapEvent => MobileParty.MainParty?.MapEvent;
+        public static MapEvent MapEvent { get; private set; }
 
         /* ━━━━━━━━ Leaders ━━━━━━━ */
 
@@ -190,11 +194,30 @@ namespace Retinues.Game.Events
 
         /* ━━━━━━━━ Parties ━━━━━━━ */
 
-        private IEnumerable<WParty> PartiesOnSide(BattleSideEnum side, bool includePlayer = false)
+        public IEnumerable<WParty> PartiesOnSide(BattleSideEnum side, bool includePlayer = false)
         {
             if (MapEvent == null)
                 yield break;
-            foreach (var p in MapEvent.PartiesOnSide(side))
+
+            // 1) Primary path: engine helper (fastest when stable)
+            IEnumerable<MapEventParty> raw = null;
+            try
+            {
+                raw = MapEvent.PartiesOnSide(side);
+            }
+            catch (System.IndexOutOfRangeException)
+            {
+                // 2) Fallback path: direct side bag (safer during FinalizeEventAux teardown)
+                var mapSide =
+                    side == BattleSideEnum.Attacker ? MapEvent.AttackerSide : MapEvent.DefenderSide;
+                raw = mapSide?.Parties ?? Enumerable.Empty<MapEventParty>();
+            }
+            catch
+            {
+                raw = [];
+            }
+
+            foreach (var p in raw)
             {
                 var mp = p?.Party?.MobileParty;
                 if (mp == null)

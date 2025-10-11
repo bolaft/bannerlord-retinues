@@ -17,8 +17,8 @@ namespace Retinues.Core.Features.Xp.Patches
     [HarmonyPatch(typeof(MobilePartyTrainingBehavior), "OnDailyTickParty")]
     internal static class MobilePartyTrainingBehavior_OnDailyTickParty_Patch
     {
-        public const float xpMultiplier = 0.2f; // 20% of the original XP
-        public const float xpMultiplierNonMain = 0.25f; // 25% of XP for non-main parties
+        public const float XpMultiplier = 0.2f; // 20% of the original XP
+        public const float XpMultiplierNonMain = 0.25f; // 25% of XP for non-main parties
 
         // Compute everything upfront (same model call + rounding) and cache for the Postfix.
         private static void Prefix(MobileParty mobileParty)
@@ -53,11 +53,11 @@ namespace Retinues.Core.Features.Xp.Patches
                         continue; // no XP to give
 
                     // Normalize XP gain
-                    var gain = (int)(total * xpMultiplier);
+                    var gain = (int)(total * XpMultiplier);
 
                     // Reduce XP for non-main parties
                     if (party.IsMainParty == false)
-                        gain = (int)(gain * xpMultiplierNonMain);
+                        gain = (int)(gain * XpMultiplierNonMain);
 
                     // Track total XP per troop
                     if (!xpTotals.ContainsKey(element.Troop))

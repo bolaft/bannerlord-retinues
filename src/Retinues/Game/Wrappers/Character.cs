@@ -453,10 +453,6 @@ namespace Retinues.Game.Wrappers
             bool keepSkills = true
         )
         {
-            Log.Debug(
-                $"Cloning character {src} (upgrades={keepUpgrades}, equipment={keepEquipment}, skills={keepSkills})"
-            );
-
             // Character object copy
             _helper.CopyInto(src.Base, _co);
 
@@ -476,10 +472,6 @@ namespace Retinues.Game.Wrappers
                 Skills = CoreSkills.ToDictionary(skill => skill, src.GetSkill);
             else
                 Skills = [];
-
-            Log.Debug(
-                $"Cloned skills for {src}: {string.Join(", ", Skills.Select(kv => $"{kv.Key.Name}={kv.Value}"))}"
-            );
 
             // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
