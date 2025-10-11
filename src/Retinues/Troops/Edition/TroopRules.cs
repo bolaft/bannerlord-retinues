@@ -1,6 +1,7 @@
 using System.Linq;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
+using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -166,13 +167,23 @@ namespace Retinues.Troops.Edition
             if (character == null || skill == null)
                 return false;
 
-            if (character.GetSkill(skill) >= SkillCapByTier(character))
+            // staged for THIS skill
+            var stagedThis = TroopTrainBehavior.Instance
+                .GetPending(character.StringId, skill.StringId)?.PointsRemaining ?? 0;
+
+            // staged across ALL skills for this troop
+            var stagedAll = TroopTrainBehavior.Instance
+                .GetPending(character.StringId).Sum(d => d.PointsRemaining);
+
+            // 1) per-skill cap
+            if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
                 return false;
 
-            if (SkillPointsLeft(character) <= 0)
+            // 2) total points cap (use ALL staged, not just this skill)
+            if (SkillPointsLeft(character) - stagedAll <= 0)
                 return false;
 
-            // Must be able to afford the next point from the troop XP bank
+            // 3) xp affordability for THIS skill’s next point
             if (!HasEnoughXpForNextPoint(character, skill))
                 return false;
 
@@ -186,19 +197,20 @@ namespace Retinues.Troops.Edition
         {
             if (character == null || skill == null)
                 return false;
+            var staged = TroopTrainBehavior.Instance.GetPending(character.StringId, skill.StringId)?.PointsRemaining ?? 0;
 
             // Skills can't go below zero
-            if (character.GetSkill(skill) <= 0)
+            if (character.GetSkill(skill) + staged <= 0)
                 return false;
 
             // Check for equipment skill requirements
-            if (character.GetSkill(skill) <= character.Loadout.ComputeSkillRequirement(skill))
+            if (character.GetSkill(skill) + staged <= character.Loadout.ComputeSkillRequirement(skill))
                 return false;
 
             // Check for parent skill (can't go below parent's skill level)
             if (
                 character.Parent != null
-                && character.GetSkill(skill) <= character.Parent.GetSkill(skill)
+                && character.GetSkill(skill) + staged <= character.Parent.GetSkill(skill)
             )
                 return false;
 
@@ -257,7 +269,9 @@ namespace Retinues.Troops.Edition
         {
             if (c == null || s == null)
                 return false;
-            int cost = SkillPointXpCost(c.GetSkill(s));
+
+            var staged = TroopTrainBehavior.Instance.GetPending(c.StringId, s.StringId)?.PointsRemaining ?? 0;
+            int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
         }
 
