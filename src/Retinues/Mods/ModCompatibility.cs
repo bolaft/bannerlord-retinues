@@ -14,8 +14,6 @@ namespace Retinues.Mods
     {
         private static readonly List<string> IncompatibleMods =
         [
-            "WarlordsBattlefield",
-            "SimpleBank",
             // Legacy
             "Retinues.Core",
             "Retinues.MCM",
@@ -43,7 +41,7 @@ namespace Retinues.Mods
                 var mod = ModuleChecker.GetModule(modId);
                 if (mod != null)
                 {
-                    if (modId.Contains("Retinues"))
+                    if (modId.Contains("Retinues."))
                     {
                         Log.Critical(
                             $"[Retinues] WARNING: detected legacy mod '{mod}'. Please uninstall it to avoid conflicts."

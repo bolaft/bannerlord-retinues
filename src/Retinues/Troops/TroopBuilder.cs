@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Mods.WarlordsBattlefield;
 using Retinues.Features.Recruits;
 using Retinues.Game;
+using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Localization;
+using Helpers;
 
 namespace Retinues.Troops
 {
@@ -15,6 +18,9 @@ namespace Retinues.Troops
     [SafeClass(SwallowByDefault = false)]
     public static class TroopBuilder
     {
+
+        public static bool WarlordsBattlefield = ModuleChecker.GetModule("WarlordsBattlefield") != null;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -103,6 +109,10 @@ namespace Retinues.Troops
         {
             var root = isElite ? faction.Culture.RootElite : faction.Culture.RootBasic;
 
+            // Custom fix for Warlords Battlefield
+            if (WarlordsBattlefield)
+                root = WarlordsBattlefieldRootFixer.FixRoot(root, isElite);
+
             if (root == null)
             {
                 Log.Error(
@@ -110,6 +120,9 @@ namespace Retinues.Troops
                 );
                 return;
             }
+
+            Log.Info($"Creating retinue troop from root {root.Name} ({root})");
+            Log.Info($"Tier: {root.Tier}");
 
             var retinue = new WCharacter(faction == Player.Kingdom, isElite, true);
 
@@ -207,58 +220,60 @@ namespace Retinues.Troops
 
             // Use the faction culture
             var culture = faction.Culture;
+            Log.Debug($"Faction culture: {culture?.Name ?? "null"}");
 
             var eliteClones = new List<WCharacter>();
+            Log.Debug($"Initial eliteClones count: {eliteClones.Count}");
 
             if (culture?.RootElite != null)
             {
-                // Clone the elite tree from the elite root
+                Log.Debug($"Cloning elite tree from root: {culture.RootElite.Name}");
                 eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)];
-
-                Log.Debug(
-                    $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
-                );
+                Log.Debug($"eliteClones after clone: {eliteClones.Count}");
+                Log.Debug($"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}");
             }
             else
             {
-                Log.Warn(
-                    $"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop."
-                );
+                Log.Warn($"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop.");
             }
 
             var basicClones = new List<WCharacter>();
+            Log.Debug($"Initial basicClones count: {basicClones.Count}");
 
             if (culture?.RootBasic != null)
             {
-                // Clone the basic tree from the basic root
+                Log.Debug($"Cloning basic tree from root: {culture.RootBasic.Name}");
                 basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)];
-
-                Log.Debug(
-                    $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
-                );
+                Log.Debug($"basicClones after clone: {basicClones.Count}");
+                Log.Debug($"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}");
             }
             else
             {
-                Log.Warn(
-                    $"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop."
-                );
+                Log.Warn($"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop.");
             }
 
             // Count unlocks
             int unlocks = 0;
+            Log.Debug($"Starting unlocks count: {unlocks}");
 
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
-            foreach (var equipment in troop.Loadout.Equipments)
-            foreach (var item in equipment.Items)
             {
-                item.Unlock();
-                unlocks++;
+                Log.Debug($"Processing troop: {troop?.Name ?? "null"}");
+                foreach (var equipment in troop.Loadout.Equipments)
+                {
+                    Log.Debug($"Processing equipment: {equipment?.ToString() ?? "null"}, Items count: {equipment.Items.Count}");
+                    foreach (var item in equipment.Items)
+                    {
+                        Log.Debug($"Unlocking item: {item?.ToString() ?? "null"}");
+                        item.Unlock();
+                        unlocks++;
+                        Log.Debug($"Unlocks incremented: {unlocks}");
+                    }
+                }
             }
 
-            Log.Debug(
-                $"Unlocked {unlocks} items from {eliteClones.Count + basicClones.Count} troops"
-            );
+            Log.Debug($"Unlocked {unlocks} items from {eliteClones.Count + basicClones.Count} troops");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -275,37 +290,55 @@ namespace Retinues.Troops
             WCharacter parent
         )
         {
+            // Custom fix for Warlords Battlefield
+            if (parent == null && WarlordsBattlefield)
+                vanilla = WarlordsBattlefieldRootFixer.FixRoot(vanilla, isElite);
+
             // Determine the position in the tree
             List<int> path = null;
             if (parent != null)
                 path = [.. parent.PositionInTree, parent.UpgradeTargets.Length];
 
-            // Wrap the custom troop
-            var troop = new WCharacter(faction == Player.Kingdom, isElite, false, path: path);
+            // CharacterObject
+            var co = new CustomCharacterHelper().GetCharacterObject(faction == Player.Kingdom, isElite, false, false, false, path: path);
 
-            // Copy from the original troop
-            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+            if (co == null)
+                yield return null; // Should not happen, but other mods might interfere
+            else
+            {
+                // Wrap the custom troop
+                var troop = new WCharacter(co);
 
-            // Rename it
-            troop.Name = BuildTroopName(vanilla, faction);
+                // Copy from the original troop
+                troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
-            // Add to upgrade targets of the parent, if any
-            parent?.AddUpgradeTarget(troop);
+                // Rename it
+                troop.Name = BuildTroopName(vanilla, faction);
 
-            // Unlock items
-            foreach (var equipment in vanilla.Loadout.Equipments)
-            foreach (var item in equipment.Items)
-                item.Unlock();
+                // Add to upgrade targets of the parent, if any
+                parent?.AddUpgradeTarget(troop);
 
-            // Activate
-            troop.Activate();
+                // Unlock items
+                foreach (var equipment in vanilla.Loadout.Equipments)
+                foreach (var item in equipment.Items)
+                    item.Unlock();
 
-            yield return troop;
+                // Activate
+                troop.Activate();
 
-            if (vanilla.UpgradeTargets != null)
-                foreach (var child in vanilla.UpgradeTargets)
-                foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
-                    yield return descendant;
+                yield return troop;
+
+                if (vanilla.UpgradeTargets != null)
+                {
+                    foreach (var child in vanilla.UpgradeTargets)
+                    foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
+                    {
+                        if (descendant != null)
+                            continue;
+                        yield return descendant;
+                    }
+                }
+            }
         }
 
         /// <summary>
