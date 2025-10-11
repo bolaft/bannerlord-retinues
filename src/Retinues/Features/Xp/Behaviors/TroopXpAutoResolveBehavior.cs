@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Game.Events; // Battle
-using Retinues.Game.Wrappers; // WParty, WRosterElement, WCharacter
-using Retinues.Utils; // Log, SafeClass, SafeMethod
+using Retinues.Game.Events;
+using Retinues.Game.Wrappers;
+using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Party;
@@ -20,8 +20,8 @@ namespace Retinues.Features.Xp.Behaviors
     {
         private const float XpPerTier = 2.5f; // enemy-only tier weighting
 
-        // Snapshots keyed by MapEvent reference (no hash collisions)
-        private readonly Dictionary<MapEvent, Snapshot> _snapshots = new();
+        // Snapshots keyed by MapEvent reference
+        private readonly Dictionary<MapEvent, Snapshot> _snapshots = [];
 
         public override void RegisterEvents()
         {
@@ -31,9 +31,11 @@ namespace Retinues.Features.Xp.Behaviors
 
         public override void SyncData(IDataStore dataStore) { }
 
-        // ───────────────────────────────────────────────────────────────────────────────
-        // START: take pre-finalization snapshot (enemy + player weights, sim flag)
-        // ───────────────────────────────────────────────────────────────────────────────
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Start                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         [SafeMethod(swallow: true)]
         private void OnMapEventStarted(
             MapEvent me,
@@ -58,12 +60,11 @@ namespace Retinues.Features.Xp.Behaviors
             bool playerOnDef = defenders.Any(p => p.IsMainParty || p.PlayerFaction != null);
             if (!playerOnAtk && !playerOnDef)
             {
-                // No player-owned parties → not our concern; ensure no stale snapshot remains
+                // No player-owned parties, ensure no stale snapshot remains
                 _snapshots.Remove(me);
                 return;
             }
 
-            // Was this simulated? (remote battles => simulated; main party present => require sim flags)
             bool mainPartyInvolved =
                 me.InvolvedParties?.Any(p => p?.MobileParty?.IsMainParty == true) == true;
 
@@ -80,9 +81,6 @@ namespace Retinues.Features.Xp.Behaviors
                 foreach (var e in wp.MemberRoster.Elements)
                 {
                     if (e.Number <= 0)
-                        continue;
-                    // Exclude heroes if you don't want them to “eat” XP; keep as-is if you do:
-                    if (e.Troop?.IsHero == true)
                         continue;
 
                     playerElems.Add((e.Troop.Base, e.Number, e.Troop.IsCustom));
@@ -117,9 +115,10 @@ namespace Retinues.Features.Xp.Behaviors
             );
         }
 
-        // ───────────────────────────────────────────────────────────────────────────────
-        // END: award based on snapshot; remove snapshot
-        // ───────────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         End                            //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         [SafeMethod(swallow: true)]
         private void OnMapEventEnded(MapEvent me)
         {
@@ -127,12 +126,12 @@ namespace Retinues.Features.Xp.Behaviors
                 return;
             if (!_snapshots.TryGetValue(me, out var snap))
             {
-                // No snapshot → nothing to do
+                // No snapshot
                 return;
             }
             _snapshots.Remove(me);
 
-            // Only for simulated outcomes; real battles are handled by mission behavior.
+            // Only for simulated outcomes, real battles are handled by mission behavior.
             if (snap.MainPartyInvolved && !me.IsPlayerSimulation)
             {
                 Log.Debug("AutoResolveXP[End]: real battle → skip.");
@@ -158,13 +157,13 @@ namespace Retinues.Features.Xp.Behaviors
 
                 if (e.IsCustom)
                 {
-                    // Credit the custom troop type even if all died — pool is per-troop definition.
+                    // Credit the custom troop type even if all died, pool is per-troop definition.
                     TroopXpBehavior.Add(new WCharacter(e.Troop.StringId), share);
                     Log.Debug($"AutoResolveXP[End]: +{share} XP → {e.Troop?.Name} (x{e.Count})");
                 }
                 else
                 {
-                    // Intentionally “wasted” to model non-customs taking their cut
+                    // Intentionally "wasted" to model non-customs taking their cut
                     Log.Debug(
                         $"AutoResolveXP[End]: {share} XP wasted on non-custom {e.Troop?.Name} (x{e.Count})."
                     );
@@ -172,22 +171,9 @@ namespace Retinues.Features.Xp.Behaviors
             }
         }
 
-        // ───────────────────────────────────────────────────────────────────────────────
-        // Helpers
-        // ───────────────────────────────────────────────────────────────────────────────
-
-        private static bool ProbeBool(object o, string name)
-        {
-            try
-            {
-                var pi = o?.GetType().GetProperty(name);
-                return (pi != null && pi.PropertyType == typeof(bool)) && (bool)pi.GetValue(o);
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Helpers                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private sealed class Snapshot
         {
