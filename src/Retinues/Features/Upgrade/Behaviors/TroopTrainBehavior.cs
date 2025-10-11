@@ -8,6 +8,9 @@ using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
+# if BL12
+using TaleWorlds.CampaignSystem.Overlay;
+# endif
 
 namespace Retinues.Features.Upgrade.Behaviors
 {
@@ -233,7 +236,11 @@ namespace Retinues.Features.Upgrade.Behaviors
                 },
                 onAborted: () => { /* keep pending */
                 },
+# if BL13
                 overlay: GameMenu.MenuOverlayType.SettlementWithBoth,
+# else
+                overlay: GameOverlays.MenuOverlayType.SettlementWithBoth,
+# endif
                 onWholeHour: _ =>
                 {
                     if (data.Remaining > 0 && data.PointsRemaining > 0)

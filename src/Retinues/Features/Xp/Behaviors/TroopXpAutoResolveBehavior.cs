@@ -31,7 +31,6 @@ namespace Retinues.Features.Xp.Behaviors
 
         public override void SyncData(IDataStore dataStore) { }
 
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Start                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

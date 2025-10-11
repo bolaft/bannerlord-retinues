@@ -6,11 +6,13 @@ using Retinues.Game.Helpers.Character;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+# if BL13
+using TaleWorlds.Core.ImageIdentifiers;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
+# endif
 
 namespace Retinues.Game.Wrappers
 {
@@ -85,12 +87,13 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public CharacterCode CharacterCode => CharacterCode.CreateFrom(Base);
-        public ImageIdentifier ImageIdentifier => new CharacterImageIdentifier(CharacterCode);
 
 #if BL13
         public CharacterImageIdentifierVM Image => new(CharacterCode);
+        public ImageIdentifier ImageIdentifier => new CharacterImageIdentifier(CharacterCode);
 #else
         public ImageIdentifierVM Image => new(CharacterCode);
+        public ImageIdentifier ImageIdentifier => new(CharacterCode);
 #endif
 
         public CharacterViewModel GetModel(WLoadout.Category category, int index = 0)

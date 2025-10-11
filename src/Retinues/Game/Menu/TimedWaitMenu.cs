@@ -4,6 +4,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Encounters;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Settlements;
+# if BL12
+using TaleWorlds.CampaignSystem.Overlay;
+# endif
 
 namespace Retinues.Game.Menu
 {
@@ -40,7 +43,11 @@ namespace Retinues.Game.Menu
             float durationHours,
             Action onCompleted,
             Action onAborted,
+# if BL13
             GameMenu.MenuOverlayType overlay = GameMenu.MenuOverlayType.None,
+# else
+            GameOverlays.MenuOverlayType overlay = GameOverlays.MenuOverlayType.None,
+# endif
             Action<float> onWholeHour = null
         )
         {
@@ -75,7 +82,11 @@ namespace Retinues.Game.Menu
         private static void AddOrReplaceWaitMenu(
             CampaignGameStarter starter,
             string title,
+# if BL13
             GameMenu.MenuOverlayType overlay
+# else
+            GameOverlays.MenuOverlayType overlay
+# endif
         )
         {
             Log.Debug($"TimedWaitMenu.AddOrReplaceWaitMenu called: {_menuId}, title='{title}'");

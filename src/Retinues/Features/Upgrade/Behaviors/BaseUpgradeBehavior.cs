@@ -7,8 +7,10 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.SaveSystem;
+# if BL13
+using TaleWorlds.Core.ImageIdentifiers;
+# endif
 
 namespace Retinues.Features.Upgrade.Behaviors
 {

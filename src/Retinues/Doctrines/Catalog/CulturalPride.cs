@@ -33,7 +33,7 @@ namespace Retinues.Doctrines.Catalog
             {
                 if (tournament.Winner != Player.Character)
                     return;
-#if BL13
+
                 // NOTE: Player character's wrapper gives wrong equipment for some reason in 1.3
                 // This is why we access the equipment directly from the CharacterObject's FirstBattleEquipment
                 Equipment eq = CharacterObject.PlayerCharacter.FirstBattleEquipment;
@@ -61,20 +61,6 @@ namespace Retinues.Doctrines.Catalog
                         return; // Item does not match player culture
                     }
                 }
-#else
-                foreach (var item in Player.Character.Equipment.Items)
-                {
-                    if (!item.IsArmor)
-                        continue; // Ignore non-armor items
-                    if (item.Culture?.StringId != Player.Culture.StringId)
-                    {
-                        Log.Info(
-                            $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture?.StringId}) does not match player culture ({Player.Culture})"
-                        );
-                        return; // Item does not match player culture
-                    }
-                }
-#endif
                 AdvanceProgress(1);
             }
         }
