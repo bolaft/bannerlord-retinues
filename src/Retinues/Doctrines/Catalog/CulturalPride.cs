@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.Game.Events;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -90,6 +92,8 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
+                var blockedBy = new Dictionary<WCharacter, WItem>();
+
                 foreach (var kill in battle.Kills)
                 {
                     if (!kill.Killer.IsPlayerTroop)
@@ -108,12 +112,21 @@ namespace Retinues.Doctrines.Catalog
                         if (item.Culture != troop.Culture)
                         {
                             hasFullSet = false;
+                            if (!blockedBy.ContainsKey(troop))
+                                blockedBy[troop] = item;
                             break; // Item does not match troop culture
                         }
                     }
 
                     if (hasFullSet)
                         AdvanceProgress(1);
+                }
+
+                foreach (var kvp in blockedBy)
+                {
+                    Log.Message(
+                        $"Cultural Pride: progress for {kvp.Key.Name} ({kvp.Key.Culture?.Name}) blocked by {kvp.Value.Name} ({kvp.Value.Culture?.Name})."
+                    );
                 }
             }
         }
