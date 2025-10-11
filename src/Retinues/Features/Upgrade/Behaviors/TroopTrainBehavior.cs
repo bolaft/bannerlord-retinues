@@ -74,8 +74,6 @@ namespace Retinues.Features.Upgrade.Behaviors
 
         public static void StageTraining(WCharacter troop, SkillObject skill)
         {
-            Log.Debug($"Staging training {skill?.Name} for troop {troop?.Name} by 1.");
-
             if (!TrainingTakesTime)
             {
                 ApplyChange(troop.StringId, skill, 1);
