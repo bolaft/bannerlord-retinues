@@ -300,6 +300,8 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int ConversionCostPerUnit(WCharacter retinue)
         {
+            if (retinue == null || !retinue.IsRetinue)
+                return 0;
             int tier = retinue?.Tier ?? 1;
             int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
             return tier * baseCost;
