@@ -24,7 +24,9 @@ namespace Retinues.Game.Helpers
 
             // apply staged equip (if any)
             var beh = TroopEquipBehavior.Instance;
-            var pending = beh?.GetPending(troop.StringId); // IEnumerable<PendingEquipData> in your base
+            var pending = beh?.GetPending(troop.StringId);
+            if (pending == null)
+                return eq; // nothing staged
             foreach (var p in pending)
             {
                 if (p.Category != category || p.EquipmentIndex != index)
@@ -32,10 +34,7 @@ namespace Retinues.Game.Helpers
 
                 var item = MBObjectManager.Instance.GetObject<ItemObject>(p.ItemId);
                 if (item != null)
-                {
-                    // simplest form; add modifier/amount if you track them
                     eq[p.Slot] = new EquipmentElement(item);
-                }
             }
 
             return eq;
