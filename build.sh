@@ -23,10 +23,6 @@ Options:
   -v, --version         Bannerlord version: 12 or 13 (default: 13)
   -r, --release <N>     Build Release and set <Version value="vX.Y.Z.N" /> to N
   -h, --help            Show help
-
-Examples:
-  ./build.sh -t core --release 7
-  ./build.sh -t all --no-deploy --prefabs --bl 12
 USAGE
   exit 1
 }
