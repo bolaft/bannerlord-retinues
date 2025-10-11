@@ -431,6 +431,33 @@
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="Повысите 100 элитных войск до максимального ранга." />
     <string
+      id="ret_mcm_ie_export_btn"
+      text="Экспорт" />
+    <string
+      id="ret_mcm_ie_export_btn_text"
+      text="Экспорт войск в XML" />
+    <string
+      id="ret_mcm_ie_export_hint"
+      text="Пример: troops_myCampaignRun" />
+    <string
+      id="ret_mcm_ie_export_name"
+      text="Имя файла" />
+    <string
+      id="ret_mcm_ie_import_btn"
+      text="Импорт" />
+    <string
+      id="ret_mcm_ie_import_btn_text"
+      text="Импорт войск из XML" />
+    <string
+      id="ret_mcm_ie_import_confirm_body"
+      text="Импорт новых определений войск заменит существующие. Вы уверены?" />
+    <string
+      id="ret_mcm_ie_import_confirm_title"
+      text="Импорт войск" />
+    <string
+      id="ret_mcm_ie_import_dropdown"
+      text="Доступные файлы" />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Вся Экипировка Разблокирована" />
     <string
@@ -635,6 +662,9 @@
       id="ret_mcm_section_general"
       text="Общее" />
     <string
+      id="ret_mcm_section_import_export"
+      text="Импорт и Экспорт" />
+    <string
       id="ret_mcm_section_recruitment"
       text="Вербовка" />
     <string
@@ -739,6 +769,12 @@
     <string
       id="ret_remove_button_text"
       text="Удалить" />
+    <string
+      id="ret_remove_set_text"
+      text="Удалить {SET} для {TROOP_NAME}?{newline}Все внесенные изменения будут отменены, а предметы будут сняты и сохранены." />
+    <string
+      id="ret_remove_set_title"
+      text="Удалить Комплект" />
     <string
       id="ret_remove_troop"
       text="Удалить Войска" />

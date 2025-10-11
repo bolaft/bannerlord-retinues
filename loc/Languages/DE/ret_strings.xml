@@ -431,6 +431,33 @@
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="Rüste 100 Elitetruppen bis zur Maximalstufe auf." />
     <string
+      id="ret_mcm_ie_export_btn"
+      text="Exportieren" />
+    <string
+      id="ret_mcm_ie_export_btn_text"
+      text="Truppen als XML exportieren" />
+    <string
+      id="ret_mcm_ie_export_hint"
+      text="Beispiel: truppen_meinKampagnenlauf" />
+    <string
+      id="ret_mcm_ie_export_name"
+      text="Dateiname" />
+    <string
+      id="ret_mcm_ie_import_btn"
+      text="Importieren" />
+    <string
+      id="ret_mcm_ie_import_btn_text"
+      text="Truppen aus XML importieren" />
+    <string
+      id="ret_mcm_ie_import_confirm_body"
+      text="Das Importieren neuer Truppendefinitionen ersetzt die vorhandenen. Bist du sicher?" />
+    <string
+      id="ret_mcm_ie_import_confirm_title"
+      text="Truppen importieren" />
+    <string
+      id="ret_mcm_ie_import_dropdown"
+      text="Verfügbare Dateien" />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Alle Ausrüstungen freigeschaltet" />
     <string
@@ -635,6 +662,9 @@
       id="ret_mcm_section_general"
       text="Allgemein" />
     <string
+      id="ret_mcm_section_import_export"
+      text="Import &amp; Export" />
+    <string
       id="ret_mcm_section_recruitment"
       text="Rekrutierung" />
     <string
@@ -739,6 +769,12 @@
     <string
       id="ret_remove_button_text"
       text="Entfernen" />
+    <string
+      id="ret_remove_set_text"
+      text="Willst du {SET} für {TROOP_NAME} entfernen?{newline}Alle vorgenommenen Änderungen werden gelöscht, und Gegenstände werden abgelegt und eingelagert." />
+    <string
+      id="ret_remove_set_title"
+      text="Set entfernen" />
     <string
       id="ret_remove_troop"
       text="Truppe entfernen" />

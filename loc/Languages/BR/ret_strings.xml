@@ -431,6 +431,33 @@
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="Aprimore 100 tropas de elite até o nível máximo." />
     <string
+      id="ret_mcm_ie_export_btn"
+      text="Exportar" />
+    <string
+      id="ret_mcm_ie_export_btn_text"
+      text="Exportar Tropas para XML" />
+    <string
+      id="ret_mcm_ie_export_hint"
+      text="Exemplo: tropas_minhaCampanha" />
+    <string
+      id="ret_mcm_ie_export_name"
+      text="Nome do arquivo" />
+    <string
+      id="ret_mcm_ie_import_btn"
+      text="Importar" />
+    <string
+      id="ret_mcm_ie_import_btn_text"
+      text="Importar Tropas de XML" />
+    <string
+      id="ret_mcm_ie_import_confirm_body"
+      text="Importar novas definições de tropas substituirá as existentes. Tem certeza?" />
+    <string
+      id="ret_mcm_ie_import_confirm_title"
+      text="Importar Tropas" />
+    <string
+      id="ret_mcm_ie_import_dropdown"
+      text="Arquivos disponíveis" />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Todo Equipamento Desbloqueado" />
     <string
@@ -635,6 +662,9 @@
       id="ret_mcm_section_general"
       text="Geral" />
     <string
+      id="ret_mcm_section_import_export"
+      text="Importar &amp; Exportar" />
+    <string
       id="ret_mcm_section_recruitment"
       text="Recrutamento" />
     <string
@@ -739,6 +769,12 @@
     <string
       id="ret_remove_button_text"
       text="Remover" />
+    <string
+      id="ret_remove_set_text"
+      text="Remover {SET} para {TROOP_NAME}?{newline}Todas as alterações em andamento serão limpas e os itens serão desequipados e guardados no estoque." />
+    <string
+      id="ret_remove_set_title"
+      text="Remover Conjunto" />
     <string
       id="ret_remove_troop"
       text="Remover Tropa" />

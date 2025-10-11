@@ -431,6 +431,33 @@
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="精鋭兵100人を最大ランクにアップグレードする。" />
     <string
+      id="ret_mcm_ie_export_btn"
+      text="エクスポート" />
+    <string
+      id="ret_mcm_ie_export_btn_text"
+      text="部隊をXMLにエクスポート" />
+    <string
+      id="ret_mcm_ie_export_hint"
+      text="例: troops_myCampaignRun" />
+    <string
+      id="ret_mcm_ie_export_name"
+      text="ファイル名" />
+    <string
+      id="ret_mcm_ie_import_btn"
+      text="インポート" />
+    <string
+      id="ret_mcm_ie_import_btn_text"
+      text="XMLから部隊をインポート" />
+    <string
+      id="ret_mcm_ie_import_confirm_body"
+      text="新しい部隊定義をインポートすると、既存の定義が置き換えられます。本当によろしいですか？" />
+    <string
+      id="ret_mcm_ie_import_confirm_title"
+      text="部隊をインポート" />
+    <string
+      id="ret_mcm_ie_import_dropdown"
+      text="利用可能なファイル" />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="全装備解除済み" />
     <string
@@ -635,6 +662,9 @@
       id="ret_mcm_section_general"
       text="一般" />
     <string
+      id="ret_mcm_section_import_export"
+      text="インポートとエクスポート" />
+    <string
       id="ret_mcm_section_recruitment"
       text="募集" />
     <string
@@ -739,6 +769,12 @@
     <string
       id="ret_remove_button_text"
       text="削除" />
+    <string
+      id="ret_remove_set_text"
+      text="{TROOP_NAME} の {SET} を削除しますか？{newline}すべての変更がクリアされ、アイテムは装備解除されて保管されます。" />
+    <string
+      id="ret_remove_set_title"
+      text="セットを削除" />
     <string
       id="ret_remove_troop"
       text="兵を削除" />
