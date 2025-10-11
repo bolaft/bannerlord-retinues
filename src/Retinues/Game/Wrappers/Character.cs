@@ -180,6 +180,7 @@ namespace Retinues.Game.Wrappers
                 {
                     if (!IsCustom)
                         return;
+
                     // protected setter -> set via reflection
                     Reflector.SetPropertyValue(Base, "DefaultFormationClass", value);
                     Reflector.SetPropertyValue(Base, "DefaultFormationGroup", (int)value);
@@ -431,6 +432,9 @@ namespace Retinues.Game.Wrappers
             else
                 IsNotTransferableInPartyScreen = false;
 
+            FormationClass = Loadout.Battle.ComputeFormationClass();
+            UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
+
             if (!IsActive)
                 ActiveTroops.Add(StringId);
         }
@@ -478,15 +482,19 @@ namespace Retinues.Game.Wrappers
 
             // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
+            {
+                // Loadout copy
                 Loadout.FillFrom(src.Loadout);
+
+                // Upgrade item requirement refresh
+                UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
+
+                // Formation class refresh
+                FormationClass = Loadout.Battle.ComputeFormationClass();
+            }
             else
                 Loadout.Clear();
 
-            // Upgrade item requirement refresh
-            UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
-
-            // Formation class refresh
-            FormationClass = Loadout.Battle.ComputeFormationClass();
         }
     }
 }
