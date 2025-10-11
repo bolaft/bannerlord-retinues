@@ -17,7 +17,7 @@ namespace Retinues.Core.Features.Xp.Patches
     [HarmonyPatch(typeof(MobilePartyTrainingBehavior), "OnDailyTickParty")]
     internal static class MobilePartyTrainingBehavior_OnDailyTickParty_Patch
     {
-        public const float xpMultiplier = 0.1f; // 10% of the original XP
+        public const float xpMultiplier = 0.2f; // 20% of the original XP
         public const float xpMultiplierNonMain = 0.25f; // 25% of XP for non-main parties
 
         // Compute everything upfront (same model call + rounding) and cache for the Postfix.
@@ -27,6 +27,12 @@ namespace Retinues.Core.Features.Xp.Patches
             {
                 var party = new WParty(mobileParty);
                 var xpTotals = new Dictionary<WCharacter, int>();
+
+                if (party == null || party.MemberRoster == null)
+                    return; // no party or no troops
+
+                if (party.PlayerFaction == null)
+                    return; // not a player faction party
 
                 // Mirror vanilla enumeration order and math.
                 foreach (var element in party.MemberRoster.Elements)
@@ -42,6 +48,9 @@ namespace Retinues.Core.Features.Xp.Patches
                         );
                     int each = MathF.Round(en.ResultNumber);
                     int total = each * element.Number;
+
+                    if (total <= 0)
+                        continue; // no XP to give
 
                     // Normalize XP gain
                     var gain = (int)(total * xpMultiplier);

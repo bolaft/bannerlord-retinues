@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
-using Retinues.Game.Wrappers;
 using Retinues.Game.Events;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
