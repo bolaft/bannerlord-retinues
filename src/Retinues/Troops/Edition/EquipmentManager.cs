@@ -54,12 +54,11 @@ namespace Retinues.Troops.Edition
             var clanCultureId = Player.Clan?.Culture?.StringId;
             var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
 
+            var allObjects = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
+            var lastCraftedIndex = BuildLastCraftedIndex(allObjects, onlyPlayerCrafted: true);
+
             // Load items
-            foreach (
-                var item in MBObjectManager
-                    .Instance.GetObjectTypeList<ItemObject>()
-                    .Select(i => new WItem(i))
-            )
+            foreach (var item in allObjects.Select(i => new WItem(i)))
             {
                 if (civilianOnly && !item.IsCivilian)
                     continue; // Skip non-civilian items if filtering for civilian only
@@ -80,10 +79,14 @@ namespace Retinues.Troops.Edition
 
                     // 1) Crafted items gated by Clanic Traditions
                     if (item.IsCrafted)
+                    {
                         if (!hasClanicTraditions)
+                            continue;
+                        else if (!IncludeCraftedThisOne(item.Base, lastCraftedIndex, onlyPlayerCrafted: true))
                             continue;
                         else if (!item.IsUnlocked)
                             item.Unlock(); // unlock now
+                    }
 
                     // 2) Tier constraint unless Ironclad is unlocked
                     var tierDelta = item.Tier - troop.Tier;
@@ -307,6 +310,49 @@ namespace Retinues.Troops.Edition
             return (int)(
                 baseValue * (1.0f - rebate) * Config.GetOption<float>("EquipmentPriceModifier")
             );
+        }
+
+        private static bool IncludeCraftedThisOne(
+            ItemObject obj,
+            Dictionary<string, ItemObject> lastCraftedIndex,
+            bool onlyPlayerCrafted = true)
+        {
+            if (obj == null) return false;
+
+            // Non-crafted items always pass through
+            if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
+                return true;
+
+            if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
+                return true; // not a player-crafted smith, keep normal path
+
+            var hash = obj.WeaponDesign.HashedCode;
+            if (string.IsNullOrEmpty(hash))
+                return true; // no hash to dedup on, let it through
+
+            // Keep only the "last" instance for this hash
+            return lastCraftedIndex.TryGetValue(hash, out var last) && ReferenceEquals(last, obj);
+        }
+
+
+        private static Dictionary<string, ItemObject> BuildLastCraftedIndex(
+            IEnumerable<ItemObject> items,
+            bool onlyPlayerCrafted = true)
+        {
+            var map = new Dictionary<string, ItemObject>(StringComparer.Ordinal);
+            foreach (var obj in items)
+            {
+                if (obj == null) continue;
+                if (!obj.IsCraftedWeapon || obj.WeaponDesign == null) continue;
+                if (onlyPlayerCrafted && !obj.IsCraftedByPlayer) continue;
+
+                var hash = obj.WeaponDesign.HashedCode;
+                if (string.IsNullOrEmpty(hash)) continue;
+
+                // later items overwrite earlier ones -> "last wins"
+                map[hash] = obj;
+            }
+            return map;
         }
     }
 }
