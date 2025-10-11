@@ -83,7 +83,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             get
             {
                 if (LoadoutCategory == WLoadout.Category.Alternate)
-                    return L.T("set_alt_n", "Alt {N}")
+                    return L.T("set_alt_n", "Alternate {N}")
                         .SetTextVariable("N", LoadoutIndex + 1)
                         .ToString();
                 return LoadoutCategory == WLoadout.Category.Civilian
@@ -353,7 +353,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteCreateSet()
         {
-            if (SelectedTroop == null) return;
+            if (SelectedTroop == null)
+                return;
 
             // Create a brand-new EMPTY alternate set (independent, no free items)
             var alternates = SelectedTroop.Loadout.Alternates;
@@ -368,23 +369,27 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteRemoveSet()
         {
-            if (!CanRemoveSet) return;
+            if (!CanRemoveSet)
+                return;
 
-            var setLabel = $"Alt {LoadoutIndex + 1}";
             InformationManager.ShowInquiry(
                 new InquiryData(
                     L.S("remove_set_title", "Remove Set"),
-                    L.T("remove_set_text",
-                        "Remove {SET} for {TROOP_NAME}?\nAll staged changes will be cleared and items will be unequipped and stocked.")
-                    .SetTextVariable("SET", setLabel)
-                    .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
-                    .ToString(),
-                    true, true,
+                    L.T(
+                            "remove_set_text",
+                            "Remove {SET} for {TROOP_NAME}?\nAll staged changes will be cleared and items will be unequipped and stocked."
+                        )
+                        .SetTextVariable("SET", CurrentSetText)
+                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .ToString(),
+                    true,
+                    true,
                     L.S("confirm", "Confirm"),
                     L.S("cancel", "Cancel"),
                     () =>
                     {
-                        foreach (var s in Slots) s.Unstage();
+                        foreach (var s in Slots)
+                            s.Unstage();
                         EquipmentManager.UnequipAll(SelectedTroop, LoadoutCategory, LoadoutIndex);
 
                         var alts = SelectedTroop.Loadout.Alternates;
@@ -393,7 +398,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
                         var altCount = SelectedTroop.Loadout.Alternates.Count;
                         if (altCount > 0)
-                            SelectEquipment(WLoadout.Category.Alternate, Math.Min(LoadoutIndex, altCount - 1));
+                            SelectEquipment(
+                                WLoadout.Category.Alternate,
+                                Math.Min(LoadoutIndex, altCount - 1)
+                            );
                         else
                             SelectEquipment(WLoadout.Category.Civilian);
                     },
