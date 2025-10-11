@@ -5,7 +5,11 @@ using System.Linq;
 using MCM.Abstractions.Base;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
-using Retinues.Utils;
+using System.IO;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Library;
+using TaleWorlds.Core;
+using Retinues.Troops;
 
 namespace Retinues.Utils
 {
@@ -36,6 +40,60 @@ namespace Retinues.Utils
         private static readonly Dictionary<string, ConfigOption> _byKey = new(
             StringComparer.OrdinalIgnoreCase
         );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Import/Export UI                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static string _exportName = SuggestDefaultExportName();
+        private static Dropdown<string> _importDropdown = BuildImportDropdown();
+
+        private static bool InCampaign() => Campaign.Current != null;
+
+        private static void ConfirmTroopReplace(string title, string body, Action onConfirm)
+        {
+            var inquiry = new InquiryData(
+                title, body, true, true,
+                L.S("continue", "Continue"), L.S("cancel", "Cancel"),
+                onConfirm, () => { }
+            );
+            InformationManager.ShowInquiry(inquiry);
+        }
+
+        private static string SuggestDefaultExportName()
+        {
+            // troops_YYYY-MM-DD_HH-mm
+            var now = DateTime.Now;
+            return $"troops_{now:yyyy-MM-dd_HH-mm}";
+        }
+
+        private static Dropdown<string> BuildImportDropdown()
+        {
+            try
+            {
+                var dir = TroopImportExport.DefaultDir;
+                Directory.CreateDirectory(dir);
+                var files = Directory
+                    .EnumerateFiles(dir, "*.xml", SearchOption.TopDirectoryOnly)
+                    .Select(Path.GetFileName)
+                    .OrderByDescending(s => s, StringComparer.OrdinalIgnoreCase)
+                    .ToList();
+
+                if (files.Count == 0)
+                    files.Add("<no .xml files found>");
+
+                return new Dropdown<string>(files, 0);
+            }
+            catch
+            {
+                return new Dropdown<string>(new List<string> { "<error>" }, 0);
+            }
+        }
+
+        private static void RefreshImportDropdown()
+        {
+            _importDropdown = BuildImportDropdown();
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Option List                     //
@@ -825,6 +883,119 @@ namespace Retinues.Utils
                 if (builder is null)
                     return false;
 
+                // Pin an Import/Export utility group at the very top.
+                builder.CreateGroup(
+                    L.S("mcm_section_import_export", "Import & Export"),
+                    group =>
+                    {
+                        group.SetGroupOrder(0);
+                        int order = 0;
+
+                        // Export filename entry — editable text bound to _exportName
+                        group.AddText(
+                            "ExportFileName",
+                            L.S("mcm_ie_export_name", "File name"),
+                            new ProxyRef<string>(
+                                () => _exportName,
+                                v => _exportName = string.IsNullOrWhiteSpace(v) ? SuggestDefaultExportName() : v
+                            ),
+                            b => b.SetOrder(order++).SetHintText(L.S("mcm_ie_export_hint", "Example: troops_myCampaignRun"))
+                        );
+
+                        // Export button — action via ProxyRef<Action>
+                        group.AddButton(
+                            "ExportButton",
+                            L.S("mcm_ie_export_btn_text", "Export Troops to XML"),
+                            new ProxyRef<Action>(() =>
+                            {
+                                return delegate
+                                {
+                                    if (!InCampaign())
+                                    {
+                                        Log.Message("Export aborted: not in a running campaign. Load a save first.");
+                                        return;
+                                    }
+
+                                    var used = TroopImportExport.ExportAllToXml(_exportName);
+                                    if (!string.IsNullOrWhiteSpace(used))
+                                        Log.Info($"Exported custom troops to: {used}");
+                                    else
+                                        Log.Warn("Export failed. See log for details.");
+
+                                    RefreshImportDropdown(); // newly exported file becomes selectable for import
+                                };
+                            }, _ => { }),
+                            L.S("mcm_ie_export_btn", "Export"),
+                            b => b.SetOrder(order++).SetRequireRestart(false)
+                        );
+
+                        // Import dropdown — bound to _importDropdown
+                        group.AddDropdown(
+                            "ImportFileDropdown",
+                            L.S("mcm_ie_import_dropdown", "Available files"),
+                            0,
+                            new ProxyRef<Dropdown<string>>(
+                                () => _importDropdown,
+                                v => _importDropdown = v ?? _importDropdown
+                            ),
+                            b => b.SetOrder(order++)
+                        );
+                        group.AddButton(
+                            "ImportButton",
+                            L.S("mcm_ie_import_btn_text", "Import Troops from XML"),
+                            new ProxyRef<Action>(() =>
+                            {
+                                return () =>
+                                {
+                                    if (!InCampaign())
+                                    {
+                                        Log.Message("Import aborted: not in a running campaign. Load a save first.");
+                                        return;
+                                    }
+
+                                    var choice = _importDropdown?.SelectedValue;
+                                    if (string.IsNullOrWhiteSpace(choice) || choice.StartsWith("<"))
+                                    {
+                                        Log.Message("No valid file selected for import.");
+                                        return;
+                                    }
+
+                                    ConfirmTroopReplace(
+                                        L.S("mcm_ie_import_confirm_title", "Import Troops"),
+                                        L.S("mcm_ie_import_confirm_body",
+                                            "Importing new troop definitions will replace the existing ones. Are you sure?"),
+                                        () =>
+                                        {
+                                            try
+                                            {
+                                                // 1) Safety backup
+                                                var backupName = "backup_" + SuggestDefaultExportName();
+                                                var backupPath = TroopImportExport.ExportAllToXml(backupName);
+                                                if (!string.IsNullOrWhiteSpace(backupPath))
+                                                    Log.Info($"Backup created: {backupPath}");
+                                                else
+                                                    Log.Warn("Backup export failed (continuing with import).");
+
+                                                // 2) Import
+                                                var count = TroopImportExport.ImportFromXml(choice);
+                                                Log.Message(count > 0
+                                                    ? $"Imported {count} root troop definitions from '{choice}'."
+                                                    : $"No troops were imported from '{choice}'.");
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Log.Error($"Import failed: {ex}");
+                                            }
+                                        }
+                                    );
+                                };
+                            }, _ => { }),
+                            L.S("mcm_ie_import_btn", "Import"),
+                            b => b.SetOrder(order++).SetRequireRestart(false)
+                        );
+                    }
+                );
+
                 if (_options.Count == 0)
                     return false;
 
@@ -847,7 +1018,7 @@ namespace Retinues.Utils
                                     ? Guid.NewGuid().ToString("N")
                                     : opt.Key;
                                 var name = string.IsNullOrWhiteSpace(opt.Name) ? id : opt.Name;
-                                var hint = (opt.Hint ?? string.Empty);
+                                var hint = opt.Hint ?? string.Empty;
                                 var def = opt.Default;
                                 var min = opt.MinValue;
                                 var max = opt.MaxValue;

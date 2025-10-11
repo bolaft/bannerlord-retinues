@@ -15,10 +15,7 @@ namespace Retinues.Troops
     [SafeClass]
     public static class TroopImportExport
     {
-        static readonly string DocumentsDir = Environment.GetFolderPath(
-            Environment.SpecialFolder.MyDocuments
-        );
-        static readonly string DefaultDir = Path.Combine(DocumentsDir, "Retinues");
+        public static readonly string DefaultDir = Path.Combine(ModuleChecker.GetModule("Retinues").Path, "Exports");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Export                        //
@@ -56,7 +53,7 @@ namespace Retinues.Troops
                     serializer.Serialize(writer, payload);
                 }
 
-                Log.Info($"Exported {payload.Count} root troop definitions to '{filePath}'.");
+                Log.Message($"Exported {payload.Count} root troop definitions to '{filePath}'.");
                 return Path.GetFullPath(filePath);
             }
             catch (Exception e)
@@ -96,7 +93,7 @@ namespace Retinues.Troops
 
                 if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
                 {
-                    Log.Warn($"ImportFromXml: file not found '{filePath ?? "<null>"}'.");
+                    Log.Message($"ImportFromXml: file not found '{filePath ?? "<null>"}'.");
                     return 0;
                 }
 
@@ -113,7 +110,7 @@ namespace Retinues.Troops
 
                 if (payload == null || payload.Count == 0)
                 {
-                    Log.Warn($"ImportFromXml: no troops in '{filePath}'.");
+                    Log.Message($"ImportFromXml: no troops in '{filePath}'.");
                     return 0;
                 }
 
@@ -125,7 +122,7 @@ namespace Retinues.Troops
                     built++;
                 }
 
-                Log.Info($"Imported and rebuilt {built} root troop definitions from '{filePath}'.");
+                Log.Message($"Imported and rebuilt {built} root troop definitions from '{filePath}'.");
                 return built;
             }
             catch (Exception e)
