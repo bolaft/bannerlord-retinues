@@ -494,7 +494,6 @@ namespace Retinues.Game.Wrappers
             }
             else
                 Loadout.Clear();
-
         }
     }
 }

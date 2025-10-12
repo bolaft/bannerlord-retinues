@@ -82,7 +82,13 @@ namespace Retinues.Troops.Edition
                     {
                         if (!hasClanicTraditions)
                             continue;
-                        else if (!IncludeCraftedThisOne(item.Base, lastCraftedIndex, onlyPlayerCrafted: true))
+                        else if (
+                            !IncludeCraftedThisOne(
+                                item.Base,
+                                lastCraftedIndex,
+                                onlyPlayerCrafted: true
+                            )
+                        )
                             continue;
                         else if (!item.IsUnlocked)
                             item.Unlock(); // unlock now
@@ -315,9 +321,11 @@ namespace Retinues.Troops.Edition
         private static bool IncludeCraftedThisOne(
             ItemObject obj,
             Dictionary<string, ItemObject> lastCraftedIndex,
-            bool onlyPlayerCrafted = true)
+            bool onlyPlayerCrafted = true
+        )
         {
-            if (obj == null) return false;
+            if (obj == null)
+                return false;
 
             // Non-crafted items always pass through
             if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
@@ -334,20 +342,24 @@ namespace Retinues.Troops.Edition
             return lastCraftedIndex.TryGetValue(hash, out var last) && ReferenceEquals(last, obj);
         }
 
-
         private static Dictionary<string, ItemObject> BuildLastCraftedIndex(
             IEnumerable<ItemObject> items,
-            bool onlyPlayerCrafted = true)
+            bool onlyPlayerCrafted = true
+        )
         {
             var map = new Dictionary<string, ItemObject>(StringComparer.Ordinal);
             foreach (var obj in items)
             {
-                if (obj == null) continue;
-                if (!obj.IsCraftedWeapon || obj.WeaponDesign == null) continue;
-                if (onlyPlayerCrafted && !obj.IsCraftedByPlayer) continue;
+                if (obj == null)
+                    continue;
+                if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
+                    continue;
+                if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
+                    continue;
 
                 var hash = obj.WeaponDesign.HashedCode;
-                if (string.IsNullOrEmpty(hash)) continue;
+                if (string.IsNullOrEmpty(hash))
+                    continue;
 
                 // later items overwrite earlier ones -> "last wins"
                 map[hash] = obj;

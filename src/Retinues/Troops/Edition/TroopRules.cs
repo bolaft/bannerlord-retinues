@@ -168,12 +168,16 @@ namespace Retinues.Troops.Edition
                 return false;
 
             // staged for THIS skill
-            var stagedThis = TroopTrainBehavior.Instance
-                .GetPending(character.StringId, skill.StringId)?.PointsRemaining ?? 0;
+            var stagedThis =
+                TroopTrainBehavior
+                    .Instance.GetPending(character.StringId, skill.StringId)
+                    ?.PointsRemaining
+                ?? 0;
 
             // staged across ALL skills for this troop
-            var stagedAll = TroopTrainBehavior.Instance
-                .GetPending(character.StringId).Sum(d => d.PointsRemaining);
+            var stagedAll = TroopTrainBehavior
+                .Instance.GetPending(character.StringId)
+                .Sum(d => d.PointsRemaining);
 
             // 1) per-skill cap
             if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
@@ -197,14 +201,21 @@ namespace Retinues.Troops.Edition
         {
             if (character == null || skill == null)
                 return false;
-            var staged = TroopTrainBehavior.Instance.GetPending(character.StringId, skill.StringId)?.PointsRemaining ?? 0;
+            var staged =
+                TroopTrainBehavior
+                    .Instance.GetPending(character.StringId, skill.StringId)
+                    ?.PointsRemaining
+                ?? 0;
 
             // Skills can't go below zero
             if (character.GetSkill(skill) + staged <= 0)
                 return false;
 
             // Check for equipment skill requirements
-            if (character.GetSkill(skill) + staged <= character.Loadout.ComputeSkillRequirement(skill))
+            if (
+                character.GetSkill(skill) + staged
+                <= character.Loadout.ComputeSkillRequirement(skill)
+            )
                 return false;
 
             // Check for parent skill (can't go below parent's skill level)
@@ -270,7 +281,9 @@ namespace Retinues.Troops.Edition
             if (c == null || s == null)
                 return false;
 
-            var staged = TroopTrainBehavior.Instance.GetPending(c.StringId, s.StringId)?.PointsRemaining ?? 0;
+            var staged =
+                TroopTrainBehavior.Instance.GetPending(c.StringId, s.StringId)?.PointsRemaining
+                ?? 0;
             int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
         }

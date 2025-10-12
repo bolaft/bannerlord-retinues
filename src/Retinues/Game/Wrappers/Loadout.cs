@@ -74,7 +74,7 @@ namespace Retinues.Game.Wrappers
                     ?.AllEquipments ?? [];
             set
             {
-                // ensure index 1 is civilian
+                // ensure index 1 is civilian, all others battle
                 for (int i = 0; i < value.Count; i++)
                 {
 #if BL13
@@ -88,20 +88,25 @@ namespace Retinues.Game.Wrappers
                     }
                     catch { }
 #else
-                    // BL 1.2 doesn't expose type publicly; reconstruct when needed
-                    if (i == 1 && !value[i].IsCivilian)
+                    bool shouldBeCivilian = (i == 1);
+                    if (value[i].IsCivilian != shouldBeCivilian)
                     {
+                        // Reconstruct with the correct type under 1.2
                         var code = value[i].CalculateEquipmentCode();
+                        // When code is empty, just make an empty equipment of the wanted type
                         value[i] = string.IsNullOrEmpty(code)
-                            ? new Equipment(true)
-                            : Equipment.CreateFromEquipmentCode(code); // this usually carries proper type too
+                            ? new Equipment(shouldBeCivilian) // true=civilian, false=battle
+                            : Equipment.CreateFromEquipmentCode(code); // usually preserves type,
+                        // but we'll still correct below if it doesn't
+                        // If CreateFromEquipmentCode didn't preserve the type, fall back to empty of correct type
+                        if (value[i].IsCivilian != shouldBeCivilian)
+                            value[i] = new Equipment(shouldBeCivilian);
                     }
 #endif
                 }
 
-                // Create a new MBEquipmentRoster
+                // Rebuild roster
                 var roster = new MBEquipmentRoster();
-                // Set the internal equipment list via reflection
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
                 Reflector.SetFieldValue(_owner.Base, "_equipmentRoster", roster);
             }
