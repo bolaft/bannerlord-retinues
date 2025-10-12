@@ -128,9 +128,6 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static void ModifySkill(WCharacter troop, SkillObject skill, bool increment)
         {
-            Log.Debug(
-                $"Modifying skill {skill?.Name} for troop {troop?.Name} by {(increment ? 1 : -1)} (current: {troop?.GetSkill(skill)})."
-            );
             if (troop == null || skill == null)
                 return;
 

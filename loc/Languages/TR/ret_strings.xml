@@ -695,6 +695,9 @@
       id="ret_no_training_required"
       text="Eğitim gerekmiyor" />
     <string
+      id="ret_not_allowed_title"
+      text="İzin Verilmiyor" />
+    <string
       id="ret_not_enough_gold"
       text="Yetersiz altın" />
     <string

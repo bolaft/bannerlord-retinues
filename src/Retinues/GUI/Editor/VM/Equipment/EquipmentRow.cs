@@ -230,6 +230,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 Log.Error("[ExecuteSelect] No slot or troop selected, aborting.");
                 return;
             }
+            
+            if (screen?.EditingIsAllowed == false && !Config.GetOption<bool>("EquipmentChangeTakesTime"))
+                return; // Editing not allowed in current context
 
             var selectedItem = Item;
             var equippedItem = slot?.ActualItem;
@@ -304,6 +307,23 @@ namespace Retinues.GUI.Editor.VM.Equipment
                                     negativeAction: () => { } // Give the player an out
                                 )
                             );
+                        }
+                        // No warning needed, just unequip
+                        else
+                        {
+                            Log.Debug("[ExecuteSelect] Applying unequip without warning.");
+                            // Unstage if something is staged
+                            Unstage();
+                            // Apply unequip
+                            EquipmentManager.Equip(
+                                troop,
+                                slot.Slot,
+                                null,
+                                LoadoutCategory,
+                                LoadoutIndex
+                            );
+                            // Select the row
+                            Select();
                         }
                     }
                 }

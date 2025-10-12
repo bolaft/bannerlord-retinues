@@ -695,6 +695,9 @@
       id="ret_no_training_required"
       text="Обучение не требуется" />
     <string
+      id="ret_not_allowed_title"
+      text="Не разрешено" />
+    <string
       id="ret_not_enough_gold"
       text="Недостаточно золота" />
     <string

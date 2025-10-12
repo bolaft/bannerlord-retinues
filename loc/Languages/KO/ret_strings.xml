@@ -695,6 +695,9 @@
       id="ret_no_training_required"
       text="훈련 불필요" />
     <string
+      id="ret_not_allowed_title"
+      text="허용되지 않음" />
+    <string
       id="ret_not_enough_gold"
       text="골드 부족" />
     <string

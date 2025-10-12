@@ -68,40 +68,28 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public List<Equipment> BaseEquipments
         {
-            get =>
-                Reflector
-                    .GetFieldValue<MBEquipmentRoster>(_owner.Base, "_equipmentRoster")
-                    ?.AllEquipments ?? [];
+            get => Reflector.GetFieldValue<MBEquipmentRoster>(_owner.Base, "_equipmentRoster")?.AllEquipments ?? [];
             set
             {
-                // ensure index 1 is civilian
                 for (int i = 0; i < value.Count; i++)
                 {
-#if BL13
-                    var want =
-                        (i == 1)
-                            ? Equipment.EquipmentType.Civilian
-                            : Equipment.EquipmentType.Battle;
-                    try
+        #if BL13
+                    var want = (i == 1) ? Equipment.EquipmentType.Civilian : Equipment.EquipmentType.Battle;
+                    try { Reflector.SetFieldValue(value[i], "_equipmentType", want); } catch { }
+        #else
+                    bool shouldBeCivilian = (i == 1);
+                    if (value[i].IsCivilian != shouldBeCivilian)
                     {
-                        Reflector.SetFieldValue(value[i], "_equipmentType", want);
+                        var src = value[i];
+                        var fixedEq = new Equipment(shouldBeCivilian);
+                        foreach (var slot in WEquipment.Slots)
+                            fixedEq[slot] = src[slot];
+                        value[i] = fixedEq;
                     }
-                    catch { }
-#else
-                    // BL 1.2 doesn't expose type publicly; reconstruct when needed
-                    if (i == 1 && !value[i].IsCivilian)
-                    {
-                        var code = value[i].CalculateEquipmentCode();
-                        value[i] = string.IsNullOrEmpty(code)
-                            ? new Equipment(true)
-                            : Equipment.CreateFromEquipmentCode(code); // this usually carries proper type too
-                    }
-#endif
+        #endif
                 }
 
-                // Create a new MBEquipmentRoster
                 var roster = new MBEquipmentRoster();
-                // Set the internal equipment list via reflection
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
                 Reflector.SetFieldValue(_owner.Base, "_equipmentRoster", roster);
             }

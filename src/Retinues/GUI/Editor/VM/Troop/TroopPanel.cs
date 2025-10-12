@@ -9,6 +9,7 @@ using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
@@ -226,7 +227,8 @@ namespace Retinues.GUI.Editor.VM.Troop
             SelectedTroop != null ? TroopRules.SkillTotalByTier(SelectedTroop) : 0;
 
         [DataSourceProperty]
-        public int SkillPointsUsed => SelectedTroop?.Skills.Values.Sum() ?? 0;
+        public int SkillPointsUsed =>
+            SelectedTroop != null ? SelectedTroop.Skills.Values.Sum() + TotalStaged : 0;
 
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow1 => _skillsRow1;
@@ -539,6 +541,13 @@ namespace Retinues.GUI.Editor.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private int TotalStaged =>
+            SelectedTroop != null
+                ? TroopTrainBehavior
+                    .Instance.GetPending(SelectedTroop.StringId)
+                    .Sum(d => d.PointsRemaining)
+                : 0;
 
         /* ━━━━━━━━ Generic ━━━━━━━ */
 

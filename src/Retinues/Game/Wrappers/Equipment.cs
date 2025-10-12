@@ -30,6 +30,7 @@ namespace Retinues.Game.Wrappers
             Equipment obj;
 
             if (code is null)
+            {
 #if BL13
                 obj = new Equipment(
                     civilian ? Equipment.EquipmentType.Civilian : Equipment.EquipmentType.Battle
@@ -37,8 +38,40 @@ namespace Retinues.Game.Wrappers
 #else
                 obj = new Equipment(civilian);
 #endif
+            }
             else
-                obj = Equipment.CreateFromEquipmentCode(code);
+            {
+                var tmp = Equipment.CreateFromEquipmentCode(code);
+
+#if BL13
+                // Force the equipment type regardless of what the code implied
+                try
+                {
+                    var want = civilian
+                        ? Equipment.EquipmentType.Civilian
+                        : Equipment.EquipmentType.Battle;
+                    Reflector.SetFieldValue(tmp, "_equipmentType", want);
+                    obj = tmp;
+                }
+                catch
+                {
+                    obj = tmp; // best effort
+                }
+#else
+                // BL12 has no public setter; rebuild a fresh one of the right type and copy items
+                if (tmp.IsCivilian == civilian)
+                {
+                    obj = tmp;
+                }
+                else
+                {
+                    obj = new Equipment(civilian);
+                    // copy all slots
+                    foreach (var slot in WEquipment.Slots)
+                        obj[slot] = tmp[slot];
+                }
+#endif
+            }
 
             return new WEquipment(obj);
         }

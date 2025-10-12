@@ -1,12 +1,14 @@
 using System.Linq;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
+using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Troops.Edition
 {
@@ -21,73 +23,109 @@ namespace Retinues.Troops.Edition
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+
         /// <summary>
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
-        public static bool IsAllowedInContext(
-            WCharacter troop,
-            WFaction faction,
-            string action,
-            bool showPopup = true
-        )
+        public static bool IsAllowedInContext(WCharacter troop, WFaction faction, string action)
         {
+            TextObject reason = GetContextReason(troop, faction, action);
+            Log.Debug($"TroopRules.IsAllowedInContext: {reason == null}, reason={reason}");
+            return reason == null;
+        }
+
+        /// <summary>
+        /// Returns the string reason why editing is not allowed, or null if allowed.
+        /// </summary>
+        public static TextObject GetContextReason(WCharacter troop, WFaction faction, string action)
+        {
+            Log.Debug($"TroopRules.GetContextReason: troop={troop?.Name}, faction={faction?.Name}, action={action}");
             if (faction == null)
-                return true; // No faction, allow by default
+            {
+                Log.Debug("No faction, allow by default");
+                return null;
+            }
 
             var settlement = Player.CurrentSettlement;
+            Log.Debug($"Current settlement: {settlement?.Name}");
 
             if (troop.IsRetinue == true && faction == Player.Clan)
+            {
+                Log.Debug("Checking clan retinue in Player.Clan context");
                 if (settlement != null)
-                    return true; // Clan retinues can be edited in any settlement
+                {
+                    Log.Debug("Clan retinues can be edited in any settlement");
+                    return null;
+                }
                 else
                 {
-                    if (showPopup)
-                        Popup.Display(
-                            L.T("not_in_settlement", "Not in Settlement"),
-                            L.T(
-                                    "not_in_settlement_text",
-                                    "You must be in a settlement to {ACTION} this troop."
-                                )
-                                .SetTextVariable("ACTION", action)
-                        );
-                    return false; // Clan retinues must be in settlement
+                    Log.Debug("Clan retinues must be in settlement");
+                    return L.T("not_in_settlement_text", "You must be in a settlement to {ACTION} this troop.").SetTextVariable("ACTION", action);
                 }
+            }
 
             if (faction.IsPlayerClan)
             {
+                Log.Debug("Checking PlayerClan context");
                 if (settlement?.Clan == Player.Clan)
-                    return true; // In clan fief, allow
-
-                if (showPopup)
-                    Popup.Display(
-                        L.T("not_in_clan_fief", "Not in Clan Fief"),
-                        L.T(
-                                "not_in_clan_fief_text",
-                                "You must be in one of your clan's fiefs to {ACTION} this troop."
-                            )
-                            .SetTextVariable("ACTION", action)
-                    );
-                return false; // In settlement but not clan fief, disallow
+                {
+                    Log.Debug("In clan fief, allow");
+                    return null;
+                }
+                Log.Debug("Not in clan fief, disallow");
+                return L.T("not_in_clan_fief_text", "You must be in one of your clan's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
             }
 
             if (faction.IsPlayerKingdom)
             {
+                Log.Debug("Checking PlayerKingdom context");
                 if (settlement?.Kingdom == Player.Kingdom)
-                    return true; // In kingdom fief, allow
-
-                if (showPopup)
-                    Popup.Display(
-                        L.T("not_in_kingdom_fief", "Not in Kingdom Fief"),
-                        L.T(
-                                "not_in_kingdom_fief_text",
-                                "You must be in one of your kingdom's fiefs to {ACTION} this troop."
-                            )
-                            .SetTextVariable("ACTION", action)
-                    );
-                return false; // In settlement but not kingdom fief, disallow
+                {
+                    Log.Debug("In kingdom fief, allow");
+                    return null;
+                }
+                Log.Debug("Not in kingdom fief, disallow");
+                return L.T("not_in_kingdom_fief_text", "You must be in one of your kingdom's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
             }
 
-            return true; // Default allow if no faction
+            Log.Debug("Default allow if no faction");
+            return null;
+        }
+
+        /// <summary>
+        /// Displays a popup if editing is not allowed in the current context.
+        /// Returns true if allowed, false otherwise.
+        /// </summary>
+        public static bool IsAllowedInContextWithPopup(WCharacter troop, WFaction faction, string action)
+        {
+            Log.Debug($"TroopRules.IsAllowedInContextWithPopup: troop={troop?.Name}, faction={faction?.Name}, action={action}");
+            var reason = GetContextReason(troop, faction, action);
+            if (reason == null)
+            {
+                Log.Debug("Allowed: no reason");
+                return true;
+            }
+
+            TextObject title = L.T("not_allowed_title", "Not Allowed");
+            if (troop.IsRetinue == true && faction == Player.Clan)
+            {
+                Log.Debug("Popup: Not in Settlement");
+                title = L.T("not_in_settlement", "Not in Settlement");
+            }
+            else if (faction.IsPlayerClan)
+            {
+                Log.Debug("Popup: Not in Clan Fief");
+                title = L.T("not_in_clan_fief", "Not in Clan Fief");
+            }
+            else if (faction.IsPlayerKingdom)
+            {
+                Log.Debug("Popup: Not in Kingdom Fief");
+                title = L.T("not_in_kingdom_fief", "Not in Kingdom Fief");
+            }
+
+            Log.Debug($"Popup.Display: title={title}, reason={reason}");
+            Popup.Display(title, reason);
+            return false;
         }
 
         /// <summary>
@@ -166,13 +204,27 @@ namespace Retinues.Troops.Edition
             if (character == null || skill == null)
                 return false;
 
-            if (character.GetSkill(skill) >= SkillCapByTier(character))
+            // staged for THIS skill
+            var stagedThis =
+                TroopTrainBehavior
+                    .Instance.GetPending(character.StringId, skill.StringId)
+                    ?.PointsRemaining
+                ?? 0;
+
+            // staged across ALL skills for this troop
+            var stagedAll = TroopTrainBehavior
+                .Instance.GetPending(character.StringId)
+                .Sum(d => d.PointsRemaining);
+
+            // 1) per-skill cap
+            if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
                 return false;
 
-            if (SkillPointsLeft(character) <= 0)
+            // 2) total points cap (use ALL staged, not just this skill)
+            if (SkillPointsLeft(character) - stagedAll <= 0)
                 return false;
 
-            // Must be able to afford the next point from the troop XP bank
+            // 3) xp affordability for THIS skill’s next point
             if (!HasEnoughXpForNextPoint(character, skill))
                 return false;
 
@@ -186,19 +238,27 @@ namespace Retinues.Troops.Edition
         {
             if (character == null || skill == null)
                 return false;
+            var staged =
+                TroopTrainBehavior
+                    .Instance.GetPending(character.StringId, skill.StringId)
+                    ?.PointsRemaining
+                ?? 0;
 
             // Skills can't go below zero
-            if (character.GetSkill(skill) <= 0)
+            if (character.GetSkill(skill) + staged <= 0)
                 return false;
 
             // Check for equipment skill requirements
-            if (character.GetSkill(skill) <= character.Loadout.ComputeSkillRequirement(skill))
+            if (
+                character.GetSkill(skill) + staged
+                <= character.Loadout.ComputeSkillRequirement(skill)
+            )
                 return false;
 
             // Check for parent skill (can't go below parent's skill level)
             if (
                 character.Parent != null
-                && character.GetSkill(skill) <= character.Parent.GetSkill(skill)
+                && character.GetSkill(skill) + staged <= character.Parent.GetSkill(skill)
             )
                 return false;
 
@@ -257,7 +317,11 @@ namespace Retinues.Troops.Edition
         {
             if (c == null || s == null)
                 return false;
-            int cost = SkillPointXpCost(c.GetSkill(s));
+
+            var staged =
+                TroopTrainBehavior.Instance.GetPending(c.StringId, s.StringId)?.PointsRemaining
+                ?? 0;
+            int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
         }
 

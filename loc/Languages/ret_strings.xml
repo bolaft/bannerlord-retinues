@@ -695,6 +695,9 @@
       id="ret_no_training_required"
       text="No training required" />
     <string
+      id="ret_not_allowed_title"
+      text="Not Allowed" />
+    <string
       id="ret_not_enough_gold"
       text="Not enough gold" />
     <string
