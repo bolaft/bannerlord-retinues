@@ -30,7 +30,7 @@ namespace Retinues.Troops.Edition
         public static bool IsAllowedInContext(WCharacter troop, WFaction faction, string action)
         {
             TextObject reason = GetContextReason(troop, faction, action);
-            Log.Debug($"TroopRules.IsAllowedInContext: {reason == null}, reason={reason}");
+
             return reason == null;
         }
 
@@ -39,56 +39,33 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static TextObject GetContextReason(WCharacter troop, WFaction faction, string action)
         {
-            Log.Debug($"TroopRules.GetContextReason: troop={troop?.Name}, faction={faction?.Name}, action={action}");
             if (faction == null)
-            {
-                Log.Debug("No faction, allow by default");
                 return null;
-            }
 
             var settlement = Player.CurrentSettlement;
-            Log.Debug($"Current settlement: {settlement?.Name}");
 
             if (troop.IsRetinue == true && faction == Player.Clan)
             {
-                Log.Debug("Checking clan retinue in Player.Clan context");
                 if (settlement != null)
-                {
-                    Log.Debug("Clan retinues can be edited in any settlement");
                     return null;
-                }
                 else
-                {
-                    Log.Debug("Clan retinues must be in settlement");
                     return L.T("not_in_settlement_text", "You must be in a settlement to {ACTION} this troop.").SetTextVariable("ACTION", action);
-                }
             }
 
             if (faction.IsPlayerClan)
             {
-                Log.Debug("Checking PlayerClan context");
                 if (settlement?.Clan == Player.Clan)
-                {
-                    Log.Debug("In clan fief, allow");
                     return null;
-                }
-                Log.Debug("Not in clan fief, disallow");
                 return L.T("not_in_clan_fief_text", "You must be in one of your clan's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
             }
 
             if (faction.IsPlayerKingdom)
             {
-                Log.Debug("Checking PlayerKingdom context");
                 if (settlement?.Kingdom == Player.Kingdom)
-                {
-                    Log.Debug("In kingdom fief, allow");
                     return null;
-                }
-                Log.Debug("Not in kingdom fief, disallow");
                 return L.T("not_in_kingdom_fief_text", "You must be in one of your kingdom's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
             }
 
-            Log.Debug("Default allow if no faction");
             return null;
         }
 
@@ -98,32 +75,19 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool IsAllowedInContextWithPopup(WCharacter troop, WFaction faction, string action)
         {
-            Log.Debug($"TroopRules.IsAllowedInContextWithPopup: troop={troop?.Name}, faction={faction?.Name}, action={action}");
             var reason = GetContextReason(troop, faction, action);
             if (reason == null)
-            {
-                Log.Debug("Allowed: no reason");
                 return true;
-            }
 
             TextObject title = L.T("not_allowed_title", "Not Allowed");
-            if (troop.IsRetinue == true && faction == Player.Clan)
-            {
-                Log.Debug("Popup: Not in Settlement");
-                title = L.T("not_in_settlement", "Not in Settlement");
-            }
-            else if (faction.IsPlayerClan)
-            {
-                Log.Debug("Popup: Not in Clan Fief");
-                title = L.T("not_in_clan_fief", "Not in Clan Fief");
-            }
-            else if (faction.IsPlayerKingdom)
-            {
-                Log.Debug("Popup: Not in Kingdom Fief");
-                title = L.T("not_in_kingdom_fief", "Not in Kingdom Fief");
-            }
 
-            Log.Debug($"Popup.Display: title={title}, reason={reason}");
+            if (troop.IsRetinue == true && faction == Player.Clan)
+                title = L.T("not_in_settlement", "Not in Settlement");
+            else if (faction.IsPlayerClan)
+                title = L.T("not_in_clan_fief", "Not in Clan Fief");
+            else if (faction.IsPlayerKingdom)
+                title = L.T("not_in_kingdom_fief", "Not in Kingdom Fief");
+
             Popup.Display(title, reason);
             return false;
         }
