@@ -42,7 +42,7 @@ namespace Retinues.Features.Recruits.Behaviors
                 return; // Not player faction
 
             // Swap militias
-            s.MilitiaParty?.SwapTroops(f);
+            s.MilitiaParty?.MemberRoster?.SwapTroops(f);
         }
     }
 }

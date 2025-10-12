@@ -358,9 +358,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     titleText: L.S("remove_troop", "Remove Troop"),
                     text: L.T(
                             "remove_troop_text",
-                            "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use."
+                            "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use, and existing troops will be converted to their {CULTURE} counterpart."
                         )
                         .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("CULTURE", SelectedTroop.Culture?.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,

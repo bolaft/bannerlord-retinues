@@ -18,7 +18,7 @@ namespace Retinues.Features.Recruits.Patches
                 return; // should not happen
 
             var party = new WParty(__result);
-            party.SwapTroops();
+            party.MemberRoster?.SwapTroops();
         }
     }
 
@@ -35,7 +35,7 @@ namespace Retinues.Features.Recruits.Patches
                 return; // should not happen
 
             var party = new WParty(__result);
-            party.SwapTroops();
+            party.MemberRoster?.SwapTroops();
         }
     }
 
@@ -52,7 +52,7 @@ namespace Retinues.Features.Recruits.Patches
                 return; // should not happen
 
             var party = new WParty(__result);
-            party.SwapTroops();
+            party.MemberRoster?.SwapTroops();
         }
     }
 }

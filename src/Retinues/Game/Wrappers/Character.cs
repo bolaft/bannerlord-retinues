@@ -399,6 +399,12 @@ namespace Retinues.Game.Wrappers
 
         public void Remove()
         {
+            if (!IsCustom)
+                return;
+
+            // Revert existing instances in parties
+            TroopReverter.SwapToVanilla(this);
+
             // Remove from parent's upgrade targets
             Parent?.RemoveUpgradeTarget(this);
 

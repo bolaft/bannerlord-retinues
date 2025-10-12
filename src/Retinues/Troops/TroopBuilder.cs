@@ -64,7 +64,7 @@ namespace Retinues.Troops
 
                     // Update all existing militias for this faction
                     foreach (var s in faction.Settlements)
-                        s.MilitiaParty?.SwapTroops(faction);
+                        s.MilitiaParty?.MemberRoster?.SwapTroops(faction);
                 }
             }
         }
