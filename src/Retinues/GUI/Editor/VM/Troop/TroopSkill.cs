@@ -78,7 +78,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         private int Value => _troop?.GetSkill(_skill) ?? 0;
         private int StagedPoints => Staged?.PointsRemaining ?? 0;
         private PendingTrainData Staged =>
-            TroopTrainBehavior.Instance.GetPending(_troop.StringId, _skill.StringId);
+            TroopTrainBehavior.Instance?.GetPending(_troop.StringId, _skill.StringId) ?? null;
 
         private void Modify(bool increment)
         {

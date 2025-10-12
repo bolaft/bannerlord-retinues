@@ -154,26 +154,14 @@ namespace Retinues
                 cs.AddBehavior(new RetinueBuffBehavior());
 
                 // Training behavior (skip if disabled)
-                if (Config.GetOption<bool>("TrainingTakesTime"))
-                {
-                    cs.AddBehavior(new TroopTrainBehavior());
-                }
+                cs.AddBehavior(new TroopTrainBehavior());
 
                 // Equipment behavior (skip if disabled)
-                if (Config.GetOption<bool>("EquipmentChangeTakesTime"))
-                {
-                    cs.AddBehavior(new TroopEquipBehavior());
-                }
+                cs.AddBehavior(new TroopEquipBehavior());
 
                 // XP behavior (skip if both costs are 0)
-                if (
-                    Config.GetOption<int>("BaseSkillXpCost") > 0
-                    || Config.GetOption<int>("SkillXpCostPerPoint") > 0
-                )
-                {
-                    cs.AddBehavior(new TroopXpBehavior());
-                    cs.AddBehavior(new TroopXpAutoResolveBehavior());
-                }
+                cs.AddBehavior(new TroopXpBehavior());
+                cs.AddBehavior(new TroopXpAutoResolveBehavior());
 
                 // Doctrine behaviors (skip if doctrines disabled)
                 if (Config.GetOption<bool>("EnableDoctrines"))

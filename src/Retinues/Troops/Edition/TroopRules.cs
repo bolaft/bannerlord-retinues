@@ -207,14 +207,14 @@ namespace Retinues.Troops.Edition
             // staged for THIS skill
             var stagedThis =
                 TroopTrainBehavior
-                    .Instance.GetPending(character.StringId, skill.StringId)
+                    .Instance?.GetPending(character.StringId, skill.StringId)
                     ?.PointsRemaining
                 ?? 0;
 
             // staged across ALL skills for this troop
             var stagedAll = TroopTrainBehavior
-                .Instance.GetPending(character.StringId)
-                .Sum(d => d.PointsRemaining);
+                .Instance?.GetPending(character.StringId)
+                ?.Sum(d => d.PointsRemaining) ?? 0;
 
             // 1) per-skill cap
             if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
@@ -240,7 +240,7 @@ namespace Retinues.Troops.Edition
                 return false;
             var staged =
                 TroopTrainBehavior
-                    .Instance.GetPending(character.StringId, skill.StringId)
+                    .Instance?.GetPending(character.StringId, skill.StringId)
                     ?.PointsRemaining
                 ?? 0;
 
@@ -319,7 +319,7 @@ namespace Retinues.Troops.Edition
                 return false;
 
             var staged =
-                TroopTrainBehavior.Instance.GetPending(c.StringId, s.StringId)?.PointsRemaining
+                TroopTrainBehavior.Instance?.GetPending(c.StringId, s.StringId)?.PointsRemaining
                 ?? 0;
             int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
