@@ -6,6 +6,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -18,6 +19,8 @@ namespace Retinues.Features.Xp.Behaviors
     [SafeClass]
     public sealed class TroopXpBehavior : CampaignBehaviorBase
     {
+        public const float TrainingXpMultiplier = 0.2f; // 20% of the original XP
+
         public static TroopXpBehavior Instance { get; private set; }
 
         public TroopXpBehavior()
@@ -46,6 +49,7 @@ namespace Retinues.Features.Xp.Behaviors
         public override void RegisterEvents()
         {
             CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
+            CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(this, OnDailyTickParty);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -61,6 +65,36 @@ namespace Retinues.Features.Xp.Behaviors
 
             // Attach per-battle tracker
             m?.AddMissionBehavior(new TroopXpMissionBehavior());
+        }
+
+        private void OnDailyTickParty(MobileParty mobileParty)
+        {
+            if (mobileParty == null || mobileParty.IsMainParty == false)
+                return; // only care about main party
+
+            var party = new WParty(mobileParty);
+            
+            foreach (var e in party.MemberRoster.Elements)
+            {
+                if (!e.Troop.IsCustom)
+                    continue; // only care about custom troops
+
+                // Vanilla uses PartyTrainingModel.GetEffectiveDailyExperience(...) per element.
+                ExplainedNumber en =
+                    Campaign.Current.Models.PartyTrainingModel.GetEffectiveDailyExperience(
+                        mobileParty,
+                        e.Base
+                    );
+
+                float each = en.ResultNumber;
+                int total = (int)(each * e.Number * TrainingXpMultiplier);
+
+                if (total <= 0)
+                    continue; // no XP to give
+
+                Log.Debug($"Granting training XP for {e.Troop.Name}: {total} XP");
+                Add(e.Troop, total);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
