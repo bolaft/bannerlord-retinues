@@ -3680,6 +3680,22 @@
     "TR": "Eğitim gerekmiyor"
   },
   {
+    "id": "ret_not_allowed_title",
+    "EN": "Not Allowed",
+    "BR": "Não Permitido",
+    "CNs": "不允许",
+    "CNt": "不允許",
+    "DE": "Nicht erlaubt",
+    "FR": "Non autorisé",
+    "IT": "Non consentito",
+    "JP": "許可されていません",
+    "KO": "허용되지 않음",
+    "PL": "Niedozwolone",
+    "RU": "Не разрешено",
+    "SP": "No permitido",
+    "TR": "İzin Verilmiyor"
+  },
+  {
     "id": "ret_not_enough_gold",
     "EN": "Not enough gold",
     "BR": "Ouro insuficiente",

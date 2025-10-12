@@ -695,6 +695,9 @@
       id="ret_no_training_required"
       text="不需要训练" />
     <string
+      id="ret_not_allowed_title"
+      text="不允许" />
+    <string
       id="ret_not_enough_gold"
       text="金币不足" />
     <string
