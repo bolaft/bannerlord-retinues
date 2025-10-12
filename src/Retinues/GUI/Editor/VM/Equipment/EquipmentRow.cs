@@ -232,11 +232,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 return;
             }
 
-            if (
-                screen?.EditingIsAllowed == false
-                && !Config.GetOption<bool>("EquipmentChangeTakesTime")
-            )
+            var changeTakesTime = Config.GetOption<bool>("EquipmentChangeTakesTime");
+            if (!changeTakesTime && screen?.EditingIsAllowed == false)
+            {
+                Log.Info("[ExecuteSelect] Editing not allowed in current context, aborting.");
                 return; // Editing not allowed in current context
+            }
 
             var selectedItem = Item;
             var equippedItem = slot?.ActualItem;

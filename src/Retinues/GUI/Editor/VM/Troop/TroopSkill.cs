@@ -82,7 +82,7 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         private void Modify(bool increment)
         {
-            if (!Config.GetOption<bool>("TrainingTakesTime")) // Allow edits since you need a settlement to train anyway
+            if (!Config.GetOption<bool>("TrainingTakesTime") && increment) // Allow edits since you need a settlement to train anyway
                 if (_editor.Screen?.EditingIsAllowed == false)
                     return; // Editing not allowed in current context
 

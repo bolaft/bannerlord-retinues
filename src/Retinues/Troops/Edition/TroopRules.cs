@@ -28,9 +28,7 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool IsAllowedInContext(WCharacter troop, WFaction faction, string action)
         {
-            TextObject reason = GetContextReason(troop, faction, action);
-
-            return reason == null;
+            return GetContextReason(troop, faction, action) == null;
         }
 
         /// <summary>
@@ -40,7 +38,6 @@ namespace Retinues.Troops.Edition
         {
             if (faction == null)
                 return null;
-
             var settlement = Player.CurrentSettlement;
 
             if (troop.IsRetinue == true && faction == Player.Clan)
@@ -95,7 +92,6 @@ namespace Retinues.Troops.Edition
                 return true;
 
             TextObject title = L.T("not_allowed_title", "Not Allowed");
-
             if (troop.IsRetinue == true && faction == Player.Clan)
                 title = L.T("not_in_settlement", "Not in Settlement");
             else if (faction.IsPlayerClan)

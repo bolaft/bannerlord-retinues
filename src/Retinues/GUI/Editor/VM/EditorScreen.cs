@@ -261,14 +261,14 @@ namespace Retinues.GUI.Editor.VM
         {
             get
             {
-                var restrict = Config.GetOption<bool>("RestrictEditingToFiefs");
-                Log.Debug($"EditingIsAllowed: RestrictEditingToFiefs={restrict}");
-                return restrict == false
-                    || TroopRules.IsAllowedInContextWithPopup(
-                        SelectedTroop,
-                        Faction,
-                        L.S("action_modify", "modify")
-                    );
+                if (Config.GetOption<bool>("RestrictEditingToFiefs") == false)
+                    return true;
+
+                return TroopRules.IsAllowedInContextWithPopup(
+                    SelectedTroop,
+                    Faction,
+                    L.S("action_modify", "modify")
+                );
             }
         }
         public bool ConversionIsAllowed
