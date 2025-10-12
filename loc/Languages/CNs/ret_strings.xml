@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="随从按等级晋升所需的费用。" />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="随从技能上限奖励" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="随从部队的额外技能上限。" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="随从技能总数奖励" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="随从部队的额外技能总数。" />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="共享经验池" />
     <string
@@ -783,7 +795,7 @@
       text="移除部队" />
     <string
       id="ret_remove_troop_text"
-      text="确定要永久移除 {TROOP_NAME} 吗？{newline}{newline}他们的装备将被存入库存以供后用。" />
+      text="您确定要永久移除 {TROOP_NAME} 吗？{newline}{newline}他们的装备将被存入库存以备后用，现有部队将转换为他们的 {CULTURE} 对应部队。" />
     <string
       id="ret_rename_troop"
       text="重命名部队" />

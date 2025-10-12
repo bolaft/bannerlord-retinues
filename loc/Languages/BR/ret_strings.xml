@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Custo de promoção por nível para tropas do séquito." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bônus de Limite de Habilidade do Séquito" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Limite de habilidade adicional para tropas do séquito." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Bônus de Total de Habilidades do Séquito" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Total de habilidade adicional para tropas do séquito." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Reserva Compartilhada de XP" />
     <string
@@ -783,7 +795,7 @@
       text="Remover Tropa" />
     <string
       id="ret_remove_troop_text"
-      text="Tem certeza de que deseja remover permanentemente {TROOP_NAME}?{newline}{newline}O equipamento deles será guardado no estoque para uso posterior." />
+      text="Tem certeza de que deseja remover permanentemente {TROOP_NAME}?{newline}{newline}O equipamento deles será guardado para uso posterior, e as tropas existentes serão convertidas para sua contraparte {CULTURE}." />
     <string
       id="ret_rename_troop"
       text="Renomear Tropa" />

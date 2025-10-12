@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Yandaş askerleri terfi ettirmenin seviye başına maliyeti." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Yandaş Yetenek Limiti Bonusu" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Yandaş askerler için ek yetenek limiti." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Yandaş Yetenek Toplamı Bonusu" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Yandaş askerler için ek toplam yetenek." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Paylaşılan XP Havuzu" />
     <string
@@ -783,7 +795,7 @@
       text="Askeri Kaldır" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} kalıcı olarak kaldırmak istediğine emin misin?{newline}{newline}Teçhizatı daha sonra kullanılmak üzere stoklanacaktır." />
+      text="{TROOP_NAME} öğesini kalıcı olarak kaldırmak istediğinizden emin misiniz?{newline}{newline}Ekipmanları daha sonra kullanmak üzere stoklanacak ve mevcut birlikler {CULTURE} karşılıklarına dönüştürülecektir." />
     <string
       id="ret_rename_troop"
       text="Askerin Adını Değiştir" />

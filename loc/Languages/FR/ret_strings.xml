@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Coût de promotion par rang pour les troupes de la rétinue." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bonus de Plafond de Compétence des Rétinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Plafond de compétence supplémentaire pour les troupes de rétinue." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Bonus de Total de Compétences des Rétinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Bonus au Total de compétence des Rétinues." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Réserve d&apos;XP Partagée" />
     <string
@@ -783,7 +795,7 @@
       text="Supprimer" />
     <string
       id="ret_remove_troop_text"
-      text="Es-tu sûr de vouloir supprimer définitivement {TROOP_NAME} ?{newline}{newline}Son équipement sera stocké pour une utilisation ultérieure." />
+      text="Êtes-vous sûr de vouloir supprimer définitivement {TROOP_NAME} ?{newline}{newline}Son équipement sera stocké pour une utilisation ultérieure, et les troupes existantes seront converties en leur homologue {CULTURE}." />
     <string
       id="ret_rename_troop"
       text="Renommer" />

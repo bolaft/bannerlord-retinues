@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Стоимость повышения свиты за ранг." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Бонус к Макс. Навыкам Свиты" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Дополнительный максимум навыков для войск свиты." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Бонус к Общим Навыкам Свиты" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Дополнительное общее количество навыков для войск свиты." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Общий пул опыта" />
     <string
@@ -783,7 +795,7 @@
       text="Удалить Войска" />
     <string
       id="ret_remove_troop_text"
-      text="Вы уверены, что хотите навсегда удалить {TROOP_NAME}?{newline}{newline}Их снаряжение будет сохранено." />
+      text="Вы уверены, что хотите навсегда удалить {TROOP_NAME}?{newline}{newline}Их снаряжение будет сохранено для последующего использования, а существующие войска будут преобразованы в их {CULTURE} аналоги." />
     <string
       id="ret_rename_troop"
       text="Переименовать Войска" />

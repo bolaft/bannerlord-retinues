@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="수행원 승급 시 등급당 비용." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="수행원 스킬 상한 보너스" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="수행원 부대의 추가 스킬 상한." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="수행원 스킬 총합 보너스" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="수행원 부대의 추가 스킬 총합." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="공유 경험치 풀" />
     <string
@@ -783,7 +795,7 @@
       text="병력 제거" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} 을(를) 영구적으로 제거하시겠습니까?{newline}{newline}장비는 보관됩니다." />
+      text="{TROOP_NAME} 을(를) 영구적으로 제거하시겠습니까?{newline}{newline}그들의 장비는 나중에 사용할 수 있도록 보관되며, 기존 병력은 그들의 {CULTURE} 대응 병력으로 전환됩니다." />
     <string
       id="ret_rename_troop"
       text="병력 이름 변경" />
