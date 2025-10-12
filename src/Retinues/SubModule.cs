@@ -4,7 +4,6 @@ using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
-using Retinues.Features.Retinues.Behaviors;
 using Retinues.Features.Stocks.Behaviors;
 using Retinues.Features.Unlocks.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
@@ -149,9 +148,6 @@ namespace Retinues
                 // Item behaviors
                 cs.AddBehavior(new UnlocksBehavior());
                 cs.AddBehavior(new StocksBehavior());
-
-                // Retinue buff behavior
-                cs.AddBehavior(new RetinueBuffBehavior());
 
                 // Training behavior (skip if disabled)
                 cs.AddBehavior(new TroopTrainBehavior());
