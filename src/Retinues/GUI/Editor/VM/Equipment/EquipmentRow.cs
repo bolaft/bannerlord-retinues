@@ -458,7 +458,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         public WItem Item { get; } = item;
 
-        public void UpdateIsVisible(string searchText)
+        public new void UpdateIsVisible(string searchText)
         {
             if (string.IsNullOrWhiteSpace(searchText))
             {
