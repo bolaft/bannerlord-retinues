@@ -36,9 +36,11 @@ namespace Retinues.Game.Wrappers
 
         public WCulture Culture => new(_faction?.Culture);
 
-        public List<WSettlement> Settlements => [.. _faction?.Settlements.Select(s => s == null ? null : new WSettlement(s))];
+        public List<WSettlement> Settlements =>
+            [.. _faction?.Settlements.Select(s => s == null ? null : new WSettlement(s))];
 
-        public List<WParty> Parties => [.. MobileParty.All.Select(mp => new WParty(mp)).Where(p => p.PlayerFaction == this)];
+        public List<WParty> Parties =>
+            [.. MobileParty.All.Select(mp => new WParty(mp)).Where(p => p.PlayerFaction == this)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //

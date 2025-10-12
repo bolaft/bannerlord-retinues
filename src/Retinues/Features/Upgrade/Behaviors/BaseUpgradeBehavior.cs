@@ -176,7 +176,11 @@ namespace Retinues.Features.Upgrade.Behaviors
                     var troop = new WCharacter(data.TroopId);
 
                     bool eligible = IsEntryEligible(troop, data);
-                    string disabledReason = eligible ? null : TroopRules.GetContextReason(troop, troop.Faction, Instance.ActionString)?.ToString();
+                    string disabledReason = eligible
+                        ? null
+                        : TroopRules
+                            .GetContextReason(troop, troop.Faction, Instance.ActionString)
+                            ?.ToString();
 
                     elements.Add(
                         new InquiryElement(
@@ -269,11 +273,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected static bool CanEdit(WCharacter troop)
         {
             return Config.GetOption<bool>("RestrictEditingToFiefs") == false
-                || TroopRules.IsAllowedInContext(
-                    troop,
-                    troop.Faction,
-                    Instance.ActionString
-                );
+                || TroopRules.IsAllowedInContext(troop, troop.Faction, Instance.ActionString);
         }
     }
 }

@@ -115,8 +115,8 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceProperty]
         public int TrainingRequired =>
             TroopTrainBehavior
-                .Instance?.GetPending(SelectedTroop.StringId)?
-                .Sum(data => data.Remaining) ?? 0;
+                .Instance?.GetPending(SelectedTroop.StringId)
+                ?.Sum(data => data.Remaining) ?? 0;
 
         [DataSourceProperty]
         public bool TrainingIsRequired => TrainingRequired > 0;
@@ -604,8 +604,11 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         private int TotalStaged =>
             SelectedTroop != null
-                ? (TroopTrainBehavior
-                    .Instance?.GetPending(SelectedTroop.StringId)?.Sum(d => d.PointsRemaining) ?? 0)
+                ? (
+                    TroopTrainBehavior
+                        .Instance?.GetPending(SelectedTroop.StringId)
+                        ?.Sum(d => d.PointsRemaining) ?? 0
+                )
                 : 0;
 
         /* ━━━━━━━━ Generic ━━━━━━━ */

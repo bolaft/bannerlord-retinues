@@ -231,8 +231,11 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 Log.Error("[ExecuteSelect] No slot or troop selected, aborting.");
                 return;
             }
-            
-            if (screen?.EditingIsAllowed == false && !Config.GetOption<bool>("EquipmentChangeTakesTime"))
+
+            if (
+                screen?.EditingIsAllowed == false
+                && !Config.GetOption<bool>("EquipmentChangeTakesTime")
+            )
                 return; // Editing not allowed in current context
 
             var selectedItem = Item;

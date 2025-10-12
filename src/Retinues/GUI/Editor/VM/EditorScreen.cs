@@ -260,31 +260,30 @@ namespace Retinues.GUI.Editor.VM
         public bool EditingIsAllowed
         {
             get
-        {
-            var restrict = Config.GetOption<bool>("RestrictEditingToFiefs");
-            Log.Debug($"EditingIsAllowed: RestrictEditingToFiefs={restrict}");
-            return restrict == false
-                || TroopRules.IsAllowedInContextWithPopup(
-                    SelectedTroop,
-                    Faction,
-                    L.S("action_modify", "modify")
-                );
-        }
+            {
+                var restrict = Config.GetOption<bool>("RestrictEditingToFiefs");
+                Log.Debug($"EditingIsAllowed: RestrictEditingToFiefs={restrict}");
+                return restrict == false
+                    || TroopRules.IsAllowedInContextWithPopup(
+                        SelectedTroop,
+                        Faction,
+                        L.S("action_modify", "modify")
+                    );
+            }
         }
         public bool ConversionIsAllowed
         {
             get
-        {
-
-            var restrict = Config.GetOption<bool>("RestrictConversionToFiefs");
-            Log.Debug($"ConversionIsAllowed: RestrictConversionToFiefs={restrict}");
-            return restrict == false
-                || TroopRules.IsAllowedInContextWithPopup(
-                    SelectedTroop,
-                    Faction,
-                    L.S("action_convert", "convert")
-                );
-        }
+            {
+                var restrict = Config.GetOption<bool>("RestrictConversionToFiefs");
+                Log.Debug($"ConversionIsAllowed: RestrictConversionToFiefs={restrict}");
+                return restrict == false
+                    || TroopRules.IsAllowedInContextWithPopup(
+                        SelectedTroop,
+                        Faction,
+                        L.S("action_convert", "convert")
+                    );
+            }
         }
 
         public WCharacter SelectedTroop => TroopList?.SelectedRow?.Troop;

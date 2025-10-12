@@ -532,6 +532,20 @@ namespace Retinues.Utils
 
             AddOption(
                 section: L.S("mcm_section_skill_caps", "Skill Caps"),
+                key: "RetinueSkillCapBonus",
+                name: L.S("mcm_option_retinue_skill_cap_bonus", "Retinue Skill Cap Bonus"),
+                hint: L.S(
+                    "mcm_option_retinue_skill_cap_bonus_hint",
+                    "Additional skill cap for retinue troops."
+                ),
+                @default: 5,
+                type: typeof(int),
+                minValue: 0,
+                maxValue: 50
+            );
+
+            AddOption(
+                section: L.S("mcm_section_skill_caps", "Skill Caps"),
                 key: "SkillCapTier0",
                 name: L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
                     .SetTextVariable("TIER", "0")
@@ -668,6 +682,20 @@ namespace Retinues.Utils
             );
 
             /* ━━━━━ Skill Totals ━━━━━ */
+
+            AddOption(
+                section: L.S("mcm_section_skill_totals", "Skill Totals"),
+                key: "RetinueSkillTotalBonus",
+                name: L.S("mcm_option_retinue_skill_total_bonus", "Retinue Skill Total Bonus"),
+                hint: L.S(
+                    "mcm_option_retinue_skill_total_bonus_hint",
+                    "Additional skill total for retinue troops."
+                ),
+                @default: 10,
+                type: typeof(int),
+                minValue: 0,
+                maxValue: 100
+            );
 
             AddOption(
                 section: L.S("mcm_section_skill_totals", "Skill Totals"),

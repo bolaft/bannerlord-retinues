@@ -23,7 +23,6 @@ namespace Retinues.Troops.Edition
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-
         /// <summary>
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
@@ -49,21 +48,33 @@ namespace Retinues.Troops.Edition
                 if (settlement != null)
                     return null;
                 else
-                    return L.T("not_in_settlement_text", "You must be in a settlement to {ACTION} this troop.").SetTextVariable("ACTION", action);
+                    return L.T(
+                            "not_in_settlement_text",
+                            "You must be in a settlement to {ACTION} this troop."
+                        )
+                        .SetTextVariable("ACTION", action);
             }
 
             if (faction.IsPlayerClan)
             {
                 if (settlement?.Clan == Player.Clan)
                     return null;
-                return L.T("not_in_clan_fief_text", "You must be in one of your clan's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
+                return L.T(
+                        "not_in_clan_fief_text",
+                        "You must be in one of your clan's fiefs to {ACTION} this troop."
+                    )
+                    .SetTextVariable("ACTION", action);
             }
 
             if (faction.IsPlayerKingdom)
             {
                 if (settlement?.Kingdom == Player.Kingdom)
                     return null;
-                return L.T("not_in_kingdom_fief_text", "You must be in one of your kingdom's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
+                return L.T(
+                        "not_in_kingdom_fief_text",
+                        "You must be in one of your kingdom's fiefs to {ACTION} this troop."
+                    )
+                    .SetTextVariable("ACTION", action);
             }
 
             return null;
@@ -73,7 +84,11 @@ namespace Retinues.Troops.Edition
         /// Displays a popup if editing is not allowed in the current context.
         /// Returns true if allowed, false otherwise.
         /// </summary>
-        public static bool IsAllowedInContextWithPopup(WCharacter troop, WFaction faction, string action)
+        public static bool IsAllowedInContextWithPopup(
+            WCharacter troop,
+            WFaction faction,
+            string action
+        )
         {
             var reason = GetContextReason(troop, faction, action);
             if (reason == null)
@@ -109,10 +124,8 @@ namespace Retinues.Troops.Edition
                 _ => Config.GetOption<int>("SkillCapTier7Plus"), // was 260
             };
 
-            if (troop.IsMilitia && troop.IsElite)
-                cap += 20; // +20 cap for elite militia
-            else if (troop.IsRetinue)
-                cap += 5; // +5 cap for retinues
+            if (troop.IsRetinue)
+                cap += Config.GetOption<int>("RetinueSkillCapBonus"); // +5 cap for retinues
 
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                 cap += 5; // +5 skill cap with Iron Discipline
@@ -137,11 +150,8 @@ namespace Retinues.Troops.Edition
                 _ => Config.GetOption<int>("SkillTotalTier7Plus"), // was 1500
             };
 
-            if (troop.IsMilitia)
-                if (troop.IsElite)
-                    total += 160; // +160 skill total for elite militia
-                else
-                    total += 30; // +30 skill total for militia
+            if (troop.IsRetinue)
+                total += Config.GetOption<int>("RetinueSkillTotalBonus"); // +5 cap for retinues
 
             if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
                 total += 10; // +10 skill total with Steadfast Soldiers
@@ -172,13 +182,13 @@ namespace Retinues.Troops.Edition
             var stagedThis =
                 TroopTrainBehavior
                     .Instance?.GetPending(character.StringId, skill.StringId)
-                    ?.PointsRemaining
-                ?? 0;
+                    ?.PointsRemaining ?? 0;
 
             // staged across ALL skills for this troop
-            var stagedAll = TroopTrainBehavior
-                .Instance?.GetPending(character.StringId)
-                ?.Sum(d => d.PointsRemaining) ?? 0;
+            var stagedAll =
+                TroopTrainBehavior
+                    .Instance?.GetPending(character.StringId)
+                    ?.Sum(d => d.PointsRemaining) ?? 0;
 
             // 1) per-skill cap
             if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
@@ -205,8 +215,7 @@ namespace Retinues.Troops.Edition
             var staged =
                 TroopTrainBehavior
                     .Instance?.GetPending(character.StringId, skill.StringId)
-                    ?.PointsRemaining
-                ?? 0;
+                    ?.PointsRemaining ?? 0;
 
             // Skills can't go below zero
             if (character.GetSkill(skill) + staged <= 0)

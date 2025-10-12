@@ -73,7 +73,7 @@ namespace Retinues.Features.Xp.Behaviors
                 return; // only care about main party
 
             var party = new WParty(mobileParty);
-            
+
             foreach (var e in party.MemberRoster.Elements)
             {
                 if (!e.Troop.IsCustom)

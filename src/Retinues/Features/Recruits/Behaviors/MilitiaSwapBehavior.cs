@@ -20,7 +20,10 @@ namespace Retinues.Features.Recruits.Behaviors
 
         public override void RegisterEvents()
         {
-            CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(this, OnDailyTickSettlement);
+            CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(
+                this,
+                OnDailyTickSettlement
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

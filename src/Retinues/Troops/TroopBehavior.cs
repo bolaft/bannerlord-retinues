@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Persistence;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
-using System.Linq;
 
 namespace Retinues.Troops
 {
@@ -90,7 +90,10 @@ namespace Retinues.Troops
                         var troop = TroopLoader.Load(root);
                         // sanitize old saves: enforce [0]=battle, [1]=civilian, [2+]=battle
                         var eqs = troop.Loadout.Equipments; // WEquipment list
-                        troop.Loadout.Equipments = [.. eqs.Select((we, i) => WEquipment.FromCode(we.Code, i == 1))];
+                        troop.Loadout.Equipments =
+                        [
+                            .. eqs.Select((we, i) => WEquipment.FromCode(we.Code, i == 1)),
+                        ];
                     }
                     Log.Debug($"Rebuilt {TroopData.Count} root troops from save.");
                 }

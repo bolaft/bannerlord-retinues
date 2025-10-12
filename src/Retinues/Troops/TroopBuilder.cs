@@ -196,6 +196,9 @@ namespace Retinues.Troops
             // Rename it
             militia.Name = BuildTroopName(root, faction);
 
+            // Rank up so skill caps/totals match vanilla militia
+            militia.Level += 5;
+
             // Non-transferable
             militia.IsNotTransferableInPartyScreen = true;
 
