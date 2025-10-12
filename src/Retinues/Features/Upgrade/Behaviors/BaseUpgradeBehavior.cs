@@ -174,14 +174,17 @@ namespace Retinues.Features.Upgrade.Behaviors
                     var objId = kvp2.Key;
                     var data = kvp2.Value;
                     var troop = new WCharacter(data.TroopId);
-                    if (!IsEntryEligible(troop, data))
-                        continue;
+
+                    bool eligible = IsEntryEligible(troop, data);
+                    string disabledReason = eligible ? null : TroopRules.GetContextReason(troop, troop.Faction, Instance.ActionString)?.ToString();
 
                     elements.Add(
                         new InquiryElement(
                             identifier: ComposeIdentifier(troopId, objId),
                             title: BuildElementTitle(troop, data),
-                            imageIdentifier: BuildElementImage(troop, objId, data)
+                            imageIdentifier: BuildElementImage(troop, objId, data),
+                            isEnabled: eligible,
+                            hint: disabledReason
                         )
                     );
                 }
@@ -244,19 +247,9 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected bool OptionCondition(MenuCallbackArgs args)
         {
             args.optionLeaveType = LeaveType;
-            if (Settlement.CurrentSettlement == null || _pending.Count == 0)
-                return false;
 
-            foreach (var kv in _pending)
-            {
-                foreach (var obj in kv.Value.Values)
-                {
-                    var troop = new WCharacter(obj.TroopId);
-                    if (troop.IsValid && CanEdit(troop))
-                        return true; // show button if at least one troop can be edited
-                }
-            }
-            return false; // hide button otherwise
+            // Show button if in a settlement AND there's at least one staged entry.
+            return Settlement.CurrentSettlement != null && _pending.Count > 0;
         }
 
         protected static bool IsInManagedMenu(out string currentId)
@@ -279,8 +272,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 || TroopRules.IsAllowedInContext(
                     troop,
                     troop.Faction,
-                    Instance.ActionString,
-                    showPopup: false
+                    Instance.ActionString
                 );
         }
     }
