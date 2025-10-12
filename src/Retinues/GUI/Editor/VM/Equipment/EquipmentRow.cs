@@ -306,6 +306,23 @@ namespace Retinues.GUI.Editor.VM.Equipment
                                 )
                             );
                         }
+                        // No warning needed, just unequip
+                        else
+                        {
+                            Log.Debug("[ExecuteSelect] Applying unequip without warning.");
+                            // Unstage if something is staged
+                            Unstage();
+                            // Apply unequip
+                            EquipmentManager.Equip(
+                                troop,
+                                slot.Slot,
+                                null,
+                                LoadoutCategory,
+                                LoadoutIndex
+                            );
+                            // Select the row
+                            Select();
+                        }
                     }
                 }
                 // Case 2: Selection is already equipped
