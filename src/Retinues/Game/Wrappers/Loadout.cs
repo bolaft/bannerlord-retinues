@@ -68,44 +68,27 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public List<Equipment> BaseEquipments
         {
-            get =>
-                Reflector
-                    .GetFieldValue<MBEquipmentRoster>(_owner.Base, "_equipmentRoster")
-                    ?.AllEquipments ?? [];
+            get => Reflector.GetFieldValue<MBEquipmentRoster>(_owner.Base, "_equipmentRoster")?.AllEquipments ?? [];
             set
             {
-                // ensure index 1 is civilian, all others battle
                 for (int i = 0; i < value.Count; i++)
                 {
-#if BL13
-                    var want =
-                        (i == 1)
-                            ? Equipment.EquipmentType.Civilian
-                            : Equipment.EquipmentType.Battle;
-                    try
-                    {
-                        Reflector.SetFieldValue(value[i], "_equipmentType", want);
-                    }
-                    catch { }
-#else
+        #if BL13
+                    var want = (i == 1) ? Equipment.EquipmentType.Civilian : Equipment.EquipmentType.Battle;
+                    try { Reflector.SetFieldValue(value[i], "_equipmentType", want); } catch { }
+        #else
                     bool shouldBeCivilian = (i == 1);
                     if (value[i].IsCivilian != shouldBeCivilian)
                     {
-                        // Reconstruct with the correct type under 1.2
-                        var code = value[i].CalculateEquipmentCode();
-                        // When code is empty, just make an empty equipment of the wanted type
-                        value[i] = string.IsNullOrEmpty(code)
-                            ? new Equipment(shouldBeCivilian) // true=civilian, false=battle
-                            : Equipment.CreateFromEquipmentCode(code); // usually preserves type,
-                        // but we'll still correct below if it doesn't
-                        // If CreateFromEquipmentCode didn't preserve the type, fall back to empty of correct type
-                        if (value[i].IsCivilian != shouldBeCivilian)
-                            value[i] = new Equipment(shouldBeCivilian);
+                        var src = value[i];
+                        var fixedEq = new Equipment(shouldBeCivilian);
+                        foreach (var slot in WEquipment.Slots)
+                            fixedEq[slot] = src[slot];
+                        value[i] = fixedEq;
                     }
-#endif
+        #endif
                 }
 
-                // Rebuild roster
                 var roster = new MBEquipmentRoster();
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
                 Reflector.SetFieldValue(_owner.Base, "_equipmentRoster", roster);
