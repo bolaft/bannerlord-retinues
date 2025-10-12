@@ -133,7 +133,7 @@ namespace Retinues.Features.Xp.Behaviors
             // Only for simulated outcomes, real battles are handled by mission behavior.
             if (snap.MainPartyInvolved && !me.IsPlayerSimulation)
             {
-                Log.Debug("AutoResolveXP[End]: real battle → skip.");
+                Log.Debug("AutoResolveXP[End]: real battle, skipping.");
                 return;
             }
 
@@ -148,25 +148,14 @@ namespace Retinues.Features.Xp.Behaviors
             }
 
             // Distribute by ALL player-side counts from START snapshot, but only credit customs
-            foreach (var e in snap.PlayerElements)
+            foreach (var (Troop, Count, IsCustom) in snap.PlayerElements)
             {
-                int share = (int)Math.Round(budget * (double)e.Count / snap.PlayerTotalCount);
+                int share = (int)Math.Round(budget * (double)Count / snap.PlayerTotalCount);
                 if (share <= 0)
                     continue;
 
-                if (e.IsCustom)
-                {
-                    // Credit the custom troop type even if all died, pool is per-troop definition.
-                    TroopXpBehavior.Add(new WCharacter(e.Troop.StringId), share);
-                    Log.Debug($"AutoResolveXP[End]: +{share} XP → {e.Troop?.Name} (x{e.Count})");
-                }
-                else
-                {
-                    // Intentionally "wasted" to model non-customs taking their cut
-                    Log.Debug(
-                        $"AutoResolveXP[End]: {share} XP wasted on non-custom {e.Troop?.Name} (x{e.Count})."
-                    );
-                }
+                if (IsCustom)
+                    TroopXpBehavior.Add(new WCharacter(Troop.StringId), share);
             }
         }
 

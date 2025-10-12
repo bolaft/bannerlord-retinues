@@ -38,6 +38,8 @@ namespace Retinues.Features.Recruits.Behaviors
             var s = new WSettlement(settlement);
             var f = s.PlayerFaction;
 
+            Log.Debug($"MilitiaSwap: Daily tick for {settlement?.Name} ({f?.Name ?? "not player faction"}).");
+
             if (f == null)
                 return; // Not player faction
 

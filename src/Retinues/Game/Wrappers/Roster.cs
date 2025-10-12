@@ -120,6 +120,8 @@ namespace Retinues.Game.Wrappers
             if (troop == null || target == null || Base == null)
                 return;
 
+            Log.Debug($"Swapping {troop.Name} to {target.Name} in {Party.Name}");
+
             try
             {
                 // Build temp roster (dummy so it won't fire OwnerParty events during staging)
@@ -183,6 +185,8 @@ namespace Retinues.Game.Wrappers
 
             if (faction == null)
                 faction = Party.PlayerFaction;
+
+            Log.Debug($"{Party.Name} (militia: {Party.IsMilitia}): swapping all troops to faction {faction?.Name ?? "null"}.");
 
             try
             {
