@@ -40,6 +40,8 @@ namespace Retinues.Game.Wrappers
         //                         Members                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public WHero Governor => _settlement?.Town?.Governor != null ? new WHero(_settlement.Town.Governor) : null;
+
         public List<WNotable> Notables =>
             _settlement?.Notables.Where(n => n != null).Select(n => new WNotable(n)).ToList() ?? [];
 

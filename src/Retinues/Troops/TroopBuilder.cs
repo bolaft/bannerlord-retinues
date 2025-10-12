@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Helpers;
-using Retinues.Features.Recruits;
+using Retinues.Features.Recruits.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
@@ -62,8 +62,9 @@ namespace Retinues.Troops
 
                     BuildMilitia(faction);
 
-                    // Update all existing militias and garrisons for this faction
-                    MilitiaBulkSwapper.Swap(faction);
+                    // Update all existing militias for this faction
+                    foreach (var s in faction.Settlements)
+                        s.MilitiaParty?.SwapTroops(faction);
                 }
             }
         }
