@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Retinues.Game.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
@@ -108,6 +110,144 @@ namespace Retinues.Game.Wrappers
                 return;
 
             _roster.AddToCounts(troop.Base, -healthy, woundedCount: -wounded);
+        }
+
+        /// <summary>
+        /// Swap a specific troop in the roster to another troop.
+        /// </summary>
+        public void SwapTroop(WCharacter troop, WCharacter target)
+        {
+            if (troop == null || target == null || Base == null)
+                return;
+
+            Log.Debug($"Swapping {troop.Name} to {target.Name} in {Party.Name}");
+
+            try
+            {
+                // Build temp roster (dummy so it won't fire OwnerParty events during staging)
+                var tmp = TroopRoster.CreateDummyTroopRoster();
+
+                // Enumerate a snapshot so we don't fight internal mutations while staging
+                var elements = new List<WRosterElement>(Elements);
+
+                foreach (var e in elements)
+                {
+                    if (e?.Troop?.Base == null)
+                        continue;
+
+                    if (e.Troop.Equals(troop))
+                    {
+                        Log.Debug(
+                            $"{Party.Name}: swapping {e.Number}x {e.Troop.Name} to {target.Name}."
+                        );
+
+                        // Stage replacement into temp roster, preserving totals
+                        tmp.AddToCounts(
+                            target.Base,
+                            e.Number,
+                            insertAtFront: false,
+                            woundedCount: e.WoundedNumber,
+                            xpChange: e.Xp
+                        );
+                    }
+                    else
+                    {
+                        // Stage original into temp roster, preserving totals
+                        tmp.AddToCounts(
+                            e.Troop.Base,
+                            e.Number,
+                            insertAtFront: false,
+                            woundedCount: e.WoundedNumber,
+                            xpChange: e.Xp
+                        );
+                    }
+                }
+
+                // Apply to the original instance to keep engine refs intact
+                var original = Base;
+                original.Clear();
+                original.Add(tmp);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, $"SwapTroop failed for {Party.Name}");
+            }
+        }
+
+        /// <summary>
+        /// Swap all troops in a roster to the best match from the given faction.
+        /// Preserves heroes and logs replacements.
+        /// </summary>
+        public void SwapTroops(WFaction faction = null)
+        {
+            if (Base == null)
+                return;
+
+            if (faction == null)
+                faction = Party.PlayerFaction;
+
+            Log.Debug(
+                $"{Party.Name} (militia: {Party.IsMilitia}): swapping all troops to faction {faction?.Name ?? "null"}."
+            );
+
+            try
+            {
+                // Build temp roster (dummy so it won't fire OwnerParty events during staging)
+                var tmp = TroopRoster.CreateDummyTroopRoster();
+
+                // Enumerate a snapshot so we don't fight internal mutations while staging
+                var elements = new List<WRosterElement>(Elements);
+
+                foreach (var e in elements)
+                {
+                    if (e?.Troop?.Base == null)
+                        continue;
+
+                    // Keep heroes as-is
+                    if (e.Troop.IsHero)
+                    {
+                        tmp.AddToCounts(
+                            e.Troop.Base,
+                            e.Number,
+                            insertAtFront: false,
+                            woundedCount: e.WoundedNumber,
+                            xpChange: e.Xp
+                        );
+                        continue;
+                    }
+
+                    // Default replacement = same troop
+                    WCharacter replacement =
+                        (
+                            Party.IsMilitia
+                                ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
+                                : TroopMatcher.PickBestFromFaction(faction, e.Troop)
+                        ) ?? e.Troop;
+
+                    if (replacement != e.Troop)
+                        Log.Debug(
+                            $"{Party.Name}: swapping {e.Number}x {e.Troop.Name} to {replacement.Name}."
+                        );
+
+                    // Stage into temp roster, preserving totals
+                    tmp.AddToCounts(
+                        replacement.Base,
+                        e.Number,
+                        insertAtFront: false,
+                        woundedCount: e.WoundedNumber,
+                        xpChange: e.Xp
+                    );
+                }
+
+                // Apply to the original instance to keep engine refs intact
+                var original = Base;
+                original.Clear();
+                original.Add(tmp);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, $"SwapTroops failed for {Party.Name}");
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

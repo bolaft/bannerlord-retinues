@@ -1,4 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
@@ -70,7 +71,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             get
             {
                 // Disable mounts for tier 1 troops if disallowed in config
-                if (Config.GetOption<bool>("NoMountForTier1") && _troop.Tier == 1)
+                if (Config.NoMountForTier1 && _troop.Tier == 1)
                     if (_slot == EquipmentIndex.Horse || _slot == EquipmentIndex.HorseHarness)
                         return false;
 

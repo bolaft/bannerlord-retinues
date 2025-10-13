@@ -1,4 +1,5 @@
 using System;
+using Retinues.Configuration;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
@@ -74,9 +75,6 @@ namespace Retinues.Features.Upgrade.Behaviors
     [SafeClass]
     public sealed class TroopEquipBehavior : BaseUpgradeBehavior<PendingEquipData>
     {
-        private static int EquipmentChangeTimeModifier =>
-            Config.GetOption<int>("EquipmentChangeTimeModifier");
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -266,7 +264,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 : g <= 5000.0 ? (m2 * x + b2)
                 : (m3 * x + b3);
 
-            raw *= EquipmentChangeTimeModifier;
+            raw *= Config.EquipmentChangeTimeModifier;
             raw /= 3; // Hardcoded adjustment
 
             // Round up to whole hours, keep a minimum of 1h.

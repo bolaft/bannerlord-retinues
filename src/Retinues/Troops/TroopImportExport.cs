@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Retinues.Troops.Persistence;
 using Retinues.Utils;
+using TaleWorlds.ModuleManager;
 
 namespace Retinues.Troops
 {
@@ -16,7 +17,7 @@ namespace Retinues.Troops
     public static class TroopImportExport
     {
         public static readonly string DefaultDir = Path.Combine(
-            ModuleChecker.GetModule("Retinues").Path,
+            ModuleHelper.GetModuleFullPath("Retinues"),
             "Exports"
         );
 

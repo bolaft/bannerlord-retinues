@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Koszt awansu orszaku na poziom." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Premia do Limitu Umiejętności Orszaku" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Dodatkowy limit umiejętności dla jednostek orszaku." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Premia do Łącznej Umiejętności Orszaku" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Dodatkowy łączny limit umiejętności dla jednostek orszaku." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Wspólny zasób XP" />
     <string
@@ -668,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Rekrutacja" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Ograniczenia" />
+    <string
       id="ret_mcm_section_retinues"
       text="Orszak" />
     <string
@@ -679,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Umiejętności" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Dostosowanie Oddziałów" />
     <string
       id="ret_mcm_section_unlocks"
       text="Odblokowania" />
@@ -783,7 +795,7 @@
       text="Usuń Jednostkę" />
     <string
       id="ret_remove_troop_text"
-      text="Czy na pewno chcesz trwale usunąć {TROOP_NAME}?{newline}{newline}Jej ekwipunek zostanie zmagazynowany." />
+      text="Czy na pewno chcesz trwale usunąć {TROOP_NAME}?{newline}{newline}Ich ekwipunek zostanie zmagazynowany do późniejszego użytku, a istniejące oddziały zostaną przekształcone w ich odpowiedniki {CULTURE}." />
     <string
       id="ret_rename_troop"
       text="Zmień Nazwę Jednostki" />

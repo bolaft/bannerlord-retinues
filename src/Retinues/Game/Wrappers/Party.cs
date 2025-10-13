@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -109,95 +108,5 @@ namespace Retinues.Game.Wrappers
         public Army Army => _party.Army;
 
         public bool IsInArmy => Army != null;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Swap all troops in member and/or prisoner rosters to match the given faction.
-        /// </summary>
-        public void SwapTroops(WFaction faction = null, bool members = true, bool prisoners = false)
-        {
-            if (faction == null)
-                faction = PlayerFaction;
-
-            if (faction == null)
-                return; // non-player faction, skip
-
-            if (members)
-                SwapRosterTroops(MemberRoster, faction);
-            if (prisoners)
-                SwapRosterTroops(PrisonRoster, faction);
-        }
-
-        /// <summary>
-        /// Swap all troops in a roster to the best match from the given faction.
-        /// Preserves heroes and logs replacements.
-        /// </summary>
-        public void SwapRosterTroops(WRoster roster, WFaction faction)
-        {
-            if (roster == null || Base == null)
-                return;
-
-            try
-            {
-                // Build temp roster (dummy so it won't fire OwnerParty events during staging)
-                var tmp = TroopRoster.CreateDummyTroopRoster();
-
-                // Enumerate a snapshot so we don't fight internal mutations while staging
-                var elements = new List<WRosterElement>(roster.Elements);
-
-                foreach (var e in elements)
-                {
-                    if (e?.Troop?.Base == null)
-                        continue;
-
-                    // Keep heroes as-is
-                    if (e.Troop.IsHero)
-                    {
-                        tmp.AddToCounts(
-                            e.Troop.Base,
-                            e.Number,
-                            insertAtFront: false,
-                            woundedCount: e.WoundedNumber,
-                            xpChange: e.Xp
-                        );
-                        continue;
-                    }
-
-                    // Default replacement = same troop
-                    WCharacter replacement =
-                        (
-                            IsMilitia
-                                ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
-                                : TroopMatcher.PickBestFromFaction(faction, e.Troop)
-                        ) ?? e.Troop;
-
-                    if (replacement != e.Troop)
-                        Log.Debug(
-                            $"{Name}: swapping {e.Number}x {e.Troop.Name} to {replacement.Name}."
-                        );
-
-                    // Stage into temp roster, preserving totals
-                    tmp.AddToCounts(
-                        replacement.Base,
-                        e.Number,
-                        insertAtFront: false,
-                        woundedCount: e.WoundedNumber,
-                        xpChange: e.Xp
-                    );
-                }
-
-                // Apply to the original instance to keep engine refs intact
-                var original = roster.Base;
-                original.Clear();
-                original.Add(tmp);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, $"SwapRosterTroops failed for {Name}");
-            }
-        }
     }
 }

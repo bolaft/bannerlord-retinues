@@ -1,4 +1,5 @@
 using System;
+using Retinues.Configuration;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
@@ -59,8 +60,6 @@ namespace Retinues.Features.Upgrade.Behaviors
     public sealed class TroopTrainBehavior : BaseUpgradeBehavior<PendingTrainData>
     {
         private const int BaseTrainingTime = 3; // hours per skill point
-        private static bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
-        private static int TrainingTimeModifier => Config.GetOption<int>("TrainingTimeModifier");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -74,13 +73,13 @@ namespace Retinues.Features.Upgrade.Behaviors
 
         public static void StageTraining(WCharacter troop, SkillObject skill)
         {
-            if (!TrainingTakesTime)
+            if (Config.TrainingTakesTime == false)
             {
                 ApplyChange(troop.StringId, skill, 1);
                 return;
             }
 
-            var hours = Math.Max(1, BaseTrainingTime * TrainingTimeModifier);
+            var hours = Math.Max(1, BaseTrainingTime * Config.TrainingTimeModifier);
             var pph = 1 / (float)hours;
 
             var troopId = troop.StringId;

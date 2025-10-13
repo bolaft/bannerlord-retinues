@@ -1,3 +1,4 @@
+using Retinues.Configuration;
 using Retinues.Utils;
 
 namespace Retinues.Game.Wrappers.Base
@@ -22,7 +23,7 @@ namespace Retinues.Game.Wrappers.Base
                 var clan = Clan?.IsPlayerClan == true ? Clan : null;
                 var kingdom = Kingdom?.IsPlayerKingdom == true ? Kingdom : null;
 
-                if (Config.GetOption<bool>("ClanTroopsOverKingdomTroops"))
+                if (Config.ClanTroopsOverKingdomTroops)
                     return clan ?? kingdom;
                 else
                     return kingdom ?? clan;

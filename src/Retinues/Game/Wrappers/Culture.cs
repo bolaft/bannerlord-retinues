@@ -21,7 +21,7 @@ namespace Retinues.Game.Wrappers
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => _culture?.Name.ToString();
+        public string Name => _culture?.Name?.ToString();
 
         public override string StringId => _culture?.StringId ?? Name; // Some cultures have no StringId?
 

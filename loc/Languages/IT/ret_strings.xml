@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Costo di avanzamento per livello per le truppe del seguito." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bonus al Limite di Abilità del Seguito" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Limite di abilità aggiuntivo per le truppe del seguito." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Bonus al Totale Abilità del Seguito" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Totale abilità aggiuntivo per le truppe del seguito." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Pool di XP Condiviso" />
     <string
@@ -668,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Reclutamento" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Restrizioni" />
+    <string
       id="ret_mcm_section_retinues"
       text="Seguiti" />
     <string
@@ -679,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Abilità" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Personalizzazione delle Truppe" />
     <string
       id="ret_mcm_section_unlocks"
       text="Sblocchi" />
@@ -783,7 +795,7 @@
       text="Rimuovi Truppa" />
     <string
       id="ret_remove_troop_text"
-      text="Sei sicuro di voler rimuovere definitivamente {TROOP_NAME}?{newline}{newline}Il suo equipaggiamento verrà immagazzinato." />
+      text="Sei sicuro di voler rimuovere permanentemente {TROOP_NAME}?{newline}{newline}Il loro equipaggiamento sarà immagazzinato per un uso successivo, e le truppe esistenti saranno convertite nella loro controparte {CULTURE}." />
     <string
       id="ret_rename_troop"
       text="Rinomina Truppa" />

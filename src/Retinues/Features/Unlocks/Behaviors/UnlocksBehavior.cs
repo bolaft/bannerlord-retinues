@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -64,7 +65,7 @@ namespace Retinues.Features.Unlocks.Behaviors
         private void OnMissionStarted(IMission mission)
         {
             // Return if the feature is disabled
-            if (!Config.GetOption<bool>("UnlockFromKills"))
+            if (!Config.UnlockFromKills)
                 return;
 
             Log.Debug("Adding UnlocksMissionBehavior.");
@@ -205,14 +206,14 @@ namespace Retinues.Features.Unlocks.Behaviors
         {
             // Only add culture bonuses if enabled
             addCultureBonuses =
-                addCultureBonuses && Config.GetOption<bool>("OwnCultureUnlockBonuses");
+                addCultureBonuses && Config.OwnCultureUnlockBonuses;
 
             Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
             if (battleCounts == null || battleCounts.Count == 0)
                 return;
 
-            int threshold = Math.Max(1, Config.GetOption<int>("KillsForUnlock"));
+            int threshold = Math.Max(1, Config.KillsForUnlock);
 
             Dictionary<int, int> ownCultureBonuses = [];
 

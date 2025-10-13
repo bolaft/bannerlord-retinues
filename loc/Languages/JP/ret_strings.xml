@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="随伴兵をランクごとに昇進させるコスト。" />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="随伴兵スキル上限ボーナス" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="随伴兵の追加スキル上限。" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="随伴兵スキル合計ボーナス" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="随伴兵の追加スキル合計。" />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="共有XPプール" />
     <string
@@ -668,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="募集" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="制限" />
+    <string
       id="ret_mcm_section_retinues"
       text="随伴兵" />
     <string
@@ -679,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="スキル" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="部隊のカスタマイズ" />
     <string
       id="ret_mcm_section_unlocks"
       text="解除" />
@@ -783,7 +795,7 @@
       text="兵を削除" />
     <string
       id="ret_remove_troop_text"
-      text="{TROOP_NAME} を完全に削除しますか？{newline}{newline}装備は保管されます。" />
+      text="{TROOP_NAME} を永久に削除してもよろしいですか？{newline}{newline}彼らの装備は後で使用するために保管され、既存の部隊は彼らの {CULTURE} 対応部隊に変換されます。" />
     <string
       id="ret_rename_troop"
       text="兵を改名" />

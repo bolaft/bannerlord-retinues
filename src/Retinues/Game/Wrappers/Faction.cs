@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Settlements;
+using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Game.Wrappers
 {
@@ -36,8 +36,11 @@ namespace Retinues.Game.Wrappers
 
         public WCulture Culture => new(_faction?.Culture);
 
-        public IReadOnlyList<Settlement> Fiefs =>
-            [.. _faction?.Settlements.Where(s => s.IsTown || s.IsCastle)];
+        public List<WSettlement> Settlements =>
+            [.. _faction?.Settlements.Select(s => s == null ? null : new WSettlement(s))];
+
+        public List<WParty> Parties =>
+            [.. MobileParty.All.Select(mp => new WParty(mp)).Where(p => p.PlayerFaction == this)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
@@ -85,10 +88,6 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public List<WCharacter> BasicTroops =>
             [.. RootBasic.Tree.Where(t => t.IsActive && !t.IsElite)];
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Flags                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
         public bool IsClan => Base is Clan;

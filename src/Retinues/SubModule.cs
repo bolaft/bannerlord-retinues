@@ -4,7 +4,6 @@ using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
-using Retinues.Features.Retinues.Behaviors;
 using Retinues.Features.Stocks.Behaviors;
 using Retinues.Features.Unlocks.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
@@ -18,6 +17,7 @@ using Retinues.Safety.Sanitizer;
 using Retinues.Safety.Version;
 using Retinues.Troops;
 using Retinues.Utils;
+using Retinues.Configuration;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -43,6 +43,8 @@ namespace Retinues
         /// Flag indicating whether the mod has successfully registered with MCM.
         /// </summary>
         private bool _mcmRegistered;
+        private int _mcmRetryCount;
+        private const int _mcmMaxRetries = 300; // ~5 seconds @ 60 FPS
 
         /// <summary>
         /// Called before the initial module screen is set as root. Used to register with MCM.
@@ -51,9 +53,17 @@ namespace Retinues
         {
             base.OnBeforeInitialModuleScreenSetAsRoot();
 
-            if (!_mcmRegistered)
+            // Try to register MCM once per tick until it works (or we time out)
+            if (!_mcmRegistered && _mcmRetryCount < _mcmMaxRetries)
+            {
+                _mcmRetryCount++;
                 _mcmRegistered = Config.RegisterWithMCM();
+
+                if (_mcmRegistered)
+                    Log.Info("MCM: registration succeeded.");
+            }
         }
+
 
         /// <summary>
         /// Called when the module DLL is loaded by the game.
@@ -61,9 +71,6 @@ namespace Retinues
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
-
-            if (!_mcmRegistered)
-                _mcmRegistered = Config.RegisterWithMCM();
 
             try
             {
@@ -150,33 +157,18 @@ namespace Retinues
                 cs.AddBehavior(new UnlocksBehavior());
                 cs.AddBehavior(new StocksBehavior());
 
-                // Retinue buff behavior
-                cs.AddBehavior(new RetinueBuffBehavior());
+                // Training behavior
+                cs.AddBehavior(new TroopTrainBehavior());
 
-                // Training behavior (skip if disabled)
-                if (Config.GetOption<bool>("TrainingTakesTime"))
-                {
-                    cs.AddBehavior(new TroopTrainBehavior());
-                }
-
-                // Equipment behavior (skip if disabled)
-                if (Config.GetOption<bool>("EquipmentChangeTakesTime"))
-                {
-                    cs.AddBehavior(new TroopEquipBehavior());
-                }
+                // Equipment behavior
+                cs.AddBehavior(new TroopEquipBehavior());
 
                 // XP behavior (skip if both costs are 0)
-                if (
-                    Config.GetOption<int>("BaseSkillXpCost") > 0
-                    || Config.GetOption<int>("SkillXpCostPerPoint") > 0
-                )
-                {
-                    cs.AddBehavior(new TroopXpBehavior());
-                    cs.AddBehavior(new TroopXpAutoResolveBehavior());
-                }
+                cs.AddBehavior(new TroopXpBehavior());
+                cs.AddBehavior(new TroopXpAutoResolveBehavior());
 
                 // Doctrine behaviors (skip if doctrines disabled)
-                if (Config.GetOption<bool>("EnableDoctrines"))
+                if (Config.EnableDoctrines)
                 {
                     cs.AddBehavior(new DoctrineServiceBehavior());
                     cs.AddBehavior(new FeatServiceBehavior());

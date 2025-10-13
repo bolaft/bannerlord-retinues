@@ -1,7 +1,7 @@
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Features.Recruits.Patches
@@ -25,7 +25,7 @@ namespace Retinues.Features.Recruits.Patches
             [HarmonyPostfix]
             private static void Postfix()
             {
-                if (!Config.GetOption<bool>("RecruitAnywhere"))
+                if (Config.RecruitAnywhere == false)
                     return;
 
                 var settlement = Settlement.CurrentSettlement;

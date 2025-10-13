@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Rank up cost for retinue troops per tier." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Retinue Skill Cap Bonus" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Additional skill cap for retinue troops." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Retinue Skill Total Bonus" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Additional skill total for retinue troops." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Shared XP Pool" />
     <string
@@ -668,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Recruitment" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Restrictions" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -679,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Skills" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Troop Customization" />
     <string
       id="ret_mcm_section_unlocks"
       text="Unlocks" />
@@ -783,7 +795,7 @@
       text="Remove Troop" />
     <string
       id="ret_remove_troop_text"
-      text="Are you sure you want to permanently remove {TROOP_NAME}?{newline}{newline}Their equipment will be stocked for later use." />
+      text="Are you sure you want to permanently remove {TROOP_NAME}?{newline}{newline}Their equipment will be stocked for later use, and existing troops will be converted to their {CULTURE} counterpart." />
     <string
       id="ret_rename_troop"
       text="Rename Troop" />

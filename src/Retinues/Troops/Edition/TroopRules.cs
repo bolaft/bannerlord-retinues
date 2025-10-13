@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Upgrade.Behaviors;
@@ -23,15 +24,12 @@ namespace Retinues.Troops.Edition
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-
         /// <summary>
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
         public static bool IsAllowedInContext(WCharacter troop, WFaction faction, string action)
         {
-            TextObject reason = GetContextReason(troop, faction, action);
-            Log.Debug($"TroopRules.IsAllowedInContext: {reason == null}, reason={reason}");
-            return reason == null;
+            return GetContextReason(troop, faction, action) == null;
         }
 
         /// <summary>
@@ -39,56 +37,44 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static TextObject GetContextReason(WCharacter troop, WFaction faction, string action)
         {
-            Log.Debug($"TroopRules.GetContextReason: troop={troop?.Name}, faction={faction?.Name}, action={action}");
             if (faction == null)
-            {
-                Log.Debug("No faction, allow by default");
                 return null;
-            }
-
             var settlement = Player.CurrentSettlement;
-            Log.Debug($"Current settlement: {settlement?.Name}");
 
             if (troop.IsRetinue == true && faction == Player.Clan)
             {
-                Log.Debug("Checking clan retinue in Player.Clan context");
                 if (settlement != null)
-                {
-                    Log.Debug("Clan retinues can be edited in any settlement");
                     return null;
-                }
                 else
-                {
-                    Log.Debug("Clan retinues must be in settlement");
-                    return L.T("not_in_settlement_text", "You must be in a settlement to {ACTION} this troop.").SetTextVariable("ACTION", action);
-                }
+                    return L.T(
+                            "not_in_settlement_text",
+                            "You must be in a settlement to {ACTION} this troop."
+                        )
+                        .SetTextVariable("ACTION", action);
             }
 
             if (faction.IsPlayerClan)
             {
-                Log.Debug("Checking PlayerClan context");
                 if (settlement?.Clan == Player.Clan)
-                {
-                    Log.Debug("In clan fief, allow");
                     return null;
-                }
-                Log.Debug("Not in clan fief, disallow");
-                return L.T("not_in_clan_fief_text", "You must be in one of your clan's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
+                return L.T(
+                        "not_in_clan_fief_text",
+                        "You must be in one of your clan's fiefs to {ACTION} this troop."
+                    )
+                    .SetTextVariable("ACTION", action);
             }
 
             if (faction.IsPlayerKingdom)
             {
-                Log.Debug("Checking PlayerKingdom context");
                 if (settlement?.Kingdom == Player.Kingdom)
-                {
-                    Log.Debug("In kingdom fief, allow");
                     return null;
-                }
-                Log.Debug("Not in kingdom fief, disallow");
-                return L.T("not_in_kingdom_fief_text", "You must be in one of your kingdom's fiefs to {ACTION} this troop.").SetTextVariable("ACTION", action);
+                return L.T(
+                        "not_in_kingdom_fief_text",
+                        "You must be in one of your kingdom's fiefs to {ACTION} this troop."
+                    )
+                    .SetTextVariable("ACTION", action);
             }
 
-            Log.Debug("Default allow if no faction");
             return null;
         }
 
@@ -96,34 +82,24 @@ namespace Retinues.Troops.Edition
         /// Displays a popup if editing is not allowed in the current context.
         /// Returns true if allowed, false otherwise.
         /// </summary>
-        public static bool IsAllowedInContextWithPopup(WCharacter troop, WFaction faction, string action)
+        public static bool IsAllowedInContextWithPopup(
+            WCharacter troop,
+            WFaction faction,
+            string action
+        )
         {
-            Log.Debug($"TroopRules.IsAllowedInContextWithPopup: troop={troop?.Name}, faction={faction?.Name}, action={action}");
             var reason = GetContextReason(troop, faction, action);
             if (reason == null)
-            {
-                Log.Debug("Allowed: no reason");
                 return true;
-            }
 
             TextObject title = L.T("not_allowed_title", "Not Allowed");
             if (troop.IsRetinue == true && faction == Player.Clan)
-            {
-                Log.Debug("Popup: Not in Settlement");
                 title = L.T("not_in_settlement", "Not in Settlement");
-            }
             else if (faction.IsPlayerClan)
-            {
-                Log.Debug("Popup: Not in Clan Fief");
                 title = L.T("not_in_clan_fief", "Not in Clan Fief");
-            }
             else if (faction.IsPlayerKingdom)
-            {
-                Log.Debug("Popup: Not in Kingdom Fief");
                 title = L.T("not_in_kingdom_fief", "Not in Kingdom Fief");
-            }
 
-            Log.Debug($"Popup.Display: title={title}, reason={reason}");
             Popup.Display(title, reason);
             return false;
         }
@@ -135,20 +111,18 @@ namespace Retinues.Troops.Edition
         {
             int cap = troop.Tier switch
             {
-                0 => Config.GetOption<int>("SkillCapTier0"), // was 10
-                1 => Config.GetOption<int>("SkillCapTier1"), // was 20
-                2 => Config.GetOption<int>("SkillCapTier2"), // was 40
-                3 => Config.GetOption<int>("SkillCapTier3"), // was 80
-                4 => Config.GetOption<int>("SkillCapTier4"), // was 120
-                5 => Config.GetOption<int>("SkillCapTier5"), // was 180
-                6 => Config.GetOption<int>("SkillCapTier6"), // was 220
-                _ => Config.GetOption<int>("SkillCapTier7Plus"), // was 260
+                0 => Config.SkillCapTier0, // was 10
+                1 => Config.SkillCapTier1, // was 20
+                2 => Config.SkillCapTier2, // was 40
+                3 => Config.SkillCapTier3, // was 80
+                4 => Config.SkillCapTier4, // was 120
+                5 => Config.SkillCapTier5, // was 180
+                6 => Config.SkillCapTier6, // was 220
+                _ => Config.SkillCapTier7Plus, // was 260
             };
 
-            if (troop.IsMilitia && troop.IsElite)
-                cap += 20; // +20 cap for elite militia
-            else if (troop.IsRetinue)
-                cap += 5; // +5 cap for retinues
+            if (troop.IsRetinue)
+                cap += Config.RetinueSkillCapBonus; // +5 cap for retinues
 
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                 cap += 5; // +5 skill cap with Iron Discipline
@@ -163,21 +137,18 @@ namespace Retinues.Troops.Edition
         {
             int total = troop.Tier switch
             {
-                0 => Config.GetOption<int>("SkillTotalTier0"), // was 90
-                1 => Config.GetOption<int>("SkillTotalTier1"), // was 120
-                2 => Config.GetOption<int>("SkillTotalTier2"), // was 180
-                3 => Config.GetOption<int>("SkillTotalTier3"), // was 360
-                4 => Config.GetOption<int>("SkillTotalTier4"), // was 510
-                5 => Config.GetOption<int>("SkillTotalTier5"), // was 750
-                6 => Config.GetOption<int>("SkillTotalTier6"), // was 900
-                _ => Config.GetOption<int>("SkillTotalTier7Plus"), // was 1500
+                0 => Config.SkillTotalTier0, // was 90
+                1 => Config.SkillTotalTier1, // was 120
+                2 => Config.SkillTotalTier2, // was 180
+                3 => Config.SkillTotalTier3, // was 360
+                4 => Config.SkillTotalTier4, // was 510
+                5 => Config.SkillTotalTier5, // was 750
+                6 => Config.SkillTotalTier6, // was 900
+                _ => Config.SkillTotalTier7Plus, // was 1500
             };
 
-            if (troop.IsMilitia)
-                if (troop.IsElite)
-                    total += 160; // +160 skill total for elite militia
-                else
-                    total += 30; // +30 skill total for militia
+            if (troop.IsRetinue)
+                total += Config.RetinueSkillTotalBonus; // +5 cap for retinues
 
             if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
                 total += 10; // +10 skill total with Steadfast Soldiers
@@ -207,14 +178,14 @@ namespace Retinues.Troops.Edition
             // staged for THIS skill
             var stagedThis =
                 TroopTrainBehavior
-                    .Instance.GetPending(character.StringId, skill.StringId)
-                    ?.PointsRemaining
-                ?? 0;
+                    .Instance?.GetPending(character.StringId, skill.StringId)
+                    ?.PointsRemaining ?? 0;
 
             // staged across ALL skills for this troop
-            var stagedAll = TroopTrainBehavior
-                .Instance.GetPending(character.StringId)
-                .Sum(d => d.PointsRemaining);
+            var stagedAll =
+                TroopTrainBehavior
+                    .Instance?.GetPending(character.StringId)
+                    ?.Sum(d => d.PointsRemaining) ?? 0;
 
             // 1) per-skill cap
             if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
@@ -240,9 +211,8 @@ namespace Retinues.Troops.Edition
                 return false;
             var staged =
                 TroopTrainBehavior
-                    .Instance.GetPending(character.StringId, skill.StringId)
-                    ?.PointsRemaining
-                ?? 0;
+                    .Instance?.GetPending(character.StringId, skill.StringId)
+                    ?.PointsRemaining ?? 0;
 
             // Skills can't go below zero
             if (character.GetSkill(skill) + staged <= 0)
@@ -304,8 +274,8 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int SkillPointXpCost(int fromValue)
         {
-            int baseCost = Config.GetOption<int>("BaseSkillXpCost");
-            int perPoint = Config.GetOption<int>("SkillXpCostPerPoint");
+            int baseCost = Config.BaseSkillXpCost;
+            int perPoint = Config.SkillXpCostPerPoint;
 
             return baseCost + perPoint * fromValue;
         }
@@ -319,7 +289,7 @@ namespace Retinues.Troops.Edition
                 return false;
 
             var staged =
-                TroopTrainBehavior.Instance.GetPending(c.StringId, s.StringId)?.PointsRemaining
+                TroopTrainBehavior.Instance?.GetPending(c.StringId, s.StringId)?.PointsRemaining
                 ?? 0;
             int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
@@ -337,7 +307,7 @@ namespace Retinues.Troops.Edition
             get
             {
                 var limit = Player.Party?.PartySizeLimit ?? 0;
-                int max = (int)(limit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+                int max = (int)(limit * Config.MaxEliteRetinueRatio);
                 if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
                     max = (int)(max * 1.15f);
                 return max;
@@ -352,7 +322,7 @@ namespace Retinues.Troops.Edition
             get
             {
                 var limit = Player.Party?.PartySizeLimit ?? 0;
-                int max = (int)(limit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+                int max = (int)(limit * Config.MaxBasicRetinueRatio);
                 if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
                     max = (int)(max * 1.15f);
                 return max;
@@ -367,7 +337,7 @@ namespace Retinues.Troops.Edition
             if (retinue == null || !retinue.IsRetinue)
                 return 0;
             int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
+            int baseCost = Config.RetinueConversionCostPerTier;
             return tier * baseCost;
         }
 
@@ -377,7 +347,7 @@ namespace Retinues.Troops.Edition
         public static int RankUpCost(WCharacter retinue)
         {
             int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueRankUpCostPerTier");
+            int baseCost = Config.RetinueRankUpCostPerTier;
             return tier * baseCost;
         }
 

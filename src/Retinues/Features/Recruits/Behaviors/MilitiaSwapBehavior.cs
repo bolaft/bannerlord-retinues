@@ -1,60 +1,52 @@
-using System;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
+using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Features.Retinues.Behaviors
+namespace Retinues.Features.Recruits.Behaviors
 {
-    /// <summary>
-    /// Campaign behavior for adding retinue buff mission behavior to battles and tournaments.
-    /// </summary>
     [SafeClass]
-    public sealed class RetinueBuffBehavior : CampaignBehaviorBase
+    public class MilitiaSwapBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// No sync data needed for retinue buff behavior.
-        /// </summary>
         public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Registers event listener for mission start to add retinue buff mission behavior.
-        /// </summary>
         public override void RegisterEvents()
         {
-            // Missions
-            CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
+            CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(
+                this,
+                OnDailyTickSettlement
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Adds RetinueBuffMissionBehavior to the mission if not already present.
-        /// </summary>
-        private void OnMissionStarted(IMission iMission)
+        private void OnDailyTickSettlement(Settlement settlement)
         {
-            try
-            {
-                if (iMission is not Mission mission)
-                    return; // Not a battle or a tournament
+            if (settlement == null)
+                return;
 
-                if (mission.GetMissionBehavior<RetinueBuffMissionBehavior>() == null)
-                    mission.AddMissionBehavior(new RetinueBuffMissionBehavior());
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
+            var s = new WSettlement(settlement);
+            var f = s.PlayerFaction;
+
+            Log.Debug(
+                $"MilitiaSwap: Daily tick for {settlement?.Name} ({f?.Name ?? "not player faction"})."
+            );
+
+            if (f == null)
+                return; // Not player faction
+
+            // Swap militias
+            s.MilitiaParty?.MemberRoster?.SwapTroops(f);
         }
     }
 }

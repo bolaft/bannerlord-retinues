@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
@@ -110,20 +111,18 @@ namespace Retinues.GUI.Editor.VM.Troop
         public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false || SelectedTroop.IsMilitia;
 
         [DataSourceProperty]
-        public bool TroopXpIsEnabled =>
-            Config.GetOption<int>("BaseSkillXpCost") > 0
-            || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
+        public bool TroopXpIsEnabled => Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0;
 
         /* ━━━━━━━ Training ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
+        public bool TrainingTakesTime => Config.TrainingTakesTime;
 
         [DataSourceProperty]
         public int TrainingRequired =>
             TroopTrainBehavior
-                .Instance.GetPending(SelectedTroop.StringId)
-                .Sum(data => data.Remaining);
+                .Instance?.GetPending(SelectedTroop.StringId)
+                ?.Sum(data => data.Remaining) ?? 0;
 
         [DataSourceProperty]
         public bool TrainingIsRequired => TrainingRequired > 0;
@@ -350,9 +349,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     titleText: L.S("remove_troop", "Remove Troop"),
                     text: L.T(
                             "remove_troop_text",
-                            "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use."
+                            "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use, and existing troops will be converted to their {CULTURE} counterpart."
                         )
                         .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("CULTURE", SelectedTroop.Culture?.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
@@ -544,9 +544,11 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         private int TotalStaged =>
             SelectedTroop != null
-                ? TroopTrainBehavior
-                    .Instance.GetPending(SelectedTroop.StringId)
-                    .Sum(d => d.PointsRemaining)
+                ? (
+                    TroopTrainBehavior
+                        .Instance?.GetPending(SelectedTroop.StringId)
+                        ?.Sum(d => d.PointsRemaining) ?? 0
+                )
                 : 0;
 
         /* ━━━━━━━━ Generic ━━━━━━━ */

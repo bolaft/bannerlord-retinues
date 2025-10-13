@@ -13,6 +13,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->
+    <Reference Include="TaleWorlds.ModuleManager">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.ModuleManager.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.MountAndBlade">
       <HintPath>$(ReferenceRoot)/TaleWorlds.MountAndBlade.dll</HintPath>
       <Private>false</Private>

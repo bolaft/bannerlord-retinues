@@ -590,6 +590,18 @@
       id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
       text="Costo de ascenso del séquito por nivel." />
     <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bonificación de Tope de Habilidad del Séquito" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Tope de habilidad adicional para las tropas del séquito." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Bonificación de Total de Habilidades del Séquito" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Total de habilidad adicional para las tropas del séquito." />
+    <string
       id="ret_mcm_option_shared_xp_pool"
       text="Reserva de XP Compartida" />
     <string
@@ -668,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Reclutamiento" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Restricciones" />
+    <string
       id="ret_mcm_section_retinues"
       text="Séquitos" />
     <string
@@ -679,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Habilidades" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Personalización de Tropas" />
     <string
       id="ret_mcm_section_unlocks"
       text="Desbloqueos" />
@@ -783,7 +795,7 @@
       text="Eliminar Tropa" />
     <string
       id="ret_remove_troop_text"
-      text="¿Seguro que quieres eliminar permanentemente a {TROOP_NAME}?{newline}{newline}Su equipo se almacenará para uso posterior." />
+      text="¿Estás seguro de que quieres eliminar permanentemente a {TROOP_NAME}?{newline}{newline}Su equipo se almacenará para su uso posterior, y las tropas existentes se convertirán en su contraparte {CULTURE}." />
     <string
       id="ret_rename_troop"
       text="Renombrar Tropa" />

@@ -50,10 +50,9 @@ namespace Retinues.Doctrines.Catalog
                 if (Player.Kingdom == null)
                     return;
 
-                foreach (var fief in Player.Clan?.Fiefs)
+                foreach (var s in Player.Clan.Settlements)
                 {
-                    var governor = new WHero(fief.Town?.Governor);
-                    if (governor.Culture == Player.Kingdom?.Culture)
+                    if (s.Governor.Culture == Player.Kingdom?.Culture)
                     {
                         AdvanceProgress(1);
                         return;
