@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Events;
@@ -25,7 +26,7 @@ namespace Retinues.Features.Unlocks.Behaviors
         /// </summary>
         protected override void OnEndMission()
         {
-            if (Config.GetOption<bool>("UnlockFromKills") == false)
+            if (Config.UnlockFromKills == false)
                 return; // Unlocks from kills disabled
 
             if (IsDefeat)

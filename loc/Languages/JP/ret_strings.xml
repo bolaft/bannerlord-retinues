@@ -680,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="募集" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="制限" />
+    <string
       id="ret_mcm_section_retinues"
       text="随伴兵" />
     <string
@@ -691,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="スキル" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="部隊のカスタマイズ" />
     <string
       id="ret_mcm_section_unlocks"
       text="解除" />

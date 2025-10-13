@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Unlocks.Behaviors;
@@ -37,13 +38,6 @@ namespace Retinues.Troops.Edition
             // Initialize item list
             var items = new List<(WItem, int?, bool)>();
 
-            // Configuration
-            var allUnlocked = Config.GetOption<bool>("AllEquipmentUnlocked");
-            var allowFromCulture = Config.GetOption<bool>("UnlockFromCulture");
-            var allowFromKills = Config.GetOption<bool>("UnlockFromKills");
-            var killsForUnlock = Config.GetOption<int>("KillsForUnlock");
-            var allowedTierDiff = Config.GetOption<int>("AllowedTierDifference");
-
             // Doctrines
             var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
             var hasIronclad = DoctrineAPI.IsDoctrineUnlocked<Ironclad>();
@@ -65,13 +59,13 @@ namespace Retinues.Troops.Edition
 
                 bool isAvailable =
                     item.IsStocked
-                    || Config.GetOption<bool>("RestrictItemsToTownInventory") == false
+                    || Config.RestrictItemsToTownInventory == false
                     || CurrentTownHasItem(item);
 
                 try
                 {
                     // All equipment unlocked: take everything
-                    if (allUnlocked)
+                    if (Config.AllEquipmentUnlocked)
                     {
                         items.Add((item, null, isAvailable));
                         continue;
@@ -96,7 +90,7 @@ namespace Retinues.Troops.Edition
 
                     // 2) Tier constraint unless Ironclad is unlocked
                     var tierDelta = item.Tier - troop.Tier;
-                    if (!hasIronclad && tierDelta > allowedTierDiff)
+                    if (!hasIronclad && tierDelta > Config.AllowedTierDifference)
                         continue;
 
                     // 3) Already unlocked
@@ -109,7 +103,7 @@ namespace Retinues.Troops.Edition
                     // 4) Culture-based unlocks
                     var itemCultureId = item.Culture?.StringId;
 
-                    if (allowFromCulture && itemCultureId == factionCultureId)
+                    if (Config.UnlockFromCulture && itemCultureId == factionCultureId)
                     {
                         items.Add((item, null, isAvailable));
                         continue;
@@ -126,14 +120,14 @@ namespace Retinues.Troops.Edition
 
                     // 5) Kill-progress unlocks
                     if (
-                        allowFromKills
+                        Config.UnlockFromKills
                         && UnlocksBehavior.Instance.ProgressByItemId.TryGetValue(
                             item.StringId,
                             out var progress
                         )
                     )
                     {
-                        if (progress >= killsForUnlock)
+                        if (progress >= Config.KillsForUnlock)
                         {
                             item.Unlock(); // unlock now
                             items.Add((item, null, isAvailable)); // now unlocked
@@ -251,7 +245,7 @@ namespace Retinues.Troops.Edition
                 Equip(troop, EquipmentIndex.HorseHarness, null, category, index);
             }
 
-            if (Config.GetOption<bool>("EquipmentChangeTakesTime") && item != null)
+            if (Config.EquipmentChangeTakesTime && item != null)
                 TroopEquipBehavior.StageEquipmentChange(troop, slot, item, category, index);
             else
                 ApplyEquip(troop, slot, item, category, index);
@@ -314,7 +308,7 @@ namespace Retinues.Troops.Edition
             catch { }
 
             return (int)(
-                baseValue * (1.0f - rebate) * Config.GetOption<float>("EquipmentPriceModifier")
+                baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier
             );
         }
 

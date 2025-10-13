@@ -680,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Rekrutacja" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Ograniczenia" />
+    <string
       id="ret_mcm_section_retinues"
       text="Orszak" />
     <string
@@ -691,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Umiejętności" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Dostosowanie Oddziałów" />
     <string
       id="ret_mcm_section_unlocks"
       text="Odblokowania" />

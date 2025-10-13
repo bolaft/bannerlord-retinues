@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Upgrade.Behaviors;
@@ -110,18 +111,18 @@ namespace Retinues.Troops.Edition
         {
             int cap = troop.Tier switch
             {
-                0 => Config.GetOption<int>("SkillCapTier0"), // was 10
-                1 => Config.GetOption<int>("SkillCapTier1"), // was 20
-                2 => Config.GetOption<int>("SkillCapTier2"), // was 40
-                3 => Config.GetOption<int>("SkillCapTier3"), // was 80
-                4 => Config.GetOption<int>("SkillCapTier4"), // was 120
-                5 => Config.GetOption<int>("SkillCapTier5"), // was 180
-                6 => Config.GetOption<int>("SkillCapTier6"), // was 220
-                _ => Config.GetOption<int>("SkillCapTier7Plus"), // was 260
+                0 => Config.SkillCapTier0, // was 10
+                1 => Config.SkillCapTier1, // was 20
+                2 => Config.SkillCapTier2, // was 40
+                3 => Config.SkillCapTier3, // was 80
+                4 => Config.SkillCapTier4, // was 120
+                5 => Config.SkillCapTier5, // was 180
+                6 => Config.SkillCapTier6, // was 220
+                _ => Config.SkillCapTier7Plus, // was 260
             };
 
             if (troop.IsRetinue)
-                cap += Config.GetOption<int>("RetinueSkillCapBonus"); // +5 cap for retinues
+                cap += Config.RetinueSkillCapBonus; // +5 cap for retinues
 
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                 cap += 5; // +5 skill cap with Iron Discipline
@@ -136,18 +137,18 @@ namespace Retinues.Troops.Edition
         {
             int total = troop.Tier switch
             {
-                0 => Config.GetOption<int>("SkillTotalTier0"), // was 90
-                1 => Config.GetOption<int>("SkillTotalTier1"), // was 120
-                2 => Config.GetOption<int>("SkillTotalTier2"), // was 180
-                3 => Config.GetOption<int>("SkillTotalTier3"), // was 360
-                4 => Config.GetOption<int>("SkillTotalTier4"), // was 510
-                5 => Config.GetOption<int>("SkillTotalTier5"), // was 750
-                6 => Config.GetOption<int>("SkillTotalTier6"), // was 900
-                _ => Config.GetOption<int>("SkillTotalTier7Plus"), // was 1500
+                0 => Config.SkillTotalTier0, // was 90
+                1 => Config.SkillTotalTier1, // was 120
+                2 => Config.SkillTotalTier2, // was 180
+                3 => Config.SkillTotalTier3, // was 360
+                4 => Config.SkillTotalTier4, // was 510
+                5 => Config.SkillTotalTier5, // was 750
+                6 => Config.SkillTotalTier6, // was 900
+                _ => Config.SkillTotalTier7Plus, // was 1500
             };
 
             if (troop.IsRetinue)
-                total += Config.GetOption<int>("RetinueSkillTotalBonus"); // +5 cap for retinues
+                total += Config.RetinueSkillTotalBonus; // +5 cap for retinues
 
             if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
                 total += 10; // +10 skill total with Steadfast Soldiers
@@ -273,8 +274,8 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int SkillPointXpCost(int fromValue)
         {
-            int baseCost = Config.GetOption<int>("BaseSkillXpCost");
-            int perPoint = Config.GetOption<int>("SkillXpCostPerPoint");
+            int baseCost = Config.BaseSkillXpCost;
+            int perPoint = Config.SkillXpCostPerPoint;
 
             return baseCost + perPoint * fromValue;
         }
@@ -306,7 +307,7 @@ namespace Retinues.Troops.Edition
             get
             {
                 var limit = Player.Party?.PartySizeLimit ?? 0;
-                int max = (int)(limit * Config.GetOption<float>("MaxEliteRetinueRatio"));
+                int max = (int)(limit * Config.MaxEliteRetinueRatio);
                 if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
                     max = (int)(max * 1.15f);
                 return max;
@@ -321,7 +322,7 @@ namespace Retinues.Troops.Edition
             get
             {
                 var limit = Player.Party?.PartySizeLimit ?? 0;
-                int max = (int)(limit * Config.GetOption<float>("MaxBasicRetinueRatio"));
+                int max = (int)(limit * Config.MaxBasicRetinueRatio);
                 if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
                     max = (int)(max * 1.15f);
                 return max;
@@ -336,7 +337,7 @@ namespace Retinues.Troops.Edition
             if (retinue == null || !retinue.IsRetinue)
                 return 0;
             int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueConversionCostPerTier");
+            int baseCost = Config.RetinueConversionCostPerTier;
             return tier * baseCost;
         }
 
@@ -346,7 +347,7 @@ namespace Retinues.Troops.Edition
         public static int RankUpCost(WCharacter retinue)
         {
             int tier = retinue?.Tier ?? 1;
-            int baseCost = Config.GetOption<int>("RetinueRankUpCostPerTier");
+            int baseCost = Config.RetinueRankUpCostPerTier;
             return tier * baseCost;
         }
 

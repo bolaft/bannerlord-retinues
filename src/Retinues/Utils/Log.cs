@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Retinues.Configuration;
 using TaleWorlds.Library;
 
 namespace Retinues.Utils
@@ -33,12 +34,10 @@ namespace Retinues.Utils
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Lowest level written to file
-        public static LogLevel MinFileLevel =>
-            Config.GetOption<bool>("DebugMode") ? LogLevel.Debug : LogLevel.Debug;
+        public static LogLevel MinFileLevel => Config.DebugMode ? LogLevel.Debug : LogLevel.Debug;
 
         // Lowest level shown in-game (InformationManager)
-        public static LogLevel MinInGameLevel =>
-            Config.GetOption<bool>("DebugMode") ? LogLevel.Info : LogLevel.Critical;
+        public static LogLevel MinInGameLevel => Config.DebugMode ? LogLevel.Info : LogLevel.Critical;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Log File Setup                     //

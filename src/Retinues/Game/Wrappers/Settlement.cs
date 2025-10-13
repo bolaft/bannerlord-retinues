@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
+using Retinues.Configuration;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Game.Wrappers
@@ -122,6 +123,9 @@ namespace Retinues.Game.Wrappers
                 faction = PlayerFaction;
             if (faction == null)
                 return;
+
+            if (Config.SwapOnlyForCorrectCulture && faction.Culture != Culture)
+                return; // skip if culture doesn't match
 
             Log.Debug($"Swapping volunteers in settlement '{this}' for faction '{faction}'");
 

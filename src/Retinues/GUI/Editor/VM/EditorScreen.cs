@@ -1,5 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.Mixins;
@@ -167,7 +168,7 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public bool CanSwitchToDoctrines =>
-            !IsDoctrinesMode && Config.GetOption<bool>("EnableDoctrines");
+            !IsDoctrinesMode && Config.EnableDoctrines;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -261,7 +262,7 @@ namespace Retinues.GUI.Editor.VM
         {
             get
             {
-                if (Config.GetOption<bool>("RestrictEditingToFiefs") == false)
+                if (Config.RestrictEditingToFiefs == false)
                     return true;
 
                 return TroopRules.IsAllowedInContextWithPopup(
@@ -275,7 +276,7 @@ namespace Retinues.GUI.Editor.VM
         {
             get
             {
-                var restrict = Config.GetOption<bool>("RestrictConversionToFiefs");
+                var restrict = Config.RestrictConversionToFiefs;
                 Log.Debug($"ConversionIsAllowed: RestrictConversionToFiefs={restrict}");
                 return restrict == false
                     || TroopRules.IsAllowedInContextWithPopup(
@@ -296,7 +297,7 @@ namespace Retinues.GUI.Editor.VM
             if (_editorMode == mode)
                 return;
 
-            if (mode == EditorMode.Doctrines && !Config.GetOption<bool>("EnableDoctrines"))
+            if (mode == EditorMode.Doctrines && !Config.EnableDoctrines)
                 return;
 
             _editorMode = mode;

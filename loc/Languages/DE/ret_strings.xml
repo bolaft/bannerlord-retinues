@@ -680,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Rekrutierung" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Einschränkungen" />
+    <string
       id="ret_mcm_section_retinues"
       text="Gefolgschaften" />
     <string
@@ -691,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Fertigkeiten" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Truppen-Anpassung" />
     <string
       id="ret_mcm_section_unlocks"
       text="Freischaltungen" />

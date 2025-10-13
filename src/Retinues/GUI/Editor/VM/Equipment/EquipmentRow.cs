@@ -1,4 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -32,7 +33,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public int Value =>
-            Config.GetOption<bool>("PayForEquipment")
+            Config.PayForEquipment
                 ? EquipmentManager.GetItemValue(Item, RowList?.Screen?.SelectedTroop)
                 : 0;
 
@@ -50,7 +51,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public string ProgressText =>
             L.T("unlock_progress_text", "Unlocking ({PROGRESS}/{REQUIRED})")
                 .SetTextVariable("PROGRESS", _progress ?? 0)
-                .SetTextVariable("REQUIRED", Config.GetOption<int>("KillsForUnlock"))
+                .SetTextVariable("REQUIRED", Config.KillsForUnlock)
                 .ToString();
 
         [DataSourceProperty]
@@ -123,7 +124,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             {
                 if (!IsEnabled)
                     return false;
-                if (!Config.GetOption<bool>("PayForEquipment"))
+                if (!Config.PayForEquipment)
                     return false;
                 if (Item == null)
                     return false;
@@ -156,7 +157,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             {
                 if (InProgress)
                     return false;
-                if (!Config.GetOption<bool>("PayForEquipment"))
+                if (!Config.PayForEquipment)
                     return false;
                 if (Item == null)
                     return false;
@@ -232,8 +233,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 return;
             }
 
-            var changeTakesTime = Config.GetOption<bool>("EquipmentChangeTakesTime");
-            if (!changeTakesTime && screen?.EditingIsAllowed == false)
+            if (!Config.EquipmentChangeTakesTime && screen?.EditingIsAllowed == false)
             {
                 Log.Info("[ExecuteSelect] Editing not allowed in current context, aborting.");
                 return; // Editing not allowed in current context
@@ -275,7 +275,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     {
                         Log.Debug("[ExecuteSelect] An item is equipped, proceeding to unequip.");
                         // Warn if unequipping will take time
-                        if (Config.GetOption<bool>("EquipmentChangeTakesTime"))
+                        if (Config.EquipmentChangeTakesTime)
                         {
                             Log.Debug(
                                 "[ExecuteSelect] Equipment change takes time, showing warning inquiry."

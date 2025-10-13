@@ -3600,6 +3600,22 @@
     "TR": "Toplama"
   },
   {
+    "id": "ret_mcm_section_restrictions",
+    "EN": "Restrictions",
+    "BR": "Restrições",
+    "CNs": "限制",
+    "CNt": "限制",
+    "DE": "Einschränkungen",
+    "FR": "Restrictions",
+    "IT": "Restrizioni",
+    "JP": "制限",
+    "KO": "제한",
+    "PL": "Ograniczenia",
+    "RU": "Ограничения",
+    "SP": "Restricciones",
+    "TR": "Kısıtlamalar"
+  },
+  {
     "id": "ret_mcm_section_retinues",
     "EN": "Retinues",
     "BR": "Séquitos",
@@ -3662,22 +3678,6 @@
     "RU": "Навыки",
     "SP": "Habilidades",
     "TR": "Beceriler"
-  },
-  {
-    "id": "ret_mcm_section_troop_customization",
-    "EN": "Troop Customization",
-    "BR": "Personalização de Tropas",
-    "CNs": "部队自定义",
-    "CNt": "部隊自定義",
-    "DE": "Truppen-Anpassung",
-    "FR": "Personnalisation des Troupes",
-    "IT": "Personalizzazione delle Truppe",
-    "JP": "部隊のカスタマイズ",
-    "KO": "병력 맞춤화",
-    "PL": "Dostosowanie Oddziałów",
-    "RU": "Настройка Войск",
-    "SP": "Personalización de Tropas",
-    "TR": "Asker Özelleştirme"
   },
   {
     "id": "ret_mcm_section_unlocks",

@@ -680,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Toplama" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Kısıtlamalar" />
+    <string
       id="ret_mcm_section_retinues"
       text="Yandaşlar" />
     <string
@@ -691,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Beceriler" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Asker Özelleştirme" />
     <string
       id="ret_mcm_section_unlocks"
       text="Açılışlar" />

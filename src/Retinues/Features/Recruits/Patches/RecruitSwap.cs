@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
@@ -26,18 +27,14 @@ namespace Retinues.Features.Recruits.Patches
             int count
         )
         {
-            bool allowAllLords = Config.GetOption<bool>("AllLordsRecruitCustomTroops");
-            bool allowVassals =
-                allowAllLords || Config.GetOption<bool>("VassalLordsRecruitCustomTroops");
-
-            if (!allowVassals)
+            if (Config.VassalLordsCanRecruitCustomTroops == false)
                 return; // feature disabled
 
             if (recruiter?.PartyBelongedTo == null || count <= 0 || troop == null)
                 return; // never touch suspicious input
 
             var faction = new WHero(recruiter).PlayerFaction;
-            if (!allowAllLords && faction == null)
+            if (Config.AllLordsCanRecruitCustomTroops == false && faction == null)
                 return; // not a vassal, skip
 
             var wt = new WCharacter(troop);

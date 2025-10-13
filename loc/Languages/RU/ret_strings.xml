@@ -680,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="Вербовка" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Ограничения" />
+    <string
       id="ret_mcm_section_retinues"
       text="Свита" />
     <string
@@ -691,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="Навыки" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="Настройка Войск" />
     <string
       id="ret_mcm_section_unlocks"
       text="Разблокировки" />

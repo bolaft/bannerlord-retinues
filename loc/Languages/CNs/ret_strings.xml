@@ -680,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="招募" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="限制" />
+    <string
       id="ret_mcm_section_retinues"
       text="随从" />
     <string
@@ -691,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="技能" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="部队自定义" />
     <string
       id="ret_mcm_section_unlocks"
       text="解锁" />

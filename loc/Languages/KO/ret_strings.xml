@@ -680,6 +680,9 @@
       id="ret_mcm_section_recruitment"
       text="모집" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="제한" />
+    <string
       id="ret_mcm_section_retinues"
       text="수행원" />
     <string
@@ -691,9 +694,6 @@
     <string
       id="ret_mcm_section_skills"
       text="기술" />
-    <string
-      id="ret_mcm_section_troop_customization"
-      text="병력 맞춤화" />
     <string
       id="ret_mcm_section_unlocks"
       text="해제" />

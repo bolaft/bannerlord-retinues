@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
@@ -103,14 +104,12 @@ namespace Retinues.GUI.Editor.VM.Troop
         public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false || SelectedTroop.IsMilitia;
 
         [DataSourceProperty]
-        public bool TroopXpIsEnabled =>
-            Config.GetOption<int>("BaseSkillXpCost") > 0
-            || Config.GetOption<int>("SkillXpCostPerPoint") > 0;
+        public bool TroopXpIsEnabled => Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0;
 
         /* ━━━━━━━ Training ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool TrainingTakesTime => Config.GetOption<bool>("TrainingTakesTime");
+        public bool TrainingTakesTime => Config.TrainingTakesTime;
 
         [DataSourceProperty]
         public int TrainingRequired =>

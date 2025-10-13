@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Wrappers;
@@ -180,7 +181,7 @@ namespace Retinues.Features.Xp.Behaviors
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal static bool SharedPool => Config.GetOption<bool>("SharedXpPool");
+        internal static bool SharedPool => Config.SharedXpPool;
 
         internal static string PoolKey(WCharacter troop) =>
             SharedPool ? "_shared" : troop?.StringId;

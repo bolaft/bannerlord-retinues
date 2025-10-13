@@ -1,5 +1,6 @@
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Upgrade.Behaviors;
@@ -82,7 +83,7 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         private void Modify(bool increment)
         {
-            if (!Config.GetOption<bool>("TrainingTakesTime") && increment) // Allow edits since you need a settlement to train anyway
+            if (!Config.TrainingTakesTime && increment) // Allow edits since you need a settlement to train anyway
                 if (_editor.Screen?.EditingIsAllowed == false)
                     return; // Editing not allowed in current context
 
@@ -129,9 +130,7 @@ namespace Retinues.GUI.Editor.VM.Troop
                 && !increment
                 && !IsStaged
                 && !_editor.PlayerWarnedAboutRetraining
-                && Config.GetOption<int>("BaseSkillXpCost")
-                    + Config.GetOption<int>("SkillXpCostPerPoint")
-                    > 0
+                && (Config.BaseSkillXpCost + Config.SkillXpCostPerPoint) > 0
             )
             {
                 // Warn the player that decrementing skills may require retraining
