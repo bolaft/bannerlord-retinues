@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="modifizieren" />
     <string
+      id="ret_action_remove"
+      text="entfernen" />
+    <string
       id="ret_adaptive_training"
       text="Adaptives Training" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Umwandeln" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} EP" />
     <string
       id="ret_battlefield_tithes"
       text="Schlachtfeldzehnten" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="Fortfahren" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Nicht genug Gold für Umwandlungen." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="Du hast nicht genug Gold, um diese Gefolgschaften anzuheuern." />
@@ -740,9 +737,6 @@
       id="ret_not_in_settlement_text"
       text="Du musst in einer Siedlung sein, um diese Truppe {ACTION} zu können." />
     <string
-      id="ret_ok"
-      text="OK" />
-    <string
       id="ret_pragmatic_scavengers"
       text="Pragmatische Plünderer" />
     <string
@@ -895,6 +889,9 @@
     <string
       id="ret_transfer_header_text"
       text="Übertragen" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} EP" />
     <string
       id="ret_troops_tab_text"
       text="Truppen" />

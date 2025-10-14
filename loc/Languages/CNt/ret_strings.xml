@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="修改" />
     <string
+      id="ret_action_remove"
+      text="移除" />
+    <string
       id="ret_adaptive_training"
       text="適應性訓練" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="轉換" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} 經驗" />
     <string
       id="ret_battlefield_tithes"
       text="戰場什一稅" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="繼續" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="金幣不足，無法進行轉換。" />
     <string
       id="ret_convert_not_enough_gold_text"
       text="你沒有足夠的金幣雇傭這些隨從。" />
@@ -740,9 +737,6 @@
       id="ret_not_in_settlement_text"
       text="您必須在一個定居點才能{ACTION}這支部隊。" />
     <string
-      id="ret_ok"
-      text="確定" />
-    <string
       id="ret_pragmatic_scavengers"
       text="實用清道夫" />
     <string
@@ -895,6 +889,9 @@
     <string
       id="ret_transfer_header_text"
       text="轉移" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} 經驗" />
     <string
       id="ret_troops_tab_text"
       text="部隊" />

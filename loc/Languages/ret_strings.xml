@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="modify" />
     <string
+      id="ret_action_remove"
+      text="remove" />
+    <string
       id="ret_adaptive_training"
       text="Adaptive Training" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Convert" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} xp" />
     <string
       id="ret_battlefield_tithes"
       text="Battlefield Tithes" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="Continue" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Not enough gold to apply conversions." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="You do not have enough gold to hire these retinues." />
@@ -231,7 +228,7 @@
       text="Head" />
     <string
       id="ret_horse_harness_slot_text"
-      text="Harness" />
+      text="Horse Harness" />
     <string
       id="ret_horse_slot_text"
       text="Horse" />
@@ -740,9 +737,6 @@
       id="ret_not_in_settlement_text"
       text="You must be in a settlement to {ACTION} this troop." />
     <string
-      id="ret_ok"
-      text="OK" />
-    <string
       id="ret_pragmatic_scavengers"
       text="Pragmatic Scavengers" />
     <string
@@ -792,7 +786,7 @@
       text="Remove" />
     <string
       id="ret_remove_set_text"
-      text="Remove {SET} for {TROOP_NAME}?{newline}All staged changes will be cleared and items will be unequipped and stocked." />
+      text="Remove {EQUIPMENT} for {TROOP}?{newline}All staged changes will be cleared and items will be unequipped and stocked." />
     <string
       id="ret_remove_set_title"
       text="Remove Set" />
@@ -843,7 +837,7 @@
       text="Recruit 100 custom kingdom troops." />
     <string
       id="ret_set_alt_n"
-      text="Alternate {N}" />
+      text="Alt {N}" />
     <string
       id="ret_set_battle"
       text="Battle" />
@@ -895,6 +889,9 @@
     <string
       id="ret_transfer_header_text"
       text="Transfer" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} xp" />
     <string
       id="ret_troops_tab_text"
       text="Troops" />

@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="modifier" />
     <string
+      id="ret_action_remove"
+      text="retirer" />
+    <string
       id="ret_adaptive_training"
       text="Souplesse Martiale" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Convertir" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} xp" />
     <string
       id="ret_battlefield_tithes"
       text="Dîme de Guerre" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="Continuer" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Or insuffisant pour appliquer les conversions." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="Tu n’as pas assez d’or pour recruter ces troupes." />
@@ -740,9 +737,6 @@
       id="ret_not_in_settlement_text"
       text="Vous devez être dans un établissement pour {ACTION} cette troupe." />
     <string
-      id="ret_ok"
-      text="OK" />
-    <string
       id="ret_pragmatic_scavengers"
       text="Charognards Pragmatiques" />
     <string
@@ -895,6 +889,9 @@
     <string
       id="ret_transfer_header_text"
       text="Transférer" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} xp" />
     <string
       id="ret_troops_tab_text"
       text="Troupes" />

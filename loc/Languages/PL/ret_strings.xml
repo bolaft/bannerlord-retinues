@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="modyfikować" />
     <string
+      id="ret_action_remove"
+      text="usunąć" />
+    <string
       id="ret_adaptive_training"
       text="Trening Adaptacyjny" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Konwertuj" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} pd" />
     <string
       id="ret_battlefield_tithes"
       text="Dziesięcina Bitewna" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="Kontynuuj" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Za mało złota, aby dokonać konwersji." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="Nie masz wystarczająco złota, aby wynająć ten orszak." />
@@ -740,9 +737,6 @@
       id="ret_not_in_settlement_text"
       text="Musisz być w osadzie, aby {ACTION} tę jednostkę." />
     <string
-      id="ret_ok"
-      text="OK" />
-    <string
       id="ret_pragmatic_scavengers"
       text="Pragmatyczni Zbieracze" />
     <string
@@ -895,6 +889,9 @@
     <string
       id="ret_transfer_header_text"
       text="Przenieś" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} pkt. doświadczenia" />
     <string
       id="ret_troops_tab_text"
       text="Jednostki" />
