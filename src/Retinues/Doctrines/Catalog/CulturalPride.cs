@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
@@ -34,6 +35,8 @@ namespace Retinues.Doctrines.Catalog
                 if (tournament.Winner != Player.Character)
                     return;
 
+                var blockedBy = new List<ItemObject>();
+
                 // NOTE: Player character's wrapper gives wrong equipment for some reason in 1.3
                 // This is why we access the equipment directly from the CharacterObject's FirstBattleEquipment
                 Equipment eq = CharacterObject.PlayerCharacter.FirstBattleEquipment;
@@ -58,10 +61,20 @@ namespace Retinues.Doctrines.Catalog
                         Log.Info(
                             $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture?.StringId}) does not match player culture ({Player.Culture})"
                         );
-                        return; // Item does not match player culture
+                        blockedBy.Add(item);
                     }
                 }
-                AdvanceProgress(1);
+
+                if (blockedBy.Count > 0)
+                {
+                    Log.Message(
+                        $"Cultural Pride: progress for tournament win blocked by: {string.Join(", ", blockedBy.Select(item => $"{item.Name} ({item.Culture?.Name})"))}."
+                    );
+                }
+                else
+                {
+                    AdvanceProgress(1);
+                }
             }
         }
 
@@ -78,7 +91,7 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                var blockedBy = new Dictionary<WCharacter, WItem>();
+                var blockedBy = new Dictionary<WCharacter, List<WItem>>();
 
                 foreach (var kill in battle.Kills)
                 {
@@ -91,7 +104,7 @@ namespace Retinues.Doctrines.Catalog
                         continue; // Only consider custom troops
 
                     bool hasFullSet = true;
-                    foreach (var item in troop.Loadout.Items)
+                    foreach (var item in troop.Loadout.Battle.Items)
                     {
                         if (item.Culture == null)
                             continue; // Ignore culture-less items
@@ -99,7 +112,8 @@ namespace Retinues.Doctrines.Catalog
                         {
                             hasFullSet = false;
                             if (!blockedBy.ContainsKey(troop))
-                                blockedBy[troop] = item;
+                                blockedBy[troop] = [];
+                            blockedBy[troop].Add(item);
                             break; // Item does not match troop culture
                         }
                     }
@@ -111,7 +125,7 @@ namespace Retinues.Doctrines.Catalog
                 foreach (var kvp in blockedBy)
                 {
                     Log.Message(
-                        $"Cultural Pride: progress for {kvp.Key.Name} ({kvp.Key.Culture?.Name}) blocked by {kvp.Value.Name} ({kvp.Value.Culture?.Name})."
+                        $"Cultural Pride: progress for {kvp.Key.Name} ({kvp.Key.Culture?.Name}) blocked by: {string.Join(", ", kvp.Value.Select(item => $"{item.Name} ({item.Culture?.Name})"))}."
                     );
                 }
             }

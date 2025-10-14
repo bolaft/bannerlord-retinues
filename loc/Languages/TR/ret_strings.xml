@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="Teçhizat fiyatı için temel oyun fiyatlarına kıyasla değiştirici." />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="Savaşta Ana Savaş Setini Zorla" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="Askerler savaşta her zaman ana savaş teçhizat setlerini kullanır." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksimum Temel Yandaş Oranı" />
     <string

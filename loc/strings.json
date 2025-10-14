@@ -2768,6 +2768,38 @@
     "TR": "Teçhizat fiyatı için temel oyun fiyatlarına kıyasla değiştirici."
   },
   {
+    "id": "ret_mcm_option_force_main_battle_set_in_combat",
+    "EN": "Force Main Battle Set In Combat",
+    "BR": "Forçar Conjunto de Batalha Principal em Combate",
+    "CNs": "战斗中强制使用主战装备",
+    "CNt": "戰鬥中強制使用主戰裝備",
+    "DE": "Hauptkampfausrüstung im Kampf erzwingen",
+    "FR": "Forcer l’Ensemble de Combat Principal en Combat",
+    "IT": "Forza il Set di Battaglia Principale in Combattimento",
+    "JP": "戦闘中にメインバトルセットを強制",
+    "KO": "전투 중 주 전투 세트 강제",
+    "PL": "Wymuś Główny Zestaw Bojowy w Walce",
+    "RU": "Принудительное Использование Основного Боевого Комплекта в Бою",
+    "SP": "Forzar Conjunto de Batalla Principal en Combate",
+    "TR": "Savaşta Ana Savaş Setini Zorla"
+  },
+  {
+    "id": "ret_mcm_option_force_main_battle_set_in_combat_hint",
+    "EN": "Troops always use their main battle equipment set in combat.",
+    "BR": "As tropas sempre usam seu conjunto de equipamento de batalha principal em combate.",
+    "CNs": "部队在战斗中始终使用其主战装备。",
+    "CNt": "部隊在戰鬥中始終使用其主戰裝備。",
+    "DE": "Truppen verwenden im Kampf immer ihren Hauptkampfausrüstungsset.",
+    "FR": "Les troupes utilisent toujours leur ensemble d’équipement de combat principal en combat.",
+    "IT": "Le truppe usano sempre il loro set di equipaggiamento da battaglia principale in combattimento.",
+    "JP": "部隊は戦闘中に常にメインバトル装備セットを使用します。",
+    "KO": "병력은 전투 중에 항상 주 전투 장비 세트를 사용합니다.",
+    "PL": "Jednostki zawsze używają swojego głównego zestawu wyposażenia bojowego w walce.",
+    "RU": "Войска всегда используют свой основной боевой комплект в бою.",
+    "SP": "Las tropas siempre usan su conjunto de equipo de batalla principal en combate.",
+    "TR": "Askerler savaşta her zaman ana savaş teçhizat setlerini kullanır."
+  },
+  {
     "id": "ret_mcm_option_max_basic_retinue_ratio",
     "EN": "Max Basic Retinue Ratio",
     "BR": "Proporção Máxima de Séquito Básico",

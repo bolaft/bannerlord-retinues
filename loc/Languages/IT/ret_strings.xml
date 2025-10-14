@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="Modificatore per il prezzo dell’equipaggiamento rispetto ai prezzi del gioco base." />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="Forza il Set di Battaglia Principale in Combattimento" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="Le truppe usano sempre il loro set di equipaggiamento da battaglia principale in combattimento." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Rapporto Massimo Seguito Base" />
     <string

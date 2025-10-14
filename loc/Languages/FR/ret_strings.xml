@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="Modificateur pour le prix de l’équipement par rapport aux prix du jeu de base." />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="Forcer l’Ensemble de Combat Principal en Combat" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="Les troupes utilisent toujours leur ensemble d’équipement de combat principal en combat." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Ratio Maximum de Rétinue Basique" />
     <string
