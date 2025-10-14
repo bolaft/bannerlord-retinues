@@ -14,8 +14,10 @@ namespace Retinues.GUI.Editor.VM.Doctrines
     /// ViewModel for a doctrine. Handles display, unlock logic, popup, and UI refresh.
     /// </summary>
     [SafeClass]
-    public sealed class DoctrineVM : ViewModel
+    public sealed class DoctrineVM : BaseComponent
     {
+        public override EditorMode Mode => EditorMode.Doctrine;
+
         private readonly string _id;
         private readonly DoctrineServiceBehavior _svc;
         private readonly DoctrineDefinition _def;

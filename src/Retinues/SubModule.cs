@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
 using Retinues.Features.Stocks.Behaviors;
@@ -17,7 +18,6 @@ using Retinues.Safety.Sanitizer;
 using Retinues.Safety.Version;
 using Retinues.Troops;
 using Retinues.Utils;
-using Retinues.Configuration;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -63,7 +63,6 @@ namespace Retinues
                     Log.Info("MCM: registration succeeded.");
             }
         }
-
 
         /// <summary>
         /// Called when the module DLL is loaded by the game.

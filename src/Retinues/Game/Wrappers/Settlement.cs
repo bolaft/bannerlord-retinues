@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
-using Retinues.Configuration;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Game.Wrappers

@@ -96,7 +96,7 @@ namespace Retinues.Game.Wrappers
         public ImageIdentifier ImageIdentifier => new(CharacterCode);
 #endif
 
-        public CharacterViewModel GetModel(WLoadout.Category category, int index = 0)
+        public CharacterViewModel GetModel(EquipmentCategory category, int index = 0)
         {
             var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
             vm.FillFrom(Base, seed: -1);
@@ -303,7 +303,7 @@ namespace Retinues.Game.Wrappers
         public WItem Equip(
             WItem item,
             EquipmentIndex slot,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {
@@ -317,7 +317,7 @@ namespace Retinues.Game.Wrappers
             equipment.SetItem(slot, item);
 
             // Formation class is derived from main battle equipment
-            if (category == WLoadout.Category.Battle)
+            if (category == EquipmentCategory.Battle)
                 FormationClass = Loadout.Battle.ComputeFormationClass();
 
             // Horse requirements may need an update
@@ -331,13 +331,13 @@ namespace Retinues.Game.Wrappers
             return previous;
         }
 
-        public WItem Unequip(EquipmentIndex slot, WLoadout.Category category, int index = 0)
+        public WItem Unequip(EquipmentIndex slot, EquipmentCategory category, int index = 0)
         {
             // Same as equip with null item
             return Equip(null, slot, category, index);
         }
 
-        public List<WItem> UnequipAll(WLoadout.Category category, int index = 0)
+        public List<WItem> UnequipAll(EquipmentCategory category, int index = 0)
         {
             var items = new List<WItem>();
 
@@ -351,7 +351,7 @@ namespace Retinues.Game.Wrappers
             return items;
         }
 
-        public bool CanEquip(WItem item)
+        public bool MeetsItemRequirements(WItem item)
         {
             if (item == null)
                 return true;

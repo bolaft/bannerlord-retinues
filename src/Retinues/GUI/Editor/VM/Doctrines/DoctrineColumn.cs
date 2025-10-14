@@ -11,8 +11,10 @@ namespace Retinues.GUI.Editor.VM.Doctrines
     /// ViewModel for a doctrine column. Handles grouping, display, and refreshing doctrine VMs.
     /// </summary>
     [SafeClass]
-    public sealed class DoctrineColumnVM : ViewModel
+    public sealed class DoctrineColumnVM : BaseComponent
     {
+        public override EditorMode Mode => EditorMode.Doctrine;
+
         public DoctrineColumnVM(string name, IEnumerable<DoctrineVM> doctrines)
         {
             _name = name;

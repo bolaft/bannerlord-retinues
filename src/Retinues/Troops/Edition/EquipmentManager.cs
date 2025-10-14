@@ -190,7 +190,7 @@ namespace Retinues.Troops.Edition
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {
@@ -212,7 +212,7 @@ namespace Retinues.Troops.Edition
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {
@@ -234,7 +234,7 @@ namespace Retinues.Troops.Edition
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {
@@ -258,7 +258,7 @@ namespace Retinues.Troops.Edition
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {
@@ -272,7 +272,7 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Unequips all items from a troop and restocks them.
         /// </summary>
-        public static void UnequipAll(WCharacter troop, WLoadout.Category category, int index = 0)
+        public static void UnequipAll(WCharacter troop, EquipmentCategory category, int index = 0)
         {
             Log.Debug($"Unequipping all items from troop {troop?.Name}.");
 
@@ -292,6 +292,9 @@ namespace Retinues.Troops.Edition
             if (item == null)
                 return 0;
 
+            if (Config.PayForEquipment == false)
+                return 0;
+
             int baseValue = item?.Value ?? 0;
             float rebate = 0.0f;
 
@@ -307,9 +310,7 @@ namespace Retinues.Troops.Edition
             }
             catch { }
 
-            return (int)(
-                baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier
-            );
+            return (int)(baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier);
         }
 
         private static bool IncludeCraftedThisOne(

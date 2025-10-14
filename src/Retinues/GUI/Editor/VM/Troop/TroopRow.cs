@@ -9,11 +9,11 @@ namespace Retinues.GUI.Editor.VM.Troop
     /// ViewModel for a troop row in the troop list. Handles display, search filtering, and selection refresh logic.
     /// </summary>
     [SafeClass]
-    public sealed class TroopRowVM(WCharacter troop, TroopListVM list)
+    public sealed class TroopRowVM(TroopListVM list, WCharacter troop)
         : BaseRow<TroopListVM, TroopRowVM>(list)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Troop                         //
+        //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WCharacter Troop = troop;
@@ -51,13 +51,13 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             get
             {
-                if (Troop.IsRetinue == true || Troop.IsMilitia == true)
+                if (Troop.IsRetinue || Troop.IsMilitia)
                     return Troop.Name;
 
                 // Indent troops by tier
                 int n = Math.Max(0, Troop.Tier - 1);
                 var indent = new string(' ', n * 4);
-                
+
                 return $"{indent}{Troop.Name}";
             }
         }
@@ -92,7 +92,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
+        //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected override void OnSelect()

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.GUI.Editor.VM;
+using Retinues.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
@@ -8,7 +8,7 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// Base class for editor list view models. Provides access to the editor screen, rows, and selection logic.
     /// </summary>
-    public abstract class BaseList<TSelf, TRow> : ViewModel
+    public abstract class BaseList<TSelf, TRow> : BaseComponent
         where TSelf : BaseList<TSelf, TRow>
         where TRow : BaseRow<TSelf, TRow>
     {
@@ -34,13 +34,15 @@ namespace Retinues.GUI.Editor
             }
         }
 
+        [DataSourceProperty]
+        public string FilterLabel => L.S("item_search_label", "Filter:");
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public virtual List<TRow> Rows { get; protected set; } = [];
 
-    
         public TRow Selection => Rows.FirstOrDefault(r => r.IsSelected);
 
         /// <summary>

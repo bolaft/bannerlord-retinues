@@ -319,6 +319,16 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public void Lock() => UnlocksBehavior.Lock(Base);
 
+        /// <summary>
+        /// Returns true if the item is currently being unlocked.
+        /// </summary>
+        public bool UnlockInProgress => UnlocksBehavior.InProgress(StringId);
+
+        /// <summary>
+        /// Returns the current progress towards unlocking the item.
+        /// </summary>
+        public int UnlockProgress => UnlocksBehavior.GetProgress(StringId);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Stocks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

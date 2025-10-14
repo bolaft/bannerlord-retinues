@@ -14,21 +14,26 @@ namespace Retinues.GUI.Editor.VM.Equipment
     /// </summary>
     [SafeClass]
     public sealed class EquipmentSlotVM(
-        EquipmentIndex slot,
-        string label,
         WCharacter troop,
-        EquipmentPanelVM editor
-    ) : ViewModel
+        WEquipment equipment,
+        EquipmentIndex slot,
+        string label
+    ) : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly EquipmentIndex _slot = slot;
-
         private readonly WCharacter _troop = troop;
+        private readonly WEquipment _equipment = equipment;
 
-        private readonly EquipmentPanelVM _editor = editor;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Item                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public EquipmentIndex EquipmentIndex = slot;
+
+        public WItem Item => _equipment.GetItem(EquipmentIndex);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -36,10 +41,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
-        private readonly string _label = label;
-
         [DataSourceProperty]
-        public string ButtonLabel => _label;
+        public string Label = label;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -51,17 +54,25 @@ namespace Retinues.GUI.Editor.VM.Equipment
             get => _isSelected;
             set
             {
-                if (_isSelected != value)
+                if (_isSelected == value)
+                    return;
+
+                _isSelected = value;
+
+                // Update equipment list on selection
+                if (value)
                 {
-                    _isSelected = value;
-
-                    // Specific row selection logic
-                    if (value)
-                        OnSelect();
-
-                    if (_editor.Screen?.EquipmentList is not null)
-                        _editor.Screen.EquipmentList.SearchText = ""; // Clear search on selection change
+                    Editor.EquipmentList = new EquipmentListVM(
+                        _troop,
+                        Editor.Faction,
+                        EquipmentIndex,
+                        civilian: Editor.EquipmentPanel.EquipmentCategory
+                            == EquipmentCategory.Civilian
+                    );
+                    OnPropertyChanged(nameof(Editor.EquipmentList));
                 }
+
+                OnPropertyChanged(nameof(IsSelected));
             }
         }
 
@@ -72,12 +83,15 @@ namespace Retinues.GUI.Editor.VM.Equipment
             {
                 // Disable mounts for tier 1 troops if disallowed in config
                 if (Config.NoMountForTier1 && _troop.Tier == 1)
-                    if (_slot == EquipmentIndex.Horse || _slot == EquipmentIndex.HorseHarness)
+                    if (
+                        EquipmentIndex == EquipmentIndex.Horse
+                        || EquipmentIndex == EquipmentIndex.HorseHarness
+                    )
                         return false;
 
                 // Disable horse harness if no horse equipped
-                if (_slot == EquipmentIndex.HorseHarness)
-                    if (_editor.Equipment?.GetItem(EquipmentIndex.Horse) == null)
+                if (EquipmentIndex == EquipmentIndex.HorseHarness)
+                    if (_equipment.GetItem(EquipmentIndex.Horse) == null)
                         return false;
 
                 return true;
@@ -87,20 +101,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /* ━━━━━━━ Item Info ━━━━━━ */
 
         [DataSourceProperty]
-        public string Name => Format.Crop(Item?.Name, 25);
-
-        [DataSourceProperty]
-        public string StagedName =>
-            $"{Format.Crop(StagedItem?.Name, 25)} ({StagedChangeDuration}h)";
+        public string ItemText =>
+            Format.Crop(
+                IsStaged ? StagedItem?.Name + $" ({StagedChange.Remaining}h)" : Item?.Name,
+                25
+            );
 
         [DataSourceProperty]
         public bool IsStaged => StagedItem != null;
-
-        [DataSourceProperty]
-        public bool IsActual => IsStaged == false;
-
-        [DataSourceProperty]
-        public bool IsMirrored => false; // Not implemented yet
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
@@ -134,66 +142,38 @@ namespace Retinues.GUI.Editor.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
-        public void ExecuteSelect() => Select();
+        public void ExecuteSelect() => Editor.EquipmentPanel.Select(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
+        //                         Staging                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WItem StagedItem => IsStaged ? new WItem(StagedChange.ItemId) : null;
 
         public PendingEquipData StagedChange =>
             TroopEquipBehavior.GetStagedChange(
                 _troop,
-                _slot,
-                _editor.LoadoutCategory,
-                _editor.LoadoutIndex
+                EquipmentIndex,
+                Editor.EquipmentPanel.EquipmentCategory,
+                Editor.EquipmentPanel.Index
             );
-
-        public int StagedChangeDuration => StagedChange?.Remaining ?? 0;
-
-        public WItem Item => IsStaged ? StagedItem : ActualItem;
-
-        public WItem ActualItem => _editor.Equipment.GetItem(_slot);
-
-        public WItem StagedItem
-        {
-            get
-            {
-                var itemId = StagedChange?.ItemId;
-                return itemId is null ? null : new WItem(itemId);
-            }
-        }
-
-        public EquipmentIndex Slot => _slot;
 
         public void Unstage()
         {
             if (!IsStaged)
                 return; // No-op if no staged change
 
-            var change = TroopEquipBehavior.GetStagedChange(
-                _troop,
-                _slot,
-                _editor.LoadoutCategory,
-                _editor.LoadoutIndex
-            );
-            var item = new WItem(change.ItemId);
+            // Restock current item if any
+            var item = new WItem(StagedChange.ItemId);
             item.Stock();
+
+            // Unstage
             TroopEquipBehavior.UnstageChange(
                 _troop,
-                _slot,
-                _editor.LoadoutCategory,
-                _editor.LoadoutIndex
+                EquipmentIndex,
+                Editor.EquipmentPanel.EquipmentCategory,
+                Editor.EquipmentPanel.Index
             );
         }
-
-        public void Select()
-        {
-            if (IsSelected)
-                return; // No-op if already selected
-
-            _editor.Select(this);
-        }
-
-        public void OnSelect() { }
     }
 }

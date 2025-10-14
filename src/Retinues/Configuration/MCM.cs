@@ -215,8 +215,8 @@ namespace Retinues.Configuration
                         L.S("mcm_ie_import_dropdown", "Available files"),
                         0,
                         new ProxyRef<Dropdown<string>>(
-                            () => _importDropdown,   // always the same object
-                            _ => { }                 // ignore setter; we manage it
+                            () => _importDropdown, // always the same object
+                            _ => { } // ignore setter; we manage it
                         ),
                         b => b.SetOrder(order++)
                     );
@@ -258,13 +258,12 @@ namespace Retinues.Configuration
                                                 Directory.CreateDirectory(
                                                     TroopImportExport.DefaultDir
                                                 );
-                                                TroopImportExport.ExportAllToXml("backup_" + SuggestDefaultExportName());
+                                                TroopImportExport.ExportAllToXml(
+                                                    "backup_" + SuggestDefaultExportName()
+                                                );
 
                                                 // import
-                                                var count =
-                                                    TroopImportExport.ImportFromXml(
-                                                        choice
-                                                    );
+                                                var count = TroopImportExport.ImportFromXml(choice);
                                                 Log.Message(
                                                     count > 0
                                                         ? $"Imported {count} root troop definitions from '{choice}'."
@@ -506,7 +505,11 @@ namespace Retinues.Configuration
                 Directory.CreateDirectory(TroopImportExport.DefaultDir);
 
                 var labels = Directory
-                    .EnumerateFiles(TroopImportExport.DefaultDir, "*.xml", SearchOption.TopDirectoryOnly)
+                    .EnumerateFiles(
+                        TroopImportExport.DefaultDir,
+                        "*.xml",
+                        SearchOption.TopDirectoryOnly
+                    )
                     .OrderByDescending(File.GetLastWriteTimeUtc)
                     .Select(Path.GetFileName)
                     .ToList();

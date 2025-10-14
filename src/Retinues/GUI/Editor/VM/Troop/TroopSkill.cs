@@ -1,4 +1,3 @@
-using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
@@ -17,28 +16,24 @@ namespace Retinues.GUI.Editor.VM.Troop
     /// ViewModel for a troop skill. Handles increment/decrement logic, retraining warnings, and UI refresh.
     /// </summary>
     [SafeClass]
-    public sealed class TroopSkillVM(SkillObject skill, WCharacter troop, TroopPanelVM editor)
-        : ViewModel
+    public sealed class TroopSkillVM(WCharacter troop, SkillObject skill) : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         readonly SkillObject _skill = skill;
-
         readonly WCharacter _troop = troop;
-
-        readonly TroopPanelVM _editor = editor;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public int DisplayValue => Value + StagedPoints;
+        public int Value => _troop?.GetSkill(_skill) + StagedAmount ?? 0;
 
         [DataSourceProperty]
-        public bool IsStaged => Staged != null && StagedPoints > 0;
+        public bool IsStaged => StagedAmount > 0;
 
         [DataSourceProperty]
         public string StringId => _skill.StringId;
@@ -60,44 +55,54 @@ namespace Retinues.GUI.Editor.VM.Troop
         public void ExecuteDecrement() => Modify(false);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
+        //                         Staging                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private int Value => _troop?.GetSkill(_skill) ?? 0;
-        private int StagedPoints => Staged?.PointsRemaining ?? 0;
-        private PendingTrainData Staged =>
-            TroopTrainBehavior.Instance?.GetPending(_troop.StringId, _skill.StringId) ?? null;
+        private int StagedAmount =>
+            TroopTrainBehavior
+                .Instance.GetPending(_troop.StringId, _skill.StringId)
+                ?.PointsRemaining
+            ?? 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static bool PlayerWarnedAboutRetraining = false;
 
         private void Modify(bool increment)
         {
-            if (!Config.TrainingTakesTime && increment) // Allow edits since you need a settlement to train anyway
-                if (_editor.Screen?.EditingIsAllowed == false)
-                    return; // Editing not allowed in current context
+            if (Config.TrainingTakesTime == false) // Only check in instant training mode
+                if (
+                    TroopRules.IsAllowedInContextWithPopup(
+                        _troop,
+                        Editor.Faction,
+                        L.S("action_modify", "modify")
+                    ) == false
+                )
+                    return; // Modification not allowed in current context
 
-            int repeat = 1;
-
-            if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))
-                repeat = 5; // Shift = 5
-
-            void doModify()
+            // Local function to perform the actual modification
+            void DoModify()
             {
-                for (int i = 0; i < repeat; i++)
+                for (int i = 0; i < BatchInput(); i++)
                 {
-                    if (increment && !CanIncrement)
-                        break;
-                    if (!increment && !CanDecrement)
-                        break;
+                    if (increment == true && !CanIncrement)
+                        break; // Can't increment further
+                    if (increment == false && !CanDecrement)
+                        break; // Can't decrement further
 
                     TroopManager.ModifySkill(_troop, _skill, increment);
                 }
             }
 
+            // Warn the player if decrementing a skill may require retraining
             if (
-                !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>()
-                && !increment
-                && !IsStaged
-                && !_editor.PlayerWarnedAboutRetraining
-                && (Config.BaseSkillXpCost + Config.SkillXpCostPerPoint) > 0
+                !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() // No warning if Adaptive Training is unlocked
+                && !increment // Only warn on decrement
+                && !IsStaged // No warning if removing staged points
+                && !PlayerWarnedAboutRetraining // No warning if already warned this session
+                && (Config.BaseSkillXpCost + Config.SkillXpCostPerPoint) > 0 // No warning if skills are free
             )
             {
                 // Warn the player that decrementing skills may require retraining
@@ -114,8 +119,8 @@ namespace Retinues.GUI.Editor.VM.Troop
                         negativeText: L.S("cancel", "Cancel"),
                         affirmativeAction: () =>
                         {
-                            doModify();
-                            _editor.PlayerWarnedAboutRetraining = true;
+                            DoModify(); // Proceed with modification
+                            PlayerWarnedAboutRetraining = true;
                         },
                         negativeAction: () => { }
                     )
@@ -123,7 +128,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             }
             else
             {
-                doModify();
+                DoModify(); // No warning needed, proceed with modification
             }
         }
     }

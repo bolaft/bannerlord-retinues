@@ -14,51 +14,146 @@ namespace Retinues.GUI.Editor.VM.Equipment
     /// ViewModel for equipment editor. Handles slot selection, unequip logic, and UI refresh.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentPanelVM(WCharacter troop) : ViewModel
+    public sealed class EquipmentPanelVM : BaseComponent
     {
-        public readonly WCharacter Troop = troop;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Properties                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public readonly WCharacter Troop;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public EquipmentPanelVM(WCharacter troop)
+        {
+            // Troop being edited
+            Troop = troop;
+
+            // Start focused on Battle set
+            Index = 0;
+
+            // Slot
+            BuildSlots();
+
+            // Select first slot by default
+            Select(WeaponItemBeginSlotSlot);
+        }
+
+        private void BuildSlots()
+        {
+            // Indexes
+            List<EquipmentIndex> indexes =
+            [
+                EquipmentIndex.Head,
+                EquipmentIndex.Cape,
+                EquipmentIndex.Body,
+                EquipmentIndex.Gloves,
+                EquipmentIndex.Leg,
+                EquipmentIndex.Horse,
+                EquipmentIndex.HorseHarness,
+                EquipmentIndex.WeaponItemBeginSlot,
+                EquipmentIndex.Weapon1,
+                EquipmentIndex.Weapon2,
+                EquipmentIndex.Weapon3,
+            ];
+
+            // Labels
+            List<string> labels =
+            [
+                L.S("head_slot_text", "Head"),
+                L.S("cape_slot_text", "Cape"),
+                L.S("body_slot_text", "Body"),
+                L.S("gloves_slot_text", "Gloves"),
+                L.S("leg_slot_text", "Legs"),
+                L.S("horse_slot_text", "Horse"),
+                L.S("horse_harness_slot_text", "Harness"),
+                L.S("weapon_1_slot_text", "Weapon 1"),
+                L.S("weapon_2_slot_text", "Weapon 2"),
+                L.S("weapon_3_slot_text", "Weapon 3"),
+                L.S("weapon_4_slot_text", "Weapon 4"),
+            ];
+
+            // Assignments
+            List<Action<EquipmentSlotVM>> slotAssignments =
+            [
+                vm => HeadSlot = vm,
+                vm => CapeSlot = vm,
+                vm => BodySlot = vm,
+                vm => GlovesSlot = vm,
+                vm => LegSlot = vm,
+                vm => HorseSlot = vm,
+                vm => HorseHarnessSlot = vm,
+                vm => WeaponItemBeginSlotSlot = vm,
+                vm => Weapon1Slot = vm,
+                vm => Weapon2Slot = vm,
+                vm => Weapon3Slot = vm,
+            ];
+
+            // Definitions
+            var definitions = indexes
+                .Zip(labels, (slot, label) => (slot, label))
+                .Zip(slotAssignments, (tuple, assign) => (tuple.slot, tuple.label, assign));
+
+            // Create and assign all slot VMs
+            foreach (var (slot, label, assign) in definitions)
+                assign(new(Troop, Equipment, slot, label));
+
+            // Refresh slot bindings
+            foreach (var slot in Slots)
+                OnPropertyChanged(nameof(slot));
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Equipment                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WLoadout.Category LoadoutCategory = WLoadout.Category.Battle;
-        public int LoadoutIndex = 0;
-        public WEquipment Equipment => SelectedTroop?.Loadout.Get(LoadoutCategory, LoadoutIndex);
+        public WEquipment Equipment => Troop.Loadout.Equipments[Index];
 
-        /// <summary>
-        /// Selects the given loadout category and index.
-        /// </summary>
-        public void SelectEquipment(
-            WLoadout.Category category = WLoadout.Category.Battle,
-            int index = 0
-        )
+        public EquipmentCategory EquipmentCategory
         {
-            if (SelectedTroop == null)
+            get
             {
-                LoadoutCategory = WLoadout.Category.Battle;
-                LoadoutIndex = 0;
-                return;
+                if (Index == 0)
+                    return EquipmentCategory.Battle;
+                else if (Index == 1)
+                    return EquipmentCategory.Civilian;
+                else
+                    return EquipmentCategory.Alternate;
             }
+        }
 
-            var altCount = SelectedTroop.Loadout.Alternates.Count;
-
-            if (category != WLoadout.Category.Alternate)
+        private int _index;
+        public int Index
+        {
+            get => _index;
+            set
             {
-                LoadoutCategory = category;
-                LoadoutIndex = 0; // Battle/Civilian always index 0
-            }
-            else
-            {
-                // Clamp to existing alternates
-                if (altCount == 0)
-                {
-                    LoadoutCategory = WLoadout.Category.Civilian;
-                    LoadoutIndex = 0;
+                if (_index == value)
                     return;
-                }
-                LoadoutCategory = WLoadout.Category.Alternate;
-                LoadoutIndex = Math.Max(0, Math.Min(index, altCount - 1));
+
+                if (value < 0)
+                    value = 0;
+
+                if (value >= Troop.Loadout.Equipments.Count)
+                    value = Troop.Loadout.Equipments.Count - 1;
+
+                // Refresh slots for new equipment set
+                BuildSlots();
+
+                // Refresh all bindings
+                OnPropertyChanged(nameof(CanUnequip));
+                OnPropertyChanged(nameof(CanUnstage));
+                OnPropertyChanged(nameof(EquipmentName));
+                OnPropertyChanged(nameof(CanSelectPrevSet));
+                OnPropertyChanged(nameof(CanSelectNextSet));
+                OnPropertyChanged(nameof(CanRemoveSet));
+
+                // Refresh 3D model
+                OnPropertyChanged(nameof(Editor.Model));
+
+                _index = value;
             }
         }
 
@@ -66,7 +161,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━━ Texts ━━━━━━━━ */
+        /* ━━━ Unequip / Unstage ━━ */
+
+        [DataSourceProperty]
+        public bool CanUnequip => Equipment.Items.Count() == 0;
+
+        [DataSourceProperty]
+        public bool CanUnstage => Slots.Any(s => s.IsStaged);
 
         [DataSourceProperty]
         public string UnequipAllButtonText => L.S("unequip_all_button_text", "Unequip All");
@@ -74,155 +175,65 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public string UnstageAllButtonText => L.S("unstage_all_button_text", "Reset Changes");
 
+        /* ━━━━ Equipment Sets ━━━━ */
+
         [DataSourceProperty]
-        public string CurrentSetText
+        public string EquipmentName
         {
             get
             {
-                if (LoadoutCategory == WLoadout.Category.Alternate)
-                    return L.T("set_alt_n", "Alt {N}")
-                        .SetTextVariable("N", LoadoutIndex + 1)
-                        .ToString();
-                return LoadoutCategory == WLoadout.Category.Civilian
-                    ? L.S("set_civilian", "Civilian")
-                    : L.S("set_battle", "Battle");
-            }
-        }
-
-        /* ━━━━━━━━━ Flags ━━━━━━━━ */
-
-        [DataSourceProperty]
-        public bool CanSelectPreviousSet
-        {
-            get
-            {
-                if (SelectedTroop == null)
-                    return false;
-                // Only Battle has no previous; Civilian always has Battle; Alternates have previous (Civilian or Alt-1)
-                return LoadoutCategory != WLoadout.Category.Battle;
-            }
-        }
-
-        [DataSourceProperty]
-        public bool CanSelectNextSet
-        {
-            get
-            {
-                if (SelectedTroop == null)
-                    return false;
-                var altCount = SelectedTroop.Loadout.Alternates.Count;
-
-                switch (LoadoutCategory)
+                return EquipmentCategory switch
                 {
-                    case WLoadout.Category.Battle:
-                        return true; // → Civilian
-                    case WLoadout.Category.Civilian:
-                        return altCount > 0; // → Alt 0 if any exist
-                    case WLoadout.Category.Alternate:
-                        return LoadoutIndex < altCount - 1; // → next Alt
-                    default:
-                        return false;
-                }
+                    EquipmentCategory.Battle => L.S("set_battle", "Battle"),
+                    EquipmentCategory.Civilian => L.S("set_civilian", "Civilian"),
+                    _ => L.T("set_alt_n", "Alt {N}").SetTextVariable("N", Index + 1).ToString(),
+                };
             }
         }
 
         [DataSourceProperty]
-        public bool CanUnequip
-        {
-            get
-            {
-                if (Screen.IsDefaultMode)
-                    return false; // Only show in equipment mode
-                if (SelectedTroop == null)
-                    return false;
-                if (Equipment == null)
-                    return false;
-                if (Equipment.Items.Where(item => !item.IsMirrored).Count() == 0)
-                    return false; // No equipment to unequip
-
-                return true;
-            }
-        }
+        public bool CanSelectPrevSet => Index > 0;
 
         [DataSourceProperty]
-        public bool CanRemoveSet =>
-            SelectedTroop != null
-            && LoadoutCategory == WLoadout.Category.Alternate
-            && LoadoutIndex >= 0
-            && LoadoutIndex < SelectedTroop.Loadout.Alternates.Count;
+        public bool CanSelectNextSet => Index < Troop.Loadout.Equipments.Count - 1;
 
         [DataSourceProperty]
-        public bool HasStagedChanges
-        {
-            get
-            {
-                if (SelectedTroop == null)
-                    return false;
-
-                foreach (var slot in Slots)
-                    if (slot.IsStaged)
-                        return true;
-
-                return false;
-            }
-        }
+        public bool CanRemoveSet => EquipmentCategory == EquipmentCategory.Alternate;
 
         /* ━━━━ Equipment Slots ━━━ */
 
-        private EquipmentSlotVM _headSlot;
+        [DataSourceProperty]
+        public EquipmentSlotVM HeadSlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM HeadSlot => _headSlot;
-
-        private EquipmentSlotVM _capeSlot;
+        public EquipmentSlotVM CapeSlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM CapeSlot => _capeSlot;
-
-        private EquipmentSlotVM _bodySlot;
+        public EquipmentSlotVM BodySlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM BodySlot => _bodySlot;
-
-        private EquipmentSlotVM _glovesSlot;
+        public EquipmentSlotVM GlovesSlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM GlovesSlot => _glovesSlot;
-
-        private EquipmentSlotVM _legSlot;
+        public EquipmentSlotVM LegSlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM LegSlot => _legSlot;
-
-        private EquipmentSlotVM _horseSlot;
+        public EquipmentSlotVM HorseSlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM HorseSlot => _horseSlot;
-
-        private EquipmentSlotVM _horseHarnessSlot;
+        public EquipmentSlotVM HorseHarnessSlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM HorseHarnessSlot => _horseHarnessSlot;
-
-        private EquipmentSlotVM _weaponItemBeginSlotSlot;
+        public EquipmentSlotVM WeaponItemBeginSlotSlot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM WeaponItemBeginSlotSlot => _weaponItemBeginSlotSlot;
-
-        private EquipmentSlotVM _weapon1Slot;
+        public EquipmentSlotVM Weapon1Slot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM Weapon1Slot => _weapon1Slot;
-
-        private EquipmentSlotVM _weapon2Slot;
+        public EquipmentSlotVM Weapon2Slot;
 
         [DataSourceProperty]
-        public EquipmentSlotVM Weapon2Slot => _weapon2Slot;
-
-        private EquipmentSlotVM _weapon3Slot;
-
-        [DataSourceProperty]
-        public EquipmentSlotVM Weapon3Slot => _weapon3Slot;
+        public EquipmentSlotVM Weapon3Slot;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -234,7 +245,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteUnequipAll()
         {
-            if (!CanUnequip)
+            if (CanUnequip == false)
                 return; // No-op if cannot unequip
 
             InformationManager.ShowInquiry(
@@ -244,7 +255,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                             "unequip_all_text",
                             "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
                         )
-                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("TROOP_NAME", Troop.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
@@ -252,7 +263,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        EquipmentManager.UnequipAll(SelectedTroop, LoadoutCategory, LoadoutIndex);
+                        EquipmentManager.UnequipAll(Troop, EquipmentCategory, Index);
                     },
                     negativeAction: () => { }
                 )
@@ -265,7 +276,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteUnstageAll()
         {
-            if (!HasStagedChanges)
+            if (CanUnstage == false)
                 return; // No-op if nothing to unstage
 
             InformationManager.ShowInquiry(
@@ -275,7 +286,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                             "unstage_all_text",
                             "Revert all staged equipment changes for {TROOP_NAME}?"
                         )
-                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("TROOP_NAME", Troop.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
@@ -292,83 +303,50 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceMethod]
-        public void ExecutePreviousSet()
+        public void ExecutePrevSet()
         {
-            if (SelectedTroop == null)
+            if (CanSelectPrevSet == false)
                 return;
 
-            switch (LoadoutCategory)
-            {
-                case WLoadout.Category.Battle:
-                    return; // no previous
-                case WLoadout.Category.Civilian:
-                    SelectEquipment(WLoadout.Category.Battle);
-                    return;
-                case WLoadout.Category.Alternate:
-                    if (LoadoutIndex > 0)
-                        SelectEquipment(WLoadout.Category.Alternate, LoadoutIndex - 1);
-                    else
-                        SelectEquipment(WLoadout.Category.Civilian);
-                    return;
-            }
+            Index -= 1;
         }
 
         [DataSourceMethod]
         public void ExecuteNextSet()
         {
-            if (SelectedTroop == null)
+            if (CanSelectNextSet == false)
                 return;
 
-            switch (LoadoutCategory)
-            {
-                case WLoadout.Category.Battle:
-                    SelectEquipment(WLoadout.Category.Civilian);
-                    return;
-
-                case WLoadout.Category.Civilian:
-                    if (SelectedTroop.Loadout.Alternates.Count > 0)
-                        SelectEquipment(WLoadout.Category.Alternate, 0);
-                    return;
-
-                case WLoadout.Category.Alternate:
-                    if (LoadoutIndex < SelectedTroop.Loadout.Alternates.Count - 1)
-                        SelectEquipment(WLoadout.Category.Alternate, LoadoutIndex + 1);
-                    return;
-            }
+            Index += 1;
         }
 
         [DataSourceMethod]
         public void ExecuteCreateSet()
         {
-            if (SelectedTroop == null)
-                return;
-
             // Create a brand-new EMPTY alternate set (independent, no free items)
-            var alternates = SelectedTroop.Loadout.Alternates;
+            var alternates = Troop.Loadout.Alternates;
             alternates.Add(WEquipment.FromCode(null));
-            SelectedTroop.Loadout.Alternates = alternates; // re-assign to trigger any bindings
+            Troop.Loadout.Alternates = alternates; // re-assign to trigger any bindings
 
             // Focus the newly created set
-            var newIndex = SelectedTroop.Loadout.Alternates.Count - 1;
-            SelectEquipment(WLoadout.Category.Alternate, newIndex);
+            Index = Troop.Loadout.Equipments.Count - 1;
         }
 
         [DataSourceMethod]
         public void ExecuteRemoveSet()
         {
-            if (!CanRemoveSet)
+            if (CanRemoveSet == false)
                 return;
 
-            var setLabel = $"Alt {LoadoutIndex + 1}";
             InformationManager.ShowInquiry(
                 new InquiryData(
                     L.S("remove_set_title", "Remove Set"),
                     L.T(
                             "remove_set_text",
-                            "Remove {SET} for {TROOP_NAME}?\nAll staged changes will be cleared and items will be unequipped and stocked."
+                            "Remove {EQUIPMENT} for {TROOP}?\nAll staged changes will be cleared and items will be unequipped and stocked."
                         )
-                        .SetTextVariable("SET", setLabel)
-                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("EQUIPMENT", EquipmentName)
+                        .SetTextVariable("TROOP", Troop.Name)
                         .ToString(),
                     true,
                     true,
@@ -376,22 +354,18 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     L.S("cancel", "Cancel"),
                     () =>
                     {
+                        // Clear all staged changes
                         foreach (var s in Slots)
                             s.Unstage();
-                        EquipmentManager.UnequipAll(SelectedTroop, LoadoutCategory, LoadoutIndex);
 
-                        var alts = SelectedTroop.Loadout.Alternates;
-                        alts.RemoveAt(LoadoutIndex);
-                        SelectedTroop.Loadout.Alternates = alts;
+                        // Unequip all items
+                        EquipmentManager.UnequipAll(Troop, EquipmentCategory, Index);
 
-                        var altCount = SelectedTroop.Loadout.Alternates.Count;
-                        if (altCount > 0)
-                            SelectEquipment(
-                                WLoadout.Category.Alternate,
-                                Math.Min(LoadoutIndex, altCount - 1)
-                            );
-                        else
-                            SelectEquipment(WLoadout.Category.Civilian);
+                        var alternates = Troop.Loadout.Alternates;
+                        alternates.RemoveAt(Index - 2); // -2 because alternates start at index 2
+                        Troop.Loadout.Alternates = alternates; // re-assign to trigger any bindings
+
+                        Index = 0; // Focus back to Battle set
                     },
                     () => { }
                 )
@@ -399,8 +373,25 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
+        //                          Slots                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns the currently selected equipment slot.
+        /// </summary>
+        public EquipmentSlotVM Selection
+        {
+            get
+            {
+                foreach (var r in Slots)
+                {
+                    if (r.IsSelected)
+                        return r;
+                }
+
+                return null;
+            }
+        }
 
         /// <summary>
         /// Returns all equipment slot view models.
@@ -426,66 +417,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         /// <summary>
-        /// Returns the currently selected equipment slot.
-        /// </summary>
-        public EquipmentSlotVM SelectedSlot
-        {
-            get
-            {
-                foreach (var r in Slots)
-                {
-                    if (r.IsSelected)
-                        return r;
-                }
-
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Selects the given equipment slot.
         /// </summary>
         public void Select(EquipmentSlotVM slot)
         {
             foreach (var r in Slots)
                 r.IsSelected = ReferenceEquals(r, slot);
-        }
-
-        /// <summary>
-        /// Creates all equipment slot view models.
-        /// </summary>
-        public void CreateAllSlots()
-        {
-            // Helper to create slot VMs
-            EquipmentSlotVM CreateSlot(EquipmentIndex slot, string label) =>
-                new(slot, label, SelectedTroop, this);
-
-            _headSlot = CreateSlot(EquipmentIndex.Head, L.S("head_slot_text", "Head"));
-            _capeSlot = CreateSlot(EquipmentIndex.Cape, L.S("cape_slot_text", "Cape"));
-            _bodySlot = CreateSlot(EquipmentIndex.Body, L.S("body_slot_text", "Body"));
-            _glovesSlot = CreateSlot(EquipmentIndex.Gloves, L.S("gloves_slot_text", "Gloves"));
-            _legSlot = CreateSlot(EquipmentIndex.Leg, L.S("leg_slot_text", "Legs"));
-            _horseSlot = CreateSlot(EquipmentIndex.Horse, L.S("horse_slot_text", "Horse"));
-            _horseHarnessSlot = CreateSlot(
-                EquipmentIndex.HorseHarness,
-                L.S("horse_harness_slot_text", "Harness")
-            );
-            _weaponItemBeginSlotSlot = CreateSlot(
-                EquipmentIndex.WeaponItemBeginSlot,
-                L.S("weapon_1_slot_text", "Weapon 1")
-            );
-            _weapon1Slot = CreateSlot(
-                EquipmentIndex.Weapon1,
-                L.S("weapon_2_slot_text", "Weapon 2")
-            );
-            _weapon2Slot = CreateSlot(
-                EquipmentIndex.Weapon2,
-                L.S("weapon_3_slot_text", "Weapon 3")
-            );
-            _weapon3Slot = CreateSlot(
-                EquipmentIndex.Weapon3,
-                L.S("weapon_4_slot_text", "Weapon 4")
-            );
         }
     }
 }

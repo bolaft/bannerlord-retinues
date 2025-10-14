@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
@@ -8,8 +9,6 @@ using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.SaveSystem;
-using Retinues.Configuration;
-
 #if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 # endif
@@ -274,7 +273,8 @@ namespace Retinues.Features.Upgrade.Behaviors
 
         protected static bool CanEdit(WCharacter troop)
         {
-            return Config.RestrictEditingToFiefs == false || TroopRules.IsAllowedInContext(troop, troop.Faction, Instance.ActionString);
+            return Config.RestrictEditingToFiefs == false
+                || TroopRules.IsAllowedInContext(troop, troop.Faction, Instance.ActionString);
         }
     }
 }

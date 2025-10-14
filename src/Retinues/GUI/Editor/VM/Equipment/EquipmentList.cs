@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment
@@ -11,39 +12,53 @@ namespace Retinues.GUI.Editor.VM.Equipment
     /// ViewModel for equipment list. Handles item search, selection, and refreshing available equipment rows.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentListVM : BaseList<EquipmentListVM, EquipmentRowVM>
+    public sealed class EquipmentListVM(
+        WCharacter troop,
+        WFaction faction,
+        EquipmentIndex index,
+        bool civilian
+    ) : BaseList<EquipmentListVM, EquipmentRowVM>
     {
+        public IEnumerable<(WItem, int?, bool)> AvailableMapping =
+            EquipmentManager.CollectAvailableItems(troop, faction, index, civilianOnly: civilian);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public MBBindingList<EquipmentRowVM> Equipments { get; set; } = [];
-
-        [DataSourceProperty]
-        public string SearchLabel => L.S("item_search_label", "Filter:");
-
-        private string _searchText;
-
-        [DataSourceProperty]
-        public string SearchText
+        public MBBindingList<EquipmentRowVM> Items
         {
-            get => _searchText;
-            set
+            get
             {
-                if (_searchText == value)
-                    return;
-                _searchText = value;
-                foreach (var equipment in Equipments)
-                    equipment.UpdateIsVisible(_searchText);
+                var list = new MBBindingList<EquipmentRowVM>();
+                foreach (var (item, progress, available) in AvailableMapping)
+                {
+                    var row = new EquipmentRowVM(
+                        this,
+                        Editor.EquipmentPanel.Selection,
+                        item,
+                        progress,
+                        available
+                    );
+
+                    if (item == Editor.EquipmentPanel.Selection.Item)
+                        row.IsSelected = true;
+
+                    list.Add(row);
+                }
+                return list;
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
+        //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override List<EquipmentRowVM> Rows => [.. Equipments];
+        /// <summary>
+        /// Override for BaseList functionality.
+        /// </summary>
+        public override List<EquipmentRowVM> Rows => [.. Items];
 
         /// <summary>
         /// Selects the row for the given item, if present.
@@ -56,46 +71,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             if (row is not null)
                 Select(row);
-        }
-
-        /// <summary>
-        /// Rebuilds all equipment rows for the selected slot and troop.
-        /// </summary>
-        public void Rebuild()
-        {
-            // Clear existing VM list
-            Equipments.Clear();
-
-            // Selected slot
-            var slot = Screen.EquipmentEditor.SelectedSlot;
-
-            // Only load items if a slot is selected
-            if (slot != null)
-            {
-                var items = EquipmentManager.CollectAvailableItems(
-                    Screen.SelectedTroop,
-                    Screen.Faction,
-                    slot.Slot,
-                    civilianOnly: Screen.EquipmentEditor.LoadoutCategory
-                        == WLoadout.Category.Civilian
-                );
-
-                foreach (var (item, progress, available) in items)
-                {
-                    // Create row VM
-                    var row = new EquipmentRowVM(item, this, progress, available);
-
-                    // Preselect equipped/staged item row
-                    if (
-                        (item != null && item == slot.StagedItem)
-                        || (slot.StagedItem == null && item == slot.Item)
-                    )
-                        row.IsSelected = true;
-
-                    // Add to list
-                    Equipments.Add(row);
-                }
-            }
         }
     }
 }

@@ -271,9 +271,11 @@ namespace Retinues.Troops.Edition
             int max = GetMaxConvertible(from, to);
             int amount = Math.Min(amountRequested, max);
 
-            // Apply cost
+            // Check if enough gold
             if (Player.Gold < cost)
                 return;
+
+            // Apply cost
             Player.ChangeGold(-cost);
 
             // Mutate roster

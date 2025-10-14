@@ -6,23 +6,17 @@ using TaleWorlds.Library;
 
 namespace Retinues.Game.Wrappers
 {
+    public enum EquipmentCategory
+    {
+        Battle = 0,
+        Civilian = 1,
+        Alternate = 2,
+    }
+
     [SafeClass(SwallowByDefault = false)]
     public class WLoadout(WCharacter wc)
     {
-        // Owner character
         private readonly WCharacter _owner = wc;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                           Enum                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        // Equipment categories
-        public enum Category
-        {
-            Battle = 0,
-            Civilian = 1,
-            Alternate = 2,
-        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Roster                        //
@@ -31,11 +25,11 @@ namespace Retinues.Game.Wrappers
         // Battle equipment
         public WEquipment Battle
         {
-            get => Equipments[(int)Category.Battle];
+            get => Equipments[(int)EquipmentCategory.Battle];
             set
             {
                 var list = Equipments;
-                list[(int)Category.Battle] = value;
+                list[(int)EquipmentCategory.Battle] = value;
                 Equipments = list;
             }
         }
@@ -43,11 +37,11 @@ namespace Retinues.Game.Wrappers
         // Civilian equipment
         public WEquipment Civilian
         {
-            get => Equipments[(int)Category.Civilian];
+            get => Equipments[(int)EquipmentCategory.Civilian];
             set
             {
                 var list = Equipments;
-                list[(int)Category.Civilian] = value;
+                list[(int)EquipmentCategory.Civilian] = value;
                 Equipments = list;
             }
         }
@@ -55,8 +49,8 @@ namespace Retinues.Game.Wrappers
         // Alternate equipments (if any)
         public List<WEquipment> Alternates
         {
-            get => Equipments.Skip((int)Category.Alternate).ToList();
-            set => Equipments = [.. Equipments.Take((int)Category.Alternate), .. value];
+            get => Equipments.Skip((int)EquipmentCategory.Alternate).ToList();
+            set => Equipments = [.. Equipments.Take((int)EquipmentCategory.Alternate), .. value];
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -128,13 +122,13 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets the equipment for the specified category and index.
         /// </summary>
-        public WEquipment Get(Category category, int index = 0)
+        public WEquipment Get(EquipmentCategory category, int index = 0)
         {
             return category switch
             {
-                Category.Battle => Battle,
-                Category.Civilian => Civilian,
-                Category.Alternate => (index >= 0 && index < Alternates.Count)
+                EquipmentCategory.Battle => Battle,
+                EquipmentCategory.Civilian => Civilian,
+                EquipmentCategory.Alternate => (index >= 0 && index < Alternates.Count)
                     ? Alternates[index]
                     : null,
                 _ => null,

@@ -39,6 +39,10 @@ namespace Retinues.Troops.Edition
         {
             if (faction == null)
                 return null;
+
+            if (Config.RestrictEditingToFiefs == false)
+                return null;
+
             var settlement = Player.CurrentSettlement;
 
             if (troop.IsRetinue == true && faction == Player.Clan)
@@ -246,15 +250,15 @@ namespace Retinues.Troops.Edition
             if (character.IsMilitia)
                 return false; // Militia cannot be upgraded
 
+            if (character.IsRetinue)
+                return false; // Retinues cannot be upgraded
+
             // Max tier reached
             if (character.IsMaxTier)
                 return false;
 
             int maxUpgrades;
-
-            if (character.IsRetinue)
-                maxUpgrades = 1; // 1 upgrade for retinues
-            else if (character.IsElite)
+            if (character.IsElite)
                 if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>())
                     maxUpgrades = 2; // 2 upgrades for elite troops with Masters at Arms
                 else

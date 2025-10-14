@@ -37,7 +37,8 @@ namespace Retinues.Utils
         public static LogLevel MinFileLevel => Config.DebugMode ? LogLevel.Debug : LogLevel.Debug;
 
         // Lowest level shown in-game (InformationManager)
-        public static LogLevel MinInGameLevel => Config.DebugMode ? LogLevel.Info : LogLevel.Critical;
+        public static LogLevel MinInGameLevel =>
+            Config.DebugMode ? LogLevel.Info : LogLevel.Critical;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Log File Setup                     //

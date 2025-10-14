@@ -46,10 +46,10 @@ namespace Retinues.Features.Upgrade.Behaviors
             set => SlotValue = (int)value;
         }
 
-        // convenience WLoadout.Category accessors
-        public WLoadout.Category Category
+        // convenience EquipmentCategory accessors
+        public EquipmentCategory Category
         {
-            get => (WLoadout.Category)CategoryValue;
+            get => (EquipmentCategory)CategoryValue;
             set => CategoryValue = (int)value;
         }
 
@@ -91,7 +91,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         public static PendingEquipData GetStagedChange(
             WCharacter troop,
             EquipmentIndex slot,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {
@@ -106,7 +106,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         public static void UnstageChange(
             WCharacter troop,
             EquipmentIndex slot,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {
@@ -120,7 +120,7 @@ namespace Retinues.Features.Upgrade.Behaviors
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {

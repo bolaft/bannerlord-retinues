@@ -33,7 +33,7 @@ namespace Retinues.GUI.Editor.Mixins
                         TroopBuilder.EnsureTroopsExist(f);
 
                 // Initialize the editor screen ViewModel
-                _screen = new VM.EditorVM();
+                _screen = new EditorVM(Player.Clan);
 
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 

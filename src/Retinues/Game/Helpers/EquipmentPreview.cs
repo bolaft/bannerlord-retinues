@@ -9,7 +9,7 @@ namespace Retinues.Game.Helpers
     {
         public static Equipment BuildStagedEquipment(
             WCharacter troop,
-            WLoadout.Category category,
+            EquipmentCategory category,
             int index = 0
         )
         {

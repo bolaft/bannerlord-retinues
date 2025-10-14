@@ -7,7 +7,7 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// Base class for editor row view models. Handles selection logic, bindings, and row list access.
     /// </summary>
-    public abstract class BaseRow<TList, TRow>(TList list) : ViewModel
+    public abstract class BaseRow<TList, TRow>(TList list) : BaseComponent
         where TList : BaseList<TList, TRow>
         where TRow : BaseRow<TList, TRow>
     {
@@ -38,21 +38,6 @@ namespace Retinues.GUI.Editor
 
                     OnPropertyChanged(nameof(IsSelected));
                 }
-            }
-        }
-
-        private bool _isVisible = true;
-
-        [DataSourceProperty]
-        public virtual bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                if (_isVisible == value)
-                    return;
-                _isVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
             }
         }
 
@@ -92,6 +77,9 @@ namespace Retinues.GUI.Editor
             // No-op if already selected
             if (IsSelected)
                 return;
+
+            if (!IsEnabled)
+                return; // Cannot select disabled rows
 
             // Safe due to self-referential generic constraint
             _list.Select((TRow)this);

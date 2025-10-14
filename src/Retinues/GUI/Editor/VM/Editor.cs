@@ -1,6 +1,9 @@
+using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
 using Retinues.Utils;
@@ -9,6 +12,13 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM
 {
+    public enum EditorMode
+    {
+        Troop = 0,
+        Equipment = 1,
+        Doctrine = 2,
+    }
+
     /// <summary>
     /// ViewModel for the troop editor screen. Handles mode switching, faction switching, selection, and refresh logic.
     /// </summary>
@@ -19,10 +29,8 @@ namespace Retinues.GUI.Editor.VM
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Singleton instance for easy access
         public static EditorVM Instance { get; private set; }
 
-        // Constructor (called once for singleton pattern)
         public EditorVM(WFaction faction)
         {
             Instance = this;
@@ -32,7 +40,7 @@ namespace Retinues.GUI.Editor.VM
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
+        //                          Troop                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private WCharacter _troop;
@@ -45,15 +53,12 @@ namespace Retinues.GUI.Editor.VM
                     return;
                 _troop = value;
 
-                // Always recreate to reset state
-                TroopPanel = new TroopPanelVM(value);
-
-                // Ensure default mode
-                Mode = EditorMode.Default;
+                // New troop panel
+                TroopPanel = new TroopPanelVM(value, Faction);
+                OnPropertyChanged(nameof(TroopPanel));
 
                 // Ensure model refresh
                 OnPropertyChanged(nameof(Model));
-
             }
         }
 
@@ -71,7 +76,9 @@ namespace Retinues.GUI.Editor.VM
                     return;
                 _faction = value;
 
-                Troop = _faction.RetinueElite;
+                // Build troop list, default selection will trigger panel build
+                TroopList = new TroopListVM(_faction);
+                OnPropertyChanged(nameof(TroopList));
 
                 // Update faction button text
                 OnPropertyChanged(nameof(FactionButtonText));
@@ -82,14 +89,7 @@ namespace Retinues.GUI.Editor.VM
         //                       Editor Mode                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public enum EditorMode
-        {
-            Default = 0,
-            Equipment = 1,
-            Doctrines = 2,
-        }
-
-        private EditorMode _mode = EditorMode.Default;
+        private EditorMode _mode;
         public EditorMode Mode
         {
             get => _mode;
@@ -103,14 +103,40 @@ namespace Retinues.GUI.Editor.VM
                 OnPropertyChanged(nameof(EquipmentMode));
                 OnPropertyChanged(nameof(DoctrinesMode));
 
-                if (value == EditorMode.Equipment)
+                // Hide all panels/lists not in this mode
+                if (value != EditorMode.Troop)
                 {
-                    // If troop since last time in equipment mode, recreate
-                    if (EquipmentPanel == null || EquipmentPanel.Troop != Troop)
-                    {
-                        EquipmentPanel = new EquipmentPanelVM(Troop);
-                        OnPropertyChanged(nameof(EquipmentPanel));
-                    }
+                    TroopList?.Hide();
+                    TroopPanel?.Hide();
+                }
+                if (value != EditorMode.Equipment)
+                {
+                    EquipmentList?.Hide();
+                    EquipmentPanel?.Hide();
+                }
+                if (value != EditorMode.Doctrine)
+                {
+                    DoctrineScreen?.Hide();
+                }
+
+                // Create / Show relevant panels/lists
+                switch (value)
+                {
+                    case EditorMode.Troop:
+                        TroopList.Show();
+                        TroopPanel.Show();
+                        break;
+                    case EditorMode.Equipment:
+                        if (EquipmentPanel == null || Troop != EquipmentPanel.Troop)
+                            EquipmentPanel = new EquipmentPanelVM(Troop);
+
+                        EquipmentPanel.Show();
+                        EquipmentList.Show();
+                        break;
+                    case EditorMode.Doctrine:
+                        DoctrineScreen ??= new DoctrineScreenVM();
+                        DoctrineScreen.Show();
+                        break;
                 }
             }
         }
@@ -129,7 +155,8 @@ namespace Retinues.GUI.Editor.VM
             get => _troopPanel;
             set
             {
-                if (_troopPanel == value) return;
+                if (_troopPanel == value)
+                    return;
                 _troopPanel = value;
                 OnPropertyChanged(nameof(TroopPanel));
             }
@@ -143,7 +170,8 @@ namespace Retinues.GUI.Editor.VM
             get => _troopList;
             set
             {
-                if (_troopList == value) return;
+                if (_troopList == value)
+                    return;
                 _troopList = value;
                 OnPropertyChanged(nameof(TroopList));
             }
@@ -157,7 +185,8 @@ namespace Retinues.GUI.Editor.VM
             get => _equipmentPanel;
             set
             {
-                if (_equipmentPanel == value) return;
+                if (_equipmentPanel == value)
+                    return;
                 _equipmentPanel = value;
                 OnPropertyChanged(nameof(EquipmentPanel));
             }
@@ -171,9 +200,25 @@ namespace Retinues.GUI.Editor.VM
             get => _equipmentList;
             set
             {
-                if (_equipmentList == value) return;
+                if (_equipmentList == value)
+                    return;
                 _equipmentList = value;
                 OnPropertyChanged(nameof(EquipmentList));
+            }
+        }
+
+        private DoctrineScreenVM _doctrineScreen;
+
+        [DataSourceProperty]
+        public DoctrineScreenVM DoctrineScreen
+        {
+            get => _doctrineScreen;
+            set
+            {
+                if (_doctrineScreen == value)
+                    return;
+                _doctrineScreen = value;
+                OnPropertyChanged(nameof(DoctrineScreen));
             }
         }
 
@@ -189,9 +234,14 @@ namespace Retinues.GUI.Editor.VM
         {
             get
             {
-                var category = EquipmentPanel.LoadoutCategory;
-                var index = EquipmentPanel.LoadoutIndex;
-                if (_model == null || _lastTroop != Troop || _lastCategory != (int)category || _lastIndex != index)
+                var category = EquipmentPanel.EquipmentCategory;
+                var index = EquipmentPanel.Index;
+                if (
+                    _model == null
+                    || _lastTroop != Troop
+                    || _lastCategory != (int)category
+                    || _lastIndex != index
+                )
                 {
                     _model = Troop?.GetModel(category, index);
                     _lastTroop = Troop;
@@ -212,7 +262,7 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public string DoctrinesButtonText =>
-            Mode == EditorMode.Doctrines
+            Mode == EditorMode.Doctrine
                 ? L.S("close_doctrines_button_text", "Back")
                 : L.S("doctrines_button_text", "Doctrines");
 
@@ -225,21 +275,21 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowFactionButton => Mode != EditorMode.Doctrines && Player.Kingdom != null;
+        public bool ShowFactionButton => Mode != EditorMode.Doctrine && Player.Kingdom != null;
 
         [DataSourceProperty]
-        public bool ShowDoctrinesButton => Config.GetOption<bool>("EnableDoctrines");
+        public bool ShowDoctrinesButton => Config.EnableDoctrines;
 
         /* ━━━━━━━━━ Modes ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool DefaultMode => Mode == EditorMode.Default;
+        public bool DefaultMode => Mode == EditorMode.Troop;
 
         [DataSourceProperty]
         public bool EquipmentMode => Mode == EditorMode.Equipment;
 
         [DataSourceProperty]
-        public bool DoctrinesMode => Mode == EditorMode.Doctrines;
+        public bool DoctrinesMode => Mode == EditorMode.Doctrine;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -248,13 +298,13 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━ Mode Switch ━━━━━ */
 
         [DataSourceMethod]
-        public void ExecuteSwitchToDefault() => Mode = EditorMode.Default;
+        public void ExecuteSwitchToDefault() => Mode = EditorMode.Troop;
 
         [DataSourceMethod]
         public void ExecuteSwitchToEquipment() => Mode = EditorMode.Equipment;
 
         [DataSourceMethod]
-        public void ExecuteSwitchToDoctrines() => Mode = EditorMode.Doctrines;
+        public void ExecuteSwitchToDoctrines() => Mode = EditorMode.Doctrine;
 
         /* ━━━━ Faction Switch ━━━━ */
 

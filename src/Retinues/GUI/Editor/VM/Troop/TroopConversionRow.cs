@@ -1,9 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
-using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop
@@ -12,39 +10,43 @@ namespace Retinues.GUI.Editor.VM.Troop
     /// ViewModel for a troop conversion row. Handles recruiting, releasing, cost calculation, and UI refresh.
     /// </summary>
     [SafeClass]
-    public sealed class TroopConversionRowVM(WCharacter from, WCharacter to, TroopPanelVM editor)
-        : ViewModel
+    public sealed class TroopConversionRowVM(
+        TroopPanelVM owner,
+        WCharacter origin,
+        WCharacter target
+    ) : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly TroopPanelVM _editor = editor;
-        private readonly WCharacter _from = from;
-        private readonly WCharacter _to = to;
+        private readonly TroopPanelVM _owner = owner;
+        private readonly WCharacter _origin = origin;
+        private readonly WCharacter _target = target;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string FromDisplay => $"{Format.Crop(_from?.Name, 40)} ({FromAvailableVirtual})";
+        public string OriginDisplay =>
+            $"{Format.Crop(_origin?.Name, 40)} ({_owner.GetVirtualCount(_origin)})";
 
         [DataSourceProperty]
-        public string ToDisplay =>
-            $"{Format.Crop(_to?.Name, 40)} ({ToAvailableVirtual}/{_editor.RetinueCap})";
+        public string TargetDisplay =>
+            $"{Format.Crop(_target?.Name, 40)} ({_owner.GetVirtualCount(_target)}/{_owner.RetinueCap})";
 
         [DataSourceProperty]
-        public bool CanRecruit => _editor.GetMaxStageable(_from, _to) > 0;
+        public bool CanRecruit => _owner.GetMaxStageable(_origin, _target) > 0;
 
         [DataSourceProperty]
-        public bool CanRelease => _editor.GetVirtualCount(_to) > 0;
+        public bool CanRelease => _owner.GetVirtualCount(_target) > 0;
 
         [DataSourceProperty]
-        public int ConversionCost => PendingAmount * TroopRules.ConversionCostPerUnit(_to);
+        public int ConversionCost => PendingAmount * TroopRules.ConversionCostPerUnit(_target);
 
         [DataSourceProperty]
-        public int PendingAmount => _editor.GetPendingAmount(_from, _to);
+        public int PendingAmount => _owner.GetStagedConversions(_origin, _target);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -53,42 +55,31 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteRecruit()
         {
-            if (_editor.Screen?.ConversionIsAllowed == false)
+            if (
+                TroopRules.IsAllowedInContextWithPopup(
+                    _origin,
+                    Editor.Faction,
+                    L.S("action_convert", "convert")
+                ) == false
+            )
                 return; // Conversion not allowed in current context
-            int amount = ReadBatchAmount();
-            _editor.StageConversion(_from, _to, amount);
+
+            _owner.StageConversion(_origin, _target, BatchInput());
         }
 
         [DataSourceMethod]
         public void ExecuteRelease()
         {
-            if (_editor.Screen?.ConversionIsAllowed == false)
+            if (
+                TroopRules.IsAllowedInContextWithPopup(
+                    _origin,
+                    Editor.Faction,
+                    L.S("action_convert", "convert")
+                ) == false
+            )
                 return; // Conversion not allowed in current context
-            int amount = ReadBatchAmount();
-            _editor.StageConversion(_to, _from, amount);
-        }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public int FromAvailable => _from != null ? Player.Party.MemberRoster.CountOf(_from) : 0;
-        public int ToAvailable => _to != null ? Player.Party.MemberRoster.CountOf(_to) : 0;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private int FromAvailableVirtual => _editor.GetVirtualCount(_from);
-        private int ToAvailableVirtual => _editor.GetVirtualCount(_to);
-
-        private static int ReadBatchAmount()
-        {
-            if (Input.IsKeyDown(InputKey.LeftControl) || Input.IsKeyDown(InputKey.RightControl))
-                return 500;
-            if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))
-                return 5;
-            return 1;
+            _owner.StageConversion(_target, _origin, BatchInput());
         }
     }
 }
