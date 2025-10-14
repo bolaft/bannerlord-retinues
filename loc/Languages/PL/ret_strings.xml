@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="Modyfikator ceny ekwipunku w porównaniu do cen w podstawowej wersji gry." />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="Wymuś Główny Zestaw Bojowy w Walce" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="Jednostki zawsze używają swojego głównego zestawu wyposażenia bojowego w walce." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksymalny Udział Orszaku Podstawowego" />
     <string

@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="與基礎遊戲價格相比的裝備價格修正。" />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="戰鬥中強制使用主戰裝備" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="部隊在戰鬥中始終使用其主戰裝備。" />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基礎隨從比例上限" />
     <string

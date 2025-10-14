@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="기본 게임 가격과 비교한 장비 가격 수정자." />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="전투 중 주 전투 세트 강제" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="병력은 전투 중에 항상 주 전투 장비 세트를 사용합니다." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="기본 수행원 비율 상한" />
     <string

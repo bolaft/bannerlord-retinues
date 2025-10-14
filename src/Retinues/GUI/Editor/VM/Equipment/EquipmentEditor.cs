@@ -63,6 +63,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             Refresh();
             Screen.Refresh();
+
+            Log.Info(
+                $"EquipmentEditor: selected loadout {LoadoutCategory} [{LoadoutIndex}] (civilian: {Equipment.IsCivilian})."
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

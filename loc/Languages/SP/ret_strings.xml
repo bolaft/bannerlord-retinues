@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="Modificador para el precio del equipo en comparación con los precios del juego base." />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="Forzar Conjunto de Batalla Principal en Combate" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="Las tropas siempre usan su conjunto de equipo de batalla principal en combate." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Proporción Máxima de Séquito Básico" />
     <string

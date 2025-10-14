@@ -524,6 +524,12 @@
       id="ret_mcm_option_equipment_price_modifier_hint"
       text="Modifier for equipment price compared to base game prices." />
     <string
+      id="ret_mcm_option_force_main_battle_set_in_combat"
+      text="Force Main Battle Set In Combat" />
+    <string
+      id="ret_mcm_option_force_main_battle_set_in_combat_hint"
+      text="Troops always use their main battle equipment set in combat." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Max Basic Retinue Ratio" />
     <string
