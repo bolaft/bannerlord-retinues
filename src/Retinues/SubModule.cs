@@ -21,6 +21,7 @@ using Retinues.Configuration;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
+using Retinues.Features.Recruits.Behaviors;
 
 namespace Retinues
 {
@@ -156,6 +157,9 @@ namespace Retinues
                 // Item behaviors
                 cs.AddBehavior(new UnlocksBehavior());
                 cs.AddBehavior(new StocksBehavior());
+
+                // Swap behaviors
+                cs.AddBehavior(new MilitiaSwapBehavior());
 
                 // Training behavior
                 cs.AddBehavior(new TroopTrainBehavior());
