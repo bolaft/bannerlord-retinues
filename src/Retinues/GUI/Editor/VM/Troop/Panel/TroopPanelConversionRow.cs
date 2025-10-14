@@ -4,25 +4,22 @@ using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop
+namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
-    /// <summary>
-    /// ViewModel for a troop conversion row. Handles recruiting, releasing, cost calculation, and UI refresh.
-    /// </summary>
     [SafeClass]
-    public sealed class TroopConversionRowVM(
-        TroopPanelVM owner,
-        WCharacter origin,
-        WCharacter target
-    ) : BaseComponent
+    public sealed class TroopConversionRowVM(WCharacter source) : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly TroopPanelVM _owner = owner;
-        private readonly WCharacter _origin = origin;
-        private readonly WCharacter _target = target;
+        private readonly WCharacter _source = source;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Quick Access                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private TroopPanelVM Panel => Editor.TroopScreen.TroopPanel;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -30,23 +27,24 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public string OriginDisplay =>
-            $"{Format.Crop(_origin?.Name, 40)} ({_owner.GetVirtualCount(_origin)})";
+            $"{Format.Crop(_source?.Name, 40)} ({Panel.GetVirtualCount(_source)})";
 
         [DataSourceProperty]
         public string TargetDisplay =>
-            $"{Format.Crop(_target?.Name, 40)} ({_owner.GetVirtualCount(_target)}/{_owner.RetinueCap})";
+            $"{Format.Crop(SelectedTroop?.Name, 40)} ({Panel.GetVirtualCount(SelectedTroop)}/{Panel.RetinueCap})";
 
         [DataSourceProperty]
-        public bool CanRecruit => _owner.GetMaxStageable(_origin, _target) > 0;
+        public bool CanRecruit => Panel.GetMaxStageable(_source, SelectedTroop) > 0;
 
         [DataSourceProperty]
-        public bool CanRelease => _owner.GetVirtualCount(_target) > 0;
+        public bool CanRelease => Panel.GetVirtualCount(SelectedTroop) > 0;
 
         [DataSourceProperty]
-        public int ConversionCost => PendingAmount * TroopRules.ConversionCostPerUnit(_target);
+        public int ConversionCost =>
+            PendingAmount * TroopRules.ConversionCostPerUnit(SelectedTroop);
 
         [DataSourceProperty]
-        public int PendingAmount => _owner.GetStagedConversions(_origin, _target);
+        public int PendingAmount => Panel.GetStagedConversions(_source, SelectedTroop);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -56,30 +54,24 @@ namespace Retinues.GUI.Editor.VM.Troop
         public void ExecuteRecruit()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(
-                    _origin,
-                    Editor.Faction,
-                    L.S("action_convert", "convert")
-                ) == false
+                TroopRules.IsAllowedInContextWithPopup(_source, L.S("action_convert", "convert"))
+                == false
             )
                 return; // Conversion not allowed in current context
 
-            _owner.StageConversion(_origin, _target, BatchInput());
+            Panel.StageConversion(_source, SelectedTroop, BatchInput());
         }
 
         [DataSourceMethod]
         public void ExecuteRelease()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(
-                    _origin,
-                    Editor.Faction,
-                    L.S("action_convert", "convert")
-                ) == false
+                TroopRules.IsAllowedInContextWithPopup(_source, L.S("action_convert", "convert"))
+                == false
             )
                 return; // Conversion not allowed in current context
 
-            _owner.StageConversion(_target, _origin, BatchInput());
+            Panel.StageConversion(SelectedTroop, _source, BatchInput());
         }
     }
 }

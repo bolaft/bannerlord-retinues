@@ -1,4 +1,3 @@
-using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;
@@ -6,24 +5,22 @@ using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM
 {
-    public enum EditorMode
+    public enum Screen
     {
         Troop = 0,
         Equipment = 1,
         Doctrine = 2,
     }
 
-    /// <summary>
-    /// ViewModel for the troop editor screen. Handles mode switching, faction switching, selection, and refresh logic.
-    /// </summary>
     [SafeClass]
-    public class EditorVM : ViewModel
+    public class EditorVM : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -31,42 +28,34 @@ namespace Retinues.GUI.Editor.VM
 
         public static EditorVM Instance { get; private set; }
 
-        public EditorVM(WFaction faction)
+        public EditorVM()
         {
+            // Singleton instance
             Instance = this;
 
-            // Will update everything else
-            Faction = faction;
+            // Ensure retinue troops exist for player factions
+            foreach (var f in new[] { Player.Clan, Player.Kingdom })
+                if (f != null)
+                    TroopBuilder.EnsureTroopsExist(f);
+
+            // Subscribe to troop change events
+            TroopScreen.TroopChanged += _ => OnTroopChanged(_);
+
+            // Show troop screen
+            TroopScreen.Show();
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Troop                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private WCharacter _troop;
-        public WCharacter Troop
+        private void OnTroopChanged(WCharacter _)
         {
-            get => _troop;
-            set
-            {
-                if (_troop == value || value == null)
-                    return;
-                _troop = value;
-
-                // New troop panel
-                TroopPanel = new TroopPanelVM(value, Faction);
-                OnPropertyChanged(nameof(TroopPanel));
-
-                // Ensure model refresh
-                OnPropertyChanged(nameof(Model));
-            }
+            TroopScreen.TroopPanel.RefreshOnTroopChange();
+            OnPropertyChanged(nameof(Model));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Faction                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WFaction _faction;
+        private WFaction _faction = Player.Clan;
         public WFaction Faction
         {
             get => _faction;
@@ -76,12 +65,15 @@ namespace Retinues.GUI.Editor.VM
                     return;
                 _faction = value;
 
-                // Build troop list, default selection will trigger panel build
-                TroopList = new TroopListVM(_faction);
-                OnPropertyChanged(nameof(TroopList));
+                // Build troop screen
+                TroopScreen = new TroopScreenVM();
+                OnPropertyChanged(nameof(TroopScreen));
 
                 // Update faction button text
                 OnPropertyChanged(nameof(FactionButtonText));
+
+                // Update 3D model
+                OnPropertyChanged(nameof(Model));
             }
         }
 
@@ -89,51 +81,46 @@ namespace Retinues.GUI.Editor.VM
         //                       Editor Mode                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private EditorMode _mode;
-        public EditorMode Mode
+        private Screen _screen = Screen.Troop;
+        public Screen Screen
         {
-            get => _mode;
+            get => _screen;
             set
             {
-                if (_mode == value)
+                if (_screen == value)
                     return;
-                _mode = value;
+                _screen = value;
 
-                OnPropertyChanged(nameof(DefaultMode));
-                OnPropertyChanged(nameof(EquipmentMode));
-                OnPropertyChanged(nameof(DoctrinesMode));
+                // Notify screen change
+                OnPropertyChanged(nameof(InTroopScreen));
+                OnPropertyChanged(nameof(InEquipmentScreen));
+                OnPropertyChanged(nameof(InDoctrineScreen));
 
-                // Hide all panels/lists not in this mode
-                if (value != EditorMode.Troop)
-                {
-                    TroopList?.Hide();
-                    TroopPanel?.Hide();
-                }
-                if (value != EditorMode.Equipment)
-                {
-                    EquipmentList?.Hide();
-                    EquipmentPanel?.Hide();
-                }
-                if (value != EditorMode.Doctrine)
-                {
-                    DoctrineScreen?.Hide();
-                }
+                // Update buttons
+                OnPropertyChanged(nameof(EquipmentButtonText));
+                OnPropertyChanged(nameof(DoctrinesButtonText));
+                OnPropertyChanged(nameof(ShowFactionButton));
+                OnPropertyChanged(nameof(ShowDoctrinesButton));
+                OnPropertyChanged(nameof(ShowEquipmentButton));
 
-                // Create / Show relevant panels/lists
+                // Create/Show/Hide screens
                 switch (value)
                 {
-                    case EditorMode.Troop:
-                        TroopList.Show();
-                        TroopPanel.Show();
+                    case Screen.Troop:
+                        EquipmentScreen.Hide();
+                        DoctrineScreen.Hide();
+                        TroopScreen ??= new TroopScreenVM();
+                        TroopScreen.Show();
                         break;
-                    case EditorMode.Equipment:
-                        if (EquipmentPanel == null || Troop != EquipmentPanel.Troop)
-                            EquipmentPanel = new EquipmentPanelVM(Troop);
-
-                        EquipmentPanel.Show();
-                        EquipmentList.Show();
+                    case Screen.Equipment:
+                        TroopScreen.Hide();
+                        DoctrineScreen.Hide();
+                        EquipmentScreen ??= new EquipmentScreenVM();
+                        EquipmentScreen.Show();
                         break;
-                    case EditorMode.Doctrine:
+                    case Screen.Doctrine:
+                        TroopScreen.Hide();
+                        EquipmentScreen.Hide();
                         DoctrineScreen ??= new DoctrineScreenVM();
                         DoctrineScreen.Show();
                         break;
@@ -145,69 +132,39 @@ namespace Retinues.GUI.Editor.VM
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━━━ VMs ━━━━━━━━━ */
-
-        private TroopPanelVM _troopPanel;
+        private TroopScreenVM _troopScreen = new();
 
         [DataSourceProperty]
-        public TroopPanelVM TroopPanel
+        public TroopScreenVM TroopScreen
         {
-            get => _troopPanel;
+            get => _troopScreen;
             set
             {
-                if (_troopPanel == value)
+                if (_troopScreen == value || value == null)
                     return;
-                _troopPanel = value;
-                OnPropertyChanged(nameof(TroopPanel));
+                _troopScreen.TroopChanged -= OnTroopChanged; // unhook old event
+                _troopScreen = value;
+                _troopScreen.TroopChanged += OnTroopChanged; // hook new event
+                OnPropertyChanged(nameof(TroopScreen));
             }
         }
 
-        private TroopListVM _troopList;
+        private EquipmentScreenVM _equipmentScreen = new();
 
         [DataSourceProperty]
-        public TroopListVM TroopList
+        public EquipmentScreenVM EquipmentScreen
         {
-            get => _troopList;
+            get => _equipmentScreen;
             set
             {
-                if (_troopList == value)
+                if (_equipmentScreen == value || value == null)
                     return;
-                _troopList = value;
-                OnPropertyChanged(nameof(TroopList));
+                _equipmentScreen = value;
+                OnPropertyChanged(nameof(EquipmentScreen));
             }
         }
 
-        private EquipmentPanelVM _equipmentPanel;
-
-        [DataSourceProperty]
-        public EquipmentPanelVM EquipmentPanel
-        {
-            get => _equipmentPanel;
-            set
-            {
-                if (_equipmentPanel == value)
-                    return;
-                _equipmentPanel = value;
-                OnPropertyChanged(nameof(EquipmentPanel));
-            }
-        }
-
-        private EquipmentListVM _equipmentList;
-
-        [DataSourceProperty]
-        public EquipmentListVM EquipmentList
-        {
-            get => _equipmentList;
-            set
-            {
-                if (_equipmentList == value)
-                    return;
-                _equipmentList = value;
-                OnPropertyChanged(nameof(EquipmentList));
-            }
-        }
-
-        private DoctrineScreenVM _doctrineScreen;
+        private DoctrineScreenVM _doctrineScreen = new();
 
         [DataSourceProperty]
         public DoctrineScreenVM DoctrineScreen
@@ -215,7 +172,7 @@ namespace Retinues.GUI.Editor.VM
             get => _doctrineScreen;
             set
             {
-                if (_doctrineScreen == value)
+                if (_doctrineScreen == value || value == null)
                     return;
                 _doctrineScreen = value;
                 OnPropertyChanged(nameof(DoctrineScreen));
@@ -226,7 +183,6 @@ namespace Retinues.GUI.Editor.VM
 
         private CharacterViewModel _model;
         private WCharacter _lastTroop;
-        private int _lastCategory;
         private int _lastIndex;
 
         [DataSourceProperty]
@@ -234,18 +190,12 @@ namespace Retinues.GUI.Editor.VM
         {
             get
             {
-                var category = EquipmentPanel.EquipmentCategory;
-                var index = EquipmentPanel.Index;
-                if (
-                    _model == null
-                    || _lastTroop != Troop
-                    || _lastCategory != (int)category
-                    || _lastIndex != index
-                )
+                var index = EquipmentScreen?.Equipment?.Index ?? 0;
+
+                if (_model == null || _lastTroop != SelectedTroop || _lastIndex != index)
                 {
-                    _model = Troop?.GetModel(category, index);
-                    _lastTroop = Troop;
-                    _lastCategory = (int)category;
+                    _model = SelectedTroop.GetModel(index);
+                    _lastTroop = SelectedTroop;
                     _lastIndex = index;
                 }
                 return _model;
@@ -256,13 +206,13 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public string EquipmentButtonText =>
-            Mode == EditorMode.Equipment
+            Screen == Screen.Equipment
                 ? L.S("close_equipment_button_text", "Back")
                 : L.S("equipment_button_text", "Equipment");
 
         [DataSourceProperty]
         public string DoctrinesButtonText =>
-            Mode == EditorMode.Doctrine
+            Screen == Screen.Doctrine
                 ? L.S("close_doctrines_button_text", "Back")
                 : L.S("doctrines_button_text", "Doctrines");
 
@@ -275,21 +225,30 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowFactionButton => Mode != EditorMode.Doctrine && Player.Kingdom != null;
+        public bool ShowFactionButton => Screen != Screen.Doctrine && Player.Kingdom != null;
 
         [DataSourceProperty]
-        public bool ShowDoctrinesButton => Config.EnableDoctrines;
-
-        /* ━━━━━━━━━ Modes ━━━━━━━━ */
+        public bool ShowDoctrinesButton => Screen != Screen.Equipment && Config.EnableDoctrines;
 
         [DataSourceProperty]
-        public bool DefaultMode => Mode == EditorMode.Troop;
+        public bool ShowEquipmentButton => Screen != Screen.Doctrine;
+
+        /* ━━━━━━━━ Brushes ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool EquipmentMode => Mode == EditorMode.Equipment;
+        public string EquipmentButtonBrush =>
+            Screen == Screen.Equipment ? "ButtonBrush3" : "ButtonBrush1";
+
+        /* ━━━━━━━━ Screens ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool DoctrinesMode => Mode == EditorMode.Doctrine;
+        public bool InTroopScreen => Screen == Screen.Troop;
+
+        [DataSourceProperty]
+        public bool InEquipmentScreen => Screen == Screen.Equipment;
+
+        [DataSourceProperty]
+        public bool InDoctrineScreen => Screen == Screen.Doctrine;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -298,18 +257,22 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━ Mode Switch ━━━━━ */
 
         [DataSourceMethod]
-        public void ExecuteSwitchToDefault() => Mode = EditorMode.Troop;
+        public void ExecuteToggleEquipment() =>
+            Screen = Screen == Screen.Equipment ? Screen.Troop : Screen.Equipment;
 
         [DataSourceMethod]
-        public void ExecuteSwitchToEquipment() => Mode = EditorMode.Equipment;
-
-        [DataSourceMethod]
-        public void ExecuteSwitchToDoctrines() => Mode = EditorMode.Doctrine;
+        public void ExecuteToggleDoctrines() =>
+            Screen = Screen == Screen.Doctrine ? Screen.Troop : Screen.Doctrine;
 
         /* ━━━━ Faction Switch ━━━━ */
 
         [DataSourceMethod]
-        public void ExecuteSwitchFaction() =>
-            Faction = Faction == Player.Clan ? Player.Kingdom : Player.Clan;
+        public void ExecuteSwitchFaction()
+        {
+            if (Player.Kingdom == null)
+                Faction = Player.Clan;
+            else
+                Faction = Faction == Player.Clan ? Player.Kingdom : Player.Clan;
+        }
     }
 }

@@ -1,18 +1,14 @@
-using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
 {
-    /// <summary>
-    /// Base class for editor row view models. Handles selection logic, bindings, and row list access.
-    /// </summary>
-    public abstract class BaseRow<TList, TRow>(TList list) : BaseComponent
+    public abstract class BaseRow<TList, TRow> : BaseComponent
         where TList : BaseList<TList, TRow>
         where TRow : BaseRow<TList, TRow>
     {
         // Owned list for selection management
-        private readonly TList _list = list;
+        public abstract TList List { get; }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -67,11 +63,6 @@ namespace Retinues.GUI.Editor
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public TList List => _list;
-
-        /// <summary>
-        /// Selects this row in its parent list.
-        /// </summary>
         public void Select()
         {
             // No-op if already selected
@@ -82,12 +73,9 @@ namespace Retinues.GUI.Editor
                 return; // Cannot select disabled rows
 
             // Safe due to self-referential generic constraint
-            _list.Select((TRow)this);
+            List.Select((TRow)this);
         }
 
-        /// <summary>
-        /// Updates the visibility of the row based on the given filter text.
-        /// </summary>
         public void UpdateIsVisible(string filter)
         {
             if (string.IsNullOrWhiteSpace(filter))
@@ -96,23 +84,14 @@ namespace Retinues.GUI.Editor
                 IsVisible = FilterMatch(filter);
         }
 
-        /// <summary>
-        /// Determines if the row matches the given filter text.
-        /// </summary>
         public abstract bool FilterMatch(string filter);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Hooks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Called when the row is selected.
-        /// </summary>
         protected virtual void OnSelect() { }
 
-        /// <summary>
-        /// Called when the row is unselected.
-        /// </summary>
         protected virtual void OnUnselect() { }
     }
 }

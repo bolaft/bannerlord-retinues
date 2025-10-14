@@ -96,13 +96,13 @@ namespace Retinues.Game.Wrappers
         public ImageIdentifier ImageIdentifier => new(CharacterCode);
 #endif
 
-        public CharacterViewModel GetModel(EquipmentCategory category, int index = 0)
+        public CharacterViewModel GetModel(int index = 0)
         {
             var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
             vm.FillFrom(Base, seed: -1);
 
             // Apply staged equipment changes (if any)
-            vm.SetEquipment(EquipmentPreview.BuildStagedEquipment(this, category, index));
+            vm.SetEquipment(EquipmentPreview.BuildStagedEquipment(this, index));
 
             if (Faction != null)
             {
@@ -300,24 +300,16 @@ namespace Retinues.Game.Wrappers
 
         public WLoadout Loadout => new(this);
 
-        public WItem Equip(
-            WItem item,
-            EquipmentIndex slot,
-            EquipmentCategory category,
-            int index = 0
-        )
+        public void Equip(WItem item, EquipmentIndex slot, int index = 0)
         {
             // Get equipment in specified category/index
-            var equipment = Loadout.Get(category, index);
-
-            // Get previous item, if any
-            var previous = equipment.GetItem(slot);
+            var equipment = Loadout.Get(index);
 
             // Equip item in correct equipment's specified slot
             equipment.SetItem(slot, item);
 
             // Formation class is derived from main battle equipment
-            if (category == EquipmentCategory.Battle)
+            if (equipment.Category == EquipmentCategory.Battle)
                 FormationClass = Loadout.Battle.ComputeFormationClass();
 
             // Horse requirements may need an update
@@ -327,28 +319,21 @@ namespace Retinues.Game.Wrappers
             // Cascade to children
             foreach (var child in UpgradeTargets)
                 child.UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
-
-            return previous;
         }
 
-        public WItem Unequip(EquipmentIndex slot, EquipmentCategory category, int index = 0)
+        public void Unequip(EquipmentIndex slot, int index = 0, bool stock = false)
         {
+            if (stock)
+                Loadout.Get(index).Get(slot)?.Stock();
+
             // Same as equip with null item
-            return Equip(null, slot, category, index);
+            Equip(null, slot, index);
         }
 
-        public List<WItem> UnequipAll(EquipmentCategory category, int index = 0)
+        public void UnequipAll(int index = 0, bool stock = false)
         {
-            var items = new List<WItem>();
-
             foreach (var slot in WEquipment.Slots)
-            {
-                var item = Unequip(slot, category, index);
-                if (item != null)
-                    items.Add(item);
-            }
-
-            return items;
+                Unequip(slot, index: index, stock: stock);
         }
 
         public bool MeetsItemRequirements(WItem item)
@@ -415,13 +400,19 @@ namespace Retinues.Game.Wrappers
         //                Registration & Lifecycle                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public void Remove()
+        public void Remove(bool stock = false)
         {
             if (!IsCustom)
                 return;
 
             // Revert existing instances in parties
             TroopReverter.SwapToVanilla(this);
+
+            // Stock equipment if requested
+            if (stock)
+                foreach (var equipment in Loadout.Equipments)
+                foreach (var item in equipment.Items)
+                    item.Stock();
 
             // Remove from parent's upgrade targets
             Parent?.RemoveUpgradeTarget(this);

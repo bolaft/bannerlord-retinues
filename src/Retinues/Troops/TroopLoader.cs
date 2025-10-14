@@ -49,8 +49,16 @@ namespace Retinues.Troops
                 );
                 troop.Loadout.Equipments =
                 [
-                    WEquipment.FromCode(data.EquipmentCode),
-                    WEquipment.FromCode(data.EquipmentCode, civilian: true),
+                    WEquipment.FromCode(
+                        data.EquipmentCode,
+                        troop.Loadout,
+                        (int)EquipmentCategory.Battle
+                    ),
+                    WEquipment.FromCode(
+                        data.EquipmentCode,
+                        troop.Loadout,
+                        (int)EquipmentCategory.Civilian
+                    ),
                 ];
             }
             else
@@ -66,16 +74,16 @@ namespace Retinues.Troops
                     troop.Loadout.Equipments =
                     [
                         troop.Loadout.Equipments[0],
-                        WEquipment.FromCode(null, true),
+                        WEquipment.FromCode(null, troop.Loadout, (int)EquipmentCategory.Civilian),
                     ];
                 }
                 else
                 {
-                    // set civilian flag for second equipment
+                    // set correct flags
                     troop.Loadout.Equipments =
                     [
                         .. data.EquipmentCodes.Select(
-                            (code, idx) => WEquipment.FromCode(code, idx == 1)
+                            (code, idx) => WEquipment.FromCode(code, troop.Loadout, idx)
                         ),
                     ];
                 }

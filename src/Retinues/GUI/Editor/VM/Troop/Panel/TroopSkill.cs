@@ -3,34 +3,28 @@ using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Upgrade.Behaviors;
-using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
-using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop
+namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
-    /// <summary>
-    /// ViewModel for a troop skill. Handles increment/decrement logic, retraining warnings, and UI refresh.
-    /// </summary>
     [SafeClass]
-    public sealed class TroopSkillVM(WCharacter troop, SkillObject skill) : BaseComponent
+    public sealed class TroopSkillVM(SkillObject skill) : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         readonly SkillObject _skill = skill;
-        readonly WCharacter _troop = troop;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public int Value => _troop?.GetSkill(_skill) + StagedAmount ?? 0;
+        public int Value => SelectedTroop?.GetSkill(_skill) + StagedAmount ?? 0;
 
         [DataSourceProperty]
         public bool IsStaged => StagedAmount > 0;
@@ -39,10 +33,10 @@ namespace Retinues.GUI.Editor.VM.Troop
         public string StringId => _skill.StringId;
 
         [DataSourceProperty]
-        public bool CanIncrement => TroopRules.CanIncrementSkill(_troop, _skill);
+        public bool CanIncrement => TroopRules.CanIncrementSkill(SelectedTroop, _skill);
 
         [DataSourceProperty]
-        public bool CanDecrement => TroopRules.CanDecrementSkill(_troop, _skill);
+        public bool CanDecrement => TroopRules.CanDecrementSkill(SelectedTroop, _skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -60,7 +54,7 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         private int StagedAmount =>
             TroopTrainBehavior
-                .Instance.GetPending(_troop.StringId, _skill.StringId)
+                .Instance.GetStagedChange(SelectedTroop, _skill.StringId)
                 ?.PointsRemaining
             ?? 0;
 
@@ -75,8 +69,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (Config.TrainingTakesTime == false) // Only check in instant training mode
                 if (
                     TroopRules.IsAllowedInContextWithPopup(
-                        _troop,
-                        Editor.Faction,
+                        SelectedTroop,
                         L.S("action_modify", "modify")
                     ) == false
                 )
@@ -92,7 +85,7 @@ namespace Retinues.GUI.Editor.VM.Troop
                     if (increment == false && !CanDecrement)
                         break; // Can't decrement further
 
-                    TroopManager.ModifySkill(_troop, _skill, increment);
+                    TroopManager.ModifySkill(SelectedTroop, _skill, increment);
                 }
             }
 

@@ -5,6 +5,7 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
+using Retinues.Features.Recruits.Behaviors;
 using Retinues.Features.Stocks.Behaviors;
 using Retinues.Features.Unlocks.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
@@ -21,7 +22,6 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using Retinues.Features.Recruits.Behaviors;
 
 namespace Retinues
 {

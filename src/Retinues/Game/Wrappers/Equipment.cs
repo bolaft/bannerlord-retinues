@@ -8,15 +8,28 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for Equipment, provides helpers for slot/item access, skill requirements, and equipment code serialization.
     /// </summary>
     [SafeClass(SwallowByDefault = false)]
-    public class WEquipment(Equipment equipment)
+    public class WEquipment(Equipment equipment, WLoadout loadout, int index)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Base                          //
+        //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly Equipment _equipment = equipment;
-
         public Equipment Base => _equipment;
+
+        public WEquipment(Equipment equipment, WCharacter troop, int index)
+            : this(equipment, troop.Loadout, index) { }
+
+        public WEquipment(Equipment equipment, WAgent agent, int index)
+            : this(equipment, agent.Character, index) { }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Loadout                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WLoadout Loadout { get; private set; } = loadout;
+        public int Index { get; private set; } = index;
+        public EquipmentCategory Category => Loadout.GetCategory(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Code                          //
@@ -25,8 +38,10 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Creates a WEquipment from an equipment code string.
         /// </summary>
-        public static WEquipment FromCode(string code, bool civilian = false)
+        public static WEquipment FromCode(string code, WLoadout loadout, int index)
         {
+            bool civilian = loadout.GetCategory(index) == EquipmentCategory.Civilian;
+
             Equipment obj;
 
             if (code is null)
@@ -73,7 +88,7 @@ namespace Retinues.Game.Wrappers
 #endif
             }
 
-            return new WEquipment(obj);
+            return new WEquipment(obj, loadout, index);
         }
 
         /// <summary>
@@ -131,7 +146,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets the item in the specified equipment slot.
         /// </summary>
-        public WItem GetItem(EquipmentIndex slot)
+        public WItem Get(EquipmentIndex slot)
         {
             var obj = _equipment[slot].Item;
             if (obj == null)
@@ -179,7 +194,7 @@ namespace Retinues.Game.Wrappers
 
                 foreach (var slot in Slots)
                 {
-                    var item = GetItem(slot);
+                    var item = Get(slot);
                     if (item != null && item.RelevantSkill != null)
                     {
                         // Initialize if not present
@@ -236,7 +251,7 @@ namespace Retinues.Game.Wrappers
             {
                 foreach (var slot in Slots)
                 {
-                    var item = GetItem(slot);
+                    var item = Get(slot);
                     if (item != null && item.IsRangedWeapon)
                         return true;
                 }
@@ -253,7 +268,7 @@ namespace Retinues.Game.Wrappers
             {
                 foreach (var slot in Slots)
                 {
-                    var item = GetItem(slot);
+                    var item = Get(slot);
                     if (
                         item != null
                         && item.IsRangedWeapon
@@ -274,7 +289,7 @@ namespace Retinues.Game.Wrappers
             {
                 foreach (var slot in Slots)
                 {
-                    var item = GetItem(slot);
+                    var item = Get(slot);
                     if (item != null && item.IsHorse)
                         return true;
                 }

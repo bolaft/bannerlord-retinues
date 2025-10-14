@@ -5,9 +5,6 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
 {
-    /// <summary>
-    /// Base class for editor list view models. Provides access to the editor screen, rows, and selection logic.
-    /// </summary>
     public abstract class BaseList<TSelf, TRow> : BaseComponent
         where TSelf : BaseList<TSelf, TRow>
         where TRow : BaseRow<TSelf, TRow>
@@ -28,9 +25,8 @@ namespace Retinues.GUI.Editor
                     return;
                 _filterText = value;
                 foreach (var row in Rows)
-                {
                     row.UpdateIsVisible(_filterText);
-                }
+                OnPropertyChanged(nameof(FilterText));
             }
         }
 
@@ -41,7 +37,7 @@ namespace Retinues.GUI.Editor
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public virtual List<TRow> Rows { get; protected set; } = [];
+        public virtual MBBindingList<TRow> Rows { get; protected set; } = [];
 
         public TRow Selection => Rows.FirstOrDefault(r => r.IsSelected);
 
@@ -50,6 +46,9 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public void Select(TRow row)
         {
+            if (row is null || !Rows.Contains(row))
+                return;
+
             foreach (var r in Rows)
                 r.IsSelected = ReferenceEquals(r, row);
 

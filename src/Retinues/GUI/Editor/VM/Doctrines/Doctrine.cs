@@ -16,8 +16,6 @@ namespace Retinues.GUI.Editor.VM.Doctrines
     [SafeClass]
     public sealed class DoctrineVM : BaseComponent
     {
-        public override EditorMode Mode => EditorMode.Doctrine;
-
         private readonly string _id;
         private readonly DoctrineServiceBehavior _svc;
         private readonly DoctrineDefinition _def;

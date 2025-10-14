@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -23,6 +24,31 @@ namespace Retinues.Game.Wrappers
         public bool IsPlayerTroop { get; }
         public bool IsAllyTroop { get; }
         public bool IsEnemyTroop { get; }
+
+        public List<WItem> Items
+        {
+            get
+            {
+                var items = new List<WItem>();
+                if (_agent == null)
+                    return items;
+
+                var eq = new WEquipment(
+                    _agent?.SpawnEquipment,
+                    Character,
+                    (int)EquipmentCategory.Battle
+                );
+
+                if (eq.Base == null)
+                    return items;
+
+                foreach (var item in eq.Items)
+                    if (item != null)
+                        items.Add(item);
+
+                return items;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //

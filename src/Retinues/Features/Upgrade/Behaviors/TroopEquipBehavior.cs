@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
@@ -34,23 +35,15 @@ namespace Retinues.Features.Upgrade.Behaviors
         public int SlotValue;
 
         [SaveableField(6)]
-        public int CategoryValue;
+        public int CategoryValue; // Legacy, unused
 
         [SaveableField(7)]
         public int EquipmentIndex;
 
-        // convenience EquipmentIndex accessor
         public EquipmentIndex Slot
         {
             get => (EquipmentIndex)SlotValue;
             set => SlotValue = (int)value;
-        }
-
-        // convenience EquipmentCategory accessors
-        public EquipmentCategory Category
-        {
-            get => (EquipmentCategory)CategoryValue;
-            set => CategoryValue = (int)value;
         }
 
         string IPendingData.TroopId
@@ -58,13 +51,11 @@ namespace Retinues.Features.Upgrade.Behaviors
             get => TroopId;
             set => TroopId = value;
         }
-
         int IPendingData.Remaining
         {
             get => Remaining;
             set => Remaining = value;
         }
-
         float IPendingData.Carry
         {
             get => Carry;
@@ -72,9 +63,27 @@ namespace Retinues.Features.Upgrade.Behaviors
         }
     }
 
+    /// <summary>
+    /// Staged "equip" jobs with a unified public API (Stage/Unstage/Get/Clear).
+    /// </summary>
     [SafeClass]
     public sealed class TroopEquipBehavior : BaseUpgradeBehavior<PendingEquipData>
     {
+        // Small typed payload for StageChange.
+        public readonly struct EquipChange
+        {
+            public readonly EquipmentIndex Slot;
+            public readonly int EquipmentIndex;
+            public readonly WItem Item; // null means "unequip"
+
+            public EquipChange(EquipmentIndex slot, int equipmentIndex, WItem item)
+            {
+                Slot = slot;
+                EquipmentIndex = equipmentIndex;
+                Item = item;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -85,74 +94,107 @@ namespace Retinues.Features.Upgrade.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Get a staged equipment change for a troop, if any.
-        /// </summary>
-        public static PendingEquipData GetStagedChange(
-            WCharacter troop,
-            EquipmentIndex slot,
-            EquipmentCategory category,
-            int index = 0
-        )
+        // Instance-level API (enforced by base)
+
+        public override PendingEquipData GetStagedChange(WCharacter troop, string objectKey)
         {
-            if (troop == null || Instance == null)
+            if (troop == null || string.IsNullOrEmpty(objectKey))
                 return null;
-            return Instance.GetPending(troop.StringId, ComposeKey((int)slot, (int)category, index));
+            return GetPending(troop.StringId, objectKey);
         }
 
-        /// <summary>
-        /// Unstage a previously staged equipment change.
-        /// </summary>
-        public static void UnstageChange(
-            WCharacter troop,
-            EquipmentIndex slot,
-            EquipmentCategory category,
-            int index = 0
-        )
+        public override List<PendingEquipData> GetStagedChanges(WCharacter troop)
         {
-            Instance.RemovePending(troop?.StringId, ComposeKey((int)slot, (int)category, index));
+            if (troop == null)
+                return [];
+            return GetPending(troop.StringId);
         }
 
-        /// <summary>
-        /// Stage an equipment change.
-        /// </summary>
-        public static void StageEquipmentChange(
-            WCharacter troop,
-            EquipmentIndex slot,
-            WItem item,
-            EquipmentCategory category,
-            int index = 0
-        )
+        public override void StageChange(WCharacter troop, object payload)
         {
-            if (troop == null || item == null || Instance == null)
+            if (troop == null)
+                return;
+            if (payload is not EquipChange p)
             {
-                Log.Debug("[StageEquipmentChange] Null check failed, aborting.");
+                Log.Warn("TroopEquipBehavior.StageChange called with invalid payload.");
                 return;
             }
 
+            var item = p.Item;
             // compute time
-            var cost = item == null ? 100 : EquipmentManager.GetItemValue(item, troop);
+            var cost = item == null ? 100 : EquipmentManager.GetItemCost(item, troop);
             var time = HoursFromGold(cost);
 
-            // set staged job with a non-null objId
-            Instance.SetPending(
+            SetPending(
                 troop.StringId,
-                ComposeKey((int)slot, (int)category, index),
+                ComposeKey((int)p.Slot, p.EquipmentIndex),
                 new PendingEquipData
                 {
                     TroopId = troop.StringId,
                     Remaining = time,
-                    ItemId = item.StringId,
-                    Slot = slot,
+                    ItemId = item?.StringId,
+                    Slot = p.Slot,
                     Carry = 0f,
-                    Category = category,
-                    EquipmentIndex = index,
+                    EquipmentIndex = p.EquipmentIndex,
                 }
             );
 
             if (IsInManagedMenu(out _))
                 RefreshManagedMenuOrDefault();
         }
+
+        public override void UnstageChange(WCharacter troop, string objectKey)
+        {
+            if (troop == null || string.IsNullOrEmpty(objectKey))
+                return;
+            RemovePending(troop.StringId, objectKey);
+        }
+
+        public override void ClearStagedChanges(WCharacter troop)
+        {
+            if (troop == null)
+                return;
+
+            foreach (var equipment in troop.Loadout.Equipments)
+            foreach (var slot in WEquipment.Slots)
+                RemovePending(troop.StringId, ComposeKey((int)slot, equipment.Index));
+        }
+
+        // Static convenience wrappers (callers use these)
+
+        public static PendingEquipData GetStagedChange(
+            WCharacter troop,
+            EquipmentIndex slot,
+            int equipmentIndex = 0
+        ) =>
+            ((TroopEquipBehavior)Instance).GetStagedChange(
+                troop,
+                ComposeKey((int)slot, equipmentIndex)
+            );
+
+        public static void StageChange(
+            WCharacter troop,
+            EquipmentIndex slot,
+            WItem item,
+            int equipmentIndex = 0
+        ) =>
+            ((TroopEquipBehavior)Instance).StageChange(
+                troop,
+                new EquipChange(slot, equipmentIndex, item)
+            );
+
+        public static void UnstageChange(
+            WCharacter troop,
+            EquipmentIndex slot,
+            int equipmentIndex = 0
+        ) =>
+            ((TroopEquipBehavior)Instance).UnstageChange(
+                troop,
+                ComposeKey((int)slot, equipmentIndex)
+            );
+
+        public static void ClearAllStagedChanges(WCharacter troop) =>
+            ((TroopEquipBehavior)Instance).ClearStagedChanges(troop);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
@@ -186,7 +228,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         )
         {
             var troop = new WCharacter(troopId);
-            var item = new WItem(data.ItemId);
+            var item = data.ItemId != null ? new WItem(data.ItemId) : null;
 
             TimedWaitMenu.Start(
                 starter,
@@ -197,14 +239,8 @@ namespace Retinues.Features.Upgrade.Behaviors
                 durationHours: data.Remaining,
                 onCompleted: () =>
                 {
-                    EquipmentManager.ApplyEquip(
-                        troop,
-                        data.Slot,
-                        item,
-                        data.Category,
-                        data.EquipmentIndex
-                    );
-                    RemovePending(troopId, objId); // ← remove by the same key we staged
+                    troop.Equip(item, data.Slot, data.EquipmentIndex);
+                    RemovePending(troopId, objId);
 
                     if (Pending.Count == 0)
                         RefreshManagedMenuOrDefault();
@@ -237,27 +273,24 @@ namespace Retinues.Features.Upgrade.Behaviors
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>Compose a unique key for (slot, item, category, index) quadruplet.</summary>
-        private static string ComposeKey(int slot, int category, int equipmentIndex) =>
-            $"{slot}:{category}:{equipmentIndex}";
+        /// <summary>Compose a unique key for (slot, equipmentIndex).</summary>
+        private static string ComposeKey(int slot, int equipmentIndex) =>
+            $"{slot}:{equipmentIndex}";
 
-        /// <summary>
-        /// Estimate hours required to equip an item based on its value in gold.
-        /// </summary>
+        /// <summary>Estimate hours required to equip an item based on its value in gold.</summary>
         private static int HoursFromGold(int gold)
         {
             double g = Math.Max(1, gold);
             double x = Math.Log10(g);
 
-            // Precomputed slopes/intercepts
             const double m1 = 10.0;
             const double b1 = -18.0;
 
-            const double m2 = 17.16811869688072; // (24-12) / (log10(5000) - 3)
-            const double b2 = -39.504356090642155; // 12 - m2*3
+            const double m2 = 17.16811869688072;
+            const double b2 = -39.504356090642155;
 
-            const double m3 = 48.0; // (72-24) / (log10(50000)-log10(5000)) == 48
-            const double b3 = -153.5505602081289; // 24 - m3*log10(5000)
+            const double m3 = 48.0;
+            const double b3 = -153.5505602081289;
 
             double raw =
                 g <= 1000.0 ? (m1 * x + b1)
@@ -265,9 +298,8 @@ namespace Retinues.Features.Upgrade.Behaviors
                 : (m3 * x + b3);
 
             raw *= Config.EquipmentChangeTimeModifier;
-            raw /= 3; // Hardcoded adjustment
+            raw /= 3;
 
-            // Round up to whole hours, keep a minimum of 1h.
             return Math.Max(1, (int)Math.Ceiling(raw));
         }
     }

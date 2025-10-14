@@ -28,7 +28,7 @@ namespace Retinues.Troops.Edition
             WCharacter troop,
             WFaction faction,
             EquipmentIndex slot,
-            bool civilianOnly = false
+            bool civilian = false
         )
         {
             Log.Debug(
@@ -54,7 +54,7 @@ namespace Retinues.Troops.Edition
             // Load items
             foreach (var item in allObjects.Select(i => new WItem(i)))
             {
-                if (civilianOnly && !item.IsCivilian)
+                if (civilian && !item.IsCivilian)
                     continue; // Skip non-civilian items if filtering for civilian only
 
                 bool isAvailable =
@@ -77,7 +77,7 @@ namespace Retinues.Troops.Edition
                         if (!hasClanicTraditions)
                             continue;
                         else if (
-                            !IncludeCraftedThisOne(
+                            !IsValidCraftedItem(
                                 item.Base,
                                 lastCraftedIndex,
                                 onlyPlayerCrafted: true
@@ -190,7 +190,6 @@ namespace Retinues.Troops.Edition
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
-            EquipmentCategory category,
             int index = 0
         )
         {
@@ -202,7 +201,7 @@ namespace Retinues.Troops.Edition
             item.Unstock(); // Reduce stock by 1
 
             Log.Debug("[EquipFromStock] Calling Equip.");
-            Equip(troop, slot, item, category, index);
+            Equip(troop, slot, item, index);
         }
 
         /// <summary>
@@ -212,7 +211,6 @@ namespace Retinues.Troops.Edition
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
-            EquipmentCategory category,
             int index = 0
         )
         {
@@ -220,74 +218,35 @@ namespace Retinues.Troops.Edition
                 "[EquipFromPurchase] Called for item " + item?.Name + " and troop " + troop?.Name
             );
 
-            Log.Debug("[EquipFromPurchase] Deducting gold: " + GetItemValue(item, troop));
-            Player.ChangeGold(-GetItemValue(item, troop)); // Deduct cost
+            Log.Debug("[EquipFromPurchase] Deducting gold: " + GetItemCost(item, troop));
+            Player.ChangeGold(-GetItemCost(item, troop)); // Deduct cost
 
             Log.Debug("[EquipFromPurchase] Calling Equip.");
-            Equip(troop, slot, item, category, index);
+            Equip(troop, slot, item, index);
         }
 
         /// <summary>
         /// Equips an item to a troop.
         /// </summary>
-        public static void Equip(
-            WCharacter troop,
-            EquipmentIndex slot,
-            WItem item,
-            EquipmentCategory category,
-            int index = 0
-        )
+        public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item, int index = 0)
         {
             // If unequipping a horse, also unequip the harness
             if (slot == EquipmentIndex.Horse && item == null)
             {
                 Log.Debug("Unequipping horse also unequips harness.");
-                Equip(troop, EquipmentIndex.HorseHarness, null, category, index);
+                Equip(troop, EquipmentIndex.HorseHarness, null, index);
             }
 
             if (Config.EquipmentChangeTakesTime && item != null)
-                TroopEquipBehavior.StageEquipmentChange(troop, slot, item, category, index);
+                TroopEquipBehavior.StageChange(troop, slot, item, index);
             else
-                ApplyEquip(troop, slot, item, category, index);
-        }
-
-        /// <summary>
-        /// Equips an item to a troop, unequipping old item and handling horse/harness logic.
-        /// </summary>
-        public static void ApplyEquip(
-            WCharacter troop,
-            EquipmentIndex slot,
-            WItem item,
-            EquipmentCategory category,
-            int index = 0
-        )
-        {
-            Log.Debug(
-                $"Applying equip of item {item?.Name} to troop {troop?.Name} in slot {slot}."
-            );
-            troop.Unequip(slot, category, index)?.Stock();
-            troop.Equip(item, slot, category, index);
-        }
-
-        /// <summary>
-        /// Unequips all items from a troop and restocks them.
-        /// </summary>
-        public static void UnequipAll(WCharacter troop, EquipmentCategory category, int index = 0)
-        {
-            Log.Debug($"Unequipping all items from troop {troop?.Name}.");
-
-            foreach (var item in troop.UnequipAll(category, index))
-            {
-                // If the item had a value, restock it
-                if (item != null && item.Value > 0)
-                    item.Stock();
-            }
+                troop.Equip(item, slot, index);
         }
 
         /// <summary>
         /// Gets the value of an item for a troop, applying doctrine rebates.
         /// </summary>
-        public static int GetItemValue(WItem item, WCharacter troop)
+        public static int GetItemCost(WItem item, WCharacter troop)
         {
             if (item == null)
                 return 0;
@@ -313,7 +272,10 @@ namespace Retinues.Troops.Edition
             return (int)(baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier);
         }
 
-        private static bool IncludeCraftedThisOne(
+        /// <summary>
+        /// Returns true if the item is a valid crafted item to include, filtering out duplicates.
+        /// </summary>
+        private static bool IsValidCraftedItem(
             ItemObject obj,
             Dictionary<string, ItemObject> lastCraftedIndex,
             bool onlyPlayerCrafted = true
@@ -337,6 +299,9 @@ namespace Retinues.Troops.Edition
             return lastCraftedIndex.TryGetValue(hash, out var last) && ReferenceEquals(last, obj);
         }
 
+        /// <summary>
+        /// Builds an index of the last crafted item per design hash from a collection of items.
+        /// </summary>
         private static Dictionary<string, ItemObject> BuildLastCraftedIndex(
             IEnumerable<ItemObject> items,
             bool onlyPlayerCrafted = true

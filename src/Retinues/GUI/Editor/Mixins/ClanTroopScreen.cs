@@ -1,9 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
-using Retinues.Game;
 using Retinues.GUI.Editor.VM;
-using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Library;
@@ -27,13 +25,8 @@ namespace Retinues.GUI.Editor.Mixins
         {
             try
             {
-                // Ensure retinue troops exist for player factions
-                foreach (var f in new[] { Player.Clan, Player.Kingdom })
-                    if (f != null)
-                        TroopBuilder.EnsureTroopsExist(f);
-
                 // Initialize the editor screen ViewModel
-                _screen = new EditorVM(Player.Clan);
+                _editor = new EditorVM();
 
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 
@@ -56,10 +49,10 @@ namespace Retinues.GUI.Editor.Mixins
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly EditorVM _screen;
+        private readonly EditorVM _editor;
 
         [DataSourceProperty]
-        public EditorVM EditorScreen => _screen;
+        public EditorVM Editor => _editor;
 
         [DataSourceProperty]
         public string TroopsTabText => L.S("troops_tab_text", "Troops");
@@ -75,6 +68,13 @@ namespace Retinues.GUI.Editor.Mixins
                 if (value == _isTroopsSelected)
                     return;
                 _isTroopsSelected = value;
+
+                if (value == true)
+                    Editor.Show();
+                else
+                    Editor.Hide();
+
+                OnPropertyChanged(nameof(Editor));
             }
         }
 
@@ -135,7 +135,7 @@ namespace Retinues.GUI.Editor.Mixins
                 || e.PropertyName == "IsIncomeSelected"
             )
             {
-                if (EditorScreen != null)
+                if (Editor != null)
                     IsTroopsSelected = false;
             }
         }

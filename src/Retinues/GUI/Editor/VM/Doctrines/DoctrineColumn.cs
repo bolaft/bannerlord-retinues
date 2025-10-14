@@ -13,8 +13,6 @@ namespace Retinues.GUI.Editor.VM.Doctrines
     [SafeClass]
     public sealed class DoctrineColumnVM : BaseComponent
     {
-        public override EditorMode Mode => EditorMode.Doctrine;
-
         public DoctrineColumnVM(string name, IEnumerable<DoctrineVM> doctrines)
         {
             _name = name;

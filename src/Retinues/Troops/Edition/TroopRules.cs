@@ -27,16 +27,19 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
-        public static bool IsAllowedInContext(WCharacter troop, WFaction faction, string action)
-        {
-            return GetContextReason(troop, faction, action) == null;
-        }
+        public static bool IsAllowedInContext(WCharacter troop, string action) =>
+            GetContextReason(troop, action) == null;
 
         /// <summary>
         /// Returns the string reason why editing is not allowed, or null if allowed.
         /// </summary>
-        public static TextObject GetContextReason(WCharacter troop, WFaction faction, string action)
+        public static TextObject GetContextReason(WCharacter troop, string action)
         {
+            if (troop == null)
+                return null;
+
+            var faction = troop.Faction;
+
             if (faction == null)
                 return null;
 
@@ -86,15 +89,13 @@ namespace Retinues.Troops.Edition
         /// Displays a popup if editing is not allowed in the current context.
         /// Returns true if allowed, false otherwise.
         /// </summary>
-        public static bool IsAllowedInContextWithPopup(
-            WCharacter troop,
-            WFaction faction,
-            string action
-        )
+        public static bool IsAllowedInContextWithPopup(WCharacter troop, string action)
         {
-            var reason = GetContextReason(troop, faction, action);
+            var reason = GetContextReason(troop, action);
             if (reason == null)
                 return true;
+
+            var faction = troop.Faction;
 
             TextObject title = L.T("not_allowed_title", "Not Allowed");
             if (troop.IsRetinue == true && faction == Player.Clan)
@@ -182,14 +183,14 @@ namespace Retinues.Troops.Edition
             // staged for THIS skill
             var stagedThis =
                 TroopTrainBehavior
-                    .Instance?.GetPending(character.StringId, skill.StringId)
-                    ?.PointsRemaining ?? 0;
+                    .Instance.GetStagedChange(character, skill.StringId)
+                    ?.PointsRemaining
+                ?? 0;
 
             // staged across ALL skills for this troop
             var stagedAll =
-                TroopTrainBehavior
-                    .Instance?.GetPending(character.StringId)
-                    ?.Sum(d => d.PointsRemaining) ?? 0;
+                TroopTrainBehavior.Instance.GetStagedChanges(character)?.Sum(d => d.PointsRemaining)
+                ?? 0;
 
             // 1) per-skill cap
             if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
@@ -215,8 +216,9 @@ namespace Retinues.Troops.Edition
                 return false;
             var staged =
                 TroopTrainBehavior
-                    .Instance?.GetPending(character.StringId, skill.StringId)
-                    ?.PointsRemaining ?? 0;
+                    .Instance.GetStagedChange(character, skill.StringId)
+                    ?.PointsRemaining
+                ?? 0;
 
             // Skills can't go below zero
             if (character.GetSkill(skill) + staged <= 0)
@@ -293,8 +295,7 @@ namespace Retinues.Troops.Edition
                 return false;
 
             var staged =
-                TroopTrainBehavior.Instance?.GetPending(c.StringId, s.StringId)?.PointsRemaining
-                ?? 0;
+                TroopTrainBehavior.Instance.GetStagedChange(c, s.StringId)?.PointsRemaining ?? 0;
             int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
         }

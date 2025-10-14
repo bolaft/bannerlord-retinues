@@ -2,19 +2,19 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop
+namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
     /// <summary>
     /// ViewModel for a troop upgrade target. Handles display and refresh logic.
     /// </summary>
     [SafeClass]
-    public sealed class TroopUpgradeTargetVM(WCharacter troop) : BaseComponent
+    public sealed class TroopUpgradeTargetVM(WCharacter upgrade) : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string Name => Format.Crop(troop.Name, 40);
+        public string Name => Format.Crop(upgrade.Name, 40);
     }
 }

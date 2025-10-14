@@ -3,10 +3,8 @@ using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Events;
-using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Features.Unlocks.Behaviors
 {
@@ -59,7 +57,7 @@ namespace Retinues.Features.Unlocks.Behaviors
                         unlockModifier = 2; // Double count if player personally landed the killing blow
 
                 // Enumerate equipped items on the victim and add to the unlock counts
-                foreach (var item in EnumerateEquippedItems(kill.Victim.Agent))
+                foreach (var item in kill.Victim.Items)
                 {
                     if (!IsUnlockable(item.Base))
                         continue;
@@ -87,21 +85,6 @@ namespace Retinues.Features.Unlocks.Behaviors
             if (i.ItemType == ItemObject.ItemTypeEnum.Invalid)
                 return false;
             return true;
-        }
-
-        /// <summary>
-        /// Enumerates all equipped items on the given agent.
-        /// </summary>
-        private static IEnumerable<WItem> EnumerateEquippedItems(Agent agent)
-        {
-            var eq = new WEquipment(agent?.SpawnEquipment);
-
-            if (eq.Base == null)
-                yield break;
-
-            foreach (var item in eq.Items)
-                if (item != null)
-                    yield return item;
         }
     }
 }
