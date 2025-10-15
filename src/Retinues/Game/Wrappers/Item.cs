@@ -46,7 +46,7 @@ namespace Retinues.Game.Wrappers
 
         public WCulture Culture
         {
-            get => new(_itemObject.Culture as CultureObject);
+            get => Base.Culture != null ? new(_itemObject.Culture as CultureObject) : null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
