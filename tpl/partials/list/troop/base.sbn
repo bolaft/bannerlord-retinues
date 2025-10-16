@@ -1,22 +1,12 @@
-<!--
-    list/troops/base.sbn
-    Defines the main troop list panel, including sorting header, scrollable list, navigation, and toggles.
--->
-
-{{ include "list/troops/sort_header.sbn" }}
+{{ include "list/troop/sort_header.sbn" }}
 
 <ListPanel 
+    DataSource="{TroopList}"
+    IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="StretchToParent">
     <Children>
-        <!--
-            ScrollablePanel:
-            - Displays the troop list with vertical scrolling.
-            - Uses NavigationScopeTargeter for keyboard/controller navigation.
-            - Contains the main troop list and toggles.
-        -->
         <ScrollablePanel 
-            DataSource="{TroopList}"
             Id="RET_ListTroopsScrollablePanel"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="StretchToParent"
@@ -29,7 +19,6 @@
             MarginBottom="3"
             VerticalScrollbar="..\RET_ListTroopsScrollbar\Scrollbar">
             <Children>
-                <!-- Navigation scope for troop list -->
                 <NavigationScopeTargeter 
                     ScopeID="RET_TroopsScope"
                     ScopeParent=".\RET_ListTroopsRect"
@@ -42,15 +31,13 @@
                     HeightSizePolicy="StretchToParent"
                     ClipContents="true">
                     <Children>
-                        <!-- Navigatable troop list items -->
-                        {{ include "list/troops/navigatable.sbn" }}
+                        {{ include "list/troop/navigatable.sbn" }}
                     </Children>
                 </Widget>
 
             </Children>
         </ScrollablePanel>
 
-        <!-- Vertical scrollbar for the troop list -->
         <Standard.VerticalScrollbar 
             Id="RET_ListTroopsScrollbar"
             HeightSizePolicy="StretchToParent"

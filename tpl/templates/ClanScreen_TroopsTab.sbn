@@ -1,11 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
-    ClanScreen_TroopsTab.sbn
-    This template defines the "Troops" tab button for the Clan screen.
-    It displays a selectable button with a centered label.
--->
-
 <ButtonWidget
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="Fixed"
@@ -20,10 +12,6 @@
     IsSelected="@IsTroopsSelected"
     Command.Click="ExecuteSelectTroops">
 
-    <!--
-        Children:
-        - TextWidget: Displays the tab label, centered both horizontally and vertically.
-    -->
     <Children>
         <TextWidget
             WidthSizePolicy="StretchToParent"

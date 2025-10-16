@@ -18,6 +18,139 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
     public sealed class TroopPanelVM : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public readonly TroopScreenVM Screen;
+
+        public TroopPanelVM(TroopScreenVM screen)
+        {
+            Log.Info("Building TroopPanelVM...");
+
+            Screen = screen;
+        }
+
+        public void Initialize()
+        {
+            Log.Info("Initializing TroopPanelVM...");
+
+            // Components
+            foreach (var row in ConversionRows)
+                row.Initialize();
+
+            foreach (var skill in SkillsRow1)
+                skill.Initialize();
+
+            foreach (var skill in SkillsRow2)
+                skill.Initialize();
+
+            // Subscribe to events
+            EventManager.TroopChange.Register(() =>
+            {
+                RebuildForSelectedTroop();
+                Raise(
+                    nameof(Name),
+                    nameof(GenderText),
+                    nameof(TierText),
+                    nameof(TroopXpIsEnabled),
+                    nameof(TroopXpText),
+                    nameof(SkillsRow1),
+                    nameof(SkillsRow2),
+                    nameof(SkillCapText),
+                    nameof(SkillPointsTotal),
+                    nameof(SkillPointsUsed),
+                    nameof(CanAddUpgrade),
+                    nameof(UpgradeTargets),
+                    nameof(ConversionRows),
+                    nameof(HasPendingConversions),
+                    nameof(PendingTotalCost),
+                    nameof(PendingTotalCount),
+                    nameof(TroopCount),
+                    nameof(RetinueCap)
+                );
+            });
+
+            EventManager.ConversionChange.Register(() =>
+            {
+                OnPropertyChanged(nameof(ConversionRows));
+                Raise(nameof(HasPendingConversions),
+                    nameof(PendingTotalCost),
+                    nameof(PendingTotalCount),
+                    nameof(TroopCount)
+                );
+            });
+
+            EventManager.SkillChange.RegisterProperties(
+                this,
+                nameof(SkillsRow1),
+                nameof(SkillsRow2),
+                nameof(SkillCapText),
+                nameof(SkillPointsTotal),
+                nameof(SkillPointsUsed),
+                nameof(CanRankUp),
+                nameof(TrainingRequiredText),
+                nameof(TrainingRequiredTextColor)
+            );
+
+            EventManager.NameChange.RegisterProperties(this, nameof(Name));
+            EventManager.TierChange.RegisterProperties(this, nameof(TierText));
+            EventManager.GenderChange.RegisterProperties(this, nameof(GenderText));
+
+            RebuildForSelectedTroop();
+        }
+
+        private void RebuildForSelectedTroop()
+        {
+            // Skills
+            _skillsRow1.Clear();
+            _skillsRow2.Clear();
+
+            var troop = SelectedTroop;
+            if (troop != null)
+            {
+                foreach (var s in troop.Skills.Take(4))
+                {
+                    var vm = new TroopSkillVM(Screen, s.Key);
+                    vm.Initialize();
+                    _skillsRow1.Add(vm);
+                }
+                foreach (var s in troop.Skills.Skip(4).Take(4))
+                {
+                    var vm = new TroopSkillVM(Screen, s.Key);
+                    vm.Initialize();
+                    _skillsRow2.Add(vm);
+                }
+            }
+            OnPropertyChanged(nameof(SkillsRow1));
+            OnPropertyChanged(nameof(SkillsRow2));
+
+            // Upgrade targets
+            _upgradeTargets.Clear();
+            foreach (var target in troop?.UpgradeTargets ?? Enumerable.Empty<WCharacter>())
+                _upgradeTargets.Add(new TroopUpgradeTargetVM(target));
+            OnPropertyChanged(nameof(UpgradeTargets));
+
+            // Conversions
+            _conversionRows.Clear();
+            if (troop?.IsRetinue == true)
+            {
+                foreach (var src in TroopManager.GetRetinueSourceTroops(troop))
+                {
+                    var row = new TroopConversionRowVM(Screen, src);
+                    row.Initialize();
+                    _conversionRows.Add(row);
+                }
+            }
+            OnPropertyChanged(nameof(ConversionRows));
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Quick Access                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private WCharacter SelectedTroop => Screen?.TroopList?.Selection?.Troop;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -41,18 +174,19 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━ Character ━━━━━━ */
 
         [DataSourceProperty]
-        public string Name => Format.Crop(SelectedTroop.Name, 35);
+        public string Name => Format.Crop(SelectedTroop?.Name, 35);
 
         [DataSourceProperty]
-        public string Gender =>
-            SelectedTroop.IsFemale ? L.S("female", "Female") : L.S("male", "Male");
+        public string GenderText =>
+            SelectedTroop?.IsFemale == true ? L.S("female", "Female") : L.S("male", "Male");
 
         [DataSourceProperty]
         public string TierText
         {
             get
             {
-                string roman = SelectedTroop.Tier switch
+                int tier = SelectedTroop?.Tier ?? 0;
+                string roman = tier switch
                 {
                     0 => "0",
                     1 => "I",
@@ -65,7 +199,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     8 => "VIII",
                     9 => "IX",
                     10 => "X",
-                    _ => SelectedTroop.Tier.ToString(),
+                    _ => tier.ToString(),
                 };
                 return $"{L.S("tier", "Tier")} {roman}";
             }
@@ -74,7 +208,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Rank Up ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool CanRankUp => SelectedTroop.IsRetinue && !SelectedTroop.IsMaxTier;
+        public bool CanRankUp =>
+            SelectedTroop?.IsRetinue == true && SelectedTroop?.IsMaxTier == false;
 
         /* ━━━━━━ Experience ━━━━━━ */
 
@@ -90,29 +225,15 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         /* ━━━━━━━━ Skills ━━━━━━━━ */
 
-        [DataSourceProperty]
-        public MBBindingList<TroopSkillVM> SkillsRow1
-        {
-            get
-            {
-                var list = new MBBindingList<TroopSkillVM>();
-                foreach (var s in SelectedTroop.Skills.Take(4))
-                    list.Add(new TroopSkillVM(s.Key));
-                return list;
-            }
-        }
+        private readonly MBBindingList<TroopSkillVM> _skillsRow1 = [];
 
         [DataSourceProperty]
-        public MBBindingList<TroopSkillVM> SkillsRow2
-        {
-            get
-            {
-                var list = new MBBindingList<TroopSkillVM>();
-                foreach (var s in SelectedTroop.Skills.Skip(4).Take(4))
-                    list.Add(new TroopSkillVM(s.Key));
-                return list;
-            }
-        }
+        public MBBindingList<TroopSkillVM> SkillsRow1 => _skillsRow1;
+
+        private readonly MBBindingList<TroopSkillVM> _skillsRow2 = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
 
         [DataSourceProperty]
         public string SkillCapText
@@ -131,29 +252,26 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public int SkillPointsUsed =>
-            SelectedTroop.Skills.Values.Sum()
+            (SelectedTroop?.Skills?.Values.Sum() ?? 0)
             + TroopTrainBehavior
                 .Instance.GetStagedChanges(SelectedTroop)
                 .Sum(d => d.PointsRemaining);
 
         /* ━━━━━━━ Training ━━━━━━━ */
 
+        // Helper
+        private int TrainingRequired =>
+            TroopTrainBehavior.Instance.GetStagedChanges(SelectedTroop).Sum(data => data.Remaining);
+
         [DataSourceProperty]
         public bool TrainingTakesTime => Config.TrainingTakesTime;
-
-        [DataSourceProperty]
-        public bool TrainingIsRequired => TrainingRequired > 0;
-
-        [DataSourceProperty]
-        public int TrainingRequired =>
-            TroopTrainBehavior.Instance.GetStagedChanges(SelectedTroop).Sum(data => data.Remaining);
 
         [DataSourceProperty]
         public string TrainingRequiredText
         {
             get
             {
-                if (TrainingIsRequired == false)
+                if (TrainingRequired == 0)
                     return L.S("no_training_required", "No training required");
 
                 return L.T("training_required", "{HOURS} hours of training required")
@@ -162,42 +280,30 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
         }
 
+        [DataSourceProperty]
+        public string TrainingRequiredTextColor => TrainingRequired > 0 ? "#ebaf2fff" : "#F4E1C4FF";
+
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool CanUpgrade => TroopRules.CanUpgradeTroop(SelectedTroop);
+        public bool CanAddUpgrade => TroopRules.CanAddUpgradeToTroop(SelectedTroop);
 
         [DataSourceProperty]
-        public string UpgradeButtonText => L.S("add_upgrade_button_text", "Add Upgrade");
+        public string AddUpgradeButtonText => L.S("add_upgrade_button_text", "Add Upgrade");
+        private readonly MBBindingList<TroopUpgradeTargetVM> _upgradeTargets = [];
 
         [DataSourceProperty]
-        public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets
-        {
-            get
-            {
-                var upgrades = new MBBindingList<TroopUpgradeTargetVM>();
-
-                foreach (var target in SelectedTroop.UpgradeTargets)
-                    upgrades.Add(new TroopUpgradeTargetVM(target));
-
-                return upgrades;
-            }
-        }
+        public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets => _upgradeTargets;
 
         /* ━━━━━━ Conversion ━━━━━━ */
 
         [DataSourceProperty]
-        public MBBindingList<TroopConversionRowVM> ConversionRows
-        {
-            get
-            {
-                var list = new MBBindingList<TroopConversionRowVM>();
-                if (SelectedTroop.IsRetinue)
-                    foreach (var troop in TroopManager.GetRetinueSourceTroops(SelectedTroop))
-                        list.Add(new TroopConversionRowVM(troop));
-                return list;
-            }
-        }
+        public bool IsRetinue => SelectedTroop?.IsRetinue == true;
+
+        private readonly MBBindingList<TroopConversionRowVM> _conversionRows = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
 
         [DataSourceProperty]
         public string ButtonApplyConversionsText => L.S("apply_conversions_button_text", "Convert");
@@ -247,9 +353,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         // Apply the new name
                         SelectedTroop.Name = name.Trim();
 
-                        // Refresh bindings
-                        OnPropertyChanged(nameof(Name));
-                        OnPropertyChanged(nameof(Editor.TroopScreen.TroopList.Selection.NameText));
+                        EventManager.NameChange.Fire();
                     },
                     negativeAction: () => { },
                     defaultInputText: oldName
@@ -262,15 +366,13 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         {
             SelectedTroop.IsFemale = !SelectedTroop.IsFemale;
 
-            // Refresh bindings
-            OnPropertyChanged(nameof(Gender));
-            OnPropertyChanged(nameof(Editor.Model));
+            EventManager.GenderChange.Fire();
         }
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
         [DataSourceMethod]
-        public void ExecuteAddUpgradeTarget()
+        public void ExecuteAddUpgrade()
         {
             if (
                 TroopRules.IsAllowedInContextWithPopup(
@@ -296,7 +398,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         var target = TroopManager.AddUpgradeTarget(SelectedTroop, name);
 
                         // Select the new troop
-                        Editor.TroopScreen.TroopList.Select(target);
+                        Screen.TroopList.Select(target);
                     },
                     negativeAction: () => { },
                     defaultInputText: SelectedTroop.Name
@@ -404,7 +506,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             _staged.Clear();
 
-            RefreshConversionStaging();
+            EventManager.ConversionChange.Fire();
         }
 
         [DataSourceMethod]
@@ -446,7 +548,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             _staged.Clear();
 
-            RefreshConversionStaging();
+            EventManager.ConversionChange.Fire();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -563,41 +665,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 }
                 order.Amount += amount;
             }
-        }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Refresh                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public void RefreshConversionStaging()
-        {
-            OnPropertyChanged(nameof(HasPendingConversions));
-            OnPropertyChanged(nameof(PendingTotalCost));
-            OnPropertyChanged(nameof(PendingTotalCount));
-            OnPropertyChanged(nameof(TroopCount));
-            OnPropertyChanged(nameof(ConversionRows));
-        }
-
-        public void RefreshOnTroopChange()
-        {
-            OnPropertyChanged(nameof(Name));
-            OnPropertyChanged(nameof(Gender));
-            OnPropertyChanged(nameof(TierText));
-            OnPropertyChanged(nameof(TroopXpIsEnabled));
-            OnPropertyChanged(nameof(TroopXpText));
-            OnPropertyChanged(nameof(SkillsRow1));
-            OnPropertyChanged(nameof(SkillsRow2));
-            OnPropertyChanged(nameof(SkillCapText));
-            OnPropertyChanged(nameof(SkillPointsTotal));
-            OnPropertyChanged(nameof(SkillPointsUsed));
-            OnPropertyChanged(nameof(CanUpgrade));
-            OnPropertyChanged(nameof(UpgradeTargets));
-            OnPropertyChanged(nameof(ConversionRows));
-            OnPropertyChanged(nameof(HasPendingConversions));
-            OnPropertyChanged(nameof(PendingTotalCost));
-            OnPropertyChanged(nameof(PendingTotalCount));
-            OnPropertyChanged(nameof(TroopCount));
-            OnPropertyChanged(nameof(RetinueCap));
+            EventManager.ConversionChange.Fire();
         }
     }
 }

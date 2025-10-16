@@ -1,9 +1,3 @@
-<!--
-    editor/default/sections/name.sbn
-    Displays troop name and provides a button to rename.
--->
-
-<!-- Header for name section -->
 {{ header("@NameHeaderText") }}
 
 <ListPanel
@@ -14,10 +8,8 @@
     UpdateChildrenStates="true"
     MarginBottom="0">
     <Children>
-        <!-- Name text display -->
         {{ text("@Name", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
-        <!-- Clickable icon to rename -->
         {{ button_icon("ExecuteRename", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
     </Children>
 </ListPanel>

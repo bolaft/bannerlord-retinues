@@ -1,27 +1,18 @@
-<!--
-    ClanScreen_TroopsPanel.sbn
-    Main panel for the Troops tab in the Clan screen.
-    Includes troop editor, equipment controls, doctrine switching, and troop list.
--->
-
-<!-- Template macros -->
 {{ include "macros/button.sbn" }}
 {{ include "macros/divider.sbn" }}
 {{ include "macros/image.sbn" }}
 {{ include "macros/text.sbn" }}
 
-<!-- Main widget for the Troops panel -->
 <Widget 
-    DataSource="{EditorScreen}"
-    IsVisible="@IsTroopsSelected"
+    DataSource="{Editor}"
+    IsVisible="@IsVisible"
     WidthSizePolicy="StretchToParent"
     HeightSizePolicy="StretchToParent"
     DoNotAcceptEvents="false">
 
     <Children>
-        <!-- Default mode: Troop editor and equipment controls -->
         <Widget 
-            IsVisible="@IsNotDoctrinesMode"
+            IsHidden="@InDoctrineScreen"
             WidthSizePolicy="StretchToParent"
             HeightSizePolicy="StretchToParent"
             MarginLeft="600"
@@ -43,26 +34,18 @@
                                     SuggestedHeight="512"
                                     HorizontalAlignment="Left">
                                     <Children>
-                                        <!-- Character tableau: shows troop visual -->
                                         {{ include "tableau.sbn" }}
 
-                                        <!-- Remove troop button -->
                                         {{ include "button_remove.sbn" }}
 
-                                        <!-- Unequip troop button -->
-                                        {{ include "equipment_top_bar.sbn" }}
+                                        {{ include "button_equipment.sbn" }}
 
-                                        <!-- Edit equipment button -->
-                                        {{ button_text("@EquipmentButtonText", "ExecuteSwitchToEquipment", "ButtonBrush1", "@IsDefaultMode", "true", "Bottom") }}
-
-                                        <!-- Close equipment button -->
-                                        {{ button_text("@CloseEquipmentButtonText", "ExecuteSwitchToDefault", "ButtonBrush3", "@IsEquipmentMode", "true", "Bottom") }}
+                                        {{ button_text("@EquipmentButtonText", "ExecuteToggleEquipment", "@EquipmentButtonBrush", "@ShowEquipmentButton", "true", "Bottom") }}
                                     </Children>
                                 </Widget>
                             </Children>
                         </Widget>
 
-                        <!-- Right panel: Troop editor -->
                         <Widget
                             VisualDefinition="RightPanel"
                             WidthSizePolicy="StretchToParent"
@@ -70,7 +53,6 @@
                             PositionXOffset="800"
                             MarginLeft="340">
                             <Children>
-                                <!-- Troop editor base -->
                                 {{ include "editor/base.sbn" }}
                             </Children>
                         </Widget>
@@ -79,28 +61,19 @@
             </Children>
         </Widget>
 
-        <!-- Doctrines mode: doctrine editor -->
         <Widget 
-            IsVisible="@IsDoctrinesMode"
+            IsVisible="@InDoctrineScreen"
             WidthSizePolicy="StretchToParent"
             HeightSizePolicy="StretchToParent">
             <Children>
-                <!-- Doctrines editor base -->
                 {{ include "doctrines/base.sbn" }}
             </Children>
         </Widget>
 
-        <!-- Top right: Switch faction button -->
-        {{ big_button("@FactionSwitchText", "ExecuteSwitchFaction", "@CanSwitchFaction", "Top", "Right") }}
+        {{ big_button("@FactionButtonText", "ExecuteSwitchFaction", "@ShowFactionButton", "Top", "Right") }}
 
-        <!-- Bottom right: Switch doctrines button -->
-        {{ big_button("@DoctrinesButtonText", "ExecuteSwitchToDoctrines", "@CanSwitchToDoctrines", "Bottom", "Right") }}
+        {{ big_button("@DoctrinesButtonText", "ExecuteToggleDoctrines", "@ShowDoctrinesButton", "Bottom", "Right") }}
 
-        <!-- Bottom right: Switch to default button (visible in doctrines mode) -->
-        {{ big_button("@CloseDoctrinesButtonText", "ExecuteSwitchToDefault", "@IsDoctrinesMode", "Bottom", "Right") }}
-
-        <!-- Scrollable troop list -->
         {{ include "list/base.sbn" }}
-
     </Children>
 </Widget>

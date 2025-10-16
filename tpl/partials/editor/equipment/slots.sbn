@@ -1,10 +1,3 @@
-<!--
-    editor/equipment/slots.sbn
-    Defines slot_row macro and lists all equipment slots for the troop.
-    Each slot row displays a selector button, equipment visual, and name.
-    Dividers separate weapon, armor, and mount sections.
--->
-
 {{- func slot_row(datasource) -}}
 <ListPanel 
     WidthSizePolicy="CoverChildren"
@@ -13,7 +6,6 @@
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     MarginTop="16">
     <Children>
-        <!-- Selector button for slot -->
         <ButtonWidget
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed"
@@ -33,11 +25,10 @@
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Text="@ButtonLabel"/>
+                    Text="@Label"/>
             </Children>
         </ButtonWidget>
 
-        <!-- Equipment visual for slot -->
         <Widget
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -51,10 +42,12 @@
                     HeightSizePolicy="StretchToParent"
                     Brush="Frame1Brush"/>
                 <ImageIdentifierWidget
+                    ImageId="@ImageId"
+                    AdditionalArgs="@ImageAdditionalArgs" 
                     {{ if bl == 13 }}
-                        AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"
+                        TextureProviderName="@ImageTextureProviderName"
                     {{ else }}
-                        ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
+                        ImageTypeCode="@ImageTypeCode"
                     {{ end }}
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
@@ -70,34 +63,11 @@
             </Children>
         </Widget>
 
-        <!-- Equipment name for slot -->
         <TextWidget
-            IsVisible="@IsActual"
-            Text="@Name"
+            Text="@ItemText"
             Brush="Clan.RightPanel.Name.Text"
             Brush.FontSize="24"
-            WidthSizePolicy="CoverChildren"
-            HeightSizePolicy="CoverChildren"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            MarginLeft="24"/>
-        <TextWidget
-            IsVisible="@IsStaged"
-            Text="@StagedName"
-            Brush="Clan.RightPanel.Name.Text"
-            Brush.FontSize="24"
-            Brush.FontColor="#ebaf2fff"
-            WidthSizePolicy="CoverChildren"
-            HeightSizePolicy="CoverChildren"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            MarginLeft="24"/>
-        <TextWidget
-            IsVisible="@IsMirrored"
-            Text="@Name"
-            Brush="Clan.RightPanel.Name.Text"
-            Brush.FontSize="24"
-            Brush.FontColor="#9e9675ff"
+            Brush.FontColor="@ItemTextColor"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center"
@@ -107,21 +77,12 @@
 </ListPanel>
 {{- end -}}
 
-<!--
-    Equipment slots for troop:
-    - Weapons (begin slot, 1-3)
-    - Armor (head, cape, body, gloves, legs)
-    - Mount (horse, harness)
-    Dividers separate sections.
--->
-
 <!-- Weapons 1..4 -->
 {{ slot_row "{WeaponItemBeginSlotSlot}" }}
 {{ slot_row "{Weapon1Slot}" }}
 {{ slot_row "{Weapon2Slot}" }}
 {{ slot_row "{Weapon3Slot}" }}
 
-<!-- Divider between weapons and armor -->
 {{ divider() }}
 
 <!-- Armor slots -->
@@ -131,7 +92,6 @@
 {{ slot_row "{GlovesSlot}" }}
 {{ slot_row "{LegSlot}" }}
 
-<!-- Divider between armor and mount -->
 {{ divider() }}
 
 <!-- Mount slots -->

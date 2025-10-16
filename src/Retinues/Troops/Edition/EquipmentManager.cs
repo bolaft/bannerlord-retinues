@@ -16,7 +16,6 @@ namespace Retinues.Troops.Edition
 {
     /// <summary>
     /// Static helpers for managing troop equipment, available items, equipping, unequipping, and item value logic.
-    /// Used by the equipment editor UI and backend.
     /// </summary>
     [SafeClass]
     public static class EquipmentManager
@@ -25,25 +24,68 @@ namespace Retinues.Troops.Edition
         /// Collects all available items for a troop, faction, and slot, considering unlocks, doctrines, and config.
         /// </summary>
         public static List<(WItem, int?, bool)> CollectAvailableItems(
-            WCharacter troop,
             WFaction faction,
             EquipmentIndex slot,
-            bool civilian = false
+            bool civilian = false,
+            Dictionary<EquipmentIndex, List<(WItem item, int? progress)>> cache = null
         )
         {
-            Log.Debug(
-                $"Collecting available items for troop {troop?.Name} (tier {troop?.Tier}), faction {faction?.Name}, slot {slot}."
-            );
+            // 1) Get (item, progress) eligibility from the caller cache or build once
+            if (cache == null || !cache.TryGetValue(slot, out var eligible))
+            {
+                eligible = BuildEligibilityList(faction, civilian, slot); // same heavy scan you already have
+                cache?.Add(slot, eligible);
+            }
 
-            // Initialize item list
-            var items = new List<(WItem, int?, bool)>();
+            // 2) Lightweight availability: recompute every call
+            HashSet<string> availableIds = null;
+            if (Config.RestrictItemsToTownInventory && Player.CurrentSettlement?.IsTown == true)
+            {
+                availableIds =
+                [
+                    .. Player
+                        .CurrentSettlement.ItemCounts()
+                        .Where(t => t.count > 0)
+                        .Select(t => t.item.StringId),
+                ];
+            }
 
-            // Doctrines
+            var items = eligible
+                .Select(p => (p.item, p.progress, availableIds?.Contains(p.item?.StringId) == true))
+                .ToList();
+
+            // Keep your existing sort
+            items =
+            [
+                .. items
+                    .OrderBy(t =>
+                        (
+                            t.progress == null ? 0 : 1,
+                            -(t.progress ?? 0),
+                            t.progress == null ? (t.Item3 ? 0 : 1) : 0
+                        )
+                    )
+                    .ThenBy(t => t.item?.Type)
+                    .ThenBy(t => t.item?.Name),
+            ];
+
+            // “Empty” option
+            items.Insert(0, (null, null, true));
+            return items;
+        }
+
+        /// <summary>
+        /// Builds the list of eligible items for a faction, slot, and civilian status.
+        /// </summary>
+        private static List<(WItem item, int? progress)> BuildEligibilityList(
+            WFaction faction,
+            bool civilian,
+            EquipmentIndex slot
+        )
+        {
             var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
-            var hasIronclad = DoctrineAPI.IsDoctrineUnlocked<Ironclad>();
             var hasAncestral = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
-            // Ids
             var factionCultureId = faction?.Culture?.StringId;
             var clanCultureId = Player.Clan?.Culture?.StringId;
             var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
@@ -51,32 +93,29 @@ namespace Retinues.Troops.Edition
             var allObjects = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
             var lastCraftedIndex = BuildLastCraftedIndex(allObjects, onlyPlayerCrafted: true);
 
-            // Load items
-            foreach (var item in allObjects.Select(i => new WItem(i)))
-            {
-                if (civilian && !item.IsCivilian)
-                    continue; // Skip non-civilian items if filtering for civilian only
+            var list = new List<(WItem, int?)>();
 
-                bool isAvailable =
-                    item.IsStocked
-                    || Config.RestrictItemsToTownInventory == false
-                    || CurrentTownHasItem(item);
+            foreach (var io in allObjects)
+            {
+                var item = new WItem(io);
+
+                if (civilian && !item.IsCivilian)
+                    continue;
 
                 try
                 {
-                    // All equipment unlocked: take everything
                     if (Config.AllEquipmentUnlocked)
                     {
-                        items.Add((item, null, isAvailable));
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, null));
                         continue;
                     }
 
-                    // 1) Crafted items gated by Clanic Traditions
                     if (item.IsCrafted)
                     {
                         if (!hasClanicTraditions)
                             continue;
-                        else if (
+                        if (
                             !IsValidCraftedItem(
                                 item.Base,
                                 lastCraftedIndex,
@@ -84,28 +123,23 @@ namespace Retinues.Troops.Edition
                             )
                         )
                             continue;
-                        else if (!item.IsUnlocked)
-                            item.Unlock(); // unlock now
+                        if (!item.IsUnlocked)
+                            item.Unlock();
                     }
 
-                    // 2) Tier constraint unless Ironclad is unlocked
-                    var tierDelta = item.Tier - troop.Tier;
-                    if (!hasIronclad && tierDelta > Config.AllowedTierDifference)
-                        continue;
-
-                    // 3) Already unlocked
                     if (item.IsUnlocked)
                     {
-                        items.Add((item, null, isAvailable));
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, null));
                         continue;
                     }
 
-                    // 4) Culture-based unlocks
                     var itemCultureId = item.Culture?.StringId;
 
                     if (Config.UnlockFromCulture && itemCultureId == factionCultureId)
                     {
-                        items.Add((item, null, isAvailable));
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, null));
                         continue;
                     }
 
@@ -114,73 +148,112 @@ namespace Retinues.Troops.Edition
                         && (itemCultureId == clanCultureId || itemCultureId == kingdomCultureId)
                     )
                     {
-                        items.Add((item, null, isAvailable));
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, null));
                         continue;
                     }
 
-                    // 5) Kill-progress unlocks
                     if (
                         Config.UnlockFromKills
                         && UnlocksBehavior.Instance.ProgressByItemId.TryGetValue(
                             item.StringId,
-                            out var progress
+                            out var prog
                         )
                     )
                     {
-                        if (progress >= Config.KillsForUnlock)
+                        if (prog >= Config.KillsForUnlock)
                         {
-                            item.Unlock(); // unlock now
-                            items.Add((item, null, isAvailable)); // now unlocked
+                            item.Unlock();
+                            if (item.Slots.Contains(slot))
+                                list.Add((item, null));
                         }
                         else
                         {
-                            items.Add((item, progress, isAvailable)); // still in progress
+                            if (item.Slots.Contains(slot))
+                                list.Add((item, prog));
                         }
                     }
-                    // else: not eligible this pass
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Log.Exception(e);
+                    Log.Exception(ex);
                 }
             }
 
-            // Filter by selected slot
-            items = [.. items.Where(pair => pair.Item1 == null || pair.Item1.Slots.Contains(slot))];
-
-            // Sort by progress (nulls first, then descending), then by bool value (true first for nulls), then type, then name
-            items =
-            [
-                .. items
-                    .OrderBy(pair =>
-                        (
-                            pair.Item2 == null ? 0 : 1,
-                            -(pair.Item2 ?? 0),
-                            pair.Item2 == null ? (pair.Item3 ? 0 : 1) : 0
-                        )
-                    )
-                    .ThenBy(pair => pair.Item1?.Type)
-                    .ThenBy(pair => pair.Item1?.Name),
-            ];
-
-            // Empty item to allow unequipping
-            items.Insert(0, (null, null, true));
-
-            return items;
+            return list;
         }
 
         /// <summary>
-        /// Checks if the current town has the specified item in its inventory.
+        /// Builds a set of items currently available in the player's town inventory, if applicable.
         /// </summary>
-        public static bool CurrentTownHasItem(WItem item)
+        private static HashSet<WItem> BuildCurrentTownAvailabilitySet()
         {
-            var settlement = Player.CurrentSettlement;
-            if (settlement == null)
-                return false; // not in a settlement
-            if (!settlement.IsTown)
-                return false; // only towns have inventories
+            if (!Config.RestrictItemsToTownInventory)
+                return null;
+            if (Player.CurrentSettlement == null || !Player.CurrentSettlement.IsTown)
+                return null;
 
-            return settlement.ItemCounts().Any(pair => pair.item == item && pair.count > 0);
+            // WItem equality here should be by StringId otherwise switch to a HashSet<string> of item ids.
+            var set = new HashSet<WItem>();
+            foreach (var (item, count) in Player.CurrentSettlement.ItemCounts())
+                if (count > 0)
+                    set.Add(item);
+            return set;
+        }
+
+        /// <summary>
+        /// Returns true if the item is a valid crafted item to include, filtering out duplicates.
+        /// </summary>
+        private static bool IsValidCraftedItem(
+            ItemObject obj,
+            Dictionary<string, ItemObject> lastCraftedIndex,
+            bool onlyPlayerCrafted = true
+        )
+        {
+            if (obj == null)
+                return false;
+
+            // Non-crafted items always pass through
+            if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
+                return true;
+
+            if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
+                return true; // not a player-crafted smith, keep normal path
+
+            var hash = obj.WeaponDesign.HashedCode;
+            if (string.IsNullOrEmpty(hash))
+                return true; // no hash to dedup on, let it through
+
+            // Keep only the "last" instance for this hash
+            return lastCraftedIndex.TryGetValue(hash, out var last) && ReferenceEquals(last, obj);
+        }
+
+        /// <summary>
+        /// Builds an index of the last crafted item per design hash from a collection of items.
+        /// </summary>
+        private static Dictionary<string, ItemObject> BuildLastCraftedIndex(
+            IEnumerable<ItemObject> items,
+            bool onlyPlayerCrafted = true
+        )
+        {
+            var map = new Dictionary<string, ItemObject>(StringComparer.Ordinal);
+            foreach (var obj in items)
+            {
+                if (obj == null)
+                    continue;
+                if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
+                    continue;
+                if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
+                    continue;
+
+                var hash = obj.WeaponDesign.HashedCode;
+                if (string.IsNullOrEmpty(hash))
+                    continue;
+
+                // later items overwrite earlier ones -> "last wins"
+                map[hash] = obj;
+            }
+            return map;
         }
 
         /// <summary>
@@ -270,61 +343,6 @@ namespace Retinues.Troops.Edition
             catch { }
 
             return (int)(baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier);
-        }
-
-        /// <summary>
-        /// Returns true if the item is a valid crafted item to include, filtering out duplicates.
-        /// </summary>
-        private static bool IsValidCraftedItem(
-            ItemObject obj,
-            Dictionary<string, ItemObject> lastCraftedIndex,
-            bool onlyPlayerCrafted = true
-        )
-        {
-            if (obj == null)
-                return false;
-
-            // Non-crafted items always pass through
-            if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
-                return true;
-
-            if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
-                return true; // not a player-crafted smith, keep normal path
-
-            var hash = obj.WeaponDesign.HashedCode;
-            if (string.IsNullOrEmpty(hash))
-                return true; // no hash to dedup on, let it through
-
-            // Keep only the "last" instance for this hash
-            return lastCraftedIndex.TryGetValue(hash, out var last) && ReferenceEquals(last, obj);
-        }
-
-        /// <summary>
-        /// Builds an index of the last crafted item per design hash from a collection of items.
-        /// </summary>
-        private static Dictionary<string, ItemObject> BuildLastCraftedIndex(
-            IEnumerable<ItemObject> items,
-            bool onlyPlayerCrafted = true
-        )
-        {
-            var map = new Dictionary<string, ItemObject>(StringComparer.Ordinal);
-            foreach (var obj in items)
-            {
-                if (obj == null)
-                    continue;
-                if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
-                    continue;
-                if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
-                    continue;
-
-                var hash = obj.WeaponDesign.HashedCode;
-                if (string.IsNullOrEmpty(hash))
-                    continue;
-
-                // later items overwrite earlier ones -> "last wins"
-                map[hash] = obj;
-            }
-            return map;
         }
     }
 }

@@ -25,13 +25,21 @@ namespace Retinues.GUI.Editor.Mixins
         {
             try
             {
-                // Initialize the editor screen ViewModel
-                _editor = new EditorVM();
+                Log.Info("Initializing ClanTroopScreen...");
 
+                // Build editor VM with empty components
+                _editor = new EditorVM();
+                // Fill components
+                _editor.Initialize();
+
+                // Listen to vanilla tab changes to toggle editor visibility
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 
+                // Block tab hotkeys when the editor is open
                 ClanHotkeyGate.Active = true;
                 ClanHotkeyGate.RequireShift = false;
+
+                Log.Info("ClanTroopScreen initialized.");
             }
             catch (Exception e)
             {
@@ -41,8 +49,15 @@ namespace Retinues.GUI.Editor.Mixins
 
         public override void OnFinalize()
         {
-            ClanHotkeyGate.Active = false; // restore default behavior
-            base.OnFinalize();
+            try
+            {
+                ClanHotkeyGate.Active = false; // restore default behavior
+                base.OnFinalize();
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -57,26 +72,8 @@ namespace Retinues.GUI.Editor.Mixins
         [DataSourceProperty]
         public string TroopsTabText => L.S("troops_tab_text", "Troops");
 
-        private bool _isTroopsSelected;
-
         [DataSourceProperty]
-        public bool IsTroopsSelected
-        {
-            get => _isTroopsSelected;
-            set
-            {
-                if (value == _isTroopsSelected)
-                    return;
-                _isTroopsSelected = value;
-
-                if (value == true)
-                    Editor.Show();
-                else
-                    Editor.Hide();
-
-                OnPropertyChanged(nameof(Editor));
-            }
-        }
+        public bool IsTroopsSelected => Editor?.IsVisible == true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -86,14 +83,22 @@ namespace Retinues.GUI.Editor.Mixins
         [SafeMethod]
         public void ExecuteSelectTroops()
         {
-            Log.Debug("Selecting Troops tab.");
+            try
+            {
+                if (Editor?.IsVisible == true)
+                    return;
 
-            if (IsTroopsSelected == true)
-                return;
+                Log.Debug("Selecting Troops tab.");
 
-            UnselectVanillaTabs();
+                UnselectVanillaTabs();
 
-            IsTroopsSelected = true;
+                Editor.IsVisible = true;
+                OnPropertyChanged(nameof(IsTroopsSelected));
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -105,15 +110,24 @@ namespace Retinues.GUI.Editor.Mixins
         /// </summary>
         public void UnselectVanillaTabs()
         {
-            ViewModel.IsMembersSelected = false;
-            ViewModel.IsFiefsSelected = false;
-            ViewModel.IsPartiesSelected = false;
-            ViewModel.IsIncomeSelected = false;
+            try
+            {
+                Log.Debug("Unselecting vanilla clan management tabs.");
 
-            ViewModel.ClanMembers.IsSelected = false;
-            ViewModel.ClanParties.IsSelected = false;
-            ViewModel.ClanFiefs.IsSelected = false;
-            ViewModel.ClanIncome.IsSelected = false;
+                ViewModel.IsMembersSelected = false;
+                ViewModel.IsFiefsSelected = false;
+                ViewModel.IsPartiesSelected = false;
+                ViewModel.IsIncomeSelected = false;
+
+                ViewModel.ClanMembers.IsSelected = false;
+                ViewModel.ClanParties.IsSelected = false;
+                ViewModel.ClanFiefs.IsSelected = false;
+                ViewModel.ClanIncome.IsSelected = false;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -125,18 +139,28 @@ namespace Retinues.GUI.Editor.Mixins
         /// </summary>
         private void OnVanillaTabChanged(object sender, PropertyChangedWithBoolValueEventArgs e)
         {
-            if (!e.Value)
-                return;
-
-            if (
-                e.PropertyName == "IsMembersSelected"
-                || e.PropertyName == "IsFiefsSelected"
-                || e.PropertyName == "IsPartiesSelected"
-                || e.PropertyName == "IsIncomeSelected"
-            )
+            try
             {
-                if (Editor != null)
-                    IsTroopsSelected = false;
+                if (!e.Value)
+                    return;
+
+                if (
+                    e.PropertyName == "IsMembersSelected"
+                    || e.PropertyName == "IsFiefsSelected"
+                    || e.PropertyName == "IsPartiesSelected"
+                    || e.PropertyName == "IsIncomeSelected"
+                )
+                {
+                    // A vanilla tab was selected, hide the troop editor
+                    Log.Debug($"Vanilla tab selected ({e.PropertyName}), hiding troop editor.");
+
+                    Editor.IsVisible = false;
+                    OnPropertyChanged(nameof(IsTroopsSelected));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
             }
         }
     }

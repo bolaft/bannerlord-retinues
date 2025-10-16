@@ -4,17 +4,27 @@
     Each column is included from doctrines/column.sbn.
 -->
 
-<ListPanel 
-    DataSource="{DoctrineColumns}"
+<Widget
+    DataSource="{DoctrineScreen}"
     WidthSizePolicy="StretchToParent"
     HeightSizePolicy="CoverChildren"
     DoNotAcceptEvents="false"
-    StackLayout.LayoutMethod="HorizontalLeftToRight"
-    PositionXOffset="60"
-    PositionYOffset="0"
     VerticalAlignment="Center"
     HorizontalAlignment="Center">
-    <ItemTemplate>
-        {{ include "doctrines/column.sbn" }}
-    </ItemTemplate>
-</ListPanel>
+    <Children>
+        <ListPanel 
+            DataSource="{Columns}"
+            WidthSizePolicy="StretchToParent"
+            HeightSizePolicy="CoverChildren"
+            DoNotAcceptEvents="false"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            PositionXOffset="60"
+            PositionYOffset="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+            <ItemTemplate>
+                {{ include "doctrines/column.sbn" }}
+            </ItemTemplate>
+        </ListPanel>
+    </Children>
+</Widget>

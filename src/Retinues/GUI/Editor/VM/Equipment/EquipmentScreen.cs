@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
@@ -13,31 +12,77 @@ namespace Retinues.GUI.Editor.VM.Equipment
     public sealed class EquipmentScreenVM : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public readonly EditorVM Editor;
+
+        public EquipmentScreenVM(EditorVM editor)
+        {
+            Log.Info("Building EquipmentScreenVM...");
+
+            Editor = editor;
+
+            // Components
+            EquipmentPanel = new EquipmentPanelVM(Editor);
+            EquipmentList = new EquipmentListVM(Editor);
+        }
+
+        public void Initialize()
+        {
+            Log.Info("Initializing EquipmentScreenVM...");
+
+            // Components
+            EquipmentPanel.Initialize();
+            EquipmentList.Initialize();
+
+            // Subscribe to events
+            EventManager.TroopChange.Register(() => Equipment = SelectedTroop?.Loadout?.Battle);
+            EventManager.EquipmentChange.RegisterProperties(
+                this,
+                nameof(Equipment),
+                nameof(CanUnequip),
+                nameof(CanUnstage),
+                nameof(CanSelectPrevSet),
+                nameof(CanSelectNextSet),
+                nameof(CanRemoveSet),
+                nameof(EquipmentName),
+                nameof(UnequipAllButtonText),
+                nameof(UnstageAllButtonText)
+            );
+            EventManager.EquipmentItemChange.RegisterProperties(
+                this,
+                nameof(CanUnequip),
+                nameof(CanUnstage),
+                nameof(UnequipAllButtonText),
+                nameof(UnstageAllButtonText)
+            );
+
+            // Initial state
+            Equipment = SelectedTroop?.Loadout?.Battle;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Quick Access                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private WCharacter SelectedTroop => Editor?.TroopScreen?.TroopList?.Selection?.Troop;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Equipment                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WEquipment _equipment = Editor.TroopScreen.TroopList.Selection.Troop.Loadout.Battle;
+        private WEquipment _equipment;
         public WEquipment Equipment
         {
             get => _equipment;
             set
             {
-                if (_equipment == value || value == null)
+                if (_equipment == value)
                     return;
+
                 _equipment = value;
 
-                // New panel
-                EquipmentPanel = new EquipmentPanelVM();
-                OnPropertyChanged(nameof(EquipmentPanel));
-
-                // List refresh
-                OnPropertyChanged(nameof(EquipmentList));
-
-                // Model refresh
-                OnPropertyChanged(nameof(Editor.Model));
-
-                // Update bindings
-                RefreshOnEquipmentChange();
+                EventManager.EquipmentChange.Fire();
             }
         }
 
@@ -45,43 +90,23 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                        Components                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private EquipmentPanelVM _equipmentPanel = new();
+        [DataSourceProperty]
+        public EquipmentPanelVM EquipmentPanel { get; private set; }
 
         [DataSourceProperty]
-        public EquipmentPanelVM EquipmentPanel
-        {
-            get => _equipmentPanel;
-            set
-            {
-                if (_equipmentPanel == value)
-                    return;
-                _equipmentPanel = value;
-                OnPropertyChanged(nameof(EquipmentPanel));
-            }
-        }
+        public EquipmentListVM EquipmentList { get; private set; }
 
-        private EquipmentListVM _equipmentList = new();
-
-        [DataSourceProperty]
-        public EquipmentListVM EquipmentList
-        {
-            get => _equipmentList;
-            set
-            {
-                if (_equipmentList == value)
-                    return;
-                _equipmentList = value;
-                OnPropertyChanged(nameof(EquipmentList));
-            }
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Data Bindings                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /* ━━━ Unequip / Unstage ━━ */
 
         [DataSourceProperty]
-        public bool CanUnequip => SelectedEquipment.Items.Count() > 0;
+        public bool CanUnstage => EquipmentPanel?.Slots?.Any(s => s.IsStaged) ?? false;
 
         [DataSourceProperty]
-        public bool CanUnstage => EquipmentPanel.Slots.Any(s => s.IsStaged);
+        public bool CanUnequip => Equipment?.Items?.Count() > 0;
 
         [DataSourceProperty]
         public string UnequipAllButtonText => L.S("unequip_all_button_text", "Unequip All");
@@ -96,14 +121,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             get
             {
-                return SelectedEquipment.Category switch
+                return Equipment?.Category switch
                 {
                     EquipmentCategory.Battle => L.S("set_battle", "Battle"),
                     EquipmentCategory.Civilian => L.S("set_civilian", "Civilian"),
                     _ => L.T("set_alt_n", "Alt {N}")
                         .SetTextVariable(
                             "N",
-                            SelectedEquipment.Loadout.Alternates.IndexOf(SelectedEquipment) + 1
+                            Equipment?.Loadout?.Alternates?.IndexOf(Equipment) + 1 ?? 1
                         )
                         .ToString(),
                 };
@@ -111,14 +136,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceProperty]
-        public bool CanSelectPrevSet => SelectedEquipment.Index > 0;
+        public bool CanSelectPrevSet => (Equipment?.Index ?? 0) > 0;
 
         [DataSourceProperty]
         public bool CanSelectNextSet =>
-            SelectedEquipment.Index < SelectedTroop.Loadout.Equipments.Count - 1;
+            (Equipment?.Index ?? 0) < ((SelectedTroop?.Loadout?.Equipments?.Count ?? 1) - 1);
 
         [DataSourceProperty]
-        public bool CanRemoveSet => SelectedEquipment.Category == EquipmentCategory.Alternate;
+        public bool CanRemoveSet => Equipment?.Category == EquipmentCategory.Alternate;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -140,7 +165,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                             "unequip_all_text",
                             "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
                         )
-                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("TROOP_NAME", SelectedTroop?.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
@@ -148,25 +173,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        SelectedTroop.UnequipAll(SelectedEquipment.Index, stock: true);
-                        RefreshOnEquipmentChange();
-                        OnPropertyChanged(nameof(EquipmentList));
-                        // also refresh slot visuals:
-                        foreach (var s in EquipmentPanel.Slots)
-                        {
-                            s.OnPropertyChanged(nameof(s.ItemText));
-                            s.OnPropertyChanged(nameof(s.IsStaged));
-#if BL13
-                            s.OnPropertyChanged(nameof(s.ImageId));
-                            s.OnPropertyChanged(nameof(s.ImageAdditionalArgs));
-                            s.OnPropertyChanged(nameof(s.ImageTextureProviderName));
-#else
-                            s.OnPropertyChanged(nameof(s.ImageId));
-                            s.OnPropertyChanged(nameof(s.ImageAdditionalArgs));
-                            s.OnPropertyChanged(nameof(s.ImageTypeCode));
-#endif
-                        }
-                        OnPropertyChanged(nameof(Editor.Model));
+                        SelectedTroop?.UnequipAll(Equipment?.Index ?? 0, stock: true);
+                        EventManager.EquipmentItemChange.Fire();
                     },
                     negativeAction: () => { }
                 )
@@ -189,7 +197,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                             "unstage_all_text",
                             "Revert all staged equipment changes for {TROOP_NAME}?"
                         )
-                        .SetTextVariable("TROOP_NAME", SelectedTroop.Name)
+                        .SetTextVariable("TROOP_NAME", SelectedTroop?.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
@@ -197,10 +205,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        foreach (var slot in EquipmentPanel.Slots)
-                            slot.Unstage();
-                        RefreshOnEquipmentChange();
-                        OnPropertyChanged(nameof(EquipmentList));
+                        foreach (
+                            var slot in EquipmentPanel?.Slots ?? Enumerable.Empty<EquipmentSlotVM>()
+                        )
+                            slot.Unstage(noEvent: true);
+
+                        EventManager.EquipmentItemChange.Fire();
                     },
                     negativeAction: () => { }
                 )
@@ -213,7 +223,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (CanSelectPrevSet == false)
                 return;
 
-            Equipment = Equipment.Loadout.Equipments[SelectedEquipment.Index - 1];
+            Equipment = Equipment?.Loadout?.Equipments?[(Equipment?.Index ?? 1) - 1];
         }
 
         [DataSourceMethod]
@@ -222,13 +232,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (CanSelectNextSet == false)
                 return;
 
-            Equipment = Equipment.Loadout.Equipments[SelectedEquipment.Index + 1];
+            Equipment = Equipment?.Loadout?.Equipments?[(Equipment?.Index ?? -1) + 1];
         }
 
         [DataSourceMethod]
         public void ExecuteCreateSet()
         {
-            Equipment = SelectedTroop.Loadout.CreateAlternate(); // re-assign to trigger any bindings
+            Equipment = SelectedTroop?.Loadout?.CreateAlternate(); // re-assign to trigger any bindings
         }
 
         [DataSourceMethod]
@@ -245,7 +255,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                             "Remove {EQUIPMENT} for {TROOP}?\nAll staged changes will be cleared and items will be unequipped and stocked."
                         )
                         .SetTextVariable("EQUIPMENT", EquipmentName)
-                        .SetTextVariable("TROOP", SelectedTroop.Name)
+                        .SetTextVariable("TROOP", SelectedTroop?.Name)
                         .ToString(),
                     true,
                     true,
@@ -254,43 +264,23 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     () =>
                     {
                         // Clear all staged changes
-                        foreach (var s in EquipmentPanel.Slots)
+                        foreach (
+                            var s in EquipmentPanel?.Slots ?? Enumerable.Empty<EquipmentSlotVM>()
+                        )
                             s.Unstage();
 
                         // Unequip all items
-                        SelectedTroop.UnequipAll(SelectedEquipment.Index, stock: true);
+                        SelectedTroop?.UnequipAll(Equipment?.Index ?? 0, stock: true);
 
                         // Remove the set
-                        SelectedTroop.Loadout.RemoveAlternate(SelectedEquipment);
+                        SelectedTroop?.Loadout?.RemoveAlternate(Equipment);
 
                         // Select the battle set after removal
-                        Equipment = SelectedTroop.Loadout.Battle;
+                        Equipment = SelectedTroop?.Loadout?.Battle;
                     },
                     () => { }
                 )
             );
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Refresh                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public void RefreshOnTroopChange()
-        {
-            Equipment = SelectedTroop.Loadout.Battle; // reset to battle set on troop change
-        }
-
-        public void RefreshOnEquipmentChange()
-        {
-            OnPropertyChanged(nameof(Equipment));
-            OnPropertyChanged(nameof(CanUnequip));
-            OnPropertyChanged(nameof(CanUnstage));
-            OnPropertyChanged(nameof(CanSelectPrevSet));
-            OnPropertyChanged(nameof(CanSelectNextSet));
-            OnPropertyChanged(nameof(CanRemoveSet));
-            OnPropertyChanged(nameof(EquipmentName));
-            OnPropertyChanged(nameof(UnequipAllButtonText));
-            OnPropertyChanged(nameof(UnstageAllButtonText));
         }
     }
 }

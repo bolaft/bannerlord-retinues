@@ -1,23 +1,51 @@
 using System;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.VM.Equipment;
-using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop.List
 {
-    /// <summary>
-    /// ViewModel for a troop row in the troop list. Handles display, search filtering, and selection refresh logic.
-    /// </summary>
     [SafeClass]
-    public sealed class TroopRowVM(WCharacter troop) : BaseRow<TroopListVM, TroopRowVM>
+    public sealed class TroopRowVM : BaseRow<TroopListVM, TroopRowVM>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Troop                         //
+        //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter Troop => troop;
+        public readonly TroopScreenVM Screen;
+        public readonly WCharacter Troop;
+
+        public TroopRowVM(TroopScreenVM screen, WCharacter troop)
+        {
+            Log.Info("Building TroopRowVM...");
+
+            Screen = screen;
+            Troop = troop;
+        }
+
+        public void Initialize()
+        {
+            Log.Info("Initializing TroopRowVM...");
+
+            // Subscribe to events
+            EventManager.NameChange.RegisterProperties(this, nameof(NameText));
+            EventManager.TierChange.RegisterProperties(this, nameof(TierText));
+
+            void RefreshImage()
+            {
+                OnPropertyChanged(nameof(ImageId));
+                OnPropertyChanged(nameof(ImageAdditionalArgs));
+#if BL13
+                OnPropertyChanged(nameof(ImageTextureProviderName));
+#else
+                OnPropertyChanged(nameof(ImageTypeCode));
+#endif
+            }
+
+            EventManager.EquipmentChange.Register(RefreshImage);
+            EventManager.EquipmentItemChange.Register(RefreshImage);
+            EventManager.GenderChange.Register(RefreshImage);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -25,28 +53,23 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
+        [DataSourceProperty]
+        public string ImageId => Troop?.Image?.Id;
+
+        [DataSourceProperty]
+        public string ImageAdditionalArgs => Troop?.Image?.AdditionalArgs;
+
 #if BL13
         [DataSourceProperty]
-        public string AdditionalArgs => Troop?.Image.AdditionalArgs;
-
-        [DataSourceProperty]
-        public string Id => Troop?.Image.Id;
-
-        [DataSourceProperty]
-        public string TextureProviderName => Troop?.Image.TextureProviderName;
+        public string ImageTextureProviderName => Troop?.Image?.TextureProviderName;
 #else
         [DataSourceProperty]
-        public string ImageId => Troop?.Image.Id;
-
-        [DataSourceProperty]
-        public int ImageTypeCode => Troop?.Image.ImageTypeCode ?? 0;
-
-        [DataSourceProperty]
-        public string ImageAdditionalArgs => Troop?.Image.AdditionalArgs;
+        public int ImageTypeCode => Troop?.Image?.ImageTypeCode ?? 0;
 #endif
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
+        [DataSourceProperty]
         public bool IsPlaceholder => Troop == null;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
@@ -59,31 +82,46 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 if (IsPlaceholder)
                     return L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops.");
 
-                if (Troop.IsRetinue || Troop.IsMilitia)
-                    return Troop.Name;
+                if (Troop?.IsRetinue == true || Troop?.IsMilitia == true)
+                    return Troop?.Name;
 
                 // Indent troops by tier
-                int n = Math.Max(0, Troop.Tier - 1);
+                int n = Math.Max(0, Troop?.Tier - 1 ?? 0);
                 var indent = new string(' ', n * 4);
 
-                return $"{indent}{Troop.Name}";
+                return $"{indent}{Troop?.Name}";
             }
         }
 
         [DataSourceProperty]
-        public string TierText => $"T{Troop.Tier}";
+        public string TierText => Troop == null ? string.Empty : $"T{Troop.Tier}";
+
+        /* ━━━━━━━━ Enabled ━━━━━━━ */
+
+        [DataSourceProperty]
+        public override bool IsEnabled
+        {
+            get
+            {
+                if (IsPlaceholder)
+                    return false; // Placeholder row is never enabled
+
+                return true; // All checks passed
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override TroopListVM List => Editor.TroopScreen.TroopList;
+        public override TroopListVM List => Screen.TroopList;
 
         protected override void OnSelect()
         {
-            OnPropertyChanged(nameof(Editor.TroopScreen.TroopPanel));
-            OnPropertyChanged(nameof(Editor.EquipmentScreen));
-            OnPropertyChanged(nameof(Editor.Model));
+            if (Screen == null)
+                return; // On construction
+
+            EventManager.TroopChange.Fire();
         }
 
         /// <summary>
@@ -95,7 +133,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 return true;
 
             var search = filter.Trim().ToLowerInvariant();
-            var name = Troop.Name.ToString().ToLowerInvariant();
+            var name = Troop.Name?.ToString().ToLowerInvariant() ?? string.Empty;
 
             return name.Contains(search);
         }

@@ -1,0 +1,19 @@
+<ListPanel
+    DataSource="{TroopPanel}"
+    IsVisible="{IsVisible}"
+    WidthSizePolicy="StretchToParent"
+    HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+>
+    <Children>
+        {{ include "editor/troop/sections/name.sbn" }}
+
+        {{ include "editor/troop/sections/gender.sbn" }}
+
+        {{ include "editor/troop/sections/skills.sbn" }}
+
+        {{ include "editor/troop/sections/upgrades.sbn" }}
+
+        {{ include "editor/troop/sections/conversion.sbn" }}
+    </Children>
+</ListPanel>

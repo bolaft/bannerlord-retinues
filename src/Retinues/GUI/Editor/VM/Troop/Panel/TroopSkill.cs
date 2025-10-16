@@ -3,6 +3,7 @@ using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -11,32 +12,67 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
     [SafeClass]
-    public sealed class TroopSkillVM(SkillObject skill) : BaseComponent
+    public sealed class TroopSkillVM : BaseComponent
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
+        //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        readonly SkillObject _skill = skill;
+        public readonly TroopScreenVM Screen;
+        public readonly SkillObject Skill;
+
+        public TroopSkillVM(TroopScreenVM screen, SkillObject skill)
+        {
+            Log.Info("Building TroopSkillVM...");
+
+            Screen = screen;
+            Skill = skill;
+        }
+
+        public void Initialize()
+        {
+            Log.Info("Initializing TroopSkillVM...");
+
+            // Subscribe to events
+            void Refresh()
+            {
+                OnPropertyChanged(nameof(Value));
+                OnPropertyChanged(nameof(ValueColor));
+                OnPropertyChanged(nameof(IsStaged));
+                OnPropertyChanged(nameof(CanIncrement));
+                OnPropertyChanged(nameof(CanDecrement));
+            }
+            EventManager.SkillChange.Register(Refresh);
+            EventManager.TroopChange.Register(Refresh);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Quick Access                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private WCharacter SelectedTroop => Screen?.TroopList?.Selection?.Troop;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public int Value => SelectedTroop?.GetSkill(_skill) + StagedAmount ?? 0;
+        public int Value => (SelectedTroop?.GetSkill(Skill) ?? 0) + StagedAmount;
+
+        [DataSourceProperty]
+        public string ValueColor => IsStaged ? "#ebaf2fff" : "#F4E1C4FF";
 
         [DataSourceProperty]
         public bool IsStaged => StagedAmount > 0;
 
         [DataSourceProperty]
-        public string StringId => _skill.StringId;
+        public string SkillId => Skill.StringId;
 
         [DataSourceProperty]
-        public bool CanIncrement => TroopRules.CanIncrementSkill(SelectedTroop, _skill);
+        public bool CanIncrement => TroopRules.CanIncrementSkill(SelectedTroop, Skill);
 
         [DataSourceProperty]
-        public bool CanDecrement => TroopRules.CanDecrementSkill(SelectedTroop, _skill);
+        public bool CanDecrement => TroopRules.CanDecrementSkill(SelectedTroop, Skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -54,7 +90,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         private int StagedAmount =>
             TroopTrainBehavior
-                .Instance.GetStagedChange(SelectedTroop, _skill.StringId)
+                .Instance.GetStagedChange(SelectedTroop, Skill?.StringId)
                 ?.PointsRemaining
             ?? 0;
 
@@ -85,8 +121,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     if (increment == false && !CanDecrement)
                         break; // Can't decrement further
 
-                    TroopManager.ModifySkill(SelectedTroop, _skill, increment);
+                    TroopManager.ModifySkill(SelectedTroop, Skill, increment);
                 }
+
+                EventManager.SkillChange.Fire();
             }
 
             // Warn the player if decrementing a skill may require retraining

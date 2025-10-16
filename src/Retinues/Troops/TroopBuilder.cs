@@ -43,6 +43,10 @@ namespace Retinues.Troops
                 Log.Info("No retinue troops found, initializing default retinue troops.");
                 BuildRetinue(faction);
             }
+            else
+            {
+                Log.Debug("Retinue troops found, no need to initialize.");
+            }
 
             if (faction.BasicTroops.Count == 0 && faction.EliteTroops.Count == 0)
             {
@@ -58,6 +62,10 @@ namespace Retinues.Troops
                     BuildTroops(faction);
                 }
             }
+            else
+            {
+                Log.Debug("Custom troops found for faction, no need to initialize.");
+            }
 
             if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
             {
@@ -72,6 +80,10 @@ namespace Retinues.Troops
                     foreach (var s in faction.Settlements)
                         s.MilitiaParty?.MemberRoster?.SwapTroops(faction);
                 }
+            }
+            else
+            {
+                Log.Debug("Militia troops found, no need to initialize.");
             }
         }
 

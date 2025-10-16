@@ -8,13 +8,26 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
     /// ViewModel for a troop upgrade target. Handles display and refresh logic.
     /// </summary>
     [SafeClass]
-    public sealed class TroopUpgradeTargetVM(WCharacter upgrade) : BaseComponent
+    public sealed class TroopUpgradeTargetVM : BaseComponent
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public readonly WCharacter Upgrade;
+
+        public TroopUpgradeTargetVM(WCharacter upgrade)
+        {
+            Log.Info("Building TroopUpgradeTargetVM...");
+
+            Upgrade = upgrade;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string Name => Format.Crop(upgrade.Name, 40);
+        public string Name => Format.Crop(Upgrade?.Name, 40);
     }
 }

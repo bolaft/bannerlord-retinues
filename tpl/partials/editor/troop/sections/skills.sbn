@@ -1,12 +1,5 @@
-<!--
-    editor/default/sections/skills.sbn
-    Displays skill points, experience, tier info, and a grid of skill controls for the troop.
--->
-
-<!-- Header for skills section -->
 {{ header("@SkillsHeaderText") }}
 
-<!-- Skills points row -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
@@ -14,14 +7,12 @@
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true">
     <Children>
-        <!-- Used skill points -->
         {{ text_int("@SkillPointsUsed", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
         {{ text("/", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
-        {{ text_int("@SkillTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
+        {{ text_int("@SkillPointsTotal", "Clan.RightPanel.Name.Text", "Center", "0", "8", "0", "0") }}
     </Children>
 </ListPanel>
 
-<!-- Experience points and tier row -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="Fixed"
@@ -31,19 +22,15 @@
     UpdateChildrenStates="true"
     MarginBottom="15">
     <Children>
-        <!-- Available XP -->
-        {{ small_text("@AvailableTroopXpText", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
+        {{ small_text("@TroopXpText", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
         {{ small_text(" - ", "Center", "0", "0", "0", "0", "@TroopXpIsEnabled") }}
-        <!-- Skill Caps -->
         {{ small_text("@SkillCapText") }}
-        <!-- Tier & Tier Upgrade -->
         {{ small_text(" - ", "Center", "0", "0", "0", "0", "@IsRetinue") }}
         {{ small_text("@TierText", "Center", "0", "8", "0", "0", "@IsRetinue") }}
-        {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "30", "@IsRetinueIsNotMaxTier") }}
+        {{ button_icon("ExecuteRankUp", "Inventory.Tuple.Extension.PlusButton", "30", "@CanRankUp") }}
     </Children>
 </ListPanel>
 
-<!-- Staged training -->
 <ListPanel
     IsVisible="@TrainingTakesTime"
     WidthSizePolicy="CoverChildren"
@@ -54,14 +41,10 @@
     UpdateChildrenStates="true"
     MarginBottom="15">
     <Children>
-        <!-- Training Required -->
-        {{ small_text("@TrainingRequiredText", "Center", "0", "0", "0", "0", "@NoTrainingIsRequired") }}
-        <!-- No Training Required -->
-        {{ small_text("@TrainingRequiredText", "Center", "0", "0", "0", "0", "@TrainingIsRequired", "#ebaf2fff") }}
+        {{ small_text("@TrainingRequiredText", "Center", "0", "0", "0", "0", "true", "@TrainingRequiredTextColor") }}
     </Children>
 </ListPanel>
 
-<!-- Skills grid: two rows of skill controls -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
@@ -78,7 +61,7 @@
             MarginBottom="5"
             UpdateChildrenStates="true">
             <ItemTemplate>
-                {{ include "editor/default/sections/skill.sbn" }}
+                {{ include "editor/troop/sections/skill.sbn" }}
             </ItemTemplate>
         </ListPanel>
         <ListPanel
@@ -90,7 +73,7 @@
             MarginBottom="5"
             UpdateChildrenStates="true">
             <ItemTemplate>
-                {{ include "editor/default/sections/skill.sbn" }}
+                {{ include "editor/troop/sections/skill.sbn" }}
             </ItemTemplate>
         </ListPanel>
     </Children>

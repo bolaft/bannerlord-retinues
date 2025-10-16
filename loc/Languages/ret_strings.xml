@@ -365,6 +365,9 @@
       id="ret_item_shield_speed"
       text="Speed" />
     <string
+      id="ret_item_tier_blocked_text"
+      text="Troop tier too low." />
+    <string
       id="ret_item_unavailable_no_settlement"
       text="Not in a town" />
     <string

@@ -187,5 +187,110 @@ namespace Retinues.Utils
                 return m.DeclaringType?.Name ?? n;
             return n;
         }
+
+        /// <summary>
+        /// Returns the Nth meaningful frame starting at the current method (0 = this method, 1 = direct caller, etc.).
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static Info GetNth(
+            int n,
+            int skip = 0,
+            int maxFrames = 24,
+            bool includeFileInfo = false,
+            bool includeNamespaceInLabel = false,
+            Func<MethodBase, bool> extraSkipPredicate = null
+        )
+        {
+            if (n < 0)
+                n = 0;
+
+            try
+            {
+                var st = new StackTrace(skipFrames: 1 + skip, fNeedFileInfo: includeFileInfo);
+                var count = Math.Min(st.FrameCount, Math.Max(4, maxFrames));
+
+                int found = -1;
+                for (int i = 0; i < count; i++)
+                {
+                    var frame = st.GetFrame(i);
+                    var m = frame?.GetMethod();
+                    if (m == null)
+                        continue;
+
+                    var t = m.DeclaringType;
+                    if (t == null)
+                        continue;
+
+                    var fullType = t.FullName ?? t.Name ?? "";
+                    if (StartsWithAny(fullType, _skipNamespaces))
+                        continue;
+                    if (_skipTypes.Contains(fullType))
+                        continue;
+                    if (m.Name.Contains("Invoke"))
+                        continue; // delegate wrappers
+                    if (extraSkipPredicate != null && extraSkipPredicate(m))
+                        continue;
+
+                    found++;
+                    if (found == n)
+                    {
+                        var typeName = t.Name;
+                        var methodName = NormalizeMethodName(m);
+                        var ns = t.Namespace ?? string.Empty;
+
+                        var label =
+                            includeNamespaceInLabel && !string.IsNullOrEmpty(ns)
+                                ? $"{ns}.{typeName}.{methodName}"
+                                : $"{typeName}.{methodName}";
+
+                        string file = null;
+                        int line = 0;
+                        if (includeFileInfo)
+                        {
+                            file = frame.GetFileName();
+                            line = frame.GetFileLineNumber();
+                        }
+
+                        return new Info
+                        {
+                            Method = m,
+                            DeclaringType = t,
+                            AssemblyName = t.Assembly?.GetName()?.Name,
+                            Namespace = ns,
+                            TypeName = typeName,
+                            MethodName = methodName,
+                            Label = label,
+                            FileName = file,
+                            Line = line,
+                        };
+                    }
+                }
+            }
+            catch
+            { /* swallow */
+            }
+
+            return new Info { Label = "<unknown>" };
+        }
+
+        /// <summary>
+        /// Convenience: get the direct caller of the current method (one frame above).
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static Info GetCallerAbove(
+            int up = 1,
+            int skip = 0,
+            bool includeNamespaceInLabel = false
+        ) => GetNth(n: up, skip: skip, includeNamespaceInLabel: includeNamespaceInLabel);
+
+        /// <summary>
+        /// Returns only the label for the frame 'up' above the current method.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static string GetCallerAboveLabel(
+            int up = 1,
+            int skip = 0,
+            bool includeNamespace = false
+        ) => GetCallerAbove(up, skip, includeNamespace)?.Label ?? "<unknown>";
     }
 }

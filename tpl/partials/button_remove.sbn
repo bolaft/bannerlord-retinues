@@ -1,27 +1,15 @@
-<!--
-    button_remove.sbn
-    Displays a button to remove the selected troop from the retinue.
-    Shows a hint tooltip and is only visible when removal is allowed.
--->
-
 <Widget
+    DataSource="{TroopScreen}"
     Hint="{RemoveButtonHint}"
-    IsVisible="@ShowRemoveButton"
+    IsVisible="@RemoveTroopButtonIsVisible"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     VerticalAlignment="Top">
 
     <Children>
-        <!--
-            ButtonWidget:
-            - Enabled if removal is possible (@CanRemove)
-            - Executes 'ExecuteRemoveTroop' command on click
-            - Shows "Remove" text
-        -->
         <ButtonWidget
-            DataSource="{TroopEditor}"
-            IsEnabled="@CanRemove"
+            IsEnabled="@RemoveTroopButtonIsEnabled"
             DoNotPassEventsToChildren="true"
             UpdateChildrenStates="true"
             WidthSizePolicy="Fixed"
@@ -34,17 +22,13 @@
             Command.Click="ExecuteRemoveTroop">
 
             <Children>
-                <!--
-                    TextWidget:
-                    - Displays the "Remove" button text
-                -->
                 <TextWidget
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Text="@RemoveButtonText"
+                    Text="@RemoveTroopButtonText"
                 />
             </Children>
         </ButtonWidget>

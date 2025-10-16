@@ -1,5 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
@@ -12,35 +14,73 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Equipment.List
 {
     [SafeClass]
-    public sealed class EquipmentRowVM(WItem item, int? progress, bool isAvailable)
-        : BaseRow<EquipmentListVM, EquipmentRowVM>
+    public sealed class EquipmentRowVM : BaseRow<EquipmentListVM, EquipmentRowVM>
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public readonly EditorVM Editor;
+        public readonly WItem Item;
+        public readonly int? Progress;
+        public readonly bool IsAvailable;
+
+        public EquipmentRowVM(EditorVM editor, WItem item, int? progress, bool isAvailable)
+        {
+            Log.Info("Building EquipmentRowVM...");
+
+            Editor = editor;
+            Item = item;
+            Progress = progress;
+            IsAvailable = isAvailable;
+        }
+
+        public void Initialize()
+        {
+            Log.Info("Initializing EquipmentRowVM...");
+
+            EventManager.EquipmentItemChange.RegisterProperties(
+                this,
+                nameof(InStockText),
+                nameof(SkillRequirementText),
+                nameof(TierBlockedText),
+                nameof(ShowIsEquipped),
+                nameof(ShowProgressText),
+                nameof(ShowInStockText),
+                nameof(ShowValue)
+            );
+            EventManager.SkillChange.RegisterProperties(
+                this,
+                nameof(SkillRequirementText),
+                nameof(IsEnabled)
+            );
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Quick Access                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static EquipmentSlotVM SelectedSlot =>
-            Editor.EquipmentScreen.EquipmentPanel.Selection;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private readonly int _progress = progress ?? 0;
-        private readonly bool _isInProgress = progress != null;
-        private readonly bool _isAvailable = isAvailable;
-
-        public bool EmptyRow = item == null;
-        public WItem Item = item;
+        private WEquipment SelectedEquipment => Editor?.EquipmentScreen?.Equipment;
+        private WCharacter SelectedTroop => Editor?.TroopScreen?.TroopList?.Selection?.Troop;
+        private EquipmentSlotVM SelectedSlot => Editor?.EquipmentScreen?.EquipmentPanel?.Selection;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        // Helper
+        private bool IsTierBlocked =>
+            Item != null
+            && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
+            && (Item.Tier - (SelectedTroop?.Tier ?? 0)) > Config.AllowedTierDifference;
+
+        // Helper
+        private bool IsEmptyRow => Item == null;
+
         /* ━━━━━━━━ Values ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int Value => !EmptyRow ? EquipmentManager.GetItemCost(Item, SelectedTroop) : 0;
+        public int Value => !IsEmptyRow ? EquipmentManager.GetItemCost(Item, SelectedTroop) : 0;
 
         [DataSourceProperty]
         public int Stock => Item?.GetStock() ?? 0;
@@ -60,7 +100,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public string ProgressText =>
             ShowProgressText
                 ? L.T("unlock_progress_text", "Unlocking ({PROGRESS}/{REQUIRED})")
-                    .SetTextVariable("PROGRESS", _progress)
+                    .SetTextVariable("PROGRESS", Progress ?? 0)
                     .SetTextVariable("REQUIRED", Config.KillsForUnlock)
                     .ToString()
                 : string.Empty;
@@ -71,7 +111,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 ? Player.CurrentSettlement == null
                     ? L.S("item_unavailable_no_settlement", "Not in a town")
                     : L.T("item_unavailable_text", "Not sold in {SETTLEMENT}")
-                        .SetTextVariable("SETTLEMENT", Player.CurrentSettlement.Name)
+                        .SetTextVariable("SETTLEMENT", Player.CurrentSettlement?.Name)
                         .ToString()
                 : string.Empty;
 
@@ -79,27 +119,38 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public string SkillRequirementText =>
             ShowSkillRequirementText
                 ? L.T("skill_requirement_text", "Requires {SKILL}: {LEVEL}")
-                    .SetTextVariable("SKILL", Item.RelevantSkill.Name)
-                    .SetTextVariable("LEVEL", Item.Difficulty)
+                    .SetTextVariable("SKILL", Item?.RelevantSkill?.Name)
+                    .SetTextVariable("LEVEL", Item?.Difficulty ?? 0)
                     .ToString()
                 : string.Empty;
+
+        [DataSourceProperty]
+        public string TierBlockedText =>
+            IsTierBlocked ? L.S("item_tier_blocked_text", "Troop tier too low.") : string.Empty;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowProgressText => !EmptyRow && !IsEnabled && _isInProgress;
+        public bool ShowIsEquipped =>
+            Config.EquipmentChangeTakesTime && (SelectedSlot?.Item == Item);
 
         [DataSourceProperty]
-        public bool ShowNotAvailableText =>
-            !EmptyRow && !IsEnabled && !ShowProgressText && !_isAvailable;
+        public bool ShowProgressText => !IsEmptyRow && Progress != null;
+
+        [DataSourceProperty]
+        public bool ShowNotAvailableText => !IsEmptyRow && !ShowProgressText && !IsAvailable;
+
+        [DataSourceProperty]
+        public bool ShowTierBlockedText =>
+            !IsEmptyRow && !ShowProgressText && !ShowSkillRequirementText && IsTierBlocked;
 
         [DataSourceProperty]
         public bool ShowSkillRequirementText =>
-            !EmptyRow
-            && !IsEnabled
+            !IsEmptyRow
             && !ShowProgressText
             && !ShowNotAvailableText
-            && !SelectedTroop.MeetsItemRequirements(Item);
+            && !ShowTierBlockedText
+            && !(SelectedTroop?.MeetsItemRequirements(Item) ?? true);
 
         [DataSourceProperty]
         public bool ShowInStockText => IsEnabled && Item?.IsStocked == true;
@@ -111,13 +162,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
 #if BL13
         [DataSourceProperty]
-        public string AdditionalArgs => Item?.Image?.AdditionalArgs;
+        public string ImageAdditionalArgs => Item?.Image?.AdditionalArgs;
 
         [DataSourceProperty]
-        public string Id => Item?.Image?.Id;
+        public string ImageId => Item?.Image?.Id;
 
         [DataSourceProperty]
-        public string TextureProviderName => Item?.Image?.TextureProviderName;
+        public string ImageTextureProviderName => Item?.Image?.TextureProviderName;
 #else
         [DataSourceProperty]
         public string ImageId => Item?.Image?.Id;
@@ -135,6 +186,32 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public BasicTooltipViewModel Hint => Tooltip.MakeItemTooltip(Item);
 
         public override EquipmentListVM List => Editor.EquipmentScreen.EquipmentList;
+
+        /* ━━━━━━━━ Enabled ━━━━━━━ */
+
+        [DataSourceProperty]
+        public override bool IsEnabled
+        {
+            get
+            {
+                if (IsEmptyRow)
+                    return true; // Always can unequip
+
+                if (ShowNotAvailableText)
+                    return false; // Not sold here
+
+                if (ShowTierBlockedText)
+                    return false; // Troop tier too low
+
+                if (ShowSkillRequirementText)
+                    return false; // Skill requirements not met
+
+                if (ShowProgressText)
+                    return false; // Still unlocking
+
+                return true; // All checks passed
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -371,14 +448,14 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         public override bool FilterMatch(string filter)
         {
-            if (EmptyRow)
+            if (IsEmptyRow)
                 return true;
 
             var search = filter.Trim().ToLowerInvariant();
-            var name = Item.Name.ToString().ToLowerInvariant();
-            var category = Item.Category.ToString().ToLowerInvariant();
-            var type = Item.Type.ToString().ToLowerInvariant();
-            var culture = Item.Culture?.Name?.ToString().ToLowerInvariant() ?? "";
+            var name = Item?.Name?.ToString().ToLowerInvariant() ?? string.Empty;
+            var category = Item?.Category?.ToString().ToLowerInvariant() ?? string.Empty;
+            var type = Item?.Type.ToString().ToLowerInvariant() ?? string.Empty;
+            var culture = Item?.Culture?.Name?.ToString().ToLowerInvariant() ?? "";
 
             return name.Contains(search)
                 || category.Contains(search)

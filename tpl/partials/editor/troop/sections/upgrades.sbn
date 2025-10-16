@@ -1,9 +1,3 @@
-<!--
-    editor/default/sections/upgrades.sbn
-    Displays upgrade options for regular troops.
-    Includes upgrade list and button to add new upgrade targets.
--->
-
 <!-- Header for upgrades section -->
 {{ header("@UpgradesHeaderText", "@IsRegular") }}
 
@@ -22,4 +16,4 @@
 </ListPanel>
 
 <!-- Add upgrade button -->
-{{ button_text("@AddUpgradeButtonText", "ExecuteAddUpgradeTarget", "Popup.Done.Button", "@IsRegular", "@CanUpgrade", "Bottom") }}
+{{ button_text("@AddUpgradeButtonText", "ExecuteAddUpgrade", "Popup.Done.Button", "@IsRegular", "@CanAddUpgrade", "Bottom") }}

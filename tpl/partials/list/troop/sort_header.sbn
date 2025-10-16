@@ -11,7 +11,6 @@
     SuggestedHeight="57"
     RenderLate="true">
     <Children>
-        <!-- Sort label with arrow indicator -->
         <TextWidget
             Id="TextWidget"
             WidthSizePolicy="Fixed"
@@ -21,7 +20,7 @@
             VerticalAlignment="Center"
             Brush="Clan.LeftPanel.Header.Text"
             ClipContents="false"
-            Text="@SearchLabel">
+            Text="@FilterLabel">
             <Children>
                 <BrushWidget
                     Id="NameSortVisualWidget"
@@ -36,7 +35,6 @@
             </Children>
         </TextWidget>
 
-        <!-- Search input field -->
         <BrushWidget
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
@@ -54,12 +52,11 @@
                     VerticalAlignment="Center"
                     Brush="Crafting.NameInput.Text"
                     GamepadNavigationIndex="0"
-                    Text="@SearchText"
+                    Text="@FilterText"
                     DoNotPassEvents="true" />
             </Children>
         </BrushWidget>
 
-        <!-- Decorative header sprite -->
         <Widget 
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"

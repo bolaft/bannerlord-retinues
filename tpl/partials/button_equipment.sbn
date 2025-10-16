@@ -1,10 +1,6 @@
-<!--
-    button_unequip.sbn
-    Displays a button to unequip all items from the troop in equipment mode.
--->
-
 <ListPanel
-    IsVisible="@IsEquipmentMode"
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
     StackLayout.LayoutMethod="VerticalBottomToTop"
@@ -12,14 +8,8 @@
     VerticalAlignment="Top">
 
     <Children>
-        <!--
-            ButtonWidget:
-            - Enabled if unequip is possible (@CanUnequip)
-            - Executes 'ExecuteUnequipAll' command on click
-        -->
         <ButtonWidget
-            DataSource="{EquipmentEditor}"
-            IsHidden="@HasStagedChanges"
+            IsHidden="@CanUnstage"
             IsEnabled="@CanUnequip"
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed"
@@ -32,29 +22,18 @@
             Command.Click="ExecuteUnequipAll">
 
             <Children>
-                <!--
-                    TextWidget:
-                    - Displays the "Unequip All" button text
-                -->
                 <TextWidget
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Text="@UnequipAllButtonText"
-                />
+                    Text="@UnequipAllButtonText"/>
             </Children>
         </ButtonWidget>
 
-        <!--
-            ButtonWidget:
-            - Enabled if unstage is possible (@HasStagedChanges)
-            - Executes 'ExecuteUnstageAll' command on click
-        -->
         <ButtonWidget
-            DataSource="{EquipmentEditor}"
-            IsVisible="@HasStagedChanges"
+            IsVisible="@CanUnstage"
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
@@ -66,36 +45,28 @@
             Command.Click="ExecuteUnstageAll">
 
             <Children>
-                <!--
-                    TextWidget:
-                    - Displays the "Unstage All" button text
-                -->
                 <TextWidget
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Text="@UnstageAllButtonText"
-                />
+                    Text="@UnstageAllButtonText"/>
             </Children>
         </ButtonWidget>
 
-        <!-- Equipment sets -->
         <ListPanel
-            DataSource="{EquipmentEditor}"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             HorizontalAlignment="Center">
             <Children>
-                {{ button_icon("ExecutePreviousSet", "ButtonRightBigArrowBrush1", "36", "true", "@CanSelectPreviousSet") }}
-                {{ text("@CurrentSetText", "Clan.Tuple.Name.Text", "Center", "16", "16") }}
+                {{ button_icon("ExecutePrevSet", "ButtonRightBigArrowBrush1", "36", "true", "@CanSelectPrevSet") }}
+                {{ text("@EquipmentName", "Clan.Tuple.Name.Text", "Center", "16", "16") }}
                 {{ button_icon("ExecuteNextSet", "ButtonLeftBigArrowBrush1", "36", "true", "@CanSelectNextSet") }}
             </Children>
         </ListPanel>
         <ListPanel
-            DataSource="{EquipmentEditor}"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"

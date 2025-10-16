@@ -244,7 +244,7 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Returns true if the troop can be upgraded (not militia, not max tier, upgrade slots available).
         /// </summary>
-        public static bool CanUpgradeTroop(WCharacter character)
+        public static bool CanAddUpgradeToTroop(WCharacter character)
         {
             if (character == null)
                 return false;

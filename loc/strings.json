@@ -1920,6 +1920,22 @@
     "TR": "Hız"
   },
   {
+    "id": "ret_item_tier_blocked_text",
+    "EN": "Troop tier too low.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_item_unavailable_no_settlement",
     "EN": "Not in a town",
     "BR": "Não está em uma cidade",

@@ -1,10 +1,3 @@
-<!--
-    divider.sbn
-    Macro for a simple horizontal divider widget.
-    Parameters:
-    - is_visible: controls visibility of the divider
-    Divider uses a fixed height and stretches horizontally, with custom margins and sprite.
--->
 {{- func divider(is_visible = "true") -}}
 <Widget
     IsVisible="{{is_visible}}"

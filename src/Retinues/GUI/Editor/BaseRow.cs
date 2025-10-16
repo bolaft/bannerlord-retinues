@@ -1,4 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
@@ -22,18 +23,18 @@ namespace Retinues.GUI.Editor
             get => _isSelected;
             set
             {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
+                if (_isSelected == value)
+                    return;
 
-                    // Trigger selection/deselection hooks
-                    if (value)
-                        OnSelect();
-                    else
-                        OnUnselect();
+                _isSelected = value;
 
-                    OnPropertyChanged(nameof(IsSelected));
-                }
+                // Trigger selection/deselection hooks
+                if (value)
+                    OnSelect();
+                else
+                    OnUnselect();
+
+                OnPropertyChanged(nameof(IsSelected));
             }
         }
 

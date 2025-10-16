@@ -37,22 +37,28 @@ namespace Retinues.GUI.Editor
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public virtual MBBindingList<TRow> Rows { get; protected set; } = [];
+        public virtual List<TRow> Rows { get; protected set; } = [];
 
         public TRow Selection => Rows.FirstOrDefault(r => r.IsSelected);
 
         /// <summary>
         /// Selects the given row, deselecting all others.
         /// </summary>
+        private bool _selecting;
         public void Select(TRow row)
         {
-            if (row is null || !Rows.Contains(row))
-                return;
+            if (row is null || !Rows.Contains(row)) return;
+            if (ReferenceEquals(Selection, row)) return;
+            if (_selecting) return;
 
-            foreach (var r in Rows)
-                r.IsSelected = ReferenceEquals(r, row);
-
-            OnPropertyChanged(nameof(Selection));
+            _selecting = true;
+            try
+            {
+                foreach (var r in Rows)
+                    r.IsSelected = ReferenceEquals(r, row);
+                OnPropertyChanged(nameof(Selection));
+            }
+            finally { _selecting = false; }
         }
     }
 }

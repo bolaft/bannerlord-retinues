@@ -1,8 +1,3 @@
-using System;
-using System.Linq;
-using Retinues.Game;
-using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.VM;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
@@ -11,23 +6,10 @@ namespace Retinues.GUI.Editor
     public abstract class BaseComponent : ViewModel
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        protected static EditorVM Editor =>
-            EditorVM.Instance ?? throw new Exception("EditorVM instance is null");
-        protected static WFaction SelectedFaction => Editor.Faction ?? Player.Clan;
-        protected static WCharacter SelectedTroop =>
-            Editor.TroopScreen?.TroopList?.Selection?.Troop
-            ?? SelectedFaction.Troops.FirstOrDefault();
-        protected static WEquipment SelectedEquipment =>
-            Editor.EquipmentScreen?.Equipment ?? SelectedTroop?.Loadout?.Battle;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private bool _isVisible = false;
+        private bool _isVisible = true;
 
         [DataSourceProperty]
         public virtual bool IsVisible
@@ -46,9 +28,17 @@ namespace Retinues.GUI.Editor
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public void Show() => IsVisible = true;
+        public virtual void Show() => IsVisible = true;
 
-        public void Hide() => IsVisible = false;
+        public virtual void Hide() => IsVisible = false;
+
+        public void Raise(params string[] properties)
+        {
+            if (properties == null)
+                return;
+            foreach (var name in properties)
+                OnPropertyChanged(name);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
