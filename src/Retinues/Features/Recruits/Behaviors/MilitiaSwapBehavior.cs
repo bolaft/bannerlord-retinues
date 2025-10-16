@@ -38,12 +38,12 @@ namespace Retinues.Features.Recruits.Behaviors
             var s = new WSettlement(settlement);
             var f = s.PlayerFaction;
 
+            if (f == null)
+                return; // Not player faction
+
             Log.Debug(
                 $"MilitiaSwap: Daily tick for {settlement?.Name} ({f?.Name ?? "not player faction"})."
             );
-
-            if (f == null)
-                return; // Not player faction
 
             // Swap militias
             s.MilitiaParty?.MemberRoster?.SwapTroops(f);
