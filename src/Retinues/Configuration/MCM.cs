@@ -434,22 +434,11 @@ namespace Retinues.Configuration
             // 2) Helpful stats
             var countsBySection = _all.GroupBy(x => x.Section)
                 .ToDictionary(g => g.Key, g => g.Count());
-            Log.Info(
-                $"MCM: discovered {_all.Count} options in {countsBySection.Count} sections: "
-                    + string.Join(", ", countsBySection.Select(kv => $"{kv.Key}={kv.Value}"))
-            );
 
             if (settings is null)
-            {
-                Log.Warn("MCM: BuildAsGlobal returned null — provider not active yet?");
                 return false;
-            }
 
             settings.Register();
-
-            Log.Info(
-                $"MCM: page registered. Id='{McmId}', Display='{McmDisplay}', Sections={countsBySection.Count}, Options={_all.Count}."
-            );
 
             return true;
         }
