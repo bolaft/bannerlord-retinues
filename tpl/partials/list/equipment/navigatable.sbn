@@ -1,3 +1,4 @@
+<!-- Outer navigatable container that stacks item rows -->
 <NavigatableListPanel 
     Id="RET_ListItemsListPanel" 
     WidthSizePolicy="CoverChildren"
@@ -6,7 +7,10 @@
     MinIndex="0"
     StepSize="1000">
     <Children>
+        <!-- Keeps the current selection in view while navigating -->
         <NavigationAutoScrollWidget TrackedWidget=".\RET_ItemHeader"/>
+
+        <!-- Inner navigatable list bound to EquipmentRows (each entry uses the ItemTemplate below) -->
         <NavigatableListPanel 
             Id="RET_ItemList"
             DataSource="{EquipmentRows}"
@@ -16,6 +20,7 @@
             StackLayout.LayoutMethod="VerticalBottomToTop"
             UseSelfIndexForMinimum="true">
             <ItemTemplate>
+                <!-- Each equipment row is a selectable button with hint support -->
                 <ButtonWidget
                     DoNotPassEventsToChildren="true"
                     WidthSizePolicy="Fixed"
@@ -29,6 +34,7 @@
                     Command.Click="ExecuteSelect"
                     UpdateChildrenStates="true">
                     <Children>
+                        <!-- Hover hint handling for the row -->
                         <HintWidget
                             DataSource="{Hint}"
                             WidthSizePolicy="StretchToParent"
@@ -44,12 +50,14 @@
                             MarginRight="10"
                             StackLayout.LayoutMethod="HorizontalLeftToRight">
                             <Children>
-                                <!-- Icon -->
+                                <!-- Icon: choose macro variant depending on bitmap layout (bl) -->
                                 {{ if bl == 13 }}
                                     {{ image_13("96", "48", "0", "24") }}
                                 {{ else }}
                                     {{ image_12("96", "48", "0", "24") }}
                                 {{ end }}
+
+                                <!-- Item name -->
                                 <TextWidget
                                     Text="@Name"
                                     Brush="Clan.Tuple.Name.Text"
@@ -58,6 +66,7 @@
                                     VerticalAlignment="Center"
                                     MarginLeft="10"/>
 
+                                <!-- In-stock count (right aligned, optional) -->
                                 <TextWidget
                                     Text="@InStockText"
                                     Brush="Clan.RightPanel.Name.Text"
@@ -68,6 +77,7 @@
                                     VerticalAlignment="Center"
                                     IsVisible="@ShowInStockText"/>
 
+                                <!-- Value displayed as integer (optional) -->
                                 <TextWidget
                                     IntText="@Value"
                                     Brush="InventoryGoldFontBrush"
@@ -77,6 +87,7 @@
                                     VerticalAlignment="Center"
                                     IsVisible="@ShowValue"/>
                                 
+                                <!-- Coin icon for the value -->
                                 <ImageWidget
                                     WidthSizePolicy="Fixed"
                                     HeightSizePolicy="Fixed"
@@ -86,6 +97,7 @@
                                     VerticalAlignment="Center"
                                     IsVisible="@ShowValue"/>
 
+                                <!-- Equipped indicator (checkmark) -->
                                 <ImageWidget
                                     IsVisible="@ShowIsEquipped"
                                     WidthSizePolicy="Fixed"
@@ -95,6 +107,7 @@
                                     Sprite="General\Icons\icon_quest_done_checkmark"
                                     VerticalAlignment="Center"/>
 
+                                <!-- Disabled overlay text shown when item is not enabled -->
                                 <TextWidget
                                     Text="@IsDisabledText"
                                     Brush="Clan.RightPanel.Name.Text"

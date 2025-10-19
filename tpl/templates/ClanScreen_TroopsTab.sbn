@@ -1,3 +1,4 @@
+<!-- Troops tab button: selects the Troops tab in the Clan screen -->
 <ButtonWidget
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="Fixed"
@@ -13,6 +14,7 @@
     Command.Click="ExecuteSelectTroops">
 
     <Children>
+        <!-- Tab label text -->
         <TextWidget
             WidthSizePolicy="StretchToParent"
             HeightSizePolicy="StretchToParent"

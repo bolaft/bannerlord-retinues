@@ -1,8 +1,10 @@
+<!-- Navigation scope for the horizontal sort controls -->
 <NavigationScopeTargeter
     ScopeID="SortButtonsScope"
     ScopeParent="..\SortButtons"
     ScopeMovements="Horizontal"/>
 
+<!-- Sort buttons / header panel bound to the TroopList data source -->
 <ListPanel
     Id="SortButtons"
     DataSource="{TroopList}"
@@ -11,6 +13,7 @@
     SuggestedHeight="57"
     RenderLate="true">
     <Children>
+        <!-- Name/Filter label with sort arrow (NameSortVisualWidget indicates current sort direction) -->
         <TextWidget
             Id="TextWidget"
             WidthSizePolicy="Fixed"
@@ -35,6 +38,7 @@
             </Children>
         </TextWidget>
 
+        <!-- Filter input area: framed brush with an editable text widget inside -->
         <BrushWidget
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
@@ -57,6 +61,7 @@
             </Children>
         </BrushWidget>
 
+        <!-- Scroll header sprite to visually cap the header area -->
         <Widget 
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"

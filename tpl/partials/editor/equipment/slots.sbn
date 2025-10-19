@@ -1,3 +1,5 @@
+<!-- Macro: slot_row(datasource)
+     Renders a single equipment slot row: select button, image preview (with hint), and item text. -->
 {{- func slot_row(datasource) -}}
 <ListPanel 
     WidthSizePolicy="CoverChildren"
@@ -6,7 +8,7 @@
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     MarginTop="16">
     <Children>
-        <!-- Selector button for slot -->
+        <!-- Slot select button: shows label and handles selection -->
         <ButtonWidget
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed"
@@ -30,7 +32,7 @@
             </Children>
         </ButtonWidget>
 
-        <!-- Equipment visual for slot -->
+        <!-- Image preview area: framed brush + ImageIdentifierWidget with hover hint -->
         <Widget
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -54,6 +56,7 @@
                     SuggestedWidth="86"
                     SuggestedHeight="42">
                     <Children>
+                        <!-- Hover hint widget for the image -->
                         <HintWidget
                             DataSource="{Hint}"
                             Command.HoverBegin="ExecuteBeginHint"
@@ -63,6 +66,7 @@
             </Children>
         </Widget>
 
+        <!-- Item text: name/value of the equipped item for this slot -->
         <TextWidget
             Text="@ItemText"
             Brush="Clan.RightPanel.Name.Text"
@@ -77,6 +81,7 @@
 </ListPanel>
 {{- end -}}
 
+<!-- Main slots list: renders rows for weapons, armor and mount slots -->
 <ListPanel
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
     StackLayout.LayoutMethod="VerticalBottomToTop"
@@ -89,26 +94,26 @@
             UpdateChildrenStates="true"
             MarginBottom="24" MarginLeft="160">
             <Children>
-                <!-- Weapons 1..4 -->
+                <!-- Weapon rows -->
                 {{ slot_row "{Weapon1Slot}" }}
                 {{ slot_row "{Weapon2Slot}" }}
                 {{ slot_row "{Weapon3Slot}" }}
                 {{ slot_row "{Weapon4Slot}" }}
 
-                <!-- Divider between weapons and armor -->
+                <!-- Divider between weapon and armor groups -->
                 {{ divider() }}
 
-                <!-- Armor slots -->
+                <!-- Armor rows -->
                 {{ slot_row "{HeadSlot}" }}
                 {{ slot_row "{CapeSlot}" }}
                 {{ slot_row "{BodySlot}" }}
                 {{ slot_row "{GlovesSlot}" }}
                 {{ slot_row "{LegSlot}" }}
 
-                <!-- Divider between armor and mount -->
+                <!-- Divider between armor and mount groups -->
                 {{ divider() }}
 
-                <!-- Mount slots -->
+                <!-- Mount rows -->
                 {{ slot_row "{HorseSlot}" }}
                 {{ slot_row "{HorseHarnessSlot}" }}
             </Children>

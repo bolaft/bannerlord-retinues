@@ -1,9 +1,4 @@
-<!--
-    doctrines/base.sbn
-    Displays doctrine columns in the doctrines editor.
-    Each column is included from doctrines/column.sbn.
--->
-
+<!-- Root widget bound to DoctrineScreen (centers the doctrines UI) -->
 <Widget
     DataSource="{DoctrineScreen}"
     WidthSizePolicy="StretchToParent"
@@ -12,6 +7,7 @@
     VerticalAlignment="Center"
     HorizontalAlignment="Center">
     <Children>
+        <!-- Columns list: horizontally lays out each doctrine column from Columns data source -->
         <ListPanel 
             DataSource="{Columns}"
             WidthSizePolicy="StretchToParent"
@@ -23,6 +19,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center">
             <ItemTemplate>
+                <!-- Each item renders a doctrine column -->
                 {{ include "doctrines/column.sbn" }}
             </ItemTemplate>
         </ListPanel>

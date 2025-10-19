@@ -1,3 +1,4 @@
+<!-- Equipment controls panel: Unequip/Unstage actions and set navigation -->
 <ListPanel
     DataSource="{EquipmentScreen}"
     IsVisible="@IsVisible"
@@ -8,6 +9,7 @@
     VerticalAlignment="Top">
 
     <Children>
+        <!-- Unequip all button (visible when not staging) -->
         <ButtonWidget
             IsHidden="@CanUnstage"
             IsEnabled="@CanUnequip"
@@ -22,6 +24,7 @@
             Command.Click="ExecuteUnequipAll">
 
             <Children>
+                <!-- Label: Unequip All -->
                 <TextWidget
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"
@@ -32,6 +35,7 @@
             </Children>
         </ButtonWidget>
 
+        <!-- Unstage all button (visible when staging) -->
         <ButtonWidget
             IsVisible="@CanUnstage"
             DoNotPassEventsToChildren="true"
@@ -45,6 +49,7 @@
             Command.Click="ExecuteUnstageAll">
 
             <Children>
+                <!-- Label: Unstage All -->
                 <TextWidget
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"
@@ -55,6 +60,7 @@
             </Children>
         </ButtonWidget>
 
+        <!-- Set navigation: prev / set name / next -->
         <ListPanel
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
@@ -66,6 +72,8 @@
                 {{ button_icon("ExecuteNextSet", "ButtonLeftBigArrowBrush1", "36", "true", "@CanSelectNextSet") }}
             </Children>
         </ListPanel>
+
+        <!-- Set actions: remove / create -->
         <ListPanel
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"

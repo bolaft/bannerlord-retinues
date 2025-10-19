@@ -1,3 +1,4 @@
+<!-- Image macro for BL13: renders a framed image with an ImageIdentifierWidget. Params: width, height, margins, offsets, brush, visibility -->
 {{- func image_13(width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
 <Widget
     IsVisible="{{is_visible}}"
@@ -18,6 +19,7 @@
 </Widget>
 {{- end -}}
 
+<!-- Image macro for BL12: renders a framed image using ImageTypeCode. Params: width, height, margins, offsets, brush, visibility -->
 {{- func image_12(width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
 <Widget
     IsVisible="{{is_visible}}"

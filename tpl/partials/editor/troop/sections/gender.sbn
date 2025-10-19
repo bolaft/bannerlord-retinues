@@ -1,5 +1,7 @@
+<!-- Section header -->
 {{ header("@GenderHeaderText") }}
 
+<!-- Gender display and change action -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
@@ -8,8 +10,10 @@
     UpdateChildrenStates="true"
     MarginBottom="0">
     <Children>
+        <!-- Display current gender text -->
         {{ text("@GenderText", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
+        <!-- Button to toggle/change gender (icon) -->
         {{ button_icon("ExecuteChangeGender", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
     </Children>
 </ListPanel>

@@ -1,3 +1,4 @@
+<!-- Container for the remove-troop button (bound to TroopScreen) -->
 <Widget
     DataSource="{TroopScreen}"
     Hint="{RemoveButtonHint}"
@@ -8,6 +9,7 @@
     VerticalAlignment="Top">
 
     <Children>
+        <!-- Remove troop button -->
         <ButtonWidget
             IsEnabled="@RemoveTroopButtonIsEnabled"
             DoNotPassEventsToChildren="true"
@@ -22,6 +24,7 @@
             Command.Click="ExecuteRemoveTroop">
 
             <Children>
+                <!-- Button label -->
                 <TextWidget
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"

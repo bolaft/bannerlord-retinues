@@ -3,6 +3,7 @@
 {{ include "macros/image.sbn" }}
 {{ include "macros/text.sbn" }}
 
+<!-- Top-level widget: binds to Editor and controls overall visibility -->
 <Widget 
     DataSource="{Editor}"
     IsVisible="@IsVisible"
@@ -11,6 +12,8 @@
     DoNotAcceptEvents="false">
 
     <Children>
+        <!-- Left/main panel: shown when NOT in doctrines screen.
+             Contains troop tableau, remove/equipment buttons and equipment toggle. -->
         <Widget 
             IsHidden="@InDoctrineScreen"
             WidthSizePolicy="StretchToParent"
@@ -18,10 +21,12 @@
             MarginLeft="600"
             MarginRight="290">
             <Children>
+                <!-- Layout wrapper for left content -->
                 <Widget
                     WidthSizePolicy="StretchToParent"
                     HeightSizePolicy="StretchToParent">
                     <Children>
+                        <!-- Left column containing tableau and action buttons -->
                         <Widget
                             WidthSizePolicy="StretchToParent"
                             HeightSizePolicy="StretchToParent"
@@ -34,18 +39,23 @@
                                     SuggestedHeight="512"
                                     HorizontalAlignment="Left">
                                     <Children>
+                                        <!-- Troop tableau -->
                                         {{ include "tableau.sbn" }}
 
+                                        <!-- Remove troop button -->
                                         {{ include "button_remove.sbn" }}
 
+                                        <!-- Equipment button group -->
                                         {{ include "button_equipment.sbn" }}
 
+                                        <!-- Equipment toggle text button -->
                                         {{ button_text("@EquipmentButtonText", "ExecuteToggleEquipment", "@EquipmentButtonBrush", "@ShowEquipmentButton", "true", "Bottom") }}
                                     </Children>
                                 </Widget>
                             </Children>
                         </Widget>
 
+                        <!-- Right panel (editor): shows editor/base.sbn content -->
                         <Widget
                             VisualDefinition="RightPanel"
                             WidthSizePolicy="StretchToParent"
@@ -61,6 +71,7 @@
             </Children>
         </Widget>
 
+        <!-- Doctrines panel: swaps in when InDoctrineScreen is true -->
         <Widget 
             IsVisible="@InDoctrineScreen"
             WidthSizePolicy="StretchToParent"
@@ -70,10 +81,12 @@
             </Children>
         </Widget>
 
+        <!-- Global big buttons: Faction switch and Doctrines toggle -->
         {{ big_button("@FactionButtonText", "ExecuteSwitchFaction", "@ShowFactionButton", "Top", "Right") }}
 
         {{ big_button("@DoctrinesButtonText", "ExecuteToggleDoctrines", "@ShowDoctrinesButton", "Bottom", "Right") }}
 
+        <!-- Troop list include -->
         {{ include "list/base.sbn" }}
     </Children>
 </Widget>

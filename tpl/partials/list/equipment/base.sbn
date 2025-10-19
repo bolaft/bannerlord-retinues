@@ -1,11 +1,14 @@
+<!-- Sort header include (column headings / sorting controls for equipment) -->
 {{ include "list/equipment/sort_header.sbn" }}
 
+<!-- Main equipment list panel: contains the scrollable equipment entries bound to EquipmentList -->
 <ListPanel 
     DataSource="{EquipmentList}"
     IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="StretchToParent">
     <Children>
+        <!-- Scrollable area that holds the navigatable equipment entries -->
         <ScrollablePanel 
             Id="RET_ListItemsScrollablePanel"
             ClipRect="RET_ListItemsRect"
@@ -19,12 +22,14 @@
             AutoHideScrollBars="true"
             MouseScrollAxis="Vertical">
             <Children>
+                <!-- Navigation scope targeter: defines keyboard/controller navigation region for the equipment list -->
                 <NavigationScopeTargeter 
                     ScopeID="RET_TroopsScope"
                     ScopeParent=".\RET_ListItemsRect"
                     ScopeMovements="Vertical"
                     IsDefaultNavigationScope="true"
                     DoNotAutoNavigateAfterSort="true"/>
+                <!-- Container for the list entries (navigatable items included) -->
                 <Widget 
                     Id="RET_ListItemsRect"
                     WidthSizePolicy="CoverChildren"
@@ -37,6 +42,7 @@
             </Children>
         </ScrollablePanel>
 
+        <!-- Vertical scrollbar for the equipment list -->
         <Standard.VerticalScrollbar 
             Id="RET_ListItemsScrollbar"
             HeightSizePolicy="StretchToParent"

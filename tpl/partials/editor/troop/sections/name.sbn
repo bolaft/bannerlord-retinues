@@ -1,5 +1,7 @@
+<!-- Section header -->
 {{ header("@NameHeaderText") }}
 
+<!-- Name display and rename action -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
@@ -10,6 +12,7 @@
     <Children>
         {{ text("@Name", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
+        <!-- Rename button (icon) -->
         {{ button_icon("ExecuteRename", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
     </Children>
 </ListPanel>

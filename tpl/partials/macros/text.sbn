@@ -1,3 +1,4 @@
+<!-- Simple text widget. Params: text, brush, horizontal_alignment, margins, is_visible -->
 {{- func text(text, brush = "Clan.Tuple.Name.Text", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -8,6 +9,7 @@
     ClipContents="false"/>
 {{- end -}}
 
+<!-- Integer text widget: same as text but binds IntText (for numeric values) -->
 {{- func text_int(text, brush = "Clan.Tuple.Name.Text", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -18,6 +20,7 @@
     ClipContents="false"/>
 {{- end -}}
 
+<!-- Small colored text (e.g., for gold values). Params: text, alignment, margins, visibility, color (hex) -->
 {{- func small_text(text, horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0", is_visible = "true", color = "#F4E1C4FF") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -28,6 +31,7 @@
     ClipContents="false"/>
 {{- end -}}
 
+<!-- Header style text for section headings. Params: text, visibility, top/bottom margins -->
 {{- func header(text, is_visible = "true", margin_top = "15", margin_bottom = "10") -}}
 <TextWidget
     IsVisible="{{is_visible}}"
@@ -40,6 +44,7 @@
     MarginBottom="{{margin_bottom}}"/>
 {{- end -}}
 
+<!-- Title style text (larger title) -->
 {{- func title(text) -}}
 <TextWidget
     WidthSizePolicy="CoverChildren"

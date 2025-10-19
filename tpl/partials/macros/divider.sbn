@@ -1,3 +1,4 @@
+<!-- Divider macro: renders a horizontal divider line. Param: is_visible (controls visibility) -->
 {{- func divider(is_visible = "true") -}}
 <Widget
     IsVisible="{{is_visible}}"

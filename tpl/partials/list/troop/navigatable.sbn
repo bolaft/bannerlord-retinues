@@ -1,3 +1,5 @@
+<!-- Macro: party_toggle(type, name)
+     Renders a collapsible header toggle for a troop category (collapser + label) -->
 {{- func party_toggle(type, name) -}}
 <PartyHeaderToggleWidget
     Id="RET_{{type}}Toggle"
@@ -27,6 +29,9 @@
 </PartyHeaderToggleWidget>
 {{- end -}}
 
+<!-- Macro: troop_list(kind, datasource)
+     Renders a navigatable list bound to the provided data source.
+     Includes auto-scroll behavior and an item template for each troop entry. -->
 {{- func troop_list(kind, datasource) -}}
 <NavigationAutoScrollWidget TrackedWidget=".\RET_{{kind}}Header"/>
 
@@ -75,6 +80,7 @@
 </NavigatableListPanel>
 {{- end -}}
 
+<!-- Main container: composes category toggles and their associated navigatable lists -->
 <NavigatableListPanel 
     Id="RET_ListTroopsListPanel" 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 

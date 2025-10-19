@@ -6,14 +6,19 @@
     StackLayout.LayoutMethod="VerticalBottomToTop"
 >
     <Children>
+        <!-- Troop name section (editable name fields) -->
         {{ include "editor/troop/sections/name.sbn" }}
 
+        <!-- Gender selection section (male/female toggle) -->
         {{ include "editor/troop/sections/gender.sbn" }}
 
+        <!-- Skills section (skill sliders/values) -->
         {{ include "editor/troop/sections/skills.sbn" }}
 
+        <!-- Upgrades section (promotion/upgrade options) -->
         {{ include "editor/troop/sections/upgrades.sbn" }}
 
+        <!-- Conversion section (convert between troop types or factions) -->
         {{ include "editor/troop/sections/conversion.sbn" }}
     </Children>
 </ListPanel>

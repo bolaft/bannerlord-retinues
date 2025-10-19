@@ -1,5 +1,7 @@
+<!-- Section header -->
 {{ header("@SkillsHeaderText") }}
 
+<!-- Skill points summary (used / total) -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
@@ -13,6 +15,7 @@
     </Children>
 </ListPanel>
 
+<!-- Rank / XP / tier controls (rank-up button included) -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="Fixed"
@@ -31,6 +34,7 @@
     </Children>
 </ListPanel>
 
+<!-- Optional training time notice shown when training takes time -->
 <ListPanel
     IsVisible="@TrainingTakesTime"
     WidthSizePolicy="CoverChildren"
@@ -45,6 +49,7 @@
     </Children>
 </ListPanel>
 
+<!-- Skill rows: two horizontal rows of skill controls (populated from SkillsRow1 and SkillsRow2) -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"

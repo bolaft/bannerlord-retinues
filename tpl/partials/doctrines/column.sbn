@@ -1,7 +1,5 @@
 <!--
-    doctrines/column.sbn
-    Displays a single doctrine column with a title and a list of doctrines.
-    Each doctrine is included from doctrines/doctrine.sbn.
+    Doctrines column partial: renders a titled column containing doctrine entries (cards).
 -->
 
 <Widget
@@ -13,6 +11,7 @@
     <Children>
         <!-- Column title -->
         {{ title("@Name") }}
+        <!-- List of doctrines: each item uses the doctrine card template -->
         <ListPanel
             DataSource="{Doctrines}"
             WidthSizePolicy="Fixed"
@@ -24,7 +23,7 @@
             MarginBottom="0"
             StackLayout.LayoutMethod="VerticalBottomToTop">
             <ItemTemplate>
-                <!-- Doctrine item -->
+                <!-- Single doctrine card include -->
                 {{ include "doctrines/doctrine.sbn" }}
             </ItemTemplate>
         </ListPanel>

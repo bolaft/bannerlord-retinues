@@ -1,3 +1,4 @@
+<!-- Macro: wraps an include in a BrushListPanel bound to the provided data source -->
 {{- func list_panel(include_file, data_source) -}}
 <BrushListPanel
     DataSource="{{data_source}}"
@@ -17,6 +18,8 @@
 </BrushListPanel>
 {{- end -}}
 
+<!-- Troop list panel instance: renders the troop list using the TroopScreen data source -->
 {{ list_panel("list/troop/base.sbn", "{TroopScreen}") }}
 
+<!-- Equipment list panel instance: renders the equipment list using the EquipmentScreen data source -->
 {{ list_panel("list/equipment/base.sbn", "{EquipmentScreen}") }}

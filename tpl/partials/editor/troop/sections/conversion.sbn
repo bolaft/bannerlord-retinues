@@ -1,5 +1,7 @@
+<!-- Section header (shows when IsRetinue is true) -->
 {{ header("@TransferHeaderText", "@IsRetinue", "0") }}
 
+<!-- Conversion rows: data-driven list of available conversions (Source -> Target with cost) -->
 <ListPanel
     DataSource="{ConversionRows}"
     WidthSizePolicy="CoverChildren"
@@ -7,6 +9,7 @@
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop">
   <ItemTemplate>
+    <!-- Single conversion row: source label, release button, cost + coin icon, recruit button, target label -->
     <ListPanel
         WidthSizePolicy="CoverChildren"
         HeightSizePolicy="CoverChildren"
@@ -35,6 +38,7 @@
   </ItemTemplate>
 </ListPanel>
 
+<!-- Conversion actions (visible for retinues): apply pending conversions or clear them -->
 <ListPanel
     IsVisible="@IsRetinue"
     WidthSizePolicy="CoverChildren"

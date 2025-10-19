@@ -1,11 +1,14 @@
+<!-- Sort header include (column headings / sorting controls) -->
 {{ include "list/troop/sort_header.sbn" }}
 
+<!-- Main troop list panel: contains the scrollable troop entries bound to TroopList -->
 <ListPanel 
     DataSource="{TroopList}"
     IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="StretchToParent">
     <Children>
+        <!-- Scrollable area that holds the navigatable troop entries -->
         <ScrollablePanel 
             Id="RET_ListTroopsScrollablePanel"
             WidthSizePolicy="CoverChildren"
@@ -19,12 +22,14 @@
             MarginBottom="3"
             VerticalScrollbar="..\RET_ListTroopsScrollbar\Scrollbar">
             <Children>
+                <!-- Navigation scope targeter: defines keyboard/controller navigation region for the troop list -->
                 <NavigationScopeTargeter 
                     ScopeID="RET_TroopsScope"
                     ScopeParent=".\RET_ListTroopsRect"
                     ScopeMovements="Vertical"
                     IsDefaultNavigationScope="true"
                     DoNotAutoNavigateAfterSort="true"/>
+                <!-- Container for the list entries (navigatable items included) -->
                 <Widget 
                     Id="RET_ListTroopsRect"
                     WidthSizePolicy="CoverChildren"
@@ -38,6 +43,7 @@
             </Children>
         </ScrollablePanel>
 
+        <!-- Vertical scrollbar for the troop list -->
         <Standard.VerticalScrollbar 
             Id="RET_ListTroopsScrollbar"
             HeightSizePolicy="StretchToParent"

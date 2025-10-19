@@ -1,3 +1,4 @@
+<!-- Simple text button macro. Params: text, command, brush, visibility, enabled state, alignment, margins -->
 {{- func button_text(text, command, brush, is_visible = "true", is_enabled = "true", vertical_alignment = "Center", horizontal_alignment = "Center", margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0") -}}
 <ButtonWidget
     IsVisible="{{is_visible}}" IsEnabled="{{is_enabled}}"
@@ -18,6 +19,7 @@
 </ButtonWidget>
 {{- end -}}
 
+<!-- Icon button macro: single brush icon. Params: command, brush, size, visibility, enabled, margins -->
 {{- func button_icon(command, brush, size, is_visible = "true", is_enabled = "true", margin_top = "0", margin_bottom = "0", margin_left = "0", margin_right = "0") -}}
 <ButtonWidget
     IsVisible="{{is_visible}}"
@@ -37,6 +39,7 @@
 </ButtonWidget>
 {{- end -}}
 
+<!-- Large/right-aligned big button macro. Params: text, command, visibility, alignment, margin_right, brush -->
 {{- func big_button(text, command, is_visible = "true", vertical_alignment = "Center", horizontal_alignment = "Center", margin_right = "20", brush = "ButtonBrush2") -}}
 <ButtonWidget
     IsVisible="{{is_visible}}"

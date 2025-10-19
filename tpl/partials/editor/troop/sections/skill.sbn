@@ -9,6 +9,7 @@
     MarginLeft="20"
     MarginBottom="20">
     <Children>
+        <!-- Skill icon visual (represents the skill) -->
         <SkillIconVisualWidget
             SkillId="@SkillId"
             WidthSizePolicy="Fixed"
@@ -17,6 +18,7 @@
             SuggestedHeight="80"
             DoNotPassEventsToChildren="false"
             MarginBottom="6"/>
+        <!-- Controls row: decrement button, value display, increment button -->
         <ListPanel
             WidthSizePolicy="StretchToParent"
             HeightSizePolicy="CoverChildren"
@@ -26,6 +28,7 @@
             <Children>
                 {{ button_icon("ExecuteDecrement", "ButtonRightBigArrowBrush1", "24", "true", "@CanDecrement") }}
 
+                <!-- Value display (hidden when staged) -->
                 <TextWidget
                     IsHidden="@IsStaged"
                     IntText="@Value"

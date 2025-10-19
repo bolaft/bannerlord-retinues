@@ -1,3 +1,4 @@
+<!-- Centered container for the character tableau -->
 <Widget
     DataSource="{Model}"
     WidthSizePolicy="CoverChildren"
@@ -6,6 +7,7 @@
     VerticalAlignment="Center">
 
     <Children>
+        <!-- Character tableau: renders the unit model, appearance and equipment -->
         <CharacterTableauWidget
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"

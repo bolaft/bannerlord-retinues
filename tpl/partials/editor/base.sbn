@@ -1,3 +1,4 @@
+<!-- Macro: wraps an include in a ListPanel bound to the provided data source (right pane styling) -->
 {{- func right_pane_panel(data_source, include_file) -}}
 <ListPanel
     DataSource="{{data_source}}"
@@ -13,5 +14,8 @@
 </ListPanel>
 {{- end -}}
 
+<!-- Right pane instance: troop editor content -->
 {{ right_pane_panel("{TroopScreen}", "editor/troop/panel.sbn") }}
+
+<!-- Right pane instance: equipment slots editor content -->
 {{ right_pane_panel("{EquipmentScreen}", "editor/equipment/slots.sbn") }}

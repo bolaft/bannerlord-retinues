@@ -1,10 +1,4 @@
-<!--
-    doctrines/doctrine.sbn
-    Displays a single doctrine entry with a button, description, and cost indicators.
-    Button shows popup for doctrine details or selection.
-    Costs are shown with influence and gold icons.
--->
-
+<!-- Outer container for a single doctrine card -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
@@ -12,7 +6,7 @@
     VerticalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop">
     <Children>
-        <!-- Doctrine selection button -->
+        <!-- Action button: shows doctrine popup/details when clicked -->
         <ButtonWidget
             IsEnabled="@IsEnabled"
             DoNotPassEventsToChildren="true"
@@ -40,7 +34,7 @@
             </Children>
         </ButtonWidget>
 
-        <!-- Doctrine description -->
+        <!-- Doctrine description text displayed below the button -->
         <TextWidget
             WidthSizePolicy="Fixed"
             HeightSizePolicy="CoverChildren"
@@ -53,7 +47,7 @@
             MarginTop="0"
             Text="@Description"/>
 
-        <!-- Doctrine cost indicators -->
+        <!-- Cost row: shows influence and gold costs with icons -->
         <ListPanel
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
@@ -69,7 +63,6 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     IntText="@InfluenceCost"/>
-                <!-- Influence icon -->
                 <ImageWidget
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
@@ -85,7 +78,6 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     IntText="@GoldCost"/>
-                <!-- Coin icon -->
                 <ImageWidget
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
