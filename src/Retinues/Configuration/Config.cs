@@ -139,6 +139,24 @@ namespace Retinues.Configuration
         // Recruitment
         // ─────────────────────────────────────────────────────
 
+        public static readonly Option<float> VolunteerSwapProportion = CreateOption(
+            section: L.S("mcm_section_recruitment", "Recruitment"),
+            name: L.S("mcm_option_swap_proportion", "Volunteer Swap Proportion"),
+            key: "VolunteerSwapProportion",
+            hint: L.S(
+                "mcm_option_swap_proportion_hint",
+                "Proportion of volunteers that get swapped for custom troops."
+            ),
+            @default: 1f,
+            minValue: 0,
+            maxValue: 1,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 1.0f,
+                [Presets.Realistic] = 1.0f,
+            }
+        );
+
         public static readonly Option<bool> RecruitAnywhere = CreateOption(
             section: L.S("mcm_section_recruitment", "Recruitment"),
             name: L.S("mcm_option_recruit_anywhere", "Recruit Clan Troops Anywhere"),

@@ -1,4 +1,5 @@
 using System;
+using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -11,6 +12,9 @@ namespace Retinues.Game.Wrappers
     [SafeClass(SwallowByDefault = false)]
     public class WNotable(Hero notable) : WHero(notable)
     {
+        // RNG for generating random floats
+        private static readonly Random rng = new();
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Public API                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -46,6 +50,9 @@ namespace Retinues.Game.Wrappers
 
                 if (troop.Faction == faction)
                     continue; // Already correct faction troop
+
+                if (rng.NextDouble() > Config.VolunteerSwapProportion)
+                    continue; // Skip some based on proportion
 
                 var replacement = TroopMatcher.PickBestFromFaction(faction, troop);
 
