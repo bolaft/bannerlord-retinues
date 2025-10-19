@@ -308,7 +308,7 @@ namespace Retinues.Game.Wrappers
 
             // Cascade to children
             foreach (var child in UpgradeTargets)
-                child.UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
+                child.UpgradeItemRequirement = child.Loadout.ComputeUpgradeItemRequirement();
 
             return previous;
         }
@@ -371,6 +371,10 @@ namespace Retinues.Game.Wrappers
             {
                 if (!IsCustom)
                     return;
+                
+                Log.Info(
+                    $"Setting upgrade item requirement for troop {Name} to category {value}"
+                );
 
                 Reflector.SetPropertyValue(Base, "UpgradeRequiresItemFromCategory", value);
             }

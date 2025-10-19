@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -209,34 +210,63 @@ namespace Retinues.Game.Wrappers
         }
 
         /// <summary>
+        /// Determines if category 'a' is better than category 'b' for horse items.
+        /// </summary>
+        private bool IsBetterHorseCategory(ItemCategory a, ItemCategory b)
+        {
+            if (a == DefaultItemCategories.NobleHorse)
+                return b != DefaultItemCategories.NobleHorse;
+            else if (a == DefaultItemCategories.WarHorse)
+                return b != DefaultItemCategories.WarHorse;
+            else if (a != null)
+                return b == null;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Finds the best horse category in this loadout.
+        /// </summary>
+        private ItemCategory FindBestHorseCategory()
+        {
+            ItemCategory bestCategory = null;
+
+            foreach (var eq in Equipments)
+            {
+                var horseItem = eq.GetItem(EquipmentIndex.Horse);
+                if (horseItem != null)
+                {
+                    var category = horseItem.Category;
+                    if (bestCategory == null ||
+                        IsBetterHorseCategory(category, bestCategory))
+                    {
+                        bestCategory = category;
+                    }
+                }
+            }
+
+            return bestCategory;
+        }
+
+        /// <summary>
         /// Computes the item category requirement for upgrading to the owner troop.
         /// Checks all equipments for horse items, and returns the best one found.
         /// </summary>
         public ItemCategory ComputeUpgradeItemRequirement()
         {
-            ItemCategory requirement = null;
+            var bestHorse = FindBestHorseCategory();
+            var bestHorseOfParent = _owner.Parent?.Loadout.FindBestHorseCategory();
 
-            foreach (var eq in Equipments)
-            {
-                var item = eq.GetItem(EquipmentIndex.Horse);
-                if (item == null)
-                    continue; // no horse in this equipment
+            Log.Info(
+                $"Computed upgrade item requirement for {_owner.Name}: " +
+                $"bestHorse={bestHorse}, " +
+                $"bestHorseOfParent={bestHorseOfParent}"
+            );
 
-                requirement = item.Category; // at least basic horse
-
-                if (item.Category == DefaultItemCategories.WarHorse)
-                {
-                    // war horse overrides basic horse
-                    requirement = item.Category;
-                }
-                else if (item.Category == DefaultItemCategories.NobleHorse)
-                {
-                    requirement = item.Category;
-                    break; // no need to check further, noble horse is the best
-                }
-            }
-
-            return requirement;
+            if (IsBetterHorseCategory(bestHorse, bestHorseOfParent))
+                return bestHorse;
+            else
+                return null;
         }
     }
 }
