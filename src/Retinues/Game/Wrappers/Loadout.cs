@@ -149,7 +149,16 @@ namespace Retinues.Game.Wrappers
         {
             if (index < 0 || index >= Equipments.Count)
                 return EquipmentCategory.Invalid;
-            return (EquipmentCategory)index;
+
+            switch (index)
+            {
+                case 0:
+                    return EquipmentCategory.Battle;
+                case 1:
+                    return EquipmentCategory.Civilian;
+                default:
+                    return EquipmentCategory.Alternate;
+            }
         }
 
         public WEquipment CreateAlternate()
