@@ -11,7 +11,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
     /// ViewModel for a single troop row in troop lists.
     /// </summary>
     [SafeClass]
-    public sealed class TroopRowVM(WCharacter rowTroop) : ListElementVM
+    public sealed class TroopRowVM(WCharacter rowTroop) : BaseListElementVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //

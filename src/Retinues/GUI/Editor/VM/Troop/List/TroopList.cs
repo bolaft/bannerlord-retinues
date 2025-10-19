@@ -10,7 +10,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
     /// ViewModel for grouped troop lists (retinue, elite, basic, militia).
     /// </summary>
     [SafeClass]
-    public sealed class TroopListVM : ListVM
+    public sealed class TroopListVM : BaseListVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -108,7 +108,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override List<ListElementVM> Rows =>
+        public override List<BaseListElementVM> Rows =>
             [.. RetinueTroops, .. EliteTroops, .. BasicTroops, .. MilitiaTroops];
 
         /// <summary>

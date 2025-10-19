@@ -11,7 +11,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
     /// ViewModel for the equipment item list for the selected slot and faction.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentListVM : ListVM
+    public sealed class EquipmentListVM : BaseListVM
     {
         private bool _needsRebuild = true; // first show must build
 
@@ -152,7 +152,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override List<ListElementVM> Rows => [.. EquipmentRows];
+        public override List<BaseListElementVM> Rows => [.. EquipmentRows];
 
         public override void Show()
         {

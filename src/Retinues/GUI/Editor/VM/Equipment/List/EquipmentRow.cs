@@ -22,7 +22,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         bool isAvailable,
         bool isUnlocked,
         int progress
-    ) : ListElementVM
+    ) : BaseListElementVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //

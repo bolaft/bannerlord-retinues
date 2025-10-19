@@ -13,7 +13,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
     /// ViewModel for a single equipment slot, presenting item data and actions.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentSlotVM(EquipmentIndex index) : ButtonVM
+    public sealed class EquipmentSlotVM(EquipmentIndex index) : BaseButtonVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //

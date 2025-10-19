@@ -3,7 +3,7 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// ViewModel for a single filterable list element.
     /// </summary>
-    public abstract class ListElementVM : ButtonVM
+    public abstract class BaseListElementVM : BaseButtonVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //

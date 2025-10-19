@@ -7,7 +7,7 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// ViewModel for filterable lists of rows.
     /// </summary>
-    public abstract class ListVM : BaseVM
+    public abstract class BaseListVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -38,7 +38,7 @@ namespace Retinues.GUI.Editor
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public abstract List<ListElementVM> Rows { get; }
+        public abstract List<BaseListElementVM> Rows { get; }
 
         /// <summary>
         /// Reapply the current filter to all list rows.
