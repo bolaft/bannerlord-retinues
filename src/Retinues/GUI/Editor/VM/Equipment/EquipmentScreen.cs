@@ -302,7 +302,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                         State.Troop.UnequipAll(State.Equipment?.Index ?? 0, stock: true);
 
                         // Remove the set
-                        State.Troop.Loadout.RemoveAlternate(State.Equipment);
+                        State.Troop.Loadout.Remove(State.Equipment);
 
                         // Select the battle set after removal
                         State.UpdateEquipment(State.Troop.Loadout.Battle);

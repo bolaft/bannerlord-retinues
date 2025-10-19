@@ -174,11 +174,20 @@ namespace Retinues.Game.Wrappers
             return equipment;
         }
 
-        public void RemoveAlternate(WEquipment equipment)
+        /// <summary>
+        /// Removes an alternate equipment from this loadout.
+        /// </summary>
+        public void Remove(WEquipment equipment)
         {
-            var alternates = Alternates;
-            if (alternates.Remove(equipment))
-                Alternates = alternates; // re-assign to trigger any bindings
+            if (equipment.Index < (int)EquipmentCategory.Alternate)
+                return; // cannot remove Battle/Civilian
+
+            if (equipment.Index >= Equipments.Count)
+                return; // invalid index
+
+            var equipments = Equipments;
+            equipments.RemoveAt(equipment.Index);
+            Equipments = equipments; // re-assign to trigger any bindings
         }
 
         /// <summary>
