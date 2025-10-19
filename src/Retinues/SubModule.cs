@@ -150,7 +150,6 @@ namespace Retinues
 
                 // Safety behaviors
                 cs.AddBehavior(new SanitizerBehavior());
-                cs.AddBehavior(new BackupBehavior());
                 cs.AddBehavior(new VersionBehavior());
 
                 // Item behaviors
