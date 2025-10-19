@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="modificare" />
     <string
+      id="ret_action_remove"
+      text="rimuovere" />
+    <string
       id="ret_adaptive_training"
       text="Addestramento Adattivo" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Converti" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} PE" />
     <string
       id="ret_battlefield_tithes"
       text="Decime di Battaglia" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="Continua" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Oro insufficiente per applicare le conversioni." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="Non hai abbastanza oro per assumere questi seguiti." />
@@ -314,6 +311,9 @@
       id="ret_item_body_armor"
       text="Armatura corpo" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Non è un oggetto civile." />
+    <string
       id="ret_item_head_armor"
       text="Elmo" />
     <string
@@ -367,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Velocità" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Livello della truppa troppo basso." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Non in una città" />
@@ -740,9 +743,6 @@
       id="ret_not_in_settlement_text"
       text="Devi essere in un insediamento per {ACTION} questa truppa." />
     <string
-      id="ret_ok"
-      text="OK" />
-    <string
       id="ret_pragmatic_scavengers"
       text="Spazzini Pragmatici" />
     <string
@@ -895,6 +895,9 @@
     <string
       id="ret_transfer_header_text"
       text="Trasferisci" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} xp" />
     <string
       id="ret_troops_tab_text"
       text="Truppe" />

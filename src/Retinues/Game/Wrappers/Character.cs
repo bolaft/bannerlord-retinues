@@ -96,13 +96,13 @@ namespace Retinues.Game.Wrappers
         public ImageIdentifier ImageIdentifier => new(CharacterCode);
 #endif
 
-        public CharacterViewModel GetModel(WLoadout.Category category, int index = 0)
+        public CharacterViewModel GetModel(int index = 0)
         {
             var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
             vm.FillFrom(Base, seed: -1);
 
             // Apply staged equipment changes (if any)
-            vm.SetEquipment(EquipmentPreview.BuildStagedEquipment(this, category, index));
+            vm.SetEquipment(EquipmentPreview.BuildStagedEquipment(this, index));
 
             if (Faction != null)
             {
@@ -212,6 +212,24 @@ namespace Retinues.Game.Wrappers
             set => Reflector.SetPropertyValue(Base, "IsFemale", value);
         }
 
+        public bool IsDeletable
+        {
+            get
+            {
+                if (!IsCustom)
+                    return false; // Vanilla troops cannot be deleted
+                if (IsRetinue)
+                    return false; // Retinues cannot be deleted
+                if (IsMilitia)
+                    return false; // Militias cannot be deleted
+                if (IsHero)
+                    return false; // Heroes cannot be deleted
+                if (UpgradeTargets.Any())
+                    return false; // Troops with upgrades cannot be deleted
+                return true;
+            }
+        }
+
         public bool HiddenInEncyclopedia
         {
 #if BL13
@@ -282,24 +300,16 @@ namespace Retinues.Game.Wrappers
 
         public WLoadout Loadout => new(this);
 
-        public WItem Equip(
-            WItem item,
-            EquipmentIndex slot,
-            WLoadout.Category category,
-            int index = 0
-        )
+        public void Equip(WItem item, EquipmentIndex slot, int index = 0)
         {
             // Get equipment in specified category/index
-            var equipment = Loadout.Get(category, index);
-
-            // Get previous item, if any
-            var previous = equipment.GetItem(slot);
+            var equipment = Loadout.Get(index);
 
             // Equip item in correct equipment's specified slot
             equipment.SetItem(slot, item);
 
             // Formation class is derived from main battle equipment
-            if (category == WLoadout.Category.Battle)
+            if (equipment.Category == EquipmentCategory.Battle)
                 FormationClass = Loadout.Battle.ComputeFormationClass();
 
             // Horse requirements may need an update
@@ -309,31 +319,38 @@ namespace Retinues.Game.Wrappers
             // Cascade to children
             foreach (var child in UpgradeTargets)
                 child.UpgradeItemRequirement = child.Loadout.ComputeUpgradeItemRequirement();
-
-            return previous;
         }
 
-        public WItem Unequip(EquipmentIndex slot, WLoadout.Category category, int index = 0)
+        public void Unequip(EquipmentIndex slot, int index = 0, bool stock = false)
         {
+            if (stock)
+                Loadout.Get(index).Get(slot)?.Stock();
+
             // Same as equip with null item
-            return Equip(null, slot, category, index);
+            Equip(null, slot, index);
         }
 
-        public List<WItem> UnequipAll(WLoadout.Category category, int index = 0)
+        public void UnequipAll(int index = 0, bool stock = false)
         {
-            var items = new List<WItem>();
-
             foreach (var slot in WEquipment.Slots)
-            {
-                var item = Unequip(slot, category, index);
-                if (item != null)
-                    items.Add(item);
-            }
-
-            return items;
+                Unequip(slot, index: index, stock: stock);
         }
 
-        public bool CanEquip(WItem item)
+        public void Unstage(EquipmentIndex slot, int index = 0, bool stock = false)
+        {
+            if (stock)
+                Loadout.Get(index).GetStaged(slot)?.Stock();
+
+            Loadout.Get(index).UnstageItem(slot);
+        }
+
+        public void UnstageAll(int index, bool stock = false)
+        {
+            foreach (var slot in WEquipment.Slots)
+                Unstage(slot, index: index, stock: stock);
+        }
+
+        public bool MeetsItemRequirements(WItem item)
         {
             if (item == null)
                 return true;
@@ -397,7 +414,7 @@ namespace Retinues.Game.Wrappers
         //                Registration & Lifecycle                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public void Remove()
+        public void Remove(bool stock = false)
         {
             if (!IsCustom)
                 return;

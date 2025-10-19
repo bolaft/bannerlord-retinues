@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="değiştirmek" />
     <string
+      id="ret_action_remove"
+      text="kaldırmak" />
+    <string
       id="ret_adaptive_training"
       text="Uyarlanabilir Eğitim" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Dönüştür" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} xp" />
     <string
       id="ret_battlefield_tithes"
       text="Savaş Alanı Aşarı" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="Devam Et" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Dönüşümleri uygulamak için yeterli altın yok." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="Bu yandaşları kiralamak için yeterli altının yok." />
@@ -314,6 +311,9 @@
       id="ret_item_body_armor"
       text="Gövde Zırhı" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Sivil bir eşya değil." />
+    <string
       id="ret_item_head_armor"
       text="Baş Zırhı" />
     <string
@@ -367,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Hız" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Asker seviyesi çok düşük." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Bir kasabada değil" />
@@ -740,9 +743,6 @@
       id="ret_not_in_settlement_text"
       text="Bu birliği {ACTION} için bir yerleşim yerinde olmalısınız." />
     <string
-      id="ret_ok"
-      text="Tamam" />
-    <string
       id="ret_pragmatic_scavengers"
       text="Pragmatik Yağmacılar" />
     <string
@@ -895,6 +895,9 @@
     <string
       id="ret_transfer_header_text"
       text="Aktar" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} xp" />
     <string
       id="ret_troops_tab_text"
       text="Askerler" />

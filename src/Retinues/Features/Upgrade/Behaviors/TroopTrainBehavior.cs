@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
@@ -54,12 +55,24 @@ namespace Retinues.Features.Upgrade.Behaviors
     }
 
     /// <summary>
-    /// Adds menu option in settlement for training troops.
+    /// Staged training jobs with a unified public API (Stage/Unstage/Get/Clear).
     /// </summary>
     [SafeClass]
     public sealed class TroopTrainBehavior : BaseUpgradeBehavior<PendingTrainData>
     {
         private const int BaseTrainingTime = 3; // hours per skill point
+
+        public readonly struct TrainChange
+        {
+            public readonly SkillObject Skill;
+            public readonly int Points;
+
+            public TrainChange(SkillObject skill, int points = 1)
+            {
+                Skill = skill;
+                Points = Math.Max(1, points);
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -71,44 +84,65 @@ namespace Retinues.Features.Upgrade.Behaviors
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void StageTraining(WCharacter troop, SkillObject skill)
+        // Instance-level API (enforced by base)
+
+        public override PendingTrainData GetStagedChange(WCharacter troop, string objectKey)
         {
-            if (Config.TrainingTakesTime == false)
+            if (troop == null || string.IsNullOrEmpty(objectKey))
+                return null;
+            return GetPending(troop.StringId, objectKey);
+        }
+
+        public override List<PendingTrainData> GetStagedChanges(WCharacter troop)
+        {
+            if (troop == null)
+                return [];
+            return GetPending(troop.StringId);
+        }
+
+        public override void StageChange(WCharacter troop, object payload)
+        {
+            if (troop == null)
+                return;
+
+            if (payload is not TrainChange tc || tc.Skill == null)
             {
-                ApplyChange(troop.StringId, skill, 1);
+                Log.Warn("TroopTrainBehavior.StageChange called with invalid payload.");
                 return;
             }
 
-            var hours = Math.Max(1, BaseTrainingTime * Config.TrainingTimeModifier);
-            var pph = 1 / (float)hours;
+            if (Config.TrainingTakesTime == false)
+            {
+                ApplyChange(troop.StringId, tc.Skill, tc.Points);
+                return;
+            }
+
+            var hoursPerPoint = Math.Max(1, BaseTrainingTime * Config.TrainingTimeModifier);
+            var pph = 1f / hoursPerPoint;
 
             var troopId = troop.StringId;
-            var skillId = skill?.StringId;
-
-            var v = Instance.GetPending(troopId, skillId);
+            var skillId = tc.Skill.StringId;
+            var v = GetPending(troopId, skillId);
 
             if (v != null)
             {
-                if (v != null)
-                {
-                    v.Remaining += hours;
-                    v.PointsRemaining += 1;
-                    v.PointsPerHour = (float)v.PointsRemaining / Math.Max(1, v.Remaining);
-                    if (v.PointsPerHour <= 0f)
-                        v.PointsPerHour = pph; // defensive
-                }
+                v.Remaining += hoursPerPoint * tc.Points;
+                v.PointsRemaining += tc.Points;
+                v.PointsPerHour = (float)v.PointsRemaining / Math.Max(1, v.Remaining);
+                if (v.PointsPerHour <= 0f)
+                    v.PointsPerHour = pph; // defensive
             }
             else
             {
-                Instance.SetPending(
+                SetPending(
                     troopId,
                     skillId,
                     new PendingTrainData
                     {
                         TroopId = troopId,
-                        Remaining = hours,
+                        Remaining = hoursPerPoint * tc.Points,
                         SkillId = skillId,
-                        PointsRemaining = 1,
+                        PointsRemaining = tc.Points,
                         PointsPerHour = pph,
                         Carry = 0f,
                     }
@@ -119,7 +153,35 @@ namespace Retinues.Features.Upgrade.Behaviors
                 RefreshManagedMenuOrDefault();
         }
 
-        /// <summary>Applies skill point changes.</summary>
+        public override void UnstageChange(WCharacter troop, string objectKey)
+        {
+            if (troop == null || string.IsNullOrEmpty(objectKey))
+                return;
+            RemovePending(troop.StringId, objectKey);
+        }
+
+        public override void ClearStagedChanges(WCharacter troop)
+        {
+            if (troop == null)
+                return;
+            foreach (var kvp in troop.Skills)
+                RemovePending(troop.StringId, kvp.Key.StringId);
+        }
+
+        // Static convenience wrappers (callers use these)
+        public static PendingTrainData GetStagedChange(WCharacter troop, SkillObject skill) =>
+            ((TroopTrainBehavior)Instance).GetStagedChange(troop, skill?.StringId);
+
+        public static void StageChange(WCharacter troop, SkillObject skill, int points = 1) =>
+            ((TroopTrainBehavior)Instance).StageChange(troop, new TrainChange(skill, points));
+
+        public static void UnstageChange(WCharacter troop, SkillObject skill) =>
+            ((TroopTrainBehavior)Instance).UnstageChange(troop, skill?.StringId);
+
+        public static void ClearAllStagedChanges(WCharacter troop) =>
+            ((TroopTrainBehavior)Instance).ClearStagedChanges(troop);
+
+        /// <summary>Applies skill point changes immediately (used by timers and instant training).</summary>
         public static void ApplyChange(string troopId, SkillObject skill, int delta)
         {
             if (string.IsNullOrEmpty(troopId) || skill == null)
@@ -136,27 +198,21 @@ namespace Retinues.Features.Upgrade.Behaviors
             }
             else if (delta < 0)
             {
-                var v = Instance.GetPending(troopId, skill.StringId);
+                var v = ((TroopTrainBehavior)Instance).GetPending(troopId, skill.StringId);
 
                 // First, cancel staged points if any
                 if (v != null && v.PointsRemaining > 0)
                 {
-                    // How many points can we cancel?
                     int toCancel = Math.Min(-delta, v.PointsRemaining);
-
-                    // Cancel them
                     v.PointsRemaining -= toCancel;
-                    v.Remaining -= (int)(toCancel / v.PointsPerHour); // decrease Remaining hours accordingly
+                    v.Remaining -= (int)(toCancel / Math.Max(1e-6f, v.PointsPerHour));
 
-                    // If no more staged points, remove entry
                     if (v.PointsRemaining <= 0)
-                        Instance.Pending[troopId].Remove(skill.StringId);
+                        ((TroopTrainBehavior)Instance).Pending[troopId].Remove(skill.StringId);
 
-                    // Adjust delta
                     delta += toCancel;
-
                     if (delta >= 0)
-                        return; // All done
+                        return;
                 }
 
                 // Then, remove actual skill points
@@ -231,7 +287,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                             .SetTextVariable("SKILL", skill?.Name)
                     );
                 },
-                onAborted: () => { /* keep pending */
+                onAborted: () => { /* keep staged */
                 },
 # if BL13
                 overlay: GameMenu.MenuOverlayType.SettlementWithBoth,

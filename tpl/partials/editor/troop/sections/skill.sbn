@@ -1,8 +1,3 @@
-<!--
-    editor/default/sections/skill.sbn
-    Displays a skill icon and controls for incrementing/decrementing skill value.
--->
-
 <ListPanel
     WidthSizePolicy="Fixed"
     HeightSizePolicy="Fixed"
@@ -14,9 +9,8 @@
     MarginLeft="20"
     MarginBottom="20">
     <Children>
-        <!-- Skill icon visual -->
         <SkillIconVisualWidget
-            SkillId="@StringId"
+            SkillId="@SkillId"
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
             SuggestedWidth="80"
@@ -30,36 +24,20 @@
             HorizontalAlignment="Center"
             UpdateChildrenStates="true">
             <Children>
-                <!-- Decrement skill button -->
                 {{ button_icon("ExecuteDecrement", "ButtonRightBigArrowBrush1", "24", "true", "@CanDecrement") }}
 
-                <!-- Actual value display -->
                 <TextWidget
                     IsHidden="@IsStaged"
-                    IntText="@DisplayValue"
+                    IntText="@Value"
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
                     SuggestedWidth="32"
                     SuggestedHeight="24"
                     Brush="Encyclopedia.Skill.Text"
                     Brush.FontSize="24"
-                    Brush.FontColor="#F4E1C4FF"
+                    Brush.FontColor="@ValueColor"
                     HorizontalAlignment="Center"/>
 
-                <!-- Staged value display -->
-                <TextWidget
-                    IsVisible="@IsStaged"
-                    IntText="@DisplayValue"
-                    WidthSizePolicy="Fixed"
-                    HeightSizePolicy="Fixed"
-                    SuggestedWidth="32"
-                    SuggestedHeight="24"
-                    Brush="Encyclopedia.Skill.Text"
-                    Brush.FontSize="24"
-                    Brush.FontColor="#ebaf2fff"
-                    HorizontalAlignment="Center"/>
-
-                <!-- Increment skill button -->
                 {{ button_icon("ExecuteIncrement", "ButtonLeftBigArrowBrush1", "24", "true", "@CanIncrement") }}
             </Children>
         </ListPanel>

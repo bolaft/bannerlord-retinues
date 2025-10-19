@@ -64,6 +64,22 @@
     "TR": "değiştirmek"
   },
   {
+    "id": "ret_action_remove",
+    "EN": "remove",
+    "BR": "remover",
+    "CNs": "移除",
+    "CNt": "移除",
+    "DE": "entfernen",
+    "FR": "retirer",
+    "IT": "rimuovere",
+    "JP": "削除する",
+    "KO": "제거하다",
+    "PL": "usunąć",
+    "RU": "удалить",
+    "SP": "remover",
+    "TR": "kaldırmak"
+  },
+  {
     "id": "ret_adaptive_training",
     "EN": "Adaptive Training",
     "BR": "Treinamento Adaptativo",
@@ -270,22 +286,6 @@
     "RU": "Преобразовать",
     "SP": "Convertir",
     "TR": "Dönüştür"
-  },
-  {
-    "id": "ret_available_troop_xp",
-    "EN": "{XP} xp",
-    "BR": "{XP} xp",
-    "CNs": "{XP} 经验",
-    "CNt": "{XP} 經驗",
-    "DE": "{XP} EP",
-    "FR": "{XP} xp",
-    "IT": "{XP} PE",
-    "JP": "{XP} 経験値",
-    "KO": "{XP} 경험치",
-    "PL": "{XP} pd",
-    "RU": "{XP} опыт",
-    "SP": "{XP} exp",
-    "TR": "{XP} xp"
   },
   {
     "id": "ret_battlefield_tithes",
@@ -718,22 +718,6 @@
     "RU": "Продолжить",
     "SP": "Continuar",
     "TR": "Devam Et"
-  },
-  {
-    "id": "ret_convert_not_enough_gold",
-    "EN": "Not enough gold to apply conversions.",
-    "BR": "Ouro insuficiente para aplicar conversões.",
-    "CNs": "金币不足，无法进行转换。",
-    "CNt": "金幣不足，無法進行轉換。",
-    "DE": "Nicht genug Gold für Umwandlungen.",
-    "FR": "Or insuffisant pour appliquer les conversions.",
-    "IT": "Oro insufficiente per applicare le conversioni.",
-    "JP": "ゴールド不足で変換を適用できない。",
-    "KO": "변환을 적용할 골드가 부족합니다.",
-    "PL": "Za mało złota, aby dokonać konwersji.",
-    "RU": "Недостаточно золота для преобразования.",
-    "SP": "Oro insuficiente para aplicar conversiones.",
-    "TR": "Dönüşümleri uygulamak için yeterli altın yok."
   },
   {
     "id": "ret_convert_not_enough_gold_text",
@@ -1648,6 +1632,22 @@
     "TR": "Gövde Zırhı"
   },
   {
+    "id": "ret_item_equipment_type_blocked_text",
+    "EN": "Not a civilian item.",
+    "BR": "Não é um item civil.",
+    "CNs": "非民用物品。",
+    "CNt": "非民用物品。",
+    "DE": "Kein ziviler Gegenstand.",
+    "FR": "Pas un objet civil.",
+    "IT": "Non è un oggetto civile.",
+    "JP": "民間用アイテムではありません。",
+    "KO": "민간 아이템이 아닙니다.",
+    "PL": "Nie jest to przedmiot cywilny.",
+    "RU": "Не является гражданским предметом.",
+    "SP": "No es un objeto civil.",
+    "TR": "Sivil bir eşya değil."
+  },
+  {
     "id": "ret_item_head_armor",
     "EN": "Head Armor",
     "BR": "Armadura da Cabeça",
@@ -1934,6 +1934,22 @@
     "RU": "Скорость",
     "SP": "Velocidad",
     "TR": "Hız"
+  },
+  {
+    "id": "ret_item_tier_blocked_text",
+    "EN": "Troop tier too low.",
+    "BR": "Nível da tropa muito baixo.",
+    "CNs": "部队等级过低。",
+    "CNt": "部隊等級過低。",
+    "DE": "Truppenstufe zu niedrig.",
+    "FR": "Rang de troupe trop bas.",
+    "IT": "Livello della truppa troppo basso.",
+    "JP": "部隊のランクが低すぎます。",
+    "KO": "병력 등급이 너무 낮습니다.",
+    "PL": "Poziom jednostki zbyt niski.",
+    "RU": "Ранг войск слишком низок.",
+    "SP": "Rango de tropa demasiado bajo.",
+    "TR": "Asker seviyesi çok düşük."
   },
   {
     "id": "ret_item_unavailable_no_settlement",
@@ -3920,22 +3936,6 @@
     "TR": "Bu birliği {ACTION} için bir yerleşim yerinde olmalısınız."
   },
   {
-    "id": "ret_ok",
-    "EN": "OK",
-    "BR": "OK",
-    "CNs": "确定",
-    "CNt": "確定",
-    "DE": "OK",
-    "FR": "OK",
-    "IT": "OK",
-    "JP": "OK",
-    "KO": "확인",
-    "PL": "OK",
-    "RU": "ОК",
-    "SP": "OK",
-    "TR": "Tamam"
-  },
-  {
     "id": "ret_pragmatic_scavengers",
     "EN": "Pragmatic Scavengers",
     "BR": "Catadores Pragmáticos",
@@ -4193,7 +4193,7 @@
   },
   {
     "id": "ret_remove_set_text",
-    "EN": "Remove {SET} for {TROOP_NAME}?\\nAll staged changes will be cleared and items will be unequipped and stocked.",
+    "EN": "Remove {EQUIPMENT} for {TROOP}?\\nAll staged changes will be cleared and items will be unequipped and stocked.",
     "BR": "Remover {SET} para {TROOP_NAME}?\\nTodas as alterações em andamento serão limpas e os itens serão desequipados e guardados no estoque.",
     "CNs": "为 {TROOP_NAME} 移除 {SET}？\\n所有已分配的更改将被清除，物品将被卸下并存入库存。",
     "CNt": "為 {TROOP_NAME} 移除 {SET}？\\n所有已分配的更改將被清除，物品將被卸下並存入庫存。",
@@ -4465,7 +4465,7 @@
   },
   {
     "id": "ret_set_alt_n",
-    "EN": "Alternate {N}",
+    "EN": "Alt {N}",
     "BR": "Alt {N}",
     "CNs": "备用 {N}",
     "CNt": "備用 {N}",
@@ -4750,6 +4750,22 @@
     "RU": "Передать",
     "SP": "Transferir",
     "TR": "Aktar"
+  },
+  {
+    "id": "ret_troop_xp",
+    "EN": "{XP} xp",
+    "BR": "{XP} xp",
+    "CNs": "{XP} 经验",
+    "CNt": "{XP} 經驗",
+    "DE": "{XP} EP",
+    "FR": "{XP} xp",
+    "IT": "{XP} xp",
+    "JP": "{XP} 経験値",
+    "KO": "{XP} 경험치",
+    "PL": "{XP} pkt. doświadczenia",
+    "RU": "{XP} очков опыта",
+    "SP": "{XP} xp",
+    "TR": "{XP} xp"
   },
   {
     "id": "ret_troops_tab_text",

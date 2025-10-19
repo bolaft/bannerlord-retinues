@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="модифицировать" />
     <string
+      id="ret_action_remove"
+      text="удалить" />
+    <string
       id="ret_adaptive_training"
       text="Адаптивная Тренировка" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Преобразовать" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} опыт" />
     <string
       id="ret_battlefield_tithes"
       text="Полевая Десятина" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="Продолжить" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="Недостаточно золота для преобразования." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="У вас недостаточно золота, чтобы нанять эту свиту." />
@@ -314,6 +311,9 @@
       id="ret_item_body_armor"
       text="Броня тела" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Не является гражданским предметом." />
+    <string
       id="ret_item_head_armor"
       text="Шлем" />
     <string
@@ -367,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Скорость" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Ранг войск слишком низок." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Не в городе" />
@@ -740,9 +743,6 @@
       id="ret_not_in_settlement_text"
       text="Вы должны находиться в поселении, чтобы {ACTION} этот отряд." />
     <string
-      id="ret_ok"
-      text="ОК" />
-    <string
       id="ret_pragmatic_scavengers"
       text="Прагматичные Собиратели" />
     <string
@@ -895,6 +895,9 @@
     <string
       id="ret_transfer_header_text"
       text="Передать" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} очков опыта" />
     <string
       id="ret_troops_tab_text"
       text="Войска" />

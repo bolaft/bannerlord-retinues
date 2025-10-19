@@ -18,110 +18,8 @@ namespace Retinues.Troops.Edition
     public static class TroopManager
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Collection                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Collects retinue troops for a faction (elite and basic).
-        /// </summary>
-        public static List<WCharacter> CollectRetinueTroops(WFaction faction)
-        {
-            Log.Debug(
-                $"Collecting retinue troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
-            );
-            try
-            {
-                return [faction.RetinueElite, faction.RetinueBasic];
-            }
-            catch
-            {
-                return [];
-            }
-        }
-
-        /// <summary>
-        /// Collects elite troops for a faction.
-        /// </summary>
-        public static List<WCharacter> CollectEliteTroops(WFaction faction)
-        {
-            Log.Debug(
-                $"Collecting elite troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
-            );
-            try
-            {
-                return [.. faction.EliteTroops];
-            }
-            catch
-            {
-                return [];
-            }
-        }
-
-        /// <summary>
-        /// Collects basic troops for a faction.
-        /// </summary>
-        public static List<WCharacter> CollectBasicTroops(WFaction faction)
-        {
-            Log.Debug(
-                $"Collecting basic troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
-            );
-            try
-            {
-                return [.. faction.BasicTroops];
-            }
-            catch
-            {
-                return [];
-            }
-        }
-
-        /// <summary>
-        /// Collects militia troops for a faction.
-        /// </summary>
-        public static List<WCharacter> CollectMilitiaTroops(WFaction faction)
-        {
-            Log.Debug(
-                $"Collecting militia troops for faction {faction?.Name} (culture {faction?.Culture?.Name})."
-            );
-            try
-            {
-                return
-                [
-                    faction.MilitiaMelee,
-                    faction.MilitiaMeleeElite,
-                    faction.MilitiaRanged,
-                    faction.MilitiaRangedElite,
-                ];
-            }
-            catch
-            {
-                return [];
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Renames a troop.
-        /// </summary>
-        public static void Rename(WCharacter troop, string newName)
-        {
-            Log.Debug($"Renaming troop {troop?.Name} to '{newName}'.");
-
-            troop.Name = newName.Trim();
-        }
-
-        /// <summary>
-        /// Changes the gender of a troop.
-        /// </summary>
-        public static void ChangeGender(WCharacter troop)
-        {
-            Log.Debug($"Changing gender for troop {troop?.Name}.");
-
-            troop.IsFemale = !troop.IsFemale;
-        }
 
         /// <summary>
         /// Modifies a troop's skill by delta, spending or refunding XP as needed.
@@ -133,9 +31,8 @@ namespace Retinues.Troops.Edition
 
             // Already staged changes
             int staged =
-                TroopTrainBehavior
-                    .Instance?.GetPending(troop.StringId, skill.StringId)
-                    ?.PointsRemaining ?? 0;
+                TroopTrainBehavior.Instance.GetStagedChange(troop, skill.StringId)?.PointsRemaining
+                ?? 0;
             int stagedSkill = troop.GetSkill(skill) + staged;
 
             if (increment)
@@ -144,7 +41,7 @@ namespace Retinues.Troops.Edition
                     return; // Not enough XP to increment
 
                 // Stage timed training (or instant if TrainingTakesTime==false)
-                TroopTrainBehavior.StageTraining(troop, skill);
+                TroopTrainBehavior.Instance.StageChange(troop, skill);
             }
             else
             {
@@ -183,22 +80,6 @@ namespace Retinues.Troops.Edition
             child.Activate();
 
             return child;
-        }
-
-        /// <summary>
-        /// Removes a troop and stocks its equipment.
-        /// </summary>
-        public static void Remove(WCharacter troop)
-        {
-            Log.Debug($"Removing troop {troop?.Name}.");
-
-            // Stock the troop's equipment
-            foreach (var equipment in troop.Loadout.Equipments)
-            foreach (var item in equipment.Items)
-                item.Stock();
-
-            // Remove the troop
-            troop.Remove();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -259,22 +140,24 @@ namespace Retinues.Troops.Edition
         public static void Convert(
             WCharacter from,
             WCharacter to,
-            int amountRequested,
-            int cost = 0
+            int amountRequested
         )
         {
-            Log.Debug(
-                $"Converting {amountRequested} of {from?.Name} to {to?.Name} at cost {cost}."
-            );
+            Log.Info($"Converting {amountRequested} troops from {from?.Name} to {to?.Name}.");
 
             // Clamp to max possible
             int max = GetMaxConvertible(from, to);
             int amount = Math.Min(amountRequested, max);
+            if (amount <= 0) return;
 
-            // Apply cost
-            if (Player.Gold < cost)
-                return;
-            Player.ChangeGold(-cost);
+            // Calculate cost
+            var cost = to.IsRetinue ? TroopRules.ConversionCostPerUnit(to) * amount : 0;
+
+            // Check gold
+            if (Player.Gold < cost) return;
+
+            // Charge gold
+            if (cost > 0) Player.ChangeGold(-cost);
 
             // Mutate roster
             Player.Party.MemberRoster.RemoveTroop(from, amount);
@@ -289,10 +172,7 @@ namespace Retinues.Troops.Edition
             var sources = new List<WCharacter>(2);
 
             if (retinue is null || !retinue.IsRetinue)
-            {
-                Log.Error($"RetinueSources: {retinue} is not a retinue.");
                 return sources;
-            }
 
             // Identify which root to look under for culture and faction
             WCharacter cultureRoot = null,

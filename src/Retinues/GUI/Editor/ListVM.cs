@@ -1,31 +1,48 @@
-using Retinues.Game.Wrappers;
+using System.Collections.Generic;
+using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop
+namespace Retinues.GUI.Editor
 {
-    /// <summary>
-    /// ViewModel for a troop upgrade target. Handles display and refresh logic.
-    /// </summary>
-    [SafeClass]
-    public sealed class TroopUpgradeTargetVM(WCharacter troop) : ViewModel
+    public abstract class ListVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private string _filterText = string.Empty;
+
         [DataSourceProperty]
-        public string Name => Format.Crop(Troop?.Name, 40);
+        public string FilterText
+        {
+            get => _filterText;
+            set
+            {
+                if (_filterText == value)
+                    return;
+                value ??= string.Empty;
+                _filterText = value;
+                foreach (var row in Rows)
+                    row.ApplyFilter(_filterText);
+                OnPropertyChanged(nameof(FilterText));
+            }
+        }
+
+        [DataSourceProperty]
+        public string FilterLabel => L.S("item_search_label", "Filter:");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter Troop { get; } = troop;
+        public abstract List<ListElementVM> Rows { get; }
 
-        public void Refresh()
+        public void RefreshFilter()
         {
-            OnPropertyChanged(nameof(Name));
+            Log.Info($"Refreshing list filter with text: '{FilterText}'");
+            foreach (var row in Rows)
+                row.ApplyFilter(FilterText);
         }
     }
 }

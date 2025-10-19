@@ -7,29 +7,24 @@ namespace Retinues.Game.Helpers
 {
     public static class EquipmentPreview
     {
-        public static Equipment BuildStagedEquipment(
-            WCharacter troop,
-            WLoadout.Category category,
-            int index = 0
-        )
+        public static Equipment BuildStagedEquipment(WCharacter troop, int index = 0)
         {
             if (troop == null)
                 return null;
 
             // start from the troop's current equipment (battle set by default)
-            var src = troop.Loadout.Get(category, index);
+            var src = troop.Loadout.Get(index);
 
             // clone so we don't mutate the real thing
             var eq = new Equipment(src.Base);
 
             // apply staged equip (if any)
-            var beh = TroopEquipBehavior.Instance;
-            var pending = beh?.GetPending(troop.StringId);
+            var pending = TroopEquipBehavior.Instance.GetStagedChanges(troop);
             if (pending == null)
                 return eq; // nothing staged
             foreach (var p in pending)
             {
-                if (p.Category != category || p.EquipmentIndex != index)
+                if (p.EquipmentIndex != index)
                     continue; // not for this set
 
                 var item = MBObjectManager.Instance.GetObject<ItemObject>(p.ItemId);

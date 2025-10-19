@@ -1,10 +1,3 @@
-<!--
-    editor/default/sections/gender.sbn
-    Displays gender selection for the troop in the editor.
-    Includes gender text and a button to change gender.
--->
-
-<!-- Header for gender section -->
 {{ header("@GenderHeaderText") }}
 
 <ListPanel
@@ -15,10 +8,8 @@
     UpdateChildrenStates="true"
     MarginBottom="0">
     <Children>
-        <!-- Gender text display -->
-        {{ text("@Gender", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
+        {{ text("@GenderText", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
-        <!-- Clickable icon to change gender -->
         {{ button_icon("ExecuteChangeGender", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
     </Children>
 </ListPanel>

@@ -1,18 +1,7 @@
-<!--
-    editor/base.sbn
-    Macro and usage for right pane editor panels.
-    Displays either the default editor or equipment editor based on mode.
--->
-
-<!-- Base editor macro
-    Parameters:
-    - is_visible: controls visibility of the panel
-    - include_file: file to include as editor content
-    Displays a vertical list panel for the right pane editor.
--->
-{{- func right_pane_panel(is_visible, include_file) -}}
+{{- func right_pane_panel(data_source, include_file) -}}
 <ListPanel
-    IsVisible="{{is_visible}}"
+    DataSource="{{data_source}}"
+    IsVisible="@IsVisible"
     WidthSizePolicy="StretchToParent"
     HeightSizePolicy="CoverChildren"
     MarginLeft="20"
@@ -24,6 +13,5 @@
 </ListPanel>
 {{- end -}}
 
-<!-- Editors: default and equipment mode -->
-{{ right_pane_panel("@IsDefaultMode", "editor/default/base.sbn") }}
-{{ right_pane_panel("@IsEquipmentMode", "editor/equipment/base.sbn") }}
+{{ right_pane_panel("{TroopScreen}", "editor/troop/panel.sbn") }}
+{{ right_pane_panel("{EquipmentScreen}", "editor/equipment/slots.sbn") }}

@@ -1,8 +1,3 @@
-<!--
-    tableau.sbn
-    Displays a character tableau for a troop, including equipment, body properties, and banner.
--->
-
 <Widget
     DataSource="{Model}"
     WidthSizePolicy="CoverChildren"
@@ -11,10 +6,6 @@
     VerticalAlignment="Center">
 
     <Children>
-        <!--
-            CharacterTableauWidget:
-            Renders the troop's visual representation with equipment, body, and banner.
-        -->
         <CharacterTableauWidget
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
@@ -32,7 +23,6 @@
             Race="@Race"
             StanceIndex="@StanceIndex"
             ArmorColor1="@ArmorColor1"
-            ArmorColor2="@ArmorColor2"
-        />
+            ArmorColor2="@ArmorColor2"/>
     </Children>
 </Widget>

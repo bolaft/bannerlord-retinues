@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Bannerlord.UIExtenderEx.Attributes;
@@ -14,8 +15,10 @@ namespace Retinues.GUI.Editor.VM.Doctrines
     /// ViewModel for a doctrine. Handles display, unlock logic, popup, and UI refresh.
     /// </summary>
     [SafeClass]
-    public sealed class DoctrineVM : ViewModel
+    public sealed class DoctrineVM : BaseVM
     {
+        protected override Dictionary<UIEvent, string[]> EventMap => [];
+
         private readonly string _id;
         private readonly DoctrineServiceBehavior _svc;
         private readonly DoctrineDefinition _def;

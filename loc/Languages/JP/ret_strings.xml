@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="修正する" />
     <string
+      id="ret_action_remove"
+      text="削除する" />
+    <string
       id="ret_adaptive_training"
       text="適応訓練" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="変換" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} 経験値" />
     <string
       id="ret_battlefield_tithes"
       text="戦場の什一税" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="続行" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="ゴールド不足で変換を適用できない。" />
     <string
       id="ret_convert_not_enough_gold_text"
       text="これらの随伴兵を雇用するのに十分なゴールドがない。" />
@@ -314,6 +311,9 @@
       id="ret_item_body_armor"
       text="胴防具" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="民間用アイテムではありません。" />
+    <string
       id="ret_item_head_armor"
       text="兜" />
     <string
@@ -367,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="速度" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="部隊のランクが低すぎます。" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="街にいない" />
@@ -740,9 +743,6 @@
       id="ret_not_in_settlement_text"
       text="居住地にいて{ACTION}この部隊を行う必要があります。" />
     <string
-      id="ret_ok"
-      text="OK" />
-    <string
       id="ret_pragmatic_scavengers"
       text="実利的な清掃人" />
     <string
@@ -895,6 +895,9 @@
     <string
       id="ret_transfer_header_text"
       text="移動" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} 経験値" />
     <string
       id="ret_troops_tab_text"
       text="兵" />

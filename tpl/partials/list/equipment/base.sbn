@@ -1,17 +1,12 @@
 {{ include "list/equipment/sort_header.sbn" }}
 
 <ListPanel 
+    DataSource="{EquipmentList}"
+    IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="StretchToParent">
     <Children>
-        <!--
-            ScrollablePanel:
-            - Displays the equipment list with vertical scrolling.
-            - Uses NavigationScopeTargeter for keyboard/controller navigation.
-            - Contains the main equipment list.
-        -->
         <ScrollablePanel 
-            DataSource="{EquipmentList}"
             Id="RET_ListItemsScrollablePanel"
             ClipRect="RET_ListItemsRect"
             InnerPanel="RET_ListItemsRect\RET_ListItemsListPanel"
@@ -24,7 +19,6 @@
             AutoHideScrollBars="true"
             MouseScrollAxis="Vertical">
             <Children>
-                <!-- Navigation scope for equipment list -->
                 <NavigationScopeTargeter 
                     ScopeID="RET_TroopsScope"
                     ScopeParent=".\RET_ListItemsRect"
@@ -37,14 +31,12 @@
                     HeightSizePolicy="StretchToParent"
                     ClipContents="true">
                     <Children>
-                        <!-- Navigatable equipment list items -->
                         {{ include "list/equipment/navigatable.sbn" }}
                     </Children>
                 </Widget>
             </Children>
         </ScrollablePanel>
 
-        <!-- Vertical scrollbar for the equipment list -->
         <Standard.VerticalScrollbar 
             Id="RET_ListItemsScrollbar"
             HeightSizePolicy="StretchToParent"

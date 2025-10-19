@@ -8,7 +8,6 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
-using TaleWorlds.SaveSystem;
 #if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 # endif
@@ -17,13 +16,16 @@ namespace Retinues.Features.Upgrade.Behaviors
 {
     public interface IPendingData
     {
-        public string TroopId { get; set; }
-
-        public int Remaining { get; set; }
-
-        public float Carry { get; set; }
+        string TroopId { get; set; }
+        int Remaining { get; set; }
+        float Carry { get; set; }
     }
 
+    /// <summary>
+    /// Generic base for settlement-driven, timed "staged" jobs (training, equipping, etc.).
+    /// Provides menu wiring, persistence plumbing, and a unified public API shape that
+    /// concrete behaviors must implement (Stage/Unstage/Get/Clear).
+    /// </summary>
     [SafeClass]
     public abstract class BaseUpgradeBehavior<T> : CampaignBehaviorBase
         where T : IPendingData
@@ -34,9 +36,10 @@ namespace Retinues.Features.Upgrade.Behaviors
 
         protected static List<string> MenuIds => ["town", "castle"];
 
+        /// <summary>Singleton-ish access to the active behavior.</summary>
         public static BaseUpgradeBehavior<T> Instance { get; private set; }
 
-        public BaseUpgradeBehavior()
+        protected BaseUpgradeBehavior()
         {
             Instance = this;
         }
@@ -57,7 +60,6 @@ namespace Retinues.Features.Upgrade.Behaviors
 
         protected abstract string OptionId { get; }
         protected abstract string OptionText { get; }
-
         protected virtual GameMenuOption.LeaveType OptionIcon => GameMenuOption.LeaveType.Wait;
 
         public void OnSessionLaunched(CampaignGameStarter starter)
@@ -82,6 +84,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>troopId → (objectKey → data)</summary>
         public Dictionary<string, Dictionary<string, T>> _pending = [];
         public Dictionary<string, Dictionary<string, T>> Pending => _pending;
 
@@ -98,12 +101,12 @@ namespace Retinues.Features.Upgrade.Behaviors
 
             _pending ??= []; // in case it was null in the save
 
-            Log.Info($"{_pending.Count} troops with pending upgrades.");
+            Log.Info($"{_pending.Count} troops with staged jobs.");
             Log.Dump(_pending, LogLevel.Debug);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Abstract                        //
+        //               Abstract: UI Text & Actions              //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected abstract string InquiryTitle { get; }
@@ -121,6 +124,25 @@ namespace Retinues.Features.Upgrade.Behaviors
         );
 
         protected abstract string BuildElementTitle(WCharacter troop, T data);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //     Abstract: Unified public API (enforced surface)    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>Return staged data for (troop, objectKey), or null if none.</summary>
+        public abstract T GetStagedChange(WCharacter troop, string objectKey);
+
+        /// <summary>Return all staged data for a given troop.</summary>
+        public abstract List<T> GetStagedChanges(WCharacter troop);
+
+        /// <summary>Stage a change for this behavior. The concrete type decides how the payload is interpreted.</summary>
+        public abstract void StageChange(WCharacter troop, object payload);
+
+        /// <summary>Remove a previously staged change identified by (troop, objectKey).</summary>
+        public abstract void UnstageChange(WCharacter troop, string objectKey);
+
+        /// <summary>Remove all staged changes for a given troop.</summary>
+        public abstract void ClearStagedChanges(WCharacter troop);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Virtual                        //
@@ -179,9 +201,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                     bool eligible = IsEntryEligible(troop, data);
                     string disabledReason = eligible
                         ? null
-                        : TroopRules
-                            .GetContextReason(troop, troop.Faction, Instance.ActionString)
-                            ?.ToString();
+                        : TroopRules.GetContextReason(troop, Instance.ActionString)?.ToString();
 
                     elements.Add(
                         new InquiryElement(
@@ -201,7 +221,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public T GetPending(string troopId, string objId)
+        protected T GetPending(string troopId, string objId)
         {
             if (
                 _pending.TryGetValue(troopId, out var dict)
@@ -211,21 +231,21 @@ namespace Retinues.Features.Upgrade.Behaviors
             return default;
         }
 
-        public List<T> GetPending(string troopId)
+        protected List<T> GetPending(string troopId)
         {
             if (_pending.TryGetValue(troopId, out var dict))
                 return [.. dict.Values];
             return [];
         }
 
-        public void SetPending(string troopId, string objId, T data)
+        protected void SetPending(string troopId, string objId, T data)
         {
             if (!_pending.ContainsKey(troopId))
                 _pending[troopId] = [];
             _pending[troopId][objId] = data;
         }
 
-        public void RemovePending(string troopId, string objId)
+        protected void RemovePending(string troopId, string objId)
         {
             if (Pending.TryGetValue(troopId, out var d))
             {
@@ -252,7 +272,6 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected bool OptionCondition(MenuCallbackArgs args)
         {
             args.optionLeaveType = LeaveType;
-
             // Show button if in a settlement AND there's at least one staged entry.
             return Settlement.CurrentSettlement != null && _pending.Count > 0;
         }
@@ -274,7 +293,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected static bool CanEdit(WCharacter troop)
         {
             return Config.RestrictEditingToFiefs == false
-                || TroopRules.IsAllowedInContext(troop, troop.Faction, Instance.ActionString);
+                || TroopRules.IsAllowedInContext(troop, Instance.ActionString);
         }
     }
 }

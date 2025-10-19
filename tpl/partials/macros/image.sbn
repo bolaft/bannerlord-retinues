@@ -1,17 +1,3 @@
-<!--
-    image.sbn
-    Macro definitions for image widgets.
-    Provides reusable functions for displaying images with optional frames and identifiers.
--->
-
-<!-- image_13 macro (for Bannerlord 1.3)
-    Parameters:
-    - width, height: image size
-    - margin_*, x_offset, y_offset: positioning
-    - brush: frame brush style
-    - is_visible: visibility
-    Displays an image with a frame and uses data-bound identifiers.
--->
 {{- func image_13(width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
 <Widget
     IsVisible="{{is_visible}}"
@@ -25,25 +11,14 @@
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
             Brush="{{brush}}"/>
         <ImageIdentifierWidget
-            AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"
+            AdditionalArgs="@ImageAdditionalArgs" ImageId="@ImageId" TextureProviderName="@ImageTextureProviderName"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"/>
     </Children>
 </Widget>
 {{- end -}}
 
-<!-- image_12 macro (for Bannerlord 1.2)
-    Parameters:
-    - id: image identifier
-    - code: image type code
-    - additional_args: extra arguments
-    - width, height: image size
-    - margin_*, x_offset, y_offset: positioning
-    - brush: frame brush style
-    - is_visible: visibility
-    Displays an image with a frame and explicit identifiers.
--->
-{{- func image_12(id, code, additional_args, width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
+{{- func image_12(width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
 <Widget
     IsVisible="{{is_visible}}"
     HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -56,7 +31,7 @@
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
             Brush="{{brush}}"/>
         <ImageIdentifierWidget
-            ImageId="{{id}}" ImageTypeCode="{{code}}" AdditionalArgs="{{additional_args}}"
+            ImageId="@ImageId" ImageTypeCode="@ImageTypeCode" AdditionalArgs="@ImageAdditionalArgs"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"/>
     </Children>

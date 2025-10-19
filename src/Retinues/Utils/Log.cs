@@ -190,6 +190,12 @@ namespace Retinues.Utils
             }
         }
 
+        public static void Trace(int up = 1, LogLevel level = LogLevel.Debug)
+        {
+            var parent = Caller.GetCallerAboveLabel(up: up);
+            Write(level, $"Called by: {parent}");
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Stack Trace                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

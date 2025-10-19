@@ -96,6 +96,31 @@ namespace Retinues.Features.Unlocks.Behaviors
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
+        /// Returns true if the item is currently being unlocked.
+        /// </summary>
+        public static bool InProgress(string itemId)
+        {
+            if (Instance == null || itemId == null)
+                return false;
+
+            return Instance.ProgressByItemId.TryGetValue(itemId, out int count)
+                && count > 0
+                && count < Math.Max(1, Config.KillsForUnlock);
+        }
+
+        /// <summary>
+        /// Returns the current progress towards unlocking the item.
+        /// </summary>
+        public static int GetProgress(string itemId)
+        {
+            if (Instance == null || itemId == null)
+                return 0;
+
+            Instance.ProgressByItemId.TryGetValue(itemId, out int count);
+            return count;
+        }
+
+        /// <summary>
         /// Returns true if the item is unlocked.
         /// </summary>
         public static bool IsUnlocked(string itemId) =>

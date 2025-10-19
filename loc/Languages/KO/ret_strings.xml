@@ -17,6 +17,9 @@
       id="ret_action_modify"
       text="수정하다" />
     <string
+      id="ret_action_remove"
+      text="제거하다" />
+    <string
       id="ret_adaptive_training"
       text="적응 훈련" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_apply_conversions_button_text"
       text="변환" />
-    <string
-      id="ret_available_troop_xp"
-      text="{XP} 경험치" />
     <string
       id="ret_battlefield_tithes"
       text="전장의 십일조" />
@@ -139,9 +139,6 @@
     <string
       id="ret_continue"
       text="계속" />
-    <string
-      id="ret_convert_not_enough_gold"
-      text="변환을 적용할 골드가 부족합니다." />
     <string
       id="ret_convert_not_enough_gold_text"
       text="이 수행원을 고용할 충분한 골드가 없습니다." />
@@ -314,6 +311,9 @@
       id="ret_item_body_armor"
       text="몸통 방어구" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="민간 아이템이 아닙니다." />
+    <string
       id="ret_item_head_armor"
       text="머리 방어구" />
     <string
@@ -367,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="속도" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="병력 등급이 너무 낮습니다." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="마을에 없음" />
@@ -740,9 +743,6 @@
       id="ret_not_in_settlement_text"
       text="정착지에 있어야 {ACTION} 이 부대를 할 수 있습니다." />
     <string
-      id="ret_ok"
-      text="확인" />
-    <string
       id="ret_pragmatic_scavengers"
       text="실용주의 청소부" />
     <string
@@ -895,6 +895,9 @@
     <string
       id="ret_transfer_header_text"
       text="이동" />
+    <string
+      id="ret_troop_xp"
+      text="{XP} 경험치" />
     <string
       id="ret_troops_tab_text"
       text="병력" />

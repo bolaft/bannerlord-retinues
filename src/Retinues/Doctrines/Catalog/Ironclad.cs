@@ -42,13 +42,13 @@ namespace Retinues.Doctrines.Catalog
 
                     foreach (var equipment in troop.Loadout.Equipments)
                     {
-                        if (equipment.GetItem(EquipmentIndex.Head).Tier < 6)
+                        if (equipment.Get(EquipmentIndex.Head).Tier < 6)
                         {
                             hasFullSet = false; // Helmet does not meet tier requirement
                             break;
                         }
 
-                        if (equipment.GetItem(EquipmentIndex.Body).Tier < 6)
+                        if (equipment.Get(EquipmentIndex.Body).Tier < 6)
                         {
                             hasFullSet = false; // Body armor does not meet tier requirement
                             break;

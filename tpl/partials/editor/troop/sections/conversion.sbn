@@ -1,10 +1,3 @@
-<!--
-    editor/default/sections/conversion.sbn
-    Displays troop conversion options in the retinue editor.
-    Includes conversion rows with cost, arrows, and apply/clear buttons.
--->
-
-<!-- Conversion header -->
 {{ header("@TransferHeaderText", "@IsRetinue", "0") }}
 
 <ListPanel
@@ -20,16 +13,12 @@
         HorizontalAlignment="Center"
         StackLayout.LayoutMethod="HorizontalLeftToRight">
         <Children>
-            <!-- From troop name -->
-            {{ text("@FromDisplay", "Clan.Tuple.Name.Text", "Center", "0", "8") }}
+            {{ text("@SourceDisplay", "Clan.Tuple.Name.Text", "Center", "0", "8") }}
             
-            <!-- Left arrow button (release) -->
             {{ button_icon("ExecuteRelease", "ButtonRightBigArrowBrush1", "24", "true", "@CanRelease") }}
 
-            <!-- Conversion cost -->
             {{ text_int("@ConversionCost", "Clan.Tuple.Name.Text", "Center") }}
 
-            <!-- Coin icon -->
             <ImageWidget
                 WidthSizePolicy="Fixed"
                 HeightSizePolicy="Fixed"
@@ -38,17 +27,14 @@
                 Sprite="General\Icons\Coin@2x"
                 VerticalAlignment="Center" />
 
-            <!-- Right arrow button (recruit) -->
             {{ button_icon("ExecuteRecruit", "ButtonLeftBigArrowBrush1", "24", "true", "@CanRecruit") }}
 
-            <!-- To troop name -->
-            {{ text("@ToDisplay", "Clan.Tuple.Name.Text", "Center", "8", "0") }}
+            {{ text("@TargetDisplay", "Clan.Tuple.Name.Text", "Center", "8", "0") }}
         </Children>
     </ListPanel>
   </ItemTemplate>
 </ListPanel>
 
-<!-- Conversion action buttons -->
 <ListPanel
     IsVisible="@IsRetinue"
     WidthSizePolicy="CoverChildren"
@@ -56,9 +42,8 @@
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight">
     <Children>
-        <!-- Apply conversions button -->
-        {{ button_text("@ButtonApplyConversionsText", "ExecuteApplyConversions", "Popup.Done.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
-        <!-- Clear conversions button -->
-        {{ button_text("@ButtonClearConversionsText", "ExecuteClearConversions", "Popup.Delete.Button", "@IsRetinue", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
+        {{ button_text("@ButtonApplyConversionsText", "ExecuteApplyConversions", "Popup.Done.Button", "true", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
+
+        {{ button_text("@ButtonClearConversionsText", "ExecuteClearConversions", "Popup.Delete.Button", "true", "@HasPendingConversions", "Top", "Center", "0", "0", "15", "0") }}
     </Children>
 </ListPanel>

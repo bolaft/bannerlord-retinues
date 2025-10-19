@@ -92,7 +92,9 @@ namespace Retinues.Troops
                         var eqs = troop.Loadout.Equipments; // WEquipment list
                         troop.Loadout.Equipments =
                         [
-                            .. eqs.Select((we, i) => WEquipment.FromCode(we.Code, i == 1)),
+                            .. eqs.Select(
+                                (we, i) => WEquipment.FromCode(we.Code, troop.Loadout, i)
+                            ),
                         ];
                     }
                     Log.Debug($"Rebuilt {TroopData.Count} root troops from save.");

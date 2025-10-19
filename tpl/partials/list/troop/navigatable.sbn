@@ -1,22 +1,8 @@
-<!--
-    list/troops/navigatable.sbn
-    Defines macros and layout for navigatable troop lists with collapsible party headers.
-    Includes macros for party toggles and troop lists, and the main navigatable list panel.
--->
-
-<!-- party_toggle macro
-    Parameters:
-    - type: party type (Retinue, Elite, etc.)
-    - name: display name
-    - is_visible: visibility
-    Displays a collapsible header for each troop party type.
--->
-{{- func party_toggle(type, name, is_visible = "true") -}}
+{{- func party_toggle(type, name) -}}
 <PartyHeaderToggleWidget
     Id="RET_{{type}}Toggle"
     RenderLate="true"
-    IsVisible="{{is_visible}}"
-    IsEnable="false"
+    IsEnabled="false"
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
     SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height"
@@ -41,12 +27,6 @@
 </PartyHeaderToggleWidget>
 {{- end -}}
 
-<!-- troop_list macro
-    Parameters:
-    - kind: troop kind (Retinue, Elite, etc.)
-    - datasource: data source for the list
-    Displays a navigatable list of troops for the given kind.
--->
 {{- func troop_list(kind, datasource) -}}
 <NavigationAutoScrollWidget TrackedWidget=".\RET_{{kind}}Header"/>
 
@@ -59,11 +39,11 @@
     UseSelfIndexForMinimum="true">
     <ItemTemplate>
         <ButtonWidget 
+            IsSelected="@IsSelected" IsEnabled="@IsEnabled" IsVisible="@IsVisible"
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
             SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" 
             Brush="Clan.Management.LeftTuple" 
-            IsSelected="@IsSelected" IsEnabled="@DisplayTroop" IsVisible="@IsVisible"
             Command.Click="ExecuteSelect" 
             UpdateChildrenStates="true">
             <Children>
@@ -72,34 +52,21 @@
                     MarginLeft="24" MarginRight="24" 
                     StackLayout.LayoutMethod="HorizontalLeftToRight">
                     <Children>
-                        <!-- Message (empty list) -->
-                        <TextWidget 
-                            IsVisible="@DisplayEmptyMessage"
-                            IsEnable="false"
-                            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
-                            VerticalAlignment="Center" 
-                            Brush="Clan.Tuple.Name.Text" 
-                            ClipContents="false" 
-                            Text="@EmptyMessage"/>
-
-                        <!-- Icon -->
                         {{ if bl == 13 }}
-                            {{ image_13("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                            {{ image_13("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@IsTroop") }}
                         {{ else }}
-                            {{ image_12("@ImageId", "@ImageTypeCode", "@ImageAdditionalArgs", "68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                            {{ image_12("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@IsTroop") }}
                         {{ end }}
 
-                        <!-- Name -->
                         <TextWidget 
-                            IsVisible="@DisplayTroop"
+                            IsVisible="@IsVisible"
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                             VerticalAlignment="Center" 
                             Brush="Clan.Tuple.Name.Text" 
                             ClipContents="false" 
-                            Text="@IndentedName"/>
+                            Text="@NameText"/>
 
-                        <!-- Tier -->
-                        {{ text("@TierText", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "0", "@DisplayTroop") }}
+                        {{ text("@TierText", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "0", "@IsTroop") }}
                     </Children>
                 </ListPanel>
             </Children>
@@ -108,10 +75,6 @@
 </NavigatableListPanel>
 {{- end -}}
 
-<!--
-    Main navigatable troop list panel.
-    Contains collapsible headers and lists for each troop party type.
--->
 <NavigatableListPanel 
     Id="RET_ListTroopsListPanel" 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
