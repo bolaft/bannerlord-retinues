@@ -137,27 +137,26 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Converts troops from one type to another, spending gold and mutating the roster.
         /// </summary>
-        public static void Convert(
-            WCharacter from,
-            WCharacter to,
-            int amountRequested
-        )
+        public static void Convert(WCharacter from, WCharacter to, int amountRequested)
         {
             Log.Info($"Converting {amountRequested} troops from {from?.Name} to {to?.Name}.");
 
             // Clamp to max possible
             int max = GetMaxConvertible(from, to);
             int amount = Math.Min(amountRequested, max);
-            if (amount <= 0) return;
+            if (amount <= 0)
+                return;
 
             // Calculate cost
             var cost = to.IsRetinue ? TroopRules.ConversionCostPerUnit(to) * amount : 0;
 
             // Check gold
-            if (Player.Gold < cost) return;
+            if (Player.Gold < cost)
+                return;
 
             // Charge gold
-            if (cost > 0) Player.ChangeGold(-cost);
+            if (cost > 0)
+                Player.ChangeGold(-cost);
 
             // Mutate roster
             Player.Party.MemberRoster.RemoveTroop(from, amount);

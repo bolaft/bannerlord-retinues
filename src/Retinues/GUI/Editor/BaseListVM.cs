@@ -45,7 +45,6 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public void RefreshFilter()
         {
-            Log.Info($"Refreshing list filter with text: '{FilterText}'");
             foreach (var row in Rows)
                 row.ApplyFilter(FilterText);
         }

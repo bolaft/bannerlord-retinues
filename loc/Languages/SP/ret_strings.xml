@@ -866,6 +866,18 @@
       id="ret_skills_header_text"
       text="Habilidades" />
     <string
+      id="ret_sort_category"
+      text="Categoría" />
+    <string
+      id="ret_sort_cost"
+      text="Costo" />
+    <string
+      id="ret_sort_name"
+      text="Nombre" />
+    <string
+      id="ret_sort_tier"
+      text="Nivel" />
+    <string
       id="ret_steadfast_soldiers"
       text="Soldados Firmes" />
     <string

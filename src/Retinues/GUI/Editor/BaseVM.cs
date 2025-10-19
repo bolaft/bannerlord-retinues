@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using TaleWorlds.Library;
 using TaleWorlds.InputSystem;
+using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
 {

@@ -52,12 +52,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private bool OtherRowsHavePendingConversions =>
-            State.ConversionData.Any(
-                kvp => kvp.Key != Source && kvp.Value != 0
-            );
+            State.ConversionData.Any(kvp => kvp.Key != Source && kvp.Value != 0);
         private int Amount => State.ConversionData.TryGetValue(Source, out var amount) ? amount : 0;
-        private int TotalAmount =>
-            State.ConversionData.Values.Sum();
+        private int TotalAmount => State.ConversionData.Values.Sum();
         private int TargetCount =>
             State.PartyData.TryGetValue(State.Troop, out var count) ? count : 0;
         private int SourceCount => State.PartyData.TryGetValue(Source, out var count) ? count : 0;
@@ -70,7 +67,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int PendingAmount => Amount;
 
         [DataSourceProperty]
-        public int ConversionCost => TroopRules.ConversionCostPerUnit(State.Troop) * Math.Max(0, Amount);
+        public int ConversionCost =>
+            TroopRules.ConversionCostPerUnit(State.Troop) * Math.Max(0, Amount);
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -92,11 +90,13 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool CanRecruit => !OtherRowsHavePendingConversions &&
-            TargetCount + TotalAmount < TroopRules.RetinueCapFor(State.Troop) && SourceCount - Amount > 0;
+        public bool CanRecruit =>
+            !OtherRowsHavePendingConversions
+            && TargetCount + TotalAmount < TroopRules.RetinueCapFor(State.Troop)
+            && SourceCount - Amount > 0;
 
         [DataSourceProperty]
-        public bool CanRelease => !OtherRowsHavePendingConversions &&TargetCount + TotalAmount > 0;
+        public bool CanRelease => !OtherRowsHavePendingConversions && TargetCount + TotalAmount > 0;
 
         [DataSourceProperty]
         public bool HasPendingConversions => Amount != 0;
@@ -112,8 +112,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteRecruit()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_convert", "convert"))
-                == false
+                TroopRules.IsAllowedInContextWithPopup(
+                    State.Troop,
+                    L.S("action_convert", "convert")
+                ) == false
             )
                 return; // Conversion not allowed in current context
 
@@ -135,8 +137,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteRelease()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_convert", "convert"))
-                == false
+                TroopRules.IsAllowedInContextWithPopup(
+                    State.Troop,
+                    L.S("action_convert", "convert")
+                ) == false
             )
                 return; // Conversion not allowed in current context
 
@@ -147,7 +151,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                 State.ConversionData[Source] -= 1;
             }
-            
+
             State.UpdateConversionData(State.ConversionData);
         }
     }

@@ -28,10 +28,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly WItem RowItem = rowItem;
-        private readonly bool IsAvailable = isAvailable;
-        private readonly bool IsUnlocked = isUnlocked;
-        private readonly int Progress = progress;
+        public readonly WItem RowItem = rowItem;
+        public readonly bool IsAvailable = isAvailable;
+        public readonly bool IsUnlocked = isUnlocked;
+        public readonly int Progress = progress;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -76,7 +76,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     nameof(IsEnabled),
                     nameof(IsDisabledText),
                     nameof(ShowInStockText),
+                    nameof(ShowIsEquipped),
                     nameof(ShowValue),
+                    nameof(IsSelected),
                 ],
             };
 

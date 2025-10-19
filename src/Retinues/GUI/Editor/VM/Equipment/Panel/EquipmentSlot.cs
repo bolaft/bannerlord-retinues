@@ -45,14 +45,18 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                 ],
                 [UIEvent.Equipment] =
                 [
-                    nameof(ItemText), nameof(ItemTextColor), nameof(IsStaged),
-                    nameof(ImageId), nameof(ImageAdditionalArgs),
+                    nameof(ItemText),
+                    nameof(ItemTextColor),
+                    nameof(IsStaged),
+                    nameof(ImageId),
+                    nameof(ImageAdditionalArgs),
 #if BL13
                     nameof(ImageTextureProviderName),
 #else
                     nameof(ImageTypeCode),
 #endif
-                    nameof(Hint), nameof(IsEnabled),
+                    nameof(Hint),
+                    nameof(IsEnabled),
                 ],
                 [UIEvent.Slot] = [nameof(IsSelected)],
             };

@@ -4,9 +4,9 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Features.Xp.Behaviors;
-using Retinues.Troops.Edition;
-using Retinues.GUI.Helpers;
 using Retinues.Game;
+using Retinues.GUI.Helpers;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -100,7 +100,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         .Select(r => new TroopConversionRowVM(r)),
                 ]
                 : [];
-            
+
             // Update visibility
             foreach (var row in ConversionRows)
                 row.IsVisible = IsVisible;
@@ -120,14 +120,20 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         /* ━━━━━ Skills Row 1 ━━━━━ */
 
-        readonly MBBindingList<TroopSkillVM> _skillsRow1 = [.. Row1Skills.Select(s => new TroopSkillVM(s))];
+        readonly MBBindingList<TroopSkillVM> _skillsRow1 =
+        [
+            .. Row1Skills.Select(s => new TroopSkillVM(s)),
+        ];
 
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow1 => _skillsRow1;
 
         /* ━━━━━ Skills Row 2 ━━━━━ */
 
-        readonly MBBindingList<TroopSkillVM> _skillsRow2 = [.. Row2Skills.Select(s => new TroopSkillVM(s))];
+        readonly MBBindingList<TroopSkillVM> _skillsRow2 =
+        [
+            .. Row2Skills.Select(s => new TroopSkillVM(s)),
+        ];
 
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
@@ -348,10 +354,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteAddUpgrade()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(
-                    State.Troop,
-                    L.S("action_modify", "modify")
-                ) == false
+                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_modify", "modify"))
+                == false
             )
                 return; // Modification not allowed in current context
 
@@ -391,10 +395,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteRankUp()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(
-                    State.Troop,
-                    L.S("action_modify", "modify")
-                ) == false
+                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_modify", "modify"))
+                == false
             )
                 return; // Rank up not allowed in current context
 

@@ -866,6 +866,18 @@
       id="ret_skills_header_text"
       text="技能" />
     <string
+      id="ret_sort_category"
+      text="类别" />
+    <string
+      id="ret_sort_cost"
+      text="成本" />
+    <string
+      id="ret_sort_name"
+      text="名称" />
+    <string
+      id="ret_sort_tier"
+      text="等级" />
+    <string
       id="ret_steadfast_soldiers"
       text="坚定士兵" />
     <string

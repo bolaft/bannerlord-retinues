@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Retinues.Utils;
 using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Utils;
 using TaleWorlds.Core;
 
 namespace Retinues.Game.Wrappers

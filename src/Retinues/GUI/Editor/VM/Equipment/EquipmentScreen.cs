@@ -63,11 +63,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanSelectNextSet),
                     nameof(CanRemoveSet),
                 ],
-                [UIEvent.Equip] =
-                [
-                    nameof(CanUnstage),
-                    nameof(CanUnequip),
-                ],
+                [UIEvent.Equip] = [nameof(CanUnstage), nameof(CanUnequip)],
                 [UIEvent.Slot] = [nameof(CanUnstage)],
             };
 

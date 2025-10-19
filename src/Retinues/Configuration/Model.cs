@@ -20,6 +20,7 @@ namespace Retinues.Configuration
         int MaxValue { get; }
         object Default { get; }
         IReadOnlyDictionary<string, object> PresetOverrides { get; }
+
         /// <summary>
         /// Get the current option value as an object.
         /// </summary>

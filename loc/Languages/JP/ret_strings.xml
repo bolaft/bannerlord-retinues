@@ -866,6 +866,18 @@
       id="ret_skills_header_text"
       text="スキル" />
     <string
+      id="ret_sort_category"
+      text="カテゴリー" />
+    <string
+      id="ret_sort_cost"
+      text="コスト" />
+    <string
+      id="ret_sort_name"
+      text="名前" />
+    <string
+      id="ret_sort_tier"
+      text="等級" />
+    <string
       id="ret_steadfast_soldiers"
       text="不動の兵士" />
     <string

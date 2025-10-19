@@ -866,6 +866,18 @@
       id="ret_skills_header_text"
       text="Umiejętności" />
     <string
+      id="ret_sort_category"
+      text="Kategoria" />
+    <string
+      id="ret_sort_cost"
+      text="Koszt" />
+    <string
+      id="ret_sort_name"
+      text="Nazwa" />
+    <string
+      id="ret_sort_tier"
+      text="Poziom" />
+    <string
       id="ret_steadfast_soldiers"
       text="Niezłomni Żołnierze" />
     <string

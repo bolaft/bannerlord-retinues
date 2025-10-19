@@ -37,9 +37,9 @@ namespace Retinues.Troops.Edition
             Log.Debug($"[CollectAvailableItems] Called for faction {faction?.Name}, slot {slot}");
 
             // 1) Get (item, progress) eligibility from the caller cache or build once
-            var eligible = cache ??= BuildEligibilityList(faction, slot); // same heavy scan you already have
+            var eligible = cache ??= BuildEligibilityList(faction, slot);
 
-            // 2) Availability filter (only build when restriction applies & you are in a town)
+            // 2) Availability filter
             var availableInTown = Config.RestrictItemsToTownInventory
                 ? BuildCurrentTownAvailabilitySet()
                 : null;
@@ -55,21 +55,6 @@ namespace Retinues.Troops.Edition
                     );
                 })
                 .ToList();
-
-            // Keep your existing sort semantics:
-            items =
-            [
-                .. items
-                    .OrderBy(t =>
-                        (
-                            t.isUnlocked ? 0 : 1,
-                            t.isUnlocked ? 0 : -t.progress,
-                            t.isUnlocked ? (t.isAvailable ? 0 : 1) : 0
-                        )
-                    )
-                    .ThenBy(t => t.item?.Type)
-                    .ThenBy(t => t.item?.Name),
-            ];
 
             Log.Debug(
                 $"[CollectAvailableItems] Returning {items.Count} items for faction {faction?.Name}, slot {slot}"

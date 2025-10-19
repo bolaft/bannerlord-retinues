@@ -866,6 +866,18 @@
       id="ret_skills_header_text"
       text="Habilidades" />
     <string
+      id="ret_sort_category"
+      text="Categoria" />
+    <string
+      id="ret_sort_cost"
+      text="Custo" />
+    <string
+      id="ret_sort_name"
+      text="Nome" />
+    <string
+      id="ret_sort_tier"
+      text="Nível" />
+    <string
       id="ret_steadfast_soldiers"
       text="Soldados Inabaláveis" />
     <string

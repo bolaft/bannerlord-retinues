@@ -18,7 +18,6 @@ namespace Retinues.Game.Wrappers
     [SafeClass(SwallowByDefault = false)]
     public class WLoadout(WCharacter troop)
     {
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Troop                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -76,12 +75,13 @@ namespace Retinues.Game.Wrappers
                     .GetFieldValue<MBEquipmentRoster>(_troop.Base, "_equipmentRoster")
                     ?.AllEquipments ?? [];
             set
-            {    // Shokuho compatibility: collapse to exactly 2 sets (Battle, Civilian)
+            { // Shokuho compatibility: collapse to exactly 2 sets (Battle, Civilian)
                 if (ModuleChecker.GetModule("Shokuho") != null)
                 {
                     // Pick first non-civilian as Battle; if none, create an empty battle set
-                    var battle = value.FirstOrDefault(eq => !eq.IsCivilian)
-                                ?? WEquipment.FromCode(null, this, 0).Base;
+                    var battle =
+                        value.FirstOrDefault(eq => !eq.IsCivilian)
+                        ?? WEquipment.FromCode(null, this, 0).Base;
 
                     value = [battle, battle];
                 }

@@ -866,6 +866,18 @@
       id="ret_skills_header_text"
       text="기술" />
     <string
+      id="ret_sort_category"
+      text="카테고리" />
+    <string
+      id="ret_sort_cost"
+      text="비용" />
+    <string
+      id="ret_sort_name"
+      text="이름" />
+    <string
+      id="ret_sort_tier"
+      text="등급" />
+    <string
       id="ret_steadfast_soldiers"
       text="굳건한 병사" />
     <string

@@ -866,6 +866,18 @@
       id="ret_skills_header_text"
       text="Fertigkeiten" />
     <string
+      id="ret_sort_category"
+      text="Kategorie" />
+    <string
+      id="ret_sort_cost"
+      text="Kosten" />
+    <string
+      id="ret_sort_name"
+      text="Name" />
+    <string
+      id="ret_sort_tier"
+      text="Stufe" />
+    <string
       id="ret_steadfast_soldiers"
       text="Standhafte Soldaten" />
     <string
