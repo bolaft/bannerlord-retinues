@@ -3,17 +3,24 @@ using Retinues.Utils;
 
 namespace Retinues.Configuration
 {
-    // Shared preset names (keep centralized)
+    /// <summary>
+    /// Named configuration presets used for option overrides.
+    /// </summary>
     public static class Presets
     {
-        public const string Balanced = "balanced"; // default alias
         public const string Freeform = "freeform";
         public const string Realistic = "realistic";
     }
 
+    /// <summary>
+    /// Configuration options for the mod, grouped and exposed as typed Option<T> fields.
+    /// </summary>
     public static partial class Config
     {
         // Factory with optional per-preset overrides (declare right next to the option)
+        /// <summary>
+        /// Helper factory to create an Option<T> with metadata and optional per-preset overrides.
+        /// </summary>
         public static Option<T> CreateOption<T>(
             string section,
             string name,

@@ -5,6 +5,9 @@ using Retinues.Utils;
 
 namespace Retinues.Configuration
 {
+    /// <summary>
+    /// Represents metadata and runtime accessors for a configuration option.
+    /// </summary>
     public interface IOption
     {
         string Section { get; }
@@ -17,10 +20,20 @@ namespace Retinues.Configuration
         int MaxValue { get; }
         object Default { get; }
         IReadOnlyDictionary<string, object> PresetOverrides { get; }
+        /// <summary>
+        /// Get the current option value as an object.
+        /// </summary>
         object GetObject();
+
+        /// <summary>
+        /// Set the option value from an object, converting as necessary.
+        /// </summary>
         void SetObject(object value);
     }
 
+    /// <summary>
+    /// Typed option wrapper exposing metadata and runtime getter/setter for T.
+    /// </summary>
     public sealed class Option<T>(
         string section,
         string name,
@@ -53,17 +66,29 @@ namespace Retinues.Configuration
         public IReadOnlyDictionary<string, object> PresetOverrides { get; } =
             presetOverrides ?? new Dictionary<string, object>();
 
+        /// <summary>
+        /// The current typed option value (uses the runtime-backed getter/setter).
+        /// </summary>
         public T Value
         {
             get => Getter();
             set => Setter(value);
         }
 
-        public static implicit operator T(Option<T> o) => o.Value; // so: if (Config.PayForEquipment) { ... }
+        /// <summary>
+        /// Implicit conversion to the underlying value type for convenience.
+        /// </summary>
+        public static implicit operator T(Option<T> o) => o.Value;
 
         // IOption adapters
+        /// <summary>
+        /// Return the current value boxed as an object.
+        /// </summary>
         public object GetObject() => Value!;
 
+        /// <summary>
+        /// Set the value from an object, converting to T using invariant culture.
+        /// </summary>
         public void SetObject(object value) =>
             Setter((T)Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture));
     }

@@ -38,7 +38,9 @@ namespace Retinues.Configuration
             StringComparer.OrdinalIgnoreCase
         );
 
-        // Call once during game start
+        /// <summary>
+        /// Register the configuration page and options with MCM (returns true when successful).
+        /// </summary>
         public static bool RegisterWithMCM()
         {
             try
@@ -64,6 +66,9 @@ namespace Retinues.Configuration
             }
         }
 
+        /// <summary>
+        /// Discover Option<T> fields via reflection and wire their getters/setters.
+        /// </summary>
         private static void DiscoverOptions()
         {
             if (_all.Count > 0)
@@ -115,13 +120,20 @@ namespace Retinues.Configuration
             }
         }
 
-        // Builds a Func<T> that reads _values[key]
+        /// <summary>
+        /// Builds a Func<T> that reads the backing value for the given key.
+        /// </summary>
         private static Func<T> MakeGetter<T>(string key) =>
             () => (T)Convert.ChangeType(_values[key], typeof(T), CultureInfo.InvariantCulture);
 
-        // Builds an Action<T> that writes into _values[key]
+        /// <summary>
+        /// Builds an Action<T> that writes the given value into the backing store for the key.
+        /// </summary>
         private static Action<T> MakeSetter<T>(string key) => v => _values[key] = v!;
 
+        /// <summary>
+        /// Build the MCM menu and register option groups and controls.
+        /// </summary>
         private static bool BuildMcmMenu()
         {
             // Create and configure the fluent builder
@@ -446,6 +458,9 @@ namespace Retinues.Configuration
         // Import/Export support (self-contained)
         private static string _exportName = SuggestDefaultExportName();
 
+        /// <summary>
+        /// Return whether a campaign is currently running.
+        /// </summary>
         private static bool InCampaign()
         {
             try
@@ -458,12 +473,18 @@ namespace Retinues.Configuration
             }
         }
 
+        /// <summary>
+        /// Suggest a default file name for exports based on the current timestamp.
+        /// </summary>
         private static string SuggestDefaultExportName()
         {
             var ts = DateTime.Now.ToString("yyyy_MM_dd_HH_mm");
             return $"troops_{ts}.xml";
         }
 
+        /// <summary>
+        /// Build a dropdown populated with available import XML files.
+        /// </summary>
         private static Dropdown<string> BuildImportDropdown()
         {
             try
@@ -487,6 +508,9 @@ namespace Retinues.Configuration
             }
         }
 
+        /// <summary>
+        /// Refresh the import dropdown contents from the export directory.
+        /// </summary>
         private static void RefreshImportDropdown()
         {
             try
@@ -522,6 +546,9 @@ namespace Retinues.Configuration
             }
         }
 
+        /// <summary>
+        /// Show a confirmation inquiry before replacing troop definitions, then invoke onConfirm.
+        /// </summary>
         private static void ConfirmTroopReplace(string title, string body, Action onConfirm)
         {
             var inquiry = new InquiryData(
