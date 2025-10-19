@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Les volontaires dans les villes ou villages d’une culture différente ne seront pas remplacés par des troupes personnalisées." />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="Proportion de Remplacement des Volontaires" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="Proportion des volontaires qui sont remplacés par des troupes personnalisées." />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="L&apos;Entraînement des Troupes Prend du Temps" />
     <string

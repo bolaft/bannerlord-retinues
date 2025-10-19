@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Ochotnicy w osadach o innej kulturze nie będą zastępowani przez jednostki niestandardowe." />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="Proporcja Zamiany Ochotników" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="Proporcja ochotników, którzy zostaną zamienieni na jednostki niestandardowe." />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="Szkolenie Oddziałów Zajmuje Czas" />
     <string

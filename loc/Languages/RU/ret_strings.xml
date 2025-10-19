@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Добровольцы в поселениях другой культуры не будут заменены на собственные войска." />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="Пропорция Замены Добровольцев" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="Пропорция добровольцев, которые будут заменены на собственные войска." />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="Обучение войск требует времени" />
     <string

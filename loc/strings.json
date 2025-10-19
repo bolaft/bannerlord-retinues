@@ -3392,6 +3392,38 @@
     "TR": "Farklı kültürdeki yerleşimlerdeki gönüllüler, özel birliklerle değiştirilmez."
   },
   {
+    "id": "ret_mcm_option_swap_proportion",
+    "EN": "Volunteer Swap Proportion",
+    "BR": "Proporção de Troca de Voluntários",
+    "CNs": "志愿者更换比例",
+    "CNt": "志願者更換比例",
+    "DE": "Freiwilligen-Austausch-Proportion",
+    "FR": "Proportion de Remplacement des Volontaires",
+    "IT": "Proporzione di Scambio dei Volontari",
+    "JP": "志願者交換の割合",
+    "KO": "자원봉사자 교체 비율",
+    "PL": "Proporcja Zamiany Ochotników",
+    "RU": "Пропорция Замены Добровольцев",
+    "SP": "Proporción de Intercambio de Voluntarios",
+    "TR": "Gönüllü Değişim Oranı"
+  },
+  {
+    "id": "ret_mcm_option_swap_proportion_hint",
+    "EN": "Proportion of volunteers that get swapped for custom troops.",
+    "BR": "Proporção de voluntários que serão trocados por tropas personalizadas.",
+    "CNs": "被替换为自定义部队的志愿者比例。",
+    "CNt": "被替換為自定義部隊的志願者比例。",
+    "DE": "Proportion der Freiwilligen, die durch Custom-Truppen ersetzt werden.",
+    "FR": "Proportion des volontaires qui sont remplacés par des troupes personnalisées.",
+    "IT": "Proporzione di volontari che vengono scambiati con truppe personalizzate.",
+    "JP": "カスタム兵に交換される志願者の割合。",
+    "KO": "커스텀 병력으로 교체되는 자원봉사자의 비율.",
+    "PL": "Proporcja ochotników, którzy zostaną zamienieni na jednostki niestandardowe.",
+    "RU": "Пропорция добровольцев, которые будут заменены на собственные войска.",
+    "SP": "Proporción de voluntarios que serán reemplazados por tropas personalizadas.",
+    "TR": "Özel birliklerle değiştirilen gönüllülerin oranı."
+  },
+  {
     "id": "ret_mcm_option_training_takes_time",
     "EN": "Troop Training Takes Time",
     "BR": "O Treinamento de Tropas Leva Tempo",

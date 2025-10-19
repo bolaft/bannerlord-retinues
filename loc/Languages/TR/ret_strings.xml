@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Farklı kültürdeki yerleşimlerdeki gönüllüler, özel birliklerle değiştirilmez." />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="Gönüllü Değişim Oranı" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="Özel birliklerle değiştirilen gönüllülerin oranı." />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="Asker Eğitimi Zaman Alır" />
     <string

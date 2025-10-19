@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="異なる文化の集落にいる志願者はカスタム兵に置き換えられません。" />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="志願者交換の割合" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="カスタム兵に交換される志願者の割合。" />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="部隊の訓練には時間がかかる" />
     <string

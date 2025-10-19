@@ -212,12 +212,6 @@
       id="ret_female"
       text="Female" />
     <string
-      id="ret_first_run_text"
-      text="Welcome to Retinues!{newline}{newline}It looks like you are using Retinues for the first time with an existing save. Since Retinues modifies troop data and introduces new ones in the game world, it is recommended to create a backup of your save before proceeding, just in case.{newline}{newline}Would you like to automatically create a backup now?" />
-    <string
-      id="ret_first_run_title"
-      text="Retinues{newline}Existing Save Detected" />
-    <string
       id="ret_gender_header_text"
       text="Gender" />
     <string
@@ -640,6 +634,12 @@
     <string
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Volunteers in settlements of a different culture will not be replaced by custom troops." />
+    <string
+      id="ret_mcm_option_swap_proportion"
+      text="Volunteer Swap Proportion" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="Proportion of volunteers that get swapped for custom troops." />
     <string
       id="ret_mcm_option_training_takes_time"
       text="Troop Training Takes Time" />

@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="不同文化定居点的志愿者将不会被自定义部队替换。" />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="志愿者更换比例" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="被替换为自定义部队的志愿者比例。" />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="部队训练需要时间" />
     <string

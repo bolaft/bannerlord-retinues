@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="다른 문화의 정착지에 있는 자원봉사자는 커스텀 병력으로 교체되지 않습니다." />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="자원봉사자 교체 비율" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="커스텀 병력으로 교체되는 자원봉사자의 비율." />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="병력 훈련에는 시간이 걸립니다" />
     <string

@@ -641,6 +641,12 @@
       id="ret_mcm_option_swap_only_for_correct_culture_hint"
       text="Voluntários em assentamentos de uma cultura diferente não serão substituídos por tropas personalizadas." />
     <string
+      id="ret_mcm_option_swap_proportion"
+      text="Proporção de Troca de Voluntários" />
+    <string
+      id="ret_mcm_option_swap_proportion_hint"
+      text="Proporção de voluntários que serão trocados por tropas personalizadas." />
+    <string
       id="ret_mcm_option_training_takes_time"
       text="O Treinamento de Tropas Leva Tempo" />
     <string
