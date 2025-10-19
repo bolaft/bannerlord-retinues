@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Helpers;
-using Retinues.Features.Recruits.Behaviors;
+using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
@@ -43,9 +42,7 @@ namespace Retinues.Troops
                 Log.Debug("No custom troops found for faction.");
 
                 // Always have clan troops if clan has fiefs, if player leads a kingdom or if can recruit anywhere is enabled
-                if (faction.HasFiefs || Player.Kingdom != null
-                // || Config.GetOption<bool>("RecruitAnywhere")
-                )
+                if (faction.HasFiefs || Player.Kingdom != null || Config.RecruitAnywhere == true)
                 {
                     Log.Info("Initializing default troops.");
 
