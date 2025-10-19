@@ -6,11 +6,12 @@
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     MarginTop="16">
     <Children>
+        <!-- Selector button for slot -->
         <ButtonWidget
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
-            SuggestedWidth="120"
+            SuggestedWidth="160"
             SuggestedHeight="48"
             VerticalAlignment="Center"
             IsSelected="@IsSelected"
@@ -29,6 +30,7 @@
             </Children>
         </ButtonWidget>
 
+        <!-- Equipment visual for slot -->
         <Widget
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -42,12 +44,10 @@
                     HeightSizePolicy="StretchToParent"
                     Brush="Frame1Brush"/>
                 <ImageIdentifierWidget
-                    ImageId="@ImageId"
-                    AdditionalArgs="@ImageAdditionalArgs" 
                     {{ if bl == 13 }}
-                        TextureProviderName="@ImageTextureProviderName"
+                        ImageId="@ImageId" AdditionalArgs="@ImageAdditionalArgs" TextureProviderName="@ImageTextureProviderName"
                     {{ else }}
-                        ImageTypeCode="@ImageTypeCode"
+                        ImageId="@ImageId" AdditionalArgs="@ImageAdditionalArgs" ImageTypeCode="@ImageTypeCode"
                     {{ end }}
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
@@ -77,23 +77,41 @@
 </ListPanel>
 {{- end -}}
 
-<!-- Weapons 1..4 -->
-{{ slot_row "{WeaponItemBeginSlotSlot}" }}
-{{ slot_row "{Weapon1Slot}" }}
-{{ slot_row "{Weapon2Slot}" }}
-{{ slot_row "{Weapon3Slot}" }}
+<ListPanel
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+>
+    <Children>
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            UpdateChildrenStates="true"
+            MarginBottom="24" MarginLeft="160">
+            <Children>
+                <!-- Weapons 1..4 -->
+                {{ slot_row "{Weapon1Slot}" }}
+                {{ slot_row "{Weapon2Slot}" }}
+                {{ slot_row "{Weapon3Slot}" }}
+                {{ slot_row "{Weapon4Slot}" }}
 
-{{ divider() }}
+                <!-- Divider between weapons and armor -->
+                {{ divider() }}
 
-<!-- Armor slots -->
-{{ slot_row "{HeadSlot}" }}
-{{ slot_row "{CapeSlot}" }}
-{{ slot_row "{BodySlot}" }}
-{{ slot_row "{GlovesSlot}" }}
-{{ slot_row "{LegSlot}" }}
+                <!-- Armor slots -->
+                {{ slot_row "{HeadSlot}" }}
+                {{ slot_row "{CapeSlot}" }}
+                {{ slot_row "{BodySlot}" }}
+                {{ slot_row "{GlovesSlot}" }}
+                {{ slot_row "{LegSlot}" }}
 
-{{ divider() }}
+                <!-- Divider between armor and mount -->
+                {{ divider() }}
 
-<!-- Mount slots -->
-{{ slot_row "{HorseSlot}" }}
-{{ slot_row "{HorseHarnessSlot}" }}
+                <!-- Mount slots -->
+                {{ slot_row "{HorseSlot}" }}
+                {{ slot_row "{HorseHarnessSlot}" }}
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>

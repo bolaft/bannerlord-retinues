@@ -311,6 +311,9 @@
       id="ret_item_body_armor"
       text="Armadura do Corpo" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Não é um item civil." />
+    <string
       id="ret_item_head_armor"
       text="Armadura da Cabeça" />
     <string
@@ -364,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Velocidade" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Nível da tropa muito baixo." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Não está em uma cidade" />

@@ -3,7 +3,6 @@
 
 <!-- Upgrades list -->
 <ListPanel
-    IsVisible="@IsRegular"
     DataSource="{UpgradeTargets}"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"

@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.VM.Equipment.Panel;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
@@ -14,229 +14,221 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Equipment.List
 {
     [SafeClass]
-    public sealed class EquipmentRowVM : BaseRow<EquipmentListVM, EquipmentRowVM>
+    public sealed class EquipmentRowVM(
+        WItem rowItem,
+        bool isAvailable,
+        bool isUnlocked,
+        int progress
+    ) : ListElementVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public readonly EditorVM Editor;
-        public readonly WItem Item;
-        public readonly int? Progress;
-        public readonly bool IsAvailable;
-
-        public EquipmentRowVM(EditorVM editor, WItem item, int? progress, bool isAvailable)
-        {
-            Log.Info("Building EquipmentRowVM...");
-
-            Editor = editor;
-            Item = item;
-            Progress = progress;
-            IsAvailable = isAvailable;
-        }
-
-        public void Initialize()
-        {
-            Log.Info("Initializing EquipmentRowVM...");
-
-            EventManager.EquipmentItemChange.RegisterProperties(
-                this,
-                nameof(InStockText),
-                nameof(SkillRequirementText),
-                nameof(TierBlockedText),
-                nameof(ShowIsEquipped),
-                nameof(ShowProgressText),
-                nameof(ShowInStockText),
-                nameof(ShowValue)
-            );
-            EventManager.SkillChange.RegisterProperties(
-                this,
-                nameof(SkillRequirementText),
-                nameof(IsEnabled)
-            );
-        }
+        private readonly WItem RowItem = rowItem;
+        private readonly bool IsAvailable = isAvailable;
+        private readonly bool IsUnlocked = isUnlocked;
+        private readonly int Progress = progress;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
+        //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WEquipment SelectedEquipment => Editor?.EquipmentScreen?.Equipment;
-        private WCharacter SelectedTroop => Editor?.TroopScreen?.TroopList?.Selection?.Troop;
-        private EquipmentSlotVM SelectedSlot => Editor?.EquipmentScreen?.EquipmentPanel?.Selection;
+        protected override Dictionary<UIEvent, string[]> EventMap =>
+            new()
+            {
+                [UIEvent.Slot] =
+                [
+                    nameof(IsEnabled),
+                    nameof(IsSelected),
+                    nameof(Value),
+                    nameof(Stock),
+                    nameof(Name),
+                    nameof(InStockText),
+                    nameof(IsDisabledText),
+                    nameof(ShowIsEquipped),
+                    nameof(ShowInStockText),
+                    nameof(ShowValue),
+                    nameof(ImageId),
+                    nameof(ImageAdditionalArgs),
+#if BL13
+                    nameof(ImageTextureProviderName),
+#else
+                    nameof(ImageTypeCode),
+#endif
+                    nameof(Hint),
+                ],
+                [UIEvent.Equip] =
+                [
+                    nameof(IsSelected),
+                    nameof(Stock),
+                    nameof(InStockText),
+                    nameof(ShowInStockText),
+                    nameof(ShowValue),
+                    nameof(ShowIsEquipped),
+                    nameof(IsDisabledText),
+                ],
+                [UIEvent.Equipment] =
+                [
+                    nameof(IsEnabled),
+                    nameof(IsDisabledText),
+                    nameof(ShowInStockText),
+                    nameof(ShowValue),
+                ],
+            };
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private WItem Item => StagedItem ?? EquippedItem;
+
+        private WItem EquippedItem => State.Equipment?.Get(State.Slot);
+
+        private WItem StagedItem =>
+            State.EquipData?.TryGetValue(State.Slot, out var equipData) == true
+                ? equipData.Equip != null
+                    ? new WItem(equipData.Equip.ItemId)
+                    : null
+                : null;
+
+        private bool IsEquipped => !IsEmptyRow && EquippedItem == RowItem;
+        private bool IsEmptyRow => RowItem == null;
+        private bool IsRequirementBlocked =>
+            !IsEmptyRow && State.Troop?.MeetsItemRequirements(RowItem) == false;
+        private bool IsTierBlocked =>
+            !IsEmptyRow
+            && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
+            && (RowItem.Tier - (State.Troop?.Tier ?? 0)) > Config.AllowedTierDifference;
+        private bool IsEquipmentTypeBlocked =>
+            !IsEmptyRow && State.Equipment?.IsCivilian == true && RowItem?.IsCivilian == false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Helper
-        private bool IsTierBlocked =>
-            Item != null
-            && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
-            && (Item.Tier - (SelectedTroop?.Tier ?? 0)) > Config.AllowedTierDifference;
-
-        // Helper
-        private bool IsEmptyRow => Item == null;
-
         /* ━━━━━━━━ Values ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int Value => !IsEmptyRow ? EquipmentManager.GetItemCost(Item, SelectedTroop) : 0;
+        public int Value => EquipmentManager.GetItemCost(RowItem, State.Troop);
 
         [DataSourceProperty]
-        public int Stock => Item?.GetStock() ?? 0;
+        public int Stock => RowItem?.GetStock() ?? 0;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
-        public string Name => Item?.Name ?? L.S("empty_item", "Empty");
+        public string Name => RowItem?.Name ?? L.S("empty_item", "Empty");
 
         [DataSourceProperty]
         public string InStockText =>
-            ShowInStockText
-                ? L.T("in_stock", "In Stock ({STOCK})").SetTextVariable("STOCK", Stock).ToString()
-                : string.Empty;
+            L.T("in_stock", "In Stock ({STOCK})").SetTextVariable("STOCK", Stock).ToString();
 
         [DataSourceProperty]
-        public string ProgressText =>
-            ShowProgressText
-                ? L.T("unlock_progress_text", "Unlocking ({PROGRESS}/{REQUIRED})")
-                    .SetTextVariable("PROGRESS", Progress ?? 0)
-                    .SetTextVariable("REQUIRED", Config.KillsForUnlock)
-                    .ToString()
-                : string.Empty;
+        public string IsDisabledText
+        {
+            get
+            {
+                if (!IsUnlocked)
+                    return L.T("unlock_progress_text", "Unlocking ({PROGRESS}/{REQUIRED})")
+                        .SetTextVariable("PROGRESS", Progress)
+                        .SetTextVariable("REQUIRED", Config.KillsForUnlock)
+                        .ToString();
 
-        [DataSourceProperty]
-        public string NotAvailableText =>
-            ShowNotAvailableText
-                ? Player.CurrentSettlement == null
-                    ? L.S("item_unavailable_no_settlement", "Not in a town")
-                    : L.T("item_unavailable_text", "Not sold in {SETTLEMENT}")
-                        .SetTextVariable("SETTLEMENT", Player.CurrentSettlement?.Name)
-                        .ToString()
-                : string.Empty;
+                if (!IsAvailable)
+                    return Player.CurrentSettlement == null
+                        ? L.S("item_unavailable_no_settlement", "Not in a town")
+                        : L.T("item_unavailable_text", "Not sold in {SETTLEMENT}")
+                            .SetTextVariable("SETTLEMENT", Player.CurrentSettlement?.Name)
+                            .ToString();
 
-        [DataSourceProperty]
-        public string SkillRequirementText =>
-            ShowSkillRequirementText
-                ? L.T("skill_requirement_text", "Requires {SKILL}: {LEVEL}")
-                    .SetTextVariable("SKILL", Item?.RelevantSkill?.Name)
-                    .SetTextVariable("LEVEL", Item?.Difficulty ?? 0)
-                    .ToString()
-                : string.Empty;
+                if (IsRequirementBlocked)
+                    return L.T("skill_requirement_text", "Requires {SKILL}: {LEVEL}")
+                        .SetTextVariable("SKILL", RowItem?.RelevantSkill?.Name)
+                        .SetTextVariable("LEVEL", RowItem?.Difficulty ?? 0)
+                        .ToString();
 
-        [DataSourceProperty]
-        public string TierBlockedText =>
-            IsTierBlocked ? L.S("item_tier_blocked_text", "Troop tier too low.") : string.Empty;
+                if (IsTierBlocked)
+                    return L.S("item_tier_blocked_text", "Troop tier too low.");
+
+                if (IsEquipmentTypeBlocked)
+                    return L.S("item_equipment_type_blocked_text", "Not a civilian item.");
+
+                return string.Empty;
+            }
+        }
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowIsEquipped =>
-            Config.EquipmentChangeTakesTime && (SelectedSlot?.Item == Item);
+        public bool ShowIsEquipped => StagedItem != null && IsEquipped;
 
         [DataSourceProperty]
-        public bool ShowProgressText => !IsEmptyRow && Progress != null;
+        public bool ShowInStockText =>
+            IsEnabled && !IsSelected && !IsEquipped && RowItem?.IsStocked == true;
 
         [DataSourceProperty]
-        public bool ShowNotAvailableText => !IsEmptyRow && !ShowProgressText && !IsAvailable;
+        public bool ShowValue =>
+            IsEnabled && !IsSelected && !IsEquipped && !ShowInStockText && Value > 0;
 
         [DataSourceProperty]
-        public bool ShowTierBlockedText =>
-            !IsEmptyRow && !ShowProgressText && !ShowSkillRequirementText && IsTierBlocked;
+        public override bool IsSelected => RowItem == Item;
 
         [DataSourceProperty]
-        public bool ShowSkillRequirementText =>
-            !IsEmptyRow
-            && !ShowProgressText
-            && !ShowNotAvailableText
-            && !ShowTierBlockedText
-            && !(SelectedTroop?.MeetsItemRequirements(Item) ?? true);
-
-        [DataSourceProperty]
-        public bool ShowInStockText => IsEnabled && Item?.IsStocked == true;
-
-        [DataSourceProperty]
-        public bool ShowValue => IsEnabled && !ShowInStockText && Value > 0;
+        public override bool IsEnabled =>
+            IsEmptyRow
+            || (
+                IsUnlocked
+                && IsAvailable
+                && !IsRequirementBlocked
+                && !IsTierBlocked
+                && !IsEquipmentTypeBlocked
+            );
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
+        [DataSourceProperty]
+        public string ImageId => RowItem?.Image?.Id;
+
+        [DataSourceProperty]
+        public string ImageAdditionalArgs => RowItem?.Image?.AdditionalArgs;
+
 #if BL13
         [DataSourceProperty]
-        public string ImageAdditionalArgs => Item?.Image?.AdditionalArgs;
-
-        [DataSourceProperty]
-        public string ImageId => Item?.Image?.Id;
-
-        [DataSourceProperty]
-        public string ImageTextureProviderName => Item?.Image?.TextureProviderName;
+        public string ImageTextureProviderName => RowItem?.Image?.TextureProviderName;
 #else
         [DataSourceProperty]
-        public string ImageId => Item?.Image?.Id;
-
-        [DataSourceProperty]
-        public int ImageTypeCode => Item?.Image?.ImageTypeCode ?? 0;
-
-        [DataSourceProperty]
-        public string ImageAdditionalArgs => Item?.Image?.AdditionalArgs;
+        public int ImageTypeCode => RowItem?.Image?.ImageTypeCode ?? 0;
 #endif
 
         /* ━━━━━━━━ Tooltip ━━━━━━━ */
 
         [DataSourceProperty]
-        public BasicTooltipViewModel Hint => Tooltip.MakeItemTooltip(Item);
-
-        public override EquipmentListVM List => Editor.EquipmentScreen.EquipmentList;
-
-        /* ━━━━━━━━ Enabled ━━━━━━━ */
-
-        [DataSourceProperty]
-        public override bool IsEnabled
-        {
-            get
-            {
-                if (IsEmptyRow)
-                    return true; // Always can unequip
-
-                if (ShowNotAvailableText)
-                    return false; // Not sold here
-
-                if (ShowTierBlockedText)
-                    return false; // Troop tier too low
-
-                if (ShowSkillRequirementText)
-                    return false; // Skill requirements not met
-
-                if (ShowProgressText)
-                    return false; // Still unlocking
-
-                return true; // All checks passed
-            }
-        }
+        public BasicTooltipViewModel Hint => Tooltip.MakeItemTooltip(RowItem);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
-        public new void ExecuteSelect()
+        public void ExecuteSelect()
         {
             if (Config.EquipmentChangeTakesTime == false) // Only check in instant equip mode
                 if (
                     TroopRules.IsAllowedInContextWithPopup(
-                        SelectedTroop,
+                        State.Troop,
                         L.S("action_modify", "modify")
                     ) == false
                 )
                     return; // Modification not allowed in current context
 
-            var selectedItem = Item;
-            var equippedItem = SelectedSlot.Item;
-            var stagedItem = SelectedSlot.StagedItem;
+            var equippedItem = State.Equipment.Get(State.Slot);
+            var stagedItem = State.Equipment.GetStaged(State.Slot);
 
             bool staging = stagedItem != null;
-            bool selectionIsNull = selectedItem == null;
-            bool selectionIsEquipped = selectedItem != null && selectedItem == equippedItem;
-            bool selectionIsStaged = selectedItem != null && selectedItem == stagedItem;
+            bool selectionIsNull = RowItem == null;
+            bool selectionIsEquipped = RowItem != null && RowItem == equippedItem;
+            bool selectionIsStaged = RowItem != null && RowItem == stagedItem;
 
             // Selecting the already staged item
             if (selectionIsStaged)
@@ -254,11 +246,20 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     // Case 1a: Nothing is equipped (no-op)
                     if (equippedItem == null)
                     {
-                        Log.Debug("[ExecuteSelect] Nothing is equipped, no-op.");
-                        // Unstage if something is staged
-                        SelectedSlot.Unstage();
-                        // Select the row
-                        List.Select(Item);
+                        Log.Debug("[ExecuteSelect] Nothing is equipped.");
+
+                        if (staging)
+                        {
+                            Log.Debug("[ExecuteSelect] Something is staged, unstaging.");
+                            // Unstage if something is staged
+                            State.Troop.Unstage(State.Slot, stock: true);
+                            // Select the row
+                            State.UpdateEquipData();
+                        }
+                        else
+                        {
+                            Log.Debug("[ExecuteSelect] Nothing is staged, no-op.");
+                        }
                     }
                     // Case 1b: An item is equipped
                     else
@@ -287,16 +288,16 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                     {
                                         Log.Debug("[ExecuteSelect] Applying unequip.");
                                         // Unstage if something is staged
-                                        SelectedSlot.Unstage();
+                                        State.Troop.Unstage(State.Slot, stock: true);
                                         // Apply unequip
                                         EquipmentManager.Equip(
-                                            SelectedTroop,
-                                            SelectedSlot.Index,
-                                            Item,
-                                            SelectedEquipment.Index
+                                            State.Troop,
+                                            State.Slot,
+                                            RowItem,
+                                            State.Equipment.Index
                                         );
                                         // Select the row
-                                        List.Select(Item);
+                                        State.UpdateEquipData();
                                     },
                                     negativeAction: () => { } // Give the player an out
                                 )
@@ -307,16 +308,16 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         {
                             Log.Debug("[ExecuteSelect] Applying unequip without warning.");
                             // Unstage if something is staged
-                            SelectedSlot.Unstage();
+                            State.Troop.Unstage(State.Slot, stock: true);
                             // Apply unequip
                             EquipmentManager.Equip(
-                                SelectedTroop,
-                                SelectedSlot.Index,
-                                Item,
-                                SelectedEquipment.Index
+                                State.Troop,
+                                State.Slot,
+                                RowItem,
+                                State.Equipment.Index
                             );
                             // Select the row
-                            List.Select(Item);
+                            State.UpdateEquipData();
                         }
                     }
                 }
@@ -326,9 +327,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     Log.Debug("[ExecuteSelect] Selection is already equipped.");
 
                     // Unstage if something is staged
-                    SelectedSlot.Unstage();
+                    State.Troop.Unstage(State.Slot, stock: true);
                     // Select the row
-                    List.Select(Item);
+                    State.UpdateEquipData();
 
                     return; // No-op if already equipped after unstaging
                 }
@@ -345,16 +346,16 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         {
                             Log.Debug("[ExecuteSelect] Item is in stock, equipping from stock.");
                             // Unstage if something is staged
-                            SelectedSlot.Unstage();
+                            State.Troop.Unstage(State.Slot, stock: true);
                             // Apply the item change
                             EquipmentManager.EquipFromStock(
-                                SelectedTroop,
-                                SelectedSlot.Index,
-                                Item,
-                                SelectedEquipment.Index
+                                State.Troop,
+                                State.Slot,
+                                RowItem,
+                                State.Equipment.Index
                             );
                             // Select the row
-                            List.Select(Item);
+                            State.UpdateEquipData();
                         }
                         // Case 3a2: Item is out of stock
                         else
@@ -373,7 +374,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                                 "buy_item_text",
                                                 "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?"
                                             )
-                                            .SetTextVariable("ITEM_NAME", selectedItem.Name)
+                                            .SetTextVariable("ITEM_NAME", RowItem.Name)
                                             .SetTextVariable("ITEM_VALUE", Value)
                                             .ToString(),
                                         isAffirmativeOptionShown: true,
@@ -386,16 +387,16 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                                 "[ExecuteSelect] Player confirmed purchase, equipping from purchase."
                                             );
                                             // Unstage if something is staged
-                                            SelectedSlot.Unstage();
+                                            State.Troop.Unstage(State.Slot, stock: true);
                                             // Apply the item change
                                             EquipmentManager.EquipFromPurchase(
-                                                SelectedTroop,
-                                                SelectedSlot.Index,
-                                                Item,
-                                                SelectedEquipment.Index
+                                                State.Troop,
+                                                State.Slot,
+                                                RowItem,
+                                                State.Equipment.Index
                                             );
                                             // Select the row
-                                            List.Select(Item);
+                                            State.UpdateEquipData();
                                         },
                                         negativeAction: () =>
                                         {
@@ -427,35 +428,35 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     {
                         Log.Debug("[ExecuteSelect] Item is free, equipping.");
                         // Unstage if something is staged
-                        SelectedSlot.Unstage();
+                        State.Troop.Unstage(State.Slot, stock: true);
                         // Apply the item change
                         EquipmentManager.Equip(
-                            SelectedTroop,
-                            SelectedSlot.Index,
-                            Item,
-                            SelectedEquipment.Index
+                            State.Troop,
+                            State.Slot,
+                            RowItem,
+                            State.Equipment.Index
                         );
                         // Select the row
-                        List.Select(Item);
+                        State.UpdateEquipData();
                     }
                 }
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
+        //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override bool FilterMatch(string filter)
         {
-            if (IsEmptyRow)
+            if (RowItem == null)
                 return true;
 
             var search = filter.Trim().ToLowerInvariant();
-            var name = Item?.Name?.ToString().ToLowerInvariant() ?? string.Empty;
-            var category = Item?.Category?.ToString().ToLowerInvariant() ?? string.Empty;
-            var type = Item?.Type.ToString().ToLowerInvariant() ?? string.Empty;
-            var culture = Item?.Culture?.Name?.ToString().ToLowerInvariant() ?? "";
+            var name = RowItem.Name.ToString().ToLowerInvariant();
+            var category = RowItem.Category?.ToString().ToLowerInvariant();
+            var type = RowItem.Type.ToString().ToLowerInvariant();
+            var culture = RowItem.Culture?.Name?.ToString().ToLowerInvariant() ?? string.Empty;
 
             return name.Contains(search)
                 || category.Contains(search)

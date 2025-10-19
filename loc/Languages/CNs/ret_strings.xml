@@ -311,6 +311,9 @@
       id="ret_item_body_armor"
       text="护甲" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="非民用物品。" />
+    <string
       id="ret_item_head_armor"
       text="头盔" />
     <string
@@ -364,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="速度" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="部队等级过低。" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="不在城镇中" />

@@ -9,7 +9,7 @@
         <NavigationAutoScrollWidget TrackedWidget=".\RET_ItemHeader"/>
         <NavigatableListPanel 
             Id="RET_ItemList"
-            DataSource="{Rows}"
+            DataSource="{EquipmentRows}"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Right"
@@ -59,6 +59,16 @@
                                     MarginLeft="10"/>
 
                                 <TextWidget
+                                    Text="@InStockText"
+                                    Brush="Clan.RightPanel.Name.Text"
+                                    Brush.FontSize="24"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    IsVisible="@ShowInStockText"/>
+
+                                <TextWidget
                                     IntText="@Value"
                                     Brush="InventoryGoldFontBrush"
                                     WidthSizePolicy="CoverChildren"
@@ -86,44 +96,14 @@
                                     VerticalAlignment="Center"/>
 
                                 <TextWidget
-                                    Text="@InStockText"
+                                    Text="@IsDisabledText"
                                     Brush="Clan.RightPanel.Name.Text"
                                     Brush.FontSize="24"
                                     WidthSizePolicy="CoverChildren"
                                     HeightSizePolicy="CoverChildren"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    IsVisible="@ShowInStockText"/>
-
-                                <TextWidget
-                                    Text="@SkillRequirementText"
-                                    Brush="Clan.RightPanel.Name.Text"
-                                    Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren"
-                                    HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    IsVisible="@ShowSkillRequirementText"/>
-
-                                <TextWidget
-                                    Text="@NotAvailableText"
-                                    Brush="Clan.RightPanel.Name.Text"
-                                    Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren"
-                                    HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    IsVisible="@ShowNotAvailableText"/>
-
-                                <TextWidget
-                                    Text="@ProgressText"
-                                    Brush="Clan.RightPanel.Name.Text"
-                                    Brush.FontSize="24"
-                                    WidthSizePolicy="CoverChildren"
-                                    HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    IsVisible="@ShowProgressText"/>
+                                    IsHidden="@IsEnabled"/>
                             </Children>
                         </ListPanel>
                     </Children>

@@ -311,6 +311,9 @@
       id="ret_item_body_armor"
       text="Pancerz ciała" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Nie jest to przedmiot cywilny." />
+    <string
       id="ret_item_head_armor"
       text="Hełm" />
     <string
@@ -364,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Prędkość" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Poziom jednostki zbyt niski." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Nie w mieście" />

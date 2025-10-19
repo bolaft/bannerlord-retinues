@@ -311,6 +311,9 @@
       id="ret_item_body_armor"
       text="Armure de corps" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Pas un objet civil." />
+    <string
       id="ret_item_head_armor"
       text="Armure de tête" />
     <string
@@ -364,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Vitesse" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Rang de troupe trop bas." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="En ville uniquement" />

@@ -53,20 +53,20 @@
                     StackLayout.LayoutMethod="HorizontalLeftToRight">
                     <Children>
                         {{ if bl == 13 }}
-                            {{ image_13("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                            {{ image_13("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@IsTroop") }}
                         {{ else }}
-                            {{ image_12("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@DisplayTroop") }}
+                            {{ image_12("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@IsTroop") }}
                         {{ end }}
 
                         <TextWidget 
-                            IsVisible="@NameText"
+                            IsVisible="@IsVisible"
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
                             VerticalAlignment="Center" 
                             Brush="Clan.Tuple.Name.Text" 
                             ClipContents="false" 
-                            Text="@IndentedName"/>
+                            Text="@NameText"/>
 
-                        {{ text("@TierText", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "0", "@DisplayTroop") }}
+                        {{ text("@TierText", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "0", "@IsTroop") }}
                     </Children>
                 </ListPanel>
             </Children>

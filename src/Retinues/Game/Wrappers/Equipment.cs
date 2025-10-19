@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Utils;
+using Retinues.Features.Upgrade.Behaviors;
 using TaleWorlds.Core;
 
 namespace Retinues.Game.Wrappers
@@ -29,7 +30,7 @@ namespace Retinues.Game.Wrappers
 
         public WLoadout Loadout { get; private set; } = loadout;
         public int Index { get; private set; } = index;
-        public EquipmentCategory Category => Loadout.GetCategory(this);
+        public EquipmentCategory Category => Loadout.GetCategory(Index);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Code                          //
@@ -155,6 +156,17 @@ namespace Retinues.Game.Wrappers
         }
 
         /// <summary>
+        /// Gets the staged item in the specified equipment slot.
+        /// </summary>
+        public WItem GetStaged(EquipmentIndex slot)
+        {
+            var change = TroopEquipBehavior.GetStagedChange(Loadout.Troop, slot, Index);
+            if (change == null)
+                return null;
+            return new WItem(change.ItemId);
+        }
+
+        /// <summary>
         /// Sets the item in the specified equipment slot.
         /// </summary>
         public void SetItem(EquipmentIndex slot, WItem item)
@@ -177,6 +189,23 @@ namespace Retinues.Game.Wrappers
         {
             foreach (var slot in Slots)
                 UnsetItem(slot);
+        }
+
+        /// <summary>
+        /// Unstages all staged changes in all defined equipment slots.
+        /// </summary>
+        public void UnstageAll()
+        {
+            foreach (var slot in Slots)
+                UnstageItem(slot);
+        }
+
+        /// <summary>
+        /// Unstages the staged change in the specified equipment slot.
+        /// </summary>
+        public void UnstageItem(EquipmentIndex slot)
+        {
+            TroopEquipBehavior.UnstageChange(Loadout.Troop, slot, Index);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

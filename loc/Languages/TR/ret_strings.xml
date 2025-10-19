@@ -311,6 +311,9 @@
       id="ret_item_body_armor"
       text="Gövde Zırhı" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Sivil bir eşya değil." />
+    <string
       id="ret_item_head_armor"
       text="Baş Zırhı" />
     <string
@@ -364,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Hız" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Asker seviyesi çok düşük." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Bir kasabada değil" />

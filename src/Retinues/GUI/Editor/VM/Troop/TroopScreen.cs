@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Features.Upgrade.Behaviors;
-using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Troop.List;
 using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.GUI.Helpers;
@@ -13,60 +13,33 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Troop
 {
     [SafeClass]
-    public class TroopScreenVM : BaseComponent
+    public class TroopScreenVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public readonly EditorVM Editor;
-
-        public TroopScreenVM(EditorVM editor)
-        {
-            Log.Info("Building TroopScreenVM...");
-
-            Editor = editor;
-
-            // Components
-            TroopList = new TroopListVM(this);
-            TroopPanel = new TroopPanelVM(this);
-        }
-
-        public void Initialize()
-        {
-            Log.Info("Initializing TroopScreenVM...");
-
-            // Components
-            TroopList.Initialize();
-            TroopPanel.Initialize();
-
-            // Subscribe to events
-            void RefreshRemoveButton()
+        protected override Dictionary<UIEvent, string[]> EventMap =>
+            new()
             {
-                OnPropertyChanged(nameof(RemoveTroopButtonIsVisible));
-                OnPropertyChanged(nameof(RemoveTroopButtonIsEnabled));
-                OnPropertyChanged(nameof(RemoveButtonHint));
-            }
-
-            EventManager.TroopChange.Register(RefreshRemoveButton);
-            EventManager.TroopListChange.Register(RefreshRemoveButton);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private WCharacter SelectedTroop => Editor?.TroopScreen?.TroopList?.Selection?.Troop;
+                [UIEvent.Troop] =
+                [
+                    nameof(RemoveTroopButtonIsVisible),
+                    nameof(RemoveTroopButtonIsEnabled),
+                    nameof(RemoveTroopButtonText),
+                    nameof(RemoveButtonHint),
+                ],
+            };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Components                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public TroopListVM TroopList { get; private set; }
+        public TroopListVM TroopList { get; private set; } = new();
 
         [DataSourceProperty]
-        public TroopPanelVM TroopPanel { get; private set; }
+        public TroopPanelVM TroopPanel { get; private set; } = new();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -76,13 +49,10 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public bool RemoveTroopButtonIsVisible =>
-            Editor?.Screen == Screen.Troop
-            && !SelectedTroop?.IsRetinue == true
-            && !SelectedTroop?.IsMilitia == true;
+            State.Troop?.IsMilitia == false && State.Troop?.IsRetinue == false;
 
         [DataSourceProperty]
-        public bool RemoveTroopButtonIsEnabled =>
-            Editor?.Screen == Screen.Troop && SelectedTroop?.IsDeletable == true;
+        public bool RemoveTroopButtonIsEnabled => State.Troop?.IsDeletable == true;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -96,14 +66,14 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             get
             {
-                if (SelectedTroop?.IsDeletable == true)
+                if (State.Troop?.IsDeletable == true)
                     return null; // No hint if can remove
 
                 return Tooltip.MakeTooltip(
                     null,
-                    SelectedTroop?.Parent == null
+                    State.Troop?.Parent == null
                             ? L.S("cant_remove_root_troop", "Root troops cannot be removed.")
-                        : (SelectedTroop?.UpgradeTargets?.Count() ?? 0) > 0
+                        : (State.Troop?.UpgradeTargets?.Count() ?? 0) > 0
                             ? L.S(
                                 "cant_remove_troop_with_targets",
                                 "Troops that have upgrade targets cannot be removed."
@@ -120,11 +90,12 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteRemoveTroop()
         {
+            if (State.Troop == null)
+                return;
+
             if (
-                TroopRules.IsAllowedInContextWithPopup(
-                    SelectedTroop,
-                    L.S("action_remove", "remove")
-                ) == false
+                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_remove", "remove"))
+                == false
             )
                 return; // Removal not allowed in current context
 
@@ -135,8 +106,8 @@ namespace Retinues.GUI.Editor.VM.Troop
                             "remove_troop_text",
                             "Are you sure you want to permanently remove {TROOP_NAME}?\n\nTheir equipment will be stocked for later use, and existing troops will be converted to their {CULTURE} counterpart."
                         )
-                        .SetTextVariable("TROOP_NAME", SelectedTroop?.Name)
-                        .SetTextVariable("CULTURE", SelectedTroop?.Culture?.Name)
+                        .SetTextVariable("TROOP_NAME", State.Troop.Name)
+                        .SetTextVariable("CULTURE", State.Troop.Culture?.Name)
                         .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
@@ -145,20 +116,38 @@ namespace Retinues.GUI.Editor.VM.Troop
                     affirmativeAction: () =>
                     {
                         // Clear all staged equipment changes
-                        TroopEquipBehavior.Instance.ClearStagedChanges(SelectedTroop);
+                        TroopEquipBehavior.Instance.ClearStagedChanges(State.Troop);
 
                         // Clear all staged skill changes
-                        TroopTrainBehavior.Instance.ClearStagedChanges(SelectedTroop);
+                        TroopTrainBehavior.Instance.ClearStagedChanges(State.Troop);
 
                         // Remove the troop
-                        SelectedTroop?.Remove(stock: true);
+                        State.Troop.Remove(stock: true);
 
-                        // Fire event
-                        EventManager.TroopListChange.Fire();
+                        // Update global state
+                        State.UpdateFaction(State.Faction);
                     },
                     negativeAction: () => { }
                 )
             );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Overrides                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override void Show()
+        {
+            base.Show();
+            TroopList.Show();
+            TroopPanel.Show();
+        }
+
+        public override void Hide()
+        {
+            TroopList.Hide();
+            TroopPanel.Hide();
+            base.Hide();
         }
     }
 }

@@ -1,9 +1,8 @@
+using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
-using Retinues.Features.Upgrade.Behaviors;
-using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -12,71 +11,73 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
     [SafeClass]
-    public sealed class TroopSkillVM : BaseComponent
+    public sealed class TroopSkillVM(SkillObject skill) : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public readonly TroopScreenVM Screen;
-        public readonly SkillObject Skill;
+        private readonly SkillObject Skill = skill;
 
-        public TroopSkillVM(TroopScreenVM screen, SkillObject skill)
-        {
-            Log.Info("Building TroopSkillVM...");
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-            Screen = screen;
-            Skill = skill;
-        }
-
-        public void Initialize()
-        {
-            Log.Info("Initializing TroopSkillVM...");
-
-            // Subscribe to events
-            void Refresh()
+        protected override Dictionary<UIEvent, string[]> EventMap =>
+            new()
             {
-                OnPropertyChanged(nameof(Value));
-                OnPropertyChanged(nameof(ValueColor));
-                OnPropertyChanged(nameof(IsStaged));
-                OnPropertyChanged(nameof(CanIncrement));
-                OnPropertyChanged(nameof(CanDecrement));
-            }
-            EventManager.SkillChange.Register(Refresh);
-            EventManager.TroopChange.Register(Refresh);
-        }
+                [UIEvent.Troop] =
+                [
+                    nameof(Value),
+                    nameof(ValueColor),
+                    nameof(IsStaged),
+                    nameof(CanIncrement),
+                    nameof(CanDecrement),
+                ],
+                [UIEvent.Train] =
+                [
+                    nameof(Value),
+                    nameof(ValueColor),
+                    nameof(IsStaged),
+                    nameof(CanIncrement),
+                    nameof(CanDecrement),
+                ],
+            };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WCharacter SelectedTroop => Screen?.TroopList?.Selection?.Troop;
+        private SkillData? SkillInfo =>
+            State.SkillData.TryGetValue(Skill, out var data) ? data : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public int Value => (SelectedTroop?.GetSkill(Skill) ?? 0) + StagedAmount;
+        public int Value => (SkillInfo?.Value ?? 0) + (SkillInfo?.Train?.PointsRemaining ?? 0);
 
         [DataSourceProperty]
         public string ValueColor => IsStaged ? "#ebaf2fff" : "#F4E1C4FF";
 
         [DataSourceProperty]
-        public bool IsStaged => StagedAmount > 0;
+        public bool IsStaged => SkillInfo?.Train?.PointsRemaining > 0;
 
         [DataSourceProperty]
-        public string SkillId => Skill.StringId;
+        public string SkillId => Skill?.StringId ?? string.Empty;
 
         [DataSourceProperty]
-        public bool CanIncrement => TroopRules.CanIncrementSkill(SelectedTroop, Skill);
+        public bool CanIncrement => TroopRules.CanIncrementSkill(State.Troop, Skill);
 
         [DataSourceProperty]
-        public bool CanDecrement => TroopRules.CanDecrementSkill(SelectedTroop, Skill);
+        public bool CanDecrement => TroopRules.CanDecrementSkill(State.Troop, Skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static bool PlayerWarnedAboutRetraining = false;
 
         [DataSourceMethod]
         public void ExecuteIncrement() => Modify(true);
@@ -84,28 +85,12 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceMethod]
         public void ExecuteDecrement() => Modify(false);
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Staging                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private int StagedAmount =>
-            TroopTrainBehavior
-                .Instance.GetStagedChange(SelectedTroop, Skill?.StringId)
-                ?.PointsRemaining
-            ?? 0;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static bool PlayerWarnedAboutRetraining = false;
-
         private void Modify(bool increment)
         {
             if (Config.TrainingTakesTime == false) // Only check in instant training mode
                 if (
                     TroopRules.IsAllowedInContextWithPopup(
-                        SelectedTroop,
+                        State.Troop,
                         L.S("action_modify", "modify")
                     ) == false
                 )
@@ -121,10 +106,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     if (increment == false && !CanDecrement)
                         break; // Can't decrement further
 
-                    TroopManager.ModifySkill(SelectedTroop, Skill, increment);
+                    TroopManager.ModifySkill(State.Troop, Skill, increment);
                 }
 
-                EventManager.SkillChange.Fire();
+                State.UpdateSkillData();
             }
 
             // Warn the player if decrementing a skill may require retraining

@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
-using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -10,130 +10,103 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Equipment.Panel
 {
     [SafeClass]
-    public sealed class EquipmentSlotVM : BaseComponent
+    public sealed class EquipmentSlotVM(EquipmentIndex index) : ButtonVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public readonly EditorVM Editor;
+        private readonly EquipmentIndex Index = index;
 
-        public EquipmentSlotVM(EditorVM editor, EquipmentIndex index, string label)
-        {
-            Log.Info("Building EquipmentSlotVM...");
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-            Editor = editor;
-            _index = index;
-            _label = label;
-        }
-
-        public void Initialize()
-        {
-            Log.Info("Initializing EquipmentSlotVM...");
-
-            // Subscribe to events
-            void Refresh()
+        protected override Dictionary<UIEvent, string[]> EventMap =>
+            new()
             {
-                OnPropertyChanged(nameof(IsStaged));
-                OnPropertyChanged(nameof(StagedItem));
-                OnPropertyChanged(nameof(ItemText));
-                OnPropertyChanged(nameof(ItemTextColor));
-                OnPropertyChanged(nameof(Hint));
-                OnPropertyChanged(nameof(ImageId));
-                OnPropertyChanged(nameof(ImageAdditionalArgs));
+                [UIEvent.Equip] =
+                [
+                    nameof(ItemText),
+                    nameof(ItemTextColor),
+                    nameof(IsStaged),
+                    nameof(ImageId),
+                    nameof(ImageAdditionalArgs),
 #if BL13
-                OnPropertyChanged(nameof(ImageTextureProviderName));
+                    nameof(ImageTextureProviderName),
 #else
-                OnPropertyChanged(nameof(ImageTypeCode));
+                    nameof(ImageTypeCode),
 #endif
-            }
-
-            EventManager.EquipmentChange.Register(Refresh);
-            EventManager.EquipmentItemChange.Register(Refresh);
-        }
+                    nameof(Hint),
+                    nameof(IsEnabled),
+                ],
+                [UIEvent.Equipment] =
+                [
+                    nameof(ItemText), nameof(ItemTextColor), nameof(IsStaged),
+                    nameof(ImageId), nameof(ImageAdditionalArgs),
+#if BL13
+                    nameof(ImageTextureProviderName),
+#else
+                    nameof(ImageTypeCode),
+#endif
+                    nameof(Hint), nameof(IsEnabled),
+                ],
+                [UIEvent.Slot] = [nameof(IsSelected)],
+            };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WEquipment SelectedEquipment => Editor?.EquipmentScreen?.Equipment;
-        private WCharacter SelectedTroop => Editor?.TroopScreen?.TroopList?.Selection?.Troop;
+        private bool HasPendingItem => State.EquipData[Index].Equip != null;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Item                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public WItem Item => SelectedEquipment?.Get(_index);
-
-        private readonly EquipmentIndex _index;
-        public EquipmentIndex Index => _index;
+        private WItem Item =>
+            HasPendingItem
+                ? new WItem(State.EquipData[Index].Equip.ItemId)
+                : State.Equipment.Get(Index);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Helper
-        public bool IsStaged => StagedItem != null;
-
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
-        private string _label;
-
         [DataSourceProperty]
-        public string Label => _label;
-
-        /* ━━━━━━━━━ Flags ━━━━━━━━ */
-
-        private bool _isSelected;
-
-        [DataSourceProperty]
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
+        public string Label =>
+            Index switch
             {
-                if (_isSelected == value)
-                    return;
-
-                _isSelected = value;
-
-                if (value == true)
-                    EventManager.EquipmentSlotChange.Fire();
-
-                OnPropertyChanged(nameof(IsSelected));
-            }
-        }
-
-        [DataSourceProperty]
-        public bool IsEnabled
-        {
-            get
-            {
-                // Disable mounts for tier 1 troops if disallowed in config
-                if (Config.NoMountForTier1 && (SelectedTroop?.Tier ?? 0) == 1)
-                    if (_index == EquipmentIndex.Horse || _index == EquipmentIndex.HorseHarness)
-                        return false;
-
-                // Disable horse harness if no horse equipped
-                if (_index == EquipmentIndex.HorseHarness)
-                    if (SelectedEquipment?.Get(EquipmentIndex.Horse) == null)
-                        return false;
-
-                return true;
-            }
-        }
+                EquipmentIndex.Weapon0 => L.S("weapon_1_slot_text", "Weapon 1"),
+                EquipmentIndex.Weapon1 => L.S("weapon_2_slot_text", "Weapon 2"),
+                EquipmentIndex.Weapon2 => L.S("weapon_3_slot_text", "Weapon 3"),
+                EquipmentIndex.Weapon3 => L.S("weapon_4_slot_text", "Weapon 4"),
+                EquipmentIndex.Head => L.S("head_slot_text", "Head"),
+                EquipmentIndex.Cape => L.S("cape_slot_text", "Cape"),
+                EquipmentIndex.Body => L.S("body_slot_text", "Body"),
+                EquipmentIndex.Gloves => L.S("gloves_slot_text", "Gloves"),
+                EquipmentIndex.Leg => L.S("leg_slot_text", "Legs"),
+                EquipmentIndex.Horse => L.S("horse_slot_text", "Horse"),
+                EquipmentIndex.HorseHarness => L.S("horse_harness_slot_text", "Harness"),
+                _ => string.Empty,
+            };
 
         /* ━━━━━━━ Item Info ━━━━━━ */
 
         [DataSourceProperty]
         public string ItemText =>
-            Format.Crop(
-                IsStaged ? StagedItem?.Name + $" ({StagedChange?.Remaining ?? 0}h)" : Item?.Name,
-                25
-            );
+            Item == null
+                ? string.Empty
+                : Format.Crop(
+                    HasPendingItem
+                        ? Item.Name + $" ({State.EquipData[Index].Equip.Remaining}h)"
+                        : Item?.Name,
+                    25
+                );
 
         [DataSourceProperty]
         public string ItemTextColor => IsStaged ? "#ebaf2fff" : "#F4E1C4FF";
+
+        [DataSourceProperty]
+        public bool IsStaged => HasPendingItem;
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
@@ -156,40 +129,35 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         [DataSourceProperty]
         public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
 
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public override bool IsSelected => State.Slot == Index;
+
+        [DataSourceProperty]
+        public override bool IsEnabled
+        {
+            get
+            {
+                // Disable mounts for tier 1 troops if disallowed in config
+                if (Config.NoMountForTier1 && State.Troop.Tier == 1)
+                    if (Index == EquipmentIndex.Horse || Index == EquipmentIndex.HorseHarness)
+                        return false;
+
+                // Disable horse harness if no horse equipped
+                if (Index == EquipmentIndex.HorseHarness)
+                    if (State.Equipment.Get(EquipmentIndex.Horse) == null)
+                        return false;
+
+                return true;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
-        public void ExecuteSelect() => Editor?.EquipmentScreen?.EquipmentPanel?.Select(this);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Staging                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public WItem StagedItem => IsStaged ? new WItem(StagedChange?.ItemId) : null;
-
-        public PendingEquipData StagedChange =>
-            TroopEquipBehavior.GetStagedChange(
-                SelectedTroop,
-                _index,
-                SelectedEquipment?.Index ?? 0
-            );
-
-        public void Unstage(bool noEvent = false)
-        {
-            if (!IsStaged)
-                return; // No-op if no staged change
-
-            // Restock current item if any
-            var item = new WItem(StagedChange?.ItemId);
-            item.Stock();
-
-            // Unstage
-            TroopEquipBehavior.UnstageChange(SelectedTroop, _index, SelectedEquipment?.Index ?? 0);
-
-            if (noEvent == false)
-                EventManager.EquipmentItemChange.Fire();
-        }
+        public void ExecuteSelect() => State.UpdateSlot(Index);
     }
 }

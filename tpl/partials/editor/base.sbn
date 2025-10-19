@@ -14,4 +14,4 @@
 {{- end -}}
 
 {{ right_pane_panel("{TroopScreen}", "editor/troop/panel.sbn") }}
-{{ right_pane_panel("{EquipmentScreen}", "editor/equipment/panel.sbn") }}
+{{ right_pane_panel("{EquipmentScreen}", "editor/equipment/slots.sbn") }}

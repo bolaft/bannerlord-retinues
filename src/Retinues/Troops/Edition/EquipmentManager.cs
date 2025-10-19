@@ -23,63 +23,66 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Collects all available items for a troop, faction, and slot, considering unlocks, doctrines, and config.
         /// </summary>
-        public static List<(WItem, int?, bool)> CollectAvailableItems(
+        public static List<(
+            WItem item,
+            bool isAvailable,
+            bool isUnlocked,
+            int progress
+        )> CollectAvailableItems(
             WFaction faction,
             EquipmentIndex slot,
-            bool civilian = false,
-            Dictionary<EquipmentIndex, List<(WItem item, int? progress)>> cache = null
+            List<(WItem item, bool unlocked, int progress)> cache = null
         )
         {
-            // 1) Get (item, progress) eligibility from the caller cache or build once
-            if (cache == null || !cache.TryGetValue(slot, out var eligible))
-            {
-                eligible = BuildEligibilityList(faction, civilian, slot); // same heavy scan you already have
-                cache?.Add(slot, eligible);
-            }
+            Log.Debug($"[CollectAvailableItems] Called for faction {faction?.Name}, slot {slot}");
 
-            // 2) Lightweight availability: recompute every call
-            HashSet<string> availableIds = null;
-            if (Config.RestrictItemsToTownInventory && Player.CurrentSettlement?.IsTown == true)
-            {
-                availableIds =
-                [
-                    .. Player
-                        .CurrentSettlement.ItemCounts()
-                        .Where(t => t.count > 0)
-                        .Select(t => t.item.StringId),
-                ];
-            }
+            // 1) Get (item, progress) eligibility from the caller cache or build once
+            var eligible = cache ??= BuildEligibilityList(faction, slot); // same heavy scan you already have
+
+            // 2) Availability filter (only build when restriction applies & you are in a town)
+            var availableInTown = Config.RestrictItemsToTownInventory
+                ? BuildCurrentTownAvailabilitySet()
+                : null;
 
             var items = eligible
-                .Select(p => (p.item, p.progress, availableIds?.Contains(p.item?.StringId) == true))
+                .Select(p =>
+                {
+                    return (
+                        item: p.item,
+                        isAvailable: availableInTown == null || availableInTown.Contains(p.item),
+                        isUnlocked: p.unlocked,
+                        progress: p.progress
+                    );
+                })
                 .ToList();
 
-            // Keep your existing sort
+            // Keep your existing sort semantics:
             items =
             [
                 .. items
                     .OrderBy(t =>
                         (
-                            t.progress == null ? 0 : 1,
-                            -(t.progress ?? 0),
-                            t.progress == null ? (t.Item3 ? 0 : 1) : 0
+                            t.isUnlocked ? 0 : 1,
+                            t.isUnlocked ? 0 : -t.progress,
+                            t.isUnlocked ? (t.isAvailable ? 0 : 1) : 0
                         )
                     )
                     .ThenBy(t => t.item?.Type)
                     .ThenBy(t => t.item?.Name),
             ];
 
-            // “Empty” option
-            items.Insert(0, (null, null, true));
+            Log.Debug(
+                $"[CollectAvailableItems] Returning {items.Count} items for faction {faction?.Name}, slot {slot}"
+            );
+
             return items;
         }
 
         /// <summary>
         /// Builds the list of eligible items for a faction, slot, and civilian status.
         /// </summary>
-        private static List<(WItem item, int? progress)> BuildEligibilityList(
+        private static List<(WItem item, bool unlocked, int progress)> BuildEligibilityList(
             WFaction faction,
-            bool civilian,
             EquipmentIndex slot
         )
         {
@@ -93,21 +96,18 @@ namespace Retinues.Troops.Edition
             var allObjects = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
             var lastCraftedIndex = BuildLastCraftedIndex(allObjects, onlyPlayerCrafted: true);
 
-            var list = new List<(WItem, int?)>();
+            var list = new List<(WItem Item, bool Unlocked, int Progress)>();
 
             foreach (var io in allObjects)
             {
                 var item = new WItem(io);
-
-                if (civilian && !item.IsCivilian)
-                    continue;
 
                 try
                 {
                     if (Config.AllEquipmentUnlocked)
                     {
                         if (item.Slots.Contains(slot))
-                            list.Add((item, null));
+                            list.Add((item, true, 0));
                         continue;
                     }
 
@@ -130,7 +130,7 @@ namespace Retinues.Troops.Edition
                     if (item.IsUnlocked)
                     {
                         if (item.Slots.Contains(slot))
-                            list.Add((item, null));
+                            list.Add((item, true, 0));
                         continue;
                     }
 
@@ -139,7 +139,7 @@ namespace Retinues.Troops.Edition
                     if (Config.UnlockFromCulture && itemCultureId == factionCultureId)
                     {
                         if (item.Slots.Contains(slot))
-                            list.Add((item, null));
+                            list.Add((item, true, 0));
                         continue;
                     }
 
@@ -149,7 +149,7 @@ namespace Retinues.Troops.Edition
                     )
                     {
                         if (item.Slots.Contains(slot))
-                            list.Add((item, null));
+                            list.Add((item, true, 0));
                         continue;
                     }
 
@@ -165,12 +165,12 @@ namespace Retinues.Troops.Edition
                         {
                             item.Unlock();
                             if (item.Slots.Contains(slot))
-                                list.Add((item, null));
+                                list.Add((item, true, 0));
                         }
                         else
                         {
                             if (item.Slots.Contains(slot))
-                                list.Add((item, prog));
+                                list.Add((item, false, prog));
                         }
                     }
                 }
@@ -188,10 +188,8 @@ namespace Retinues.Troops.Edition
         /// </summary>
         private static HashSet<WItem> BuildCurrentTownAvailabilitySet()
         {
-            if (!Config.RestrictItemsToTownInventory)
-                return null;
-            if (Player.CurrentSettlement == null || !Player.CurrentSettlement.IsTown)
-                return null;
+            if (Player.CurrentSettlement == null)
+                return [];
 
             // WItem equality here should be by StringId otherwise switch to a HashSet<string> of item ids.
             var set = new HashSet<WItem>();
@@ -321,7 +319,7 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int GetItemCost(WItem item, WCharacter troop)
         {
-            if (item == null)
+            if (item == null || troop == null)
                 return 0;
 
             if (Config.PayForEquipment == false)

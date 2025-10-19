@@ -311,6 +311,9 @@
       id="ret_item_body_armor"
       text="Броня тела" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Не является гражданским предметом." />
+    <string
       id="ret_item_head_armor"
       text="Шлем" />
     <string
@@ -364,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Скорость" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Ранг войск слишком низок." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Не в городе" />

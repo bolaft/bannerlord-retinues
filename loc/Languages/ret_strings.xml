@@ -228,7 +228,7 @@
       text="Head" />
     <string
       id="ret_horse_harness_slot_text"
-      text="Horse Harness" />
+      text="Harness" />
     <string
       id="ret_horse_slot_text"
       text="Horse" />
@@ -310,6 +310,9 @@
     <string
       id="ret_item_body_armor"
       text="Body Armor" />
+    <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Not a civilian item." />
     <string
       id="ret_item_head_armor"
       text="Head Armor" />

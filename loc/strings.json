@@ -1185,7 +1185,7 @@
   },
   {
     "id": "ret_horse_harness_slot_text",
-    "EN": "Horse Harness",
+    "EN": "Harness",
     "BR": "Arreio",
     "CNs": "马具",
     "CNt": "馬具",
@@ -1632,6 +1632,22 @@
     "TR": "Gövde Zırhı"
   },
   {
+    "id": "ret_item_equipment_type_blocked_text",
+    "EN": "Not a civilian item.",
+    "BR": "Não é um item civil.",
+    "CNs": "非民用物品。",
+    "CNt": "非民用物品。",
+    "DE": "Kein ziviler Gegenstand.",
+    "FR": "Pas un objet civil.",
+    "IT": "Non è un oggetto civile.",
+    "JP": "民間用アイテムではありません。",
+    "KO": "민간 아이템이 아닙니다.",
+    "PL": "Nie jest to przedmiot cywilny.",
+    "RU": "Не является гражданским предметом.",
+    "SP": "No es un objeto civil.",
+    "TR": "Sivil bir eşya değil."
+  },
+  {
     "id": "ret_item_head_armor",
     "EN": "Head Armor",
     "BR": "Armadura da Cabeça",
@@ -1922,18 +1938,18 @@
   {
     "id": "ret_item_tier_blocked_text",
     "EN": "Troop tier too low.",
-    "BR": null,
-    "CNs": null,
-    "CNt": null,
-    "DE": null,
-    "FR": null,
-    "IT": null,
-    "JP": null,
-    "KO": null,
-    "PL": null,
-    "RU": null,
-    "SP": null,
-    "TR": null
+    "BR": "Nível da tropa muito baixo.",
+    "CNs": "部队等级过低。",
+    "CNt": "部隊等級過低。",
+    "DE": "Truppenstufe zu niedrig.",
+    "FR": "Rang de troupe trop bas.",
+    "IT": "Livello della truppa troppo basso.",
+    "JP": "部隊のランクが低すぎます。",
+    "KO": "병력 등급이 너무 낮습니다.",
+    "PL": "Poziom jednostki zbyt niski.",
+    "RU": "Ранг войск слишком низок.",
+    "SP": "Rango de tropa demasiado bajo.",
+    "TR": "Asker seviyesi çok düşük."
   },
   {
     "id": "ret_item_unavailable_no_settlement",

@@ -114,6 +114,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int SkillCapByTier(WCharacter troop)
         {
+            if (troop == null)
+                return 0;
+
             int cap = troop.Tier switch
             {
                 0 => Config.SkillCapTier0, // was 10
@@ -140,6 +143,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int SkillTotalByTier(WCharacter troop)
         {
+            if (troop == null)
+                return 0;
+
             int total = troop.Tier switch
             {
                 0 => Config.SkillTotalTier0, // was 90

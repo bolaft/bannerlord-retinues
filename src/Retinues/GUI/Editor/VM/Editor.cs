@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;
-using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
@@ -20,144 +20,95 @@ namespace Retinues.GUI.Editor.VM
     }
 
     [SafeClass]
-    public class EditorVM : BaseComponent
+    public class EditorVM : BaseVM
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         public EditorVM()
         {
-            Log.Info("Building EditorVM...");
-
             // Ensure retinue troops exist for player factions
             foreach (var f in new[] { Player.Clan, Player.Kingdom })
                 if (f != null)
                     TroopBuilder.EnsureTroopsExist(f);
 
-            // Components
-            TroopScreen = new TroopScreenVM(this);
-            EquipmentScreen = new EquipmentScreenVM(this);
+            TroopScreen = new TroopScreenVM();
+            EquipmentScreen = new EquipmentScreenVM();
             DoctrineScreen = new DoctrineScreenVM();
-        }
 
-        public void Initialize()
-        {
-            Log.Info("Initializing EditorVM...");
-
-            // Initialize components
-            TroopScreen.Initialize();
-            EquipmentScreen.Initialize();
-
-            // Subscribe to events
-            EventManager.ScreenChange.RegisterProperties(
-                this,
-                nameof(InTroopScreen),
-                nameof(InEquipmentScreen),
-                nameof(InDoctrineScreen),
-                nameof(EquipmentButtonText),
-                nameof(DoctrinesButtonText),
-                nameof(ShowFactionButton),
-                nameof(ShowDoctrinesButton),
-                nameof(ShowEquipmentButton)
-            );
-            EventManager.FactionChange.RegisterProperties(this, nameof(FactionButtonText));
-            EventManager.TroopChange.RegisterProperties(this, nameof(Model));
-            EventManager.GenderChange.RegisterProperties(this, nameof(Model));
-            EventManager.EquipmentChange.RegisterProperties(this, nameof(Model));
-            EventManager.EquipmentItemChange.RegisterProperties(this, nameof(Model));
-
-            // Initial state
             SwitchScreen(Screen.Troop);
-            SwitchFaction(Player.Clan);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Faction                        //
+        //                         Screen                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WFaction Faction { get; private set; }
-
-        public void SwitchFaction(WFaction faction)
-        {
-            if (faction == null || faction == Faction)
-                return;
-
-            Log.Info($"Switching faction to {faction?.Name ?? "null"}.");
-
-            Faction = faction;
-
-            EventManager.FactionChange.Fire();
-            EventManager.TroopListChange.Fire();
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Editor Mode                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public Screen Screen { get; private set; }
+        public Screen Screen { get; set; }
 
         public void SwitchScreen(Screen value)
         {
-            if (Screen == value)
-                return;
-
             Log.Info($"Switching screen from {Screen} to {value}");
 
             Screen = value;
 
-            // Toggle screen visibility
-            TroopScreen.IsVisible = Screen == Screen.Troop;
-            EquipmentScreen.IsVisible = Screen == Screen.Equipment;
-            DoctrineScreen.IsVisible = Screen == Screen.Doctrine;
+            // Toggle screen visibility via Show/Hide helpers
+            if (Screen == Screen.Troop)
+                TroopScreen.Show();
+            else
+                TroopScreen.Hide();
+            if (Screen == Screen.Equipment)
+                EquipmentScreen.Show();
+            else
+                EquipmentScreen.Hide();
+            if (Screen == Screen.Doctrine)
+                DoctrineScreen.Show();
+            else
+                DoctrineScreen.Hide();
 
-            EventManager.ScreenChange.Fire(); // Notify other systems
+            // Notify UI
+            OnPropertyChanged(nameof(InTroopScreen));
+            OnPropertyChanged(nameof(InEquipmentScreen));
+            OnPropertyChanged(nameof(InDoctrineScreen));
+            OnPropertyChanged(nameof(ShowFactionButton));
+            OnPropertyChanged(nameof(ShowDoctrinesButton));
+            OnPropertyChanged(nameof(ShowEquipmentButton));
+            OnPropertyChanged(nameof(EquipmentButtonText));
+            OnPropertyChanged(nameof(DoctrinesButtonText));
+            OnPropertyChanged(nameof(FactionButtonText));
+            OnPropertyChanged(nameof(EquipmentButtonBrush));
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        protected override Dictionary<UIEvent, string[]> EventMap =>
+            new()
+            {
+                [UIEvent.Faction] = [nameof(FactionButtonText), nameof(ShowFactionButton)],
+                [UIEvent.Equipment] = [nameof(Model)],
+                [UIEvent.Troop] = [nameof(Model)],
+                [UIEvent.Equip] = [nameof(Model)],
+            };
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Components                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public TroopScreenVM TroopScreen { get; set; }
+
+        [DataSourceProperty]
+        public EquipmentScreenVM EquipmentScreen { get; set; }
+
+        [DataSourceProperty]
+        public DoctrineScreenVM DoctrineScreen { get; set; }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━ Components ━━━━━━ */
-
-        [DataSourceProperty]
-        public TroopScreenVM TroopScreen { get; private set; }
-
-        [DataSourceProperty]
-        public EquipmentScreenVM EquipmentScreen { get; private set; }
-
-        [DataSourceProperty]
-        public DoctrineScreenVM DoctrineScreen { get; private set; }
-
         /* ━━━━━━━ 3D Model ━━━━━━━ */
 
-        private CharacterViewModel _model;
-        private WCharacter _lastTroop;
-        private int _lastIndex;
-
         [DataSourceProperty]
-        public CharacterViewModel Model
-        {
-            get
-            {
-                Log.Info("Getting CharacterViewModel.");
-
-                var troop = TroopScreen?.TroopList?.Selection?.Troop;
-                if (troop == null)
-                    return null;
-
-                var index = EquipmentScreen?.Equipment?.Index ?? 0;
-
-                if (_model == null || _lastTroop != troop || _lastIndex != index)
-                {
-                    _model = troop?.GetModel(index);
-                    _lastTroop = troop;
-                    _lastIndex = index;
-                }
-
-                return _model;
-            }
-        }
+        public CharacterViewModel Model => State.Troop?.GetModel(State.Equipment.Index);
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -175,7 +126,7 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public string FactionButtonText =>
-            Faction == Player.Clan
+            State.Faction == Player.Clan
                 ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops")
                 : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
 
@@ -226,6 +177,6 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceMethod]
         public void ExecuteSwitchFaction() =>
-            SwitchFaction(Faction == Player.Clan ? Player.Kingdom : Player.Clan);
+            State.UpdateFaction(State.Faction == Player.Clan ? Player.Kingdom : Player.Clan);
     }
 }

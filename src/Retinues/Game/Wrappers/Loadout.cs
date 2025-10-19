@@ -17,7 +17,14 @@ namespace Retinues.Game.Wrappers
     [SafeClass(SwallowByDefault = false)]
     public class WLoadout(WCharacter troop)
     {
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Troop                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private readonly WCharacter _troop = troop;
+
+        public WCharacter Troop => _troop;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Roster                        //
@@ -134,12 +141,6 @@ namespace Retinues.Game.Wrappers
                 return EquipmentCategory.Invalid;
             return (EquipmentCategory)index;
         }
-
-        public EquipmentCategory GetCategory(WEquipment equipment) =>
-            GetCategory(Equipments.IndexOf(equipment));
-
-        public EquipmentCategory GetCategory(Equipment equipment) =>
-            GetCategory(BaseEquipments.IndexOf(equipment));
 
         public WEquipment CreateAlternate()
         {

@@ -336,6 +336,20 @@ namespace Retinues.Game.Wrappers
                 Unequip(slot, index: index, stock: stock);
         }
 
+        public void Unstage(EquipmentIndex slot, int index = 0, bool stock = false)
+        {
+            if (stock)
+                Loadout.Get(index).GetStaged(slot)?.Stock();
+
+            Loadout.Get(index).UnstageItem(slot);
+        }
+
+        public void UnstageAll(int index, bool stock = false)
+        {
+            foreach (var slot in WEquipment.Slots)
+                Unstage(slot, index: index, stock: stock);
+        }
+
         public bool MeetsItemRequirements(WItem item)
         {
             if (item == null)

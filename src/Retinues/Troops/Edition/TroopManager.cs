@@ -140,24 +140,24 @@ namespace Retinues.Troops.Edition
         public static void Convert(
             WCharacter from,
             WCharacter to,
-            int amountRequested,
-            int cost = 0
+            int amountRequested
         )
         {
-            Log.Debug(
-                $"Converting {amountRequested} of {from?.Name} to {to?.Name} at cost {cost}."
-            );
+            Log.Info($"Converting {amountRequested} troops from {from?.Name} to {to?.Name}.");
 
             // Clamp to max possible
             int max = GetMaxConvertible(from, to);
             int amount = Math.Min(amountRequested, max);
+            if (amount <= 0) return;
 
-            // Check if enough gold
-            if (Player.Gold < cost)
-                return;
+            // Calculate cost
+            var cost = to.IsRetinue ? TroopRules.ConversionCostPerUnit(to) * amount : 0;
 
-            // Apply cost
-            Player.ChangeGold(-cost);
+            // Check gold
+            if (Player.Gold < cost) return;
+
+            // Charge gold
+            if (cost > 0) Player.ChangeGold(-cost);
 
             // Mutate roster
             Player.Party.MemberRoster.RemoveTroop(from, amount);
@@ -172,10 +172,7 @@ namespace Retinues.Troops.Edition
             var sources = new List<WCharacter>(2);
 
             if (retinue is null || !retinue.IsRetinue)
-            {
-                Log.Error($"RetinueSources: {retinue} is not a retinue.");
                 return sources;
-            }
 
             // Identify which root to look under for culture and faction
             WCharacter cultureRoot = null,

@@ -70,18 +70,11 @@ namespace Retinues.Features.Upgrade.Behaviors
     public sealed class TroopEquipBehavior : BaseUpgradeBehavior<PendingEquipData>
     {
         // Small typed payload for StageChange.
-        public readonly struct EquipChange
+        public readonly struct EquipChange(EquipmentIndex slot, int equipmentIndex, WItem item)
         {
-            public readonly EquipmentIndex Slot;
-            public readonly int EquipmentIndex;
-            public readonly WItem Item; // null means "unequip"
-
-            public EquipChange(EquipmentIndex slot, int equipmentIndex, WItem item)
-            {
-                Slot = slot;
-                EquipmentIndex = equipmentIndex;
-                Item = item;
-            }
+            public readonly EquipmentIndex Slot = slot;
+            public readonly int EquipmentIndex = equipmentIndex;
+            public readonly WItem Item = item; // null means "unequip"
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

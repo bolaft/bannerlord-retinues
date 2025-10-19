@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
@@ -7,58 +10,64 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
     [SafeClass]
-    public sealed class TroopConversionRowVM : BaseComponent
+    public sealed class TroopConversionRowVM(WCharacter source) : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public readonly TroopScreenVM Screen;
-        public readonly WCharacter Source;
+        private readonly WCharacter Source = source;
 
-        public TroopConversionRowVM(TroopScreenVM screen, WCharacter source)
-        {
-            Log.Info("Building TroopConversionRowVM...");
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-            Screen = screen;
-            Source = source;
-        }
-
-        public void Initialize()
-        {
-            Log.Info("Initializing TroopConversionRowVM...");
-
-            // Subscribe to events
-            void Refresh()
+        protected override Dictionary<UIEvent, string[]> EventMap =>
+            new()
             {
-                OnPropertyChanged(nameof(HasPendingConversions));
-                OnPropertyChanged(nameof(ConversionCost));
-                OnPropertyChanged(nameof(CanRecruit));
-                OnPropertyChanged(nameof(CanRelease));
-                OnPropertyChanged(nameof(TargetDisplay));
-                OnPropertyChanged(nameof(OriginDisplay));
-            }
-            EventManager.ConversionChange.Register(Refresh);
-            EventManager.TroopChange.Register(Refresh);
-        }
+                [UIEvent.Conversion] =
+                [
+                    nameof(PendingAmount),
+                    nameof(ConversionCost),
+                    nameof(SourceDisplay),
+                    nameof(TargetDisplay),
+                    nameof(CanRecruit),
+                    nameof(CanRelease),
+                    nameof(HasPendingConversions),
+                ],
+                [UIEvent.Party] =
+                [
+                    nameof(SourceDisplay),
+                    nameof(TargetDisplay),
+                    nameof(CanRecruit),
+                    nameof(CanRelease),
+                ],
+            };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private TroopPanelVM Panel => Screen?.TroopPanel;
-        private WCharacter SelectedTroop => Screen?.TroopList?.Selection?.Troop;
+        private bool OtherRowsHavePendingConversions =>
+            State.ConversionData.Any(
+                kvp => kvp.Key != Source && kvp.Value != 0
+            );
+        private int Amount => State.ConversionData.TryGetValue(Source, out var amount) ? amount : 0;
+        private int TotalAmount =>
+            State.ConversionData.Values.Sum();
+        private int TargetCount =>
+            State.PartyData.TryGetValue(State.Troop, out var count) ? count : 0;
+        private int SourceCount => State.PartyData.TryGetValue(Source, out var count) ? count : 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Helper
-        private int PendingAmount => Panel?.GetStagedConversions(Source, SelectedTroop) ?? 0;
+        [DataSourceProperty]
+        public int PendingAmount => Amount;
 
         [DataSourceProperty]
-        public int ConversionCost =>
-            PendingAmount * TroopRules.ConversionCostPerUnit(SelectedTroop);
+        public int ConversionCost => TroopRules.ConversionCostPerUnit(State.Troop) * Math.Max(0, Amount);
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -71,23 +80,23 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             L.S("ret_clear_conversions_button_text", "Clear");
 
         [DataSourceProperty]
-        public string OriginDisplay =>
-            $"{Format.Crop(Source?.Name, 40)} ({Panel?.GetVirtualCount(Source) ?? 0})";
+        public string SourceDisplay => $"{Format.Crop(Source.Name, 40)} ({SourceCount - Amount})";
 
         [DataSourceProperty]
         public string TargetDisplay =>
-            $"{Format.Crop(SelectedTroop?.Name, 40)} ({Panel?.GetVirtualCount(SelectedTroop) ?? 0}/{Panel?.RetinueCap ?? 0})";
+            $"{Format.Crop(State.Troop.Name, 40)} ({TargetCount + TotalAmount}/{TroopRules.RetinueCapFor(State.Troop)})";
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool CanRecruit => (Panel?.GetMaxStageable(Source, SelectedTroop) ?? 0) > 0;
+        public bool CanRecruit => !OtherRowsHavePendingConversions &&
+            TargetCount + TotalAmount < TroopRules.RetinueCapFor(State.Troop) && SourceCount - Amount > 0;
 
         [DataSourceProperty]
-        public bool CanRelease => (Panel?.GetVirtualCount(SelectedTroop) ?? 0) > 0;
+        public bool CanRelease => !OtherRowsHavePendingConversions &&TargetCount + TotalAmount > 0;
 
         [DataSourceProperty]
-        public bool HasPendingConversions => PendingAmount > 0;
+        public bool HasPendingConversions => Amount != 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -97,24 +106,40 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteRecruit()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(Source, L.S("action_convert", "convert"))
+                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_convert", "convert"))
                 == false
             )
                 return; // Conversion not allowed in current context
 
-            Panel.StageConversion(Source, SelectedTroop, BatchInput());
+            for (int i = 0; i < BatchInput(); i++)
+            {
+                if (CanRecruit == false)
+                    break;
+
+                State.ConversionData[Source] += 1;
+            }
+
+            State.UpdateConversionData(State.ConversionData);
         }
 
         [DataSourceMethod]
         public void ExecuteRelease()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(Source, L.S("action_convert", "convert"))
+                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_convert", "convert"))
                 == false
             )
                 return; // Conversion not allowed in current context
 
-            Panel.StageConversion(SelectedTroop, Source, BatchInput());
+            for (int i = 0; i < BatchInput(); i++)
+            {
+                if (CanRelease == false)
+                    break;
+
+                State.ConversionData[Source] -= 1;
+            }
+            
+            State.UpdateConversionData(State.ConversionData);
         }
     }
 }

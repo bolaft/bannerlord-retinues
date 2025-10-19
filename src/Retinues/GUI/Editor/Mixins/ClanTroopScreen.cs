@@ -27,10 +27,11 @@ namespace Retinues.GUI.Editor.Mixins
             {
                 Log.Info("Initializing ClanTroopScreen...");
 
-                // Build editor VM with empty components
+                // Reset state
+                State.ResetAll();
+
+                // Build editor VM
                 _editor = new EditorVM();
-                // Fill components
-                _editor.Initialize();
 
                 // Listen to vanilla tab changes to toggle editor visibility
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
@@ -92,7 +93,10 @@ namespace Retinues.GUI.Editor.Mixins
 
                 UnselectVanillaTabs();
 
-                Editor.IsVisible = true;
+                // Show editor
+                Editor.Show();
+
+                // Notify UI
                 OnPropertyChanged(nameof(IsTroopsSelected));
             }
             catch (Exception e)
@@ -154,7 +158,10 @@ namespace Retinues.GUI.Editor.Mixins
                     // A vanilla tab was selected, hide the troop editor
                     Log.Debug($"Vanilla tab selected ({e.PropertyName}), hiding troop editor.");
 
-                    Editor.IsVisible = false;
+                    // Hide editor
+                    Editor.Hide();
+
+                    // Notify UI
                     OnPropertyChanged(nameof(IsTroopsSelected));
                 }
             }

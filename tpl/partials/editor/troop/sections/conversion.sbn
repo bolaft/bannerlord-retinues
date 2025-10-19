@@ -13,7 +13,7 @@
         HorizontalAlignment="Center"
         StackLayout.LayoutMethod="HorizontalLeftToRight">
         <Children>
-            {{ text("@OriginDisplay", "Clan.Tuple.Name.Text", "Center", "0", "8") }}
+            {{ text("@SourceDisplay", "Clan.Tuple.Name.Text", "Center", "0", "8") }}
             
             {{ button_icon("ExecuteRelease", "ButtonRightBigArrowBrush1", "24", "true", "@CanRelease") }}
 

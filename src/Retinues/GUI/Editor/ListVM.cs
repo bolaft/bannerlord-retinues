@@ -5,15 +5,13 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
 {
-    public abstract class BaseList<TSelf, TRow> : BaseComponent
-        where TSelf : BaseList<TSelf, TRow>
-        where TRow : BaseRow<TSelf, TRow>
+    public abstract class ListVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private string _filterText;
+        private string _filterText = string.Empty;
 
         [DataSourceProperty]
         public string FilterText
@@ -23,9 +21,10 @@ namespace Retinues.GUI.Editor
             {
                 if (_filterText == value)
                     return;
+                value ??= string.Empty;
                 _filterText = value;
                 foreach (var row in Rows)
-                    row.UpdateIsVisible(_filterText);
+                    row.ApplyFilter(_filterText);
                 OnPropertyChanged(nameof(FilterText));
             }
         }
@@ -37,28 +36,13 @@ namespace Retinues.GUI.Editor
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public virtual List<TRow> Rows { get; protected set; } = [];
+        public abstract List<ListElementVM> Rows { get; }
 
-        public TRow Selection => Rows.FirstOrDefault(r => r.IsSelected);
-
-        /// <summary>
-        /// Selects the given row, deselecting all others.
-        /// </summary>
-        private bool _selecting;
-        public void Select(TRow row)
+        public void RefreshFilter()
         {
-            if (row is null || !Rows.Contains(row)) return;
-            if (ReferenceEquals(Selection, row)) return;
-            if (_selecting) return;
-
-            _selecting = true;
-            try
-            {
-                foreach (var r in Rows)
-                    r.IsSelected = ReferenceEquals(r, row);
-                OnPropertyChanged(nameof(Selection));
-            }
-            finally { _selecting = false; }
+            Log.Info($"Refreshing list filter with text: '{FilterText}'");
+            foreach (var row in Rows)
+                row.ApplyFilter(FilterText);
         }
     }
 }

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.VM.Equipment.Panel;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -10,98 +8,151 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Editor.VM.Equipment.List
 {
     [SafeClass]
-    public sealed class EquipmentListVM : BaseList<EquipmentListVM, EquipmentRowVM>
+    public sealed class EquipmentListVM : ListVM
     {
+        private bool _needsRebuild = true; // first show must build
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                         Caches                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly Dictionary<
-            EquipmentIndex,
-            List<(WItem item, int? progress)>
-        > _eligibilityCache = [];
+            string,
+            Dictionary<string, List<(WItem item, bool unlocked, int progress)>>
+        > _cache = [];
 
-        public readonly EditorVM Editor;
+        private string _lastFactionId;
+        private string _lastSlotId;
 
-        public EquipmentListVM(EditorVM editor)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        protected override Dictionary<UIEvent, string[]> EventMap => [];
+
+        protected override void OnFactionChange()
         {
-            Log.Info("Building EquipmentListVM...");
-
-            Editor = editor;
+            _needsRebuild = true;
+            if (IsVisible)
+                Build();
         }
 
-        public void Initialize()
+        protected override void OnSlotChange()
         {
-            Log.Info("Initializing EquipmentListVM...");
-
-            // Subscribe to events
-            EventManager.FactionChange.Register(_eligibilityCache.Clear);
-            EventManager.EquipmentChange.Register(() => {
-                _eligibilityCache.Clear();
-                BuildRows();
-            });
-            EventManager.EquipmentSlotChange.Register(BuildRows);
-            EventManager.TroopChange.Register(BuildRows);
+            _needsRebuild = true;
+            if (IsVisible)
+                Build();
         }
 
-        public void BuildRows()
+        protected override void OnEquipmentChange()
         {
-            var mapping = EquipmentManager.CollectAvailableItems(
-                SelectedFaction,
-                SelectedSlot?.Index ?? EquipmentIndex.Head,
-                civilian: SelectedEquipment?.IsCivilian ?? false,
-                cache: _eligibilityCache
-            );
+            _needsRebuild = true;
+            if (IsVisible)
+                Build();
+        }
 
-            Rows.Clear();
+        public void Build()
+        {
+            if (!_needsRebuild)
+                return;
+            _needsRebuild = false;
+
+            List<string> weaponSlots =
+            [
+                EquipmentIndex.Weapon0.ToString(),
+                EquipmentIndex.Weapon1.ToString(),
+                EquipmentIndex.Weapon2.ToString(),
+                EquipmentIndex.Weapon3.ToString(),
+            ];
+
+            var factionId = State.Faction?.StringId;
+            var slotId = State.Slot.ToString();
+
+            if (_lastFactionId == factionId)
+            {
+                if (_lastSlotId == slotId)
+                    return; // No change
+                else if (weaponSlots.Contains(_lastSlotId) && weaponSlots.Contains(slotId))
+                    return; // Both are weapon slots
+            }
+
+            // Update cache if faction or slot changed
+            _lastFactionId = factionId;
+            _lastSlotId = slotId;
+
+            // Ensure faction exists in cache
+            if (!_cache.ContainsKey(factionId))
+                _cache[factionId] = [];
+
+            // Ensure slot exists in cache
+            if (!_cache[factionId].ContainsKey(slotId))
+                _cache[factionId][slotId] = null;
+
+            // Retrieve cache if any
+            var cache = _cache[factionId][slotId];
+
+            // Clear existing rows
             EquipmentRows.Clear();
 
-            foreach (var (item, progress, available) in mapping)
+            // Add "Empty" option
+            EquipmentRows.Add(new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible });
+
+            // Determine if we need to fill the cache
+            bool fillCache = cache == null;
+
+            // Initialize cache if needed
+            if (fillCache)
+                _cache[factionId][slotId] = [];
+
+            // Populate row list
+            foreach (
+                var (
+                    item,
+                    isAvailable,
+                    isUnlocked,
+                    progress
+                ) in EquipmentManager.CollectAvailableItems(State.Faction, State.Slot, cache: cache)
+            )
             {
-                var row = new EquipmentRowVM(Editor, item, progress, available);
-
-                if (item == SelectedSlot?.Item)
-                    row.IsSelected = true;
-
-                Rows.Add(row);
-            }
-
-            Select(SelectedSlot?.Item);
-
-            foreach (var row in Rows)
-            {
-                row.Initialize();
+                var row = new EquipmentRowVM(item, isAvailable, isUnlocked, progress)
+                {
+                    IsVisible = IsVisible, // Ensure visibility matches parent
+                };
                 EquipmentRows.Add(row);
+                if (fillCache)
+                    _cache[factionId][slotId].Add((item, isUnlocked, progress));
             }
+
+            RefreshFilter();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Quick Access                      //
+        //                        Components                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private EquipmentSlotVM SelectedSlot => Editor?.EquipmentScreen?.EquipmentPanel?.Selection;
-        private WEquipment SelectedEquipment => Editor?.EquipmentScreen?.Equipment;
-        private WFaction SelectedFaction => Editor?.Faction;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Data Bindings                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public override List<EquipmentRowVM> Rows { get; protected set; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<EquipmentRowVM> EquipmentRows { get; private set; } = [];
+        public MBBindingList<EquipmentRowVM> EquipmentRows { get; set; } = [];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Selection                       //
+        //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Selects the row for the given item, if present.
-        /// </summary>
-        public void Select(WItem item)
+        public override List<ListElementVM> Rows => [.. EquipmentRows];
+
+        public override void Show()
         {
-            Select(Rows.FirstOrDefault(r => r.Item == item));
+            base.Show();
+            foreach (var r in EquipmentRows)
+                r.Show();
+            if (_needsRebuild)
+                Build();
+        }
+
+        public override void Hide()
+        {
+            foreach (var r in EquipmentRows)
+                r.Hide();
+            base.Hide();
         }
     }
 }

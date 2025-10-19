@@ -311,6 +311,9 @@
       id="ret_item_body_armor"
       text="Armatura corpo" />
     <string
+      id="ret_item_equipment_type_blocked_text"
+      text="Non è un oggetto civile." />
+    <string
       id="ret_item_head_armor"
       text="Elmo" />
     <string
@@ -364,6 +367,9 @@
     <string
       id="ret_item_shield_speed"
       text="Velocità" />
+    <string
+      id="ret_item_tier_blocked_text"
+      text="Livello della truppa troppo basso." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Non in una città" />
