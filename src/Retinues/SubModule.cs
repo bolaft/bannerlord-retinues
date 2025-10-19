@@ -13,7 +13,6 @@ using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
-using Retinues.Safety.Backup;
 using Retinues.Safety.Legacy;
 using Retinues.Safety.Sanitizer;
 using Retinues.Safety.Version;
