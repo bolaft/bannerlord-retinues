@@ -176,6 +176,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool CanRemoveSet => State.Equipment?.Category == EquipmentCategory.Alternate;
 
+        [DataSourceProperty]
+        public bool CanCreateSet => ModuleChecker.GetModule("Shokuho") == null; // Disable if Shokuho is present
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
