@@ -167,8 +167,7 @@ namespace Retinues.GUI.Editor.VM
         public bool IsNotDoctrinesMode => !IsDoctrinesMode;
 
         [DataSourceProperty]
-        public bool CanSwitchToDoctrines =>
-            !IsDoctrinesMode && Config.EnableDoctrines;
+        public bool CanSwitchToDoctrines => !IsDoctrinesMode && Config.EnableDoctrines;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 

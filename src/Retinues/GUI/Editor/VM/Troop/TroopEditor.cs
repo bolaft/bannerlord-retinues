@@ -104,7 +104,8 @@ namespace Retinues.GUI.Editor.VM.Troop
         public bool IsMaxTier => SelectedTroop?.IsMaxTier ?? false || SelectedTroop.IsMilitia;
 
         [DataSourceProperty]
-        public bool TroopXpIsEnabled => Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0;
+        public bool TroopXpIsEnabled =>
+            Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0;
 
         /* ━━━━━━━ Training ━━━━━━━ */
 

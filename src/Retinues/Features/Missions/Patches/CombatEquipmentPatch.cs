@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
-using TaleWorlds.MountAndBlade;
-using TaleWorlds.Core;
 using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.Core;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Features.Missions.Patches
 {

@@ -307,9 +307,7 @@ namespace Retinues.Troops.Edition
             }
             catch { }
 
-            return (int)(
-                baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier
-            );
+            return (int)(baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier);
         }
 
         private static bool IncludeCraftedThisOne(

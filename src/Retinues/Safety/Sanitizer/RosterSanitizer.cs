@@ -1,4 +1,5 @@
 using System;
+using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -102,8 +103,32 @@ namespace Retinues.Safety.Sanitizer
                 return;
             }
 
-            var fallback = GetFallbackTroop(contextParty);
-            fallback ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter"); // always present fallback
+            CharacterObject fallback = null;
+
+            try
+            {
+                var troop = new WCharacter(elem.Character);
+
+                if (troop.IsCustom)
+                {
+                    fallback = TroopMatcher
+                        .PickBestFromTree(
+                            troop.IsElite ? troop.Culture.RootElite : troop.Culture.RootBasic,
+                            troop
+                        )
+                        .Base;
+                }
+                else
+                {
+                    throw new InvalidOperationException("Not a custom troop");
+                }
+            }
+            catch
+            {
+                fallback = GetFallbackTroop(contextParty);
+                fallback ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter"); // always present fallback
+            }
+
             if (fallback == null)
             {
                 // Last resort: remove the bad entry entirely.

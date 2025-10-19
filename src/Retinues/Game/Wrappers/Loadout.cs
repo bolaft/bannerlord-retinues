@@ -237,8 +237,7 @@ namespace Retinues.Game.Wrappers
                 if (horseItem != null)
                 {
                     var category = horseItem.Category;
-                    if (bestCategory == null ||
-                        IsBetterHorseCategory(category, bestCategory))
+                    if (bestCategory == null || IsBetterHorseCategory(category, bestCategory))
                     {
                         bestCategory = category;
                     }
@@ -258,9 +257,9 @@ namespace Retinues.Game.Wrappers
             var bestHorseOfParent = _owner.Parent?.Loadout.FindBestHorseCategory();
 
             Log.Info(
-                $"Computed upgrade item requirement for {_owner.Name}: " +
-                $"bestHorse={bestHorse}, " +
-                $"bestHorseOfParent={bestHorseOfParent}"
+                $"Computed upgrade item requirement for {_owner.Name}: "
+                    + $"bestHorse={bestHorse}, "
+                    + $"bestHorseOfParent={bestHorseOfParent}"
             );
 
             if (IsBetterHorseCategory(bestHorse, bestHorseOfParent))

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
+using Retinues.Safety.Sanitizer;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
-using TaleWorlds.Library;
 using TaleWorlds.Localization;
 # if BL13
 using TaleWorlds.Core.ImageIdentifiers;
@@ -371,10 +371,8 @@ namespace Retinues.Game.Wrappers
             {
                 if (!IsCustom)
                     return;
-                
-                Log.Info(
-                    $"Setting upgrade item requirement for troop {Name} to category {value}"
-                );
+
+                Log.Info($"Setting upgrade item requirement for troop {Name} to category {value}");
 
                 Reflector.SetPropertyValue(Base, "UpgradeRequiresItemFromCategory", value);
             }
@@ -406,9 +404,6 @@ namespace Retinues.Game.Wrappers
             if (!IsCustom)
                 return;
 
-            // Revert existing instances in parties
-            TroopReverter.SwapToVanilla(this);
-
             // Remove from parent's upgrade targets
             Parent?.RemoveUpgradeTarget(this);
 
@@ -422,6 +417,9 @@ namespace Retinues.Game.Wrappers
             // Remove all children
             foreach (var target in UpgradeTargets)
                 target.Remove();
+
+            // Revert existing instances in parties
+            SanitizerBehavior.Sanitize();
         }
 
         public static List<string> ActiveTroops { get; } = [];

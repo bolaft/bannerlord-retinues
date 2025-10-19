@@ -46,6 +46,11 @@ namespace Retinues.Safety.Sanitizer
         {
             Log.Info("Performing safety checks...");
 
+            Sanitize();
+        }
+
+        public static void Sanitize()
+        {
             foreach (var mp in MobileParty.All)
                 RosterSanitizer.CleanParty(mp);
 

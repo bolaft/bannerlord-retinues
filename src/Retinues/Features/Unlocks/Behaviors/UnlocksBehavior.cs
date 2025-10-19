@@ -205,8 +205,7 @@ namespace Retinues.Features.Unlocks.Behaviors
         )
         {
             // Only add culture bonuses if enabled
-            addCultureBonuses =
-                addCultureBonuses && Config.OwnCultureUnlockBonuses;
+            addCultureBonuses = addCultureBonuses && Config.OwnCultureUnlockBonuses;
 
             Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
