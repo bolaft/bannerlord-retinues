@@ -15,6 +15,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
     {
         protected override Dictionary<UIEvent, string[]> EventMap => [];
 
+        /// <summary>
+        /// Initialize a doctrine column with a name and its doctrine view models.
+        /// </summary>
         public DoctrineColumnVM(string name, IEnumerable<DoctrineVM> doctrines)
         {
             _name = name;
@@ -76,6 +79,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
 
         private string _name;
 
+        /// <summary>
+        /// Display name of the column.
+        /// </summary>
         [DataSourceProperty]
         public string Name
         {
@@ -89,6 +95,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
             }
         }
 
+        /// <summary>
+        /// List of doctrine view models contained in this column.
+        /// </summary>
         [DataSourceProperty]
         public MBBindingList<DoctrineVM> Doctrines { get; }
 

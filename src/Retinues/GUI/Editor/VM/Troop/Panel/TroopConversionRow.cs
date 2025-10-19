@@ -9,6 +9,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
+    /// <summary>
+    /// ViewModel for a single conversion row managing recruitment/release between source and retinue.
+    /// </summary>
     [SafeClass]
     public sealed class TroopConversionRowVM(WCharacter source) : BaseVM
     {
@@ -103,6 +106,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        /// <summary>
+        /// Increase pending conversion amount from source into the retinue.
+        /// </summary>
         public void ExecuteRecruit()
         {
             if (
@@ -123,6 +129,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         }
 
         [DataSourceMethod]
+        /// <summary>
+        /// Decrease pending conversion amount (release from retinue back to source).
+        /// </summary>
         public void ExecuteRelease()
         {
             if (

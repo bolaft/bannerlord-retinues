@@ -13,6 +13,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment.List
 {
+    /// <summary>
+    /// ViewModel for a single equipment list row, handling selection and availability.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentRowVM(
         WItem rowItem,
@@ -211,6 +214,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        /// <summary>
+        /// Handle selection of this equipment row (equip/buy/unstage logic).
+        /// </summary>
         public void ExecuteSelect()
         {
             if (Config.EquipmentChangeTakesTime == false) // Only check in instant equip mode
@@ -447,6 +453,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determine whether this equipment row matches the provided filter.
+        /// </summary>
         public override bool FilterMatch(string filter)
         {
             if (RowItem == null)

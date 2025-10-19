@@ -6,6 +6,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop.List
 {
+    /// <summary>
+    /// ViewModel for grouped troop lists (retinue, elite, basic, militia).
+    /// </summary>
     [SafeClass]
     public sealed class TroopListVM : ListVM
     {
@@ -16,8 +19,14 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         protected override Dictionary<UIEvent, string[]> EventMap =>
             new() { [UIEvent.Faction] = [nameof(RetinueToggleText)] };
 
+        /// <summary>
+        /// Rebuild list when the faction changes.
+        /// </summary>
         protected override void OnFactionChange() => Build();
 
+        /// <summary>
+        /// Build troop group lists for the current faction and refresh the filter.
+        /// </summary>
         public void Build()
         {
             RetinueTroops =
@@ -102,12 +111,18 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public override List<ListElementVM> Rows =>
             [.. RetinueTroops, .. EliteTroops, .. BasicTroops, .. MilitiaTroops];
 
+        /// <summary>
+        /// Show the troop list and rebuild its contents.
+        /// </summary>
         public override void Show()
         {
             base.Show();
             Build();
         }
 
+        /// <summary>
+        /// Hide the troop list and all child rows.
+        /// </summary>
         public override void Hide()
         {
             foreach (var r in Rows)

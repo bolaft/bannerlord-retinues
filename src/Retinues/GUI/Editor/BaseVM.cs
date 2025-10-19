@@ -30,8 +30,14 @@ namespace Retinues.GUI.Editor
             }
         }
 
+        /// <summary>
+        /// Show the view-model (set visible).
+        /// </summary>
         public virtual void Show() => IsVisible = true;
 
+        /// <summary>
+        /// Hide the view-model (set not visible).
+        /// </summary>
         public virtual void Hide() => IsVisible = false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -49,8 +55,14 @@ namespace Retinues.GUI.Editor
         ~BaseVM() => EventManager.Unregister(this);
 
         // Called by EventManager
+        /// <summary>
+        /// Begin handling a batched global pulse.
+        /// </summary>
         internal void __BeginPulse() => _inPulse = true;
 
+        /// <summary>
+        /// End handling a batched global pulse and flush if needed.
+        /// </summary>
         internal void __EndPulse()
         {
             _inPulse = false;
@@ -60,6 +72,9 @@ namespace Retinues.GUI.Editor
                 _queuedWhileHidden = true;
         }
 
+        /// <summary>
+        /// Handle a global UI event pulse.
+        /// </summary>
         internal void __OnGlobalPulse(UIEvent e)
         {
             if (EventMap.TryGetValue(e, out var props) && props != null)
@@ -97,12 +112,18 @@ namespace Retinues.GUI.Editor
             FlushPending();
         }
 
+        /// <summary>
+        /// Flush any queued notifications if there were pending while hidden.
+        /// </summary>
         private void FlushIfPending()
         {
             if (_queuedWhileHidden && !_inPulse && IsVisible)
                 FlushPending();
         }
 
+        /// <summary>
+        /// Flush all pending property change notifications.
+        /// </summary>
         protected void FlushPending()
         {
             if (_pendingProps.Count == 0)
@@ -122,18 +143,33 @@ namespace Retinues.GUI.Editor
         //                      Event Hooks                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called when faction-related data changed.
+        /// </summary>
         protected virtual void OnFactionChange() { }
 
+        /// <summary>
+        /// Called when troop-related data changed.
+        /// </summary>
         protected virtual void OnTroopChange() { }
 
+        /// <summary>
+        /// Called when equipment-related data changed.
+        /// </summary>
         protected virtual void OnEquipmentChange() { }
 
+        /// <summary>
+        /// Called when the selected equipment slot changed.
+        /// </summary>
         protected virtual void OnSlotChange() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Input                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determine batch input multiplier based on modifier keys.
+        /// </summary>
         protected static int BatchInput(bool capped = true)
         {
             if (Input.IsKeyDown(InputKey.LeftControl) || Input.IsKeyDown(InputKey.RightControl))

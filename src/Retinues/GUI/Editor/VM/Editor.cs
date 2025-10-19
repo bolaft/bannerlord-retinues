@@ -12,6 +12,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM
 {
+    /// <summary>
+    /// Available editor screens.
+    /// </summary>
     public enum Screen
     {
         Troop = 0,
@@ -19,9 +22,15 @@ namespace Retinues.GUI.Editor.VM
         Doctrine = 2,
     }
 
+    /// <summary>
+    /// Root view-model coordinating editor screens.
+    /// </summary>
     [SafeClass]
     public class EditorVM : BaseVM
     {
+        /// <summary>
+        /// Initialize the editor and its child screens.
+        /// </summary>
         public EditorVM()
         {
             // Ensure retinue troops exist for player factions
@@ -42,6 +51,9 @@ namespace Retinues.GUI.Editor.VM
 
         public Screen Screen { get; set; }
 
+        /// <summary>
+        /// Switch the active editor screen and update visibility.
+        /// </summary>
         public void SwitchScreen(Screen value)
         {
             Log.Info($"Switching screen from {Screen} to {value}");
@@ -165,16 +177,25 @@ namespace Retinues.GUI.Editor.VM
 
         /* ━━━━━━ Mode Switch ━━━━━ */
 
+        /// <summary>
+        /// Toggle between equipment and troop screens.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteToggleEquipment() =>
             SwitchScreen(Screen == Screen.Equipment ? Screen.Troop : Screen.Equipment);
 
+        /// <summary>
+        /// Toggle between doctrines and troop screens.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteToggleDoctrines() =>
             SwitchScreen(Screen == Screen.Doctrine ? Screen.Troop : Screen.Doctrine);
 
         /* ━━━━ Faction Switch ━━━━ */
 
+        /// <summary>
+        /// Switch displayed faction between clan and kingdom troops.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteSwitchFaction() =>
             State.UpdateFaction(State.Faction == Player.Clan ? Player.Kingdom : Player.Clan);

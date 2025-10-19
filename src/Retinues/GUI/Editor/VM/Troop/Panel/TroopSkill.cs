@@ -10,6 +10,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
+    /// <summary>
+    /// ViewModel for a single troop skill, exposing value, staged state and controls.
+    /// </summary>
     [SafeClass]
     public sealed class TroopSkillVM(SkillObject skill) : BaseVM
     {
@@ -80,11 +83,20 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         private static bool PlayerWarnedAboutRetraining = false;
 
         [DataSourceMethod]
+        /// <summary>
+        /// Increment this skill on the selected troop.
+        /// </summary>
         public void ExecuteIncrement() => Modify(true);
 
         [DataSourceMethod]
+        /// <summary>
+        /// Decrement this skill on the selected troop.
+        /// </summary>
         public void ExecuteDecrement() => Modify(false);
 
+        /// <summary>
+        /// Perform the skill modification (increment or decrement), prompting when necessary.
+        /// </summary>
         private void Modify(bool increment)
         {
             if (Config.TrainingTakesTime == false) // Only check in instant training mode

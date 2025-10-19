@@ -1,10 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
 {
+    /// <summary>
+    /// ViewModel for filterable lists of rows.
+    /// </summary>
     public abstract class ListVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -38,6 +40,9 @@ namespace Retinues.GUI.Editor
 
         public abstract List<ListElementVM> Rows { get; }
 
+        /// <summary>
+        /// Reapply the current filter to all list rows.
+        /// </summary>
         public void RefreshFilter()
         {
             Log.Info($"Refreshing list filter with text: '{FilterText}'");

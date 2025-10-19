@@ -12,6 +12,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop
 {
+    /// <summary>
+    /// ViewModel for the troop editor screen, managing list and panel.
+    /// </summary>
     [SafeClass]
     public class TroopScreenVM : BaseVM
     {
@@ -88,6 +91,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        /// <summary>
+        /// Remove the currently selected troop (with confirmation).
+        /// </summary>
         public void ExecuteRemoveTroop()
         {
             if (State.Troop == null)
@@ -136,6 +142,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Show this screen and its child components.
+        /// </summary>
         public override void Show()
         {
             base.Show();
@@ -143,6 +152,9 @@ namespace Retinues.GUI.Editor.VM.Troop
             TroopPanel.Show();
         }
 
+        /// <summary>
+        /// Hide this screen and its child components.
+        /// </summary>
         public override void Hide()
         {
             TroopList.Hide();

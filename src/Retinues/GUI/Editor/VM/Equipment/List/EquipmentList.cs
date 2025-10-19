@@ -7,6 +7,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment.List
 {
+    /// <summary>
+    /// ViewModel for the equipment item list for the selected slot and faction.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentListVM : ListVM
     {
@@ -30,6 +33,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         protected override Dictionary<UIEvent, string[]> EventMap => [];
 
+        /// <summary>
+        /// Handle faction changes by marking rebuild required.
+        /// </summary>
         protected override void OnFactionChange()
         {
             _needsRebuild = true;
@@ -37,6 +43,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 Build();
         }
 
+        /// <summary>
+        /// Handle slot changes by marking rebuild required.
+        /// </summary>
         protected override void OnSlotChange()
         {
             _needsRebuild = true;
@@ -44,6 +53,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 Build();
         }
 
+        /// <summary>
+        /// Handle equipment changes by marking rebuild required.
+        /// </summary>
         protected override void OnEquipmentChange()
         {
             _needsRebuild = true;
@@ -51,6 +63,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 Build();
         }
 
+        /// <summary>
+        /// Build or refresh the equipment rows for the current faction and slot.
+        /// </summary>
         public void Build()
         {
             if (!_needsRebuild)

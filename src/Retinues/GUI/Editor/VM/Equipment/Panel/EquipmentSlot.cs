@@ -9,6 +9,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment.Panel
 {
+    /// <summary>
+    /// ViewModel for a single equipment slot, presenting item data and actions.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentSlotVM(EquipmentIndex index) : ButtonVM
     {
@@ -158,6 +161,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        /// <summary>
+        /// Select this equipment slot for editing.
+        /// </summary>
         public void ExecuteSelect() => State.UpdateSlot(Index);
     }
 }

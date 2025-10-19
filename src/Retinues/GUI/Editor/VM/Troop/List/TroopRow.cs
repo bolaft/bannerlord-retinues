@@ -7,6 +7,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop.List
 {
+    /// <summary>
+    /// ViewModel for a single troop row in troop lists.
+    /// </summary>
     [SafeClass]
     public sealed class TroopRowVM(WCharacter rowTroop) : ListElementVM
     {
@@ -101,6 +104,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determine whether this row matches the provided filter.
+        /// </summary>
         public override bool FilterMatch(string filter)
         {
             if (RowTroop == null)
@@ -117,6 +123,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        /// <summary>
+        /// Select this troop as the current troop in state.
+        /// </summary>
         public void ExecuteSelect() => State.UpdateTroop(RowTroop);
     }
 }

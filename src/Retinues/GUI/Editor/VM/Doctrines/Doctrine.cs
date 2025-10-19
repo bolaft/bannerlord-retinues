@@ -24,6 +24,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         private readonly DoctrineDefinition _def;
         private readonly string _name;
 
+        /// <summary>
+        /// Construct a DoctrineVM for the given doctrine id.
+        /// </summary>
         public DoctrineVM(string doctrineId)
         {
             try
@@ -109,6 +112,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
 
         [DataSourceMethod]
         [SafeMethod]
+        /// <summary>
+        /// Show doctrine details popup and allow unlocking if requirements are met.
+        /// </summary>
         public void ExecuteShowPopup()
         {
             var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
@@ -222,8 +228,14 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Parent column that contains this doctrine VM.
+        /// </summary>
         public DoctrineColumnVM Column { get; set; }
 
+        /// <summary>
+        /// Refresh doctrine display properties.
+        /// </summary>
         public void Refresh()
         {
             OnPropertyChanged(nameof(ButtonBrush));

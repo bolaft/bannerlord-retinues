@@ -13,6 +13,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
+    /// <summary>
+    /// ViewModel for the troop details panel, exposing skills, upgrades and conversions.
+    /// </summary>
     [SafeClass]
     public sealed class TroopPanelVM : BaseVM
     {
@@ -83,6 +86,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         protected override void OnTroopChange() => Build();
 
+        /// <summary>
+        /// Rebuild internal lists (conversion rows) and update visibility.
+        /// </summary>
         private void Build()
         {
             // Update conversion rows
@@ -290,6 +296,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━ Character ━━━━━━ */
 
         [DataSourceMethod]
+        /// <summary>
+        /// Prompt to rename the selected troop.
+        /// </summary>
         public void ExecuteRename()
         {
             var oldName = State.Troop.Name;
@@ -320,6 +329,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         }
 
         [DataSourceMethod]
+        /// <summary>
+        /// Toggle the selected troop's gender.
+        /// </summary>
         public void ExecuteChangeGender()
         {
             State.Troop.IsFemale = !State.Troop.IsFemale;
@@ -330,6 +342,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
         [DataSourceMethod]
+        /// <summary>
+        /// Prompt to add a new upgrade target for the selected troop.
+        /// </summary>
         public void ExecuteAddUpgrade()
         {
             if (
@@ -370,6 +385,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Rank Up ━━━━━━━ */
 
         [DataSourceMethod]
+        /// <summary>
+        /// Attempt to rank up the selected troop with confirmations.
+        /// </summary>
         public void ExecuteRankUp()
         {
             if (
@@ -462,6 +480,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━ Conversion ━━━━━━ */
 
         [DataSourceMethod]
+        /// <summary>
+        /// Clear all staged conversion selections.
+        /// </summary>
         public void ExecuteClearConversions()
         {
             // Clear all pending conversions
@@ -469,6 +490,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         }
 
         [DataSourceMethod]
+        /// <summary>
+        /// Apply all staged conversions (with checks and cost handling).
+        /// </summary>
         public void ExecuteApplyConversions()
         {
             if (!HasPendingConversions)
@@ -521,6 +545,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Show this panel and its child components.
+        /// </summary>
         public override void Show()
         {
             base.Show();
@@ -534,6 +561,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 skill.Show();
         }
 
+        /// <summary>
+        /// Hide this panel and its child components.
+        /// </summary>
         public override void Hide()
         {
             foreach (var row in ConversionRows)

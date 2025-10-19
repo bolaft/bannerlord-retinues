@@ -20,6 +20,9 @@ namespace Retinues.GUI.Editor.Mixins
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Initialize the mixin, create editor VM and hook tab events.
+        /// </summary>
         public ClanTroopScreen(ClanManagementVM vm)
             : base(vm)
         {
@@ -48,6 +51,9 @@ namespace Retinues.GUI.Editor.Mixins
             }
         }
 
+        /// <summary>
+        /// Finalize mixin and restore original hotkey behavior.
+        /// </summary>
         public override void OnFinalize()
         {
             try
@@ -67,12 +73,21 @@ namespace Retinues.GUI.Editor.Mixins
 
         private readonly EditorVM _editor;
 
+        /// <summary>
+        /// Editor view-model instance exposed to the view.
+        /// </summary>
         [DataSourceProperty]
         public EditorVM Editor => _editor;
 
+        /// <summary>
+        /// Label for the troops tab.
+        /// </summary>
         [DataSourceProperty]
         public string TroopsTabText => L.S("troops_tab_text", "Troops");
 
+        /// <summary>
+        /// Whether the troop editor tab is currently selected.
+        /// </summary>
         [DataSourceProperty]
         public bool IsTroopsSelected => Editor?.IsVisible == true;
 
@@ -82,6 +97,9 @@ namespace Retinues.GUI.Editor.Mixins
 
         [DataSourceMethod]
         [SafeMethod]
+        /// <summary>
+        /// Select and show the troop editor tab.
+        /// </summary>
         public void ExecuteSelectTroops()
         {
             try
@@ -139,7 +157,7 @@ namespace Retinues.GUI.Editor.Mixins
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Handles vanilla tab selection changes to keep troop editor tab state in sync.
+        /// Handle vanilla tab selection changes and hide the troop editor when a vanilla tab is chosen.
         /// </summary>
         private void OnVanillaTabChanged(object sender, PropertyChangedWithBoolValueEventArgs e)
         {

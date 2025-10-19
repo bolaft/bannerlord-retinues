@@ -13,12 +13,18 @@ namespace Retinues.GUI.Editor
     //                         Structs                        //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Equipment slot data: current item and staged equip change.
+    /// </summary>
     public struct EquipData
     {
         public WItem Item;
         public PendingEquipData Equip;
     }
 
+    /// <summary>
+    /// Skill data: current value and staged training change.
+    /// </summary>
     public struct SkillData
     {
         public int Value;
@@ -48,6 +54,9 @@ namespace Retinues.GUI.Editor
         //                          Reset                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Reset all editor state.
+        /// </summary>
         public static void ResetAll()
         {
             EventManager.FireBatch(() =>
@@ -67,6 +76,9 @@ namespace Retinues.GUI.Editor
         //                         Updates                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Set current faction (defaults to player clan).
+        /// </summary>
         public static void UpdateFaction(WFaction faction = null)
         {
             faction ??= Player.Clan;
@@ -81,6 +93,9 @@ namespace Retinues.GUI.Editor
             });
         }
 
+        /// <summary>
+        /// Set current troop (defaults to first faction troop).
+        /// </summary>
         public static void UpdateTroop(WCharacter troop = null)
         {
             troop ??= Faction.Troops.FirstOrDefault();
@@ -99,6 +114,9 @@ namespace Retinues.GUI.Editor
             });
         }
 
+        /// <summary>
+        /// Set current equipment (defaults to troop battle loadout).
+        /// </summary>
         public static void UpdateEquipment(WEquipment equipment = null)
         {
             equipment ??= Troop.Loadout.Battle;
@@ -107,12 +125,18 @@ namespace Retinues.GUI.Editor
             EventManager.Fire(UIEvent.Equipment);
         }
 
+        /// <summary>
+        /// Set currently selected equipment slot.
+        /// </summary>
         public static void UpdateSlot(EquipmentIndex slot = EquipmentIndex.Weapon0)
         {
             Slot = slot;
             EventManager.Fire(UIEvent.Slot);
         }
 
+        /// <summary>
+        /// Recompute or set equip data cache.
+        /// </summary>
         public static void UpdateEquipData(Dictionary<EquipmentIndex, EquipData> equipData = null)
         {
             equipData ??= ComputeEquipData();
@@ -121,6 +145,9 @@ namespace Retinues.GUI.Editor
             EventManager.Fire(UIEvent.Equip);
         }
 
+        /// <summary>
+        /// Recompute or set skill data cache.
+        /// </summary>
         public static void UpdateSkillData(Dictionary<SkillObject, SkillData> skillData = null)
         {
             skillData ??= ComputeSkillData();
@@ -129,6 +156,9 @@ namespace Retinues.GUI.Editor
             EventManager.Fire(UIEvent.Train);
         }
 
+        /// <summary>
+        /// Recompute or set conversion data.
+        /// </summary>
         public static void UpdateConversionData(Dictionary<WCharacter, int> conversionData = null)
         {
             conversionData ??= ComputeConversionData();
@@ -137,6 +167,9 @@ namespace Retinues.GUI.Editor
             EventManager.Fire(UIEvent.Conversion);
         }
 
+        /// <summary>
+        /// Recompute or set party data.
+        /// </summary>
         public static void UpdatePartyData(Dictionary<WCharacter, int> partyData = null)
         {
             partyData ??= ComputePartyData();
@@ -149,6 +182,9 @@ namespace Retinues.GUI.Editor
         //                       Derivations                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Build equip data dictionary from current equipment and staged changes.
+        /// </summary>
         private static Dictionary<EquipmentIndex, EquipData> ComputeEquipData()
         {
             var data = new Dictionary<EquipmentIndex, EquipData>();
@@ -163,6 +199,9 @@ namespace Retinues.GUI.Editor
             return data;
         }
 
+        /// <summary>
+        /// Build skill data dictionary from troop skills and staged training changes.
+        /// </summary>
         private static Dictionary<SkillObject, SkillData> ComputeSkillData()
         {
             var data = new Dictionary<SkillObject, SkillData>();
@@ -177,6 +216,9 @@ namespace Retinues.GUI.Editor
             return data;
         }
 
+        /// <summary>
+        /// Build conversion data for retinue source troops if troop is a retinue.
+        /// </summary>
         private static Dictionary<WCharacter, int> ComputeConversionData()
         {
             var data = new Dictionary<WCharacter, int>();
@@ -190,6 +232,9 @@ namespace Retinues.GUI.Editor
             return data;
         }
 
+        /// <summary>
+        /// Build party counts dictionary from player's party roster.
+        /// </summary>
         private static Dictionary<WCharacter, int> ComputePartyData()
         {
             var data = new Dictionary<WCharacter, int>();

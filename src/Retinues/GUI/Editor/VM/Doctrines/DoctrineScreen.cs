@@ -4,6 +4,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Doctrines
 {
+    /// <summary>
+    /// ViewModel hosting doctrine columns and their VMs.
+    /// </summary>
     [SafeClass]
     public sealed class DoctrineScreenVM() : BaseVM
     {
@@ -12,6 +15,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         private MBBindingList<DoctrineColumnVM> _columns;
 
         [DataSourceProperty]
+        /// <summary>
+        /// Lazy-initialized list of doctrine columns.
+        /// </summary>
         public MBBindingList<DoctrineColumnVM> Columns
         {
             get

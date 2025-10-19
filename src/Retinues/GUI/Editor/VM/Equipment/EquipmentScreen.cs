@@ -10,6 +10,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment
 {
+    /// <summary>
+    /// ViewModel for the equipment editor screen, containing slots and list.
+    /// </summary>
     [SafeClass]
     public sealed class EquipmentScreenVM : BaseVM
     {
@@ -178,6 +181,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        /// <summary>
+        /// Unequip all items from the current equipment set (with confirmation).
+        /// </summary>
         public void ExecuteUnequipAll()
         {
             if (CanUnequip == false)
@@ -207,6 +213,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceMethod]
+        /// <summary>
+        /// Revert all staged equipment changes for the current equipment set (with confirmation).
+        /// </summary>
         public void ExecuteUnstageAll()
         {
             if (CanUnstage == false)
@@ -236,20 +245,32 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceMethod]
+        /// <summary>
+        /// Select the previous equipment set.
+        /// </summary>
         public void ExecutePrevSet() =>
             State.UpdateEquipment(State.Troop.Loadout.Equipments[State.Equipment.Index - 1]);
 
         [DataSourceMethod]
+        /// <summary>
+        /// Select the next equipment set.
+        /// </summary>
         public void ExecuteNextSet() =>
             State.UpdateEquipment(State.Troop.Loadout.Equipments[State.Equipment.Index + 1]);
 
         [DataSourceMethod]
+        /// <summary>
+        /// Create a new alternate equipment set and select it.
+        /// </summary>
         public void ExecuteCreateSet()
         {
             State.UpdateEquipment(State.Troop?.Loadout.CreateAlternate());
         }
 
         [DataSourceMethod]
+        /// <summary>
+        /// Remove the current alternate equipment set (with confirmation).
+        /// </summary>
         public void ExecuteRemoveSet()
         {
             if (CanRemoveSet == false)
@@ -292,6 +313,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Show the equipment screen and its child components.
+        /// </summary>
         public override void Show()
         {
             base.Show();
@@ -300,6 +324,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 slot.Show();
         }
 
+        /// <summary>
+        /// Hide the equipment screen and its child components.
+        /// </summary>
         public override void Hide()
         {
             foreach (var slot in EquipmentSlots)
