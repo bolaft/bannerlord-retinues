@@ -102,7 +102,7 @@
             HorizontalAlignment="Center">
             <Children>
                 {{ button_icon("ExecuteRemoveSet", "Inventory.Tuple.Extension.MinusButton", "36", "true", "@CanRemoveSet") }}
-                {{ button_icon("ExecuteCreateSet", "Inventory.Tuple.Extension.PlusButton", "36", "true", "true") }}
+                {{ button_icon("ExecuteCreateSet", "Inventory.Tuple.Extension.PlusButton", "36", "true", "@CanCreateSet") }}
             </Children>
         </ListPanel>
     </Children>

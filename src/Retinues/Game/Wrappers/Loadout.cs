@@ -74,7 +74,16 @@ namespace Retinues.Game.Wrappers
                     .GetFieldValue<MBEquipmentRoster>(_owner.Base, "_equipmentRoster")
                     ?.AllEquipments ?? [];
             set
-            {
+            {    // Shokuho compatibility: collapse to exactly 2 sets (Battle, Civilian)
+                if (ModuleChecker.GetModule("Shokuho") != null)
+                {
+                    // Pick first non-civilian as Battle; if none, create an empty battle set
+                    var battle = value.FirstOrDefault(eq => !eq.IsCivilian)
+                                ?? WEquipment.FromCode(null, civilian: false).Base;
+
+                    value = [battle, battle];
+                }
+
                 for (int i = 0; i < value.Count; i++)
                 {
 #if BL13
@@ -255,12 +264,6 @@ namespace Retinues.Game.Wrappers
         {
             var bestHorse = FindBestHorseCategory();
             var bestHorseOfParent = _owner.Parent?.Loadout.FindBestHorseCategory();
-
-            Log.Info(
-                $"Computed upgrade item requirement for {_owner.Name}: "
-                    + $"bestHorse={bestHorse}, "
-                    + $"bestHorseOfParent={bestHorseOfParent}"
-            );
 
             if (IsBetterHorseCategory(bestHorse, bestHorseOfParent))
                 return bestHorse;

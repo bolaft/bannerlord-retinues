@@ -105,6 +105,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
             {
                 if (SelectedTroop == null)
                     return false;
+
+                if (ModuleChecker.GetModule("Shokuho") != null)
+                    return false; // Shokuho compatibility: only one equipment allowed
+
                 // Only Battle has no previous; Civilian always has Battle; Alternates have previous (Civilian or Alt-1)
                 return LoadoutCategory != WLoadout.Category.Battle;
             }
@@ -117,6 +121,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
             {
                 if (SelectedTroop == null)
                     return false;
+
+                if (ModuleChecker.GetModule("Shokuho") != null)
+                    return false; // Shokuho compatibility: only one equipment allowed
+
                 var altCount = SelectedTroop.Loadout.Alternates.Count;
 
                 switch (LoadoutCategory)
@@ -157,6 +165,11 @@ namespace Retinues.GUI.Editor.VM.Equipment
             && LoadoutCategory == WLoadout.Category.Alternate
             && LoadoutIndex >= 0
             && LoadoutIndex < SelectedTroop.Loadout.Alternates.Count;
+
+        [DataSourceProperty]
+        public bool CanCreateSet =>
+            SelectedTroop != null
+            && ModuleChecker.GetModule("Shokuho") == null; // Shokuho compatibility: only one equipment allowed
 
         [DataSourceProperty]
         public bool HasStagedChanges

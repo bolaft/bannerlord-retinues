@@ -61,8 +61,6 @@ namespace Retinues.Features.Missions.Patches
                     .CivilianEquipment(false)
                     .NoWeapons(false)
                     .NoArmor(false);
-
-                Log.Debug($"[Equip/MainSet] {troop.Name} -> Battle[0] (fixed via AgentBuildData)");
             }
             catch (Exception e)
             {

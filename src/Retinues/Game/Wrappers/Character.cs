@@ -372,8 +372,6 @@ namespace Retinues.Game.Wrappers
                 if (!IsCustom)
                     return;
 
-                Log.Info($"Setting upgrade item requirement for troop {Name} to category {value}");
-
                 Reflector.SetPropertyValue(Base, "UpgradeRequiresItemFromCategory", value);
             }
         }
