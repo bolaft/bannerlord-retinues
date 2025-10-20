@@ -30,9 +30,7 @@ namespace Retinues.Troops.Edition
                 return;
 
             // Already staged changes
-            int staged =
-                TroopTrainBehavior.GetStagedChange(troop, skill)?.PointsRemaining
-                ?? 0;
+            int staged = TroopTrainBehavior.GetStagedChange(troop, skill)?.PointsRemaining ?? 0;
             int stagedSkill = troop.GetSkill(skill) + staged;
 
             if (increment)

@@ -4,8 +4,10 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.List;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment
@@ -42,6 +44,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanSelectPrevSet),
                     nameof(CanSelectNextSet),
                     nameof(CanRemoveSet),
+                    nameof(CanCreateSet),
+                    nameof(RemoveSetHint),
+                    nameof(CreateSetHint),
                 ],
                 [UIEvent.Equipment] =
                 [
@@ -62,6 +67,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanSelectPrevSet),
                     nameof(CanSelectNextSet),
                     nameof(CanRemoveSet),
+                    nameof(CanCreateSet),
+                    nameof(RemoveSetHint),
+                    nameof(CreateSetHint),
                 ],
                 [UIEvent.Equip] = [nameof(CanUnstage), nameof(CanUnequip)],
                 [UIEvent.Slot] = [nameof(CanUnstage)],
@@ -174,6 +182,27 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public bool CanCreateSet => ModuleChecker.GetModule("Shokuho") == null; // Disable if Shokuho is present
+
+        /* ━━━━━━━━ Tooltip ━━━━━━━ */
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel RemoveSetHint =>
+            CanRemoveSet
+                ? null
+                : Tooltip.MakeTooltip(
+                    null,
+                    L.T("remove_set_hint", "You can only remove alternate equipment sets.")
+                        .ToString()
+                );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel CreateSetHint =>
+            CanCreateSet
+                ? null
+                : Tooltip.MakeTooltip(
+                    null,
+                    L.T("create_set_hint", "Disabled due to conflicting mods (Shokuho).").ToString()
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -321,6 +350,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
             EquipmentList.Show();
             foreach (var slot in EquipmentSlots)
                 slot.Show();
+            
+            // Ensure filter is refreshed when showing
+            EquipmentList.RefreshFilter();
         }
 
         /// <summary>

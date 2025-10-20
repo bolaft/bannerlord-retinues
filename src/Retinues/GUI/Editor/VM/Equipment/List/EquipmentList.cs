@@ -65,6 +65,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             _needsRebuild = true;
             if (IsVisible)
                 Build();
+            
+            FilterText = string.Empty;
         }
 
         /// <summary>
@@ -396,6 +398,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(SortByTierState));
             OnPropertyChanged(nameof(SortByCostSelected));
             OnPropertyChanged(nameof(SortByCostState));
+
+            RefreshFilter();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

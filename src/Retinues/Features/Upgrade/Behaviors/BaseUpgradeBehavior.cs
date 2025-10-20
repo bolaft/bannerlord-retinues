@@ -130,19 +130,19 @@ namespace Retinues.Features.Upgrade.Behaviors
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>Return staged data for (troop, objectKey), or null if none.</summary>
-        public abstract T GetStagedChange(WCharacter troop, string objectKey);
+        protected abstract T GetStagedChange(WCharacter troop, string objectKey);
 
         /// <summary>Return all staged data for a given troop.</summary>
-        public abstract List<T> GetStagedChanges(WCharacter troop);
+        protected abstract List<T> GetStagedChanges(WCharacter troop);
 
         /// <summary>Stage a change for this behavior. The concrete type decides how the payload is interpreted.</summary>
-        public abstract void StageChange(WCharacter troop, object payload);
+        protected abstract void StageChange(WCharacter troop, object payload);
 
         /// <summary>Remove a previously staged change identified by (troop, objectKey).</summary>
-        public abstract void UnstageChange(WCharacter troop, string objectKey);
+        protected abstract void UnstageChange(WCharacter troop, string objectKey);
 
         /// <summary>Remove all staged changes for a given troop.</summary>
-        public abstract void ClearStagedChanges(WCharacter troop);
+        protected abstract void ClearStagedChanges(WCharacter troop);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Virtual                        //

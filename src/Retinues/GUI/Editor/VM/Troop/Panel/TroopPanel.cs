@@ -9,7 +9,9 @@ using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
@@ -56,6 +58,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(TierText),
                     nameof(CanRankUp),
                     nameof(CanAddUpgrade),
+                    nameof(AddUpgradeHint),
                     nameof(TroopXpIsEnabled),
                     nameof(TroopXpText),
                     nameof(SkillCapText),
@@ -262,10 +265,18 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public bool IsRegular => State.Troop?.IsRetinue == false && State.Troop?.IsMilitia == false;
 
         [DataSourceProperty]
-        public bool CanAddUpgrade => TroopRules.CanAddUpgradeToTroop(State.Troop);
+        public bool CanAddUpgrade => CantAddUpgradeReason == null;
 
         [DataSourceProperty]
         public string AddUpgradeButtonText => L.S("add_upgrade_button_text", "Add Upgrade");
+
+        [DataSourceProperty]
+        public TextObject CantAddUpgradeReason =>
+            TroopRules.GetAddUpgradeToTroopReason(State.Troop);
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel AddUpgradeHint =>
+            CanAddUpgrade ? null : Tooltip.MakeTooltip(null, CantAddUpgradeReason.ToString());
 
         /* ━━━━━━ Conversion ━━━━━━ */
 

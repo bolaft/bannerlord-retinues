@@ -122,10 +122,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     affirmativeAction: () =>
                     {
                         // Clear all staged equipment changes
-                        TroopEquipBehavior.Instance.ClearStagedChanges(State.Troop);
+                        TroopEquipBehavior.ClearAllStagedChanges(State.Troop);
 
                         // Clear all staged skill changes
-                        TroopTrainBehavior.Instance.ClearStagedChanges(State.Troop);
+                        TroopTrainBehavior.ClearAllStagedChanges(State.Troop);
 
                         // Remove the troop
                         State.Troop.Remove(stock: true);

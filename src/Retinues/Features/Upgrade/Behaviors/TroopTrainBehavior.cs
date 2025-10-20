@@ -86,21 +86,21 @@ namespace Retinues.Features.Upgrade.Behaviors
 
         // Instance-level API (enforced by base)
 
-        public override PendingTrainData GetStagedChange(WCharacter troop, string objectKey)
+        protected override PendingTrainData GetStagedChange(WCharacter troop, string objectKey)
         {
             if (troop == null || string.IsNullOrEmpty(objectKey))
                 return null;
             return GetPending(troop.StringId, objectKey);
         }
 
-        public override List<PendingTrainData> GetStagedChanges(WCharacter troop)
+        protected override List<PendingTrainData> GetStagedChanges(WCharacter troop)
         {
             if (troop == null)
                 return [];
             return GetPending(troop.StringId);
         }
 
-        public override void StageChange(WCharacter troop, object payload)
+        protected override void StageChange(WCharacter troop, object payload)
         {
             if (troop == null)
                 return;
@@ -153,14 +153,14 @@ namespace Retinues.Features.Upgrade.Behaviors
                 RefreshManagedMenuOrDefault();
         }
 
-        public override void UnstageChange(WCharacter troop, string objectKey)
+        protected override void UnstageChange(WCharacter troop, string objectKey)
         {
             if (troop == null || string.IsNullOrEmpty(objectKey))
                 return;
             RemovePending(troop.StringId, objectKey);
         }
 
-        public override void ClearStagedChanges(WCharacter troop)
+        protected override void ClearStagedChanges(WCharacter troop)
         {
             if (troop == null)
                 return;
@@ -171,6 +171,9 @@ namespace Retinues.Features.Upgrade.Behaviors
         // Static convenience wrappers (callers use these)
         public static PendingTrainData GetStagedChange(WCharacter troop, SkillObject skill) =>
             ((TroopTrainBehavior)Instance).GetStagedChange(troop, skill?.StringId);
+
+        public static List<PendingTrainData> GetAllStagedChanges(WCharacter troop) =>
+            ((TroopTrainBehavior)Instance).GetStagedChanges(troop);
 
         public static void StageChange(WCharacter troop, SkillObject skill, int points = 1) =>
             ((TroopTrainBehavior)Instance).StageChange(troop, new TrainChange(skill, points));

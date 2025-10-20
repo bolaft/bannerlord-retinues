@@ -89,21 +89,21 @@ namespace Retinues.Features.Upgrade.Behaviors
 
         // Instance-level API (enforced by base)
 
-        public override PendingEquipData GetStagedChange(WCharacter troop, string objectKey)
+        protected override PendingEquipData GetStagedChange(WCharacter troop, string objectKey)
         {
             if (troop == null || string.IsNullOrEmpty(objectKey))
                 return null;
             return GetPending(troop.StringId, objectKey);
         }
 
-        public override List<PendingEquipData> GetStagedChanges(WCharacter troop)
+        protected override List<PendingEquipData> GetStagedChanges(WCharacter troop)
         {
             if (troop == null)
                 return [];
             return GetPending(troop.StringId);
         }
 
-        public override void StageChange(WCharacter troop, object payload)
+        protected override void StageChange(WCharacter troop, object payload)
         {
             if (troop == null)
                 return;
@@ -136,14 +136,14 @@ namespace Retinues.Features.Upgrade.Behaviors
                 RefreshManagedMenuOrDefault();
         }
 
-        public override void UnstageChange(WCharacter troop, string objectKey)
+        protected override void UnstageChange(WCharacter troop, string objectKey)
         {
             if (troop == null || string.IsNullOrEmpty(objectKey))
                 return;
             RemovePending(troop.StringId, objectKey);
         }
 
-        public override void ClearStagedChanges(WCharacter troop)
+        protected override void ClearStagedChanges(WCharacter troop)
         {
             if (troop == null)
                 return;
@@ -164,6 +164,9 @@ namespace Retinues.Features.Upgrade.Behaviors
                 troop,
                 ComposeKey((int)slot, equipmentIndex)
             );
+
+        public static List<PendingEquipData> GetAllStagedChanges(WCharacter troop) =>
+            ((TroopEquipBehavior)Instance).GetStagedChanges(troop);
 
         public static void StageChange(
             WCharacter troop,
@@ -232,6 +235,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 durationHours: data.Remaining,
                 onCompleted: () =>
                 {
+                    troop.Unequip(data.Slot, data.EquipmentIndex, stock: true);
                     troop.Equip(item, data.Slot, data.EquipmentIndex);
                     RemovePending(troopId, objId);
 

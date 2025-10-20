@@ -200,6 +200,9 @@
       id="ret_equipment_button_text"
       text="Снаряжение" />
     <string
+      id="ret_equipment_requirement"
+      text="Для экипированных предметов требуется навык." />
+    <string
       id="ret_feat_completed_title"
       text="Подвиг Завершён" />
     <string
@@ -262,6 +265,9 @@
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="Выиграйте 3 оборонительных боя подряд с отрядом только из свиты." />
+    <string
+      id="ret_invalid_args"
+      text="Недопустимые аргументы." />
     <string
       id="ret_iron_discipline"
       text="Железная Дисциплина" />
@@ -427,6 +433,12 @@
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="Повысите 100 элитных войск до максимального ранга." />
+    <string
+      id="ret_max_tier"
+      text="Войско на максимальном ранге." />
+    <string
+      id="ret_max_upgrades_reached"
+      text="Войско достигло максимального количества улучшений." />
     <string
       id="ret_mcm_ie_export_btn"
       text="Экспорт" />
@@ -713,11 +725,17 @@
       id="ret_mcm_section_unlocks"
       text="Разблокировки" />
     <string
+      id="ret_militia_no_upgrade"
+      text="Ополчение не может быть улучшено." />
+    <string
       id="ret_name_header_text"
       text="Имя" />
     <string
       id="ret_no"
       text="Нет" />
+    <string
+      id="ret_no_skill_points_left"
+      text="У этой войск нет оставшихся очков навыков." />
     <string
       id="ret_no_training_required"
       text="Обучение не требуется" />
@@ -730,6 +748,9 @@
     <string
       id="ret_not_enough_gold_text"
       text="У вас недостаточно золота, чтобы купить этот предмет." />
+    <string
+      id="ret_not_enough_xp"
+      text="Недостаточно опыта для следующего очка навыков." />
     <string
       id="ret_not_in_clan_fief"
       text="Не в поместье клана" />
@@ -748,6 +769,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Вы должны находиться в поселении, чтобы {ACTION} этот отряд." />
+    <string
+      id="ret_parent_skill"
+      text="Нельзя опускаться ниже уровня навыков родителя {PARENT}." />
     <string
       id="ret_pragmatic_scavengers"
       text="Прагматичные Собиратели" />
@@ -830,6 +854,9 @@
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Свита (Связанные Честью)" />
     <string
+      id="ret_retinue_no_upgrade"
+      text="Свиты не могут быть улучшены." />
+    <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Королевская Гвардия" />
     <string
@@ -857,11 +884,17 @@
       id="ret_set_civilian"
       text="Гражданский" />
     <string
+      id="ret_skill_at_cap"
+      text="Навык достиг предела для этой войсковой единицы." />
+    <string
       id="ret_skill_cap_text"
       text="Лимит навыка {CAP}" />
     <string
       id="ret_skill_requirement_text"
       text="Требуется {SKILL}: {LEVEL}" />
+    <string
+      id="ret_skill_zero"
+      text="Навык не может опускаться ниже нуля." />
     <string
       id="ret_skills_header_text"
       text="Навыки" />

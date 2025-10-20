@@ -200,6 +200,9 @@
       id="ret_equipment_button_text"
       text="Equipamento" />
     <string
+      id="ret_equipment_requirement"
+      text="Habilidade é necessária para itens equipados." />
+    <string
       id="ret_feat_completed_title"
       text="Proeza Concluída" />
     <string
@@ -262,6 +265,9 @@
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="Vença 3 batalhas defensivas seguidas com um grupo apenas de séquito." />
+    <string
+      id="ret_invalid_args"
+      text="Argumentos inválidos." />
     <string
       id="ret_iron_discipline"
       text="Disciplina de Ferro" />
@@ -427,6 +433,12 @@
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="Aprimore 100 tropas de elite até o nível máximo." />
+    <string
+      id="ret_max_tier"
+      text="Tropa está no nível máximo." />
+    <string
+      id="ret_max_upgrades_reached"
+      text="Tropa atingiu a quantidade máxima de aprimoramentos." />
     <string
       id="ret_mcm_ie_export_btn"
       text="Exportar" />
@@ -713,11 +725,17 @@
       id="ret_mcm_section_unlocks"
       text="Desbloqueios" />
     <string
+      id="ret_militia_no_upgrade"
+      text="A milícia não pode ser atualizada." />
+    <string
       id="ret_name_header_text"
       text="Nome" />
     <string
       id="ret_no"
       text="Não" />
+    <string
+      id="ret_no_skill_points_left"
+      text="Nenhum ponto de habilidade restante para esta tropa." />
     <string
       id="ret_no_training_required"
       text="Nenhum treinamento necessário" />
@@ -730,6 +748,9 @@
     <string
       id="ret_not_enough_gold_text"
       text="Você não tem ouro suficiente para comprar este item." />
+    <string
+      id="ret_not_enough_xp"
+      text="XP insuficiente para o próximo ponto de habilidade." />
     <string
       id="ret_not_in_clan_fief"
       text="Não em Feudo do Clã" />
@@ -748,6 +769,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Você deve estar em um assentamento para {ACTION} esta tropa." />
+    <string
+      id="ret_parent_skill"
+      text="Não pode ficar abaixo do nível de habilidade do pai {PARENT}." />
     <string
       id="ret_pragmatic_scavengers"
       text="Catadores Pragmáticos" />
@@ -830,6 +854,9 @@
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Séquito (Vinculados pela Honra)" />
     <string
+      id="ret_retinue_no_upgrade"
+      text="Séquitos não podem ser promovidos." />
+    <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Guarda Real" />
     <string
@@ -857,11 +884,17 @@
       id="ret_set_civilian"
       text="Civil" />
     <string
+      id="ret_skill_at_cap"
+      text="A habilidade está no limite para esta tropa." />
+    <string
       id="ret_skill_cap_text"
       text="Limite de habilidade {CAP}" />
     <string
       id="ret_skill_requirement_text"
       text="Requer {SKILL}: {LEVEL}" />
+    <string
+      id="ret_skill_zero"
+      text="A habilidade não pode ficar abaixo de zero." />
     <string
       id="ret_skills_header_text"
       text="Habilidades" />

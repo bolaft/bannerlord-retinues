@@ -1,39 +1,66 @@
 <!-- Container for the remove-troop button (bound to TroopScreen) -->
+<ButtonWidget
+    DataSource="{TroopScreen}"
+    IsVisible="@RemoveTroopButtonIsEnabled"
+    IsEnabled="true"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Top"
+    Brush="Popup.Delete.Button"
+    Command.Click="ExecuteRemoveTroop">
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            Brush="Popup.Button.Text"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Text="@RemoveTroopButtonText"/>
+    </Children>
+</ButtonWidget>
 <Widget
     DataSource="{TroopScreen}"
-    Hint="{RemoveButtonHint}"
-    IsVisible="@RemoveTroopButtonIsVisible"
+    IsHidden="@RemoveTroopButtonIsEnabled"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
+    DoNotPassEventsToChildren="false"
     HorizontalAlignment="Center"
     VerticalAlignment="Top">
 
     <Children>
-        <!-- Remove troop button -->
         <ButtonWidget
-            IsEnabled="@RemoveTroopButtonIsEnabled"
+            IsVisible="@RemoveTroopButtonIsVisible"
+            IsEnabled="false"
             DoNotPassEventsToChildren="true"
-            UpdateChildrenStates="true"
-            WidthSizePolicy="Fixed"
-            HeightSizePolicy="Fixed"
-            SuggestedWidth="!CancelButton.Width"
-            SuggestedHeight="!CancelButton.Height"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Brush="Popup.Delete.Button"
             Command.Click="ExecuteRemoveTroop">
-
             <Children>
-                <!-- Button label -->
                 <TextWidget
-                    WidthSizePolicy="CoverChildren"
-                    HeightSizePolicy="CoverChildren"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Text="@RemoveTroopButtonText"
-                />
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="@RemoveTroopButtonText"/>
             </Children>
         </ButtonWidget>
+
+        <!-- Hover-only overlay (always enabled). Covers the same area. -->
+        <Widget
+            IsVisible="@RemoveTroopButtonIsVisible"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            DoNotPassEventsToChildren="true">
+        <Children>
+            <!-- When disabled, show the WHY hint -->
+            <HintWidget
+                DataSource="{RemoveButtonHint}"
+                Command.HoverBegin="ExecuteBeginHint"
+                Command.HoverEnd="ExecuteEndHint"/>
+        </Children>
+        </Widget>
     </Children>
 </Widget>

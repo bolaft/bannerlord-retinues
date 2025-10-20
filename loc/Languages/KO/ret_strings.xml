@@ -200,6 +200,9 @@
       id="ret_equipment_button_text"
       text="장비" />
     <string
+      id="ret_equipment_requirement"
+      text="장착된 아이템에는 기술이 필요합니다." />
+    <string
       id="ret_feat_completed_title"
       text="위업 달성" />
     <string
@@ -262,6 +265,9 @@
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="수행원만으로 구성된 부대로 방어전을 3연승 하십시오." />
+    <string
+      id="ret_invalid_args"
+      text="잘못된 인수입니다." />
     <string
       id="ret_iron_discipline"
       text="철의 규율" />
@@ -427,6 +433,12 @@
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="정예 병력 100명을 최대 등급으로 업그레이드하십시오." />
+    <string
+      id="ret_max_tier"
+      text="병력이 최대 등급에 도달했습니다." />
+    <string
+      id="ret_max_upgrades_reached"
+      text="병력이 최대 업그레이드 수에 도달했습니다." />
     <string
       id="ret_mcm_ie_export_btn"
       text="내보내기" />
@@ -713,11 +725,17 @@
       id="ret_mcm_section_unlocks"
       text="해제" />
     <string
+      id="ret_militia_no_upgrade"
+      text="민병대는 업그레이드할 수 없습니다." />
+    <string
       id="ret_name_header_text"
       text="이름" />
     <string
       id="ret_no"
       text="아니오" />
+    <string
+      id="ret_no_skill_points_left"
+      text="이 병력에는 남은 스킬 포인트가 없습니다." />
     <string
       id="ret_no_training_required"
       text="훈련 불필요" />
@@ -730,6 +748,9 @@
     <string
       id="ret_not_enough_gold_text"
       text="이 아이템을 구매할 충분한 골드가 없습니다." />
+    <string
+      id="ret_not_enough_xp"
+      text="다음 스킬 포인트에 대한 충분한 XP가 없습니다." />
     <string
       id="ret_not_in_clan_fief"
       text="씨족 영지에 없음" />
@@ -748,6 +769,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="정착지에 있어야 {ACTION} 이 부대를 할 수 있습니다." />
+    <string
+      id="ret_parent_skill"
+      text="부모 {PARENT}의 기술 수준 아래로 내려갈 수 없습니다." />
     <string
       id="ret_pragmatic_scavengers"
       text="실용주의 청소부" />
@@ -830,6 +854,9 @@
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="수행원 (명예에 묶인 자)" />
     <string
+      id="ret_retinue_no_upgrade"
+      text="수행원은 업그레이드할 수 없습니다." />
+    <string
       id="ret_retinue_royal_guard"
       text="{FACTION} 왕립 근위대" />
     <string
@@ -857,11 +884,17 @@
       id="ret_set_civilian"
       text="민간인" />
     <string
+      id="ret_skill_at_cap"
+      text="이 병력의 기술이 한계에 도달했습니다." />
+    <string
       id="ret_skill_cap_text"
       text="스킬 한계 {CAP}" />
     <string
       id="ret_skill_requirement_text"
       text="{SKILL}: {LEVEL} 필요" />
+    <string
+      id="ret_skill_zero"
+      text="기술은 0 이하로 내려갈 수 없습니다." />
     <string
       id="ret_skills_header_text"
       text="기술" />

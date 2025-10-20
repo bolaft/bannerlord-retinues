@@ -80,8 +80,8 @@
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             HorizontalAlignment="Center">
             <Children>
-                {{ button_icon("ExecuteRemoveSet", "Inventory.Tuple.Extension.MinusButton", "36", "true", "@CanRemoveSet") }}
-                {{ button_icon("ExecuteCreateSet", "Inventory.Tuple.Extension.PlusButton", "36", "true", "@CanCreateSet") }}
+                {{ button_icon_hint("ExecuteRemoveSet", "{RemoveSetHint}", "Inventory.Tuple.Extension.MinusButton", "36", "@CanRemoveSet") }}
+                {{ button_icon_hint("ExecuteCreateSet", "{CreateSetHint}", "Inventory.Tuple.Extension.PlusButton", "36", "@CanCreateSet") }}
             </Children>
         </ListPanel>
     </Children>

@@ -101,6 +101,9 @@
       id="ret_cancel"
       text="Cancel" />
     <string
+      id="ret_cannot_exceed_child_skill"
+      text="Cannot exceed skill level of upgrade {CHILD}." />
+    <string
       id="ret_cant_remove_root_troop"
       text="Root troops cannot be removed." />
     <string
@@ -145,6 +148,9 @@
     <string
       id="ret_convert_not_enough_gold_title"
       text="Not enough gold" />
+    <string
+      id="ret_create_set_hint"
+      text="Disabled due to conflicting mods (Shokuho)." />
     <string
       id="ret_cultural_pride"
       text="Cultural Pride" />
@@ -199,6 +205,9 @@
     <string
       id="ret_equipment_button_text"
       text="Equipment" />
+    <string
+      id="ret_equipment_requirement"
+      text="Skill is required for equipped items." />
     <string
       id="ret_feat_completed_title"
       text="Feat Completed" />
@@ -262,6 +271,9 @@
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="Win 3 defensive battles in a row with a retinue-only party." />
+    <string
+      id="ret_invalid_args"
+      text="Invalid arguments." />
     <string
       id="ret_iron_discipline"
       text="Iron Discipline" />
@@ -427,6 +439,12 @@
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="Upgrade 100 elite troops to max tier." />
+    <string
+      id="ret_max_tier"
+      text="Troop is at max tier." />
+    <string
+      id="ret_max_upgrades_reached"
+      text="Troop has reached maximum amount of upgrades." />
     <string
       id="ret_mcm_ie_export_btn"
       text="Export" />
@@ -713,11 +731,17 @@
       id="ret_mcm_section_unlocks"
       text="Unlocks" />
     <string
+      id="ret_militia_no_upgrade"
+      text="Militia cannot be upgraded." />
+    <string
       id="ret_name_header_text"
       text="Name" />
     <string
       id="ret_no"
       text="No" />
+    <string
+      id="ret_no_skill_points_left"
+      text="No skill points left for this troop." />
     <string
       id="ret_no_training_required"
       text="No training required" />
@@ -730,6 +754,9 @@
     <string
       id="ret_not_enough_gold_text"
       text="You do not have enough gold to purchase this item." />
+    <string
+      id="ret_not_enough_xp"
+      text="Not enough XP for next skill point." />
     <string
       id="ret_not_in_clan_fief"
       text="Not in Clan Fief" />
@@ -748,6 +775,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="You must be in a settlement to {ACTION} this troop." />
+    <string
+      id="ret_parent_skill"
+      text="Cannot go below parent {PARENT}&apos;s skill level." />
     <string
       id="ret_pragmatic_scavengers"
       text="Pragmatic Scavengers" />
@@ -797,6 +827,9 @@
       id="ret_remove_button_text"
       text="Remove" />
     <string
+      id="ret_remove_set_hint"
+      text="You can only remove alternate equipment sets." />
+    <string
       id="ret_remove_set_text"
       text="Remove {EQUIPMENT} for {TROOP}?{newline}All staged changes will be cleared and items will be unequipped and stocked." />
     <string
@@ -830,6 +863,9 @@
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Retinue (Bound by Honor)" />
     <string
+      id="ret_retinue_no_upgrade"
+      text="Retinues cannot be upgraded." />
+    <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Royal Guard" />
     <string
@@ -857,11 +893,17 @@
       id="ret_set_civilian"
       text="Civilian" />
     <string
+      id="ret_skill_at_cap"
+      text="Skill is at cap for this troop." />
+    <string
       id="ret_skill_cap_text"
       text="{CAP} skill cap" />
     <string
       id="ret_skill_requirement_text"
       text="Requires {SKILL}: {LEVEL}" />
+    <string
+      id="ret_skill_zero"
+      text="Skill cannot go below zero." />
     <string
       id="ret_skills_header_text"
       text="Skills" />

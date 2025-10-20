@@ -420,24 +420,25 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> IgnoreCivilianHorseForUpgradeRequirements = CreateOption(
-            section: L.S("mcm_section_equipment", "Equipment"),
-            name: L.S(
-                "mcm_option_ignore_civilian_horse_for_upgrade_requirements",
-                "Ignore Civilian Horse for Upgrade Requirements"
-            ),
-            key: "IgnoreCivilianHorseForUpgradeRequirements",
-            hint: L.S(
-                "mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint",
-                "When checking for mount requirements when upgrading troops, ignore the civilian set's horse."
-            ),
-            @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = false,
-            }
-        );
+        public static readonly Option<bool> IgnoreCivilianHorseForUpgradeRequirements =
+            CreateOption(
+                section: L.S("mcm_section_equipment", "Equipment"),
+                name: L.S(
+                    "mcm_option_ignore_civilian_horse_for_upgrade_requirements",
+                    "Ignore Civilian Horse for Upgrade Requirements"
+                ),
+                key: "IgnoreCivilianHorseForUpgradeRequirements",
+                hint: L.S(
+                    "mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint",
+                    "When checking for mount requirements when upgrading troops, ignore the civilian set's horse."
+                ),
+                @default: true,
+                presets: new Dictionary<string, object>
+                {
+                    [Presets.Freeform] = true,
+                    [Presets.Realistic] = false,
+                }
+            );
 
         public static readonly Option<bool> NoMountForTier1 = CreateOption(
             section: L.S("mcm_section_equipment", "Equipment"),

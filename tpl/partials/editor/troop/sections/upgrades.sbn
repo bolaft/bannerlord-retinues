@@ -11,4 +11,4 @@
     </ItemTemplate>
 </ListPanel>
 
-{{ button_text("@AddUpgradeButtonText", "ExecuteAddUpgrade", "Popup.Done.Button", "@IsRegular", "@CanAddUpgrade", "Bottom") }}
+{{ button_text_hint("@AddUpgradeButtonText", "ExecuteAddUpgrade", "{AddUpgradeHint}", "Popup.Done.Button", "@IsRegular", "@CanAddUpgrade", "Bottom") }}

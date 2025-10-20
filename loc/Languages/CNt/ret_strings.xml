@@ -200,6 +200,9 @@
       id="ret_equipment_button_text"
       text="裝備" />
     <string
+      id="ret_equipment_requirement"
+      text="裝備物品需要技能。" />
+    <string
       id="ret_feat_completed_title"
       text="成就完成" />
     <string
@@ -262,6 +265,9 @@
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="僅隨從隊伍連續贏得3場防禦戰。" />
+    <string
+      id="ret_invalid_args"
+      text="參數無效。" />
     <string
       id="ret_iron_discipline"
       text="鋼鐵紀律" />
@@ -427,6 +433,12 @@
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="將100名精銳部隊升級至最高等級。" />
+    <string
+      id="ret_max_tier"
+      text="部隊已達最高等級。" />
+    <string
+      id="ret_max_upgrades_reached"
+      text="部隊已達到最大升級數量。" />
     <string
       id="ret_mcm_ie_export_btn"
       text="導出" />
@@ -713,11 +725,17 @@
       id="ret_mcm_section_unlocks"
       text="解鎖" />
     <string
+      id="ret_militia_no_upgrade"
+      text="民兵無法升級。" />
+    <string
       id="ret_name_header_text"
       text="名稱" />
     <string
       id="ret_no"
       text="否" />
+    <string
+      id="ret_no_skill_points_left"
+      text="這支部隊沒有剩餘的技能點。" />
     <string
       id="ret_no_training_required"
       text="不需要訓練" />
@@ -730,6 +748,9 @@
     <string
       id="ret_not_enough_gold_text"
       text="你沒有足夠的金幣購買此物品。" />
+    <string
+      id="ret_not_enough_xp"
+      text="沒有足夠的經驗值獲得下一個技能點。" />
     <string
       id="ret_not_in_clan_fief"
       text="不在氏族領地" />
@@ -748,6 +769,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="您必須在一個定居點才能{ACTION}這支部隊。" />
+    <string
+      id="ret_parent_skill"
+      text="不能低於父級{PARENT}的技能水平。" />
     <string
       id="ret_pragmatic_scavengers"
       text="實用清道夫" />
@@ -830,6 +854,9 @@
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="隨從（榮譽束縛）" />
     <string
+      id="ret_retinue_no_upgrade"
+      text="隨從無法升級。" />
+    <string
       id="ret_retinue_royal_guard"
       text="{FACTION} 皇家衛隊" />
     <string
@@ -857,11 +884,17 @@
       id="ret_set_civilian"
       text="平民" />
     <string
+      id="ret_skill_at_cap"
+      text="該部隊的技能已達上限。" />
+    <string
       id="ret_skill_cap_text"
       text="技能上限 {CAP}" />
     <string
       id="ret_skill_requirement_text"
       text="需要 {SKILL}: {LEVEL}" />
+    <string
+      id="ret_skill_zero"
+      text="技能不能低於零。" />
     <string
       id="ret_skills_header_text"
       text="技能" />

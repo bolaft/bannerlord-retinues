@@ -512,6 +512,22 @@
     "TR": "İptal"
   },
   {
+    "id": "ret_cannot_exceed_child_skill",
+    "EN": "Cannot exceed skill level of upgrade {CHILD}.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_cant_remove_root_troop",
     "EN": "Root troops cannot be removed.",
     "BR": "Tropas base não podem ser removidas.",
@@ -750,6 +766,22 @@
     "RU": "Недостаточно золота",
     "SP": "Oro insuficiente",
     "TR": "Yetersiz altın"
+  },
+  {
+    "id": "ret_create_set_hint",
+    "EN": "Disabled due to conflicting mods (Shokuho).",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_cultural_pride",
@@ -1038,6 +1070,22 @@
     "RU": "Снаряжение",
     "SP": "Equipo",
     "TR": "Teçhizat"
+  },
+  {
+    "id": "ret_equipment_requirement",
+    "EN": "Skill is required for equipped items.",
+    "BR": "Habilidade é necessária para itens equipados.",
+    "CNs": "装备物品需要技能。",
+    "CNt": "裝備物品需要技能。",
+    "DE": "Fähigkeit ist für ausgerüstete Gegenstände erforderlich.",
+    "FR": "La compétence est requise pour les objets équipés.",
+    "IT": "È necessaria una competenza per gli oggetti equipaggiati.",
+    "JP": "装備品にはスキルが必要です。",
+    "KO": "장착된 아이템에는 기술이 필요합니다.",
+    "PL": "Do wyposażonych przedmiotów wymagana jest umiejętność.",
+    "RU": "Для экипированных предметов требуется навык.",
+    "SP": "Se requiere habilidad para los objetos equipados.",
+    "TR": "Donatılan eşyalar için beceri gereklidir."
   },
   {
     "id": "ret_feat_completed_title",
@@ -1374,6 +1422,22 @@
     "RU": "Выиграйте 3 оборонительных боя подряд с отрядом только из свиты.",
     "SP": "Gana 3 batallas defensivas seguidas con un grupo solo de séquito.",
     "TR": "Sadece yandaşlardan oluşan bir grupla 3 savunma savaşını üst üste kazan."
+  },
+  {
+    "id": "ret_invalid_args",
+    "EN": "Invalid arguments.",
+    "BR": "Argumentos inválidos.",
+    "CNs": "参数无效。",
+    "CNt": "參數無效。",
+    "DE": "Ungültige Argumente.",
+    "FR": "Arguments invalides.",
+    "IT": "Argomenti non validi.",
+    "JP": "無効な引数。",
+    "KO": "잘못된 인수입니다.",
+    "PL": "Nieprawidłowe argumenty.",
+    "RU": "Недопустимые аргументы.",
+    "SP": "Argumentos inválidos.",
+    "TR": "Geçersiz argümanlar."
   },
   {
     "id": "ret_iron_discipline",
@@ -2254,6 +2318,38 @@
     "RU": "Повысите 100 элитных войск до максимального ранга.",
     "SP": "Mejora 100 tropas de élite al rango máximo.",
     "TR": "100 seçkin askeri en yüksek seviyeye yükselt."
+  },
+  {
+    "id": "ret_max_tier",
+    "EN": "Troop is at max tier.",
+    "BR": "Tropa está no nível máximo.",
+    "CNs": "部队已达最高等级。",
+    "CNt": "部隊已達最高等級。",
+    "DE": "Truppe ist auf maximaler Stufe.",
+    "FR": "La troupe est au rang maximum.",
+    "IT": "La truppa è al livello massimo.",
+    "JP": "部隊は最大ランクです。",
+    "KO": "병력이 최대 등급에 도달했습니다.",
+    "PL": "Jednostka jest na maksymalnym poziomie.",
+    "RU": "Войско на максимальном ранге.",
+    "SP": "La tropa está en el rango máximo.",
+    "TR": "Asker en yüksek seviyede."
+  },
+  {
+    "id": "ret_max_upgrades_reached",
+    "EN": "Troop has reached maximum amount of upgrades.",
+    "BR": "Tropa atingiu a quantidade máxima de aprimoramentos.",
+    "CNs": "部队已达到最大升级数量。",
+    "CNt": "部隊已達到最大升級數量。",
+    "DE": "Truppe hat die maximale Anzahl an Upgrades erreicht.",
+    "FR": "La troupe a atteint le nombre maximum de promotions.",
+    "IT": "La truppa ha raggiunto il numero massimo di potenziamenti.",
+    "JP": "部隊は最大のアップグレード数に達しました。",
+    "KO": "병력이 최대 업그레이드 수에 도달했습니다.",
+    "PL": "Jednostka osiągnęła maksymalną liczbę ulepszeń.",
+    "RU": "Войско достигло максимального количества улучшений.",
+    "SP": "La tropa ha alcanzado la cantidad máxima de mejoras.",
+    "TR": "Asker maksimum yükseltme sayısına ulaştı."
   },
   {
     "id": "ret_mcm_ie_export_btn",
@@ -3776,6 +3872,22 @@
     "TR": "Açılışlar"
   },
   {
+    "id": "ret_militia_no_upgrade",
+    "EN": "Militia cannot be upgraded.",
+    "BR": "A milícia não pode ser atualizada.",
+    "CNs": "民兵无法升级。",
+    "CNt": "民兵無法升級。",
+    "DE": "Milizen können nicht aufgerüstet werden.",
+    "FR": "La milice ne peut pas être améliorée.",
+    "IT": "La milizia non può essere potenziata.",
+    "JP": "民兵はアップグレードできません。",
+    "KO": "민병대는 업그레이드할 수 없습니다.",
+    "PL": "Milicja nie może być ulepszana.",
+    "RU": "Ополчение не может быть улучшено.",
+    "SP": "La milicia no se puede mejorar.",
+    "TR": "Milis yükseltilemez."
+  },
+  {
     "id": "ret_name_header_text",
     "EN": "Name",
     "BR": "Nome",
@@ -3806,6 +3918,22 @@
     "RU": "Нет",
     "SP": "No",
     "TR": "Hayır"
+  },
+  {
+    "id": "ret_no_skill_points_left",
+    "EN": "No skill points left for this troop.",
+    "BR": "Nenhum ponto de habilidade restante para esta tropa.",
+    "CNs": "这支部队没有剩余的技能点。",
+    "CNt": "這支部隊沒有剩餘的技能點。",
+    "DE": "Keine Fertigkeitspunkte mehr für diese Truppe übrig.",
+    "FR": "Plus de points de compétence disponibles pour cette troupe.",
+    "IT": "Non ci sono più punti abilità per questa truppa.",
+    "JP": "この部隊には残りのスキルポイントがありません。",
+    "KO": "이 병력에는 남은 스킬 포인트가 없습니다.",
+    "PL": "Brak pozostałych punktów umiejętności dla tego oddziału.",
+    "RU": "У этой войск нет оставшихся очков навыков.",
+    "SP": "No quedan puntos de habilidad para esta tropa.",
+    "TR": "Bu asker için kalan beceri puanı yok."
   },
   {
     "id": "ret_no_training_required",
@@ -3870,6 +3998,22 @@
     "RU": "У вас недостаточно золота, чтобы купить этот предмет.",
     "SP": "No tienes suficiente oro para comprar este objeto.",
     "TR": "Bu eşyayı satın almak için yeterli altının yok."
+  },
+  {
+    "id": "ret_not_enough_xp",
+    "EN": "Not enough XP for next skill point.",
+    "BR": "XP insuficiente para o próximo ponto de habilidade.",
+    "CNs": "没有足够的经验值获得下一个技能点。",
+    "CNt": "沒有足夠的經驗值獲得下一個技能點。",
+    "DE": "Nicht genug XP für den nächsten Fertigkeitspunkt.",
+    "FR": "Pas assez d’XP pour le prochain point de compétence.",
+    "IT": "Non abbastanza XP per il prossimo punto abilità.",
+    "JP": "次のスキルポイントに十分なXPがありません。",
+    "KO": "다음 스킬 포인트에 대한 충분한 XP가 없습니다.",
+    "PL": "Za mało XP na następny punkt umiejętności.",
+    "RU": "Недостаточно опыта для следующего очка навыков.",
+    "SP": "No hay suficiente XP para el siguiente punto de habilidad.",
+    "TR": "Sonraki beceri puanı için yeterli XP yok."
   },
   {
     "id": "ret_not_in_clan_fief",
@@ -3966,6 +4110,22 @@
     "RU": "Вы должны находиться в поселении, чтобы {ACTION} этот отряд.",
     "SP": "Debes estar en un asentamiento para {ACTION} esta tropa.",
     "TR": "Bu birliği {ACTION} için bir yerleşim yerinde olmalısınız."
+  },
+  {
+    "id": "ret_parent_skill",
+    "EN": "Cannot go below parent {PARENT}'s skill level.",
+    "BR": "Não pode ficar abaixo do nível de habilidade do pai {PARENT}.",
+    "CNs": "不能低于父级{PARENT}的技能水平。",
+    "CNt": "不能低於父級{PARENT}的技能水平。",
+    "DE": "Kann nicht unter das Fähigkeitsniveau des übergeordneten {PARENT} gehen.",
+    "FR": "Ne peut pas descendre en dessous du niveau de compétence du parent {PARENT}.",
+    "IT": "Non può scendere al di sotto del livello di abilità del genitore {PARENT}.",
+    "JP": "親{PARENT}のスキルレベルを下回ることはできません。",
+    "KO": "부모 {PARENT}의 기술 수준 아래로 내려갈 수 없습니다.",
+    "PL": "Nie można zejść poniżej poziomu umiejętności rodzica {PARENT}.",
+    "RU": "Нельзя опускаться ниже уровня навыков родителя {PARENT}.",
+    "SP": "No puede bajar del nivel de habilidad del padre {PARENT}.",
+    "TR": "Ana {PARENT} beceri seviyesinin altına inemez."
   },
   {
     "id": "ret_pragmatic_scavengers",
@@ -4224,6 +4384,22 @@
     "TR": "Kaldır"
   },
   {
+    "id": "ret_remove_set_hint",
+    "EN": "You can only remove alternate equipment sets.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_remove_set_text",
     "EN": "Remove {EQUIPMENT} for {TROOP}?\\nAll staged changes will be cleared and items will be unequipped and stocked.",
     "BR": "Remover {SET} para {TROOP_NAME}?\\nTodas as alterações em andamento serão limpas e os itens serão desequipados e guardados no estoque.",
@@ -4400,6 +4576,22 @@
     "TR": "Yandaş (Onura Bağlı)"
   },
   {
+    "id": "ret_retinue_no_upgrade",
+    "EN": "Retinues cannot be upgraded.",
+    "BR": "Séquitos não podem ser promovidos.",
+    "CNs": "随从无法升级。",
+    "CNt": "隨從無法升級。",
+    "DE": "Gefolgschaften können nicht aufgerüstet werden.",
+    "FR": "Les rétinues ne peuvent pas être améliorées.",
+    "IT": "I seguaci non possono essere potenziati.",
+    "JP": "随伴兵はアップグレードできません。",
+    "KO": "수행원은 업그레이드할 수 없습니다.",
+    "PL": "Orszaki nie mogą być ulepszane.",
+    "RU": "Свиты не могут быть улучшены.",
+    "SP": "Los séquitos no se pueden mejorar.",
+    "TR": "Yandaşlar yükseltilemez."
+  },
+  {
     "id": "ret_retinue_royal_guard",
     "EN": "{FACTION} Royal Guard",
     "BR": "{FACTION} Guarda Real",
@@ -4544,6 +4736,22 @@
     "TR": "Sivil"
   },
   {
+    "id": "ret_skill_at_cap",
+    "EN": "Skill is at cap for this troop.",
+    "BR": "A habilidade está no limite para esta tropa.",
+    "CNs": "该部队的技能已达上限。",
+    "CNt": "該部隊的技能已達上限。",
+    "DE": "Fertigkeit ist für diese Truppe am Limit.",
+    "FR": "La compétence a atteint son maximum pour cette troupe.",
+    "IT": "L'abilità ha raggiunto il limite per questa truppa.",
+    "JP": "この部隊のスキルは上限に達しています。",
+    "KO": "이 병력의 기술이 한계에 도달했습니다.",
+    "PL": "Umiejętność osiągnęła limit dla tej jednostki.",
+    "RU": "Навык достиг предела для этой войсковой единицы.",
+    "SP": "La habilidad ha alcanzado el límite para esta tropa.",
+    "TR": "Bu birliğin becerisi sınırda."
+  },
+  {
     "id": "ret_skill_cap_text",
     "EN": "{CAP} skill cap",
     "BR": "Limite de habilidade {CAP}",
@@ -4574,6 +4782,22 @@
     "RU": "Требуется {SKILL}: {LEVEL}",
     "SP": "Requiere {SKILL}: {LEVEL}",
     "TR": "{SKILL}: {LEVEL} gerekir"
+  },
+  {
+    "id": "ret_skill_zero",
+    "EN": "Skill cannot go below zero.",
+    "BR": "A habilidade não pode ficar abaixo de zero.",
+    "CNs": "技能不能低于零。",
+    "CNt": "技能不能低於零。",
+    "DE": "Fertigkeit kann nicht unter Null gehen.",
+    "FR": "La compétence ne peut pas descendre en dessous de zéro.",
+    "IT": "L'abilità non può scendere sotto lo zero.",
+    "JP": "スキルはゼロ以下にはなりません。",
+    "KO": "기술은 0 이하로 내려갈 수 없습니다.",
+    "PL": "Umiejętność nie może spaść poniżej zera.",
+    "RU": "Навык не может опускаться ниже нуля.",
+    "SP": "La habilidad no puede bajar de cero.",
+    "TR": "Beceri sıfırın altına inemez."
   },
   {
     "id": "ret_skills_header_text",

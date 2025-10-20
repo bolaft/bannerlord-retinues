@@ -200,6 +200,9 @@
       id="ret_equipment_button_text"
       text="装備" />
     <string
+      id="ret_equipment_requirement"
+      text="装備品にはスキルが必要です。" />
+    <string
       id="ret_feat_completed_title"
       text="偉業達成" />
     <string
@@ -262,6 +265,9 @@
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="随伴兵のみの部隊で防衛戦に3連勝する。" />
+    <string
+      id="ret_invalid_args"
+      text="無効な引数。" />
     <string
       id="ret_iron_discipline"
       text="鉄の規律" />
@@ -427,6 +433,12 @@
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
       text="精鋭兵100人を最大ランクにアップグレードする。" />
+    <string
+      id="ret_max_tier"
+      text="部隊は最大ランクです。" />
+    <string
+      id="ret_max_upgrades_reached"
+      text="部隊は最大のアップグレード数に達しました。" />
     <string
       id="ret_mcm_ie_export_btn"
       text="エクスポート" />
@@ -713,11 +725,17 @@
       id="ret_mcm_section_unlocks"
       text="解除" />
     <string
+      id="ret_militia_no_upgrade"
+      text="民兵はアップグレードできません。" />
+    <string
       id="ret_name_header_text"
       text="名前" />
     <string
       id="ret_no"
       text="いいえ" />
+    <string
+      id="ret_no_skill_points_left"
+      text="この部隊には残りのスキルポイントがありません。" />
     <string
       id="ret_no_training_required"
       text="訓練不要" />
@@ -730,6 +748,9 @@
     <string
       id="ret_not_enough_gold_text"
       text="このアイテムを購入するのに十分なゴールドがない。" />
+    <string
+      id="ret_not_enough_xp"
+      text="次のスキルポイントに十分なXPがありません。" />
     <string
       id="ret_not_in_clan_fief"
       text="氏族の領地にいない" />
@@ -748,6 +769,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="居住地にいて{ACTION}この部隊を行う必要があります。" />
+    <string
+      id="ret_parent_skill"
+      text="親{PARENT}のスキルレベルを下回ることはできません。" />
     <string
       id="ret_pragmatic_scavengers"
       text="実利的な清掃人" />
@@ -830,6 +854,9 @@
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="随伴兵（名誉に縛られて）" />
     <string
+      id="ret_retinue_no_upgrade"
+      text="随伴兵はアップグレードできません。" />
+    <string
       id="ret_retinue_royal_guard"
       text="{FACTION} 王立護衛" />
     <string
@@ -857,11 +884,17 @@
       id="ret_set_civilian"
       text="民間人" />
     <string
+      id="ret_skill_at_cap"
+      text="この部隊のスキルは上限に達しています。" />
+    <string
       id="ret_skill_cap_text"
       text="スキル上限 {CAP}" />
     <string
       id="ret_skill_requirement_text"
       text="{SKILL}: {LEVEL} が必要" />
+    <string
+      id="ret_skill_zero"
+      text="スキルはゼロ以下にはなりません。" />
     <string
       id="ret_skills_header_text"
       text="スキル" />

@@ -3,10 +3,13 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
+using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
@@ -36,6 +39,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(IsStaged),
                     nameof(CanIncrement),
                     nameof(CanDecrement),
+                    nameof(IncrementHint),
+                    nameof(DecrementHint),
                 ],
                 [UIEvent.Train] =
                 [
@@ -44,8 +49,12 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(IsStaged),
                     nameof(CanIncrement),
                     nameof(CanDecrement),
+                    nameof(IncrementHint),
+                    nameof(DecrementHint),
                 ],
             };
+
+        protected override void OnTroopChange() => PlayerWarnedAboutRetraining = false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
@@ -53,6 +62,12 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         private SkillData? SkillInfo =>
             State.SkillData.TryGetValue(Skill, out var data) ? data : null;
+
+        private TextObject CantIncrementReason =>
+            TroopRules.GetIncrementSkillReason(State.Troop, Skill);
+
+        private TextObject CantDecrementReason =>
+            TroopRules.GetDecrementSkillReason(State.Troop, Skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -71,10 +86,20 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string SkillId => Skill?.StringId ?? string.Empty;
 
         [DataSourceProperty]
-        public bool CanIncrement => TroopRules.CanIncrementSkill(State.Troop, Skill);
+        public bool CanIncrement => CantIncrementReason == null;
 
         [DataSourceProperty]
-        public bool CanDecrement => TroopRules.CanDecrementSkill(State.Troop, Skill);
+        public bool CanDecrement => CantDecrementReason == null;
+
+        /* ━━━━━━━ Tooltips ━━━━━━━ */
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel IncrementHint =>
+            CanIncrement ? null : Tooltip.MakeTooltip(null, CantIncrementReason.ToString());
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel DecrementHint =>
+            CanDecrement ? null : Tooltip.MakeTooltip(null, CantDecrementReason.ToString());
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //

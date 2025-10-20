@@ -122,6 +122,9 @@ namespace Retinues.GUI.Editor
             equipment ??= Troop.Loadout.Battle;
 
             Equipment = equipment;
+
+            UpdateEquipData();
+
             EventManager.Fire(UIEvent.Equipment);
         }
 

@@ -181,89 +181,117 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Returns true if the troop can increment the given skill.
         /// </summary>
-        public static bool CanIncrementSkill(WCharacter character, SkillObject skill)
+        public static bool CanIncrementSkill(WCharacter character, SkillObject skill) =>
+            GetIncrementSkillReason(character, skill) == null;
+
+        /// <summary>
+        /// Returns a text reason why the troop cannot increment the given skill, or null if allowed.
+        /// </summary>
+        public static TextObject GetIncrementSkillReason(WCharacter character, SkillObject skill)
         {
             if (character == null || skill == null)
-                return false;
+                return L.T("invalid_args", "Invalid arguments.");
 
-            // staged for THIS skill
-            var stagedThis =
-                TroopTrainBehavior
-                    .Instance.GetStagedChange(character, skill.StringId)
-                    ?.PointsRemaining
-                ?? 0;
+            // Actual + staged for THIS skill
+            var trueSkillValue = GetTrueSkillValue(character, skill);
 
             // staged across ALL skills for this troop
             var stagedAll =
-                TroopTrainBehavior.Instance.GetStagedChanges(character)?.Sum(d => d.PointsRemaining)
-                ?? 0;
+                TroopTrainBehavior.GetAllStagedChanges(character)?.Sum(d => d.PointsRemaining) ?? 0;
 
             // 1) per-skill cap
-            if (character.GetSkill(skill) + stagedThis >= SkillCapByTier(character))
-                return false;
+            if (trueSkillValue >= SkillCapByTier(character))
+                return L.T("skill_at_cap", "Skill is at cap for this troop.");
 
             // 2) total points cap (use ALL staged, not just this skill)
             if (SkillPointsLeft(character) - stagedAll <= 0)
-                return false;
+                return L.T("no_skill_points_left", "No skill points left for this troop.");
 
             // 3) xp affordability for THIS skill’s next point
             if (!HasEnoughXpForNextPoint(character, skill))
-                return false;
+                return L.T("not_enough_xp", "Not enough XP for next skill point.");
 
-            return true;
+            // 4) can't go above children
+            foreach (var child in character.UpgradeTargets)
+            {
+                if (trueSkillValue >= GetTrueSkillValue(child, skill))
+                    return L.T(
+                            "cannot_exceed_child_skill",
+                            "Cannot exceed skill level of upgrade {CHILD}."
+                        )
+                        .SetTextVariable("CHILD", child.Name);
+            }
+
+            return null;
         }
 
         /// <summary>
         /// Returns true if the troop can decrement the given skill.
         /// </summary>
-        public static bool CanDecrementSkill(WCharacter character, SkillObject skill)
+        public static bool CanDecrementSkill(WCharacter character, SkillObject skill) =>
+            GetDecrementSkillReason(character, skill) == null;
+
+        /// <summary>
+        /// Returns a text reason why the troop cannot decrement the given skill, or null if allowed.
+        /// </summary>
+        public static TextObject GetDecrementSkillReason(WCharacter character, SkillObject skill)
         {
             if (character == null || skill == null)
-                return false;
-            var staged =
-                TroopTrainBehavior
-                    .Instance.GetStagedChange(character, skill.StringId)
-                    ?.PointsRemaining
-                ?? 0;
+                return L.T("invalid_args", "Invalid arguments.");
+
+            // Actual + staged for THIS skill
+            var trueSkillValue = GetTrueSkillValue(character, skill);
 
             // Skills can't go below zero
-            if (character.GetSkill(skill) + staged <= 0)
-                return false;
+            if (trueSkillValue <= 0)
+                return L.T("skill_zero", "Skill cannot go below zero.");
 
             // Check for equipment skill requirements
-            if (
-                character.GetSkill(skill) + staged
-                <= character.Loadout.ComputeSkillRequirement(skill)
-            )
-                return false;
+            if (trueSkillValue <= character.Loadout.ComputeSkillRequirement(skill))
+                return L.T("equipment_requirement", "Skill is required for equipped items.");
 
-            // Check for parent skill (can't go below parent's skill level)
-            if (
-                character.Parent != null
-                && character.GetSkill(skill) + staged <= character.Parent.GetSkill(skill)
-            )
-                return false;
+            if (character.Parent != null)
+            {
+                // Check for parent skill (can't go below parent's skill level)
+                if (trueSkillValue <= GetTrueSkillValue(character.Parent, skill))
+                    return L.T("parent_skill", "Cannot go below parent {PARENT}'s skill level.").SetTextVariable("PARENT", character.Parent.Name);
+            }
 
-            return true;
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the true skill value for a troop, including staged changes.
+        /// </summary>
+        private static int GetTrueSkillValue(WCharacter character, SkillObject skill)
+        {
+            return character.GetSkill(skill)
+                + (TroopTrainBehavior.GetStagedChange(character, skill)?.PointsRemaining ?? 0);
         }
 
         /// <summary>
         /// Returns true if the troop can be upgraded (not militia, not max tier, upgrade slots available).
         /// </summary>
-        public static bool CanAddUpgradeToTroop(WCharacter character)
+        public static bool CanAddUpgradeToTroop(WCharacter character) =>
+            GetAddUpgradeToTroopReason(character) == null;
+
+        /// <summary>
+        /// Returns a text reason why the troop cannot be upgraded, or null if allowed.
+        /// </summary>
+        public static TextObject GetAddUpgradeToTroopReason(WCharacter character)
         {
             if (character == null)
-                return false;
+                return L.T("invalid_args", "Invalid arguments.");
 
             if (character.IsMilitia)
-                return false; // Militia cannot be upgraded
+                return L.T("militia_no_upgrade", "Militia cannot be upgraded.");
 
             if (character.IsRetinue)
-                return false; // Retinues cannot be upgraded
+                return L.T("retinue_no_upgrade", "Retinues cannot be upgraded.");
 
             // Max tier reached
             if (character.IsMaxTier)
-                return false;
+                return L.T("max_tier", "Troop is at max tier.");
 
             int maxUpgrades;
             if (character.IsElite)
@@ -276,9 +304,9 @@ namespace Retinues.Troops.Edition
 
             // Max upgrades reached
             if (character.UpgradeTargets.Count() >= maxUpgrades)
-                return false;
+                return L.T("max_upgrades_reached", "Troop has reached maximum amount of upgrades.");
 
-            return true;
+            return null;
         }
 
         /// <summary>
@@ -300,8 +328,7 @@ namespace Retinues.Troops.Edition
             if (c == null || s == null)
                 return false;
 
-            var staged =
-                TroopTrainBehavior.Instance.GetStagedChange(c, s.StringId)?.PointsRemaining ?? 0;
+            var staged = TroopTrainBehavior.GetStagedChange(c, s)?.PointsRemaining ?? 0;
             int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
         }

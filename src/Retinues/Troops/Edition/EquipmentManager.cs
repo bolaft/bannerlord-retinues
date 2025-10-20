@@ -296,7 +296,10 @@ namespace Retinues.Troops.Edition
             if (Config.EquipmentChangeTakesTime && item != null)
                 TroopEquipBehavior.StageChange(troop, slot, item, index);
             else
+            {
+                troop.Unequip(slot, index, stock: true);
                 troop.Equip(item, slot, index);
+            }
         }
 
         /// <summary>

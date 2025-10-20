@@ -26,7 +26,7 @@
             HorizontalAlignment="Center"
             UpdateChildrenStates="true">
             <Children>
-                {{ button_icon("ExecuteDecrement", "ButtonRightBigArrowBrush1", "24", "true", "@CanDecrement") }}
+                {{ button_icon_hint("ExecuteDecrement", "{DecrementHint}", "ButtonRightBigArrowBrush1", "24", "@CanDecrement") }}
 
                 <TextWidget
                     IntText="@Value"
@@ -39,7 +39,7 @@
                     Brush.FontColor="@ValueColor"
                     HorizontalAlignment="Center"/>
 
-                {{ button_icon("ExecuteIncrement", "ButtonLeftBigArrowBrush1", "24", "true", "@CanIncrement") }}
+                {{ button_icon_hint("ExecuteIncrement", "{IncrementHint}", "ButtonLeftBigArrowBrush1", "24", "@CanIncrement") }}
             </Children>
         </ListPanel>
     </Children>
