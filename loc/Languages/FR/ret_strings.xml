@@ -212,12 +212,6 @@
       id="ret_female"
       text="Féminin" />
     <string
-      id="ret_first_run_text"
-      text="Bienvenue dans Rétinues !{newline}{newline}Il semble que tu utilises Rétinues avec une sauvegarde existante. Comme Rétinues modifie les données des troupes et introduit de nouvelles troupes dans le monde du jeu, il est fortement recommandé de créer une sauvegarde de ta partie avant de continuer. Cela te permettra de restaurer ta partie si quelque chose tourne mal.{newline}{newline}Souhaites-tu créer automatiquement une sauvegarde maintenant ?" />
-    <string
-      id="ret_first_run_title"
-      text="Rétinues{newline}Sauvegarde Existante Détectée" />
-    <string
       id="ret_gender_header_text"
       text="Genre" />
     <string
@@ -528,10 +522,16 @@
       text="Modificateur pour le prix de l’équipement par rapport aux prix du jeu de base." />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
-      text="Forcer l’Ensemble de Combat Principal en Combat" />
+      text="Forcer l’Utilisation de l’Équipement Principal en Combat" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="Les troupes utilisent toujours leur ensemble d’équipement de combat principal en combat." />
+      text="Les troupes utilisent toujours leur équipement principal en combat." />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="Ignorer le Cheval de l&apos;Équipement Civil pour les Exigences de Montée en Grade" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="Lors de la vérification des exigences de monture lors de la montée en grade des troupes, le cheval de l’équipement civil est ignoré." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Ratio Maximum de Rétinue Basique" />

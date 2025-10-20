@@ -212,12 +212,6 @@
       id="ret_female"
       text="Femminile" />
     <string
-      id="ret_first_run_text"
-      text="Benvenuto in Seguiti!{newline}{newline}Sembra che tu stia usando Seguiti con un salvataggio esistente. Poiché Seguiti modifica i dati delle truppe e introduce nuove truppe nel mondo di gioco, si consiglia vivamente di creare un backup del salvataggio prima di procedere. Questo ti permetterà di ripristinare il gioco se qualcosa dovesse andare storto.{newline}{newline}Vuoi creare automaticamente un backup ora?" />
-    <string
-      id="ret_first_run_title"
-      text="Seguiti{newline}Rilevato Salvataggio Esistente" />
-    <string
       id="ret_gender_header_text"
       text="Genere" />
     <string
@@ -532,6 +526,12 @@
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Le truppe usano sempre il loro set di equipaggiamento da battaglia principale in combattimento." />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="Ignora il Cavallo Civile per i Requisiti di Upgrade" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="Quando si verificano i requisiti di cavalcatura durante l’upgrade delle truppe, ignorare il cavallo del set civile." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Rapporto Massimo Seguito Base" />

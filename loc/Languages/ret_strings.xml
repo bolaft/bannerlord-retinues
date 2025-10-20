@@ -527,6 +527,12 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Troops always use their main battle equipment set in combat." />
     <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="Ignore Civilian Horse for Upgrade Requirements" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="When checking for mount requirements when upgrading troops, ignore the civilian set&apos;s horse." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Max Basic Retinue Ratio" />
     <string

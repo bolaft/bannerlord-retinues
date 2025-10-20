@@ -294,25 +294,6 @@ namespace Retinues.Configuration
         // Equipment
         // ─────────────────────────────────────────────────────
 
-        public static readonly Option<bool> ForceMainBattleSetInCombat = CreateOption(
-            section: L.S("mcm_section_equipment", "Equipment"),
-            name: L.S(
-                "mcm_option_force_main_battle_set_in_combat",
-                "Force Main Battle Set In Combat"
-            ),
-            key: "ForceMainBattleSetInCombat",
-            hint: L.S(
-                "mcm_option_force_main_battle_set_in_combat_hint",
-                "Troops always use their main battle equipment set in combat."
-            ),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = false,
-            }
-        );
-
         public static readonly Option<bool> PayForEquipment = CreateOption(
             section: L.S("mcm_section_equipment", "Equipment"),
             name: L.S("mcm_option_pay_for_equipment", "Pay For Troop Equipment"),
@@ -417,6 +398,44 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = 6,
                 [Presets.Realistic] = 2,
+            }
+        );
+
+        public static readonly Option<bool> ForceMainBattleSetInCombat = CreateOption(
+            section: L.S("mcm_section_equipment", "Equipment"),
+            name: L.S(
+                "mcm_option_force_main_battle_set_in_combat",
+                "Force Main Battle Set In Combat"
+            ),
+            key: "ForceMainBattleSetInCombat",
+            hint: L.S(
+                "mcm_option_force_main_battle_set_in_combat_hint",
+                "Troops always use their main battle equipment set in combat."
+            ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = false,
+            }
+        );
+
+        public static readonly Option<bool> IgnoreCivilianHorseForUpgradeRequirements = CreateOption(
+            section: L.S("mcm_section_equipment", "Equipment"),
+            name: L.S(
+                "mcm_option_ignore_civilian_horse_for_upgrade_requirements",
+                "Ignore Civilian Horse for Upgrade Requirements"
+            ),
+            key: "IgnoreCivilianHorseForUpgradeRequirements",
+            hint: L.S(
+                "mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint",
+                "When checking for mount requirements when upgrading troops, ignore the civilian set's horse."
+            ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
             }
         );
 

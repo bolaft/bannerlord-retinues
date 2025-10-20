@@ -212,12 +212,6 @@
       id="ret_female"
       text="Kobieta" />
     <string
-      id="ret_first_run_text"
-      text="Witamy w Orszaku!{newline}{newline}Wygląda na to, że używasz Orszaku z istniejącym zapisem. Ponieważ Orszak modyfikuje dane jednostek i wprowadza nowe jednostki do świata gry, zdecydowanie zaleca się utworzenie kopii zapasowej zapisu przed kontynuowaniem. Pozwoli to na przywrócenie gry, jeśli coś pójdzie nie tak.{newline}{newline}Czy chcesz teraz automatycznie utworzyć kopię zapasową?" />
-    <string
-      id="ret_first_run_title"
-      text="Retinues{newline}Wykryto istniejące zapisane dane" />
-    <string
       id="ret_gender_header_text"
       text="Płeć" />
     <string
@@ -532,6 +526,12 @@
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Jednostki zawsze używają swojego głównego zestawu wyposażenia bojowego w walce." />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="Ignoruj Konia Cywilnego dla Wymagań Ulepszenia" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="Podczas sprawdzania wymagań dotyczących wierzchowców przy ulepszaniu jednostek, ignoruj konia z zestawu cywilnego." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksymalny Udział Orszaku Podstawowego" />

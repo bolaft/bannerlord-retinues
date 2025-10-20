@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using Retinues.Configuration;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -298,6 +298,9 @@ namespace Retinues.Game.Wrappers
 
             foreach (var eq in Equipments)
             {
+                if (eq.IsCivilian && Config.IgnoreCivilianHorseForUpgradeRequirements)
+                    continue; // skip civilian equipments if configured to do so
+
                 var horseItem = eq.Get(EquipmentIndex.Horse);
                 if (horseItem != null)
                 {

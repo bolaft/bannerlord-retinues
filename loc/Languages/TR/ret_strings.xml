@@ -212,12 +212,6 @@
       id="ret_female"
       text="Kadın" />
     <string
-      id="ret_first_run_text"
-      text="Yandaşlara hoş geldiniz!{newline}{newline}Görünüşe göre mevcut bir kayıtla Yandaşları kullanıyorsunuz. Yandaşlar, birlik verilerini değiştirir ve oyun dünyasına yeni birlikler ekler, bu nedenle devam etmeden önce kaydınızın bir yedeğini oluşturmanız şiddetle tavsiye edilir. Bu, bir şeyler ters giderse oyununuzu geri yüklemenizi sağlar.{newline}{newline}Şimdi otomatik olarak bir yedek oluşturmak ister misiniz?" />
-    <string
-      id="ret_first_run_title"
-      text="Retinues{newline}Mevcut Kayıt Tespit Edildi" />
-    <string
       id="ret_gender_header_text"
       text="Cinsiyet" />
     <string
@@ -532,6 +526,12 @@
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Askerler savaşta her zaman ana savaş teçhizat setlerini kullanır." />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="Yükseltme Gereksinimleri için Sivil Atı Yoksay" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="Askerleri yükseltirken binek gereksinimlerini kontrol ederken sivil setin atını yoksayın." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksimum Temel Yandaş Oranı" />

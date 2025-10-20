@@ -212,12 +212,6 @@
       id="ret_female"
       text="여성" />
     <string
-      id="ret_first_run_text"
-      text="수행원에 오신 것을 환영합니다!{newline}{newline}기존 저장 파일로 수행원을 사용하고 있는 것 같습니다. 수행원은 병력 데이터를 수정하고 게임 세계에 새로운 병력을 도입하므로 계속하기 전에 저장 파일의 백업을 만드는 것이 강력히 권장됩니다. 이렇게 하면 문제가 발생할 경우 게임을 복원할 수 있습니다.{newline}{newline}지금 자동으로 백업을 생성하시겠습니까?" />
-    <string
-      id="ret_first_run_title"
-      text="수행원{newline}기존 저장 파일 감지" />
-    <string
       id="ret_gender_header_text"
       text="성별" />
     <string
@@ -532,6 +526,12 @@
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="병력은 전투 중에 항상 주 전투 장비 세트를 사용합니다." />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="업그레이드 요구 사항에 민간 말 무시" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="병력을 업그레이드할 때 탈것 요구 사항을 확인할 때 민간 세트의 말을 무시합니다." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="기본 수행원 비율 상한" />

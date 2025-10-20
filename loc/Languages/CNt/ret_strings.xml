@@ -212,12 +212,6 @@
       id="ret_female"
       text="女性" />
     <string
-      id="ret_first_run_text"
-      text="歡迎使用隨從！{newline}{newline}看起來你正在使用一個已有存檔的隨從。由於隨從會修改部隊數據並在遊戲世界中引入新的部隊，強烈建議在繼續之前創建存檔備份。這將允許你在出現問題時恢復遊戲。{newline}{newline}你現在想自動創建一個備份嗎？" />
-    <string
-      id="ret_first_run_title"
-      text="隨從{newline}檢測到現有存檔" />
-    <string
       id="ret_gender_header_text"
       text="性別" />
     <string
@@ -532,6 +526,12 @@
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="部隊在戰鬥中始終使用其主戰裝備。" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="升級需求忽略平民馬匹" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="在升級部隊時檢查坐騎需求時，忽略平民裝備的馬匹。" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基礎隨從比例上限" />

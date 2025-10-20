@@ -212,12 +212,6 @@
       id="ret_female"
       text="Женский" />
     <string
-      id="ret_first_run_text"
-      text="Добро пожаловать в Свиту!{newline}{newline}Похоже, вы используете Свиту с существующим сохранением. Поскольку Свита изменяет данные войск и вводит новые войска в игровой мир, настоятельно рекомендуется создать резервную копию вашего сохранения перед продолжением. Это позволит вам восстановить игру, если что-то пойдет не так.{newline}{newline}Хотите ли вы автоматически создать резервную копию сейчас?" />
-    <string
-      id="ret_first_run_title"
-      text="Свита{newline}Обнаружено существующее сохранение" />
-    <string
       id="ret_gender_header_text"
       text="Пол" />
     <string
@@ -532,6 +526,12 @@
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Войска всегда используют свой основной боевой комплект в бою." />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
+      text="Игнорировать Гражданскую Лошадь для Требований Обновления" />
+    <string
+      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
+      text="При проверке требований к лошадям при обновлении войск игнорируйте лошадь из гражданского набора." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Макс. Доля Базовой Свиты" />
