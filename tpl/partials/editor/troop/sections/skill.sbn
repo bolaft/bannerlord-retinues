@@ -28,9 +28,7 @@
             <Children>
                 {{ button_icon("ExecuteDecrement", "ButtonRightBigArrowBrush1", "24", "true", "@CanDecrement") }}
 
-                <!-- Value display (hidden when staged) -->
                 <TextWidget
-                    IsHidden="@IsStaged"
                     IntText="@Value"
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"

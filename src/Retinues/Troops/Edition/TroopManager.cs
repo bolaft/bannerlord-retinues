@@ -31,7 +31,7 @@ namespace Retinues.Troops.Edition
 
             // Already staged changes
             int staged =
-                TroopTrainBehavior.Instance.GetStagedChange(troop, skill.StringId)?.PointsRemaining
+                TroopTrainBehavior.GetStagedChange(troop, skill)?.PointsRemaining
                 ?? 0;
             int stagedSkill = troop.GetSkill(skill) + staged;
 
@@ -41,7 +41,7 @@ namespace Retinues.Troops.Edition
                     return; // Not enough XP to increment
 
                 // Stage timed training (or instant if TrainingTakesTime==false)
-                TroopTrainBehavior.Instance.StageChange(troop, skill);
+                TroopTrainBehavior.StageChange(troop, skill, 1);
             }
             else
             {
