@@ -101,6 +101,9 @@
       id="ret_cancel"
       text="Abbrechen" />
     <string
+      id="ret_cannot_exceed_child_skill"
+      text="Kann das Fähigkeitslevel des Upgrades {CHILD} nicht überschreiten." />
+    <string
       id="ret_cant_remove_root_troop"
       text="Stammtruppen können nicht entfernt werden." />
     <string
@@ -145,6 +148,9 @@
     <string
       id="ret_convert_not_enough_gold_title"
       text="Nicht genug Gold" />
+    <string
+      id="ret_create_set_hint"
+      text="Deaktiviert aufgrund von Konflikten mit Mods (Shokuho)." />
     <string
       id="ret_cultural_pride"
       text="Kultureller Stolz" />
@@ -820,6 +826,9 @@
     <string
       id="ret_remove_button_text"
       text="Entfernen" />
+    <string
+      id="ret_remove_set_hint"
+      text="Du kannst nur alternative Ausrüstungssets entfernen." />
     <string
       id="ret_remove_set_text"
       text="Willst du {SET} für {TROOP_NAME} entfernen?{newline}Alle vorgenommenen Änderungen werden gelöscht, und Gegenstände werden abgelegt und eingelagert." />

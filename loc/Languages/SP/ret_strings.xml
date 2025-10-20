@@ -101,6 +101,9 @@
       id="ret_cancel"
       text="Cancelar" />
     <string
+      id="ret_cannot_exceed_child_skill"
+      text="No puede exceder el nivel de habilidad de la mejora {CHILD}." />
+    <string
       id="ret_cant_remove_root_troop"
       text="Las tropas raíz no pueden eliminarse." />
     <string
@@ -145,6 +148,9 @@
     <string
       id="ret_convert_not_enough_gold_title"
       text="Oro insuficiente" />
+    <string
+      id="ret_create_set_hint"
+      text="Deshabilitado debido a mods en conflicto (Shokuho)." />
     <string
       id="ret_cultural_pride"
       text="Orgullo Cultural" />
@@ -820,6 +826,9 @@
     <string
       id="ret_remove_button_text"
       text="Eliminar" />
+    <string
+      id="ret_remove_set_hint"
+      text="Solo puedes eliminar conjuntos de equipo alternativos." />
     <string
       id="ret_remove_set_text"
       text="¿Eliminar {SET} para {TROOP_NAME}?{newline}Todos los cambios en curso se borrarán y los objetos se desequiparán y almacenarán." />

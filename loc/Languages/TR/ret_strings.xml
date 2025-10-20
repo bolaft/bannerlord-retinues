@@ -101,6 +101,9 @@
       id="ret_cancel"
       text="İptal" />
     <string
+      id="ret_cannot_exceed_child_skill"
+      text="{CHILD} yükseltmesinin beceri seviyesini aşamaz." />
+    <string
       id="ret_cant_remove_root_troop"
       text="Kök askerler kaldırılamaz." />
     <string
@@ -145,6 +148,9 @@
     <string
       id="ret_convert_not_enough_gold_title"
       text="Yetersiz altın" />
+    <string
+      id="ret_create_set_hint"
+      text="Çakışan modlar (Shokuho) nedeniyle devre dışı bırakıldı." />
     <string
       id="ret_cultural_pride"
       text="Kültürel Gurur" />
@@ -820,6 +826,9 @@
     <string
       id="ret_remove_button_text"
       text="Kaldır" />
+    <string
+      id="ret_remove_set_hint"
+      text="Yalnızca alternatif ekipman setlerini kaldırabilirsiniz." />
     <string
       id="ret_remove_set_text"
       text="{TROOP_NAME} için {SET} kaldırılsın mı?{newline}Tüm aşamalı değişiklikler temizlenecek ve eşyalar donatılmayacak ve stoklanacaktır." />

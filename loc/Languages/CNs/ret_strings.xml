@@ -101,6 +101,9 @@
       id="ret_cancel"
       text="取消" />
     <string
+      id="ret_cannot_exceed_child_skill"
+      text="不能超过升级 {CHILD} 的技能等级。" />
+    <string
       id="ret_cant_remove_root_troop"
       text="根部队无法被移除。" />
     <string
@@ -145,6 +148,9 @@
     <string
       id="ret_convert_not_enough_gold_title"
       text="金币不足" />
+    <string
+      id="ret_create_set_hint"
+      text="由于冲突的模组（Shokuho）而被禁用。" />
     <string
       id="ret_cultural_pride"
       text="文化自豪" />
@@ -820,6 +826,9 @@
     <string
       id="ret_remove_button_text"
       text="移除" />
+    <string
+      id="ret_remove_set_hint"
+      text="您只能移除备用装备套装。" />
     <string
       id="ret_remove_set_text"
       text="为 {TROOP_NAME} 移除 {SET}？{newline}所有已分配的更改将被清除，物品将被卸下并存入库存。" />

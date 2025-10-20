@@ -101,6 +101,9 @@
       id="ret_cancel"
       text="Annuler" />
     <string
+      id="ret_cannot_exceed_child_skill"
+      text="Ne peut pas dépasser le niveau de compétence de la promotion {CHILD}." />
+    <string
       id="ret_cant_remove_root_troop"
       text="Les troupes de base ne peuvent pas être supprimées." />
     <string
@@ -145,6 +148,9 @@
     <string
       id="ret_convert_not_enough_gold_title"
       text="Or insuffisant" />
+    <string
+      id="ret_create_set_hint"
+      text="Désactivé en raison de mods conflictuels (Shokuho)." />
     <string
       id="ret_cultural_pride"
       text="Fierté Culturelle" />
@@ -820,6 +826,9 @@
     <string
       id="ret_remove_button_text"
       text="Retirer" />
+    <string
+      id="ret_remove_set_hint"
+      text="Vous ne pouvez retirer que des ensembles d’équipement alternatifs." />
     <string
       id="ret_remove_set_text"
       text="Retirer {SET} pour {TROOP_NAME} ?{newline}Tous les changements en cours seront annulés, et les objets seront déséquipés et stockés." />
