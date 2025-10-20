@@ -153,7 +153,7 @@
       text="Besiege in einer Schlacht einen Herrscher einer anderen Kultur." />
     <string
       id="ret_cultural_pride_description"
-      text="10% Rabatt auf Gegenstände der Truppenkultur." />
+      text="Schaltet benutzerdefinierte Miliztruppen frei." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Erziele 100 Kills in einer Schlacht mit Truppen ohne fremde Ausrüstung." />

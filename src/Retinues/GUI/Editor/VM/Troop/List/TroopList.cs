@@ -35,13 +35,13 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
 
             if (EliteTroops.Count == 0)
-                EliteTroops.Add(new TroopRowVM(null)); // placeholder
+                EliteTroops.Add(new TroopRowVM(null, placeholderText: L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops."))); // placeholder
 
             if (BasicTroops.Count == 0)
-                BasicTroops.Add(new TroopRowVM(null)); // placeholder
-            
+                BasicTroops.Add(new TroopRowVM(null, placeholderText: L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops."))); // placeholder
+
             if (MilitiaTroops.Count == 0)
-                MilitiaTroops.Add(new TroopRowVM(null)); // placeholder
+                MilitiaTroops.Add(new TroopRowVM(null, placeholderText: L.S("acquire_cultural_pride_to_unlock", "Acquire the Cultural Pride doctrine to unlock militia troops."))); // placeholder
 
             // Ensure visibility matches parent
             foreach (var r in Rows)

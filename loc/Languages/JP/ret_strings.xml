@@ -153,7 +153,7 @@
       text="異なる文化の支配者を戦闘で倒す。" />
     <string
       id="ret_cultural_pride_description"
-      text="兵の文化のアイテムが10%割引。" />
+      text="カスタム民兵部隊をアンロックする。" />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="外国の装備を着けない兵で戦闘中100キルを達成する。" />

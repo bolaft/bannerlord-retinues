@@ -66,5 +66,23 @@ namespace Retinues.Game.Wrappers
             _culture?.RangedEliteMilitiaTroop != null
                 ? new(_culture.RangedEliteMilitiaTroop)
                 : null;
+
+        /// <summary>
+        ///  Gets the caravan master troop for this culture.
+        /// </summary>
+        public WCharacter CaravanMaster =>
+            _culture?.CaravanMaster != null ? new(_culture.CaravanMaster) : null;
+
+        /// <summary>
+        ///  Gets the caravan guard troop for this culture.
+        /// </summary>
+        public WCharacter CaravanGuard =>
+            _culture?.CaravanGuard != null ? new(_culture.CaravanGuard) : null;
+
+        /// <summary>
+        /// Gets the prison guard troop for this culture.
+        /// </summary>
+        public WCharacter PrisonGuard =>
+            _culture?.PrisonGuard != null ? new(_culture.PrisonGuard) : null;
     }
 }

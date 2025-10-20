@@ -11,13 +11,14 @@ namespace Retinues.GUI.Editor.VM.Troop.List
     /// ViewModel for a single troop row in troop lists.
     /// </summary>
     [SafeClass]
-    public sealed class TroopRowVM(WCharacter rowTroop) : BaseListElementVM
+    public sealed class TroopRowVM(WCharacter rowTroop, string placeholderText = null) : BaseListElementVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly WCharacter RowTroop = rowTroop;
+        private readonly string PlaceholderText = placeholderText;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -84,7 +85,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             get
             {
                 if (IsPlaceholder)
-                    return L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops.");
+                    return PlaceholderText ?? L.T("troop_list.placeholder", "No Troops Available").ToString();
 
                 if (RowTroop?.IsRetinue == true || RowTroop?.IsMilitia == true)
                     return RowTroop?.Name;

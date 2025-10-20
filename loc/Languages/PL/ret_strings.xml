@@ -153,7 +153,7 @@
       text="Pokonaj władcę innej kultury w bitwie." />
     <string
       id="ret_cultural_pride_description"
-      text="10% zniżki na przedmioty kultury jednostki." />
+      text="Odblokowuje niestandardowe oddziały milicji." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Zdobądź 100 zabójstw w bitwie jednostkami bez obcego ekwipunku." />

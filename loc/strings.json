@@ -1,5 +1,21 @@
 [
   {
+    "id": "ret_acquire_cultural_pride_to_unlock",
+    "EN": "Acquire the Cultural Pride doctrine to unlock militia troops.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_acquire_fief_to_unlock",
     "EN": "Acquire a fief to unlock clan troops.",
     "BR": "Conquiste um feudo para desbloquear as tropas do clã.",
@@ -817,19 +833,19 @@
   },
   {
     "id": "ret_cultural_pride_description",
-    "EN": "10% rebate on items of the troop's culture.",
-    "BR": "10% de desconto em itens da cultura da tropa.",
-    "CNs": "部队文化物品享受10%折扣。",
-    "CNt": "部隊文化物品享受10%折扣。",
-    "DE": "10% Rabatt auf Gegenstände der Truppenkultur.",
-    "FR": "10% de réduction sur les objets de la culture de l’unité.",
-    "IT": "10% di sconto sugli oggetti della cultura della truppa.",
-    "JP": "兵の文化のアイテムが10%割引。",
-    "KO": "병력 문화 아이템 10% 할인.",
-    "PL": "10% zniżki na przedmioty kultury jednostki.",
-    "RU": "10% скидка на предметы культуры войска.",
-    "SP": "10% de descuento en objetos de la cultura de la tropa.",
-    "TR": "Askerin kültürüne ait eşyalarda %10 indirim."
+    "EN": "Unlocks custom militia troops.",
+    "BR": "Desbloqueia tropas de milícia personalizadas.",
+    "CNs": "解锁自定义民兵部队。",
+    "CNt": "解鎖自定義民兵部隊。",
+    "DE": "Schaltet benutzerdefinierte Miliztruppen frei.",
+    "FR": "Débloque des troupes de milice personnalisées.",
+    "IT": "Sblocca truppe di milizia personalizzate.",
+    "JP": "カスタム民兵部隊をアンロックする。",
+    "KO": "사용자 지정 민병대를 잠금 해제합니다.",
+    "PL": "Odblokowuje niestandardowe oddziały milicji.",
+    "RU": "Разблокирует пользовательские отряды милиции.",
+    "SP": "Desbloquea tropas de milicia personalizadas.",
+    "TR": "Özel milis birliklerinin kilidini açar."
   },
   {
     "id": "ret_cultural_pride_full_set_100_kills",
@@ -5070,6 +5086,22 @@
     "RU": "Передать",
     "SP": "Transferir",
     "TR": "Aktar"
+  },
+  {
+    "id": "ret_troop_list.placeholder",
+    "EN": "No Troops Available",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_troop_xp",
