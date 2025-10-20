@@ -34,8 +34,6 @@ namespace Retinues.Troops.Edition
             List<(WItem item, bool unlocked, int progress)> cache = null
         )
         {
-            Log.Debug($"[CollectAvailableItems] Called for faction {faction?.Name}, slot {slot}");
-
             // 1) Get (item, progress) eligibility from the caller cache or build once
             var eligible = cache ??= BuildEligibilityList(faction, slot);
 
@@ -55,10 +53,6 @@ namespace Retinues.Troops.Edition
                     );
                 })
                 .ToList();
-
-            Log.Debug(
-                $"[CollectAvailableItems] Returning {items.Count} items for faction {faction?.Name}, slot {slot}"
-            );
 
             return items;
         }

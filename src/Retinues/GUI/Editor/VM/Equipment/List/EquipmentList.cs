@@ -234,12 +234,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             if (_sort == SortMode.Name)
             {
-                Log.Info($"Toggling sort direction for Name");
                 _descending = !_descending;
             }
             else
             {
-                Log.Info($"Setting sort mode to Name");
                 _sort = SortMode.Name;
                 _descending = false;
             }
@@ -251,12 +249,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             if (_sort == SortMode.Category)
             {
-                Log.Info($"Toggling sort direction for Category");
                 _descending = !_descending;
             }
             else
             {
-                Log.Info($"Setting sort mode to Category");
                 _sort = SortMode.Category;
                 _descending = false;
             }
@@ -268,12 +264,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             if (_sort == SortMode.Tier)
             {
-                Log.Info($"Toggling sort direction for Tier");
                 _descending = !_descending;
             }
             else
             {
-                Log.Info($"Setting sort mode to Tier");
                 _sort = SortMode.Tier;
                 _descending = false;
             }
@@ -285,12 +279,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             if (_sort == SortMode.Cost)
             {
-                Log.Info($"Toggling sort direction for Cost");
                 _descending = !_descending;
             }
             else
             {
-                Log.Info($"Setting sort mode to Cost");
                 _sort = SortMode.Cost;
                 _descending = false;
             }
@@ -301,10 +293,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             if (EquipmentRows == null || EquipmentRows.Count == 0)
                 return;
-
-            Log.Info(
-                $"Applying sort: {_sort} ({(_descending ? "desc" : "asc")}) on {EquipmentRows.Count} rows"
-            );
 
             bool IsEmpty(EquipmentRowVM r) => r.RowItem == null;
             bool IsEnabled(EquipmentRowVM r) => r.IsUnlocked && r.IsAvailable;
