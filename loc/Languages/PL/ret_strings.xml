@@ -318,7 +318,7 @@
       text="Pancerz ciała" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Nie cywilny." />
+      text="Nie cywilny" />
     <string
       id="ret_item_head_armor"
       text="Hełm" />
@@ -375,7 +375,7 @@
       text="Prędkość" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Poziom zbyt wysoki." />
+      text="Poziom zbyt wysoki" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Nie w mieście" />

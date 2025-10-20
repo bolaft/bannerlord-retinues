@@ -318,7 +318,7 @@
       text="Armadura do Corpo" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Não é civil." />
+      text="Não é civil" />
     <string
       id="ret_item_head_armor"
       text="Armadura da Cabeça" />

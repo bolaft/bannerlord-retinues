@@ -318,7 +318,7 @@
       text="Броня тела" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Не гражданский." />
+      text="Не гражданский" />
     <string
       id="ret_item_head_armor"
       text="Шлем" />
@@ -375,7 +375,7 @@
       text="Скорость" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Слишком высокий ранг." />
+      text="Слишком высокий ранг" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Не в городе" />

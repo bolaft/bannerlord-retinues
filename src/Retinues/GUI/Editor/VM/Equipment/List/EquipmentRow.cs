@@ -161,10 +161,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         .ToString();
 
                 if (IsTierBlocked)
-                    return L.S("item_tier_blocked_text", "Tier too high.");
+                    return L.S("item_tier_blocked_text", "Tier too high");
 
                 if (IsEquipmentTypeBlocked)
-                    return L.S("item_equipment_type_blocked_text", "Not civilian.");
+                    return L.S("item_equipment_type_blocked_text", "Not civilian");
 
                 return string.Empty;
             }

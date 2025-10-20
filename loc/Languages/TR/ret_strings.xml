@@ -318,7 +318,7 @@
       text="Gövde Zırhı" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Sivil değil." />
+      text="Sivil değil" />
     <string
       id="ret_item_head_armor"
       text="Baş Zırhı" />
@@ -375,7 +375,7 @@
       text="Hız" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Seviye çok yüksek." />
+      text="Seviye çok yüksek" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Kasabada değil" />

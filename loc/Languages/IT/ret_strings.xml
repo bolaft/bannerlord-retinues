@@ -318,7 +318,7 @@
       text="Armatura corpo" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Non civile." />
+      text="Non civile" />
     <string
       id="ret_item_head_armor"
       text="Elmo" />
@@ -375,7 +375,7 @@
       text="Velocità" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Livello troppo alto." />
+      text="Livello troppo alto" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Non in città" />

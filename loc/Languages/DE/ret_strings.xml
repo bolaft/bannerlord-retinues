@@ -318,7 +318,7 @@
       text="Körperrüstung" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Nicht zivil." />
+      text="Nicht zivil" />
     <string
       id="ret_item_head_armor"
       text="Helm" />
@@ -375,7 +375,7 @@
       text="Geschwindigkeit" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Stufe zu hoch." />
+      text="Stufe zu hoch" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Nicht in der Stadt" />

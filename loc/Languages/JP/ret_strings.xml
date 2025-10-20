@@ -318,7 +318,7 @@
       text="胴防具" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="民間用ではありません。" />
+      text="民間用ではありません" />
     <string
       id="ret_item_head_armor"
       text="兜" />
@@ -375,7 +375,7 @@
       text="速度" />
     <string
       id="ret_item_tier_blocked_text"
-      text="ランクが高すぎます。" />
+      text="ランクが高すぎます" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="町にいない" />

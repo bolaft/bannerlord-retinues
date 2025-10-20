@@ -318,7 +318,7 @@
       text="Body Armor" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Not civilian." />
+      text="Not civilian" />
     <string
       id="ret_item_head_armor"
       text="Head Armor" />
@@ -375,7 +375,7 @@
       text="Speed" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Tier too high." />
+      text="Tier too high" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Not in town" />

@@ -318,7 +318,7 @@
       text="Armure de corps" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Non civil." />
+      text="Non civil" />
     <string
       id="ret_item_head_armor"
       text="Armure de tête" />
@@ -375,7 +375,7 @@
       text="Vitesse" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Rang trop élevé." />
+      text="Rang trop élevé" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Pas en ville" />
