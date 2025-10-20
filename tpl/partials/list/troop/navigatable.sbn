@@ -73,6 +73,7 @@
                             Sprite="@FormationClassIcon"
                             VerticalAlignment="Center"/>
 
+                        <!-- Troop Name -->
                         <TextWidget 
                             IsVisible="@IsVisible"
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 
@@ -80,8 +81,18 @@
                             Brush="Clan.Tuple.Name.Text" 
                             ClipContents="false" 
                             Text="@NameText"/>
-
-                        {{ text("@TierText", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "0", "@IsTroop") }}
+                        
+                        <!-- Tier Icon -->
+                        <ImageWidget
+                            DataSource="{TierIconData}"
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="24"
+                            SuggestedHeight="24"
+                            MarginRight="12"
+                            Sprite="@Text"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"/>
                     </Children>
                 </ListPanel>
             </Children>

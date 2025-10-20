@@ -1,13 +1,39 @@
 {{ header("@UpgradesHeaderText", "@IsRegular") }}
 
 <ListPanel
+    MarginTop="12"
     DataSource="{UpgradeTargets}"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="VerticalBottomToTop">
     <ItemTemplate>
-        {{ text("@Name", "Clan.Tuple.Name.Text", "Center", "0", "0", "0", "8") }}
+        <ListPanel
+            DataSource="{UpgradeTargets}"
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren">
+            <Children>
+                <!-- Formation Class Icon -->
+                <ImageWidget
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="28"
+                    SuggestedHeight="28"
+                    MarginRight="12"
+                    Sprite="@FormationClassIcon"
+                    VerticalAlignment="Center"/>
+                
+                <!-- Upgrade Name -->
+                <TextWidget
+                    Text="@Name" Brush="Clan.Tuple.Name.Text"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="28"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    MarginLeft="0" MarginRight="0" MarginTop="0" MarginBottom="8"
+                    ClipContents="false"/>
+            </Children>
+        </ListPanel>
     </ItemTemplate>
 </ListPanel>
 

@@ -5,7 +5,8 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Library;
 using TaleWorlds.Core;
-using TaleWorlds.MountAndBlade;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Generic;
 
 namespace Retinues.GUI.Editor.VM.Troop.List
 {
@@ -39,7 +40,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 #endif
                     nameof(IsPlaceholder),
                     nameof(NameText),
-                    nameof(TierText),
+                    nameof(TierIconData),
                     nameof(IsSelected),
                     nameof(FormationClassIcon),
                 ],
@@ -80,7 +81,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public int ImageTypeCode => RowTroop?.Image.ImageTypeCode ?? 0;
 #endif
 
-        /* ━━━━━━━━━ Icon ━━━━━━━━━ */
+        /* ━━━━━━━━━ Icons ━━━━━━━━ */
 
         [DataSourceProperty]
         public string FormationClassIcon
@@ -97,6 +98,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 };
             }
         }
+
+        [DataSourceProperty]
+        public StringItemWithHintVM TierIconData => IsTroop ? CampaignUIHelper.GetCharacterTierData(RowTroop.Base, isBig: true) : null;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -132,9 +136,6 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 return $"{indent}{RowTroop?.Name}";
             }
         }
-
-        [DataSourceProperty]
-        public string TierText => RowTroop == null ? string.Empty : $"T{RowTroop.Tier}";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //

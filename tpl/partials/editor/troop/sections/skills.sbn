@@ -75,7 +75,6 @@
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            MarginBottom="5"
             UpdateChildrenStates="true">
             <ItemTemplate>
                 {{ include "editor/troop/sections/skill.sbn" }}
