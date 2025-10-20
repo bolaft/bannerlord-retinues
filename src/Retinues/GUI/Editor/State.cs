@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Troops;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
@@ -59,6 +60,11 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void ResetAll()
         {
+            // Ensure troops exist for player factions
+            foreach (var f in new[] { Player.Clan, Player.Kingdom })
+                if (f != null)
+                    TroopBuilder.EnsureTroopsExist(f);
+
             EventManager.FireBatch(() =>
             {
                 UpdateFaction();

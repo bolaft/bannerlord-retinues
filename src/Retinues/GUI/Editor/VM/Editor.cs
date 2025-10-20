@@ -33,11 +33,6 @@ namespace Retinues.GUI.Editor.VM
         /// </summary>
         public EditorVM()
         {
-            // Ensure retinue troops exist for player factions
-            foreach (var f in new[] { Player.Clan, Player.Kingdom })
-                if (f != null)
-                    TroopBuilder.EnsureTroopsExist(f);
-
             TroopScreen = new TroopScreenVM();
             EquipmentScreen = new EquipmentScreenVM();
             DoctrineScreen = new DoctrineScreenVM();
