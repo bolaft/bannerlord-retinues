@@ -149,7 +149,7 @@ fi
 
 # 1.b) Deploy prefabs-only (if requested)
 if [[ "$RUN_PREFABS" == "true" && "$DEPLOY" == "true" && -f "$MAIN_PROJ" ]]; then
-  echo "== Deploying generated GUI to module (prefabs-only) =="
+  echo "== Deploying generated GUI to module =="
   # BL and DeployToGame flow through as MSBuild props
   dotnet msbuild "$MAIN_PROJ" -t:DeployPrefabsOnly -p:BL="$BL" -p:DeployToGame=true
   echo
