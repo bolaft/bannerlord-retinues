@@ -29,23 +29,19 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         /// </summary>
         public void Build()
         {
-            RetinueTroops =
-            [
-                new TroopRowVM(State.Faction.RetinueElite),
-                new TroopRowVM(State.Faction.RetinueBasic),
-            ];
-
+            RetinueTroops = [.. State.Faction.RetinueTroops.Select(t => new TroopRowVM(t))];
             EliteTroops = [.. State.Faction.EliteTroops.Select(t => new TroopRowVM(t))];
-
             BasicTroops = [.. State.Faction.BasicTroops.Select(t => new TroopRowVM(t))];
+            MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
 
-            MilitiaTroops =
-            [
-                new TroopRowVM(State.Faction.MilitiaMeleeElite),
-                new TroopRowVM(State.Faction.MilitiaMelee),
-                new TroopRowVM(State.Faction.MilitiaRangedElite),
-                new TroopRowVM(State.Faction.MilitiaRanged),
-            ];
+            if (EliteTroops.Count == 0)
+                EliteTroops.Add(new TroopRowVM(null)); // placeholder
+
+            if (BasicTroops.Count == 0)
+                BasicTroops.Add(new TroopRowVM(null)); // placeholder
+            
+            if (MilitiaTroops.Count == 0)
+                MilitiaTroops.Add(new TroopRowVM(null)); // placeholder
 
             // Ensure visibility matches parent
             foreach (var r in Rows)

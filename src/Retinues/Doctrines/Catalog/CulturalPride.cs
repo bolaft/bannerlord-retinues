@@ -61,7 +61,8 @@ namespace Retinues.Doctrines.Catalog
                         Log.Info(
                             $"CP_TournamentOwnCultureGear: item {item.Name} ({item.Culture?.StringId}) does not match player culture ({Player.Culture})"
                         );
-                        blockedBy.Add(item);
+                        if (!blockedBy.Contains(item))
+                            blockedBy.Add(item);
                     }
                 }
 
@@ -113,8 +114,8 @@ namespace Retinues.Doctrines.Catalog
                             hasFullSet = false;
                             if (!blockedBy.ContainsKey(troop))
                                 blockedBy[troop] = [];
-                            blockedBy[troop].Add(item);
-                            break; // Item does not match troop culture
+                            if (!blockedBy[troop].Contains(item))
+                                blockedBy[troop].Add(item);
                         }
                     }
 

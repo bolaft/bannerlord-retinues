@@ -18,6 +18,8 @@ namespace Retinues.Features.Recruits.Patches
                 return; // should not happen
 
             var party = new WParty(__result);
+            if (party.PlayerFaction == null)
+                return; // no player faction
             party.MemberRoster?.SwapTroops();
         }
     }
@@ -35,6 +37,8 @@ namespace Retinues.Features.Recruits.Patches
                 return; // should not happen
 
             var party = new WParty(__result);
+            if (party.PlayerFaction == null)
+                return; // no player faction
             party.MemberRoster?.SwapTroops();
         }
     }
@@ -52,6 +56,8 @@ namespace Retinues.Features.Recruits.Patches
                 return; // should not happen
 
             var party = new WParty(__result);
+            if (party.PlayerFaction == null)
+                return; // no player faction
             party.MemberRoster?.SwapTroops();
         }
     }

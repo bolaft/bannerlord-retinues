@@ -75,6 +75,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 [UIEvent.Train] =
                 [
                     nameof(SkillPointsUsed),
+                    nameof(TroopXpText),
                     nameof(TrainingRequired),
                     nameof(TrainingRequiredText),
                     nameof(TrainingRequiredTextColor),

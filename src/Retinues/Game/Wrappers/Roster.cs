@@ -186,6 +186,9 @@ namespace Retinues.Game.Wrappers
             if (faction == null)
                 faction = Party.PlayerFaction;
 
+            if (faction == null)
+                return; // no player faction
+
             Log.Debug(
                 $"{Party.Name} (militia: {Party.IsMilitia}): swapping all troops to faction {faction?.Name ?? "null"}."
             );
