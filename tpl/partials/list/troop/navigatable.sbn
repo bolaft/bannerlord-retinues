@@ -63,6 +63,16 @@
                             {{ image_12("68", "48", "0", "0", "0", "0", "-20", "0", "Frame1Brush", "@IsTroop") }}
                         {{ end }}
 
+                        <!-- Formation Class Icon -->
+                        <ImageWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="24"
+                            SuggestedHeight="24"
+                            MarginRight="12"
+                            Sprite="@FormationClassIcon"
+                            VerticalAlignment="Center"/>
+
                         <TextWidget 
                             IsVisible="@IsVisible"
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" 

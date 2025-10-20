@@ -318,7 +318,7 @@
       text="몸통 방어구" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="민간 아이템이 아닙니다." />
+      text="민간용 아님." />
     <string
       id="ret_item_head_armor"
       text="머리 방어구" />
@@ -375,7 +375,7 @@
       text="속도" />
     <string
       id="ret_item_tier_blocked_text"
-      text="병력 등급이 너무 낮습니다." />
+      text="등급이 너무 높습니다." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="마을에 없음" />
@@ -981,7 +981,7 @@
       text="해제할 수 없음." />
     <string
       id="ret_unlock_progress_text"
-      text="해제 중 ({PROGRESS}/{REQUIRED})" />
+      text="해제 중 ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="모두 취소" />

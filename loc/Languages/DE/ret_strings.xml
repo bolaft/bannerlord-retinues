@@ -318,7 +318,7 @@
       text="Körperrüstung" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Kein ziviler Gegenstand." />
+      text="Nicht zivil." />
     <string
       id="ret_item_head_armor"
       text="Helm" />
@@ -375,10 +375,10 @@
       text="Geschwindigkeit" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Truppenstufe zu niedrig." />
+      text="Stufe zu hoch." />
     <string
       id="ret_item_unavailable_no_settlement"
-      text="Nicht in einer Stadt" />
+      text="Nicht in der Stadt" />
     <string
       id="ret_item_unavailable_text"
       text="Nicht in {SETTLEMENT} verkauft" />
@@ -981,7 +981,7 @@
       text="Kann nicht freigeschaltet werden." />
     <string
       id="ret_unlock_progress_text"
-      text="Wird freigeschaltet ({PROGRESS}/{REQUIRED})" />
+      text="Wird freigeschaltet ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="Alles zurücksetzen" />

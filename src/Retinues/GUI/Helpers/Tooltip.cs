@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.GUI.Helpers
 {

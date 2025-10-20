@@ -50,11 +50,18 @@
                             MarginRight="10"
                             StackLayout.LayoutMethod="HorizontalLeftToRight">
                             <Children>
-                                <!-- Icon: choose macro variant depending on bitmap layout (bl) -->
+                                <!-- Banner image -->
                                 {{ if bl == 13 }}
-                                    {{ image_13("96", "48", "0", "24") }}
+                                    {{ banner_13("48", "48", "0", "16") }}
                                 {{ else }}
-                                    {{ image_12("96", "48", "0", "24") }}
+                                    {{ banner_12("48", "48", "0", "16") }}
+                                {{ end }}
+
+                                <!-- Item image -->
+                                {{ if bl == 13 }}
+                                    {{ image_13("96", "48", "0", "16") }}
+                                {{ else }}
+                                    {{ image_12("96", "48", "0", "16") }}
                                 {{ end }}
 
                                 <!-- Item name -->
@@ -65,6 +72,17 @@
                                     HeightSizePolicy="CoverChildren"
                                     VerticalAlignment="Center"
                                     MarginLeft="10"/>
+
+                                <!-- Crafted icon -->
+                                <Widget
+                                    WidthSizePolicy="Fixed"
+                                    HeightSizePolicy="Fixed"
+                                    SuggestedWidth="27"
+                                    SuggestedHeight="19"
+                                    MarginRight="12"
+                                    Sprite="General\Icons\ShopIcons\smithy_large"
+                                    VerticalAlignment="Center"
+                                    IsVisible="@IsCrafted"/>
 
                                 <!-- In-stock count (right aligned, optional) -->
                                 <TextWidget

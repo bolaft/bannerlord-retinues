@@ -318,7 +318,7 @@
       text="Pancerz ciała" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Nie jest to przedmiot cywilny." />
+      text="Nie cywilny." />
     <string
       id="ret_item_head_armor"
       text="Hełm" />
@@ -375,7 +375,7 @@
       text="Prędkość" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Poziom jednostki zbyt niski." />
+      text="Poziom zbyt wysoki." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Nie w mieście" />
@@ -981,7 +981,7 @@
       text="Nie można odblokować." />
     <string
       id="ret_unlock_progress_text"
-      text="Odblokowywanie ({PROGRESS}/{REQUIRED})" />
+      text="Odblokowywanie ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="Cofnij Wszystko" />

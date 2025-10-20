@@ -318,7 +318,7 @@
       text="Gövde Zırhı" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Sivil bir eşya değil." />
+      text="Sivil değil." />
     <string
       id="ret_item_head_armor"
       text="Baş Zırhı" />
@@ -375,10 +375,10 @@
       text="Hız" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Asker seviyesi çok düşük." />
+      text="Seviye çok yüksek." />
     <string
       id="ret_item_unavailable_no_settlement"
-      text="Bir kasabada değil" />
+      text="Kasabada değil" />
     <string
       id="ret_item_unavailable_text"
       text="{SETTLEMENT} şehrinde satılmıyor" />
@@ -981,7 +981,7 @@
       text="Açılamaz." />
     <string
       id="ret_unlock_progress_text"
-      text="Açılıyor ({PROGRESS}/{REQUIRED})" />
+      text="Açılıyor ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="Tümünü Geri Al" />

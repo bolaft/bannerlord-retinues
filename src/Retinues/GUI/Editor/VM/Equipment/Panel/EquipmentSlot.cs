@@ -4,7 +4,7 @@ using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment.Panel
@@ -134,7 +134,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         /* ━━━━━━━━━ Hint ━━━━━━━━━ */
 
         [DataSourceProperty]
-        public BasicTooltipViewModel Hint => Helpers.Tooltip.MakeItemTooltip(Item);
+        public CharacterEquipmentItemVM Hint => Item?.Base != null ? new CharacterEquipmentItemVM(Item.Base) : null;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 

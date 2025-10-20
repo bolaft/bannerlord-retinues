@@ -318,7 +318,7 @@
       text="Armadura de Cuerpo" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="No es un objeto civil." />
+      text="No es civil." />
     <string
       id="ret_item_head_armor"
       text="Armadura de Cabeza" />
@@ -375,10 +375,10 @@
       text="Velocidad" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Rango de tropa demasiado bajo." />
+      text="Nivel demasiado alto." />
     <string
       id="ret_item_unavailable_no_settlement"
-      text="No en una ciudad" />
+      text="No en la ciudad" />
     <string
       id="ret_item_unavailable_text"
       text="No se vende en {SETTLEMENT}" />
@@ -981,7 +981,7 @@
       text="No se puede desbloquear." />
     <string
       id="ret_unlock_progress_text"
-      text="Desbloqueando ({PROGRESS}/{REQUIRED})" />
+      text="Desbloqueando ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="Revertir Todo" />

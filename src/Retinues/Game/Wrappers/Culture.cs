@@ -1,5 +1,10 @@
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+
+#if BL13
+using TaleWorlds.Core.ImageIdentifiers;
+#endif
 
 namespace Retinues.Game.Wrappers
 {
@@ -24,6 +29,20 @@ namespace Retinues.Game.Wrappers
         public string Name => _culture?.Name?.ToString();
 
         public override string StringId => _culture?.StringId ?? Name; // Some cultures have no StringId?
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Image                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+
+#if BL13
+        public BannerImageIdentifier Image => _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+        public ImageIdentifier ImageIdentifier => _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+#else
+        public BannerCode BannerCode => BannerCode.CreateFrom(Base.BannerKey);
+        public ImageIdentifierVM Image => new(BannerCode);
+        public ImageIdentifier ImageIdentifier => new(BannerCode);
+#endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //

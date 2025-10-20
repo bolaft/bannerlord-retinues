@@ -318,7 +318,7 @@
       text="Броня тела" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Не является гражданским предметом." />
+      text="Не гражданский." />
     <string
       id="ret_item_head_armor"
       text="Шлем" />
@@ -375,7 +375,7 @@
       text="Скорость" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Ранг войск слишком низок." />
+      text="Слишком высокий ранг." />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Не в городе" />
@@ -981,7 +981,7 @@
       text="Невозможно разблокировать." />
     <string
       id="ret_unlock_progress_text"
-      text="Разблокировка ({PROGRESS}/{REQUIRED})" />
+      text="Разблокировка ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="Отменить Всё" />

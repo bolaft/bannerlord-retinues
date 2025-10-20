@@ -8,8 +8,12 @@ using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
-using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+
+# if BL13
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
+# endif
 
 namespace Retinues.GUI.Editor.VM.Equipment.List
 {
@@ -53,11 +57,15 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     nameof(ShowInStockText),
                     nameof(ShowValue),
                     nameof(ImageId),
+                    nameof(BannerId),
                     nameof(ImageAdditionalArgs),
+                    nameof(BannerAdditionalArgs),
 #if BL13
                     nameof(ImageTextureProviderName),
+                    nameof(BannerTextureProviderName),
 #else
                     nameof(ImageTypeCode),
+                    nameof(BannerTypeCode),
 #endif
                     nameof(Hint),
                 ],
@@ -135,35 +143,37 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             get
             {
                 if (!IsUnlocked)
-                    return L.T("unlock_progress_text", "Unlocking ({PROGRESS}/{REQUIRED})")
-                        .SetTextVariable("PROGRESS", Progress)
-                        .SetTextVariable("REQUIRED", Config.KillsForUnlock)
+                    return L.T("unlock_progress_text", "Unlocking ({PROGRESS}%)")
+                        .SetTextVariable("PROGRESS", (int)((float)Progress / Config.KillsForUnlock * 100))
                         .ToString();
 
                 if (!IsAvailable)
                     return Player.CurrentSettlement == null
-                        ? L.S("item_unavailable_no_settlement", "Not in a town")
+                        ? L.S("item_unavailable_no_settlement", "Not in town")
                         : L.T("item_unavailable_text", "Not sold in {SETTLEMENT}")
                             .SetTextVariable("SETTLEMENT", Player.CurrentSettlement?.Name)
                             .ToString();
 
                 if (IsRequirementBlocked)
-                    return L.T("skill_requirement_text", "Requires {SKILL}: {LEVEL}")
+                    return L.T("skill_requirement_text", "{SKILL}: {LEVEL}")
                         .SetTextVariable("SKILL", RowItem?.RelevantSkill?.Name)
                         .SetTextVariable("LEVEL", RowItem?.Difficulty ?? 0)
                         .ToString();
 
                 if (IsTierBlocked)
-                    return L.S("item_tier_blocked_text", "Troop tier too low.");
+                    return L.S("item_tier_blocked_text", "Tier too high.");
 
                 if (IsEquipmentTypeBlocked)
-                    return L.S("item_equipment_type_blocked_text", "Not a civilian item.");
+                    return L.S("item_equipment_type_blocked_text", "Not civilian.");
 
                 return string.Empty;
             }
         }
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool IsCrafted => RowItem?.IsCrafted == true;
 
         [DataSourceProperty]
         public bool ShowIsEquipped => StagedItem != null && IsEquipped;
@@ -194,22 +204,43 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public string ImageId => RowItem?.Image?.Id;
+        
+        [DataSourceProperty]
+        public string BannerId => RowItem?.Culture?.Image?.Id;
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => RowItem?.Image?.AdditionalArgs;
+        
+        [DataSourceProperty]
+        public string BannerAdditionalArgs => RowItem?.Culture?.Image?.AdditionalArgs;
 
 #if BL13
         [DataSourceProperty]
         public string ImageTextureProviderName => RowItem?.Image?.TextureProviderName;
+        
+        [DataSourceProperty]
+        public string BannerTextureProviderName => RowItem?.Culture?.Image?.TextureProviderName;
 #else
         [DataSourceProperty]
         public int ImageTypeCode => RowItem?.Image?.ImageTypeCode ?? 0;
+        
+        [DataSourceProperty]
+        public int BannerTypeCode => RowItem?.Culture?.Image?.ImageTypeCode ?? 0;
 #endif
 
         /* ━━━━━━━━ Tooltip ━━━━━━━ */
 
         [DataSourceProperty]
-        public BasicTooltipViewModel Hint => Tooltip.MakeItemTooltip(RowItem);
+        public CharacterEquipmentItemVM Hint
+        {
+            get
+            {
+                if (RowItem == null)
+                    return null;
+                var vm = new CharacterEquipmentItemVM(RowItem.Base);
+                return vm;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //

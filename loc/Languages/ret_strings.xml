@@ -318,7 +318,7 @@
       text="Body Armor" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Not a civilian item." />
+      text="Not civilian." />
     <string
       id="ret_item_head_armor"
       text="Head Armor" />
@@ -375,10 +375,10 @@
       text="Speed" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Troop tier too low." />
+      text="Tier too high." />
     <string
       id="ret_item_unavailable_no_settlement"
-      text="Not in a town" />
+      text="Not in town" />
     <string
       id="ret_item_unavailable_text"
       text="Not sold in {SETTLEMENT}" />
@@ -900,7 +900,7 @@
       text="{CAP} skill cap" />
     <string
       id="ret_skill_requirement_text"
-      text="Requires {SKILL}: {LEVEL}" />
+      text="{SKILL}: {LEVEL}" />
     <string
       id="ret_skill_zero"
       text="Skill cannot go below zero." />
@@ -981,7 +981,7 @@
       text="Cannot unlock." />
     <string
       id="ret_unlock_progress_text"
-      text="Unlocking ({PROGRESS}/{REQUIRED})" />
+      text="Unlocking ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="Unstage All" />

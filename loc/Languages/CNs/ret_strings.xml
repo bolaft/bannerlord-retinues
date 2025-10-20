@@ -318,7 +318,7 @@
       text="护甲" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="非民用物品。" />
+      text="非民用。" />
     <string
       id="ret_item_head_armor"
       text="头盔" />
@@ -375,10 +375,10 @@
       text="速度" />
     <string
       id="ret_item_tier_blocked_text"
-      text="部队等级过低。" />
+      text="等级过高。" />
     <string
       id="ret_item_unavailable_no_settlement"
-      text="不在城镇中" />
+      text="不在城镇" />
     <string
       id="ret_item_unavailable_text"
       text="不在{SETTLEMENT}出售" />
@@ -981,7 +981,7 @@
       text="无法解锁。" />
     <string
       id="ret_unlock_progress_text"
-      text="解锁中 ({PROGRESS}/{REQUIRED})" />
+      text="解锁中 ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="撤销全部" />

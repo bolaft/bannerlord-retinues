@@ -318,7 +318,7 @@
       text="Armatura corpo" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="Non è un oggetto civile." />
+      text="Non civile." />
     <string
       id="ret_item_head_armor"
       text="Elmo" />
@@ -375,10 +375,10 @@
       text="Velocità" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Livello della truppa troppo basso." />
+      text="Livello troppo alto." />
     <string
       id="ret_item_unavailable_no_settlement"
-      text="Non in una città" />
+      text="Non in città" />
     <string
       id="ret_item_unavailable_text"
       text="Non venduto a {SETTLEMENT}" />
@@ -981,7 +981,7 @@
       text="Impossibile sbloccare." />
     <string
       id="ret_unlock_progress_text"
-      text="Sbloccando ({PROGRESS}/{REQUIRED})" />
+      text="Sbloccando ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="Annulla Tutto" />

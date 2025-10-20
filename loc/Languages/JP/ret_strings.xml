@@ -318,7 +318,7 @@
       text="胴防具" />
     <string
       id="ret_item_equipment_type_blocked_text"
-      text="民間用アイテムではありません。" />
+      text="民間用ではありません。" />
     <string
       id="ret_item_head_armor"
       text="兜" />
@@ -375,10 +375,10 @@
       text="速度" />
     <string
       id="ret_item_tier_blocked_text"
-      text="部隊のランクが低すぎます。" />
+      text="ランクが高すぎます。" />
     <string
       id="ret_item_unavailable_no_settlement"
-      text="街にいない" />
+      text="町にいない" />
     <string
       id="ret_item_unavailable_text"
       text="{SETTLEMENT}では販売されていません" />
@@ -981,7 +981,7 @@
       text="解除できない。" />
     <string
       id="ret_unlock_progress_text"
-      text="アンロック中 ({PROGRESS}/{REQUIRED})" />
+      text="アンロック中 ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
       text="すべて元に戻す" />

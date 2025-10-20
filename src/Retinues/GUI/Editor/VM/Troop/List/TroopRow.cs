@@ -4,6 +4,8 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Library;
+using TaleWorlds.Core;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.GUI.Editor.VM.Troop.List
 {
@@ -39,6 +41,22 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     nameof(NameText),
                     nameof(TierText),
                     nameof(IsSelected),
+                    nameof(FormationClassIcon),
+                ],
+                [UIEvent.Equipment] =
+                [
+                    nameof(FormationClassIcon),
+                ],
+                [UIEvent.Equip] =
+                [
+                    nameof(FormationClassIcon),
+                    nameof(ImageId),
+                    nameof(ImageAdditionalArgs),
+#if BL13
+                    nameof(ImageTextureProviderName),
+#else
+                    nameof(ImageTypeCode),
+#endif
                 ],
             };
 
@@ -61,6 +79,24 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public int ImageTypeCode => RowTroop?.Image.ImageTypeCode ?? 0;
 #endif
+
+        /* ━━━━━━━━━ Icon ━━━━━━━━━ */
+
+        [DataSourceProperty]
+        public string FormationClassIcon
+        {
+            get
+            {
+                return (RowTroop?.FormationClass) switch
+                {
+                    FormationClass.Infantry => @"General\TroopTypeIcons\icon_troop_type_infantry",
+                    FormationClass.Ranged => @"General\TroopTypeIcons\icon_troop_type_bow",
+                    FormationClass.Cavalry => @"General\TroopTypeIcons\icon_troop_type_cavalry",
+                    FormationClass.HorseArcher => @"General\TroopTypeIcons\icon_troop_type_horse_archer",
+                    _ => @"General\TroopTypeIcons\icon_troop_type_infantry",
+                };
+            }
+        }
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 

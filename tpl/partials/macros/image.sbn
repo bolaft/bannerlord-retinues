@@ -39,3 +39,45 @@
     </Children>
 </Widget>
 {{- end -}}
+
+<!-- Banner macro for BL13. Params: width, height, margins, offsets, brush, visibility -->
+{{- func banner_13(width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
+<Widget
+    IsVisible="{{is_visible}}"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"
+    PositionXOffset="{{x_offset}}" PositionYOffset="{{y_offset}}"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}">
+    <Children>
+        <BrushWidget
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            Brush="{{brush}}"/>
+        <ImageIdentifierWidget
+            AdditionalArgs="@BannerAdditionalArgs" ImageId="@BannerId" TextureProviderName="@BannerTextureProviderName"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"/>
+    </Children>
+</Widget>
+{{- end -}}
+
+<!-- Banner macro for BL12. Params: width, height, margins, offsets, brush, visibility -->
+{{- func banner_12(width, height, margin_left = "0",  margin_right = "0",  margin_top = "0",  margin_bottom = "0", x_offset = "0", y_offset = "0", brush = "Frame1Brush", is_visible = "true") -}}
+<Widget
+    IsVisible="{{is_visible}}"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"
+    PositionXOffset="{{x_offset}}" PositionYOffset="{{y_offset}}"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}">
+    <Children>
+        <BrushWidget
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            Brush="{{brush}}"/>
+        <ImageIdentifierWidget
+            ImageId="@BannerId" ImageTypeCode="@BannerTypeCode" AdditionalArgs="@BannerAdditionalArgs"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"/>
+    </Children>
+</Widget>
+{{- end -}}
