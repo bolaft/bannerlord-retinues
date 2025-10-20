@@ -65,8 +65,7 @@ namespace Retinues.Troops.Edition
             EquipmentIndex slot
         )
         {
-            // var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
-            var hasClanicTraditions = true;
+            var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
             var hasAncestral = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
             var factionCultureId = faction?.Culture?.StringId;
