@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Retinues.Features.Stocks.Behaviors;
 using Retinues.Features.Unlocks.Behaviors;
@@ -154,7 +155,20 @@ namespace Retinues.Game.Wrappers
 
         // public bool IsUniqueItem => _itemObject.IsUniqueItem;
 
-        public bool IsCrafted => _itemObject.IsCraftedByPlayer;
+        public bool IsCrafted => _itemObject.IsCraftedByPlayer && Base.WeaponDesign != null;
+
+        public string DesignId
+        {
+            get
+            {
+                if (!IsCrafted || Base.WeaponDesign?.UsedPieces == null)
+                    return null;
+
+                return string.Join(":",
+                    Base.WeaponDesign.UsedPieces.Select(p => p?.CraftingPiece?.StringId)
+                );
+            }
+        }
 
         public bool IsArmor =>
             ArmorComponent != null && ItemObject.ItemTypeEnum.HorseHarness != Type;

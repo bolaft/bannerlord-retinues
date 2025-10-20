@@ -65,7 +65,8 @@ namespace Retinues.Troops.Edition
             EquipmentIndex slot
         )
         {
-            var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
+            // var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
+            var hasClanicTraditions = true;
             var hasAncestral = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
             var factionCultureId = faction?.Culture?.StringId;
@@ -73,7 +74,7 @@ namespace Retinues.Troops.Edition
             var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
 
             var allObjects = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
-            var lastCraftedIndex = BuildLastCraftedIndex(allObjects, onlyPlayerCrafted: true);
+            var lastCraftedItems = FindLastCraftedItems(allObjects);
 
             var list = new List<(WItem Item, bool Unlocked, int Progress)>();
 
@@ -95,10 +96,9 @@ namespace Retinues.Troops.Edition
                         if (!hasClanicTraditions)
                             continue;
                         if (
-                            !IsValidCraftedItem(
-                                item.Base,
-                                lastCraftedIndex,
-                                onlyPlayerCrafted: true
+                            !FilterCraftedItem(
+                                item,
+                                lastCraftedItems
                             )
                         )
                             continue;
@@ -181,56 +181,45 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Returns true if the item is a valid crafted item to include, filtering out duplicates.
         /// </summary>
-        private static bool IsValidCraftedItem(
-            ItemObject obj,
-            Dictionary<string, ItemObject> lastCraftedIndex,
-            bool onlyPlayerCrafted = true
+        private static bool FilterCraftedItem(
+            WItem item,
+            List<WItem> lastCraftedItems
         )
         {
-            if (obj == null)
+            if (item == null)
                 return false;
 
             // Non-crafted items always pass through
-            if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
+            if (!item.IsCrafted)
                 return true;
 
-            if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
-                return true; // not a player-crafted smith, keep normal path
-
-            var hash = obj.WeaponDesign.HashedCode;
-            if (string.IsNullOrEmpty(hash))
-                return true; // no hash to dedup on, let it through
-
             // Keep only the "last" instance for this hash
-            return lastCraftedIndex.TryGetValue(hash, out var last) && ReferenceEquals(last, obj);
+            return lastCraftedItems.Contains(item);
         }
 
         /// <summary>
-        /// Builds an index of the last crafted item per design hash from a collection of items.
+        /// Finds the last crafted items from a collection of item objects.
         /// </summary>
-        private static Dictionary<string, ItemObject> BuildLastCraftedIndex(
-            IEnumerable<ItemObject> items,
-            bool onlyPlayerCrafted = true
+        private static List<WItem> FindLastCraftedItems(
+            IEnumerable<ItemObject> objects
         )
         {
-            var map = new Dictionary<string, ItemObject>(StringComparer.Ordinal);
-            foreach (var obj in items)
+            var map = new Dictionary<string, WItem>();
+
+            foreach (var obj in objects)
             {
-                if (obj == null)
-                    continue;
-                if (!obj.IsCraftedWeapon || obj.WeaponDesign == null)
-                    continue;
-                if (onlyPlayerCrafted && !obj.IsCraftedByPlayer)
+                if (obj == null) continue;
+
+                var item = new WItem(obj);
+
+                if (!item.IsCrafted)
                     continue;
 
-                var hash = obj.WeaponDesign.HashedCode;
-                if (string.IsNullOrEmpty(hash))
-                    continue;
-
-                // later items overwrite earlier ones -> "last wins"
-                map[hash] = obj;
+                // Update map with latest item for this design id
+                map[item.DesignId] = item;
             }
-            return map;
+
+            return [.. map.Values];
         }
 
         /// <summary>
