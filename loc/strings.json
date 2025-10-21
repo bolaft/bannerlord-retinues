@@ -1152,6 +1152,22 @@
     "TR": "Kadın"
   },
   {
+    "id": "ret_field_battle_hint",
+    "EN": "Enable or disable this set for field battles.",
+    "BR": "Ative ou desative este conjunto para batalhas campais.",
+    "CNs": "为野战启用或禁用此套装。",
+    "CNt": "為野戰啟用或禁用此套裝。",
+    "DE": "Aktiviere oder deaktiviere dieses Set für Feldschlachten.",
+    "FR": "Active ou désactive cet ensemble pour les batailles rangées.",
+    "IT": "Abilita o disabilita questo set per le battaglie campali.",
+    "JP": "野戦用にこのセットを有効または無効にします。",
+    "KO": "야전 전투에 이 세트를 활성화 또는 비활성화하십시오.",
+    "PL": "Włącz lub wyłącz ten zestaw do bitew polowych.",
+    "RU": "Включите или отключите этот набор для полевых боёв.",
+    "SP": "Activa o desactiva este conjunto para batallas campales.",
+    "TR": "Bu seti saha savaşları için etkinleştir veya devre dışı bırak."
+  },
+  {
     "id": "ret_gender_header_text",
     "EN": "Gender",
     "BR": "Gênero",
@@ -4430,6 +4446,38 @@
     "RU": "Гражданский",
     "SP": "Civil",
     "TR": "Sivil"
+  },
+  {
+    "id": "ret_siege_assault_hint",
+    "EN": "Enable or disable this set for siege assault.",
+    "BR": "Ative ou desative este conjunto para assalto de cerco.",
+    "CNs": "为攻城战启用或禁用此套装。",
+    "CNt": "為攻城戰啟用或禁用此套裝。",
+    "DE": "Aktiviere oder deaktiviere dieses Set für Belagerungsangriffe.",
+    "FR": "Activer ou désactiver cet ensemble pour les assauts de siège.",
+    "IT": "Abilita o disabilita questo set per l'assalto di assedio.",
+    "JP": "攻城戦の突撃用にこのセットを有効または無効にします。",
+    "KO": "공성 공격을 위해 이 세트를 활성화 또는 비활성화하십시오.",
+    "PL": "Włącz lub wyłącz ten zestaw do szturmu na oblężenie.",
+    "RU": "Включите или отключите этот комплект для штурма осады.",
+    "SP": "Habilita o deshabilita este conjunto para asalto de asedio.",
+    "TR": "Bu seti kuşatma saldırısı için etkinleştir veya devre dışı bırak."
+  },
+  {
+    "id": "ret_siege_defense_hint",
+    "EN": "Enable or disable this set for siege defense.",
+    "BR": "Ative ou desative este conjunto para defesa de cerco.",
+    "CNs": "为守城战启用或禁用此套装。",
+    "CNt": "為守城戰啟用或禁用此套裝。",
+    "DE": "Aktiviere oder deaktiviere dieses Set für Belagerungsverteidigung.",
+    "FR": "Activer ou désactiver cet ensemble pour la défense de siège.",
+    "IT": "Abilita o disabilita questo set per la difesa di assedio.",
+    "JP": "攻城戦の防御用にこのセットを有効または無効にします。",
+    "KO": "공성 방어를 위해 이 세트를 활성화 또는 비활성화하십시오.",
+    "PL": "Włącz lub wyłącz ten zestaw do obrony oblężenia.",
+    "RU": "Включите или отключите этот комплект для обороны осады.",
+    "SP": "Habilita o deshabilita este conjunto para defensa de asedio.",
+    "TR": "Bu seti kuşatma savunması için etkinleştir veya devre dışı bırak."
   },
   {
     "id": "ret_skill_at_cap",

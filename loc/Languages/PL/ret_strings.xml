@@ -221,6 +221,9 @@
       id="ret_female"
       text="Kobieta" />
     <string
+      id="ret_field_battle_hint"
+      text="Włącz lub wyłącz ten zestaw do bitew polowych." />
+    <string
       id="ret_gender_header_text"
       text="Płeć" />
     <string
@@ -835,6 +838,12 @@
     <string
       id="ret_set_civilian"
       text="Cywil" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Włącz lub wyłącz ten zestaw do szturmu na oblężenie." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Włącz lub wyłącz ten zestaw do obrony oblężenia." />
     <string
       id="ret_skill_at_cap"
       text="Umiejętność osiągnęła limit dla tej jednostki." />

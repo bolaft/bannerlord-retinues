@@ -221,6 +221,9 @@
       id="ret_female"
       text="Féminin" />
     <string
+      id="ret_field_battle_hint"
+      text="Active ou désactive cet ensemble pour les batailles rangées." />
+    <string
       id="ret_gender_header_text"
       text="Genre" />
     <string
@@ -835,6 +838,12 @@
     <string
       id="ret_set_civilian"
       text="Civil" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Activer ou désactiver cet ensemble pour les assauts de siège." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Activer ou désactiver cet ensemble pour la défense de siège." />
     <string
       id="ret_skill_at_cap"
       text="La compétence a atteint son maximum pour cette troupe." />

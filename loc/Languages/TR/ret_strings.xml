@@ -221,6 +221,9 @@
       id="ret_female"
       text="Kadın" />
     <string
+      id="ret_field_battle_hint"
+      text="Bu seti saha savaşları için etkinleştir veya devre dışı bırak." />
+    <string
       id="ret_gender_header_text"
       text="Cinsiyet" />
     <string
@@ -835,6 +838,12 @@
     <string
       id="ret_set_civilian"
       text="Sivil" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Bu seti kuşatma saldırısı için etkinleştir veya devre dışı bırak." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Bu seti kuşatma savunması için etkinleştir veya devre dışı bırak." />
     <string
       id="ret_skill_at_cap"
       text="Bu birliğin becerisi sınırda." />

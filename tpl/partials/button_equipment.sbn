@@ -130,6 +130,10 @@
                                     HeightSizePolicy="StretchToParent"
                                     Brush="SPOptions.Checkbox.Full.Button"
                                 />
+                                <HintWidget
+                                    DataSource="{FieldBattleHint}"
+                                    Command.HoverBegin="ExecuteBeginHint"
+                                    Command.HoverEnd="ExecuteEndHint"/>
                             </Children>
                         </ButtonWidget>
                     </Children>
@@ -169,8 +173,11 @@
                                     Id="ToggleIndicator"
                                     WidthSizePolicy="StretchToParent"
                                     HeightSizePolicy="StretchToParent"
-                                    Brush="SPOptions.Checkbox.Full.Button"
-                                />
+                                    Brush="SPOptions.Checkbox.Full.Button"/>
+                                <HintWidget
+                                    DataSource="{SiegeDefenseHint}"
+                                    Command.HoverBegin="ExecuteBeginHint"
+                                    Command.HoverEnd="ExecuteEndHint"/>
                             </Children>
                         </ButtonWidget>
                     </Children>
@@ -210,8 +217,11 @@
                                     Id="ToggleIndicator"
                                     WidthSizePolicy="StretchToParent"
                                     HeightSizePolicy="StretchToParent"
-                                    Brush="SPOptions.Checkbox.Full.Button"
-                                />
+                                    Brush="SPOptions.Checkbox.Full.Button" />
+                                <HintWidget
+                                    DataSource="{SiegeAssaultHint}"
+                                    Command.HoverBegin="ExecuteBeginHint"
+                                    Command.HoverEnd="ExecuteEndHint"/>
                             </Children>
                         </ButtonWidget>
                     </Children>

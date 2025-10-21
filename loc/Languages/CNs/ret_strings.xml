@@ -221,6 +221,9 @@
       id="ret_female"
       text="女性" />
     <string
+      id="ret_field_battle_hint"
+      text="为野战启用或禁用此套装。" />
+    <string
       id="ret_gender_header_text"
       text="性别" />
     <string
@@ -835,6 +838,12 @@
     <string
       id="ret_set_civilian"
       text="平民" />
+    <string
+      id="ret_siege_assault_hint"
+      text="为攻城战启用或禁用此套装。" />
+    <string
+      id="ret_siege_defense_hint"
+      text="为守城战启用或禁用此套装。" />
     <string
       id="ret_skill_at_cap"
       text="该部队的技能已达上限。" />

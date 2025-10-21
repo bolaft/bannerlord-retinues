@@ -221,6 +221,9 @@
       id="ret_female"
       text="Female" />
     <string
+      id="ret_field_battle_hint"
+      text="Enable or disable this set for field battles." />
+    <string
       id="ret_gender_header_text"
       text="Gender" />
     <string
@@ -835,6 +838,12 @@
     <string
       id="ret_set_civilian"
       text="Civilian" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Enable or disable this set for siege assault." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Enable or disable this set for siege defense." />
     <string
       id="ret_skill_at_cap"
       text="Skill is at cap for this troop." />
