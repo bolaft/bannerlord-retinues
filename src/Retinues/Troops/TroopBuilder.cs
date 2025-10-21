@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
@@ -14,7 +15,7 @@ namespace Retinues.Troops
     /// Static helpers for creating, cloning, and initializing custom troops for a faction.
     /// Handles retinues, militias, and troop trees, including item unlocks and naming.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public static class TroopBuilder
     {
         public static bool WarlordsBattlefield =
@@ -247,7 +248,7 @@ namespace Retinues.Troops
             if (culture?.RootElite != null)
             {
                 Log.Debug($"Cloning elite tree from root: {culture.RootElite.Name}");
-                eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)];
+                eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null).Where(t => t != null).ToList()];
                 Log.Debug($"eliteClones after clone: {eliteClones.Count}");
                 Log.Debug(
                     $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
@@ -266,7 +267,7 @@ namespace Retinues.Troops
             if (culture?.RootBasic != null)
             {
                 Log.Debug($"Cloning basic tree from root: {culture.RootBasic.Name}");
-                basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)];
+                basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null).Where(t => t != null).ToList()];
                 Log.Debug($"basicClones after clone: {basicClones.Count}");
                 Log.Debug(
                     $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
@@ -281,24 +282,30 @@ namespace Retinues.Troops
 
             // Count unlocks
             int unlocks = 0;
-            Log.Debug($"Starting unlocks count: {unlocks}");
 
             // Unlock items from the added clones
             foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
             {
-                Log.Debug($"Processing troop: {troop?.Name ?? "null"}");
-                foreach (var equipment in troop.Loadout.Equipments)
+                try
                 {
-                    Log.Debug(
-                        $"Processing equipment: {equipment?.ToString() ?? "null"}, Items count: {equipment.Items.Count}"
-                    );
-                    foreach (var item in equipment.Items)
+                    Log.Debug($"Processing troop: {troop?.Name ?? "null"}");
+                    foreach (var equipment in troop.Loadout.Equipments)
                     {
-                        Log.Debug($"Unlocking item: {item?.ToString() ?? "null"}");
-                        item.Unlock();
-                        unlocks++;
-                        Log.Debug($"Unlocks incremented: {unlocks}");
+                        Log.Debug(
+                            $"Processing equipment: {equipment?.ToString() ?? "null"}, Items count: {equipment.Items.Count}"
+                        );
+                        foreach (var item in equipment.Items)
+                        {
+                            Log.Debug($"Unlocking item: {item?.ToString() ?? "null"}");
+                            item.Unlock();
+                            unlocks++;
+                            Log.Debug($"Unlocks incremented: {unlocks}");
+                        }
                     }
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e, $"Error processing troop {troop?.Name ?? "null"}");
                 }
             }
 
@@ -341,7 +348,7 @@ namespace Retinues.Troops
             );
 
             if (co == null)
-                yield return null; // Should not happen, but other mods might interfere
+                yield break; // Should not happen, but other mods might interfere
             else
             {
                 // Wrap the custom troop
@@ -373,7 +380,7 @@ namespace Retinues.Troops
                         var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop)
                     )
                     {
-                        if (descendant != null)
+                        if (descendant == null)
                             continue;
                         yield return descendant;
                     }

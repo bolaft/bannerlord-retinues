@@ -12,7 +12,7 @@ namespace Retinues.Troops
     /// Static helpers for saving and loading custom troop data.
     /// Handles serialization to TroopSaveData and reconstruction from save payloads.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public static class TroopLoader
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

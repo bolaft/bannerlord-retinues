@@ -13,7 +13,7 @@ namespace Retinues.Troops
     /// Campaign behavior for saving and loading custom troop definitions.
     /// Handles serialization, event registration, and tree rebuilding for custom troops.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public sealed class TroopBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
