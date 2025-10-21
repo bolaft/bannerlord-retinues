@@ -446,6 +446,12 @@
       id="ret_mcm_option_debug_mode_hint"
       text="輸出更多日誌（可能影響效能）。" />
     <string
+      id="ret_mcm_option_disable_crafted_weapons"
+      text="禁用手工製作的武器" />
+    <string
+      id="ret_mcm_option_disable_crafted_weapons_hint"
+      text="啟用後，即使解鎖了相應的教義，手工製作的武器也將不可用。" />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="禁止1級部隊騎乘" />
     <string

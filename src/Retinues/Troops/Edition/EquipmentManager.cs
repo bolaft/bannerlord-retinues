@@ -65,15 +65,15 @@ namespace Retinues.Troops.Edition
             EquipmentIndex slot
         )
         {
-            var hasClanicTraditions = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
-            var hasAncestral = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
+            var craftedUnlocked = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() && !Config.DisableCraftedWeapons;
+            var cultureUnlocked = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
             var factionCultureId = faction?.Culture?.StringId;
             var clanCultureId = Player.Clan?.Culture?.StringId;
             var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
 
             var allObjects = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
-            var lastCraftedItems = FindLastCraftedItems(allObjects);
+            var lastCraftedItems = craftedUnlocked ? FindLastCraftedItems(allObjects) : [];
 
             var list = new List<(WItem Item, bool Unlocked, int Progress)>();
 
@@ -92,7 +92,7 @@ namespace Retinues.Troops.Edition
 
                     if (item.IsCrafted)
                     {
-                        if (!hasClanicTraditions)
+                        if (!craftedUnlocked)
                             continue;
                         if (!FilterCraftedItem(item, lastCraftedItems))
                             continue;
@@ -117,7 +117,7 @@ namespace Retinues.Troops.Edition
                     }
 
                     if (
-                        hasAncestral
+                        cultureUnlocked
                         && (itemCultureId == clanCultureId || itemCultureId == kingdomCultureId)
                     )
                     {
