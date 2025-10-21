@@ -17,7 +17,14 @@
             SuggestedWidth="80"
             SuggestedHeight="80"
             DoNotPassEventsToChildren="false"
-            MarginBottom="6"/>
+            MarginBottom="6">
+            <Children>
+                <HintWidget
+                    DataSource="{SkillHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </SkillIconVisualWidget>
         <!-- Controls row: decrement button, value display, increment button -->
         <ListPanel
             WidthSizePolicy="StretchToParent"
