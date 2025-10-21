@@ -19,9 +19,16 @@ namespace Retinues.Features.Missions.Behaviors
     [Serializable]
     public sealed class EquipmentUsePolicy
     {
-        [SaveableField(1)] public bool FieldBattle = true;
-        [SaveableField(2)] public bool SiegeDefense = true;
-        [SaveableField(3)] public bool SiegeAssault = true;
+        [SaveableField(1)] public bool FieldBattle = false;
+        [SaveableField(2)] public bool SiegeDefense = false;
+        [SaveableField(3)] public bool SiegeAssault = false;
+
+        public static readonly EquipmentUsePolicy None = new()
+        {
+            FieldBattle = false,
+            SiegeDefense = false,
+            SiegeAssault = false
+        };
 
         public static readonly EquipmentUsePolicy All = new()
         {
@@ -47,15 +54,13 @@ namespace Retinues.Features.Missions.Behaviors
         }
 
         // ---------- Queries ----------
-        private static EquipmentUsePolicy Default => EquipmentUsePolicy.All;
-
         public EquipmentUsePolicy GetPolicy(WCharacter troop, int altIndex)
         {
-            if (troop == null || altIndex < 2) return Default; // 0 battle, 1 civilian => always allowed
+            if (troop == null || altIndex < 2) return EquipmentUsePolicy.All; // 0 battle, 1 civilian => always allowed
             if (_byTroop.TryGetValue(troop.StringId, out var perAlt) &&
                 perAlt.TryGetValue(altIndex, out var p) && p != null)
                 return p;
-            return Default;
+            return EquipmentUsePolicy.None;
         }
 
         public bool IsEnabled_Field(WCharacter troop, int altIndex)
