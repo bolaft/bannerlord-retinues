@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="6등급 방어구와 투구를 착용한 병력으로 전투에서 100킬을 달성하십시오." />
     <string
-      id="ret_item_ammo_damage"
-      text="피해" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="스택 크기" />
-    <string
-      id="ret_item_arm_armor"
-      text="팔 방어구" />
-    <string
-      id="ret_item_body_armor"
-      text="몸통 방어구" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="민간용 아님" />
     <string
-      id="ret_item_head_armor"
-      text="머리 방어구" />
-    <string
-      id="ret_item_horse_charge"
-      text="돌격" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="체력" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="기동성" />
-    <string
-      id="ret_item_horse_speed"
-      text="속도" />
-    <string
-      id="ret_item_leg_armor"
-      text="다리 방어구" />
-    <string
-      id="ret_item_melee_handling"
-      text="조작성" />
-    <string
-      id="ret_item_melee_length"
-      text="길이" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="베기 피해" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="베기 속도" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="찌르기 피해" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="찌르기 속도" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="정확도" />
-    <string
-      id="ret_item_ranged_damage"
-      text="피해" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="투사체 속도" />
-    <string
       id="ret_item_search_label"
       text="필터:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="체력" />
-    <string
-      id="ret_item_shield_speed"
-      text="속도" />
     <string
       id="ret_item_tier_blocked_text"
       text="등급이 너무 높습니다" />

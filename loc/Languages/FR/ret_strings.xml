@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Réalise 100 éliminations en combat avec des troupes portant une armure et un casque de rang 6." />
     <string
-      id="ret_item_ammo_damage"
-      text="Dégâts" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Nombre" />
-    <string
-      id="ret_item_arm_armor"
-      text="Armure de bras" />
-    <string
-      id="ret_item_body_armor"
-      text="Armure de corps" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Non civil" />
     <string
-      id="ret_item_head_armor"
-      text="Armure de tête" />
-    <string
-      id="ret_item_horse_charge"
-      text="Charge" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Points de vie" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Maniement" />
-    <string
-      id="ret_item_horse_speed"
-      text="Vitesse" />
-    <string
-      id="ret_item_leg_armor"
-      text="Armure de jambe" />
-    <string
-      id="ret_item_melee_handling"
-      text="Maniabilité" />
-    <string
-      id="ret_item_melee_length"
-      text="Longueur" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Dégâts de taille" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Vitesse de taille" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Dégâts d’estoc" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Vitesse d&apos;’estoc" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Précision" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Dégâts" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Vitesse du projectile" />
-    <string
       id="ret_item_search_label"
       text="Filtre:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Points de vie" />
-    <string
-      id="ret_item_shield_speed"
-      text="Vitesse" />
     <string
       id="ret_item_tier_blocked_text"
       text="Rang trop élevé" />

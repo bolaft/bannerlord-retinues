@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Ottieni 100 uccisioni in battaglia con truppe che indossano armatura e elmo di livello 6." />
     <string
-      id="ret_item_ammo_damage"
-      text="Danno" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Dimensione pila" />
-    <string
-      id="ret_item_arm_armor"
-      text="Armatura braccia" />
-    <string
-      id="ret_item_body_armor"
-      text="Armatura corpo" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Non civile" />
     <string
-      id="ret_item_head_armor"
-      text="Elmo" />
-    <string
-      id="ret_item_horse_charge"
-      text="Carica" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Punti vita" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Manovrabilità" />
-    <string
-      id="ret_item_horse_speed"
-      text="Velocità" />
-    <string
-      id="ret_item_leg_armor"
-      text="Armatura gambe" />
-    <string
-      id="ret_item_melee_handling"
-      text="Maneggevolezza" />
-    <string
-      id="ret_item_melee_length"
-      text="Lunghezza" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Danno da fendente" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Velocità di fendente" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Danno da affondo" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Velocità di affondo" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Precisione" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Danno" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Velocità del proiettile" />
-    <string
       id="ret_item_search_label"
       text="Filtro:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Punti vita" />
-    <string
-      id="ret_item_shield_speed"
-      text="Velocità" />
     <string
       id="ret_item_tier_blocked_text"
       text="Livello troppo alto" />

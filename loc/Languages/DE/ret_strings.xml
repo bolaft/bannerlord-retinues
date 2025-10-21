@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Erziele 100 Kills in einer Schlacht mit Truppen in Stufe-6-Rüstung und Helm." />
     <string
-      id="ret_item_ammo_damage"
-      text="Schaden" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Stapelgröße" />
-    <string
-      id="ret_item_arm_armor"
-      text="Armschutz" />
-    <string
-      id="ret_item_body_armor"
-      text="Körperrüstung" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Nicht zivil" />
     <string
-      id="ret_item_head_armor"
-      text="Helm" />
-    <string
-      id="ret_item_horse_charge"
-      text="Ansturm" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Lebenspunkte" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Manövrierfähigkeit" />
-    <string
-      id="ret_item_horse_speed"
-      text="Geschwindigkeit" />
-    <string
-      id="ret_item_leg_armor"
-      text="Beinschutz" />
-    <string
-      id="ret_item_melee_handling"
-      text="Handhabung" />
-    <string
-      id="ret_item_melee_length"
-      text="Länge" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Hiebschaden" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Hiebgeschwindigkeit" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Stichschaden" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Stichgeschwindigkeit" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Genauigkeit" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Schaden" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Geschossgeschwindigkeit" />
-    <string
       id="ret_item_search_label"
       text="Filter:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Lebenspunkte" />
-    <string
-      id="ret_item_shield_speed"
-      text="Geschwindigkeit" />
     <string
       id="ret_item_tier_blocked_text"
       text="Stufe zu hoch" />

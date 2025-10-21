@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Consigue 100 muertes en batalla con tropas que lleven armadura y casco de nivel 6." />
     <string
-      id="ret_item_ammo_damage"
-      text="Daño" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Tamaño de Pila" />
-    <string
-      id="ret_item_arm_armor"
-      text="Armadura de Brazos" />
-    <string
-      id="ret_item_body_armor"
-      text="Armadura de Cuerpo" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="No es civil" />
     <string
-      id="ret_item_head_armor"
-      text="Armadura de Cabeza" />
-    <string
-      id="ret_item_horse_charge"
-      text="Carga" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Puntos de Vida" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Maniobra" />
-    <string
-      id="ret_item_horse_speed"
-      text="Velocidad" />
-    <string
-      id="ret_item_leg_armor"
-      text="Armadura de Piernas" />
-    <string
-      id="ret_item_melee_handling"
-      text="Manejo" />
-    <string
-      id="ret_item_melee_length"
-      text="Longitud" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Daño de Corte" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Velocidad de Corte" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Daño de Estocada" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Velocidad de Estocada" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Precisión" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Daño" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Velocidad del Proyectil" />
-    <string
       id="ret_item_search_label"
       text="Filtro:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Puntos de Vida" />
-    <string
-      id="ret_item_shield_speed"
-      text="Velocidad" />
     <string
       id="ret_item_tier_blocked_text"
       text="Nivel demasiado alto" />

@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="ランク6の鎧と兜を装備した兵で戦闘中100キルを達成する。" />
     <string
-      id="ret_item_ammo_damage"
-      text="ダメージ" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="スタックサイズ" />
-    <string
-      id="ret_item_arm_armor"
-      text="腕防具" />
-    <string
-      id="ret_item_body_armor"
-      text="胴防具" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="民間用ではありません" />
     <string
-      id="ret_item_head_armor"
-      text="兜" />
-    <string
-      id="ret_item_horse_charge"
-      text="突撃" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="HP" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="機動力" />
-    <string
-      id="ret_item_horse_speed"
-      text="速度" />
-    <string
-      id="ret_item_leg_armor"
-      text="脚防具" />
-    <string
-      id="ret_item_melee_handling"
-      text="操作性" />
-    <string
-      id="ret_item_melee_length"
-      text="長さ" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="斬撃ダメージ" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="斬撃速度" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="突きダメージ" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="突き速度" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="精度" />
-    <string
-      id="ret_item_ranged_damage"
-      text="ダメージ" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="射出速度" />
-    <string
       id="ret_item_search_label"
       text="フィルター:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="HP" />
-    <string
-      id="ret_item_shield_speed"
-      text="速度" />
     <string
       id="ret_item_tier_blocked_text"
       text="ランクが高すぎます" />

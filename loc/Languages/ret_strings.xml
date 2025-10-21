@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Get 100 kills in battle with troops wearing a tier 6 armor and helmet." />
     <string
-      id="ret_item_ammo_damage"
-      text="Damage" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Stack Size" />
-    <string
-      id="ret_item_arm_armor"
-      text="Arm Armor" />
-    <string
-      id="ret_item_body_armor"
-      text="Body Armor" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Not civilian" />
     <string
-      id="ret_item_head_armor"
-      text="Head Armor" />
-    <string
-      id="ret_item_horse_charge"
-      text="Charge" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Hit Points" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Maneuver" />
-    <string
-      id="ret_item_horse_speed"
-      text="Speed" />
-    <string
-      id="ret_item_leg_armor"
-      text="Leg Armor" />
-    <string
-      id="ret_item_melee_handling"
-      text="Handling" />
-    <string
-      id="ret_item_melee_length"
-      text="Length" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Swing Damage" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Swing Speed" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Thrust Damage" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Thrust Speed" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Accuracy" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Damage" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Missile Speed" />
-    <string
       id="ret_item_search_label"
       text="Filter:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Hit Points" />
-    <string
-      id="ret_item_shield_speed"
-      text="Speed" />
     <string
       id="ret_item_tier_blocked_text"
       text="Tier too high" />

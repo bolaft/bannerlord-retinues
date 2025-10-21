@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Совершите 100 убийств в бою войсками в доспехах и шлемах 6 ранга." />
     <string
-      id="ret_item_ammo_damage"
-      text="Урон" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Размер стака" />
-    <string
-      id="ret_item_arm_armor"
-      text="Броня рук" />
-    <string
-      id="ret_item_body_armor"
-      text="Броня тела" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Не гражданский" />
     <string
-      id="ret_item_head_armor"
-      text="Шлем" />
-    <string
-      id="ret_item_horse_charge"
-      text="Атака" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Здоровье" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Манёвренность" />
-    <string
-      id="ret_item_horse_speed"
-      text="Скорость" />
-    <string
-      id="ret_item_leg_armor"
-      text="Броня ног" />
-    <string
-      id="ret_item_melee_handling"
-      text="Управление" />
-    <string
-      id="ret_item_melee_length"
-      text="Длина" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Урон от рубящего удара" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Скорость рубящего удара" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Урон от колющего удара" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Скорость колющего удара" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Точность" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Урон" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Скорость снаряда" />
-    <string
       id="ret_item_search_label"
       text="Фильтр:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Здоровье" />
-    <string
-      id="ret_item_shield_speed"
-      text="Скорость" />
     <string
       id="ret_item_tier_blocked_text"
       text="Слишком высокий ранг" />

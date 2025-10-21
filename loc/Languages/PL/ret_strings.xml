@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Zdobądź 100 zabójstw w bitwie jednostkami w zbroi i hełmie poziomu 6." />
     <string
-      id="ret_item_ammo_damage"
-      text="Obrażenia" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Rozmiar stosu" />
-    <string
-      id="ret_item_arm_armor"
-      text="Pancerz rąk" />
-    <string
-      id="ret_item_body_armor"
-      text="Pancerz ciała" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Nie cywilny" />
     <string
-      id="ret_item_head_armor"
-      text="Hełm" />
-    <string
-      id="ret_item_horse_charge"
-      text="Szarża" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Punkty życia" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Manewrowość" />
-    <string
-      id="ret_item_horse_speed"
-      text="Prędkość" />
-    <string
-      id="ret_item_leg_armor"
-      text="Pancerz nóg" />
-    <string
-      id="ret_item_melee_handling"
-      text="Obsługa" />
-    <string
-      id="ret_item_melee_length"
-      text="Długość" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Obrażenia cięcia" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Prędkość cięcia" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Obrażenia pchnięcia" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Prędkość pchnięcia" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Celność" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Obrażenia" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Prędkość pocisku" />
-    <string
       id="ret_item_search_label"
       text="Filtr:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Punkty życia" />
-    <string
-      id="ret_item_shield_speed"
-      text="Prędkość" />
     <string
       id="ret_item_tier_blocked_text"
       text="Poziom zbyt wysoki" />

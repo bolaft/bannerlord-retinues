@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="讓部隊穿著6級護甲和頭盔，在戰鬥中獲得100擊殺。" />
     <string
-      id="ret_item_ammo_damage"
-      text="傷害" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="堆疊大小" />
-    <string
-      id="ret_item_arm_armor"
-      text="臂甲" />
-    <string
-      id="ret_item_body_armor"
-      text="護甲" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="非民用" />
     <string
-      id="ret_item_head_armor"
-      text="頭盔" />
-    <string
-      id="ret_item_horse_charge"
-      text="衝鋒" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="生命值" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="機動" />
-    <string
-      id="ret_item_horse_speed"
-      text="速度" />
-    <string
-      id="ret_item_leg_armor"
-      text="腿甲" />
-    <string
-      id="ret_item_melee_handling"
-      text="操控" />
-    <string
-      id="ret_item_melee_length"
-      text="長度" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="揮砍傷害" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="揮砍速度" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="刺擊傷害" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="刺擊速度" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="準確度" />
-    <string
-      id="ret_item_ranged_damage"
-      text="傷害" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="彈道速度" />
-    <string
       id="ret_item_search_label"
       text="篩選器:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="生命值" />
-    <string
-      id="ret_item_shield_speed"
-      text="速度" />
     <string
       id="ret_item_tier_blocked_text"
       text="等級過高" />

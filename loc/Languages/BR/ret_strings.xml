@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Consiga 100 abates em batalha com tropas vestindo armadura e elmo de nível 6." />
     <string
-      id="ret_item_ammo_damage"
-      text="Dano" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Tamanho da Pilha" />
-    <string
-      id="ret_item_arm_armor"
-      text="Armadura dos Braços" />
-    <string
-      id="ret_item_body_armor"
-      text="Armadura do Corpo" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Não é civil" />
     <string
-      id="ret_item_head_armor"
-      text="Armadura da Cabeça" />
-    <string
-      id="ret_item_horse_charge"
-      text="Carga" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Pontos de Vida" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Manobrabilidade" />
-    <string
-      id="ret_item_horse_speed"
-      text="Velocidade" />
-    <string
-      id="ret_item_leg_armor"
-      text="Armadura das Pernas" />
-    <string
-      id="ret_item_melee_handling"
-      text="Manuseio" />
-    <string
-      id="ret_item_melee_length"
-      text="Comprimento" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Dano de Golpe" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Velocidade de Golpe" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Dano de Estocada" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Velocidade de Estocada" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Precisão" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Dano" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Velocidade do Projétil" />
-    <string
       id="ret_item_search_label"
       text="Filtro:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Pontos de Vida" />
-    <string
-      id="ret_item_shield_speed"
-      text="Velocidade" />
     <string
       id="ret_item_tier_blocked_text"
       text="Nível muito alto." />

@@ -305,74 +305,11 @@
       id="ret_ironclad_full_set_t6_100_kills"
       text="Seviye 6 zırh ve miğfer giyen askerlerle savaşta 100 öldürme yap." />
     <string
-      id="ret_item_ammo_damage"
-      text="Hasar" />
-    <string
-      id="ret_item_ammo_stack_size"
-      text="Yığın Boyutu" />
-    <string
-      id="ret_item_arm_armor"
-      text="Kol Zırhı" />
-    <string
-      id="ret_item_body_armor"
-      text="Gövde Zırhı" />
-    <string
       id="ret_item_equipment_type_blocked_text"
       text="Sivil değil" />
     <string
-      id="ret_item_head_armor"
-      text="Baş Zırhı" />
-    <string
-      id="ret_item_horse_charge"
-      text="Hücum" />
-    <string
-      id="ret_item_horse_hit_points"
-      text="Can Puanı" />
-    <string
-      id="ret_item_horse_maneuver"
-      text="Manevra" />
-    <string
-      id="ret_item_horse_speed"
-      text="Hız" />
-    <string
-      id="ret_item_leg_armor"
-      text="Bacak Zırhı" />
-    <string
-      id="ret_item_melee_handling"
-      text="Kullanım" />
-    <string
-      id="ret_item_melee_length"
-      text="Uzunluk" />
-    <string
-      id="ret_item_melee_swing_damage"
-      text="Kesme Hasarı" />
-    <string
-      id="ret_item_melee_swing_speed"
-      text="Kesme Hızı" />
-    <string
-      id="ret_item_melee_thrust_damage"
-      text="Saplama Hasarı" />
-    <string
-      id="ret_item_melee_thrust_speed"
-      text="Saplama Hızı" />
-    <string
-      id="ret_item_ranged_accuracy"
-      text="Doğruluk" />
-    <string
-      id="ret_item_ranged_damage"
-      text="Hasar" />
-    <string
-      id="ret_item_ranged_missile_speed"
-      text="Mermi Hızı" />
-    <string
       id="ret_item_search_label"
       text="Filtre:" />
-    <string
-      id="ret_item_shield_hit_points"
-      text="Can Puanı" />
-    <string
-      id="ret_item_shield_speed"
-      text="Hız" />
     <string
       id="ret_item_tier_blocked_text"
       text="Seviye çok yüksek" />
