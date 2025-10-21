@@ -562,25 +562,39 @@ namespace Retinues.Game.Wrappers
                 var template = culture.BasicTroop ?? culture.EliteBasicTroop;
                 if (template == null) return;
 
+                // break shared reference
+                EnsureOwnBodyRange();
+
+                var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+                var tplRange = Reflector.GetPropertyValue<object>(template, "BodyPropertyRange");
+
                 // 1) Copy style tags & race (affects FaceGen sampling)
-#if BL12
+                Reflector.SetPropertyValue(Base, "Race", template.Race);
+
+                // 2) Copy min/max envelope from template
+                var min = template.GetBodyPropertiesMin();
+                var max = template.GetBodyPropertiesMax();
+                Reflector.InvokeMethod(range, "Init", [typeof(BodyProperties), typeof(BodyProperties)], min, max);
+
+                // 3) Copy style tags
+#if BL13
+                if (tplRange != null && range != null)
+                {
+                    var hairSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "HairTags");
+                    var beardSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "BeardTags");
+                    var tattooSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "TattooTags");
+
+                    ReplaceStringCollection(range, "HairTags", hairSrc);
+                    ReplaceStringCollection(range, "BeardTags", beardSrc);
+                    ReplaceStringCollection(range, "TattooTags", tattooSrc);
+                }
+#else
                 Reflector.SetPropertyValue(Base, "HairTags", template.HairTags);
                 Reflector.SetPropertyValue(Base, "BeardTags", template.BeardTags);
                 Reflector.SetPropertyValue(Base, "TattooTags", template.TattooTags);
 #endif
-                Reflector.SetPropertyValue(Base, "Race", template.Race);
 
-                // 2) Rebuild BodyPropertyRange to the template's min/max envelope
-                var min = template.GetBodyPropertiesMin();
-                var max = template.GetBodyPropertiesMax();
-
-                // break shared reference before Init()
-                EnsureOwnBodyRange();
-
-                var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
-                Reflector.InvokeMethod(range, "Init", [typeof(BodyProperties), typeof(BodyProperties)], min, max);
-
-                // 3) (Optional) Snap age to the template’s mid-age for instant visual coherence
+                // 4) Snap age to the template’s mid-age
                 var midAge = (min.Age + max.Age) * 0.5f;
                 Reflector.SetPropertyValue(Base, "Age", midAge);
             }
@@ -590,6 +604,9 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Ensure this CharacterObject has its own BodyPropertyRange instance (not shared with clones).
+        /// </summary>
         private void EnsureOwnBodyRange()
         {
             // Get current range (may be shared across clones)
@@ -599,10 +616,33 @@ namespace Retinues.Game.Wrappers
 
             // Create a brand-new range object of the same runtime type
             var rangeType = current.GetType(); // e.g., TaleWorlds.Core.BodyPropertyRange
-            var fresh = System.Activator.CreateInstance(rangeType);
+            var fresh = Activator.CreateInstance(rangeType);
 
             // Swap it in so this troop no longer shares with anyone else
             Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
+        }
+
+        /// <summary>
+        /// Clone/replace a string-collection property on BodyPropertyRange.
+        /// </summary>
+        private static void ReplaceStringCollection(object range, string propName, IEnumerable<string> source)
+        {
+            var target = Reflector.GetPropertyValue<object>(range, propName);
+            if (target == null) return;
+
+            // Try IList<string>: clear + add (avoids needing the concrete MBList type)
+            if (target is IList<string> list)
+            {
+                list.Clear();
+                foreach (var s in source ?? Array.Empty<string>())
+                    list.Add(s);
+                return;
+            }
+
+            // Fallback: build a new List<string> and set the property if it has a public/private setter
+            var cloned = source != null ? [.. source] : new List<string>();
+            try { Reflector.SetPropertyValue(range, propName, cloned); }
+            catch { }
         }
     }
 }
