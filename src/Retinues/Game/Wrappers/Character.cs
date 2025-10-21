@@ -634,7 +634,7 @@ namespace Retinues.Game.Wrappers
             if (target is IList<string> list)
             {
                 list.Clear();
-                foreach (var s in source ?? Array.Empty<string>())
+                foreach (var s in source ?? [])
                     list.Add(s);
                 return;
             }
