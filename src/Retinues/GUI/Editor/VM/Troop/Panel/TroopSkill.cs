@@ -101,6 +101,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public BasicTooltipViewModel DecrementHint =>
             CanDecrement ? null : Tooltip.MakeTooltip(null, CantDecrementReason.ToString());
 
+        [DataSourceProperty]
+        public BasicTooltipViewModel SkillHint => Tooltip.MakeTooltip(null, Skill.Name.ToString());
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

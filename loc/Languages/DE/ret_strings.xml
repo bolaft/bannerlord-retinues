@@ -449,6 +449,12 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Gibt deutlich mehr Protokolle aus (kann die Leistung beeinträchtigen)." />
     <string
+      id="ret_mcm_option_disable_crafted_weapons"
+      text="Handgefertigte Waffen deaktivieren" />
+    <string
+      id="ret_mcm_option_disable_crafted_weapons_hint"
+      text="Wenn aktiviert, sind handgefertigte Waffen auch dann nicht verfügbar, wenn die entsprechende Doktrin freigeschaltet ist." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Reittiere für Stufe 1 verbieten" />
     <string

@@ -449,6 +449,12 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Outputs many more logs (may impact performance)." />
     <string
+      id="ret_mcm_option_disable_crafted_weapons"
+      text="Disable Crafted Weapons" />
+    <string
+      id="ret_mcm_option_disable_crafted_weapons_hint"
+      text="When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Disallow Mounts For Tier 1" />
     <string

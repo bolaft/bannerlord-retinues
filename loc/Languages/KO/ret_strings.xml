@@ -449,6 +449,12 @@
       id="ret_mcm_option_debug_mode_hint"
       text="더 많은 로그를 출력합니다 (성능에 영향을 줄 수 있음)." />
     <string
+      id="ret_mcm_option_disable_crafted_weapons"
+      text="제작된 무기 비활성화" />
+    <string
+      id="ret_mcm_option_disable_crafted_weapons_hint"
+      text="활성화되면 적절한 교리가 해제되어 있어도 제작된 무기를 사용할 수 없습니다." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="1등급에 탈것 금지" />
     <string

@@ -449,6 +449,12 @@
       id="ret_mcm_option_debug_mode_hint"
       text="より多くのログを出力します（パフォーマンスに影響する可能性があります）。" />
     <string
+      id="ret_mcm_option_disable_crafted_weapons"
+      text="手作りの武器を無効化" />
+    <string
+      id="ret_mcm_option_disable_crafted_weapons_hint"
+      text="有効にすると、適切なドクトリンが解除されていても、手作りの武器は使用できなくなります。" />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="ランク1に騎乗禁止" />
     <string
