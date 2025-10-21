@@ -446,6 +446,12 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Выводит гораздо больше логов (может повлиять на производительность)." />
     <string
+      id="ret_mcm_option_disable_crafted_weapons"
+      text="Отключить Изготовленное Оружие" />
+    <string
+      id="ret_mcm_option_disable_crafted_weapons_hint"
+      text="Когда включено, изготовленное оружие не будет доступно, даже при разблокированной соответствующей доктрине." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Запрет на Лошадей для 1 Ранга" />
     <string
