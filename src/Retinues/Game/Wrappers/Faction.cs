@@ -78,11 +78,7 @@ namespace Retinues.Game.Wrappers
         }
 
         public List<WCharacter> RetinueTroops =>
-            [.. new List<WCharacter>
-            {
-                RetinueElite,
-                RetinueBasic,
-            }.Where(t => t.IsActive)];
+            [.. new List<WCharacter> { RetinueElite, RetinueBasic }.Where(t => t.IsActive)];
 
         /// <summary>
         /// Gets all elite troops in the upgrade tree that are active.
@@ -100,13 +96,15 @@ namespace Retinues.Game.Wrappers
         /// Gets all militia troops for this faction that are active.
         /// </summary>
         public List<WCharacter> MilitiaTroops =>
-            [.. new List<WCharacter>
-            {
-                MilitiaMeleeElite,
-                MilitiaMelee,
-                MilitiaRangedElite,
-                MilitiaRanged,
-            }.Where(t => t.IsActive)];
+            [
+                .. new List<WCharacter>
+                {
+                    MilitiaMeleeElite,
+                    MilitiaMelee,
+                    MilitiaRangedElite,
+                    MilitiaRanged,
+                }.Where(t => t.IsActive),
+            ];
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
         public bool IsClan => Base is Clan;

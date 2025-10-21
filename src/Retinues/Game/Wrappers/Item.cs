@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Features.Stocks.Behaviors;
 using Retinues.Features.Unlocks.Behaviors;
 using Retinues.Utils;
@@ -164,7 +164,8 @@ namespace Retinues.Game.Wrappers
                 if (!IsCrafted || Base.WeaponDesign?.UsedPieces == null)
                     return null;
 
-                return string.Join(":",
+                return string.Join(
+                    ":",
                     Base.WeaponDesign.UsedPieces.Select(p => p?.CraftingPiece?.StringId)
                 );
             }

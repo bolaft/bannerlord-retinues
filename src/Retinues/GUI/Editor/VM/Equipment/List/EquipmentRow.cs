@@ -10,7 +10,6 @@ using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
-
 # if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
@@ -144,7 +143,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             {
                 if (!IsUnlocked)
                     return L.T("unlock_progress_text", "Unlocking ({PROGRESS}%)")
-                        .SetTextVariable("PROGRESS", (int)((float)Progress / Config.KillsForUnlock * 100))
+                        .SetTextVariable(
+                            "PROGRESS",
+                            (int)((float)Progress / Config.KillsForUnlock * 100)
+                        )
                         .ToString();
 
                 if (!IsAvailable)
@@ -204,26 +206,26 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public string ImageId => RowItem?.Image?.Id;
-        
+
         [DataSourceProperty]
         public string BannerId => RowItem?.Culture?.Image?.Id;
 
         [DataSourceProperty]
         public string ImageAdditionalArgs => RowItem?.Image?.AdditionalArgs;
-        
+
         [DataSourceProperty]
         public string BannerAdditionalArgs => RowItem?.Culture?.Image?.AdditionalArgs;
 
 #if BL13
         [DataSourceProperty]
         public string ImageTextureProviderName => RowItem?.Image?.TextureProviderName;
-        
+
         [DataSourceProperty]
         public string BannerTextureProviderName => RowItem?.Culture?.Image?.TextureProviderName;
 #else
         [DataSourceProperty]
         public int ImageTypeCode => RowItem?.Image?.ImageTypeCode ?? 0;
-        
+
         [DataSourceProperty]
         public int BannerTypeCode => RowItem?.Culture?.Image?.ImageTypeCode ?? 0;
 #endif

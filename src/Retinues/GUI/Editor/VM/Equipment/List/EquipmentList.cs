@@ -65,7 +65,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             _needsRebuild = true;
             if (IsVisible)
                 Build();
-            
+
             FilterText = string.Empty;
         }
 

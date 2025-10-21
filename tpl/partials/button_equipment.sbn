@@ -84,5 +84,139 @@
                 {{ button_icon_hint("ExecuteCreateSet", "{CreateSetHint}", "Inventory.Tuple.Extension.PlusButton", "36", "@CanCreateSet") }}
             </Children>
         </ListPanel>
+
+        <!-- Enable set toggles -->
+        <ListPanel
+            IsVisible="@CanEnableSet"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            MarginTop="4"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+                <!-- Field Battle -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="Fixed"
+                    SuggestedHeight="36"
+                    HorizontalAlignment="Center">
+                    <Children>
+                        <ImageWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="36"
+                            SuggestedHeight="36"
+                            MarginRight="6" MarginLeft="6"
+                            Sprite="SPGeneral\MapOverlay\Settlement\icon_garrison_big"
+                            VerticalAlignment="Center"/>
+                        <ButtonWidget 
+                            DoNotPassEventsToChildren="true"
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="30"
+                            SuggestedHeight="30"
+                            VerticalAlignment="Center"
+                            Brush="SPOptions.Checkbox.Empty.Button"
+                            ButtonType="Toggle"
+                            ToggleIndicator="ToggleIndicator"
+                            UpdateChildrenStates="true"
+                            IsSelected="@SetIsEnabledForFieldBattle"
+                            IsEnabled="true"
+                            Command.Click="ExecuteToggleEnableSetForFieldBattle">
+                            <Children>
+                                <ImageWidget
+                                    Id="ToggleIndicator"
+                                    WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="StretchToParent"
+                                    Brush="SPOptions.Checkbox.Full.Button"
+                                />
+                            </Children>
+                        </ButtonWidget>
+                    </Children>
+                </ListPanel>
+                <!-- Siege Defense -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="Fixed"
+                    SuggestedHeight="36"
+                    HorizontalAlignment="Center">
+                    <Children>
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="36"
+                            SuggestedHeight="36"
+                            MarginRight="6" MarginLeft="6"
+                            Color="#a5bcd6ff"
+                            Sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big"
+                            VerticalAlignment="Center"/>
+                        <ButtonWidget 
+                            DoNotPassEventsToChildren="true"
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="30"
+                            SuggestedHeight="30"
+                            VerticalAlignment="Center"
+                            Brush="SPOptions.Checkbox.Empty.Button"
+                            ButtonType="Toggle"
+                            ToggleIndicator="ToggleIndicator"
+                            UpdateChildrenStates="true"
+                            IsSelected="@SetIsEnabledForSiegeDefense"
+                            IsEnabled="true"
+                            Command.Click="ExecuteToggleEnableSetForSiegeDefense">
+                            <Children>
+                                <ImageWidget
+                                    Id="ToggleIndicator"
+                                    WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="StretchToParent"
+                                    Brush="SPOptions.Checkbox.Full.Button"
+                                />
+                            </Children>
+                        </ButtonWidget>
+                    </Children>
+                </ListPanel>
+                <!-- Siege Assault -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="Fixed"
+                    SuggestedHeight="36"
+                    HorizontalAlignment="Center">
+                    <Children>
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="36"
+                            SuggestedHeight="36"
+                            MarginRight="6" MarginLeft="6"
+                            Color="#dbaeaeff"
+                            Sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big"
+                            VerticalAlignment="Center"/>
+                        <ButtonWidget 
+                            DoNotPassEventsToChildren="true"
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="30"
+                            SuggestedHeight="30"
+                            VerticalAlignment="Center"
+                            Brush="SPOptions.Checkbox.Empty.Button"
+                            ButtonType="Toggle"
+                            ToggleIndicator="ToggleIndicator"
+                            UpdateChildrenStates="true"
+                            IsSelected="@SetIsEnabledForSiegeAssault"
+                            IsEnabled="true"
+                            Command.Click="ExecuteToggleEnableSetForSiegeAssault">
+                            <Children>
+                                <ImageWidget
+                                    Id="ToggleIndicator"
+                                    WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="StretchToParent"
+                                    Brush="SPOptions.Checkbox.Full.Button"
+                                />
+                            </Children>
+                        </ButtonWidget>
+                    </Children>
+                </ListPanel>
+            </Children>
+        </ListPanel>
     </Children>
 </ListPanel>

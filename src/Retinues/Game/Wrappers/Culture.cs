@@ -1,7 +1,6 @@
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-
 #if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
@@ -34,10 +33,11 @@ namespace Retinues.Game.Wrappers
         //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-
 #if BL13
-        public BannerImageIdentifier Image => _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
-        public ImageIdentifier ImageIdentifier => _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+        public BannerImageIdentifier Image =>
+            _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+        public ImageIdentifier ImageIdentifier =>
+            _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
 #else
         public BannerCode BannerCode => BannerCode.CreateFrom(Base.BannerKey);
         public ImageIdentifierVM Image => new(BannerCode);

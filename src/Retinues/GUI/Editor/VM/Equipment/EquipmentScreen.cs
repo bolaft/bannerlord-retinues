@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Features.Missions.Behaviors;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.List;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
@@ -70,6 +71,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanCreateSet),
                     nameof(RemoveSetHint),
                     nameof(CreateSetHint),
+                    nameof(CanEnableSet),
+                    nameof(SetIsEnabledForFieldBattle),
+                    nameof(SetIsEnabledForSiegeDefense),
+                    nameof(SetIsEnabledForSiegeAssault),
                 ],
                 [UIEvent.Equip] = [nameof(CanUnstage), nameof(CanUnequip)],
                 [UIEvent.Slot] = [nameof(CanUnstage)],
@@ -183,6 +188,18 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool CanCreateSet => ModuleChecker.GetModule("Shokuho") == null; // Disable if Shokuho is present
 
+        [DataSourceProperty]
+        public bool CanEnableSet => State.Equipment?.Category == EquipmentCategory.Alternate;
+
+        [DataSourceProperty]
+        public bool SetIsEnabledForFieldBattle => CanEnableSet && CombatEquipmentBehavior.IsEnabled(State.Troop, State.Equipment.Index, BattleType.FieldBattle);
+
+        [DataSourceProperty]
+        public bool SetIsEnabledForSiegeDefense => CanEnableSet && CombatEquipmentBehavior.IsEnabled(State.Troop, State.Equipment.Index, BattleType.SiegeDefense);
+
+        [DataSourceProperty]
+        public bool SetIsEnabledForSiegeAssault => CanEnableSet && CombatEquipmentBehavior.IsEnabled(State.Troop, State.Equipment.Index, BattleType.SiegeAssault);
+
         /* ━━━━━━━━ Tooltip ━━━━━━━ */
 
         [DataSourceProperty]
@@ -207,6 +224,30 @@ namespace Retinues.GUI.Editor.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceMethod]
+        public void ExecuteToggleEnableSetForFieldBattle()
+        {
+            if (!CanEnableSet) return;
+            CombatEquipmentBehavior.Toggle(State.Troop, State.Equipment.Index, BattleType.FieldBattle);
+            OnPropertyChanged(nameof(SetIsEnabledForFieldBattle));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteToggleEnableSetForSiegeDefense()
+        {
+            if (!CanEnableSet) return;
+            CombatEquipmentBehavior.Toggle(State.Troop, State.Equipment.Index, BattleType.SiegeDefense);
+            OnPropertyChanged(nameof(SetIsEnabledForSiegeDefense));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteToggleEnableSetForSiegeAssault()
+        {
+            if (!CanEnableSet) return;
+            CombatEquipmentBehavior.Toggle(State.Troop, State.Equipment.Index, BattleType.SiegeAssault);
+            OnPropertyChanged(nameof(SetIsEnabledForSiegeAssault));
+        }
 
         [DataSourceMethod]
         /// <summary>
@@ -326,6 +367,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                         // Unequip all items
                         State.Troop.UnequipAll(State.Equipment?.Index ?? 0, stock: true);
 
+                        // Update persistence
+                        CombatEquipmentBehavior.OnRemoved(State.Troop, State.Equipment.Index);
+
                         // Remove the set
                         State.Troop.Loadout.Remove(State.Equipment);
 
@@ -350,7 +394,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             EquipmentList.Show();
             foreach (var slot in EquipmentSlots)
                 slot.Show();
-            
+
             // Ensure filter is refreshed when showing
             EquipmentList.RefreshFilter();
         }

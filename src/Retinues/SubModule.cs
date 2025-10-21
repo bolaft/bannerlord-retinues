@@ -5,6 +5,7 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
+using Retinues.Features.Missions.Behaviors;
 using Retinues.Features.Recruits.Behaviors;
 using Retinues.Features.Stocks.Behaviors;
 using Retinues.Features.Unlocks.Behaviors;
@@ -157,6 +158,9 @@ namespace Retinues
 
                 // Swap behaviors
                 cs.AddBehavior(new MilitiaSwapBehavior());
+
+                // Combat equipment behavior
+                cs.AddBehavior(new CombatEquipmentBehavior());
 
                 // Training behavior
                 cs.AddBehavior(new TroopTrainBehavior());

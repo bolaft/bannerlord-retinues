@@ -248,7 +248,12 @@ namespace Retinues.Troops
             if (culture?.RootElite != null)
             {
                 Log.Debug($"Cloning elite tree from root: {culture.RootElite.Name}");
-                eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null).Where(t => t != null).ToList()];
+                eliteClones =
+                [
+                    .. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
+                        .Where(t => t != null)
+                        .ToList(),
+                ];
                 Log.Debug($"eliteClones after clone: {eliteClones.Count}");
                 Log.Debug(
                     $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
@@ -267,7 +272,12 @@ namespace Retinues.Troops
             if (culture?.RootBasic != null)
             {
                 Log.Debug($"Cloning basic tree from root: {culture.RootBasic.Name}");
-                basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null).Where(t => t != null).ToList()];
+                basicClones =
+                [
+                    .. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)
+                        .Where(t => t != null)
+                        .ToList(),
+                ];
                 Log.Debug($"basicClones after clone: {basicClones.Count}");
                 Log.Debug(
                     $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"

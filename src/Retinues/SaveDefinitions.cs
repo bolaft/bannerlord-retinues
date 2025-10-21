@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Features.Missions.Behaviors;
 using Retinues.Troops.Persistence;
 using TaleWorlds.SaveSystem;
 
@@ -24,10 +25,15 @@ namespace Retinues
         {
             base.DefineClassTypes();
 
+            // Troop save data
             AddClassDefinition(typeof(TroopSaveData), 070_992);
 
+            // Staged operations data
             AddClassDefinition(typeof(PendingTrainData), 070_001);
             AddClassDefinition(typeof(PendingEquipData), 070_002);
+
+            // Equipment set usage data
+            AddClassDefinition(typeof(EquipmentUsePolicy), 200901);
 
             // Legacy definitions for backwards compatibility
             AddClassDefinition(typeof(Safety.Legacy.Behaviors.ItemSaveData), 070_993);
@@ -41,6 +47,7 @@ namespace Retinues
         {
             base.DefineContainerDefinitions();
 
+            // Staged operations containers
             ConstructContainerDefinition(typeof(Dictionary<string, PendingTrainData>));
             ConstructContainerDefinition(typeof(Dictionary<string, PendingEquipData>));
             ConstructContainerDefinition(
@@ -49,8 +56,18 @@ namespace Retinues
             ConstructContainerDefinition(
                 typeof(Dictionary<string, Dictionary<string, PendingEquipData>>)
             );
+
+            // Troop save data containers
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(List<string>));
+
+            // Combat equipment behavior containers
+            ConstructContainerDefinition(typeof(Dictionary<int, byte>));
+            ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<int, byte>>));
+
+            // Equipment set usage containers
+            ConstructContainerDefinition(typeof(Dictionary<int, EquipmentUsePolicy>));
+            ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<int, EquipmentUsePolicy>>));
 
             // Legacy containers for backwards compatibility
             ConstructContainerDefinition(typeof(Dictionary<string, int>));

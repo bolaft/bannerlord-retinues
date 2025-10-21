@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using HarmonyLib;
 using Retinues.Configuration;
+using Retinues.Features.Missions.Behaviors;
+using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -9,6 +11,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Features.Missions.Patches
 {
+
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class Mission_SpawnAgent_Prefix
     {
@@ -42,15 +45,28 @@ namespace Retinues.Features.Missions.Patches
                 }
                 else
                 {
-                    // Randomly pick one of the sets (battle or alternates).
-                    var allSets = new List<WEquipment> { troop.Loadout.Battle };
-                    allSets.AddRange(troop.Loadout.Alternates);
-                    if (allSets.Count > 0)
+                    var battleType = BattleType.FieldBattle;
+
+                    if (Battle.MapEvent != null)
                     {
-                        var rand = new Random();
-                        var idx = rand.Next(allSets.Count);
-                        eq = allSets[idx].Base;
+                        var battle = new Battle(Battle.MapEvent);
+                        if (battle.IsSiege)
+                            battleType = battle.PlayerIsDefender ? BattleType.SiegeDefense : BattleType.SiegeAssault;
                     }
+
+                    // Build eligible sets according to mask; battle set is always eligible.
+                    var eligible = new List<WEquipment> { troop.Loadout.Battle };
+
+                    foreach (var alt in troop.Loadout.Alternates)
+                        if (CombatEquipmentBehavior.IsEnabled(troop, alt.Index, battleType))
+                            eligible.Add(alt);
+
+                    // Fallback safety: if somehow none, force battle set.
+                    var pick = eligible.Count > 0 ? eligible : [troop.Loadout.Battle];
+
+                    var rand = new Random();
+                    var idx = rand.Next(pick.Count);
+                    eq = pick[idx].Base;
                 }
 
                 // Force the main battle set and prevent randomization/variants.

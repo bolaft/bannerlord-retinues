@@ -74,12 +74,13 @@
                                     MarginLeft="10"/>
 
                                 <!-- Crafted icon -->
-                                <Widget
+                                <SpriteWidget
                                     WidthSizePolicy="Fixed"
                                     HeightSizePolicy="Fixed"
                                     SuggestedWidth="27"
                                     SuggestedHeight="19"
                                     MarginRight="12"
+                                    Color="#a89859ff"
                                     Sprite="General\Icons\ShopIcons\smithy_large"
                                     VerticalAlignment="Center"
                                     IsVisible="@IsCrafted"/>

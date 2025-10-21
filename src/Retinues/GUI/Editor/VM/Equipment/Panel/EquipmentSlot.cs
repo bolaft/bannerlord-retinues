@@ -134,7 +134,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         /* ━━━━━━━━━ Hint ━━━━━━━━━ */
 
         [DataSourceProperty]
-        public CharacterEquipmentItemVM Hint => Item?.Base != null ? new CharacterEquipmentItemVM(Item.Base) : null;
+        public CharacterEquipmentItemVM Hint =>
+            Item?.Base != null ? new CharacterEquipmentItemVM(Item.Base) : null;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 

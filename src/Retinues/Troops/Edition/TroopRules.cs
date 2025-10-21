@@ -254,7 +254,8 @@ namespace Retinues.Troops.Edition
             {
                 // Check for parent skill (can't go below parent's skill level)
                 if (trueSkillValue <= GetTrueSkillValue(character.Parent, skill))
-                    return L.T("parent_skill", "Cannot go below parent {PARENT}'s skill level.").SetTextVariable("PARENT", character.Parent.Name);
+                    return L.T("parent_skill", "Cannot go below parent {PARENT}'s skill level.")
+                        .SetTextVariable("PARENT", character.Parent.Name);
             }
 
             return null;
