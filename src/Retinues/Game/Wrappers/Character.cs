@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Safety.Sanitizer;
@@ -169,7 +170,33 @@ namespace Retinues.Game.Wrappers
             set => Base.Level = value;
         }
 
-        public WCulture Culture => new(Base.Culture);
+        public WCulture Culture
+        {
+            get => new(Base.Culture);
+            set
+            {
+                try
+                {
+                    if (value == null) return;
+                    if (IsHero) return; // Skip heroes (their culture lives on HeroObject.Culture)
+
+                    // CharacterObject has a 'new Culture' with a private setter that forwards to base.Culture.
+                    // Explicitly target the declaring base property to avoid AmbiguousMatchException.
+                    var baseType = typeof(BasicCharacterObject); 
+                    var prop = baseType.GetProperty(
+                        "Culture",
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly
+                    );
+                    prop?.SetValue(Base, value.Base, null);
+
+                    ApplyCultureVisualsFrom(value.Base);
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex);
+                }
+            }
+        }
 
         public FormationClass FormationClass
         {
@@ -517,6 +544,65 @@ namespace Retinues.Game.Wrappers
             }
             else
                 Loadout.Clear();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Visuals                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Re-derive body/face and style from a culture template.
+        /// </summary>
+        public void ApplyCultureVisualsFrom(CultureObject culture)
+        {
+            try
+            {
+                if (culture == null || IsHero) return; // skip heroes
+
+                var template = culture.BasicTroop ?? culture.EliteBasicTroop;
+                if (template == null) return;
+
+                // 1) Copy style tags & race (affects FaceGen sampling)
+#if BL12
+                Reflector.SetPropertyValue(Base, "HairTags", template.HairTags);
+                Reflector.SetPropertyValue(Base, "BeardTags", template.BeardTags);
+                Reflector.SetPropertyValue(Base, "TattooTags", template.TattooTags);
+#endif
+                Reflector.SetPropertyValue(Base, "Race", template.Race);
+
+                // 2) Rebuild BodyPropertyRange to the template's min/max envelope
+                var min = template.GetBodyPropertiesMin();
+                var max = template.GetBodyPropertiesMax();
+
+                // break shared reference before Init()
+                EnsureOwnBodyRange();
+
+                var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+                Reflector.InvokeMethod(range, "Init", [typeof(BodyProperties), typeof(BodyProperties)], min, max);
+
+                // 3) (Optional) Snap age to the template’s mid-age for instant visual coherence
+                var midAge = (min.Age + max.Age) * 0.5f;
+                Reflector.SetPropertyValue(Base, "Age", midAge);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        private void EnsureOwnBodyRange()
+        {
+            // Get current range (may be shared across clones)
+            var current = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+            if (current == null)
+                return;
+
+            // Create a brand-new range object of the same runtime type
+            var rangeType = current.GetType(); // e.g., TaleWorlds.Core.BodyPropertyRange
+            var fresh = System.Activator.CreateInstance(rangeType);
+
+            // Swap it in so this troop no longer shares with anyone else
+            Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
         }
     }
 }

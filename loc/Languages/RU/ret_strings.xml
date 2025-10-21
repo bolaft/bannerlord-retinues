@@ -56,6 +56,9 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Выиграйте турнир в городе своей культуры." />
     <string
+      id="ret_appearance_header_text"
+      text="Внешность" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Преобразовать" />
     <string
@@ -112,6 +115,9 @@
     <string
       id="ret_cape_slot_text"
       text="Плащ" />
+    <string
+      id="ret_change_culture_title"
+      text="Сменить Культуру" />
     <string
       id="ret_clanic_traditions"
       text="Клановые Традиции" />
@@ -223,9 +229,6 @@
     <string
       id="ret_field_battle_hint"
       text="Включите или отключите этот набор для полевых боёв." />
-    <string
-      id="ret_gender_header_text"
-      text="Пол" />
     <string
       id="ret_gloves_slot_text"
       text="Перчатки" />
@@ -686,6 +689,12 @@
       id="ret_no"
       text="Нет" />
     <string
+      id="ret_no_cultures_text"
+      text="В текущей игре не загружены никакие культуры." />
+    <string
+      id="ret_no_cultures_title"
+      text="Культуры не найдены" />
+    <string
       id="ret_no_skill_points_left"
       text="У этой войск нет оставшихся очков навыков." />
     <string
@@ -925,6 +934,9 @@
     <string
       id="ret_unequip_warning_text"
       text="Вы собираетесь снять {ITEM}, на переоснащение новым предметом потребуется время. Всё равно продолжить?" />
+    <string
+      id="ret_unknown"
+      text="Неизвестно" />
     <string
       id="ret_unlock_btn"
       text="Разблокировать" />

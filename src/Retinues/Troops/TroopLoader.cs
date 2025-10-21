@@ -5,6 +5,7 @@ using Retinues.Troops.Persistence;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
+using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Troops
 {
@@ -96,6 +97,17 @@ namespace Retinues.Troops
             // Retinues are not transferable
             if (troop.IsRetinue)
                 troop.IsNotTransferableInPartyScreen = true;
+            
+            // Set culture visuals if present
+            if (!string.IsNullOrEmpty(data.CultureId))
+            {
+                var culture = MBObjectManager.Instance.GetObject<CultureObject>(data.CultureId);
+                if (culture != null)
+                {
+                    Log.Info($"Applying culture '{data.CultureId}' to troop '{data.StringId}'");
+                    troop.Culture = new WCulture(culture);
+                }
+            }
 
             // Activate
             troop.Activate();
@@ -123,6 +135,7 @@ namespace Retinues.Troops
                 IsFemale = character.IsFemale,
                 SkillCode = CodeFromSkills(character.Skills),
                 EquipmentCodes = [.. character.Loadout.Equipments.Select(we => we.Code)],
+                CultureId = character.Culture.StringId,
             };
 
             return data;

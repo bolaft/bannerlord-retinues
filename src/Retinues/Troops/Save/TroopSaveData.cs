@@ -40,5 +40,8 @@ namespace Retinues.Troops.Persistence
 
         [SaveableField(10)]
         public List<string> EquipmentCodes = [];
+
+        [SaveableField(11)]
+        public string CultureId;
     }
 }

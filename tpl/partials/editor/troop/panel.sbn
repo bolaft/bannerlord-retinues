@@ -10,7 +10,7 @@
         {{ include "editor/troop/sections/name.sbn" }}
 
         <!-- Gender selection section (male/female toggle) -->
-        {{ include "editor/troop/sections/gender.sbn" }}
+        {{ include "editor/troop/sections/appearance.sbn" }}
 
         <!-- Skills section (skill sliders/values) -->
         {{ include "editor/troop/sections/skills.sbn" }}

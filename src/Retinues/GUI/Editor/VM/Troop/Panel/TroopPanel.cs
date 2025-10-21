@@ -5,6 +5,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
@@ -12,6 +13,8 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
@@ -71,6 +74,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(PendingTotalCost),
                     nameof(PendingTotalCount),
                     nameof(RetinueCap),
+                    nameof(CultureText),
                 ],
                 [UIEvent.Train] =
                 [
@@ -149,7 +153,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Headers ━━━━━━━ */
 
         [DataSourceProperty]
-        public string GenderHeaderText => L.S("gender_header_text", "Gender");
+        public string AppearanceHeaderText => L.S("appearance_header_text", "Appearance");
 
         [DataSourceProperty]
         public string NameHeaderText => L.S("name_header_text", "Name");
@@ -171,6 +175,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceProperty]
         public string GenderText =>
             State.Troop?.IsFemale == true ? L.S("female", "Female") : L.S("male", "Male");
+
+        [DataSourceProperty]
+        public string CultureText =>
+            State.Troop?.Culture?.Name ?? L.S("unknown", "Unknown");
 
         [DataSourceProperty]
         public string TierText
@@ -356,6 +364,77 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             State.UpdateTroop(State.Troop);
         }
+
+        [DataSourceMethod]
+        /// <summary>
+        /// Change the selected troop's culture.
+        /// </summary>[DataSourceMethod]
+        public void ExecuteChangeCulture()
+        {
+            try
+            {
+                if (State.Troop == null) return;
+
+                // Collect all cultures from the object database.
+                var cultures = MBObjectManager.Instance.GetObjectTypeList<CultureObject>()?
+                    .OrderBy(c => c?.Name?.ToString())
+                    .ToList() ?? [];
+
+                if (cultures.Count == 0)
+                {
+                    Popup.Display(
+                        L.T("no_cultures_title", "No Cultures Found"),
+                        L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                    );
+                    return;
+                }
+
+                // Build selection elements (single-select).
+                var elements = new List<InquiryElement>(cultures.Count);
+                var currentId = State.Troop.Culture?.StringId;
+                foreach (var c in cultures)
+                {
+                    if (c?.Name == null) continue;
+                    // Show current selection as pre-checked
+                    bool isSelected = string.Equals(c.StringId, currentId, StringComparison.Ordinal);
+
+                    var wc = new WCulture(c);
+                    var root = wc.RootBasic ?? wc.RootElite;
+
+                    elements.Add(new InquiryElement(c, wc.Name.ToString(), root.ImageIdentifier, true, null));
+                }
+
+                MBInformationManager.ShowMultiSelectionInquiry(
+                    new MultiSelectionInquiryData(
+                        titleText: L.S("change_culture_title", "Change Culture"),
+                        descriptionText: L.S("change_culture_desc", string.Empty),
+                        inquiryElements: elements,
+                        isExitShown: true,
+                        minSelectableOptionCount: 1,
+                        maxSelectableOptionCount: 1,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: selected =>
+                        {
+                            if (selected == null || selected.Count == 0) return;
+                            if (selected[0]?.Identifier is not CultureObject chosen) return;
+
+                            // Apply via wrapper (uses reflection under the hood).
+                            State.Troop.Culture = new WCulture(chosen);
+
+                            // Refresh VM bindings & visuals.
+                            State.UpdateTroop(State.Troop);
+                        },
+                        negativeAction: new Action<List<InquiryElement>>(_ => { })
+                    )
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 

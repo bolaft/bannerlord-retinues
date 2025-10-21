@@ -56,6 +56,9 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="在本文化的城鎮贏得一場比武大會。" />
     <string
+      id="ret_appearance_header_text"
+      text="外觀" />
+    <string
       id="ret_apply_conversions_button_text"
       text="轉換" />
     <string
@@ -112,6 +115,9 @@
     <string
       id="ret_cape_slot_text"
       text="披風" />
+    <string
+      id="ret_change_culture_title"
+      text="更改文化" />
     <string
       id="ret_clanic_traditions"
       text="家族傳統" />
@@ -223,9 +229,6 @@
     <string
       id="ret_field_battle_hint"
       text="為野戰啟用或禁用此套裝。" />
-    <string
-      id="ret_gender_header_text"
-      text="性別" />
     <string
       id="ret_gloves_slot_text"
       text="手套" />
@@ -686,6 +689,12 @@
       id="ret_no"
       text="否" />
     <string
+      id="ret_no_cultures_text"
+      text="當前遊戲中沒有加載任何文化。" />
+    <string
+      id="ret_no_cultures_title"
+      text="未找到文化" />
+    <string
       id="ret_no_skill_points_left"
       text="這支部隊沒有剩餘的技能點。" />
     <string
@@ -925,6 +934,9 @@
     <string
       id="ret_unequip_warning_text"
       text="你即將卸下 {ITEM}，重新裝備一個新物品需要時間。是否繼續？" />
+    <string
+      id="ret_unknown"
+      text="未知" />
     <string
       id="ret_unlock_btn"
       text="解鎖" />

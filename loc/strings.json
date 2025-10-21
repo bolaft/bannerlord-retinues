@@ -272,6 +272,22 @@
     "TR": "Kendi kültüründen bir şehirde bir turnuva kazan."
   },
   {
+    "id": "ret_appearance_header_text",
+    "EN": "Appearance",
+    "BR": "Aparência",
+    "CNs": "外观",
+    "CNt": "外觀",
+    "DE": "Aussehen",
+    "FR": "Apparence",
+    "IT": "Aspetto",
+    "JP": "外観",
+    "KO": "외형",
+    "PL": "Wygląd",
+    "RU": "Внешность",
+    "SP": "Apariencia",
+    "TR": "Görünüm"
+  },
+  {
     "id": "ret_apply_conversions_button_text",
     "EN": "Convert",
     "BR": "Converter",
@@ -574,6 +590,22 @@
     "RU": "Плащ",
     "SP": "Capa",
     "TR": "Pelerin"
+  },
+  {
+    "id": "ret_change_culture_title",
+    "EN": "Change Culture",
+    "BR": "Mudar Cultura",
+    "CNs": "更改文化",
+    "CNt": "更改文化",
+    "DE": "Kultur ändern",
+    "FR": "Changer de Culture",
+    "IT": "Cambia Cultura",
+    "JP": "文化を変更",
+    "KO": "문화 변경",
+    "PL": "Zmień Kulturę",
+    "RU": "Сменить Культуру",
+    "SP": "Cambiar Cultura",
+    "TR": "Kültürü Değiştir"
   },
   {
     "id": "ret_clanic_traditions",
@@ -1166,22 +1198,6 @@
     "RU": "Включите или отключите этот набор для полевых боёв.",
     "SP": "Activa o desactiva este conjunto para batallas campales.",
     "TR": "Bu seti saha savaşları için etkinleştir veya devre dışı bırak."
-  },
-  {
-    "id": "ret_gender_header_text",
-    "EN": "Gender",
-    "BR": "Gênero",
-    "CNs": "性别",
-    "CNt": "性別",
-    "DE": "Geschlecht",
-    "FR": "Genre",
-    "IT": "Genere",
-    "JP": "性別",
-    "KO": "성별",
-    "PL": "Płeć",
-    "RU": "Пол",
-    "SP": "Género",
-    "TR": "Cinsiyet"
   },
   {
     "id": "ret_gloves_slot_text",
@@ -3632,6 +3648,38 @@
     "TR": "Hayır"
   },
   {
+    "id": "ret_no_cultures_text",
+    "EN": "No cultures are loaded in the current game.",
+    "BR": "Nenhuma cultura está carregada no jogo atual.",
+    "CNs": "当前游戏中没有加载任何文化。",
+    "CNt": "當前遊戲中沒有加載任何文化。",
+    "DE": "In dem aktuellen Spiel sind keine Kulturen geladen.",
+    "FR": "Aucune culture n’est chargée dans la partie en cours.",
+    "IT": "Nessuna cultura è caricata nella partita corrente.",
+    "JP": "現在のゲームには文化が読み込まれていません。",
+    "KO": "현재 게임에 로드된 문화가 없습니다.",
+    "PL": "W bieżącej grze nie załadowano żadnych kultur.",
+    "RU": "В текущей игре не загружены никакие культуры.",
+    "SP": "No hay culturas cargadas en el juego actual.",
+    "TR": "Mevcut oyunda yüklenen kültür yok."
+  },
+  {
+    "id": "ret_no_cultures_title",
+    "EN": "No Cultures Found",
+    "BR": "Nenhuma Cultura Encontrada",
+    "CNs": "未找到文化",
+    "CNt": "未找到文化",
+    "DE": "Keine Kulturen gefunden",
+    "FR": "Aucune Culture Trouvée",
+    "IT": "Nessuna Cultura Trovata",
+    "JP": "文化が見つかりません",
+    "KO": "문화가 없습니다",
+    "PL": "Nie znaleziono kultur",
+    "RU": "Культуры не найдены",
+    "SP": "No se Encontraron Culturas",
+    "TR": "Kültür Bulunamadı"
+  },
+  {
     "id": "ret_no_skill_points_left",
     "EN": "No skill points left for this troop.",
     "BR": "Nenhum ponto de habilidade restante para esta tropa.",
@@ -4910,6 +4958,22 @@
     "RU": "Вы собираетесь снять {ITEM}, на переоснащение новым предметом потребуется время. Всё равно продолжить?",
     "SP": "Estás a punto de quitar {ITEM}, tomará tiempo equipar uno nuevo. ¿Continuar de todos modos?",
     "TR": "{ITEM} eşyasını çıkarmak üzeresin, yenisini donatmak zaman alacak. Yine de devam etmek istiyor musun?"
+  },
+  {
+    "id": "ret_unknown",
+    "EN": "Unknown",
+    "BR": "Desconhecido",
+    "CNs": "未知",
+    "CNt": "未知",
+    "DE": "Unbekannt",
+    "FR": "Inconnu",
+    "IT": "Sconosciuto",
+    "JP": "不明",
+    "KO": "알 수 없음",
+    "PL": "Nieznany",
+    "RU": "Неизвестно",
+    "SP": "Desconocido",
+    "TR": "Bilinmeyen"
   },
   {
     "id": "ret_unlock_btn",

@@ -56,6 +56,9 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Kendi kültüründen bir şehirde bir turnuva kazan." />
     <string
+      id="ret_appearance_header_text"
+      text="Görünüm" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Dönüştür" />
     <string
@@ -112,6 +115,9 @@
     <string
       id="ret_cape_slot_text"
       text="Pelerin" />
+    <string
+      id="ret_change_culture_title"
+      text="Kültürü Değiştir" />
     <string
       id="ret_clanic_traditions"
       text="Klan Gelenekleri" />
@@ -223,9 +229,6 @@
     <string
       id="ret_field_battle_hint"
       text="Bu seti saha savaşları için etkinleştir veya devre dışı bırak." />
-    <string
-      id="ret_gender_header_text"
-      text="Cinsiyet" />
     <string
       id="ret_gloves_slot_text"
       text="Eldiven" />
@@ -686,6 +689,12 @@
       id="ret_no"
       text="Hayır" />
     <string
+      id="ret_no_cultures_text"
+      text="Mevcut oyunda yüklenen kültür yok." />
+    <string
+      id="ret_no_cultures_title"
+      text="Kültür Bulunamadı" />
+    <string
       id="ret_no_skill_points_left"
       text="Bu asker için kalan beceri puanı yok." />
     <string
@@ -925,6 +934,9 @@
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} eşyasını çıkarmak üzeresin, yenisini donatmak zaman alacak. Yine de devam etmek istiyor musun?" />
+    <string
+      id="ret_unknown"
+      text="Bilinmeyen" />
     <string
       id="ret_unlock_btn"
       text="Aç" />
