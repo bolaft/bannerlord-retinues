@@ -9,6 +9,7 @@ using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
+using TaleWorlds.Core.ViewModelCollection.Generic;
 
 namespace Retinues.GUI.Editor.VM.Troop
 {
@@ -85,6 +86,14 @@ namespace Retinues.GUI.Editor.VM.Troop
                 );
             }
         }
+
+        /* ━━━━━━━━━ Icons ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public StringItemWithHintVM TierIconData => Icons.GetTierIconData(State.Troop);
+
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(State.Troop);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //

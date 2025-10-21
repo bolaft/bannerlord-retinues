@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using Retinues.GUI.Helpers;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Generic;
@@ -81,25 +82,10 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         /* ━━━━━━━━━ Icons ━━━━━━━━ */
 
         [DataSourceProperty]
-        public string FormationClassIcon
-        {
-            get
-            {
-                return (RowTroop?.FormationClass) switch
-                {
-                    FormationClass.Infantry => @"General\TroopTypeIcons\icon_troop_type_infantry",
-                    FormationClass.Ranged => @"General\TroopTypeIcons\icon_troop_type_bow",
-                    FormationClass.Cavalry => @"General\TroopTypeIcons\icon_troop_type_cavalry",
-                    FormationClass.HorseArcher =>
-                        @"General\TroopTypeIcons\icon_troop_type_horse_archer",
-                    _ => @"General\TroopTypeIcons\icon_troop_type_infantry",
-                };
-            }
-        }
+        public StringItemWithHintVM TierIconData => Icons.GetTierIconData(RowTroop);
 
         [DataSourceProperty]
-        public StringItemWithHintVM TierIconData =>
-            IsTroop ? CampaignUIHelper.GetCharacterTierData(RowTroop.Base, isBig: true) : null;
+        public string FormationClassIcon => Icons.GetFormationClassIcon(RowTroop);
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 

@@ -42,11 +42,11 @@
                                         <!-- Troop tableau -->
                                         {{ include "tableau.sbn" }}
 
-                                        <!-- Remove troop button -->
-                                        {{ include "button_remove.sbn" }}
+                                        <!-- Above tableau (troop screen) -->
+                                        {{ include "top_troop.sbn" }}
 
-                                        <!-- Equipment button group -->
-                                        {{ include "button_equipment.sbn" }}
+                                        <!-- Above tableau (equipment screen) -->
+                                        {{ include "top_equipment.sbn" }}
 
                                         <!-- Equipment toggle text button -->
                                         {{ button_text("@EquipmentButtonText", "ExecuteToggleEquipment", "@EquipmentButtonBrush", "@ShowEquipmentButton", "true", "Bottom") }}
