@@ -221,6 +221,9 @@
       id="ret_female"
       text="Weiblich" />
     <string
+      id="ret_field_battle_hint"
+      text="Aktiviere oder deaktiviere dieses Set für Feldschlachten." />
+    <string
       id="ret_gender_header_text"
       text="Geschlecht" />
     <string
@@ -829,6 +832,12 @@
     <string
       id="ret_set_civilian"
       text="Zivilist" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Aktiviere oder deaktiviere dieses Set für Belagerungsangriffe." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Aktiviere oder deaktiviere dieses Set für Belagerungsverteidigung." />
     <string
       id="ret_skill_at_cap"
       text="Fertigkeit ist für diese Truppe am Limit." />

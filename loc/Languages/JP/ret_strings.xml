@@ -221,6 +221,9 @@
       id="ret_female"
       text="女性" />
     <string
+      id="ret_field_battle_hint"
+      text="野戦用にこのセットを有効または無効にします。" />
+    <string
       id="ret_gender_header_text"
       text="性別" />
     <string
@@ -829,6 +832,12 @@
     <string
       id="ret_set_civilian"
       text="民間人" />
+    <string
+      id="ret_siege_assault_hint"
+      text="攻城戦の突撃用にこのセットを有効または無効にします。" />
+    <string
+      id="ret_siege_defense_hint"
+      text="攻城戦の防御用にこのセットを有効または無効にします。" />
     <string
       id="ret_skill_at_cap"
       text="この部隊のスキルは上限に達しています。" />

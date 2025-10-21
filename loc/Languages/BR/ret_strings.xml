@@ -221,6 +221,9 @@
       id="ret_female"
       text="Feminino" />
     <string
+      id="ret_field_battle_hint"
+      text="Ative ou desative este conjunto para batalhas campais." />
+    <string
       id="ret_gender_header_text"
       text="Gênero" />
     <string
@@ -829,6 +832,12 @@
     <string
       id="ret_set_civilian"
       text="Civil" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Ative ou desative este conjunto para assalto de cerco." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Ative ou desative este conjunto para defesa de cerco." />
     <string
       id="ret_skill_at_cap"
       text="A habilidade está no limite para esta tropa." />

@@ -221,6 +221,9 @@
       id="ret_female"
       text="Женский" />
     <string
+      id="ret_field_battle_hint"
+      text="Включите или отключите этот набор для полевых боёв." />
+    <string
       id="ret_gender_header_text"
       text="Пол" />
     <string
@@ -829,6 +832,12 @@
     <string
       id="ret_set_civilian"
       text="Гражданский" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Включите или отключите этот комплект для штурма осады." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Включите или отключите этот комплект для обороны осады." />
     <string
       id="ret_skill_at_cap"
       text="Навык достиг предела для этой войсковой единицы." />

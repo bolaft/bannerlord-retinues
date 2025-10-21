@@ -221,6 +221,9 @@
       id="ret_female"
       text="Femminile" />
     <string
+      id="ret_field_battle_hint"
+      text="Abilita o disabilita questo set per le battaglie campali." />
+    <string
       id="ret_gender_header_text"
       text="Genere" />
     <string
@@ -829,6 +832,12 @@
     <string
       id="ret_set_civilian"
       text="Civile" />
+    <string
+      id="ret_siege_assault_hint"
+      text="Abilita o disabilita questo set per l&apos;assalto di assedio." />
+    <string
+      id="ret_siege_defense_hint"
+      text="Abilita o disabilita questo set per la difesa di assedio." />
     <string
       id="ret_skill_at_cap"
       text="L&apos;abilità ha raggiunto il limite per questa truppa." />

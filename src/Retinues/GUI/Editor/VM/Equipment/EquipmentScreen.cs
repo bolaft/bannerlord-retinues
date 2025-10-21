@@ -200,7 +200,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeAssault => CanEnableSet && CombatEquipmentBehavior.IsEnabled(State.Troop, State.Equipment.Index, BattleType.SiegeAssault);
 
-        /* ━━━━━━━━ Tooltip ━━━━━━━ */
+        /* ━━━━━━━ Tooltips ━━━━━━━ */
 
         [DataSourceProperty]
         public BasicTooltipViewModel RemoveSetHint =>
@@ -220,6 +220,33 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.T("create_set_hint", "Disabled due to conflicting mods (Shokuho).").ToString()
                 );
+        
+        [DataSourceProperty]
+        public BasicTooltipViewModel FieldBattleHint =>
+            CanEnableSet
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.T("field_battle_hint", "Enable or disable this set for field battles.")
+                        .ToString()
+                ) : null;
+        
+        [DataSourceProperty]
+        public BasicTooltipViewModel SiegeDefenseHint =>
+            CanEnableSet
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.T("siege_defense_hint", "Enable or disable this set for siege defense.")
+                        .ToString()
+                ) : null;
+        
+        [DataSourceProperty]
+        public BasicTooltipViewModel SiegeAssaultHint =>
+            CanEnableSet
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.T("siege_assault_hint", "Enable or disable this set for siege assault.")
+                        .ToString()
+                ) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
