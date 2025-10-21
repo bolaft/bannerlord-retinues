@@ -56,6 +56,9 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Gagne un tournoi dans une ville de ta propre culture." />
     <string
+      id="ret_appearance_header_text"
+      text="Apparence" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Convertir" />
     <string
@@ -112,6 +115,9 @@
     <string
       id="ret_cape_slot_text"
       text="Cape" />
+    <string
+      id="ret_change_culture_title"
+      text="Changer de Culture" />
     <string
       id="ret_clanic_traditions"
       text="Traditions Claniques" />
@@ -223,9 +229,6 @@
     <string
       id="ret_field_battle_hint"
       text="Active ou désactive cet ensemble pour les batailles rangées." />
-    <string
-      id="ret_gender_header_text"
-      text="Genre" />
     <string
       id="ret_gloves_slot_text"
       text="Gants" />
@@ -686,6 +689,12 @@
       id="ret_no"
       text="Non" />
     <string
+      id="ret_no_cultures_text"
+      text="Aucune culture n’est chargée dans la partie en cours." />
+    <string
+      id="ret_no_cultures_title"
+      text="Aucune Culture Trouvée" />
+    <string
       id="ret_no_skill_points_left"
       text="Plus de points de compétence disponibles pour cette troupe." />
     <string
@@ -925,6 +934,9 @@
     <string
       id="ret_unequip_warning_text"
       text="Tu es sur le point de retirer {ITEM}, il faudra du temps pour en équiper un nouveau. Continuer quand même ?" />
+    <string
+      id="ret_unknown"
+      text="Inconnu" />
     <string
       id="ret_unlock_btn"
       text="Débloquer" />

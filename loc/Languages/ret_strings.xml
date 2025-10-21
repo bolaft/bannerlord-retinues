@@ -56,6 +56,9 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Win a tournament in a town of your own culture." />
     <string
+      id="ret_appearance_header_text"
+      text="Appearance" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Convert" />
     <string
@@ -112,6 +115,9 @@
     <string
       id="ret_cape_slot_text"
       text="Cape" />
+    <string
+      id="ret_change_culture_title"
+      text="Change Culture" />
     <string
       id="ret_clanic_traditions"
       text="Clan Traditions" />
@@ -223,9 +229,6 @@
     <string
       id="ret_field_battle_hint"
       text="Enable or disable this set for field battles." />
-    <string
-      id="ret_gender_header_text"
-      text="Gender" />
     <string
       id="ret_gloves_slot_text"
       text="Gloves" />
@@ -686,6 +689,12 @@
       id="ret_no"
       text="No" />
     <string
+      id="ret_no_cultures_text"
+      text="No cultures are loaded in the current game." />
+    <string
+      id="ret_no_cultures_title"
+      text="No Cultures Found" />
+    <string
       id="ret_no_skill_points_left"
       text="No skill points left for this troop." />
     <string
@@ -925,6 +934,9 @@
     <string
       id="ret_unequip_warning_text"
       text="You are about to unequip {ITEM}, it will take time to re-equip a new one. Continue anyway?" />
+    <string
+      id="ret_unknown"
+      text="Unknown" />
     <string
       id="ret_unlock_btn"
       text="Unlock" />

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Safety.Sanitizer;
@@ -169,7 +170,33 @@ namespace Retinues.Game.Wrappers
             set => Base.Level = value;
         }
 
-        public WCulture Culture => new(Base.Culture);
+        public WCulture Culture
+        {
+            get => new(Base.Culture);
+            set
+            {
+                try
+                {
+                    if (value == null) return;
+                    if (IsHero) return; // Skip heroes (their culture lives on HeroObject.Culture)
+
+                    // CharacterObject has a 'new Culture' with a private setter that forwards to base.Culture.
+                    // Explicitly target the declaring base property to avoid AmbiguousMatchException.
+                    var baseType = typeof(BasicCharacterObject); 
+                    var prop = baseType.GetProperty(
+                        "Culture",
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly
+                    );
+                    prop?.SetValue(Base, value.Base, null);
+
+                    ApplyCultureVisualsFrom(value.Base);
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex);
+                }
+            }
+        }
 
         public FormationClass FormationClass
         {
@@ -517,6 +544,105 @@ namespace Retinues.Game.Wrappers
             }
             else
                 Loadout.Clear();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Visuals                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Re-derive body/face and style from a culture template.
+        /// </summary>
+        public void ApplyCultureVisualsFrom(CultureObject culture)
+        {
+            try
+            {
+                if (culture == null || IsHero) return; // skip heroes
+
+                var template = culture.BasicTroop ?? culture.EliteBasicTroop;
+                if (template == null) return;
+
+                // break shared reference
+                EnsureOwnBodyRange();
+
+                var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+                var tplRange = Reflector.GetPropertyValue<object>(template, "BodyPropertyRange");
+
+                // 1) Copy style tags & race (affects FaceGen sampling)
+                Reflector.SetPropertyValue(Base, "Race", template.Race);
+
+                // 2) Copy min/max envelope from template
+                var min = template.GetBodyPropertiesMin();
+                var max = template.GetBodyPropertiesMax();
+                Reflector.InvokeMethod(range, "Init", [typeof(BodyProperties), typeof(BodyProperties)], min, max);
+
+                // 3) Copy style tags
+#if BL13
+                if (tplRange != null && range != null)
+                {
+                    var hairSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "HairTags");
+                    var beardSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "BeardTags");
+                    var tattooSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "TattooTags");
+
+                    ReplaceStringCollection(range, "HairTags", hairSrc);
+                    ReplaceStringCollection(range, "BeardTags", beardSrc);
+                    ReplaceStringCollection(range, "TattooTags", tattooSrc);
+                }
+#else
+                Reflector.SetPropertyValue(Base, "HairTags", template.HairTags);
+                Reflector.SetPropertyValue(Base, "BeardTags", template.BeardTags);
+                Reflector.SetPropertyValue(Base, "TattooTags", template.TattooTags);
+#endif
+
+                // 4) Snap age to the template’s mid-age
+                var midAge = (min.Age + max.Age) * 0.5f;
+                Reflector.SetPropertyValue(Base, "Age", midAge);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        /// <summary>
+        /// Ensure this CharacterObject has its own BodyPropertyRange instance (not shared with clones).
+        /// </summary>
+        private void EnsureOwnBodyRange()
+        {
+            // Get current range (may be shared across clones)
+            var current = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+            if (current == null)
+                return;
+
+            // Create a brand-new range object of the same runtime type
+            var rangeType = current.GetType(); // e.g., TaleWorlds.Core.BodyPropertyRange
+            var fresh = Activator.CreateInstance(rangeType);
+
+            // Swap it in so this troop no longer shares with anyone else
+            Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
+        }
+
+        /// <summary>
+        /// Clone/replace a string-collection property on BodyPropertyRange.
+        /// </summary>
+        private static void ReplaceStringCollection(object range, string propName, IEnumerable<string> source)
+        {
+            var target = Reflector.GetPropertyValue<object>(range, propName);
+            if (target == null) return;
+
+            // Try IList<string>: clear + add (avoids needing the concrete MBList type)
+            if (target is IList<string> list)
+            {
+                list.Clear();
+                foreach (var s in source ?? [])
+                    list.Add(s);
+                return;
+            }
+
+            // Fallback: build a new List<string> and set the property if it has a public/private setter
+            var cloned = source != null ? [.. source] : new List<string>();
+            try { Reflector.SetPropertyValue(range, propName, cloned); }
+            catch { }
         }
     }
 }

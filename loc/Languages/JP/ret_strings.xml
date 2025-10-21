@@ -56,6 +56,9 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="自文化の町でトーナメントに勝利する。" />
     <string
+      id="ret_appearance_header_text"
+      text="外観" />
+    <string
       id="ret_apply_conversions_button_text"
       text="変換" />
     <string
@@ -112,6 +115,9 @@
     <string
       id="ret_cape_slot_text"
       text="マント" />
+    <string
+      id="ret_change_culture_title"
+      text="文化を変更" />
     <string
       id="ret_clanic_traditions"
       text="一族の伝統" />
@@ -223,9 +229,6 @@
     <string
       id="ret_field_battle_hint"
       text="野戦用にこのセットを有効または無効にします。" />
-    <string
-      id="ret_gender_header_text"
-      text="性別" />
     <string
       id="ret_gloves_slot_text"
       text="手袋" />
@@ -686,6 +689,12 @@
       id="ret_no"
       text="いいえ" />
     <string
+      id="ret_no_cultures_text"
+      text="現在のゲームには文化が読み込まれていません。" />
+    <string
+      id="ret_no_cultures_title"
+      text="文化が見つかりません" />
+    <string
       id="ret_no_skill_points_left"
       text="この部隊には残りのスキルポイントがありません。" />
     <string
@@ -925,6 +934,9 @@
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} を外そうとしています。新しいものを装備するには時間がかかります。それでも続行しますか？" />
+    <string
+      id="ret_unknown"
+      text="不明" />
     <string
       id="ret_unlock_btn"
       text="解除" />

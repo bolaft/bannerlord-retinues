@@ -56,6 +56,9 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Wygraj turniej w mieście swojej kultury." />
     <string
+      id="ret_appearance_header_text"
+      text="Wygląd" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Konwertuj" />
     <string
@@ -112,6 +115,9 @@
     <string
       id="ret_cape_slot_text"
       text="Płaszcz" />
+    <string
+      id="ret_change_culture_title"
+      text="Zmień Kulturę" />
     <string
       id="ret_clanic_traditions"
       text="Tradycje Klanu" />
@@ -223,9 +229,6 @@
     <string
       id="ret_field_battle_hint"
       text="Włącz lub wyłącz ten zestaw do bitew polowych." />
-    <string
-      id="ret_gender_header_text"
-      text="Płeć" />
     <string
       id="ret_gloves_slot_text"
       text="Rękawice" />
@@ -686,6 +689,12 @@
       id="ret_no"
       text="Nie" />
     <string
+      id="ret_no_cultures_text"
+      text="W bieżącej grze nie załadowano żadnych kultur." />
+    <string
+      id="ret_no_cultures_title"
+      text="Nie znaleziono kultur" />
+    <string
       id="ret_no_skill_points_left"
       text="Brak pozostałych punktów umiejętności dla tego oddziału." />
     <string
@@ -925,6 +934,9 @@
     <string
       id="ret_unequip_warning_text"
       text="Zamierzasz zdjąć {ITEM}, ponowne wyposażenie nowego zajmie trochę czasu. Kontynuować mimo to?" />
+    <string
+      id="ret_unknown"
+      text="Nieznany" />
     <string
       id="ret_unlock_btn"
       text="Odblokuj" />

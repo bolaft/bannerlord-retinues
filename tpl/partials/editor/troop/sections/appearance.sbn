@@ -1,5 +1,5 @@
 <!-- Section header -->
-{{ header("@GenderHeaderText") }}
+{{ header("@AppearanceHeaderText") }}
 
 <!-- Gender display and change action -->
 <ListPanel
@@ -14,6 +14,12 @@
         {{ text("@GenderText", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
 
         <!-- Button to toggle/change gender (icon) -->
-        {{ button_icon("ExecuteChangeGender", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
+        {{ button_icon("ExecuteChangeGender", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "16") }}
+
+        <!-- Display current culture text -->
+        {{ text("@CultureText", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
+
+        <!-- Button to toggle/change culture (icon) -->
+        {{ button_icon("ExecuteChangeCulture", "SPClan.NameChange.Icon", "32", "true", "true", "0", "0", "8", "0") }}
     </Children>
 </ListPanel>
