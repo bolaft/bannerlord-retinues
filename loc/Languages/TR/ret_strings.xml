@@ -155,6 +155,12 @@
       id="ret_convert_not_enough_gold_title"
       text="Yetersiz altın" />
     <string
+      id="ret_convert_not_enough_influence_text"
+      text="Bu yandaşları kiralamak için yeterli etkinliğin yok." />
+    <string
+      id="ret_convert_not_enough_influence_title"
+      text="Yetersiz etki" />
+    <string
       id="ret_create_set_hint"
       text="Çakışan modlar (Shokuho) nedeniyle devre dışı bırakıldı." />
     <string
@@ -803,14 +809,29 @@
       id="ret_retinue"
       text="Yandaş" />
     <string
+      id="ret_retinue_cap_text"
+      text="İşe Alım Limiti" />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Kraliçenin Şampiyonu" />
+    <string
+      id="ret_retinue_hire_inquiry_body"
+      text="Aşağıdaki yandaşlar grubunuza katıldı:{newline}{newline}{JOINED_LINES}" />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Hanenin Şampiyonu" />
     <string
       id="ret_retinue_house_guard"
       text="{FACTION} Hanenin Muhafızı" />
+    <string
+      id="ret_retinue_join_text"
+      text="Kazanılan her {COST} şöhret için bir yeni yandaş." />
+    <string
+      id="ret_retinue_join_text_full"
+      text="İşe alım limiti doldu." />
+    <string
+      id="ret_retinue_join_text_none"
+      text="Yeni yandaş katılmayacak." />
     <string
       id="ret_retinue_male_kingdom"
       text="{FACTION} Kralın Şampiyonu" />
@@ -823,6 +844,9 @@
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Kraliyet Muhafızı" />
+    <string
+      id="ret_retinues_joined"
+      text="Yeni Yandaşlar Katıldı" />
     <string
       id="ret_royal_patronage"
       text="Kraliyet Himayesi" />

@@ -155,6 +155,12 @@
       id="ret_convert_not_enough_gold_title"
       text="Oro insufficiente" />
     <string
+      id="ret_convert_not_enough_influence_text"
+      text="Non hai abbastanza influenza per assumere questi seguiti." />
+    <string
+      id="ret_convert_not_enough_influence_title"
+      text="Influenza insufficiente" />
+    <string
       id="ret_create_set_hint"
       text="Disabilitato a causa di mod in conflitto (Shokuho)." />
     <string
@@ -803,14 +809,29 @@
       id="ret_retinue"
       text="Seguito" />
     <string
+      id="ret_retinue_cap_text"
+      text="Limite di Assunzione" />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Campione della Regina" />
+    <string
+      id="ret_retinue_hire_inquiry_body"
+      text="I seguenti seguaci si sono uniti al tuo gruppo:{newline}{newline}{JOINED_LINES}" />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Campione della Casa" />
     <string
       id="ret_retinue_house_guard"
       text="{FACTION} Guardia della Casa" />
+    <string
+      id="ret_retinue_join_text"
+      text="Un nuovo seguito per ogni {COST} di fama guadagnata." />
+    <string
+      id="ret_retinue_join_text_full"
+      text="È stato raggiunto il limite di assunzione." />
+    <string
+      id="ret_retinue_join_text_none"
+      text="Nessun nuovo seguito si unirà." />
     <string
       id="ret_retinue_male_kingdom"
       text="{FACTION} Campione del Re" />
@@ -823,6 +844,9 @@
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Guardia Reale" />
+    <string
+      id="ret_retinues_joined"
+      text="Nuovi Seguaci Entrati" />
     <string
       id="ret_royal_patronage"
       text="Patrocinio Reale" />

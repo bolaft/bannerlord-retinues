@@ -57,7 +57,6 @@ namespace Retinues.Troops
                     serializer.Serialize(writer, payload);
                 }
 
-                Log.Message($"Exported {payload.Count} root troop definitions to '{filePath}'.");
                 return Path.GetFullPath(filePath);
             }
             catch (Exception e)

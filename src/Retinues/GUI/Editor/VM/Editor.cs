@@ -5,7 +5,6 @@ using Retinues.Game;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
-using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;

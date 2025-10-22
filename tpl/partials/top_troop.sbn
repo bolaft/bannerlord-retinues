@@ -64,3 +64,46 @@
         </Widget>
     </Children>
 </Widget>
+
+<!-- Retinue recruitement -->
+<Widget
+    DataSource="{TroopScreen}"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    DoNotPassEventsToChildren="false"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Top">
+    <Children>
+        <TextWidget
+            IsVisible="@ShowRetinueCap"
+            MarginTop="15"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            Text="@RetinueCapText"
+            Brush="Kingdom.TitleSmall.Text"/>
+        <ListPanel
+            IsVisible="@ShowRetinueCap"
+            MarginTop="60"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+                {{ button_icon("ExecuteLowerRetinueCap", "ButtonRightBigArrowBrush1", "24", "true", "@CanLowerRetinueCap") }}
+                {{ text_int("@RetinueCapValue", "Clan.Tuple.Name.Text", "Center", "8", "0") }}
+                {{ text("/", "Clan.Tuple.Name.Text", "Center", "2", "2") }}
+                {{ text_int("@RetinueCapMax", "Clan.Tuple.Name.Text", "Center", "0", "8") }}
+                {{ button_icon("ExecuteRaiseRetinueCap", "ButtonLeftBigArrowBrush1", "24", "true", "@CanRaiseRetinueCap") }}
+            </Children>
+        </ListPanel>
+        <TextWidget
+            IsVisible="@ShowRetinueCap"
+            Text="@RetinueJoinText" Brush="InventoryGoldFontBrush" Brush.FontColor="#eed3abff" Brush.FontSize="16"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            MarginLeft="0" MarginRight="0" MarginTop="100" MarginBottom="0"
+            ClipContents="false"/>
+    </Children>
+</Widget>

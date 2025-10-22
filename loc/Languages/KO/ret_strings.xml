@@ -155,6 +155,12 @@
       id="ret_convert_not_enough_gold_title"
       text="골드 부족" />
     <string
+      id="ret_convert_not_enough_influence_text"
+      text="이 수행원을 고용할 충분한 영향력이 없습니다." />
+    <string
+      id="ret_convert_not_enough_influence_title"
+      text="영향력 부족" />
+    <string
       id="ret_create_set_hint"
       text="충돌하는 모드(Shokuho)로 인해 비활성화되었습니다." />
     <string
@@ -803,14 +809,29 @@
       id="ret_retinue"
       text="수행원" />
     <string
+      id="ret_retinue_cap_text"
+      text="고용 한도" />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} 여왕의 용사" />
+    <string
+      id="ret_retinue_hire_inquiry_body"
+      text="다음 수행원이 당신의 파티에 합류했습니다:{newline}{newline}{JOINED_LINES}" />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} 가문의 용사" />
     <string
       id="ret_retinue_house_guard"
       text="{FACTION} 가문의 수호병" />
+    <string
+      id="ret_retinue_join_text"
+      text="획득한 명성 {COST} 당 새로운 수행원 1명이 합류합니다." />
+    <string
+      id="ret_retinue_join_text_full"
+      text="고용 한도에 도달했습니다." />
+    <string
+      id="ret_retinue_join_text_none"
+      text="새로운 수행원이 합류하지 않습니다." />
     <string
       id="ret_retinue_male_kingdom"
       text="{FACTION} 왕의 용사" />
@@ -823,6 +844,9 @@
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} 왕립 근위대" />
+    <string
+      id="ret_retinues_joined"
+      text="새로운 수행원 합류" />
     <string
       id="ret_royal_patronage"
       text="왕실 후원" />

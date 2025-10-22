@@ -371,13 +371,29 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Returns the gold cost per unit for converting a retinue, based on tier.
         /// </summary>
-        public static int ConversionCostPerUnit(WCharacter retinue)
+        public static int ConversionGoldCostPerUnit(WCharacter retinue)
         {
             if (retinue == null || !retinue.IsRetinue)
                 return 0;
             int tier = retinue?.Tier ?? 1;
             int baseCost = Config.RetinueConversionCostPerTier;
             return tier * baseCost;
+        }
+
+        /// <summary>
+        /// Returns the influence cost per unit for converting a retinue, based on tier.
+        /// </summary>
+        public static int ConversionInfluenceCostPerUnit(WCharacter retinue)
+        {
+            return ConversionGoldCostPerUnit(retinue) / 20;
+        }
+
+        /// <summary>
+        /// Returns the renown cost per unit for converting a retinue, based on tier.
+        /// </summary>
+        public static int ConversionRenownCostPerUnit(WCharacter retinue)
+        {
+            return ConversionGoldCostPerUnit(retinue) / 5;
         }
 
         /// <summary>

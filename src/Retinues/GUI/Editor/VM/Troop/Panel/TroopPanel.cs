@@ -71,7 +71,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(IsRetinue),
                     nameof(IsRegular),
                     nameof(HasPendingConversions),
-                    nameof(PendingTotalCost),
+                    nameof(PendingTotalGoldCost),
+                    nameof(PendingTotalInfluenceCost),
                     nameof(PendingTotalCount),
                     nameof(RetinueCap),
                     nameof(CultureText),
@@ -87,7 +88,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 [UIEvent.Conversion] =
                 [
                     nameof(HasPendingConversions),
-                    nameof(PendingTotalCost),
+                    nameof(PendingTotalGoldCost),
+                    nameof(PendingTotalInfluenceCost),
                     nameof(PendingTotalCount),
                 ],
             };
@@ -302,7 +304,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public bool HasPendingConversions => ConversionRows.Any(r => r.HasPendingConversions);
 
         [DataSourceProperty]
-        public int PendingTotalCost => ConversionRows.Sum(r => r.ConversionCost);
+        public int PendingTotalGoldCost => ConversionRows.Sum(r => r.GoldConversionCost);
+
+        [DataSourceProperty]
+        public int PendingTotalInfluenceCost => ConversionRows.Sum(r => r.InfluenceConversionCost);
 
         [DataSourceProperty]
         public int PendingTotalCount => ConversionRows.Sum(r => Math.Abs(r.PendingAmount));
@@ -599,13 +604,25 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             )
                 return; // Conversion not allowed in current context
 
-            if (PendingTotalCost > Player.Gold)
+            if (PendingTotalGoldCost > Player.Gold)
             {
                 Popup.Display(
                     L.T("convert_not_enough_gold_title", "Not enough gold"),
                     L.T(
                         "convert_not_enough_gold_text",
                         "You do not have enough gold to hire these retinues."
+                    )
+                );
+                return;
+            }
+
+            if (PendingTotalInfluenceCost > Player.Influence)
+            {
+                Popup.Display(
+                    L.T("convert_not_enough_influence_title", "Not enough influence"),
+                    L.T(
+                        "convert_not_enough_influence_text",
+                        "You do not have enough influence to hire these retinues."
                     )
                 );
                 return;

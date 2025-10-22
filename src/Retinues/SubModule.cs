@@ -9,6 +9,7 @@ using Retinues.Features.Missions.Behaviors;
 using Retinues.Features.Recruits.Behaviors;
 using Retinues.Features.Stocks.Behaviors;
 using Retinues.Features.Unlocks.Behaviors;
+using Retinues.Features.Retinues.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
@@ -158,6 +159,9 @@ namespace Retinues
 
                 // Swap behaviors
                 cs.AddBehavior(new MilitiaSwapBehavior());
+
+                // Retinue behaviors
+                cs.AddBehavior(new RetinueHireBehavior());
 
                 // Combat equipment behavior
                 cs.AddBehavior(new CombatEquipmentBehavior());

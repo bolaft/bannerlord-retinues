@@ -43,17 +43,29 @@ namespace Retinues.Features.Missions.Behaviors
     /// </summary>
     public sealed class CombatEquipmentBehavior : CampaignBehaviorBase
     {
-    
-        // troopId -> (altIndex -> policy)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Sync Data                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private Dictionary<string, Dictionary<int, EquipmentUsePolicy>> _byTroop = [];
 
-        public override void RegisterEvents() { }
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData("Retinues_EquipmentUsePolicy", ref _byTroop);
         }
 
-        // ---------- Queries ----------
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Event Registration                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override void RegisterEvents() { }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━ Queries ━━━━━━━ */
+
         public EquipmentUsePolicy GetPolicy(WCharacter troop, int altIndex)
         {
             if (troop == null || altIndex < 2) return EquipmentUsePolicy.All; // 0 battle, 1 civilian => always allowed
@@ -72,7 +84,8 @@ namespace Retinues.Features.Missions.Behaviors
         public bool IsEnabled_SiegeAssault(WCharacter troop, int altIndex)
             => GetPolicy(troop, altIndex).SiegeAssault;
 
-        // ---------- Commands ----------
+        /* ━━━━━━━ Commands ━━━━━━━ */
+
         public void Toggle_Field(WCharacter troop, int altIndex)
             => Set(troop, altIndex, p => p.FieldBattle = !p.FieldBattle);
 
@@ -110,7 +123,8 @@ namespace Retinues.Features.Missions.Behaviors
             mut(p);
         }
 
-        // ---------- Static accessors (null-safe, lazy) ----------
+        /* ━━━━━━━ Accessors ━━━━━━ */
+
         private static CombatEquipmentBehavior Inst =>
             Campaign.Current?.GetCampaignBehavior<CombatEquipmentBehavior>();
 

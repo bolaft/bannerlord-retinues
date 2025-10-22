@@ -20,7 +20,7 @@
             
             {{ button_icon("ExecuteRelease", "ButtonRightBigArrowBrush1", "24", "true", "@CanRelease") }}
 
-            {{ text_int("@ConversionCost", "Clan.Tuple.Name.Text", "Center") }}
+            {{ text_int("@GoldConversionCost", "Clan.Tuple.Name.Text", "Center") }}
 
             <ImageWidget
                 WidthSizePolicy="Fixed"
@@ -28,6 +28,16 @@
                 SuggestedWidth="20"
                 SuggestedHeight="20"
                 Sprite="General\Icons\Coin@2x"
+                VerticalAlignment="Center" />
+
+            {{ text_int("@InfluenceConversionCost", "Clan.Tuple.Name.Text", "Center") }}
+
+            <ImageWidget
+                WidthSizePolicy="Fixed"
+                HeightSizePolicy="Fixed"
+                SuggestedWidth="20"
+                SuggestedHeight="20"
+                Sprite="General\Icons\Influence@2x"
                 VerticalAlignment="Center" />
 
             {{ button_icon("ExecuteRecruit", "ButtonLeftBigArrowBrush1", "24", "true", "@CanRecruit") }}

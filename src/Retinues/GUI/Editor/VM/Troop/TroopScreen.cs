@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Features.Retinues.Behaviors;
 using Retinues.GUI.Editor.VM.Troop.List;
 using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.GUI.Helpers;
@@ -9,7 +10,7 @@ using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-using TaleWorlds.Core.ViewModelCollection.Generic;
+using System;
 
 namespace Retinues.GUI.Editor.VM.Troop
 {
@@ -32,7 +33,19 @@ namespace Retinues.GUI.Editor.VM.Troop
                     nameof(RemoveTroopButtonIsEnabled),
                     nameof(RemoveTroopButtonText),
                     nameof(RemoveButtonHint),
+                    nameof(ShowRetinueCap),
+                    nameof(RetinueCapMax),
+                    nameof(RetinueCapValue),
+                    nameof(CanRaiseRetinueCap),
+                    nameof(CanLowerRetinueCap),
+                    nameof(RetinueJoinText),
+                    nameof(CountInParty)
                 ],
+                [UIEvent.Party] =
+                [
+                    nameof(RetinueJoinText),
+                    nameof(CountInParty)
+                ]
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -49,6 +62,17 @@ namespace Retinues.GUI.Editor.VM.Troop
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━━━ Values ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public int CountInParty => State.PartyData.TryGetValue(State.Troop, out var count) ? count : 0;
+
+        [DataSourceProperty]
+        public int RetinueCapValue => RetinueHireBehavior.GetRetinueCap(State.Troop);
+
+        [DataSourceProperty]
+        public int RetinueCapMax => State.Troop?.IsElite == true ? TroopRules.MaxEliteRetinue : TroopRules.MaxBasicRetinue;
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -58,11 +82,49 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceProperty]
         public bool RemoveTroopButtonIsEnabled => State.Troop?.IsDeletable == true;
 
+        [DataSourceProperty]
+        public bool ShowRetinueCap => State.Troop?.IsRetinue == true;
+
+        [DataSourceProperty]
+        public bool CanLowerRetinueCap => RetinueCapValue > 0;
+
+        [DataSourceProperty]
+        public bool CanRaiseRetinueCap => RetinueCapValue < RetinueCapMax;
+
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
         public string RemoveTroopButtonText => L.S("remove_button_text", "Remove");
 
+        [DataSourceProperty]
+        public string RetinueCapText => L.S("retinue_cap_text", "Hiring Limit");
+
+        [DataSourceProperty]
+        public string RetinueJoinText
+        {
+            get
+            {
+                if (State.Troop == null || !State.Troop.IsRetinue)
+                    return string.Empty;
+
+                if (RetinueCapValue == 0)
+                    return L.S(
+                        "retinue_join_text_none",
+                        "No new retinues will join."
+                    );
+                
+                if (CountInParty >= RetinueCapValue)
+                    return L.S(
+                        "retinue_join_text_full",
+                        "The hiring limit has been reached."
+                    );
+
+                return L.T(
+                    "retinue_join_text",
+                    "One new retinue per {COST} renown earned."
+                ).SetTextVariable("COST", TroopRules.ConversionRenownCostPerUnit(State.Troop)).ToString();
+            }
+        }
         /* ━━━━━━━━ Tooltip ━━━━━━━ */
 
         [DataSourceProperty]
@@ -87,17 +149,45 @@ namespace Retinues.GUI.Editor.VM.Troop
             }
         }
 
-        /* ━━━━━━━━━ Icons ━━━━━━━━ */
-
-        [DataSourceProperty]
-        public StringItemWithHintVM TierIconData => Icons.GetTierIconData(State.Troop);
-
-        [DataSourceProperty]
-        public string FormationClassIcon => Icons.GetFormationClassIcon(State.Troop);
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceMethod]
+        public void ExecuteRaiseRetinueCap()
+        {
+            if (State.Troop == null)
+                return;
+
+            if (!CanRaiseRetinueCap)
+                return;
+
+            var cap = Math.Min(RetinueCapValue + BatchInput(capped: false), RetinueCapMax);
+            RetinueHireBehavior.SetRetinueCap(State.Troop, cap);
+
+            OnPropertyChanged(nameof(RetinueCapValue));
+            OnPropertyChanged(nameof(CanRaiseRetinueCap));
+            OnPropertyChanged(nameof(CanLowerRetinueCap));
+            OnPropertyChanged(nameof(RetinueJoinText));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteLowerRetinueCap()
+        {
+            if (State.Troop == null)
+                return;
+
+            if (!CanLowerRetinueCap)
+                return;
+
+            var cap = Math.Max(RetinueCapValue - BatchInput(capped: false), 0);
+            RetinueHireBehavior.SetRetinueCap(State.Troop, cap);
+
+            OnPropertyChanged(nameof(RetinueCapValue));
+            OnPropertyChanged(nameof(CanRaiseRetinueCap));
+            OnPropertyChanged(nameof(CanLowerRetinueCap));
+            OnPropertyChanged(nameof(RetinueJoinText));
+        }
 
         [DataSourceMethod]
         /// <summary>

@@ -69,6 +69,9 @@ namespace Retinues
             ConstructContainerDefinition(typeof(Dictionary<int, EquipmentUsePolicy>));
             ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<int, EquipmentUsePolicy>>));
 
+            // Retinue hire containers
+            ConstructContainerDefinition(typeof(Dictionary<string, int>));
+
             // Legacy containers for backwards compatibility
             ConstructContainerDefinition(typeof(Dictionary<string, int>));
             ConstructContainerDefinition(typeof(List<int>));

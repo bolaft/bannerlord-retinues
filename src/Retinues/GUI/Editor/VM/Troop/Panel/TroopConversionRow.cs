@@ -31,7 +31,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 [UIEvent.Conversion] =
                 [
                     nameof(PendingAmount),
-                    nameof(ConversionCost),
+                    nameof(GoldConversionCost),
+                    nameof(InfluenceConversionCost),
                     nameof(SourceDisplay),
                     nameof(TargetDisplay),
                     nameof(CanRecruit),
@@ -67,8 +68,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int PendingAmount => Amount;
 
         [DataSourceProperty]
-        public int ConversionCost =>
-            TroopRules.ConversionCostPerUnit(State.Troop) * Math.Max(0, Amount);
+        public int GoldConversionCost =>
+            TroopRules.ConversionGoldCostPerUnit(State.Troop) * Math.Max(0, Amount);
+
+        [DataSourceProperty]
+        public int InfluenceConversionCost => TroopRules.ConversionInfluenceCostPerUnit(State.Troop) * Math.Max(0, Amount);
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
