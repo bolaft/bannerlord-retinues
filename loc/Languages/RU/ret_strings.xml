@@ -761,6 +761,12 @@
       id="ret_rank_up"
       text="Повышение" />
     <string
+      id="ret_rank_up_cant_outrank_elite_text"
+      text="{TROOP_NAME} не может превзойти {ELITE_RETINUE}." />
+    <string
+      id="ret_rank_up_cant_outrank_elite_title"
+      text="Невозможно превзойти элиту" />
+    <string
       id="ret_rank_up_costs_text"
       text="Это будет стоить {COST_GOLD} золота и {COST_XP} опыта." />
     <string

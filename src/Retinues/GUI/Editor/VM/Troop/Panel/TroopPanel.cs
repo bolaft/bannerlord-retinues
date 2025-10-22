@@ -508,6 +508,18 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     )
                 );
             }
+            else if (!State.Troop.IsElite && State.Troop.Tier >= State.Faction.RetinueElite.Tier)
+            {
+                Popup.Display(
+                    L.T("rank_up_cant_outrank_elite_title", "Cannot Outrank Elite"),
+                    L.T(
+                        "rank_up_cant_outrank_elite_text",
+                        "{TROOP_NAME} can't outrank {ELITE_RETINUE}."
+                    )
+                    .SetTextVariable("TROOP_NAME", State.Troop.Name)
+                    .SetTextVariable("ELITE_RETINUE", State.Faction.RetinueElite.Name)
+                );
+            }
             else if (Player.Gold < cost)
             {
                 Popup.Display(

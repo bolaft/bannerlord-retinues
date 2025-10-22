@@ -761,6 +761,12 @@
       id="ret_rank_up"
       text="Terfi" />
     <string
+      id="ret_rank_up_cant_outrank_elite_text"
+      text="{TROOP_NAME}, {ELITE_RETINUE} ’yi geçemez." />
+    <string
+      id="ret_rank_up_cant_outrank_elite_title"
+      text="Elit Üstünlüğü Sağlanamıyor" />
+    <string
       id="ret_rank_up_costs_text"
       text="{COST_GOLD} altın ve {COST_XP} XP’ye mal olacak." />
     <string

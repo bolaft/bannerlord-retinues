@@ -4032,6 +4032,38 @@
     "TR": "Terfi"
   },
   {
+    "id": "ret_rank_up_cant_outrank_elite_text",
+    "EN": "{TROOP_NAME} can't outrank {ELITE_RETINUE}.",
+    "BR": "{TROOP_NAME} não pode superar {ELITE_RETINUE}.",
+    "CNs": "{TROOP_NAME} 无法超越 {ELITE_RETINUE}。",
+    "CNt": "{TROOP_NAME} 無法超越 {ELITE_RETINUE}。",
+    "DE": "{TROOP_NAME} kann {ELITE_RETINUE} nicht übertreffen.",
+    "FR": "{TROOP_NAME} ne peut pas surpasser {ELITE_RETINUE}.",
+    "IT": "{TROOP_NAME} non può superare {ELITE_RETINUE}.",
+    "JP": "{TROOP_NAME} は {ELITE_RETINUE} を上回ることはできません。",
+    "KO": "{TROOP_NAME} 은(는) {ELITE_RETINUE} 를 능가할 수 없습니다.",
+    "PL": "{TROOP_NAME} nie może przewyższyć {ELITE_RETINUE}.",
+    "RU": "{TROOP_NAME} не может превзойти {ELITE_RETINUE}.",
+    "SP": "{TROOP_NAME} no puede superar a {ELITE_RETINUE}.",
+    "TR": "{TROOP_NAME}, {ELITE_RETINUE} ’yi geçemez."
+  },
+  {
+    "id": "ret_rank_up_cant_outrank_elite_title",
+    "EN": "Cannot Outrank Elite",
+    "BR": "Não é possível superar a elite",
+    "CNs": "无法超越精英",
+    "CNt": "無法超越精英",
+    "DE": "Kann Elite nicht übertreffen",
+    "FR": "Impossible de surpasser l’élite",
+    "IT": "Impossibile superare l’élite",
+    "JP": "エリートを上回ることはできません",
+    "KO": "엘리트를 능가할 수 없음",
+    "PL": "Nie można przewyższyć elity",
+    "RU": "Невозможно превзойти элиту",
+    "SP": "No se puede superar a la élite",
+    "TR": "Elit Üstünlüğü Sağlanamıyor"
+  },
+  {
     "id": "ret_rank_up_costs_text",
     "EN": "It will cost you {COST_GOLD} gold and {COST_XP} XP.",
     "BR": "Isso vai custar {COST_GOLD} de ouro e {COST_XP} de XP.",

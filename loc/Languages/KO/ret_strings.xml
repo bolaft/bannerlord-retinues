@@ -761,6 +761,12 @@
       id="ret_rank_up"
       text="승급" />
     <string
+      id="ret_rank_up_cant_outrank_elite_text"
+      text="{TROOP_NAME} 은(는) {ELITE_RETINUE} 를 능가할 수 없습니다." />
+    <string
+      id="ret_rank_up_cant_outrank_elite_title"
+      text="엘리트를 능가할 수 없음" />
+    <string
       id="ret_rank_up_costs_text"
       text="{COST_GOLD} 골드와 {COST_XP} 경험치가 필요합니다." />
     <string
