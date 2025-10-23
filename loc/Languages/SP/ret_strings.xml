@@ -174,7 +174,7 @@
       text="Derrota a un gobernante de otra cultura en batalla." />
     <string
       id="ret_cultural_pride_description"
-      text="10% de descuento en objetos de la cultura de la tropa." />
+      text="Desbloquea tropas de milicia personalizadas." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Consigue 100 muertes en batalla con tropas sin equipo extranjero." />

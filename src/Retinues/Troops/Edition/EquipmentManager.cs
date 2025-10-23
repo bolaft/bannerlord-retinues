@@ -292,10 +292,6 @@ namespace Retinues.Troops.Edition
 
             try
             {
-                if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
-                    if (item?.Culture == troop.Culture)
-                        rebate += 0.10f; // 10% rebate on items of the clan's culture
-
                 if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
                     if (item?.Culture == Player.Kingdom?.Culture)
                         rebate += 0.10f; // 10% rebate on items of the kingdom's culture

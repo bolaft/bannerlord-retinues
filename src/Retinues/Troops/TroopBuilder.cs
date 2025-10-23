@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
@@ -67,8 +69,8 @@ namespace Retinues.Troops
 
             if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
             {
-                // Always have militia troops if clan has fiefs or if player leads a kingdom
-                if (faction.HasFiefs || Player.Kingdom != null)
+                // Requires appropriate doctrine
+                if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
                 {
                     Log.Info("Initializing militia troops.");
 

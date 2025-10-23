@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_acquire_cultural_pride_to_unlock"
+      text="Acquire the Cultural Pride doctrine to unlock militia troops." />
+    <string
       id="ret_acquire_fief_to_unlock"
       text="Acquire a fief to unlock clan troops." />
     <string
@@ -174,7 +177,7 @@
       text="Defeat a ruler of a different culture in battle." />
     <string
       id="ret_cultural_pride_description"
-      text="10% rebate on items of the troop&apos;s culture." />
+      text="Unlocks custom militia troops." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Get 100 kills in battle with troops wearing no foreign gear." />
@@ -955,6 +958,9 @@
     <string
       id="ret_transfer_header_text"
       text="Transfer" />
+    <string
+      id="ret_troop_list.placeholder"
+      text="No Troops Available" />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />

@@ -15,7 +15,7 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("cultural_pride", "Cultural Pride");
         public override TextObject Description =>
-            L.T("cultural_pride_description", "10% rebate on items of the troop's culture.");
+            L.T("cultural_pride_description", "Unlocks custom militia troops.");
         public override int Column => 1;
         public override int Row => 0;
 
