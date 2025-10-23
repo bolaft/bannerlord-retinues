@@ -38,11 +38,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 EliteTroops.Add(new TroopRowVM(null, placeholderText: L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops."))); // placeholder
 
             if (BasicTroops.Count == 0)
-<<<<<<< HEAD
-                BasicTroops.Add(new TroopRowVM(null)); // placeholder
-=======
                 BasicTroops.Add(new TroopRowVM(null, placeholderText: L.S("acquire_fief_to_unlock", "Acquire a fief to unlock clan troops."))); // placeholder
->>>>>>> wip/militias-as-doctrine
 
             if (MilitiaTroops.Count == 0)
                 MilitiaTroops.Add(new TroopRowVM(null, placeholderText: L.S("acquire_cultural_pride_to_unlock", "Acquire the Cultural Pride doctrine to unlock militia troops."))); // placeholder
