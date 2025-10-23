@@ -254,6 +254,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /// </summary>
         public void ExecuteSelect()
         {
+            if (RowItem != null && !RowItem.Slots.Contains(State.Slot))
+                return; // Invalid slot for this item
+
             if (Config.EquipmentChangeTakesTime == false) // Only check in instant equip mode
                 if (
                     TroopRules.IsAllowedInContextWithPopup(
