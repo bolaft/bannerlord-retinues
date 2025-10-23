@@ -87,13 +87,6 @@ namespace Retinues.GUI.Editor
                 }
             }
 
-            // If hidden and not opted-in, don't execute heavy hooks—just queue.
-            if (!IsVisible)
-            {
-                _queuedWhileHidden = true;
-                return;
-            }
-
             // Invoke specific hooks only when visible or explicitly opted-in
             if (e == UIEvent.Faction)
                 OnFactionChange();
@@ -103,6 +96,13 @@ namespace Retinues.GUI.Editor
                 OnEquipmentChange();
             else if (e == UIEvent.Slot)
                 OnSlotChange();
+
+            // If hidden and not opted-in, don't execute heavy hooks—just queue.
+            if (!IsVisible)
+            {
+                _queuedWhileHidden = true;
+                return;
+            }
 
             if (_inPulse || !IsVisible)
             {

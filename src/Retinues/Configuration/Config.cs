@@ -127,7 +127,7 @@ namespace Retinues.Configuration
                 "mcm_option_restrict_conversion_to_fiefs_hint",
                 "Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)."
             ),
-            @default: true,
+            @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = false,
@@ -261,7 +261,7 @@ namespace Retinues.Configuration
                 "mcm_option_restrict_editing_to_fiefs_hint",
                 "Player can only edit troops when in a fief owned by their clan or kingdom (clan retinues can be edited in any settlement)."
             ),
-            @default: true,
+            @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = false,
@@ -339,7 +339,7 @@ namespace Retinues.Configuration
                 "mcm_option_equipment_change_takes_time_hint",
                 "Changing a troop's equipment takes time."
             ),
-            @default: true,
+            @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = false,
@@ -358,7 +358,7 @@ namespace Retinues.Configuration
                 "mcm_option_equipment_change_time_modifier_hint",
                 "Modifier for equipment change time."
             ),
-            @default: 2,
+            @default: 1,
             minValue: 1,
             maxValue: 5,
             presets: new Dictionary<string, object>
@@ -481,7 +481,7 @@ namespace Retinues.Configuration
             name: L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
             key: "TrainingTakesTime",
             hint: L.S("mcm_option_training_takes_time_hint", "Troop training takes time."),
-            @default: true,
+            @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = false,
@@ -497,7 +497,7 @@ namespace Retinues.Configuration
                 "mcm_option_training_time_modifier_hint",
                 "Modifier for troop training time."
             ),
-            @default: 2,
+            @default: 1,
             minValue: 1,
             maxValue: 5,
             presets: new Dictionary<string, object>
