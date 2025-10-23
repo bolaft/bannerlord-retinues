@@ -58,6 +58,16 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         }
 
         /// <summary>
+        /// Handle troop changes by marking rebuild required.
+        /// </summary>
+        protected override void OnTroopChange()
+        {
+            _needsRebuild = true;
+            if (IsVisible)
+                Build();
+        }
+
+        /// <summary>
         /// Handle slot changes by marking rebuild required.
         /// </summary>
         protected override void OnSlotChange()
@@ -401,6 +411,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             base.Show();
             foreach (var r in EquipmentRows)
                 r.Show();
+
+            Log.Info($"[EquipmentList] Show called. Needs rebuild: " + _needsRebuild);
             if (_needsRebuild)
                 Build();
         }
