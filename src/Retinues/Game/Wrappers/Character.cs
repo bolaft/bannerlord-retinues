@@ -302,6 +302,9 @@ namespace Retinues.Game.Wrappers
 
         public void Equip(WItem item, EquipmentIndex slot, int index = 0)
         {
+            if (item != null && !item.Slots.Contains(slot))
+                return; // Invalid slot for this item
+
             // Get equipment in specified category/index
             var equipment = Loadout.Get(index);
 
