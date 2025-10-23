@@ -192,6 +192,22 @@
     "TR": "Yükseltme Ekle"
   },
   {
+    "id": "ret_age_hint",
+    "EN": "Age",
+    "BR": "Idade",
+    "CNs": "年龄",
+    "CNt": "年齡",
+    "DE": "Alter",
+    "FR": "Âge",
+    "IT": "Età",
+    "JP": "年齢",
+    "KO": "나이",
+    "PL": "Wiek",
+    "RU": "Возраст",
+    "SP": "Edad",
+    "TR": "Yaş"
+  },
+  {
     "id": "ret_ancestral_heritage",
     "EN": "Ancestral Heritage",
     "BR": "Herança Ancestral",
@@ -270,22 +286,6 @@
     "RU": "Выиграйте турнир в городе своей культуры.",
     "SP": "Gana un torneo en una ciudad de tu propia cultura.",
     "TR": "Kendi kültüründen bir şehirde bir turnuva kazan."
-  },
-  {
-    "id": "ret_appearance_header_text",
-    "EN": "Appearance",
-    "BR": "Aparência",
-    "CNs": "外观",
-    "CNt": "外觀",
-    "DE": "Aussehen",
-    "FR": "Apparence",
-    "IT": "Aspetto",
-    "JP": "外観",
-    "KO": "외형",
-    "PL": "Wygląd",
-    "RU": "Внешность",
-    "SP": "Apariencia",
-    "TR": "Görünüm"
   },
   {
     "id": "ret_apply_conversions_button_text",
@@ -478,6 +478,22 @@
     "RU": "Поддерживайте мораль отряда только из свиты выше 90 в течение 15 дней.",
     "SP": "Mantén la moral de un grupo solo de séquito por encima de 90 durante 15 días.",
     "TR": "Sadece yandaşlardan oluşan bir grubun moralini 15 gün boyunca 90’ın üzerinde tut."
+  },
+  {
+    "id": "ret_build_hint",
+    "EN": "Build",
+    "BR": "Constituição",
+    "CNs": "体格",
+    "CNt": "體格",
+    "DE": "Statur",
+    "FR": "Musculature",
+    "IT": "Struttura",
+    "JP": "体格",
+    "KO": "체격",
+    "PL": "Budowa",
+    "RU": "Телосложение",
+    "SP": "Constitución",
+    "TR": "Yapı"
   },
   {
     "id": "ret_buy_item",
@@ -930,18 +946,18 @@
   {
     "id": "ret_culture_header_text",
     "EN": "Culture",
-    "BR": null,
-    "CNs": null,
-    "CNt": null,
-    "DE": null,
-    "FR": null,
-    "IT": null,
-    "JP": null,
-    "KO": null,
-    "PL": null,
-    "RU": null,
-    "SP": null,
-    "TR": null
+    "BR": "Cultura",
+    "CNs": "文化",
+    "CNt": "文化",
+    "DE": "Kultur",
+    "FR": "Culture",
+    "IT": "Cultura",
+    "JP": "文化",
+    "KO": "문화",
+    "PL": "Kultura",
+    "RU": "Культура",
+    "SP": "Cultura",
+    "TR": "Kültür"
   },
   {
     "id": "ret_doctrine_costs",
@@ -1246,6 +1262,22 @@
     "RU": "Включите или отключите этот набор для полевых боёв.",
     "SP": "Activa o desactiva este conjunto para batallas campales.",
     "TR": "Bu seti saha savaşları için etkinleştir veya devre dışı bırak."
+  },
+  {
+    "id": "ret_gender_hint",
+    "EN": "Gender",
+    "BR": "Gênero",
+    "CNs": "性别",
+    "CNt": "性別",
+    "DE": "Geschlecht",
+    "FR": "Genre",
+    "IT": "Genere",
+    "JP": "性別",
+    "KO": "성별",
+    "PL": "Płeć",
+    "RU": "Пол",
+    "SP": "Género",
+    "TR": "Cinsiyet"
   },
   {
     "id": "ret_gloves_slot_text",
@@ -5598,6 +5630,22 @@
     "RU": "Оружие 4",
     "SP": "Arma 4",
     "TR": "Silah 4"
+  },
+  {
+    "id": "ret_weight_hint",
+    "EN": "Weight",
+    "BR": "Peso",
+    "CNs": "重量",
+    "CNt": "重量",
+    "DE": "Gewicht",
+    "FR": "Poids",
+    "IT": "Peso",
+    "JP": "重量",
+    "KO": "무게",
+    "PL": "Waga",
+    "RU": "Вес",
+    "SP": "Peso",
+    "TR": "Ağırlık"
   },
   {
     "id": "ret_yes",

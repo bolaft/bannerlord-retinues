@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="Dodaj Ulepszenie" />
     <string
+      id="ret_age_hint"
+      text="Wiek" />
+    <string
       id="ret_ancestral_heritage"
       text="Dziedzictwo Przodków" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Wygraj turniej w mieście swojej kultury." />
-    <string
-      id="ret_appearance_header_text"
-      text="Wygląd" />
     <string
       id="ret_apply_conversions_button_text"
       text="Konwertuj" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Utrzymaj morale drużyny składającej się tylko z orszaku powyżej 90 przez 15 dni." />
+    <string
+      id="ret_build_hint"
+      text="Budowa" />
     <string
       id="ret_buy_item"
       text="Kup Przedmiot" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Wygraj turniej nosząc tylko zbroję swojej kultury." />
     <string
+      id="ret_culture_header_text"
+      text="Kultura" />
+    <string
       id="ret_doctrine_costs"
       text="Koszt: {GOLD} Złoto, {INFLUENCE} Wpływy." />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="Włącz lub wyłącz ten zestaw do bitew polowych." />
+    <string
+      id="ret_gender_hint"
+      text="Płeć" />
     <string
       id="ret_gloves_slot_text"
       text="Rękawice" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="Broń 4" />
+    <string
+      id="ret_weight_hint"
+      text="Waga" />
     <string
       id="ret_yes"
       text="Tak" />

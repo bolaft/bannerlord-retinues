@@ -43,5 +43,23 @@ namespace Retinues.Troops.Persistence
 
         [SaveableField(11)]
         public string CultureId;
+
+        [SaveableField(12)]
+        public float AgeMin;
+
+        [SaveableField(13)]
+        public float AgeMax;
+
+        [SaveableField(14)]
+        public float WeightMin;
+
+        [SaveableField(15)]
+        public float WeightMax;
+
+        [SaveableField(16)]
+        public float BuildMin;
+
+        [SaveableField(17)]
+        public float BuildMax;
     }
 }

@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="Добавить Улучшение" />
     <string
+      id="ret_age_hint"
+      text="Возраст" />
+    <string
       id="ret_ancestral_heritage"
       text="Наследие Предков" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Выиграйте турнир в городе своей культуры." />
-    <string
-      id="ret_appearance_header_text"
-      text="Внешность" />
     <string
       id="ret_apply_conversions_button_text"
       text="Преобразовать" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Поддерживайте мораль отряда только из свиты выше 90 в течение 15 дней." />
+    <string
+      id="ret_build_hint"
+      text="Телосложение" />
     <string
       id="ret_buy_item"
       text="Купить Предмет" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Выиграйте турнир, надев только доспехи своей культуры." />
     <string
+      id="ret_culture_header_text"
+      text="Культура" />
+    <string
       id="ret_doctrine_costs"
       text="Стоимость: {GOLD} Золото, {INFLUENCE} Влияние." />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="Включите или отключите этот набор для полевых боёв." />
+    <string
+      id="ret_gender_hint"
+      text="Пол" />
     <string
       id="ret_gloves_slot_text"
       text="Перчатки" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="Оружие 4" />
+    <string
+      id="ret_weight_hint"
+      text="Вес" />
     <string
       id="ret_yes"
       text="Да" />

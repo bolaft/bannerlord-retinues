@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="업그레이드 추가" />
     <string
+      id="ret_age_hint"
+      text="나이" />
+    <string
       id="ret_ancestral_heritage"
       text="조상의 유산" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="자신의 문화가 있는 마을에서 토너먼트에서 승리하십시오." />
-    <string
-      id="ret_appearance_header_text"
-      text="외형" />
     <string
       id="ret_apply_conversions_button_text"
       text="변환" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="수행원만으로 구성된 부대의 사기를 15일 동안 90 이상 유지하십시오." />
+    <string
+      id="ret_build_hint"
+      text="체격" />
     <string
       id="ret_buy_item"
       text="아이템 구매" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="자신의 문화 방어구만 착용하고 토너먼트에서 승리하십시오." />
     <string
+      id="ret_culture_header_text"
+      text="문화" />
+    <string
       id="ret_doctrine_costs"
       text="비용: {GOLD} 골드, {INFLUENCE} 영향력." />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="야전 전투에 이 세트를 활성화 또는 비활성화하십시오." />
+    <string
+      id="ret_gender_hint"
+      text="성별" />
     <string
       id="ret_gloves_slot_text"
       text="장갑" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="무기 4" />
+    <string
+      id="ret_weight_hint"
+      text="무게" />
     <string
       id="ret_yes"
       text="예" />

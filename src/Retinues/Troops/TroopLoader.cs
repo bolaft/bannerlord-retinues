@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Persistence;
+using Retinues.Game.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -106,8 +107,14 @@ namespace Retinues.Troops
                 {
                     Log.Info($"Applying culture '{data.CultureId}' to troop '{data.StringId}'");
                     troop.Culture = new WCulture(culture);
+                    CharacterCustomization.ApplyPropertiesFromCulture(troop, culture);
                 }
             }
+
+            // Set dynamic properties (already handles nulls)
+            troop.SetDynamicEnd(true, data.AgeMin, data.WeightMin, data.BuildMin);
+            troop.SetDynamicEnd(false, data.AgeMax, data.WeightMax, data.BuildMax);
+            troop.Age = troop.AgeMin + troop.AgeMax / 2;
 
             // Activate
             troop.Activate();
@@ -136,6 +143,12 @@ namespace Retinues.Troops
                 SkillCode = CodeFromSkills(character.Skills),
                 EquipmentCodes = [.. character.Loadout.Equipments.Select(we => we.Code)],
                 CultureId = character.Culture.StringId,
+                AgeMin = character.AgeMin,
+                AgeMax = character.AgeMax,
+                WeightMin = character.WeightMin,
+                WeightMax = character.WeightMax,
+                BuildMin = character.BuildMin,
+                BuildMax = character.BuildMax
             };
 
             return data;

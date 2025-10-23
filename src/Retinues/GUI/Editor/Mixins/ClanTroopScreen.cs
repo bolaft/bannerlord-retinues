@@ -34,7 +34,7 @@ namespace Retinues.GUI.Editor.Mixins
                 try
                 {
                     Log.Debug("SpriteLoader: loading all categories on initial screen set...");
-                    SpriteLoader.LoadAllCategories();
+                    SpriteLoader.LoadCategories("ui_charactercreation", "ui_characterdeveloper");
                     Log.Debug("SpriteLoader: loaded all categories on initial screen set.");
                 }
                 catch (Exception e)

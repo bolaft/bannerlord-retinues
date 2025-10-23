@@ -1,5 +1,6 @@
-{{- func customization_control(sprite, prev_command, next_command) -}}
+{{- func customization_control(sprite, hint, prev_command, next_command) -}}
 <ListPanel
+    IsVisible="@ShowCustomization"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
     MarginTop="10"
@@ -32,7 +33,14 @@
                     Color="#c7c3c3ff"
                     Sprite="SPPerks\{{sprite}}"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top" />
+                    VerticalAlignment="Top">
+                    <Children>
+                        <HintWidget
+                            DataSource="{{hint}}"
+                            Command.HoverBegin="ExecuteBeginHint"
+                            Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </SpriteWidget>
             </Children>
         </SpriteWidget>
         <ButtonWidget
@@ -55,17 +63,34 @@
 <ListPanel
     DataSource="{TroopScreen}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    MarginTop="560" MarginRight="330"
+    MarginBottom="160" MarginRight="280"
     StackLayout.LayoutMethod="VerticalBottomToTop"
     HorizontalAlignment="Center"
-    VerticalAlignment="Top" >
+    VerticalAlignment="Bottom" >
     <Children>
-        {{ customization_control("AthleticsSteady", "ExecuteChangeGender", "ExecuteChangeGender") }}
-        {{ customization_control("EngineeringForeman", "ExecutePrevHair", "ExecuteNextHair") }}
-        {{ customization_control("ScoutingRumourNetwork", "ExecutePrevBeard", "ExecuteNextBeard") }}
-        {{ customization_control("RogueryScarface", "ExecutePrevTattoo", "ExecuteNextTattoo") }}
-        {{ customization_control("ScoutingRearguard", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
-        {{ customization_control("AthleticsDurable", "ExecutePrevHeightPreset", "ExecuteNextHeightPreset") }}
-        {{ customization_control("AthleticsStrongArms", "ExecutePrevBuildPreset", "ExecuteNextBuildPreset") }}
+        {{ customization_control("CharmInBloom", "{GenderHint}", "ExecuteChangeGender", "ExecuteChangeGender") }}
+        {{ customization_control("TradeRapidDevelopment", "{AgeHint}", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
+        {{ customization_control("AthleticsFormFittingArmor", "{WeightHint}", "ExecutePrevWeightPreset", "ExecuteNextWeightPreset") }}
+        {{ customization_control("AthleticsStrongArms", "{BuildHint}", "ExecutePrevBuildPreset", "ExecuteNextBuildPreset") }}
+
+        <ButtonWidget
+            IsVisible="true"
+            IsEnabled="true"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            Command.Click="ExecuteToggleCustomization"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            UpdateChildrenStates="true">
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="60" SuggestedHeight="60"
+                    Brush="SPClan.Members.RecallIcon"/>
+                <HintWidget
+                    DataSource="{CustomizationHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </ButtonWidget>
     </Children>
 </ListPanel>

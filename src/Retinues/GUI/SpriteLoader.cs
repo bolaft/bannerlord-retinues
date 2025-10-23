@@ -1,5 +1,6 @@
 using System.Linq;
 using TaleWorlds.Engine.GauntletUI;
+using Retinues.Utils;
 
 namespace Retinues.GUI
 {
@@ -19,7 +20,10 @@ namespace Retinues.GUI
             {
                 var cat = kv.Value;
                 if (!cat.IsLoaded)
+                {
+                    Log.Info($"Loading sprite category '{cat.Name}'...");
                     cat.Load(ctx, depot);
+                }
             }
         }
 
@@ -37,7 +41,10 @@ namespace Retinues.GUI
             foreach (var name in names.Distinct())
             {
                 if (spriteData.SpriteCategories.TryGetValue(name, out var cat) && !cat.IsLoaded)
+                {
+                    Log.Info($"Loading sprite category '{name}'...");
                     cat.Load(ctx, depot);
+                }
             }
         }
     }

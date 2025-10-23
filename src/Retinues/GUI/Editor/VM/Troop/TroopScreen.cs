@@ -93,6 +93,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceProperty]
         public bool CanRaiseRetinueCap => RetinueCapValue < RetinueCapMax;
 
+        [DataSourceProperty]
+        public bool ShowCustomization { get; set; } = false;
+
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -121,7 +124,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             }
         }
 
-        /* ━━━━━━━━ Tooltip ━━━━━━━ */
+        /* ━━━━━━━ Tooltips ━━━━━━━ */
 
         [DataSourceProperty]
         public BasicTooltipViewModel RemoveButtonHint
@@ -144,6 +147,28 @@ namespace Retinues.GUI.Editor.VM.Troop
                 );
             }
         }
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel CustomizationHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S(
+                    "customization_hint",
+                    ShowCustomization ? "Hide customization controls" : "Show customization controls"
+                )
+            );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel GenderHint => Tooltip.MakeTooltip( null, L.S("gender_hint", "Gender") );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel AgeHint => Tooltip.MakeTooltip( null, L.S("age_hint", "Age") );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel WeightHint => Tooltip.MakeTooltip( null, L.S("weight_hint", "Weight") );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel BuildHint => Tooltip.MakeTooltip( null, L.S("build_hint", "Build") );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -238,94 +263,60 @@ namespace Retinues.GUI.Editor.VM.Troop
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
+        public void ExecuteToggleCustomization()
+        {
+            ShowCustomization = !ShowCustomization;
+            OnPropertyChanged(nameof(ShowCustomization));
+            OnPropertyChanged(nameof(CustomizationHint));
+        }
+
+        [DataSourceMethod]
         public void ExecuteChangeGender()
         {
             State.Troop.IsFemale = !State.Troop.IsFemale;
-            State.UpdateTroop(State.Troop);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteNextHair()
-        {
-            CharacterCustomization.ApplyNextHair(State.Troop, State.Troop.IsFemale);
-            State.UpdateTroop(State.Troop);
-        }
-
-        [DataSourceMethod]
-        public void ExecutePrevHair()
-        {
-            CharacterCustomization.ApplyPrevHair(State.Troop, State.Troop.IsFemale);
-            State.UpdateTroop(State.Troop);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteNextBeard()
-        {
-            CharacterCustomization.ApplyNextBeard(State.Troop);
-            State.UpdateTroop(State.Troop);
-        }
-
-        [DataSourceMethod]
-        public void ExecutePrevBeard()
-        {
-            CharacterCustomization.ApplyPrevBeard(State.Troop);
-            State.UpdateTroop(State.Troop);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteNextTattoo()
-        {
-            CharacterCustomization.ApplyNextTattoo(State.Troop);
-            State.UpdateTroop(State.Troop);
-        }
-
-        [DataSourceMethod]
-        public void ExecutePrevTattoo()
-        {
-            CharacterCustomization.ApplyPrevTattoo(State.Troop);
-            State.UpdateTroop(State.Troop);
+            State.UpdateAppearance();
         }
 
         [DataSourceMethod]
         public void ExecuteNextAgePreset()
         {
             CharacterCustomization.ApplyNextAgePreset(State.Troop);
-            State.UpdateTroop(State.Troop);
+            State.UpdateAppearance();
         }
 
         [DataSourceMethod]
         public void ExecutePrevAgePreset()
         {
             CharacterCustomization.ApplyPrevAgePreset(State.Troop);
-            State.UpdateTroop(State.Troop);
+            State.UpdateAppearance();
         }
 
         [DataSourceMethod]
         public void ExecuteNextWeightPreset()
         {
             CharacterCustomization.ApplyNextWeightPreset(State.Troop);
-            State.UpdateTroop(State.Troop);
+            State.UpdateAppearance();
         }
 
         [DataSourceMethod]
         public void ExecutePrevWeightPreset()
         {
             CharacterCustomization.ApplyPrevWeightPreset(State.Troop);
-            State.UpdateTroop(State.Troop);
+            State.UpdateAppearance();
         }
 
         [DataSourceMethod]
         public void ExecuteNextBuildPreset()
         {
             CharacterCustomization.ApplyNextBuildPreset(State.Troop);
-            State.UpdateTroop(State.Troop);
+            State.UpdateAppearance();
         }
 
         [DataSourceMethod]
         public void ExecutePrevBuildPreset()
         {
             CharacterCustomization.ApplyPrevBuildPreset(State.Troop);
-            State.UpdateTroop(State.Troop);
+            State.UpdateAppearance();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

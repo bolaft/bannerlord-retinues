@@ -111,7 +111,6 @@ namespace Retinues.GUI.Editor
                 Troop = troop;
 
                 UpdateEquipment();
-                UpdateEquipData();
                 UpdateSkillData();
                 UpdateConversionData();
                 UpdateSlot();
@@ -151,6 +150,9 @@ namespace Retinues.GUI.Editor
             equipData ??= ComputeEquipData();
 
             EquipData = equipData;
+
+            UpdateAppearance();
+
             EventManager.Fire(UIEvent.Equip);
         }
 
@@ -185,6 +187,14 @@ namespace Retinues.GUI.Editor
 
             PartyData = partyData;
             EventManager.Fire(UIEvent.Party);
+        }
+
+        /// <summary>
+        /// Notify appearance change.
+        /// </summary>
+        public static void UpdateAppearance()
+        {
+            EventManager.Fire(UIEvent.Appearance);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

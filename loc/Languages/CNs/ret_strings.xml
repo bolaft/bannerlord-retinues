@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="添加升级" />
     <string
+      id="ret_age_hint"
+      text="年龄" />
+    <string
       id="ret_ancestral_heritage"
       text="祖传遗产" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="在本文化的城镇赢得一场锦标赛。" />
-    <string
-      id="ret_appearance_header_text"
-      text="外观" />
     <string
       id="ret_apply_conversions_button_text"
       text="转换" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="维持一支仅随从队伍的士气在90以上，持续15天。" />
+    <string
+      id="ret_build_hint"
+      text="体格" />
     <string
       id="ret_buy_item"
       text="购买物品" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="仅穿着本文化的护甲赢得一场锦标赛。" />
     <string
+      id="ret_culture_header_text"
+      text="文化" />
+    <string
       id="ret_doctrine_costs"
       text="花费: {GOLD} 金币, {INFLUENCE} 影响力。" />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="为野战启用或禁用此套装。" />
+    <string
+      id="ret_gender_hint"
+      text="性别" />
     <string
       id="ret_gloves_slot_text"
       text="手套" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="武器4" />
+    <string
+      id="ret_weight_hint"
+      text="重量" />
     <string
       id="ret_yes"
       text="是" />

@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="Add Upgrade" />
     <string
+      id="ret_age_hint"
+      text="Age" />
+    <string
       id="ret_ancestral_heritage"
       text="Ancestral Heritage" />
     <string
@@ -91,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Maintain a retinue-only party&apos;s morale above 90 for 15 days." />
+    <string
+      id="ret_build_hint"
+      text="Build" />
     <string
       id="ret_buy_item"
       text="Buy Item" />
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="Enable or disable this set for field battles." />
+    <string
+      id="ret_gender_hint"
+      text="Gender" />
     <string
       id="ret_gloves_slot_text"
       text="Gloves" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="Weapon 4" />
+    <string
+      id="ret_weight_hint"
+      text="Weight" />
     <string
       id="ret_yes"
       text="Yes" />

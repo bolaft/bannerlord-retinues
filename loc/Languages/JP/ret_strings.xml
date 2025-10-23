@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="アップグレードを追加" />
     <string
+      id="ret_age_hint"
+      text="年齢" />
+    <string
       id="ret_ancestral_heritage"
       text="祖伝の遺産" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="自文化の町でトーナメントに勝利する。" />
-    <string
-      id="ret_appearance_header_text"
-      text="外観" />
     <string
       id="ret_apply_conversions_button_text"
       text="変換" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="随伴兵のみの部隊の士気を15日間90以上に維持する。" />
+    <string
+      id="ret_build_hint"
+      text="体格" />
     <string
       id="ret_buy_item"
       text="アイテムを購入" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="自文化の鎧だけを装備してトーナメントに勝利する。" />
     <string
+      id="ret_culture_header_text"
+      text="文化" />
+    <string
       id="ret_doctrine_costs"
       text="コスト: {GOLD} ゴールド, {INFLUENCE} 影響力。" />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="野戦用にこのセットを有効または無効にします。" />
+    <string
+      id="ret_gender_hint"
+      text="性別" />
     <string
       id="ret_gloves_slot_text"
       text="手袋" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="武器4" />
+    <string
+      id="ret_weight_hint"
+      text="重量" />
     <string
       id="ret_yes"
       text="はい" />

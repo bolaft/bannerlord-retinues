@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="Añadir Mejora" />
     <string
+      id="ret_age_hint"
+      text="Edad" />
+    <string
       id="ret_ancestral_heritage"
       text="Herencia Ancestral" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Gana un torneo en una ciudad de tu propia cultura." />
-    <string
-      id="ret_appearance_header_text"
-      text="Apariencia" />
     <string
       id="ret_apply_conversions_button_text"
       text="Convertir" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Mantén la moral de un grupo solo de séquito por encima de 90 durante 15 días." />
+    <string
+      id="ret_build_hint"
+      text="Constitución" />
     <string
       id="ret_buy_item"
       text="Comprar Objeto" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Gana un torneo vistiendo solo armaduras de tu propia cultura." />
     <string
+      id="ret_culture_header_text"
+      text="Cultura" />
+    <string
       id="ret_doctrine_costs"
       text="Costo: {GOLD} Oro, {INFLUENCE} Influencia." />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="Activa o desactiva este conjunto para batallas campales." />
+    <string
+      id="ret_gender_hint"
+      text="Género" />
     <string
       id="ret_gloves_slot_text"
       text="Guantes" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="Arma 4" />
+    <string
+      id="ret_weight_hint"
+      text="Peso" />
     <string
       id="ret_yes"
       text="Sí" />

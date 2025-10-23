@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="Yükseltme Ekle" />
     <string
+      id="ret_age_hint"
+      text="Yaş" />
+    <string
       id="ret_ancestral_heritage"
       text="Atasal Miras" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Kendi kültüründen bir şehirde bir turnuva kazan." />
-    <string
-      id="ret_appearance_header_text"
-      text="Görünüm" />
     <string
       id="ret_apply_conversions_button_text"
       text="Dönüştür" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Sadece yandaşlardan oluşan bir grubun moralini 15 gün boyunca 90’ın üzerinde tut." />
+    <string
+      id="ret_build_hint"
+      text="Yapı" />
     <string
       id="ret_buy_item"
       text="Eşya Satın Al" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Sadece kendi kültürünün zırhını giyerek bir turnuva kazan." />
     <string
+      id="ret_culture_header_text"
+      text="Kültür" />
+    <string
       id="ret_doctrine_costs"
       text="Maliyet: {GOLD} Altın, {INFLUENCE} Nüfuz." />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="Bu seti saha savaşları için etkinleştir veya devre dışı bırak." />
+    <string
+      id="ret_gender_hint"
+      text="Cinsiyet" />
     <string
       id="ret_gloves_slot_text"
       text="Eldiven" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="Silah 4" />
+    <string
+      id="ret_weight_hint"
+      text="Ağırlık" />
     <string
       id="ret_yes"
       text="Evet" />

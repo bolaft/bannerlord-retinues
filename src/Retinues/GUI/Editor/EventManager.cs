@@ -16,6 +16,7 @@ namespace Retinues.GUI.Editor
         Troop,
         Faction,
         Equipment,
+        Appearance,
         Equip,
         Train,
         Conversion,
@@ -33,8 +34,7 @@ namespace Retinues.GUI.Editor
         //                   Event Registration                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly List<WeakReference<BaseVM>> _listeners =
-            new List<WeakReference<BaseVM>>();
+        private static readonly List<WeakReference<BaseVM>> _listeners = [];
         private static readonly object _lock = new();
         private static int _depth;
 

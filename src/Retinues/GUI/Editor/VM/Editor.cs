@@ -89,9 +89,7 @@ namespace Retinues.GUI.Editor.VM
             new()
             {
                 [UIEvent.Faction] = [nameof(FactionButtonText), nameof(ShowFactionButton)],
-                [UIEvent.Equipment] = [nameof(Model)],
-                [UIEvent.Troop] = [nameof(Model)],
-                [UIEvent.Equip] = [nameof(Model)],
+                [UIEvent.Appearance] = [nameof(Model)],
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

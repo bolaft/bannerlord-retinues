@@ -177,20 +177,15 @@ namespace Retinues.Game.Wrappers
             {
                 try
                 {
-                    if (value == null)
-                        return;
-                    if (IsHero)
-                        return; // Skip heroes (their culture lives on HeroObject.Culture)
+                    if (value == null) return;
+                    if (IsHero) return; // Skip heroes (their culture lives on HeroObject.Culture)
 
                     // CharacterObject has a 'new Culture' with a private setter that forwards to base.Culture.
                     // Explicitly target the declaring base property to avoid AmbiguousMatchException.
-                    var baseType = typeof(BasicCharacterObject);
+                    var baseType = typeof(BasicCharacterObject); 
                     var prop = baseType.GetProperty(
                         "Culture",
-                        BindingFlags.Instance
-                            | BindingFlags.Public
-                            | BindingFlags.NonPublic
-                            | BindingFlags.DeclaredOnly
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly
                     );
                     prop?.SetValue(Base, value.Base, null);
                 }
@@ -332,9 +327,6 @@ namespace Retinues.Game.Wrappers
 
         public void Equip(WItem item, EquipmentIndex slot, int index = 0)
         {
-            if (item != null && !item.Slots.Contains(slot))
-                return; // Invalid slot for this item
-
             // Get equipment in specified category/index
             var equipment = Loadout.Get(index);
 
@@ -556,15 +548,11 @@ namespace Retinues.Game.Wrappers
         //                         Visuals                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━━ Race ━━━━━━━━━ */
-
         public int Race
         {
             get => Base.Race;
             set => Reflector.SetPropertyValue(Base, "Race", value);
         }
-
-        /* ━━━━━━━ Age Cache ━━━━━━ */
 
         public float Age
         {
@@ -608,88 +596,8 @@ namespace Retinues.Game.Wrappers
             set => SetDynamicEnd(minEnd: false, age: null, weight: null, build: value);
         }
 
-        /* ━━━━━━━━━ Tags ━━━━━━━━━ */
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Visual Tag Properties               //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        #if BL12
-        // Bannerlord 1.2.12 — tags are on CharacterObject itself
-        public string HairTags
-        {
-            get => Reflector.GetPropertyValue<string>(Base, "HairTags") ?? string.Empty;
-            set => Reflector.SetPropertyValue(Base, "HairTags", value ?? string.Empty);
-        }
-
-        public string BeardTags
-        {
-            get => Reflector.GetPropertyValue<string>(Base, "BeardTags") ?? string.Empty;
-            set => Reflector.SetPropertyValue(Base, "BeardTags", value ?? string.Empty);
-        }
-
-        public string TattooTags
-        {
-            get => Reflector.GetPropertyValue<string>(Base, "TattooTags") ?? string.Empty;
-            set => Reflector.SetPropertyValue(Base, "TattooTags", value ?? string.Empty);
-        }
-        #elif BL13
-        // Bannerlord 1.3.x — tags moved to BodyPropertyRange
-        private object TryGetRange()
-        {
-            return Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
-        }
-
-        public string HairTags
-        {
-            get
-            {
-                var range = TryGetRange();
-                return range != null ? (Reflector.GetPropertyValue<string>(range, "HairTags") ?? string.Empty) : string.Empty;
-            }
-            set
-            {
-                EnsureOwnBodyRange();
-                var range = TryGetRange();
-                if (range != null) Reflector.SetPropertyValue(range, "HairTags", value ?? string.Empty);
-            }
-        }
-
-        public string BeardTags
-        {
-            get
-            {
-                var range = TryGetRange();
-                return range != null ? (Reflector.GetPropertyValue<string>(range, "BeardTags") ?? string.Empty) : string.Empty;
-            }
-            set
-            {
-                EnsureOwnBodyRange();
-                var range = TryGetRange();
-                if (range != null) Reflector.SetPropertyValue(range, "BeardTags", value ?? string.Empty);
-            }
-        }
-
-        public string TattooTags
-        {
-            get
-            {
-                var range = TryGetRange();
-                return range != null ? (Reflector.GetPropertyValue<string>(range, "TattooTags") ?? string.Empty) : string.Empty;
-            }
-            set
-            {
-                EnsureOwnBodyRange();
-                var range = TryGetRange();
-                if (range != null) Reflector.SetPropertyValue(range, "TattooTags", value ?? string.Empty);
-            }
-        }
-        #endif
-
-        /* ━━━━━━━━ Helpers ━━━━━━━ */
-
-        // Low-level: rewrite one end (min or max), preserving the other end & statics
-        private void SetDynamicEnd(bool minEnd, float? age, float? weight, float? build)
+        /* ━━━━ Min/Max Helper ━━━━ */
+        public void SetDynamicEnd(bool minEnd, float? age, float? weight, float? build)
         {
             try
             {
@@ -703,22 +611,20 @@ namespace Retinues.Game.Wrappers
 
                 var dyn = src.DynamicProperties;
                 var newDyn = new DynamicBodyProperties(
-                    age ?? dyn.Age,
+                    age    ?? dyn.Age,
                     weight ?? dyn.Weight,
-                    build ?? dyn.Build
+                    build  ?? dyn.Build
                 );
 
                 var newSrc = new BodyProperties(newDyn, src.StaticProperties);
                 var newMin = minEnd ? newSrc : oth;
-                var newMax = minEnd ? oth : newSrc;
+                var newMax = minEnd ? oth    : newSrc;
 
                 var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
                 Reflector.InvokeMethod(
-                    range,
-                    "Init",
-                    new[] { typeof(BodyProperties), typeof(BodyProperties) },
-                    newMin,
-                    newMax
+                    range, "Init",
+                    [typeof(BodyProperties), typeof(BodyProperties)],
+                    newMin, newMax
                 );
             }
             catch (Exception ex)
@@ -727,22 +633,68 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        /* ━━━━━━━━ Helper ━━━━━━━━ */
+
         /// <summary>
-        /// Ensure this CharacterObject has its own BodyPropertyRange instance (not shared with clones).
+        /// Ensure this CharacterObject has its *own* BodyPropertyRange instance
         /// </summary>
-        private void EnsureOwnBodyRange()
+        public void EnsureOwnBodyRange()
         {
-            // Get current range (may be shared across clones)
-            var current = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
-            if (current == null)
-                return;
+            try
+            {
+                var current = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+                if (current == null)
+                {
+                    // Create a fresh one using current min/max
+                    var min = Base.GetBodyPropertiesMin();
+                    var max = Base.GetBodyPropertiesMax();
+                    var type = typeof(BodyProperties); // just to get assembly; we'll reflect range type from current if needed
 
-            // Create a brand-new range object of the same runtime type
-            var rangeType = current.GetType(); // e.g., TaleWorlds.Core.BodyPropertyRange
-            var fresh = Activator.CreateInstance(rangeType);
+                    // Try to find the runtime range type via current; if null, create by name fallback
+                    var rangeType = current?.GetType();
+                    if (rangeType == null)
+                    {
+                        // Fallback: try to resolve MBBodyProperty type by name
+                        rangeType = Type.GetType("TaleWorlds.Core.MBBodyProperty, TaleWorlds.Core");
+                        if (rangeType == null)
+                        {
+                            // As a last resort, reuse whatever is already on Base (if any)
+                            rangeType = current?.GetType();
+                        }
+                    }
 
-            // Swap it in so this troop no longer shares with anyone else
-            Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
+                    var fresh = (rangeType != null) ? Activator.CreateInstance(rangeType) : null;
+                    if (fresh != null)
+                    {
+                        Reflector.InvokeMethod(fresh, "Init", [typeof(BodyProperties), typeof(BodyProperties)], min, max);
+                        Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
+                    }
+                    return;
+                }
+
+                // Try to clone; if clone not available, re-create with same min/max
+                try
+                {
+                    var clone = Reflector.InvokeMethod(current, "Clone", Type.EmptyTypes);
+                    if (clone != null)
+                    {
+                        Reflector.SetPropertyValue(Base, "BodyPropertyRange", clone);
+                        return;
+                    }
+                }
+                catch { /* ignore */ }
+
+                var curMin = Base.GetBodyPropertiesMin();
+                var curMax = Base.GetBodyPropertiesMax();
+                var type2 = current.GetType();
+                var fresh2 = Activator.CreateInstance(type2);
+                Reflector.InvokeMethod(fresh2, "Init", [typeof(BodyProperties), typeof(BodyProperties)], curMin, curMax);
+                Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh2);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
         }
     }
 }

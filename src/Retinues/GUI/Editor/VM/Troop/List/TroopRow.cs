@@ -32,13 +32,6 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             {
                 [UIEvent.Troop] =
                 [
-                    nameof(ImageId),
-                    nameof(ImageAdditionalArgs),
-#if BL13
-                    nameof(ImageTextureProviderName),
-#else
-                    nameof(ImageTypeCode),
-#endif
                     nameof(IsPlaceholder),
                     nameof(NameText),
                     nameof(TierIconData),
@@ -46,9 +39,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     nameof(FormationClassIcon),
                 ],
                 [UIEvent.Equipment] = [nameof(FormationClassIcon)],
-                [UIEvent.Equip] =
+                [UIEvent.Appearance] =
                 [
-                    nameof(FormationClassIcon),
                     nameof(ImageId),
                     nameof(ImageAdditionalArgs),
 #if BL13
@@ -56,6 +48,10 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 #else
                     nameof(ImageTypeCode),
 #endif
+                ],
+                [UIEvent.Equip] =
+                [
+                    nameof(FormationClassIcon),
                 ],
             };
 

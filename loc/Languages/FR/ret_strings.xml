@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="Nouvelle Promotion" />
     <string
+      id="ret_age_hint"
+      text="Âge" />
+    <string
       id="ret_ancestral_heritage"
       text="Héritage Ancestral" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Gagne un tournoi dans une ville de ta propre culture." />
-    <string
-      id="ret_appearance_header_text"
-      text="Apparence" />
     <string
       id="ret_apply_conversions_button_text"
       text="Convertir" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Maintiens le moral d’un groupe composé uniquement de rétinue au-dessus de 90 pendant 15 jours." />
+    <string
+      id="ret_build_hint"
+      text="Musculature" />
     <string
       id="ret_buy_item"
       text="Acheter" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Gagne un tournoi en portant uniquement des armures de ta propre culture." />
     <string
+      id="ret_culture_header_text"
+      text="Culture" />
+    <string
       id="ret_doctrine_costs"
       text="Coût : {GOLD} or, {INFLUENCE} influence." />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="Active ou désactive cet ensemble pour les batailles rangées." />
+    <string
+      id="ret_gender_hint"
+      text="Genre" />
     <string
       id="ret_gloves_slot_text"
       text="Gants" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="Arme 4" />
+    <string
+      id="ret_weight_hint"
+      text="Poids" />
     <string
       id="ret_yes"
       text="Oui" />

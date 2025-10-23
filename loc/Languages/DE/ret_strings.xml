@@ -41,6 +41,9 @@
       id="ret_add_upgrade_button_text"
       text="Upgrade hinzufügen" />
     <string
+      id="ret_age_hint"
+      text="Alter" />
+    <string
       id="ret_ancestral_heritage"
       text="Ahnen-Erbe" />
     <string
@@ -55,9 +58,6 @@
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Gewinne ein Turnier in einer Stadt deiner eigenen Kultur." />
-    <string
-      id="ret_appearance_header_text"
-      text="Aussehen" />
     <string
       id="ret_apply_conversions_button_text"
       text="Umwandeln" />
@@ -94,6 +94,9 @@
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Halte die Moral einer reinen Gefolgsgruppe 15 Tage lang über 90." />
+    <string
+      id="ret_build_hint"
+      text="Statur" />
     <string
       id="ret_buy_item"
       text="Gegenstand kaufen" />
@@ -179,6 +182,9 @@
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Gewinne ein Turnier, während du nur Rüstung deiner eigenen Kultur trägst." />
     <string
+      id="ret_culture_header_text"
+      text="Kultur" />
+    <string
       id="ret_doctrine_costs"
       text="Kosten: {GOLD} Gold, {INFLUENCE} Einfluss." />
     <string
@@ -235,6 +241,9 @@
     <string
       id="ret_field_battle_hint"
       text="Aktiviere oder deaktiviere dieses Set für Feldschlachten." />
+    <string
+      id="ret_gender_hint"
+      text="Geschlecht" />
     <string
       id="ret_gloves_slot_text"
       text="Handschuhe" />
@@ -1051,6 +1060,9 @@
     <string
       id="ret_weapon_4_slot_text"
       text="Waffe 4" />
+    <string
+      id="ret_weight_hint"
+      text="Gewicht" />
     <string
       id="ret_yes"
       text="Ja" />
