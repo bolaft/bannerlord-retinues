@@ -4,7 +4,7 @@
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
   
     <!-- Bannerlord version selector (12 or 13) -->
-    <BL Condition="'$(BL)' == ''">13</BL>
+    <BL Condition="'$(BL)' == ''">12</BL>
 
     <!-- Append a preprocessor symbol BL12 or BL13 -->
     <DefineConstants Condition="'$(DefineConstants)' != ''">$(DefineConstants);BL$(BL)</DefineConstants>

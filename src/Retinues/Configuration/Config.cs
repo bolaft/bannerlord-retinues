@@ -440,25 +440,21 @@ namespace Retinues.Configuration
                 }
             );
 
-        public static readonly Option<bool> DisableCraftedWeapons =
-            CreateOption(
-                section: L.S("mcm_section_equipment", "Equipment"),
-                name: L.S(
-                    "mcm_option_disable_crafted_weapons",
-                    "Disable Crafted Weapons"
-                ),
-                key: "DisableCraftedWeapons",
-                hint: L.S(
-                    "mcm_option_disable_crafted_weapons_hint",
-                    "When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked."
-                ),
-                @default: false,
-                presets: new Dictionary<string, object>
-                {
-                    [Presets.Freeform] = false,
-                    [Presets.Realistic] = true,
-                }
-            );
+        public static readonly Option<bool> DisableCraftedWeapons = CreateOption(
+            section: L.S("mcm_section_equipment", "Equipment"),
+            name: L.S("mcm_option_disable_crafted_weapons", "Disable Crafted Weapons"),
+            key: "DisableCraftedWeapons",
+            hint: L.S(
+                "mcm_option_disable_crafted_weapons_hint",
+                "When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked."
+            ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = true,
+            }
+        );
 
         public static readonly Option<bool> NoMountForTier1 = CreateOption(
             section: L.S("mcm_section_equipment", "Equipment"),

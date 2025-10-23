@@ -3,9 +3,9 @@ using System.Linq;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Persistence;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
-using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Troops
 {
@@ -97,7 +97,7 @@ namespace Retinues.Troops
             // Retinues are not transferable
             if (troop.IsRetinue)
                 troop.IsNotTransferableInPartyScreen = true;
-            
+
             // Set culture visuals if present
             if (!string.IsNullOrEmpty(data.CultureId))
             {

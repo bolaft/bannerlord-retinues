@@ -65,7 +65,8 @@ namespace Retinues.Troops.Edition
             EquipmentIndex slot
         )
         {
-            var craftedUnlocked = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() && !Config.DisableCraftedWeapons;
+            var craftedUnlocked =
+                DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() && !Config.DisableCraftedWeapons;
             var cultureUnlocked = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
             var factionCultureId = faction?.Culture?.StringId;

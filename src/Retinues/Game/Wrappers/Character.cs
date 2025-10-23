@@ -177,19 +177,22 @@ namespace Retinues.Game.Wrappers
             {
                 try
                 {
-                    if (value == null) return;
-                    if (IsHero) return; // Skip heroes (their culture lives on HeroObject.Culture)
+                    if (value == null)
+                        return;
+                    if (IsHero)
+                        return; // Skip heroes (their culture lives on HeroObject.Culture)
 
                     // CharacterObject has a 'new Culture' with a private setter that forwards to base.Culture.
                     // Explicitly target the declaring base property to avoid AmbiguousMatchException.
-                    var baseType = typeof(BasicCharacterObject); 
+                    var baseType = typeof(BasicCharacterObject);
                     var prop = baseType.GetProperty(
                         "Culture",
-                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly
+                        BindingFlags.Instance
+                            | BindingFlags.Public
+                            | BindingFlags.NonPublic
+                            | BindingFlags.DeclaredOnly
                     );
                     prop?.SetValue(Base, value.Base, null);
-
-                    ApplyCultureVisualsFrom(value.Base);
                 }
                 catch (Exception ex)
                 {
@@ -550,53 +553,170 @@ namespace Retinues.Game.Wrappers
         //                         Visuals                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Re-derive body/face and style from a culture template.
-        /// </summary>
-        public void ApplyCultureVisualsFrom(CultureObject culture)
+        /* ━━━━━━━━━ Race ━━━━━━━━━ */
+
+        public int Race
+        {
+            get => Base.Race;
+            set => Reflector.SetPropertyValue(Base, "Race", value);
+        }
+
+        /* ━━━━━━━ Age Cache ━━━━━━ */
+
+        public float Age
+        {
+            get => Base.Age;
+            set => Reflector.SetPropertyValue(Base, "Age", value);
+        }
+
+        /* ━━━━━━━ Min Side ━━━━━━━ */
+
+        public float AgeMin
+        {
+            get => Base.GetBodyPropertiesMin().Age;
+            set => SetDynamicEnd(minEnd: true, age: value, weight: null, build: null);
+        }
+        public float WeightMin
+        {
+            get => Base.GetBodyPropertiesMin().Weight;
+            set => SetDynamicEnd(minEnd: true, age: null, weight: value, build: null);
+        }
+        public float BuildMin
+        {
+            get => Base.GetBodyPropertiesMin().Build;
+            set => SetDynamicEnd(minEnd: true, age: null, weight: null, build: value);
+        }
+
+        /* ━━━━━━━ Max Side ━━━━━━━ */
+
+        public float AgeMax
+        {
+            get => Base.GetBodyPropertiesMax().Age;
+            set => SetDynamicEnd(minEnd: false, age: value, weight: null, build: null);
+        }
+        public float WeightMax
+        {
+            get => Base.GetBodyPropertiesMax().Weight;
+            set => SetDynamicEnd(minEnd: false, age: null, weight: value, build: null);
+        }
+        public float BuildMax
+        {
+            get => Base.GetBodyPropertiesMax().Build;
+            set => SetDynamicEnd(minEnd: false, age: null, weight: null, build: value);
+        }
+
+        /* ━━━━━━━━━ Tags ━━━━━━━━━ */
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Visual Tag Properties               //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        #if BL12
+        // Bannerlord 1.2.12 — tags are on CharacterObject itself
+        public string HairTags
+        {
+            get => Reflector.GetPropertyValue<string>(Base, "HairTags") ?? string.Empty;
+            set => Reflector.SetPropertyValue(Base, "HairTags", value ?? string.Empty);
+        }
+
+        public string BeardTags
+        {
+            get => Reflector.GetPropertyValue<string>(Base, "BeardTags") ?? string.Empty;
+            set => Reflector.SetPropertyValue(Base, "BeardTags", value ?? string.Empty);
+        }
+
+        public string TattooTags
+        {
+            get => Reflector.GetPropertyValue<string>(Base, "TattooTags") ?? string.Empty;
+            set => Reflector.SetPropertyValue(Base, "TattooTags", value ?? string.Empty);
+        }
+        #elif BL13
+        // Bannerlord 1.3.x — tags moved to BodyPropertyRange
+        private object TryGetRange()
+        {
+            return Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+        }
+
+        public string HairTags
+        {
+            get
+            {
+                var range = TryGetRange();
+                return range != null ? (Reflector.GetPropertyValue<string>(range, "HairTags") ?? string.Empty) : string.Empty;
+            }
+            set
+            {
+                EnsureOwnBodyRange();
+                var range = TryGetRange();
+                if (range != null) Reflector.SetPropertyValue(range, "HairTags", value ?? string.Empty);
+            }
+        }
+
+        public string BeardTags
+        {
+            get
+            {
+                var range = TryGetRange();
+                return range != null ? (Reflector.GetPropertyValue<string>(range, "BeardTags") ?? string.Empty) : string.Empty;
+            }
+            set
+            {
+                EnsureOwnBodyRange();
+                var range = TryGetRange();
+                if (range != null) Reflector.SetPropertyValue(range, "BeardTags", value ?? string.Empty);
+            }
+        }
+
+        public string TattooTags
+        {
+            get
+            {
+                var range = TryGetRange();
+                return range != null ? (Reflector.GetPropertyValue<string>(range, "TattooTags") ?? string.Empty) : string.Empty;
+            }
+            set
+            {
+                EnsureOwnBodyRange();
+                var range = TryGetRange();
+                if (range != null) Reflector.SetPropertyValue(range, "TattooTags", value ?? string.Empty);
+            }
+        }
+        #endif
+
+        /* ━━━━━━━━ Helpers ━━━━━━━ */
+
+        // Low-level: rewrite one end (min or max), preserving the other end & statics
+        private void SetDynamicEnd(bool minEnd, float? age, float? weight, float? build)
         {
             try
             {
-                if (culture == null || IsHero) return; // skip heroes
-
-                var template = culture.BasicTroop ?? culture.EliteBasicTroop;
-                if (template == null) return;
-
-                // break shared reference
                 EnsureOwnBodyRange();
 
+                var curMin = Base.GetBodyPropertiesMin();
+                var curMax = Base.GetBodyPropertiesMax();
+
+                var src = minEnd ? curMin : curMax;
+                var oth = minEnd ? curMax : curMin;
+
+                var dyn = src.DynamicProperties;
+                var newDyn = new DynamicBodyProperties(
+                    age ?? dyn.Age,
+                    weight ?? dyn.Weight,
+                    build ?? dyn.Build
+                );
+
+                var newSrc = new BodyProperties(newDyn, src.StaticProperties);
+                var newMin = minEnd ? newSrc : oth;
+                var newMax = minEnd ? oth : newSrc;
+
                 var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
-                var tplRange = Reflector.GetPropertyValue<object>(template, "BodyPropertyRange");
-
-                // 1) Copy style tags & race (affects FaceGen sampling)
-                Reflector.SetPropertyValue(Base, "Race", template.Race);
-
-                // 2) Copy min/max envelope from template
-                var min = template.GetBodyPropertiesMin();
-                var max = template.GetBodyPropertiesMax();
-                Reflector.InvokeMethod(range, "Init", [typeof(BodyProperties), typeof(BodyProperties)], min, max);
-
-                // 3) Copy style tags
-#if BL13
-                if (tplRange != null && range != null)
-                {
-                    var hairSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "HairTags");
-                    var beardSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "BeardTags");
-                    var tattooSrc = Reflector.GetPropertyValue<IEnumerable<string>>(tplRange, "TattooTags");
-
-                    ReplaceStringCollection(range, "HairTags", hairSrc);
-                    ReplaceStringCollection(range, "BeardTags", beardSrc);
-                    ReplaceStringCollection(range, "TattooTags", tattooSrc);
-                }
-#else
-                Reflector.SetPropertyValue(Base, "HairTags", template.HairTags);
-                Reflector.SetPropertyValue(Base, "BeardTags", template.BeardTags);
-                Reflector.SetPropertyValue(Base, "TattooTags", template.TattooTags);
-#endif
-
-                // 4) Snap age to the template’s mid-age
-                var midAge = (min.Age + max.Age) * 0.5f;
-                Reflector.SetPropertyValue(Base, "Age", midAge);
+                Reflector.InvokeMethod(
+                    range,
+                    "Init",
+                    new[] { typeof(BodyProperties), typeof(BodyProperties) },
+                    newMin,
+                    newMax
+                );
             }
             catch (Exception ex)
             {
@@ -620,29 +740,6 @@ namespace Retinues.Game.Wrappers
 
             // Swap it in so this troop no longer shares with anyone else
             Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
-        }
-
-        /// <summary>
-        /// Clone/replace a string-collection property on BodyPropertyRange.
-        /// </summary>
-        private static void ReplaceStringCollection(object range, string propName, IEnumerable<string> source)
-        {
-            var target = Reflector.GetPropertyValue<object>(range, propName);
-            if (target == null) return;
-
-            // Try IList<string>: clear + add (avoids needing the concrete MBList type)
-            if (target is IList<string> list)
-            {
-                list.Clear();
-                foreach (var s in source ?? [])
-                    list.Add(s);
-                return;
-            }
-
-            // Fallback: build a new List<string> and set the property if it has a public/private setter
-            var cloned = source != null ? [.. source] : new List<string>();
-            try { Reflector.SetPropertyValue(range, propName, cloned); }
-            catch { }
         }
     }
 }

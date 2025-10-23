@@ -928,6 +928,22 @@
     "TR": "Sadece kendi kültürünün zırhını giyerek bir turnuva kazan."
   },
   {
+    "id": "ret_culture_header_text",
+    "EN": "Culture",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_doctrine_costs",
     "EN": "Cost: {GOLD} Gold, {INFLUENCE} Influence.",
     "BR": "Custo: {GOLD} Ouro, {INFLUENCE} Influência.",

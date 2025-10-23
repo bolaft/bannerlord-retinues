@@ -23,6 +23,7 @@
             <Children>
                 <!-- Layout wrapper for left content -->
                 <Widget
+                    MarginLeft="30"
                     WidthSizePolicy="StretchToParent"
                     HeightSizePolicy="StretchToParent">
                     <Children>

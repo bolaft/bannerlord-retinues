@@ -192,13 +192,31 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public bool CanEnableSet => State.Equipment?.Category == EquipmentCategory.Alternate;
 
         [DataSourceProperty]
-        public bool SetIsEnabledForFieldBattle => CanEnableSet && CombatEquipmentBehavior.IsEnabled(State.Troop, State.Equipment.Index, BattleType.FieldBattle);
+        public bool SetIsEnabledForFieldBattle =>
+            CanEnableSet
+            && CombatEquipmentBehavior.IsEnabled(
+                State.Troop,
+                State.Equipment.Index,
+                BattleType.FieldBattle
+            );
 
         [DataSourceProperty]
-        public bool SetIsEnabledForSiegeDefense => CanEnableSet && CombatEquipmentBehavior.IsEnabled(State.Troop, State.Equipment.Index, BattleType.SiegeDefense);
+        public bool SetIsEnabledForSiegeDefense =>
+            CanEnableSet
+            && CombatEquipmentBehavior.IsEnabled(
+                State.Troop,
+                State.Equipment.Index,
+                BattleType.SiegeDefense
+            );
 
         [DataSourceProperty]
-        public bool SetIsEnabledForSiegeAssault => CanEnableSet && CombatEquipmentBehavior.IsEnabled(State.Troop, State.Equipment.Index, BattleType.SiegeAssault);
+        public bool SetIsEnabledForSiegeAssault =>
+            CanEnableSet
+            && CombatEquipmentBehavior.IsEnabled(
+                State.Troop,
+                State.Equipment.Index,
+                BattleType.SiegeAssault
+            );
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 
@@ -220,7 +238,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.T("create_set_hint", "Disabled due to conflicting mods (Shokuho).").ToString()
                 );
-        
+
         [DataSourceProperty]
         public BasicTooltipViewModel FieldBattleHint =>
             CanEnableSet
@@ -228,8 +246,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.T("field_battle_hint", "Enable or disable this set for field battles.")
                         .ToString()
-                ) : null;
-        
+                )
+                : null;
+
         [DataSourceProperty]
         public BasicTooltipViewModel SiegeDefenseHint =>
             CanEnableSet
@@ -237,8 +256,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.T("siege_defense_hint", "Enable or disable this set for siege defense.")
                         .ToString()
-                ) : null;
-        
+                )
+                : null;
+
         [DataSourceProperty]
         public BasicTooltipViewModel SiegeAssaultHint =>
             CanEnableSet
@@ -246,7 +266,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.T("siege_assault_hint", "Enable or disable this set for siege assault.")
                         .ToString()
-                ) : null;
+                )
+                : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -255,24 +276,39 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteToggleEnableSetForFieldBattle()
         {
-            if (!CanEnableSet) return;
-            CombatEquipmentBehavior.Toggle(State.Troop, State.Equipment.Index, BattleType.FieldBattle);
+            if (!CanEnableSet)
+                return;
+            CombatEquipmentBehavior.Toggle(
+                State.Troop,
+                State.Equipment.Index,
+                BattleType.FieldBattle
+            );
             OnPropertyChanged(nameof(SetIsEnabledForFieldBattle));
         }
 
         [DataSourceMethod]
         public void ExecuteToggleEnableSetForSiegeDefense()
         {
-            if (!CanEnableSet) return;
-            CombatEquipmentBehavior.Toggle(State.Troop, State.Equipment.Index, BattleType.SiegeDefense);
+            if (!CanEnableSet)
+                return;
+            CombatEquipmentBehavior.Toggle(
+                State.Troop,
+                State.Equipment.Index,
+                BattleType.SiegeDefense
+            );
             OnPropertyChanged(nameof(SetIsEnabledForSiegeDefense));
         }
 
         [DataSourceMethod]
         public void ExecuteToggleEnableSetForSiegeAssault()
         {
-            if (!CanEnableSet) return;
-            CombatEquipmentBehavior.Toggle(State.Troop, State.Equipment.Index, BattleType.SiegeAssault);
+            if (!CanEnableSet)
+                return;
+            CombatEquipmentBehavior.Toggle(
+                State.Troop,
+                State.Equipment.Index,
+                BattleType.SiegeAssault
+            );
             OnPropertyChanged(nameof(SetIsEnabledForSiegeAssault));
         }
 

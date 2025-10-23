@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.Utils;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
+using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.Library;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.Features.Retinues.Behaviors
 {
@@ -49,10 +49,7 @@ namespace Retinues.Features.Retinues.Behaviors
 
         public override void RegisterEvents()
         {
-            CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(
-                this,
-                OnDailyTickParty
-            );
+            CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(this, OnDailyTickParty);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -66,7 +63,9 @@ namespace Retinues.Features.Retinues.Behaviors
 
             var retinues = GetHireableRetinues();
 
-            Log.Info($"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}");
+            Log.Info(
+                $"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}"
+            );
 
             // Check if any retinues need hiring
             if (retinues.Count == 0)
@@ -123,7 +122,8 @@ namespace Retinues.Features.Retinues.Behaviors
 
         public static int GetRetinueCap(WCharacter troop)
         {
-            if (troop == null || !troop.IsRetinue) return 0;
+            if (troop == null || !troop.IsRetinue)
+                return 0;
             if (_caps.TryGetValue(troop.StringId, out var cap))
                 return cap;
             return 0;
@@ -131,7 +131,8 @@ namespace Retinues.Features.Retinues.Behaviors
 
         public static void SetRetinueCap(WCharacter troop, int cap)
         {
-            if (troop == null || !troop.IsRetinue) return;
+            if (troop == null || !troop.IsRetinue)
+                return;
             if (cap <= 0)
                 _caps.Remove(troop.StringId);
             else
@@ -144,7 +145,8 @@ namespace Retinues.Features.Retinues.Behaviors
 
         private static int GetCountOf(WCharacter troop)
         {
-            if (troop == null || !troop.IsRetinue) return 0;
+            if (troop == null || !troop.IsRetinue)
+                return 0;
             var wparty = new WParty(MobileParty.MainParty);
             return wparty.MemberRoster.CountOf(troop);
         }
@@ -167,9 +169,10 @@ namespace Retinues.Features.Retinues.Behaviors
             );
 
             var body = L.T(
-                "retinue_hire_inquiry_body",
-                "The following retinues have joined your party:\n\n{JOINED_LINES}"
-            ).SetTextVariable("JOINED_LINES", joinedLines);
+                    "retinue_hire_inquiry_body",
+                    "The following retinues have joined your party:\n\n{JOINED_LINES}"
+                )
+                .SetTextVariable("JOINED_LINES", joinedLines);
 
             Popup.Display(L.T("retinues_joined", "New Retinues Joined"), body);
         }

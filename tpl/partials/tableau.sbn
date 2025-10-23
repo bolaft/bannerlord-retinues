@@ -1,6 +1,5 @@
 <!-- Centered container for the character tableau -->
 <Widget
-    DataSource="{Model}"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
@@ -9,6 +8,7 @@
     <Children>
         <!-- Character tableau: renders the unit model, appearance and equipment -->
         <CharacterTableauWidget
+            DataSource="{Model}"
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
             SuggestedWidth="800"
@@ -26,5 +26,8 @@
             StanceIndex="@StanceIndex"
             ArmorColor1="@ArmorColor1"
             ArmorColor2="@ArmorColor2"/>
+
+        <!-- Customization controls -->
+        {{ include "customization.sbn" }}
     </Children>
 </Widget>

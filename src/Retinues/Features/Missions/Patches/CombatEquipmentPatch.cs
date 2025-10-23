@@ -11,7 +11,6 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Features.Missions.Patches
 {
-
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class Mission_SpawnAgent_Prefix
     {
@@ -51,7 +50,9 @@ namespace Retinues.Features.Missions.Patches
                     {
                         var battle = new Battle(Battle.MapEvent);
                         if (battle.IsSiege)
-                            battleType = battle.PlayerIsDefender ? BattleType.SiegeDefense : BattleType.SiegeAssault;
+                            battleType = battle.PlayerIsDefender
+                                ? BattleType.SiegeDefense
+                                : BattleType.SiegeAssault;
                     }
 
                     // Build eligible sets according to mask; battle set is always eligible.

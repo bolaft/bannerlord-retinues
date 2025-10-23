@@ -72,7 +72,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             TroopRules.ConversionGoldCostPerUnit(State.Troop) * Math.Max(0, Amount);
 
         [DataSourceProperty]
-        public int InfluenceConversionCost => TroopRules.ConversionInfluenceCostPerUnit(State.Troop) * Math.Max(0, Amount);
+        public int InfluenceConversionCost =>
+            TroopRules.ConversionInfluenceCostPerUnit(State.Troop) * Math.Max(0, Amount);
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 

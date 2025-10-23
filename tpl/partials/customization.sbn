@@ -1,0 +1,71 @@
+{{- func customization_control(sprite, prev_command, next_command) -}}
+<ListPanel
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    MarginTop="10"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+>
+    <Children>
+        <ButtonWidget
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Command.Click="{{prev_command}}"
+            UpdateChildrenStates="true">
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    Brush="ButtonRightBigArrowBrush1"/>
+            </Children>
+        </ButtonWidget>
+        <SpriteWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="30" SuggestedHeight="30"
+            Sprite="Clan\clan_portrait_shadow"
+            MarginLeft="2" MarginRight="2"
+            HorizontalAlignment="Center" VerticalAlignment="Top" >
+            <Children>
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="30" SuggestedHeight="30"
+                    Color="#c7c3c3ff"
+                    Sprite="SPPerks\{{sprite}}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top" />
+            </Children>
+        </SpriteWidget>
+        <ButtonWidget
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Command.Click="{{next_command}}"
+            UpdateChildrenStates="true">
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    Brush="ButtonLeftBigArrowBrush1"/>
+            </Children>
+        </ButtonWidget>
+    </Children>
+</ListPanel>
+{{- end -}}
+
+<ListPanel
+    DataSource="{TroopScreen}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    MarginTop="560" MarginRight="330"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Top" >
+    <Children>
+        {{ customization_control("AthleticsSteady", "ExecuteChangeGender", "ExecuteChangeGender") }}
+        {{ customization_control("EngineeringForeman", "ExecutePrevHair", "ExecuteNextHair") }}
+        {{ customization_control("ScoutingRumourNetwork", "ExecutePrevBeard", "ExecuteNextBeard") }}
+        {{ customization_control("RogueryScarface", "ExecutePrevTattoo", "ExecuteNextTattoo") }}
+        {{ customization_control("ScoutingRearguard", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
+        {{ customization_control("AthleticsDurable", "ExecutePrevHeightPreset", "ExecuteNextHeightPreset") }}
+        {{ customization_control("AthleticsStrongArms", "ExecutePrevBuildPreset", "ExecuteNextBuildPreset") }}
+    </Children>
+</ListPanel>

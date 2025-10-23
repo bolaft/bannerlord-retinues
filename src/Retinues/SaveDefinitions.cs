@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Missions.Behaviors;
+using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Troops.Persistence;
 using TaleWorlds.SaveSystem;
 
@@ -67,7 +67,9 @@ namespace Retinues
 
             // Equipment set usage containers
             ConstructContainerDefinition(typeof(Dictionary<int, EquipmentUsePolicy>));
-            ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<int, EquipmentUsePolicy>>));
+            ConstructContainerDefinition(
+                typeof(Dictionary<string, Dictionary<int, EquipmentUsePolicy>>)
+            );
 
             // Retinue hire containers
             ConstructContainerDefinition(typeof(Dictionary<string, int>));

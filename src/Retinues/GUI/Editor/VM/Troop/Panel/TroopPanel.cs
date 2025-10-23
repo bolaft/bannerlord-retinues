@@ -5,15 +5,16 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
+using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
@@ -155,7 +156,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Headers ━━━━━━━ */
 
         [DataSourceProperty]
-        public string AppearanceHeaderText => L.S("appearance_header_text", "Appearance");
+        public string CultureHeaderText => L.S("culture_header_text", "Culture");
 
         [DataSourceProperty]
         public string NameHeaderText => L.S("name_header_text", "Name");
@@ -179,8 +180,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.Troop?.IsFemale == true ? L.S("female", "Female") : L.S("male", "Male");
 
         [DataSourceProperty]
-        public string CultureText =>
-            State.Troop?.Culture?.Name ?? L.S("unknown", "Unknown");
+        public string CultureText => State.Troop?.Culture?.Name ?? L.S("unknown", "Unknown");
 
         [DataSourceProperty]
         public string TierText
@@ -361,29 +361,22 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceMethod]
         /// <summary>
-        /// Toggle the selected troop's gender.
-        /// </summary>
-        public void ExecuteChangeGender()
-        {
-            State.Troop.IsFemale = !State.Troop.IsFemale;
-
-            State.UpdateTroop(State.Troop);
-        }
-
-        [DataSourceMethod]
-        /// <summary>
         /// Change the selected troop's culture.
         /// </summary>[DataSourceMethod]
         public void ExecuteChangeCulture()
         {
             try
             {
-                if (State.Troop == null) return;
+                if (State.Troop == null)
+                    return;
 
                 // Collect all cultures from the object database.
-                var cultures = MBObjectManager.Instance.GetObjectTypeList<CultureObject>()?
-                    .OrderBy(c => c?.Name?.ToString())
-                    .ToList() ?? [];
+                var cultures =
+                    MBObjectManager
+                        .Instance.GetObjectTypeList<CultureObject>()
+                        ?.OrderBy(c => c?.Name?.ToString())
+                        .ToList()
+                    ?? [];
 
                 if (cultures.Count == 0)
                 {
@@ -399,14 +392,21 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 var currentId = State.Troop.Culture?.StringId;
                 foreach (var c in cultures)
                 {
-                    if (c?.Name == null) continue;
+                    if (c?.Name == null)
+                        continue;
                     // Show current selection as pre-checked
-                    bool isSelected = string.Equals(c.StringId, currentId, StringComparison.Ordinal);
+                    bool isSelected = string.Equals(
+                        c.StringId,
+                        currentId,
+                        StringComparison.Ordinal
+                    );
 
                     var wc = new WCulture(c);
                     var root = wc.RootBasic ?? wc.RootElite;
 
-                    elements.Add(new InquiryElement(c, wc.Name.ToString(), root.ImageIdentifier, true, null));
+                    elements.Add(
+                        new InquiryElement(c, wc.Name.ToString(), root.ImageIdentifier, true, null)
+                    );
                 }
 
                 MBInformationManager.ShowMultiSelectionInquiry(
@@ -421,11 +421,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         negativeText: L.S("cancel", "Cancel"),
                         affirmativeAction: selected =>
                         {
-                            if (selected == null || selected.Count == 0) return;
-                            if (selected[0]?.Identifier is not CultureObject chosen) return;
+                            if (selected == null || selected.Count == 0)
+                                return;
+                            if (selected[0]?.Identifier is not CultureObject culture)
+                                return;
 
                             // Apply via wrapper (uses reflection under the hood).
-                            State.Troop.Culture = new WCulture(chosen);
+                            State.Troop.Culture = new WCulture(culture);
+
+                            // Update visuals
+                            CharacterCustomization.ApplyPropertiesFromCulture(State.Troop, culture);
 
                             // Refresh VM bindings & visuals.
                             State.UpdateTroop(State.Troop);
@@ -439,7 +444,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 Log.Exception(ex);
             }
         }
-
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
@@ -513,11 +517,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 Popup.Display(
                     L.T("rank_up_cant_outrank_elite_title", "Cannot Outrank Elite"),
                     L.T(
-                        "rank_up_cant_outrank_elite_text",
-                        "{TROOP_NAME} can't outrank {ELITE_RETINUE}."
-                    )
-                    .SetTextVariable("TROOP_NAME", State.Troop.Name)
-                    .SetTextVariable("ELITE_RETINUE", State.Faction.RetinueElite.Name)
+                            "rank_up_cant_outrank_elite_text",
+                            "{TROOP_NAME} can't outrank {ELITE_RETINUE}."
+                        )
+                        .SetTextVariable("TROOP_NAME", State.Troop.Name)
+                        .SetTextVariable("ELITE_RETINUE", State.Faction.RetinueElite.Name)
                 );
             }
             else if (Player.Gold < cost)

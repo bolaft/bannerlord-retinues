@@ -13,6 +13,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- TaleWorlds Assemblies -->
+    <Reference Include="TaleWorlds.TwoDimension">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.TwoDimension.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.ModuleManager">
       <HintPath>$(ReferenceRoot)/TaleWorlds.ModuleManager.dll</HintPath>
       <Private>false</Private>
@@ -79,6 +83,11 @@
     </Reference>
     <Reference Include="TaleWorlds.SaveSystem">
       <HintPath>$(ReferenceRoot)/TaleWorlds.SaveSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Sandbox -->
+    <Reference Include="Sandbox.GauntletUI">
+      <HintPath>$(ReferenceRoot)/Sandbox.GauntletUI.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <!-- UIExtenderEx -->

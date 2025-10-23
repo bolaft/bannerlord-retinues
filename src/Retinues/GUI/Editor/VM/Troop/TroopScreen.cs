@@ -1,16 +1,20 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Retinues.Behaviors;
+using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Game.Helpers;
 using Retinues.GUI.Editor.VM.Troop.List;
 using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-using System;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.GUI.Editor.VM.Troop
 {
@@ -39,13 +43,9 @@ namespace Retinues.GUI.Editor.VM.Troop
                     nameof(CanRaiseRetinueCap),
                     nameof(CanLowerRetinueCap),
                     nameof(RetinueJoinText),
-                    nameof(CountInParty)
+                    nameof(CountInParty),
                 ],
-                [UIEvent.Party] =
-                [
-                    nameof(RetinueJoinText),
-                    nameof(CountInParty)
-                ]
+                [UIEvent.Party] = [nameof(RetinueJoinText), nameof(CountInParty)],
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -65,13 +65,15 @@ namespace Retinues.GUI.Editor.VM.Troop
         /* ━━━━━━━━ Values ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int CountInParty => State.PartyData.TryGetValue(State.Troop, out var count) ? count : 0;
+        public int CountInParty =>
+            State.PartyData.TryGetValue(State.Troop, out var count) ? count : 0;
 
         [DataSourceProperty]
         public int RetinueCapValue => RetinueHireBehavior.GetRetinueCap(State.Troop);
 
         [DataSourceProperty]
-        public int RetinueCapMax => State.Troop?.IsElite == true ? TroopRules.MaxEliteRetinue : TroopRules.MaxBasicRetinue;
+        public int RetinueCapMax =>
+            State.Troop?.IsElite == true ? TroopRules.MaxEliteRetinue : TroopRules.MaxBasicRetinue;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -108,23 +110,17 @@ namespace Retinues.GUI.Editor.VM.Troop
                     return string.Empty;
 
                 if (RetinueCapValue == 0)
-                    return L.S(
-                        "retinue_join_text_none",
-                        "No new retinues will join."
-                    );
-                
-                if (CountInParty >= RetinueCapValue)
-                    return L.S(
-                        "retinue_join_text_full",
-                        "The hiring limit has been reached."
-                    );
+                    return L.S("retinue_join_text_none", "No new retinues will join.");
 
-                return L.T(
-                    "retinue_join_text",
-                    "One new retinue per {COST} renown earned."
-                ).SetTextVariable("COST", TroopRules.ConversionRenownCostPerUnit(State.Troop)).ToString();
+                if (CountInParty >= RetinueCapValue)
+                    return L.S("retinue_join_text_full", "The hiring limit has been reached.");
+
+                return L.T("retinue_join_text", "One new retinue per {COST} renown earned.")
+                    .SetTextVariable("COST", TroopRules.ConversionRenownCostPerUnit(State.Troop))
+                    .ToString();
             }
         }
+
         /* ━━━━━━━━ Tooltip ━━━━━━━ */
 
         [DataSourceProperty]
@@ -235,6 +231,101 @@ namespace Retinues.GUI.Editor.VM.Troop
                     negativeAction: () => { }
                 )
             );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Customization                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceMethod]
+        public void ExecuteChangeGender()
+        {
+            State.Troop.IsFemale = !State.Troop.IsFemale;
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextHair()
+        {
+            CharacterCustomization.ApplyNextHair(State.Troop, State.Troop.IsFemale);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecutePrevHair()
+        {
+            CharacterCustomization.ApplyPrevHair(State.Troop, State.Troop.IsFemale);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextBeard()
+        {
+            CharacterCustomization.ApplyNextBeard(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecutePrevBeard()
+        {
+            CharacterCustomization.ApplyPrevBeard(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextTattoo()
+        {
+            CharacterCustomization.ApplyNextTattoo(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecutePrevTattoo()
+        {
+            CharacterCustomization.ApplyPrevTattoo(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextAgePreset()
+        {
+            CharacterCustomization.ApplyNextAgePreset(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecutePrevAgePreset()
+        {
+            CharacterCustomization.ApplyPrevAgePreset(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextWeightPreset()
+        {
+            CharacterCustomization.ApplyNextWeightPreset(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecutePrevWeightPreset()
+        {
+            CharacterCustomization.ApplyPrevWeightPreset(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextBuildPreset()
+        {
+            CharacterCustomization.ApplyNextBuildPreset(State.Troop);
+            State.UpdateTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecutePrevBuildPreset()
+        {
+            CharacterCustomization.ApplyPrevBuildPreset(State.Troop);
+            State.UpdateTroop(State.Troop);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

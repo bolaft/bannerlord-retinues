@@ -147,12 +147,14 @@ namespace Retinues.Troops.Edition
 
             // Calculate costs
             var goldCost = to.IsRetinue ? TroopRules.ConversionGoldCostPerUnit(to) * amount : 0;
-            var influenceCost = to.IsRetinue ? TroopRules.ConversionInfluenceCostPerUnit(to) * amount : 0;
+            var influenceCost = to.IsRetinue
+                ? TroopRules.ConversionInfluenceCostPerUnit(to) * amount
+                : 0;
 
             // Check gold
             if (Player.Gold < goldCost)
                 return;
-            
+
             // Check influence
             if (Player.Influence < influenceCost)
                 return;

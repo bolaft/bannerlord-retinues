@@ -85,11 +85,10 @@ namespace Retinues.Game.Wrappers
             _culture?.RangedEliteMilitiaTroop != null
                 ? new(_culture.RangedEliteMilitiaTroop)
                 : null;
-        
+
         /// <summary>
         /// Gets the villager troop for this culture.
         /// </summary>
-        public WCharacter Villager =>
-            _culture?.Villager != null ? new(_culture.Villager) : null;
+        public WCharacter Villager => _culture?.Villager != null ? new(_culture.Villager) : null;
     }
 }

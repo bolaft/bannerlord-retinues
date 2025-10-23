@@ -56,9 +56,6 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Win a tournament in a town of your own culture." />
     <string
-      id="ret_appearance_header_text"
-      text="Appearance" />
-    <string
       id="ret_apply_conversions_button_text"
       text="Convert" />
     <string
@@ -178,6 +175,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Win a tournament wearing only armor of your own culture." />
+    <string
+      id="ret_culture_header_text"
+      text="Culture" />
     <string
       id="ret_doctrine_costs"
       text="Cost: {GOLD} Gold, {INFLUENCE} Influence." />

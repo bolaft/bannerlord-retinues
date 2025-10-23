@@ -30,6 +30,18 @@ namespace Retinues.GUI.Editor.Mixins
             {
                 Log.Info("Initializing ClanTroopScreen...");
 
+                // Load sprite categories early
+                try
+                {
+                    Log.Debug("SpriteLoader: loading all categories on initial screen set...");
+                    SpriteLoader.LoadAllCategories();
+                    Log.Debug("SpriteLoader: loaded all categories on initial screen set.");
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e);
+                }
+
                 // Reset state
                 State.ResetAll();
 

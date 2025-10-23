@@ -1,7 +1,7 @@
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
-using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Localization;
 
