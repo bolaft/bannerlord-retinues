@@ -68,6 +68,7 @@
 <!-- Retinue recruitement -->
 <Widget
     DataSource="{TroopScreen}"
+    IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
     DoNotPassEventsToChildren="false"
