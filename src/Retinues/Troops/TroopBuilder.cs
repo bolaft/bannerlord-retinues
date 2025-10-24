@@ -7,7 +7,6 @@ using Retinues.Doctrines.Catalog;
 using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
-using Retinues.Mods.WarlordsBattlefield;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 
@@ -128,10 +127,6 @@ namespace Retinues.Troops
         {
             var root = isElite ? faction.Culture.RootElite : faction.Culture.RootBasic;
 
-            // Custom fix for Warlords Battlefield
-            if (WarlordsBattlefield)
-                root = WarlordsBattlefieldRootFixer.FixRoot(root, isElite);
-
             if (root == null)
             {
                 Log.Error(
@@ -140,14 +135,16 @@ namespace Retinues.Troops
                 return;
             }
 
-            Log.Info($"Creating retinue troop from root {root.Name} ({root})");
-            Log.Info($"Tier: {root.Tier}");
+            var tpl = FindTemplate(root, isElite, tierBonus: faction == Player.Kingdom ? 2 : 0);
+
+            Log.Info($"Creating retinue troop from template {tpl.Name} ({tpl})");
+            Log.Info($"Tier: {tpl.Tier}");
 
             var retinue = new WCharacter(faction == Player.Kingdom, isElite, true);
 
-            retinue.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+            retinue.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
-            Log.Info($"Created retinue troop {retinue.Name} for {faction.Name} (from {root})");
+            Log.Info($"Created retinue troop {retinue.Name} for {faction.Name} (from {tpl})");
 
             // Rename it
             retinue.Name = retinueName;
@@ -156,7 +153,7 @@ namespace Retinues.Troops
             retinue.IsNotTransferableInPartyScreen = true;
 
             // Unlock items
-            foreach (var equipment in root.Loadout.Equipments)
+            foreach (var equipment in tpl.Loadout.Equipments)
             foreach (var item in equipment.Items)
                 item.Unlock();
 
@@ -340,9 +337,15 @@ namespace Retinues.Troops
             WCharacter parent
         )
         {
-            // Custom fix for Warlords Battlefield
-            if (parent == null && WarlordsBattlefield)
-                vanilla = WarlordsBattlefieldRootFixer.FixRoot(vanilla, isElite);
+            var tpl = FindTemplate(vanilla, isElite);
+
+            if (tpl == null)
+            {
+                Log.Error(
+                    $"Cannot clone troop {vanilla.Name} because no template was found for {(isElite ? "elite" : "basic")} troops."
+                );
+                yield break;
+            }
 
             // Determine the position in the tree
             List<int> path = null;
@@ -367,16 +370,16 @@ namespace Retinues.Troops
                 var troop = new WCharacter(co);
 
                 // Copy from the original troop
-                troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+                troop.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
                 // Rename it
-                troop.Name = BuildTroopName(vanilla, faction);
+                troop.Name = BuildTroopName(tpl, faction);
 
                 // Add to upgrade targets of the parent, if any
                 parent?.AddUpgradeTarget(troop);
 
                 // Unlock items
-                foreach (var equipment in vanilla.Loadout.Equipments)
+                foreach (var equipment in tpl.Loadout.Equipments)
                 foreach (var item in equipment.Items)
                     item.Unlock();
 
@@ -385,9 +388,9 @@ namespace Retinues.Troops
 
                 yield return troop;
 
-                if (vanilla.UpgradeTargets != null)
+                if (tpl.UpgradeTargets != null)
                 {
-                    foreach (var child in vanilla.UpgradeTargets)
+                    foreach (var child in tpl.UpgradeTargets)
                     foreach (
                         var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop)
                     )
@@ -431,6 +434,24 @@ namespace Retinues.Troops
             }
             // Fallback: prepend faction name
             return $"{faction.Name} {vanilla.Name}";
+        }
+
+        /// <summary>
+        /// Finds a template troop in the tree matching elite/basic and tier.
+        /// </summary>
+        private static WCharacter FindTemplate(WCharacter root, bool isElite, int tierBonus = 0)
+        {
+            if (root == null)
+                return null;
+
+            int tier = isElite ? 2 + tierBonus : 1 + tierBonus;
+
+            // Custom fix for Warlords Battlefield
+            foreach (var troop in root.Tree)
+                if (troop.Tier == tier)
+                    return troop;
+
+            return root;
         }
     }
 }
