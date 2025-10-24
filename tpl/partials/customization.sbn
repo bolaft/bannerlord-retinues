@@ -70,6 +70,7 @@
     <Children>
         {{ customization_control("CharmInBloom", "{GenderHint}", "ExecuteChangeGender", "ExecuteChangeGender") }}
         {{ customization_control("TradeRapidDevelopment", "{AgeHint}", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
+        {{ customization_control("AthleticsDurable", "{HeightHint}", "ExecutePrevHeightPreset", "ExecuteNextHeightPreset") }}
         {{ customization_control("AthleticsFormFittingArmor", "{WeightHint}", "ExecutePrevWeightPreset", "ExecuteNextWeightPreset") }}
         {{ customization_control("AthleticsStrongArms", "{BuildHint}", "ExecutePrevBuildPreset", "ExecuteNextBuildPreset") }}
 

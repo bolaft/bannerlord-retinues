@@ -30,6 +30,12 @@ namespace Retinues.Game.Helpers
             (0.01f,0.15f), (0.16f,0.30f), (0.31f,0.55f), (0.56f,0.70f), (0.71f,0.85f), (0.86f,0.99f)
         ];
 
+        public static readonly List<(float min, float max)> HeightPresets =
+        [
+            (0.01f,0.15f), (0.16f,0.30f), (0.31f,0.55f), (0.56f,0.70f), (0.71f,0.85f), (0.86f,0.99f)
+        ];
+
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Public API                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -42,6 +48,11 @@ namespace Retinues.Game.Helpers
 
         public static void ApplyNextBuildPreset(WCharacter t)  => ApplyPresetStep(t, BuildPresets,  +1, () => t.BuildMin,  v => t.BuildMin = v,  () => t.BuildMax,  v => t.BuildMax = v);
         public static void ApplyPrevBuildPreset(WCharacter t)  => ApplyPresetStep(t, BuildPresets,  -1, () => t.BuildMin,  v => t.BuildMin = v,  () => t.BuildMax,  v => t.BuildMax = v);
+
+        public static void ApplyNextHeightPreset(WCharacter t) =>
+            ApplyPresetStep(t, HeightPresets, +1, () => t.HeightMin, v => t.HeightMin = v, () => t.HeightMax, v => t.HeightMax = v);
+        public static void ApplyPrevHeightPreset(WCharacter t) =>
+            ApplyPresetStep(t, HeightPresets, -1, () => t.HeightMin, v => t.HeightMin = v, () => t.HeightMax, v => t.HeightMax = v);
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
 
@@ -61,9 +72,9 @@ namespace Retinues.Game.Helpers
             int next = (idx + step) % presets.Count;
             if (next < 0) next += presets.Count;
 
-            var p = presets[next];
-            setMin(p.min);
-            setMax(p.max);
+            var (min, max) = presets[next];
+            setMin(min);
+            setMax(max);
         }
 
         private static int NearestPresetIndex(List<(float min, float max)> presets, float curMin, float curMax)
@@ -71,8 +82,8 @@ namespace Retinues.Game.Helpers
             int best = 0; float bestScore = float.MaxValue;
             for (int i = 0; i < presets.Count; i++)
             {
-                var p = presets[i];
-                float score = Math.Abs(p.min - curMin) + Math.Abs(p.max - curMax);
+                var (min, max) = presets[i];
+                float score = Math.Abs(min - curMin) + Math.Abs(max - curMax);
                 if (score < bestScore) { bestScore = score; best = i; }
             }
             return best;

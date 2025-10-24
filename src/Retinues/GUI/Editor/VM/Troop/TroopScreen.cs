@@ -165,10 +165,13 @@ namespace Retinues.GUI.Editor.VM.Troop
         public BasicTooltipViewModel AgeHint => Tooltip.MakeTooltip( null, L.S("age_hint", "Age") );
 
         [DataSourceProperty]
+        public BasicTooltipViewModel HeightHint => Tooltip.MakeTooltip(null, L.S("height_hint", "Height"));
+
+        [DataSourceProperty]
         public BasicTooltipViewModel WeightHint => Tooltip.MakeTooltip( null, L.S("weight_hint", "Weight") );
 
         [DataSourceProperty]
-        public BasicTooltipViewModel BuildHint => Tooltip.MakeTooltip( null, L.S("build_hint", "Build") );
+        public BasicTooltipViewModel BuildHint => Tooltip.MakeTooltip(null, L.S("build_hint", "Build"));
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -288,6 +291,20 @@ namespace Retinues.GUI.Editor.VM.Troop
         public void ExecutePrevAgePreset()
         {
             CharacterCustomization.ApplyPrevAgePreset(State.Troop);
+            State.UpdateAppearance();
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextHeightPreset()
+        {
+            CharacterCustomization.ApplyNextHeightPreset(State.Troop);
+            State.UpdateAppearance();
+        }
+
+        [DataSourceMethod]
+        public void ExecutePrevHeightPreset()
+        {
+            CharacterCustomization.ApplyPrevHeightPreset(State.Troop);
             State.UpdateAppearance();
         }
 

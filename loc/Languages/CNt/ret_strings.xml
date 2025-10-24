@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_acquire_cultural_pride_to_unlock"
+      text="獲得文化自豪感信條以解鎖民兵部隊。" />
+    <string
       id="ret_acquire_fief_to_unlock"
       text="佔領一個封地以解鎖家族部隊。" />
     <string
@@ -250,6 +253,9 @@
     <string
       id="ret_head_slot_text"
       text="頭部" />
+    <string
+      id="ret_height_hint"
+      text="身高" />
     <string
       id="ret_horse_harness_slot_text"
       text="馬具" />
@@ -955,6 +961,9 @@
     <string
       id="ret_transfer_header_text"
       text="轉移" />
+    <string
+      id="ret_troop_list.placeholder"
+      text="無可用部隊" />
     <string
       id="ret_troop_xp"
       text="{XP} 經驗" />

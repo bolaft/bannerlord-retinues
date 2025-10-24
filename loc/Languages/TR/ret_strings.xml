@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_acquire_cultural_pride_to_unlock"
+      text="Milis askerlerini açmak için Kültürel Gurur doktrinini elde et." />
+    <string
       id="ret_acquire_fief_to_unlock"
       text="Bir tımar elde ederek klan askerlerini aç." />
     <string
@@ -250,6 +253,9 @@
     <string
       id="ret_head_slot_text"
       text="Kafa" />
+    <string
+      id="ret_height_hint"
+      text="Boy" />
     <string
       id="ret_horse_harness_slot_text"
       text="Koşum" />
@@ -955,6 +961,9 @@
     <string
       id="ret_transfer_header_text"
       text="Aktar" />
+    <string
+      id="ret_troop_list.placeholder"
+      text="Kullanılabilir Asker Yok" />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />

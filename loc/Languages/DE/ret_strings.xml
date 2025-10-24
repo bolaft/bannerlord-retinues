@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_acquire_cultural_pride_to_unlock"
+      text="Erwirb die Doktrin Kultureller Stolz, um Miliztruppen freizuschalten." />
+    <string
       id="ret_acquire_fief_to_unlock"
       text="Erobere ein Lehen, um die Clantruppen freizuschalten." />
     <string
@@ -250,6 +253,9 @@
     <string
       id="ret_head_slot_text"
       text="Kopf" />
+    <string
+      id="ret_height_hint"
+      text="Größe" />
     <string
       id="ret_horse_harness_slot_text"
       text="Zaumzeug" />
@@ -955,6 +961,9 @@
     <string
       id="ret_transfer_header_text"
       text="Übertragen" />
+    <string
+      id="ret_troop_list.placeholder"
+      text="Keine Truppen verfügbar" />
     <string
       id="ret_troop_xp"
       text="{XP} EP" />

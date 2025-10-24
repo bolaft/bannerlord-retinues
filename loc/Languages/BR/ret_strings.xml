@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_acquire_cultural_pride_to_unlock"
+      text="Conquiste a doutrina Orgulho Cultural para desbloquear as tropas da milícia." />
+    <string
       id="ret_acquire_fief_to_unlock"
       text="Conquiste um feudo para desbloquear as tropas do clã." />
     <string
@@ -250,6 +253,9 @@
     <string
       id="ret_head_slot_text"
       text="Cabeça" />
+    <string
+      id="ret_height_hint"
+      text="Altura" />
     <string
       id="ret_horse_harness_slot_text"
       text="Arreio" />
@@ -955,6 +961,9 @@
     <string
       id="ret_transfer_header_text"
       text="Transferir" />
+    <string
+      id="ret_troop_list.placeholder"
+      text="Nenhuma Tropa Disponível" />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />

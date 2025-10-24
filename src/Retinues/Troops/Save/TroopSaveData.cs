@@ -61,5 +61,11 @@ namespace Retinues.Troops.Persistence
 
         [SaveableField(17)]
         public float BuildMax;
+
+        [SaveableField(18)]
+        public float HeightMin;
+
+        [SaveableField(19)]
+        public float HeightMax;
     }
 }

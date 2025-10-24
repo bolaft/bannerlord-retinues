@@ -254,6 +254,9 @@
       id="ret_head_slot_text"
       text="Head" />
     <string
+      id="ret_height_hint"
+      text="Height" />
+    <string
       id="ret_horse_harness_slot_text"
       text="Harness" />
     <string

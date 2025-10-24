@@ -696,5 +696,103 @@ namespace Retinues.Game.Wrappers
                 Log.Exception(ex);
             }
         }
+
+        /* ━━━━━━━ Height (Min/Max) ━━━━━━━ */
+
+        // Height multiplier: KeyPart7 bits [19..24] (6 bits) → 0..1
+        private const int HEIGHT_PART = 8;
+        private const int HEIGHT_START = 19;
+        private const int HEIGHT_BITS = 6;
+
+        public float HeightMin
+        {
+            get => ReadStaticChannel(minEnd: true, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS);
+            set => SetStaticChannelEnd(minEnd: true, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
+        }
+        public float HeightMax
+        {
+            get => ReadStaticChannel(minEnd: false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS);
+            set => SetStaticChannelEnd(minEnd: false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
+        }
+
+        private float ReadStaticChannel(bool minEnd, int partIdx, int startBit, int numBits)
+        {
+            var bp = minEnd ? Base.GetBodyPropertiesMin() : Base.GetBodyPropertiesMax();
+            var sp = bp.StaticProperties;
+            ulong part = GetKeyPart(sp, partIdx);
+            int raw = GetBitsValueFromKey(part, startBit, numBits);
+            int max = (1 << numBits) - 1;
+            return max > 0 ? raw / (float)max : 0f;
+        }
+
+        private void SetStaticChannelEnd(bool minEnd, int partIdx, int startBit, int numBits, float value01)
+        {
+            try
+            {
+                EnsureOwnBodyRange();
+
+                float v = Math.Max(0f, Math.Min(1f, value01));
+                int raw = (int)Math.Round(v * ((1 << numBits) - 1));
+
+                var curMin = Base.GetBodyPropertiesMin();
+                var curMax = Base.GetBodyPropertiesMax();
+
+                var src = minEnd ? curMin : curMax;
+                var oth = minEnd ? curMax : curMin;
+
+                var sp = src.StaticProperties;
+                ulong part = GetKeyPart(sp, partIdx);
+                part = SetBits(part, startBit, numBits, raw);
+                var newSp = SetKeyPart(sp, partIdx, part);
+
+                var newSrc = new BodyProperties(src.DynamicProperties, newSp);
+                var newMin = minEnd ? newSrc : oth;
+                var newMax = minEnd ? oth    : newSrc;
+
+                var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
+                Reflector.InvokeMethod(
+                    range, "Init",
+                    [typeof(BodyProperties), typeof(BodyProperties)],
+                    newMin, newMax
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        /* ━━━ StaticBodyProperties bit and part helpers ━━━ */
+
+        private static int GetBitsValueFromKey(ulong part, int startBit, int numBits)
+        {
+            ulong shifted = part >> startBit;
+            ulong mask = ((1UL << numBits) - 1);
+            return (int)(shifted & mask);
+        }
+
+        private static ulong SetBits(ulong part, int startBit, int numBits, int newValue)
+        {
+            ulong mask = (((1UL << numBits) - 1) << startBit);
+            return (part & ~mask) | ((ulong)newValue << startBit);
+        }
+
+        private static ulong GetKeyPart(in StaticBodyProperties sp, int idx) => idx switch
+        {
+            1 => sp.KeyPart1, 2 => sp.KeyPart2, 3 => sp.KeyPart3, 4 => sp.KeyPart4,
+            5 => sp.KeyPart5, 6 => sp.KeyPart6, 7 => sp.KeyPart7, _ => sp.KeyPart8
+        };
+
+        private static StaticBodyProperties SetKeyPart(in StaticBodyProperties sp, int idx, ulong val) => idx switch
+        {
+            1 => new(val, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
+            2 => new(sp.KeyPart1, val, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
+            3 => new(sp.KeyPart1, sp.KeyPart2, val, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
+            4 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, val, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
+            5 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, val, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
+            6 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, val, sp.KeyPart7, sp.KeyPart8),
+            7 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, val, sp.KeyPart8),
+            _ => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, val),
+        };
     }
 }

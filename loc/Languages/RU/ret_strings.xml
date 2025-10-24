@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_acquire_cultural_pride_to_unlock"
+      text="Получите доктрину Культурной Гордости, чтобы разблокировать милицейские войска." />
+    <string
       id="ret_acquire_fief_to_unlock"
       text="Получите феод, чтобы разблокировать войска клана." />
     <string
@@ -250,6 +253,9 @@
     <string
       id="ret_head_slot_text"
       text="Голова" />
+    <string
+      id="ret_height_hint"
+      text="Рост" />
     <string
       id="ret_horse_harness_slot_text"
       text="Сбруя" />
@@ -955,6 +961,9 @@
     <string
       id="ret_transfer_header_text"
       text="Передать" />
+    <string
+      id="ret_troop_list.placeholder"
+      text="Нет доступных войск" />
     <string
       id="ret_troop_xp"
       text="{XP} очков опыта" />

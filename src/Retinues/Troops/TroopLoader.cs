@@ -116,6 +116,13 @@ namespace Retinues.Troops
             troop.SetDynamicEnd(false, data.AgeMax, data.WeightMax, data.BuildMax);
             troop.Age = troop.AgeMin + troop.AgeMax / 2;
 
+            // Set height properties
+            if (data.HeightMin > 0 && data.HeightMax > 0)
+            {
+                troop.HeightMin = data.HeightMin;
+                troop.HeightMax = data.HeightMax;
+            }
+
             // Activate
             troop.Activate();
 
@@ -148,7 +155,9 @@ namespace Retinues.Troops
                 WeightMin = character.WeightMin,
                 WeightMax = character.WeightMax,
                 BuildMin = character.BuildMin,
-                BuildMax = character.BuildMax
+                BuildMax = character.BuildMax,
+                HeightMin = character.HeightMin,
+                HeightMax = character.HeightMax,
             };
 
             return data;
