@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proporción máxima de tropas de élite de séquito en el grupo del jugador." />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="Sin Tropas Preconstruidas" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="Las tropas regulares no se clonan del árbol de tropas de la cultura base, deben crearse a partir de una única unidad de bajo nivel." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Bonificaciones de Desbloqueo de Cultura Propia" />
     <string

@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Oyuncu grubundaki seçkin yandaş askerlerin azami oranı." />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="Önceden Oluşturulmuş Asker Yok" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="Normal askerler temel kültür asker ağacından klonlanmaz, tek bir düşük seviye birimden oluşturulmaları gerekir." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Kendi Kültür Açılış Bonusları" />
     <string

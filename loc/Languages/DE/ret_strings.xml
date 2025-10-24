@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe." />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="Keine Vorgefertigten Truppen" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="Normale Truppen werden nicht aus dem Basis-Kultur-Truppenbaum geklont, sie müssen aus einer einzigen niedrigstufigen Einheit erstellt werden." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Eigene Kultur-Freischaltboni" />
     <string

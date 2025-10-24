@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximum proportion of elite retinue troops in player party." />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="No Prebuilt Troops" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="Regular troops are not cloned from the base culture troop tree, they need to be created from a single low tier unit." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Own Culture Unlock Bonuses" />
     <string

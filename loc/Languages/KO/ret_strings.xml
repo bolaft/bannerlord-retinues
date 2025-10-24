@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="플레이어 부대 내 정예 수행원의 최대 비율." />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="사전 제작된 병력 없음" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="일반 병력은 기본 문화 병력 트리에서 복제되지 않으며 단일 저등급 유닛에서 생성해야 합니다." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="자신의 문화 해제 보너스" />
     <string

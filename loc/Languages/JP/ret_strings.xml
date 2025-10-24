@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="プレイヤー部隊内の精鋭随伴兵の最大比率。" />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="事前構築された部隊なし" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="通常の部隊は基本文化の部隊ツリーからクローンされるのではなく、単一の低ランクユニットから作成する必要があります。" />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="自文化アンロックボーナス" />
     <string

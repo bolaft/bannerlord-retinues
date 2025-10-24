@@ -2816,6 +2816,38 @@
     "TR": "Oyuncu grubundaki seçkin yandaş askerlerin azami oranı."
   },
   {
+    "id": "ret_mcm_option_no_prebuilt_troops",
+    "EN": "No Prebuilt Troops",
+    "BR": "Sem Tropas Pré-construídas",
+    "CNs": "无预设部队",
+    "CNt": "無預設部隊",
+    "DE": "Keine Vorgefertigten Truppen",
+    "FR": "Pas de Troupes Préconstruites",
+    "IT": "Nessuna Truppa Predefinita",
+    "JP": "事前構築された部隊なし",
+    "KO": "사전 제작된 병력 없음",
+    "PL": "Brak Wstępnie Zbudowanych Jednostek",
+    "RU": "Без Предустановленных Войск",
+    "SP": "Sin Tropas Preconstruidas",
+    "TR": "Önceden Oluşturulmuş Asker Yok"
+  },
+  {
+    "id": "ret_mcm_option_no_prebuilt_troops_hint",
+    "EN": "Regular troops are not cloned from the base culture troop tree, they need to be created from a single low tier unit.",
+    "BR": "Tropas regulares não são clonadas da árvore de tropas da cultura base, elas precisam ser criadas a partir de uma única unidade de baixo nível.",
+    "CNs": "常规部队不是从基础文化部队树克隆的，它们需要从单一低级单位创建。",
+    "CNt": "常規部隊不是從基礎文化部隊樹克隆的，它們需要從單一低級單位創建。",
+    "DE": "Normale Truppen werden nicht aus dem Basis-Kultur-Truppenbaum geklont, sie müssen aus einer einzigen niedrigstufigen Einheit erstellt werden.",
+    "FR": "Les troupes régulières ne sont pas clonées à partir de l’arbre des troupes de la culture de base, elles doivent être créées à partir d’une seule unité de bas niveau.",
+    "IT": "Le truppe regolari non sono clonate dall’albero delle truppe della cultura di base, devono essere create da una singola unità di basso livello.",
+    "JP": "通常の部隊は基本文化の部隊ツリーからクローンされるのではなく、単一の低ランクユニットから作成する必要があります。",
+    "KO": "일반 병력은 기본 문화 병력 트리에서 복제되지 않으며 단일 저등급 유닛에서 생성해야 합니다.",
+    "PL": "Zwykłe jednostki nie są klonowane z podstawowego drzewa jednostek kulturowych, muszą być tworzone z pojedynczej jednostki niskiego poziomu.",
+    "RU": "Обычные войска не клонируются из базового дерева войск культуры, их нужно создавать из одной низкоуровневой единицы.",
+    "SP": "Las tropas regulares no se clonan del árbol de tropas de la cultura base, deben crearse a partir de una única unidad de bajo nivel.",
+    "TR": "Normal askerler temel kültür asker ağacından klonlanmaz, tek bir düşük seviye birimden oluşturulmaları gerekir."
+  },
+  {
     "id": "ret_mcm_option_own_culture_unlock_bonuses",
     "EN": "Own Culture Unlock Bonuses",
     "BR": "Bônus de Desbloqueio da Própria Cultura",

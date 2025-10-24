@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="玩家隊伍中精銳隨從的最大比例。" />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="無預設部隊" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="常規部隊不是從基礎文化部隊樹克隆的，它們需要從單一低級單位創建。" />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="自身文化解鎖獎勵" />
     <string

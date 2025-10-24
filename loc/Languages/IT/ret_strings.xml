@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proporzione massima di truppe del seguito élite nel gruppo del giocatore." />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="Nessuna Truppa Predefinita" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="Le truppe regolari non sono clonate dall’albero delle truppe della cultura di base, devono essere create da una singola unità di basso livello." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Bonus di Sblocco della Propria Cultura" />
     <string

@@ -241,15 +241,24 @@ namespace Retinues.Troops
             var culture = faction.Culture;
             Log.Debug($"Faction culture: {culture?.Name ?? "null"}");
 
-            var eliteClones = new List<WCharacter>();
-            Log.Debug($"Initial eliteClones count: {eliteClones.Count}");
-
-            if (culture?.RootElite != null)
+            if (culture == null)
             {
-                Log.Debug($"Cloning elite tree from root: {culture.RootElite.Name}");
+                Log.Error($"Cannot build troops for faction {faction.Name} because it has no culture.");
+                return;
+            }
+
+            var eliteClones = new List<WCharacter>();
+            var eliteRoot = Config.NoPrebuiltTroops ? culture.Villager : culture.RootBasic;
+
+            if (Config.NoPrebuiltTroops)
+                eliteRoot.Level += 5; // Upgrade the troop tier to use the basic root as elite
+
+            if (eliteRoot != null)
+            {
+                Log.Debug($"Cloning elite tree from root: {eliteRoot.Name}");
                 eliteClones =
                 [
-                    .. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
+                    .. CloneTroopTreeRecursive(eliteRoot, true, faction, null)
                         .Where(t => t != null)
                         .ToList(),
                 ];
@@ -266,14 +275,14 @@ namespace Retinues.Troops
             }
 
             var basicClones = new List<WCharacter>();
-            Log.Debug($"Initial basicClones count: {basicClones.Count}");
+            var basicRoot = Config.NoPrebuiltTroops ? culture.Villager : culture.RootBasic;
 
-            if (culture?.RootBasic != null)
+            if (basicRoot != null)
             {
-                Log.Debug($"Cloning basic tree from root: {culture.RootBasic.Name}");
+                Log.Debug($"Cloning basic tree from root: {basicRoot.Name}");
                 basicClones =
                 [
-                    .. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)
+                    .. CloneTroopTreeRecursive(basicRoot, false, faction, null)
                         .Where(t => t != null)
                         .ToList(),
                 ];
@@ -305,10 +314,8 @@ namespace Retinues.Troops
                         );
                         foreach (var item in equipment.Items)
                         {
-                            Log.Debug($"Unlocking item: {item?.ToString() ?? "null"}");
                             item.Unlock();
                             unlocks++;
-                            Log.Debug($"Unlocks incremented: {unlocks}");
                         }
                     }
                 }
@@ -388,7 +395,7 @@ namespace Retinues.Troops
 
                 yield return troop;
 
-                if (tpl.UpgradeTargets != null)
+                if (tpl.UpgradeTargets != null && !Config.NoPrebuiltTroops)
                 {
                     foreach (var child in tpl.UpgradeTargets)
                     foreach (

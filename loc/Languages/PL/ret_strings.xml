@@ -533,6 +533,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maksymalny udział elitarnych jednostek orszaku w drużynie gracza." />
     <string
+      id="ret_mcm_option_no_prebuilt_troops"
+      text="Brak Wstępnie Zbudowanych Jednostek" />
+    <string
+      id="ret_mcm_option_no_prebuilt_troops_hint"
+      text="Zwykłe jednostki nie są klonowane z podstawowego drzewa jednostek kulturowych, muszą być tworzone z pojedynczej jednostki niskiego poziomu." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Premie za odblokowanie własnej kultury" />
     <string
