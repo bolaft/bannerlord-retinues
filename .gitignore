@@ -73,3 +73,8 @@ GlobalSuppressions.cs
 ########################################
 Retinues.Local.props
 Retinues.Local.Props
+
+########################################
+# Steam Workshop
+########################################
+Workshop*.xml
