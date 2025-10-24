@@ -1,13 +1,14 @@
 <Module>
   <Name value="Retinues" />
   <Id value="Retinues" />
-  <Version value="v1.2.12.8" />
+  <Version value="v1.2.12.9" />
   <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
   <Official value="false" />
   <DependedModules>
     <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.6" />
+    <DependedModule Id="Bannerlord.ButterLib" DependentVersion="v2.10.0" />
     <DependedModule Id="Bannerlord.UIExtenderEx" DependentVersion="v2.13.0" />
     <DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.10.1" />
     <DependedModule Id="Native" DependentVersion="v1.2.12" />
