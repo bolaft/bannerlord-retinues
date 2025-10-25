@@ -425,7 +425,7 @@ namespace Retinues.Troops
             List<int> path = null;
             if (parent != null)
             {
-                path = parent.PositionInTree != null ? [.. parent.PositionInTree] : new List<int>();
+                path = parent.PositionInTree != null ? [.. parent.PositionInTree] : [];
                 path.Add(parent.UpgradeTargets.Length);
             }
 

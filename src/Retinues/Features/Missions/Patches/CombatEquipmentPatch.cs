@@ -42,18 +42,19 @@ namespace Retinues.Features.Missions.Patches
                     // Use civilian set if spawning as civilian.
                     eq = troop.Loadout.Civilian.Base;
                 }
+                else if (Battle.MapEvent == null)
+                {
+                    return; // No battle context, use default equipment (tournaments etc).
+                }
                 else
                 {
                     var battleType = BattleType.FieldBattle;
 
-                    if (Battle.MapEvent != null)
-                    {
-                        var battle = new Battle(Battle.MapEvent);
-                        if (battle.IsSiege)
-                            battleType = battle.PlayerIsDefender
-                                ? BattleType.SiegeDefense
-                                : BattleType.SiegeAssault;
-                    }
+                    var battle = new Battle(Battle.MapEvent);
+                    if (battle.IsSiege)
+                        battleType = battle.PlayerIsDefender
+                            ? BattleType.SiegeDefense
+                            : BattleType.SiegeAssault;
 
                     // Build eligible sets according to mask; battle set is always eligible.
                     var eligible = new List<WEquipment> { troop.Loadout.Battle };
