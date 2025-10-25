@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Features.Upgrade.Behaviors;
-using Retinues.Troops;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;

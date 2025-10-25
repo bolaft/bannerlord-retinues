@@ -39,7 +39,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
             if (BasicTroops.Count == 0)
                 BasicTroops.Add(new TroopRowVM(null)); // placeholder
-            
+
             if (MilitiaTroops.Count == 0)
                 MilitiaTroops.Add(new TroopRowVM(null)); // placeholder
 

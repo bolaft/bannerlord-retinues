@@ -65,7 +65,8 @@ namespace Retinues.Troops.Edition
             EquipmentIndex slot
         )
         {
-            var craftedUnlocked = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() && !Config.DisableCraftedWeapons;
+            var craftedUnlocked =
+                DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() && !Config.DisableCraftedWeapons;
             var cultureUnlocked = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
             var factionCultureId = faction?.Culture?.StringId;
@@ -94,12 +95,7 @@ namespace Retinues.Troops.Edition
                     {
                         if (!craftedUnlocked)
                             continue;
-                        if (
-                            !FilterCraftedItem(
-                                item,
-                                lastCraftedItems
-                            )
-                        )
+                        if (!FilterCraftedItem(item, lastCraftedItems))
                             continue;
                         if (!item.IsUnlocked)
                             item.Unlock();
@@ -180,10 +176,7 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Returns true if the item is a valid crafted item to include, filtering out duplicates.
         /// </summary>
-        private static bool FilterCraftedItem(
-            WItem item,
-            List<WItem> lastCraftedItems
-        )
+        private static bool FilterCraftedItem(WItem item, List<WItem> lastCraftedItems)
         {
             if (item == null)
                 return false;
@@ -199,15 +192,14 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Finds the last crafted items from a collection of item objects.
         /// </summary>
-        private static List<WItem> FindLastCraftedItems(
-            IEnumerable<ItemObject> objects
-        )
+        private static List<WItem> FindLastCraftedItems(IEnumerable<ItemObject> objects)
         {
             var map = new Dictionary<string, WItem>();
 
             foreach (var obj in objects)
             {
-                if (obj == null) continue;
+                if (obj == null)
+                    continue;
 
                 var item = new WItem(obj);
 

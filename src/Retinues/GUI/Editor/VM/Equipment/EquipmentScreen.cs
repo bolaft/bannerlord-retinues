@@ -350,7 +350,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             EquipmentList.Show();
             foreach (var slot in EquipmentSlots)
                 slot.Show();
-            
+
             // Ensure filter is refreshed when showing
             EquipmentList.RefreshFilter();
         }

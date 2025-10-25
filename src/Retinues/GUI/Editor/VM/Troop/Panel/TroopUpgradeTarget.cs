@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
-using TaleWorlds.Library;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
@@ -23,7 +23,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected override Dictionary<UIEvent, string[]> EventMap =>
-            new() { [UIEvent.Troop] = [nameof(Name)], [UIEvent.Equip] = [nameof(FormationClassIcon)] };
+            new()
+            {
+                [UIEvent.Troop] = [nameof(Name)],
+                [UIEvent.Equip] = [nameof(FormationClassIcon)],
+            };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -33,7 +37,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public string Name => Format.Crop(UpgradeTarget.Name, 40);
-        
+
         /* ━━━━━━━━━ Icon ━━━━━━━━━ */
 
         [DataSourceProperty]
@@ -46,7 +50,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     FormationClass.Infantry => @"General\TroopTypeIcons\icon_troop_type_infantry",
                     FormationClass.Ranged => @"General\TroopTypeIcons\icon_troop_type_bow",
                     FormationClass.Cavalry => @"General\TroopTypeIcons\icon_troop_type_cavalry",
-                    FormationClass.HorseArcher => @"General\TroopTypeIcons\icon_troop_type_horse_archer",
+                    FormationClass.HorseArcher =>
+                        @"General\TroopTypeIcons\icon_troop_type_horse_archer",
                     _ => @"General\TroopTypeIcons\icon_troop_type_infantry",
                 };
             }
