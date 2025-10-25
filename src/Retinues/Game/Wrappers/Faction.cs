@@ -97,15 +97,19 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets all militia troops for this faction that are active.
         /// </summary>
-        public List<WCharacter> MilitiaTroops => DoctrineAPI.IsDoctrineUnlocked<CulturalPride>() ?
-            [.. new List<WCharacter>
-            {
-                MilitiaMeleeElite,
-                MilitiaMelee,
-                MilitiaRangedElite,
-                MilitiaRanged,
-            }.Where(t => t.IsActive)] : 
-            [];
+        public List<WCharacter> MilitiaTroops =>
+            DoctrineAPI.IsDoctrineUnlocked<CulturalPride>()
+                ?
+                [
+                    .. new List<WCharacter>
+                    {
+                        MilitiaMeleeElite,
+                        MilitiaMelee,
+                        MilitiaRangedElite,
+                        MilitiaRanged,
+                    }.Where(t => t.IsActive),
+                ]
+                : [];
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
         public bool IsClan => Base is Clan;

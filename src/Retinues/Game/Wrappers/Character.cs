@@ -177,15 +177,20 @@ namespace Retinues.Game.Wrappers
             {
                 try
                 {
-                    if (value == null) return;
-                    if (IsHero) return; // Skip heroes (their culture lives on HeroObject.Culture)
+                    if (value == null)
+                        return;
+                    if (IsHero)
+                        return; // Skip heroes (their culture lives on HeroObject.Culture)
 
                     // CharacterObject has a 'new Culture' with a private setter that forwards to base.Culture.
                     // Explicitly target the declaring base property to avoid AmbiguousMatchException.
-                    var baseType = typeof(BasicCharacterObject); 
+                    var baseType = typeof(BasicCharacterObject);
                     var prop = baseType.GetProperty(
                         "Culture",
-                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly
+                        BindingFlags.Instance
+                            | BindingFlags.Public
+                            | BindingFlags.NonPublic
+                            | BindingFlags.DeclaredOnly
                     );
                     prop?.SetValue(Base, value.Base, null);
                 }
@@ -613,20 +618,22 @@ namespace Retinues.Game.Wrappers
 
                 var dyn = src.DynamicProperties;
                 var newDyn = new DynamicBodyProperties(
-                    age    ?? dyn.Age,
+                    age ?? dyn.Age,
                     weight ?? dyn.Weight,
-                    build  ?? dyn.Build
+                    build ?? dyn.Build
                 );
 
                 var newSrc = new BodyProperties(newDyn, src.StaticProperties);
                 var newMin = minEnd ? newSrc : oth;
-                var newMax = minEnd ? oth    : newSrc;
+                var newMax = minEnd ? oth : newSrc;
 
                 var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
                 Reflector.InvokeMethod(
-                    range, "Init",
+                    range,
+                    "Init",
                     [typeof(BodyProperties), typeof(BodyProperties)],
-                    newMin, newMax
+                    newMin,
+                    newMax
                 );
             }
             catch (Exception ex)
@@ -668,7 +675,13 @@ namespace Retinues.Game.Wrappers
                     var fresh = (rangeType != null) ? Activator.CreateInstance(rangeType) : null;
                     if (fresh != null)
                     {
-                        Reflector.InvokeMethod(fresh, "Init", [typeof(BodyProperties), typeof(BodyProperties)], min, max);
+                        Reflector.InvokeMethod(
+                            fresh,
+                            "Init",
+                            [typeof(BodyProperties), typeof(BodyProperties)],
+                            min,
+                            max
+                        );
                         Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
                     }
                     return;
@@ -684,13 +697,21 @@ namespace Retinues.Game.Wrappers
                         return;
                     }
                 }
-                catch { /* ignore */ }
+                catch
+                { /* ignore */
+                }
 
                 var curMin = Base.GetBodyPropertiesMin();
                 var curMax = Base.GetBodyPropertiesMax();
                 var type2 = current.GetType();
                 var fresh2 = Activator.CreateInstance(type2);
-                Reflector.InvokeMethod(fresh2, "Init", [typeof(BodyProperties), typeof(BodyProperties)], curMin, curMax);
+                Reflector.InvokeMethod(
+                    fresh2,
+                    "Init",
+                    [typeof(BodyProperties), typeof(BodyProperties)],
+                    curMin,
+                    curMax
+                );
                 Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh2);
             }
             catch (Exception ex)
@@ -714,7 +735,8 @@ namespace Retinues.Game.Wrappers
         public float HeightMax
         {
             get => ReadStaticChannel(minEnd: false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS);
-            set => SetStaticChannelEnd(minEnd: false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
+            set =>
+                SetStaticChannelEnd(minEnd: false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
         }
 
         private float ReadStaticChannel(bool minEnd, int partIdx, int startBit, int numBits)
@@ -727,7 +749,13 @@ namespace Retinues.Game.Wrappers
             return max > 0 ? raw / (float)max : 0f;
         }
 
-        private void SetStaticChannelEnd(bool minEnd, int partIdx, int startBit, int numBits, float value01)
+        private void SetStaticChannelEnd(
+            bool minEnd,
+            int partIdx,
+            int startBit,
+            int numBits,
+            float value01
+        )
         {
             try
             {
@@ -749,13 +777,15 @@ namespace Retinues.Game.Wrappers
 
                 var newSrc = new BodyProperties(src.DynamicProperties, newSp);
                 var newMin = minEnd ? newSrc : oth;
-                var newMax = minEnd ? oth    : newSrc;
+                var newMax = minEnd ? oth : newSrc;
 
                 var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
                 Reflector.InvokeMethod(
-                    range, "Init",
+                    range,
+                    "Init",
                     [typeof(BodyProperties), typeof(BodyProperties)],
-                    newMin, newMax
+                    newMin,
+                    newMax
                 );
             }
             catch (Exception ex)
@@ -779,22 +809,106 @@ namespace Retinues.Game.Wrappers
             return (part & ~mask) | ((ulong)newValue << startBit);
         }
 
-        private static ulong GetKeyPart(in StaticBodyProperties sp, int idx) => idx switch
-        {
-            1 => sp.KeyPart1, 2 => sp.KeyPart2, 3 => sp.KeyPart3, 4 => sp.KeyPart4,
-            5 => sp.KeyPart5, 6 => sp.KeyPart6, 7 => sp.KeyPart7, _ => sp.KeyPart8
-        };
+        private static ulong GetKeyPart(in StaticBodyProperties sp, int idx) =>
+            idx switch
+            {
+                1 => sp.KeyPart1,
+                2 => sp.KeyPart2,
+                3 => sp.KeyPart3,
+                4 => sp.KeyPart4,
+                5 => sp.KeyPart5,
+                6 => sp.KeyPart6,
+                7 => sp.KeyPart7,
+                _ => sp.KeyPart8,
+            };
 
-        private static StaticBodyProperties SetKeyPart(in StaticBodyProperties sp, int idx, ulong val) => idx switch
-        {
-            1 => new(val, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
-            2 => new(sp.KeyPart1, val, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
-            3 => new(sp.KeyPart1, sp.KeyPart2, val, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
-            4 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, val, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
-            5 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, val, sp.KeyPart6, sp.KeyPart7, sp.KeyPart8),
-            6 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, val, sp.KeyPart7, sp.KeyPart8),
-            7 => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, val, sp.KeyPart8),
-            _ => new(sp.KeyPart1, sp.KeyPart2, sp.KeyPart3, sp.KeyPart4, sp.KeyPart5, sp.KeyPart6, sp.KeyPart7, val),
-        };
+        private static StaticBodyProperties SetKeyPart(
+            in StaticBodyProperties sp,
+            int idx,
+            ulong val
+        ) =>
+            idx switch
+            {
+                1 => new(
+                    val,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                2 => new(
+                    sp.KeyPart1,
+                    val,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                3 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    val,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                4 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    val,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                5 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    val,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                6 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    val,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                7 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    val,
+                    sp.KeyPart8
+                ),
+                _ => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    val
+                ),
+            };
     }
 }

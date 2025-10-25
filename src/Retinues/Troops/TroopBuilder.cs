@@ -44,13 +44,17 @@ namespace Retinues.Troops
             if (!faction.RetinueElite.IsActive)
             {
                 Log.Info("Missing elite retinue. Initializing.");
-                CreateRetinueTroop(faction, isElite: true,  MakeRetinueName(faction, isElite: true));
+                CreateRetinueTroop(faction, isElite: true, MakeRetinueName(faction, isElite: true));
                 anyRetinueCreated = true;
             }
             if (!faction.RetinueBasic.IsActive)
             {
                 Log.Info("Missing basic retinue. Initializing.");
-                CreateRetinueTroop(faction, isElite: false, MakeRetinueName(faction, isElite: false));
+                CreateRetinueTroop(
+                    faction,
+                    isElite: false,
+                    MakeRetinueName(faction, isElite: false)
+                );
                 anyRetinueCreated = true;
             }
             if (!anyRetinueCreated)
@@ -110,7 +114,7 @@ namespace Retinues.Troops
                     }
                     if (!faction.MilitiaMeleeElite.IsActive)
                     {
-                        CreateMilitiaTroop(faction, isElite: true,  isMelee: true);
+                        CreateMilitiaTroop(faction, isElite: true, isMelee: true);
                         anyMilitiaBuilt = true;
                     }
                     if (!faction.MilitiaRanged.IsActive)
@@ -120,7 +124,7 @@ namespace Retinues.Troops
                     }
                     if (!faction.MilitiaRangedElite.IsActive)
                     {
-                        CreateMilitiaTroop(faction, isElite: true,  isMelee: false);
+                        CreateMilitiaTroop(faction, isElite: true, isMelee: false);
                         anyMilitiaBuilt = true;
                     }
 
@@ -149,7 +153,7 @@ namespace Retinues.Troops
         {
             Log.Info($"Setting up retinue troops for faction {faction.Name}.");
 
-            CreateRetinueTroop(faction, true,  MakeRetinueName(faction, isElite: true));
+            CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
             CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
         }
 
@@ -283,8 +287,15 @@ namespace Retinues.Troops
             var eliteClones = new List<WCharacter>();
             if (culture?.RootElite != null)
             {
-                eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null).Where(t => t != null).ToList()];
-                Log.Debug($"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}");
+                eliteClones =
+                [
+                    .. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
+                        .Where(t => t != null)
+                        .ToList(),
+                ];
+                Log.Debug(
+                    $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
+                );
             }
             else
             {
@@ -296,8 +307,15 @@ namespace Retinues.Troops
             var basicClones = new List<WCharacter>();
             if (culture?.RootBasic != null)
             {
-                basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null).Where(t => t != null).ToList()];
-                Log.Debug($"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}");
+                basicClones =
+                [
+                    .. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)
+                        .Where(t => t != null)
+                        .ToList(),
+                ];
+                Log.Debug(
+                    $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
+                );
             }
             else
             {
@@ -321,7 +339,9 @@ namespace Retinues.Troops
                 return;
             }
 
-            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null).Where(t => t != null).ToList();
+            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
+                .Where(t => t != null)
+                .ToList();
             Log.Info($"Cloned {eliteClones.Count} elite troops for {faction.Name}.");
             UnlockAll(eliteClones, null);
         }
@@ -338,7 +358,9 @@ namespace Retinues.Troops
                 return;
             }
 
-            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, false, faction, null).Where(t => t != null).ToList();
+            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)
+                .Where(t => t != null)
+                .ToList();
             Log.Info($"Cloned {basicClones.Count} basic troops for {faction.Name}.");
             UnlockAll(null, basicClones);
         }
@@ -347,10 +369,18 @@ namespace Retinues.Troops
         //                         HELPERS                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static void UnlockAll(IEnumerable<WCharacter> eliteClones, IEnumerable<WCharacter> basicClones)
+        private static void UnlockAll(
+            IEnumerable<WCharacter> eliteClones,
+            IEnumerable<WCharacter> basicClones
+        )
         {
             int unlocks = 0;
-            foreach (var troop in Enumerable.Concat(eliteClones ?? Array.Empty<WCharacter>(), basicClones ?? Array.Empty<WCharacter>()))
+            foreach (
+                var troop in Enumerable.Concat(
+                    eliteClones ?? Array.Empty<WCharacter>(),
+                    basicClones ?? Array.Empty<WCharacter>()
+                )
+            )
             {
                 try
                 {
@@ -366,7 +396,9 @@ namespace Retinues.Troops
                     Log.Exception(e, $"Error processing troop {troop?.Name ?? "null"}");
                 }
             }
-            Log.Debug($"Unlocked {unlocks} items from {(eliteClones?.Count() ?? 0) + (basicClones?.Count() ?? 0)} troops");
+            Log.Debug(
+                $"Unlocked {unlocks} items from {(eliteClones?.Count() ?? 0) + (basicClones?.Count() ?? 0)} troops"
+            );
         }
 
         /// <summary>
@@ -436,7 +468,9 @@ namespace Retinues.Troops
                 if (tpl.UpgradeTargets != null && !Config.NoPrebuiltTroops)
                 {
                     foreach (var child in vanilla.UpgradeTargets)
-                    foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
+                    foreach (
+                        var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop)
+                    )
                     {
                         if (descendant == null)
                             continue;

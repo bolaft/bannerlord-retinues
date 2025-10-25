@@ -70,7 +70,9 @@ namespace Retinues.Game.Wrappers
         /// Gets the elite melee militia troop for this culture.
         /// </summary>
         public WCharacter MilitiaMeleeElite =>
-            _culture?.MeleeEliteMilitiaTroop != null ? new(_culture.MeleeEliteMilitiaTroop) : MilitiaMelee;
+            _culture?.MeleeEliteMilitiaTroop != null
+                ? new(_culture.MeleeEliteMilitiaTroop)
+                : MilitiaMelee;
 
         /// <summary>
         /// Gets the ranged militia troop for this culture.
@@ -89,7 +91,8 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets the villager troop for this culture.
         /// </summary>
-        public WCharacter Villager => _culture?.Villager != null ? new(_culture.Villager) : RootBasic;
+        public WCharacter Villager =>
+            _culture?.Villager != null ? new(_culture.Villager) : RootBasic;
 
         /// <summary>
         ///  Gets the caravan master troop for this culture.

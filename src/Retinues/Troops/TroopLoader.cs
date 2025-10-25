@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Persistence;
-using Retinues.Game.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;

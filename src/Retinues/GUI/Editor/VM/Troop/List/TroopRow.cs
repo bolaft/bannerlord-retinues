@@ -15,7 +15,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
     /// ViewModel for a single troop row in troop lists.
     /// </summary>
     [SafeClass]
-    public sealed class TroopRowVM(WCharacter rowTroop, string placeholderText = null) : BaseListElementVM
+    public sealed class TroopRowVM(WCharacter rowTroop, string placeholderText = null)
+        : BaseListElementVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
@@ -50,10 +51,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     nameof(ImageTypeCode),
 #endif
                 ],
-                [UIEvent.Equip] =
-                [
-                    nameof(FormationClassIcon),
-                ],
+                [UIEvent.Equip] = [nameof(FormationClassIcon)],
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -106,7 +104,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             get
             {
                 if (IsPlaceholder)
-                    return PlaceholderText ?? L.T("troop_list.placeholder", "No Troops Available").ToString();
+                    return PlaceholderText
+                        ?? L.T("troop_list.placeholder", "No Troops Available").ToString();
 
                 if (RowTroop?.IsRetinue == true || RowTroop?.IsMilitia == true)
                     return RowTroop?.Name;

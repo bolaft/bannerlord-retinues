@@ -1,6 +1,6 @@
 using System.Linq;
-using TaleWorlds.Engine.GauntletUI;
 using Retinues.Utils;
+using TaleWorlds.Engine.GauntletUI;
 
 namespace Retinues.GUI
 {
