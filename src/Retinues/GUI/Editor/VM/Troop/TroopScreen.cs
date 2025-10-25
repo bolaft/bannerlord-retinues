@@ -98,6 +98,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             if (State.Troop == null)
                 return;
+            
+            if (State.Troop.IsDeletable == false)
+                return;
 
             if (
                 TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_remove", "remove"))

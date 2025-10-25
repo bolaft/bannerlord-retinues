@@ -218,6 +218,8 @@ namespace Retinues.Game.Wrappers
             {
                 if (!IsCustom)
                     return false; // Vanilla troops cannot be deleted
+                if (Parent == null)
+                    return false; // Root troops cannot be deleted
                 if (IsRetinue)
                     return false; // Retinues cannot be deleted
                 if (IsMilitia)
