@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="O jogador pode recrutar tropas do clã em qualquer assentamento." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Itens Descartados Necessários para Desbloquear" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Quantas vezes um item deve ser descartado para desbloqueá-lo." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Abates Necessários para Desbloquear" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="Equipamentos da cultura do jogador e da cultura do reino liderado pelo jogador estão sempre disponíveis." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Desbloquear por Itens Descartados" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Desbloqueie equipamentos descartando-os." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Desbloquear por Abates" />

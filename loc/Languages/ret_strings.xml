@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Player can recruit clan troops in any settlement." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Required Discarded Items For Unlock" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="How many times an item must be discarded to unlock it." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Required Kills For Unlock" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="Player culture and player-led kingdom culture equipment is always available." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Unlock From Discarded Items" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Unlock equipment by discarding it." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Unlock From Kills" />

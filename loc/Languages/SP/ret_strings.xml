@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="El jugador puede reclutar tropas del clan en cualquier asentamiento." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Artículos Descartados Requeridos para Desbloquear" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Cuántas veces se debe descartar un objeto para desbloquearlo." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Muertes Requeridas para Desbloquear" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="El equipo de la cultura del jugador y del reino liderado por el jugador siempre está disponible." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Desbloquear por Objetos Descartados" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Desbloquea equipo descartándolo." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Desbloquear por Muertes" />

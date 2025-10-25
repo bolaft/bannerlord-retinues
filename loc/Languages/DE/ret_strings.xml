@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Der Spieler kann Clantruppen in jeder Siedlung rekrutieren." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Erforderliche verworfene Gegenstände zum Freischalten" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Wie oft ein Gegenstand verworfen werden muss, um ihn freizuschalten." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Erforderliche Kills zum Freischalten" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="Ausrüstung der Spieler- und Königreichskultur ist immer verfügbar." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Von weggeworfenen Gegenständen freischalten" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Schalte Ausrüstung frei, indem du sie wegwirfst." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Durch Kills freischalten" />

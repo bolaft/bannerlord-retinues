@@ -68,7 +68,7 @@ namespace Retinues.Features.Unlocks.Behaviors
             }
 
             // Add the counts to the owner's battle counts
-            UnlocksBehavior.Instance.AddBattleCounts(counts);
+            UnlocksBehavior.Instance.AddUnlockCounts(counts);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

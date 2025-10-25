@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="玩家可在任何定居點招募家族部隊。" />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="解鎖所需丟棄物品" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="解鎖一件物品所需丟棄的次數。" />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="解鎖所需擊殺數" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="玩家文化和玩家領導的王國文化裝備始終可用。" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="從丟棄物品解鎖" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="透過丟棄裝備來解鎖裝備。" />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="從擊殺解鎖" />

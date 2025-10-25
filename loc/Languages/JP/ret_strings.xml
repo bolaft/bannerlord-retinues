@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="プレイヤーは任意の集落で一族兵を募集できる。" />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="解除に必要な廃棄アイテム" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="解除するにはアイテムを何回廃棄する必要があるか。" />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="解除に必要なキル数" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="プレイヤー文化および王国文化の装備は常に利用可能。" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="廃棄アイテムから解除" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="装備を廃棄することで装備を解除する。" />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="キルで解除" />

@@ -602,8 +602,42 @@ namespace Retinues.Configuration
             maxValue: 1000,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = 1,
+                [Presets.Freeform] = 100,
                 [Presets.Realistic] = 200,
+            }
+        );
+
+        public static readonly Option<bool> UnlockFromDiscards = CreateOption(
+            section: L.S("mcm_section_unlocks", "Unlocks"),
+            name: L.S("mcm_option_unlock_from_discarded", "Unlock From Discarded Items"),
+            key: "UnlockFromDiscarded",
+            hint: L.S(
+                "mcm_option_unlock_from_discarded_hint",
+                "Unlock equipment by discarding it."
+            ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = true,
+            }
+        );
+
+        public static readonly Option<int> DiscardsForUnlock = CreateOption(
+            section: L.S("mcm_section_unlocks", "Unlocks"),
+            name: L.S("mcm_option_required_discards_for_unlock", "Required Discarded Items For Unlock"),
+            key: "DiscardsForUnlock",
+            hint: L.S(
+                "mcm_option_required_discards_for_unlock_hint",
+                "How many times an item must be discarded to unlock it."
+            ),
+            @default: 10,
+            minValue: 1,
+            maxValue: 100,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 10,
+                [Presets.Realistic] = 20,
             }
         );
 

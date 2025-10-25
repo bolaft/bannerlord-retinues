@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Gracz może rekrutować wojska klanu w dowolnej osadzie." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Wymagane Przedmioty Odrzucone do Odblokowania" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Ile razy przedmiot musi zostać odrzucony, aby go odblokować." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Wymagana Liczba Zabójstw do Odblokowania" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="Ekwipunek kultury gracza i królestwa, którym dowodzi, jest zawsze dostępny." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Odblokuj z Porzuconych Przedmiotów" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Odblokuj ekwipunek, porzucając go." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Odblokuj z Zabójstw" />

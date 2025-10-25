@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Il giocatore può reclutare truppe del clan in qualsiasi insediamento." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Articoli Scartati Richiesti per Sbloccare" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Quante volte un oggetto deve essere scartato per sbloccarlo." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Uccisioni Richieste per Sblocco" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="L’equipaggiamento della cultura del giocatore e del regno da lui guidato è sempre disponibile." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Sblocco da Oggetti Scartati" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Sblocca equipaggiamento scartandolo." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Sblocco da Uccisioni" />

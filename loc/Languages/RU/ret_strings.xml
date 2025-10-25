@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Игрок может нанимать войска клана в любом поселении." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Необходимые Отклоненные Предметы для Разблокировки" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Сколько раз предмет должен быть отклонен, чтобы его разблокировать." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Необходимые Убийства для Разблокировки" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="Снаряжение культуры игрока и возглавляемого им королевства всегда доступно." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Разблокировать по Выброшенным Предметам" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Разблокировать снаряжение, выбрасывая его." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Разблокировать по Убийствам" />

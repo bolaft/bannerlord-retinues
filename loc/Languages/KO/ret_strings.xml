@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="플레이어는 모든 정착지에서 가문 병력을 모집할 수 있습니다." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="해제를 위한 필요 폐기 아이템" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="아이템을 해제하려면 몇 번 폐기해야 하는지." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="해제를 위한 필요 킬 수" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="플레이어 문화와 플레이어가 이끄는 왕국 문화 장비는 항상 이용 가능." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="버려진 아이템에서 해제" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="장비를 버려 장비를 해제." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="킬로 해제" />

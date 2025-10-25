@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Oyuncu herhangi bir yerleşimde klan askerleri toplayabilir." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Açmak İçin Gerekli Atılmış Eşyalar" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Bir eşyayı açmak için kaç kez atılması gerektiği." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Açmak İçin Gerekli Öldürmeler" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="Oyuncunun kültürü ve oyuncunun yönettiği krallığın kültür teçhizatı her zaman kullanılabilir." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Atılan Eşyalarla Aç" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Teçhizatı atarak aç." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Öldürmelerden Aç" />

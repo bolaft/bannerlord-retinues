@@ -557,6 +557,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Le joueur peut recruter des troupes de clan dans n’importe quel ville ou village." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Objets Rejetés Requis pour Débloquer" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Combien de fois un objet doit être rejeté pour le débloquer." />
+    <string
       id="ret_mcm_option_required_kills_for_unlock"
       text="Éliminations Requises pour Débloquer" />
     <string
@@ -658,6 +664,12 @@
     <string
       id="ret_mcm_option_unlock_from_culture_hint"
       text="Les équipements de la culture du joueur et de son royaume sont toujours disponibles." />
+    <string
+      id="ret_mcm_option_unlock_from_discarded"
+      text="Débloquer via Objets Rejettés" />
+    <string
+      id="ret_mcm_option_unlock_from_discarded_hint"
+      text="Débloque l’équipement en le rejetant." />
     <string
       id="ret_mcm_option_unlock_from_kills"
       text="Débloquer par Éliminations" />

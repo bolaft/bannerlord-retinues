@@ -10,6 +10,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.ObjectSystem;
+using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Features.Unlocks.Behaviors
 {
@@ -56,6 +57,7 @@ namespace Retinues.Features.Unlocks.Behaviors
         {
             CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, OnMapEventEnded);
+            CampaignEvents.OnItemsDiscardedByPlayerEvent.AddNonSerializedListener(this, OnItemsDiscardedByPlayer);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -75,20 +77,64 @@ namespace Retinues.Features.Unlocks.Behaviors
 
             // Attach per-battle tracker
             m?.AddMissionBehavior(new UnlocksMissionBehavior());
-            _newlyUnlockedThisBattle.Clear();
+            _newlyUnlocked.Clear();
         }
 
         private void OnMapEventEnded(MapEvent mapEvent)
         {
-            if (_newlyUnlockedThisBattle.Count == 0)
+            if (_newlyUnlocked.Count == 0)
                 return;
             if (!mapEvent?.IsPlayerMapEvent ?? true)
                 return;
 
             // Modal summary
-            ShowUnlockInquiry(_newlyUnlockedThisBattle);
+            ShowUnlockInquiry(_newlyUnlocked);
 
-            _newlyUnlockedThisBattle.Clear();
+            _newlyUnlocked.Clear();
+        }
+
+        private void OnItemsDiscardedByPlayer(ItemRoster roster)
+        {
+            // Return if the feature is disabled
+            if (!Config.UnlockFromDiscards)
+                return;
+
+            if (roster == null || roster.Count == 0)
+                return;
+
+            // Build counts per ItemObject (you already accept a Dictionary<ItemObject,int>)
+            var counts = new Dictionary<ItemObject, int>(roster.Count);
+
+            for (int i = 0; i < roster.Count; i++)
+            {
+                var elem = roster.GetElementCopyAtIndex(i);
+                var item = elem.EquipmentElement.Item;
+                int amount = elem.Amount;
+
+                if (item == null || amount <= 0)
+                    continue;
+
+                // Discard progress ratio
+                float discardProgressRatio = (float)Config.KillsForUnlock / Config.DiscardsForUnlock;
+
+                // Progress per physical item
+                int progress = amount * (int)Math.Ceiling(discardProgressRatio);
+
+                // Accumulate
+                if (counts.TryGetValue(item, out int prev))
+                    counts[item] = prev + progress;
+                else
+                    counts[item] = progress;
+            }
+
+            if (counts.Count == 0)
+                return;
+
+            Log.Debug($"OnItemsDiscardedByPlayer: {counts.Count} stacks will contribute to unlock progress.");
+            AddUnlockCounts(counts, addCultureBonuses: false);
+
+            if (_newlyUnlocked.Count > 0)
+                ShowUnlockInquiry(_newlyUnlocked);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -168,7 +214,7 @@ namespace Retinues.Features.Unlocks.Behaviors
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly List<ItemObject> _newlyUnlockedThisBattle = [];
+        private readonly List<ItemObject> _newlyUnlocked = [];
 
         /// <summary>
         /// Get a random item of a given culture and tier.
@@ -218,13 +264,13 @@ namespace Retinues.Features.Unlocks.Behaviors
             }
 
             if (randomItemsByTier.Count > 0)
-                AddBattleCounts(randomItemsByTier, false);
+                AddUnlockCounts(randomItemsByTier, false);
         }
 
         /// <summary>
         /// Add battle defeat counts and unlock items if threshold reached.
         /// </summary>
-        internal void AddBattleCounts(
+        internal void AddUnlockCounts(
             Dictionary<ItemObject, int> battleCounts,
             bool addCultureBonuses = true
         )
@@ -276,7 +322,7 @@ namespace Retinues.Features.Unlocks.Behaviors
                         if (!UnlockedItemIds.Contains(id))
                         {
                             UnlockedItemIds.Add(id);
-                            _newlyUnlockedThisBattle.Add(item);
+                            _newlyUnlocked.Add(item);
                         }
                     }
                 }
