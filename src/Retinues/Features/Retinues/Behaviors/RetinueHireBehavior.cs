@@ -8,8 +8,6 @@ using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.Core;
-using TaleWorlds.Library;
 
 namespace Retinues.Features.Retinues.Behaviors
 {
