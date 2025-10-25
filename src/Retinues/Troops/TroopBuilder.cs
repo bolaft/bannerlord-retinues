@@ -28,6 +28,7 @@ namespace Retinues.Troops
 
         /// <summary>
         /// Ensures all required custom troops exist for the given faction, creating defaults if needed.
+        /// Each troop family (retinue/regular/militia) is checked and initialized independently.
         /// </summary>
         public static void EnsureTroopsExist(WFaction faction)
         {
@@ -39,26 +40,48 @@ namespace Retinues.Troops
 
             Log.Debug($"Ensuring troops exist for faction: {faction?.Name ?? "null"}");
 
-            if (!faction.RetinueElite.IsActive || !faction.RetinueBasic.IsActive)
+            bool anyRetinueCreated = false;
+            if (!faction.RetinueElite.IsActive)
             {
-                Log.Info("No retinue troops found, initializing default retinue troops.");
-                BuildRetinue(faction);
+                Log.Info("Missing elite retinue. Initializing.");
+                CreateRetinueTroop(faction, isElite: true,  MakeRetinueName(faction, isElite: true));
+                anyRetinueCreated = true;
             }
-            else
+            if (!faction.RetinueBasic.IsActive)
             {
+                Log.Info("Missing basic retinue. Initializing.");
+                CreateRetinueTroop(faction, isElite: false, MakeRetinueName(faction, isElite: false));
+                anyRetinueCreated = true;
+            }
+            if (!anyRetinueCreated)
                 Log.Debug("Retinue troops found, no need to initialize.");
-            }
 
-            if (faction.BasicTroops.Count == 0 && faction.EliteTroops.Count == 0)
+            var hasBasic = faction.BasicTroops.Count > 0;
+            var hasElite = faction.EliteTroops.Count > 0;
+
+            if (!hasBasic || !hasElite)
             {
-                Log.Debug("No custom troops found for faction.");
+                Log.Debug($"Custom troop presence — Basic:{hasBasic} Elite:{hasElite}.");
 
-                // Always have clan troops if clan has fiefs, if player leads a kingdom or if can recruit anywhere is enabled
-                if (faction.HasFiefs || Player.Kingdom != null || Config.RecruitAnywhere == true)
+                bool canInitClanTroops =
+                    faction.HasFiefs || Player.Kingdom != null || Config.RecruitAnywhere == true;
+
+                if (canInitClanTroops)
                 {
-                    Log.Info("Initializing default troops.");
-
-                    BuildTroops(faction);
+                    if (!hasBasic)
+                    {
+                        Log.Info("Initializing default BASIC troop tree.");
+                        BuildBasicTree(faction);
+                    }
+                    if (!hasElite)
+                    {
+                        Log.Info("Initializing default ELITE troop tree.");
+                        BuildEliteTree(faction);
+                    }
+                }
+                else
+                {
+                    Log.Debug("Rules do not allow initializing clan troops right now.");
                 }
             }
             else
@@ -66,18 +89,47 @@ namespace Retinues.Troops
                 Log.Debug("Custom troops found for faction, no need to initialize.");
             }
 
-            if (!faction.MilitiaMelee.IsActive || !faction.MilitiaRanged.IsActive)
-            {
-                // Requires appropriate doctrine
-                if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
-                {
-                    Log.Info("Initializing militia troops.");
+            bool needsMilitia =
+                !faction.MilitiaMelee.IsActive
+                || !faction.MilitiaMeleeElite.IsActive
+                || !faction.MilitiaRanged.IsActive
+                || !faction.MilitiaRangedElite.IsActive;
 
-                    BuildMilitia(faction);
+            if (needsMilitia)
+            {
+                if (faction.HasFiefs || Player.Kingdom != null)
+                {
+                    Log.Info("Initializing missing militia troops.");
+
+                    bool anyMilitiaBuilt = false;
+
+                    if (!faction.MilitiaMelee.IsActive)
+                    {
+                        CreateMilitiaTroop(faction, isElite: false, isMelee: true);
+                        anyMilitiaBuilt = true;
+                    }
+                    if (!faction.MilitiaMeleeElite.IsActive)
+                    {
+                        CreateMilitiaTroop(faction, isElite: true,  isMelee: true);
+                        anyMilitiaBuilt = true;
+                    }
+                    if (!faction.MilitiaRanged.IsActive)
+                    {
+                        CreateMilitiaTroop(faction, isElite: false, isMelee: false);
+                        anyMilitiaBuilt = true;
+                    }
+                    if (!faction.MilitiaRangedElite.IsActive)
+                    {
+                        CreateMilitiaTroop(faction, isElite: true,  isMelee: false);
+                        anyMilitiaBuilt = true;
+                    }
 
                     // Update all existing militias for this faction
-                    foreach (var s in faction.Settlements)
-                        s.MilitiaParty?.MemberRoster?.SwapTroops(faction);
+                    if (anyMilitiaBuilt)
+                    {
+                        foreach (var s in faction.Settlements)
+                            s.MilitiaParty?.MemberRoster?.SwapTroops(faction);
+                    }
                 }
             }
             else
@@ -91,13 +143,13 @@ namespace Retinues.Troops
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Builds retinue troops for the given faction.
+        /// Builds both retinue troops for the given faction (kept for batch scenarios).
         /// </summary>
         public static void BuildRetinue(WFaction faction)
         {
             Log.Info($"Setting up retinue troops for faction {faction.Name}.");
 
-            CreateRetinueTroop(faction, true, MakeRetinueName(faction, isElite: true));
+            CreateRetinueTroop(faction, true,  MakeRetinueName(faction, isElite: true));
             CreateRetinueTroop(faction, false, MakeRetinueName(faction, isElite: false));
         }
 
@@ -166,16 +218,16 @@ namespace Retinues.Troops
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Builds militia troops for the given faction.
+        /// Builds all militia troops for the given faction (kept for batch scenarios).
         /// </summary>
         public static void BuildMilitia(WFaction faction)
         {
             Log.Info($"Setting up militia troops for faction {faction.Name}.");
 
             CreateMilitiaTroop(faction, false, true);
-            CreateMilitiaTroop(faction, true, true);
+            CreateMilitiaTroop(faction, true,  true);
             CreateMilitiaTroop(faction, false, false);
-            CreateMilitiaTroop(faction, true, false);
+            CreateMilitiaTroop(faction, true,  false);
         }
 
         private static void CreateMilitiaTroop(WFaction faction, bool isElite, bool isMelee)
@@ -231,7 +283,7 @@ namespace Retinues.Troops
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Builds regular troop trees for the given faction, cloning from culture roots.
+        /// Builds both regular troop trees for the given faction, cloning from culture roots.
         /// </summary>
         public static void BuildTroops(WFaction faction)
         {
@@ -241,31 +293,11 @@ namespace Retinues.Troops
             var culture = faction.Culture;
             Log.Debug($"Faction culture: {culture?.Name ?? "null"}");
 
-            if (culture == null)
-            {
-                Log.Error($"Cannot build troops for faction {faction.Name} because it has no culture.");
-                return;
-            }
-
             var eliteClones = new List<WCharacter>();
-            var eliteRoot = Config.NoPrebuiltTroops ? culture.Villager : culture.RootBasic;
-
-            if (Config.NoPrebuiltTroops)
-                eliteRoot.Level += 5; // Upgrade the troop tier to use the basic root as elite
-
-            if (eliteRoot != null)
+            if (culture?.RootElite != null)
             {
-                Log.Debug($"Cloning elite tree from root: {eliteRoot.Name}");
-                eliteClones =
-                [
-                    .. CloneTroopTreeRecursive(eliteRoot, true, faction, null)
-                        .Where(t => t != null)
-                        .ToList(),
-                ];
-                Log.Debug($"eliteClones after clone: {eliteClones.Count}");
-                Log.Debug(
-                    $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
-                );
+                eliteClones = [.. CloneTroopTreeRecursive(culture.RootElite, true, faction, null).Where(t => t != null).ToList()];
+                Log.Debug($"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}");
             }
             else
             {
@@ -275,21 +307,10 @@ namespace Retinues.Troops
             }
 
             var basicClones = new List<WCharacter>();
-            var basicRoot = Config.NoPrebuiltTroops ? culture.Villager : culture.RootBasic;
-
-            if (basicRoot != null)
+            if (culture?.RootBasic != null)
             {
-                Log.Debug($"Cloning basic tree from root: {basicRoot.Name}");
-                basicClones =
-                [
-                    .. CloneTroopTreeRecursive(basicRoot, false, faction, null)
-                        .Where(t => t != null)
-                        .ToList(),
-                ];
-                Log.Debug($"basicClones after clone: {basicClones.Count}");
-                Log.Debug(
-                    $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
-                );
+                basicClones = [.. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null).Where(t => t != null).ToList()];
+                Log.Debug($"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}");
             }
             else
             {
@@ -298,25 +319,59 @@ namespace Retinues.Troops
                 );
             }
 
-            // Count unlocks
-            int unlocks = 0;
+            UnlockAll(eliteClones, basicClones);
+        }
 
-            // Unlock items from the added clones
-            foreach (var troop in Enumerable.Concat(eliteClones, basicClones))
+        /// <summary>
+        /// Build ONLY the elite tree for a faction (used by EnsureTroopsExist when basic already exists).
+        /// </summary>
+        public static void BuildEliteTree(WFaction faction)
+        {
+            var culture = faction.Culture;
+            if (culture?.RootElite == null)
+            {
+                Log.Warn($"Cannot clone elite troops for {faction.Name}: no elite culture root.");
+                return;
+            }
+
+            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null).Where(t => t != null).ToList();
+            Log.Info($"Cloned {eliteClones.Count} elite troops for {faction.Name}.");
+            UnlockAll(eliteClones, null);
+        }
+
+        /// <summary>
+        /// Build ONLY the basic tree for a faction (used by EnsureTroopsExist when elite already exists).
+        /// </summary>
+        public static void BuildBasicTree(WFaction faction)
+        {
+            var culture = faction.Culture;
+            if (culture?.RootBasic == null)
+            {
+                Log.Warn($"Cannot clone basic troops for {faction.Name}: no basic culture root.");
+                return;
+            }
+
+            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, false, faction, null).Where(t => t != null).ToList();
+            Log.Info($"Cloned {basicClones.Count} basic troops for {faction.Name}.");
+            UnlockAll(null, basicClones);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         HELPERS                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void UnlockAll(IEnumerable<WCharacter> eliteClones, IEnumerable<WCharacter> basicClones)
+        {
+            int unlocks = 0;
+            foreach (var troop in Enumerable.Concat(eliteClones ?? Array.Empty<WCharacter>(), basicClones ?? Array.Empty<WCharacter>()))
             {
                 try
                 {
-                    Log.Debug($"Processing troop: {troop?.Name ?? "null"}");
                     foreach (var equipment in troop.Loadout.Equipments)
+                    foreach (var item in equipment.Items)
                     {
-                        Log.Debug(
-                            $"Processing equipment: {equipment?.ToString() ?? "null"}, Items count: {equipment.Items.Count}"
-                        );
-                        foreach (var item in equipment.Items)
-                        {
-                            item.Unlock();
-                            unlocks++;
-                        }
+                        item.Unlock();
+                        unlocks++;
                     }
                 }
                 catch (Exception e)
@@ -324,15 +379,8 @@ namespace Retinues.Troops
                     Log.Exception(e, $"Error processing troop {troop?.Name ?? "null"}");
                 }
             }
-
-            Log.Debug(
-                $"Unlocked {unlocks} items from {eliteClones.Count + basicClones.Count} troops"
-            );
+            Log.Debug($"Unlocked {unlocks} items from {(eliteClones?.Count() ?? 0) + (basicClones?.Count() ?? 0)} troops");
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         HELPERS                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Recursively clones a vanilla troop tree for a faction, setting up upgrades and unlocking items.
@@ -357,7 +405,10 @@ namespace Retinues.Troops
             // Determine the position in the tree
             List<int> path = null;
             if (parent != null)
-                path = [.. parent.PositionInTree, parent.UpgradeTargets.Length];
+            {
+                path = parent.PositionInTree != null ? [.. parent.PositionInTree] : new List<int>();
+                path.Add(parent.UpgradeTargets.Length);
+            }
 
             // CharacterObject
             var co = new CustomCharacterHelper().GetCharacterObject(
@@ -385,8 +436,8 @@ namespace Retinues.Troops
                 // Add to upgrade targets of the parent, if any
                 parent?.AddUpgradeTarget(troop);
 
-                // Unlock items
-                foreach (var equipment in tpl.Loadout.Equipments)
+                // Unlock items (vanilla source items)
+                foreach (var equipment in vanilla.Loadout.Equipments)
                 foreach (var item in equipment.Items)
                     item.Unlock();
 
@@ -397,10 +448,8 @@ namespace Retinues.Troops
 
                 if (tpl.UpgradeTargets != null && !Config.NoPrebuiltTroops)
                 {
-                    foreach (var child in tpl.UpgradeTargets)
-                    foreach (
-                        var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop)
-                    )
+                    foreach (var child in vanilla.UpgradeTargets)
+                    foreach (var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop))
                     {
                         if (descendant == null)
                             continue;
@@ -430,7 +479,7 @@ namespace Retinues.Troops
                 var word = words[i];
                 if (word.Contains(cultureName))
                 {
-                    // If the word is mostly the culture name (e.g., 'Battanian' contains 'Battania'), replace the whole word
+                    // If the word is mostly the culture name (e.g. 'Battanian' contains 'Battania'), replace the whole word
                     int overlap = cultureName.Length * 100 / word.Length;
                     if (overlap >= 80) // 80% or more of the word is the culture name
                     {

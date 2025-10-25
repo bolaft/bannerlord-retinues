@@ -143,32 +143,26 @@ namespace Retinues.Troops
             }
 
             // Retinues
-            if (faction.RetinueElite.IsActive && faction.RetinueBasic.IsActive)
-            {
+            if (faction.RetinueElite.IsActive)
                 list.Add(TroopLoader.Save(faction.RetinueElite));
+            if (faction.RetinueBasic.IsActive)
                 list.Add(TroopLoader.Save(faction.RetinueBasic));
-            }
 
-            // Roots
-            if (faction.RootElite.IsActive && faction.RootBasic.IsActive)
-            {
+            // Regular troops
+            if (faction.RootElite.IsActive)
                 list.Add(TroopLoader.Save(faction.RootElite));
+            if (faction.RootBasic.IsActive)
                 list.Add(TroopLoader.Save(faction.RootBasic));
-            }
 
             // Militias
-            if (
-                faction.MilitiaMelee.IsActive
-                && faction.MilitiaMeleeElite.IsActive
-                && faction.MilitiaRanged.IsActive
-                && faction.MilitiaRangedElite.IsActive
-            )
-            {
+            if (faction.MilitiaMelee.IsActive)
                 list.Add(TroopLoader.Save(faction.MilitiaMelee));
+            if (faction.MilitiaMeleeElite.IsActive)
                 list.Add(TroopLoader.Save(faction.MilitiaMeleeElite));
+            if (faction.MilitiaRanged.IsActive)
                 list.Add(TroopLoader.Save(faction.MilitiaRanged));
+            if (faction.MilitiaRangedElite.IsActive)
                 list.Add(TroopLoader.Save(faction.MilitiaRangedElite));
-            }
         }
     }
 }
