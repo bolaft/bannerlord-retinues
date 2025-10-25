@@ -20,15 +20,19 @@ namespace Retinues.Features.Retinues.Behaviors
     [SafeClass]
     public class RetinueHireBehavior : CampaignBehaviorBase
     {
+        public static RetinueHireBehavior Instance { get; private set; }
+
+        public RetinueHireBehavior() => Instance = this;
+
         private static readonly Random rng = new();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static Dictionary<string, int> _caps = [];
-        private static float _renownReserve;
-        private static float _lastRenown;
+        private Dictionary<string, int> _caps = [];
+        private float _renownReserve;
+        private float _lastRenown;
 
         public override void SyncData(IDataStore dataStore)
         {
@@ -124,7 +128,7 @@ namespace Retinues.Features.Retinues.Behaviors
         {
             if (troop == null || !troop.IsRetinue)
                 return 0;
-            if (_caps.TryGetValue(troop.StringId, out var cap))
+            if (Instance._caps.TryGetValue(troop.StringId, out var cap))
                 return cap;
             return 0;
         }
@@ -134,9 +138,9 @@ namespace Retinues.Features.Retinues.Behaviors
             if (troop == null || !troop.IsRetinue)
                 return;
             if (cap <= 0)
-                _caps.Remove(troop.StringId);
+                Instance._caps.Remove(troop.StringId);
             else
-                _caps[troop.StringId] = cap;
+                Instance._caps[troop.StringId] = cap;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
