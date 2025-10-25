@@ -97,7 +97,7 @@ namespace Retinues.Troops
 
             if (needsMilitia)
             {
-                if (faction.HasFiefs || Player.Kingdom != null)
+                if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
                 {
                     Log.Info("Initializing missing militia troops.");
 
@@ -216,19 +216,6 @@ namespace Retinues.Troops
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Militias                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Builds all militia troops for the given faction (kept for batch scenarios).
-        /// </summary>
-        public static void BuildMilitia(WFaction faction)
-        {
-            Log.Info($"Setting up militia troops for faction {faction.Name}.");
-
-            CreateMilitiaTroop(faction, false, true);
-            CreateMilitiaTroop(faction, true,  true);
-            CreateMilitiaTroop(faction, false, false);
-            CreateMilitiaTroop(faction, true,  false);
-        }
 
         private static void CreateMilitiaTroop(WFaction faction, bool isElite, bool isMelee)
         {
