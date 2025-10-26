@@ -149,7 +149,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Populate row list
             async Task PopulateRowList()
             {
-                int batchSize = 500;
+                int batchSize = 256;
                 var allItems = EquipmentManager.CollectAvailableItems(
                     State.Faction,
                     State.Slot,
