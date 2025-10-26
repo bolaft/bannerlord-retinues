@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
@@ -113,9 +114,14 @@ namespace Retinues.Features.Unlocks.Behaviors
                 var elem = roster.GetElementCopyAtIndex(i);
                 var item = elem.EquipmentElement.Item;
                 int amount = elem.Amount;
+                var wi = new WItem(item);
+
+                if (wi.Slots.Count == 0)
+                    continue; // Not a valid equippable item
 
                 if (item == null || amount <= 0)
                     continue;
+                
 
                 // Discard progress ratio
                 float discardProgressRatio =
