@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="새 병력의 이름을 입력:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="보류 중인 아이템 변경 사항입니다.{newline}{newline}변경 사항을 적용하려면 영지의 마을 메뉴에서 &apos;병력 장비&apos;를 선택하십시오." />
+    <string
       id="ret_equip_complete"
       text="장비 업데이트 완료" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="고용 한도" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="명성을 계속 획득하는 한 수행원이 시간이 지남에 따라 무료로 합류합니다.{newline}{newline}고용 한도를 설정하여 수행원이 파티에 합류할 수 있는 수를 제어할 수 있습니다." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} 여왕의 용사" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="{HOURS} 시간의 훈련 필요" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="기술 포인트 증가가 적용되기 전에 병력은 훈련을 받아야 합니다.{newline}{newline}이는 영지의 마을 메뉴에서 &apos;병력 훈련&apos;을 선택하여 수행됩니다." />
     <string
       id="ret_transfer_header_text"
       text="이동" />

@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Enter the name of the new troop:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="This is a pending item change.{newline}{newline}To apply the change, select &apos;Equip troops&apos; from a fief&apos;s town menu." />
+    <string
       id="ret_equip_complete"
       text="Equipment Updated" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="Hiring Limit" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="Retinues will join you for free over time as long as you keep earning renown.{newline}{newline}You can set a hiring limit to control how many retinues can join your party." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Queen&apos;s Champion" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="{HOURS} hours of training required" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Before skill point increases are applied, troops must undergo training.{newline}{newline}This is done by selecting &apos;Train troops&apos; from a fief&apos;s town menu." />
     <string
       id="ret_transfer_header_text"
       text="Transfer" />

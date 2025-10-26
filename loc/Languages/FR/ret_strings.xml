@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Nom de la nouvelle troupe :" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="Il s’agit d’un changement d’objet en attente.{newline}{newline}Pour appliquer le changement, sélectionne « Équiper les troupes » dans le menu de la ville d’un fief." />
+    <string
       id="ret_equip_complete"
       text="Équipement Mis à Jour" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="Limite d’embauche" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="Les rétinues vous rejoindront gratuitement au fil du temps tant que vous continuez à gagner en renommée.{newline}{newline}Vous pouvez définir une limite d’embauche pour contrôler le nombre de rétines pouvant rejoindre votre groupe." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Champion de la Reine" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="{HOURS} heures d’entraînement requises" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Avant que les points de compétence soient appliqués, les troupes doivent suivre un entraînement.{newline}{newline}Cela se fait en sélectionnant « Entraîner les troupes » dans le menu de la ville d’un fief." />
     <string
       id="ret_transfer_header_text"
       text="Transférer" />

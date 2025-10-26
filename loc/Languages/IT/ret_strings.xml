@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Inserisci il nome della nuova truppa:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="Questa è una modifica dell’oggetto in sospeso.{newline}{newline}Per applicare la modifica, seleziona &apos;Equipaggia truppe&apos; dal menu della città di un feudo." />
+    <string
       id="ret_equip_complete"
       text="Equipaggiamento Aggiornato" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="Limite di Assunzione" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="I seguaci si uniranno a te gratuitamente nel tempo, purché tu continui a guadagnare fama.{newline}{newline}Puoi impostare un limite di assunzione per controllare quanti seguaci possono unirsi al tuo gruppo." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Campione della Regina" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="Sono necessarie {HOURS} ore di addestramento" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Prima che i punti abilità vengano applicati, le truppe devono sottoporsi a un addestramento.{newline}{newline}Questo si fa selezionando &apos;Addestra truppe&apos; dal menu della città di un feudo." />
     <string
       id="ret_transfer_header_text"
       text="Trasferisci" />

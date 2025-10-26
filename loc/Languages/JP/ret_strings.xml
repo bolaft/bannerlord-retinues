@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="新しい兵の名前を入力：" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="これは保留中のアイテム変更です。{newline}{newline}変更を適用するには、領地の町のメニューから「部隊を装備する」を選択してください。" />
+    <string
       id="ret_equip_complete"
       text="装備更新完了" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="雇用制限" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="名声を獲得し続ける限り、随伴兵は時間の経過とともに無料であなたに加わります。{newline}{newline}雇用制限を設定して、何人の随伴兵があなたの隊に加わることができるかを制御できます。" />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} 女王の勇士" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="{HOURS} 時間の訓練が必要" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="スキルポイントの増加が適用される前に、部隊は訓練を受ける必要があります。{newline}{newline}これは、封地の町のメニューから「部隊を訓練する」を選択することで行われます。" />
     <string
       id="ret_transfer_header_text"
       text="移動" />

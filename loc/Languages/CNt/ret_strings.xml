@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="輸入新部隊的名稱：" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="這是一個待處理的物品更改。{newline}{newline}要應用更改，請從領地的城鎮菜單中選擇“裝備部隊”。" />
+    <string
       id="ret_equip_complete"
       text="裝備已更新" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="僱傭上限" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="只要您繼續獲得聲望，隨從就會隨著時間的推移免費加入您。{newline}{newline}您可以設置僱傭上限來控制有多少隨從可以加入您的隊伍。" />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} 女王勇士" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="需要 {HOURS} 小時的訓練" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="在技能點提升生效之前，部隊必須接受訓練。{newline}{newline}這是通過在封地的城鎮菜單中選擇“訓練部隊”來完成的。" />
     <string
       id="ret_transfer_header_text"
       text="轉移" />

@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Gib den Namen der neuen Truppe ein:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="Dies ist eine ausstehende Gegenstandsänderung.{newline}{newline}Um die Änderung anzuwenden, wähle im Stadtmenü eines Lehens &apos;Truppen ausrüsten&apos;." />
+    <string
       id="ret_equip_complete"
       text="Ausrüstung Aktualisiert" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="Einstellungsgrenze" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="Gefolgschaften werden dir im Laufe der Zeit kostenlos beitreten, solange du Ruhm verdienst.{newline}{newline}Du kannst ein Einstellungslimit festlegen, um zu steuern, wie viele Gefolgschaften deiner Gruppe beitreten können." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Champion der Königin" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="{HOURS} Stunden Training erforderlich" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Bevor Fertigkeitspunkte angewendet werden, müssen die Truppen ein Training durchlaufen.{newline}{newline}Dies geschieht, indem im Stadtmenü eines Lehens &apos;Truppen trainieren&apos; ausgewählt wird." />
     <string
       id="ret_transfer_header_text"
       text="Übertragen" />

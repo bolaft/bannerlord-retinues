@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Introduce el nombre de la nueva tropa:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="Este es un cambio de objeto pendiente.{newline}{newline}Para aplicar el cambio, selecciona &apos;Equipar tropas&apos; en el menú de la ciudad de un feudo." />
+    <string
       id="ret_equip_complete"
       text="Equipo Actualizado" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="Límite de Contratación" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="Los séquitos se unirán a ti gratis con el tiempo siempre que sigas ganando renombre.{newline}{newline}Puedes establecer un límite de contratación para controlar cuántos séquitos pueden unirse a tu grupo." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Campeón de la Reina" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="Se requieren {HOURS} horas de entrenamiento" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Antes de que se apliquen los puntos de habilidad, las tropas deben someterse a un entrenamiento.{newline}{newline}Esto se hace seleccionando &apos;Entrenar tropas&apos; en el menú de la ciudad de un feudo." />
     <string
       id="ret_transfer_header_text"
       text="Transferir" />

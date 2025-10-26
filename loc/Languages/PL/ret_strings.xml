@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Wpisz nazwę nowej jednostki:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="To jest oczekująca zmiana przedmiotu.{newline}{newline}Aby zastosować zmianę, wybierz &apos;Wyposaż jednostki&apos; z menu miasta lenna." />
+    <string
       id="ret_equip_complete"
       text="Ekwipunek Zaktualizowany" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="Limit zatrudnienia" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="Orszaki dołączą do ciebie za darmo z czasem, o ile będziesz zdobywać renomę.{newline}{newline}Możesz ustawić limit zatrudnienia, aby kontrolować, ile orszaków może dołączyć do twojej drużyny." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Czempion Królowej" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="Wymagane {HOURS} godzin szkolenia" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Zanim zostaną zastosowane punkty umiejętności, jednostki muszą przejść szkolenie.{newline}{newline}Odbywa się to poprzez wybranie opcji &apos;Trenuj jednostki&apos; w menu miasta lenna." />
     <string
       id="ret_transfer_header_text"
       text="Przenieś" />

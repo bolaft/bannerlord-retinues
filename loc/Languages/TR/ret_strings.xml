@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Yeni askerin adını gir:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="Bu, bekleyen bir öğe değişikliğidir.{newline}{newline}Değişikliği uygulamak için bir toprakın kasaba menüsünden &apos;Askerleri donat&apos;ı seçin." />
+    <string
       id="ret_equip_complete"
       text="Teçhizat Güncellendi" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="İşe Alım Limiti" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="Şöhret kazanmaya devam ettiğiniz sürece, yandaşlar zamanla size ücretsiz olarak katılacaktır.{newline}{newline}Partinize kaç yandaşın katılabileceğini kontrol etmek için bir işe alım limiti belirleyebilirsiniz." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Kraliçenin Şampiyonu" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="{HOURS} saatlik eğitim gerekli" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Beceri puanı artışları uygulanmadan önce, birlikler eğitimden geçmelidir.{newline}{newline}Bu, bir tımarın kasaba menüsünden &apos;Askerleri eğit&apos; seçilerek yapılır." />
     <string
       id="ret_transfer_header_text"
       text="Aktar" />

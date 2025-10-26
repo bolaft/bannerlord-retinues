@@ -230,6 +230,9 @@
       id="ret_enter_new_troop_name"
       text="Введите имя нового войска:" />
     <string
+      id="ret_equip_change_tooltip_body"
+      text="Это ожидающее изменение предмета.{newline}{newline}Чтобы применить изменение, выберите «Экипировать войска» в меню города фьефа." />
+    <string
       id="ret_equip_complete"
       text="Снаряжение Обновлено" />
     <string
@@ -854,6 +857,9 @@
       id="ret_retinue_cap_text"
       text="Лимит найма" />
     <string
+      id="ret_retinue_cap_tooltip_body"
+      text="Свиты будут присоединяться к вам бесплатно со временем, пока вы продолжаете зарабатывать славу.{newline}{newline}Вы можете установить лимит найма, чтобы контролировать, сколько свит может присоединиться к вашей группе." />
+    <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Чемпион Королевы" />
     <string
@@ -979,6 +985,9 @@
     <string
       id="ret_training_required"
       text="Требуется {HOURS} часов обучения" />
+    <string
+      id="ret_training_required_tooltip_body"
+      text="Прежде чем будут применены очки навыков, войска должны пройти обучение.{newline}{newline}Это делается путем выбора &apos;Обучить войска&apos; в меню города феода." />
     <string
       id="ret_transfer_header_text"
       text="Передать" />

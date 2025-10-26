@@ -1200,6 +1200,22 @@
     "TR": "Yeni askerin adını gir:"
   },
   {
+    "id": "ret_equip_change_tooltip_body",
+    "EN": "This is a pending item change.\\n\\nTo apply the change, select 'Equip troops' from a fief's town menu.",
+    "BR": "Esta é uma alteração de item pendente.\\n\\nPara aplicar a alteração, selecione 'Equipar tropas' no menu da cidade de um feudo.",
+    "CNs": "这是一个待处理的物品更改。\\n\\n要应用更改，请从领地的城镇菜单中选择“装备部队”。",
+    "CNt": "這是一個待處理的物品更改。\\n\\n要應用更改，請從領地的城鎮菜單中選擇“裝備部隊”。",
+    "DE": "Dies ist eine ausstehende Gegenstandsänderung.\\n\\nUm die Änderung anzuwenden, wähle im Stadtmenü eines Lehens 'Truppen ausrüsten'.",
+    "FR": "Il s’agit d’un changement d’objet en attente.\\n\\nPour appliquer le changement, sélectionne « Équiper les troupes » dans le menu de la ville d’un fief.",
+    "IT": "Questa è una modifica dell’oggetto in sospeso.\\n\\nPer applicare la modifica, seleziona 'Equipaggia truppe' dal menu della città di un feudo.",
+    "JP": "これは保留中のアイテム変更です。\\n\\n変更を適用するには、領地の町のメニューから「部隊を装備する」を選択してください。",
+    "KO": "보류 중인 아이템 변경 사항입니다.\\n\\n변경 사항을 적용하려면 영지의 마을 메뉴에서 '병력 장비'를 선택하십시오.",
+    "PL": "To jest oczekująca zmiana przedmiotu.\\n\\nAby zastosować zmianę, wybierz 'Wyposaż jednostki' z menu miasta lenna.",
+    "RU": "Это ожидающее изменение предмета.\\n\\nЧтобы применить изменение, выберите «Экипировать войска» в меню города фьефа.",
+    "SP": "Este es un cambio de objeto pendiente.\\n\\nPara aplicar el cambio, selecciona 'Equipar tropas' en el menú de la ciudad de un feudo.",
+    "TR": "Bu, bekleyen bir öğe değişikliğidir.\\n\\nDeğişikliği uygulamak için bir toprakın kasaba menüsünden 'Askerleri donat'ı seçin."
+  },
+  {
     "id": "ret_equip_complete",
     "EN": "Equipment Updated",
     "BR": "Equipamento Atualizado",
@@ -4528,6 +4544,22 @@
     "TR": "İşe Alım Limiti"
   },
   {
+    "id": "ret_retinue_cap_tooltip_body",
+    "EN": "Retinues will join you for free over time as long as you keep earning renown.\\n\\nYou can set a hiring limit to control how many retinues can join your party.",
+    "BR": "Os séquitos se juntarão a você gratuitamente ao longo do tempo, desde que você continue ganhando renome.\\n\\nVocê pode definir um limite de contratação para controlar quantos séquitos podem se juntar ao seu grupo.",
+    "CNs": "只要您继续获得声望，随从就会随着时间的推移免费加入您。\\n\\n您可以设置雇佣上限来控制有多少随从可以加入您的队伍。",
+    "CNt": "只要您繼續獲得聲望，隨從就會隨著時間的推移免費加入您。\\n\\n您可以設置僱傭上限來控制有多少隨從可以加入您的隊伍。",
+    "DE": "Gefolgschaften werden dir im Laufe der Zeit kostenlos beitreten, solange du Ruhm verdienst.\\n\\nDu kannst ein Einstellungslimit festlegen, um zu steuern, wie viele Gefolgschaften deiner Gruppe beitreten können.",
+    "FR": "Les rétinues vous rejoindront gratuitement au fil du temps tant que vous continuez à gagner en renommée.\\n\\nVous pouvez définir une limite d’embauche pour contrôler le nombre de rétines pouvant rejoindre votre groupe.",
+    "IT": "I seguaci si uniranno a te gratuitamente nel tempo, purché tu continui a guadagnare fama.\\n\\nPuoi impostare un limite di assunzione per controllare quanti seguaci possono unirsi al tuo gruppo.",
+    "JP": "名声を獲得し続ける限り、随伴兵は時間の経過とともに無料であなたに加わります。\\n\\n雇用制限を設定して、何人の随伴兵があなたの隊に加わることができるかを制御できます。",
+    "KO": "명성을 계속 획득하는 한 수행원이 시간이 지남에 따라 무료로 합류합니다.\\n\\n고용 한도를 설정하여 수행원이 파티에 합류할 수 있는 수를 제어할 수 있습니다.",
+    "PL": "Orszaki dołączą do ciebie za darmo z czasem, o ile będziesz zdobywać renomę.\\n\\nMożesz ustawić limit zatrudnienia, aby kontrolować, ile orszaków może dołączyć do twojej drużyny.",
+    "RU": "Свиты будут присоединяться к вам бесплатно со временем, пока вы продолжаете зарабатывать славу.\\n\\nВы можете установить лимит найма, чтобы контролировать, сколько свит может присоединиться к вашей группе.",
+    "SP": "Los séquitos se unirán a ti gratis con el tiempo siempre que sigas ganando renombre.\\n\\nPuedes establecer un límite de contratación para controlar cuántos séquitos pueden unirse a tu grupo.",
+    "TR": "Şöhret kazanmaya devam ettiğiniz sürece, yandaşlar zamanla size ücretsiz olarak katılacaktır.\\n\\nPartinize kaç yandaşın katılabileceğini kontrol etmek için bir işe alım limiti belirleyebilirsiniz."
+  },
+  {
     "id": "ret_retinue_female_kingdom",
     "EN": "{FACTION} Queen's Champion",
     "BR": "{FACTION} Campeão da Rainha",
@@ -5198,6 +5230,22 @@
     "RU": "Требуется {HOURS} часов обучения",
     "SP": "Se requieren {HOURS} horas de entrenamiento",
     "TR": "{HOURS} saatlik eğitim gerekli"
+  },
+  {
+    "id": "ret_training_required_tooltip_body",
+    "EN": "Before skill point increases are applied, troops must undergo training.\\n\\nThis is done by selecting 'Train troops' from a fief's town menu.",
+    "BR": "Antes que os pontos de habilidade sejam aplicados, as tropas devem passar por um treinamento.\\n\\nIsto é feito selecionando 'Treinar tropas' no menu da cidade de um feudo.",
+    "CNs": "在技能点提升生效之前，部队必须接受训练。\\n\\n这是通过在封地的城镇菜单中选择“训练部队”来完成的。",
+    "CNt": "在技能點提升生效之前，部隊必須接受訓練。\\n\\n這是通過在封地的城鎮菜單中選擇“訓練部隊”來完成的。",
+    "DE": "Bevor Fertigkeitspunkte angewendet werden, müssen die Truppen ein Training durchlaufen.\\n\\nDies geschieht, indem im Stadtmenü eines Lehens 'Truppen trainieren' ausgewählt wird.",
+    "FR": "Avant que les points de compétence soient appliqués, les troupes doivent suivre un entraînement.\\n\\nCela se fait en sélectionnant « Entraîner les troupes » dans le menu de la ville d’un fief.",
+    "IT": "Prima che i punti abilità vengano applicati, le truppe devono sottoporsi a un addestramento.\\n\\nQuesto si fa selezionando 'Addestra truppe' dal menu della città di un feudo.",
+    "JP": "スキルポイントの増加が適用される前に、部隊は訓練を受ける必要があります。\\n\\nこれは、封地の町のメニューから「部隊を訓練する」を選択することで行われます。",
+    "KO": "기술 포인트 증가가 적용되기 전에 병력은 훈련을 받아야 합니다.\\n\\n이는 영지의 마을 메뉴에서 '병력 훈련'을 선택하여 수행됩니다.",
+    "PL": "Zanim zostaną zastosowane punkty umiejętności, jednostki muszą przejść szkolenie.\\n\\nOdbywa się to poprzez wybranie opcji 'Trenuj jednostki' w menu miasta lenna.",
+    "RU": "Прежде чем будут применены очки навыков, войска должны пройти обучение.\\n\\nЭто делается путем выбора 'Обучить войска' в меню города феода.",
+    "SP": "Antes de que se apliquen los puntos de habilidad, las tropas deben someterse a un entrenamiento.\\n\\nEsto se hace seleccionando 'Entrenar tropas' en el menú de la ciudad de un feudo.",
+    "TR": "Beceri puanı artışları uygulanmadan önce, birlikler eğitimden geçmelidir.\\n\\nBu, bir tımarın kasaba menüsünden 'Askerleri eğit' seçilerek yapılır."
   },
   {
     "id": "ret_transfer_header_text",
