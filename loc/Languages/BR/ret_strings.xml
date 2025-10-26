@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="Importar" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="Importar Tropas de XML" />
+      id="ret_mcm_ie_import_pick_body"
+      text="Selecione o arquivo XML para importar. Isso substituirá suas definições atuais de tropas personalizadas." />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="Importar novas definições de tropas substituirá as existentes. Tem certeza?" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="Importar de XML" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
+      id="ret_mcm_ie_import_pick_title"
       text="Importar Tropas" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="Arquivos disponíveis" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Todo Equipamento Desbloqueado" />

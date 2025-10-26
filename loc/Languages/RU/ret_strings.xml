@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="Импорт" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="Импорт войск из XML" />
+      id="ret_mcm_ie_import_pick_body"
+      text="Выберите XML-файл для импорта. Это заменит ваши текущие определения пользовательских войск." />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="Импорт новых определений войск заменит существующие. Вы уверены?" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="Импорт из XML" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
+      id="ret_mcm_ie_import_pick_title"
       text="Импорт войск" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="Доступные файлы" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Вся Экипировка Разблокирована" />

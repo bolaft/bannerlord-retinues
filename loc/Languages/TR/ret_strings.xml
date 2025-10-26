@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="İçe Aktar" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="XML’den Asker İçe Aktar" />
+      id="ret_mcm_ie_import_pick_body"
+      text="İçe aktarılacak XML dosyasını seçin. Bu, mevcut özel asker tanımlarınızı değiştirecektir." />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="Yeni asker tanımlarını içe aktarmak mevcut olanların yerini alacaktır. Emin misiniz?" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="XML’den İçe Aktar" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
-      text="Asker İçe Aktar" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="Mevcut dosyalar" />
+      id="ret_mcm_ie_import_pick_title"
+      text="Askerleri İçe Aktar" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Tüm Teçhizat Açıldı" />

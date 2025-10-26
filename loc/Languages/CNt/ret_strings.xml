@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="導入" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="從XML導入部隊" />
+      id="ret_mcm_ie_import_pick_body"
+      text="選擇要導入的XML文件。這將替換您當前的自定義部隊定義。" />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="導入新的部隊定義將替換現有的定義。你確定嗎？" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="從XML導入" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
+      id="ret_mcm_ie_import_pick_title"
       text="導入部隊" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="可用文件" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="所有裝備已解鎖" />

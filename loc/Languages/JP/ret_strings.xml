@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="インポート" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="XMLから部隊をインポート" />
+      id="ret_mcm_ie_import_pick_body"
+      text="インポートするXMLファイルを選択します。これにより、現在のカスタム部隊定義が置き換えられます。" />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="新しい部隊定義をインポートすると、既存の定義が置き換えられます。本当によろしいですか？" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="XMLからインポート" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
+      id="ret_mcm_ie_import_pick_title"
       text="部隊をインポート" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="利用可能なファイル" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="全装備解除済み" />

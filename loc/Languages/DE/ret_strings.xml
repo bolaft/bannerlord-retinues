@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="Importieren" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="Truppen aus XML importieren" />
+      id="ret_mcm_ie_import_pick_body"
+      text="Wähle die zu importierende XML-Datei aus. Dadurch werden deine aktuellen benutzerdefinierten Truppendefinitionen ersetzt." />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="Das Importieren neuer Truppendefinitionen ersetzt die vorhandenen. Bist du sicher?" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="Aus XML importieren" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
+      id="ret_mcm_ie_import_pick_title"
       text="Truppen importieren" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="Verfügbare Dateien" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Alle Ausrüstungen freigeschaltet" />

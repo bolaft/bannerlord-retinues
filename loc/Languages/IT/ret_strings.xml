@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="Importa" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="Importa truppe da XML" />
+      id="ret_mcm_ie_import_pick_body"
+      text="Seleziona il file XML da importare. Questo sostituirà le tue attuali definizioni di truppe personalizzate." />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="L’importazione di nuove definizioni di truppe sostituirà quelle esistenti. Sei sicuro?" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="Importa da XML" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
+      id="ret_mcm_ie_import_pick_title"
       text="Importa truppe" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="File disponibili" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Tutto l’Equipaggiamento Sbloccato" />

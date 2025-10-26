@@ -9,6 +9,7 @@ using MCM.Common;
 using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.Library;
+using TaleWorlds.Core;
 
 namespace Retinues.Configuration
 {
@@ -24,9 +25,6 @@ namespace Retinues.Configuration
         private static readonly Dictionary<string, IOption> _byKey = new(
             StringComparer.OrdinalIgnoreCase
         );
-
-        // Import dropdown instance
-        private static readonly Dropdown<string> _importDropdown = new(new List<string>(), 0);
 
         // Declaration order storage for options (to preserve field order)
         private static readonly Dictionary<string, object> _values = new(
@@ -159,9 +157,6 @@ namespace Retinues.Configuration
                     group.SetGroupOrder(-100); // keep at the very top
                     var order = 0;
 
-                    // refresh once before showing
-                    RefreshImportDropdown();
-
                     // File name for export (editable)
                     group.AddText(
                         "ExportFileName",
@@ -212,8 +207,6 @@ namespace Retinues.Configuration
                                         Log.Message("Export failed, see log for details.");
                                         Log.Exception(e);
                                     }
-
-                                    RefreshImportDropdown();
                                 },
                             _ => { }
                         ),
@@ -221,78 +214,80 @@ namespace Retinues.Configuration
                         b => b.SetOrder(order++).SetRequireRestart(false)
                     );
 
-                    // Import dropdown (files found in ExportsDir)
-                    group.AddDropdown(
-                        "ImportFileDropdown",
-                        L.S("mcm_ie_import_dropdown", "Available files"),
-                        0,
-                        new ProxyRef<Dropdown<string>>(
-                            () => _importDropdown, // always the same object
-                            _ => { } // ignore setter; we manage it
-                        ),
-                        b => b.SetOrder(order++)
-                    );
-
-                    // Import button (asks for confirmation)
+                    // One-click import: opens a fresh file list, confirm button says "Import" and runs immediately.
                     group.AddButton(
-                        "ImportButton",
-                        L.S("mcm_ie_import_btn_text", "Import Troops from XML"),
-                        new ProxyRef<Action>(
-                            () =>
-                                () =>
+                        "ImportFromXml",
+                        L.S("mcm_ie_import_pick_btn_text", "Import from XML"),
+                        new ProxyRef<Action>(() => () =>
+                        {
+                            try
+                            {
+                                if (!InCampaign())
                                 {
-                                    if (!InCampaign())
-                                    {
-                                        Log.Message(
-                                            "Not in a running campaign. Load a save first."
-                                        );
-                                        return;
-                                    }
+                                    Log.Message("Not in a running campaign. Load a save first.");
+                                    return;
+                                }
 
-                                    var choice = _importDropdown?.SelectedValue;
-                                    if (string.IsNullOrWhiteSpace(choice) || choice.StartsWith("<"))
-                                    {
-                                        Log.Message("No valid file selected for import.");
-                                        return;
-                                    }
+                                Directory.CreateDirectory(TroopImportExport.DefaultDir);
+                                var files = Directory
+                                    .EnumerateFiles(TroopImportExport.DefaultDir, "*.xml", SearchOption.TopDirectoryOnly)
+                                    .OrderByDescending(File.GetLastWriteTimeUtc)
+                                    .Select(Path.GetFileName)
+                                    .ToList();
 
-                                    ConfirmTroopReplace(
-                                        L.S("mcm_ie_import_confirm_title", "Import Troops"),
-                                        L.S(
-                                            "mcm_ie_import_confirm_body",
-                                            "Importing new troop definitions will replace the existing ones. Are you sure?"
-                                        ),
-                                        () =>
+                                if (files.Count == 0)
+                                {
+                                    Log.Message("No export files found.");
+                                    return;
+                                }
+
+                                var elements = files.Select(f => new InquiryElement(f, f, null)).ToList();
+                                var inquiry = new MultiSelectionInquiryData(
+                                    L.S("mcm_ie_import_pick_title", "Import Troops"),
+                                    L.S("mcm_ie_import_pick_body", "Select the XML file to import. This will replace your current custom troop definitions."),
+                                    elements,
+                                    true,  // isSingleSelection
+                                    1,     // minSelectable
+                                    1,     // maxSelectable
+                                    L.S("mcm_ie_import_btn", "Import"),
+                                    L.S("cancel", "Cancel"),
+                                    selected =>
+                                    {
+                                        var choice = selected?.FirstOrDefault()?.Identifier as string;
+                                        if (string.IsNullOrWhiteSpace(choice))
                                         {
-                                            try
-                                            {
-                                                // optional safety backup
-                                                Directory.CreateDirectory(
-                                                    TroopImportExport.DefaultDir
-                                                );
-                                                TroopImportExport.ExportAllToXml(
-                                                    "backup_" + SuggestDefaultExportName()
-                                                );
-
-                                                // import
-                                                var count = TroopImportExport.ImportFromXml(choice);
-                                                Log.Message(
-                                                    count > 0
-                                                        ? $"Imported {count} root troop definitions from '{choice}'."
-                                                        : $"No troops were imported from '{choice}'."
-                                                );
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                Log.Exception(e);
-                                                Log.Message("Import failed, see log for details.");
-                                            }
-                                            RefreshImportDropdown();
+                                            Log.Message("No file selected.");
+                                            return;
                                         }
-                                    );
-                                },
-                            _ => { }
-                        ),
+                                        try
+                                        {
+                                            // optional safety backup
+                                            Directory.CreateDirectory(TroopImportExport.DefaultDir);
+                                            TroopImportExport.ExportAllToXml("backup_" + SuggestDefaultExportName());
+
+                                            var count = TroopImportExport.ImportFromXml(choice);
+                                            Log.Message(
+                                                count > 0
+                                                    ? $"Imported {count} root troop definitions from '{choice}'."
+                                                    : $"No troops were imported from '{choice}'."
+                                            );
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Log.Exception(e);
+                                            Log.Message("Import failed, see log for details.");
+                                        }
+                                    },
+                                    _ => { }
+                                );
+                                MBInformationManager.ShowMultiSelectionInquiry(inquiry);
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Exception(e);
+                                Log.Message("Failed to list export files, see log for details.");
+                            }
+                        }, _ => { }),
                         L.S("mcm_ie_import_btn", "Import"),
                         b => b.SetOrder(order++).SetRequireRestart(false)
                     );
@@ -480,70 +475,6 @@ namespace Retinues.Configuration
         {
             var ts = DateTime.Now.ToString("yyyy_MM_dd_HH_mm");
             return $"troops_{ts}.xml";
-        }
-
-        /// <summary>
-        /// Build a dropdown populated with available import XML files.
-        /// </summary>
-        private static Dropdown<string> BuildImportDropdown()
-        {
-            try
-            {
-                Directory.CreateDirectory(TroopImportExport.DefaultDir);
-                var files = Directory
-                    .EnumerateFiles(
-                        TroopImportExport.DefaultDir,
-                        "*.xml",
-                        SearchOption.TopDirectoryOnly
-                    )
-                    .OrderByDescending(File.GetLastWriteTimeUtc)
-                    .ToList();
-                var labels = new List<string> { };
-                labels.AddRange(files.Select(Path.GetFileName));
-                return new Dropdown<string>(labels, 0);
-            }
-            catch
-            {
-                return new Dropdown<string>([], 0);
-            }
-        }
-
-        /// <summary>
-        /// Refresh the import dropdown contents from the export directory.
-        /// </summary>
-        private static void RefreshImportDropdown()
-        {
-            try
-            {
-                Directory.CreateDirectory(TroopImportExport.DefaultDir);
-
-                var labels = Directory
-                    .EnumerateFiles(
-                        TroopImportExport.DefaultDir,
-                        "*.xml",
-                        SearchOption.TopDirectoryOnly
-                    )
-                    .OrderByDescending(File.GetLastWriteTimeUtc)
-                    .Select(Path.GetFileName)
-                    .ToList();
-
-                if (labels.Count == 0)
-                    labels.Add("");
-
-                // mutate the same instance the UI is bound to
-                _importDropdown.Clear();
-                _importDropdown.AddRange(labels);
-
-                // nudge a property that actually raises INotifyPropertyChanged
-                _importDropdown.SelectedIndex = 0;
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-                _importDropdown.Clear();
-                _importDropdown.Add("<error>");
-                _importDropdown.SelectedIndex = 0;
-            }
         }
 
         /// <summary>

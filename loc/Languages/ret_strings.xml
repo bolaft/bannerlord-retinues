@@ -425,17 +425,14 @@
       id="ret_mcm_ie_import_btn"
       text="Import" />
     <string
-      id="ret_mcm_ie_import_btn_text"
-      text="Import Troops from XML" />
+      id="ret_mcm_ie_import_pick_body"
+      text="Select the XML file to import. This will replace your current custom troop definitions." />
     <string
-      id="ret_mcm_ie_import_confirm_body"
-      text="Importing new troop definitions will replace the existing ones. Are you sure?" />
+      id="ret_mcm_ie_import_pick_btn_text"
+      text="Import from XML" />
     <string
-      id="ret_mcm_ie_import_confirm_title"
+      id="ret_mcm_ie_import_pick_title"
       text="Import Troops" />
-    <string
-      id="ret_mcm_ie_import_dropdown"
-      text="Available files" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="All Equipment Unlocked" />
