@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="영향력 부족" />
     <string
+      id="ret_create_from_culture"
+      text="{CULTURE} 의 부대 복사" />
+    <string
+      id="ret_create_from_scratch"
+      text="처음부터 시작" />
+    <string
       id="ret_create_set_hint"
       text="충돌하는 모드(Shokuho)로 인해 비활성화되었습니다." />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="문화" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="당신의 {FACTION} 사용자 지정 부대가 이제 잠금 해제되었습니다.{newline}{newline}전체 {CULTURE} 부대 트리를 복제하시겠습니까, 아니면 처음부터 구축하시겠습니까?{newline}{newline}문화 부대를 복사하면 좋은 장비와 좋은 부대를 얻을 수 있습니다. 처음부터 시작하는 것이 더 어려운 선택입니다.{newline}{newline}이 결정은 되돌릴 수 없습니다." />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="사용자 지정 부대 잠금 해제" />
     <string
       id="ret_doctrine_costs"
       text="비용: {GOLD} 골드, {INFLUENCE} 영향력." />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="플레이어 부대 내 정예 수행원의 최대 비율." />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="사전 제작된 병력 없음" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="일반 병력은 기본 문화 병력 트리에서 복제되지 않으며 단일 저등급 유닛에서 생성해야 합니다." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="자신의 문화 해제 보너스" />

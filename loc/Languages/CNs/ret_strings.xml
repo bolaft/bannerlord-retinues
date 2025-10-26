@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="影响力不足" />
     <string
+      id="ret_create_from_culture"
+      text="复制 {CULTURE} 的部队" />
+    <string
+      id="ret_create_from_scratch"
+      text="从零开始" />
+    <string
       id="ret_create_set_hint"
       text="由于冲突的模组（Shokuho）而被禁用。" />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="文化" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="你的 {FACTION} 的自定义部队现已解锁。{newline}{newline}你想要克隆整个 {CULTURE} 部队树，还是更喜欢从零开始构建它们？{newline}{newline}复制你的文化部队将为你提供良好的装备和优秀的部队。从零开始是更困难的选择。{newline}{newline}此决定不可逆转。" />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="自定义部队已解锁" />
     <string
       id="ret_doctrine_costs"
       text="花费: {GOLD} 金币, {INFLUENCE} 影响力。" />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="玩家队伍中精锐随从的最大比例。" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="无预设部队" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="常规部队不是从基础文化部队树克隆的，它们需要从单一低级单位创建。" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="自身文化解锁奖励" />

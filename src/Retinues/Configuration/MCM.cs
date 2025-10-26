@@ -8,8 +8,8 @@ using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
 using Retinues.Troops;
 using Retinues.Utils;
-using TaleWorlds.Library;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.Configuration
 {
@@ -218,76 +218,103 @@ namespace Retinues.Configuration
                     group.AddButton(
                         "ImportFromXml",
                         L.S("mcm_ie_import_pick_btn_text", "Import from XML"),
-                        new ProxyRef<Action>(() => () =>
-                        {
-                            try
-                            {
-                                if (!InCampaign())
+                        new ProxyRef<Action>(
+                            () =>
+                                () =>
                                 {
-                                    Log.Message("Not in a running campaign. Load a save first.");
-                                    return;
-                                }
-
-                                Directory.CreateDirectory(TroopImportExport.DefaultDir);
-                                var files = Directory
-                                    .EnumerateFiles(TroopImportExport.DefaultDir, "*.xml", SearchOption.TopDirectoryOnly)
-                                    .OrderByDescending(File.GetLastWriteTimeUtc)
-                                    .Select(Path.GetFileName)
-                                    .ToList();
-
-                                if (files.Count == 0)
-                                {
-                                    Log.Message("No export files found.");
-                                    return;
-                                }
-
-                                var elements = files.Select(f => new InquiryElement(f, f, null)).ToList();
-                                var inquiry = new MultiSelectionInquiryData(
-                                    L.S("mcm_ie_import_pick_title", "Import Troops"),
-                                    L.S("mcm_ie_import_pick_body", "Select the XML file to import. This will replace your current custom troop definitions."),
-                                    elements,
-                                    true,  // isSingleSelection
-                                    1,     // minSelectable
-                                    1,     // maxSelectable
-                                    L.S("mcm_ie_import_btn", "Import"),
-                                    L.S("cancel", "Cancel"),
-                                    selected =>
+                                    try
                                     {
-                                        var choice = selected?.FirstOrDefault()?.Identifier as string;
-                                        if (string.IsNullOrWhiteSpace(choice))
+                                        if (!InCampaign())
                                         {
-                                            Log.Message("No file selected.");
+                                            Log.Message(
+                                                "Not in a running campaign. Load a save first."
+                                            );
                                             return;
                                         }
-                                        try
-                                        {
-                                            // optional safety backup
-                                            Directory.CreateDirectory(TroopImportExport.DefaultDir);
-                                            TroopImportExport.ExportAllToXml("backup_" + SuggestDefaultExportName());
 
-                                            var count = TroopImportExport.ImportFromXml(choice);
-                                            Log.Message(
-                                                count > 0
-                                                    ? $"Imported {count} root troop definitions from '{choice}'."
-                                                    : $"No troops were imported from '{choice}'."
-                                            );
-                                        }
-                                        catch (Exception e)
+                                        Directory.CreateDirectory(TroopImportExport.DefaultDir);
+                                        var files = Directory
+                                            .EnumerateFiles(
+                                                TroopImportExport.DefaultDir,
+                                                "*.xml",
+                                                SearchOption.TopDirectoryOnly
+                                            )
+                                            .OrderByDescending(File.GetLastWriteTimeUtc)
+                                            .Select(Path.GetFileName)
+                                            .ToList();
+
+                                        if (files.Count == 0)
                                         {
-                                            Log.Exception(e);
-                                            Log.Message("Import failed, see log for details.");
+                                            Log.Message("No export files found.");
+                                            return;
                                         }
-                                    },
-                                    _ => { }
-                                );
-                                MBInformationManager.ShowMultiSelectionInquiry(inquiry);
-                            }
-                            catch (Exception e)
-                            {
-                                Log.Exception(e);
-                                Log.Message("Failed to list export files, see log for details.");
-                            }
-                        }, _ => { }),
+
+                                        var elements = files
+                                            .Select(f => new InquiryElement(f, f, null))
+                                            .ToList();
+                                        var inquiry = new MultiSelectionInquiryData(
+                                            L.S("mcm_ie_import_pick_title", "Import Troops"),
+                                            L.S(
+                                                "mcm_ie_import_pick_body",
+                                                "Select the XML file to import. This will replace your current custom troop definitions."
+                                            ),
+                                            elements,
+                                            true, // isSingleSelection
+                                            1, // minSelectable
+                                            1, // maxSelectable
+                                            L.S("mcm_ie_import_btn", "Import"),
+                                            L.S("cancel", "Cancel"),
+                                            selected =>
+                                            {
+                                                var choice =
+                                                    selected?.FirstOrDefault()?.Identifier
+                                                    as string;
+                                                if (string.IsNullOrWhiteSpace(choice))
+                                                {
+                                                    Log.Message("No file selected.");
+                                                    return;
+                                                }
+                                                try
+                                                {
+                                                    // optional safety backup
+                                                    Directory.CreateDirectory(
+                                                        TroopImportExport.DefaultDir
+                                                    );
+                                                    TroopImportExport.ExportAllToXml(
+                                                        "backup_" + SuggestDefaultExportName()
+                                                    );
+
+                                                    var count = TroopImportExport.ImportFromXml(
+                                                        choice
+                                                    );
+                                                    Log.Message(
+                                                        count > 0
+                                                            ? $"Imported {count} root troop definitions from '{choice}'."
+                                                            : $"No troops were imported from '{choice}'."
+                                                    );
+                                                }
+                                                catch (Exception e)
+                                                {
+                                                    Log.Exception(e);
+                                                    Log.Message(
+                                                        "Import failed, see log for details."
+                                                    );
+                                                }
+                                            },
+                                            _ => { }
+                                        );
+                                        MBInformationManager.ShowMultiSelectionInquiry(inquiry);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Log.Exception(e);
+                                        Log.Message(
+                                            "Failed to list export files, see log for details."
+                                        );
+                                    }
+                                },
+                            _ => { }
+                        ),
                         L.S("mcm_ie_import_btn", "Import"),
                         b => b.SetOrder(order++).SetRequireRestart(false)
                     );

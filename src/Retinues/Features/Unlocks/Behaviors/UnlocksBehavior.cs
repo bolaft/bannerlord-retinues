@@ -6,11 +6,11 @@ using Retinues.Game;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
+using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.ObjectSystem;
-using TaleWorlds.CampaignSystem.Roster;
 
 namespace Retinues.Features.Unlocks.Behaviors
 {
@@ -57,7 +57,10 @@ namespace Retinues.Features.Unlocks.Behaviors
         {
             CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, OnMissionStarted);
             CampaignEvents.MapEventEnded.AddNonSerializedListener(this, OnMapEventEnded);
-            CampaignEvents.OnItemsDiscardedByPlayerEvent.AddNonSerializedListener(this, OnItemsDiscardedByPlayer);
+            CampaignEvents.OnItemsDiscardedByPlayerEvent.AddNonSerializedListener(
+                this,
+                OnItemsDiscardedByPlayer
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -115,7 +118,8 @@ namespace Retinues.Features.Unlocks.Behaviors
                     continue;
 
                 // Discard progress ratio
-                float discardProgressRatio = (float)Config.KillsForUnlock / Config.DiscardsForUnlock;
+                float discardProgressRatio =
+                    (float)Config.KillsForUnlock / Config.DiscardsForUnlock;
 
                 // Progress per physical item
                 int progress = amount * (int)Math.Ceiling(discardProgressRatio);
@@ -130,7 +134,9 @@ namespace Retinues.Features.Unlocks.Behaviors
             if (counts.Count == 0)
                 return;
 
-            Log.Debug($"OnItemsDiscardedByPlayer: {counts.Count} stacks will contribute to unlock progress.");
+            Log.Debug(
+                $"OnItemsDiscardedByPlayer: {counts.Count} stacks will contribute to unlock progress."
+            );
             AddUnlockCounts(counts, addCultureBonuses: false);
 
             if (_newlyUnlocked.Count > 0)

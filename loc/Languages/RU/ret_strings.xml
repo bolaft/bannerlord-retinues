@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="Недостаточно влияния" />
     <string
+      id="ret_create_from_culture"
+      text="Скопировать войска {CULTURE}" />
+    <string
+      id="ret_create_from_scratch"
+      text="Начать с нуля" />
+    <string
       id="ret_create_set_hint"
       text="Отключено из-за конфликтующих модов (Shokuho)." />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="Культура" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="Пользовательские войска вашей фракции {FACTION} теперь разблокированы.{newline}{newline}Хотите клонировать всё дерево войск {CULTURE} или предпочитаете создавать их с нуля?{newline}{newline}Копирование войск вашей культуры обеспечит вас хорошим снаряжением и хорошими войсками. Начать с нуля — более сложный выбор.{newline}{newline}Это решение необратимо." />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="Пользовательские войска разблокированы" />
     <string
       id="ret_doctrine_costs"
       text="Стоимость: {GOLD} Золото, {INFLUENCE} Влияние." />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Максимальная доля элитной свиты в отряде игрока." />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="Без Предустановленных Войск" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="Обычные войска не клонируются из базового дерева войск культуры, их нужно создавать из одной низкоуровневой единицы." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Бонусы за разблокировку своей культуры" />

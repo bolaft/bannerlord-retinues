@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="Yetersiz etki" />
     <string
+      id="ret_create_from_culture"
+      text="{CULTURE} Askerlerini Kopyala" />
+    <string
+      id="ret_create_from_scratch"
+      text="Sıfırdan Başla" />
+    <string
       id="ret_create_set_hint"
       text="Çakışan modlar (Shokuho) nedeniyle devre dışı bırakıldı." />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="Kültür" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="{FACTION} özel askerleriniz artık kilidi açıldı.{newline}{newline}Tüm {CULTURE} asker ağacını klonlamak mı istersiniz, yoksa sıfırdan inşa etmeyi mi tercih edersiniz?{newline}{newline}Kültürünüzün askerlerini kopyalamak size iyi teçhizat ve iyi askerler sağlayacaktır. Sıfırdan başlamak daha zor bir seçimdir.{newline}{newline}Bu karar geri alınamaz." />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="Özel Askerler Kilidi Açıldı" />
     <string
       id="ret_doctrine_costs"
       text="Maliyet: {GOLD} Altın, {INFLUENCE} Nüfuz." />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Oyuncu grubundaki seçkin yandaş askerlerin azami oranı." />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="Önceden Oluşturulmuş Asker Yok" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="Normal askerler temel kültür asker ağacından klonlanmaz, tek bir düşük seviye birimden oluşturulmaları gerekir." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Kendi Kültür Açılış Bonusları" />

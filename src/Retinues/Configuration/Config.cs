@@ -269,22 +269,6 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> NoPrebuiltTroops = CreateOption(
-            section: L.S("mcm_section_restrictions", "Restrictions"),
-            name: L.S("mcm_option_no_prebuilt_troops", "No Prebuilt Troops"),
-            key: "NoPrebuiltTroops",
-            hint: L.S(
-                "mcm_option_no_prebuilt_troops_hint",
-                "Regular troops are not cloned from the base culture troop tree, they need to be created from a single low tier unit."
-            ),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = true,
-            }
-        );
-
         // ─────────────────────────────────────────────────────
         // Doctrines
         // ─────────────────────────────────────────────────────
@@ -625,7 +609,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> DiscardsForUnlock = CreateOption(
             section: L.S("mcm_section_unlocks", "Unlocks"),
-            name: L.S("mcm_option_required_discards_for_unlock", "Required Discarded Items For Unlock"),
+            name: L.S(
+                "mcm_option_required_discards_for_unlock",
+                "Required Discarded Items For Unlock"
+            ),
             key: "DiscardsForUnlock",
             hint: L.S(
                 "mcm_option_required_discards_for_unlock_hint",

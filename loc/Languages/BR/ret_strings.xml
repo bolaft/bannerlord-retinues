@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="Influência insuficiente" />
     <string
+      id="ret_create_from_culture"
+      text="Copiar Tropas de {CULTURE}" />
+    <string
+      id="ret_create_from_scratch"
+      text="Começar do Zero" />
+    <string
       id="ret_create_set_hint"
       text="Desativado devido a mods conflitantes (Shokuho)." />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="Cultura" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="As tropas personalizadas do seu {FACTION} agora estão desbloqueadas.{newline}{newline}Você gostaria de clonar toda a árvore de tropas de {CULTURE}, ou prefere construí-las do zero?{newline}{newline}Copiar as tropas da sua cultura fornecerá bons equipamentos e boas tropas. Começar do zero é a escolha mais difícil.{newline}{newline}Esta decisão é irreversível." />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="Tropas Personalizadas Desbloqueadas" />
     <string
       id="ret_doctrine_costs"
       text="Custo: {GOLD} Ouro, {INFLUENCE} Influência." />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proporção máxima de tropas de séquito de elite no grupo do jogador." />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="Sem Tropas Pré-construídas" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="Tropas regulares não são clonadas da árvore de tropas da cultura base, elas precisam ser criadas a partir de uma única unidade de baixo nível." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Bônus de Desbloqueio da Própria Cultura" />

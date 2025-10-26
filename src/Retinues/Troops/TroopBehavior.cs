@@ -6,6 +6,8 @@ using Retinues.Game.Wrappers;
 using Retinues.Troops.Persistence;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Troops
 {
@@ -50,6 +52,15 @@ namespace Retinues.Troops
 
             // Rebuild all trees from serialized roots after a save is loaded
             CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
+
+            // Fief acquired
+            CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(
+                this,
+                OnSettlementOwnerChanged
+            );
+
+            // Kingdom created
+            CampaignEvents.KingdomCreatedEvent.AddNonSerializedListener(this, OnKingdomCreated);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -108,6 +119,35 @@ namespace Retinues.Troops
             {
                 Log.Exception(e, "OnGameLoaded failed");
             }
+        }
+
+        /* ━━━━━ Fief Acquired ━━━━ */
+
+        void OnSettlementOwnerChanged(
+            Settlement s,
+            bool _,
+            Hero n,
+            Hero o,
+            Hero __,
+            ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail d
+        )
+        {
+            if (new WFaction(n?.Clan).IsPlayerClan == false)
+                return; // Not player clan gaining a fief
+
+            Log.Debug($"Fief acquired: {s.Name}, triggering troop ensure.");
+            TroopBuilder.EnsureTroopsExist(Player.Clan);
+        }
+
+        /* ━━━━━ Kingdom Created ━━━ */
+
+        void OnKingdomCreated(Kingdom k)
+        {
+            if (new WFaction(k).IsPlayerKingdom == false)
+                return; // Not player kingdom
+
+            Log.Debug($"Kingdom created: {k.Name}, triggering troop ensure.");
+            TroopBuilder.EnsureTroopsExist(Player.Kingdom);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

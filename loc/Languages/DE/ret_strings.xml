@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="Nicht genug Einfluss" />
     <string
+      id="ret_create_from_culture"
+      text="Kopiere {CULTURE}s Truppen" />
+    <string
+      id="ret_create_from_scratch"
+      text="Von Grund auf neu beginnen" />
+    <string
       id="ret_create_set_hint"
       text="Deaktiviert aufgrund von Konflikten mit Mods (Shokuho)." />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="Kultur" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="Die benutzerdefinierten Truppen deiner {FACTION} sind jetzt freigeschaltet.{newline}{newline}Möchtest du den gesamten {CULTURE}-Truppenbaum klonen oder sie lieber von Grund auf neu erstellen?{newline}{newline}Das Kopieren der Truppen deiner Kultur bietet dir gute Ausrüstung und gute Truppen. Von Grund auf neu zu beginnen ist die schwierigere Wahl.{newline}{newline}Diese Entscheidung ist irreversibel." />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="Benutzerdefinierte Truppen freigeschaltet" />
     <string
       id="ret_doctrine_costs"
       text="Kosten: {GOLD} Gold, {INFLUENCE} Einfluss." />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe." />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="Keine Vorgefertigten Truppen" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="Normale Truppen werden nicht aus dem Basis-Kultur-Truppenbaum geklont, sie müssen aus einer einzigen niedrigstufigen Einheit erstellt werden." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Eigene Kultur-Freischaltboni" />

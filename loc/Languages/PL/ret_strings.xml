@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="Za mało wpływów" />
     <string
+      id="ret_create_from_culture"
+      text="Kopiuj oddziały {CULTURE}" />
+    <string
+      id="ret_create_from_scratch"
+      text="Zacznij od zera" />
+    <string
       id="ret_create_set_hint"
       text="Wyłączone z powodu konfliktów z modami (Shokuho)." />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="Kultura" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="Niestandardowe oddziały twojej frakcji {FACTION} są teraz odblokowane.{newline}{newline}Czy chcesz sklonować cały drzewo oddziałów {CULTURE}, czy wolisz zbudować je od podstaw?{newline}{newline}Kopiowanie oddziałów twojej kultury zapewni ci dobry sprzęt i dobre oddziały. Rozpoczęcie od zera to trudniejszy wybór.{newline}{newline}Ta decyzja jest nieodwracalna." />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="Niestandardowe Oddziały Odblokowane" />
     <string
       id="ret_doctrine_costs"
       text="Koszt: {GOLD} Złoto, {INFLUENCE} Wpływy." />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maksymalny udział elitarnych jednostek orszaku w drużynie gracza." />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="Brak Wstępnie Zbudowanych Jednostek" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="Zwykłe jednostki nie są klonowane z podstawowego drzewa jednostek kulturowych, muszą być tworzone z pojedynczej jednostki niskiego poziomu." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Premie za odblokowanie własnej kultury" />

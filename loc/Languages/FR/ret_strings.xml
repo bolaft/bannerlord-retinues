@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="Influence insuffisante" />
     <string
+      id="ret_create_from_culture"
+      text="Copier les troupes de {CULTURE}" />
+    <string
+      id="ret_create_from_scratch"
+      text="Partir de Zéro" />
+    <string
       id="ret_create_set_hint"
       text="Désactivé en raison de mods conflictuels (Shokuho)." />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="Culture" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="Les troupes personnalisées de ta faction {FACTION} sont maintenant débloquées.{newline}{newline}Souhaites-tu cloner l’intégralité de l’arbre de troupes de {CULTURE}, ou préfères-tu les créer à partir de zéro ?{newline}{newline}Copier les troupes de ta culture te fournira un bon équipement et de bonnes troupes. Partir de zéro est le choix le plus difficile.{newline}{newline}Cette décision est irréversible." />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="Troupes Personnalisées Débloquées" />
     <string
       id="ret_doctrine_costs"
       text="Coût : {GOLD} or, {INFLUENCE} influence." />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Proportion maximale de troupes de la rétinue d’élite dans le groupe du joueur." />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="Pas de Troupes Préconstruites" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="Les troupes régulières ne sont pas clonées à partir de l’arbre des troupes de la culture de base, elles doivent être créées à partir d’une seule unité de bas niveau." />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Bonus de Déblocage de Culture" />

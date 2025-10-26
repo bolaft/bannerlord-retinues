@@ -167,6 +167,12 @@
       id="ret_convert_not_enough_influence_title"
       text="影響力不足" />
     <string
+      id="ret_create_from_culture"
+      text="{CULTURE} の部隊をコピー" />
+    <string
+      id="ret_create_from_scratch"
+      text="ゼロから始める" />
+    <string
       id="ret_create_set_hint"
       text="競合するMOD（Shokuho）のため無効化されています。" />
     <string
@@ -187,6 +193,12 @@
     <string
       id="ret_culture_header_text"
       text="文化" />
+    <string
+      id="ret_custom_troops_inquiry_body"
+      text="あなたの {FACTION} のカスタム部隊がアンロックされました。{newline}{newline}{CULTURE} の部隊ツリー全体をクローンしますか？それともゼロから構築しますか？{newline}{newline}あなたの文化の部隊をコピーすると、優れた装備と優れた部隊が提供されます。ゼロから始めるのはより困難な選択です。{newline}{newline}この決定は取り消せません。" />
+    <string
+      id="ret_custom_troops_inquiry_title"
+      text="カスタム部隊のアンロック完了" />
     <string
       id="ret_doctrine_costs"
       text="コスト: {GOLD} ゴールド, {INFLUENCE} 影響力。" />
@@ -529,12 +541,6 @@
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="プレイヤー部隊内の精鋭随伴兵の最大比率。" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops"
-      text="事前構築された部隊なし" />
-    <string
-      id="ret_mcm_option_no_prebuilt_troops_hint"
-      text="通常の部隊は基本文化の部隊ツリーからクローンされるのではなく、単一の低ランクユニットから作成する必要があります。" />
     <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="自文化アンロックボーナス" />

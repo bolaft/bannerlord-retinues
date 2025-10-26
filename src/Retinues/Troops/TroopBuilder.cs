@@ -8,6 +8,7 @@ using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
 namespace Retinues.Troops
@@ -72,16 +73,36 @@ namespace Retinues.Troops
 
                 if (canInitClanTroops)
                 {
-                    if (!hasBasic)
-                    {
-                        Log.Info("Initializing default BASIC troop tree.");
-                        BuildBasicTree(faction);
-                    }
-                    if (!hasElite)
-                    {
-                        Log.Info("Initializing default ELITE troop tree.");
-                        BuildEliteTree(faction);
-                    }
+                    InformationManager.ShowInquiry(
+                        new InquiryData(
+                            titleText: L.S("custom_troops_inquiry_title", "Custom Troops Unlocked"),
+                            text: L.T(
+                                    "custom_troops_inquiry_body",
+                                    "Your {FACTION}'s custom troops are now unlocked.\n\nWould you like to clone the entire {CULTURE} troop tree, or would you prefer building them from scratch?\n\nCopying your culture's troops will provide you with good gear and good troops. Starting from scratch is the more difficult choice.\n\nThis decision is irreversible."
+                                ).SetTextVariable("FACTION", faction.IsPlayerClan ? "clan" : "kingdom").SetTextVariable("CULTURE", faction.Culture?.Name ?? "culture").ToString(),
+                            isAffirmativeOptionShown: true,
+                            isNegativeOptionShown: true,
+                            affirmativeText: L.T("create_from_culture", "Copy {CULTURE}'s Troops'").SetTextVariable("CULTURE", faction.Culture?.Name ?? "Culture").ToString(),
+                            negativeText: L.S("create_from_scratch", "Start from Scratch"),
+                            affirmativeAction: () =>
+                            {
+                                // Continue with copyWholeTree = true
+                                if (!hasBasic)
+                                    BuildBasicTree(faction, true);
+                                if (!hasElite)
+                                    BuildEliteTree(faction, true);
+                            },
+                            negativeAction: () =>
+                            {
+                                // Continue with copyWholeTree = false
+                                if (!hasBasic)
+                                    BuildBasicTree(faction, false);
+                                if (!hasElite)
+                                    BuildEliteTree(faction, false);
+                            }
+                        )
+                    );
+
                 }
                 else
                 {
@@ -274,63 +295,9 @@ namespace Retinues.Troops
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Builds both regular troop trees for the given faction, cloning from culture roots.
+        /// Build the elite tree for a faction.
         /// </summary>
-        public static void BuildTroops(WFaction faction)
-        {
-            Log.Info($"Setting up troops for faction {faction.Name}.");
-
-            // Use the faction culture
-            var culture = faction.Culture;
-            Log.Debug($"Faction culture: {culture?.Name ?? "null"}");
-
-            var eliteClones = new List<WCharacter>();
-            if (culture?.RootElite != null)
-            {
-                eliteClones =
-                [
-                    .. CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
-                        .Where(t => t != null)
-                        .ToList(),
-                ];
-                Log.Debug(
-                    $"Cloned {eliteClones.Count} elite troops from {culture.Name} to {faction.Name}"
-                );
-            }
-            else
-            {
-                Log.Warn(
-                    $"Cannot clone elite troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no elite root troop."
-                );
-            }
-
-            var basicClones = new List<WCharacter>();
-            if (culture?.RootBasic != null)
-            {
-                basicClones =
-                [
-                    .. CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)
-                        .Where(t => t != null)
-                        .ToList(),
-                ];
-                Log.Debug(
-                    $"Cloned {basicClones.Count} basic troops from {culture.Name} to {faction.Name}"
-                );
-            }
-            else
-            {
-                Log.Warn(
-                    $"Cannot clone basic troops for faction {faction.Name} because its culture {culture?.Name ?? "null"} has no basic root troop."
-                );
-            }
-
-            UnlockAll(eliteClones, basicClones);
-        }
-
-        /// <summary>
-        /// Build ONLY the elite tree for a faction (used by EnsureTroopsExist when basic already exists).
-        /// </summary>
-        public static void BuildEliteTree(WFaction faction)
+        public static void BuildEliteTree(WFaction faction, bool copyWholeTree)
         {
             var culture = faction.Culture;
             if (culture?.RootElite == null)
@@ -339,7 +306,7 @@ namespace Retinues.Troops
                 return;
             }
 
-            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null)
+            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null, copyWholeTree)
                 .Where(t => t != null)
                 .ToList();
             Log.Info($"Cloned {eliteClones.Count} elite troops for {faction.Name}.");
@@ -347,9 +314,9 @@ namespace Retinues.Troops
         }
 
         /// <summary>
-        /// Build ONLY the basic tree for a faction (used by EnsureTroopsExist when elite already exists).
+        /// Build the basic tree for a faction.
         /// </summary>
-        public static void BuildBasicTree(WFaction faction)
+        public static void BuildBasicTree(WFaction faction, bool copyWholeTree)
         {
             var culture = faction.Culture;
             if (culture?.RootBasic == null)
@@ -358,7 +325,7 @@ namespace Retinues.Troops
                 return;
             }
 
-            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, false, faction, null)
+            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, false, faction, null, copyWholeTree)
                 .Where(t => t != null)
                 .ToList();
             Log.Info($"Cloned {basicClones.Count} basic troops for {faction.Name}.");
@@ -377,8 +344,8 @@ namespace Retinues.Troops
             int unlocks = 0;
             foreach (
                 var troop in Enumerable.Concat(
-                    eliteClones ?? Array.Empty<WCharacter>(),
-                    basicClones ?? Array.Empty<WCharacter>()
+                    eliteClones ?? [],
+                    basicClones ?? []
                 )
             )
             {
@@ -408,7 +375,8 @@ namespace Retinues.Troops
             WCharacter vanilla,
             bool isElite,
             WFaction faction,
-            WCharacter parent
+            WCharacter parent,
+            bool copyWholeTree
         )
         {
             var tpl = FindTemplate(vanilla, isElite);
@@ -465,11 +433,11 @@ namespace Retinues.Troops
 
                 yield return troop;
 
-                if (tpl.UpgradeTargets != null && !Config.NoPrebuiltTroops)
+                if (tpl.UpgradeTargets != null && copyWholeTree)
                 {
                     foreach (var child in vanilla.UpgradeTargets)
                     foreach (
-                        var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop)
+                        var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop, copyWholeTree)
                     )
                     {
                         if (descendant == null)
