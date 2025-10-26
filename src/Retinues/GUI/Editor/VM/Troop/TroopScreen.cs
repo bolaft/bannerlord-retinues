@@ -149,6 +149,16 @@ namespace Retinues.GUI.Editor.VM.Troop
         }
 
         [DataSourceProperty]
+        public BasicTooltipViewModel RetinueCapHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S(
+                    "retinue_cap_tooltip_body",
+                    "Retinues will join you for free over time as long as you keep earning renown.\n\nYou can set a hiring limit to control how many retinues can join your party."
+                )
+            );
+
+        [DataSourceProperty]
         public BasicTooltipViewModel CustomizationHint =>
             Tooltip.MakeTooltip(
                 null,

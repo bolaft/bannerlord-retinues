@@ -45,7 +45,23 @@
     UpdateChildrenStates="true"
     MarginBottom="15">
     <Children>
-        {{ small_text("@TrainingRequiredText", "Center", "0", "0", "0", "0", "true", "@TrainingRequiredTextColor") }}
+        <TextWidget
+            Text="@TrainingRequiredText" Brush="InventoryGoldFontBrush" Brush.FontColor="@TrainingRequiredTextColor"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            ClipContents="false"/>
+        <SpriteWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="20" SuggestedHeight="20"
+            VerticalAlignment="Center" MarginLeft="6"
+            Sprite="CharacterDeveloper\skill_description">
+            <Children>
+                <HintWidget
+                    DataSource="{TrainingRequiredHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </SpriteWidget>
     </Children>
 </ListPanel>
 

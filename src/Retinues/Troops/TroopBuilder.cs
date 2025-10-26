@@ -79,10 +79,18 @@ namespace Retinues.Troops
                             text: L.T(
                                     "custom_troops_inquiry_body",
                                     "Your {FACTION}'s custom troops are now unlocked.\n\nWould you like to clone the entire {CULTURE} troop tree, or would you prefer building them from scratch?\n\nCopying your culture's troops will provide you with good gear and good troops. Starting from scratch is the more difficult choice.\n\nThis decision is irreversible."
-                                ).SetTextVariable("FACTION", faction.IsPlayerClan ? "clan" : "kingdom").SetTextVariable("CULTURE", faction.Culture?.Name ?? "culture").ToString(),
+                                )
+                                .SetTextVariable(
+                                    "FACTION",
+                                    faction.IsPlayerClan ? "clan" : "kingdom"
+                                )
+                                .SetTextVariable("CULTURE", faction.Culture?.Name ?? "culture")
+                                .ToString(),
                             isAffirmativeOptionShown: true,
                             isNegativeOptionShown: true,
-                            affirmativeText: L.T("create_from_culture", "Copy {CULTURE}'s Troops'").SetTextVariable("CULTURE", faction.Culture?.Name ?? "Culture").ToString(),
+                            affirmativeText: L.T("create_from_culture", "Copy {CULTURE}'s Troops'")
+                                .SetTextVariable("CULTURE", faction.Culture?.Name ?? "Culture")
+                                .ToString(),
                             negativeText: L.S("create_from_scratch", "Start from Scratch"),
                             affirmativeAction: () =>
                             {
@@ -102,7 +110,6 @@ namespace Retinues.Troops
                             }
                         )
                     );
-
                 }
                 else
                 {
@@ -306,7 +313,13 @@ namespace Retinues.Troops
                 return;
             }
 
-            var eliteClones = CloneTroopTreeRecursive(culture.RootElite, true, faction, null, copyWholeTree)
+            var eliteClones = CloneTroopTreeRecursive(
+                    culture.RootElite,
+                    true,
+                    faction,
+                    null,
+                    copyWholeTree
+                )
                 .Where(t => t != null)
                 .ToList();
             Log.Info($"Cloned {eliteClones.Count} elite troops for {faction.Name}.");
@@ -325,7 +338,13 @@ namespace Retinues.Troops
                 return;
             }
 
-            var basicClones = CloneTroopTreeRecursive(culture.RootBasic, false, faction, null, copyWholeTree)
+            var basicClones = CloneTroopTreeRecursive(
+                    culture.RootBasic,
+                    false,
+                    faction,
+                    null,
+                    copyWholeTree
+                )
                 .Where(t => t != null)
                 .ToList();
             Log.Info($"Cloned {basicClones.Count} basic troops for {faction.Name}.");
@@ -342,12 +361,7 @@ namespace Retinues.Troops
         )
         {
             int unlocks = 0;
-            foreach (
-                var troop in Enumerable.Concat(
-                    eliteClones ?? [],
-                    basicClones ?? []
-                )
-            )
+            foreach (var troop in Enumerable.Concat(eliteClones ?? [], basicClones ?? []))
             {
                 try
                 {
@@ -437,7 +451,13 @@ namespace Retinues.Troops
                 {
                     foreach (var child in vanilla.UpgradeTargets)
                     foreach (
-                        var descendant in CloneTroopTreeRecursive(child, isElite, faction, troop, copyWholeTree)
+                        var descendant in CloneTroopTreeRecursive(
+                            child,
+                            isElite,
+                            faction,
+                            troop,
+                            copyWholeTree
+                        )
                     )
                     {
                         if (descendant == null)

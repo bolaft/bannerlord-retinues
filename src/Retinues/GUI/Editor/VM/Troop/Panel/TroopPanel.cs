@@ -85,6 +85,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(TrainingRequired),
                     nameof(TrainingRequiredText),
                     nameof(TrainingRequiredTextColor),
+                    nameof(TrainingRequiredHint),
                 ],
                 [UIEvent.Conversion] =
                 [
@@ -269,6 +270,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public string TrainingRequiredTextColor => TrainingRequired > 0 ? "#ebaf2fff" : "#F4E1C4FF";
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel TrainingRequiredHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S(
+                    "training_required_tooltip_body",
+                    "Before skill point increases are applied, troops must undergo training.\n\nThis is done by selecting 'Train troops' from a fief's town menu."
+                )
+            );
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 

@@ -76,14 +76,37 @@
     HorizontalAlignment="Center"
     VerticalAlignment="Top">
     <Children>
-        <TextWidget
-            IsVisible="@ShowRetinueCap"
+        <ListPanel
             MarginTop="15"
+            IsVisible="@ShowRetinueCap"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center"
-            Text="@RetinueCapText"
-            Brush="Kingdom.TitleSmall.Text"/>
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+                <TextWidget
+                    IsVisible="@ShowRetinueCap"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="@RetinueCapText"
+                    Brush="Kingdom.TitleSmall.Text"/>
+                <SpriteWidget
+                    HorizontalAlignment="Right"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    VerticalAlignment="Center" MarginLeft="6"
+                    Sprite="CharacterDeveloper\skill_description">
+                    <Children>
+                        <HintWidget
+                            DataSource="{RetinueCapHint}"
+                            Command.HoverBegin="ExecuteBeginHint"
+                            Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </SpriteWidget>
+            </Children>
+        </ListPanel>
         <ListPanel
             IsVisible="@ShowRetinueCap"
             MarginTop="60"

@@ -72,11 +72,19 @@
             Brush="Clan.RightPanel.Name.Text"
             Brush.FontSize="24"
             Brush.FontColor="@ItemTextColor"
-            WidthSizePolicy="CoverChildren"
+            WidthSizePolicy="Fixed"
+            SuggestedWidth="300"
             HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            MarginLeft="24"/>
+            MarginLeft="24">
+            <Children>
+                <HintWidget
+                    DataSource="{EquipChangeHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </TextWidget>
     </Children>
 </ListPanel>
 {{- end -}}

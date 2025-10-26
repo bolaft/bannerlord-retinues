@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment.Panel
@@ -41,6 +43,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                     nameof(ImageTypeCode),
 #endif
                     nameof(Hint),
+                    nameof(EquipChangeHint),
                     nameof(IsEnabled),
                 ],
                 [UIEvent.Equipment] =
@@ -56,6 +59,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                     nameof(ImageTypeCode),
 #endif
                     nameof(Hint),
+                    nameof(EquipChangeHint),
                     nameof(IsEnabled),
                 ],
                 [UIEvent.Slot] = [nameof(IsSelected)],
@@ -106,7 +110,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                     HasPendingItem
                         ? Item.Name + $" ({State.EquipData[Index].Equip.Remaining}h)"
                         : Item?.Name,
-                    25
+                    50
                 );
 
         [DataSourceProperty]
@@ -131,11 +135,21 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         public int ImageTypeCode => Item?.Image?.ImageTypeCode ?? 0;
 #endif
 
-        /* ━━━━━━━━━ Hint ━━━━━━━━━ */
+        /* ━━━━━━━━━ Hints ━━━━━━━━ */
 
         [DataSourceProperty]
         public CharacterEquipmentItemVM Hint =>
             Item?.Base != null ? new CharacterEquipmentItemVM(Item.Base) : null;
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel EquipChangeHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S(
+                    "equip_change_tooltip_body",
+                    "This is a pending item change.\n\nTo apply the change, select 'Equip troops' from a fief's town menu."
+                )
+            );
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
