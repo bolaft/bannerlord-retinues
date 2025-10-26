@@ -60,18 +60,12 @@ namespace Retinues.Features.Upgrade.Behaviors
     [SafeClass]
     public sealed class TroopTrainBehavior : BaseUpgradeBehavior<PendingTrainData>
     {
-        private const int BaseTrainingTime = 2; // hours per skill point
+        private const int BaseTrainingTime = 1; // hours per skill point
 
-        public readonly struct TrainChange
+        public readonly struct TrainChange(SkillObject skill, int points = 1)
         {
-            public readonly SkillObject Skill;
-            public readonly int Points;
-
-            public TrainChange(SkillObject skill, int points = 1)
-            {
-                Skill = skill;
-                Points = Math.Max(1, points);
-            }
+            public readonly SkillObject Skill = skill;
+            public readonly int Points = Math.Max(1, points);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

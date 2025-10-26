@@ -374,12 +374,12 @@ namespace Retinues.Configuration
                 "mcm_option_equipment_change_time_modifier_hint",
                 "Modifier for equipment change time."
             ),
-            @default: 1,
+            @default: 2,
             minValue: 1,
             maxValue: 5,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = 1,
+                [Presets.Freeform] = 2,
                 [Presets.Realistic] = 4,
             }
         );
@@ -513,12 +513,12 @@ namespace Retinues.Configuration
                 "mcm_option_training_time_modifier_hint",
                 "Modifier for troop training time."
             ),
-            @default: 1,
+            @default: 2,
             minValue: 1,
             maxValue: 5,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = 1,
+                [Presets.Freeform] = 2,
                 [Presets.Realistic] = 3,
             }
         );

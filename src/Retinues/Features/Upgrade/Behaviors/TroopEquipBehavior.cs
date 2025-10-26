@@ -295,7 +295,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 : (m3 * x + b3);
 
             raw *= Config.EquipmentChangeTimeModifier;
-            raw /= 3;
+            raw /= 5;
 
             return Math.Max(1, (int)Math.Ceiling(raw));
         }
