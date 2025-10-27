@@ -88,7 +88,7 @@ namespace Retinues.Troops
                                 .ToString(),
                             isAffirmativeOptionShown: true,
                             isNegativeOptionShown: true,
-                            affirmativeText: L.T("create_from_culture", "Copy {CULTURE}'s Troops'")
+                            affirmativeText: L.T("create_from_culture", "Copy {CULTURE}'s Troops")
                                 .SetTextVariable("CULTURE", faction.Culture?.Name ?? "Culture")
                                 .ToString(),
                             negativeText: L.S("create_from_scratch", "Start from Scratch"),
