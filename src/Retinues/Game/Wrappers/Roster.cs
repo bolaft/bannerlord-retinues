@@ -61,9 +61,14 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
+        /// Gets the number of troops in the roster.
+        /// </summary>
+        public int Count => _roster.TotalManCount;
+
+        /// <summary>
         /// Gets the number of healthy troops in the roster.
         /// </summary>
-        public int Count => _roster.TotalHealthyCount;
+        public int HealthyCount => _roster.TotalHealthyCount;
 
         /// <summary>
         /// Gets the count of a specific troop type.
@@ -290,7 +295,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Ratio of elite troops (excluding heroes).
         /// </summary>
-        public float EliteRatio => Count == 0 ? 0 : (float)EliteCount / (Count - HeroCount);
+        public float EliteRatio => HealthyCount == 0 ? 0 : (float)EliteCount / (HealthyCount - HeroCount);
 
         /// <summary>
         /// Gets the number of custom troops in the roster.
@@ -310,7 +315,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Ratio of custom troops (excluding heroes).
         /// </summary>
-        public float CustomRatio => Count == 0 ? 0 : (float)CustomCount / (Count - HeroCount);
+        public float CustomRatio => HealthyCount == 0 ? 0 : (float)CustomCount / (HealthyCount - HeroCount);
 
         /// <summary>
         /// Gets the number of retinue troops in the roster.
@@ -330,7 +335,7 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Ratio of retinue troops (excluding heroes).
         /// </summary>
-        public float RetinueRatio => Count == 0 ? 0 : (float)RetinueCount / (Count - HeroCount);
+        public float RetinueRatio => HealthyCount == 0 ? 0 : (float)RetinueCount / (HealthyCount - HeroCount);
 
         /// <summary>
         /// Gets the number of infantry troops in the roster.
@@ -350,17 +355,17 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Ratio of infantry troops (excluding heroes).
         /// </summary>
-        public float InfantryRatio => Count == 0 ? 0 : (float)InfantryCount / (Count - HeroCount);
+        public float InfantryRatio => HealthyCount == 0 ? 0 : (float)InfantryCount / (HealthyCount - HeroCount);
 
         /// <summary>
         /// Ratio of archer troops (excluding heroes).
         /// </summary>
-        public float ArchersRatio => Count == 0 ? 0 : (float)ArchersCount / (Count - HeroCount);
+        public float ArchersRatio => HealthyCount == 0 ? 0 : (float)ArchersCount / (HealthyCount - HeroCount);
 
         /// <summary>
         /// Ratio of cavalry troops (excluding heroes).
         /// </summary>
-        public float CavalryRatio => Count == 0 ? 0 : (float)CavalryCount / (Count - HeroCount);
+        public float CavalryRatio => HealthyCount == 0 ? 0 : (float)CavalryCount / (HealthyCount - HeroCount);
 
         /// <summary>
         /// Helper to count troops by formation class.

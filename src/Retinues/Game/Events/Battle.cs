@@ -25,9 +25,9 @@ namespace Retinues.Game.Events
                 MapEvent = mapEvent ?? MobileParty.MainParty?.MapEvent;
 
                 // Initialize counts
-                PlayerTroopCount = Player.Party?.MemberRoster?.Count ?? 0;
-                EnemyTroopCount = GetRosters(EnemySide).Sum(r => r.Count);
-                AllyTroopCount = GetRosters(PlayerSide).Sum(r => r.Count);
+                PlayerTroopCount = Player.Party?.MemberRoster?.HealthyCount ?? 0;
+                EnemyTroopCount = GetRosters(EnemySide).Sum(r => r.HealthyCount);
+                AllyTroopCount = GetRosters(PlayerSide).Sum(r => r.HealthyCount);
                 FriendlyTroopCount = PlayerTroopCount + AllyTroopCount;
                 TotalTroopCount = PlayerTroopCount + EnemyTroopCount + AllyTroopCount;
 
