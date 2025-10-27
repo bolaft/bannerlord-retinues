@@ -9,6 +9,8 @@ Localization string extractor and synchronizer:
 import sys
 import re
 import json
+import argparse
+
 from pathlib import Path
 
 
@@ -211,12 +213,17 @@ def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
 
 
 def main():
-    # Always scan ../src/Retinues relative to this script
-    script_dir = Path(__file__).resolve().parent
-    root = (script_dir.parent / "src" / "Retinues").resolve()
+    # Pick module (defaults to Retinues); paths adjust accordingly
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--module", default="Retinues", help="Module name: Retinues or MudToMail")
+    args = ap.parse_args()
 
-    # Output path is relative to this script file
-    out_path = (script_dir / OUTPUT_REL).resolve()
+    script_dir = Path(__file__).resolve().parent
+    mod = args.module
+    root = (script_dir.parent / "src" / mod).resolve()
+
+    # Default EN XML goes under loc/<Module>/Languages/ret_strings.xml
+    out_path = (script_dir / mod / OUTPUT_REL).resolve()
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Collect
@@ -271,11 +278,11 @@ def main():
     #              JSON + per-locale generation              #
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ #
 
-    loc_root = script_dir / LOCS_DIRNAME
+    loc_root = script_dir / mod / LOCS_DIRNAME
     locale_codes = list_locale_codes(loc_root)
 
     # Log keys present in JSON but not in code
-    json_path = script_dir / JSON_NAME
+    json_path = script_dir / mod / JSON_NAME
     json_list = load_or_init_json(json_path)
     json_ids = set(d["id"] for d in json_list if isinstance(d, dict) and "id" in d)
     code_ids = set(entries.keys())

@@ -1,0 +1,34 @@
+<Module>
+  <Name value="Retinues: Mud to Mail" />
+  <Id value="Retinues.MudToMail" />
+  <Version value="v1.2.12.0" />
+  <DefaultModule value="false" />
+  <SingleplayerModule value="true" />
+  <MultiplayerModule value="false" />
+  <Official value="false" />
+  <DependedModules>
+    <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.6" />
+    <DependedModule Id="Bannerlord.ButterLib" DependentVersion="v2.10.0" />
+    <DependedModule Id="Bannerlord.UIExtenderEx" DependentVersion="v2.13.0" />
+    <DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.10.1" />
+    <DependedModule Id="Native" DependentVersion="v1.2.12" />
+    <DependedModule Id="SandBoxCore" DependentVersion="v1.2.12" />
+    <DependedModule Id="Sandbox" DependentVersion="v1.2.12" />
+    <DependedModule Id="Retinues" DependentVersion="v1.2.12.9" />
+  </DependedModules>
+  <SubModules>
+    <SubModule>
+      <Name value="Retinues: Mud to Mail" />
+      <DLLName value="MudToMail.dll" />
+      <SubModuleClassType value="MudToMail.SubModule" />
+      <Tags>
+        <Tag key="Campaign" />
+        <Tag key="CampaignSystem" />
+        <Tag key="UI" />
+      </Tags>
+      <Assemblies>
+        <Assembly Path="bin/Win64_Shipping_Client/MudToMail.dll" />
+      </Assemblies>
+    </SubModule>
+  </SubModules>
+</Module>
