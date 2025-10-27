@@ -145,10 +145,11 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             {
                 await Task.Yield();
 
-                var batchSize = 50;
                 var batchSize = 64;
-                var allItems = await Task.Run(() =>
-                    EquipmentManager.CollectAvailableItems(State.Faction, State.Slot, cache: cache)
+                var allItems = EquipmentManager.CollectAvailableItems(
+                    State.Faction,
+                    State.Slot,
+                    cache: cache
                 );
 
                 // Clear existing rows
@@ -180,7 +181,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
                         if (batch.Count >= batchSize)
                         {
-                            await Task.Delay(1);
+                            await Task.Yield();
 
                             if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
                                 return;
@@ -192,7 +193,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         }
                     }
 
-                    await Task.Delay(1);
+                    await Task.Yield();
                     if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
                         return;
 
