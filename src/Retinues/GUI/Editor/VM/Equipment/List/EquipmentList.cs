@@ -133,12 +133,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Retrieve cache if any
             var cache = _cache[factionId][slotId];
 
-            // Clear existing rows
-            EquipmentRows.Clear();
-
-            // Add "Empty" option
-            EquipmentRows.Add(new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible });
-
             // Determine if we need to fill the cache
             bool fillCache = cache == null;
 
@@ -149,11 +143,20 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Populate row list
             async Task PopulateRowList()
             {
+                await Task.Yield();
+
                 var batchSize = 50;
-                var allItems = EquipmentManager.CollectAvailableItems(
-                    State.Faction,
-                    State.Slot,
-                    cache: cache
+                var batchSize = 64;
+                var allItems = await Task.Run(() =>
+                    EquipmentManager.CollectAvailableItems(State.Faction, State.Slot, cache: cache)
+                );
+
+                // Clear existing rows
+                EquipmentRows.Clear();
+
+                // Add "Empty" option
+                EquipmentRows.Add(
+                    new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible }
                 );
 
                 if (allItems.Count > batchSize)
@@ -177,13 +180,21 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
                         if (batch.Count >= batchSize)
                         {
+                            await Task.Delay(1);
+
+                            if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
+                                return;
+
                             foreach (var r in batch)
                                 EquipmentRows.Add(r);
 
                             batch.Clear();
-                            await Task.Delay(1);
                         }
                     }
+
+                    await Task.Delay(1);
+                    if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
+                        return;
 
                     foreach (var r in batch)
                         EquipmentRows.Add(r);
@@ -213,17 +224,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         $"[Equipment List] Populated {EquipmentRows.Count} equipment rows for {slotId} without batching."
                     );
                 }
+
+                await Task.Yield();
+                ApplySort();
+                RefreshFilter();
             }
 
-            PopulateRowList()
-                .ContinueWith(
-                    _ =>
-                    {
-                        ApplySort();
-                        RefreshFilter();
-                    },
-                    TaskScheduler.FromCurrentSynchronizationContext()
-                );
+            _ = PopulateRowList();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
