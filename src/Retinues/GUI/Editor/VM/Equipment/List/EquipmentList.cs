@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
@@ -17,7 +16,11 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
     [SafeClass]
     public sealed class EquipmentListVM : BaseListVM
     {
+        /* ━━━━━━ Rebuilding ━━━━━━ */
+
         private bool _needsRebuild = true; // first show must build
+
+        /* ━━━━━━━━ Sorting ━━━━━━━ */
 
         private enum SortMode
         {
@@ -29,6 +32,29 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         private SortMode _sort = SortMode.Category;
         private bool _descending = false;
+
+        /* ━━━━━━━━━ Caps ━━━━━━━━━ */
+
+        private const int MaxRowsAbsolute = 1000;
+
+        // Precomputed snapshot for current faction/slot (deduped + keyed for fast sort/filter)
+        private List<ItemTuple> _fullTuples;
+
+        // A compact record with precomputed sort keys (avoid recomputing on every compare)
+        private sealed class ItemTuple
+        {
+            public WItem Item;
+            public bool IsAvailable;
+            public bool IsUnlocked;
+            public int Progress;
+
+            // precomputed keys
+            public string Name;
+            public string Category;
+            public int Tier;
+            public int Cost;
+            public int EnabledRank; // 0 if unlocked+available else 1
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Caches                         //
@@ -99,6 +125,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 return;
             _needsRebuild = false;
 
+            // weapon slot “same family” optimization, keep your existing logic
             List<string> weaponSlots =
             [
                 EquipmentIndex.Weapon0.ToString(),
@@ -113,125 +140,184 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             if (_lastFactionId == factionId)
             {
                 if (_lastSlotId == slotId)
-                    return; // No change
+                    return;
                 else if (weaponSlots.Contains(_lastSlotId) && weaponSlots.Contains(slotId))
-                    return; // Both are weapon slots
+                    return;
             }
 
-            // Update cache if faction or slot changed
             _lastFactionId = factionId;
             _lastSlotId = slotId;
 
-            // Ensure faction exists in cache
+            // Ensure caches
             if (!_cache.ContainsKey(factionId))
                 _cache[factionId] = [];
-
-            // Ensure slot exists in cache
             if (!_cache[factionId].ContainsKey(slotId))
                 _cache[factionId][slotId] = null;
 
-            // Retrieve cache if any
             var cache = _cache[factionId][slotId];
-
-            // Determine if we need to fill the cache
             bool fillCache = cache == null;
-
-            // Initialize cache if needed
             if (fillCache)
                 _cache[factionId][slotId] = [];
 
-            // Populate row list
-            async Task PopulateRowList()
+            // 1) Collect ALL items once
+            var raw = EquipmentManager.CollectAvailableItems(
+                State.Faction,
+                State.Slot,
+                cache: cache
+            );
+
+            // Keep cache fully updated
+            if (fillCache)
             {
-                await Task.Yield();
-
-                var batchSize = 64;
-                var allItems = EquipmentManager.CollectAvailableItems(
-                    State.Faction,
-                    State.Slot,
-                    cache: cache
-                );
-
-                // Clear existing rows
-                EquipmentRows.Clear();
-
-                // Add "Empty" option
-                EquipmentRows.Add(
-                    new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible }
-                );
-
-                if (allItems.Count > batchSize)
-                {
-                    var batch = new List<EquipmentRowVM>(batchSize);
-
-                    foreach (var (item, isAvailable, isUnlocked, progress) in allItems)
-                    {
-                        if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
-                            return;
-
-                        if (fillCache)
-                            _cache[factionId][slotId].Add((item, isUnlocked, progress));
-
-                        batch.Add(
-                            new EquipmentRowVM(item, isAvailable, isUnlocked, progress)
-                            {
-                                IsVisible = IsVisible, // Ensure visibility matches parent
-                            }
-                        );
-
-                        if (batch.Count >= batchSize)
-                        {
-                            await Task.Yield();
-
-                            if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
-                                return;
-
-                            foreach (var r in batch)
-                                EquipmentRows.Add(r);
-
-                            batch.Clear();
-                        }
-                    }
-
-                    await Task.Yield();
-                    if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
-                        return;
-
-                    foreach (var r in batch)
-                        EquipmentRows.Add(r);
-
-                    Log.Info(
-                        $"[Equipment List] Populated {EquipmentRows.Count} equipment rows for {slotId} with batching."
-                    );
-                }
-                else
-                {
-                    foreach (var (item, isAvailable, isUnlocked, progress) in allItems)
-                    {
-                        if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
-                            return;
-
-                        if (fillCache)
-                            _cache[factionId][slotId].Add((item, isUnlocked, progress));
-
-                        var row = new EquipmentRowVM(item, isAvailable, isUnlocked, progress)
-                        {
-                            IsVisible = IsVisible, // Ensure visibility matches parent
-                        };
-                        EquipmentRows.Add(row);
-                    }
-
-                    Log.Info(
-                        $"[Equipment List] Populated {EquipmentRows.Count} equipment rows for {slotId} without batching."
-                    );
-                }
-
-                await Task.Yield();
-                ApplySort();
-                RefreshFilter();
+                _cache[factionId][slotId].Clear();
+                foreach (var (it, _, unlocked, progress) in raw)
+                    _cache[factionId][slotId].Add((it, unlocked, progress));
             }
 
-            _ = PopulateRowList();
+            // 2) Deduplicate and precompute keys (critical for speed & stability)
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+            _fullTuples = new List<ItemTuple>(raw.Count);
+
+            foreach (var (item, isAvailable, isUnlocked, progress) in raw)
+            {
+                // Defensive: skip nulls
+                if (item == null)
+                    continue;
+
+                // Dedupe by StringId (or fallback to reference hash if needed)
+                var id = item.StringId ?? item.GetHashCode().ToString();
+                if (!seen.Add(id))
+                    continue;
+
+                _fullTuples.Add(
+                    new ItemTuple
+                    {
+                        Item = item,
+                        IsAvailable = isAvailable,
+                        IsUnlocked = isUnlocked,
+                        Progress = progress,
+
+                        Name = item.Name ?? string.Empty,
+                        Category = item.Class ?? string.Empty,
+                        Tier = item.Tier,
+                        Cost = EquipmentManager.GetItemCost(item, State.Troop),
+                        EnabledRank = (isUnlocked && isAvailable) ? 0 : 1,
+                    }
+                );
+            }
+
+            // 3) Build the visible list
+            RebuildVisibleFromSnapshot();
+
+            Log.Info(
+                $"[Equipment List] Snapshot: {_fullTuples.Count} unique items for {slotId} (pre-keyed)."
+            );
+        }
+
+        private void RebuildVisibleFromSnapshot()
+        {
+            // Guard
+            _fullTuples ??= [];
+
+            // 1) Filter over the full precomputed set
+            bool hasFilter = !string.IsNullOrWhiteSpace(FilterText);
+            bool Pass(ItemTuple t)
+            {
+                if (!hasFilter)
+                    return true;
+                // Simple example: search in name or category; adapt if you have richer filters
+                return (
+                        t.Name?.IndexOf(FilterText, StringComparison.CurrentCultureIgnoreCase) ?? -1
+                    ) >= 0
+                    || (
+                        t.Category?.IndexOf(FilterText, StringComparison.CurrentCultureIgnoreCase)
+                        ?? -1
+                    ) >= 0;
+            }
+
+            // 2) Sort comparator over tuples (no UI rows involved)
+            int Primary(int v) => _descending ? -v : v;
+
+            int Compare(ItemTuple a, ItemTuple b)
+            {
+                // Enabled above disabled (not direction-sensitive)
+                if (a.EnabledRank != b.EnabledRank)
+                    return a.EnabledRank - b.EnabledRank;
+
+                switch (_sort)
+                {
+                    case SortMode.Name:
+                        return Primary(string.Compare(a.Name, b.Name, StringComparison.Ordinal));
+
+                    case SortMode.Category:
+                    {
+                        int r = Primary(
+                            string.Compare(a.Category, b.Category, StringComparison.Ordinal)
+                        );
+                        if (r != 0)
+                            return r;
+                        return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
+                    }
+
+                    case SortMode.Tier:
+                    {
+                        int r = Primary(a.Tier.CompareTo(b.Tier));
+                        if (r != 0)
+                            return r;
+                        r = string.Compare(a.Category, b.Category, StringComparison.Ordinal);
+                        if (r != 0)
+                            return r;
+                        return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
+                    }
+
+                    case SortMode.Cost:
+                    {
+                        int r = Primary(a.Cost.CompareTo(b.Cost));
+                        if (r != 0)
+                            return r;
+                        return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
+                    }
+                }
+                return 0;
+            }
+
+            // 3) Filter → Sort → Cap
+            var display = new List<ItemTuple>(Math.Min(_fullTuples.Count, MaxRowsAbsolute));
+            foreach (var t in _fullTuples)
+                if (Pass(t))
+                    display.Add(t);
+
+            display.Sort(Comparer<ItemTuple>.Create(Compare));
+            if (display.Count > MaxRowsAbsolute)
+                display.RemoveRange(MaxRowsAbsolute, display.Count - MaxRowsAbsolute);
+
+            // 4) Publish to UI (only these capped items become VMs)
+            EquipmentRows.Clear();
+            EquipmentRows.Add(new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible }); // Empty row
+
+            foreach (var t in display)
+            {
+                EquipmentRows.Add(
+                    new EquipmentRowVM(t.Item, t.IsAvailable, t.IsUnlocked, t.Progress)
+                    {
+                        IsVisible = IsVisible,
+                    }
+                );
+            }
+
+            // We rebuilt in sorted order already; no need to resort EquipmentRows.
+            // Keep RefreshFilter only if it updates UI state (counts/icons). Otherwise omit.
+            RefreshFilter();
+
+            // Update sort state bindings for the header UI
+            OnPropertyChanged(nameof(SortByNameSelected));
+            OnPropertyChanged(nameof(SortByNameState));
+            OnPropertyChanged(nameof(SortByCategorySelected));
+            OnPropertyChanged(nameof(SortByCategoryState));
+            OnPropertyChanged(nameof(SortByTierSelected));
+            OnPropertyChanged(nameof(SortByTierState));
+            OnPropertyChanged(nameof(SortByCostSelected));
+            OnPropertyChanged(nameof(SortByCostState));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -309,161 +395,52 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public void ExecuteSortByName()
         {
             if (_sort == SortMode.Name)
-            {
                 _descending = !_descending;
-            }
             else
             {
                 _sort = SortMode.Name;
                 _descending = false;
             }
-            ApplySort();
+            RebuildVisibleFromSnapshot();
         }
 
         [DataSourceMethod]
         public void ExecuteSortByCategory()
         {
             if (_sort == SortMode.Category)
-            {
                 _descending = !_descending;
-            }
             else
             {
                 _sort = SortMode.Category;
                 _descending = false;
             }
-            ApplySort();
+            RebuildVisibleFromSnapshot();
         }
 
         [DataSourceMethod]
         public void ExecuteSortByTier()
         {
             if (_sort == SortMode.Tier)
-            {
                 _descending = !_descending;
-            }
             else
             {
                 _sort = SortMode.Tier;
                 _descending = false;
             }
-            ApplySort();
+            RebuildVisibleFromSnapshot();
         }
 
         [DataSourceMethod]
         public void ExecuteSortByCost()
         {
             if (_sort == SortMode.Cost)
-            {
                 _descending = !_descending;
-            }
             else
             {
                 _sort = SortMode.Cost;
                 _descending = false;
             }
-            ApplySort();
-        }
-
-        private void ApplySort()
-        {
-            if (EquipmentRows == null || EquipmentRows.Count == 0)
-                return;
-
-            bool IsEmpty(EquipmentRowVM r) => r.RowItem == null;
-            bool IsEnabled(EquipmentRowVM r) => r.IsUnlocked && r.IsAvailable;
-
-            string NameOf(EquipmentRowVM r) => r.RowItem?.Name ?? "";
-            int TierOf(EquipmentRowVM r) => r.RowItem?.Tier ?? -1;
-            string CategoryOf(EquipmentRowVM r) => r.RowItem?.Class ?? "";
-            int CostOf(EquipmentRowVM r) => EquipmentManager.GetItemCost(r.RowItem, State.Troop);
-
-            int dir = _descending ? -1 : 1;
-
-            int ModeCompare(EquipmentRowVM a, EquipmentRowVM b)
-            {
-                int Primary(int val) => _descending ? -val : val;
-
-                switch (_sort)
-                {
-                    case SortMode.Name:
-                    {
-                        return Primary(
-                            string.Compare(NameOf(a), NameOf(b), StringComparison.Ordinal)
-                        );
-                    }
-                    case SortMode.Category:
-                    {
-                        int r = Primary(
-                            string.Compare(CategoryOf(a), CategoryOf(b), StringComparison.Ordinal)
-                        );
-                        if (r != 0)
-                            return r;
-                        return string.Compare(NameOf(a), NameOf(b), StringComparison.Ordinal);
-                    }
-                    case SortMode.Tier:
-                    {
-                        int r = Primary(TierOf(a).CompareTo(TierOf(b)));
-                        if (r != 0)
-                            return r;
-                        if (
-                            (
-                                r = string.Compare(
-                                    CategoryOf(a),
-                                    CategoryOf(b),
-                                    StringComparison.Ordinal
-                                )
-                            ) != 0
-                        )
-                            return r;
-                        return string.Compare(NameOf(a), NameOf(b), StringComparison.Ordinal);
-                    }
-                    case SortMode.Cost:
-                    {
-                        int r = Primary(CostOf(a).CompareTo(CostOf(b)));
-                        if (r != 0)
-                            return r;
-                        return string.Compare(NameOf(a), NameOf(b), StringComparison.Ordinal);
-                    }
-                }
-                return 0;
-            }
-
-            var comparer = Comparer<EquipmentRowVM>.Create(
-                (a, b) =>
-                {
-                    // 1) Empty row must be first - never affected by direction.
-                    bool ae = IsEmpty(a),
-                        be = IsEmpty(b);
-                    if (ae || be)
-                        return ae == be ? 0 : (ae ? -1 : 1);
-
-                    // 2) Enabled above disabled - also not affected by direction.
-                    int ar = IsEnabled(a) ? 0 : 1;
-                    int br = IsEnabled(b) ? 0 : 1;
-                    if (ar != br)
-                        return ar - br;
-
-                    // 3) Mode comparison with direction + strong tie-breakers.
-                    return ModeCompare(a, b);
-                }
-            );
-
-            EquipmentRows.Sort(comparer);
-
-            // Keep your visibility propagation.
-            EquipmentRows.ApplyActionOnAllItems(r => r.IsVisible = IsVisible);
-
-            OnPropertyChanged(nameof(SortByNameSelected));
-            OnPropertyChanged(nameof(SortByNameState));
-            OnPropertyChanged(nameof(SortByCategorySelected));
-            OnPropertyChanged(nameof(SortByCategoryState));
-            OnPropertyChanged(nameof(SortByTierSelected));
-            OnPropertyChanged(nameof(SortByTierState));
-            OnPropertyChanged(nameof(SortByCostSelected));
-            OnPropertyChanged(nameof(SortByCostState));
-
-            RefreshFilter();
+            RebuildVisibleFromSnapshot();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
