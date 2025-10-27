@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
@@ -132,12 +133,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Retrieve cache if any
             var cache = _cache[factionId][slotId];
 
-            // Clear existing rows
-            EquipmentRows.Clear();
-
-            // Add "Empty" option
-            EquipmentRows.Add(new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible });
-
             // Determine if we need to fill the cache
             bool fillCache = cache == null;
 
@@ -146,26 +141,97 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 _cache[factionId][slotId] = [];
 
             // Populate row list
-            foreach (
-                var (
-                    item,
-                    isAvailable,
-                    isUnlocked,
-                    progress
-                ) in EquipmentManager.CollectAvailableItems(State.Faction, State.Slot, cache: cache)
-            )
+            async Task PopulateRowList()
             {
-                var row = new EquipmentRowVM(item, isAvailable, isUnlocked, progress)
+                await Task.Yield();
+
+                var batchSize = 64;
+                var allItems = EquipmentManager.CollectAvailableItems(
+                    State.Faction,
+                    State.Slot,
+                    cache: cache
+                );
+
+                // Clear existing rows
+                EquipmentRows.Clear();
+
+                // Add "Empty" option
+                EquipmentRows.Add(
+                    new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible }
+                );
+
+                if (allItems.Count > batchSize)
                 {
-                    IsVisible = IsVisible, // Ensure visibility matches parent
-                };
-                EquipmentRows.Add(row);
-                if (fillCache)
-                    _cache[factionId][slotId].Add((item, isUnlocked, progress));
+                    var batch = new List<EquipmentRowVM>(batchSize);
+
+                    foreach (var (item, isAvailable, isUnlocked, progress) in allItems)
+                    {
+                        if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
+                            return;
+
+                        if (fillCache)
+                            _cache[factionId][slotId].Add((item, isUnlocked, progress));
+
+                        batch.Add(
+                            new EquipmentRowVM(item, isAvailable, isUnlocked, progress)
+                            {
+                                IsVisible = IsVisible, // Ensure visibility matches parent
+                            }
+                        );
+
+                        if (batch.Count >= batchSize)
+                        {
+                            await Task.Yield();
+
+                            if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
+                                return;
+
+                            foreach (var r in batch)
+                                EquipmentRows.Add(r);
+
+                            batch.Clear();
+                        }
+                    }
+
+                    await Task.Yield();
+                    if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
+                        return;
+
+                    foreach (var r in batch)
+                        EquipmentRows.Add(r);
+
+                    Log.Info(
+                        $"[Equipment List] Populated {EquipmentRows.Count} equipment rows for {slotId} with batching."
+                    );
+                }
+                else
+                {
+                    foreach (var (item, isAvailable, isUnlocked, progress) in allItems)
+                    {
+                        if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
+                            return;
+
+                        if (fillCache)
+                            _cache[factionId][slotId].Add((item, isUnlocked, progress));
+
+                        var row = new EquipmentRowVM(item, isAvailable, isUnlocked, progress)
+                        {
+                            IsVisible = IsVisible, // Ensure visibility matches parent
+                        };
+                        EquipmentRows.Add(row);
+                    }
+
+                    Log.Info(
+                        $"[Equipment List] Populated {EquipmentRows.Count} equipment rows for {slotId} without batching."
+                    );
+                }
+
+                await Task.Yield();
+                ApplySort();
+                RefreshFilter();
             }
 
-            ApplySort();
-            RefreshFilter();
+            _ = PopulateRowList();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
