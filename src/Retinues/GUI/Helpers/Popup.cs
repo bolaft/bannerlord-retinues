@@ -17,7 +17,8 @@ namespace Retinues.GUI.Helpers
         public static void Display(
             TextObject title,
             TextObject description,
-            TextObject buttonText = null
+            TextObject buttonText = null,
+            bool pauseGame = true
         )
         {
             buttonText ??= GameTexts.FindText("str_ok");
@@ -32,7 +33,8 @@ namespace Retinues.GUI.Helpers
                     buttonText.ToString(),
                     null,
                     null
-                )
+                ),
+                pauseGame
             );
         }
     }
