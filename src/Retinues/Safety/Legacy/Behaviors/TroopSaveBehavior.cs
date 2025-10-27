@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Troops;
-using Retinues.Troops.Persistence;
+using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 

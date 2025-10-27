@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Features.Missions.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
-using Retinues.Troops.Persistence;
+using Retinues.Troops.Save;
 using TaleWorlds.SaveSystem;
 
 namespace Retinues

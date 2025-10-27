@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Troops.Persistence
+namespace Retinues.Troops.Save
 {
     /// <summary>
     /// Serializable save data for a troop, including identity, stats, skills, equipment, and upgrade targets.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.Troops.Persistence;
+using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;

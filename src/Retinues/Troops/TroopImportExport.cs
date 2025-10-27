@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using Retinues.Troops.Persistence;
+using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.ModuleManager;
 
