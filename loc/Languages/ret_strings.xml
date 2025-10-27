@@ -168,7 +168,7 @@
       text="Not enough influence" />
     <string
       id="ret_create_from_culture"
-      text="Copy {CULTURE}&apos;s Troops&apos;" />
+      text="Copy {CULTURE}&apos;s Troops" />
     <string
       id="ret_create_from_scratch"
       text="Start from Scratch" />

@@ -865,7 +865,7 @@
   },
   {
     "id": "ret_create_from_culture",
-    "EN": "Copy {CULTURE}'s Troops'",
+    "EN": "Copy {CULTURE}'s Troops",
     "BR": "Copiar Tropas de {CULTURE}",
     "CNs": "复制 {CULTURE} 的部队",
     "CNt": "複製 {CULTURE} 的部隊",
