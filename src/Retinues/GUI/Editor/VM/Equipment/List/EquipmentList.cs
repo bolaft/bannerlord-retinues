@@ -149,7 +149,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Populate row list
             async Task PopulateRowList()
             {
-                int batchSize = 256;
+                var batchSize = 50;
                 var allItems = EquipmentManager.CollectAvailableItems(
                     State.Faction,
                     State.Slot,
@@ -159,11 +159,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 if (allItems.Count > batchSize)
                 {
                     var batch = new List<EquipmentRowVM>(batchSize);
-                    int i = 0;
 
                     foreach (var (item, isAvailable, isUnlocked, progress) in allItems)
                     {
-                        if (_needsRebuild)
+                        if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
                             return;
 
                         if (fillCache)
@@ -176,13 +175,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                             }
                         );
 
-                        if (++i % batchSize == 0)
+                        if (batch.Count >= batchSize)
                         {
                             foreach (var r in batch)
                                 EquipmentRows.Add(r);
 
                             batch.Clear();
-                            await Task.Yield();
+                            await Task.Delay(1);
                         }
                     }
 
@@ -197,7 +196,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 {
                     foreach (var (item, isAvailable, isUnlocked, progress) in allItems)
                     {
-                        if (_needsRebuild)
+                        if (_needsRebuild || !IsVisible || _lastSlotId != slotId)
                             return;
 
                         if (fillCache)
