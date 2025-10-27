@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="Экспорт" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="Экспортирует все определения пользовательских войск Retinues в XML-файл." />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="Экспорт войск в XML" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="Импорт" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="Импортирует все определения пользовательских войск Retinues из XML-файла." />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="Выберите XML-файл для импорта. Это заменит ваши текущие определения пользовательских войск." />

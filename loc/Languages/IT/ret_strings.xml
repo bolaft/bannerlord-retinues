@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="Esporta" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="Esporta tutte le definizioni delle truppe personalizzate in un file XML." />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="Esporta truppe in XML" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="Importa" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="Importa tutte le definizioni delle truppe personalizzate da un file XML." />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="Seleziona il file XML da importare. Questo sostituirà le tue attuali definizioni di truppe personalizzate." />

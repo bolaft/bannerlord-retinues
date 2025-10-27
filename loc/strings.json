@@ -2320,6 +2320,22 @@
     "TR": "Dışa Aktar"
   },
   {
+    "id": "ret_mcm_ie_export_btn_hint",
+    "EN": "Exports all Retinues custom troop definitions to an XML file.",
+    "BR": "Exporta todas as definições de tropas personalizadas do Retinues para um arquivo XML.",
+    "CNs": "将所有Retinues自定义部队定义导出到XML文件。",
+    "CNt": "將所有Retinues自定義部隊定義導出到XML文件。",
+    "DE": "Exportiert alle benutzerdefinierten Truppendefinitionen von Retinues in eine XML-Datei.",
+    "FR": "Exporte toutes les définitions de troupes personnalisées vers un fichier XML.",
+    "IT": "Esporta tutte le definizioni delle truppe personalizzate in un file XML.",
+    "JP": "すべてのRetinuesカスタム部隊定義をXMLファイルにエクスポートします。",
+    "KO": "모든 Retinues 맞춤 병력 정의를 XML 파일로 내보냅니다.",
+    "PL": "Eksportuje wszystkie definicje niestandardowych jednostek Retinues do pliku XML.",
+    "RU": "Экспортирует все определения пользовательских войск Retinues в XML-файл.",
+    "SP": "Exporta todas las definiciones de tropas personalizadas de Retinues a un archivo XML.",
+    "TR": "Tüm Retinues özel asker tanımlarını bir XML dosyasına dışa aktarır."
+  },
+  {
     "id": "ret_mcm_ie_export_btn_text",
     "EN": "Export Troops to XML",
     "BR": "Exportar Tropas para XML",
@@ -2337,7 +2353,7 @@
   },
   {
     "id": "ret_mcm_ie_export_hint",
-    "EN": "Example: troops_myCampaignRun",
+    "EN": "Name of the exported file.",
     "BR": "Exemplo: tropas_minhaCampanha",
     "CNs": "示例: troops_myCampaignRun",
     "CNt": "示例: troops_myCampaignRun",
@@ -2382,6 +2398,22 @@
     "RU": "Импорт",
     "SP": "Importar",
     "TR": "İçe Aktar"
+  },
+  {
+    "id": "ret_mcm_ie_import_btn_hint",
+    "EN": "Imports all Retinues custom troop definitions from an XML file.",
+    "BR": "Importa todas as definições de tropas personalizadas do Retinues de um arquivo XML.",
+    "CNs": "从XML文件导入所有Retinues自定义部队定义。",
+    "CNt": "從XML文件導入所有Retinues自定義部隊定義。",
+    "DE": "Importiert alle benutzerdefinierten Truppendefinitionen von Retinues aus einer XML-Datei.",
+    "FR": "Importe toutes les définitions de troupes personnalisées depuis un fichier XML.",
+    "IT": "Importa tutte le definizioni delle truppe personalizzate da un file XML.",
+    "JP": "XMLファイルからすべてのRetinuesカスタム部隊定義をインポートします。",
+    "KO": "XML 파일에서 모든 Retinues 맞춤 병력 정의를 가져옵니다.",
+    "PL": "Importuje wszystkie definicje niestandardowych jednostek Retinues z pliku XML.",
+    "RU": "Импортирует все определения пользовательских войск Retinues из XML-файла.",
+    "SP": "Importa todas las definiciones de tropas personalizadas de Retinues desde un archivo XML.",
+    "TR": "Tüm Retinues özel asker tanımlarını bir XML dosyasından içe aktarır."
   },
   {
     "id": "ret_mcm_ie_import_pick_body",

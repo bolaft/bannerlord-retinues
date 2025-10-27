@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="Dışa Aktar" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="Tüm Retinues özel asker tanımlarını bir XML dosyasına dışa aktarır." />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="Askerleri XML’ye Dışa Aktar" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="İçe Aktar" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="Tüm Retinues özel asker tanımlarını bir XML dosyasından içe aktarır." />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="İçe aktarılacak XML dosyasını seçin. Bu, mevcut özel asker tanımlarınızı değiştirecektir." />

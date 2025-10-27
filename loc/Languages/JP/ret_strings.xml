@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="エクスポート" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="すべてのRetinuesカスタム部隊定義をXMLファイルにエクスポートします。" />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="部隊をXMLにエクスポート" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="インポート" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="XMLファイルからすべてのRetinuesカスタム部隊定義をインポートします。" />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="インポートするXMLファイルを選択します。これにより、現在のカスタム部隊定義が置き換えられます。" />

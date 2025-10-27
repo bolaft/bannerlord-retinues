@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="Exportar" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="Exporta todas as definições de tropas personalizadas do Retinues para um arquivo XML." />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="Exportar Tropas para XML" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="Importar" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="Importa todas as definições de tropas personalizadas do Retinues de um arquivo XML." />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="Selecione o arquivo XML para importar. Isso substituirá suas definições atuais de tropas personalizadas." />

@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="导出" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="将所有Retinues自定义部队定义导出到XML文件。" />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="将部队导出为XML" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="导入" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="从XML文件导入所有Retinues自定义部队定义。" />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="选择要导入的XML文件。这将替换您当前的自定义部队定义。" />

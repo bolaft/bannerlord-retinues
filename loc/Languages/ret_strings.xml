@@ -440,17 +440,23 @@
       id="ret_mcm_ie_export_btn"
       text="Export" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="Exports all Retinues custom troop definitions to an XML file." />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="Export Troops to XML" />
     <string
       id="ret_mcm_ie_export_hint"
-      text="Example: troops_myCampaignRun" />
+      text="Name of the exported file." />
     <string
       id="ret_mcm_ie_export_name"
       text="File name" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Import" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="Imports all Retinues custom troop definitions from an XML file." />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="Select the XML file to import. This will replace your current custom troop definitions." />

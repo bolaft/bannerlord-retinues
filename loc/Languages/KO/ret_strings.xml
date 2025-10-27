@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="내보내기" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="모든 Retinues 맞춤 병력 정의를 XML 파일로 내보냅니다." />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="병력을 XML로 내보내기" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="가져오기" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="XML 파일에서 모든 Retinues 맞춤 병력 정의를 가져옵니다." />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="가져올 XML 파일을 선택하십시오. 이렇게 하면 현재 맞춤 병력 정의가 대체됩니다." />

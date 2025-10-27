@@ -440,6 +440,9 @@
       id="ret_mcm_ie_export_btn"
       text="Eksportuj" />
     <string
+      id="ret_mcm_ie_export_btn_hint"
+      text="Eksportuje wszystkie definicje niestandardowych jednostek Retinues do pliku XML." />
+    <string
       id="ret_mcm_ie_export_btn_text"
       text="Eksportuj jednostki do XML" />
     <string
@@ -451,6 +454,9 @@
     <string
       id="ret_mcm_ie_import_btn"
       text="Importuj" />
+    <string
+      id="ret_mcm_ie_import_btn_hint"
+      text="Importuje wszystkie definicje niestandardowych jednostek Retinues z pliku XML." />
     <string
       id="ret_mcm_ie_import_pick_body"
       text="Wybierz plik XML do importu. Spowoduje to zastąpienie bieżących definicji niestandardowych jednostek." />

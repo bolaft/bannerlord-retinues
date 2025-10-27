@@ -174,7 +174,7 @@ namespace Retinues.Configuration
                         b =>
                             b.SetOrder(order++)
                                 .SetHintText(
-                                    L.S("mcm_ie_export_hint", "Example: troops_myCampaignRun")
+                                    L.S("mcm_ie_export_hint", "Name of the exported file.")
                                 )
                     );
 
@@ -212,7 +212,11 @@ namespace Retinues.Configuration
                             _ => { }
                         ),
                         L.S("mcm_ie_export_btn", "Export"),
-                        b => b.SetOrder(order++).SetRequireRestart(false)
+                        b => b.SetOrder(order++).SetRequireRestart(false).SetHintText(
+                            L.S(
+                                "mcm_ie_export_btn_hint",
+                                "Exports all Retinues custom troop definitions to an XML file."
+                            ))
                     );
 
                     // One-click import: opens a fresh file list, confirm button says "Import" and runs immediately.
@@ -317,7 +321,12 @@ namespace Retinues.Configuration
                             _ => { }
                         ),
                         L.S("mcm_ie_import_btn", "Import"),
-                        b => b.SetOrder(order++).SetRequireRestart(false)
+                        b => b.SetOrder(order++).SetRequireRestart(false).SetHintText(
+                            L.S(
+                                "mcm_ie_import_btn_hint",
+                                "Imports all Retinues custom troop definitions from an XML file."
+                            )
+                        )
                     );
                 }
             );
