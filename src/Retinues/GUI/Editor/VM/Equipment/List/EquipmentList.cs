@@ -208,10 +208,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
             // 3) Build the visible list
             RebuildVisibleFromSnapshot();
-
-            Log.Info(
-                $"[Equipment List] Snapshot: {_fullTuples.Count} unique items for {slotId} (pre-keyed)."
-            );
         }
 
         private void RebuildVisibleFromSnapshot()
@@ -455,7 +451,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             foreach (var r in EquipmentRows)
                 r.Show();
 
-            Log.Info($"[EquipmentList] Show called. Needs rebuild: " + _needsRebuild);
             if (_needsRebuild)
                 Build();
         }
