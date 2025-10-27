@@ -50,7 +50,14 @@ namespace Retinues.GUI.Editor
         private bool _queuedWhileHidden;
         private bool _inPulse;
 
-        protected BaseVM() => EventManager.Register(this);
+        /// <summary>
+        /// Base constructor with optional automatic event registration.
+        /// </summary>
+        protected BaseVM(bool autoRegister = true)
+        {
+            if (autoRegister)
+                EventManager.Register(this);
+        }
 
         ~BaseVM() => EventManager.Unregister(this);
 
@@ -96,6 +103,8 @@ namespace Retinues.GUI.Editor
                 OnEquipmentChange();
             else if (e == UIEvent.Slot)
                 OnSlotChange();
+            else if (e == UIEvent.Equip)
+                OnEquipChange();
 
             // If hidden and not opted-in, don't execute heavy hooks—just queue.
             if (!IsVisible)
@@ -162,6 +171,11 @@ namespace Retinues.GUI.Editor
         /// Called when the selected equipment slot changed.
         /// </summary>
         protected virtual void OnSlotChange() { }
+
+        /// <summary>
+        /// Called when equip-related data changed.
+        /// </summary>
+        protected virtual void OnEquipChange() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Input                          //

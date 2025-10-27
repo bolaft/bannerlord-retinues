@@ -124,6 +124,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private readonly Dictionary<EquipmentIndex, EquipmentSlotVM> _slotsByIndex;
+
+        private EquipmentIndex? _lastSlotIndex = State.Slot;
+
         private IEnumerable<EquipmentSlotVM> EquipmentSlots =>
             [
                 Weapon1Slot,
@@ -138,6 +142,33 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 HorseSlot,
                 HorseHarnessSlot,
             ];
+
+        /// <summary>
+        /// Initialize the equipment screen and index slot view-models by equipment slot.
+        /// </summary>
+        public EquipmentScreenVM()
+        {
+            _slotsByIndex = new Dictionary<EquipmentIndex, EquipmentSlotVM>(13)
+            {
+                [EquipmentIndex.Weapon0] = Weapon1Slot,
+                [EquipmentIndex.Weapon1] = Weapon2Slot,
+                [EquipmentIndex.Weapon2] = Weapon3Slot,
+                [EquipmentIndex.Weapon3] = Weapon4Slot,
+                [EquipmentIndex.Head] = HeadSlot,
+                [EquipmentIndex.Cape] = CapeSlot,
+                [EquipmentIndex.Body] = BodySlot,
+                [EquipmentIndex.Gloves] = GlovesSlot,
+                [EquipmentIndex.Leg] = LegSlot,
+                [EquipmentIndex.Horse] = HorseSlot,
+                [EquipmentIndex.HorseHarness] = HorseHarnessSlot,
+            };
+        }
+
+        /// <summary>
+        /// Lookup helper for slot view-models by equipment index.
+        /// </summary>
+        private EquipmentSlotVM GetSlotVm(EquipmentIndex index) =>
+            _slotsByIndex.TryGetValue(index, out var vm) ? vm : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -217,6 +248,31 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 State.Equipment.Index,
                 BattleType.SiegeAssault
             );
+
+        /// <summary>
+        /// Handle slot selection changes and update the affected slot buttons.
+        /// </summary>
+        protected override void OnSlotChange()
+        {
+            var previous = _lastSlotIndex;
+            var current = State.Slot;
+
+            if (previous.HasValue && previous.Value != current)
+                GetSlotVm(previous.Value)?.OnSlotChanged();
+
+            GetSlotVm(current)?.OnSlotChanged();
+            _lastSlotIndex = current;
+        }
+
+        /// <summary>
+        /// Handle equipment loadout changes for the current slot button.
+        /// </summary>
+        protected override void OnEquipmentChange() => GetSlotVm(State.Slot)?.OnEquipmentChanged();
+
+        /// <summary>
+        /// Handle staged equip changes for the current slot button.
+        /// </summary>
+        protected override void OnEquipChange() => GetSlotVm(State.Slot)?.OnEquipChanged();
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 

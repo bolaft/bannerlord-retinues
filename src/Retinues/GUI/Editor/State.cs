@@ -24,6 +24,30 @@ namespace Retinues.GUI.Editor
     }
 
     /// <summary>
+    /// Snapshot of an equip delta for a single slot.
+    /// </summary>
+    public readonly struct EquipChangeDelta
+    {
+        public EquipChangeDelta(
+            string oldEquippedId,
+            string newEquippedId,
+            string oldStagedId,
+            string newStagedId
+        )
+        {
+            OldEquippedId = oldEquippedId;
+            NewEquippedId = newEquippedId;
+            OldStagedId = oldStagedId;
+            NewStagedId = newStagedId;
+        }
+
+        public readonly string OldEquippedId;
+        public readonly string NewEquippedId;
+        public readonly string OldStagedId;
+        public readonly string NewStagedId;
+    }
+
+    /// <summary>
     /// Skill data: current value and staged training change.
     /// </summary>
     public struct SkillData
@@ -50,6 +74,7 @@ namespace Retinues.GUI.Editor
         public static Dictionary<SkillObject, SkillData> SkillData { get; private set; }
         public static Dictionary<WCharacter, int> ConversionData { get; private set; }
         public static Dictionary<WCharacter, int> PartyData { get; private set; }
+        public static EquipChangeDelta? LastEquipChange;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Reset                         //
@@ -138,6 +163,9 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void UpdateSlot(EquipmentIndex slot = EquipmentIndex.Weapon0)
         {
+            if (Slot == slot)
+                return;
+
             Slot = slot;
             EventManager.Fire(UIEvent.Slot);
         }
@@ -148,6 +176,8 @@ namespace Retinues.GUI.Editor
         public static void UpdateEquipData(Dictionary<EquipmentIndex, EquipData> equipData = null)
         {
             equipData ??= ComputeEquipData();
+
+            LastEquipChange = CaptureEquipChange(equipData, Slot);
 
             EquipData = equipData;
 
@@ -262,6 +292,35 @@ namespace Retinues.GUI.Editor
                 data[element.Troop] = element.Number + element.WoundedNumber;
 
             return data;
+        }
+
+        /// <summary>
+        /// Compute a (old/new) delta for the given slot using the provided data snapshot.
+        /// </summary>
+        private static EquipChangeDelta? CaptureEquipChange(
+            Dictionary<EquipmentIndex, EquipData> next,
+            EquipmentIndex slot
+        )
+        {
+            if (!next.TryGetValue(slot, out var newEntry))
+                return null;
+
+            string oldEquippedId = null;
+            string oldStagedId = null;
+
+            if (EquipData != null && EquipData.TryGetValue(slot, out var oldEntry))
+            {
+                oldEquippedId = oldEntry.Item?.StringId;
+                oldStagedId = oldEntry.Equip?.ItemId;
+            }
+
+            var newEquippedId = newEntry.Item?.StringId;
+            var newStagedId = newEntry.Equip?.ItemId;
+
+            if (oldEquippedId == newEquippedId && oldStagedId == newStagedId)
+                return null;
+
+            return new EquipChangeDelta(oldEquippedId, newEquippedId, oldStagedId, newStagedId);
         }
     }
 }
