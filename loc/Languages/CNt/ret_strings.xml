@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="部隊已達到最大升級數量。" />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="清除" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="刪除所有自定義部隊數據？" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="將清除當前存檔中所有Retinues自定義部隊數據，以便可以安全卸載mod。" />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="清除自定義部隊數據" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="導出" />
     <string

@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="Truppe hat die maximale Anzahl an Upgrades erreicht." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Bereinigen" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="Alle benutzerdefinierten Truppendaten entfernen?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Wird alle benutzerdefinierten Truppendaten von Retinues im aktuellen Speicherstand bereinigen, damit der Mod sicher deinstalliert werden kann." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Benutzerdefinierte Truppendaten bereinigen" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Exportieren" />
     <string

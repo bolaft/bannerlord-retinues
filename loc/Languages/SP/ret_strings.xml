@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="La tropa ha alcanzado la cantidad máxima de mejoras." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Purgar" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="¿Eliminar todos los datos de tropas personalizadas?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Se purgarán todos los datos de tropas personalizadas de Retinues en la partida guardada actual para que el mod pueda desinstalarse de forma segura." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Purgar Datos de Tropas Personalizadas" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Exportar" />
     <string

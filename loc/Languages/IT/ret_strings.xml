@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="La truppa ha raggiunto il numero massimo di potenziamenti." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Pulisci" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="Rimuovere tutti i dati delle truppe personalizzate?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Eliminerà tutti i dati delle truppe personalizzate di Retinues nel salvataggio corrente in modo che la mod possa essere disinstallata in sicurezza." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Pulisci Dati delle Truppe Personalizzate" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Esporta" />
     <string

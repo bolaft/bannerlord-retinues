@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="Войско достигло максимального количества улучшений." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Очистить" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="Удалить все данные собственных войск?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Будет очищено все пользовательские данные войск Retinues в текущем сохранении, чтобы мод можно было безопасно удалить." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Очистить Данные Собственных Войск" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Экспорт" />
     <string

@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="Troop has reached maximum amount of upgrades." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Purge" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="Remove all custom troop data?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Will purge of all Retinues custom troop data in the current save so the mod can be uninstalled safely." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Purge Custom Troop Data" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Export" />
     <string

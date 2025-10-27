@@ -1,6 +1,8 @@
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Safety.Sanitizer
 {
@@ -49,18 +51,46 @@ namespace Retinues.Safety.Sanitizer
             Sanitize();
         }
 
-        public static void Sanitize()
+        public static void Sanitize(bool replaceAllCustom = false)
         {
             foreach (var mp in MobileParty.All)
-                RosterSanitizer.CleanParty(mp);
+                RosterSanitizer.CleanParty(mp, replaceAllCustom);
 
             foreach (var s in Campaign.Current.Settlements)
             {
-                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty);
-                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty);
+                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty, replaceAllCustom);
+                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty, replaceAllCustom);
 
-                VolunteerSanitizer.CleanSettlement(s);
+                VolunteerSanitizer.CleanSettlement(s, replaceAllCustom);
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Checks if a CharacterObject is valid and active in the object manager.
+        /// </summary>
+        public static bool IsCharacterValid(CharacterObject c, bool replaceAllCustom = false)
+        {
+            if (c == null)
+                return false;
+
+            // Wrapper knows how to detect inactive/unregistered TW objects.
+            var w = new WCharacter(c);
+            if (!w.IsValid)
+                return false;
+            
+            if (replaceAllCustom && w.IsCustom)
+                return false; // Force replace all custom troops
+
+            // Ensure the object manager can resolve it back
+            var fromDb = MBObjectManager.Instance?.GetObject<CharacterObject>(c.StringId);
+            if (!ReferenceEquals(fromDb, c) && fromDb == null)
+                return false;
+
+            return true;
         }
     }
 }

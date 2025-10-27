@@ -17,7 +17,7 @@ namespace Retinues.Safety.Sanitizer
         /// <summary>
         /// Cleans all notables' volunteers in a settlement, replacing invalid entries.
         /// </summary>
-        public static void CleanSettlement(Settlement settlement)
+        public static void CleanSettlement(Settlement settlement, bool replaceAllCustom = false)
         {
             if (settlement == null)
                 return;
@@ -27,14 +27,14 @@ namespace Retinues.Safety.Sanitizer
                 if (notable == null)
                     continue;
 
-                SwapNotable(notable, settlement);
+                SwapNotable(notable, settlement, replaceAllCustom);
             }
         }
 
         /// <summary>
         /// Swaps or removes invalid volunteers for a notable in a settlement.
         /// </summary>
-        private static void SwapNotable(Hero notable, Settlement settlement)
+        private static void SwapNotable(Hero notable, Settlement settlement, bool replaceAllCustom = false)
         {
             if (notable?.VolunteerTypes == null)
                 return;
@@ -48,7 +48,7 @@ namespace Retinues.Safety.Sanitizer
                     if (c == null)
                         continue;
 
-                    if (IsCharacterValid(c))
+                    if (SanitizerBehavior.IsCharacterValid(c, replaceAllCustom))
                         continue;
 
                     var fallback = GetFallbackVolunteer(settlement);
@@ -95,28 +95,7 @@ namespace Retinues.Safety.Sanitizer
 
             pick ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
 
-            return IsCharacterValid(pick) ? pick : null;
-        }
-
-        /// <summary>
-        /// Checks if a CharacterObject is valid and active in the object manager.
-        /// </summary>
-        private static bool IsCharacterValid(CharacterObject c)
-        {
-            if (c == null)
-                return false;
-
-            // Wrapper knows how to detect inactive/unregistered TW objects.
-            var w = new WCharacter(c);
-            if (!w.IsValid)
-                return false;
-
-            // Ensure the object manager can resolve it back
-            var fromDb = MBObjectManager.Instance?.GetObject<CharacterObject>(c.StringId);
-            if (!ReferenceEquals(fromDb, c) && fromDb == null)
-                return false;
-
-            return true;
+            return SanitizerBehavior.IsCharacterValid(pick) ? pick : null;
         }
     }
 }

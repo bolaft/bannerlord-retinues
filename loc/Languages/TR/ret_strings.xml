@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="Asker maksimum yükseltme sayısına ulaştı." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Temizle" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="Tüm özel asker verileri kaldırılsın mı?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Modun güvenli bir şekilde kaldırılabilmesi için mevcut kayıtta tüm Retinues özel asker verileri temizlenecektir." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Özel Asker Verilerini Temizle" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Dışa Aktar" />
     <string

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
+using Retinues.Safety.Sanitizer;
 using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -433,6 +434,63 @@ namespace Retinues.Configuration
                                     );
                                     break;
                             }
+                        }
+
+                        // Append a Danger Zone action at the very end of the Debug section
+                        if (groupBySection.Key.Equals("Debug", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // Push to the very end of the group
+                            var tailOrder = order + 999;
+
+                            // Single action with explanatory hint, click-gated to in-campaign only.
+                            group.AddButton(
+                                "Danger_RemoveAllCustomTroopData",
+                                L.S("mcm_debug_remove_all_title", "Purge Custom Troop Data"),
+                                new ProxyRef<Action>(
+                                    () => () =>
+                                    {
+                                        if (!InCampaign())
+                                        {
+                                            Log.Message("Not in a running campaign. Load a save first.");
+                                            return;
+                                        }
+
+                                        // Irreversible confirmation
+                                        ConfirmTroopReplace(
+                                            L.S("mcm_debug_remove_all_confirm_title", "Remove all custom troop data?"),
+                                            L.S(
+                                                "mcm_debug_remove_all_confirm_body",
+                                                $"This will permanently purge all Retinues custom troops from the current world so you can safely uninstall the mod.\n\nThis operation is IRREVERSIBLE. Backup your save before proceeding."
+                                            ),
+                                            () =>
+                                            {
+                                                try
+                                                {
+                                                    // Hard sanitize everything
+                                                    SanitizerBehavior.Sanitize(replaceAllCustom: true);
+                                                    Log.Message("All custom troop data has been removed. Save & exit before uninstalling the mod.");
+                                                }
+                                                catch (Exception e)
+                                                {
+                                                    Log.Message("Sanitization failed, see log for details.");
+                                                    Log.Exception(e);
+                                                }
+                                            }
+                                        );
+                                    },
+                                    _ => { }
+                                ),
+                                L.S("mcm_debug_remove_all_btn", "Purge"),
+                                b => b
+                                    .SetOrder(tailOrder)
+                                    .SetRequireRestart(false)
+                                    .SetHintText(
+                                        L.S(
+                                            "mcm_debug_remove_all_hint",
+                                            "Will purge of all Retinues custom troop data in the current save so the mod can be uninstalled safely."
+                                        )
+                                    )
+                            );
                         }
                     }
                 );

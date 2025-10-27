@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="部隊は最大のアップグレード数に達しました。" />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="パージ" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="すべてのカスタム部隊データを削除しますか？" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="現在のセーブデータからすべてのRetinuesカスタム部隊データを削除し、modを安全にアンインストールできるようにします。" />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="カスタム部隊データのパージ" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="エクスポート" />
     <string

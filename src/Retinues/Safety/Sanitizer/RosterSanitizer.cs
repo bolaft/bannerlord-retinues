@@ -19,19 +19,19 @@ namespace Retinues.Safety.Sanitizer
         /// <summary>
         /// Cleans both member and prison rosters of a MobileParty.
         /// </summary>
-        public static void CleanParty(MobileParty mp)
+        public static void CleanParty(MobileParty mp, bool replaceAllCustom = false)
         {
             if (mp == null)
                 return;
 
-            CleanRoster(mp.MemberRoster, mp);
-            CleanRoster(mp.PrisonRoster, mp);
+            CleanRoster(mp.MemberRoster, mp, replaceAllCustom);
+            CleanRoster(mp.PrisonRoster, mp, replaceAllCustom);
         }
 
         /// <summary>
         /// Cleans a TroopRoster, replacing invalid or null entries and normalizing counts.
         /// </summary>
-        public static void CleanRoster(TroopRoster roster, MobileParty contextParty = null)
+        public static void CleanRoster(TroopRoster roster, MobileParty contextParty = null, bool replaceAllCustom = false)
         {
             if (roster == null)
                 return;
@@ -42,23 +42,13 @@ namespace Retinues.Safety.Sanitizer
                 {
                     var e = roster.GetElementCopyAtIndex(i);
 
-                    // Null character
-                    if (e.Character == null)
-                    {
-                        Log.Warn(
-                            $"Null troop at index {i} in {DescribeParty(contextParty)} - replacing."
-                        );
-                        ReplaceElementWithFallback(roster, i, e, contextParty);
-                        continue;
-                    }
-
-                    // Validate
-                    if (!IsCharacterValid(e.Character))
+                    // Need to replace invalid or null CharacterObjects
+                    if (e.Character == null || !SanitizerBehavior.IsCharacterValid(e.Character, replaceAllCustom))
                     {
                         Log.Warn(
                             $"Invalid troop '{e.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} - replacing."
                         );
-                        ReplaceElementWithFallback(roster, i, e, contextParty);
+                        ReplaceElementWithFallback(roster, e, contextParty);
                         continue;
                     }
 
@@ -90,7 +80,6 @@ namespace Retinues.Safety.Sanitizer
         /// </summary>
         private static void ReplaceElementWithFallback(
             TroopRoster roster,
-            int index,
             TroopRosterElement elem,
             MobileParty contextParty
         )
@@ -223,28 +212,7 @@ namespace Retinues.Safety.Sanitizer
             pick ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
 
             // Final sanity: ensure it's a valid, active CharacterObject
-            return IsCharacterValid(pick) ? pick : null;
-        }
-
-        /// <summary>
-        /// Checks if a CharacterObject is valid and active in the object manager.
-        /// </summary>
-        private static bool IsCharacterValid(CharacterObject c)
-        {
-            if (c == null)
-                return false;
-
-            // Wrapper knows how to detect inactive/unregistered TW objects.
-            var w = new WCharacter(c);
-            if (!w.IsValid)
-                return false;
-
-            // Ensure the object manager can resolve it back
-            var fromDb = MBObjectManager.Instance?.GetObject<CharacterObject>(c.StringId);
-            if (!ReferenceEquals(fromDb, c) && fromDb == null)
-                return false;
-
-            return true;
+            return SanitizerBehavior.IsCharacterValid(pick) ? pick : null;
         }
 
         /// <summary>

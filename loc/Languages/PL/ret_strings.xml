@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="Jednostka osiągnęła maksymalną liczbę ulepszeń." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Oczyść" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="Usunąć wszystkie dane jednostek własnych?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Usunie wszystkie dane jednostek własnych Retinues w bieżącym zapisie, aby mod mógł zostać bezpiecznie odinstalowany." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Oczyść Dane Jednostek Własnych" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Eksportuj" />
     <string

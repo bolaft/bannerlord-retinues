@@ -425,6 +425,18 @@
       id="ret_max_upgrades_reached"
       text="La troupe a atteint le nombre maximum de promotions." />
     <string
+      id="ret_mcm_debug_remove_all_btn"
+      text="Purger" />
+    <string
+      id="ret_mcm_debug_remove_all_confirm_title"
+      text="Supprimer toutes les données de troupes personnalisées ?" />
+    <string
+      id="ret_mcm_debug_remove_all_hint"
+      text="Va purger toutes les données de troupes personnalisées de Retinues dans la sauvegarde actuelle afin que le mod puisse être désinstallé en toute sécurité." />
+    <string
+      id="ret_mcm_debug_remove_all_title"
+      text="Purger les données de troupes personnalisées" />
+    <string
       id="ret_mcm_ie_export_btn"
       text="Exporter" />
     <string
