@@ -84,8 +84,6 @@ namespace Retinues.Doctrines
 
         private void OnDailyTick()
         {
-            Log.Info("Feat Runtime Event: OnDailyTick");
-
             NotifyFeats((feat, args) => feat.OnDailyTick());
         }
 
@@ -95,8 +93,6 @@ namespace Retinues.Doctrines
         {
             if (iMission is not Mission mission)
                 return; // Not a battle or a tournament
-
-            Log.Info("Feat Runtime Event: OnMissionStarted");
 
             // Only care about player-involved map battles.
             var mapEvent = MobileParty.MainParty?.MapEvent;
@@ -145,13 +141,9 @@ namespace Retinues.Doctrines
 
         internal void OnMissionEnded(Mission mission)
         {
-            Log.Info("Feat Runtime Event: OnMissionEnded");
-
             var battle = mission?.GetMissionBehavior<Battle>();
             if (battle != null)
             {
-                Log.Info("Mission Type: Battle");
-
                 // Notify feats: battle end
                 NotifyFeats((feat, args) => feat.OnBattleEnd((Battle)args[0]), battle);
 
@@ -164,8 +156,6 @@ namespace Retinues.Doctrines
             var combat = mission?.GetMissionBehavior<Combat>();
             if (combat != null)
             {
-                Log.Info("Mission Type: Arena");
-
                 // Notify feats: combat end
                 NotifyFeats((feat, args) => feat.OnArenaEnd((Combat)args[0]), combat);
 
@@ -186,7 +176,6 @@ namespace Retinues.Doctrines
             ItemObject prize
         )
         {
-            Log.Info("Feat Runtime Event: OnTournamentFinished");
             var tournament = new Tournament(
                 new WSettlement(town?.Settlement),
                 new WCharacter(winner),
@@ -217,8 +206,6 @@ namespace Retinues.Doctrines
             if (new WFaction(n?.Clan).IsPlayerClan == false)
                 return; // Not player clan gaining a fief
 
-            Log.Info("Feat Runtime Event: OnSettlementOwnerChanged");
-
             NotifyFeats(
                 (feat, args) => feat.OnSettlementOwnerChanged((SettlementOwnerChange)args[0]),
                 new SettlementOwnerChange(new WSettlement(s), d, new WHero(o), new WHero(n))
@@ -229,8 +216,6 @@ namespace Retinues.Doctrines
 
         void OnQuestCompleted(QuestBase quest, QuestBase.QuestCompleteDetails details)
         {
-            Log.Info("Feat Runtime Event: OnQuestCompleted");
-
             NotifyFeats(
                 (feat, args) => feat.OnQuestCompleted((Quest)args[0]),
                 new Quest(quest, details is QuestBase.QuestCompleteDetails.Success)
@@ -241,8 +226,6 @@ namespace Retinues.Doctrines
 
         void OnUnitRecruited(CharacterObject troop, int amount)
         {
-            Log.Info("Feat Runtime Event: OnTroopRecruited");
-
             NotifyFeats(
                 (feat, args) => feat.OnTroopRecruited((WCharacter)args[0], (int)args[1]),
                 new WCharacter(troop),
@@ -258,8 +241,6 @@ namespace Retinues.Doctrines
             int number
         )
         {
-            Log.Info("Feat Runtime Event: PlayerUpgradedTroops");
-
             NotifyFeats(
                 (feat, args) =>
                     feat.PlayerUpgradedTroops(
@@ -312,10 +293,6 @@ namespace Retinues.Doctrines
                         _activeFeats.Add(feat);
                 }
             }
-
-            Log.Debug($"Refreshed active feats; now tracking {_activeFeats.Count} active feats:");
-            foreach (var feat in _activeFeats.ToList())
-                Log.Debug($" - {feat.GetType().Name}");
         }
 
         private static Type GetTypeByFullName(string fullName)
@@ -348,7 +325,6 @@ namespace Retinues.Doctrines
         {
             foreach (var feat in _activeFeats.ToList())
             {
-                Log.Debug($"Notifying feat {feat.GetType().Name} of event {action.Method.Name}.");
                 try
                 {
                     action(feat, args);
