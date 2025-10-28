@@ -51,6 +51,11 @@ namespace Retinues.GUI.Editor
         private bool _inPulse;
 
         /// <summary>
+        /// Base constructor with automatic event registration.
+        /// </summary>
+        protected BaseVM() : this(true) { }
+
+        /// <summary>
         /// Base constructor with optional automatic event registration.
         /// </summary>
         protected BaseVM(bool autoRegister = true)
