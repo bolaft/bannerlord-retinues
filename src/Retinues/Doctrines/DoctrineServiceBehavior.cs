@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -109,6 +110,10 @@ namespace Retinues.Doctrines
             )
                 return DoctrineStatus.Locked;
 
+            // ignore feats if disabled
+            if (Config.DisableFeatRequirements)
+                return DoctrineStatus.InProgress;
+
             // feats
             var feats = def.Feats;
             if (feats == null || feats.Count == 0)
@@ -169,6 +174,8 @@ namespace Retinues.Doctrines
         /// </summary>
         public int GetFeatTarget(string featKey)
         {
+            if (Config.DisableFeatRequirements)
+                return 0;
             var dKey = _featToDoctrine.TryGetValue(featKey, out var did) ? did : null;
             if (dKey == null)
                 return 0;
@@ -187,6 +194,8 @@ namespace Retinues.Doctrines
         /// </summary>
         public bool IsFeatComplete(string featKey)
         {
+            if (Config.DisableFeatRequirements)
+                return true;
             int target = GetFeatTarget(featKey);
             if (target <= 0)
                 return true;

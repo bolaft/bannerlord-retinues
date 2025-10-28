@@ -2688,6 +2688,38 @@
     "TR": "Etkinleştirildiğinde, uygun doktrin kilidi açılsa bile el yapımı silahlar kullanılamaz."
   },
   {
+    "id": "ret_mcm_option_disable_feat_requirements",
+    "EN": "Disable Feat Requirements",
+    "BR": "Desativar Requisitos de Proeza",
+    "CNs": "禁用功绩要求",
+    "CNt": "禁用功績要求",
+    "DE": "Meisterschaftsanforderungen deaktivieren",
+    "FR": "Désactiver les Exigences de Fait",
+    "IT": "Disabilita Requisiti di Impresa",
+    "JP": "功績要件を無効化",
+    "KO": "특기 요구 사항 비활성화",
+    "PL": "Wyłącz Wymagania Osiągnięć",
+    "RU": "Отключить Требования Подвигов",
+    "SP": "Desactivar Requisitos de Hazaña",
+    "TR": "Başarı Gereksinimlerini Devre Dışı Bırak"
+  },
+  {
+    "id": "ret_mcm_option_disable_feat_requirements_hint",
+    "EN": "Disables feat requirements for unlocking doctrines.",
+    "BR": "Desativa os requisitos de proeza para desbloquear doutrinas.",
+    "CNs": "禁用解锁教义的功绩要求。",
+    "CNt": "禁用解鎖教義的功績要求。",
+    "DE": "Deaktiviert Meisterschaftsanforderungen zum Freischalten von Doktrinen.",
+    "FR": "Désactive les exigences de haut-faits pour débloquer les doctrines.",
+    "IT": "Disabilita i requisiti di impresa per sbloccare le dottrine.",
+    "JP": "ドクトリンの解除に必要な功績要件を無効化する。",
+    "KO": "교리를 잠금 해제하기 위한 특기 요구 사항을 비활성화합니다.",
+    "PL": "Wyłącza wymagania osiągnięć do odblokowania doktryn.",
+    "RU": "Отключает требования подвигов для разблокировки доктрин.",
+    "SP": "Desactiva los requisitos de hazaña para desbloquear doctrinas.",
+    "TR": "Doktrinlerin kilidini açmak için başarı gereksinimlerini devre dışı bırakır."
+  },
+  {
     "id": "ret_mcm_option_disallow_mounts_for_tier_1",
     "EN": "Disallow Mounts For Tier 1",
     "BR": "Proibir Montarias para Nível 1",

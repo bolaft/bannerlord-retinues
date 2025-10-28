@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="啟用後，即使解鎖了相應的教義，手工製作的武器也將不可用。" />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="禁用功績要求" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="禁用解鎖教義的功績要求。" />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="禁止1級部隊騎乘" />
     <string

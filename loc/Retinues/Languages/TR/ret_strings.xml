@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="Etkinleştirildiğinde, uygun doktrin kilidi açılsa bile el yapımı silahlar kullanılamaz." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="Başarı Gereksinimlerini Devre Dışı Bırak" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="Doktrinlerin kilidini açmak için başarı gereksinimlerini devre dışı bırakır." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Seviye 1 İçin Binekler Yasak" />
     <string

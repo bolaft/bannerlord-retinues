@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="Cuando está habilitado, las armas fabricadas no estarán disponibles incluso con la doctrina apropiada desbloqueada." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="Desactivar Requisitos de Hazaña" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="Desactiva los requisitos de hazaña para desbloquear doctrinas." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Prohibir Monturas para Nivel 1" />
     <string

@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="Disable Feat Requirements" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="Disables feat requirements for unlocking doctrines." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Disallow Mounts For Tier 1" />
     <string

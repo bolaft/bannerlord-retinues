@@ -322,6 +322,22 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<bool> DisableFeatRequirements = CreateOption(
+            section: L.S("mcm_section_doctrines", "Doctrines"),
+            name: L.S("mcm_option_disable_feat_requirements", "Disable Feat Requirements"),
+            key: "DisableFeatRequirements",
+            hint: L.S(
+                "mcm_option_disable_feat_requirements_hint",
+                "Disables feat requirements for unlocking doctrines."
+            ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Equipment
         // ─────────────────────────────────────────────────────

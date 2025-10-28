@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -57,6 +58,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
             {
                 if (!IsEnabled)
                     return _name;
+                
+                if (Config.DisableFeatRequirements)
+                    return _name; // Show name only if feats are disabled
 
                 int total = _def?.Feats?.Count ?? 0;
                 int complete = 0;
@@ -167,7 +171,7 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                 .SetTextVariable("INFLUENCE", InfluenceCost)
                 .ToString();
 
-            var text = $"{Description}\n\n{featsText}\n\n{costs}";
+            var text = Config.DisableFeatRequirements ? $"{Description}\n\n{costs}" : $"{Description}\n\n{featsText}\n\n{costs}";
 
             bool allComplete = total == 0 || complete == total;
             bool alreadyUnlocked = svc.IsDoctrineUnlocked(_id);

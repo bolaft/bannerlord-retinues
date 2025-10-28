@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
@@ -267,6 +268,9 @@ namespace Retinues.Doctrines
         {
             _activeFeats.Clear();
 
+            if (Config.DisableFeatRequirements)
+                return;
+
             // Ask the service for the discovered doctrine defs; filter by status.
             var svcDoctrines = DoctrineAPI.AllDoctrines();
             if (svcDoctrines == null || svcDoctrines.Count == 0)
@@ -323,6 +327,9 @@ namespace Retinues.Doctrines
         /// </summary>
         private void NotifyFeats(Action<Feat, object[]> action, params object[] args)
         {
+            if (Config.DisableFeatRequirements)
+                return; // No-op if feats are disabled
+
             foreach (var feat in _activeFeats.ToList())
             {
                 try

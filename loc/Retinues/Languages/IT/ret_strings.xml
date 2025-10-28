@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="Quando abilitato, le armi artigianali non saranno disponibili anche con la dottrina appropriata sbloccata." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="Disabilita Requisiti di Impresa" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="Disabilita i requisiti di impresa per sbloccare le dottrine." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Vietare Cavalcature per Livello 1" />
     <string

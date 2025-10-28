@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="활성화되면 적절한 교리가 해제되어 있어도 제작된 무기를 사용할 수 없습니다." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="특기 요구 사항 비활성화" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="교리를 잠금 해제하기 위한 특기 요구 사항을 비활성화합니다." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="1등급에 탈것 금지" />
     <string

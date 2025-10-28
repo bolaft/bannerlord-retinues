@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="Lorsqu’activé, les armes fabriquées ne seront pas disponibles même avec la doctrine appropriée débloquée." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="Désactiver les Exigences de Fait" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="Désactive les exigences de haut-faits pour débloquer les doctrines." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Montures Interdites pour Rang 1" />
     <string

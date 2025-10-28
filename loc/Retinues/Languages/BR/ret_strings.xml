@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="Quando ativado, armas artesanais não estarão disponíveis mesmo com a doutrina apropriada desbloqueada." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="Desativar Requisitos de Proeza" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="Desativa os requisitos de proeza para desbloquear doutrinas." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Proibir Montarias para Nível 1" />
     <string

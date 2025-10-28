@@ -509,6 +509,12 @@
       id="ret_mcm_option_disable_crafted_weapons_hint"
       text="Po włączeniu, wykonane bronie nie będą dostępne, nawet po odblokowaniu odpowiedniej doktryny." />
     <string
+      id="ret_mcm_option_disable_feat_requirements"
+      text="Wyłącz Wymagania Osiągnięć" />
+    <string
+      id="ret_mcm_option_disable_feat_requirements_hint"
+      text="Wyłącza wymagania osiągnięć do odblokowania doktryn." />
+    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Zakaz Wierzchowców dla Poziomu 1" />
     <string
