@@ -1,0 +1,118 @@
+using System.Collections.Generic;
+using System.Linq;
+using Retinues.Safety.Legacy;
+using Retinues.Troops.Save;
+using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
+
+namespace Retinues.Troops
+{
+    public static class TroopIndex
+    {
+        private static Dictionary<string, TroopIndexEntry> Map =>
+            TroopBehavior.Index ??= new Dictionary<string, TroopIndexEntry>(
+                System.StringComparer.Ordinal
+            );
+
+        public static TroopIndexEntry GetOrCreate(string id) =>
+            Map.TryGetValue(id, out var e) ? e : (Map[id] = new TroopIndexEntry { Id = id });
+
+        public static void SetFlags(
+            string id,
+            bool isKingdom,
+            bool isElite,
+            bool isRetinue,
+            bool isMelee,
+            bool isRanged
+        )
+        {
+            var e = GetOrCreate(id);
+            e.IsKingdom = isKingdom;
+            e.IsElite = isElite;
+            e.IsRetinue = isRetinue;
+            e.IsMilitiaMelee = isMelee;
+            e.IsMilitiaRanged = isRanged;
+        }
+
+        public static void SetParent(string id, string parentId, int branchIndex)
+        {
+            var e = GetOrCreate(id);
+            e.ParentId = parentId;
+            if (!string.IsNullOrEmpty(parentId))
+            {
+                var p = GetOrCreate(parentId);
+                if (!p.ChildrenIds.Contains(id))
+                    p.ChildrenIds.Add(id);
+
+                // rebuild Path if parent has one
+                e.Path = [.. p.Path ?? []];
+                e.Path.Add(branchIndex);
+            }
+        }
+
+        public static IReadOnlyList<int> GetPath(string id) =>
+            Map.TryGetValue(id, out var e) ? (IReadOnlyList<int>)(e.Path ?? []) : [];
+
+        public static IEnumerable<string> GetChildrenIds(string id) =>
+            Map.TryGetValue(id, out var e) ? (IEnumerable<string>)(e.ChildrenIds ?? []) : [];
+
+        // Allocate the next free generic stub id
+        public static string AllocateStub()
+        {
+            // enumerate preloaded stubs:
+            var pool = MBObjectManager
+                .Instance.GetObjectTypeList<CharacterObject>()
+                .Where(co =>
+                    co.StringId.StartsWith("retinues_custom_", System.StringComparison.Ordinal)
+                )
+                .Select(co => co.StringId)
+                .OrderBy(s => s) // because of zero padding from your generator
+                .ToList();
+
+            foreach (var id in pool)
+                if (!Map.ContainsKey(id)) // not allocated yet
+                    return id;
+
+            Log.Warn("No free stub ids left in pool retinues_custom_*");
+            return null;
+        }
+
+        // Optional: build the index from legacy smart ids once
+        public static void MigrateFromLegacyIds()
+        {
+            var legacy = new LegacyCustomCharacterHelper();
+
+            foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
+            {
+                var id = co.StringId;
+                if (
+                    !id.StartsWith("ret_", System.StringComparison.Ordinal)
+                    || id.StartsWith("retinues_custom_", System.StringComparison.Ordinal)
+                )
+                    continue;
+
+                var entry = GetOrCreate(id);
+
+                // Use the legacy helper to extract meaning
+                entry.IsElite = legacy.IsElite(id);
+                entry.IsRetinue = legacy.IsRetinue(id);
+                entry.IsKingdom = legacy.IsKingdom(id);
+                entry.IsMilitiaMelee = legacy.IsMilitiaMelee(id);
+                entry.IsMilitiaRanged = legacy.IsMilitiaRanged(id);
+                entry.Path = legacy.GetPath(id)?.ToList() ?? new List<int>();
+
+                // Parent/child relations
+                foreach (var child in co.UpgradeTargets)
+                {
+                    var childEntry = GetOrCreate(child.StringId);
+                    childEntry.ParentId = id;
+                    if (!entry.ChildrenIds.Contains(child.StringId))
+                        entry.ChildrenIds.Add(child.StringId);
+                }
+            }
+
+            Log.Info($"Migrated {TroopBehavior.Index.Count} legacy troop entries.");
+        }
+    }
+}

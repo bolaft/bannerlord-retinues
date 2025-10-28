@@ -25,6 +25,9 @@ namespace Retinues.Troops
         private List<TroopSaveData> _troopData;
         public List<TroopSaveData> TroopData => _troopData ??= [];
 
+        private Dictionary<string, TroopIndexEntry> _index;
+        public static Dictionary<string, TroopIndexEntry> Index { get; set; }
+
         /// <summary>
         /// Returns true if there is any troop sync data present.
         /// </summary>
@@ -37,6 +40,10 @@ namespace Retinues.Troops
         {
             // Persist custom troop roots in the save file.
             ds.SyncData("Retinues_Troops_Data", ref _troopData);
+            ds.SyncData("Retinues_TroopIndex", ref _index);
+
+            Index ??= _index ?? new Dictionary<string, TroopIndexEntry>(StringComparer.Ordinal);
+            _index = Index;
 
             Log.Info($"{TroopData.Count} root troops.");
         }
@@ -77,6 +84,8 @@ namespace Retinues.Troops
             try
             {
                 _troopData = CollectAllDefinedCustomTroops();
+                // Ensure _index is not null
+                _index ??= Index ?? new Dictionary<string, TroopIndexEntry>(StringComparer.Ordinal);
                 Log.Debug($"Serialized {TroopData.Count} root troops.");
             }
             catch (Exception e)
@@ -94,6 +103,13 @@ namespace Retinues.Troops
         {
             try
             {
+                Index ??= _index ?? new Dictionary<string, TroopIndexEntry>(StringComparer.Ordinal);
+                _index = Index;
+
+                // One-time migration from old "smart IDs"
+                if (Index.Count == 0)
+                    TroopIndex.MigrateFromLegacyIds();
+
                 if (TroopData.Count > 0)
                 {
                     foreach (var root in TroopData)

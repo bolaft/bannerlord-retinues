@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
+using Retinues.Safety.Legacy;
 using Retinues.Safety.Sanitizer;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -28,14 +29,25 @@ namespace Retinues.Game.Wrappers
         //                     Character Helper                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        // Character helper instances
         private static readonly ICharacterHelper _customHelper = new CustomCharacterHelper();
+        private static readonly ICharacterHelper _legacyHelper = new LegacyCustomCharacterHelper();
         private static readonly ICharacterHelper _vanillaHelper = new VanillaCharacterHelper();
-        private readonly ICharacterHelper _helper = LooksCustomId(characterObject?.StringId)
-            ? _customHelper
-            : _vanillaHelper;
 
-        private static bool LooksCustomId(string id) =>
-            id?.StartsWith("ret_", StringComparison.Ordinal) == true;
+        // Helper instance for this character
+        private ICharacterHelper Helper => GetCharacterHelper(StringId);
+
+        // Determine appropriate helper based on id prefix
+        private static ICharacterHelper GetCharacterHelper(string id)
+        {
+            if (id?.StartsWith("retinues_custom_", StringComparison.Ordinal) == true)
+                return _customHelper;
+
+            if (id?.StartsWith("ret_", StringComparison.Ordinal) == true)
+                return _legacyHelper;
+
+            return _vanillaHelper;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -61,11 +73,7 @@ namespace Retinues.Game.Wrappers
             ) { }
 
         public WCharacter(string stringId)
-            : this(
-                (LooksCustomId(stringId) ? _customHelper : _vanillaHelper).GetCharacterObject(
-                    stringId
-                )
-            ) { }
+            : this(GetCharacterHelper(stringId).GetCharacterObject(stringId)) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Identity                        //
@@ -122,17 +130,17 @@ namespace Retinues.Game.Wrappers
         //                Tree, Relations & Faction               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsCustom => _helper.IsCustom(StringId);
-        public bool IsElite => _helper.IsElite(StringId);
-        public bool IsRetinue => _helper.IsRetinue(StringId);
+        public bool IsCustom => Helper.IsCustom(StringId);
+        public bool IsElite => Helper.IsElite(StringId);
+        public bool IsRetinue => Helper.IsRetinue(StringId);
         public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
-        public bool IsMilitiaMelee => _helper.IsMilitiaMelee(StringId);
-        public bool IsMilitiaRanged => _helper.IsMilitiaRanged(StringId);
+        public bool IsMilitiaMelee => Helper.IsMilitiaMelee(StringId);
+        public bool IsMilitiaRanged => Helper.IsMilitiaRanged(StringId);
 
-        public WCharacter Parent => _helper.GetParent(this);
-        public WFaction Faction => _helper.ResolveFaction(StringId);
+        public WCharacter Parent => Helper.GetParent(this);
+        public WFaction Faction => Helper.ResolveFaction(StringId);
 
-        public IReadOnlyList<int> PositionInTree => _helper.GetPath(StringId);
+        public IReadOnlyList<int> PositionInTree => Helper.GetPath(StringId);
         public IEnumerable<WCharacter> Tree
         {
             get
@@ -516,7 +524,7 @@ namespace Retinues.Game.Wrappers
         )
         {
             // Character object copy
-            _helper.CopyInto(src.Base, _co);
+            Helper.CopyInto(src.Base, _co);
 
             // Vanilla id
             VanillaStringIdMap[StringId] = src.VanillaStringId;
