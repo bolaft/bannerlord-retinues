@@ -15,7 +15,6 @@ namespace Retinues.Features.Missions.Patches
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class Mission_SpawnAgent_Prefix
     {
-        // Runs before the engine constructs the Agent, so no randomization slips through.
         static void Prefix(AgentBuildData agentBuildData, bool spawnFromAgentVisuals)
         {
             try
@@ -29,7 +28,7 @@ namespace Retinues.Features.Missions.Patches
 
                 var troop = new WCharacter(character.StringId);
                 if (!troop.IsCustom)
-                    return; // Only affect your custom troops
+                    return; // Only affect custom troops
 
                 if (Mission.Current?.GetMissionBehavior<TournamentBehavior>() != null)
                     return; // Don't modify equipment in tournaments
@@ -77,7 +76,7 @@ namespace Retinues.Features.Missions.Patches
                 // Force the main battle set and prevent randomization/variants.
                 agentBuildData
                     .Equipment(eq)
-                    .MissionEquipment(null) // ensure nothing overrides our equipment later
+                    .MissionEquipment(null) // ensure nothing overrides equipment later
                     .FixedEquipment(true)
                     .CivilianEquipment(false)
                     .NoWeapons(false)
