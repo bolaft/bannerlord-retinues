@@ -121,7 +121,6 @@ namespace Retinues.Features.Unlocks.Behaviors
 
                 if (item == null || amount <= 0)
                     continue;
-                
 
                 // Discard progress ratio
                 float discardProgressRatio =

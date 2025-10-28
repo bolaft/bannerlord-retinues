@@ -34,7 +34,11 @@ namespace Retinues.Safety.Sanitizer
         /// <summary>
         /// Swaps or removes invalid volunteers for a notable in a settlement.
         /// </summary>
-        private static void SwapNotable(Hero notable, Settlement settlement, bool replaceAllCustom = false)
+        private static void SwapNotable(
+            Hero notable,
+            Settlement settlement,
+            bool replaceAllCustom = false
+        )
         {
             if (notable?.VolunteerTypes == null)
                 return;

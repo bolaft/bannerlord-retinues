@@ -31,7 +31,11 @@ namespace Retinues.Safety.Sanitizer
         /// <summary>
         /// Cleans a TroopRoster, replacing invalid or null entries and normalizing counts.
         /// </summary>
-        public static void CleanRoster(TroopRoster roster, MobileParty contextParty = null, bool replaceAllCustom = false)
+        public static void CleanRoster(
+            TroopRoster roster,
+            MobileParty contextParty = null,
+            bool replaceAllCustom = false
+        )
         {
             if (roster == null)
                 return;
@@ -43,7 +47,10 @@ namespace Retinues.Safety.Sanitizer
                     var e = roster.GetElementCopyAtIndex(i);
 
                     // Need to replace invalid or null CharacterObjects
-                    if (e.Character == null || !SanitizerBehavior.IsCharacterValid(e.Character, replaceAllCustom))
+                    if (
+                        e.Character == null
+                        || !SanitizerBehavior.IsCharacterValid(e.Character, replaceAllCustom)
+                    )
                     {
                         Log.Warn(
                             $"Invalid troop '{e.Character?.StringId ?? "NULL"}' at index {i} in {DescribeParty(contextParty)} - replacing."

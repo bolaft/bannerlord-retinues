@@ -212,11 +212,15 @@ namespace Retinues.Configuration
                             _ => { }
                         ),
                         L.S("mcm_ie_export_btn", "Export"),
-                        b => b.SetOrder(order++).SetRequireRestart(false).SetHintText(
-                            L.S(
-                                "mcm_ie_export_btn_hint",
-                                "Exports all Retinues custom troop definitions to an XML file."
-                            ))
+                        b =>
+                            b.SetOrder(order++)
+                                .SetRequireRestart(false)
+                                .SetHintText(
+                                    L.S(
+                                        "mcm_ie_export_btn_hint",
+                                        "Exports all Retinues custom troop definitions to an XML file."
+                                    )
+                                )
                     );
 
                     // One-click import: opens a fresh file list, confirm button says "Import" and runs immediately.
@@ -321,12 +325,15 @@ namespace Retinues.Configuration
                             _ => { }
                         ),
                         L.S("mcm_ie_import_btn", "Import"),
-                        b => b.SetOrder(order++).SetRequireRestart(false).SetHintText(
-                            L.S(
-                                "mcm_ie_import_btn_hint",
-                                "Imports all Retinues custom troop definitions from an XML file."
-                            )
-                        )
+                        b =>
+                            b.SetOrder(order++)
+                                .SetRequireRestart(false)
+                                .SetHintText(
+                                    L.S(
+                                        "mcm_ie_import_btn_hint",
+                                        "Imports all Retinues custom troop definitions from an XML file."
+                                    )
+                                )
                     );
                 }
             );
@@ -456,49 +463,61 @@ namespace Retinues.Configuration
                                 "Danger_RemoveAllCustomTroopData",
                                 L.S("mcm_debug_remove_all_title", "Purge Custom Troop Data"),
                                 new ProxyRef<Action>(
-                                    () => () =>
-                                    {
-                                        if (!InCampaign())
+                                    () =>
+                                        () =>
                                         {
-                                            Log.Message("Not in a running campaign. Load a save first.");
-                                            return;
-                                        }
-
-                                        // Irreversible confirmation
-                                        ConfirmTroopReplace(
-                                            L.S("mcm_debug_remove_all_confirm_title", "Remove all custom troop data?"),
-                                            L.S(
-                                                "mcm_debug_remove_all_confirm_body",
-                                                $"This will permanently purge all Retinues custom troops from the current world so you can safely uninstall the mod.\n\nThis operation is IRREVERSIBLE. Backup your save before proceeding."
-                                            ),
-                                            () =>
+                                            if (!InCampaign())
                                             {
-                                                try
-                                                {
-                                                    // Hard sanitize everything
-                                                    SanitizerBehavior.Sanitize(replaceAllCustom: true);
-                                                    Log.Message("All custom troop data has been removed. Save & exit before uninstalling the mod.");
-                                                }
-                                                catch (Exception e)
-                                                {
-                                                    Log.Message("Sanitization failed, see log for details.");
-                                                    Log.Exception(e);
-                                                }
+                                                Log.Message(
+                                                    "Not in a running campaign. Load a save first."
+                                                );
+                                                return;
                                             }
-                                        );
-                                    },
+
+                                            // Irreversible confirmation
+                                            ConfirmTroopReplace(
+                                                L.S(
+                                                    "mcm_debug_remove_all_confirm_title",
+                                                    "Remove all custom troop data?"
+                                                ),
+                                                L.S(
+                                                    "mcm_debug_remove_all_confirm_body",
+                                                    $"This will permanently purge all Retinues custom troops from the current world so you can safely uninstall the mod.\n\nThis operation is IRREVERSIBLE. Backup your save before proceeding."
+                                                ),
+                                                () =>
+                                                {
+                                                    try
+                                                    {
+                                                        // Hard sanitize everything
+                                                        SanitizerBehavior.Sanitize(
+                                                            replaceAllCustom: true
+                                                        );
+                                                        Log.Message(
+                                                            "All custom troop data has been removed. Save & exit before uninstalling the mod."
+                                                        );
+                                                    }
+                                                    catch (Exception e)
+                                                    {
+                                                        Log.Message(
+                                                            "Sanitization failed, see log for details."
+                                                        );
+                                                        Log.Exception(e);
+                                                    }
+                                                }
+                                            );
+                                        },
                                     _ => { }
                                 ),
                                 L.S("mcm_debug_remove_all_btn", "Purge"),
-                                b => b
-                                    .SetOrder(tailOrder)
-                                    .SetRequireRestart(false)
-                                    .SetHintText(
-                                        L.S(
-                                            "mcm_debug_remove_all_hint",
-                                            "Will purge of all Retinues custom troop data in the current save so the mod can be uninstalled safely."
+                                b =>
+                                    b.SetOrder(tailOrder)
+                                        .SetRequireRestart(false)
+                                        .SetHintText(
+                                            L.S(
+                                                "mcm_debug_remove_all_hint",
+                                                "Will purge of all Retinues custom troop data in the current save so the mod can be uninstalled safely."
+                                            )
                                         )
-                                    )
                             );
                         }
                     }

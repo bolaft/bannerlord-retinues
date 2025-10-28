@@ -53,7 +53,8 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Base constructor with automatic event registration.
         /// </summary>
-        protected BaseVM() : this(true) { }
+        protected BaseVM()
+            : this(true) { }
 
         /// <summary>
         /// Base constructor with optional automatic event registration.

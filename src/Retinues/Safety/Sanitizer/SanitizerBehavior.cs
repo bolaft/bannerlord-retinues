@@ -81,7 +81,7 @@ namespace Retinues.Safety.Sanitizer
             var w = new WCharacter(c);
             if (!w.IsValid)
                 return false;
-            
+
             if (replaceAllCustom && w.IsCustom)
                 return false; // Force replace all custom troops
 
