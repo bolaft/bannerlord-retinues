@@ -2976,6 +2976,38 @@
     "TR": "Oyuncu grubundaki seçkin yandaş askerlerin azami oranı."
   },
   {
+    "id": "ret_mcm_option_no_kingdom_troops",
+    "EN": "No Kingdom Troops",
+    "BR": "Sem Tropas de Reino",
+    "CNs": "无王国部队",
+    "CNt": "無王國部隊",
+    "DE": "Keine Königreichstruppen",
+    "FR": "Pas de Troupes Royales",
+    "IT": "Nessuna Troppa del Regno",
+    "JP": "王国軍なし",
+    "KO": "왕국 병력 없음",
+    "PL": "Brak Jednostek Królestwa",
+    "RU": "Без Королевских Войск",
+    "SP": "Sin Tropas del Reino",
+    "TR": "Krallık Askeri Yok"
+  },
+  {
+    "id": "ret_mcm_option_no_kingdom_troops_hint",
+    "EN": "The custom kingdom troop tree will be disabled.",
+    "BR": "A árvore de tropas do reino personalizado será desativada.",
+    "CNs": "自定义王国部队树将被禁用。",
+    "CNt": "自定義王國部隊樹將被禁用。",
+    "DE": "Der benutzerdefinierte Königreichs-Truppenbaum wird deaktiviert.",
+    "FR": "L’arbre de troupes du royaume personnalisé sera désactivé.",
+    "IT": "L’albero delle truppe del regno personalizzato sarà disabilitato.",
+    "JP": "カスタム王国兵ツリーが無効になります。",
+    "KO": "사용자 지정 왕국 병력 트리가 비활성화됩니다.",
+    "PL": "Niestandardowe drzewo jednostek królestwa zostanie wyłączone.",
+    "RU": "Пользовательское древо королевских войск будет отключено.",
+    "SP": "El árbol de tropas del reino personalizado se desactivará.",
+    "TR": "Özel krallık asker ağacı devre dışı bırakılacak."
+  },
+  {
     "id": "ret_mcm_option_own_culture_unlock_bonuses",
     "EN": "Own Culture Unlock Bonuses",
     "BR": "Bônus de Desbloqueio da Própria Cultura",

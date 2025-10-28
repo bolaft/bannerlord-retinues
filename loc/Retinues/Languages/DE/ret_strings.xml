@@ -563,6 +563,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe." />
     <string
+      id="ret_mcm_option_no_kingdom_troops"
+      text="Keine Königreichstruppen" />
+    <string
+      id="ret_mcm_option_no_kingdom_troops_hint"
+      text="Der benutzerdefinierte Königreichs-Truppenbaum wird deaktiviert." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="Eigene Kultur-Freischaltboni" />
     <string

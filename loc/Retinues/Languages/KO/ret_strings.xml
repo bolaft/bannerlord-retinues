@@ -563,6 +563,12 @@
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="플레이어 부대 내 정예 수행원의 최대 비율." />
     <string
+      id="ret_mcm_option_no_kingdom_troops"
+      text="왕국 병력 없음" />
+    <string
+      id="ret_mcm_option_no_kingdom_troops_hint"
+      text="사용자 지정 왕국 병력 트리가 비활성화됩니다." />
+    <string
       id="ret_mcm_option_own_culture_unlock_bonuses"
       text="자신의 문화 해제 보너스" />
     <string

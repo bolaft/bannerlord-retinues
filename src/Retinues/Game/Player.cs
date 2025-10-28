@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -164,7 +165,7 @@ namespace Retinues.Game
         /// <summary>
         /// Returns the player's kingdom as a WFaction wrapper, if leader.
         /// </summary>
-        public static WFaction Kingdom =>
+        public static WFaction Kingdom => Config.NoKingdomTroops ? null :
             IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom) : null;
 
         private static WFaction _kingdom;

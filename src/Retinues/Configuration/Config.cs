@@ -211,6 +211,22 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<bool> NoKingdomTroops = CreateOption(
+            section: L.S("mcm_section_recruitment", "Recruitment"),
+            name: L.S("mcm_option_no_kingdom_troops", "No Kingdom Troops"),
+            key: "NoKingdomTroops",
+            hint: L.S(
+                "mcm_option_no_kingdom_troops_hint",
+                "The custom kingdom troop tree will be disabled."
+            ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = false,
+            }
+        );
+
         public static readonly Option<bool> VassalLordsCanRecruitCustomTroops = CreateOption(
             section: L.S("mcm_section_recruitment", "Recruitment"),
             name: L.S(
