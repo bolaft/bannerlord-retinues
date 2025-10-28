@@ -15,7 +15,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
     /// ViewModel for a single equipment slot, presenting item data and actions.
     /// </summary>
     [SafeClass]
-    public sealed class EquipmentSlotVM(EquipmentIndex index) : BaseButtonVM
+    public sealed class EquipmentSlotVM(EquipmentIndex index) : BaseButtonVM(autoRegister: false)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
@@ -184,5 +184,44 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         /// Select this equipment slot for editing.
         /// </summary>
         public void ExecuteSelect() => State.UpdateSlot(Index);
+
+        /// <summary>
+        /// The equipment index represented by this slot button.
+        /// </summary>
+        public EquipmentIndex SlotIndex => Index;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Refreshers                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Refresh selection state when the active slot changes.
+        /// </summary>
+        public void OnSlotChanged() => OnPropertyChanged(nameof(IsSelected));
+
+        /// <summary>
+        /// Refresh all equipment-dependent bindings for this slot.
+        /// </summary>
+        public void OnEquipmentChanged()
+        {
+            OnPropertyChanged(nameof(ItemText));
+            OnPropertyChanged(nameof(ItemTextColor));
+            OnPropertyChanged(nameof(IsStaged));
+            OnPropertyChanged(nameof(ImageId));
+            OnPropertyChanged(nameof(ImageAdditionalArgs));
+#if BL13
+            OnPropertyChanged(nameof(ImageTextureProviderName));
+#else
+            OnPropertyChanged(nameof(ImageTypeCode));
+#endif
+            OnPropertyChanged(nameof(Hint));
+            OnPropertyChanged(nameof(EquipChangeHint));
+            OnPropertyChanged(nameof(IsEnabled));
+        }
+
+        /// <summary>
+        /// Refresh staged equip indicators for this slot.
+        /// </summary>
+        public void OnEquipChanged() => OnEquipmentChanged();
     }
 }

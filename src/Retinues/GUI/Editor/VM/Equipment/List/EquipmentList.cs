@@ -67,6 +67,11 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         private string _lastFactionId;
         private string _lastSlotId;
+        private readonly Dictionary<string, EquipmentRowVM> _rowsByItemId = new(
+            StringComparer.Ordinal
+        );
+        private readonly HashSet<string> _equipChangeIds = new(StringComparer.Ordinal);
+        private EquipmentRowVM _emptyRow;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -82,6 +87,44 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             _needsRebuild = true;
             if (IsVisible)
                 Build();
+        }
+
+        /// <summary>
+        /// Handle equip changes by refreshing affected rows.
+        /// </summary>
+        protected override void OnEquipChange()
+        {
+            if (!IsVisible)
+                return;
+
+            var deltaNullable = State.LastEquipChange;
+            if (deltaNullable == null)
+                return;
+
+            _equipChangeIds.Clear();
+
+            void Handle(string id)
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    _emptyRow?.OnEquipChanged();
+                    return;
+                }
+
+                if (!_equipChangeIds.Add(id))
+                    return;
+
+                if (_rowsByItemId.TryGetValue(id, out var row) && row != null)
+                    row.OnEquipChanged();
+            }
+
+            var delta = deltaNullable.Value;
+            Handle(delta.OldEquippedId);
+            Handle(delta.NewEquippedId);
+            Handle(delta.OldStagedId);
+            Handle(delta.NewStagedId);
+
+            State.LastEquipChange = null;
         }
 
         /// <summary>
@@ -101,7 +144,12 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             _needsRebuild = true;
             if (IsVisible)
+            {
+                for (int i = 0; i < EquipmentRows.Count; i++)
+                    EquipmentRows[i].OnSlotChanged();
+
                 Build();
+            }
 
             FilterText = string.Empty;
         }
@@ -113,7 +161,12 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             _needsRebuild = true;
             if (IsVisible)
+            {
+                for (int i = 0; i < EquipmentRows.Count; i++)
+                    EquipmentRows[i].OnEquipmentChanged();
+
                 Build();
+            }
         }
 
         /// <summary>
@@ -175,7 +228,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             }
 
             // 2) Deduplicate and precompute keys (critical for speed & stability)
-            var seen = new HashSet<string>(StringComparer.Ordinal);
+            _rowsByItemId.Clear();
             _fullTuples = new List<ItemTuple>(raw.Count);
 
             foreach (var (item, isAvailable, isUnlocked, progress) in raw)
@@ -186,8 +239,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
                 // Dedupe by StringId (or fallback to reference hash if needed)
                 var id = item.StringId ?? item.GetHashCode().ToString();
-                if (!seen.Add(id))
+                if (_rowsByItemId.ContainsKey(id))
                     continue;
+
+                _rowsByItemId[id] = null;
 
                 _fullTuples.Add(
                     new ItemTuple
@@ -289,16 +344,20 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
             // 4) Publish to UI (only these capped items become VMs)
             EquipmentRows.Clear();
-            EquipmentRows.Add(new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible }); // Empty row
+            _emptyRow = new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible }; // Empty row
+            EquipmentRows.Add(_emptyRow);
 
             foreach (var t in display)
             {
-                EquipmentRows.Add(
-                    new EquipmentRowVM(t.Item, t.IsAvailable, t.IsUnlocked, t.Progress)
-                    {
-                        IsVisible = IsVisible,
-                    }
-                );
+                var row = new EquipmentRowVM(t.Item, t.IsAvailable, t.IsUnlocked, t.Progress)
+                {
+                    IsVisible = IsVisible,
+                };
+                EquipmentRows.Add(row);
+
+                var id = t.Item?.StringId ?? t.Item?.GetHashCode().ToString();
+                if (!string.IsNullOrEmpty(id))
+                    _rowsByItemId[id] = row;
             }
 
             // We rebuilt in sorted order already; no need to resort EquipmentRows.

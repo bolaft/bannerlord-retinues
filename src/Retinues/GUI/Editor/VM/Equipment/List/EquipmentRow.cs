@@ -25,7 +25,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         bool isAvailable,
         bool isUnlocked,
         int progress
-    ) : BaseListElementVM
+    ) : BaseListElementVM(autoRegister: false)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //
@@ -509,6 +509,45 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 || category.Contains(search)
                 || type.Contains(search)
                 || culture.Contains(search);
+        }
+
+        /// <summary>
+        /// Refresh slot-related bindings when the active slot changes.
+        /// </summary>
+        public void OnSlotChanged()
+        {
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(ShowIsEquipped));
+            OnPropertyChanged(nameof(ShowInStockText));
+            OnPropertyChanged(nameof(ShowValue));
+        }
+
+        /// <summary>
+        /// Refresh bindings affected by staged equip updates.
+        /// </summary>
+        public void OnEquipChanged()
+        {
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(Stock));
+            OnPropertyChanged(nameof(InStockText));
+            OnPropertyChanged(nameof(ShowInStockText));
+            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(ShowIsEquipped));
+            OnPropertyChanged(nameof(IsDisabledText));
+        }
+
+        /// <summary>
+        /// Refresh bindings affected by equipment loadout changes.
+        /// </summary>
+        public void OnEquipmentChanged()
+        {
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(Stock));
+            OnPropertyChanged(nameof(ShowIsEquipped));
+            OnPropertyChanged(nameof(IsDisabledText));
+            OnPropertyChanged(nameof(ShowInStockText));
+            OnPropertyChanged(nameof(ShowValue));
         }
     }
 }

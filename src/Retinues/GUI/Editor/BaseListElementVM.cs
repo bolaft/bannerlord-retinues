@@ -21,6 +21,12 @@ namespace Retinues.GUI.Editor
         }
 
         /// <summary>
+        /// Allow subclasses to opt out of global event registration.
+        /// </summary>
+        protected BaseListElementVM(bool autoRegister = true)
+            : base(autoRegister) { }
+
+        /// <summary>
         /// Determine whether this element matches the provided filter.
         /// </summary>
         public abstract bool FilterMatch(string filter);
