@@ -219,7 +219,7 @@ namespace Retinues.Troops
                 return;
             }
 
-            var tpl = FindTemplate(root, isElite, tierBonus: faction == Player.Kingdom ? 2 : 0);
+            var tpl = FindTemplate(root, tierBonus: faction == Player.Kingdom ? 2 : 0);
 
             Log.Info($"Creating retinue troop from template {tpl.Name} ({tpl})");
             Log.Info($"Tier: {tpl.Tier}");
@@ -393,7 +393,7 @@ namespace Retinues.Troops
             bool copyWholeTree
         )
         {
-            var tpl = FindTemplate(vanilla, isElite);
+            var tpl = FindTemplate(vanilla);
 
             if (tpl == null)
             {
@@ -504,19 +504,30 @@ namespace Retinues.Troops
         /// <summary>
         /// Finds a template troop in the tree matching elite/basic and tier.
         /// </summary>
-        private static WCharacter FindTemplate(WCharacter root, bool isElite, int tierBonus = 0)
+        private static WCharacter FindTemplate(WCharacter root, int tierBonus = 0)
         {
             if (root == null)
                 return null;
 
-            int tier = isElite ? 2 + tierBonus : 1 + tierBonus;
+            // Find the best matching tier
+            WCharacter bestTroop = root;
+            var troopTier = root.Tier;
+            var targetTier = troopTier + tierBonus;
 
-            // Custom fix for Warlords Battlefield
             foreach (var troop in root.Tree)
-                if (troop.Tier == tier)
-                    return troop;
+            {
+                var tier = troop.Tier;
+                if (tier > troopTier && tier <= targetTier)
+                {
+                    troopTier = tier;
+                    bestTroop = troop;
 
-            return root;
+                    if (troopTier == targetTier)
+                        break;
+                }
+            }
+
+            return bestTroop;
         }
     }
 }
