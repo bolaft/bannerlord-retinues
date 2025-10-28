@@ -86,6 +86,10 @@
       <Private>false</Private>
     </Reference>
     <!-- Sandbox -->
+    <Reference Include="Sandbox">
+      <HintPath>$(ReferenceRoot)/Sandbox.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="Sandbox.GauntletUI">
       <HintPath>$(ReferenceRoot)/Sandbox.GauntletUI.dll</HintPath>
       <Private>false</Private>
