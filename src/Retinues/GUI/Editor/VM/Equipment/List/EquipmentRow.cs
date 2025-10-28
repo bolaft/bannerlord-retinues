@@ -543,7 +543,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(IsEnabled));
-            OnPropertyChanged(nameof(Stock));
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(IsDisabledText));
             OnPropertyChanged(nameof(ShowInStockText));
