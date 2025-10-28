@@ -58,7 +58,7 @@ namespace Retinues.GUI.Editor.VM.Doctrines
             {
                 if (!IsEnabled)
                     return _name;
-                
+
                 if (Config.DisableFeatRequirements)
                     return _name; // Show name only if feats are disabled
 
@@ -171,7 +171,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                 .SetTextVariable("INFLUENCE", InfluenceCost)
                 .ToString();
 
-            var text = Config.DisableFeatRequirements ? $"{Description}\n\n{costs}" : $"{Description}\n\n{featsText}\n\n{costs}";
+            var text = Config.DisableFeatRequirements
+                ? $"{Description}\n\n{costs}"
+                : $"{Description}\n\n{featsText}\n\n{costs}";
 
             bool allComplete = total == 0 || complete == total;
             bool alreadyUnlocked = svc.IsDoctrineUnlocked(_id);

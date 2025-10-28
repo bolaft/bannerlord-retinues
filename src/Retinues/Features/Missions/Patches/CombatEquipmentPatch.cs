@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using HarmonyLib;
 using Retinues.Configuration;
@@ -7,9 +6,9 @@ using Retinues.Features.Missions.Behaviors;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using SandBox.Tournaments.MissionLogics;
 
 namespace Retinues.Features.Missions.Patches
 {
@@ -31,7 +30,7 @@ namespace Retinues.Features.Missions.Patches
                 var troop = new WCharacter(character.StringId);
                 if (!troop.IsCustom)
                     return; // Only affect your custom troops
-                
+
                 if (Mission.Current?.GetMissionBehavior<TournamentBehavior>() != null)
                     return; // Don't modify equipment in tournaments
 
@@ -42,7 +41,10 @@ namespace Retinues.Features.Missions.Patches
                     // Use civilian set if spawning as civilian.
                     eq = troop.Loadout.Civilian.Base;
                 }
-                else if (Config.ForceMainBattleSetInCombat || ModuleChecker.GetModule("Shokuho") != null)
+                else if (
+                    Config.ForceMainBattleSetInCombat
+                    || ModuleChecker.GetModule("Shokuho") != null
+                )
                 {
                     // Use main battle set if configured to do so.
                     eq = troop.Loadout.Battle.Base;

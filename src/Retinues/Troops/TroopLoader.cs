@@ -34,12 +34,7 @@ namespace Retinues.Troops
             var vanilla = new WCharacter(data.VanillaStringId);
 
             // Fill it
-            troop.FillFrom(
-                vanilla,
-                keepUpgrades: false,
-                keepEquipment: false,
-                keepSkills: false
-            );
+            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: false, keepSkills: false);
 
             // Set properties
             troop.Name = data.Name;
