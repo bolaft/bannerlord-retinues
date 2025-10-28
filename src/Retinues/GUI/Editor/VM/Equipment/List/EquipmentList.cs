@@ -172,8 +172,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         _needsRebuild = false;
                         _lastSlotId = slotId;
 
-                        for (int i = 0; i < EquipmentRows.Count; i++)
-                            EquipmentRows[i].OnSlotChanged();
+                        foreach (var r in EquipmentRows)
+                            r.OnSlotChanged();
 
                         return;
                     }
@@ -191,8 +191,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         protected override void OnEquipmentChange()
         {
             if (IsVisible)
-                for (int i = 0; i < EquipmentRows.Count; i++)
-                    EquipmentRows[i].OnEquipmentChanged();
+                foreach (var r in EquipmentRows)
+                    r.OnEquipmentChanged();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
