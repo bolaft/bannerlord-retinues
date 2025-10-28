@@ -17,7 +17,6 @@ namespace Retinues.Configuration
     /// </summary>
     public static partial class Config
     {
-        // Factory with optional per-preset overrides (declare right next to the option)
         /// <summary>
         /// Helper factory to create an Option<T> with metadata and optional per-preset overrides.
         /// </summary>
