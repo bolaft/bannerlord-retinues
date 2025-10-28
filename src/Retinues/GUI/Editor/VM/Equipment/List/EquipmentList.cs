@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
@@ -354,30 +354,32 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 // List of display item IDs
                 var displayIds = display.Select(t => t.Item.StringId).ToList();
 
-                // Find staged item in slot
-                var staged = State.EquipData?.TryGetValue(State.Slot, out var equipData) == true
-                ? equipData.Equip != null
-                    ? new WItem(equipData.Equip.ItemId)
-                    : null
-                : null;
-
-                // Find equipped item in slot
-                var equipped = State.Equipment?.Get(State.Slot);
-
-                // Ensure staged item is included
-                if (staged != null && !displayIds.Contains(staged.StringId))
+                // Helper function
+                void EnsureItemIsIncluded(WItem item)
                 {
-                    var stagedTuple = _fullTuples.FirstOrDefault(t => t.Item.Equals(staged));
-                    if (stagedTuple != null)
-                        display.Add(stagedTuple);
+                    if (item != null && !displayIds.Contains(item.StringId))
+                    {
+                        var itemTuple = _fullTuples.FirstOrDefault(t => t.Item.Equals(item));
+                        if (itemTuple != null)
+                            display.Add(itemTuple);
+                    }
                 }
 
-                // Ensure equipped item is included
-                if (equipped != null && !displayIds.Contains(equipped.StringId))
+                // Ensure staged and equipped items are included
+                foreach (var slot in WEquipment.Slots)
                 {
-                    var equippedTuple = _fullTuples.FirstOrDefault(t => t.Item.Equals(equipped));
-                    if (equippedTuple != null)
-                        display.Add(equippedTuple);
+                    // Ensure equipped item is included
+                    var equippedItem = State.Equipment?.Get(slot);
+                    EnsureItemIsIncluded(equippedItem);
+
+                    // Ensure staged item is included
+                    var stagedItem =
+                        State.EquipData?.TryGetValue(slot, out var equipData) == true
+                            ? equipData.Equip != null
+                                ? new WItem(equipData.Equip.ItemId)
+                                : null
+                            : null;
+                    EnsureItemIsIncluded(stagedItem);
                 }
             }
 
