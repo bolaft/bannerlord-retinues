@@ -5,6 +5,7 @@ using Retinues.Configuration;
 using Retinues.Features.Missions.Behaviors;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -32,7 +33,7 @@ namespace Retinues.Features.Missions.Patches
 
                 Equipment eq = null;
 
-                if (Config.ForceMainBattleSetInCombat)
+                if (Config.ForceMainBattleSetInCombat || ModuleChecker.GetModule("Shokuho") != null)
                 {
                     // Use main battle set if configured to do so.
                     eq = troop.Loadout.Battle.Base;
