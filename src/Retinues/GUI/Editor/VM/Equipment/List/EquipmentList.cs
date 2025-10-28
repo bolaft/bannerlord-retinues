@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
@@ -169,6 +170,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      List Building                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         /// <summary>
         /// Build or refresh the equipment rows for the current faction and slot.
         /// </summary>
@@ -178,7 +183,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 return;
             _needsRebuild = false;
 
-            // weapon slot “same family” optimization, keep your existing logic
             List<string> weaponSlots =
             [
                 EquipmentIndex.Weapon0.ToString(),
@@ -332,15 +336,50 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 return 0;
             }
 
-            // 3) Filter → Sort → Cap
+            // Display item list
             var display = new List<ItemTuple>(Math.Min(_fullTuples.Count, MaxRowsAbsolute));
             foreach (var t in _fullTuples)
-                if (Pass(t))
+                if (Pass(t)) // Filter
                     display.Add(t);
 
+            // Sort
             display.Sort(Comparer<ItemTuple>.Create(Compare));
+
+            // Capping
             if (display.Count > MaxRowsAbsolute)
+            {
+                // Remove excess items
                 display.RemoveRange(MaxRowsAbsolute, display.Count - MaxRowsAbsolute);
+
+                // List of display item IDs
+                var displayIds = display.Select(t => t.Item.StringId).ToList();
+
+                // Find staged item in slot
+                var staged = State.EquipData?.TryGetValue(State.Slot, out var equipData) == true
+                ? equipData.Equip != null
+                    ? new WItem(equipData.Equip.ItemId)
+                    : null
+                : null;
+
+                // Find equipped item in slot
+                var equipped = State.Equipment?.Get(State.Slot);
+
+                // Ensure staged item is included
+                if (staged != null && !displayIds.Contains(staged.StringId))
+                {
+                    var stagedTuple = _fullTuples.FirstOrDefault(t => t.Item.Equals(staged));
+                    if (stagedTuple != null)
+                        display.Add(stagedTuple);
+                }
+
+                // Ensure equipped item is included
+                if (equipped != null && !displayIds.Contains(equipped.StringId))
+                {
+                    var equippedTuple = _fullTuples.FirstOrDefault(t => t.Item.Equals(equipped));
+                    if (equippedTuple != null)
+                        display.Add(equippedTuple);
+                }
+            }
 
             // 4) Publish to UI (only these capped items become VMs)
             EquipmentRows.Clear();
@@ -360,8 +399,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     _rowsByItemId[id] = row;
             }
 
-            // We rebuilt in sorted order already; no need to resort EquipmentRows.
-            // Keep RefreshFilter only if it updates UI state (counts/icons). Otherwise omit.
+            // Rebuilt in sorted order already.
             RefreshFilter();
 
             // Update sort state bindings for the header UI
