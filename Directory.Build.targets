@@ -1,29 +1,29 @@
 <Project>
   <PropertyGroup>
     <!-- Where PrefabBuilder writes the generated Gauntlet UI -->
-    <PrefabsOutputDir>$(RepoRoot)gui\</PrefabsOutputDir>
+    <PrefabsOutputDir>$(RepoRoot)gui\$(ModuleName)\</PrefabsOutputDir>
   </PropertyGroup>
 
   <!-- Copy only generated GUI into the module (no clean, no binaries) -->
   <Target Name="DeployPrefabsOnly"
           Condition="'$(DeployToGame)' == 'true' and '$(IsGameModule)' == 'true' and Exists('$(PrefabsOutputDir)')">
     <!-- Ensure module + GUI dir exist -->
-    <MakeDir Directories="$(RetinuesDeployDir)" />
-    <MakeDir Directories="$(RetinuesDeployDir)GUI\" />
+    <MakeDir Directories="$(DeployDir)" />
+    <MakeDir Directories="$(DeployDir)GUI\" />
 
     <ItemGroup>
       <_PrefabGenFiles Include="$(PrefabsOutputDir)**\*.*" />
     </ItemGroup>
 
     <Copy SourceFiles="@(_PrefabGenFiles)"
-          DestinationFiles="@(_PrefabGenFiles->'$(RetinuesDeployDir)GUI\%(RecursiveDir)%(Filename)%(Extension)')"
+          DestinationFiles="@(_PrefabGenFiles->'$(DeployDir)GUI\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"
           OverwriteReadOnlyFiles="true" />
   </Target>
 
   <!-- Where the current project will be deployed (only meaningful for the game module) -->
   <PropertyGroup>
-    <RetinuesDeployDir>$(BannerlordGameDir)\Modules\$(MSBuildProjectName)\</RetinuesDeployDir>
+    <DeployDir>$(BannerlordGameDir)\Modules\$(MSBuildProjectName)\</DeployDir>
   </PropertyGroup>
 
   <!-- Prepare: make sure the deploy dir exists and clean its contents except *.log -->
@@ -31,12 +31,12 @@
           Condition="'$(IsGameModule)' == 'true' and '$(DeployToGame)' == 'true'">
 
     <!-- Ensure directory exists -->
-    <MakeDir Directories="$(RetinuesDeployDir)" />
+    <MakeDir Directories="$(DeployDir)" />
 
     <!-- Delete all files except *.log -->
     <ItemGroup>
-      <_FilesToDelete Include="$(RetinuesDeployDir)**\*.*"
-                      Exclude="$(RetinuesDeployDir)**\*.log" />
+      <_FilesToDelete Include="$(DeployDir)**\*.*"
+                      Exclude="$(DeployDir)**\*.log" />
     </ItemGroup>
 
     <Delete Files="@(_FilesToDelete)" TreatErrorsAsWarnings="false" />
@@ -50,41 +50,41 @@
 
     <!-- 0) Ensure needed directories exist -->
     <MakeDir Directories="
-        $(RetinuesDeployDir)bin\Win64_Shipping_Client\;
-        $(RetinuesDeployDir)GUI\;
-        $(RetinuesDeployDir)ModuleData\;
-        $(RetinuesDeployDir)ModuleData\Languages\" />
+        $(DeployDir)bin\Win64_Shipping_Client\;
+        $(DeployDir)GUI\;
+        $(DeployDir)ModuleData\;
+        $(DeployDir)ModuleData\Languages\" />
 
     <!-- 1) Copy compiled output into bin/Win64_Shipping_Client -->
     <ItemGroup>
       <_OutFiles Include="$(OutputPath)**\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(_OutFiles)"
-          DestinationFiles="@(_OutFiles->'$(RetinuesDeployDir)bin\Win64_Shipping_Client\%(RecursiveDir)%(Filename)%(Extension)')"
+          DestinationFiles="@(_OutFiles->'$(DeployDir)bin\Win64_Shipping_Client\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"
           OverwriteReadOnlyFiles="true" />
 
     <!-- 2) Copy ./xml/** into ModuleData/ -->
     <ItemGroup>
-      <_XmlFiles Include="$(RepoRoot)xml\*" />
+      <_XmlFiles Include="$(RepoRoot)xml\$(ModuleName)\*" />
     </ItemGroup>
     <Copy SourceFiles="@(_XmlFiles)"
-          DestinationFiles="@(_XmlFiles->'$(RetinuesDeployDir)ModuleData\%(RecursiveDir)%(Filename)%(Extension)')"
+          DestinationFiles="@(_XmlFiles->'$(DeployDir)ModuleData\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"
           OverwriteReadOnlyFiles="true" />
 
     <!-- 3) Copy ./loc/Languages/** into ModuleData/Languages/ -->
     <ItemGroup>
-      <_LangFiles Include="$(RepoRoot)loc\Languages\**\*.*" />
+      <_LangFiles Include="$(RepoRoot)loc\$(ModuleName)\Languages\**\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(_LangFiles)"
-          DestinationFiles="@(_LangFiles->'$(RetinuesDeployDir)ModuleData\Languages\%(RecursiveDir)%(Filename)%(Extension)')"
+          DestinationFiles="@(_LangFiles->'$(DeployDir)ModuleData\Languages\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"
           OverwriteReadOnlyFiles="true" />
 
     <!-- 4) DEBUG ONLY: write UIExtenderDebug.xml at module root -->
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-      <_UiExtenderDebugFile Include="$(RetinuesDeployDir)UIExtenderDebug.xml" />
+      <_UiExtenderDebugFile Include="$(DeployDir)UIExtenderDebug.xml" />
     </ItemGroup>
     <WriteLinesToFile Condition="'$(Configuration)' == 'Debug'"
                       File="@(_UiExtenderDebugFile)"
@@ -94,7 +94,7 @@
     
     <!-- 5) Copy the right SubModule.*.xml based on BL (12 or 13) -->
     <ItemGroup>
-      <_SubModuleFile Include="$(RepoRoot)src\Retinues\SubModule.BL$(BL).xml" />
+      <_SubModuleFile Include="$(ModuleProjectDir)\SubModule.BL$(BL).xml" />
     </ItemGroup>
 
     <!-- Guard: fail fast if the expected file doesn't exist -->
@@ -102,7 +102,7 @@
            Text="SubModule.BL$(BL).xml not found at '%(_SubModuleFile.Identity)'. Check BL=$(BL) and file paths." />
 
     <Copy SourceFiles="@(_SubModuleFile)"
-          DestinationFiles="@(_SubModuleFile->'$(RetinuesDeployDir)SubModule.xml')"
+          DestinationFiles="@(_SubModuleFile->'$(DeployDir)SubModule.xml')"
           SkipUnchangedFiles="true"
           OverwriteReadOnlyFiles="true" />
 
@@ -112,7 +112,7 @@
     </ItemGroup>
 
     <Copy SourceFiles="@(_PrefabGenFiles)"
-          DestinationFiles="@(_PrefabGenFiles->'$(RetinuesDeployDir)GUI\%(RecursiveDir)%(Filename)%(Extension)')"
+          DestinationFiles="@(_PrefabGenFiles->'$(DeployDir)GUI\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"
           OverwriteReadOnlyFiles="true"
           Condition="Exists('$(PrefabsOutputDir)')" />

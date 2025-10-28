@@ -8,6 +8,7 @@ RUN_MAIN="true"
 RUN_PREFABS="true"
 RUN_STRINGS="true"
 RELEASE_PATCH="" # when set, force "release" and bump last version segment
+MODULE="Retinues" # default; --mtm flips to MudToMail
 
 usage() {
   cat <<'USAGE'
@@ -15,6 +16,7 @@ Usage:
   ./build.sh [options]
 
 Options:
+      --mtm             Build the MudToMail companion module instead of Retinues
       --no-deploy       Do not copy to game Modules
       --prefabs         Only run PrefabBuilder
       --no-prefabs      Skip PrefabBuilder
@@ -30,6 +32,7 @@ USAGE
 # Parse args
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    --mtm) MODULE="MudToMail"; shift;;
     -v|--version) BL="$2"; shift 2;;
     --no-deploy) DEPLOY="false"; shift;;
     --prefabs) RUN_MAIN="false"; RUN_STRINGS="false"; shift;;
@@ -51,7 +54,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-MAIN_PROJ="$ROOT_DIR/src/Retinues/Retinues.csproj"
+MAIN_PROJ="$ROOT_DIR/src/${MODULE}/${MODULE}.csproj"
 PREFABS_PROJ="$ROOT_DIR/src/PrefabBuilder/PrefabBuilder.csproj"
 STRINGS_PY="$ROOT_DIR/loc/strings.py"
 
@@ -74,13 +77,12 @@ else
   MSBUILD_CONFIG=(-c Debug)
 fi
 
-# If release, bump version in SubModule*.xml files
+# If release, bump version in SubModule*.xml files (for the selected module)
 bump_submodule_version() {
   local patch="$1"
-  local core_dir="$ROOT_DIR/src/Retinues"
+  local core_dir="$ROOT_DIR/src/${MODULE}"
   local changed=0
 
-  # Which files to try (edit if you only use one naming scheme)
   local files=(
     "$core_dir/SubModule.BL12.xml"
     "$core_dir/SubModule.BL13.xml"
@@ -89,21 +91,21 @@ bump_submodule_version() {
 
   for f in "${files[@]}"; do
     if [[ -f "$f" ]]; then
-      # Replace last numeric segment of vX.Y.Z.N with provided patch number
-      # Works even if X.Y.Z differ between BL12 and BL13.
-      # Make a backup, then move back over it (portable across sed variants)
       local tmp="${f}.tmp.$$"
-      # shellcheck disable=SC2001
       sed -E 's/(<Version[[:space:]]+value="v[0-9]+\.[0-9]+\.[0-9]+\.)([0-9]+)"/\1'"$patch"'"/' "$f" > "$tmp"
       mv "$tmp" "$f"
       echo "  - Set version patch -> $patch in $(basename "$f")"
       changed=1
     fi
   done
+
+  if [[ $changed -eq 0 ]]; then
+    echo "  (No SubModule*.xml found under ${core_dir}; skipped)"
+  fi
 }
 
 # Banner
-echo "== Retinues build =="
+echo "== ${MODULE} build =="
 echo " BL      : $BL"
 echo " Build   : $RUN_MAIN"
 echo " Prefabs : $RUN_PREFABS"
@@ -117,7 +119,7 @@ echo
 
 # If --release N is set, bump SubModule version before building
 if [[ -n "$RELEASE_PATCH" ]]; then
-  echo "== Updating SubModule version =="
+  echo "== Updating SubModule version (${MODULE}) =="
   bump_submodule_version "$RELEASE_PATCH"
   echo
 fi
@@ -129,9 +131,9 @@ if [[ "$RUN_PREFABS" == "true" && -f "$PREFABS_PROJ" ]]; then
   echo
 
   echo "== Running PrefabBuilder =="
-  PREFAB_OUT="$ROOT_DIR/gui"
-  TPL_TEMPLATES="$ROOT_DIR/tpl/templates"
-  TPL_PARTIALS="$ROOT_DIR/tpl/partials"
+PREFAB_OUT="$ROOT_DIR/gui/$MODULE"
+TPL_TEMPLATES="$ROOT_DIR/tpl/$MODULE/templates"
+TPL_PARTIALS="$ROOT_DIR/tpl/$MODULE/partials"
 
   rm -rf "$PREFAB_OUT"
   mkdir -p "$PREFAB_OUT"
@@ -142,30 +144,29 @@ if [[ "$RUN_PREFABS" == "true" && -f "$PREFABS_PROJ" ]]; then
     --partials "$TPL_PARTIALS" \
     --bl "$BL" \
     --config "${MSBUILD_CONFIG[1]}" \
-    --module "Retinues"
+    --module "$MODULE"
 
   echo
 fi
 
 # 1.b) Deploy prefabs-only (if requested)
 if [[ "$RUN_PREFABS" == "true" && "$DEPLOY" == "true" && -f "$MAIN_PROJ" ]]; then
-  echo "== Deploying generated GUI to module =="
-  # BL and DeployToGame flow through as MSBuild props
-  dotnet msbuild "$MAIN_PROJ" -t:DeployPrefabsOnly -p:BL="$BL" -p:DeployToGame=true
+  echo "== Deploying generated GUI to module (${MODULE}) =="
+  dotnet msbuild "$MAIN_PROJ" -t:DeployPrefabsOnly -p:BL="$BL" -p:DeployToGame=true -p:ModuleName="${MODULE}"
   echo
 fi
 
 # 2) Strings
 if [[ "$RUN_STRINGS" == "true" && -f "$STRINGS_PY" ]]; then
   echo "== Running strings.py =="
-    python "$STRINGS_PY"
+  python "$STRINGS_PY" --module "$MODULE"
   echo
 fi
 
 # 3) Main project
 if [[ "$RUN_MAIN" == "true" && -f "$MAIN_PROJ" ]]; then
-  echo "== Building Retinues =="
-    dotnet build "$MAIN_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}"
+  echo "== Building ${MODULE} =="
+  dotnet build "$MAIN_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}" -p:ModuleName="${MODULE}"
   echo
 fi
 

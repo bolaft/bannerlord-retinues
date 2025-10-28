@@ -1,5 +1,12 @@
 <Project>
   <PropertyGroup>
+    <!-- Default stays Retinues; build.sh passes -p:ModuleName=MudToMail when needed -->
+    <ModuleName Condition="'$(ModuleName)'==''">Retinues</ModuleName>
+    <ModuleProjectDir>$(MSBuildThisFileDirectory)src\$(ModuleName)</ModuleProjectDir>
+    <ModuleCsproj>$(ModuleProjectDir)\$(ModuleName).csproj</ModuleCsproj>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <!-- Repo root (absolute) -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
   
