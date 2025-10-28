@@ -285,6 +285,22 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<bool> EnableTroopCustomization = CreateOption(
+            section: L.S("mcm_section_restrictions", "Restrictions"),
+            name: L.S("mcm_option_enable_troop_customization", "Experimental: Enable Appearance Controls"),
+            key: "EnableTroopCustomization",
+            hint: L.S(
+                "mcm_option_enable_troop_customization_hint",
+                "Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences."
+            ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = false,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Doctrines
         // ─────────────────────────────────────────────────────

@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="교리 시스템과 그 기능을 활성화합니다." />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="실험적: 외형 컨트롤 활성화" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="외형 맞춤 설정 컨트롤 추가(나이, 키, 몸무게, 체형). 실험적: 의도치 않은 결과가 있을 수 있습니다." />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="병력 장비 변경에는 시간이 걸립니다" />
     <string

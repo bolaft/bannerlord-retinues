@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Enable the Doctrines system and its features." />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="Experimental: Enable Appearance Controls" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences." />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Changing Troop Equipment Takes Time" />
     <string

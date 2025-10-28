@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Doktrin sistemini ve özelliklerini etkinleştir." />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="Deneysel: Görünüm Kontrollerini Etkinleştir" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="Görünüm özelleştirme kontrolleri ekler (yaş, boy, kilo, yapı). Deneysel: istenmeyen sonuçlara yol açabilir." />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Asker Teçhizatını Değiştirmek Zaman Alır" />
     <string

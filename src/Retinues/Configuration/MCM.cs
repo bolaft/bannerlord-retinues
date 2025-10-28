@@ -341,12 +341,12 @@ namespace Retinues.Configuration
             string[] order =
             {
                 "Doctrines",
-                "Restrictions",
                 "Retinues",
                 "Recruitment",
                 "Equipment",
                 "Unlocks",
                 "Skills",
+                "Restrictions",
                 "Skill Caps",
                 "Skill Totals",
                 "Debug",

@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="ドクトリンシステムとその機能を有効化する。" />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="実験的：外観コントロールを有効化" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="外観のカスタマイズコントロールを追加します（年齢、身長、体重、体型）。実験的：予期しない結果をもたらす可能性があります。" />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="部隊の装備を変更するには時間がかかります" />
     <string

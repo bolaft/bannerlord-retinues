@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="启用教义系统及其功能。" />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="实验性：启用外观控制" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="添加外观自定义控制（年龄、身高、体重、体型）。实验性：可能会有意想不到的后果。" />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="更换部队装备需要时间" />
     <string

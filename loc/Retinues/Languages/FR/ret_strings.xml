@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Active le système de doctrines et ses fonctionnalités." />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="Expérimental : Activer les Contrôles d’Apparence" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="Ajoute des contrôles de personnalisation de l’apparence (âge, taille, poids, carrure). Expérimental : peut avoir des conséquences inattendues." />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Changer l’équipement des troupes prend du temps" />
     <string

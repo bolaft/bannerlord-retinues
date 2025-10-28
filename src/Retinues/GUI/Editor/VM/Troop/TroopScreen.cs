@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Features.Retinues.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game.Helpers;
@@ -10,11 +11,8 @@ using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-using TaleWorlds.ObjectSystem;
 
 namespace Retinues.GUI.Editor.VM.Troop
 {
@@ -95,6 +93,9 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public bool ShowCustomization { get; set; } = false;
+
+        [DataSourceProperty]
+        public bool CustomizationIsEnabled => Config.EnableTroopCustomization;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -287,6 +288,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteToggleCustomization()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             ShowCustomization = !ShowCustomization;
             OnPropertyChanged(nameof(ShowCustomization));
             OnPropertyChanged(nameof(CustomizationHint));
@@ -302,6 +306,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteNextAgePreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyNextAgePreset(State.Troop);
             State.UpdateAppearance();
         }
@@ -309,6 +316,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecutePrevAgePreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyPrevAgePreset(State.Troop);
             State.UpdateAppearance();
         }
@@ -316,6 +326,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteNextHeightPreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyNextHeightPreset(State.Troop);
             State.UpdateAppearance();
         }
@@ -323,6 +336,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecutePrevHeightPreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyPrevHeightPreset(State.Troop);
             State.UpdateAppearance();
         }
@@ -330,6 +346,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteNextWeightPreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyNextWeightPreset(State.Troop);
             State.UpdateAppearance();
         }
@@ -337,6 +356,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecutePrevWeightPreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyPrevWeightPreset(State.Troop);
             State.UpdateAppearance();
         }
@@ -344,6 +366,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteNextBuildPreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyNextBuildPreset(State.Troop);
             State.UpdateAppearance();
         }
@@ -351,6 +376,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecutePrevBuildPreset()
         {
+            if (!Config.EnableTroopCustomization)
+                return;
+
             CharacterCustomization.ApplyPrevBuildPreset(State.Troop);
             State.UpdateAppearance();
         }

@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Włącz system Doktryn i jego funkcje." />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="Eksperymentalne: Włącz Kontrolę Wyglądu" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="Dodaje kontrolki dostosowywania wyglądu (wiek, wzrost, waga, budowa). Eksperymentalne: może mieć niezamierzone konsekwencje." />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Zmiana Wyposażenia Jednostek Zajmuje Czas" />
     <string

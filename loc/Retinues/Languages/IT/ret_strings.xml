@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Abilita il sistema di Dottrine e le sue funzionalità." />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="Sperimentale: Abilita Controlli Aspetto" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="Aggiunge controlli di personalizzazione dell’aspetto (età, altezza, peso, corporatura). Sperimentale: potrebbe avere conseguenze indesiderate." />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Cambiare l’Equipaggiamento delle Truppe Richiede Tempo" />
     <string

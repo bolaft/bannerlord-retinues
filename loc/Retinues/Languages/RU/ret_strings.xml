@@ -521,6 +521,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Включить систему Доктрин и её функции." />
     <string
+      id="ret_mcm_option_enable_troop_customization"
+      text="Экспериментально: Включить Управление Внешностью" />
+    <string
+      id="ret_mcm_option_enable_troop_customization_hint"
+      text="Добавляет элементы управления настройкой внешности (возраст, рост, вес, телосложение). Экспериментально: может иметь непредвиденные последствия." />
+    <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Смена Снаряжения Войск Занимает Время" />
     <string

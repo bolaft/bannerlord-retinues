@@ -60,8 +60,10 @@
 </ListPanel>
 {{- end -}}
 
+<!-- Shows when customization is enabled -->
 <ListPanel
     DataSource="{TroopScreen}"
+    IsVisible="@CustomizationIsEnabled"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     MarginBottom="160" MarginRight="280"
     StackLayout.LayoutMethod="VerticalBottomToTop"
@@ -89,6 +91,38 @@
                     Brush="SPClan.Members.RecallIcon"/>
                 <HintWidget
                     DataSource="{CustomizationHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </ButtonWidget>
+    </Children>
+</ListPanel>
+
+<!-- Show when customization is disabled -->
+<ListPanel
+    DataSource="{TroopScreen}"
+    IsHidden="@CustomizationIsEnabled"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    MarginBottom="160" MarginRight="280"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Bottom" >
+    <Children>
+        <ButtonWidget
+            IsVisible="true"
+            IsEnabled="true"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            Command.Click="ExecuteChangeGender"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            UpdateChildrenStates="true">
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="60" SuggestedHeight="60"
+                    Brush="SPClan.Members.RecallIcon"/>
+                <HintWidget
+                    DataSource="{GenderHint}"
                     Command.HoverBegin="ExecuteBeginHint"
                     Command.HoverEnd="ExecuteEndHint"/>
             </Children>

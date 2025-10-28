@@ -2752,6 +2752,38 @@
     "TR": "Doktrin sistemini ve özelliklerini etkinleştir."
   },
   {
+    "id": "ret_mcm_option_enable_troop_customization",
+    "EN": "Experimental: Enable Appearance Controls",
+    "BR": "Experimental: Ativar Controles de Aparência",
+    "CNs": "实验性：启用外观控制",
+    "CNt": "實驗性：啟用外觀控制",
+    "DE": "Experimentell: Erscheinungskontrollen aktivieren",
+    "FR": "Expérimental : Activer les Contrôles d’Apparence",
+    "IT": "Sperimentale: Abilita Controlli Aspetto",
+    "JP": "実験的：外観コントロールを有効化",
+    "KO": "실험적: 외형 컨트롤 활성화",
+    "PL": "Eksperymentalne: Włącz Kontrolę Wyglądu",
+    "RU": "Экспериментально: Включить Управление Внешностью",
+    "SP": "Experimental: Habilitar Controles de Apariencia",
+    "TR": "Deneysel: Görünüm Kontrollerini Etkinleştir"
+  },
+  {
+    "id": "ret_mcm_option_enable_troop_customization_hint",
+    "EN": "Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences.",
+    "BR": "Adiciona controles de personalização de aparência (idade, altura, peso, físico). Experimental: pode ter consequências inesperadas.",
+    "CNs": "添加外观自定义控制（年龄、身高、体重、体型）。实验性：可能会有意想不到的后果。",
+    "CNt": "添加外觀自定義控制（年齡、身高、體重、體型）。實驗性：可能會有意想不到的後果。",
+    "DE": "Fügt Anpassungskontrollen für das Aussehen hinzu (Alter, Größe, Gewicht, Körperbau). Experimentell: kann unbeabsichtigte Folgen haben.",
+    "FR": "Ajoute des contrôles de personnalisation de l’apparence (âge, taille, poids, carrure). Expérimental : peut avoir des conséquences inattendues.",
+    "IT": "Aggiunge controlli di personalizzazione dell’aspetto (età, altezza, peso, corporatura). Sperimentale: potrebbe avere conseguenze indesiderate.",
+    "JP": "外観のカスタマイズコントロールを追加します（年齢、身長、体重、体型）。実験的：予期しない結果をもたらす可能性があります。",
+    "KO": "외형 맞춤 설정 컨트롤 추가(나이, 키, 몸무게, 체형). 실험적: 의도치 않은 결과가 있을 수 있습니다.",
+    "PL": "Dodaje kontrolki dostosowywania wyglądu (wiek, wzrost, waga, budowa). Eksperymentalne: może mieć niezamierzone konsekwencje.",
+    "RU": "Добавляет элементы управления настройкой внешности (возраст, рост, вес, телосложение). Экспериментально: может иметь непредвиденные последствия.",
+    "SP": "Agrega controles de personalización de apariencia (edad, altura, peso, complexión). Experimental: puede tener consecuencias no deseadas.",
+    "TR": "Görünüm özelleştirme kontrolleri ekler (yaş, boy, kilo, yapı). Deneysel: istenmeyen sonuçlara yol açabilir."
+  },
+  {
     "id": "ret_mcm_option_equipment_change_takes_time",
     "EN": "Changing Troop Equipment Takes Time",
     "BR": "Trocar Equipamento de Tropas Leva Tempo",

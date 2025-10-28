@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Save;
@@ -29,9 +30,12 @@ namespace Retinues.Troops
             // Wrap it
             var troop = new WCharacter(data.StringId);
 
+            // Get vanilla base
+            var vanilla = new WCharacter(data.VanillaStringId);
+
             // Fill it
             troop.FillFrom(
-                new WCharacter(data.VanillaStringId),
+                vanilla,
                 keepUpgrades: false,
                 keepEquipment: false,
                 keepSkills: false
@@ -100,7 +104,7 @@ namespace Retinues.Troops
                 troop.IsNotTransferableInPartyScreen = true;
 
             // Set culture visuals if present
-            if (!string.IsNullOrEmpty(data.CultureId))
+            if (!string.IsNullOrEmpty(data.CultureId) && data.CultureId != vanilla.Culture.StringId)
             {
                 var culture = MBObjectManager.Instance.GetObject<CultureObject>(data.CultureId);
                 if (culture != null)
@@ -111,16 +115,19 @@ namespace Retinues.Troops
                 }
             }
 
-            // Set dynamic properties (already handles nulls)
-            troop.SetDynamicEnd(true, data.AgeMin, data.WeightMin, data.BuildMin);
-            troop.SetDynamicEnd(false, data.AgeMax, data.WeightMax, data.BuildMax);
-            troop.Age = troop.AgeMin + troop.AgeMax / 2;
-
-            // Set height properties
-            if (data.HeightMin > 0 && data.HeightMax > 0)
+            if (Config.EnableTroopCustomization)
             {
-                troop.HeightMin = data.HeightMin;
-                troop.HeightMax = data.HeightMax;
+                // Set dynamic properties (already handles nulls)
+                troop.SetDynamicEnd(true, data.AgeMin, data.WeightMin, data.BuildMin);
+                troop.SetDynamicEnd(false, data.AgeMax, data.WeightMax, data.BuildMax);
+                troop.Age = troop.AgeMin + troop.AgeMax / 2;
+
+                // Set height properties
+                if (data.HeightMin > 0 && data.HeightMax > 0)
+                {
+                    troop.HeightMin = data.HeightMin;
+                    troop.HeightMax = data.HeightMax;
+                }
             }
 
             // Activate
