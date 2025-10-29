@@ -1,0 +1,30 @@
+{# Button helpers #}
+
+{% macro text(
+    text,
+    command,
+    brush="Popup.Button.Text",
+    is_visible = "true",
+    is_enabled = "true",
+    width = "!CancelButton.Width", height = "!CancelButton.Height",
+    vertical_alignment = "Center", horizontal_alignment = "Center",
+    margin_left = "0", margin_right = "0", margin_top = "0", margin_bottom = "0"
+) -%}
+<ButtonWidget
+    IsVisible="{{is_visible}}" IsEnabled="{{is_enabled}}"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="{{width}}" SuggestedHeight="{{height}}"
+    HorizontalAlignment="{{horizontal_alignment}}" VerticalAlignment="{{vertical_alignment}}"
+    MarginLeft="{{margin_left}}" MarginRight="{{margin_right}}" MarginTop="{{margin_top}}" MarginBottom="{{margin_bottom}}"
+    Brush="{{brush}}"
+    Command.Click="{{command}}">
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            Brush="Popup.Button.Text"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Text="{{text}}"/>
+    </Children>
+</ButtonWidget>
+{%- endmacro %}

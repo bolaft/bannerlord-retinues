@@ -169,24 +169,3 @@
   </Children>
 </Widget>
 {{- end -}}
-
-<!-- Large/right-aligned big button macro. Params: text, command, visibility, alignment, margin_right, brush -->
-{{- func big_button(text, command, is_visible = "true", vertical_alignment = "Center", horizontal_alignment = "Center", margin_right = "20", brush = "ButtonBrush2") -}}
-<ButtonWidget
-    IsVisible="{{is_visible}}"
-    DoNotPassEventsToChildren="true"
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    SuggestedWidth="!CancelButton.Width" SuggestedHeight="120"
-    HorizontalAlignment="Right" VerticalAlignment="{{vertical_alignment}}"
-    MarginLeft="0" MarginRight="{{margin_right}}" MarginTop="0" MarginBottom="0"
-    Brush="{{brush}}"
-    Command.Click="{{command}}">
-    <Children>
-        <TextWidget
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            Brush="Popup.Button.Text"
-            VerticalAlignment="Center" HorizontalAlignment="Center"
-            Text="{{text}}"/>
-    </Children>
-</ButtonWidget>
-{{- end -}}
