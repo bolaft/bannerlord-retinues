@@ -16,7 +16,7 @@ namespace Retinues.Troops
     /// Handles serialization, event registration, and tree rebuilding for custom troops.
     /// </summary>
     [SafeClass]
-    public sealed class TroopBehavior : CampaignBehaviorBase
+    public class TroopBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //

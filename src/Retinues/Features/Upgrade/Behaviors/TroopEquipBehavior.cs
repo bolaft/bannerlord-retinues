@@ -67,7 +67,7 @@ namespace Retinues.Features.Upgrade.Behaviors
     /// Staged "equip" jobs with a unified public API (Stage/Unstage/Get/Clear).
     /// </summary>
     [SafeClass]
-    public sealed class TroopEquipBehavior : BaseUpgradeBehavior<PendingEquipData>
+    public class TroopEquipBehavior : BaseUpgradeBehavior<PendingEquipData>
     {
         // Small typed payload for StageChange.
         public readonly struct EquipChange(EquipmentIndex slot, int equipmentIndex, WItem item)

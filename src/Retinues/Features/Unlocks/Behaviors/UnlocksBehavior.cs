@@ -20,7 +20,7 @@ namespace Retinues.Features.Unlocks.Behaviors
     /// Handles unlocking items from kills, culture bonuses, and showing unlock popups.
     /// </summary>
     [SafeClass]
-    public sealed class UnlocksBehavior : CampaignBehaviorBase
+    public class UnlocksBehavior : CampaignBehaviorBase
     {
         public static UnlocksBehavior Instance { get; private set; }
 

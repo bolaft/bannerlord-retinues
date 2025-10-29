@@ -18,7 +18,7 @@ namespace Retinues.Features.Xp.Behaviors
     /// Provides static API for getting, setting, spending, and refunding troop XP.
     /// </summary>
     [SafeClass]
-    public sealed class TroopXpBehavior : CampaignBehaviorBase
+    public class TroopXpBehavior : CampaignBehaviorBase
     {
         public const float TrainingXpMultiplier = 0.2f; // 20% of the original XP
 

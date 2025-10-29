@@ -78,9 +78,7 @@ namespace Retinues.Game.Helpers.Character
         public bool IsClan(string id) => !IsKingdom(id);
 
         public IReadOnlyList<int> GetPath(string id) =>
-            TroopBehavior.Index.TryGetValue(id, out var e)
-                ? (IReadOnlyList<int>)(e.Path ?? new List<int>())
-                : new List<int>();
+            TroopBehavior.Index.TryGetValue(id, out var e) ? e.Path ?? [] : [];
 
         public WFaction ResolveFaction(string id) => IsKingdom(id) ? Player.Kingdom : Player.Clan;
 

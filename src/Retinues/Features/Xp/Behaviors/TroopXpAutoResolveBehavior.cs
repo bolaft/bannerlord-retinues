@@ -16,7 +16,7 @@ namespace Retinues.Features.Xp.Behaviors
     /// Takes a snapshot at MapEvent start (counts/tiers before finalization) and pays on end.
     /// </summary>
     [SafeClass]
-    public sealed class TroopXpAutoResolveBehavior : CampaignBehaviorBase
+    public class TroopXpAutoResolveBehavior : CampaignBehaviorBase
     {
         private const float XpPerTier = 2.5f; // enemy-only tier weighting
 
