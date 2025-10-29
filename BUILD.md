@@ -14,7 +14,7 @@
 
 1) **Clone** the repository.
 
-2) **Create a local props override** (git‑ignored) to point at your Bannerlord install (optional if you pass `--game-dir` each time):
+2) **Create a local props override** (git‑ignored) to point at your Bannerlord install:
 
 ```xml
 <!-- Retinues.Local.props -->
@@ -70,23 +70,23 @@ src/PrefabBuilder/PrefabBuilder.csproj # GUI generator tool (not deployed)
 
 ### Dev (Debug), deploy to game
 ```bash
-./build.sh --deploy
+./build.sh -v 12
 ```
 - Copies **UIExtenderDebug.xml** to the module root.
 - Generates GUI prefabs (if PrefabBuilder project exists) and deploys `GUI/**`.
 - Deploys `Retinues.dll`, `SubModule.xml`, `ModuleData/**`, `config.ini`.
 
-### Prefabs only (plus GUI deploy)
+### Prefabs only
 ```bash
-./build.sh --prefabs --deploy
+./build.sh --prefabs
 ```
 - Runs PrefabBuilder to `bin/Modules/Retinues/GUI/**`.
 - Mirrors `GUI/**` to `<Game>/Modules/Retinues/GUI/**`.
 
 ### Release build with version bump
 ```bash
-# Set the last number in <Version value="vX.Y.Z.N" /> to 12 and build Release
-./build.sh --release 12 --deploy
+# Set the last number in <Version value="vX.Y.Z.N" /> to 8 and build Release
+./build.sh -r 8
 ```
 - Updates `src/Retinues/SubModule.BL12.xml`, `src/Retinues/SubModule.BL13.xml`, and/or `src/Retinues/SubModule.xml` if present.
 - Builds **Release** (no `UIExtenderDebug.xml`).
@@ -95,13 +95,8 @@ src/PrefabBuilder/PrefabBuilder.csproj # GUI generator tool (not deployed)
 ### Target a specific Bannerlord version
 ```bash
 # BL 1.3 (default)
-./build.sh --deploy --version 13
+./build.sh -v 13
 
 # BL 1.2
-./build.sh --deploy --version 12
-```
-
-You can also force the game path inline:
-```bash
-./build.sh --deploy --game-dir "D:\Steam\steamapps\common\Mount & Blade II Bannerlord"
+./build.sh -v 12
 ```
