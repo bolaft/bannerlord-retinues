@@ -153,7 +153,7 @@ namespace Retinues.GUI.Editor
 
             Equipment = equipment;
 
-            UpdateEquipData();
+            UpdateEquipData(false);
 
             EventManager.Fire(UIEvent.Equipment);
         }
@@ -173,17 +173,17 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Recompute or set equip data cache.
         /// </summary>
-        public static void UpdateEquipData(Dictionary<EquipmentIndex, EquipData> equipData = null)
+        public static void UpdateEquipData(bool singleUpdate = true)
         {
-            equipData ??= ComputeEquipData();
+            EquipData = ComputeEquipData();
 
-            LastEquipChange = CaptureEquipChange(equipData, Slot);
-
-            EquipData = equipData;
+            if (singleUpdate)
+            {
+                LastEquipChange = CaptureEquipChange(EquipData, Slot);
+                EventManager.Fire(UIEvent.Equip);
+            }
 
             UpdateAppearance();
-
-            EventManager.Fire(UIEvent.Equip);
         }
 
         /// <summary>

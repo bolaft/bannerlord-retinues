@@ -393,7 +393,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     affirmativeAction: () =>
                     {
                         State.Troop.UnequipAll(State.Equipment.Index, stock: true);
-                        State.UpdateEquipData();
+                        State.UpdateEquipment(State.Equipment);
                     },
                     negativeAction: () => { }
                 )
@@ -425,7 +425,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     affirmativeAction: () =>
                     {
                         State.Troop.UnstageAll(State.Equipment.Index, true);
-                        State.UpdateEquipData();
+                        State.UpdateEquipment(State.Equipment);
                     },
                     negativeAction: () => { }
                 )
