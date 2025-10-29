@@ -74,6 +74,14 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         private readonly HashSet<string> _equipChangeIds = new(StringComparer.Ordinal);
         private EquipmentRowVM _emptyRow;
 
+        private static readonly List<string> _weaponSlots = new()
+        {
+            EquipmentIndex.Weapon0.ToString(),
+            EquipmentIndex.Weapon1.ToString(),
+            EquipmentIndex.Weapon2.ToString(),
+            EquipmentIndex.Weapon3.ToString(),
+        };
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -134,6 +142,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         protected override void OnTroopChange()
         {
             _needsRebuild = true;
+
             if (IsVisible)
                 Build();
         }
@@ -144,15 +153,36 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         protected override void OnSlotChange()
         {
             _needsRebuild = true;
+
             if (IsVisible)
             {
-                for (int i = 0; i < EquipmentRows.Count; i++)
-                    EquipmentRows[i].OnSlotChanged();
+                var factionId = State.Faction?.StringId;
+
+                if (_lastFactionId == factionId)
+                {
+                    var slotId = State.Slot.ToString();
+
+                    if (_lastSlotId == slotId)
+                    {
+                        _needsRebuild = false;
+                        return;
+                    }
+                    else if (_weaponSlots.Contains(slotId) && _weaponSlots.Contains(_lastSlotId))
+                    {
+                        _needsRebuild = false;
+                        _lastSlotId = slotId;
+
+                        foreach (var r in EquipmentRows)
+                            r.OnSlotChanged();
+
+                        return;
+                    }
+                }
+
+                FilterText = string.Empty;
 
                 Build();
             }
-
-            FilterText = string.Empty;
         }
 
         /// <summary>
@@ -160,14 +190,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /// </summary>
         protected override void OnEquipmentChange()
         {
-            _needsRebuild = true;
             if (IsVisible)
-            {
-                for (int i = 0; i < EquipmentRows.Count; i++)
-                    EquipmentRows[i].OnEquipmentChanged();
-
-                Build();
-            }
+                foreach (var r in EquipmentRows)
+                    r.OnEquipmentChanged();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -183,24 +208,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 return;
             _needsRebuild = false;
 
-            List<string> weaponSlots =
-            [
-                EquipmentIndex.Weapon0.ToString(),
-                EquipmentIndex.Weapon1.ToString(),
-                EquipmentIndex.Weapon2.ToString(),
-                EquipmentIndex.Weapon3.ToString(),
-            ];
-
             var factionId = State.Faction?.StringId;
             var slotId = State.Slot.ToString();
-
-            if (_lastFactionId == factionId)
-            {
-                if (_lastSlotId == slotId)
-                    return;
-                else if (weaponSlots.Contains(_lastSlotId) && weaponSlots.Contains(slotId))
-                    return;
-            }
 
             _lastFactionId = factionId;
             _lastSlotId = slotId;
