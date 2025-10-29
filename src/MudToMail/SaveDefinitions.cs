@@ -14,7 +14,8 @@ namespace MudToMail
         /// <summary>
         /// Construct the definer with the module's unique base ID.
         /// </summary>
-        public SaveDefinitions() : base(070_992) { }
+        public SaveDefinitions()
+            : base(070_992) { }
 
         /// <summary>
         /// Register classes that the save system must know how to serialize.
