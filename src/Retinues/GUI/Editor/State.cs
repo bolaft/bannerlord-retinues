@@ -93,12 +93,6 @@ namespace Retinues.GUI.Editor
             EventManager.FireBatch(() =>
             {
                 UpdateFaction();
-                UpdateTroop();
-                UpdateEquipment();
-                UpdateSlot();
-                UpdateEquipData();
-                UpdateSkillData();
-                UpdateConversionData();
                 UpdatePartyData();
             });
         }
