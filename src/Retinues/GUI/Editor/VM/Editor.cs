@@ -137,7 +137,7 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowFactionButton => Screen != Screen.Doctrine && Player.Kingdom != null;
+        public bool ShowFactionButton => Screen != Screen.Doctrine && Player.Kingdom != null && !Config.NoKingdomTroops;
 
         [DataSourceProperty]
         public bool ShowDoctrinesButton =>
