@@ -83,7 +83,6 @@ namespace Retinues
 
                 // Add Retinues behaviors
                 AddBehaviors(cs);
-
             }
 
             // Smoke test for localization
