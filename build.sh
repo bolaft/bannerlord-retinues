@@ -10,6 +10,18 @@ RUN_STRINGS="true"
 RELEASE_PATCH="" # when set, force "release" and bump last version segment
 MODULE="Retinues" # default; --mtm flips to MudToMail
 
+# Print a framed header with lines of '=' above and below and a blank line before/after.
+# Usage: print_header "=   Some Header   ="
+print_header() {
+    local hdr="$1"
+    local len=${#hdr}
+    printf "\n"
+    printf '%*s\n' "$len" "" | tr ' ' '='
+    printf '%s\n' "$hdr"
+    printf '%*s\n' "$len" "" | tr ' ' '='
+    printf "\n"
+}
+
 usage() {
   cat <<'USAGE'
 Usage:
@@ -18,8 +30,8 @@ Usage:
 Options:
       --mtm             Build the MudToMail companion module instead of Retinues
       --no-deploy       Do not copy to game Modules
-      --prefabs         Only run PrefabBuilder
-      --no-prefabs      Skip PrefabBuilder
+      --prefabs         Only run prefabs generation
+      --no-prefabs      Skip prefabs generation
       --strings         Only run strings.py
       --no-strings      Skip strings.py
   -v, --version         Bannerlord version: 12 or 13 (default: 13)
@@ -55,7 +67,6 @@ done
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 MAIN_PROJ="$ROOT_DIR/src/${MODULE}/${MODULE}.csproj"
-PREFABS_PROJ="$ROOT_DIR/src/PrefabBuilder/PrefabBuilder.csproj"
 STRINGS_PY="$ROOT_DIR/loc/strings.py"
 
 # Compute msbuild -p: args
@@ -70,7 +81,7 @@ if [[ -n "$BL" ]]; then
   MSBUILD_PROPS+=("-p:BL=$BL")
 fi
 
-# Config: Release when --release is used, otherwise use your default (dev)
+# Config: Release when --release is used, otherwise use default (dev)
 if [[ -n "$RELEASE_PATCH" ]]; then
   MSBUILD_CONFIG=(-c Release)
 else
@@ -105,70 +116,48 @@ bump_submodule_version() {
 }
 
 # Banner
-echo "== ${MODULE} build =="
-echo " BL      : $BL"
-echo " Build   : $RUN_MAIN"
-echo " Prefabs : $RUN_PREFABS"
-echo " Strings : $RUN_STRINGS"
-echo " Config  : ${MSBUILD_CONFIG[1]}"
-echo " Deploy  : $DEPLOY"
+print_header "=   ${MODULE} Build   ="
+echo "  BL      : $BL"
+echo "  Build   : $RUN_MAIN"
+echo "  Prefabs : $RUN_PREFABS"
+echo "  Strings : $RUN_STRINGS"
+echo "  Config  : ${MSBUILD_CONFIG[1]}"
+echo "  Deploy  : $DEPLOY"
 if [[ -n "$RELEASE_PATCH" ]]; then
-  echo " Release : $RELEASE_PATCH"
+  echo "  Release : $RELEASE_PATCH"
 fi
-echo
 
 # If --release N is set, bump SubModule version before building
 if [[ -n "$RELEASE_PATCH" ]]; then
-  echo "== Updating SubModule version (${MODULE}) =="
+  print_header "=   Updating SubModule version (${MODULE})   ="
   bump_submodule_version "$RELEASE_PATCH"
-  echo
 fi
 
 # 1) Prefabs
-if [[ "$RUN_PREFABS" == "true" && -f "$PREFABS_PROJ" ]]; then
-  echo "== Building PrefabBuilder =="
-  dotnet build "$PREFABS_PROJ" "${MSBUILD_CONFIG[@]}"
-  echo
-
-  echo "== Running PrefabBuilder =="
-PREFAB_OUT="$ROOT_DIR/gui/$MODULE"
-TPL_TEMPLATES="$ROOT_DIR/tpl/$MODULE/templates"
-TPL_PARTIALS="$ROOT_DIR/tpl/$MODULE/partials"
-
-  rm -rf "$PREFAB_OUT"
-  mkdir -p "$PREFAB_OUT"
-
-  dotnet run --no-build --configuration "${MSBUILD_CONFIG[1]}" --project "$PREFABS_PROJ" -- \
-    --out "$PREFAB_OUT" \
-    --templates "$TPL_TEMPLATES" \
-    --partials "$TPL_PARTIALS" \
-    --bl "$BL" \
-    --config "${MSBUILD_CONFIG[1]}" \
-    --module "$MODULE"
-
-  echo
+if [[ "$RUN_PREFABS" == "true" ]]; then
+  print_header "=   Rendering Prefabs   ="
+  python tpl/render_prefabs.py --version "$BL"
 fi
 
 # 1.b) Deploy prefabs-only (if requested)
 if [[ "$RUN_PREFABS" == "true" && "$DEPLOY" == "true" && -f "$MAIN_PROJ" ]]; then
-  echo "== Deploying generated GUI to module (${MODULE}) =="
+  print_header "=   Deploying ${MODULE} GUI   ="
+  echo "Copying generated GUI to module..."
   dotnet msbuild "$MAIN_PROJ" -t:DeployPrefabsOnly -p:BL="$BL" -p:DeployToGame=true -p:ModuleName="${MODULE}"
-  echo
 fi
 
 # 2) Strings
 if [[ "$RUN_STRINGS" == "true" && -f "$STRINGS_PY" ]]; then
-  echo "== Running strings.py =="
+  print_header "=   Compiling Strings   ="
   python "$STRINGS_PY" --module "$MODULE"
-  echo
 fi
 
 # 3) Main project
 if [[ "$RUN_MAIN" == "true" && -f "$MAIN_PROJ" ]]; then
-  echo "== Building ${MODULE} =="
+  print_header "=   Building ${MODULE}   ="
   dotnet build "$MAIN_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}" -p:ModuleName="${MODULE}"
-  echo
 fi
 
 # Done
-echo "== Build finished ✅ == ($(date))"
+print_header "=   Build Finished   ="
+echo "✅ $(date)"

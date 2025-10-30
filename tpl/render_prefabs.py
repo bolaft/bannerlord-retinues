@@ -120,7 +120,7 @@ def process_module(module_dir: Path, bl_version: str | None = None) -> None:
             continue
 
         out_path.write_text(rendered, encoding="utf-8")
-        print(f"Wrote: {out_path}")
+        print(f"→ {module_dir.name}/{j2_file.name}")
 
 
 def main() -> int:
@@ -138,7 +138,7 @@ def main() -> int:
         # skip hidden, underscore-prefixed module folders, and caches
         if entry.name.startswith((".", "_")) or entry.name == "__pycache__":
             continue
-        print(f"Processing module: {entry.name}")
+
         process_module(entry, bl_version=args.version)
 
     return 0
