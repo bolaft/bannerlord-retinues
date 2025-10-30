@@ -1,0 +1,89 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--    Equipment Panel    -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+{# Slot Macro #}
+{% macro slot(data_source) -%}
+
+<ListPanel 
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    DataSource="{{ data_source }}"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginTop="16">
+    <Children>
+
+        <!-- Slot Select Button -->
+        {{ button.text(
+            text="@Label",
+            command="ExecuteSelect",
+            is_enabled="@IsEnabled",
+            is_selected="@IsSelected",
+            brush="ButtonBrush2",
+            width="160", height="48",
+            margin_right="32",
+        ) }}
+
+        <!-- Item Image -->
+        {{ image.image(
+            width="86", height="42",
+            margin_right="24",
+            hint="{Hint}"
+        ) }}
+
+        <!-- Item Text -->
+        {{ text.base(
+            text="@ItemText",
+            brush="Clan.RightPanel.Name.Text",
+            font_size="24",
+            font_color="@ItemTextColor",
+            width="300",
+            horizontal_alignment="Left",
+            margin_left="24",
+            hint="{EquipChangeHint}"
+        ) }}
+
+    </Children>
+</ListPanel>
+
+{%- endmacro %}
+
+<!-- Main slots list: renders rows for weapons, armor and mount slots -->
+<ListPanel
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            UpdateChildrenStates="true"
+            MarginBottom="24" MarginLeft="160">
+            <Children>
+
+                <!-- Weapons -->
+                {{ slot("{Weapon1Slot}") }}
+                {{ slot("{Weapon2Slot}") }}
+                {{ slot("{Weapon3Slot}") }}
+                {{ slot("{Weapon4Slot}") }}
+
+                <!-- Divider -->
+                {{ divider.line() }}
+
+                <!-- Armor -->
+                {{ slot("{HeadSlot}") }}
+                {{ slot("{CapeSlot}") }}
+                {{ slot("{BodySlot}") }}
+                {{ slot("{GlovesSlot}") }}
+                {{ slot("{LegSlot}") }}
+
+                <!-- Divider -->
+                {{ divider.line() }}
+
+                <!-- Mount -->
+                {{ slot("{HorseSlot}") }}
+                {{ slot("{HorseHarnessSlot}") }}
+
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>

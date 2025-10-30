@@ -1,1 +1,23 @@
-{# Divider helpers #}
+{# Divider Helpers #}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#    Line Divider Macro    #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro line(
+    is_visible="true",
+    height="4",
+    margin_left="40", margin_right="80",
+    margin_top="32", margin_bottom="16"
+) -%}
+    <Widget
+        IsVisible="{{ is_visible }}"
+        WidthSizePolicy="StretchToParent"
+        HeightSizePolicy="Fixed"
+        SuggestedHeight="{{ height }}"
+        Sprite="Clan\divider_mid"
+        MarginLeft="{{ margin_left }}"
+        MarginRight="{{ margin_right }}"
+        MarginTop="{{ margin_top }}"
+        MarginBottom="{{ margin_bottom }}"/>
+{%- endmacro %}

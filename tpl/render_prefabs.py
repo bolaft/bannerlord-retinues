@@ -1,5 +1,6 @@
 import sys
 import xml.dom.minidom
+import argparse
 
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, TemplateError, ChoiceLoader
@@ -46,11 +47,12 @@ def register_global_macros(env: Environment) -> None:
             print(f"[WARN] Failed to register macro '{name}': {e}", file=sys.stderr)
 
 
-def build_env(loader_path: Path) -> Environment:
+def build_env(loader_path: Path, bl_version: str | None = None) -> Environment:
     """
     Create a Jinja2 Environment with access to both:
       - the module-specific directory (loader_path)
       - the global macros directory (SCRIPT_DIR / "_macros")
+    Optionally register a 'version' global when bl_version is provided.
     """
     loaders = [
         FileSystemLoader(str(loader_path)),
@@ -63,21 +65,32 @@ def build_env(loader_path: Path) -> Environment:
         lstrip_blocks=True,
     )
 
+    # Expose the version to templates via env.globals if provided
+    if bl_version is not None:
+        env.globals["version"] = bl_version
+
     register_global_macros(env)
     return env
 
 
-def render_template(module_dir: Path, template_rel_path: Path, context: dict | None = None) -> str:
+def render_template(module_dir: Path, template_rel_path: Path, context: dict | None = None, bl_version: str | None = None) -> str:
     """
     Render a single template which is located under module_dir.
     template_rel_path is the path relative to module_dir (can include subfolders).
+    bl_version, if provided, is injected into the template context (key: 'version').
     """
-    env = build_env(module_dir)
+    env = build_env(module_dir, bl_version=bl_version)
     tpl = env.get_template(template_rel_path.as_posix())
-    return tpl.render(context or {})
+
+    # Ensure version is present in the render context if provided
+    render_ctx = dict(context or {})
+    if bl_version is not None and "version" not in render_ctx:
+        render_ctx["version"] = bl_version
+
+    return tpl.render(render_ctx)
 
 
-def process_module(module_dir: Path) -> None:
+def process_module(module_dir: Path, bl_version: str | None = None) -> None:
     """
     Find all .j2 files under module_dir, render them and write to gui output.
     Output root: ../gui/{ModuleName}/PrefabExtensions/ClanScreen/<same relative path>.xml
@@ -100,8 +113,8 @@ def process_module(module_dir: Path) -> None:
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
         try:
-            rendered = render_template(module_dir, rel, {})
-            rendered = pretty_xml(rendered)   # <-- add this line
+            rendered = render_template(module_dir, rel, {}, bl_version=bl_version)
+            rendered = pretty_xml(rendered)
         except TemplateError as e:
             print(f"[ERROR] Template error rendering {j2_file}: {e}", file=sys.stderr)
             continue
@@ -115,6 +128,10 @@ def main() -> int:
         print("Script directory not found", file=sys.stderr)
         return 2
 
+    parser = argparse.ArgumentParser(description="Render Jinja .j2 prefabs to XML")
+    parser.add_argument("-v", "--version", help="version string to pass into Jinja (available as 'version' in templates)")
+    args = parser.parse_args()
+
     for entry in sorted(SCRIPT_DIR.iterdir()):
         if not entry.is_dir():
             continue
@@ -122,7 +139,7 @@ def main() -> int:
         if entry.name.startswith((".", "_")) or entry.name == "__pycache__":
             continue
         print(f"Processing module: {entry.name}")
-        process_module(entry)
+        process_module(entry, bl_version=args.version)
 
     return 0
 

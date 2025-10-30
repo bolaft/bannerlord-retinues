@@ -1,4 +1,7 @@
-<!-- Troops tab button: selects the Troops tab in the Clan screen -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--       Troops Tab      -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
 <ButtonWidget
     DoNotPassEventsToChildren="true"
     WidthSizePolicy="Fixed"
@@ -12,9 +15,7 @@
     IsEnabled="true"
     IsSelected="@IsTroopsSelected"
     Command.Click="ExecuteSelectTroops">
-
     <Children>
-        <!-- Tab label text -->
         <TextWidget
             WidthSizePolicy="StretchToParent"
             HeightSizePolicy="StretchToParent"
@@ -22,7 +23,6 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Brush="Clan.TabControl.Text"
-            Text="@TroopsTabText"
-        />
+            Text="@TroopsTabText"/>
     </Children>
 </ButtonWidget>

@@ -1,0 +1,163 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--   Equipment Top Bar   -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+
+        <!-- Unequip All Button -->
+        {{ button.text(
+            text="@UnequipAllButtonText",
+            command="ExecuteUnequipAll",
+            is_hidden="@CanUnstage",
+            is_enabled="@CanUnequip",
+            brush="Popup.Delete.Button",
+        ) }}
+
+        <!-- Unstage All Button -->
+        {{ button.text(
+            text="@UnstageAllButtonText",
+            command="ExecuteUnstageAll",
+            is_visible="@CanUnstage",
+            is_enabled="@CanUnequip",
+            brush="Popup.Delete.Button",
+        ) }}
+
+        <!-- Prev / Next Set -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <Children>
+
+                {{ button.chevron_l("ExecutePrevSet", size="36", is_enabled="@CanSelectPrevSet") }}
+                {{ text.base(text="@EquipmentName", margin_left="16", margin_right="16") }}
+                {{ button.chevron_r("ExecuteNextSet", size="36", is_enabled="@CanSelectNextSet") }}
+
+            </Children>
+        </ListPanel>
+
+        <!-- Create / Remove Set -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <Children>
+
+                <!-- Remove Set Button -->
+                {{ button.brush(
+                    command="ExecuteRemoveSet",
+                    brush="Inventory.Tuple.Extension.MinusButton",
+                    height="36", width="36",
+                    is_enabled="@CanRemoveSet",
+                    hint="{RemoveSetHint}"
+                ) }}
+
+                <!-- Create Set Button -->
+                {{ button.brush(
+                    command="ExecuteCreateSet",
+                    brush="Inventory.Tuple.Extension.PlusButton",
+                    height="36", width="36",
+                    is_enabled="@CanCreateSet",
+                    hint="{CreateSetHint}"
+                ) }}
+
+            </Children>
+        </ListPanel>
+
+        <!-- Set Toggles -->
+        <ListPanel
+            IsVisible="@CanEnableSet"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            MarginTop="4"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <!-- Field Battle -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="36"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Field Battle Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_garrison_big",
+                            width="36", height="36",
+                            margin_left="6", margin_right="6"
+                        ) }}
+
+                        <!-- Field Battle Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForFieldBattle",
+                            is_selected="@SetIsEnabledForFieldBattle",
+                            size="30",
+                            hint="{FieldBattleHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+                <!-- Siege Defense -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="36"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Siege Defense Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                            color="#a5bcd6ff",
+                            width="36", height="36",
+                            margin_left="6", margin_right="6"
+                        ) }}
+
+                        <!-- Siege Defense Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForSiegeDefense",
+                            is_selected="@SetIsEnabledForSiegeDefense",
+                            size="30",
+                            hint="{SiegeDefenseHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+                <!-- Siege Assault -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="36"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Siege Assault Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                            color="#dbaeaeff",
+                            width="36", height="36",
+                            margin_left="6", margin_right="6"
+                        ) }}
+
+                        <!-- Siege Assault Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForSiegeAssault",
+                            is_selected="@SetIsEnabledForSiegeAssault",
+                            size="30",
+                            hint="{SiegeAssaultHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>
