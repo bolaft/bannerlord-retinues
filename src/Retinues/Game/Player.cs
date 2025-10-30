@@ -166,8 +166,7 @@ namespace Retinues.Game
         /// Returns the player's kingdom as a WFaction wrapper, if leader.
         /// </summary>
         public static WFaction Kingdom =>
-            Config.NoKingdomTroops ? null
-            : IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom)
+            IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom)
             : null;
 
         private static WFaction _kingdom;

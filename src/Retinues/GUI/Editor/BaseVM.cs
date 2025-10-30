@@ -112,7 +112,7 @@ namespace Retinues.GUI.Editor
             else if (e == UIEvent.Equip)
                 OnEquipChange();
 
-            // If hidden and not opted-in, don't execute heavy hooks—just queue.
+            // If hidden and not opted-in, queue for later
             if (!IsVisible)
             {
                 _queuedWhileHidden = true;
