@@ -510,7 +510,7 @@
       text="Lorsqu’activé, les armes fabriquées ne seront pas disponibles même avec la doctrine appropriée débloquée." />
     <string
       id="ret_mcm_option_disable_feat_requirements"
-      text="Désactiver les Exigences de Fait" />
+      text="Désactiver les Exigences de Haut-Faits" />
     <string
       id="ret_mcm_option_disable_feat_requirements_hint"
       text="Désactive les exigences de haut-faits pour débloquer les doctrines." />
