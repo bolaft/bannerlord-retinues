@@ -283,23 +283,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Guard
             _fullTuples ??= [];
 
-            // 1) Filter over the full precomputed set
-            bool hasFilter = !string.IsNullOrWhiteSpace(FilterText);
-            bool Pass(ItemTuple t)
-            {
-                if (!hasFilter)
-                    return true;
-                // Simple example: search in name or category; adapt if you have richer filters
-                return (
-                        t.Name?.IndexOf(FilterText, StringComparison.CurrentCultureIgnoreCase) ?? -1
-                    ) >= 0
-                    || (
-                        t.Category?.IndexOf(FilterText, StringComparison.CurrentCultureIgnoreCase)
-                        ?? -1
-                    ) >= 0;
-            }
-
-            // 2) Sort comparator over tuples (no UI rows involved)
+            // 1) Sort comparator over tuples (no UI rows involved)
             int Primary(int v) => _descending ? -v : v;
 
             int Compare(ItemTuple a, ItemTuple b)
@@ -348,8 +332,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Display item list
             var display = new List<ItemTuple>(Math.Min(_fullTuples.Count, MaxRowsAbsolute));
             foreach (var t in _fullTuples)
-                if (Pass(t)) // Filter
-                    display.Add(t);
+                display.Add(t);
 
             // Sort
             display.Sort(Comparer<ItemTuple>.Create(Compare));
