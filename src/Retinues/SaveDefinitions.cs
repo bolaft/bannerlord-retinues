@@ -27,6 +27,7 @@ namespace Retinues
 
             // Troop save data
             AddClassDefinition(typeof(TroopSaveData), 070_992);
+            AddClassDefinition(typeof(TroopIndexEntry), 070_994);
 
             // Staged operations data
             AddClassDefinition(typeof(PendingTrainData), 070_001);
@@ -60,6 +61,7 @@ namespace Retinues
             // Troop save data containers
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(List<string>));
+            ConstructContainerDefinition(typeof(Dictionary<string, TroopIndexEntry>));
 
             // Combat equipment behavior containers
             ConstructContainerDefinition(typeof(Dictionary<int, byte>));

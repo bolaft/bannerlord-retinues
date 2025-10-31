@@ -64,10 +64,10 @@ namespace Retinues.Troops
             var hasBasic = faction.BasicTroops.Count > 0;
             var hasElite = faction.EliteTroops.Count > 0;
 
+            Log.Debug($"Custom troop presence: Basic={hasBasic}, Elite={hasElite}.");
+
             if (!hasBasic || !hasElite)
             {
-                Log.Debug($"Custom troop presence: Basic:{hasBasic} Elite:{hasElite}.");
-
                 bool canInitClanTroops =
                     faction.HasFiefs || Player.Kingdom != null || Config.RecruitAnywhere == true;
 
@@ -228,10 +228,10 @@ namespace Retinues.Troops
 
             retinue.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
-            Log.Info($"Created retinue troop {retinue.Name} for {faction.Name} (from {tpl})");
-
             // Rename it
             retinue.Name = retinueName;
+
+            Log.Info($"Created retinue troop {retinue.Name} ({retinue}) for {faction.Name} (from {tpl})");
 
             // Non-transferable
             retinue.IsNotTransferableInPartyScreen = true;

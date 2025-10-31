@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Game.Wrappers;
 using Retinues.Troops;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Game.Helpers.Character
 {
@@ -26,20 +27,27 @@ namespace Retinues.Game.Helpers.Character
             IReadOnlyList<int> path = null
         )
         {
+            // 1) Try reuse: exact signature (flags + path)
+            var existing = TroopIndex.FindBySignature(isKingdom, isElite, isRetinue, isMilitiaMelee, isMilitiaRanged, path);
+            if (existing != null)
+            {
+                var co0 = MBObjectManager.Instance.GetObject<CharacterObject>(existing.Id);
+                if (co0 != null) return co0;
+                // fall through to allocate if somehow missing (shouldn't happen if stubs are loaded)
+            }
+
+            // 2) Allocate a fresh stub
             var id = AllocateId();
             if (string.IsNullOrEmpty(id))
                 return null;
 
-            // Persist flags + relations immediately
             TroopIndex.SetFlags(id, isKingdom, isElite, isRetinue, isMilitiaMelee, isMilitiaRanged);
 
-            // Parent relation if a path is supplied: parent is path[:-1]
+            // 3) Parent relation from path (parent = path[:-1])
             if (path != null && path.Count > 0)
             {
-                // Find parent by exact path prefix in the index
-                var parent = TroopBehavior.Index.Values.FirstOrDefault(e =>
-                    e.Path != null && e.Path.SequenceEqual(path.Take(path.Count - 1))
-                );
+                var parentPath = path.Take(path.Count - 1).ToArray();
+                var parent = TroopIndex.FindByPath(parentPath);
                 TroopIndex.SetParent(id, parent?.Id, path[path.Count - 1]);
             }
             else
@@ -47,7 +55,8 @@ namespace Retinues.Game.Helpers.Character
                 TroopIndex.SetParent(id, null, 0);
             }
 
-            return TaleWorlds.ObjectSystem.MBObjectManager.Instance.GetObject<CharacterObject>(id);
+            // 4) Return the stub object (pre-registered by your XML)
+            return MBObjectManager.Instance.GetObject<CharacterObject>(id);
         }
 
         public CharacterObject GetCharacterObject(string id) =>
