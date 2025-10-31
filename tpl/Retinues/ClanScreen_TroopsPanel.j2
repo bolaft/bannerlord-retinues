@@ -24,8 +24,7 @@
                             MarginRight="290">
                             <Children>
                                 <Widget
-                                    WidthSizePolicy="Fixed"
-                                    HeightSizePolicy="StretchToParent"
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
                                     SuggestedWidth="465"
                                     HorizontalAlignment="Left">
                                     <Children>
@@ -56,8 +55,7 @@
                         <!-- Main Panel -->
                         <Widget
                             VisualDefinition="RightPanel"
-                            WidthSizePolicy="StretchToParent"
-                            HeightSizePolicy="StretchToParent"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                             PositionXOffset="800"
                             MarginLeft="340">
                             <Children>
@@ -73,7 +71,7 @@
         <!-- Doctrines Panel -->
         <Widget
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-            IsVisible="@IsDoctrinesVisible">
+            IsVisible="@InDoctrineScreen">
             <Children>
                 {% include "_/doctrines/base.j2" %}
             </Children>
@@ -85,8 +83,7 @@
             command="ExecuteSwitchFaction",
             brush="@EquipmentButtonBrush",
             is_visible="@ShowFactionButton",
-            vertical_alignment="Top",
-            horizontal_alignment="Right",
+            vertical_alignment="Top", horizontal_alignment="Right",
             height="120",
         ) }}
 
@@ -94,10 +91,9 @@
         {{ button.text(
             text="@DoctrinesButtonText",
             command="ExecuteToggleDoctrines",
-            brush="@EquipmentButtonBrush",
+            brush="@DoctrinesButtonBrush",
             is_visible="@ShowDoctrinesButton",
-            vertical_alignment="Bottom",
-            horizontal_alignment="Right",
+            vertical_alignment="Bottom", horizontal_alignment="Right",
             height="120",
         ) }}
 
@@ -106,12 +102,9 @@
             <BrushListPanel
                 DataSource="{{ data_source }}"
                 IsVisible="@IsVisible"
-                WidthSizePolicy="CoverChildren"
-                HeightSizePolicy="StretchToParent"
+                WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
                 VerticalAlignment="Bottom"
-                MarginTop="6"
-                MarginBottom="9"
-                MarginLeft="27"
+                MarginTop="6" MarginBottom="9" MarginLeft="27"
                 Brush="Frame1Brush"
                 StackLayout.LayoutMethod="VerticalBottomToTop">
                 <Children>

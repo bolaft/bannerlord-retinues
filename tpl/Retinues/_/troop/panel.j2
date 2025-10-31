@@ -4,12 +4,13 @@
 
 <ListPanel
     DataSource="{TroopPanel}"
-    IsVisible="{IsVisible}"
+    IsVisible="@IsVisible"
     WidthSizePolicy="StretchToParent"
     HeightSizePolicy="CoverChildren"
     StackLayout.LayoutMethod="VerticalBottomToTop"
 >
     <Children>
+
         {# Name Section #}
         {% include "_/troop/panel/name.j2" %}
 
@@ -24,5 +25,6 @@
 
         {# Conversion Section #}
         {% include "_/troop/panel/conversion.j2" %}
+
     </Children>
 </ListPanel>

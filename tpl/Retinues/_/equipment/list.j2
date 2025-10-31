@@ -12,6 +12,9 @@
         {{ list.sort_button("@SortByTierText", "ExecuteSortByTier", "120", "@SortByTierSelected", "@SortByTierState") }}
         {{ list.sort_button("@SortByCostText", "ExecuteSortByCost", "120", "@SortByCostSelected", "@SortByCostState") }}
 
+        <!-- Cap Header Area -->
+        {{ list.sort_header_sprite() }}
+
     {% endcall %}
 
     <!-- Filter Row -->
@@ -20,13 +23,16 @@
         <!-- Search Filter -->
         {{ list.search_filter() }}
 
+        <!-- Cap Header Area -->
+        {{ list.sort_header_sprite() }}
+
     {% endcall %}
 
     <!-- List Panel -->
     {% call list.panel("{EquipmentList}", "EquipmentList") %}
 
         <!-- Item List -->
-        {% call list.rows("{RetinueTroops}", "Retinue") %}
+        {% call list.rows("{EquipmentRows}", "Equipment") %}
             {% include "_/equipment/row.j2" %}
         {% endcall %}
 

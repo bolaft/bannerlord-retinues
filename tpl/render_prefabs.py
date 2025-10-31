@@ -67,7 +67,7 @@ def build_env(loader_path: Path, bl_version: str | None = None) -> Environment:
 
     # Expose the version to templates via env.globals if provided
     if bl_version is not None:
-        env.globals["version"] = bl_version
+        env.globals["version"] = str(bl_version)
 
     register_global_macros(env)
     return env

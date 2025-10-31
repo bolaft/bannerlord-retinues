@@ -18,81 +18,59 @@
     hint=None
 ) -%}
 
-{# enabled button #}
-<ButtonWidget
-    {% if data_source %}DataSource="{{ data_source }}"{% endif %}
-    IsVisible="{{ is_enabled }}"
-    {% if is_hidden %}IsHidden="{{ is_hidden }}"{% endif %}
-    {% if is_selected %} IsSelected="{{ is_selected }}"{% endif %}
-    DoNotPassEventsToChildren="true"
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+<Widget
     HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"
-    MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
-    MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
-    Brush="{{ brush }}"
-    Command.Click="{{ command }}">
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    {% if data_source %}DataSource="{{ data_source }}"{% endif %}
+    {% if is_hidden %}IsHidden="{{ is_hidden }}"{% endif %}
+    IsVisible="{{ is_visible }}">
     <Children>
-
-        {# inner content from specializations #}
-        {% if caller %}{{ caller() }}{% endif %}
-
-        {# hint on enabled button #}
         {% if hint %}
             <HintWidget
                 DataSource="{{ hint }}"
                 Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
         {% endif %}
 
-    </Children>
-</ButtonWidget>
-
-{# disabled mirror #}
-<Widget
-    {% if data_source %}DataSource="{{ data_source }}"{% endif %}
-    IsHidden="{{ is_enabled }}"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"
-    MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
-    MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
-    DoNotPassEventsToChildren="false">
-    <Children>
-
-        {# disabled button, same visual footprint #}
         <ButtonWidget
-            IsVisible="{{ is_visible }}"
-            {% if is_hidden %}IsHidden="{{ is_hidden }}"{% endif %}
-            IsEnabled="false"
-            DoNotPassEventsToChildren="true"
+            IsVisible="{{ is_enabled }}"
+            IsEnabled="true"
+            {% if is_selected %} IsSelected="{{ is_selected }}"{% endif %}
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
             HorizontalAlignment="Center" VerticalAlignment="Center"
-            Brush="{{ brush }}">
+            SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+            MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+            MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
+            Brush="{{ brush }}"
+            Command.Click="{{ command }}"
+            UpdateChildrenStates="true"
+            DoNotPassEventsToChildren="true">
             <Children>
-
+                {% if hint %}
+                    <HintWidget
+                        DataSource="{{ hint }}"
+                        Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                {% endif %}
                 {% if caller %}{{ caller() }}{% endif %}
-
             </Children>
         </ButtonWidget>
 
-        {# hover-only overlay box carrying the hint when disabled #}
-        {% if hint %}
-            <Widget
-                IsVisible="{{ is_visible }}"
-                {% if is_hidden %}IsHidden="{{ is_hidden }}"{% endif %}
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                DoNotPassEventsToChildren="true">
-                <Children>
-                    <HintWidget
-                        DataSource="{{ hint }}"
-                        Command.HoverBegin="ExecuteBeginHint"
-                        Command.HoverEnd="ExecuteEndHint"/>
-                </Children>
-            </Widget>
-        {% endif %}
-
+        <ButtonWidget
+            IsHidden="{{ is_enabled }}"
+            IsEnabled="false"
+            {% if is_selected %} IsSelected="{{ is_selected }}"{% endif %}
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+            MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+            MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
+            Brush="{{ brush }}"
+            Command.Click="{{ command }}"
+            UpdateChildrenStates="true"
+            DoNotPassEventsToChildren="true">
+            <Children>
+                {% if caller %}{{ caller() }}{% endif %}
+            </Children>
+        </ButtonWidget>
     </Children>
 </Widget>
 

@@ -14,12 +14,13 @@
     font_size=None,
     horizontal_alignment="Center", vertical_alignment="Center",
     margin_left="0", margin_right="0", margin_top="0", margin_bottom="0",
+    width_policy="CoverChildren", height_policy="CoverChildren",
     width=None, height=None,
     clip_contents="false",
     hint=None
 ) -%}
-    {% set height_policy = ("CoverChildren" if height is none else "Fixed") %}
-    {% set width_policy  = ("CoverChildren" if width is none else "Fixed") %}
+    {% set height_policy = (height_policy if height is none else "Fixed") %}
+    {% set width_policy  = (width_policy if width is none else "Fixed") %}
 
     <TextWidget
         IsVisible="{{ is_visible }}"

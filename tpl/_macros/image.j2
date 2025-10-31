@@ -32,9 +32,8 @@
             <BrushWidget
                 WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                 Brush="{{ brush }}"/>
-
             {# BL13 uses TextureProviderName; BL12 uses ImageTypeCode #}
-            {% if version == 13 %}
+            {% if version == "13" %}
                 <ImageIdentifierWidget
                     AdditionalArgs="{{ args_var }}" ImageId="{{ id_var }}" TextureProviderName="{{ provider_var }}"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -70,7 +69,7 @@
     margin_top="0", margin_bottom="0",
     vertical_alignment="Center", horizontal_alignment="Center"
 ) -%}
-    <ImageWidget
+    <SpriteWidget
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
         SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
         MarginRight="{{ margin_right }}" MarginLeft="{{ margin_left }}"

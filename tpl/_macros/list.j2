@@ -124,6 +124,13 @@
             Command.Click="ExecuteSelect" 
             UpdateChildrenStates="true">
             <Children>
+                <!-- Row  Hint -->
+                <HintWidget
+                    DataSource="{Hint}"
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
                 <ListPanel 
                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" 
                     MarginLeft="24" MarginRight="24" 
@@ -192,9 +199,6 @@
     <Children>
         {# Child Content #}
         {{ caller() }}
-
-        <!-- Scroll header sprite to visually cap the header area -->
-        {{ sort_header_sprite() }}
     </Children>
 </ListPanel>
 

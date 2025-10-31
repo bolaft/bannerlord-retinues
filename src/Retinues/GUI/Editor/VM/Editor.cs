@@ -82,6 +82,7 @@ namespace Retinues.GUI.Editor.VM
             OnPropertyChanged(nameof(DoctrinesButtonText));
             OnPropertyChanged(nameof(FactionButtonText));
             OnPropertyChanged(nameof(EquipmentButtonBrush));
+            OnPropertyChanged(nameof(DoctrinesButtonBrush));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -155,6 +156,10 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public string EquipmentButtonBrush =>
             Screen == Screen.Equipment ? "ButtonBrush3" : "ButtonBrush1";
+
+        [DataSourceProperty]
+        public string DoctrinesButtonBrush =>
+            Screen == Screen.Doctrine ? "ButtonBrush3" : "ButtonBrush1";
 
         /* ━━━━━━━━ Screens ━━━━━━━ */
 
