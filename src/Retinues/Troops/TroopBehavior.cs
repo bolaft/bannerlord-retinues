@@ -29,11 +29,6 @@ namespace Retinues.Troops
         public static Dictionary<string, TroopIndexEntry> Index { get; set; }
 
         /// <summary>
-        /// Returns true if there is any troop sync data present.
-        /// </summary>
-        public bool HasSyncData => TroopData.Count > 0;
-
-        /// <summary>
         /// Syncs custom troop data to and from the campaign save file.
         /// </summary>
         public override void SyncData(IDataStore ds)
