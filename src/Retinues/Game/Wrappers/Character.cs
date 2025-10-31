@@ -474,11 +474,23 @@ namespace Retinues.Game.Wrappers
 
         public static List<string> ActiveTroops { get; } = [];
         public bool IsActive => !IsCustom || ActiveTroops.Contains(StringId);
-        public bool IsValid =>
-            IsActive
-            && Base != null
-            && !string.IsNullOrWhiteSpace(StringId)
-            && !string.IsNullOrWhiteSpace(Name);
+        public bool IsValid
+        {
+            get
+            {
+                try
+                {
+                    return IsActive
+                        && Base != null
+                        && !string.IsNullOrWhiteSpace(StringId)
+                        && !string.IsNullOrWhiteSpace(Name);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
 
         public void Activate()
         {

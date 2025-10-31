@@ -34,8 +34,7 @@ namespace Retinues.Troops
             if (data.StringId.StartsWith(IdPrefixLegacy) && !data.StringId.StartsWith(IdPrefix))
             {
                 Log.Warn($"Loading legacy troop ID '{data.StringId}'");
-
-                // TODO
+                data = MigrateLegacyData(data);
             }
 
             // Wrap it
@@ -141,6 +140,72 @@ namespace Retinues.Troops
 
             // Return the created troop
             return troop;
+        }
+
+        /// <summary>
+        /// Migrates legacy TroopSaveData with old ID format to new format.
+        /// </summary>
+        public static TroopSaveData MigrateLegacyData(TroopSaveData data)
+        {
+            var legacy = new Safety.Legacy.LegacyCustomCharacterHelper();
+
+            var isKingdom = legacy.IsKingdom(data.StringId);
+            var isElite = legacy.IsElite(data.StringId);
+            var isRetinue = legacy.IsRetinue(data.StringId);
+            var isMilitiaMelee = legacy.IsMilitiaMelee(data.StringId);
+            var isMilitiaRanged = legacy.IsMilitiaRanged(data.StringId);
+            var path = legacy.GetPath(data.StringId)?.ToList() ?? [];
+
+            // Look for existing troop with same flags + path
+            var existing = TroopIndex.FindBySignature(
+                isKingdom,
+                isElite,
+                isRetinue,
+                isMilitiaMelee,
+                isMilitiaRanged,
+                path
+            );
+
+            string newId;
+            if (existing != null)
+            {
+                newId = existing.Id;
+            }
+            else
+            {
+                newId = TroopIndex.AllocateStub();
+                if (string.IsNullOrEmpty(newId))
+                    throw new MBException(
+                        $"No free retinues_custom_* stubs to migrate legacy troop '{data.StringId}'."
+                    );
+
+                // Persist flags immediately
+                TroopIndex.SetFlags(
+                    newId,
+                    isKingdom,
+                    isElite,
+                    isRetinue,
+                    isMilitiaMelee,
+                    isMilitiaRanged
+                );
+
+                // Wire parent by path (parent = path[:-1]) if available.
+                if (path.Count > 0)
+                {
+                    var parentPath = path.Take(path.Count - 1).ToArray();
+                    var parent = TroopIndex.FindByPath(parentPath); // parent will already be loaded because Load recurses top-down
+                    TroopIndex.SetParent(newId, parent?.Id, path[path.Count - 1]);
+                }
+                else
+                {
+                    TroopIndex.SetParent(newId, null, 0);
+                }
+            }
+
+            Log.Info($"Migrated legacy troop id '{data.StringId}' to '{newId}'");
+            data.StringId = newId;
+
+            return data;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -24,19 +24,26 @@ namespace Retinues.Troops
             bool isRetinue,
             bool isMelee,
             bool isRanged,
-            IReadOnlyList<int> path)
+            IReadOnlyList<int> path
+        )
         {
             foreach (var e in Map.Values)
             {
-                if (e.IsKingdom != isKingdom) continue;
-                if (e.IsElite != isElite) continue;
-                if (e.IsRetinue != isRetinue) continue;
-                if (e.IsMilitiaMelee != isMelee) continue;
-                if (e.IsMilitiaRanged != isRanged) continue;
+                if (e.IsKingdom != isKingdom)
+                    continue;
+                if (e.IsElite != isElite)
+                    continue;
+                if (e.IsRetinue != isRetinue)
+                    continue;
+                if (e.IsMilitiaMelee != isMelee)
+                    continue;
+                if (e.IsMilitiaRanged != isRanged)
+                    continue;
 
                 var ePath = e.Path ?? new List<int>();
                 var pPath = path ?? System.Array.Empty<int>();
-                if (ePath.SequenceEqual(pPath)) return e;
+                if (ePath.SequenceEqual(pPath))
+                    return e;
             }
             return null;
         }
@@ -46,7 +53,7 @@ namespace Retinues.Troops
             var pPath = path ?? System.Array.Empty<int>();
             return Map.Values.FirstOrDefault(e => (e.Path ?? new List<int>()).SequenceEqual(pPath));
         }
-    
+
         public static void SetFlags(
             string id,
             bool isKingdom,

@@ -28,11 +28,19 @@ namespace Retinues.Game.Helpers.Character
         )
         {
             // 1) Try reuse: exact signature (flags + path)
-            var existing = TroopIndex.FindBySignature(isKingdom, isElite, isRetinue, isMilitiaMelee, isMilitiaRanged, path);
+            var existing = TroopIndex.FindBySignature(
+                isKingdom,
+                isElite,
+                isRetinue,
+                isMilitiaMelee,
+                isMilitiaRanged,
+                path
+            );
             if (existing != null)
             {
                 var co0 = MBObjectManager.Instance.GetObject<CharacterObject>(existing.Id);
-                if (co0 != null) return co0;
+                if (co0 != null)
+                    return co0;
                 // fall through to allocate if somehow missing (shouldn't happen if stubs are loaded)
             }
 
@@ -55,7 +63,7 @@ namespace Retinues.Game.Helpers.Character
                 TroopIndex.SetParent(id, null, 0);
             }
 
-            // 4) Return the stub object (pre-registered by your XML)
+            // 4) Return the stub object
             return MBObjectManager.Instance.GetObject<CharacterObject>(id);
         }
 

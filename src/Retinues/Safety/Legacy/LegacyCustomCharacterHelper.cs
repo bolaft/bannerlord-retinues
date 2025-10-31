@@ -3,7 +3,9 @@ using System.Linq;
 using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Safety.Legacy
 {
@@ -12,6 +14,78 @@ namespace Retinues.Safety.Legacy
     /// </summary>
     public sealed class LegacyCustomCharacterHelper : CharacterHelperBase, ICharacterHelper
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       ID Mapping                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        const string IdPrefix = "retinues_custom_";
+        const string IdPrefixLegacy = "ret_";
+
+        /// <summary>
+        /// Maps a legacy troop ID to the new custom character ID, migrating if necessary.
+        /// </summary>
+        public static CharacterObject MapLegacyIdToNewCharacter(string legacyId)
+        {
+            if (
+                string.IsNullOrEmpty(legacyId)
+                || !legacyId.StartsWith(IdPrefixLegacy)
+                || legacyId.StartsWith(IdPrefix)
+            )
+                return MBObjectManager.Instance?.GetObject<CharacterObject>(legacyId); // not legacy; return as-is
+
+            var legacy = new LegacyCustomCharacterHelper();
+
+            var isKingdom = legacy.IsKingdom(legacyId);
+            var isElite = legacy.IsElite(legacyId);
+            var isRetinue = legacy.IsRetinue(legacyId);
+            var isMilitiaMelee = legacy.IsMilitiaMelee(legacyId);
+            var isMilitiaRanged = legacy.IsMilitiaRanged(legacyId);
+            var path = legacy.GetPath(legacyId)?.ToList() ?? new List<int>();
+
+            // Reuse if already migrated
+            var existing = TroopIndex.FindBySignature(
+                isKingdom,
+                isElite,
+                isRetinue,
+                isMilitiaMelee,
+                isMilitiaRanged,
+                path
+            );
+            string newId;
+            if (existing != null)
+            {
+                newId = existing.Id;
+            }
+            else
+            {
+                newId = TroopIndex.AllocateStub();
+                if (string.IsNullOrEmpty(newId))
+                    return null;
+
+                TroopIndex.SetFlags(
+                    newId,
+                    isKingdom,
+                    isElite,
+                    isRetinue,
+                    isMilitiaMelee,
+                    isMilitiaRanged
+                );
+
+                if (path.Count > 0)
+                {
+                    var parentPath = path.Take(path.Count - 1).ToArray();
+                    var parent = TroopIndex.FindByPath(parentPath);
+                    TroopIndex.SetParent(newId, parent?.Id, path[path.Count - 1]);
+                }
+                else
+                {
+                    TroopIndex.SetParent(newId, null, 0);
+                }
+            }
+
+            return MBObjectManager.Instance?.GetObject<CharacterObject>(newId);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Build / Resolve                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

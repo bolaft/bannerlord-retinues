@@ -231,7 +231,9 @@ namespace Retinues.Troops
             // Rename it
             retinue.Name = retinueName;
 
-            Log.Info($"Created retinue troop {retinue.Name} ({retinue}) for {faction.Name} (from {tpl})");
+            Log.Info(
+                $"Created retinue troop {retinue.Name} ({retinue}) for {faction.Name} (from {tpl})"
+            );
 
             // Non-transferable
             retinue.IsNotTransferableInPartyScreen = true;
