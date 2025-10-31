@@ -60,11 +60,11 @@
     UpdateChildrenStates="true"
     MarginBottom="15">
     <Children>
-        <!-- Training Time Text -->
+        <!-- Training Required Text -->
         {{ text.base(
-            text="@TrainingTimeText",
+            text="@TrainingRequiredText",
             brush="InventoryGoldFontBrush",
-            font_color="@TrainingTimeTextColor"
+            font_color="@TrainingRequiredTextColor"
         ) }}
         
         <!-- Tooltip Icon -->
@@ -103,7 +103,7 @@
             <Children>
 
                 <!-- Decrement Skill -->
-                {{ button.chevron_l(command="ExecuteDecrement", is_enabled="@CanDecrement") }}
+                {{ button.chevron_l(command="ExecuteDecrement", is_enabled="@CanDecrement", hint="{DecrementHint}") }}
 
                 <!-- Skill Value -->
                 {{ text.base(
@@ -116,7 +116,7 @@
                 ) }}
 
                 <!-- Increment Skill -->
-                {{ button.chevron_r(command="ExecuteIncrement", is_enabled="@CanIncrement") }}
+                {{ button.chevron_r(command="ExecuteIncrement", is_enabled="@CanIncrement", hint="{IncrementHint}") }}
 
             </Children>
         </ListPanel>

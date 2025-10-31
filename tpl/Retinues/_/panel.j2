@@ -21,11 +21,11 @@
 {%- endmacro %}
 
 <!-- Troop Panel -->
-{% call list.sort_header_buttons("{TroopScreen}") %}
+{% call panel("{TroopScreen}") %}
     {% include "_/troop/panel.j2" %}
 {% endcall %}
 
 <!-- Equipment Panel -->
-{% call list.sort_header_buttons("{EquipmentScreen}") %}
+{% call panel("{EquipmentScreen}") %}
     {% include "_/equipment/panel.j2" %}
 {% endcall %}

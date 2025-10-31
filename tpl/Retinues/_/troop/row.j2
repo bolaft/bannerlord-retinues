@@ -18,15 +18,18 @@
 
 <!-- Name -->
 {{ text.base(
-    text="@NameText"
+    text="@NameText",
+    width_policy="StretchToParent",
 ) }}
 
 <!-- Tier Icon -->
-{{ image.sprite(
-    data_source="{TierIconData}",
-    sprite="@Text",
-    width="24", height="24",
-    margin_right="12",
-    horizontal_alignment="Right",
-    is_visible="@IsTierIconVisible"
-) }}
+<ImageWidget
+    DataSource="{TierIconData}"
+    WidthSizePolicy="Fixed"
+    HeightSizePolicy="Fixed"
+    SuggestedWidth="24"
+    SuggestedHeight="24"
+    MarginRight="12"
+    Sprite="@Text"
+    HorizontalAlignment="Right"
+    VerticalAlignment="Center"/>
