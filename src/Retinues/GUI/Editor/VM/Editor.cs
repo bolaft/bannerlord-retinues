@@ -50,6 +50,9 @@ namespace Retinues.GUI.Editor.VM
         /// </summary>
         public void SwitchScreen(Screen value)
         {
+            if (Screen == value && IsVisible)
+                return;
+
             Log.Info($"Switching screen from {Screen} to {value}");
 
             Screen = value;
@@ -137,7 +140,8 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowFactionButton => Screen != Screen.Doctrine && Player.Kingdom != null && !Config.NoKingdomTroops;
+        public bool ShowFactionButton =>
+            Screen != Screen.Doctrine && Player.Kingdom != null && !Config.NoKingdomTroops;
 
         [DataSourceProperty]
         public bool ShowDoctrinesButton =>

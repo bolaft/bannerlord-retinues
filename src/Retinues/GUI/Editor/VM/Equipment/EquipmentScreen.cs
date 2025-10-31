@@ -272,7 +272,15 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /// <summary>
         /// Handle staged equip changes for the current slot button.
         /// </summary>
-        protected override void OnEquipChange() => GetSlotVm(State.Slot)?.OnEquipChanged();
+        protected override void OnEquipChange()
+        {
+            GetSlotVm(State.Slot)?.OnEquipChanged();
+
+            if (State.Slot == EquipmentIndex.Horse)
+            {
+                GetSlotVm(EquipmentIndex.HorseHarness)?.OnEquipChanged();
+            }
+        }
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 
