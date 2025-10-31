@@ -1,7 +1,6 @@
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Game.Events
 {
