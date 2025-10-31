@@ -101,10 +101,6 @@ namespace Retinues.Troops
                 Index ??= _index ?? new Dictionary<string, TroopIndexEntry>(StringComparer.Ordinal);
                 _index = Index;
 
-                // One-time migration from old "smart IDs"
-                if (Index.Count == 0)
-                    TroopIndex.MigrateFromLegacyIds();
-
                 if (TroopData.Count > 0)
                 {
                     foreach (var root in TroopData)

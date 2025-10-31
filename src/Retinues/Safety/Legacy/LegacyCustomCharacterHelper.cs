@@ -12,7 +12,7 @@ namespace Retinues.Safety.Legacy
     /// <summary>
     /// Legacy helper for custom troops. Handles ID building, parsing, graph navigation, and wrapper convenience for custom troop logic.
     /// </summary>
-    public sealed class LegacyCustomCharacterHelper : CharacterHelperBase, ICharacterHelper
+    public sealed class LegacyCustomCharacterHelper : CharacterHelperBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       ID Mapping                       //
