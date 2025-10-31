@@ -468,11 +468,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                             // Update visuals
                             CharacterCustomization.ApplyPropertiesFromCulture(State.Troop, culture);
 
-                            // Refresh VM bindings & visuals.
-                            State.UpdateTroop(State.Troop);
-
                             // Invalidate troop matches for culture change.
                             TroopMatcher.InvalidateTroopCache(State.Troop);
+
+                            // Refresh VM bindings & visuals.
+                            State.UpdateTroop(State.Troop);
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
@@ -615,6 +615,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         affirmativeAction: () =>
                         {
                             TroopManager.RankUp(State.Troop);
+
+                            TroopMatcher.InvalidateTroopCache(State.Troop);
 
                             // Refresh bindings
                             OnPropertyChanged(nameof(TierText));
