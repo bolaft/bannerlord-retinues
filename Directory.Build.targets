@@ -59,6 +59,10 @@
     <ItemGroup>
       <_OutFiles Include="$(OutputPath)**\*.*" />
     </ItemGroup>
+    <!-- Exclude .pdb files from deployment unless we're building Debug -->
+    <ItemGroup Condition="'$(Configuration)' != 'Debug'">
+      <_OutFiles Remove="$(OutputPath)**\*.pdb" />
+    </ItemGroup>
     <Copy SourceFiles="@(_OutFiles)"
           DestinationFiles="@(_OutFiles->'$(DeployDir)bin\Win64_Shipping_Client\%(RecursiveDir)%(Filename)%(Extension)')"
           SkipUnchangedFiles="true"
