@@ -470,6 +470,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                             // Refresh VM bindings & visuals.
                             State.UpdateTroop(State.Troop);
+
+                            // Invalidate troop matches for culture change.
+                            TroopMatcher.InvalidateTroopCache(State.Troop);
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
@@ -691,6 +694,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             // Refresh party data
             State.UpdatePartyData();
+        }
+
+        [DataSourceMethod]
+        /// <summary>
+        /// Clear all staged conversion selections.
+        /// </summary>
+        public void ExecuteClearConversions()
+        {
+            // Clear all pending conversions
+            State.ClearPendingConversions();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
