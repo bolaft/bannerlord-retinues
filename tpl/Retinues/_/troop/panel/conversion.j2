@@ -22,7 +22,7 @@
                 {{ text.base(text="@SourceDisplay", margin_right="8") }}
                 
                 <!-- Release Button -->
-                {{ button.chevron_l("ExecuteRelease") }}
+                {{ button.chevron_l("ExecuteRelease", is_enabled="@CanRecruit") }}
 
                 <!-- Gold Cost -->
                 {{ text.base(text="@GoldConversionCost", is_int="true") }}
