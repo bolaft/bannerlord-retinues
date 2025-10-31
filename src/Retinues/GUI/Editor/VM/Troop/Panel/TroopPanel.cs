@@ -696,6 +696,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.UpdatePartyData();
         }
 
+        [DataSourceMethod]
+        /// <summary>
+        /// Clear all staged conversion selections.
+        /// </summary>
+        public void ExecuteClearConversions()
+        {
+            // Clear all pending conversions
+            State.ClearPendingConversions();
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
