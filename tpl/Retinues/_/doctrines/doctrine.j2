@@ -1,0 +1,62 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--     Doctrine Card     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+
+        <!-- Popup Button -->
+        {{ button.text(
+            text="@ButtonText",
+            height="120", width="340",
+            command="ExecuteShowPopup",
+            brush="@ButtonBrush",
+            is_enabled="@IsEnabled",
+            margin_top="12"
+        )}}
+
+        <!-- Description -->
+        {{ text.base(
+            text="@Description",
+            font_size="20",
+            margin_bottom="4",
+        ) }}
+
+        <!-- Cost Row -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+                <!-- Influence Cost -->
+                {{ text.base(
+                    text="@InfluenceCost",
+                    brush="InventoryGoldFontBrush",
+                    is_int=True
+                ) }}
+                
+                <!-- Influence Icon -->
+                {{ image.sprite(
+                    sprite="General\Icons\Influence@2x",
+                    width="30", height="30"
+                ) }}
+
+                <!-- Gold Cost -->
+                {{ text.base(
+                    text="@GoldCost",
+                    brush="InventoryGoldFontBrush",
+                    is_int=True
+                ) }}
+                
+                <!-- Gold Icon -->
+                {{ image.sprite(
+                    sprite="General\Icons\Coin@2x",
+                    width="30", height="30"
+                ) }}
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>

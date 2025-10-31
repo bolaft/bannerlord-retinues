@@ -1,0 +1,75 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--     Troop Top Bar     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- Remove Troop Button -->
+{{ button.text(
+    data_source="{TroopScreen}",
+    text="@RemoveTroopButtonText",
+    command="ExecuteRemoveTroop",
+    is_visible="@RemoveTroopButtonIsVisible",
+    is_enabled="@RemoveTroopButtonIsEnabled",
+    brush="Popup.Delete.Button",
+    vertical_alignment="Top",
+    hint="{RemoveButtonHint}"
+) }}
+
+<!-- Retinue Cap Section -->
+<Widget
+    DataSource="{TroopScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    DoNotPassEventsToChildren="false"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+
+        <!-- First Row -->
+        <ListPanel
+            MarginTop="15"
+            IsVisible="@ShowRetinueCap"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <!-- Retinue Cap Label -->
+                {{ text.header(is_visible="@ShowRetinueCap", text="@RetinueCapText", margin_top="0") }}
+
+                <!-- Retinue Cap Tooltip -->
+                {{ tooltip.icon(hint="{RetinueCapHint}", size="20") }}
+
+            </Children>
+        </ListPanel>
+
+        <!-- Second Row -->
+        <ListPanel
+            IsVisible="@ShowRetinueCap"
+            MarginTop="60"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <!-- Retinue Cap Controls -->
+                {{ button.chevron_l("ExecuteLowerRetinueCap", is_enabled="@CanLowerRetinueCap") }}
+                {{ text.base(text="@RetinueCapValue", is_int=True, margin_left="8") }}
+                {{ text.base(text="/", margin_left="2", margin_right="2") }}
+                {{ text.base(text="@RetinueCapMax", is_int=True, margin_right="8") }}
+                {{ button.chevron_r("ExecuteRaiseRetinueCap", is_enabled="@CanRaiseRetinueCap") }}
+
+            </Children>
+        </ListPanel>
+
+        <!-- Retinue Join Text -->
+        {{ text.base(
+            text="@RetinueJoinText",
+            is_visible="@ShowRetinueCap",
+            brush="InventoryGoldFontBrush",
+            font_color="#eed3abff",
+            font_size="16",
+            margin_top="100"
+       ) }}
+
+    </Children>
+</Widget>

@@ -1,0 +1,76 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--        Item Row       -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- Banner -->
+{{ image.banner(
+    width="48", height="48",
+    margin_right="16"
+) }}
+
+<!-- Image -->
+{{ image.image(
+    width="96", height="48",
+    margin_right="16"
+) }}
+
+<!-- Name -->
+{{ text.base(
+    text="@Name",
+    margin_left="10",
+    width_policy="StretchToParent"
+) }}
+
+<!-- Crafted Icon -->
+{{ image.sprite(
+    sprite="General\Icons\ShopIcons\smithy_large",
+    width="27", height="19",
+    margin_right="12",
+    color="#a89859ff",
+    is_visible="@IsCrafted",
+    horizontal_alignment="Right"
+) }}
+
+<!-- In Stock Text -->
+{{ text.base(
+    text="@InStockText",
+    brush="Clan.RightPanel.Name.Text",
+    font_size="24",
+    is_visible="@ShowInStockText",
+    horizontal_alignment="Right"
+) }}
+
+<!-- Value -->
+{{ text.base(
+    text="@Value",
+    is_int=True,
+    brush="InventoryGoldFontBrush",
+    is_visible="@ShowValue",
+    horizontal_alignment="Right"
+) }}
+
+<!-- Coin icon for the value -->
+{{ image.sprite(
+    sprite="General\Icons\Coin@2x",
+    width="20", height="20",
+    vertical_alignment="Center",
+    is_visible="@ShowValue",
+    horizontal_alignment="Right"
+) }}
+
+<!-- Equipped Checkmark -->
+{{ image.sprite(
+    sprite="General\Icons\icon_quest_done_checkmark",
+    width="40", height="40",
+    is_visible="@ShowIsEquipped",
+    horizontal_alignment="Right"
+) }}
+
+<!-- Disabled Text -->
+{{ text.base(
+    text="@IsDisabledText",
+    brush="Clan.RightPanel.Name.Text",
+    font_size="24",
+    is_hidden="@IsEnabled",
+    horizontal_alignment="Right"
+) }}

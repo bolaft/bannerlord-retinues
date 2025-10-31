@@ -36,7 +36,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         /* ━━━━━━━━━ Caps ━━━━━━━━━ */
 
-        private const int MaxRowsAbsolute = 1000;
+        private const int MaxRows = 1000;
 
         // Precomputed snapshot for current faction/slot (deduped + keyed for fast sort/filter)
         private List<ItemTuple> _fullTuples;
@@ -330,7 +330,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             }
 
             // Display item list
-            var display = new List<ItemTuple>(Math.Min(_fullTuples.Count, MaxRowsAbsolute));
+            var display = new List<ItemTuple>(Math.Min(_fullTuples.Count, MaxRows));
             foreach (var t in _fullTuples)
                 display.Add(t);
 
@@ -338,10 +338,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             display.Sort(Comparer<ItemTuple>.Create(Compare));
 
             // Capping
-            if (display.Count > MaxRowsAbsolute)
+            if (display.Count > MaxRows)
             {
                 // Remove excess items
-                display.RemoveRange(MaxRowsAbsolute, display.Count - MaxRowsAbsolute);
+                display.RemoveRange(MaxRows, display.Count - MaxRows);
 
                 // List of display item IDs
                 var displayIds = display.Select(t => t.Item.StringId).ToList();

@@ -1,0 +1,55 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--       Troop List      -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+{% call list.container("{TroopScreen}") %}
+
+    <!-- Filter Row -->
+    {% call list.sort_header_buttons("{TroopList}") %}
+
+        <!-- Search Filter -->
+        {{ list.search_filter() }}
+
+        <!-- Cap Header Area -->
+        {{ list.sort_header_sprite() }}
+
+    {% endcall %}
+
+    <!-- List Panel -->
+    {% call list.panel("{TroopList}", "TroopList") %}
+
+        <!-- Retinue Header -->
+        {{ list.header_toggle("TroopList", "Retinue", "@RetinueToggleText") }}
+
+        <!-- Retinue List -->
+        {% call list.rows("{RetinueTroops}", "Retinue") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Elite Header -->
+        {{ list.header_toggle("TroopList", "Elite", "@EliteToggleText") }}
+
+        <!-- Elite List -->
+        {% call list.rows("{EliteTroops}", "Elite") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Regular Header -->
+        {{ list.header_toggle("TroopList", "Regular", "@RegularToggleText") }}
+
+        <!-- Regular List -->
+        {% call list.rows("{BasicTroops}", "Regular") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Militia Header -->
+        {{ list.header_toggle("TroopList", "Militia", "@MilitiaToggleText") }}
+
+        <!-- Militia List -->
+        {% call list.rows("{MilitiaTroops}", "Militia") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+    {% endcall %}
+
+{% endcall %}

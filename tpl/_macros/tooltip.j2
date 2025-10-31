@@ -1,0 +1,37 @@
+{# Tooltip Helpers #}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#       Tooltip Icon       #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro icon(hint, size="24", margin_left="0", margin_right="0") -%}
+
+<SpriteWidget
+    HorizontalAlignment="Right" VerticalAlignment="Center"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+    MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+    Sprite="CharacterDeveloper\\skill_description">
+  <Children>
+    <HintWidget
+        DataSource="{{ hint }}"
+        Command.HoverBegin="ExecuteBeginHint"
+        Command.HoverEnd="ExecuteEndHint"/>
+  </Children>
+</SpriteWidget>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#           Hint           #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro hint(hint="{Hint}") -%}
+
+<HintWidget
+    DataSource="{{ hint }}"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
+{%- endmacro %}

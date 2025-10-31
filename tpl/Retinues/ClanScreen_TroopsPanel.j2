@@ -1,0 +1,123 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--         Editor        -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<Widget
+    DataSource="{Editor}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    DoNotAcceptEvents="false">
+    <Children>
+
+        <!-- Tableau and Panel -->
+        <Widget
+            IsHidden="@InDoctrineScreen"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            MarginLeft="600" MarginRight="290">
+            <Children>
+                <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+                    <Children>
+
+                        <!-- Character Tableau and Top Controls -->
+                        <Widget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            MarginRight="290">
+                            <Children>
+                                <Widget
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
+                                    SuggestedWidth="465"
+                                    HorizontalAlignment="Left">
+                                    <Children>
+
+                                        {# Character Tableau #}
+                                        {% include "_/tableau.j2" %}
+
+                                        {# Troop Top Bar #}
+                                        {% include "_/troop/top.j2" %}
+
+                                        {# Equipment Top Bar #}
+                                        {% include "_/equipment/top.j2" %}
+
+                                        <!-- Equipment Toggle -->
+                                        {{ button.text(
+                                            text="@EquipmentButtonText",
+                                            command="ExecuteToggleEquipment",
+                                            brush="@EquipmentButtonBrush",
+                                            is_visible="@ShowEquipmentButton",
+                                            vertical_alignment="Bottom"
+                                        ) }}
+
+                                    </Children>
+                                </Widget>
+                            </Children>
+                        </Widget>
+
+                        <!-- Main Panel -->
+                        <Widget
+                            VisualDefinition="RightPanel"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            PositionXOffset="800"
+                            MarginLeft="340">
+                            <Children>
+                                {% include "_/panel.j2" %}
+                            </Children>
+                        </Widget>
+
+                    </Children>
+                </Widget>
+            </Children>
+        </Widget>
+
+        <!-- Doctrines Panel -->
+        <Widget
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            IsVisible="@InDoctrineScreen">
+            <Children>
+                {% include "_/doctrines/base.j2" %}
+            </Children>
+        </Widget>
+
+        <!-- Faction Toggle -->
+        {{ button.text(
+            text="@FactionButtonText",
+            command="ExecuteSwitchFaction",
+            brush="@EquipmentButtonBrush",
+            is_visible="@ShowFactionButton",
+            vertical_alignment="Top", horizontal_alignment="Right",
+            height="120",
+        ) }}
+
+        <!-- Doctrines Toggle -->
+        {{ button.text(
+            text="@DoctrinesButtonText",
+            command="ExecuteToggleDoctrines",
+            brush="@DoctrinesButtonBrush",
+            is_visible="@ShowDoctrinesButton",
+            vertical_alignment="Bottom", horizontal_alignment="Right",
+            height="120",
+        ) }}
+
+        {# Helper List Macro #}
+        {% macro list_panel(data_source, include_path) -%}
+            <BrushListPanel
+                DataSource="{{ data_source }}"
+                IsVisible="@IsVisible"
+                WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+                VerticalAlignment="Bottom"
+                MarginTop="6" MarginBottom="9" MarginLeft="27"
+                Brush="Frame1Brush"
+                StackLayout.LayoutMethod="VerticalBottomToTop">
+                <Children>
+                    {% include include_path %}
+                </Children>
+            </BrushListPanel>
+        {%- endmacro %}
+
+        <!-- Troop List -->
+        {% include "_/troop/list.j2" %}
+
+        <!-- Equipment List -->
+        {% include "_/equipment/list.j2" %}
+
+    </Children>
+</Widget>
