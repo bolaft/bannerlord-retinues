@@ -470,6 +470,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                             // Refresh VM bindings & visuals.
                             State.UpdateTroop(State.Troop);
+
+                            // Invalidate troop matches for culture change.
+                            TroopMatcher.InvalidateTroopCache(State.Troop);
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
