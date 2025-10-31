@@ -24,13 +24,28 @@ namespace Retinues.Game.Helpers
         private const double WEIGHT_SKILL = 1.0; // skill cosine gets multiplied by this * 1000
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Caches                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private static readonly Dictionary<string, string[]> _retinueMatchCache = new(
+            StringComparer.Ordinal
+        ); // key = retinue ID, value = [custom root match ID, non-custom root match ID]
+        private static readonly Dictionary<string, string> _regularMatchCache = new(
+            StringComparer.Ordinal
+        ); // key = regular troop ID, value = custom match ID
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Matching                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Pick the best matching troop from a faction's tree for the given troop.
         /// </summary>
-        public static WCharacter PickBestFromFaction(WFaction faction, WCharacter troop)
+        public static WCharacter PickBestFromFaction(
+            WFaction faction,
+            WCharacter troop,
+            HashSet<string> troopWeapons = null,
+            Dictionary<string, int> troopSkills = null
+        )
         {
             if (faction == null || troop == null || !troop.IsValid)
                 return null;
@@ -39,7 +54,20 @@ namespace Retinues.Game.Helpers
             if (root == null || !root.IsValid)
                 return null;
 
-            return PickBestFromTree(root, troop);
+            if (TryGetCachedMatch(root, troop, excludeId: null, out var cached))
+                return cached;
+
+            troopWeapons ??= SafeWeaponClasses(troop);
+            troopSkills ??= SafeSkills(troop);
+
+            var best = PickBestFromTree(
+                root,
+                troop,
+                troopWeapons: troopWeapons,
+                troopSkills: troopSkills
+            );
+
+            return best;
         }
 
         /// <summary>
@@ -69,13 +97,19 @@ namespace Retinues.Game.Helpers
         public static WCharacter PickBestFromTree(
             WCharacter root,
             WCharacter troop,
-            WCharacter exclude = null
+            WCharacter exclude = null,
+            HashSet<string> troopWeapons = null,
+            Dictionary<string, int> troopSkills = null
         )
         {
             if (!root.IsValid)
                 return null;
 
-            // Hard filter by Tier
+            if (TryGetCachedMatch(root, troop, exclude?.StringId, out var cachedMatch))
+            {
+                return cachedMatch;
+            }
+
             var candidates =
                 root.Tree?.Where(t =>
                         t.IsValid
@@ -87,13 +121,45 @@ namespace Retinues.Game.Helpers
             if (candidates.Count == 0)
                 return null;
 
-            // Rank by score; stable tie-break by StringId
-            var best = candidates
-                .Select(t => new { Troop = t, Score = EligibilityScore(t, troop) })
-                .OrderByDescending(x => x.Score)
-                .ThenBy(x => x.Troop.StringId, StringComparer.Ordinal)
-                .First()
-                .Troop;
+            troopWeapons ??= SafeWeaponClasses(troop);
+            troopSkills ??= SafeSkills(troop);
+
+            WCharacter best = null;
+            int bestScore = 0;
+
+            foreach (var candidate in candidates)
+            {
+                int score = EligibilityScore(candidate, troop, troopWeapons, troopSkills);
+
+                if (
+                    best == null
+                    || score > bestScore
+                    || (
+                        score == bestScore
+                        && string.CompareOrdinal(candidate.StringId, best.StringId) < 0
+                    )
+                )
+                {
+                    best = candidate;
+                    bestScore = score;
+                }
+            }
+
+            Log.Info($"Best replacement for {troop.Name} is {best?.Name} with score {bestScore}");
+
+            if (best?.IsValid == true)
+            {
+                var bestId = best.StringId;
+                var troopId = troop.StringId;
+
+                if (string.IsNullOrEmpty(bestId) || string.IsNullOrEmpty(troopId))
+                    return best;
+
+                if (troop.IsRetinue)
+                    CacheRetinueMatch(troopId, root, bestId);
+                else if (!troop.IsCustom && best.IsCustom)
+                    CacheRegularMatch(troopId, bestId);
+            }
 
             return best;
         }
@@ -101,7 +167,12 @@ namespace Retinues.Game.Helpers
         /// <summary>
         /// Compute a weighted eligibility score between two troops.
         /// </summary>
-        private static int EligibilityScore(WCharacter troop, WCharacter retinue)
+        private static int EligibilityScore(
+            WCharacter troop,
+            WCharacter retinue,
+            HashSet<string> troopWeapons,
+            Dictionary<string, int> troopSkills
+        )
         {
             int score = 0;
 
@@ -119,17 +190,204 @@ namespace Retinues.Game.Helpers
 
             // 4) Weapon classes similarity (Jaccard)
             var w1 = SafeWeaponClasses(troop);
-            var w2 = SafeWeaponClasses(retinue);
-            double jacc = Similarity.Jaccard(w1, w2);
+            double jacc = Similarity.Jaccard(w1, troopWeapons);
             score += (int)Math.Round(jacc * 1000.0 * WEIGHT_WEAP);
 
             // 5) Skillset similarity (cosine on shared keys)
             var s1 = SafeSkills(troop);
-            var s2 = SafeSkills(retinue);
-            double cos = Similarity.Cosine(s1, s2);
+            double cos = Similarity.Cosine(s1, troopSkills);
             score += (int)Math.Round(cos * 1000.0 * WEIGHT_SKILL);
 
             return score;
+        }
+
+        /// <summary>
+        ///  Get weapon classes and skills for a troop.
+        /// </summary>
+        public static (
+            HashSet<string> Weapons,
+            Dictionary<string, int> Skills
+        ) GetTroopClassesSkills(WCharacter troop)
+        {
+            if (troop == null)
+                return (
+                    new HashSet<string>(StringComparer.OrdinalIgnoreCase),
+                    new Dictionary<string, int>(StringComparer.Ordinal)
+                );
+
+            return (SafeWeaponClasses(troop), SafeSkills(troop));
+        }
+
+        /// <summary>
+        /// Invalidate cached matches for a given troop.
+        /// </summary>
+        public static void InvalidateTroopCache(WCharacter troop)
+        {
+            var id = troop?.StringId;
+            if (string.IsNullOrEmpty(id))
+                return;
+
+            Log.Info($"TroopMatcher cache invalidate for {id}");
+
+            if (troop.IsRetinue)
+            {
+                // Invalidate both slots for retinues
+                _retinueMatchCache.Remove(id);
+                Log.Info($"cleared retinue match cache for troop {id}");
+            }
+            else
+            {
+                // Invalidate entire regular cache because custom troops can change into becoming better matches instead of the existing cache entry
+                _regularMatchCache.Clear();
+                Log.Info("cleared regular match cache entirely");
+            }
+        }
+
+        /// <summary>
+        /// Try to get a cached troop match for the given root and troop.
+        /// </summary>
+        private static bool TryGetCachedMatch(
+            WCharacter root,
+            WCharacter troop,
+            string excludeId,
+            out WCharacter cached
+        )
+        {
+            cached = null;
+            if (troop == null)
+                return false;
+
+            var troopId = troop.StringId;
+            if (string.IsNullOrEmpty(troopId))
+                return false;
+
+            if (troop.IsRetinue)
+                return TryGetCachedRetinueMatch(root, troopId, excludeId, out cached);
+
+            if (!troop.IsCustom)
+                return TryGetCachedRegularMatch(troopId, excludeId, out cached);
+
+            return false;
+        }
+
+        /// <summary>
+        /// Cache a retinue troop match. Caches two slots per retinue: one for custom root troops and one for non-custom root troops.
+        /// </summary>
+        private static void CacheRetinueMatch(string retId, WCharacter root, string matchId)
+        {
+            if (!_retinueMatchCache.TryGetValue(retId, out var slots) || slots == null)
+                slots = new string[2];
+
+            var index = DetermineRetinueSlot(root);
+            if (index < 0)
+                return;
+
+            slots[index] = matchId;
+            _retinueMatchCache[retId] = slots;
+
+            Log.Info($"TroopMatcher cache store (retinue {retId} slot {index}): {matchId}");
+        }
+
+        /// <summary>
+        /// Try to get a cached retinue troop match.
+        /// </summary>
+        private static bool TryGetCachedRetinueMatch(
+            WCharacter root,
+            string retId,
+            string excludeId,
+            out WCharacter cached
+        )
+        {
+            cached = null;
+
+            if (!_retinueMatchCache.TryGetValue(retId, out var slots) || slots == null)
+                return false;
+
+            var index = DetermineRetinueSlot(root);
+            if (index < 0 || index >= slots.Length)
+                return false;
+
+            var matchId = slots[index];
+            if (string.IsNullOrEmpty(matchId) || matchId == excludeId)
+                return false;
+
+            cached = CreateSafe(matchId);
+            if (cached?.IsValid != true)
+            {
+                slots[index] = null;
+                cached = null;
+                return false;
+            }
+
+            Log.Info($"TroopMatcher cache hit (retinue {retId} slot {index}): {cached.StringId}");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Cache a regular troop match. Caches only non-custom to custom matches.
+        /// </summary>
+        private static void CacheRegularMatch(string regularId, string matchId)
+        {
+            _regularMatchCache[regularId] = matchId;
+
+            Log.Info($"TroopMatcher cache store (regular {regularId}): {matchId}");
+        }
+
+        /// <summary>
+        /// Try to get a cached regular troop match.
+        /// </summary>
+        private static bool TryGetCachedRegularMatch(
+            string regularId,
+            string excludeId,
+            out WCharacter cached
+        )
+        {
+            cached = null;
+
+            if (!_regularMatchCache.TryGetValue(regularId, out var matchId) || matchId == excludeId)
+                return false;
+
+            cached = CreateSafe(matchId);
+            if (cached?.IsValid != true)
+            {
+                _regularMatchCache.Remove(regularId);
+                cached = null;
+                Log.Info($"TroopMatcher cache purge (regular {regularId}) due to invalid entry");
+                return false;
+            }
+
+            Log.Info($"TroopMatcher cache hit (regular {regularId}): {cached.StringId}");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Determine the retinue cache slot index for a given root troop. 0 = custom, 1 = non-custom.
+        /// </summary>
+        private static int DetermineRetinueSlot(WCharacter root)
+        {
+            if (root == null)
+                return -1;
+            return root.IsCustom ? 0 : 1;
+        }
+
+        /// <summary>
+        /// Create a WCharacter safely from an ID, returning null if invalid.
+        /// </summary>
+        private static WCharacter CreateSafe(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return null;
+            try
+            {
+                var troop = new WCharacter(id);
+                return troop.IsValid ? troop : null;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>

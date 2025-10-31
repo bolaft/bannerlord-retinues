@@ -111,6 +111,8 @@ namespace Retinues.GUI.Editor
                 OnSlotChange();
             else if (e == UIEvent.Equip)
                 OnEquipChange();
+            else if (e == UIEvent.Conversion)
+                OnConversionChange();
 
             // If hidden and not opted-in, queue for later
             if (!IsVisible)
@@ -182,6 +184,11 @@ namespace Retinues.GUI.Editor
         /// Called when equip-related data changed.
         /// </summary>
         protected virtual void OnEquipChange() { }
+
+        /// <summary>
+        /// Called when conversion-related data changed.
+        /// </summary>
+        protected virtual void OnConversionChange() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Input                          //

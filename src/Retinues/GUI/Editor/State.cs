@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
+using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Troops;
 using Retinues.Troops.Edition;
@@ -124,6 +125,8 @@ namespace Retinues.GUI.Editor
         public static void UpdateTroop(WCharacter troop = null)
         {
             troop ??= Faction.Troops.FirstOrDefault();
+            if (Troop != null && Troop.StringId == troop?.StringId)
+                return;
 
             EventManager.FireBatch(() =>
             {
@@ -131,7 +134,6 @@ namespace Retinues.GUI.Editor
 
                 UpdateEquipment();
                 UpdateSkillData();
-                UpdateConversionData();
                 UpdateSlot();
 
                 EventManager.Fire(UIEvent.Troop);
@@ -171,6 +173,23 @@ namespace Retinues.GUI.Editor
         {
             EquipData = ComputeEquipData();
 
+            if (
+                singleUpdate
+                && (
+                    Slot == EquipmentIndex.Weapon0
+                    || Slot == EquipmentIndex.Weapon1
+                    || Slot == EquipmentIndex.Weapon2
+                    || Slot == EquipmentIndex.Weapon3
+                    || Slot == EquipmentIndex.Horse
+                )
+            )
+            {
+                TroopMatcher.InvalidateTroopCache(Troop);
+            }
+
+            if (Troop?.IsRetinue == true)
+                UpdateConversionData();
+
             if (singleUpdate)
             {
                 LastEquipChange = CaptureEquipChange(EquipData, Slot);
@@ -200,6 +219,31 @@ namespace Retinues.GUI.Editor
 
             ConversionData = conversionData;
             EventManager.Fire(UIEvent.Conversion);
+        }
+
+        /// <summary>
+        /// Clear staged conversion selections without recomputing data.
+        /// </summary>
+        public static void ClearPendingConversions()
+        {
+            if (ConversionData == null)
+            {
+                UpdateConversionData();
+                return;
+            }
+
+            bool changed = false;
+            foreach (var key in ConversionData.Keys.ToList())
+            {
+                if (ConversionData[key] == 0)
+                    continue;
+
+                ConversionData[key] = 0;
+                changed = true;
+            }
+
+            if (changed)
+                EventManager.Fire(UIEvent.Conversion);
         }
 
         /// <summary>
@@ -266,11 +310,12 @@ namespace Retinues.GUI.Editor
         {
             var data = new Dictionary<WCharacter, int>();
 
-            if (Troop?.IsRetinue == false)
+            if (Troop?.IsRetinue != true)
                 return data;
 
             foreach (var source in TroopManager.GetRetinueSourceTroops(Troop))
-                data[source] = 0;
+                if (source?.IsValid == true)
+                    data[source] = 0;
 
             return data;
         }
