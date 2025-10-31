@@ -35,27 +35,45 @@ namespace Retinues.Configuration
     /// <summary>
     /// Typed option wrapper exposing metadata and runtime getter/setter for T.
     /// </summary>
-    public sealed class Option<T>(
-        string section,
-        string name,
-        string key,
-        string hint,
-        T @default,
-        int minValue = 0,
-        int maxValue = 1000,
-        bool requiresRestart = false,
-        IReadOnlyDictionary<string, object> presetOverrides = null
-    ) : IOption
+    public sealed class Option<T> : IOption
     {
+        // Lazy-localized text factories (evaluated at MCM build time)
+        private readonly Func<string> _section;
+        private readonly Func<string> _name;
+        private readonly Func<string> _hint;
+
+        public Option(
+            Func<string> section,
+            Func<string> name,
+            string key,
+            Func<string> hint,
+            T @default,
+            int minValue = 0,
+            int maxValue = 1000,
+            bool requiresRestart = false,
+            IReadOnlyDictionary<string, object> presetOverrides = null
+        )
+        {
+            _section = section ?? (() => L.S("mcm_section_general", "General"));
+            _name = name ?? (() => string.Empty);
+            _hint = hint ?? (() => string.Empty);
+            Key = key;
+            RequiresRestart = requiresRestart;
+            MinValue = minValue;
+            MaxValue = maxValue;
+            DefaultTyped = @default;
+            PresetOverrides = presetOverrides ?? new Dictionary<string, object>();
+        }
+
         // Metadata (read-only)
-        public string Section { get; } = section ?? L.S("mcm_section_general", "General");
-        public string Name { get; } = name;
-        public string Key { get; } = key;
-        public string Hint { get; } = hint;
-        public bool RequiresRestart { get; } = requiresRestart;
-        public int MinValue { get; } = minValue;
-        public int MaxValue { get; } = maxValue;
-        public T DefaultTyped { get; } = @default;
+        public string Section => _section();
+        public string Name => _name();
+        public string Key { get; }
+        public string Hint => _hint();
+        public bool RequiresRestart { get; }
+        public int MinValue { get; }
+        public int MaxValue { get; }
+        public T DefaultTyped { get; }
 
         // Backing store supplied by ConfigSetup at runtime
         internal Func<T> Getter { get; set; } = () => default!;
@@ -64,8 +82,7 @@ namespace Retinues.Configuration
         // IOption
         public Type Type => typeof(T);
         public object Default => DefaultTyped!;
-        public IReadOnlyDictionary<string, object> PresetOverrides { get; } =
-            presetOverrides ?? new Dictionary<string, object>();
+        public IReadOnlyDictionary<string, object> PresetOverrides { get; }
 
         /// <summary>
         /// The current typed option value (uses the runtime-backed getter/setter).

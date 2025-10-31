@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Utils;
@@ -48,18 +49,21 @@ namespace Retinues.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter RetinueElite => new(this == Player.Kingdom, true, true);
-        public WCharacter RetinueBasic => new(this == Player.Kingdom, false, true);
+        // Helper to determine whether to use kingdom troops for retinues and roots.
+        private bool UseKingdomTroops => this == Player.Kingdom && !Config.NoKingdomTroops;
 
-        public WCharacter RootElite => new(this == Player.Kingdom, true, false);
-        public WCharacter RootBasic => new(this == Player.Kingdom, false, false);
+        public WCharacter RetinueElite => new(UseKingdomTroops, true, true);
+        public WCharacter RetinueBasic => new(UseKingdomTroops, false, true);
 
-        public WCharacter MilitiaMelee => new(this == Player.Kingdom, false, false, true, false);
+        public WCharacter RootElite => new(UseKingdomTroops, true, false);
+        public WCharacter RootBasic => new(UseKingdomTroops, false, false);
+
+        public WCharacter MilitiaMelee => new(UseKingdomTroops, false, false, true, false);
         public WCharacter MilitiaMeleeElite =>
-            new(this == Player.Kingdom, true, false, true, false);
-        public WCharacter MilitiaRanged => new(this == Player.Kingdom, false, false, false, true);
+            new(UseKingdomTroops, true, false, true, false);
+        public WCharacter MilitiaRanged => new(UseKingdomTroops, false, false, false, true);
         public WCharacter MilitiaRangedElite =>
-            new(this == Player.Kingdom, true, false, false, true);
+            new(UseKingdomTroops, true, false, false, true);
 
         /// <summary>
         /// Gets all custom troops for this faction, including retinues and active tree members.

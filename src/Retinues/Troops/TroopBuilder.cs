@@ -66,7 +66,7 @@ namespace Retinues.Troops
 
             if (!hasBasic || !hasElite)
             {
-                Log.Debug($"Custom troop presence — Basic:{hasBasic} Elite:{hasElite}.");
+                Log.Debug($"Custom troop presence: Basic:{hasBasic} Elite:{hasElite}.");
 
                 bool canInitClanTroops =
                     faction.HasFiefs || Player.Kingdom != null || Config.RecruitAnywhere == true;

@@ -96,27 +96,52 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 ],
             };
 
-        protected override void OnTroopChange() => Build();
+        private bool _needsRebuild = true;
+
+        protected override void OnTroopChange()
+        {
+            _needsRebuild = true;
+            if (IsVisible)
+                Build();
+        }
+
+        protected override void OnConversionChange()
+        {
+            _needsRebuild = true;
+            if (IsVisible)
+                Build();
+        }
 
         /// <summary>
         /// Rebuild internal lists (conversion rows) and update visibility.
         /// </summary>
         private void Build()
         {
-            // Update conversion rows
-            _conversionRows = State.Troop.IsRetinue
-                ?
-                [
-                    .. TroopManager
-                        .GetRetinueSourceTroops(State.Troop)
-                        .Select(r => new TroopConversionRowVM(r)),
-                ]
-                : [];
+            if (_needsRebuild)
+            {
+                _needsRebuild = false;
+
+                if (State.Troop.IsRetinue)
+                {
+                    IEnumerable<WCharacter> data =
+                        State.ConversionData?.Keys ?? Enumerable.Empty<WCharacter>();
+
+                    _conversionRows =
+                    [
+                        .. data.Select(conversion => new TroopConversionRowVM(conversion)),
+                    ];
+                }
+                else
+                {
+                    _conversionRows = [];
+                }
+
+                OnPropertyChanged(nameof(ConversionRows));
+            }
 
             // Update visibility
             foreach (var row in ConversionRows)
                 row.IsVisible = IsVisible;
-            OnPropertyChanged(nameof(ConversionRows));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -606,16 +631,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceMethod]
         /// <summary>
-        /// Clear all staged conversion selections.
-        /// </summary>
-        public void ExecuteClearConversions()
-        {
-            // Clear all pending conversions
-            State.UpdateConversionData();
-        }
-
-        [DataSourceMethod]
-        /// <summary>
         /// Apply all staged conversions (with checks and cost handling).
         /// </summary>
         public void ExecuteApplyConversions()
@@ -672,7 +687,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
 
             // Clear pending conversions
-            State.UpdateConversionData();
+            State.ClearPendingConversions();
 
             // Refresh party data
             State.UpdatePartyData();
@@ -689,7 +704,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         {
             base.Show();
 
-            Build();
+            if (_needsRebuild)
+                Build();
 
             foreach (var row in ConversionRows)
                 row.Show();

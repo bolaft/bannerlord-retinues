@@ -272,7 +272,15 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /// <summary>
         /// Handle staged equip changes for the current slot button.
         /// </summary>
-        protected override void OnEquipChange() => GetSlotVm(State.Slot)?.OnEquipChanged();
+        protected override void OnEquipChange()
+        {
+            GetSlotVm(State.Slot)?.OnEquipChanged();
+
+            if (State.Slot == EquipmentIndex.Horse)
+            {
+                GetSlotVm(EquipmentIndex.HorseHarness)?.OnEquipChanged();
+            }
+        }
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 
@@ -393,7 +401,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     affirmativeAction: () =>
                     {
                         State.Troop.UnequipAll(State.Equipment.Index, stock: true);
-                        State.UpdateEquipData();
+                        State.UpdateEquipment(State.Equipment);
                     },
                     negativeAction: () => { }
                 )
@@ -425,7 +433,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     affirmativeAction: () =>
                     {
                         State.Troop.UnstageAll(State.Equipment.Index, true);
-                        State.UpdateEquipData();
+                        State.UpdateEquipment(State.Equipment);
                     },
                     negativeAction: () => { }
                 )
