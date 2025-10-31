@@ -18,6 +18,9 @@ namespace Retinues.Troops
     [SafeClass]
     public static class TroopLoader
     {
+        const string IdPrefix = "retinues_custom_";
+        const string IdPrefixLegacy = "ret_";
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Loading                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -27,6 +30,14 @@ namespace Retinues.Troops
         /// </summary>
         public static WCharacter Load(TroopSaveData data)
         {
+            // Legacy support for old IDs
+            if (data.StringId.StartsWith(IdPrefixLegacy) && !data.StringId.StartsWith(IdPrefix))
+            {
+                Log.Warn($"Loading legacy troop ID '{data.StringId}'");
+
+                // TODO
+            }
+
             // Wrap it
             var troop = new WCharacter(data.StringId);
 

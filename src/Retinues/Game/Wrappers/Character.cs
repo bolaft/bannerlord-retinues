@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
-using Retinues.Safety.Legacy;
 using Retinues.Safety.Sanitizer;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -31,7 +30,6 @@ namespace Retinues.Game.Wrappers
 
         // Character helper instances
         private static readonly ICharacterHelper _customHelper = new CustomCharacterHelper();
-        private static readonly ICharacterHelper _legacyHelper = new LegacyCustomCharacterHelper();
         private static readonly ICharacterHelper _vanillaHelper = new VanillaCharacterHelper();
 
         // Helper instance for this character
@@ -42,9 +40,6 @@ namespace Retinues.Game.Wrappers
         {
             if (id?.StartsWith("retinues_custom_", StringComparison.Ordinal) == true)
                 return _customHelper;
-
-            if (id?.StartsWith("ret_", StringComparison.Ordinal) == true)
-                return _legacyHelper;
 
             return _vanillaHelper;
         }
