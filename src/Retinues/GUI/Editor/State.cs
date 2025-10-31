@@ -122,10 +122,10 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Set current troop (defaults to first faction troop).
         /// </summary>
-        public static void UpdateTroop(WCharacter troop = null)
+        public static void UpdateTroop(WCharacter troop = null, bool checkCurrentTroop = false)
         {
             troop ??= Faction.Troops.FirstOrDefault();
-            if (Troop != null && Troop.StringId == troop?.StringId)
+            if (checkCurrentTroop && Troop != null && Troop.StringId == troop?.StringId)
                 return;
 
             EventManager.FireBatch(() =>
