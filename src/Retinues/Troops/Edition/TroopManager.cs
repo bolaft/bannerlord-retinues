@@ -197,8 +197,16 @@ namespace Retinues.Troops.Edition
                 factionRoot = retinue.Faction?.RootBasic;
             }
 
+            // Precompute troop weapons and skills data
+            var (weapons, skills) = TroopMatcher.GetTroopClassesSkills(retinue);
+
             // Culture pick
-            var culturePick = TroopMatcher.PickBestFromTree(cultureRoot, retinue);
+            var culturePick = TroopMatcher.PickBestFromTree(
+                cultureRoot,
+                retinue,
+                troopWeapons: weapons,
+                troopSkills: skills
+            );
             if (culturePick?.IsValid == true)
                 sources.Add(culturePick);
 
@@ -206,7 +214,9 @@ namespace Retinues.Troops.Edition
             var factionPick = TroopMatcher.PickBestFromTree(
                 factionRoot,
                 retinue,
-                exclude: culturePick
+                exclude: culturePick,
+                troopWeapons: weapons,
+                troopSkills: skills
             );
             if (factionPick?.IsValid == true)
                 sources.Add(factionPick);
