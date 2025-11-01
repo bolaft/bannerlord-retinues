@@ -44,29 +44,6 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// List of stub CharacterObjects preloaded for custom troop creation.
-        /// </summary>
-        public static List<CharacterObject> Stubs
-        {
-            get
-            {
-                List<CharacterObject> stubs = [];
-                int i = 0;
-
-                foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
-                {
-                    i++;
-                    if (co.StringId.StartsWith(CustomIdPrefix))
-                        stubs.Add(co);
-                }
-
-                Log.Info($"Loaded {stubs.Count} stubs out of {i} CharacterObjects.");
-
-                return stubs;
-            }
-        }
-
-        /// <summary>
         /// List of active custom troop ids.
         /// </summary>
         public static List<string> ActiveTroopIds { get; } = [];
@@ -76,9 +53,10 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public static CharacterObject AllocateStub()
         {
-            foreach (var stub in Stubs)
-                if (!ActiveTroopIds.Contains(stub.StringId)) // not allocated yet
-                    return stub;
+            foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
+                if (co.StringId.StartsWith(CustomIdPrefix))
+                    if (!ActiveTroopIds.Contains(co.StringId)) // not allocated yet
+                        return co;
 
             Log.Error("No free stub ids left.");
             return null;
