@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
@@ -94,7 +95,10 @@ namespace Retinues.Troops.Save
 
             // Set culture visuals if different from vanilla
             if (CultureId != vanilla.Culture.StringId)
+            {
+                troop.Culture = new WCulture(MBObjectManager.Instance.GetObject<CultureObject>(CultureId));
                 CharacterCustomization.ApplyPropertiesFromCulture(troop, CultureId);
+            }
 
             // Set body customization (if enabled)
             if (Config.EnableTroopCustomization)
