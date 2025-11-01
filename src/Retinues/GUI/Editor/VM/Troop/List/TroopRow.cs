@@ -144,6 +144,6 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         /// <summary>
         /// Select this troop as the current troop in state.
         /// </summary>
-        public void ExecuteSelect() => State.UpdateTroop(RowTroop, true);
+        public void ExecuteSelect() => State.UpdateTroop(RowTroop, checkCurrentTroop: true);
     }
 }

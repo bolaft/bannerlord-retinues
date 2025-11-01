@@ -149,7 +149,7 @@ namespace Retinues.GUI.Editor
 
             Equipment = equipment;
 
-            UpdateEquipData(false);
+            UpdateEquipData(singleUpdate: false);
 
             EventManager.Fire(UIEvent.Equipment);
         }
@@ -169,9 +169,12 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Recompute or set equip data cache.
         /// </summary>
-        public static void UpdateEquipData(bool singleUpdate = true)
+        public static void UpdateEquipData(
+            Dictionary<EquipmentIndex, EquipData> equipData = null,
+            bool singleUpdate = true
+        )
         {
-            EquipData = ComputeEquipData();
+            equipData ??= ComputeEquipData();
 
             if (
                 singleUpdate
@@ -190,9 +193,13 @@ namespace Retinues.GUI.Editor
             if (Troop?.IsRetinue == true)
                 UpdateConversionData();
 
+            EquipChangeDelta? delta = singleUpdate ? CaptureEquipChange(equipData, Slot) : null;
+
+            EquipData = equipData;
+
             if (singleUpdate)
             {
-                LastEquipChange = CaptureEquipChange(EquipData, Slot);
+                LastEquipChange = delta;
                 EventManager.Fire(UIEvent.Equip);
             }
 
