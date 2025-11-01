@@ -26,7 +26,7 @@ namespace Retinues.Game.Helpers.Character
 
         public WFaction ResolveFaction(WCharacter node) =>
             Player.Clan.Troops.Contains(node) ? Player.Clan
-            : Player.Kingdom.Troops.Contains(node) ? Player.Kingdom
+            : Player.Kingdom != null && Player.Kingdom.Troops.Contains(node) ? Player.Kingdom
             : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -36,6 +36,9 @@ namespace Retinues.Game.Helpers.Character
         public WCharacter GetParent(WCharacter node)
         {
             var faction = ResolveFaction(node);
+
+            if (faction == null)
+                return null;
 
             foreach (var troop in faction.BasicTroops.Concat(faction.EliteTroops))
                 if (troop.UpgradeTargets.Contains(node))

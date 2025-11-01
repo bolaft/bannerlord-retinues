@@ -46,12 +46,25 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// List of stub CharacterObjects preloaded for custom troop creation.
         /// </summary>
-        public static List<CharacterObject> Stubs =
-        [
-            .. MBObjectManager
-                .Instance.GetObjectTypeList<CharacterObject>()
-                .Where(co => co.StringId.StartsWith(CustomIdPrefix)),
-        ];
+        public static List<CharacterObject> Stubs
+        {
+            get
+            {
+                List<CharacterObject> stubs = [];
+                int i = 0;
+
+                foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
+                {
+                    i++;
+                    if (co.StringId.StartsWith(CustomIdPrefix))
+                        stubs.Add(co);
+                }
+
+                Log.Info($"Loaded {stubs.Count} stubs out of {i} CharacterObjects.");
+
+                return stubs;
+            }
+        }
 
         /// <summary>
         /// List of active custom troop ids.

@@ -62,18 +62,20 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets all custom troops for this faction.
         /// </summary>
-        public IEnumerable<WCharacter> Troops
+        public List<WCharacter> Troops
         {
             get
             {
+                var troops = new List<WCharacter>();
                 foreach (var troop in RetinueTroops)
-                    yield return troop;
+                    troops.Add(troop);
                 foreach (var troop in EliteTroops)
-                    yield return troop;
+                    troops.Add(troop);
                 foreach (var troop in BasicTroops)
-                    yield return troop;
+                    troops.Add(troop);
                 foreach (var troop in MilitiaTroops)
-                    yield return troop;
+                    troops.Add(troop);
+                return troops;
             }
         }
 
@@ -90,12 +92,14 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Gets all elite troops in the upgrade tree that are active.
         /// </summary>
-        public List<WCharacter> EliteTroops => [.. RootElite.Tree.Where(t => t?.IsActive == true)];
+        public List<WCharacter> EliteTroops =>
+            RootElite == null ? [] : [.. RootElite.Tree.Where(t => t?.IsActive == true)];
 
         /// <summary>
         /// Gets all basic troops in the upgrade tree that are active.
         /// </summary>
-        public List<WCharacter> BasicTroops => [.. RootBasic.Tree.Where(t => t?.IsActive == true)];
+        public List<WCharacter> BasicTroops =>
+            RootBasic == null ? [] : [.. RootBasic.Tree.Where(t => t?.IsActive == true)];
 
         /// <summary>
         /// Gets all militia troops for this faction that are active.

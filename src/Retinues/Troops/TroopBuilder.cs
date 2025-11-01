@@ -31,10 +31,6 @@ namespace Retinues.Troops
             if (faction == null)
                 return; // Cannot ensure troops exist for null (no kingdom?) faction.
 
-            if (faction == Player.Clan)
-                if (!faction.HasFiefs && !Config.RecruitAnywhere == true)
-                    return; // Can't initialize troops for player clan without fiefs or recruit anywhere
-
             Log.Debug($"Ensuring troops exist for faction: {faction?.Name ?? "null"}");
 
             if (faction.RetinueElite is null)
@@ -46,6 +42,10 @@ namespace Retinues.Troops
                 CreateRetinueTroop(faction, isElite: false);
             else
                 Log.Debug("Basic retinue found, no need to initialize.");
+
+            if (faction == Player.Clan)
+                if (!faction.HasFiefs && !Config.RecruitAnywhere == true)
+                    return; // Can't initialize troops for player clan without fiefs or recruit anywhere
 
             var hasBasic = faction.BasicTroops.Count > 0;
             var hasElite = faction.EliteTroops.Count > 0;

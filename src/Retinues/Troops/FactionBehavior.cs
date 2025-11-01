@@ -78,10 +78,10 @@ namespace Retinues.Troops
         private void OnGameLoaded(CampaignGameStarter _)
         {
             // Rebuild clan troops
-            _clanTroops.Apply(Player.Clan);
+            _clanTroops?.Apply(Player.Clan);
 
             // Rebuild kingdom troops
-            _kingdomTroops.Apply(Player.Kingdom);
+            _kingdomTroops?.Apply(Player.Kingdom);
         }
 
         /* ━━━━━ Fief Acquired ━━━━ */

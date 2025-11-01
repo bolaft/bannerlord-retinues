@@ -24,9 +24,9 @@ namespace Retinues.Game
         /// </summary>
         public static void Reset()
         {
-            _clan = null;
             _culture = null;
             _character = null;
+            _clan = null;
             _kingdom = null;
         }
 

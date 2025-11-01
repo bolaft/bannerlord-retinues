@@ -22,6 +22,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues
 {
@@ -69,7 +70,7 @@ namespace Retinues
         }
 
         /// <summary>
-        /// Called when a game (campaign) starts or loads.
+        /// Called when a game starts or loads.
         /// </summary>
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
         {
@@ -215,6 +216,8 @@ namespace Retinues
         /// </summary>
         private void AddBehaviors(CampaignGameStarter cs)
         {
+            Log.Info("Registering behaviors...");
+
             // Troop behaviors
             AddBehavior<FactionBehavior>(cs);
 
@@ -352,8 +355,10 @@ namespace Retinues
 
             // Clear player info
             Player.Reset();
+
             // Clear active troops
             WCharacter.ActiveTroopIds.Clear();
+
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
         }
