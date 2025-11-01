@@ -1,7 +1,6 @@
 using System;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
-using Retinues.Safety.Legacy;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -104,40 +103,20 @@ namespace Retinues.Safety.Sanitizer
 
             try
             {
-                var legacyId = elem.Character?.StringId ?? string.Empty;
+                var troop = new WCharacter(elem.Character);
 
-                // 1) If it's a legacy custom id, migrate to the new custom counterpart
-                if (
-                    !string.IsNullOrEmpty(legacyId)
-                    && legacyId.StartsWith("ret_")
-                    && !legacyId.StartsWith("retinues_custom_")
-                )
+                if (troop.IsCustom)
                 {
-                    var migrated = LegacyCustomCharacterHelper.MapLegacyIdToNewCharacter(legacyId);
-                    if (SanitizerBehavior.IsCharacterValid(migrated))
-                    {
-                        fallback = migrated;
-                    }
+                    fallback = TroopMatcher
+                        .PickBestFromTree(
+                            troop.IsElite ? troop.Culture.RootElite : troop.Culture.RootBasic,
+                            troop
+                        )
+                        .Base;
                 }
-
-                // 2) If still null, try to pick a best-match from the troop tree
-                if (fallback == null)
+                else
                 {
-                    var troop = new WCharacter(elem.Character);
-
-                    if (troop.IsCustom)
-                    {
-                        fallback = TroopMatcher
-                            .PickBestFromTree(
-                                troop.IsElite ? troop.Culture.RootElite : troop.Culture.RootBasic,
-                                troop
-                            )
-                            .Base;
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("Not a custom troop");
-                    }
+                    throw new InvalidOperationException("Not a custom troop");
                 }
             }
             catch

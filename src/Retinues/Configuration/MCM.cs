@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
+using Retinues.Game;
 using Retinues.Safety.Sanitizer;
 using Retinues.Troops;
 using Retinues.Utils;
@@ -293,13 +294,9 @@ namespace Retinues.Configuration
                                                         "backup_" + SuggestDefaultExportName()
                                                     );
 
-                                                    var count = TroopImportExport.ImportFromXml(
-                                                        choice
-                                                    );
+                                                    TroopImportExport.ImportFromXml(choice);
                                                     Log.Message(
-                                                        count > 0
-                                                            ? $"Imported {count} root troop definitions from '{choice}'."
-                                                            : $"No troops were imported from '{choice}'."
+                                                        $"Imported {Player.Troops.Count()} root troop definitions from '{choice}'."
                                                     );
                                                 }
                                                 catch (Exception e)

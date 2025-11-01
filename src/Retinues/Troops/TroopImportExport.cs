@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using Retinues.Game;
 using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.ModuleManager;
@@ -16,6 +17,9 @@ namespace Retinues.Troops
     [SafeClass]
     public static class TroopImportExport
     {
+        const string ClanKey = "Clan";
+        const string KingdomKey = "Kingdom";
+
         public static readonly string DefaultDir = Path.Combine(
             ModuleHelper.GetModuleFullPath("Retinues"),
             "Exports"
@@ -31,39 +35,35 @@ namespace Retinues.Troops
         /// </summary>
         public static string ExportAllToXml(string fileName)
         {
-            try
+            string safeFileName = fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
+                ? fileName
+                : fileName + ".xml";
+            string filePath = Path.Combine(DefaultDir, safeFileName);
+
+            Dictionary<string, FactionSaveData> payload = new()
             {
-                string safeFileName = fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
-                    ? fileName
-                    : fileName + ".xml";
-                string filePath = Path.Combine(DefaultDir, safeFileName);
+                { ClanKey, new FactionSaveData(Player.Clan) },
+                { KingdomKey, new FactionSaveData(Player.Kingdom) },
+            };
 
-                var payload = TroopBehavior.CollectAllDefinedCustomTroops();
-
-                var serializer = new XmlSerializer(
-                    typeof(List<TroopSaveData>),
-                    new XmlRootAttribute("Troops")
-                );
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
-                };
-
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
-                using (var fs = File.Create(filePath))
-                using (var writer = XmlWriter.Create(fs, settings))
-                {
-                    serializer.Serialize(writer, payload);
-                }
-
-                return Path.GetFullPath(filePath);
-            }
-            catch (Exception e)
+            var serializer = new XmlSerializer(
+                typeof(Dictionary<string, FactionSaveData>),
+                new XmlRootAttribute("Factions")
+            );
+            var settings = new XmlWriterSettings
             {
-                Log.Exception(e, "ExportAllToXml failed");
-                return null;
+                Indent = true,
+                Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+            };
+
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
+            using (var fs = File.Create(filePath))
+            using (var writer = XmlWriter.Create(fs, settings))
+            {
+                serializer.Serialize(writer, payload);
             }
+
+            return Path.GetFullPath(filePath);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -74,67 +74,43 @@ namespace Retinues.Troops
         /// Imports custom troop roots from an XML file and rebuilds their trees.
         /// Returns the number of root definitions imported.
         /// </summary>
-        public static int ImportFromXml(string fileName)
+        public static void ImportFromXml(string fileName)
         {
-            try
+            string filePath = Path.Combine(DefaultDir, fileName);
+
+            // If file doesn't exist and doesn't end with .xml, try appending .xml and check again
+            if (
+                !File.Exists(filePath)
+                && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
+            )
             {
-                string filePath = Path.Combine(DefaultDir, fileName);
-
-                // If file doesn't exist and doesn't end with .xml, try appending .xml and check again
-                if (
-                    !File.Exists(filePath)
-                    && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
-                )
-                {
-                    string xmlFileName = fileName + ".xml";
-                    string xmlFilePath = Path.Combine(DefaultDir, xmlFileName);
-                    if (File.Exists(xmlFilePath))
-                    {
-                        filePath = xmlFilePath;
-                    }
-                }
-
-                if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
-                {
-                    Log.Message($"ImportFromXml: file not found '{filePath ?? "<null>"}'.");
-                    return 0;
-                }
-
-                var serializer = new XmlSerializer(
-                    typeof(List<TroopSaveData>),
-                    new XmlRootAttribute("Troops")
-                );
-                List<TroopSaveData> payload;
-
-                using (var fs = File.OpenRead(filePath))
-                {
-                    payload = (List<TroopSaveData>)serializer.Deserialize(fs);
-                }
-
-                if (payload == null || payload.Count == 0)
-                {
-                    Log.Message($"ImportFromXml: no troops in '{filePath}'.");
-                    return 0;
-                }
-
-                int built = 0;
-                foreach (var root in payload)
-                {
-                    // Rebuild each tree via the existing loader
-                    TroopLoader.Load(root);
-                    built++;
-                }
-
-                Log.Message(
-                    $"Imported and rebuilt {built} root troop definitions from '{filePath}'."
-                );
-                return built;
+                string xmlFileName = fileName + ".xml";
+                string xmlFilePath = Path.Combine(DefaultDir, xmlFileName);
+                if (File.Exists(xmlFilePath))
+                    filePath = xmlFilePath;
             }
-            catch (Exception e)
+
+            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+                Log.Message($"ImportFromXml: file not found '{filePath ?? "<null>"}'.");
+
+            var serializer = new XmlSerializer(
+                typeof(Dictionary<string, FactionSaveData>),
+                new XmlRootAttribute("Troops")
+            );
+            Dictionary<string, FactionSaveData> payload;
+
+            using (var fs = File.OpenRead(filePath))
             {
-                Log.Exception(e, "ImportFromXml failed");
-                return 0;
+                payload = (Dictionary<string, FactionSaveData>)serializer.Deserialize(fs);
             }
+
+            if (payload == null || payload.Count == 0)
+                Log.Message($"ImportFromXml: no troops in '{filePath}'.");
+
+            payload[ClanKey]?.Apply(Player.Clan);
+            payload[KingdomKey]?.Apply(Player.Kingdom);
+
+            Log.Message($"Imported and rebuilt root troop definitions from '{filePath}'.");
         }
     }
 }

@@ -15,7 +15,6 @@ using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
-using Retinues.Safety.Legacy;
 using Retinues.Safety.Sanitizer;
 using Retinues.Safety.Version;
 using Retinues.Troops;
@@ -217,7 +216,7 @@ namespace Retinues
         private void AddBehaviors(CampaignGameStarter cs)
         {
             // Troop behaviors
-            AddBehavior<TroopBehavior>(cs);
+            AddBehavior<FactionBehavior>(cs);
 
             // Safety behaviors
             AddBehavior<SanitizerBehavior>(cs);
@@ -254,9 +253,6 @@ namespace Retinues
                 AddBehavior<FeatNotificationBehavior>(cs);
                 AddBehavior<DoctrineEffectRuntimeBehavior>(cs);
             }
-
-            // Legacy compatibility behaviors
-            LegacyCompatibility.AddBehaviors(cs);
 
             // Mod compatibility behaviors
             ModCompatibility.AddBehaviors(cs);
@@ -357,7 +353,7 @@ namespace Retinues
             // Clear player info
             Player.Reset();
             // Clear active troops
-            WCharacter.ActiveTroops.Clear();
+            WCharacter.ActiveTroopIds.Clear();
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
         }

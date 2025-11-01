@@ -40,10 +40,7 @@ namespace Retinues.Features.Missions.Patches
                     // Use civilian set if spawning as civilian.
                     eq = troop.Loadout.Civilian.Base;
                 }
-                else if (
-                    Config.ForceMainBattleSetInCombat
-                    || ModuleChecker.GetModule("Shokuho") != null
-                )
+                else if (Config.ForceMainBattleSetInCombat || ModuleChecker.IsLoaded("Shokuho"))
                 {
                     // Use main battle set if configured to do so.
                     eq = troop.Loadout.Battle.Base;

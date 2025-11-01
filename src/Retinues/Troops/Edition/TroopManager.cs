@@ -58,11 +58,8 @@ namespace Retinues.Troops.Edition
         {
             Log.Debug($"Adding upgrade target '{targetName}' to troop {troop?.Name}.");
 
-            // Determine the position in the tree
-            List<int> path = [.. troop.PositionInTree, troop.UpgradeTargets.Length];
-
             // Wrap the custom troop
-            var child = new WCharacter(troop.Faction == Player.Kingdom, troop.IsElite, path: path);
+            var child = new WCharacter();
 
             // Copy from the original troop
             child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);

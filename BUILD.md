@@ -41,20 +41,18 @@ The build picks the correct set based on `--version 12|13` (defaults to 13).
 ## Project layout
 
 ```
-build.sh                      # Build wrapper (Git Bash/WSL/macOS/Linux)
-Directory.Build.props         # Centralized MSBuild configuration
-Directory.Build.targets       # Staging + deploy targets
-Retinues.Local.props          # (optional) local overrides (git‑ignored)
+build.sh                               # Build wrapper (Git Bash/WSL/macOS/Linux)
+Directory.Build.props                  # Centralized MSBuild configuration
+Directory.Build.targets                # Staging + deploy targets
+Retinues.Local.props                   # (optional) local overrides (git‑ignored)
 
-cfg/core.config.ini           # -> Retinues/config.ini (on deploy)
-xml/**                        # -> Retinues/ModuleData/**
-loc/Languages/**              # -> Retinues/ModuleData/Languages/**
-tpl/{templates,partials}/     # Inputs for PrefabBuilder (GUI)
+xml/Retinues/**                        # -> Retinues/ModuleData/**
+loc/Retinues/Languages/**              # -> Retinues/ModuleData/Languages/**
+tpl/Retinues/**/                       # GUI templates
 
-src/Retinues/Retinues.csproj  # The game module project
-src/Retinues/SubModule*.xml   # SubModule files (BL‑specific)
-src/Retinues/UIExtenderDebug.xml  # Copied only in non‑Release builds
-src/PrefabBuilder/PrefabBuilder.csproj # GUI generator tool (not deployed)
+src/Retinues/Retinues.csproj           # The game module project
+src/Retinues/SubModule*.xml            # SubModule files (BL‑specific)
+src/Retinues/UIExtenderDebug.xml       # Copied only in non‑Release builds
 ```
 
 **Artifacts**
@@ -73,14 +71,14 @@ src/PrefabBuilder/PrefabBuilder.csproj # GUI generator tool (not deployed)
 ./build.sh -v 12
 ```
 - Copies **UIExtenderDebug.xml** to the module root.
-- Generates GUI prefabs (if PrefabBuilder project exists) and deploys `GUI/**`.
+- Generates GUI prefabs and deploys `GUI/**`.
 - Deploys `Retinues.dll`, `SubModule.xml`, `ModuleData/**`, `config.ini`.
 
 ### Prefabs only
 ```bash
 ./build.sh --prefabs
 ```
-- Runs PrefabBuilder to `bin/Modules/Retinues/GUI/**`.
+- Generates GUI prefabs.
 - Mirrors `GUI/**` to `<Game>/Modules/Retinues/GUI/**`.
 
 ### Release build with version bump

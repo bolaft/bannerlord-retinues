@@ -1,5 +1,4 @@
 using System;
-using Retinues.Safety.Legacy;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
@@ -55,27 +54,7 @@ namespace Retinues.Safety.Sanitizer
                     if (SanitizerBehavior.IsCharacterValid(c, replaceAllCustom))
                         continue;
 
-                    // VolunteerSanitizer.cs (inside SwapNotable, where fallback is chosen)
-                    CharacterObject fallback = null;
-
-                    // 1) Try legacy → new custom migration first
-                    var legacyId = c?.StringId ?? string.Empty;
-                    if (
-                        !string.IsNullOrEmpty(legacyId)
-                        && legacyId.StartsWith("ret_")
-                        && !legacyId.StartsWith("retinues_custom_")
-                    )
-                    {
-                        var migrated = LegacyCustomCharacterHelper.MapLegacyIdToNewCharacter(
-                            legacyId
-                        );
-                        if (SanitizerBehavior.IsCharacterValid(migrated))
-                            fallback = migrated;
-                    }
-
-                    // 2) If not migrated, keep your prior behavior (culture basic, then looter)
-                    fallback ??= GetFallbackVolunteer(settlement);
-
+                    var fallback = GetFallbackVolunteer(settlement);
                     if (fallback != null)
                     {
                         Log.Warn(

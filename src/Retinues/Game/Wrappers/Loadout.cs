@@ -76,7 +76,7 @@ namespace Retinues.Game.Wrappers
                     ?.AllEquipments ?? [];
             set
             { // Shokuho compatibility: collapse to exactly 2 sets (Battle, Civilian)
-                if (ModuleChecker.GetModule("Shokuho") != null)
+                if (ModuleChecker.IsLoaded("Shokuho"))
                 {
                     // Pick first non-civilian as Battle; if none, create an empty battle set
                     var battle =

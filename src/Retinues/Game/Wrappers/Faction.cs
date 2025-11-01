@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Utils;
@@ -49,52 +48,54 @@ namespace Retinues.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Helper to determine whether to use kingdom troops for retinues and roots.
-        private bool UseKingdomTroops => this == Player.Kingdom && !Config.NoKingdomTroops;
+        public WCharacter RetinueElite { get; set; }
+        public WCharacter RetinueBasic { get; set; }
 
-        public WCharacter RetinueElite => new(UseKingdomTroops, true, true);
-        public WCharacter RetinueBasic => new(UseKingdomTroops, false, true);
+        public WCharacter RootElite { get; set; }
+        public WCharacter RootBasic { get; set; }
 
-        public WCharacter RootElite => new(UseKingdomTroops, true, false);
-        public WCharacter RootBasic => new(UseKingdomTroops, false, false);
-
-        public WCharacter MilitiaMelee => new(UseKingdomTroops, false, false, true, false);
-        public WCharacter MilitiaMeleeElite => new(UseKingdomTroops, true, false, true, false);
-        public WCharacter MilitiaRanged => new(UseKingdomTroops, false, false, false, true);
-        public WCharacter MilitiaRangedElite => new(UseKingdomTroops, true, false, false, true);
+        public WCharacter MilitiaMelee { get; set; }
+        public WCharacter MilitiaMeleeElite { get; set; }
+        public WCharacter MilitiaRanged { get; set; }
+        public WCharacter MilitiaRangedElite { get; set; }
 
         /// <summary>
-        /// Gets all custom troops for this faction, including retinues and active tree members.
+        /// Gets all custom troops for this faction.
         /// </summary>
         public IEnumerable<WCharacter> Troops
         {
             get
             {
-                yield return RetinueElite;
-                yield return RetinueBasic;
-                foreach (var troop in RootElite.Tree)
-                    if (troop.IsActive)
-                        yield return troop;
-                foreach (var troop in RootBasic.Tree)
-                    if (troop.IsActive)
-                        yield return troop;
+                foreach (var troop in RetinueTroops)
+                    yield return troop;
+                foreach (var troop in EliteTroops)
+                    yield return troop;
+                foreach (var troop in BasicTroops)
+                    yield return troop;
+                foreach (var troop in MilitiaTroops)
+                    yield return troop;
             }
         }
 
+        /// <summary>
+        /// Gets all retinue troops for this faction that are active.
+        /// </summary>
         public List<WCharacter> RetinueTroops =>
-            [.. new List<WCharacter> { RetinueElite, RetinueBasic }.Where(t => t.IsActive)];
+            [
+                .. new List<WCharacter> { RetinueElite, RetinueBasic }.Where(t =>
+                    t?.IsActive == true
+                ),
+            ];
 
         /// <summary>
         /// Gets all elite troops in the upgrade tree that are active.
         /// </summary>
-        public List<WCharacter> EliteTroops =>
-            [.. RootElite.Tree.Where(t => t.IsActive && t.IsElite)];
+        public List<WCharacter> EliteTroops => [.. RootElite.Tree.Where(t => t?.IsActive == true)];
 
         /// <summary>
         /// Gets all basic troops in the upgrade tree that are active.
         /// </summary>
-        public List<WCharacter> BasicTroops =>
-            [.. RootBasic.Tree.Where(t => t.IsActive && !t.IsElite)];
+        public List<WCharacter> BasicTroops => [.. RootBasic.Tree.Where(t => t?.IsActive == true)];
 
         /// <summary>
         /// Gets all militia troops for this faction that are active.
@@ -109,7 +110,7 @@ namespace Retinues.Game.Wrappers
                         MilitiaMelee,
                         MilitiaRangedElite,
                         MilitiaRanged,
-                    }.Where(t => t.IsActive),
+                    }.Where(t => t?.IsActive == true),
                 ]
                 : [];
 

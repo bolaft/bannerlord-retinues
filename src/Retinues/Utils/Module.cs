@@ -43,6 +43,11 @@ namespace Retinues.Utils
             return null;
         }
 
+        /// <summary>
+        /// Checks if a module with the given ID is active.
+        /// </summary>
+        public static bool IsLoaded(string id) => GetModule(id) != null;
+
         private static List<ModuleEntry> _cachedActiveModules;
 
         /// <summary>

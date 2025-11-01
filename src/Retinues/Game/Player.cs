@@ -191,6 +191,58 @@ namespace Retinues.Game
             }
         }
 
+        public static IEnumerable<WCharacter> RetinueTroops
+        {
+            get
+            {
+                if (Clan != null)
+                    foreach (var troop in Clan.RetinueTroops)
+                        yield return troop;
+
+                if (Kingdom != null)
+                    foreach (var troop in Kingdom.RetinueTroops)
+                        yield return troop;
+            }
+        }
+
+        public static IEnumerable<WCharacter> EliteTroops
+        {
+            get
+            {
+                if (Clan != null)
+                    foreach (var troop in Clan.EliteTroops)
+                        yield return troop;
+
+                if (Kingdom != null)
+                    foreach (var troop in Kingdom.EliteTroops)
+                        yield return troop;
+            }
+        }
+
+        public static IEnumerable<WCharacter> MilitiaMeleeTroops
+        {
+            get
+            {
+                if (Clan != null)
+                    yield return Clan.MilitiaMelee;
+
+                if (Kingdom != null)
+                    yield return Kingdom.MilitiaMelee;
+            }
+        }
+
+        public static IEnumerable<WCharacter> MilitiaRangedTroops
+        {
+            get
+            {
+                if (Clan != null)
+                    yield return Clan.MilitiaRanged;
+
+                if (Kingdom != null)
+                    yield return Kingdom.MilitiaRanged;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Army                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
