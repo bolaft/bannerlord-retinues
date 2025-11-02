@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
@@ -77,6 +78,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(PendingTotalCount),
                     nameof(RetinueCap),
                     nameof(CultureText),
+                    nameof(RaceText),
+                    nameof(CanChangeRace),
                 ],
                 [UIEvent.Train] =
                 [
@@ -185,6 +188,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string CultureHeaderText => L.S("culture_header_text", "Culture");
 
         [DataSourceProperty]
+        public string RaceHeaderText => L.S("race_header_text", "Race");
+
+        [DataSourceProperty]
         public string NameHeaderText => L.S("name_header_text", "Name");
 
         [DataSourceProperty]
@@ -207,6 +213,12 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public string CultureText => State.Troop?.Culture?.Name ?? L.S("unknown", "Unknown");
+
+        [DataSourceProperty]
+        public string RaceText => GetRaceName(State.Troop?.Race ?? -1) ?? L.S("unknown", "Unknown");
+
+        [DataSourceProperty]
+        public bool CanChangeRace => HasAlternateRace();
 
         [DataSourceProperty]
         public string TierText
@@ -462,11 +474,19 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                             if (selected[0]?.Identifier is not CultureObject culture)
                                 return;
 
+                            var priorRace = State.Troop.Race;
+
                             // Apply via wrapper (uses reflection under the hood).
                             State.Troop.Culture = new WCulture(culture);
 
                             // Update visuals
                             CharacterCustomization.ApplyPropertiesFromCulture(State.Troop, culture);
+
+                            if (priorRace >= 0)
+                            {
+                                State.Troop.Race = priorRace;
+                                State.Troop.EnsureOwnBodyRange();
+                            }
 
                             // Invalidate troop matches for culture change.
                             TroopMatcher.InvalidateTroopCache(State.Troop);
@@ -475,6 +495,63 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                             State.UpdateTroop(State.Troop);
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
+                    )
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        /// <summary>
+        /// Change the selected troop's race.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteChangeRace()
+        {
+            try
+            {
+                if (State.Troop == null || !CanChangeRace)
+                    return;
+
+                var names = EnsureRaceNames();
+                if (names == null || names.Count == 0)
+                {
+                    Popup.Display(
+                        L.T("no_races_title", "No Races Found"),
+                        L.T("no_races_text", "No alternative races are available.")
+                    );
+                    return;
+                }
+
+                var elements = new List<InquiryElement>(names.Count);
+                for (int i = 0; i < names.Count; i++)
+                {
+                    var name = string.IsNullOrWhiteSpace(names[i]) ? $"Race {i}" : names[i];
+                    elements.Add(new InquiryElement(i, name, null, true, null));
+                }
+
+                MBInformationManager.ShowMultiSelectionInquiry(
+                    new MultiSelectionInquiryData(
+                        titleText: L.S("change_race_title", "Change Race"),
+                        descriptionText: L.S("change_race_desc", string.Empty),
+                        inquiryElements: elements,
+                        isExitShown: true,
+                        minSelectableOptionCount: 1,
+                        maxSelectableOptionCount: 1,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: selected =>
+                        {
+                            if (selected?.Count > 0 && selected[0]?.Identifier is int race)
+                            {
+                                State.Troop.Race = race;
+                                State.Troop.EnsureOwnBodyRange();
+                                State.UpdateTroop(State.Troop);
+                            }
+                        },
+                        negativeAction: _ => { }
                     )
                 );
             }
@@ -707,6 +784,72 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             // Clear all pending conversions
             State.ClearPendingConversions();
         }
+
+        /* ━━━━━━━━ Helpers ━━━━━━━ */
+
+        private static List<string> _cachedRaceNames;
+
+        private static string GetRaceName(int raceIndex)
+        {
+            if (raceIndex < 0)
+                return L.S("unknown", "Unknown");
+
+            var names = EnsureRaceNames();
+            if (names != null && raceIndex < names.Count)
+                return names[raceIndex] ?? $"Race {raceIndex}";
+
+            return $"Race {raceIndex}";
+        }
+
+        private static IReadOnlyList<string> EnsureRaceNames()
+        {
+            if (_cachedRaceNames != null)
+                return _cachedRaceNames;
+
+            var raw = FaceGen.GetRaceNames() ?? Array.Empty<string>();
+            if (raw.Length == 0)
+                return _cachedRaceNames = new List<string>();
+
+            var list = new List<string>(raw.Length);
+            for (int i = 0; i < raw.Length; i++)
+                list.Add(FormatRaceName(raw[i]));
+
+            _cachedRaceNames = list;
+
+            return _cachedRaceNames;
+        }
+
+        private static string FormatRaceName(string raw)
+        {
+            if (string.IsNullOrWhiteSpace(raw))
+                return null;
+
+            var parts = raw.Replace('_', ' ')
+                .Trim()
+                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(p => p.ToLowerInvariant())
+                .ToArray();
+
+            if (parts.Length == 0)
+                return null;
+
+            string candidate = string.Join(" ", parts.Take(2));
+
+            if (candidate.Length > 15)
+            {
+                candidate = candidate.Substring(0, 15);
+                int lastSpace = candidate.LastIndexOf(' ');
+                if (lastSpace > 0)
+                    candidate = candidate.Substring(0, lastSpace);
+            }
+
+            if (string.IsNullOrWhiteSpace(candidate))
+                candidate = parts[0];
+
+            return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(candidate);
+        }
+
+        private static bool HasAlternateRace() => FaceGen.GetRaceCount() > 1;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //

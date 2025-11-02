@@ -640,6 +640,22 @@
     "TR": "Kültürü Değiştir"
   },
   {
+    "id": "ret_change_race_title",
+    "EN": "Change Race",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_clanic_traditions",
     "EN": "Clan Traditions",
     "BR": "Tradições do Clã",
@@ -4112,6 +4128,38 @@
     "TR": "Kültür Bulunamadı"
   },
   {
+    "id": "ret_no_races_text",
+    "EN": "No alternative races are available.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_no_races_title",
+    "EN": "No Races Found",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_no_skill_points_left",
     "EN": "No skill points left for this troop.",
     "BR": "Nenhum ponto de habilidade restante para esta tropa.",
@@ -4414,6 +4462,22 @@
     "RU": "Гвардия Королевы",
     "SP": "Guardia de la Reina",
     "TR": "Kraliçenin Muhafızları"
+  },
+  {
+    "id": "ret_race_header_text",
+    "EN": "Race",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_rank_up",

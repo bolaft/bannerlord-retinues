@@ -8,6 +8,7 @@ using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -225,8 +226,31 @@ namespace Retinues.Troops
             Log.Info($"Tier: {tpl.Tier}");
 
             var retinue = new WCharacter(faction == Player.Kingdom, isElite, true);
+            var originalRace = retinue.Race;
+            var originalMin = retinue.Base.GetBodyPropertiesMin();
+            var originalMax = retinue.Base.GetBodyPropertiesMax();
 
             retinue.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+
+            if (retinue.Race != originalRace)
+            {
+                retinue.Race = originalRace;
+                retinue.EnsureOwnBodyRange();
+
+                var range = Reflector.GetPropertyValue<object>(retinue.Base, "BodyPropertyRange");
+                if (range != null)
+                {
+                    Reflector.InvokeMethod(
+                        range,
+                        "Init",
+                        new[] { typeof(BodyProperties), typeof(BodyProperties) },
+                        originalMin,
+                        originalMax
+                    );
+                }
+
+                retinue.Age = (originalMin.Age + originalMax.Age) * 0.5f;
+            }
 
             Log.Info($"Created retinue troop {retinue.Name} for {faction.Name} (from {tpl})");
 

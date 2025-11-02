@@ -67,5 +67,8 @@ namespace Retinues.Troops.Save
 
         [SaveableField(19)]
         public float HeightMax;
+
+        [SaveableField(20)]
+        public int Race = 0;
     }
 }
