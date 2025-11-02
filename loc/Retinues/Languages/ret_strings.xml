@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Acquire the Cultural Pride doctrine to unlock militia troops." />
+      text="Unlock with the Cultural Pride doctrine." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Acquire a fief to unlock clan troops." />

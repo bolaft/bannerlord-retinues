@@ -1,19 +1,19 @@
 [
   {
     "id": "ret_acquire_cultural_pride_to_unlock",
-    "EN": "Acquire the Cultural Pride doctrine to unlock militia troops.",
-    "BR": "Conquiste a doutrina Orgulho Cultural para desbloquear as tropas da milícia.",
-    "CNs": "获得文化自豪感信条以解锁民兵部队。",
-    "CNt": "獲得文化自豪感信條以解鎖民兵部隊。",
-    "DE": "Erwirb die Doktrin Kultureller Stolz, um Miliztruppen freizuschalten.",
-    "FR": "Acquiers la doctrine Fierté Culturelle pour débloquer les troupes de milice.",
-    "IT": "Acquisisci la dottrina Orgoglio Culturale per sbloccare le truppe di milizia.",
-    "JP": "文化の誇りの教義を獲得して民兵の兵を解放する。",
-    "KO": "민병대 병력을 해제하려면 문화적 긍지를 획득하십시오.",
-    "PL": "Zdobądź doktrynę Dumy Kulturowej, aby odblokować wojska milicji.",
-    "RU": "Получите доктрину Культурной Гордости, чтобы разблокировать милицейские войска.",
-    "SP": "Adquiere la doctrina Orgullo Cultural para desbloquear las tropas de milicia.",
-    "TR": "Milis askerlerini açmak için Kültürel Gurur doktrinini elde et."
+    "EN": "Unlock with the Cultural Pride doctrine.",
+    "BR": "Desbloqueie com a doutrina Orgulho Cultural.",
+    "CNs": "通过文化自豪感学说解锁。",
+    "CNt": "透過文化自豪感學說解鎖。",
+    "DE": "Mit der Doktrin Kultureller Stolz freischalten.",
+    "FR": "Débloque avec la doctrine Fierté Culturelle.",
+    "IT": "Sblocca con la dottrina Orgoglio Culturale.",
+    "JP": "文化的誇りの教義で解放する。",
+    "KO": "문화적 긍지 교리로 해제하십시오.",
+    "PL": "Odblokuj za pomocą doktryny Dumy Kulturowej.",
+    "RU": "Разблокируйте с помощью доктрины Культурная Гордость.",
+    "SP": "Desbloquea con la doctrina Orgullo Cultural.",
+    "TR": "Kültürel Gurur doktrini ile aç."
   },
   {
     "id": "ret_acquire_fief_to_unlock",
