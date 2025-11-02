@@ -34,7 +34,7 @@ namespace Retinues.Doctrines.Catalog
             {
                 if (tournament.Winner != Player.Character)
                     return;
-                
+
                 if (ModuleChecker.GetModule("Shokuho") != null)
                     AdvanceProgress(1); // Items don't have cultures in Shokuho, skip the check.
 
