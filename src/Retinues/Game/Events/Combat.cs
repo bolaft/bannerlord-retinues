@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -22,8 +23,6 @@ namespace Retinues.Game.Events
 
         public bool IsVictory => Mission.Current?.MissionResult?.PlayerVictory == true;
         public bool IsDefeat => !IsVictory;
-
-        public readonly List<Kill> Kills = [];
 
         /// <summary>
         /// Kill event details. Implemented as a readonly struct to avoid heap allocations
@@ -99,78 +98,120 @@ namespace Retinues.Game.Events
         //                     Mission Events                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void OnAgentRemoved(
-            Agent victim,
-            Agent killer,
-            AgentState state,
-            KillingBlow blow
-        )
+        public override void OnBehaviorInitialize()
         {
-            if (Kill.IsValid(victim, killer, state))
-                Kills.Add(new Kill(victim, killer, state, blow));
-        }
-
-        public sealed override void OnEndMissionInternal()
-        {
-            // Derived classes must override OnEndMission instead.
-            base.OnEndMissionInternal();
-
-            if (Kills.Count > 0)
-                Kills.Clear();
+            base.OnBehaviorInitialize();
+            EnsureTracker();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Logging                        //
+        //                         Tracker                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Log a summary report of all kills and casualties in the combat.
-        /// </summary>
-        public void LogCombatReport()
-        {
-            int playerKills = 0;
-            int playerTroopKills = 0;
-            int allyKills = 0;
-            int enemyKills = 0;
-            int playerCasualties = 0;
-            int playerTroopCasualties = 0;
-            int allyCasualties = 0;
-            int enemyCasualties = 0;
+        private KillTracker _tracker;
+        public List<Kill> Kills => _tracker?.Kills ?? [];
 
-            foreach (var kill in Kills)
+        private void EnsureTracker()
+        {
+            var m = Mission;
+            if (m == null)
+                return;
+
+            _tracker = m.GetMissionBehavior<KillTracker>();
+            if (_tracker == null)
             {
-                if (kill.KillerIsPlayer)
-                    playerKills++;
-                if (kill.KillerIsPlayerTroop)
-                    playerTroopKills++;
-                if (kill.KillerIsAllyTroop)
-                    allyKills++;
-                if (kill.KillerIsEnemyTroop)
-                    enemyKills++;
+                _tracker = new KillTracker();
+                m.AddMissionBehavior(_tracker);
+            }
+        }
 
-                if (kill.VictimIsPlayer)
-                    playerCasualties++;
-                if (kill.VictimIsPlayerTroop)
-                    playerTroopCasualties++;
-                if (kill.VictimIsAllyTroop)
-                    allyCasualties++;
-                if (kill.VictimIsEnemyTroop)
-                    enemyCasualties++;
+        internal sealed class KillTracker : MissionBehavior
+        {
+            internal readonly List<Kill> Kills = [];
+
+            public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
+
+            internal void Capture(Agent victim, Agent killer, AgentState state, KillingBlow blow)
+            {
+                if (!Kill.IsValid(victim, killer, state))
+                    return;
+                var k = new Kill(victim, killer, state, blow);
+                Kills.Add(k);
             }
 
-            Log.Debug($"--- Combat Report ---");
-            Log.Debug($"Kills: {Kills.Count} total");
-            Log.Debug($"PlayerKills = {playerKills}");
-            Log.Debug($"PlayerTroopKills = {playerTroopKills}");
-            Log.Debug($"AllyKills = {allyKills}");
-            Log.Debug($"EnemyKills = {enemyKills}");
-            Log.Debug($"---------------------");
-            Log.Debug($"Casualties: {Kills.Count} total");
-            Log.Debug($"PlayerCasualties = {playerCasualties}");
-            Log.Debug($"PlayerTroopCasualties = {playerTroopCasualties}");
-            Log.Debug($"AllyCasualties = {allyCasualties}");
-            Log.Debug($"EnemyCasualties = {enemyCasualties}");
-            Log.Debug($"---------------------");
+            public override void OnAgentRemoved(
+                Agent victim,
+                Agent killer,
+                AgentState state,
+                KillingBlow blow
+            )
+            {
+                if (Kill.IsValid(victim, killer, state))
+                    Kills.Add(new Kill(victim, killer, state, blow));
+            }
+
+            public sealed override void OnEndMissionInternal()
+            {
+                base.OnEndMissionInternal();
+
+                // Log combat report
+                if (Config.DebugMode)
+                    LogReport();
+
+                // Clear kills
+                if (Kills.Count > 0)
+                    Kills.Clear();
+            }
+
+            /// <summary>
+            /// Log a summary report of all kills and casualties in the combat.
+            /// </summary>
+            public void LogReport()
+            {
+                int playerKills = 0;
+                int playerTroopKills = 0;
+                int allyKills = 0;
+                int enemyKills = 0;
+                int playerCasualties = 0;
+                int playerTroopCasualties = 0;
+                int allyCasualties = 0;
+                int enemyCasualties = 0;
+
+                foreach (var kill in Kills)
+                {
+                    if (kill.KillerIsPlayer)
+                        playerKills++;
+                    if (kill.KillerIsPlayerTroop)
+                        playerTroopKills++;
+                    if (kill.KillerIsAllyTroop)
+                        allyKills++;
+                    if (kill.KillerIsEnemyTroop)
+                        enemyKills++;
+
+                    if (kill.VictimIsPlayer)
+                        playerCasualties++;
+                    if (kill.VictimIsPlayerTroop)
+                        playerTroopCasualties++;
+                    if (kill.VictimIsAllyTroop)
+                        allyCasualties++;
+                    if (kill.VictimIsEnemyTroop)
+                        enemyCasualties++;
+                }
+
+                Log.Debug($"--- Combat Report ---");
+                Log.Debug($"Kills: {Kills.Count} total");
+                Log.Debug($"PlayerKills = {playerKills}");
+                Log.Debug($"PlayerTroopKills = {playerTroopKills}");
+                Log.Debug($"AllyKills = {allyKills}");
+                Log.Debug($"EnemyKills = {enemyKills}");
+                Log.Debug($"---------------------");
+                Log.Debug($"Casualties: {Kills.Count} total");
+                Log.Debug($"PlayerCasualties = {playerCasualties}");
+                Log.Debug($"PlayerTroopCasualties = {playerTroopCasualties}");
+                Log.Debug($"AllyCasualties = {allyCasualties}");
+                Log.Debug($"EnemyCasualties = {enemyCasualties}");
+                Log.Debug($"---------------------");
+            }
         }
     }
 }
