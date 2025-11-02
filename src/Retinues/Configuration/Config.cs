@@ -44,10 +44,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_retinues", "Retinues"),
             name: () => L.S("mcm_option_max_elite_retinue_ratio", "Max Elite Retinue Ratio"),
             key: "MaxEliteRetinueRatio",
-            hint: () => L.S(
-                "mcm_option_max_elite_retinue_ratio_hint",
-                "Maximum proportion of elite retinue troops in player party."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_max_elite_retinue_ratio_hint",
+                    "Maximum proportion of elite retinue troops in player party."
+                ),
             @default: 0.10f,
             minValue: 0,
             maxValue: 1,
@@ -62,10 +63,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_retinues", "Retinues"),
             name: () => L.S("mcm_option_max_basic_retinue_ratio", "Max Basic Retinue Ratio"),
             key: "MaxBasicRetinueRatio",
-            hint: () => L.S(
-                "mcm_option_max_basic_retinue_ratio_hint",
-                "Maximum proportion of basic retinue troops in player party."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_max_basic_retinue_ratio_hint",
+                    "Maximum proportion of basic retinue troops in player party."
+                ),
             @default: 0.20f,
             minValue: 0,
             maxValue: 1,
@@ -78,15 +80,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> RetinueConversionCostPerTier = CreateOption(
             section: () => L.S("mcm_section_retinues", "Retinues"),
-            name: () => L.S(
-                "mcm_option_retinue_conversion_cost_per_tier",
-                "Retinue Conversion Cost Per Tier"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_retinue_conversion_cost_per_tier",
+                    "Retinue Conversion Cost Per Tier"
+                ),
             key: "RetinueConversionCostPerTier",
-            hint: () => L.S(
-                "mcm_option_retinue_conversion_cost_per_tier_hint",
-                "Conversion cost for retinue troops per tier."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_retinue_conversion_cost_per_tier_hint",
+                    "Conversion cost for retinue troops per tier."
+                ),
             @default: 50,
             minValue: 0,
             maxValue: 200,
@@ -99,12 +103,14 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> RetinueRankUpCostPerTier = CreateOption(
             section: () => L.S("mcm_section_retinues", "Retinues"),
-            name: () => L.S("mcm_option_retinue_rank_up_cost_per_tier", "Retinue Rank Up Cost Per Tier"),
+            name: () =>
+                L.S("mcm_option_retinue_rank_up_cost_per_tier", "Retinue Rank Up Cost Per Tier"),
             key: "RetinueRankUpCostPerTier",
-            hint: () => L.S(
-                "mcm_option_retinue_rank_up_cost_per_tier_hint",
-                "Rank up cost for retinue troops per tier."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_retinue_rank_up_cost_per_tier_hint",
+                    "Rank up cost for retinue troops per tier."
+                ),
             @default: 1000,
             minValue: 0,
             maxValue: 5000,
@@ -117,15 +123,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> RestrictConversionToFiefs = CreateOption(
             section: () => L.S("mcm_section_retinues", "Retinues"),
-            name: () => L.S(
-                "mcm_option_restrict_conversion_to_fiefs",
-                "Restrict Retinue Conversion To Fiefs"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_restrict_conversion_to_fiefs",
+                    "Restrict Retinue Conversion To Fiefs"
+                ),
             key: "RestrictConversionToFiefs",
-            hint: () => L.S(
-                "mcm_option_restrict_conversion_to_fiefs_hint",
-                "Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_restrict_conversion_to_fiefs_hint",
+                    "Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -142,10 +150,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
             name: () => L.S("mcm_option_swap_proportion", "Volunteer Swap Proportion"),
             key: "VolunteerSwapProportion",
-            hint: () => L.S(
-                "mcm_option_swap_proportion_hint",
-                "Proportion of volunteers that get swapped for custom troops."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_swap_proportion_hint",
+                    "Proportion of volunteers that get swapped for custom troops."
+                ),
             @default: 1f,
             minValue: 0,
             maxValue: 1,
@@ -160,10 +169,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
             name: () => L.S("mcm_option_recruit_anywhere", "Recruit Clan Troops Anywhere"),
             key: "RecruitAnywhere",
-            hint: () => L.S(
-                "mcm_option_recruit_anywhere_hint",
-                "Player can recruit clan troops in any settlement."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_recruit_anywhere_hint",
+                    "Player can recruit clan troops in any settlement."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -174,15 +184,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> SwapOnlyForCorrectCulture = CreateOption(
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () => L.S(
-                "mcm_option_swap_only_for_correct_culture",
-                "Swap Volunteers Only For Correct Culture"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_swap_only_for_correct_culture",
+                    "Swap Volunteers Only For Correct Culture"
+                ),
             key: "SwapOnlyForCorrectCulture",
-            hint: () => L.S(
-                "mcm_option_swap_only_for_correct_culture_hint",
-                "Volunteers in settlements of a different culture will not be replaced by custom troops."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_swap_only_for_correct_culture_hint",
+                    "Volunteers in settlements of a different culture will not be replaced by custom troops."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -193,15 +205,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> ClanTroopsOverKingdomTroops = CreateOption(
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () => L.S(
-                "mcm_option_clan_troops_over_kingdom_troops",
-                "Clan Troops Over Kingdom Troops"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_clan_troops_over_kingdom_troops",
+                    "Clan Troops Over Kingdom Troops"
+                ),
             key: "ClanTroopsOverKingdomTroops",
-            hint: () => L.S(
-                "mcm_option_clan_troops_over_kingdom_troops_hint",
-                "If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_clan_troops_over_kingdom_troops_hint",
+                    "If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops."
+                ),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -214,10 +228,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
             name: () => L.S("mcm_option_no_kingdom_troops", "No Kingdom Troops"),
             key: "NoKingdomTroops",
-            hint: () => L.S(
-                "mcm_option_no_kingdom_troops_hint",
-                "The custom kingdom troop tree will be disabled."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_no_kingdom_troops_hint",
+                    "The custom kingdom troop tree will be disabled."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -228,15 +243,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> VassalLordsCanRecruitCustomTroops = CreateOption(
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () => L.S(
-                "mcm_option_vassal_lords_recruit_custom_troops",
-                "Vassal Lords Recruit Custom Troops"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_vassal_lords_recruit_custom_troops",
+                    "Vassal Lords Recruit Custom Troops"
+                ),
             key: "VassalLordsCanRecruitCustomTroops",
-            hint: () => L.S(
-                "mcm_option_vassal_lords_recruit_custom_troops_hint",
-                "Lords of the player's clan or kingdom can recruit custom troops in their fiefs."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_vassal_lords_recruit_custom_troops_hint",
+                    "Lords of the player's clan or kingdom can recruit custom troops in their fiefs."
+                ),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -247,15 +264,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> AllLordsCanRecruitCustomTroops = CreateOption(
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () => L.S(
-                "mcm_option_all_lords_recruit_custom_troops",
-                "All Lords Recruit Custom Troops"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_all_lords_recruit_custom_troops",
+                    "All Lords Recruit Custom Troops"
+                ),
             key: "AllLordsCanRecruitCustomTroops",
-            hint: () => L.S(
-                "mcm_option_all_lords_recruit_custom_troops_hint",
-                "Any lord can recruit custom troops in the player's fiefs."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_all_lords_recruit_custom_troops_hint",
+                    "Any lord can recruit custom troops in the player's fiefs."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -272,10 +291,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_restrictions", "Restrictions"),
             name: () => L.S("mcm_option_restrict_editing_to_fiefs", "Restrict Editing To Fiefs"),
             key: "RestrictEditingToFiefs",
-            hint: () => L.S(
-                "mcm_option_restrict_editing_to_fiefs_hint",
-                "Player can only edit troops when in a fief owned by their clan or kingdom (clan retinues can be edited in any settlement)."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_restrict_editing_to_fiefs_hint",
+                    "Player can only edit troops when in a fief owned by their clan or kingdom (clan retinues can be edited in any settlement)."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -286,15 +306,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> EnableTroopCustomization = CreateOption(
             section: () => L.S("mcm_section_restrictions", "Restrictions"),
-            name: () => L.S(
-                "mcm_option_enable_troop_customization",
-                "Experimental: Enable Appearance Controls"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_enable_troop_customization",
+                    "Experimental: Enable Appearance Controls"
+                ),
             key: "EnableTroopCustomization",
-            hint: () => L.S(
-                "mcm_option_enable_troop_customization_hint",
-                "Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_enable_troop_customization_hint",
+                    "Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -311,10 +333,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_doctrines", "Doctrines"),
             name: () => L.S("mcm_option_enable_doctrines", "Enable Doctrines"),
             key: "EnableDoctrines",
-            hint: () => L.S(
-                "mcm_option_enable_doctrines_hint",
-                "Enable the Doctrines system and its features."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_enable_doctrines_hint",
+                    "Enable the Doctrines system and its features."
+                ),
             requiresRestart: true,
             @default: true,
             presets: new Dictionary<string, object>
@@ -328,10 +351,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_doctrines", "Doctrines"),
             name: () => L.S("mcm_option_disable_feat_requirements", "Disable Feat Requirements"),
             key: "DisableFeatRequirements",
-            hint: () => L.S(
-                "mcm_option_disable_feat_requirements_hint",
-                "Disables feat requirements for unlocking doctrines."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_disable_feat_requirements_hint",
+                    "Disables feat requirements for unlocking doctrines."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -348,10 +372,8 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () => L.S("mcm_option_pay_for_equipment", "Pay For Troop Equipment"),
             key: "PayForEquipment",
-            hint: () => L.S(
-                "mcm_option_pay_for_equipment_hint",
-                "Upgrading troop equipment costs money."
-            ),
+            hint: () =>
+                L.S("mcm_option_pay_for_equipment_hint", "Upgrading troop equipment costs money."),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -364,10 +386,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () => L.S("mcm_option_equipment_price_modifier", "Equipment Price Modifier"),
             key: "EquipmentPriceModifier",
-            hint: () => L.S(
-                "mcm_option_equipment_price_modifier_hint",
-                "Modifier for equipment price compared to base game prices."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_equipment_price_modifier_hint",
+                    "Modifier for equipment price compared to base game prices."
+                ),
             @default: 2.0f,
             minValue: 0,
             maxValue: 5,
@@ -380,15 +403,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> EquipmentChangeTakesTime = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S(
-                "mcm_option_equipment_change_takes_time",
-                "Changing Troop Equipment Takes Time"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_equipment_change_takes_time",
+                    "Changing Troop Equipment Takes Time"
+                ),
             key: "EquipmentChangeTakesTime",
-            hint: () => L.S(
-                "mcm_option_equipment_change_takes_time_hint",
-                "Changing a troop's equipment takes time."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_equipment_change_takes_time_hint",
+                    "Changing a troop's equipment takes time."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -399,15 +424,14 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> EquipmentChangeTimeModifier = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S(
-                "mcm_option_equipment_change_time_modifier",
-                "Equipment Change Time Modifier"
-            ),
+            name: () =>
+                L.S("mcm_option_equipment_change_time_modifier", "Equipment Change Time Modifier"),
             key: "EquipmentChangeTimeModifier",
-            hint: () => L.S(
-                "mcm_option_equipment_change_time_modifier_hint",
-                "Modifier for equipment change time."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_equipment_change_time_modifier_hint",
+                    "Modifier for equipment change time."
+                ),
             @default: 2,
             minValue: 1,
             maxValue: 5,
@@ -420,15 +444,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> RestrictItemsToTownInventory = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S(
-                "mcm_option_restrict_items_to_town_inventory",
-                "Restrict Items To Town Inventory"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_restrict_items_to_town_inventory",
+                    "Restrict Items To Town Inventory"
+                ),
             key: "RestrictItemsToTownInventory",
-            hint: () => L.S(
-                "mcm_option_restrict_items_to_town_inventory_hint",
-                "Player can only purchase items available in the town inventory."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_restrict_items_to_town_inventory_hint",
+                    "Player can only purchase items available in the town inventory."
+                ),
             @default: false,
             presets: new Dictionary<string, object> { [Presets.Realistic] = true }
         );
@@ -437,10 +463,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () => L.S("mcm_option_allowed_tier_difference", "Allowed Tier Difference"),
             key: "AllowedTierDifference",
-            hint: () => L.S(
-                "mcm_option_allowed_tier_difference_hint",
-                "Maximum allowed tier difference between troops and equipment."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_allowed_tier_difference_hint",
+                    "Maximum allowed tier difference between troops and equipment."
+                ),
             @default: 3,
             minValue: 0,
             maxValue: 6,
@@ -453,15 +480,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> ForceMainBattleSetInCombat = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S(
-                "mcm_option_force_main_battle_set_in_combat",
-                "Force Main Battle Set In Combat"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_force_main_battle_set_in_combat",
+                    "Force Main Battle Set In Combat"
+                ),
             key: "ForceMainBattleSetInCombat",
-            hint: () => L.S(
-                "mcm_option_force_main_battle_set_in_combat_hint",
-                "Troops always use their main battle equipment set in combat."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_force_main_battle_set_in_combat_hint",
+                    "Troops always use their main battle equipment set in combat."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -473,15 +502,17 @@ namespace Retinues.Configuration
         public static readonly Option<bool> IgnoreCivilianHorseForUpgradeRequirements =
             CreateOption(
                 section: () => L.S("mcm_section_equipment", "Equipment"),
-                name: () => L.S(
-                    "mcm_option_ignore_civilian_horse_for_upgrade_requirements",
-                    "Ignore Civilian Horse for Upgrade Requirements"
-                ),
+                name: () =>
+                    L.S(
+                        "mcm_option_ignore_civilian_horse_for_upgrade_requirements",
+                        "Ignore Civilian Horse for Upgrade Requirements"
+                    ),
                 key: "IgnoreCivilianHorseForUpgradeRequirements",
-                hint: () => L.S(
-                    "mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint",
-                    "When checking for mount requirements when upgrading troops, ignore the civilian set's horse."
-                ),
+                hint: () =>
+                    L.S(
+                        "mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint",
+                        "When checking for mount requirements when upgrading troops, ignore the civilian set's horse."
+                    ),
                 @default: true,
                 presets: new Dictionary<string, object>
                 {
@@ -494,10 +525,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () => L.S("mcm_option_disable_crafted_weapons", "Disable Crafted Weapons"),
             key: "DisableCraftedWeapons",
-            hint: () => L.S(
-                "mcm_option_disable_crafted_weapons_hint",
-                "When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_disable_crafted_weapons_hint",
+                    "When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -510,10 +542,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () => L.S("mcm_option_disallow_mounts_for_tier_1", "Disallow Mounts For Tier 1"),
             key: "NoMountForTier1",
-            hint: () => L.S(
-                "mcm_option_disallow_mounts_for_tier_1_hint",
-                "Tier 1 troops cannot have mounts."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_disallow_mounts_for_tier_1_hint",
+                    "Tier 1 troops cannot have mounts."
+                ),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -543,10 +576,8 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skills", "Skills"),
             name: () => L.S("mcm_option_training_time_modifier", "Training Time Modifier"),
             key: "TrainingTimeModifier",
-            hint: () => L.S(
-                "mcm_option_training_time_modifier_hint",
-                "Modifier for troop training time."
-            ),
+            hint: () =>
+                L.S("mcm_option_training_time_modifier_hint", "Modifier for troop training time."),
             @default: 2,
             minValue: 1,
             maxValue: 5,
@@ -561,7 +592,8 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skills", "Skills"),
             name: () => L.S("mcm_option_base_skill_xp_cost", "Base Skill XP Cost"),
             key: "BaseSkillXpCost",
-            hint: () => L.S("mcm_option_base_skill_xp_cost_hint", "Base XP cost for increasing a skill."),
+            hint: () =>
+                L.S("mcm_option_base_skill_xp_cost_hint", "Base XP cost for increasing a skill."),
             @default: 100,
             minValue: 0,
             maxValue: 1000,
@@ -576,10 +608,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skills", "Skills"),
             name: () => L.S("mcm_option_skill_xp_cost_per_point", "Skill XP Cost Per Point"),
             key: "SkillXpCostPerPoint",
-            hint: () => L.S(
-                "mcm_option_skill_xp_cost_per_point_hint",
-                "Scalable XP cost for each point of skill increase."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_skill_xp_cost_per_point_hint",
+                    "Scalable XP cost for each point of skill increase."
+                ),
             @default: 1,
             minValue: 0,
             maxValue: 10,
@@ -611,10 +644,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_unlocks", "Unlocks"),
             name: () => L.S("mcm_option_unlock_from_kills", "Unlock From Kills"),
             key: "UnlockFromKills",
-            hint: () => L.S(
-                "mcm_option_unlock_from_kills_hint",
-                "Unlock equipment by defeating enemies wearing it."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_unlock_from_kills_hint",
+                    "Unlock equipment by defeating enemies wearing it."
+                ),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -627,10 +661,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_unlocks", "Unlocks"),
             name: () => L.S("mcm_option_required_kills_for_unlock", "Required Kills For Unlock"),
             key: "KillsForUnlock",
-            hint: () => L.S(
-                "mcm_option_required_kills_for_unlock_hint",
-                "How many enemies wearing an item must be defeated to unlock it."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_required_kills_for_unlock_hint",
+                    "How many enemies wearing an item must be defeated to unlock it."
+                ),
             @default: 100,
             minValue: 1,
             maxValue: 1000,
@@ -645,10 +680,8 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_unlocks", "Unlocks"),
             name: () => L.S("mcm_option_unlock_from_discarded", "Unlock From Discarded Items"),
             key: "UnlockFromDiscarded",
-            hint: () => L.S(
-                "mcm_option_unlock_from_discarded_hint",
-                "Unlock equipment by discarding it."
-            ),
+            hint: () =>
+                L.S("mcm_option_unlock_from_discarded_hint", "Unlock equipment by discarding it."),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -659,15 +692,17 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> DiscardsForUnlock = CreateOption(
             section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () => L.S(
-                "mcm_option_required_discards_for_unlock",
-                "Required Discarded Items For Unlock"
-            ),
+            name: () =>
+                L.S(
+                    "mcm_option_required_discards_for_unlock",
+                    "Required Discarded Items For Unlock"
+                ),
             key: "DiscardsForUnlock",
-            hint: () => L.S(
-                "mcm_option_required_discards_for_unlock_hint",
-                "How many times an item must be discarded to unlock it."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_required_discards_for_unlock_hint",
+                    "How many times an item must be discarded to unlock it."
+                ),
             @default: 10,
             minValue: 1,
             maxValue: 100,
@@ -682,10 +717,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_unlocks", "Unlocks"),
             name: () => L.S("mcm_option_own_culture_unlock_bonuses", "Own Culture Unlock Bonuses"),
             key: "OwnCultureUnlockBonuses",
-            hint: () => L.S(
-                "mcm_option_own_culture_unlock_bonuses_hint",
-                "Whether kills also unlock items from the custom troop's culture."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_own_culture_unlock_bonuses_hint",
+                    "Whether kills also unlock items from the custom troop's culture."
+                ),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -698,10 +734,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_unlocks", "Unlocks"),
             name: () => L.S("mcm_option_unlock_from_culture", "Unlock From Culture"),
             key: "UnlockFromCulture",
-            hint: () => L.S(
-                "mcm_option_unlock_from_culture_hint",
-                "Player culture and player-led kingdom culture equipment is always available."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_unlock_from_culture_hint",
+                    "Player culture and player-led kingdom culture equipment is always available."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -714,10 +751,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_unlocks", "Unlocks"),
             name: () => L.S("mcm_option_all_equipment_unlocked", "All Equipment Unlocked"),
             key: "AllEquipmentUnlocked",
-            hint: () => L.S(
-                "mcm_option_all_equipment_unlocked_hint",
-                "All equipment unlocked on game start."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_all_equipment_unlocked_hint",
+                    "All equipment unlocked on game start."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -734,10 +772,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_debug", "Debug"),
             name: () => L.S("mcm_option_debug_mode", "Debug Mode"),
             key: "DebugMode",
-            hint: () => L.S(
-                "mcm_option_debug_mode_hint",
-                "Outputs many more logs (may impact performance)."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_debug_mode_hint",
+                    "Outputs many more logs (may impact performance)."
+                ),
             @default: false
         );
 
@@ -749,10 +788,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "RetinueSkillCapBonus",
             name: () => L.S("mcm_option_retinue_skill_cap_bonus", "Retinue Skill Cap Bonus"),
-            hint: () => L.S(
-                "mcm_option_retinue_skill_cap_bonus_hint",
-                "Additional skill cap for retinue troops."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_retinue_skill_cap_bonus_hint",
+                    "Additional skill cap for retinue troops."
+                ),
             @default: 5,
             minValue: 0,
             maxValue: 50,
@@ -766,15 +806,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier0 = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier0",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "0")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "0")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
             @default: 20,
             minValue: 20,
             maxValue: 360,
@@ -784,15 +823,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier1 = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier1",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "1")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "1")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
             @default: 20,
             minValue: 20,
             maxValue: 360,
@@ -802,15 +840,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier2 = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier2",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "2")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "2")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
             @default: 50,
             minValue: 20,
             maxValue: 360,
@@ -820,15 +857,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier3 = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier3",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "3")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "3")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
             @default: 80,
             minValue: 20,
             maxValue: 360,
@@ -838,15 +874,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier4 = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier4",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "4")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "4")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
             @default: 120,
             minValue: 20,
             maxValue: 360,
@@ -856,15 +891,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier5 = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier5",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "5")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "5")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
             @default: 160,
             minValue: 20,
             maxValue: 360,
@@ -874,15 +908,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier6 = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier6",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "6")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "6")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
             @default: 260,
             minValue: 20,
             maxValue: 360,
@@ -892,15 +925,14 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillCapTier7Plus = CreateOption(
             section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
             key: "SkillCapTier7Plus",
-            name: () => L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                .SetTextVariable("TIER", "7+")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_cap_hint",
-                    "The maximum skill level for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "7+")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
             @default: 360,
             minValue: 20,
             maxValue: 360,
@@ -915,10 +947,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "RetinueSkillTotalBonus",
             name: () => L.S("mcm_option_retinue_skill_total_bonus", "Retinue Skill Total Bonus"),
-            hint: () => L.S(
-                "mcm_option_retinue_skill_total_bonus_hint",
-                "Additional skill total for retinue troops."
-            ),
+            hint: () =>
+                L.S(
+                    "mcm_option_retinue_skill_total_bonus_hint",
+                    "Additional skill total for retinue troops."
+                ),
             @default: 10,
             minValue: 0,
             maxValue: 100,
@@ -932,15 +965,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier0 = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier0",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "0")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "0")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "0")
+                    .ToString(),
             @default: 90,
             minValue: 90,
             maxValue: 1600,
@@ -950,15 +985,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier1 = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier1",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "1")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "1")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "1")
+                    .ToString(),
             @default: 90,
             minValue: 90,
             maxValue: 1600,
@@ -968,15 +1005,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier2 = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier2",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "2")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "2")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "2")
+                    .ToString(),
             @default: 210,
             minValue: 90,
             maxValue: 1600,
@@ -986,15 +1025,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier3 = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier3",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "3")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "3")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "3")
+                    .ToString(),
             @default: 360,
             minValue: 90,
             maxValue: 1600,
@@ -1004,15 +1045,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier4 = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier4",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "4")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "4")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "4")
+                    .ToString(),
             @default: 535,
             minValue: 90,
             maxValue: 1600,
@@ -1022,15 +1065,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier5 = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier5",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "5")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "5")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "5")
+                    .ToString(),
             @default: 710,
             minValue: 90,
             maxValue: 1600,
@@ -1040,15 +1085,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier6 = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier6",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "6")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "6")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "6")
+                    .ToString(),
             @default: 915,
             minValue: 90,
             maxValue: 1600,
@@ -1058,15 +1105,17 @@ namespace Retinues.Configuration
         public static readonly Option<int> SkillTotalTier7Plus = CreateOption(
             section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
             key: "SkillTotalTier7Plus",
-            name: () => L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                .SetTextVariable("TIER", "7+")
-                .ToString(),
-            hint: () => L.T(
-                    "mcm_option_skill_total_hint",
-                    "The total available skill points for tier {TIER} troops."
-                )
-                .SetTextVariable("TIER", "7+")
-                .ToString(),
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "7+")
+                    .ToString(),
             @default: 1600,
             minValue: 90,
             maxValue: 1600,

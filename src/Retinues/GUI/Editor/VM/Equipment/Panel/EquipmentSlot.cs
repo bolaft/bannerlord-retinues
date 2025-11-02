@@ -142,14 +142,16 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
             Item?.Base != null ? new CharacterEquipmentItemVM(Item.Base) : null;
 
         [DataSourceProperty]
-        public BasicTooltipViewModel EquipChangeHint => IsStaged ?
-            Tooltip.MakeTooltip(
-                null,
-                L.S(
-                    "equip_change_tooltip_body",
-                    "This is a pending item change.\n\nTo apply the change, select 'Equip troops' from a fief's town menu."
+        public BasicTooltipViewModel EquipChangeHint =>
+            IsStaged
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S(
+                        "equip_change_tooltip_body",
+                        "This is a pending item change.\n\nTo apply the change, select 'Equip troops' from a fief's town menu."
+                    )
                 )
-            ) : null;
+                : null;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
