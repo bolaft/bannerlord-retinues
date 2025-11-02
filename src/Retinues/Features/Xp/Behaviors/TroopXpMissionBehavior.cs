@@ -22,19 +22,19 @@ namespace Retinues.Features.Xp.Behaviors
         {
             foreach (var kill in Kills)
             {
-                if (!kill.Killer.IsPlayerTroop)
+                if (!kill.KillerIsPlayerTroop)
                     continue; // player-side only
 
-                if (!kill.Killer.Character.IsCustom)
+                if (!kill.Killer.IsCustom)
                     continue;
 
-                int tier = kill.Victim.Character.Tier;
+                int tier = kill.Victim.Tier;
                 int xp = (tier + 1) * XpPerTier;
 
                 if (xp <= 0)
                     continue;
 
-                TroopXpBehavior.Add(kill.Killer.Character, xp);
+                TroopXpBehavior.Add(kill.Killer, xp);
             }
         }
     }

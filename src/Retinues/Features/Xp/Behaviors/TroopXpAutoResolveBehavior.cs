@@ -79,7 +79,7 @@ namespace Retinues.Features.Xp.Behaviors
             {
                 foreach (var e in wp.MemberRoster.Elements)
                 {
-                    if (e.Number <= 0)
+                    if (e.Number <= 0 || e.Troop == null)
                         continue;
 
                     playerElems.Add((e.Troop.Base, e.Number, e.Troop.IsCustom));

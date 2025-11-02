@@ -78,9 +78,7 @@ namespace Retinues.Doctrines.Catalog
                     return;
 
                 int kingdomTroopKills = battle.Kills.Count(k =>
-                    k.Killer.IsPlayerTroop
-                    && !k.Killer.IsPlayer
-                    && k.Killer.Character?.Faction == Player.Kingdom
+                    k.KillerIsPlayerTroop && !k.KillerIsPlayer && k.Killer.Faction == Player.Kingdom
                 );
 
                 AdvanceProgress(kingdomTroopKills);

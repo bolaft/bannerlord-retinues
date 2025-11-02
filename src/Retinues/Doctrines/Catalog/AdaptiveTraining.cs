@@ -93,8 +93,8 @@ namespace Retinues.Doctrines.Catalog
             {
                 var classes = new HashSet<int>();
                 foreach (var k in battle.Kills)
-                    if (k.Killer.IsPlayer)
-                        classes.Add(k.Blow.WeaponClass);
+                    if (k.KillerIsPlayer)
+                        classes.Add(k.BlowWeaponClass);
                 SetProgress(System.Math.Max(Progress, classes.Count));
             }
         }

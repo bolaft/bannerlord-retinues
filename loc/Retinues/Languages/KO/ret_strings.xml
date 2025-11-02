@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="민병대 병력을 해제하려면 문화적 긍지를 획득하십시오." />
+      text="문화적 긍지 교리로 해제하십시오." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="영지를 획득하여 가문 병력을 해제하십시오." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="새 장비 해제됨" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...그리고 {MORE}개의 아이템이 더 해제되었습니다." />
     <string
       id="ret_king_guard"
       text="왕의 근위대" />

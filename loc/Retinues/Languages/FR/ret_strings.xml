@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Acquiers la doctrine Fierté Culturelle pour débloquer les troupes de milice." />
+      text="Débloque avec la doctrine Fierté Culturelle." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Acquiers un fief pour débloquer les troupes du clan." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="Nouveaux Équipements Débloqués" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...et {MORE} autres objets débloqués." />
     <string
       id="ret_king_guard"
       text="Garde Royale" />

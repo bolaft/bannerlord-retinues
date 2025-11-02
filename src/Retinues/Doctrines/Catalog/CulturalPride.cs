@@ -35,6 +35,9 @@ namespace Retinues.Doctrines.Catalog
                 if (tournament.Winner != Player.Character)
                     return;
 
+                if (ModuleChecker.GetModule("Shokuho") != null)
+                    AdvanceProgress(1); // Items don't have cultures in Shokuho, skip the check.
+
                 var blockedBy = new List<ItemObject>();
 
                 // NOTE: Player character's wrapper gives wrong equipment for some reason in 1.3
@@ -96,10 +99,10 @@ namespace Retinues.Doctrines.Catalog
 
                 foreach (var kill in battle.Kills)
                 {
-                    if (!kill.Killer.IsPlayerTroop)
+                    if (!kill.KillerIsPlayerTroop)
                         continue; // Only consider player troops
 
-                    var troop = kill.Killer.Character;
+                    var troop = kill.Killer;
 
                     if (!troop.IsCustom)
                         continue; // Only consider custom troops

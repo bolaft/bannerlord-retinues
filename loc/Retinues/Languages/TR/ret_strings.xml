@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Milis askerlerini açmak için Kültürel Gurur doktrinini elde et." />
+      text="Kültürel Gurur doktrini ile aç." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Bir tımar elde ederek klan askerlerini aç." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="Yeni Teçhizat Açıldı" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...ve {MORE} öğe daha açıldı." />
     <string
       id="ret_king_guard"
       text="Kralın Muhafızları" />

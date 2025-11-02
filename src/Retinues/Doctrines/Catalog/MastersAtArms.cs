@@ -51,7 +51,7 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnArenaEnd(Combat combat)
             {
-                int koCount = combat.Kills.Count(k => k.Killer.IsPlayer);
+                int koCount = combat.Kills.Count(k => k.KillerIsPlayer);
                 AdvanceProgress(koCount);
             }
         }
@@ -67,7 +67,7 @@ namespace Retinues.Doctrines.Catalog
             public override void OnBattleEnd(Battle battle)
             {
                 int killsByElites = battle.Kills.Count(k =>
-                    k.Killer.IsPlayerTroop && k.Killer.Character.IsElite
+                    k.KillerIsPlayerTroop && k.Killer.IsElite
                 );
                 AdvanceProgress(killsByElites);
             }

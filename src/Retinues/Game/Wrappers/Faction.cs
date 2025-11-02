@@ -59,11 +59,9 @@ namespace Retinues.Game.Wrappers
         public WCharacter RootBasic => new(UseKingdomTroops, false, false);
 
         public WCharacter MilitiaMelee => new(UseKingdomTroops, false, false, true, false);
-        public WCharacter MilitiaMeleeElite =>
-            new(UseKingdomTroops, true, false, true, false);
+        public WCharacter MilitiaMeleeElite => new(UseKingdomTroops, true, false, true, false);
         public WCharacter MilitiaRanged => new(UseKingdomTroops, false, false, false, true);
-        public WCharacter MilitiaRangedElite =>
-            new(UseKingdomTroops, true, false, false, true);
+        public WCharacter MilitiaRangedElite => new(UseKingdomTroops, true, false, false, true);
 
         /// <summary>
         /// Gets all custom troops for this faction, including retinues and active tree members.

@@ -439,6 +439,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                     var wc = new WCulture(c);
                     var root = wc.RootBasic ?? wc.RootElite;
+                    var imageIdentifier = root?.ImageIdentifier;
+
+                    // Mods (shokuho) can have weird behaviors, skip them.
+                    if (imageIdentifier == null)
+                        continue;
 
                     elements.Add(
                         new InquiryElement(c, wc.Name.ToString(), root.ImageIdentifier, true, null)

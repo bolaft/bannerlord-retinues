@@ -33,17 +33,13 @@ namespace Retinues.Doctrines.Catalog
 
                 foreach (var kill in battle.Kills)
                 {
-                    // Heuristic: if any kill is not by a retinue in player troop, disqualify
-                    if (kill.Victim.Side == battle.PlayerSide)
-                    {
-                        if (!kill.Victim.Character.IsRetinue && !kill.Victim.IsPlayer)
-                            return; // A non-retinue / non-player was present
-                    }
-                    else if (!kill.Killer.Character.IsRetinue)
-                    {
-                        if (!kill.Killer.IsPlayer)
-                            return; // A non-retinue / non-player was present
-                    }
+                    if (kill.KillerIsPlayer || (kill.KillerIsPlayerTroop && kill.Killer.IsRetinue))
+                        continue; // Player or player retinue kill, valid
+
+                    if (kill.VictimIsPlayer || (kill.VictimIsPlayerTroop && kill.Victim.IsRetinue))
+                        continue; // Player or player retinue victim, valid
+
+                    return; // Anything else is invalid
                 }
 
                 AdvanceProgress(1);
@@ -93,11 +89,11 @@ namespace Retinues.Doctrines.Catalog
 
                 foreach (var kill in battle.Kills)
                 {
-                    if (kill.Blow.IsMissile)
+                    if (kill.IsMissile)
                         continue; // Ignore ranged kills
-                    if (!kill.Killer.IsPlayerTroop)
+                    if (!kill.KillerIsPlayerTroop)
                         return; // First melee kill not by player troop
-                    if (!kill.Killer.Character.IsRetinue)
+                    if (!kill.Killer.IsRetinue)
                         return; // First melee kill not by retinue
 
                     AdvanceProgress(1);

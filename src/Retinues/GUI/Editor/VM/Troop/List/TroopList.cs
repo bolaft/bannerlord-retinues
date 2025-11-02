@@ -62,7 +62,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                         null,
                         placeholderText: L.S(
                             "acquire_cultural_pride_to_unlock",
-                            "Acquire the Cultural Pride doctrine to unlock militia troops."
+                            "Unlock with the Cultural Pride doctrine."
                         )
                     )
                 ); // placeholder

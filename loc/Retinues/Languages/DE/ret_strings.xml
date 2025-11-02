@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Erwirb die Doktrin Kultureller Stolz, um Miliztruppen freizuschalten." />
+      text="Mit der Doktrin Kultureller Stolz freischalten." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Erobere ein Lehen, um die Clantruppen freizuschalten." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="Neue Ausrüstung freigeschaltet" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...und {MORE} weitere Gegenstände freigeschaltet." />
     <string
       id="ret_king_guard"
       text="Königsgarde" />
