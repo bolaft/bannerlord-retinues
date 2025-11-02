@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="New Gear Unlocked" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...and {MORE} more items unlocked." />
+    <string
       id="ret_king_guard"
       text="King&apos;s Guard" />
     <string

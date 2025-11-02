@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="Nuovo Equipaggiamento Sbloccato" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...e altri {MORE} oggetti sbloccati." />
+    <string
       id="ret_king_guard"
       text="Guardia del Re" />
     <string

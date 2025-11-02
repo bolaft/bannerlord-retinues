@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="새 장비 해제됨" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...그리고 {MORE}개의 아이템이 더 해제되었습니다." />
+    <string
       id="ret_king_guard"
       text="왕의 근위대" />
     <string

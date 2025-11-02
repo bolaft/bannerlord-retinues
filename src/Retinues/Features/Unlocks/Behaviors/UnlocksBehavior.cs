@@ -315,7 +315,7 @@ namespace Retinues.Features.Unlocks.Behaviors
                         addCultureBonuses
                         && item.Culture != null
                         && Player.Clan != null
-                        && item.Culture?.StringId != Player.Clan.StringId
+                        && item.Culture?.StringId != Player.Clan.Culture.StringId
                     )
                     {
                         if (!ownCultureBonuses.ContainsKey((int)item.Tier))
@@ -351,10 +351,23 @@ namespace Retinues.Features.Unlocks.Behaviors
 
         private static void ShowUnlockInquiry(List<ItemObject> items)
         {
+            if (items == null || items.Count == 0)
+                return;
+
+            int n_display = 10;
+            int n_more = items.Count - n_display;
+
             var body = string.Join(
                 "\n",
-                items.Where(i => i != null).Select(i => i.Name?.ToString() ?? i.StringId)
+                items
+                    .Take(n_display)
+                    .Where(i => i != null)
+                    .Select(i => i.Name?.ToString() ?? i.StringId)
             );
+
+            if (n_more > 0)
+                body += L.T("items_unlocked_more", "\n...and {MORE} more items unlocked.")
+                    .SetTextVariable("MORE", n_more);
 
             InformationManager.ShowInquiry(
                 new InquiryData(

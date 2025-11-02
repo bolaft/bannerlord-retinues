@@ -173,7 +173,7 @@ namespace Retinues.Game.Events
 
         /* ━━━━━━━ Map Event ━━━━━━ */
 
-        public static MapEvent MapEvent { get; private set; }
+        private readonly MapEvent MapEvent;
 
         /* ━━━━━━━━ Leaders ━━━━━━━ */
 

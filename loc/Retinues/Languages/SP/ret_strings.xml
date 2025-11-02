@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="Nuevo Equipo Desbloqueado" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...y {MORE} artículos más desbloqueados." />
+    <string
       id="ret_king_guard"
       text="Guardia del Rey" />
     <string

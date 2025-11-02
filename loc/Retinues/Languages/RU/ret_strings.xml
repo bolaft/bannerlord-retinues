@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="Новая Экипировка Разблокирована" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...и еще {MORE} предметов разблокировано." />
+    <string
       id="ret_king_guard"
       text="Королевская Гвардия" />
     <string

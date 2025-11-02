@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="新裝備已解鎖" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...還有{MORE}個物品已解鎖。" />
+    <string
       id="ret_king_guard"
       text="國王衛隊" />
     <string

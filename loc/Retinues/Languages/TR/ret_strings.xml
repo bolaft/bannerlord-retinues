@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="Yeni Teçhizat Açıldı" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...ve {MORE} öğe daha açıldı." />
+    <string
       id="ret_king_guard"
       text="Kralın Muhafızları" />
     <string

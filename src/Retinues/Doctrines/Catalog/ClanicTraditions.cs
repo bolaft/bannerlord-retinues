@@ -63,10 +63,7 @@ namespace Retinues.Doctrines.Catalog
 
                 foreach (var kill in battle.Kills)
                 {
-                    if (
-                        kill.Killer.IsPlayer
-                        || (kill.Killer.IsPlayerTroop && kill.Killer.Character.IsHero)
-                    )
+                    if (kill.KillerIsPlayer || (kill.KillerIsPlayerTroop && kill.Killer.IsHero))
                         heroKills++;
                 }
 

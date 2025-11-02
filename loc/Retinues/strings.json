@@ -1920,6 +1920,22 @@
     "TR": "Yeni Teçhizat Açıldı"
   },
   {
+    "id": "ret_items_unlocked_more",
+    "EN": "\\n...and {MORE} more items unlocked.",
+    "BR": "\\n...e mais {MORE} itens desbloqueados.",
+    "CNs": "\\n...还有{MORE}个物品已解锁。",
+    "CNt": "\\n...還有{MORE}個物品已解鎖。",
+    "DE": "\\n...und {MORE} weitere Gegenstände freigeschaltet.",
+    "FR": "\\n...et {MORE} autres objets débloqués.",
+    "IT": "\\n...e altri {MORE} oggetti sbloccati.",
+    "JP": "\\n...さらに{MORE}個のアイテムが解除されました。",
+    "KO": "\\n...그리고 {MORE}개의 아이템이 더 해제되었습니다.",
+    "PL": "\\n...i jeszcze {MORE} odblokowanych przedmiotów.",
+    "RU": "\\n...и еще {MORE} предметов разблокировано.",
+    "SP": "\\n...y {MORE} artículos más desbloqueados.",
+    "TR": "\\n...ve {MORE} öğe daha açıldı."
+  },
+  {
     "id": "ret_king_guard",
     "EN": "King's Guard",
     "BR": "Guarda do Rei",

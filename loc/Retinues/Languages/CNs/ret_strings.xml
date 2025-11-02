@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="新装备已解锁" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...还有{MORE}个物品已解锁。" />
+    <string
       id="ret_king_guard"
       text="国王卫队" />
     <string

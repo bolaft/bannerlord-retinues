@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="新しい装備が解除された" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...さらに{MORE}個のアイテムが解除されました。" />
+    <string
       id="ret_king_guard"
       text="王の親衛隊" />
     <string

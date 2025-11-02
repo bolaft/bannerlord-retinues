@@ -365,6 +365,9 @@
       id="ret_items_unlocked"
       text="Nowy Ekwipunek Odblokowany" />
     <string
+      id="ret_items_unlocked_more"
+      text="{newline}...i jeszcze {MORE} odblokowanych przedmiotów." />
+    <string
       id="ret_king_guard"
       text="Straż Królewska" />
     <string
