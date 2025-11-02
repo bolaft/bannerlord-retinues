@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Получите доктрину Культурной Гордости, чтобы разблокировать милицейские войска." />
+      text="Разблокируйте с помощью доктрины Культурная Гордость." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Получите феод, чтобы разблокировать войска клана." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="Новая Экипировка Разблокирована" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...и еще {MORE} предметов разблокировано." />
     <string
       id="ret_king_guard"
       text="Королевская Гвардия" />

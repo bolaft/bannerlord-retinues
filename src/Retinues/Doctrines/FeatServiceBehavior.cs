@@ -148,21 +148,15 @@ namespace Retinues.Doctrines
                 // Notify feats: battle end
                 NotifyFeats((feat, args) => feat.OnBattleEnd((Battle)args[0]), battle);
 
-                // Log battle report
-                battle.LogBattleReport();
+                // Battle report
+                battle.LogReport();
 
                 return; // Don't also process as arena
             }
 
             var combat = mission?.GetMissionBehavior<Combat>();
             if (combat != null)
-            {
-                // Notify feats: combat end
                 NotifyFeats((feat, args) => feat.OnArenaEnd((Combat)args[0]), combat);
-
-                // Log combat report
-                combat.LogCombatReport();
-            }
 
             // Display feat unlock popups if any
             Campaign.Current?.GetCampaignBehavior<FeatNotificationBehavior>()?.TryFlush();

@@ -145,7 +145,7 @@ namespace Retinues.Game.Events
         /// <summary>
         /// Log a summary report of the battle outcome, type, sides, counts, leaders, and army status.
         /// </summary>
-        public void LogBattleReport()
+        public void LogReport()
         {
             Log.Debug($"--- Battle Report ---");
             Log.Debug($"Outcome: {(IsWon ? "Victory" : "Defeat")}");
@@ -163,8 +163,6 @@ namespace Retinues.Game.Events
                 $"Player In Army: {PlayerIsInArmy}, Allies In Army: {AllyIsInArmy}, Enemies In Army: {EnemyIsInArmy}"
             );
             Log.Debug($"---------------------");
-
-            LogCombatReport();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -173,7 +171,7 @@ namespace Retinues.Game.Events
 
         /* ━━━━━━━ Map Event ━━━━━━ */
 
-        public static MapEvent MapEvent { get; private set; }
+        private readonly MapEvent MapEvent;
 
         /* ━━━━━━━━ Leaders ━━━━━━━ */
 

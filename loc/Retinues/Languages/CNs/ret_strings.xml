@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="获得文化自豪感信条以解锁民兵部队。" />
+      text="通过文化自豪感学说解锁。" />
     <string
       id="ret_acquire_fief_to_unlock"
       text="占领一个封地以解锁家族部队。" />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="新装备已解锁" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...还有{MORE}个物品已解锁。" />
     <string
       id="ret_king_guard"
       text="国王卫队" />

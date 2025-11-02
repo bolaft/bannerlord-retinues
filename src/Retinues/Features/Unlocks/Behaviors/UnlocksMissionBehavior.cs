@@ -3,6 +3,7 @@ using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Events;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 
@@ -36,28 +37,28 @@ namespace Retinues.Features.Unlocks.Behaviors
 
             foreach (var kill in Kills)
             {
-                if (kill.Victim.IsPlayerTroop || kill.Victim.IsPlayer)
+                if (kill.VictimIsPlayerTroop || kill.VictimIsPlayer)
                     continue; // No unlock from player troop casualty
 
-                if (kill.Victim.IsAllyTroop)
+                if (kill.VictimIsAllyTroop)
                     if (!DoctrineAPI.IsDoctrineUnlocked<PragmaticScavengers>())
                         continue; // No unlock from ally casualty unless doctrine is enabled
 
-                if (kill.Killer.IsEnemyTroop)
+                if (kill.KillerIsEnemyTroop)
                     continue; // Enemies don't unlock anything
 
-                if (kill.Killer.IsAllyTroop)
+                if (kill.KillerIsAllyTroop)
                     if (!DoctrineAPI.IsDoctrineUnlocked<BattlefieldTithes>())
                         continue; // No unlock from ally killers unless doctrine is enabled
 
                 int unlockModifier = 1;
 
                 if (DoctrineAPI.IsDoctrineUnlocked<LionsShare>())
-                    if (kill.Killer.IsPlayer)
+                    if (kill.KillerIsPlayer)
                         unlockModifier = 2; // Double count if player personally landed the killing blow
 
                 // Enumerate equipped items on the victim and add to the unlock counts
-                foreach (var item in kill.Victim.Items)
+                foreach (var item in GetLoot(kill.LootCode))
                 {
                     if (!IsUnlockable(item.Base))
                         continue;
@@ -85,6 +86,18 @@ namespace Retinues.Features.Unlocks.Behaviors
             if (i.ItemType == ItemObject.ItemTypeEnum.Invalid)
                 return false;
             return true;
+        }
+
+        /// <summary>
+        /// Gets the loot items from the given equipment.
+        /// </summary>
+        private static IEnumerable<WItem> GetLoot(string equipmentCode)
+        {
+            if (string.IsNullOrEmpty(equipmentCode))
+                yield break;
+            var equipment = Equipment.CreateFromEquipmentCode(equipmentCode);
+            foreach (var slot in WEquipment.Slots)
+                yield return new WItem(equipment[slot].Item);
         }
     }
 }

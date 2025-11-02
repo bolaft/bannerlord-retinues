@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Zdobądź doktrynę Dumy Kulturowej, aby odblokować wojska milicji." />
+      text="Odblokuj za pomocą doktryny Dumy Kulturowej." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Zdobądź lenno, aby odblokować wojska klanu." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="Nowy Ekwipunek Odblokowany" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...i jeszcze {MORE} odblokowanych przedmiotów." />
     <string
       id="ret_king_guard"
       text="Straż Królewska" />

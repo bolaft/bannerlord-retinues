@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Acquisisci la dottrina Orgoglio Culturale per sbloccare le truppe di milizia." />
+      text="Sblocca con la dottrina Orgoglio Culturale." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Acquisisci un feudo per sbloccare le truppe del clan." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="Nuovo Equipaggiamento Sbloccato" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...e altri {MORE} oggetti sbloccati." />
     <string
       id="ret_king_guard"
       text="Guardia del Re" />

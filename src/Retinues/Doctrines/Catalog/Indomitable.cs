@@ -29,18 +29,18 @@ namespace Retinues.Doctrines.Catalog
             {
                 foreach (var kill in battle.Kills)
                 {
-                    if (!kill.Killer.IsPlayerTroop)
+                    if (!kill.KillerIsPlayerTroop)
                     {
-                        if (kill.Victim.Character.IsRetinue)
+                        if (kill.Victim.IsRetinue)
                         {
                             SetProgress(0); // Reset progress on any retinue casualty
                         }
                     }
-                    else if (kill.Killer.IsPlayerTroop)
+                    else if (kill.KillerIsPlayerTroop)
                     {
-                        if (kill.Killer.Character.IsRetinue)
+                        if (kill.Killer.IsRetinue)
                         {
-                            if (kill.Victim.Character.Tier >= kill.Killer.Character.Tier)
+                            if (kill.Victim.Tier >= kill.Killer.Tier)
                             {
                                 AdvanceProgress(1);
                             }

@@ -30,10 +30,10 @@ namespace Retinues.Doctrines.Catalog
             {
                 foreach (var kill in battle.Kills)
                 {
-                    if (!kill.Killer.IsPlayerTroop)
+                    if (!kill.KillerIsPlayerTroop)
                         continue; // Only consider player troops
 
-                    var troop = kill.Killer.Character;
+                    var troop = kill.Killer;
 
                     if (!troop.IsCustom)
                         continue; // Only consider custom troops

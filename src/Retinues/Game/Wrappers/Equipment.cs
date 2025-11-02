@@ -21,9 +21,6 @@ namespace Retinues.Game.Wrappers
         public WEquipment(Equipment equipment, WCharacter troop, int index)
             : this(equipment, troop.Loadout, index) { }
 
-        public WEquipment(Equipment equipment, WAgent agent, int index)
-            : this(equipment, agent.Character, index) { }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Loadout                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

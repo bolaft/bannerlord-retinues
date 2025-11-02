@@ -49,7 +49,7 @@ namespace Retinues.Features.Missions.Patches
                 {
                     var battleType = BattleType.FieldBattle;
 
-                    var battle = new Battle(Battle.MapEvent);
+                    var battle = new Battle();
                     if (battle.IsSiege)
                         battleType = battle.PlayerIsDefender
                             ? BattleType.SiegeDefense
@@ -65,8 +65,7 @@ namespace Retinues.Features.Missions.Patches
                     // Fallback safety: if somehow none, force battle set.
                     var pick = eligible.Count > 0 ? eligible : [troop.Loadout.Battle];
 
-                    var rand = new Random();
-                    var idx = rand.Next(pick.Count);
+                    var idx = MBRandom.RandomInt(pick.Count);
                     eq = pick[idx].Base;
                 }
 

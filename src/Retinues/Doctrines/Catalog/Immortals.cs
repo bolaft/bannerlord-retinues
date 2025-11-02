@@ -82,7 +82,7 @@ namespace Retinues.Doctrines.Catalog
                 {
                     if (kill.State != AgentState.Killed)
                         continue; // Not a death
-                    if (kill.Victim.IsPlayerTroop)
+                    if (kill.VictimIsPlayerTroop)
                         return; // Troop death detected
                 }
 
@@ -104,7 +104,7 @@ namespace Retinues.Doctrines.Catalog
             public override void OnBattleEnd(Battle battle)
             {
                 int retinueKills = battle.Kills.Count(kill =>
-                    kill.Killer.IsPlayerTroop && kill.Killer.Character.IsRetinue
+                    kill.KillerIsPlayerTroop && kill.Killer.IsRetinue
                 );
 
                 if (retinueKills > Progress)

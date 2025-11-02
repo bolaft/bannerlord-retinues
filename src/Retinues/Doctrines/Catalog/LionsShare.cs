@@ -24,7 +24,7 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                var playerKills = battle.Kills.Count(k => k.Killer.IsPlayer);
+                var playerKills = battle.Kills.Count(k => k.KillerIsPlayer);
 
                 if (playerKills > Progress)
                     SetProgress(playerKills);
@@ -44,9 +44,7 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                var playerKills = battle.Kills.Count(k =>
-                    k.Killer.IsPlayer && k.Victim.Character.Tier >= 5
-                );
+                var playerKills = battle.Kills.Count(k => k.KillerIsPlayer && k.Victim.Tier >= 5);
 
                 if (playerKills > Progress)
                     SetProgress(playerKills);
@@ -63,9 +61,7 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnBattleEnd(Battle battle)
             {
-                var playerKills = battle.Kills.Count(k =>
-                    k.Killer.IsPlayer && k.Victim.Character.IsHero
-                );
+                var playerKills = battle.Kills.Count(k => k.KillerIsPlayer && k.Victim.IsHero);
 
                 if (playerKills > Progress)
                     SetProgress(playerKills);

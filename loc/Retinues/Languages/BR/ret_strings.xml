@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Conquiste a doutrina Orgulho Cultural para desbloquear as tropas da milícia." />
+      text="Desbloqueie com a doutrina Orgulho Cultural." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Conquiste um feudo para desbloquear as tropas do clã." />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="Novo Equipamento Desbloqueado" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...e mais {MORE} itens desbloqueados." />
     <string
       id="ret_king_guard"
       text="Guarda do Rei" />

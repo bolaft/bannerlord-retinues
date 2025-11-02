@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="文化の誇りの教義を獲得して民兵の兵を解放する。" />
+      text="文化的誇りの教義で解放する。" />
     <string
       id="ret_acquire_fief_to_unlock"
       text="領地を獲得して一族の兵を解放する。" />
@@ -364,6 +364,9 @@
     <string
       id="ret_items_unlocked"
       text="新しい装備が解除された" />
+    <string
+      id="ret_items_unlocked_more"
+      text="{newline}...さらに{MORE}個のアイテムが解除されました。" />
     <string
       id="ret_king_guard"
       text="王の親衛隊" />
