@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="Changer de Culture" />
     <string
+      id="ret_change_race_title"
+      text="Changer de Race" />
+    <string
       id="ret_clanic_traditions"
       text="Traditions Claniques" />
     <string
@@ -791,6 +794,12 @@
       id="ret_no_cultures_title"
       text="Aucune Culture Trouvée" />
     <string
+      id="ret_no_races_text"
+      text="Aucune race alternative n’est disponible." />
+    <string
+      id="ret_no_races_title"
+      text="Aucune Race Trouvée" />
+    <string
       id="ret_no_skill_points_left"
       text="Plus de points de compétence disponibles pour cette troupe." />
     <string
@@ -850,6 +859,9 @@
     <string
       id="ret_queen_guard"
       text="Garde de la Reine" />
+    <string
+      id="ret_race_header_text"
+      text="Race" />
     <string
       id="ret_rank_up"
       text="Promotion" />

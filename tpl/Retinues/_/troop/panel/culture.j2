@@ -22,5 +22,25 @@
             height="40", width="40",
             margin_left="8"
         ) }}
+
+        <!-- Divider -->
+        <BrushWidget
+            IsVisible="@CanChangeRace"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="25"
+            Brush="Inventory.Tuple.TupleDivider.Vertical"/>
+        
+        <!-- Race Name -->
+        {{ text.base(text="@RaceText", brush="Clan.RightPanel.Name.Text", is_visible="@CanChangeRace") }}
+
+        <!-- Change Race Button -->
+        {{ button.brush(
+            command="ExecuteChangeRace",
+            brush="SPClan.Parties.ChangePartyLeaderIcon",
+            height="40", width="40",
+            margin_left="8",
+            is_visible="@CanChangeRace"
+        ) }}
     </Children>
 </ListPanel>

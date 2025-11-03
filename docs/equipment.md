@@ -17,9 +17,9 @@ Customize **battle**, **civilian**, and optional **alternate** loadouts for ever
 
 Use the **left/right arrows** near the set name to switch sets. You can **create** or **remove** alternate sets (unless a conflicting mod disables it).
 
-You can also **toggle** whether an alternate set is to be used selectively in **Field Battles**, **Siege Defense**, or **Siege Assault**. The checkboxes are located just below the equipment set selection buttons.
+You can also toggle whether an alternate set is to be used selectively in **Field Battles**, **Siege Defense**, or **Siege Assault**. The checkboxes are located just below the equipment set selection buttons.
 
-> Removing a set **unequips and stocks** all its items and clears pending changes.
+> Removing a set unequips and stocks all its items and clears pending changes.
 
 ---
 
@@ -35,7 +35,7 @@ Each set exposes these slots:
 
 ## Item Availability & Unlocks
 
-What appears in the item list depends on your **rules** and **progress**:
+What appears in the item list depends on your rules and progress:
 
 ### Global unlocks (MCM)
 - **All Equipment Unlocked:** see everything.
@@ -118,5 +118,5 @@ Use the list header to sort by **Name**, **Category**, **Tier**, or **Cost** (as
 
 ## Horses & Upgrades
 
-- Unequipping a horse** automatically unequips the harness.
+- Unequipping a horse automatically unequips the harness.
 - For upgrade requirements, the system looks at the best horse category across your sets (battle/civilian/alternates) and may use it to gate upgrades to certain mounted units. By default the *Ignore Civilian Horse* option is enabled and the civilian set's horse will be excluded from upgrade requirements.

@@ -6,6 +6,7 @@ using Retinues.Doctrines.Catalog;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 

@@ -45,6 +45,9 @@ namespace Retinues.Troops.Save
         [SaveableField(10)]
         public TroopBodySaveData BodyData;
 
+        [SaveableField(11)]
+        public int Race;
+
         public TroopSaveData(WCharacter troop)
         {
             if (troop is null)
@@ -60,6 +63,7 @@ namespace Retinues.Troops.Save
             EquipmentData = new TroopEquipmentData(troop.Loadout.Equipments);
             SkillData = new TroopSkillData(troop.Skills);
             BodyData = new TroopBodySaveData(troop);
+            Race = troop.Race;
         }
 
         public WCharacter Deserialize()
@@ -98,6 +102,13 @@ namespace Retinues.Troops.Save
             {
                 troop.Culture = new WCulture(MBObjectManager.Instance.GetObject<CultureObject>(CultureId));
                 CharacterCustomization.ApplyPropertiesFromCulture(troop, CultureId);
+            }
+
+            // Set race if specified
+            if (Race >= 0)
+            {
+                troop.Race = Race;
+                troop.EnsureOwnBodyRange();
             }
 
             // Set body customization (if enabled)
