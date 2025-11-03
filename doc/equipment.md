@@ -1,4 +1,9 @@
-# 6) Equipment & Unlocks
+---
+title: Equipment & Unlocks
+nav_order: 6
+---
+
+# Equipment & Unlocks
 
 Customize **battle**, **civilian**, and optional **alternate** loadouts for every custom troop (including retinues) from the **Clan → Troops → Equipment** editor.
 

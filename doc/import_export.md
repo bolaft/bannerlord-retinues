@@ -1,4 +1,9 @@
-# 10) Import & Export
+---
+title: Import & Export
+nav_order: 10
+---
+
+# Import & Export
 
 This guide explains how to **export** all your custom troop roots to a single XML file and how to **import** them back into another save (or after a reset).
 

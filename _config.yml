@@ -5,7 +5,6 @@ logo: logo.png
 color_scheme: dark
 
 just_the_docs:
-  # Optional: external links in the header
   nav_external_links:
     - title: Retinues (Nexus Mods)
       url: https://www.nexusmods.com/mountandblade2bannerlord/mods/8847
@@ -13,5 +12,4 @@ just_the_docs:
       url: https://steamcommunity.com/sharedfiles/filedetails/?id=3592533567
     - title: GitHub Repository
       url: https://github.com/bolaft/bannerlord-retinues
-  # Optional: enable search
   search_enabled: true

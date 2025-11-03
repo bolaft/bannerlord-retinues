@@ -1,4 +1,9 @@
-# 7) Appearance Customization
+---
+title: Appearance Customization
+nav_order: 7
+---
+
+# Appearance Customization
 
 You can control a troop’s **name, culture, gender, and (optionally) detailed body settings** from the Retinues editor.
 
