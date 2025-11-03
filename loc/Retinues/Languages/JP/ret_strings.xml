@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="カスタム部隊のアンロック完了" />
     <string
+      id="ret_docs_body"
+      text="これにより、随伴兵のドキュメントがウェブブラウザで開きます。続行しますか？" />
+    <string
+      id="ret_docs_title"
+      text="ドキュメントを開く" />
+    <string
       id="ret_doctrine_costs"
       text="コスト: {GOLD} ゴールド, {INFLUENCE} 影響力。" />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="随伴兵" />
+    <string
+      id="ret_editor_help_text"
+      text="ヘルプ" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="オンライン随伴兵ドキュメントを開く。" />
     <string
       id="ret_empty_item"
       text="空" />

@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Benutzerdefinierte Truppen freigeschaltet" />
     <string
+      id="ret_docs_body"
+      text="Dies öffnet deinen Webbrowser zur Retinues-Dokumentation. Fortfahren?" />
+    <string
+      id="ret_docs_title"
+      text="Dokumentation öffnen" />
+    <string
       id="ret_doctrine_costs"
       text="Kosten: {GOLD} Gold, {INFLUENCE} Einfluss." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="Gefolgschaften" />
+    <string
+      id="ret_editor_help_text"
+      text="Hilfe" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="Öffne die Online-Dokumentation zu Gefolgschaften." />
     <string
       id="ret_empty_item"
       text="Leer" />

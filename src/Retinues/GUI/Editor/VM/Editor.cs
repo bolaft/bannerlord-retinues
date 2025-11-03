@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
@@ -5,9 +7,13 @@ using Retinues.Game;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
+using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.VM
 {
@@ -137,6 +143,9 @@ namespace Retinues.GUI.Editor.VM
                 ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops")
                 : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
 
+        [DataSourceProperty]
+        public string HelpText => L.S("editor_help_text", "Help");
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -167,9 +176,62 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public bool InDoctrineScreen => Screen == Screen.Doctrine;
 
+        /* ━━━━━━━ Tooltips ━━━━━━━ */
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel HelpHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S("editor_help_tooltip_text", "Open the online Retinues documentation.")
+            );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━━ Help ━━━━━━━━━ */
+
+        /// <summary>
+        /// Open the documentation page.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteShowHelp()
+        {
+            const string url = "https://your.docs.link/here";
+
+            // Confirmation dialog
+            var inquiry = new InquiryData(
+                titleText: L.S("docs_title", "Open Documentation"),
+                text: L.S("docs_body", "This will open your web browser to the Retinues documentation. Continue?"),
+                isAffirmativeOptionShown: true,
+                isNegativeOptionShown: true,
+                affirmativeText: GameTexts.FindText("str_ok").ToString(),
+                negativeText: GameTexts.FindText("str_cancel").ToString(),
+                affirmativeAction: () => OpenUrlInBrowser(url),
+                negativeAction: () => { }
+            );
+
+            InformationManager.ShowInquiry(inquiry);
+        }
+
+        // Utility (kept private so both methods can reuse it)
+        private static void OpenUrlInBrowser(string url)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo(url)
+                {
+                    UseShellExecute = true // required to open URLs with the OS default handler
+                };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                InformationManager.DisplayMessage(new InformationMessage($"Failed to open browser. URL: {url}"));
+                // Replace with your logger if different:
+                Log.Error($"Failed to open URL '{url}': {ex}");
+            }
+        }
 
         /* ━━━━━━ Mode Switch ━━━━━ */
 

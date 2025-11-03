@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Truppe Personalizzate Sbloccate" />
     <string
+      id="ret_docs_body"
+      text="Questo aprirà il tuo browser web alla documentazione dei Retinues. Continuare?" />
+    <string
+      id="ret_docs_title"
+      text="Apri Documentazione" />
+    <string
       id="ret_doctrine_costs"
       text="Costo: {GOLD} Oro, {INFLUENCE} Influenza." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="Seguiti" />
+    <string
+      id="ret_editor_help_text"
+      text="Aiuto" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="Apri la documentazione online dei Seguiti." />
     <string
       id="ret_empty_item"
       text="Vuoto" />

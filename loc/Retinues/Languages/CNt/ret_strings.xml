@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="自定義部隊已解鎖" />
     <string
+      id="ret_docs_body"
+      text="這將打開您的網絡瀏覽器以查看隨從文件。繼續？" />
+    <string
+      id="ret_docs_title"
+      text="打開文件" />
+    <string
       id="ret_doctrine_costs"
       text="花費: {GOLD} 金幣, {INFLUENCE} 影響力。" />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="隨從" />
+    <string
+      id="ret_editor_help_text"
+      text="幫助" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="打開在線隨從文件。" />
     <string
       id="ret_empty_item"
       text="空" />

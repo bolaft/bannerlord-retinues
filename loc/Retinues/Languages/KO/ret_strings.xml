@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="사용자 지정 부대 잠금 해제" />
     <string
+      id="ret_docs_body"
+      text="이렇게 하면 웹 브라우저에서 수행원 문서가 열립니다. 계속하시겠습니까?" />
+    <string
+      id="ret_docs_title"
+      text="문서 열기" />
+    <string
       id="ret_doctrine_costs"
       text="비용: {GOLD} 골드, {INFLUENCE} 영향력." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="수행원" />
+    <string
+      id="ret_editor_help_text"
+      text="도움말" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="온라인 수행원 문서를 엽니다." />
     <string
       id="ret_empty_item"
       text="비어 있음" />

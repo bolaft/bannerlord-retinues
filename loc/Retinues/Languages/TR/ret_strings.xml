@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Özel Askerler Kilidi Açıldı" />
     <string
+      id="ret_docs_body"
+      text="Bu, web tarayıcınızı Yandaşlar belgelerine açacaktır. Devam etmek istiyor musunuz?" />
+    <string
+      id="ret_docs_title"
+      text="Belgeleri Aç" />
+    <string
       id="ret_doctrine_costs"
       text="Maliyet: {GOLD} Altın, {INFLUENCE} Nüfuz." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="Yandaşlar" />
+    <string
+      id="ret_editor_help_text"
+      text="Yardım" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="Çevrimiçi Yandaşlar belgelerini açın." />
     <string
       id="ret_empty_item"
       text="Boş" />
