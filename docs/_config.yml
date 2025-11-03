@@ -1,8 +1,6 @@
 title: Retinues Docs
 description: Documentation for the Retinues mod
-remote_theme: just-the-docs/just-the-docs
 favicon_ico: "/assets/favicon.ico"
-color_scheme: dark
 aux_links:
   "Nexus Mods":
     - "https://www.nexusmods.com/mountandblade2bannerlord/mods/8847"
