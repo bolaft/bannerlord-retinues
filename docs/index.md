@@ -5,7 +5,9 @@ nav_order: 1
 
 # Overview
 
-Retinues lets you create special, limited-count units that you can fully equip and train, as well as full-fledged custom troop trees for your clan and kingdom. Unlock new gear by defeating enemies, spend earned experience to raise skills, promote retinues through tiers, and (once you own a fief) unlock and redesign your clan troop tree. Later, founding a kingdom opens kingdom troop trees and king's guard retinues. Optional Doctrines grant passive bonuses, but require the player to accomplish special feats before they can be unlocked.
+Customize your troops: unlock gear through battle, outfit and promote retinues, design your clan and kingdom troop trees, and boost them with unique doctrine perks.
+
+> 🐞 Did you encounter a **bug**? If so please checkout the [Reporting a Bug](./bugs.md) section so it can be fixed quickly.
 
 ## Quick Start
 

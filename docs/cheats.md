@@ -1,6 +1,6 @@
 ---
 title: Cheat Console
-nav_order: 11
+nav_order: 13
 ---
 
 # Cheat Console Commands
