@@ -9,7 +9,7 @@ You can control a troop's name, culture, gender, and (optionally) detailed body 
 
 ---
 
-## Name & Culture (Editor Panel)
+## Name & Culture
 
 In the **Troops** tab, select a unit and open its **Editor panel** (right side).
 
@@ -21,9 +21,9 @@ In the **Troops** tab, select a unit and open its **Editor panel** (right side).
 
 ---
 
-## Gender Toggle (Character Model)
+## Gender
 
-Below the 3D character previe* (bottom-left corner) there is an icon toggle:
+Below the 3D character preview (bottom-left corner) there is an icon toggle:
 
 - **Default behavior:** toggles **Gender** only (Male/Female).  
   Use this when you just want to flip the base presentation quickly.
@@ -41,5 +41,5 @@ If you enable **Experimental Appearance Controls** in **MCM**, the bottom-left p
 
 These allow you to fine-tune the character's body shape beyond the gender toggle.
 
-> **⚠️ Warning (Experimental):**  
+> **⚠️ Warning:**  
 > These controls are **experimental** and may have **unintended effects**, such as clipping with certain armors, unexpected hair/face combinations in some cultures, or visual inconsistencies after large age/height deltas. If you run into odd visuals, revert the sliders, switch cultures briefly to refresh presets, or disable the experimental option in MCM.

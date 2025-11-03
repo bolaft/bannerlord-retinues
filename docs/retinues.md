@@ -61,14 +61,7 @@ You'll find a **Rank Up** action in the **Troops** panel when conditions are met
 
 ---
 
-## Doctrines
-
-Doctrines provide passive bonuses that can benefit your retinues.  
-→ See: [Doctrines](./doctrines.md)
-
----
-
 ## Import / Export
 
-- Custom troops can be exported and export from one save to another via the mod config menu or the cheat console.  
+- Retinues can be exported and export from one save to another via the mod config menu or the cheat console.  
 → See: [Importing and Exporting Troops](./import_export.md)
