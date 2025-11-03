@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="Mudar Cultura" />
     <string
+      id="ret_change_race_title"
+      text="Mudar Raça" />
+    <string
       id="ret_clanic_traditions"
       text="Tradições do Clã" />
     <string
@@ -791,6 +794,12 @@
       id="ret_no_cultures_title"
       text="Nenhuma Cultura Encontrada" />
     <string
+      id="ret_no_races_text"
+      text="Nenhuma raça alternativa está disponível." />
+    <string
+      id="ret_no_races_title"
+      text="Nenhuma Raça Encontrada" />
+    <string
       id="ret_no_skill_points_left"
       text="Nenhum ponto de habilidade restante para esta tropa." />
     <string
@@ -850,6 +859,9 @@
     <string
       id="ret_queen_guard"
       text="Guarda da Rainha" />
+    <string
+      id="ret_race_header_text"
+      text="Raça" />
     <string
       id="ret_rank_up"
       text="Promover" />

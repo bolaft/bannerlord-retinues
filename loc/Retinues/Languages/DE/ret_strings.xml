@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="Kultur ändern" />
     <string
+      id="ret_change_race_title"
+      text="Rasse ändern" />
+    <string
       id="ret_clanic_traditions"
       text="Clantraditionen" />
     <string
@@ -791,6 +794,12 @@
       id="ret_no_cultures_title"
       text="Keine Kulturen gefunden" />
     <string
+      id="ret_no_races_text"
+      text="Es sind keine alternativen Rassen verfügbar." />
+    <string
+      id="ret_no_races_title"
+      text="Keine Rassen gefunden" />
+    <string
       id="ret_no_skill_points_left"
       text="Keine Fertigkeitspunkte mehr für diese Truppe übrig." />
     <string
@@ -850,6 +859,9 @@
     <string
       id="ret_queen_guard"
       text="Königsgarde" />
+    <string
+      id="ret_race_header_text"
+      text="Rasse" />
     <string
       id="ret_rank_up"
       text="Aufstieg" />

@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="更改文化" />
     <string
+      id="ret_change_race_title"
+      text="更改種族" />
+    <string
       id="ret_clanic_traditions"
       text="家族傳統" />
     <string
@@ -791,6 +794,12 @@
       id="ret_no_cultures_title"
       text="未找到文化" />
     <string
+      id="ret_no_races_text"
+      text="沒有可用的替代種族。" />
+    <string
+      id="ret_no_races_title"
+      text="未找到種族" />
+    <string
       id="ret_no_skill_points_left"
       text="這支部隊沒有剩餘的技能點。" />
     <string
@@ -850,6 +859,9 @@
     <string
       id="ret_queen_guard"
       text="女王衛隊" />
+    <string
+      id="ret_race_header_text"
+      text="種族" />
     <string
       id="ret_rank_up"
       text="晉升" />
