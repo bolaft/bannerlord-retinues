@@ -9,7 +9,7 @@
         <!-- Troop name section (editable name fields) -->
         {{ include "editor/troop/sections/name.sbn" }}
 
-        <!-- Gender selection section (male/female toggle) -->
+        <!-- Culture / Race selection section -->
         {{ include "editor/troop/sections/culture.sbn" }}
 
         <!-- Skills section (skill sliders/values) -->

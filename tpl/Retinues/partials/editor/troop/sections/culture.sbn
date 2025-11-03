@@ -1,19 +1,64 @@
-<!-- Section header -->
-{{ header("@CultureHeaderText") }}
-
-<!-- Gender display and change action -->
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true"
-    MarginBottom="0">
+    MarginTop="8"
+    HorizontalAlignment="Center">
     <Children>
-        <!-- Display current culture text -->
-        {{ text("@CultureText", "Clan.RightPanel.Name.Text", "Center", "0", "0", "0", "0") }}
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="VerticalTopToBottom"
+            UpdateChildrenStates="true"
+            HorizontalAlignment="Center" >
+            <Children>
+                <ListPanel
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    UpdateChildrenStates="true"
+                    MarginBottom="2">
+                    <Children>
+                        {{ text("@CultureText", "Clan.RightPanel.Name.Text", "Left", "10", "2", "0", "0") }}
+                        {{ button_icon("ExecuteChangeCulture", "SPClan.Parties.ChangePartyLeaderIcon", "32", "true", "true", "0", "0", "0", "0") }}
+                    </Children>
+                </ListPanel>
 
-        <!-- Button to toggle/change culture (icon) -->
-        {{ button_icon("ExecuteChangeCulture", "SPClan.Parties.ChangePartyLeaderIcon", "40", "true", "true", "0", "0", "8", "0") }}
+
+                {{ header("@CultureHeaderText") }}
+            </Children>
+        </ListPanel>
+
+        <BrushWidget
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="25"
+            Brush="Inventory.Tuple.TupleDivider.Vertical"/>
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="VerticalTopToBottom"
+            UpdateChildrenStates="true"
+            HorizontalAlignment="Center">
+            <Children>
+                <ListPanel
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    UpdateChildrenStates="true"
+                    MarginBottom="2">
+                    <Children>
+                        {{ text("@RaceText", "Clan.RightPanel.Name.Text", "Left", "10", "2", "0", "0") }}
+                        {{ button_icon("ExecuteChangeRace", "SPClan.Parties.ChangePartyLeaderIcon", "32", "@CanChangeRace", "@CanChangeRace", "0", "0", "0", "0") }}
+                    </Children>
+                </ListPanel>
+
+                {{ header("@RaceHeaderText") }}
+            </Children>
+        </ListPanel>
     </Children>
 </ListPanel>
