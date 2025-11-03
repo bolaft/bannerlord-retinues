@@ -201,7 +201,7 @@
       text="Özel Askerler Kilidi Açıldı" />
     <string
       id="ret_docs_body"
-      text="Bu, web tarayıcınızı Yandaşlar belgelerine açacaktır. Devam etmek istiyor musunuz?" />
+      text="Bu, Varsayılan web tarayıcınızda Yandaşlar belgelerini açacaktır.{newline}{newline}Devam etmek istiyor musunuz?" />
     <string
       id="ret_docs_title"
       text="Belgeleri Aç" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Bu birliği {ACTION} için bir yerleşim yerinde olmalısınız." />
+    <string
+      id="ret_open_browser_fail"
+      text="Tarayıcı açılamadı. URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="Ana {PARENT} beceri seviyesinin altına inemez." />

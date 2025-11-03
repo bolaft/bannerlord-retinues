@@ -201,7 +201,7 @@
       text="自定義部隊已解鎖" />
     <string
       id="ret_docs_body"
-      text="這將打開您的網絡瀏覽器以查看隨從文件。繼續？" />
+      text="這將在您的默認網絡瀏覽器中打開隨從文件。{newline}{newline}繼續？" />
     <string
       id="ret_docs_title"
       text="打開文件" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="您必須在一個定居點才能{ACTION}這支部隊。" />
+    <string
+      id="ret_open_browser_fail"
+      text="無法打開瀏覽器。網址：{URL}" />
     <string
       id="ret_parent_skill"
       text="不能低於父級{PARENT}的技能水平。" />

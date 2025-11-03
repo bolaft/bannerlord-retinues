@@ -201,7 +201,7 @@
       text="Benutzerdefinierte Truppen freigeschaltet" />
     <string
       id="ret_docs_body"
-      text="Dies öffnet deinen Webbrowser zur Retinues-Dokumentation. Fortfahren?" />
+      text="Dies öffnet die Retinues-Dokumentation in deinem Standard-Webbrowser.{newline}{newline}Fortfahren?" />
     <string
       id="ret_docs_title"
       text="Dokumentation öffnen" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Du musst in einer Siedlung sein, um diese Truppe {ACTION} zu können." />
+    <string
+      id="ret_open_browser_fail"
+      text="Fehler beim Öffnen des Browsers. URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="Kann nicht unter das Fähigkeitsniveau des übergeordneten {PARENT} gehen." />

@@ -201,7 +201,7 @@
       text="Пользовательские войска разблокированы" />
     <string
       id="ret_docs_body"
-      text="Это откроет ваш веб-браузер с документацией по свите. Продолжить?" />
+      text="Это откроет документацию по свите в вашем браузере по умолчанию.{newline}{newline}Продолжить?" />
     <string
       id="ret_docs_title"
       text="Открыть документацию" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Вы должны находиться в поселении, чтобы {ACTION} этот отряд." />
+    <string
+      id="ret_open_browser_fail"
+      text="Не удалось открыть браузер. URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="Нельзя опускаться ниже уровня навыков родителя {PARENT}." />
