@@ -1,13 +1,13 @@
-title: Retinues Player Guide
+title: Retinues Docs
 description: Documentation for the Retinues mod
 remote_theme: just-the-docs/just-the-docs
 favicon_ico: "/assets/favicon.ico"
-color_scheme: dark
+color_scheme: light
 aux_links:
   "Nexus Mods":
     - "https://www.nexusmods.com/mountandblade2bannerlord/mods/8847"
   "Steam Workshop":
-    - "https://steamcommunity.com/sharedfiles/filedetails/?id=3592533567
-  "GitHub Repository":
-    - "//github.com/bolaft/bannerlord-retinues"
+    - "https://steamcommunity.com/sharedfiles/filedetails/?id=3592533567"
+  "GitHub":
+    - "https://github.com/bolaft/bannerlord-retinues"
 search_enabled: true

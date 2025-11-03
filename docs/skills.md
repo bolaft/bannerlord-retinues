@@ -5,11 +5,11 @@ nav_order: 5
 
 # Improving Skills
 
-Troop **skills** define combat aptitude and item requirements. In Retinues, you can train, cap, and manage skills directly from the **Troops** tab.
+Troop skills define combat aptitude and item requirements. In Retinues, you can train, cap, and manage skills directly from the **Troops** tab.
 
 There are eight editable combat skills: Athletics, Riding, One Handed, Two Handed, Polearm, Bow, Crossbow and Throwing
 
-Hold **Shift** to increase or decrease by 5 points at a time.
+Hold *Shift* to increase or decrease by 5 points at a time.
 
 ---
 
@@ -42,22 +42,22 @@ If training takes time, the panel shows **Training required** hours if points ar
 
 ---
 
-## When you can/can’t change a skill
+## When you can/can't change a skill
 
 ### Increment (+)
-You **can’t** increase a skill if any of these is true:
+You **can't** increase a skill if any of these is true:
 
-- It’s already at the **per-skill cap** for the troop’s tier/bonuses.  
-- You’ve hit the **total points** limit (including staged changes).  
-- The troop **doesn’t have enough XP** for the next point.  
-- The new value would **exceed a child upgrade’s** skill level.
+- It's already at the **per-skill cap** for the troop's tier/bonuses.  
+- You've hit the **total points** limit (including staged changes).  
+- The troop **doesn't have enough XP** for the next point.  
+- The new value would **exceed a child upgrade's** skill level.
 
 ### Decrement (-)
-You **can’t** decrease a skill if:
+You **can't** decrease a skill if:
 
 - It would go **below 0**.  
 - It would drop **below item requirements** of currently equipped gear.  
-- It would fall **below the parent troop’s** skill level.
+- It would fall **below the parent troop's** skill level.
 
 When XP costs are enabled and you lower a non-staged point, **XP is not refunded** (unless the *Adaptive Training* doctrine is unlocked).
 
@@ -65,5 +65,5 @@ When XP costs are enabled and you lower a non-staged point, **XP is not refunded
 
 ## Context Restrictions
 
-Depending on your settings, editing may require being **in a settlement** or **in one of your fiefs** (clan/kingdom). If not allowed, you’ll get a popup explaining the reason.
+Depending on your settings, editing may require being in a settlement or in one of your fiefs (clan/kingdom). If not allowed, you'll get a popup explaining the reason.
 

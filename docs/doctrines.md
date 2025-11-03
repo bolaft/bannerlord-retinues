@@ -5,7 +5,7 @@ nav_order: 8
 
 # Feats & Doctrines
 
-**Doctrines** are long-term perks that enhance your retinues and faction troops as you play. They’re organized in a **grid** with rows, columns, and **prerequisites**. As you complete **feats**, you unlock new doctrines.
+**Doctrines** are long-term perks that enhance your retinues and faction troops as you play. They're organized in a grid with rows, columns, and prerequisites. As you complete feats, you unlock new doctrines.
 
 > Open them from **Clan → Troops → Doctrines**.
 
@@ -14,10 +14,10 @@ nav_order: 8
 ## How It Works
 
 1. **Browse the grid**  
-   Each doctrine card shows its **requirements** and the **bonuses** it grants.
+   Each doctrine card shows its requirements and the bonuses it grants.
 
 2. **Meet the requirements**  
-   Doctrines have specific feat requirements to be unlocked (these can be relaxed; see **MCM** below).
+   Doctrines have specific feat requirements to be unlocked (these can be relaxed; see MCM below).
 
 3. **Progress feats**  
    Feats level up while you play and can unlock new doctrines.
@@ -29,16 +29,16 @@ nav_order: 8
 
 ## Feats
 
-- **Combat Feats:** awarded for outcomes in **played battles** (field, siege, etc.).  
+- **Combat Feats:** awarded for outcomes in *played battles* (field, siege, etc.).  
   **Important:** **simulated/autoresolved battles do not count** for combat feats.
 
 - **Logistics & Training Feats:** tied to training actions, upgrade flows, or sustained unit development.
 
 - **Objective Feats:** progress by completing world tasks (e.g., rescuing caravans/villagers).
 
-- **Retinue-Focused Feats:** reward you for fielding and improving your **Basic/Elite Retinues**.
+- **Retinue-Focused Feats:** reward you for fielding and improving your retinues.
 
-You’ll get **on-screen notifications** as feats progress or complete.
+You'll get on-screen notifications as feats progress or complete.
 
 ---
 
