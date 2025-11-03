@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="文化を変更" />
     <string
+      id="ret_change_race_title"
+      text="種族を変更" />
+    <string
       id="ret_clanic_traditions"
       text="一族の伝統" />
     <string
@@ -791,6 +794,12 @@
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
     <string
+      id="ret_no_races_text"
+      text="利用可能な代替種族はありません。" />
+    <string
+      id="ret_no_races_title"
+      text="種族が見つかりません" />
+    <string
       id="ret_no_skill_points_left"
       text="この部隊には残りのスキルポイントがありません。" />
     <string
@@ -850,6 +859,9 @@
     <string
       id="ret_queen_guard"
       text="女王の親衛隊" />
+    <string
+      id="ret_race_header_text"
+      text="種族" />
     <string
       id="ret_rank_up"
       text="昇進" />

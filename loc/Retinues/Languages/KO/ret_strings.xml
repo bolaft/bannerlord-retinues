@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="문화 변경" />
     <string
+      id="ret_change_race_title"
+      text="종족 변경" />
+    <string
       id="ret_clanic_traditions"
       text="가문 전통" />
     <string
@@ -791,6 +794,12 @@
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
     <string
+      id="ret_no_races_text"
+      text="사용 가능한 대체 종족이 없습니다." />
+    <string
+      id="ret_no_races_title"
+      text="종족이 없습니다" />
+    <string
       id="ret_no_skill_points_left"
       text="이 병력에는 남은 스킬 포인트가 없습니다." />
     <string
@@ -850,6 +859,9 @@
     <string
       id="ret_queen_guard"
       text="여왕의 근위대" />
+    <string
+      id="ret_race_header_text"
+      text="종족" />
     <string
       id="ret_rank_up"
       text="승급" />

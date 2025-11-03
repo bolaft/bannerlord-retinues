@@ -110,6 +110,12 @@ namespace Retinues.Troops
                 }
             }
 
+            if (data.Race >= 0)
+            {
+                troop.Race = data.Race;
+                troop.EnsureOwnBodyRange();
+            }
+
             if (Config.EnableTroopCustomization)
             {
                 // Set dynamic properties (already handles nulls)
@@ -160,6 +166,7 @@ namespace Retinues.Troops
                 BuildMax = character.BuildMax,
                 HeightMin = character.HeightMin,
                 HeightMax = character.HeightMax,
+                Race = character.Race,
             };
 
             return data;

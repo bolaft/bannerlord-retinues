@@ -5,11 +5,11 @@ nav_order: 3
 
 # Clan & Kingdom Troops
 
-There are two kinds of faction-bound troops you can build with Retinues:
+Besides the special [./retinues.md](retinues), there are two kinds of faction-bound troops you can build:
 - **Clan Troops** (tied to your **clan**)
 - **Kingdom Troops** (tied to your **kingdom**)
 
-Unlike Retinues* (your personal household guard), faction troops are the broader troop trees that populate your rosters, parties, garrisons, and volunteers.
+Unlike Retinues (your personal household guard), faction troops are the broader troop trees that populate your rosters, parties, garrisons, and volunteers.
 
 Each faction layer (clan or kingdom) provides:
 
@@ -36,7 +36,7 @@ On unlock, you choose how to initialize that faction's troop trees:
 
 ## Recruitment
 
-Faction troops join your army the **vanilla way** (with helpful Retinues options):
+Faction troops join your army the vanilla way (with helpful Retinues options):
 
 - **Clan troops** are available in any settlement owned by your clan.
 - **Kingdom troops** are available in any settlement owned by another clan of your kingdom
@@ -59,17 +59,17 @@ Faction troops join your army the **vanilla way** (with helpful Retinues options
 
 ### When can I add an upgrade?
 
-You can add a new child to a troop only if all of the following hold:
+You can add a new upgrade to a troop only if all of the following hold:
 
 - **Not a militia, not a retinue.** Militias and Retinues cannot receive upgrade targets.
 - **Not at max tier.** Max-tier troops can't branch further.
 - **Upgrade slots remain.**  
-  - **Basic** troops: up to **2** children.  
-  - **Elite** troops: **1** child by default, **2** if the *Masters at Arms* doctrine is unlocked.
+  - **Basic** troops: up to **2** upgrade.  
+  - **Elite** troops: **1** upgrade by default, **2** if the *Masters at Arms* doctrine is unlocked.
 - **Context allows editing.** If your settings restrict editing to settlements/fiefs, you must be in the right place.
 
-**What gets copied into the new child?**  
-When you confirm the new name, the game creates a child troop and copies skills from the parent (but *not* equipment nor existing upgrades), and set its tier to one above its parent.
+**What gets copied into the new upgrade?**  
+When you confirm the new name, the game creates a child troop and copies skills from the parent (but *not* equipment), and set its tier to one above its parent.
 
 ---
 
