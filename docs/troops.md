@@ -9,7 +9,7 @@ There are two kinds of faction-bound troops you can build with Retinues:
 - **Clan Troops** (tied to your **clan**)
 - **Kingdom Troops** (tied to your **kingdom**)
 
-Unlike **Retinues** (your personal household guard), faction troops are the **broader troop trees** that populate your rosters, parties, garrisons, and volunteers.
+Unlike Retinues* (your personal household guard), faction troops are the broader troop trees that populate your rosters, parties, garrisons, and volunteers.
 
 Each faction layer (clan or kingdom) provides:
 
@@ -26,11 +26,11 @@ Each faction layer (clan or kingdom) provides:
 
 > When the *Recruit Anywhere* option is enabled, clan troops are immediately unlocked even if you don't own a fief.
 
-On unlock, you choose **how to initialize** that faction's troop ecosystem:
+On unlock, you choose how to initialize that faction's troop trees:
 - **Start from scratch:** minimal roots at low tier; build up over time.
 - **Clone entire culture tree:** instantly copy the vanilla culture lines as a starting point.
 
-> This choice is **per faction layer** (clan vs kingdom) and **not reversible** for that layer.
+> This choice is per faction (clan vs kingdom) and **not reversible** for that layer.
 
 ---
 
@@ -43,9 +43,9 @@ Faction troops join your army the **vanilla way** (with helpful Retinues options
 
 > It might take an in-game day or two for volunteers to refresh after unlocking a custom troop tree.
 
-- **Recruit Anywhere (optional):** Enable in **MCM** to recruit your clan/kingdom custom troops from **any** settlement. Disable for stricter, more “realistic” availability.
+- **Recruit Anywhere (optional):** Enable in MCM to recruit your clan/kingdom custom troops from **any** settlement. Disable for stricter, more “realistic” availability.
 
-> Retinues-specific **auto-hire** and **manual conversion** do **not** apply here; those are for the [Retinues](./retinues.md) only.
+> Retinues-specific auto-hire and manual conversion do *not* apply here; those are for the [Retinues](./retinues.md) only.
 
 ---
 
@@ -59,7 +59,7 @@ Faction troops join your army the **vanilla way** (with helpful Retinues options
 
 ### When can I add an upgrade?
 
-You can add a new child to a troop **only if all** of the following hold:
+You can add a new child to a troop only if all of the following hold:
 
 - **Not a militia, not a retinue.** Militias and Retinues cannot receive upgrade targets.
 - **Not at max tier.** Max-tier troops can't branch further.
@@ -69,7 +69,7 @@ You can add a new child to a troop **only if all** of the following hold:
 - **Context allows editing.** If your settings restrict editing to settlements/fiefs, you must be in the right place.
 
 **What gets copied into the new child?**  
-When you confirm the new name, the game creates a child troop and **copies skills** from the parent (but **not** equipment nor existing upgrades), and set its tier to one above its parent.
+When you confirm the new name, the game creates a child troop and copies skills from the parent (but *not* equipment nor existing upgrades), and set its tier to one above its parent.
 
 ---
 
@@ -77,17 +77,17 @@ When you confirm the new name, the game creates a child troop and **copies skill
 
 You can remove a troop only if:
 
-- It's **not** a militia and **not** a retinue (regular faction troops only).
+- It's *not* a militia and *not* a retinue (regular faction troops only).
 - It is **deletable**:
   - **Root troops** (troops with no parent) can't be removed.  
-  - Troops that **have upgrade targets** can't be removed (remove their upgrades first).
+  - Troops that have **upgrade targets** can't be removed (remove their upgrades first).
 - **Context allows editing** (same settlement/fief rules as above). The removal action checks this and blocks with a popup if disallowed. 
 
 **What happens when I remove a troop?**
 
 1. Any **staged equipment/skill changes** for that troop are cleared.
 2. Its **equipment is stocked** for later use.  
-3. Any **existing units** of that troop in your world are **converted to their culture counterpart**.
+3. Any **existing units** of that troop in your world are converted to their culture counterpart.
 
 ---
 

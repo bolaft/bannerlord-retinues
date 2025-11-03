@@ -5,7 +5,7 @@ nav_order: 11
 
 # Cheat Console Commands
 
-Use these **Retinues** console commands to test builds, speed up progression, or recover from edge cases.  
+Use these console commands to test builds, speed up progression, or recover from edge cases.  
 They all live under the `retinues` namespace in the in-game cheat console.
 
 ---
@@ -78,7 +78,7 @@ Export or import all **custom troop roots** to/from a single XML file.
   ```
   retinues.set_stock <itemId> <count>
   ```
-  Directly sets the tracked **stock** for an item (useful if you're playing with town-inventory restrictions or stock-sensitive rules).
+  Directly sets the tracked stock for an item (useful if you're playing with town-inventory restrictions or stock-sensitive rules).
 
 ---
 

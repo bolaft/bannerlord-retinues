@@ -37,9 +37,9 @@ Open **Options → Mod Options → Retinues**.
 1. Click **Import from XML**.  
 2. Pick a file from the list (the *Confirm* button reads **Import**).  
 3. The mod will:  
-   - Make an **automatic safety backup** first (e.g., `backup_troops_YYYY_MM_DD_HH_mm.xml`)  
+   - Make an automatic safety backup first (e.g., `backup_troops_YYYY_MM_DD_HH_mm.xml`)  
    - Then import and rebuild the selected roots  
-4. A message will report how many **root troop definitions** were imported.
+4. A message will report how many root troop definitions were imported.
 
 > **Important:** MCM export/import actions require you to be **in a running campaign** (not from the main menu).
 
@@ -70,4 +70,4 @@ retinues.import_custom_troops <fileName>
 
 ## What gets exported
 
-- **All currently defined custom troop roots** (regular & elite lines, retinues roots, etc.) with the data needed to **rebuild their trees** on import.
+- **All currently defined custom troop roots** (regular & elite lines, retinues roots, etc.) with the data needed to rebuild their trees on import.

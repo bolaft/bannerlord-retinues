@@ -15,17 +15,17 @@ All mod features live in the **Clan → Troops** tab. Open your Clan screen and 
 
 ## Troop Types
 
-- **Retinues:** special personal troops available **right away**.  
-  They **start weak** but can become **the best troops in the game** with time, money, and effort.
+- **Retinues:** special personal troops available right away.  
+  They **start weak** but can become the best troops in the game with time, money, and effort.
 
   → See: [Retinues](./retinues.md)
 
-- **Clan Troops:** unlocked when you **acquire your first fief**.  
-- **Kingdom Troops:** unlocked when you **found your own kingdom**.  
+- **Clan Troops:** unlocked when you acquire your first fief.  
+- **Kingdom Troops:** unlocked when you found your own kingdom.  
 
-> Upon unlocking either, you are prompted to choose either to **start from scratch** or to **clone the entire culture tree**.  
+> Upon unlocking either, you are prompted to choose either to start from scratch or to clone the entire culture tree.  
 
-- **Militias:** unlocked when you acquire the **Cultural Pride** doctrine.
+- **Militias:** unlocked when you acquire the *Cultural Pride* doctrine.
   On unlock, similar to your faction's culture militias.
 
 > When the *Recruit Anywhere* option is enabled, clan troops are immediately unlocked even if you don't own a fief.
@@ -51,12 +51,12 @@ From the **Troops** tab, you can quickly adjust:
 
 ## Doctrines
 
-Accomplish feats to unlock **Doctrines** as you play to gain passive bonuses and perks that enhance your retinues and custom troops over time.  
+Accomplish feats to unlock Doctrines as you play to gain passive bonuses and perks that enhance your retinues and custom troops over time.  
 → See: [Doctrines](.trines.md)
 
 ---
 
 ## Configuration
 
-The mod's behavior and features can be configured from top to bottom using the **mod config menu**.  
+The mod's behavior and features can be configured from top to bottom using the mod config menu.  
 → See: [Configuration](./configuration.md)

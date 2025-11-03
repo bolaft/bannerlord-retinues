@@ -5,11 +5,11 @@ nav_order: 5
 
 # Improving Skills
 
-Troop **skills** define combat aptitude and item requirements. In Retinues, you can train, cap, and manage skills directly from the **Troops** tab.
+Troop skills define combat aptitude and item requirements. In Retinues, you can train, cap, and manage skills directly from the **Troops** tab.
 
 There are eight editable combat skills: Athletics, Riding, One Handed, Two Handed, Polearm, Bow, Crossbow and Throwing
 
-Hold **Shift** to increase or decrease by 5 points at a time.
+Hold *Shift* to increase or decrease by 5 points at a time.
 
 ---
 
@@ -65,5 +65,5 @@ When XP costs are enabled and you lower a non-staged point, **XP is not refunded
 
 ## Context Restrictions
 
-Depending on your settings, editing may require being **in a settlement** or **in one of your fiefs** (clan/kingdom). If not allowed, you'll get a popup explaining the reason.
+Depending on your settings, editing may require being in a settlement or in one of your fiefs (clan/kingdom). If not allowed, you'll get a popup explaining the reason.
 

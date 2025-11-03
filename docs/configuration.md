@@ -27,7 +27,7 @@ Limits and costs for **converting** troops into retinues and **advancing** (rank
 | **Retinue Rank Up Cost Per Tier** | **Gold** charged **per retinue tier increase** (Rank Up). May also require sufficient **XP** and skill caps met. | 1000 | 0 | 1000 |
 | **Restrict Retinue Conversion To Fiefs** | If **On**, you may **manually convert** to retinues **only while in a (your) settlement/fief**. If **Off**, conversion can be done anywhere the editor allows. | Off | Off | On |
 
-> Tip: **Doctrines** (e.g., cap boosters) and your **party size** both influence how many retinues you can field.
+> Doctrines (e.g., cap boosters) and your party size both influence how many retinues you can field.
 
 ---
 
@@ -118,18 +118,18 @@ How gear gets unlocked into your equipment lists during play.
 | **Unlock From Culture** | If **On**, anything of your **troop's culture** is considered **available** (ignores kill/discard requirements). | Off | On | Off |
 | **All Equipment Unlocked** | If **On**, every item is **available** (ignores unlock rules). Great for testing/sandbox. | Off | On | Off |
 
-> With **Restrict Items To Town Inventory** also On, an item can be **unlocked** but still **unavailable** if the current town doesn't sell it.
+> With *Restrict Items To Town Inventory* also On, an item can be unlocked but still unavailable if the current town doesn't sell it.
 
 ---
 
 ## Skill Caps
 
-Per-tier **maximum value per skill**. Retinues get an extra **flat bonus** on top. Doctrines can add more.
+Per-tier maximum value per skill. Retinues get an extra flat bonus on top. Doctrines can add more.
 
-- **Retinue Skill Cap Bonus:** **+5** (Freeform: +50, Realistic: +0).  
+- **Retinue Skill Cap Bonus:** +5 (Freeform: +50, Realistic: +0).  
 - **Tier caps (defaults):**  
   - **T0** 20, **T1** 20, **T2** 50, **T3** 80, **T4** 120, **T5** 160, **T6** 260, **T7+** 360.  
-  - All caps can be raised up to **360**. **Freeform** sets **all** to 360.
+  - All caps can be raised up to 360. Freeform sets all to 360.
 
 **What it means:** a T3 troop with cap 80 cannot take a skill to 100 unless the cap is raised (by tiering up, retinue bonus, doctrines, or preset).
 
@@ -137,17 +137,17 @@ Per-tier **maximum value per skill**. Retinues get an extra **flat bonus** on to
 
 ## Skill Totals
 
-Per-tier **total points** you may distribute across all **eight combat skills**. Retinues get an extra **flat bonus**.
+Per-tier total points you may distribute across all eight combat skills. Retinues get an extra flat bonus.
 
 - **Retinue Skill Total Bonus:** **+10** (Freeform: +100, Realistic: +0).  
 - **Tier totals (defaults):**  
   - **T0** 90, **T1** 90, **T2** 210, **T3** 360, **T4** 535, **T5** 710, **T6** 915, **T7+** 1600.  
   - **Freeform** sets every tier to **1600**.
 
-**What it means:** totals are a **budget** that caps how many points you can spend overall, even if individual **skill caps** would allow more.
+**What it means:** totals are a budget that caps how many points you can spend overall, even if individual skill caps would allow more.
 
 ---
 
 ## Debug
 
-- **Debug Mode:** Prints **verbose logs** to help diagnose behavior (imports/exports, unlock ticks, training, etc.). Turn off for normal play.
+- **Debug Mode:** Prints verbose logs to help diagnose behavior (imports/exports, unlock ticks, training, etc.). Turn off for normal play.
