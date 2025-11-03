@@ -1,4 +1,9 @@
-# Configuration (Detailed)
+---
+title: Mod Configuration
+nav_order: 9
+---
+
+# Mod Configuration
 
 You can tune Retinues from the **Mod Configuration Menu (MCM)**. Options are grouped like the in-game sections below. Three global presets exist:
 

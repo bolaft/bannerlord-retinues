@@ -1,3 +1,8 @@
+---
+title: Retinues
+nav_order: 2
+---
+
 # Retinues
 
 Retinues are your **personal household troops**. You get **two** per faction you play with:

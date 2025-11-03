@@ -1,4 +1,9 @@
-# Cheats
+---
+title: Cheat Console
+nav_order: 11
+---
+
+# Cheat Console Commands
 
 Use these **Retinues** console commands to test builds, speed up progression, or recover from edge cases.  
 They all live under the `retinues` namespace in the in-game cheat console.
