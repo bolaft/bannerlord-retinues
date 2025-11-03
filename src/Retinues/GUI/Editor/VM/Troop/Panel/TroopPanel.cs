@@ -218,7 +218,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string RaceText => GetRaceName(State.Troop?.Race ?? -1) ?? L.S("unknown", "Unknown");
 
         [DataSourceProperty]
-        public bool CanChangeRace => HasAlternateRace();
+        public bool CanChangeRace => FaceGen.GetRaceCount() > 1;
 
         [DataSourceProperty]
         public string TierText
@@ -853,8 +853,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(candidate);
         }
-
-        private static bool HasAlternateRace() => FaceGen.GetRaceCount() > 1;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
