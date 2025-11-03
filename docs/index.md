@@ -18,7 +18,7 @@ All mod features live in the **Clan → Troops** tab. Open your Clan screen and 
 ## Troop Types
 
 - **Retinues:** special personal troops available right away.  
-  They **start weak** but can become the best troops in the game with time, money, and effort.
+  They start weak but can become the best troops in the game with time, money, and effort.
 
   → See: [Retinues](./retinues.md)
 

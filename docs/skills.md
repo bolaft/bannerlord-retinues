@@ -33,7 +33,7 @@ Both scale with **tier**. Retinues also adds bonuses:
 
 - Each +1 costs XP: `base + (per_point * current_value)`
 - When you click **+**, Retinues either:
-  - Applies immediately (default mode), spending XP at once, or
+  - **Applies immediately** (default mode), spending XP at once, or
   - **Stages** the point (if “training takes time” is enabled).
 
 > See: [Experience](./experience.md)

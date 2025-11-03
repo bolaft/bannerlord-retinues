@@ -51,7 +51,7 @@ If for any reason you need to get rid of them, you need to release them by conve
 
 ## Ranking Up
 
-Retinues can rank up** through tiers. Ranking up:
+Retinues can rank up through tiers. Ranking up:
 - **Raises their tier**, increasing their potential strength and skill caps.
 - **Costs gold** (and **XP** if troop XP is enabled in your settings).
 - Requires the retinue's skills to be **maxed** for the current tier first.
