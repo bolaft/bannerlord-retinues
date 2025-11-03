@@ -201,7 +201,7 @@
       text="自定义部队已解锁" />
     <string
       id="ret_docs_body"
-      text="这将打开您的网络浏览器以查看随从文档。继续？" />
+      text="这将在您的默认网络浏览器中打开随从文档。{newline}{newline}继续？" />
     <string
       id="ret_docs_title"
       text="打开文档" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="您必须在一个定居点才能{ACTION}这支部队。" />
+    <string
+      id="ret_open_browser_fail"
+      text="无法打开浏览器。网址：{URL}" />
     <string
       id="ret_parent_skill"
       text="不能低于父级{PARENT}的技能水平。" />

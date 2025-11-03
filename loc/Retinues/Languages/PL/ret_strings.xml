@@ -201,7 +201,7 @@
       text="Niestandardowe Oddziały Odblokowane" />
     <string
       id="ret_docs_body"
-      text="Spowoduje to otwarcie przeglądarki internetowej z dokumentacją Orszaku. Kontynuować?" />
+      text="To otworzy dokumentację orszaków w domyślnej przeglądarce internetowej.{newline}{newline}Kontynuować?" />
     <string
       id="ret_docs_title"
       text="Otwórz Dokumentację" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Musisz być w osadzie, aby {ACTION} tę jednostkę." />
+    <string
+      id="ret_open_browser_fail"
+      text="Nie udało się otworzyć przeglądarki. URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="Nie można zejść poniżej poziomu umiejętności rodzica {PARENT}." />

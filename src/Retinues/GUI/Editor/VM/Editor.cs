@@ -207,7 +207,7 @@ namespace Retinues.GUI.Editor.VM
             // Confirmation dialog
             var inquiry = new InquiryData(
                 titleText: L.S("docs_title", "Open Documentation"),
-                text: L.S("docs_body", "This will open your web browser to the Retinues documentation. Continue?"),
+                text: L.S("docs_body", "This will open the Retinues documentation in your default web browser.\n\nContinue?"),
                 isAffirmativeOptionShown: true,
                 isNegativeOptionShown: true,
                 affirmativeText: GameTexts.FindText("str_ok").ToString(),
@@ -232,7 +232,7 @@ namespace Retinues.GUI.Editor.VM
             }
             catch (Exception ex)
             {
-                InformationManager.DisplayMessage(new InformationMessage($"Failed to open browser. URL: {url}"));
+                InformationManager.DisplayMessage(new InformationMessage(L.T("open_browser_fail", "Failed to open browser. URL: {URL}").SetTextVariable("URL", url).ToString()));
                 // Replace with your logger if different:
                 Log.Error($"Failed to open URL '{url}': {ex}");
             }

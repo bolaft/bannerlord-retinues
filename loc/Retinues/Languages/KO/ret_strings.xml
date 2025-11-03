@@ -201,7 +201,7 @@
       text="사용자 지정 부대 잠금 해제" />
     <string
       id="ret_docs_body"
-      text="이렇게 하면 웹 브라우저에서 수행원 문서가 열립니다. 계속하시겠습니까?" />
+      text="기본 웹 브라우저에서 수행원 문서가 열립니다.{newline}{newline}계속하시겠습니까?" />
     <string
       id="ret_docs_title"
       text="문서 열기" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="정착지에 있어야 {ACTION} 이 부대를 할 수 있습니다." />
+    <string
+      id="ret_open_browser_fail"
+      text="브라우저를 열지 못했습니다. URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="부모 {PARENT}의 기술 수준 아래로 내려갈 수 없습니다." />
