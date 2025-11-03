@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Tropas Personalizadas Desbloqueadas" />
     <string
+      id="ret_docs_body"
+      text="Isto abrirá o seu navegador para a documentação dos Séquitos. Continuar?" />
+    <string
+      id="ret_docs_title"
+      text="Abrir Documentação" />
+    <string
       id="ret_doctrine_costs"
       text="Custo: {GOLD} Ouro, {INFLUENCE} Influência." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="Séquitos" />
+    <string
+      id="ret_editor_help_text"
+      text="Ajuda" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="Abra a documentação online de Séquitos." />
     <string
       id="ret_empty_item"
       text="Vazio" />

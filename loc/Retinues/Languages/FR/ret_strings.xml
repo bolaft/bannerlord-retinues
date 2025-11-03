@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Troupes Personnalisées Débloquées" />
     <string
+      id="ret_docs_body"
+      text="Cela ouvrira la documentation en ligne. Continuer ?" />
+    <string
+      id="ret_docs_title"
+      text="Ouvrir la Documentation" />
+    <string
       id="ret_doctrine_costs"
       text="Coût : {GOLD} or, {INFLUENCE} influence." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="Rétinues" />
+    <string
+      id="ret_editor_help_text"
+      text="Aide" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="Ouvre la documentation en ligne." />
     <string
       id="ret_empty_item"
       text="Vide" />
