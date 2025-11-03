@@ -16,6 +16,7 @@ In the **Troops** tab, select a unit and open its **Editor panel** (right side).
 - **Name:** edit the displayed name directly.
 - **Culture:** choose any vanilla or modded culture.  
   Changing culture also updates the character's appearance to match that culture's visual presets (hair, beard, tattoos, etc., as available).
+- **Race:** if Retinues runs alongside a mod that adds new playable non-human creatures, such as elves, giants, undead etc., you can also assign any modded race to the troop.
 
 > Culture choice also interacts with certain equipment unlock rules (see your MCM options and the Equipment page).
 
