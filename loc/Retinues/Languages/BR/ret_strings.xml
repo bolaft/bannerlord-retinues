@@ -201,7 +201,7 @@
       text="Tropas Personalizadas Desbloqueadas" />
     <string
       id="ret_docs_body"
-      text="Isto abrirá o seu navegador para a documentação dos Séquitos. Continuar?" />
+      text="Isto abrirá a documentação dos Séquitos no seu navegador padrão.{newline}{newline}Continuar?" />
     <string
       id="ret_docs_title"
       text="Abrir Documentação" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Você deve estar em um assentamento para {ACTION} esta tropa." />
+    <string
+      id="ret_open_browser_fail"
+      text="Falha ao abrir o navegador. URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="Não pode ficar abaixo do nível de habilidade do pai {PARENT}." />

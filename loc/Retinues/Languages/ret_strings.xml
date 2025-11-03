@@ -201,7 +201,7 @@
       text="Custom Troops Unlocked" />
     <string
       id="ret_docs_body"
-      text="This will open your web browser to the Retinues documentation. Continue?" />
+      text="This will open the Retinues documentation in your default web browser.{newline}{newline}Continue?" />
     <string
       id="ret_docs_title"
       text="Open Documentation" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="You must be in a settlement to {ACTION} this troop." />
+    <string
+      id="ret_open_browser_fail"
+      text="Failed to open browser. URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="Cannot go below parent {PARENT}&apos;s skill level." />

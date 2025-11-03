@@ -201,7 +201,7 @@
       text="カスタム部隊のアンロック完了" />
     <string
       id="ret_docs_body"
-      text="これにより、随伴兵のドキュメントがウェブブラウザで開きます。続行しますか？" />
+      text="これにより、既定のWebブラウザーで随伴兵のドキュメントが開きます。{newline}{newline}続行しますか？" />
     <string
       id="ret_docs_title"
       text="ドキュメントを開く" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="居住地にいて{ACTION}この部隊を行う必要があります。" />
+    <string
+      id="ret_open_browser_fail"
+      text="ブラウザを開けませんでした。URL: {URL}" />
     <string
       id="ret_parent_skill"
       text="親{PARENT}のスキルレベルを下回ることはできません。" />

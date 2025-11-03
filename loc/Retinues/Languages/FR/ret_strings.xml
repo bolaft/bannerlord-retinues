@@ -201,7 +201,7 @@
       text="Troupes Personnalisées Débloquées" />
     <string
       id="ret_docs_body"
-      text="Cela ouvrira la documentation en ligne. Continuer ?" />
+      text="Cela ouvrira la documentation de Retinues dans le navigateur web par défaut.{newline}{newline}Continuer ?" />
     <string
       id="ret_docs_title"
       text="Ouvrir la Documentation" />
@@ -826,6 +826,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Vous devez être dans un établissement pour {ACTION} cette troupe." />
+    <string
+      id="ret_open_browser_fail"
+      text="Échec de l’ouverture du navigateur. URL : {URL}" />
     <string
       id="ret_parent_skill"
       text="Ne peut pas descendre en dessous du niveau de compétence du parent {PARENT}." />
