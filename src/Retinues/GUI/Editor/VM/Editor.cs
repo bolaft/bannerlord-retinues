@@ -197,7 +197,7 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceMethod]
         public void ExecuteShowHelp()
         {
-            const string url = "https://your.docs.link/here";
+            const string url = "https://bolaft.github.io/bannerlord-retinues/";
 
             // Confirmation dialog
             var inquiry = new InquiryData(
