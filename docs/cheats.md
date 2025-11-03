@@ -78,7 +78,7 @@ Export or import all **custom troop roots** to/from a single XML file.
   ```
   retinues.set_stock <itemId> <count>
   ```
-  Directly sets the tracked **stock** for an item (useful if you’re playing with town-inventory restrictions or stock-sensitive rules).
+  Directly sets the tracked **stock** for an item (useful if you're playing with town-inventory restrictions or stock-sensitive rules).
 
 ---
 
@@ -90,7 +90,7 @@ Browse, advance, or complete feats that gate certain doctrine bonuses.
   ```
   retinues.feat_list
   ```
-  Prints every doctrine, its feats, and each feat’s current/target progress.
+  Prints every doctrine, its feats, and each feat's current/target progress.
 
 - **Advance a feat by amount (default 1)**
   ```

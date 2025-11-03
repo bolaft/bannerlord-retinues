@@ -39,7 +39,7 @@ Control where/how custom volunteers appear and who can recruit them across the w
 |---|---|---:|---:|---:|
 | **Volunteer Swap Proportion** | Fraction **0.0–1.0** of vanilla volunteer slots replaced by your **custom** volunteers in eligible settlements. **1.0** = fully swapped; **0.5** = half of the volunteers are custom (rounded by slot). | 1.0 | 1.0 | 1.0 |
 | **Recruit Clan Troops Anywhere** | If **On**, the player can recruit **clan** custom troops in **any** settlement (not only “owned/affiliated”). If **Off**, recruitment is more restrictive/organic. | Off | On | Off |
-| **Swap Volunteers Only For Correct Culture** | If **On**, a settlement’s volunteers are swapped **only if the settlement culture matches** the troop’s culture. If **Off**, swaps can happen regardless of culture. | Off | Off | On |
+| **Swap Volunteers Only For Correct Culture** | If **On**, a settlement's volunteers are swapped **only if the settlement culture matches** the troop's culture. If **Off**, swaps can happen regardless of culture. | Off | Off | On |
 | **Clan Troops Over Kingdom Troops** | When both **clan** and **kingdom** trees are available, prioritize **clan** volunteers for settlements tied to you. Turning **Off** prioritizes kingdom lines. | On | Off | On |
 | **No Kingdom Troops** | If **On**, disables the **kingdom** layer entirely (only **clan** troops exist). Useful for simpler runs. | Off | Off | Off |
 | **Vassal Lords Recruit Custom Troops** | If **On**, **your vassals** can recruit your custom troops (world simulation picks from your trees for their parties). | On | On | On |
@@ -112,13 +112,13 @@ How gear gets unlocked into your equipment lists during play.
 |---|---|---:|---:|---:|
 | **Unlock From Kills** | If **On**, **played battle** victories add unlock **progress** for the **exact items** seen on defeated enemies. | On | Off | On |
 | **Required Kills For Unlock** | Progress **threshold** (count) per item to fully unlock via kills. Higher = slower. | 100 | 100 | 200 |
-| **Unlock From Discarded Items** | If **On**, discarding items adds unlock **progress** toward that item’s threshold. | On | Off | On |
+| **Unlock From Discarded Items** | If **On**, discarding items adds unlock **progress** toward that item's threshold. | On | Off | On |
 | **Required Discarded Items For Unlock** | **Count** of discards needed to unlock via discard route. | 10 | 10 | 20 |
 | **Own Culture Unlock Bonuses** | If **On**, items matching your **clan/kingdom culture** gain **bonus progress** (and sometimes share progress across similar items), speeding up culture-faithful kits. | On | On | Off |
-| **Unlock From Culture** | If **On**, anything of your **troop’s culture** is considered **available** (ignores kill/discard requirements). | Off | On | Off |
+| **Unlock From Culture** | If **On**, anything of your **troop's culture** is considered **available** (ignores kill/discard requirements). | Off | On | Off |
 | **All Equipment Unlocked** | If **On**, every item is **available** (ignores unlock rules). Great for testing/sandbox. | Off | On | Off |
 
-> With **Restrict Items To Town Inventory** also On, an item can be **unlocked** but still **unavailable** if the current town doesn’t sell it.
+> With **Restrict Items To Town Inventory** also On, an item can be **unlocked** but still **unavailable** if the current town doesn't sell it.
 
 ---
 

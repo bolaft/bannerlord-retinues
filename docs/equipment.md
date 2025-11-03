@@ -40,21 +40,21 @@ What appears in the item list depends on your **rules** and **progress**:
 ### Global unlocks (MCM)
 - **All Equipment Unlocked:** see everything.
 - **Restrict to Town Inventory:** only items **sold in the current settlement** are marked *available*.
-- **Unlock from Culture:** items matching the **troop’s culture** are available.
+- **Unlock from Culture:** items matching the **troop's culture** are available.
 - **Unlock from Kills:** defeating enemies with an item progresses its unlock. At the threshold, it becomes unlocked.
 - **Unlock from Discards:** discarding items in inventory adds progress toward the threshold.
-- **Own-culture bonuses:** your clan culture can earn bonus unlock progress from other cultures’ unlocks.
+- **Own-culture bonuses:** your clan culture can earn bonus unlock progress from other cultures' unlocks.
 
 ### Doctrines that influence availability
 - **Clanic Traditions:** enables **crafted** weapons to appear (only latest variant per design).
 - **Ancestral Heritage:** items of your **clan/kingdom culture** can be treated as available.
-- **Pragmatic Scavengers / Battlefield Tithes / Lion’s Share:** modify which kills count (see *Unlocks from kills* below).
+- **Pragmatic Scavengers / Battlefield Tithes / Lion's Share:** modify which kills count (see *Unlocks from kills* below).
 
 ### Unlocks from kills (played battles)
 At the end of a **victory you played**, the game counts **equipped items** found on defeated enemies and adds progress toward unlocking those items. Doctrine effects:
 - **Pragmatic Scavengers:** also count **ally casualties** (their gear).
 - **Battlefield Tithes:** allow **ally killers** to contribute.
-- **Lion’s Share:** **player kills** count **double**.
+- **Lion's Share:** **player kills** count **double**.
 
 A modal summary pops up when **new items unlock**.
 
@@ -72,9 +72,9 @@ The editor shows **In Stock (n)** for items you own. Equipping from **stock** do
 
 If **Pay for Equipment** is on, items without stock have a **gold cost**:
 - Base cost = item value × **Equipment Price Modifier** (MCM).
-- **Royal Patronage** doctrine: **-10%** cost **for items of your kingdom’s culture**.
+- **Royal Patronage** doctrine: **-10%** cost **for items of your kingdom's culture**.
 
-If you have enough gold, you’ll get a **buy confirmation**; confirm to purchase and equip.
+If you have enough gold, you'll get a **buy confirmation**; confirm to purchase and equip.
 
 ---
 
@@ -96,11 +96,11 @@ You can run in two styles (MCM):
 
 ## Requirements & Blocks
 
-An item row shows why it’s disabled, for example:
+An item row shows why it's disabled, for example:
 
-- **Not in town:** restricted by **Restrict to Town Inventory** and the settlement doesn’t sell it.
-- **Unlocking (x%):** progress from kills/discards hasn’t reached the threshold yet.
-- **Skill requirement:** troop’s skill is below the item’s **difficulty** in its **relevant skill**.
+- **Not in town:** restricted by **Restrict to Town Inventory** and the settlement doesn't sell it.
+- **Unlocking (x%):** progress from kills/discards hasn't reached the threshold yet.
+- **Skill requirement:** troop's skill is below the item's **difficulty** in its **relevant skill**.
 - **Tier too high:** difference to troop **Tier** exceeds your **Allowed Tier Difference** (MCM). The **Ironclad** doctrine relaxes this.
 - **Not civilian:** trying to equip a **non-civilian** item into the **Civilian** set.
 

@@ -5,7 +5,7 @@ nav_order: 10
 
 # Import & Export
 
-This guide explains how to **export** all your custom troop roots to a single XML file and how to **import** them back into another save (or after a reset).
+Here is how to **export** all your custom troop roots to a single XML file and how to **import** them back into another save (or after a reset).
 
 > Exports/Imports deal with **root troop definitions** (your custom Regular/Elite roots, retinues roots, and their trees).
 
@@ -16,13 +16,13 @@ This guide explains how to **export** all your custom troop roots to a single XM
 - **Folder:** `Modules/Retinues/Exports/`
 - **Default names:**
   - From **MCM Export button:** `troops_YYYY_MM_DD_HH_mm.xml` (timestamped suggestion)
-  - From **Console command:** `custom_troops.xml` if you don’t provide a name
+  - From **Console command:** `custom_troops.xml` if you don't provide a name
 
 You can safely create your own file names; the mod will add `.xml` if missing.
 
 ---
 
-## Method 1 — Using Mod Options (MCM)
+## Method 1: Using Mod Options (MCM)
 
 Open **Options → Mod Options → Retinues**.
 
@@ -45,9 +45,9 @@ Open **Options → Mod Options → Retinues**.
 
 ---
 
-## Method 2 — Using the Console
+## Method 2: Using the Console
 
-> You’ll need to have enabled the cheat console. Commands live under the `retinues` namespace.
+> You'll need to have enabled the cheat console. Commands live under the `retinues` namespace.
 
 ### Export command
 

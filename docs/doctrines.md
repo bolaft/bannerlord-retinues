@@ -5,7 +5,7 @@ nav_order: 8
 
 # Feats & Doctrines
 
-**Doctrines** are long-term perks that enhance your retinues and faction troops as you play. They’re organized in a **grid** with rows, columns, and **prerequisites**. As you complete **feats**, you unlock new doctrines.
+**Doctrines** are long-term perks that enhance your retinues and faction troops as you play. They're organized in a **grid** with rows, columns, and **prerequisites**. As you complete **feats**, you unlock new doctrines.
 
 > Open them from **Clan → Troops → Doctrines**.
 
@@ -38,7 +38,7 @@ nav_order: 8
 
 - **Retinue-Focused Feats:** reward you for fielding and improving your **Basic/Elite Retinues**.
 
-You’ll get **on-screen notifications** as feats progress or complete.
+You'll get **on-screen notifications** as feats progress or complete.
 
 ---
 

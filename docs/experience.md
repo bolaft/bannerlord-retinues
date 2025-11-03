@@ -13,13 +13,13 @@ This XP is not the same as vanilla XP which is calculated separately, and is use
 ## XP Sources
 
 ### 1) Played Battles (on mission end)
-When you **fight the battle yourself**, your **custom** player-side troops gain XP **per valid kill**, scaled by the **victim’s tier**. The XP is awarded **after the battle ends**. (Autoresolve rules are separate; see below.)
+When you **fight the battle yourself**, your **custom** player-side troops gain XP **per valid kill**, scaled by the **victim's tier**. The XP is awarded **after the battle ends**. (Autoresolve rules are separate; see below.)
 
 ### 2) Simulated/Autoresolved Battles
-When a battle is **simulated**, your custom troops (including those present in allied parties) receive a **smaller, proportional XP grant** based on the enemy forces and your side’s troop counts **snapshotted at battle start**. This keeps autoresolve competitive without eclipsing played battles.
+When a battle is **simulated**, your custom troops (including those present in allied parties) receive a **smaller, proportional XP grant** based on the enemy forces and your side's troop counts **snapshotted at battle start**. This keeps autoresolve competitive without eclipsing played battles.
 
 ### 3) Daily Training
-Each in-game day, your **main party’s** custom troops gain **training XP** derived from the vanilla training model, at a **reduced fraction**.
+Each in-game day, your **main party's** custom troops gain **training XP** derived from the vanilla training model, at a **reduced fraction**.
 
 > Note: Only **custom** troops managed by Retinues receive XP from these systems. Vanilla troops keep using vanilla rules.
 
@@ -28,11 +28,11 @@ Each in-game day, your **main party’s** custom troops gain **training XP** der
 ## Spending XP
 
 ### Skill Increases
-Raising a skill consumes **XP** that scales with the skill’s **current value**.  
+Raising a skill consumes **XP** that scales with the skill's **current value**.  
   → See: [Skills](./skills.md)
 
 ### Rank Up (Retinues)
-Ranking up a **retinue** spends **gold** and also deducts from the troop’s **XP pool**. Make sure both requirements are met before ranking up.
+Ranking up a **retinue** spends **gold** and also deducts from the troop's **XP pool**. Make sure both requirements are met before ranking up.  
   → See: [Retinues](./retinues.md)
 
 ---
