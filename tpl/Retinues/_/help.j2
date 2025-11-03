@@ -1,0 +1,33 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--          Help         -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Right" VerticalAlignment="Top"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginRight="40" MarginTop="10">
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            Brush="Clan.Tuple.Name.Text" Brush.FontSize="32"
+            MarginRight="8"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Text="@HelpText"/>
+        <ButtonWidget
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            SuggestedWidth="60" SuggestedHeight="60"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            Brush="DescriptionButtonToggleBrush"
+            Command.Click="ExecuteShowHelp">
+            <Children>
+                <HintWidget
+                    DataSource="{HelpHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </ButtonWidget>
+    </Children>
+</ListPanel>

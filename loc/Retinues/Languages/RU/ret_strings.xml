@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Пользовательские войска разблокированы" />
     <string
+      id="ret_docs_body"
+      text="Это откроет ваш веб-браузер с документацией по свите. Продолжить?" />
+    <string
+      id="ret_docs_title"
+      text="Открыть документацию" />
+    <string
       id="ret_doctrine_costs"
       text="Стоимость: {GOLD} Золото, {INFLUENCE} Влияние." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="Свита" />
+    <string
+      id="ret_editor_help_text"
+      text="Помощь" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="Откройте онлайн-документацию по свите." />
     <string
       id="ret_empty_item"
       text="Пусто" />

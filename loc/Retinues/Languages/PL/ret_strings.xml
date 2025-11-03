@@ -200,6 +200,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Niestandardowe Oddziały Odblokowane" />
     <string
+      id="ret_docs_body"
+      text="Spowoduje to otwarcie przeglądarki internetowej z dokumentacją Orszaku. Kontynuować?" />
+    <string
+      id="ret_docs_title"
+      text="Otwórz Dokumentację" />
+    <string
       id="ret_doctrine_costs"
       text="Koszt: {GOLD} Złoto, {INFLUENCE} Wpływy." />
     <string
@@ -220,6 +226,12 @@
     <string
       id="ret_doctrines_col_3"
       text="Orszak" />
+    <string
+      id="ret_editor_help_text"
+      text="Pomoc" />
+    <string
+      id="ret_editor_help_tooltip_text"
+      text="Otwórz dokumentację Retinues online." />
     <string
       id="ret_empty_item"
       text="Puste" />
