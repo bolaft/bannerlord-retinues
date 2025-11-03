@@ -1,4 +1,4 @@
-# Quick Start
+# 1) Overview
 
 All mod features live in the **Clan → Troops** tab. Open your Clan screen and select **Troops** to access everything.
 

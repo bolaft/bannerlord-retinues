@@ -1,4 +1,4 @@
-# Skills
+# 5) Improving Skills
 
 Troop **skills** define combat aptitude and item requirements. In Retinues, you can train, cap, and manage skills directly from the **Troops** tab.
 

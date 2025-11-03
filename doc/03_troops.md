@@ -1,4 +1,4 @@
-# Clan & Kingdom Troops
+# 3) Clan & Kingdom Troops
 
 There are two kinds of faction-bound troops you can build with Retinues:
 - **Clan Troops** (tied to your **clan**)

@@ -1,4 +1,4 @@
-# Experience (XP)
+# 4) Earning and Spending Experience
 
 Troops in **Retinues** gain, spend, and (sometimes) refund **XP**.
 This XP is not the same as vanilla XP which is calculated separately, and is used to improve custom troops.
