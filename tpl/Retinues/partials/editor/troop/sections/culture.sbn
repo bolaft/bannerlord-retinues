@@ -32,12 +32,14 @@
         </ListPanel>
 
         <BrushWidget
+            IsVisible="@CanChangeRace"
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
             SuggestedWidth="25"
             Brush="Inventory.Tuple.TupleDivider.Vertical"/>
 
         <ListPanel
+            IsVisible="@CanChangeRace"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="VerticalTopToBottom"
