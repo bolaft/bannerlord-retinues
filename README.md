@@ -3,9 +3,9 @@
 Retinues is a custom troop mod for **Mount & Blade II: Bannerlord**.  
 It adds flexible troop customization and supporting mechanics designed to fit seamlessly into any playthrough.
 
-[**Player Manual →**](https://bolaft.github.io/bannerlord-retinues/)
-[**Nexus Mods →**](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847)
-[**Steam Workshop →**](https://steamcommunity.com/sharedfiles/filedetails/?id=3592533567)
+[**→ Player Manual**](https://bolaft.github.io/bannerlord-retinues/)
+[**→ Nexus Mods**](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847)
+[**→ Steam Workshop**](https://steamcommunity.com/sharedfiles/filedetails/?id=3592533567)
 
 ---
 
