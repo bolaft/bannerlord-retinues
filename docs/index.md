@@ -44,6 +44,6 @@ This manual will help you use, configure, and troubleshoot the **Retinues** mod 
 
 ## Stuck?
 
-- **Troubleshooting guide** (quick fixes, load order, feature toggles) → [Troubleshooting](./troubleshooting.md)
-- **Report a bug** (best way to get your issue fixed quickly) → [Bug Reports](./bugs.md)
-- **Uninstalling** (full steps to safely remove Retinues from your save) → [Uninstalingl](./uninstall.md)
+- **Troubleshooting guide:** Quick fixes, load order, feature toggles → [Troubleshooting](./troubleshooting.md)
+- **Report a bug:** Best way to get your issue fixed quickly → [Bug Reports](./bugs.md)
+- **Uninstalling:** Full steps to safely remove Retinues from your save → [Uninstalling](./uninstall.md)
