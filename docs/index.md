@@ -13,15 +13,11 @@ This manual will help you use, configure, and troubleshoot the **Retinues** mod 
 
 ## Quick Start
 
-- **What is Retinues?** Customize your clan/kingdom troops with editable equipment, skills, and upgrade paths.  
-- **Works on existing saves** (new game recommended for the intended experience).
-
-> 🐞 Did you encounter a **bug**? If so please checkout the [Reporting a Bug](./bugs.md) section so it can be fixed quickly.
-
-### Setup
 1. Install/enable the mod and dependencies (Harmony, MCM, Butterlib and UIExtenderEx).
 3. Open **Clan → Troops** to edit troops, equipment, and skills.
 4. If any issues arise, see [Troubleshooting](./troubleshooting.md).
+
+> 🐞 Did you encounter a **bug**? If so please checkout the [Reporting a Bug](./bugs.md) section so it can be fixed quickly.
 
 ---
 
