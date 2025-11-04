@@ -7,7 +7,7 @@ nav_order: 11
 
 Many problems can be solved by toggling options in the **Mod Configuration Menu (MCM)** or by using a few **cheats** to repair state.
 
-> If you still need help after trying these, please see **[Bug Reports](bugs.md)** to submit a report.
+> If you still need help after trying these, please see [Bug Reports](bugs.md) to submit a report.
 
 ---
 
@@ -29,7 +29,7 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 **A:** You may have a mod conflict; you can unlock the feat using the cheat console (see below).
 
 **Q: I want to uninstall Retinues but now my save crashes.**
-**A:** Follow the steps in the **[Uninstall](uninstall.md)** section.
+**A:** Follow the steps in the [Uninstall](uninstall.md) section.
 
 ---
 
@@ -70,7 +70,7 @@ Use the in-game cheat console (namespace `retinues`). Common commands:
   - `retinues.export_custom_troops [fileName]`
   - `retinues.import_custom_troops <fileName>`
 
-See **[Cheat Console](cheats.md)** for full syntax and examples.
+See [Cheat Console](cheats.md) for full syntax and examples.
 
 ---
 
@@ -84,4 +84,4 @@ See **[Cheat Console](cheats.md)** for full syntax and examples.
 
 ## Still stuck?
 
-- See **[Bug Reports](bugs.md)** to open a ticket.
+- See [Bug Reports](bugs.md) to open a ticket.
