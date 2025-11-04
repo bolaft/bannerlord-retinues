@@ -8,7 +8,7 @@ RUN_MAIN="true"
 RUN_PREFABS="true"
 RUN_STRINGS="true"
 RELEASE_PATCH="" # when set, force "release" and bump last version segment
-MODULE="Retinues" # default; --mtm flips to MudToMail
+MODULE="Retinues" # default
 
 # Print a framed header with lines of '=' above and below and a blank line before/after.
 # Usage: print_header "=   Some Header   ="
@@ -28,7 +28,6 @@ Usage:
   ./build.sh [options]
 
 Options:
-      --mtm             Build the MudToMail companion module instead of Retinues
       --no-deploy       Do not copy to game Modules
       --prefabs         Only run prefabs generation
       --no-prefabs      Skip prefabs generation
@@ -44,7 +43,6 @@ USAGE
 # Parse args
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --mtm) MODULE="MudToMail"; shift;;
     -v|--version) BL="$2"; shift 2;;
     --no-deploy) DEPLOY="false"; shift;;
     --prefabs) RUN_MAIN="false"; RUN_STRINGS="false"; shift;;

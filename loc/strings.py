@@ -215,7 +215,7 @@ def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
 def main():
     # Pick module (defaults to Retinues); paths adjust accordingly
     ap = argparse.ArgumentParser()
-    ap.add_argument("--module", default="Retinues", help="Module name: Retinues or MudToMail")
+    ap.add_argument("--module", default="Retinues", help="Module name: default to Retinues")
     args = ap.parse_args()
 
     script_dir = Path(__file__).resolve().parent
