@@ -14,7 +14,7 @@ namespace Retinues.Features.Unlocks.Behaviors
     /// Applies doctrine modifiers and counts equipped items on defeated agents.
     /// </summary>
     [SafeClass]
-    public sealed class UnlocksMissionBehavior : Combat
+    public class UnlocksMissionBehavior : Combat
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //

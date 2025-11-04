@@ -1,258 +1,50 @@
-using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game.Wrappers;
-using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Game.Helpers.Character
 {
     /// <summary>
-    /// Helper for custom troops. Handles ID building, parsing, graph navigation, and wrapper convenience for custom troop logic.
+    /// Helper for custom troops.
     /// </summary>
     public sealed class CustomCharacterHelper : CharacterHelperBase, ICharacterHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Build / Resolve                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Build a custom troop ID from flags and path.
-        /// </summary>
-        private string BuildId(
-            bool isKingdom,
-            bool isElite,
-            bool isRetinue,
-            bool isMilitiaMelee,
-            bool isMilitiaRanged,
-            IReadOnlyList<int> path
-        )
-        {
-            var scope = isKingdom ? "kingdom" : "clan";
-            var kind = isElite ? "elite" : "basic";
-
-            string token;
-            if (isRetinue)
-                token = "retinue";
-            else if (isMilitiaMelee)
-                token = "mmilitia";
-            else if (isMilitiaRanged)
-                token = "rmilitia";
-            else
-                token = BuildTokenForPath(path);
-
-            return $"ret_{scope}_{kind}_{token}";
-        }
-
-        /// <summary>
-        /// Get a CharacterObject by custom troop flags and path.
-        /// </summary>
-        public CharacterObject GetCharacterObject(
-            bool isKingdom,
-            bool isElite,
-            bool isRetinue,
-            bool isMilitiaMelee,
-            bool isMilitiaRanged,
-            IReadOnlyList<int> path = null
-        ) =>
-            GetCharacterObject(
-                BuildId(isKingdom, isElite, isRetinue, isMilitiaMelee, isMilitiaRanged, path)
-            );
-
-        /// <summary>
-        /// Get a CharacterObject by custom troop ID.
-        /// </summary>
-        public CharacterObject GetCharacterObject(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-                return null;
-            return TaleWorlds.ObjectSystem.MBObjectManager.Instance.GetObject<CharacterObject>(id);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Public API                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Returns true if the ID is a custom troop.
-        /// </summary>
-        public bool IsCustom(string id) => id != null && id.Contains("ret_");
+        public bool IsRetinue(WCharacter node) => Player.RetinueTroops.Contains(node);
 
-        /// <summary>
-        /// Returns true if the ID is a retinue troop.
-        /// </summary>
-        public bool IsRetinue(string id) => ExtractToken(id) == "retinue";
+        public bool IsMilitiaMelee(WCharacter node) => Player.MilitiaMeleeTroops.Contains(node);
 
-        /// <summary>
-        /// Returns true if the ID is a melee militia troop.
-        /// </summary>
-        public bool IsMilitiaMelee(string id) => ExtractToken(id) == "mmilitia";
+        public bool IsMilitiaRanged(WCharacter node) => Player.MilitiaRangedTroops.Contains(node);
 
-        /// <summary>
-        /// Returns true if the ID is a ranged militia troop.
-        /// </summary>
-        public bool IsMilitiaRanged(string id) => ExtractToken(id) == "rmilitia";
+        public bool IsElite(WCharacter node) => Player.EliteTroops.Contains(node);
 
-        /// <summary>
-        /// Returns true if the ID is an elite troop.
-        /// </summary>
-        public bool IsElite(string id) => id != null && id.Contains("_elite_");
+        public bool IsKingdom(WCharacter node) => Player.Kingdom.Troops.Contains(node);
 
-        /// <summary>
-        /// Returns true if the ID is a kingdom troop.
-        /// </summary>
-        public bool IsKingdom(string id) => id != null && id.Contains("_kingdom_");
+        public bool IsClan(WCharacter node) => Player.Clan.Troops.Contains(node);
 
-        /// <summary>
-        /// Returns true if the ID is a clan troop.
-        /// </summary>
-        public bool IsClan(string id) => id != null && id.Contains("_clan_");
-
-        /// <summary>
-        /// Gets the path (upgrade tree) for a custom troop ID.
-        /// </summary>
-        public IReadOnlyList<int> GetPath(string id)
-        {
-            var token = ExtractToken(id);
-            if (string.IsNullOrEmpty(token) || token == "retinue")
-                return [];
-            if (token == "r")
-                return [];
-
-            var path = new List<int>(token.Length);
-            foreach (var ch in token)
-            {
-                if (ch == '0')
-                    path.Add(0);
-                else if (ch == '1')
-                    path.Add(1);
-                else
-                    break;
-            }
-            return path;
-        }
-
-        /// <summary>
-        /// Resolves the faction for a custom troop ID.
-        /// </summary>
-        public WFaction ResolveFaction(string id)
-        {
-            if (IsKingdom(id))
-                return Player.Kingdom;
-            return IsClan(id) ? Player.Clan : null;
-        }
-
-        /// <summary>
-        /// Gets the parent ID for a custom troop (null for retinues or roots).
-        /// </summary>
-        public string GetParentId(string id)
-        {
-            if (IsRetinue(id))
-                return null; // retinues are leaves
-
-            var path = GetPath(id);
-            if (path.Count == 0)
-                return null; // already root
-
-            var parentPath = path.Take(path.Count - 1).ToList();
-            return BuildId(
-                IsKingdom(id),
-                IsElite(id),
-                isRetinue: false,
-                isMilitiaMelee: false,
-                isMilitiaRanged: false,
-                parentPath
-            );
-        }
-
-        /// <summary>
-        /// Gets the child IDs for a custom troop.
-        /// </summary>
-        public IEnumerable<string> GetChildrenIds(string id)
-        {
-            if (IsRetinue(id))
-                yield break;
-
-            var path = GetPath(id);
-
-            yield return BuildId(
-                IsKingdom(id),
-                IsElite(id),
-                isRetinue: false,
-                isMilitiaMelee: false,
-                isMilitiaRanged: false,
-                [.. path, .. new[] { 0 }]
-            );
-
-            yield return BuildId(
-                IsKingdom(id),
-                IsElite(id),
-                isRetinue: false,
-                isMilitiaMelee: false,
-                isMilitiaRanged: false,
-                [.. path, .. new[] { 1 }]
-            );
-        }
+        public WFaction ResolveFaction(WCharacter node) =>
+            Player.Clan.Troops.Contains(node) ? Player.Clan
+            : Player.Kingdom != null && Player.Kingdom.Troops.Contains(node) ? Player.Kingdom
+            : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Wrapper Convenience                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Gets the parent troop for a node, or null if root/retinue/militia.
-        /// </summary>
         public WCharacter GetParent(WCharacter node)
         {
-            if (node == null || node.IsRetinue || node.IsMilitiaMelee || node.IsMilitiaRanged)
+            var faction = ResolveFaction(node);
+
+            if (faction == null)
                 return null;
 
-            var pid = GetParentId(node.StringId);
-            if (string.IsNullOrEmpty(pid))
-                return null;
+            foreach (var troop in faction.BasicTroops.Concat(faction.EliteTroops))
+                if (troop.UpgradeTargets.Contains(node))
+                    return troop;
 
-            var pco = GetCharacterObject(pid);
-            return pco != null ? new WCharacter(pco) : null;
-        }
-
-        /// <summary>
-        /// Gets the child troops for a node.
-        /// </summary>
-        public IEnumerable<WCharacter> GetChildren(WCharacter node)
-        {
-            if (node == null)
-                yield break;
-
-            foreach (var cid in GetChildrenIds(node.StringId))
-            {
-                var co = GetCharacterObject(cid);
-                if (co != null)
-                    yield return new WCharacter(co);
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Builds the token string for a path.
-        /// </summary>
-        private static string BuildTokenForPath(IReadOnlyList<int> path)
-        {
-            if (path == null || path.Count == 0)
-                return "r";
-            return string.Concat(path.Select(i => i == 0 ? '0' : '1'));
-        }
-
-        /// <summary>
-        /// Extracts the token from a custom troop ID.
-        /// </summary>
-        private static string ExtractToken(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-                return null;
-            var underscore = id.LastIndexOf('_');
-            return underscore >= 0 && underscore + 1 < id.Length
-                ? id.Substring(underscore + 1)
-                : null;
+            return null;
         }
     }
 }

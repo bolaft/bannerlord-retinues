@@ -58,7 +58,7 @@ namespace Retinues.Features.Upgrade.Behaviors
     /// Staged training jobs with a unified public API (Stage/Unstage/Get/Clear).
     /// </summary>
     [SafeClass]
-    public sealed class TroopTrainBehavior : BaseUpgradeBehavior<PendingTrainData>
+    public class TroopTrainBehavior : BaseUpgradeBehavior<PendingTrainData>
     {
         private const int BaseTrainingTime = 1; // hours per skill point
 

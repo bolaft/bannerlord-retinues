@@ -1,0 +1,93 @@
+{# Text Helpers #}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#      Base Text Macro     #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro base(
+    text,
+    is_int=False,
+    is_visible="true",
+    is_hidden="false",
+    brush="Clan.Tuple.Name.Text",
+    font_color=None,
+    font_size=None,
+    horizontal_alignment="Center", vertical_alignment="Center",
+    margin_left="0", margin_right="0", margin_top="0", margin_bottom="0",
+    width_policy="CoverChildren", height_policy="CoverChildren",
+    width=None, height=None,
+    clip_contents="false",
+    hint=None
+) -%}
+    {% set height_policy = (height_policy if height is none else "Fixed") %}
+    {% set width_policy  = (width_policy if width is none else "Fixed") %}
+
+    <TextWidget
+        IsVisible="{{ is_visible }}"
+        IsHidden="{{ is_hidden }}"
+        {% if is_int %}IntText="{{ text }}"{% else %}Text="{{ text }}"{% endif %}
+        Brush="{{ brush }}"
+        {% if font_color %} Brush.FontColor="{{ font_color }}"{% endif %}
+        {% if font_size %} Brush.FontSize="{{ font_size }}"{% endif %}
+        WidthSizePolicy="{{ width_policy }}" HeightSizePolicy="{{ height_policy }}"
+        {% if width %} SuggestedWidth="{{ width }}"{% endif %}
+        {% if height %} SuggestedHeight="{{ height }}"{% endif %}
+        HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"
+        MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+        MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
+        ClipContents="{{ clip_contents }}">
+        <Children>
+            {% if hint %}
+                <HintWidget
+                    DataSource="{{ hint }}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+            {% endif %}
+        </Children>
+    </TextWidget>
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#   Convenience Wrappers   #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{# Small Text #}
+{% macro small(
+    text,
+    horizontal_alignment="Center",
+    margin_left="0", margin_right="0", margin_top="0", margin_bottom="0",
+    is_visible="true",
+    color="#F4E1C4FF"
+) -%}
+    {{ base(
+        text=text,
+        brush="InventoryGoldFontBrush",
+        font_color=color,
+        is_visible=is_visible,
+        horizontal_alignment=horizontal_alignment,
+        vertical_alignment="Center",
+        margin_left=margin_left, margin_right=margin_right,
+        margin_top=margin_top, margin_bottom=margin_bottom,
+        clip_contents="false"
+    ) }}
+{%- endmacro %}
+
+{# Header #}
+{% macro header(
+    text,
+    is_visible="true",
+    margin_top="15",
+    margin_bottom="10",
+    horizontal_alignment="Center",
+    vertical_alignment="Center"
+) -%}
+    {{ base(
+        text=text,
+        brush="Kingdom.TitleSmall.Text",
+        is_visible=is_visible,
+        horizontal_alignment=horizontal_alignment,
+        vertical_alignment=vertical_alignment,
+        margin_left="0", margin_right="0",
+        margin_top=margin_top, margin_bottom=margin_bottom,
+        clip_contents="false"
+    ) }}
+{%- endmacro %}

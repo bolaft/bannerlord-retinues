@@ -24,7 +24,7 @@ namespace Retinues.Mods
         /// </summary>
         public static void AddBehaviors(CampaignGameStarter cs)
         {
-            if (ModuleChecker.GetModule("Shokuho") != null)
+            if (ModuleChecker.IsLoaded("Shokuho"))
             {
                 Log.Debug("Shokuho detected, using ShokuhoVolunteerSwapBehavior.");
                 cs.AddBehavior(new ShokuhoVolunteerSwapBehavior());

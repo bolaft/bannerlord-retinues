@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TaleWorlds.Library;
 
@@ -36,11 +37,19 @@ namespace Retinues.Troops
         {
             if (args.Count != 1)
                 return "Usage: retinues.import_custom_troops [fileName]";
+
             var fileName = args[0];
-            int count = TroopImportExport.ImportFromXml(fileName);
-            if (count == 0)
-                return $"Import failed or no troops found in '{fileName}'.";
-            return $"Imported {count} custom troop roots from '{fileName}'.";
+
+            try
+            {
+                TroopImportExport.ImportFromXml(fileName);
+            }
+            catch (Exception e)
+            {
+                return $"Import failed for '{fileName}': {e.Message}";
+            }
+
+            return $"Imported custom troop roots from '{fileName}'.";
         }
     }
 }

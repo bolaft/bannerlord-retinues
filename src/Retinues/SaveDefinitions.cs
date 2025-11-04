@@ -15,7 +15,7 @@ namespace Retinues
         /// Construct the definer with the module's unique base ID.
         /// </summary>
         public SaveDefinitions()
-            : base(090_787) { }
+            : base(070_992) { }
 
         /// <summary>
         /// Register classes that the save system must know how to serialize.
@@ -26,17 +26,20 @@ namespace Retinues
             base.DefineClassTypes();
 
             // Troop save data
-            AddClassDefinition(typeof(TroopSaveData), 070_992);
+            AddClassDefinition(typeof(TroopSaveData), 070_910);
+            AddClassDefinition(typeof(TroopBodySaveData), 070_911);
+            AddClassDefinition(typeof(TroopEquipmentData), 070_912);
+            AddClassDefinition(typeof(TroopSkillData), 070_913);
+
+            // Faction save data
+            AddClassDefinition(typeof(FactionSaveData), 070_920);
 
             // Staged operations data
-            AddClassDefinition(typeof(PendingTrainData), 070_001);
-            AddClassDefinition(typeof(PendingEquipData), 070_002);
+            AddClassDefinition(typeof(PendingTrainData), 070_930);
+            AddClassDefinition(typeof(PendingEquipData), 070_931);
 
             // Equipment set usage data
-            AddClassDefinition(typeof(EquipmentUsePolicy), 200901);
-
-            // Legacy definitions for backwards compatibility
-            AddClassDefinition(typeof(Safety.Legacy.Behaviors.ItemSaveData), 070_993);
+            AddClassDefinition(typeof(EquipmentUsePolicy), 070_940);
         }
 
         /// <summary>
@@ -73,10 +76,6 @@ namespace Retinues
 
             // Retinue hire containers
             ConstructContainerDefinition(typeof(Dictionary<string, int>));
-
-            // Legacy containers for backwards compatibility
-            ConstructContainerDefinition(typeof(Dictionary<string, int>));
-            ConstructContainerDefinition(typeof(List<int>));
         }
     }
 }

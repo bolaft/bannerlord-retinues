@@ -1,0 +1,96 @@
+{# Image Helpers #}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#     Base Image Macro     #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro base(
+    kind, 
+    width, height,
+    margin_left="0", margin_right="0", margin_top="0", margin_bottom="0",
+    x_offset="0", y_offset="0",
+    brush="Frame1Brush",
+    is_visible="true",
+    hint=None
+) -%}
+    {# derive variable names from kind & bl #}
+    {% set is_banner   = (kind == 'banner') %}
+    {% set id_var      = '@BannerId'                  if is_banner else '@ImageId' %}
+    {% set args_var    = '@BannerAdditionalArgs'      if is_banner else '@ImageAdditionalArgs' %}
+    {% set type_var    = '@BannerTypeCode'            if is_banner else '@ImageTypeCode' %}
+    {% set provider_var= '@BannerTextureProviderName' if is_banner else '@ImageTextureProviderName' %}
+
+    <Widget
+        IsVisible="{{ is_visible }}"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+        PositionXOffset="{{ x_offset }}" PositionYOffset="{{ y_offset }}"
+        MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+        MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}">
+        <Children>
+            <BrushWidget
+                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                Brush="{{ brush }}"/>
+            {# BL13 uses TextureProviderName; BL12 uses ImageTypeCode #}
+            {% if version == "13" %}
+                <ImageIdentifierWidget
+                    AdditionalArgs="{{ args_var }}" ImageId="{{ id_var }}" TextureProviderName="{{ provider_var }}"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"/>
+            {% else %}
+                <ImageIdentifierWidget
+                    ImageId="{{ id_var }}" ImageTypeCode="{{ type_var }}" AdditionalArgs="{{ args_var }}"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"/>
+            {% endif %}
+
+            {# Hover hint widget for the image #}
+            {% if hint %}
+                <HintWidget
+                    DataSource="{{ hint }}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+            {% endif %}
+        </Children>
+    </Widget>
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#    Sprite Image Macro    #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro sprite(
+    sprite,
+    width, height,
+    color=None,
+    is_visible="true",
+    data_source=None,
+    margin_left="0", margin_right="0",
+    margin_top="0", margin_bottom="0",
+    vertical_alignment="Center", horizontal_alignment="Center"
+) -%}
+    <SpriteWidget
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+        MarginRight="{{ margin_right }}" MarginLeft="{{ margin_left }}"
+        MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
+        Sprite="{{ sprite }}"
+        {% if color %} Color="{{ color }}"{% endif %}
+        IsVisible="{{ is_visible }}"
+        {% if data_source %} DataSource="{{ data_source }}"{% endif %}
+        HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"/>
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#   Convenience Wrappers   #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{# Image #}
+{% macro image(width, height, margin_left="0", margin_right="0", margin_top="0", margin_bottom="0", x_offset="0", y_offset="0", brush="Frame1Brush", is_visible="true", hint=None) -%}
+    {{ base('image', width, height, margin_left, margin_right, margin_top, margin_bottom, x_offset, y_offset, brush, is_visible, hint) }}
+{%- endmacro %}
+
+{# Banner #}
+{% macro banner(width, height, margin_left="0", margin_right="0", margin_top="0", margin_bottom="0", x_offset="0", y_offset="0", brush="Frame1Brush", is_visible="true", hint=None) -%}
+    {{ base('banner', width, height, margin_left, margin_right, margin_top, margin_bottom, x_offset, y_offset, brush, is_visible, hint) }}
+{%- endmacro %}

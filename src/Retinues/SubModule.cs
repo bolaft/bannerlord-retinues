@@ -15,7 +15,6 @@ using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
-using Retinues.Safety.Legacy;
 using Retinues.Safety.Sanitizer;
 using Retinues.Safety.Version;
 using Retinues.Troops;
@@ -23,6 +22,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues
 {
@@ -31,39 +31,19 @@ namespace Retinues
     /// </summary>
     public class SubModule : MBSubModuleBase
     {
-        /// <summary>
-        /// UIExtender instance used to register and enable UI-related modifications.
-        /// </summary>
-        private UIExtender _extender;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Harmony instance used to apply and remove runtime patches.
-        /// </summary>
-        private Harmony _harmony;
-
-        /// <summary>
-        /// Flag indicating whether the mod has successfully registered with MCM.
-        /// </summary>
-        private bool _mcmRegistered;
-        private int _mcmRetryCount;
-        private const int _mcmMaxRetries = 300; // ~5 seconds @ 60 FPS
-
-        /// <summary>
-        /// Called before the initial module screen is set as root. Used to register with MCM.
+        /// Called before the initial module screen is set as root.
         /// </summary>
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
             base.OnBeforeInitialModuleScreenSetAsRoot();
 
-            // Try to register MCM once per tick until it works (or we time out)
-            if (!_mcmRegistered && _mcmRetryCount < _mcmMaxRetries)
-            {
-                _mcmRetryCount++;
-                _mcmRegistered = Config.RegisterWithMCM();
-
-                if (_mcmRegistered)
-                    Log.Info("MCM: registration succeeded.");
-            }
+            // Try to register with MCM
+            TryRegisterWithMCM();
         }
 
         /// <summary>
@@ -73,69 +53,24 @@ namespace Retinues
         {
             base.OnSubModuleLoad();
 
-            try
-            {
-                // Keep log file size manageable
-                if (Log.LogFileLength > 20000)
-                    Log.Truncate(10000);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Truncate log file if needed
+            TruncateLogFile();
 
-            try
-            {
-                Log.Info(
-                    $"Bannerlord version: {BannerlordVersion.Version.Major}.{BannerlordVersion.Version.Minor}.{BannerlordVersion.Version.Revision}"
-                );
-                Log.Info("Modules:");
+            // Enable UIExtenderEx
+            EnableUIExtender();
 
-                foreach (var mod in ModuleChecker.GetActiveModules())
-                {
-                    Log.Info(
-                        $"    {(mod.IsOfficial ? "[Official]" : "[Community]")} {mod.Id} {mod.Version}"
-                    );
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Apply Harmony patches
+            ApplyHarmonyPatches();
 
-            try
-            {
-                _extender = UIExtender.Create("Retinues");
-                _extender.Register(typeof(SubModule).Assembly);
-                _extender.Enable();
-                Log.Debug("UIExtender enabled & assembly registered.");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
-
-            try
-            {
-                _harmony = new Harmony("Retinues");
-                _harmony.PatchAll(Assembly.GetExecutingAssembly());
-
-                // Apply safe method patcher
-                SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
-
-                Log.Debug("Harmony patches applied.");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Log module info
+            LogModuleInfo();
 
             // Check for incompatible mods and display warnings
             ModCompatibility.IncompatibilityCheck();
         }
 
         /// <summary>
-        /// Called when a game (campaign) starts or loads.
+        /// Called when a game starts or loads.
         /// </summary>
         protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
         {
@@ -146,52 +81,8 @@ namespace Retinues
                 // Clear all static lists
                 ClearAll();
 
-                // Troop behaviors
-                cs.AddBehavior(new TroopBehavior());
-
-                // Safety behaviors
-                cs.AddBehavior(new SanitizerBehavior());
-                cs.AddBehavior(new VersionBehavior());
-
-                // Item behaviors
-                cs.AddBehavior(new UnlocksBehavior());
-                cs.AddBehavior(new StocksBehavior());
-
-                // Swap behaviors
-                cs.AddBehavior(new MilitiaSwapBehavior());
-
-                // Retinue behaviors
-                cs.AddBehavior(new RetinueHireBehavior());
-
-                // Combat equipment behavior
-                cs.AddBehavior(new CombatEquipmentBehavior());
-
-                // Training behavior
-                cs.AddBehavior(new TroopTrainBehavior());
-
-                // Equipment behavior
-                cs.AddBehavior(new TroopEquipBehavior());
-
-                // XP behavior (skip if both costs are 0)
-                cs.AddBehavior(new TroopXpBehavior());
-                cs.AddBehavior(new TroopXpAutoResolveBehavior());
-
-                // Doctrine behaviors (skip if doctrines disabled)
-                if (Config.EnableDoctrines)
-                {
-                    cs.AddBehavior(new DoctrineServiceBehavior());
-                    cs.AddBehavior(new FeatServiceBehavior());
-                    cs.AddBehavior(new FeatNotificationBehavior());
-                    cs.AddBehavior(new DoctrineEffectRuntimeBehavior());
-                }
-
-                // Legacy compatibility behaviors
-                LegacyCompatibility.AddBehaviors(cs);
-
-                // Mod compatibility behaviors
-                ModCompatibility.AddBehaviors(cs);
-
-                Log.Debug("Behaviors registered.");
+                // Add Retinues behaviors
+                AddBehaviors(cs);
             }
 
             // Smoke test for localization
@@ -203,39 +94,271 @@ namespace Retinues
         /// </summary>
         protected override void OnSubModuleUnloaded()
         {
-            try
-            {
-                _harmony?.UnpatchAll("Retinues");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
-
-            try
-            {
-                _extender?.Disable();
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
-
             base.OnSubModuleUnloaded();
+
+            // Remove Harmony patches
+            RemoveHarmonyPatches();
+
+            // Disable UIExtenderEx
+            DisableUIExtender();
+
             Log.Debug("SubModule unloaded.");
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Mod Config Menu                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private bool _mcmRegistered;
+        private int _mcmRetryCount;
+        private const int _mcmMaxRetries = 300; // ~5 seconds @ 60 FPS
+
+        [SafeMethod]
+        private void TryRegisterWithMCM()
+        {
+            // Try to register MCM once per tick until it works (or we time out)
+            if (!_mcmRegistered && _mcmRetryCount < _mcmMaxRetries)
+            {
+                _mcmRetryCount++;
+                _mcmRegistered = Config.RegisterWithMCM();
+
+                if (_mcmRegistered)
+                    Log.Info("MCM: registration succeeded.");
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Harmony                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private Harmony _harmony;
+
+        [SafeMethod]
+        private void ApplyHarmonyPatches()
+        {
+            _harmony = new Harmony("Retinues");
+            _harmony.PatchAll(Assembly.GetExecutingAssembly());
+
+            // Apply safe method patcher
+            SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
+
+            Log.Debug("Harmony patches applied.");
+        }
+
+        [SafeMethod]
+        private void RemoveHarmonyPatches()
+        {
+            _harmony?.UnpatchAll("Retinues");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      UIExtenderEx                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private UIExtender _extender;
+
+        [SafeMethod]
+        public void EnableUIExtender()
+        {
+            _extender = UIExtender.Create("Retinues");
+            _extender.Register(typeof(SubModule).Assembly);
+            _extender.Enable();
+
+            Log.Debug("UIExtender enabled & assembly registered.");
+        }
+
+        [SafeMethod]
+        public void DisableUIExtender()
+        {
+            _extender?.Disable();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Logging                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [SafeMethod]
+        private void TruncateLogFile()
+        {
+            // Keep log file size manageable
+            if (Log.LogFileLength > 20000)
+                Log.Truncate(10000);
+        }
+
+        [SafeMethod]
+        private void LogModuleInfo()
+        {
+            Log.Info(
+                $"Bannerlord version: {BannerlordVersion.Version.Major}.{BannerlordVersion.Version.Minor}.{BannerlordVersion.Version.Revision}"
+            );
+            Log.Info("Modules:");
+
+            foreach (var mod in ModuleChecker.GetActiveModules())
+            {
+                Log.Info(
+                    $"    {(mod.IsOfficial ? "[Official]" : "[Community]")} {mod.Id} {mod.Version}"
+                );
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Behaviors                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly object _behaviorLock = new();
+        private static readonly System.Collections.Generic.Dictionary<
+            Type,
+            Func<CampaignBehaviorBase>
+        > _behaviorFactories = new(System.Collections.Generic.EqualityComparer<Type>.Default);
+
         /// <summary>
-        /// Clears static caches and player-related state used by the mod to ensure a clean slate
-        /// when starting or loading a new campaign to prevent cross-save contamination.
+        /// Adds all Retinues campaign behaviors to the game starter.
+        /// </summary>
+        private void AddBehaviors(CampaignGameStarter cs)
+        {
+            Log.Info("Registering behaviors...");
+
+            // Troop behaviors
+            AddBehavior<FactionBehavior>(cs);
+
+            // Safety behaviors
+            AddBehavior<SanitizerBehavior>(cs);
+            AddBehavior<VersionBehavior>(cs);
+
+            // Item behaviors
+            AddBehavior<UnlocksBehavior>(cs);
+            AddBehavior<StocksBehavior>(cs);
+
+            // Swap behaviors
+            AddBehavior<MilitiaSwapBehavior>(cs);
+
+            // Retinue behaviors
+            AddBehavior<RetinueHireBehavior>(cs);
+
+            // Combat equipment behavior
+            AddBehavior<CombatEquipmentBehavior>(cs);
+
+            // Training behavior
+            AddBehavior<TroopTrainBehavior>(cs);
+
+            // Equipment behavior
+            AddBehavior<TroopEquipBehavior>(cs);
+
+            // XP behavior (skip if both costs are 0)
+            AddBehavior<TroopXpBehavior>(cs);
+            AddBehavior<TroopXpAutoResolveBehavior>(cs);
+
+            // Doctrine behaviors (skip if doctrines disabled)
+            if (Config.EnableDoctrines)
+            {
+                AddBehavior<DoctrineServiceBehavior>(cs);
+                AddBehavior<FeatServiceBehavior>(cs);
+                AddBehavior<FeatNotificationBehavior>(cs);
+                AddBehavior<DoctrineEffectRuntimeBehavior>(cs);
+            }
+
+            // Mod compatibility behaviors
+            ModCompatibility.AddBehaviors(cs);
+
+            Log.Debug("Behaviors registered.");
+        }
+
+        /// <summary>
+        /// Allow external mods to override a behavior used by Retinues.
+        /// Register before the campaign starts (e.g., in your mod's OnSubModuleLoad).
+        /// If multiple mods register for the same base type, the last registration wins.
+        /// </summary>
+        public static void RegisterBehavior<TBehavior>(Func<TBehavior> factory)
+            where TBehavior : CampaignBehaviorBase
+        {
+            if (factory == null)
+            {
+                Log.Warn($"RegisterBehavior<{typeof(TBehavior).Name}> ignored: null factory.");
+                return;
+            }
+
+            lock (_behaviorLock)
+            {
+                bool exists = _behaviorFactories.ContainsKey(typeof(TBehavior));
+                _behaviorFactories[typeof(TBehavior)] = () => factory();
+                Log.Info(
+                    $"{(exists ? "Replaced" : "Registered")} behavior factory for {typeof(TBehavior).Name}."
+                );
+            }
+        }
+
+        /// <summary>
+        /// Resolve a behavior instance: use an override if present, otherwise the provided default.
+        /// </summary>
+        private static TBehavior ResolveBehavior<TBehavior>(Func<TBehavior> defaultFactory)
+            where TBehavior : CampaignBehaviorBase
+        {
+            lock (_behaviorLock)
+            {
+                if (_behaviorFactories.TryGetValue(typeof(TBehavior), out var f))
+                {
+                    try
+                    {
+                        if (f() is TBehavior b)
+                            return b;
+                        Log.Warn(
+                            $"Factory for {typeof(TBehavior).Name} returned incompatible instance; falling back."
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(
+                            e,
+                            $"Factory for {typeof(TBehavior).Name} threw; falling back."
+                        );
+                    }
+                }
+            }
+
+            return defaultFactory();
+        }
+
+        /// <summary>
+        /// Helper to add a behavior with override support and logging.
+        /// </summary>
+        private static void AddBehavior<TBehavior>(
+            CampaignGameStarter cs,
+            Func<TBehavior> defaultFactory = null
+        )
+            where TBehavior : CampaignBehaviorBase, new()
+        {
+            var beh = ResolveBehavior(
+                defaultFactory ?? (() => new TBehavior()),
+                defaultFactory ?? (() => new TBehavior())
+            );
+            cs.AddBehavior(beh);
+            Log.Debug($"Behavior active: {beh.GetType().FullName} (as {typeof(TBehavior).Name}).");
+        }
+
+        // Overload to satisfy ResolveBehavior private signature using same T
+        private static TBehavior ResolveBehavior<TBehavior>(
+            Func<TBehavior> df1,
+            Func<TBehavior> df2
+        )
+            where TBehavior : CampaignBehaviorBase => ResolveBehavior(df1);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Clears static caches and player-related state.
         /// </summary>
         private static void ClearAll()
         {
             Log.Debug("Clearing all static properties.");
+
             // Clear player info
             Player.Reset();
+
             // Clear active troops
-            WCharacter.ActiveTroops.Clear();
+            WCharacter.ActiveTroopIds.Clear();
+
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
         }

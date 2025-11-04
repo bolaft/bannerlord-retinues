@@ -1,0 +1,305 @@
+{# List Helpers #}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#      List Container      #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro container(data_source) -%}
+
+<BrushListPanel
+    DataSource="{{ data_source }}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+    VerticalAlignment="Bottom"
+    MarginTop="6" MarginBottom="9" MarginLeft="27"
+    Brush="Frame1Brush"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+
+        <!-- Navigation Scope -->
+        <NavigationScopeTargeter
+            ScopeID="SortButtonsScope"
+            ScopeParent="..\SortButtons"
+            ScopeMovements="Horizontal"/>
+
+        {{ caller() }}
+
+    </Children>
+</BrushListPanel>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#    List Panel Wrapper    #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro panel(data_source, identifier) -%}
+
+<ListPanel 
+    DataSource="{{ data_source }}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="StretchToParent">
+    <Children>
+        <!-- Scrollable area that holds the navigatable troop entries -->
+        <ScrollablePanel 
+            Id="{{ identifier }}ScrollablePanel"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="StretchToParent"
+            MinWidth="!Clan.Management.Collapser.Width"
+            AutoHideScrollBars="true"
+            ClipRect="{{ identifier }}Rect"
+            InnerPanel="{{ identifier }}Rect\{{ identifier }}ListPanel"
+            MouseScrollAxis="Vertical"
+            MarginLeft="3"
+            MarginBottom="3"
+            VerticalScrollbar="..\{{ identifier }}Scrollbar\Scrollbar">
+            <Children>
+                <!-- Navigation scope targeter: defines keyboard/controller navigation region for the troop list -->
+                <NavigationScopeTargeter 
+                    ScopeID="{{ identifier }}Scope"
+                    ScopeParent=".\{{ identifier }}Rect"
+                    ScopeMovements="Vertical"
+                    IsDefaultNavigationScope="true"
+                    DoNotAutoNavigateAfterSort="true"/>
+                <!-- Container for the list entries (navigatable items included) -->
+                <Widget 
+                    Id="{{ identifier }}Rect"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="StretchToParent"
+                    ClipContents="true">
+                    <Children>
+                        <NavigatableListPanel 
+                            Id="{{ identifier }}ListPanel" 
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+                            StackLayout.LayoutMethod="VerticalBottomToTop" >
+                            <Children>
+                            
+                                {{ caller() }}
+
+                            </Children>
+                        </NavigatableListPanel>
+                    </Children>
+                </Widget>
+
+            </Children>
+        </ScrollablePanel>
+
+        <!-- Vertical scrollbar for the troop list -->
+        <Standard.VerticalScrollbar 
+            Id="{{ identifier }}Scrollbar"
+            HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            MarginLeft="2"
+            MarginRight="2"
+            MarginBottom="3"/>
+    </Children>
+</ListPanel>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#           Rows           #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro rows(data_source, type) -%}
+
+<NavigationAutoScrollWidget TrackedWidget=".\{{ type }}Header"/>
+
+<NavigatableListPanel 
+    DataSource="{{ data_source }}" 
+    Id="{{ type }}List" 
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+    HorizontalAlignment="Right" 
+    StackLayout.LayoutMethod="VerticalBottomToTop" 
+    UseSelfIndexForMinimum="true">
+    <ItemTemplate>
+        <ButtonWidget 
+            IsSelected="@IsSelected" IsEnabled="@IsEnabled" IsVisible="@IsVisible"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+            SuggestedHeight="68" SuggestedWidth="!Clan.Management.Collapser.Width" 
+            Brush="Clan.Management.LeftTuple" 
+            Command.Click="ExecuteSelect" 
+            UpdateChildrenStates="true">
+            <Children>
+                <!-- Row  Hint -->
+                <HintWidget
+                    DataSource="{Hint}"
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
+                <ListPanel 
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" 
+                    MarginLeft="24" MarginRight="24" 
+                    StackLayout.LayoutMethod="HorizontalLeftToRight">
+                    <Children>
+
+                        {# Row Content #}
+                        {{ caller() }}
+
+                    </Children>
+                </ListPanel>
+            </Children>
+        </ButtonWidget>
+    </ItemTemplate>
+</NavigatableListPanel>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#       Header Toggle      #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro header_toggle(identifier, type, text) -%}
+
+<PartyHeaderToggleWidget
+    Id="{{ identifier }}Toggle"
+    RenderLate="true"
+    IsEnabled="false"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="!Clan.Management.Collapser.Width" SuggestedHeight="!Clan.Management.Collapser.Height"
+    CollapseIndicator="{{ identifier }}Collapser\{{ identifier }}CollapseIndicator"
+    ListPanel="..\{{ identifier }}Rect\{{ identifier }}ListPanel\{{ type }}List"
+    HorizontalAlignment="Left" VerticalAlignment="Top"
+    Brush="Clan.Management.Collapser"
+    WidgetToClose="..\{{ identifier }}Rect\{{ identifier }}ListPanel\{{ type }}List">
+    <Children>
+        <ListPanel
+            Id="{{ identifier }}Collapser"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Clan.Management.Collapser.Text"
+                    Text="{{ text }}"/>
+            </Children>
+        </ListPanel>
+    </Children>
+</PartyHeaderToggleWidget>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#    Sort Header Buttons   #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro sort_header_buttons(data_source) -%}
+
+<ListPanel
+    Id="SortButtons"
+    DataSource="{{ data_source }}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="57"
+    RenderLate="true">
+    <Children>
+        {# Child Content #}
+        {{ caller() }}
+    </Children>
+</ListPanel>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#    Sort Header Sprite    #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro sort_header_sprite() -%}
+
+<Widget
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="!Scroll.Header.Width" SuggestedHeight="!Scroll.Header.Height"
+    Sprite="StdAssets\scroll_header"
+    ExtendRight="3" ExtendTop="6" ExtendLeft="3" ExtendBottom="4"
+    MarginLeft="2"
+    HorizontalAlignment="Right"/>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#        Sort Button       #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro sort_button(text, command, width, is_selected, state) -%}
+
+<SortButtonWidget
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedHeight="!Clan.Members.Sort.1.Height"
+    SuggestedWidth="{{ width }}"
+    Brush="Clan.Members.Sort.1"
+    Command.Click="{{ command }}"
+    IsSelected="{{ is_selected }}"
+    SortState="{{ state }}"
+    SortVisualWidget="Text\NameSortArrow"
+    UpdateChildrenStates="true">
+
+    <Children>
+        <TextWidget
+            Id="Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="Clan.LeftPanel.Header.Text"
+            Text="{{text}}">
+            <Children>
+                <BrushWidget
+                    Id="NameSortArrow"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    PositionXOffset="20" Brush="ArmyManagement.Sort.ArrowBrush"/>
+            </Children>
+        </TextWidget>
+    </Children>
+</SortButtonWidget>
+
+{%- endmacro %}
+
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+{#       Search Filter      #}
+{# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
+
+{% macro search_filter() -%}
+
+<TextWidget
+    Id="TextWidget"
+    WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+    SuggestedWidth="118"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    Brush="Clan.LeftPanel.Header.Text"
+    ClipContents="false"
+    Text="@FilterLabel">
+    <Children>
+        <BrushWidget
+            Id="NameSortVisualWidget"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="20" SuggestedHeight="20"
+            HorizontalAlignment="Right" VerticalAlignment="Center"
+            PositionXOffset="20"
+            Brush="ArmyManagement.Sort.ArrowBrush"/>
+    </Children>
+</TextWidget>
+
+<!-- Filter input area: framed brush with an editable text widget inside -->
+<BrushWidget
+    VerticalAlignment="Center" HorizontalAlignment="Right"
+    DoNotAcceptEvents="false"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="470" SuggestedHeight="40"
+    Brush="SPOptions.Dropdown.Center">
+    <Children>
+        <EditableTextWidget
+            Text="@FilterText"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+            Brush="Crafting.NameInput.Text"
+            GamepadNavigationIndex="0"
+            DoNotPassEvents="true" />
+    </Children>
+</BrushWidget>
+
+{%- endmacro %}

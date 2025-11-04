@@ -102,7 +102,7 @@ namespace Retinues.Game.Helpers
             Dictionary<string, int> troopSkills = null
         )
         {
-            if (!root.IsValid)
+            if (root?.IsValid != true)
                 return null;
 
             if (TryGetCachedMatch(root, troop, exclude?.StringId, out var cachedMatch))

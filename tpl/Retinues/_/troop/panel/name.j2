@@ -1,0 +1,26 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--       Name Block      -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- Name Header -->
+{{ text.header("@NameHeaderText") }}
+
+<!-- Name Block -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true">
+    <Children>
+        <!-- Troop Name -->
+        {{ text.base(text="@Name", brush="Clan.RightPanel.Name.Text") }}
+
+        <!-- Rename Button -->
+        {{ button.brush(
+            command="ExecuteRename",
+            brush="SPClan.NameChange.Icon",
+            height="32", width="32",
+            margin_left="8"
+        ) }}
+    </Children>
+</ListPanel>

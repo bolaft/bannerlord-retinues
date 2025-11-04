@@ -3,6 +3,7 @@ using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 #if BL13
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,16 @@ namespace Retinues.Game.Helpers.Character
     /// </summary>
     public abstract class CharacterHelperBase
     {
+        /// <summary>
+        /// Gets a CharacterObject by vanilla troop ID.
+        /// </summary>
+        public CharacterObject GetCharacterObject(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return null;
+            return MBObjectManager.Instance.GetObject<CharacterObject>(id);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Reflection Handles                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -5,11 +5,13 @@ using System.Reflection;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Safety.Sanitizer;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 # if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -24,48 +26,53 @@ namespace Retinues.Game.Wrappers
     [SafeClass(SwallowByDefault = false)]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
+        public const string CustomIdPrefix = "retinues_custom_";
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Character Helper                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        // Character helper instances
         private static readonly ICharacterHelper _customHelper = new CustomCharacterHelper();
         private static readonly ICharacterHelper _vanillaHelper = new VanillaCharacterHelper();
-        private readonly ICharacterHelper _helper = LooksCustomId(characterObject?.StringId)
-            ? _customHelper
-            : _vanillaHelper;
 
-        private static bool LooksCustomId(string id) =>
-            id?.StartsWith("ret_", StringComparison.Ordinal) == true;
+        // Helper instance for this character
+        private ICharacterHelper Helper => IsCustom ? _customHelper : _vanillaHelper;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter(
-            bool isKingdom,
-            bool isElite,
-            bool isRetinue = false,
-            bool isMilitiaMelee = false,
-            bool isMilitiaRanged = false,
-            IReadOnlyList<int> path = null
-        )
-            : this(
-                _customHelper.GetCharacterObject(
-                    isKingdom,
-                    isElite,
-                    isRetinue,
-                    isMilitiaMelee,
-                    isMilitiaRanged,
-                    path
-                )
-            ) { }
+        /// <summary>
+        /// List of active custom troop ids.
+        /// </summary>
+        public static List<string> ActiveTroopIds { get; } = [];
 
+        /// <summary>
+        /// Allocates a free stub CharacterObject for new custom troop creation.
+        /// </summary>
+        public static CharacterObject AllocateStub()
+        {
+            foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
+                if (co.StringId.StartsWith(CustomIdPrefix))
+                    if (!ActiveTroopIds.Contains(co.StringId)) // not allocated yet
+                        return co;
+
+            Log.Error("No free stub ids left.");
+            return null;
+        }
+
+        /// <summary>
+        /// Creates a new WCharacter wrapper around a free stub CharacterObject.
+        /// </summary>
+        public WCharacter()
+            : this(AllocateStub()) { }
+
+        /// <summary>
+        /// Creates a new WCharacter wrapper around the specified CharacterObject id.
+        /// </summary>
         public WCharacter(string stringId)
-            : this(
-                (LooksCustomId(stringId) ? _customHelper : _vanillaHelper).GetCharacterObject(
-                    stringId
-                )
-            ) { }
+            : this(MBObjectManager.Instance.GetObject<CharacterObject>(stringId)) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Identity                        //
@@ -122,17 +129,16 @@ namespace Retinues.Game.Wrappers
         //                Tree, Relations & Faction               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsCustom => _helper.IsCustom(StringId);
-        public bool IsElite => _helper.IsElite(StringId);
-        public bool IsRetinue => _helper.IsRetinue(StringId);
+        public bool IsCustom => StringId.StartsWith(CustomIdPrefix) == true;
+        public bool IsElite => Helper.IsElite(this);
+        public bool IsRetinue => Helper.IsRetinue(this);
         public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
-        public bool IsMilitiaMelee => _helper.IsMilitiaMelee(StringId);
-        public bool IsMilitiaRanged => _helper.IsMilitiaRanged(StringId);
+        public bool IsMilitiaMelee => Helper.IsMilitiaMelee(this);
+        public bool IsMilitiaRanged => Helper.IsMilitiaRanged(this);
 
-        public WCharacter Parent => _helper.GetParent(this);
-        public WFaction Faction => _helper.ResolveFaction(StringId);
+        public WCharacter Parent => Helper.GetParent(this);
+        public WFaction Faction => Helper.ResolveFaction(this);
 
-        public IReadOnlyList<int> PositionInTree => _helper.GetPath(StringId);
         public IEnumerable<WCharacter> Tree
         {
             get
@@ -469,13 +475,24 @@ namespace Retinues.Game.Wrappers
             SanitizerBehavior.Sanitize();
         }
 
-        public static List<string> ActiveTroops { get; } = [];
-        public bool IsActive => !IsCustom || ActiveTroops.Contains(StringId);
-        public bool IsValid =>
-            IsActive
-            && Base != null
-            && !string.IsNullOrWhiteSpace(StringId)
-            && !string.IsNullOrWhiteSpace(Name);
+        public bool IsActive => !IsCustom || ActiveTroopIds.Contains(StringId);
+        public bool IsValid
+        {
+            get
+            {
+                try
+                {
+                    return IsActive
+                        && Base != null
+                        && !string.IsNullOrWhiteSpace(StringId)
+                        && !string.IsNullOrWhiteSpace(Name);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
 
         public void Activate()
         {
@@ -491,7 +508,7 @@ namespace Retinues.Game.Wrappers
             UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
 
             if (!IsActive)
-                ActiveTroops.Add(StringId);
+                ActiveTroopIds.Add(StringId);
         }
 
         public void Deactivate()
@@ -501,7 +518,7 @@ namespace Retinues.Game.Wrappers
             IsNotTransferableInHideouts = false;
 
             if (IsActive)
-                ActiveTroops.Remove(StringId);
+                ActiveTroopIds.Remove(StringId);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -516,7 +533,7 @@ namespace Retinues.Game.Wrappers
         )
         {
             // Character object copy
-            _helper.CopyInto(src.Base, _co);
+            Helper.CopyInto(src.Base, _co);
 
             // Vanilla id
             VanillaStringIdMap[StringId] = src.VanillaStringId;

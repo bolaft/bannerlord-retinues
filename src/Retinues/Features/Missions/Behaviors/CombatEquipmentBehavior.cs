@@ -17,7 +17,7 @@ namespace Retinues.Features.Missions.Behaviors
     /// Per (troop, altIndex) toggle for where an alternate set may be used.
     /// </summary>
     [Serializable]
-    public sealed class EquipmentUsePolicy
+    public class EquipmentUsePolicy
     {
         [SaveableField(1)]
         public bool FieldBattle = false;

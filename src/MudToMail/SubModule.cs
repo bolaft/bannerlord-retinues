@@ -14,15 +14,9 @@ namespace MudToMail
     /// </summary>
     public class SubModule : MBSubModuleBase
     {
-        /// <summary>
-        /// UIExtender instance used to register and enable UI-related modifications.
-        /// </summary>
-        private UIExtender _extender;
-
-        /// <summary>
-        /// Harmony instance used to apply and remove runtime patches.
-        /// </summary>
-        private Harmony _harmony;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Called when the module DLL is loaded by the game.
@@ -31,44 +25,27 @@ namespace MudToMail
         {
             base.OnSubModuleLoad();
 
-            try
-            {
-                _extender = UIExtender.Create("MudToMail");
-                _extender.Register(typeof(SubModule).Assembly);
-                _extender.Enable();
-                Log.Debug("UIExtender enabled & assembly registered.");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Enable UIExtenderEx
+            EnableUIExtender();
 
-            try
-            {
-                _harmony = new Harmony("MudToMail");
-                _harmony.PatchAll(Assembly.GetExecutingAssembly());
+            // Apply Harmony patches
+            ApplyHarmonyPatches();
 
-                // Apply safe method patcher
-                SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
-
-                Log.Debug("Harmony patches applied.");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            // Register behavior overrides
+            RegisterBehaviorOverrides();
         }
 
         /// <summary>
         /// Called when a game (campaign) starts or loads.
         /// </summary>
-        protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
+        protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
 
             if (gameStarter is CampaignGameStarter cs)
             {
-                Log.Debug("Behaviors registered.");
+                // Add MudToMail behaviors
+                AddBehaviors(cs);
             }
         }
 
@@ -77,26 +54,81 @@ namespace MudToMail
         /// </summary>
         protected override void OnSubModuleUnloaded()
         {
-            try
-            {
-                _harmony?.UnpatchAll("MudToMail");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
-
-            try
-            {
-                _extender?.Disable();
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
-
             base.OnSubModuleUnloaded();
+
+            // Remove Harmony patches
+            RemoveHarmonyPatches();
+
+            // Disable UIExtenderEx
+            DisableUIExtender();
+
             Log.Debug("SubModule unloaded.");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Harmony                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private Harmony _harmony;
+
+        [SafeMethod]
+        private void ApplyHarmonyPatches()
+        {
+            _harmony = new Harmony("Retinues");
+            _harmony.PatchAll(Assembly.GetExecutingAssembly());
+
+            // Apply safe method patcher
+            SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
+
+            Log.Debug("Harmony patches applied.");
+        }
+
+        [SafeMethod]
+        private void RemoveHarmonyPatches()
+        {
+            _harmony?.UnpatchAll("Retinues");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      UIExtenderEx                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private UIExtender _extender;
+
+        [SafeMethod]
+        public void EnableUIExtender()
+        {
+            _extender = UIExtender.Create("Retinues");
+            _extender.Register(typeof(SubModule).Assembly);
+            _extender.Enable();
+
+            Log.Debug("UIExtender enabled & assembly registered.");
+        }
+
+        [SafeMethod]
+        public void DisableUIExtender()
+        {
+            _extender?.Disable();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Behaviors                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Adds all MudToMail campaign behaviors to the game starter.
+        /// </summary>
+        private void AddBehaviors(CampaignGameStarter cs)
+        {
+            Log.Debug("Behaviors registered.");
+        }
+
+        /// <summary>
+        /// Registers Retinues behavior overrides.
+        /// </summary>
+        private void RegisterBehaviorOverrides()
+        {
+            Log.Debug("Retinues behavior overrides registered.");
         }
     }
 }
