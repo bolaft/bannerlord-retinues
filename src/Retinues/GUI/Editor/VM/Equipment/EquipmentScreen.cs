@@ -217,7 +217,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public bool CanRemoveSet => State.Equipment?.Category == EquipmentCategory.Alternate;
 
         [DataSourceProperty]
-        public bool CanCreateSet => ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
+        public bool CanCreateSet => !ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
 
         [DataSourceProperty]
         public bool CanEnableSet => State.Equipment?.Category == EquipmentCategory.Alternate;
