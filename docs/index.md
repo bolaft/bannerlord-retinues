@@ -1,64 +1,53 @@
 ---
-title: Overview
+title: Home
 nav_order: 1
 ---
 
-# Overview
+# Retinues Player Manual
 
-Customize your troops: unlock gear through battle, outfit and promote retinues, design your clan and kingdom troop trees, and boost them with unique doctrine perks.
+This manual will help you use, configure, and troubleshoot the **Retinues** mod for Mount & Blade II Bannerlord.
 
-> 🐞 Did you encounter a **bug**? If so please checkout the [Reporting a Bug](./bugs.md) section so it can be fixed quickly.
+> Use the search bar at the top to jump straight to any option or command.
+
+---
 
 ## Quick Start
 
-All mod features live in the **Clan → Troops** tab. Open your Clan screen and select **Troops** to access everything.
+- **What is Retinues?** Customize your clan/kingdom troops with editable equipment, skills, and upgrade paths.  
+- **Works on existing saves** (new game recommended for the intended experience).
+
+> 🐞 Did you encounter a **bug**? If so please checkout the [Reporting a Bug](./bugs.md) section so it can be fixed quickly.
+
+### Setup
+1. Install/enable the mod and dependencies (Harmony, MCM, Butterlib and UIExtenderEx).
+3. Open **Clan → Troops** to edit troops, equipment, and skills.
+4. If any issues arise, see [Troubleshooting](./troubleshooting.md).
 
 ---
 
-## Troop Types
+## Mod Basics
 
-- **Retinues:** special personal troops available right away.  
-  They start weak but can become the best troops in the game with time, money, and effort.
+- **Retinues:** What they are, how to get them, and how they differ from regular troops → [Retinues](./retinues.md)
+- **Troops:** Find out what troops you can manage and customize → [Troops](./troops.md), [Appearance](./appearance.md)
+- **Skills:** Caps, totals, XP cost, and training flow → [Skills](./skills.md), [Experience](./experience.md)
+- **Equipment:** How to unlock and equip new items for your troops → [Equipment](./equipment.md)
+- **Doctrines:** How feats and doctrines work → [Doctrines](./doctrines.md)
 
-  → See: [Retinues](./retinues.md)
-
-- **Clan Troops:** unlocked when you acquire your first fief.  
-- **Kingdom Troops:** unlocked when you found your own kingdom.  
-
-> Upon unlocking either, you are prompted to choose either to start from scratch or to clone the entire culture tree.  
-
-- **Militias:** unlocked when you acquire the *Cultural Pride* doctrine.
-  On unlock, similar to your faction's culture militias.
-
-> When the *Recruit Anywhere* option is enabled, clan troops are immediately unlocked even if you don't own a fief.
-
-  → See: [Troops](./troops.md)
 
 ---
 
-## Troop Editing
+## Advanced Usage
 
-From the **Troops** tab, you can quickly adjust:
+- **Configuration:** Every option in MCM explained, with presets → [Configuration](./configuration.md)
+- **Cheat console:** Fast testing, unlocks, and repairs → [Cheats](./cheats.md)
+- **Import & Export:** Exporting troops from one save to another  → [Import & Export](./import_export.md)
 
-- **Skills:** any combat skills is can be edited, provided the conditions are met.  
-  → Details: [Skills](./skills.md)
-
-- **Equipment:** any available item, multiple loadouts.  
-  → Details: [Equipment](./equipment.md)
-
-- **Appearance:** name, culture, gender, age, height, weight and build.  
-  → Details: [Appearance](./appearance.md)
+> Looking for equipment rules? They’re covered across **Troops**, **Skills**, and **Configuration** (Equipment section).
 
 ---
 
-## Doctrines
+## Stuck?
 
-Accomplish feats to unlock Doctrines as you play to gain passive bonuses and perks that enhance your retinues and custom troops over time.  
-→ See: [Doctrines](.trines.md)
-
----
-
-## Configuration
-
-The mod's behavior and features can be configured from top to bottom using the mod config menu.  
-→ See: [Configuration](./configuration.md)
+- **Troubleshooting guide** (quick fixes, load order, feature toggles) → [Troubleshooting](./troubleshooting.md)
+- **Report a bug** (best way to get your issue fixed quickly) → [Bug Reports](./bugs.md)
+- **Uninstalling** (full steps to safely remove Retinues from your save) → [Uninstalingl](./uninstall.md)
