@@ -5,7 +5,7 @@ nav_order: 12
 
 # Bug Reports
 
-Thanks for helping improve Retinues! Please follow the steps below so we can reproduce and fix issues quickly.
+Thanks for helping improve Retinues! Please follow the steps below so I can reproduce and fix issues quickly.
 
 Before proceeding further, make sure your issue can't be solved by following the instructions in the [Troubleshooting](./troubleshooting.md) section.
 
