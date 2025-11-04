@@ -151,7 +151,7 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public bool ShowFactionButton =>
-            Screen != Screen.Doctrine && Player.Kingdom != null && !Config.NoKingdomTroops;
+            Screen == Screen.Troop && Player.Kingdom != null && !Config.NoKingdomTroops;
 
         [DataSourceProperty]
         public bool ShowDoctrinesButton =>
