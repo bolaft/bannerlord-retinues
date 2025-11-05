@@ -621,7 +621,7 @@
       text="Rückerstattung von XP bei Verringerung" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="Beim Verringern der Fertigkeit einer Truppe die XP-Kosten zurückerstatten (deaktiviert den zugehörigen Doktrinenperk)." />
+      text="Beim Verringern der Fertigkeit einer Truppe die XP-Kosten zurückerstatten." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Erforderliche verworfene Gegenstände zum Freischalten" />

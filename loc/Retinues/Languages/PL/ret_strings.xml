@@ -621,7 +621,7 @@
       text="Zwrot XP przy zmniejszeniu" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="Podczas zmniejszania umiejętności jednostki zwróć koszt XP (wyłączy powiązany perk doktryny)." />
+      text="Podczas zmniejszania umiejętności jednostki zwróć koszt XP." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Wymagane Przedmioty Odrzucone do Odblokowania" />

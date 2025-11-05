@@ -621,7 +621,7 @@
       text="Refund XP On Decrease" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="When decreasing a troop&apos;s skill, refund the XP cost (will disable the related doctrine perk)." />
+      text="When decreasing a troop&apos;s skill, refund the XP cost." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Required Discarded Items For Unlock" />

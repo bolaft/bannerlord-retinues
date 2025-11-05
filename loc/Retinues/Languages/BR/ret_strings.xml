@@ -621,7 +621,7 @@
       text="Reembolsar XP ao Diminuir" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="Ao diminuir a habilidade de uma tropa, reembolse o custo de XP (desativará o benefício da doutrina relacionado)." />
+      text="Ao diminuir a habilidade de uma tropa, reembolse o custo de XP." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Itens Descartados Necessários para Desbloquear" />

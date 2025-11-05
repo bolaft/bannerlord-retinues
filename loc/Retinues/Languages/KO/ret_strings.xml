@@ -621,7 +621,7 @@
       text="감소 시 XP 환불" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="병력의 기술을 감소시킬 때 XP 비용을 환불합니다(관련 교리 특전이 비활성화됨)." />
+      text="병력의 기술을 감소시킬 때 XP 비용을 환불합니다." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="해제를 위한 필요 폐기 아이템" />

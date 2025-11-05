@@ -643,7 +643,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_refund_xp_on_decrease_hint",
-                    "When decreasing a troop's skill, refund the XP cost (will disable the related doctrine perk)."
+                    "When decreasing a troop's skill, refund the XP cost."
                 ),
             @default: false,
             presets: new Dictionary<string, object>

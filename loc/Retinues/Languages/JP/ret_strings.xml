@@ -621,7 +621,7 @@
       text="減少時にXPを返金" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="部隊のスキルを下げると、XPコストが返金されます（関連するドクトリン特典が無効になります）。" />
+      text="部隊のスキルを下げると、XPコストが返金されます。" />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解除に必要な廃棄アイテム" />

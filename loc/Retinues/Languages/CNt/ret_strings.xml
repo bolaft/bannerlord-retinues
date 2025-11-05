@@ -621,7 +621,7 @@
       text="減少時退款經驗值" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="減少部隊技能時，退還經驗值成本（將禁用相關的教義特權）。" />
+      text="減少部隊技能時，退還經驗值成本。" />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解鎖所需丟棄物品" />

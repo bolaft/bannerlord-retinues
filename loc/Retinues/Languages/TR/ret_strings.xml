@@ -621,7 +621,7 @@
       text="Azaltıldığında XP İadesi" />
     <string
       id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="Bir askerin becerisini düşürürken, XP maliyetini iade et (ilgili doktrin ayrıcalığını devre dışı bırakır)." />
+      text="Bir askerin becerisini düşürürken, XP maliyetini iade et." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Açmak İçin Gerekli Atılmış Eşyalar" />
