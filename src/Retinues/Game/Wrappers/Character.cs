@@ -254,7 +254,7 @@ namespace Retinues.Game.Wrappers
         //                     Flags & Toggles                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsMaxTier => Tier >= (IsElite ? 6 : 5);
+        public bool IsMaxTier => Tier >= (IsElite ? 6 : 5) + (ModuleChecker.IsLoaded("T7TroopUnlocker") ? 1 : 0);
 
         public bool IsHero => Base.IsHero;
 
