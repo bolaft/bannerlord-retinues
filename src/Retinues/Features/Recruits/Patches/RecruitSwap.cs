@@ -35,15 +35,17 @@ namespace Retinues.Features.Recruits.Patches
             if (faction == null)
                 return; // not player faction settlement, skip
 
-            if (Config.VassalLordsCanRecruitCustomTroops == false)
-                return; // feature disabled
-
             if (recruiter?.PartyBelongedTo == null || count <= 0 || troop == null)
                 return; // never touch suspicious input
 
-            var recruiterIsPlayerFaction = new WHero(recruiter).PlayerFaction != null;
-            if (Config.AllLordsCanRecruitCustomTroops == false && recruiterIsPlayerFaction == false)
-                return; // not a vassal, skip
+            if (
+                !Config.AllLordsCanRecruitCustomTroops
+                && !(
+                    Config.VassalLordsCanRecruitCustomTroops
+                    && new WHero(recruiter).PlayerFaction != null
+                )
+            )
+                return;
 
             var wt = new WCharacter(troop);
             if (!wt.IsValid)
