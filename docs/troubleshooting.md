@@ -31,6 +31,9 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 **Q: I want to uninstall Retinues but now my save crashes.**
 **A:** Follow the steps in the [Uninstall](uninstall.md) section.
 
+**Q: The version on Steam Workshop updated automatically and now my save crashes.**
+**A:** You can go back to any previous version by downloading it from the Nexus Mods [download page](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=files), in the "Old Files" section (unsubscribe from the Steam version first).
+
 ---
 
 ## Quick Fixes
