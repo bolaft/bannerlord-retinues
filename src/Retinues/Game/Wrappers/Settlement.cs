@@ -59,14 +59,31 @@ namespace Retinues.Game.Wrappers
             get
             {
                 var clan = _settlement?.OwnerClan;
-                if (clan != null)
-                    return new WFaction(clan);
-                return null;
+                if (clan == null)
+                    return null;
+
+                if (clan == TaleWorlds.CampaignSystem.Clan.PlayerClan)
+                    return Player.Clan;
+
+                return new WFaction(clan);
             }
         }
 
-        public override WFaction Kingdom =>
-            Clan != null ? new WFaction(_settlement?.OwnerClan.Kingdom) : null;
+        public override WFaction Kingdom
+        {
+            get
+            {
+                var clan = _settlement?.OwnerClan;
+                var kingdom = clan?.Kingdom;
+                if (kingdom == null)
+                    return null;
+
+                if (kingdom == Player.Kingdom?.Base)
+                    return Player.Kingdom;
+
+                return new WFaction(kingdom);
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
