@@ -82,7 +82,23 @@
         </Widget>
 
         <!-- Global big buttons: Faction switch and Doctrines toggle -->
-        {{ big_button("@FactionButtonText", "ExecuteSwitchFaction", "@ShowFactionButton", "Top", "Right") }}
+        <ButtonWidget
+            IsVisible="@ShowFactionButton"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="!CancelButton.Width" SuggestedHeight="120"
+            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+            MarginLeft="0" MarginRight="20" MarginTop="0" MarginBottom="120"
+            Brush="ButtonBrush2"
+            Command.Click="ExecuteSwitchFaction">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="@FactionButtonText"/>
+            </Children>
+        </ButtonWidget>
 
         {{ big_button("@DoctrinesButtonText", "ExecuteToggleDoctrines", "@ShowDoctrinesButton", "Bottom", "Right") }}
 
