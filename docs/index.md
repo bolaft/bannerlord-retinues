@@ -38,8 +38,6 @@ This manual will help you use, configure, and troubleshoot the **Retinues** mod 
 - **Cheat console:** Fast testing, unlocks, and repairs → [Cheats](./cheats.md)
 - **Import & Export:** Exporting troops from one save to another  → [Import & Export](./import_export.md)
 
-> Looking for equipment rules? They’re covered across **Troops**, **Skills**, and **Configuration** (Equipment section).
-
 ---
 
 ## Stuck?
