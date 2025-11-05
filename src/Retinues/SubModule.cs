@@ -15,6 +15,7 @@ using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
+using Retinues.Safety.Legacy;
 using Retinues.Safety.Sanitizer;
 using Retinues.Safety.Version;
 using Retinues.Troops;
@@ -22,7 +23,6 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using TaleWorlds.ObjectSystem;
 
 namespace Retinues
 {
@@ -217,6 +217,9 @@ namespace Retinues
         private void AddBehaviors(CampaignGameStarter cs)
         {
             Log.Info("Registering behaviors...");
+
+            // Legacy behaviors
+            AddBehavior<LegacyTroopSaveBehavior>(cs);
 
             // Troop behaviors
             AddBehavior<FactionBehavior>(cs);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Features.Missions.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;
 using TaleWorlds.SaveSystem;
 
@@ -15,7 +16,7 @@ namespace Retinues
         /// Construct the definer with the module's unique base ID.
         /// </summary>
         public SaveDefinitions()
-            : base(070_992) { }
+            : base(090_787) { }
 
         /// <summary>
         /// Register classes that the save system must know how to serialize.
@@ -35,11 +36,14 @@ namespace Retinues
             AddClassDefinition(typeof(FactionSaveData), 070_920);
 
             // Staged operations data
-            AddClassDefinition(typeof(PendingTrainData), 070_930);
-            AddClassDefinition(typeof(PendingEquipData), 070_931);
+            AddClassDefinition(typeof(PendingTrainData), 070_001);
+            AddClassDefinition(typeof(PendingEquipData), 070_002);
 
             // Equipment set usage data
-            AddClassDefinition(typeof(EquipmentUsePolicy), 070_940);
+            AddClassDefinition(typeof(EquipmentUsePolicy), 200901);
+
+            // Legacy data
+            AddClassDefinition(typeof(LegacyTroopSaveData), 070_992);
         }
 
         /// <summary>
@@ -76,6 +80,9 @@ namespace Retinues
 
             // Retinue hire containers
             ConstructContainerDefinition(typeof(Dictionary<string, int>));
+
+            // Legacy containers
+            ConstructContainerDefinition(typeof(List<LegacyTroopSaveData>));
         }
     }
 }

@@ -100,7 +100,9 @@ namespace Retinues.Troops.Save
             // Set culture visuals if different from vanilla
             if (CultureId != vanilla.Culture.StringId)
             {
-                troop.Culture = new WCulture(MBObjectManager.Instance.GetObject<CultureObject>(CultureId));
+                troop.Culture = new WCulture(
+                    MBObjectManager.Instance.GetObject<CultureObject>(CultureId)
+                );
                 CharacterCustomization.ApplyPropertiesFromCulture(troop, CultureId);
             }
 

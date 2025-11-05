@@ -1,6 +1,6 @@
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;
@@ -9,10 +9,10 @@ using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.VM
@@ -207,7 +207,10 @@ namespace Retinues.GUI.Editor.VM
             // Confirmation dialog
             var inquiry = new InquiryData(
                 titleText: L.S("docs_title", "Open Documentation"),
-                text: L.S("docs_body", "This will open the Retinues documentation in your default web browser.\n\nContinue?"),
+                text: L.S(
+                    "docs_body",
+                    "This will open the Retinues documentation in your default web browser.\n\nContinue?"
+                ),
                 isAffirmativeOptionShown: true,
                 isNegativeOptionShown: true,
                 affirmativeText: GameTexts.FindText("str_ok").ToString(),
@@ -226,13 +229,19 @@ namespace Retinues.GUI.Editor.VM
             {
                 var psi = new ProcessStartInfo(url)
                 {
-                    UseShellExecute = true // required to open URLs with the OS default handler
+                    UseShellExecute = true, // required to open URLs with the OS default handler
                 };
                 Process.Start(psi);
             }
             catch (Exception ex)
             {
-                InformationManager.DisplayMessage(new InformationMessage(L.T("open_browser_fail", "Failed to open browser. URL: {URL}").SetTextVariable("URL", url).ToString()));
+                InformationManager.DisplayMessage(
+                    new InformationMessage(
+                        L.T("open_browser_fail", "Failed to open browser. URL: {URL}")
+                            .SetTextVariable("URL", url)
+                            .ToString()
+                    )
+                );
                 // Replace with your logger if different:
                 Log.Error($"Failed to open URL '{url}': {ex}");
             }

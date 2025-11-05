@@ -1,5 +1,6 @@
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
