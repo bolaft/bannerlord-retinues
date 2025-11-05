@@ -44,8 +44,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     nameof(RetinueJoinText),
                     nameof(CountInParty),
                     nameof(FormationClassIcon),
+                    nameof(GenderIcon),
                 ],
                 [UIEvent.Party] = [nameof(RetinueJoinText), nameof(CountInParty)],
+                [UIEvent.Appearance] = [nameof(GenderIcon)],
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -126,6 +128,12 @@ namespace Retinues.GUI.Editor.VM.Troop
                     .ToString();
             }
         }
+
+        [DataSourceProperty]
+        public string GenderIcon =>
+            State.Troop?.IsFemale == true
+                ? "General\\CharacterCreation\\gender_symbol_female"
+                : "General\\CharacterCreation\\gender_symbol_male";
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 
