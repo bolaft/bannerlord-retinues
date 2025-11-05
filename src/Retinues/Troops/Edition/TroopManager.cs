@@ -180,8 +180,8 @@ namespace Retinues.Troops.Edition
                 return sources;
 
             // Identify which root to look under for culture and faction
-            WCharacter cultureRoot = null;
-            WCharacter factionRoot = null;
+            WCharacter cultureRoot;
+            WCharacter factionRoot;
 
             if (retinue.IsElite)
             {
