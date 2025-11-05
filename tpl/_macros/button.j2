@@ -168,6 +168,7 @@
 {% macro sprite(
     command,
     sprite,
+    color=None,
     data_source=None,
     is_visible="true",
     is_enabled="true",
@@ -195,6 +196,7 @@
         IsVisible="{{ is_visible }}"
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
         SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+        {% if color %}Color="{{ color }}"{% endif %}
         Sprite="{{ sprite }}"/>
 {% endcall %}
 

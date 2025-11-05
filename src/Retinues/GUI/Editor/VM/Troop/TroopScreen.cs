@@ -132,8 +132,8 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceProperty]
         public string GenderIcon =>
             State.Troop?.IsFemale == true
-                ? "General\\CharacterCreation\\gender_symbol_female"
-                : "General\\CharacterCreation\\gender_symbol_male";
+                ? "SPGeneral\\GeneralFlagIcons\\female_only"
+                : "SPGeneral\\GeneralFlagIcons\\male_only";
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 
@@ -392,6 +392,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             State.Troop.IsFemale = !State.Troop.IsFemale;
             State.UpdateAppearance();
+            OnPropertyChanged(nameof(GenderIcon));
         }
 
         [DataSourceMethod]
