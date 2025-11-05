@@ -617,6 +617,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Il giocatore può reclutare truppe del clan in qualsiasi insediamento." />
     <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Rimborso dell&apos;XP in caso di diminuzione" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="Quando si diminuisce la competenza di una truppa, rimborsare il costo in XP (disabiliterà il vantaggio della dottrina correlata)." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Articoli Scartati Richiesti per Sbloccare" />
     <string

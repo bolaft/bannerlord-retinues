@@ -617,6 +617,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Игрок может нанимать войска клана в любом поселении." />
     <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Возврат опыта при уменьшении" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="При снижении навыка войска возвращать стоимость опыта (отключит связанный перк доктрины)." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Необходимые Отклоненные Предметы для Разблокировки" />
     <string

@@ -157,7 +157,7 @@ namespace Retinues.Features.Xp.Behaviors
             if (troop == null || amount <= 0)
                 return;
 
-            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>())
+            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() && !Config.RefundXpOnDecrease)
                 if (!force) // If force is true, skip this check
                     return;
 

@@ -56,7 +56,6 @@ namespace Retinues.Configuration
                 }
 
                 // Builder not ready or provider refused the page this tick
-                // (We'll try again next tick from SubModule)
                 return false;
             }
             catch (Exception e)

@@ -3264,6 +3264,38 @@
     "TR": "Oyuncu herhangi bir yerleşimde klan askerleri toplayabilir."
   },
   {
+    "id": "ret_mcm_option_refund_xp_on_decrease",
+    "EN": "Refund XP On Decrease",
+    "BR": "Reembolsar XP ao Diminuir",
+    "CNs": "减少时退款经验值",
+    "CNt": "減少時退款經驗值",
+    "DE": "Rückerstattung von XP bei Verringerung",
+    "FR": "Remboursement de l'XP en cas de diminution",
+    "IT": "Rimborso dell'XP in caso di diminuzione",
+    "JP": "減少時にXPを返金",
+    "KO": "감소 시 XP 환불",
+    "PL": "Zwrot XP przy zmniejszeniu",
+    "RU": "Возврат опыта при уменьшении",
+    "SP": "Reembolso de XP al Disminuir",
+    "TR": "Azaltıldığında XP İadesi"
+  },
+  {
+    "id": "ret_mcm_option_refund_xp_on_decrease_hint",
+    "EN": "When decreasing a troop's skill, refund the XP cost (will disable the related doctrine perk).",
+    "BR": "Ao diminuir a habilidade de uma tropa, reembolse o custo de XP (desativará o benefício da doutrina relacionado).",
+    "CNs": "减少部队技能时，退还经验值成本（将禁用相关的教义特权）。",
+    "CNt": "減少部隊技能時，退還經驗值成本（將禁用相關的教義特權）。",
+    "DE": "Beim Verringern der Fertigkeit einer Truppe die XP-Kosten zurückerstatten (deaktiviert den zugehörigen Doktrinenperk).",
+    "FR": "Lors de la diminution des compétences d’une troupe, remboursez le coût en XP (désactivera le bonus de doctrine associé).",
+    "IT": "Quando si diminuisce la competenza di una truppa, rimborsare il costo in XP (disabiliterà il vantaggio della dottrina correlata).",
+    "JP": "部隊のスキルを下げると、XPコストが返金されます（関連するドクトリン特典が無効になります）。",
+    "KO": "병력의 기술을 감소시킬 때 XP 비용을 환불합니다(관련 교리 특전이 비활성화됨).",
+    "PL": "Podczas zmniejszania umiejętności jednostki zwróć koszt XP (wyłączy powiązany perk doktryny).",
+    "RU": "При снижении навыка войска возвращать стоимость опыта (отключит связанный перк доктрины).",
+    "SP": "Al disminuir la habilidad de una tropa, reembolsa el costo de XP (desactivará la ventaja de doctrina relacionada).",
+    "TR": "Bir askerin becerisini düşürürken, XP maliyetini iade et (ilgili doktrin ayrıcalığını devre dışı bırakır)."
+  },
+  {
     "id": "ret_mcm_option_required_discards_for_unlock",
     "EN": "Required Discarded Items For Unlock",
     "BR": "Itens Descartados Necessários para Desbloquear",

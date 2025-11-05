@@ -636,6 +636,23 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<bool> RefundXpOnDecrease = CreateOption(
+            section: () => L.S("mcm_section_skills", "Skills"),
+            name: () => L.S("mcm_option_refund_xp_on_decrease", "Refund XP On Decrease"),
+            key: "RefundXpOnDecrease",
+            hint: () =>
+                L.S(
+                    "mcm_option_refund_xp_on_decrease_hint",
+                    "When decreasing a troop's skill, refund the XP cost (will disable the related doctrine perk)."
+                ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Unlocks
         // ─────────────────────────────────────────────────────

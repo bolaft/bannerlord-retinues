@@ -617,6 +617,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="El jugador puede reclutar tropas del clan en cualquier asentamiento." />
     <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Reembolso de XP al Disminuir" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="Al disminuir la habilidad de una tropa, reembolsa el costo de XP (desactivará la ventaja de doctrina relacionada)." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Artículos Descartados Requeridos para Desbloquear" />
     <string

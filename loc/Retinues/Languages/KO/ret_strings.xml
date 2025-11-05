@@ -617,6 +617,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="플레이어는 모든 정착지에서 가문 병력을 모집할 수 있습니다." />
     <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="감소 시 XP 환불" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="병력의 기술을 감소시킬 때 XP 비용을 환불합니다(관련 교리 특전이 비활성화됨)." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="해제를 위한 필요 폐기 아이템" />
     <string

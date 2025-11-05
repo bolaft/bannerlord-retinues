@@ -617,6 +617,12 @@
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Le joueur peut recruter des troupes de clan dans n’importe quel ville ou village." />
     <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Remboursement de l&apos;XP en cas de diminution" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="Lors de la diminution des compétences d’une troupe, remboursez le coût en XP (désactivera le bonus de doctrine associé)." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Objets Rejetés Requis pour Débloquer" />
     <string
