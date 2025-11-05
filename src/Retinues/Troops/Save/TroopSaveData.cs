@@ -48,6 +48,9 @@ namespace Retinues.Troops.Save
         [SaveableField(11)]
         public int Race;
 
+        [SaveableField(12)]
+        public FormationClass FormationClassOverride;
+
         public TroopSaveData(WCharacter troop)
         {
             if (troop is null)
@@ -64,6 +67,7 @@ namespace Retinues.Troops.Save
             SkillData = new TroopSkillData(troop.Skills);
             BodyData = new TroopBodySaveData(troop);
             Race = troop.Race;
+            FormationClassOverride = troop.FormationClassOverride;
         }
 
         public WCharacter Deserialize()
@@ -116,6 +120,12 @@ namespace Retinues.Troops.Save
             // Set body customization (if enabled)
             if (Config.EnableTroopCustomization)
                 BodyData.Apply(troop);
+
+            // Set formation class override
+            troop.FormationClassOverride = FormationClassOverride;
+
+            // Recompute formation class
+            troop.FormationClass = troop.ComputeFormationClass();
 
             // Activate
             troop.Activate();

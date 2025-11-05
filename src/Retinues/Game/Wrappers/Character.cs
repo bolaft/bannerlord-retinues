@@ -207,6 +207,12 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Formation Class                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public FormationClass FormationClassOverride { get; set; } = FormationClass.Unset;
+
         public FormationClass FormationClass
         {
             get => Base.GetFormationClass();
@@ -232,6 +238,16 @@ namespace Retinues.Game.Wrappers
                     Log.Exception(ex);
                 }
             }
+        }
+
+        public FormationClass ComputeFormationClass()
+        {
+            // If no override, derive from battle equipment
+            if (FormationClassOverride == FormationClass.Unset)
+                return Loadout.Battle.ComputeFormationClass();
+
+            // Else return override
+            return FormationClassOverride;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -348,7 +364,7 @@ namespace Retinues.Game.Wrappers
 
             // Formation class is derived from main battle equipment
             if (equipment.Category == EquipmentCategory.Battle)
-                FormationClass = Loadout.Battle.ComputeFormationClass();
+                FormationClass = ComputeFormationClass();
 
             // Horse requirements may need an update
             if (slot == EquipmentIndex.Horse)
@@ -504,7 +520,7 @@ namespace Retinues.Game.Wrappers
             else
                 IsNotTransferableInPartyScreen = false;
 
-            FormationClass = Loadout.Battle.ComputeFormationClass();
+            FormationClass = ComputeFormationClass();
             UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
 
             if (!IsActive)
@@ -562,7 +578,7 @@ namespace Retinues.Game.Wrappers
                 UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
 
                 // Formation class refresh
-                FormationClass = Loadout.Battle.ComputeFormationClass();
+                FormationClass = ComputeFormationClass();
             }
             else
                 Loadout.Clear();

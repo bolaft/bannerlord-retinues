@@ -11,6 +11,7 @@ using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.GUI.Helpers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
@@ -42,6 +43,7 @@ namespace Retinues.GUI.Editor.VM.Troop
                     nameof(CanLowerRetinueCap),
                     nameof(RetinueJoinText),
                     nameof(CountInParty),
+                    nameof(FormationClassIcon),
                 ],
                 [UIEvent.Party] = [nameof(RetinueJoinText), nameof(CountInParty)],
             };
@@ -190,10 +192,18 @@ namespace Retinues.GUI.Editor.VM.Troop
         public BasicTooltipViewModel BuildHint =>
             Tooltip.MakeTooltip(null, L.S("build_hint", "Build"));
 
+        /* ━━━━━━━━━ Icons ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(State.Troop);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Raise the retinue cap for the selected troop.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteRaiseRetinueCap()
         {
@@ -212,6 +222,9 @@ namespace Retinues.GUI.Editor.VM.Troop
             OnPropertyChanged(nameof(RetinueJoinText));
         }
 
+        /// <summary>
+        /// Lower the retinue cap for the selected troop.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteLowerRetinueCap()
         {
@@ -230,10 +243,10 @@ namespace Retinues.GUI.Editor.VM.Troop
             OnPropertyChanged(nameof(RetinueJoinText));
         }
 
-        [DataSourceMethod]
         /// <summary>
         /// Remove the currently selected troop (with confirmation).
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRemoveTroop()
         {
             if (State.Troop == null)
@@ -279,6 +292,76 @@ namespace Retinues.GUI.Editor.VM.Troop
                     negativeAction: () => { }
                 )
             );
+        }
+
+        /// <summary>
+        /// Change the selected troop's formation class override setting.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteChangeFormationClass()
+        {
+            try
+            {
+                if (State.Troop == null)
+                    return;
+
+                List<FormationClass> classes =
+                [
+                    FormationClass.Unset,
+                    FormationClass.Infantry,
+                    FormationClass.Ranged,
+                    FormationClass.Cavalry,
+                    FormationClass.HorseArcher,
+                ];
+
+                var elements = new List<InquiryElement>(classes.Count);
+
+                foreach (var c in classes)
+                {
+                    string text =
+                        c == FormationClass.Unset
+                            ? L.S("formation_auto", "Auto")
+                            : c.GetLocalizedName().ToString();
+
+                    elements.Add(new InquiryElement(c, text, null, true, null));
+                }
+
+                MBInformationManager.ShowMultiSelectionInquiry(
+                    new MultiSelectionInquiryData(
+                        titleText: L.S("change_formation_class_title", "Change Formation Class"),
+                        descriptionText: null,
+                        inquiryElements: elements,
+                        isExitShown: true,
+                        minSelectableOptionCount: 1,
+                        maxSelectableOptionCount: 1,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: selected =>
+                        {
+                            if (selected == null || selected.Count == 0)
+                                return;
+                            if (selected[0]?.Identifier is not FormationClass formationClass)
+                                return;
+                            if (formationClass == State.Troop.FormationClassOverride)
+                                return; // No change
+
+                            // Set override
+                            State.Troop.FormationClassOverride = formationClass;
+
+                            // Update formation class if needed
+                            State.Troop.FormationClass = State.Troop.ComputeFormationClass();
+
+                            // Refresh VM bindings
+                            State.UpdateTroop(State.Troop);
+                        },
+                        negativeAction: new Action<List<InquiryElement>>(_ => { })
+                    )
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -374,10 +374,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         /* ━━━━━━━ Character ━━━━━━ */
 
-        [DataSourceMethod]
         /// <summary>
         /// Prompt to rename the selected troop.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRename()
         {
             var oldName = State.Troop.Name;
@@ -407,10 +407,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             );
         }
 
-        [DataSourceMethod]
         /// <summary>
         /// Change the selected troop's culture.
         /// </summary>[DataSourceMethod]
+        [DataSourceMethod]
         public void ExecuteChangeCulture()
         {
             try
@@ -437,17 +437,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                 // Build selection elements (single-select).
                 var elements = new List<InquiryElement>(cultures.Count);
-                var currentId = State.Troop.Culture?.StringId;
+
                 foreach (var c in cultures)
                 {
                     if (c?.Name == null)
                         continue;
-                    // Show current selection as pre-checked
-                    bool isSelected = string.Equals(
-                        c.StringId,
-                        currentId,
-                        StringComparison.Ordinal
-                    );
 
                     var wc = new WCulture(c);
                     var root = wc.RootBasic ?? wc.RootElite;
@@ -465,7 +459,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 MBInformationManager.ShowMultiSelectionInquiry(
                     new MultiSelectionInquiryData(
                         titleText: L.S("change_culture_title", "Change Culture"),
-                        descriptionText: L.S("change_culture_desc", string.Empty),
+                        descriptionText: null,
                         inquiryElements: elements,
                         isExitShown: true,
                         minSelectableOptionCount: 1,
@@ -478,15 +472,19 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                                 return;
                             if (selected[0]?.Identifier is not CultureObject culture)
                                 return;
+                            if (culture.StringId == State.Troop.Culture.StringId)
+                                return; // No change
 
+                            // Store prior race before culture change.
                             var priorRace = State.Troop.Race;
 
                             // Apply via wrapper (uses reflection under the hood).
                             State.Troop.Culture = new WCulture(culture);
 
-                            // Update visuals
+                            // Update visuals.
                             CharacterCustomization.ApplyPropertiesFromCulture(State.Troop, culture);
 
+                            // Reapply prior race if needed.
                             if (priorRace >= 0)
                             {
                                 State.Troop.Race = priorRace;
