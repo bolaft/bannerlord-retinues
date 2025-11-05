@@ -29,7 +29,6 @@ This manual will help you use, configure, and troubleshoot the **Retinues** mod 
 - **Equipment:** How to unlock and equip new items for your troops → [Equipment](./equipment.md)
 - **Doctrines:** How feats and doctrines work → [Doctrines](./doctrines.md)
 
-
 ---
 
 ## Advanced Usage
