@@ -101,6 +101,7 @@ Time and XP economy for skill increases; pool behavior.
 | **Base Skill XP Cost** | Baseline **XP** required to buy the **next skill point** (before slope). | 100 | 0 | 200 |
 | **Skill XP Cost Per Point** | Linear **slope** added per current skill value (makes later points costlier). Example: nextCost = base + (currentValue × slope). | 1 | 0 | 2 |
 | **Shared XP Pool** | If **On**, all custom troops draw from a **single shared XP pool**. If **Off**, each troop has its **own pool**. | Off | On | Off |
+| **Refund XP On Decrease** | If **On**, all custom troops regain **XP** when their skill level decreases. If **Off**, no XP is refunded. | Off | On | Off |
 
 ---
 
