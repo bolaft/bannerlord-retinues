@@ -85,36 +85,87 @@
     size="30",
     is_visible="true",
     is_enabled="true",
+    is_hidden=None,
+    data_source=None,
+    horizontal_alignment="Center", vertical_alignment="Center",
+    margin_left="0", margin_right="0", margin_top="0", margin_bottom="0",
     hint=None
 ) -%}
 
-<ButtonWidget
-    DoNotPassEventsToChildren="true"
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    Brush="SPOptions.Checkbox.Empty.Button"
-    ButtonType="Toggle"
-    ToggleIndicator="ToggleIndicator"
-    UpdateChildrenStates="true"
-    IsSelected="{{ is_selected }}"
-    IsEnabled="{{ is_enabled }}"
-    Command.Click="{{ command }}">
+<Widget
+    HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+    MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
+    {% if data_source %}DataSource="{{ data_source }}"{% endif %}
+    {% if is_hidden %}IsHidden="{{ is_hidden }}"{% endif %}
+    IsVisible="{{ is_visible }}">
     <Children>
-        <ImageWidget
-            Id="ToggleIndicator"
-            WidthSizePolicy="StretchToParent"
-            HeightSizePolicy="StretchToParent"
-            Brush="SPOptions.Checkbox.Full.Button"
-        />
         {% if hint %}
             <HintWidget
-                DataSource="{FieldBattleHint}"
-                Command.HoverBegin="ExecuteBeginHint"
-                Command.HoverEnd="ExecuteEndHint"/>
+                DataSource="{{ hint }}"
+                Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
         {% endif %}
+
+        <ButtonWidget
+            IsVisible="{{ is_enabled }}"
+            IsSelected="{{ is_selected }}"
+            IsEnabled="true"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="SPOptions.Checkbox.Empty.Button"
+            ButtonType="Toggle"
+            ToggleIndicator="ToggleIndicator"
+            UpdateChildrenStates="true"
+            Command.Click="{{ command }}">
+            <Children>
+                <ImageWidget
+                    Id="ToggleIndicator"
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    Brush="SPOptions.Checkbox.Full.Button"
+                />
+                {% if hint %}
+                    <HintWidget
+                        DataSource="{{ hint }}"
+                        Command.HoverBegin="ExecuteBeginHint"
+                        Command.HoverEnd="ExecuteEndHint"/>
+                {% endif %}
+            </Children>
+        </ButtonWidget>
+
+        <ButtonWidget
+            IsHidden="{{ is_enabled }}"
+            IsSelected="{{ is_selected }}"
+            IsEnabled="false"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="SPOptions.Checkbox.Empty.Button"
+            ButtonType="Toggle"
+            ToggleIndicator="ToggleIndicator"
+            UpdateChildrenStates="true"
+            Command.Click="{{ command }}">
+            <Children>
+                <ImageWidget
+                    Id="ToggleIndicator"
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    Brush="SPOptions.Checkbox.Full.Button"
+                />
+                {% if hint %}
+                    <HintWidget
+                        DataSource="{{ hint }}"
+                        Command.HoverBegin="ExecuteBeginHint"
+                        Command.HoverEnd="ExecuteEndHint"/>
+                {% endif %}
+            </Children>
+        </ButtonWidget>
     </Children>
-</ButtonWidget>
+</Widget>
 
 {%- endmacro %}
 
