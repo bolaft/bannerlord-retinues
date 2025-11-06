@@ -21,6 +21,8 @@
 <Widget
     HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+    MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
     {% if data_source %}DataSource="{{ data_source }}"{% endif %}
     {% if is_hidden %}IsHidden="{{ is_hidden }}"{% endif %}
     IsVisible="{{ is_visible }}">
@@ -38,8 +40,6 @@
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
-            MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
-            MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
             Brush="{{ brush }}"
             Command.Click="{{ command }}"
             UpdateChildrenStates="true"
@@ -61,8 +61,6 @@
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
-            MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
-            MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
             Brush="{{ brush }}"
             Command.Click="{{ command }}"
             UpdateChildrenStates="true"

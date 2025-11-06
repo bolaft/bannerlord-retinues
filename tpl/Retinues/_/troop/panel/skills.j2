@@ -38,7 +38,7 @@
         {{ text.small(text=" - ", is_visible="@TroopXpIsEnabled") }}
         {{ text.small(text="@SkillCapText") }}
         {{ text.small(text=" - ", is_visible="@IsRetinue") }}
-        {{ text.small(text="@TierText", is_visible="@IsRetinue", margin_right="8") }}
+        {{ text.small(text="@TierText", is_visible="@IsRetinue", margin_right="4") }}
 
         <!-- Rank Up Button -->
         {{ button.brush(
@@ -47,6 +47,27 @@
             height="30", width="30",
             is_visible="@CanRankUp"
         )}}
+
+        <!-- Formation Class Text -->
+        {{ text.small(text=" - ") }}
+
+        <!-- Formation Class Icon -->
+        {{ image.sprite(
+            sprite="@FormationClassIcon",
+            width="24", height="24",
+            margin_right="4",
+        ) }}
+
+        <!-- Formation Class Text -->
+        {{ text.small(text="@FormationClassText", margin_right="4") }}
+
+        <!-- Change Formation Class Button -->
+        {{ button.brush(
+            command="ExecuteChangeFormationClass",
+            brush="SPClan.Members.RecallIcon",
+            height="32", width="32",
+            hint="@FormationClassHint"
+        ) }}
     </Children>
 </ListPanel>
 
