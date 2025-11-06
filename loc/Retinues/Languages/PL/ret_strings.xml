@@ -542,12 +542,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Generuje znacznie więcej logów (może wpłynąć na wydajność)." />
     <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Wyłącz Wykonane Bronie" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Po włączeniu, wykonane bronie nie będą dostępne, nawet po odblokowaniu odpowiedniej doktryny." />
-    <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Wyłącz Wymagania Osiągnięć" />
     <string

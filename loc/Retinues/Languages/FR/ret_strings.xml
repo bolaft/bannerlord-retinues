@@ -542,12 +542,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Produit beaucoup plus de journaux (peut affecter les performances)." />
     <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Désactiver les Armes Fabriquées" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Lorsqu’activé, les armes fabriquées ne seront pas disponibles même avec la doctrine appropriée débloquée." />
-    <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Désactiver les Exigences de Haut-Faits" />
     <string

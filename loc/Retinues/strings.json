@@ -2864,38 +2864,6 @@
     "TR": "Çok daha fazla kayıt üretir (performansı etkileyebilir)."
   },
   {
-    "id": "ret_mcm_option_disable_crafted_weapons",
-    "EN": "Disable Crafted Weapons",
-    "BR": "Desativar Armas Artesanais",
-    "CNs": "禁用手工制作的武器",
-    "CNt": "禁用手工製作的武器",
-    "DE": "Handgefertigte Waffen deaktivieren",
-    "FR": "Désactiver les Armes Fabriquées",
-    "IT": "Disabilita Armi Artigianali",
-    "JP": "手作りの武器を無効化",
-    "KO": "제작된 무기 비활성화",
-    "PL": "Wyłącz Wykonane Bronie",
-    "RU": "Отключить Изготовленное Оружие",
-    "SP": "Desactivar Armas Fabricadas",
-    "TR": "El Yapımı Silahları Devre Dışı Bırak"
-  },
-  {
-    "id": "ret_mcm_option_disable_crafted_weapons_hint",
-    "EN": "When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked.",
-    "BR": "Quando ativado, armas artesanais não estarão disponíveis mesmo com a doutrina apropriada desbloqueada.",
-    "CNs": "启用后，即使解锁了相应的教义，手工制作的武器也将不可用。",
-    "CNt": "啟用後，即使解鎖了相應的教義，手工製作的武器也將不可用。",
-    "DE": "Wenn aktiviert, sind handgefertigte Waffen auch dann nicht verfügbar, wenn die entsprechende Doktrin freigeschaltet ist.",
-    "FR": "Lorsqu’activé, les armes fabriquées ne seront pas disponibles même avec la doctrine appropriée débloquée.",
-    "IT": "Quando abilitato, le armi artigianali non saranno disponibili anche con la dottrina appropriata sbloccata.",
-    "JP": "有効にすると、適切なドクトリンが解除されていても、手作りの武器は使用できなくなります。",
-    "KO": "활성화되면 적절한 교리가 해제되어 있어도 제작된 무기를 사용할 수 없습니다.",
-    "PL": "Po włączeniu, wykonane bronie nie będą dostępne, nawet po odblokowaniu odpowiedniej doktryny.",
-    "RU": "Когда включено, изготовленное оружие не будет доступно, даже при разблокированной соответствующей доктрине.",
-    "SP": "Cuando está habilitado, las armas fabricadas no estarán disponibles incluso con la doctrina apropiada desbloqueada.",
-    "TR": "Etkinleştirildiğinde, uygun doktrin kilidi açılsa bile el yapımı silahlar kullanılamaz."
-  },
-  {
     "id": "ret_mcm_option_disable_feat_requirements",
     "EN": "Disable Feat Requirements",
     "BR": "Desativar Requisitos de Proeza",

@@ -542,12 +542,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Genera muchos más registros (puede afectar el rendimiento)." />
     <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Desactivar Armas Fabricadas" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Cuando está habilitado, las armas fabricadas no estarán disponibles incluso con la doctrina apropiada desbloqueada." />
-    <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Desactivar Requisitos de Hazaña" />
     <string

@@ -542,12 +542,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Genera molti più log (può influire sulle prestazioni)." />
     <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Disabilita Armi Artigianali" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Quando abilitato, le armi artigianali non saranno disponibili anche con la dottrina appropriata sbloccata." />
-    <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Disabilita Requisiti di Impresa" />
     <string
