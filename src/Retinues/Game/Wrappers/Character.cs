@@ -385,7 +385,7 @@ namespace Retinues.Game.Wrappers
             Equip(null, slot, index);
         }
 
-        public void UnequipAll(int index = 0, bool stock = false)
+        public void UnequipAll(int index, bool stock = false)
         {
             foreach (var slot in WEquipment.Slots)
                 Unequip(slot, index: index, stock: stock);
@@ -486,7 +486,17 @@ namespace Retinues.Game.Wrappers
 
             // Remove all children
             foreach (var target in UpgradeTargets)
-                target.Remove();
+                target.Remove(stock: stock);
+
+            // Stock equipment if requested
+            if (stock)
+            {
+                foreach (WEquipment equipment in Loadout.Equipments)
+                {
+                    UnequipAll(equipment.Index, stock: true);
+                    UnstageAll(equipment.Index, stock: true);
+                }
+            }
 
             // Revert existing instances in parties
             SanitizerBehavior.Sanitize();
