@@ -930,7 +930,7 @@
       text="{FACTION} Campeão da Rainha" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="Os seguintes séquitos se juntaram ao seu grupo:{newline}{newline}{JOINED_LINES}" />
+      text="Os seguintes séquitos se juntaram ao seu grupo: {JOINED_LINES}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Campeão da Casa" />
@@ -958,9 +958,6 @@
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Guarda Real" />
-    <string
-      id="ret_retinues_joined"
-      text="Novos Séquitos Entraram" />
     <string
       id="ret_royal_patronage"
       text="Patrocínio Real" />

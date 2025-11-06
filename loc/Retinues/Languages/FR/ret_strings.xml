@@ -930,7 +930,7 @@
       text="{FACTION} Champion de la Reine" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="Les rétines suivantes ont rejoint votre groupe :{newline}{newline}{JOINED_LINES}" />
+      text="Les rétines suivantes ont rejoint votre groupe : {JOINED_LINES}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Champion Seigneurial" />
@@ -958,9 +958,6 @@
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Garde Royal" />
-    <string
-      id="ret_retinues_joined"
-      text="Nouvelles Rétinues" />
     <string
       id="ret_royal_patronage"
       text="Faveur Royale" />
