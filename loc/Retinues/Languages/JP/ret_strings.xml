@@ -954,7 +954,7 @@
       text="{FACTION} 女王の勇士" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="以下の随伴兵があなたの隊に加わりました:{newline}{newline}{JOINED_LINES}" />
+      text="以下の随伴兵があなたの隊に加わりました: {JOINED_LINES}" />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} 家の勇士" />
@@ -982,9 +982,6 @@
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} 王立護衛" />
-    <string
-      id="ret_retinues_joined"
-      text="新しい随伴兵が参加しました" />
     <string
       id="ret_royal_patronage"
       text="王室の後援" />

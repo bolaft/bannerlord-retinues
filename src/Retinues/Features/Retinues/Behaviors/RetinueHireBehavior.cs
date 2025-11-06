@@ -115,7 +115,7 @@ namespace Retinues.Features.Retinues.Behaviors
             }
 
             if (hires.Count > 0)
-                ShowUnlockInquiry(hires);
+                ShowUnlockMessage(hires);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -163,20 +163,20 @@ namespace Retinues.Features.Retinues.Behaviors
             return [.. retinues.Where(r => GetRetinueCap(r) > GetCountOf(r))];
         }
 
-        private static void ShowUnlockInquiry(Dictionary<WCharacter, int> hires)
+        private static void ShowUnlockMessage(Dictionary<WCharacter, int> hires)
         {
-            var joinedLines = string.Join(
-                "\n",
+            var joined = string.Join(
+                ", ",
                 hires.Where(h => h.Key != null).Select(h => $"{h.Value} {h.Key.Name}")
             );
 
             var body = L.T(
                     "retinue_hire_inquiry_body",
-                    "The following retinues have joined your party:\n\n{JOINED_LINES}"
+                    "The following retinues have joined your party: {JOINED}."
                 )
-                .SetTextVariable("JOINED_LINES", joinedLines);
+                .SetTextVariable("JOINED", joined).ToString();
 
-            Popup.Display(L.T("retinues_joined", "New Retinues Joined"), body);
+            Log.Message(body);
         }
     }
 }

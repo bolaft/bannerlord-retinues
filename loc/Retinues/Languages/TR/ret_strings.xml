@@ -954,7 +954,7 @@
       text="{FACTION} Kraliçenin Şampiyonu" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="Aşağıdaki yandaşlar grubunuza katıldı:{newline}{newline}{JOINED_LINES}" />
+      text="Aşağıdaki yandaşlar grubunuza katıldı: {JOINED_LINES}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Hanenin Şampiyonu" />
@@ -982,9 +982,6 @@
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Kraliyet Muhafızı" />
-    <string
-      id="ret_retinues_joined"
-      text="Yeni Yandaşlar Katıldı" />
     <string
       id="ret_royal_patronage"
       text="Kraliyet Himayesi" />
