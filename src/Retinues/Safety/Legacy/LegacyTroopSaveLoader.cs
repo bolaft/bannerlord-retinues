@@ -88,6 +88,9 @@ namespace Retinues.Safety.Legacy
                 }
             }
 
+            // Activate before loading children so ID is allocated
+            troop.Activate();
+
             // Restore upgrade targets
             foreach (var child in data.UpgradeTargets ?? [])
                 troop.AddUpgradeTarget(Load(child));
@@ -128,9 +131,6 @@ namespace Retinues.Safety.Legacy
                     troop.HeightMax = data.HeightMax;
                 }
             }
-
-            // Activation disabled, deferred to actual TroopSaveData
-            // troop.Activate();
 
             // Return the created troop
             return troop;

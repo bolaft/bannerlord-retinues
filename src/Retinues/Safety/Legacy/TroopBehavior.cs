@@ -9,7 +9,7 @@ namespace Retinues.Safety.Legacy
     /// <summary>
     /// Handles migration of legacy troop save data to the current format.
     /// </summary>
-    public class LegacyTroopSaveBehavior : CampaignBehaviorBase
+    public class TroopBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -41,7 +41,10 @@ namespace Retinues.Safety.Legacy
             foreach (var root in TroopData)
             {
                 // Load legacy troop data
-                var data = new TroopSaveData(LegacyTroopSaveLoader.Load(root));
+                var troop = LegacyTroopSaveLoader.Load(root);
+
+                // Create new troop save data
+                var data = new TroopSaveData(troop);
 
                 // Determine faction
                 var factionData = IsKingdom(root.StringId) ? kingdomSaveData : clanSaveData;
@@ -84,6 +87,8 @@ namespace Retinues.Safety.Legacy
                         break;
                 }
             }
+
+            Log.Info("Applying migrated troop data to factions...");
 
             // Apply migrated data back to factions
             clanSaveData.Apply(Player.Clan);

@@ -219,7 +219,7 @@ namespace Retinues
             Log.Info("Registering behaviors...");
 
             // Legacy behaviors
-            AddBehavior<LegacyTroopSaveBehavior>(cs);
+            AddBehavior<TroopBehavior>(cs);
 
             // Troop behaviors
             AddBehavior<FactionBehavior>(cs);
