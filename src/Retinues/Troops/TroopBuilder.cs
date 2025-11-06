@@ -4,9 +4,9 @@ using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game;
+using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
-using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -19,19 +19,45 @@ namespace Retinues.Troops
     [SafeClass]
     public static class TroopBuilder
     {
+        private static bool troopsAwaitingRegistration = false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Ensures all required custom troops exist for the given faction, creating defaults if needed.
-        /// Each troop family (retinue/regular/militia) is checked and initialized independently.
+        /// Ensures all required custom troops exist for the given faction.
+        /// Registers new troops if any were created.
         /// </summary>
         public static void EnsureTroopsExist(WFaction faction)
         {
             if (faction == null)
                 return; // Cannot ensure troops exist for null (no kingdom?) faction.
 
+            UpdateFactionTroops(faction);
+            RegisterNewTroops(faction);
+        }
+
+        /// <summary>
+        /// Registers any newly created troops into the CharacterGraphIndex.
+        /// </summary>
+        public static void RegisterNewTroops(WFaction faction)
+        {
+            if (faction == null)
+                return; // Cannot ensure troops exist for null (no kingdom?) faction.
+
+            if (!troopsAwaitingRegistration)
+                return; // No new troops to register
+
+            CharacterGraphIndex.RegisterFactionRoots(faction);
+            troopsAwaitingRegistration = false; // Reset the flag after registration
+        }
+
+        /// <summary>
+        /// Ensures all required custom troops exist for the given faction, creating defaults if needed.
+        /// </summary>
+        public static void UpdateFactionTroops(WFaction faction)
+        {
             Log.Debug($"Ensuring troops exist for faction: {faction?.Name ?? "null"}");
 
             if (faction.RetinueElite is null)
@@ -138,9 +164,14 @@ namespace Retinues.Troops
         //                        Retinues                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Creates a retinue troop for the given faction.
+        /// </summary>
         private static void CreateRetinueTroop(WFaction faction, bool isElite)
         {
             Log.Info($"Creating retinue troop for faction {faction.Name} (elite={isElite})");
+
+            troopsAwaitingRegistration = true; // Mark that new troops have been created
 
             var root = isElite ? faction.Culture.RootElite : faction.Culture.RootBasic;
             if (root == null)
@@ -183,6 +214,9 @@ namespace Retinues.Troops
                 faction.RetinueBasic = retinue;
         }
 
+        /// <summary>
+        /// Builds a retinue troop name for a custom troop, based on faction and elite status.
+        /// </summary>
         private static string MakeRetinueName(WFaction faction, bool isElite)
         {
             TextObject to;
@@ -207,8 +241,13 @@ namespace Retinues.Troops
         //                        Militias                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Creates a militia troop for the given faction.
+        /// </summary>
         private static void CreateMilitiaTroop(WFaction faction, bool isElite, bool isMelee)
         {
+            troopsAwaitingRegistration = true; // Mark that new troops have been created
+
             WCharacter root;
 
             if (isMelee)
@@ -272,6 +311,8 @@ namespace Retinues.Troops
         /// </summary>
         public static void CreateTroops(WFaction faction, bool isElite, bool copyWholeTree)
         {
+            troopsAwaitingRegistration = true; // Mark that new troops have been created
+
             var culture = faction.Culture;
 
             var root = isElite ? culture?.RootElite : culture?.RootBasic;

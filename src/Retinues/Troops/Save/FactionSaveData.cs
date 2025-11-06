@@ -1,3 +1,4 @@
+using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using TaleWorlds.SaveSystem;
 
@@ -61,6 +62,8 @@ namespace Retinues.Troops.Save
             faction.MilitiaMeleeElite = MilitiaMeleeElite.Deserialize();
             faction.MilitiaRanged = MilitiaRanged.Deserialize();
             faction.MilitiaRangedElite = MilitiaRangedElite.Deserialize();
+
+            CharacterGraphIndex.RegisterFactionRoots(faction);
         }
     }
 }

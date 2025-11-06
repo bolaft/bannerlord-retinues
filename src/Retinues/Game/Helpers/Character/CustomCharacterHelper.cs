@@ -1,4 +1,3 @@
-using System.Linq;
 using Retinues.Game.Wrappers;
 
 namespace Retinues.Game.Helpers.Character
@@ -12,39 +11,22 @@ namespace Retinues.Game.Helpers.Character
         //                      Public API                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsRetinue(WCharacter node) => Player.RetinueTroops.Contains(node);
+        public bool IsRetinue(WCharacter node) => CharacterGraphIndex.IsRetinue(node);
 
-        public bool IsMilitiaMelee(WCharacter node) => Player.MilitiaMeleeTroops.Contains(node);
+        public bool IsMilitiaMelee(WCharacter node) => CharacterGraphIndex.IsMilitiaMelee(node);
 
-        public bool IsMilitiaRanged(WCharacter node) => Player.MilitiaRangedTroops.Contains(node);
+        public bool IsMilitiaRanged(WCharacter node) => CharacterGraphIndex.IsMilitiaRanged(node);
 
-        public bool IsElite(WCharacter node) => Player.EliteTroops.Contains(node);
+        public bool IsElite(WCharacter node) => CharacterGraphIndex.IsElite(node);
 
-        public bool IsKingdom(WCharacter node) => Player.Kingdom.Troops.Contains(node);
+        public bool IsKingdom(WCharacter node) =>
+            CharacterGraphIndex.TryGetFaction(node) == Player.Kingdom;
 
-        public bool IsClan(WCharacter node) => Player.Clan.Troops.Contains(node);
+        public bool IsClan(WCharacter node) =>
+            CharacterGraphIndex.TryGetFaction(node) == Player.Clan;
 
-        public WFaction ResolveFaction(WCharacter node) =>
-            Player.Clan.Troops.Contains(node) ? Player.Clan
-            : Player.Kingdom != null && Player.Kingdom.Troops.Contains(node) ? Player.Kingdom
-            : null;
+        public WFaction ResolveFaction(WCharacter node) => CharacterGraphIndex.TryGetFaction(node);
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Wrapper Convenience                  //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public WCharacter GetParent(WCharacter node)
-        {
-            var faction = ResolveFaction(node);
-
-            if (faction == null)
-                return null;
-
-            foreach (var troop in faction.BasicTroops.Concat(faction.EliteTroops))
-                if (troop.UpgradeTargets.Contains(node))
-                    return troop;
-
-            return null;
-        }
+        public WCharacter GetParent(WCharacter node) => CharacterGraphIndex.TryGetParent(node);
     }
 }

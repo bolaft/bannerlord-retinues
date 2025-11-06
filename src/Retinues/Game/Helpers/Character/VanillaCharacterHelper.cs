@@ -39,11 +39,11 @@ namespace Retinues.Game.Helpers.Character
 
         private static CultureCache GetOrBuildCache(CharacterObject sample)
         {
-            var cul = sample?.Culture;
-            if (cul == null)
+            var culture = sample?.Culture;
+            if (culture == null)
                 return null;
 
-            var cid = cul.StringId;
+            var cid = culture.StringId;
             if (string.IsNullOrEmpty(cid))
                 return null;
 
@@ -53,12 +53,12 @@ namespace Retinues.Game.Helpers.Character
             c = new CultureCache
             {
                 CultureId = cid,
-                BasicRoot = cul.BasicTroop,
-                EliteRoot = cul.EliteBasicTroop,
-                MilitiaMelee = cul.MeleeMilitiaTroop,
-                MilitiaMeleeElite = cul.MeleeEliteMilitiaTroop,
-                MilitiaRanged = cul.RangedMilitiaTroop,
-                MilitiaRangedElite = cul.RangedEliteMilitiaTroop,
+                BasicRoot = culture.BasicTroop,
+                EliteRoot = culture.EliteBasicTroop,
+                MilitiaMelee = culture.MeleeMilitiaTroop,
+                MilitiaMeleeElite = culture.MeleeEliteMilitiaTroop,
+                MilitiaRanged = culture.RangedMilitiaTroop,
+                MilitiaRangedElite = culture.RangedEliteMilitiaTroop,
             };
 
             void Crawl(CharacterObject root, HashSet<string> set)

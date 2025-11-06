@@ -5,7 +5,6 @@ using System.Reflection;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Safety.Sanitizer;
-using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -450,19 +449,45 @@ namespace Retinues.Game.Wrappers
 
         public void AddUpgradeTarget(WCharacter target)
         {
-            if (UpgradeTargets.Any(wc => wc == target))
+            if (target == null || target == this)
+                return;
+
+            // No duplicate edges
+            if (UpgradeTargets?.Any(wc => wc == target) == true)
                 return;
 
             var list = UpgradeTargets?.ToList() ?? [];
             list.Add(target);
             Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(list));
+
+            // Index maintenance
+            CharacterGraphIndex.SetParent(this, target);
+
+            // If this node already has a known faction, propagate it to the child.
+            var f = CharacterGraphIndex.TryGetFaction(this);
+            if (f != null)
+                CharacterGraphIndex.SetFaction(f, target);
         }
 
         public void RemoveUpgradeTarget(WCharacter target)
         {
+            if (target == null)
+                return;
+
             var list = UpgradeTargets?.ToList() ?? [];
+            var before = list.Count;
             list.RemoveAll(wc => wc == target);
+
+            if (list.Count == before)
+                return; // nothing removed
+
             Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(list));
+
+            // Index maintenance
+            // Only clear if the index currently points to this as the parent.
+            var currentParent = CharacterGraphIndex.TryGetParent(target);
+            if (currentParent != null && currentParent == this)
+                CharacterGraphIndex.SetParent(null, target);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -13,6 +13,7 @@ using Retinues.Features.Unlocks.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
+using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
 using Retinues.Safety.Legacy;
@@ -364,6 +365,9 @@ namespace Retinues
 
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
+
+            // Clear character graph index
+            CharacterGraphIndex.Clear();
         }
     }
 }
