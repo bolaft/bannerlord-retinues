@@ -718,7 +718,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     )
                 );
             }
-            else if (!State.Troop.IsElite && State.Troop.Tier >= State.Faction.RetinueElite.Tier)
+            else if (
+                State.Troop == State.Faction.RetinueBasic
+                && State.Troop.Tier >= State.Faction.RetinueElite.Tier
+            )
             {
                 Popup.Display(
                     L.T("rank_up_cant_outrank_elite_title", "Cannot Outrank Elite"),

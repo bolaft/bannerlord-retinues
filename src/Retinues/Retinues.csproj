@@ -97,13 +97,13 @@
       <HintPath>$(ReferenceRoot)/TaleWorlds.SaveSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <!-- Sandbox -->
-    <Reference Include="Sandbox">
-      <HintPath>$(ReferenceRoot)/Sandbox.dll</HintPath>
+    <!-- SandBox -->
+    <Reference Include="SandBox">
+      <HintPath>$(ReferenceRoot)/SandBox.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="Sandbox.GauntletUI">
-      <HintPath>$(ReferenceRoot)/Sandbox.GauntletUI.dll</HintPath>
+    <Reference Include="SandBox.GauntletUI">
+      <HintPath>$(ReferenceRoot)/SandBox.GauntletUI.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <!-- UIExtenderEx -->
