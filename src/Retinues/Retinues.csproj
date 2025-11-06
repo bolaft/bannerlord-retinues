@@ -25,6 +25,18 @@
       <HintPath>$(ReferenceRoot)/TaleWorlds.MountAndBlade.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="TaleWorlds.GauntletUI">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.GauntletUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="TaleWorlds.GauntletUI.Data">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.GauntletUI.Data.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.ViewModelCollection">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.MountAndBlade.ViewModelCollection.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.MountAndBlade.GauntletUI.Widgets">
       <HintPath>$(ReferenceRoot)/TaleWorlds.MountAndBlade.GauntletUI.Widgets.dll</HintPath>
       <Private>false</Private>
