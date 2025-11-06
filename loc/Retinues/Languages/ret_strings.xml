@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="Change Culture" />
     <string
+      id="ret_change_formation_class_title"
+      text="Change Formation Class" />
+    <string
       id="ret_change_race_title"
       text="Change Race" />
     <string
@@ -193,6 +196,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Win a tournament wearing only armor of your own culture." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Culture &amp; Race" />
     <string
       id="ret_culture_header_text"
       text="Culture" />
@@ -275,8 +281,20 @@
       id="ret_field_battle_hint"
       text="Enable or disable this set for field battles." />
     <string
+      id="ret_formation_auto"
+      text="Auto" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Formation Class" />
+    <string
+      id="ret_formation_class_hint"
+      text="Change Formation Class" />
+    <string
       id="ret_gender_hint"
       text="Gender" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Toggle Gender" />
     <string
       id="ret_gloves_slot_text"
       text="Gloves" />
@@ -1011,7 +1029,7 @@
       text="Skill cannot go below zero." />
     <string
       id="ret_skills_header_text"
-      text="Skills" />
+      text="Skills &amp; Formation" />
     <string
       id="ret_sort_category"
       text="Category" />

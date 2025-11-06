@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="문화 변경" />
     <string
+      id="ret_change_formation_class_title"
+      text="대형 클래스 변경" />
+    <string
       id="ret_change_race_title"
       text="종족 변경" />
     <string
@@ -193,6 +196,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="자신의 문화 방어구만 착용하고 토너먼트에서 승리하십시오." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="문화 및 종족" />
     <string
       id="ret_culture_header_text"
       text="문화" />
@@ -275,8 +281,20 @@
       id="ret_field_battle_hint"
       text="야전 전투에 이 세트를 활성화 또는 비활성화하십시오." />
     <string
+      id="ret_formation_auto"
+      text="자동" />
+    <string
+      id="ret_formation_class_header_text"
+      text="대형 클래스" />
+    <string
+      id="ret_formation_class_hint"
+      text="대형 클래스 변경" />
+    <string
       id="ret_gender_hint"
       text="성별" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="성별 전환" />
     <string
       id="ret_gloves_slot_text"
       text="장갑" />

@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="更改文化" />
     <string
+      id="ret_change_formation_class_title"
+      text="更改編隊類別" />
+    <string
       id="ret_change_race_title"
       text="更改種族" />
     <string
@@ -193,6 +196,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="僅穿著本文化的護甲贏得一場比武大會。" />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="文化與種族" />
     <string
       id="ret_culture_header_text"
       text="文化" />
@@ -275,8 +281,20 @@
       id="ret_field_battle_hint"
       text="為野戰啟用或禁用此套裝。" />
     <string
+      id="ret_formation_auto"
+      text="自動" />
+    <string
+      id="ret_formation_class_header_text"
+      text="陣型類別" />
+    <string
+      id="ret_formation_class_hint"
+      text="更改陣型類別" />
+    <string
       id="ret_gender_hint"
       text="性別" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="切換性別" />
     <string
       id="ret_gloves_slot_text"
       text="手套" />

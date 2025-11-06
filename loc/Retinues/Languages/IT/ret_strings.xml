@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="Cambia Cultura" />
     <string
+      id="ret_change_formation_class_title"
+      text="Cambia Classe di Formazione" />
+    <string
       id="ret_change_race_title"
       text="Cambia Razza" />
     <string
@@ -193,6 +196,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Vinci un torneo indossando solo armature della tua cultura." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Cultura e Razza" />
     <string
       id="ret_culture_header_text"
       text="Cultura" />
@@ -275,8 +281,20 @@
       id="ret_field_battle_hint"
       text="Abilita o disabilita questo set per le battaglie campali." />
     <string
+      id="ret_formation_auto"
+      text="Auto" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Classe di Formazione" />
+    <string
+      id="ret_formation_class_hint"
+      text="Cambia Classe di Formazione" />
+    <string
       id="ret_gender_hint"
       text="Genere" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cambia Genere" />
     <string
       id="ret_gloves_slot_text"
       text="Guanti" />

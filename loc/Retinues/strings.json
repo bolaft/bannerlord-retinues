@@ -640,6 +640,22 @@
     "TR": "Kültürü Değiştir"
   },
   {
+    "id": "ret_change_formation_class_title",
+    "EN": "Change Formation Class",
+    "BR": "Mudar Classe de Formação",
+    "CNs": "更改编队类别",
+    "CNt": "更改編隊類別",
+    "DE": "Formationsklasse ändern",
+    "FR": "Changer de Classe de Formation",
+    "IT": "Cambia Classe di Formazione",
+    "JP": "編成クラスを変更",
+    "KO": "대형 클래스 변경",
+    "PL": "Zmień Klasę Formacji",
+    "RU": "Сменить Класс Формации",
+    "SP": "Cambiar Clase de Formación",
+    "TR": "Düzen Sınıfını Değiştir"
+  },
+  {
     "id": "ret_change_race_title",
     "EN": "Change Race",
     "BR": "Mudar Raça",
@@ -1006,6 +1022,22 @@
     "RU": "Выиграйте турнир, надев только доспехи своей культуры.",
     "SP": "Gana un torneo vistiendo solo armaduras de tu propia cultura.",
     "TR": "Sadece kendi kültürünün zırhını giyerek bir turnuva kazan."
+  },
+  {
+    "id": "ret_culture_and_race_header_text",
+    "EN": "Culture & Race",
+    "BR": "Cultura e Raça",
+    "CNs": "文化与种族",
+    "CNt": "文化與種族",
+    "DE": "Kultur & Rasse",
+    "FR": "Culture & Race",
+    "IT": "Cultura e Razza",
+    "JP": "文化と種族",
+    "KO": "문화 및 종족",
+    "PL": "Kultura i Rasa",
+    "RU": "Культура и Раса",
+    "SP": "Cultura y Raza",
+    "TR": "Kültür ve Irk"
   },
   {
     "id": "ret_culture_header_text",
@@ -1440,6 +1472,54 @@
     "TR": "Bu seti saha savaşları için etkinleştir veya devre dışı bırak."
   },
   {
+    "id": "ret_formation_auto",
+    "EN": "Auto",
+    "BR": "Automático",
+    "CNs": "自动",
+    "CNt": "自動",
+    "DE": "Auto",
+    "FR": "Auto",
+    "IT": "Auto",
+    "JP": "自動",
+    "KO": "자동",
+    "PL": "Auto",
+    "RU": "Авто",
+    "SP": "Auto",
+    "TR": "Oto"
+  },
+  {
+    "id": "ret_formation_class_header_text",
+    "EN": "Formation Class",
+    "BR": "Classe de Formação",
+    "CNs": "阵型类别",
+    "CNt": "陣型類別",
+    "DE": "Formationsklasse",
+    "FR": "Classe de Formation",
+    "IT": "Classe di Formazione",
+    "JP": "編成クラス",
+    "KO": "대형 클래스",
+    "PL": "Klasa Formacji",
+    "RU": "Класс формации",
+    "SP": "Clase de Formación",
+    "TR": "Formasyon Sınıfı"
+  },
+  {
+    "id": "ret_formation_class_hint",
+    "EN": "Change Formation Class",
+    "BR": "Alterar Classe de Formação",
+    "CNs": "更改阵型类别",
+    "CNt": "更改陣型類別",
+    "DE": "Formationsklasse ändern",
+    "FR": "Changer de Classe de Formation",
+    "IT": "Cambia Classe di Formazione",
+    "JP": "編成クラスを変更",
+    "KO": "대형 클래스 변경",
+    "PL": "Zmień klasę formacji",
+    "RU": "Изменить класс формации",
+    "SP": "Cambiar Clase de Formación",
+    "TR": "Formasyon Sınıfını Değiştir"
+  },
+  {
     "id": "ret_gender_hint",
     "EN": "Gender",
     "BR": "Gênero",
@@ -1454,6 +1534,22 @@
     "RU": "Пол",
     "SP": "Género",
     "TR": "Cinsiyet"
+  },
+  {
+    "id": "ret_gender_toggle_hint",
+    "EN": "Toggle Gender",
+    "BR": "Alternar Gênero",
+    "CNs": "切换性别",
+    "CNt": "切換性別",
+    "DE": "Geschlecht umschalten",
+    "FR": "Changer de Genre",
+    "IT": "Cambia Genere",
+    "JP": "性別を切り替え",
+    "KO": "성별 전환",
+    "PL": "Przełącz płeć",
+    "RU": "Переключить пол",
+    "SP": "Cambiar Género",
+    "TR": "Cinsiyeti Değiştir"
   },
   {
     "id": "ret_gloves_slot_text",
@@ -5361,7 +5457,7 @@
   },
   {
     "id": "ret_skills_header_text",
-    "EN": "Skills",
+    "EN": "Skills & Formation",
     "BR": "Habilidades",
     "CNs": "技能",
     "CNt": "技能",

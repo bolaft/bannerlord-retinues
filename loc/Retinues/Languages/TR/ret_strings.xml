@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
     <string
+      id="ret_change_formation_class_title"
+      text="Düzen Sınıfını Değiştir" />
+    <string
       id="ret_change_race_title"
       text="Irkı Değiştir" />
     <string
@@ -193,6 +196,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Sadece kendi kültürünün zırhını giyerek bir turnuva kazan." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Kültür ve Irk" />
     <string
       id="ret_culture_header_text"
       text="Kültür" />
@@ -275,8 +281,20 @@
       id="ret_field_battle_hint"
       text="Bu seti saha savaşları için etkinleştir veya devre dışı bırak." />
     <string
+      id="ret_formation_auto"
+      text="Oto" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Formasyon Sınıfı" />
+    <string
+      id="ret_formation_class_hint"
+      text="Formasyon Sınıfını Değiştir" />
+    <string
       id="ret_gender_hint"
       text="Cinsiyet" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cinsiyeti Değiştir" />
     <string
       id="ret_gloves_slot_text"
       text="Eldiven" />

@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="Сменить Культуру" />
     <string
+      id="ret_change_formation_class_title"
+      text="Сменить Класс Формации" />
+    <string
       id="ret_change_race_title"
       text="Сменить Расу" />
     <string
@@ -193,6 +196,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Выиграйте турнир, надев только доспехи своей культуры." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Культура и Раса" />
     <string
       id="ret_culture_header_text"
       text="Культура" />
@@ -275,8 +281,20 @@
       id="ret_field_battle_hint"
       text="Включите или отключите этот набор для полевых боёв." />
     <string
+      id="ret_formation_auto"
+      text="Авто" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Класс формации" />
+    <string
+      id="ret_formation_class_hint"
+      text="Изменить класс формации" />
+    <string
       id="ret_gender_hint"
       text="Пол" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Переключить пол" />
     <string
       id="ret_gloves_slot_text"
       text="Перчатки" />

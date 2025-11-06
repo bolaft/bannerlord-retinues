@@ -125,6 +125,9 @@
       id="ret_change_culture_title"
       text="文化を変更" />
     <string
+      id="ret_change_formation_class_title"
+      text="編成クラスを変更" />
+    <string
       id="ret_change_race_title"
       text="種族を変更" />
     <string
@@ -193,6 +196,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="自文化の鎧だけを装備してトーナメントに勝利する。" />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="文化と種族" />
     <string
       id="ret_culture_header_text"
       text="文化" />
@@ -275,8 +281,20 @@
       id="ret_field_battle_hint"
       text="野戦用にこのセットを有効または無効にします。" />
     <string
+      id="ret_formation_auto"
+      text="自動" />
+    <string
+      id="ret_formation_class_header_text"
+      text="編成クラス" />
+    <string
+      id="ret_formation_class_hint"
+      text="編成クラスを変更" />
+    <string
       id="ret_gender_hint"
       text="性別" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="性別を切り替え" />
     <string
       id="ret_gloves_slot_text"
       text="手袋" />
