@@ -27,25 +27,17 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// Snapshot of an equip delta for a single slot.
     /// </summary>
-    public readonly struct EquipChangeDelta
-    {
-        public EquipChangeDelta(
-            string oldEquippedId,
-            string newEquippedId,
-            string oldStagedId,
-            string newStagedId
+    public readonly struct EquipChangeDelta(
+        string oldEquippedId,
+        string newEquippedId,
+        string oldStagedId,
+        string newStagedId
         )
-        {
-            OldEquippedId = oldEquippedId;
-            NewEquippedId = newEquippedId;
-            OldStagedId = oldStagedId;
-            NewStagedId = newStagedId;
-        }
-
-        public readonly string OldEquippedId;
-        public readonly string NewEquippedId;
-        public readonly string OldStagedId;
-        public readonly string NewStagedId;
+    {
+        public readonly string OldEquippedId = oldEquippedId;
+        public readonly string NewEquippedId = newEquippedId;
+        public readonly string OldStagedId = oldStagedId;
+        public readonly string NewStagedId = newStagedId;
     }
 
     /// <summary>
