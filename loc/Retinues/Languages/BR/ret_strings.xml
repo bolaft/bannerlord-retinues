@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Altura" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Ocultar itens fabricados." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Arreio" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="Civil" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="Desbloqueie a doutrina &apos;Tradições Clânicas&apos; para mostrar itens fabricados." />
+    <string
+      id="ret_show_crafted_hint"
+      text="Mostrar itens fabricados." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Apenas os slots de armas podem ter itens fabricados." />
     <string
       id="ret_siege_assault_hint"
       text="Ative ou desative este conjunto para assalto de cerco." />

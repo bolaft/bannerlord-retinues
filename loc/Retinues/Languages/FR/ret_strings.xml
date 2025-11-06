@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Taille" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Masquer les objets fabriqués." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Harnais" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="Civil" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="Débloque la doctrine « Traditions Claniques » pour afficher les objets forgés." />
+    <string
+      id="ret_show_crafted_hint"
+      text="Afficher les objets forgés." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Seuls les emplacements d&apos;armes peuvent contenir des objets forgés." />
     <string
       id="ret_siege_assault_hint"
       text="Activer ou désactiver cet ensemble pour les assauts de siège." />

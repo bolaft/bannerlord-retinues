@@ -79,7 +79,7 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public bool RemoveTroopButtonIsVisible =>
-            State.Troop?.IsMilitia == false && State.Troop?.IsRetinue == false;
+            State.Troop?.IsMilitia == false && State.Troop?.IsRetinue == false && IsVisible;
 
         [DataSourceProperty]
         public bool RemoveTroopButtonIsEnabled => State.Troop?.IsDeletable == true;
@@ -414,6 +414,9 @@ namespace Retinues.GUI.Editor.VM.Troop
             base.Show();
             TroopList.Show();
             TroopPanel.Show();
+
+            // Notify visibility-dependent properties
+            OnPropertyChanged(nameof(RemoveTroopButtonIsVisible));
         }
 
         /// <summary>
@@ -424,6 +427,9 @@ namespace Retinues.GUI.Editor.VM.Troop
             TroopList.Hide();
             TroopPanel.Hide();
             base.Hide();
+
+            // Notify visibility-dependent properties
+            OnPropertyChanged(nameof(RemoveTroopButtonIsVisible));
         }
     }
 }

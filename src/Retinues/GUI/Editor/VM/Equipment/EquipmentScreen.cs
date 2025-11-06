@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Features.Missions.Behaviors;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.List;
@@ -77,7 +79,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(SetIsEnabledForSiegeAssault),
                 ],
                 [UIEvent.Equip] = [nameof(CanUnstage), nameof(CanUnequip)],
-                [UIEvent.Slot] = [nameof(CanUnstage)],
+                [UIEvent.Slot] =
+                [
+                    nameof(CanUnstage),
+                    nameof(CanShowCrafted),
+                    nameof(ShowCrafted),
+                    nameof(ShowCraftedHint),
+                ],
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -173,6 +181,16 @@ namespace Retinues.GUI.Editor.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━ Crafted ━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool CanShowCrafted =>
+            DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
+            && EquipmentListVM.WeaponSlots.Contains(State.Slot.ToString());
+
+        [DataSourceProperty]
+        public bool ShowCrafted => EquipmentList.ShowCrafted;
 
         /* ━━━ Unequip / Unstage ━━ */
 
@@ -333,9 +351,43 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 )
                 : null;
 
+        [DataSourceProperty]
+        public BasicTooltipViewModel ShowCraftedHint =>
+            CanShowCrafted
+                ? Tooltip.MakeTooltip(
+                    null,
+                    ShowCrafted
+                        ? L.S("hide_crafted_hint", "Hide crafted items.")
+                        : L.S("show_crafted_hint", "Show crafted items.")
+                )
+            : !DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.T(
+                            "show_crafted_disabled_hint",
+                            "Unlock the 'Clanic Traditions' doctrine to show crafted items."
+                        )
+                        .ToString()
+                )
+            : Tooltip.MakeTooltip(
+                null,
+                L.T("show_crafted_weapon_hint", "Only weapon slots can have crafted items.")
+                    .ToString()
+            );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceMethod]
+        public void ExecuteToggleShowCrafted()
+        {
+            if (!CanShowCrafted)
+                return;
+            EquipmentList.ShowCrafted = !EquipmentList.ShowCrafted;
+            OnPropertyChanged(nameof(ShowCrafted));
+            OnPropertyChanged(nameof(ShowCraftedHint));
+        }
 
         [DataSourceMethod]
         public void ExecuteToggleEnableSetForFieldBattle()

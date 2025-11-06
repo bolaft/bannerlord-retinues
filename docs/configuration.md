@@ -71,7 +71,7 @@ Gates and strictness for the doctrine/feat system.
 
 ## Equipment
 
-Money/time rules, availability filters, culture/crafted rules, and mounts.
+Money/time rules, availability filters, culture rules, and mounts.
 
 | Option | What it does (detail) | Default | Freeform | Realistic |
 |---|---|---:|---:|---:|
@@ -83,10 +83,9 @@ Money/time rules, availability filters, culture/crafted rules, and mounts.
 | **Allowed Tier Difference** | Max allowed difference between **troop tier** and **item tier/difficulty**. If exceeded, the item is blocked until the troop ranks up or a doctrine loosens the rule. | 3 | 6 | 2 |
 | **Force Main Battle Set In Combat** | If **On**, the **main Battle** set is forced during missions (ignores alternates). Useful for simplicity or compatibility. | Off | Off | Off |
 | **Ignore Civilian Horse for Upgrade Requirements** | If **On**, civilian horse **does not count** toward mounted upgrade checks (prevents weird gating via civilian kits). If **Off**, civilian horses can satisfy mount requirements. | On | On | Off |
-| **Disable Crafted Weapons** | If **On**, **crafted** designs are **excluded** from the equipment lists. If **Off**, the game can show the **latest crafted variant per design**. | Off | Off | On |
 | **Disallow Mounts For Tier 1** | If **On**, **T1 troops** cannot equip **horse/harness** (slots disabled). If **Off**, T1 can mount if other rules allow. | On | Off | On |
 
-> Doctrines can also modify costs/availability (e.g., **Royal Patronage** gives rebates for kingdom-culture gear; **Ancestral Heritage** and **Clanic Traditions** affect culture/crafted availability).
+> Doctrines can also modify costs/availability (e.g., **Royal Patronage** gives rebates for kingdom-culture gear and **Ancestral Heritage** affect cultural item availability).
 
 ---
 

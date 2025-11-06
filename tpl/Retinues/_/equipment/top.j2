@@ -2,6 +2,35 @@
 <!--   Equipment Top Bar   -->
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
+<!-- Show Crafted -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="36"
+    MarginTop="15" MarginLeft="60"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Crafted Icon -->
+        {{ image.sprite(
+            sprite="General\Mission\smithy",
+            color="#f1d7a5ff",
+            width="24", height="24",
+        ) }}
+
+        <!-- Crafted Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteToggleShowCrafted",
+            is_selected="@ShowCrafted",
+            size="30",
+            is_enabled="@CanShowCrafted",
+            hint="{ShowCraftedHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
 <ListPanel
     DataSource="{EquipmentScreen}"
     IsVisible="@IsVisible"

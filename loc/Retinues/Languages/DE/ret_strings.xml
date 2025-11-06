@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Größe" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Verstecke hergestellte Gegenstände." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Zaumzeug" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="Zivilist" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="Schalte die Doktrin &apos;Klantraditionen&apos; frei, um hergestellte Gegenstände anzuzeigen." />
+    <string
+      id="ret_show_crafted_hint"
+      text="Zeige hergestellte Gegenstände an." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Nur Waffenslots können hergestellte Gegenstände haben." />
     <string
       id="ret_siege_assault_hint"
       text="Aktiviere oder deaktiviere dieses Set für Belagerungsangriffe." />

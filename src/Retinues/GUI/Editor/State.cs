@@ -32,7 +32,7 @@ namespace Retinues.GUI.Editor
         string newEquippedId,
         string oldStagedId,
         string newStagedId
-        )
+    )
     {
         public readonly string OldEquippedId = oldEquippedId;
         public readonly string NewEquippedId = newEquippedId;

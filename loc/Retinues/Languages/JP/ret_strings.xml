@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="身長" />
     <string
+      id="ret_hide_crafted_hint"
+      text="作成したアイテムを非表示にします。" />
+    <string
       id="ret_horse_harness_slot_text"
       text="馬具" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="民間人" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="「氏族の伝統」教義を解除して、手作りのアイテムを表示します。" />
+    <string
+      id="ret_show_crafted_hint"
+      text="手作りのアイテムを表示します。" />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="武器スロットのみが手作りのアイテムを持つことができます。" />
     <string
       id="ret_siege_assault_hint"
       text="攻城戦の突撃用にこのセットを有効または無効にします。" />

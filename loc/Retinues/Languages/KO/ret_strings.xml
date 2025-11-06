@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="신장" />
     <string
+      id="ret_hide_crafted_hint"
+      text="제작된 아이템 숨기기." />
+    <string
       id="ret_horse_harness_slot_text"
       text="마구" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="민간인" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="&apos;씨족 전통&apos; 교리를 잠금 해제하여 제작된 아이템을 표시하십시오." />
+    <string
+      id="ret_show_crafted_hint"
+      text="제작된 아이템을 표시하십시오." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="무기 슬롯만 제작된 아이템을 가질 수 있습니다." />
     <string
       id="ret_siege_assault_hint"
       text="공성 공격을 위해 이 세트를 활성화 또는 비활성화하십시오." />

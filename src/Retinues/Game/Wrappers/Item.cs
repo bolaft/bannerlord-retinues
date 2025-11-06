@@ -153,21 +153,23 @@ namespace Retinues.Game.Wrappers
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // public bool IsUniqueItem => _itemObject.IsUniqueItem;
+        public bool IsUniqueItem => _itemObject.IsUniqueItem;
 
         public bool IsCrafted => _itemObject.IsCraftedByPlayer && Base.WeaponDesign != null;
 
-        public string DesignId
+        public string CraftedCode
         {
             get
             {
                 if (!IsCrafted || Base.WeaponDesign?.UsedPieces == null)
                     return null;
 
-                return string.Join(
+                string designCode = string.Join(
                     ":",
                     Base.WeaponDesign.UsedPieces.Select(p => p?.CraftingPiece?.StringId)
                 );
+
+                return $"{Name}:{designCode}:{Value}";
             }
         }
 

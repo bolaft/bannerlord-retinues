@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Boy" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Üretilen eşyaları gizle." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Koşum" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="Sivil" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="&apos;Klan Gelenekleri&apos; doktrinini açarak el yapımı eşyaları göster." />
+    <string
+      id="ret_show_crafted_hint"
+      text="El yapımı eşyaları göster." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Yalnızca silah yuvaları el yapımı eşyalara sahip olabilir." />
     <string
       id="ret_siege_assault_hint"
       text="Bu seti kuşatma saldırısı için etkinleştir veya devre dışı bırak." />

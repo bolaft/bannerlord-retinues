@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="身高" />
     <string
+      id="ret_hide_crafted_hint"
+      text="隐藏制作的物品。" />
+    <string
       id="ret_horse_harness_slot_text"
       text="马具" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="平民" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="解锁“氏族传统”信条以显示手工制作的物品。" />
+    <string
+      id="ret_show_crafted_hint"
+      text="显示手工制作的物品。" />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="只有武器槽可以拥有手工制作的物品。" />
     <string
       id="ret_siege_assault_hint"
       text="为攻城战启用或禁用此套装。" />

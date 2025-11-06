@@ -31,11 +31,22 @@ namespace Retinues.Troops.Edition
         )> CollectAvailableItems(
             WFaction faction,
             EquipmentIndex slot,
-            List<(WItem item, bool unlocked, int progress)> cache = null
+            List<(WItem item, bool unlocked, int progress)> cache = null,
+            bool crafted = false
         )
         {
             // 1) Get (item, progress) eligibility from the caller cache or build once
-            var eligible = cache ??= BuildEligibilityList(faction, slot);
+            if (crafted == true)
+            {
+                // If caller explicitly asked for crafted-only but the doctrine isn't unlocked, return empty
+                if (!DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
+                    return [];
+
+                // Ignore cache when requesting crafted-only
+                cache = null;
+            }
+
+            var eligible = cache ??= BuildEligibilityList(faction, slot, crafted);
 
             // 2) Availability filter
             var availableInTown = Config.RestrictItemsToTownInventory
@@ -62,11 +73,11 @@ namespace Retinues.Troops.Edition
         /// </summary>
         private static List<(WItem item, bool unlocked, int progress)> BuildEligibilityList(
             WFaction faction,
-            EquipmentIndex slot
+            EquipmentIndex slot,
+            bool includeCrafted = true
         )
         {
-            var craftedUnlocked =
-                DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() && !Config.DisableCraftedWeapons;
+            var craftedUnlocked = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
             var cultureUnlocked = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
             var factionCultureId = faction?.Culture?.StringId;
@@ -74,9 +85,10 @@ namespace Retinues.Troops.Edition
             var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
 
             var allObjects = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
-            var lastCraftedItems = craftedUnlocked ? FindLastCraftedItems(allObjects) : [];
 
             var list = new List<(WItem Item, bool Unlocked, int Progress)>();
+
+            var craftedCodes = new HashSet<string>();
 
             foreach (var io in allObjects)
             {
@@ -84,21 +96,37 @@ namespace Retinues.Troops.Edition
 
                 try
                 {
+                    if (includeCrafted)
+                    {
+                        if (item.IsCrafted)
+                        {
+                            if (craftedUnlocked)
+                                if (item.Slots.Contains(slot))
+                                {
+                                    if (
+                                        item.CraftedCode != null
+                                        && !craftedCodes.Contains(item.CraftedCode)
+                                    )
+                                    {
+                                        list.Add((item, true, 0));
+                                        craftedCodes.Add(item.CraftedCode);
+                                    }
+
+                                    continue;
+                                }
+                            continue;
+                        }
+                        else
+                            continue;
+                    }
+                    else if (item.IsCrafted)
+                        continue;
+
                     if (Config.AllEquipmentUnlocked)
                     {
                         if (item.Slots.Contains(slot))
                             list.Add((item, true, 0));
                         continue;
-                    }
-
-                    if (item.IsCrafted)
-                    {
-                        if (!craftedUnlocked)
-                            continue;
-                        if (!FilterCraftedItem(item, lastCraftedItems))
-                            continue;
-                        if (!item.IsUnlocked)
-                            item.Unlock();
                     }
 
                     if (item.IsUnlocked)
@@ -171,46 +199,6 @@ namespace Retinues.Troops.Edition
                 if (count > 0)
                     set.Add(item);
             return set;
-        }
-
-        /// <summary>
-        /// Returns true if the item is a valid crafted item to include, filtering out duplicates.
-        /// </summary>
-        private static bool FilterCraftedItem(WItem item, List<WItem> lastCraftedItems)
-        {
-            if (item == null)
-                return false;
-
-            // Non-crafted items always pass through
-            if (!item.IsCrafted)
-                return true;
-
-            // Keep only the "last" instance for this hash
-            return lastCraftedItems.Contains(item);
-        }
-
-        /// <summary>
-        /// Finds the last crafted items from a collection of item objects.
-        /// </summary>
-        private static List<WItem> FindLastCraftedItems(IEnumerable<ItemObject> objects)
-        {
-            var map = new Dictionary<string, WItem>();
-
-            foreach (var obj in objects)
-            {
-                if (obj == null)
-                    continue;
-
-                var item = new WItem(obj);
-
-                if (!item.IsCrafted)
-                    continue;
-
-                // Update map with latest item for this design id
-                map[item.DesignId] = item;
-            }
-
-            return [.. map.Values];
         }
 
         /// <summary>

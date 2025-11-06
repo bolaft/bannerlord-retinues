@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Height" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Hide crafted items." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Harness" />
     <string
@@ -538,12 +541,6 @@
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="Outputs many more logs (may impact performance)." />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Disable Crafted Weapons" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked." />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Disable Feat Requirements" />
@@ -1006,6 +1003,15 @@
     <string
       id="ret_set_civilian"
       text="Civilian" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="Unlock the &apos;Clanic Traditions&apos; doctrine to show crafted items." />
+    <string
+      id="ret_show_crafted_hint"
+      text="Show crafted items." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Only weapon slots can have crafted items." />
     <string
       id="ret_siege_assault_hint"
       text="Enable or disable this set for siege assault." />

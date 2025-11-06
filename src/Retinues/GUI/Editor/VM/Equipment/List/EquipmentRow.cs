@@ -175,9 +175,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool IsCrafted => RowItem?.IsCrafted == true;
-
-        [DataSourceProperty]
         public bool ShowIsEquipped => StagedItem != null && IsEquipped;
 
         [DataSourceProperty]

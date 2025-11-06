@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
@@ -57,6 +59,27 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             public int EnabledRank; // 0 if unlocked+available else 1
         }
 
+        // Crafted
+        private bool _showCrafted = false;
+
+        public bool ShowCrafted
+        {
+            get =>
+                DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
+                && _showCrafted
+                && WeaponSlots.Contains(State.Slot.ToString());
+            set
+            {
+                if (_showCrafted != value)
+                {
+                    _showCrafted = value;
+                    _needsRebuild = true;
+                    if (IsVisible)
+                        Build();
+                }
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Caches                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -74,13 +97,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         private readonly HashSet<string> _equipChangeIds = new(StringComparer.Ordinal);
         private EquipmentRowVM _emptyRow;
 
-        private static readonly List<string> _weaponSlots = new()
-        {
+        public static readonly List<string> WeaponSlots =
+        [
             EquipmentIndex.Weapon0.ToString(),
             EquipmentIndex.Weapon1.ToString(),
             EquipmentIndex.Weapon2.ToString(),
             EquipmentIndex.Weapon3.ToString(),
-        };
+        ];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -167,7 +190,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         _needsRebuild = false;
                         return;
                     }
-                    else if (_weaponSlots.Contains(slotId) && _weaponSlots.Contains(_lastSlotId))
+                    else if (WeaponSlots.Contains(slotId) && WeaponSlots.Contains(_lastSlotId))
                     {
                         _needsRebuild = false;
                         _lastSlotId = slotId;
@@ -229,7 +252,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             var raw = EquipmentManager.CollectAvailableItems(
                 State.Faction,
                 State.Slot,
-                cache: cache
+                cache: cache,
+                crafted: ShowCrafted
             );
 
             // Keep cache fully updated

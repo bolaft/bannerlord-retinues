@@ -187,7 +187,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Headers ━━━━━━━ */
 
         [DataSourceProperty]
-        public string CultureHeaderText => CanChangeRace ? L.S("culture_and_race_header_text", "Culture & Race") :L.S("culture_header_text", "Culture");
+        public string CultureHeaderText =>
+            CanChangeRace
+                ? L.S("culture_and_race_header_text", "Culture & Race")
+                : L.S("culture_header_text", "Culture");
 
         [DataSourceProperty]
         public string RaceHeaderText => L.S("race_header_text", "Race");
@@ -199,7 +202,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string SkillsHeaderText => L.S("skills_header_text", "Skills & Formation");
 
         [DataSourceProperty]
-        public string FormationClassHeaderText => L.S("formation_class_header_text", "Formation Class");
+        public string FormationClassHeaderText =>
+            L.S("formation_class_header_text", "Formation Class");
 
         [DataSourceProperty]
         public string UpgradesHeaderText => L.S("upgrades_header_text", "Upgrades");
@@ -376,7 +380,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━ Formation Class ━━━ */
 
         [DataSourceProperty]
-        public string FormationClassText => State.Troop?.FormationClass.GetLocalizedName().ToString();
+        public string FormationClassText =>
+            State.Troop?.FormationClass.GetLocalizedName().ToString();
 
         [DataSourceProperty]
         public string FormationClassIcon => Icons.GetFormationClassIcon(State.Troop);

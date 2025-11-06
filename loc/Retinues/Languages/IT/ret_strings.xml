@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Altezza" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Nascondi gli oggetti creati." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Bardatura" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="Civile" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="Sblocca la dottrina &apos;Tradizioni Claniche&apos; per mostrare gli oggetti artigianali." />
+    <string
+      id="ret_show_crafted_hint"
+      text="Mostra gli oggetti artigianali." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Solo gli slot delle armi possono avere oggetti artigianali." />
     <string
       id="ret_siege_assault_hint"
       text="Abilita o disabilita questo set per l&apos;assalto di assedio." />

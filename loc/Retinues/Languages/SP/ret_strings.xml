@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Altura" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Ocultar objetos fabricados." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Arnés" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="Civil" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="Desbloquea la doctrina &apos;Tradiciones Clánicas&apos; para mostrar objetos fabricados." />
+    <string
+      id="ret_show_crafted_hint"
+      text="Mostrar objetos fabricados." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Solo los espacios de armas pueden tener objetos fabricados." />
     <string
       id="ret_siege_assault_hint"
       text="Habilita o deshabilita este conjunto para asalto de asedio." />

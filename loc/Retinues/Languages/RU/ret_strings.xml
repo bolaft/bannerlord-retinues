@@ -305,6 +305,9 @@
       id="ret_height_hint"
       text="Рост" />
     <string
+      id="ret_hide_crafted_hint"
+      text="Скрыть созданные предметы." />
+    <string
       id="ret_horse_harness_slot_text"
       text="Сбруя" />
     <string
@@ -1006,6 +1009,15 @@
     <string
       id="ret_set_civilian"
       text="Гражданский" />
+    <string
+      id="ret_show_crafted_disabled_hint"
+      text="Разблокируйте доктрину «Клановые традиции», чтобы показывать изготовленные предметы." />
+    <string
+      id="ret_show_crafted_hint"
+      text="Показать изготовленные предметы." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Только слоты для оружия могут содержать изготовленные предметы." />
     <string
       id="ret_siege_assault_hint"
       text="Включите или отключите этот комплект для штурма осады." />
