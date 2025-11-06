@@ -80,6 +80,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(CultureText),
                     nameof(RaceText),
                     nameof(CanChangeRace),
+                    nameof(FormationClassIcon),
+                    nameof(FormationClassText),
                 ],
                 [UIEvent.Train] =
                 [
@@ -185,7 +187,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Headers ━━━━━━━ */
 
         [DataSourceProperty]
-        public string CultureHeaderText => L.S("culture_header_text", "Culture");
+        public string CultureHeaderText => CanChangeRace ? L.S("culture_and_race_header_text", "Culture & Race") :L.S("culture_header_text", "Culture");
 
         [DataSourceProperty]
         public string RaceHeaderText => L.S("race_header_text", "Race");
@@ -194,7 +196,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string NameHeaderText => L.S("name_header_text", "Name");
 
         [DataSourceProperty]
-        public string SkillsHeaderText => L.S("skills_header_text", "Skills");
+        public string SkillsHeaderText => L.S("skills_header_text", "Skills & Formation");
+
+        [DataSourceProperty]
+        public string FormationClassHeaderText => L.S("formation_class_header_text", "Formation Class");
 
         [DataSourceProperty]
         public string UpgradesHeaderText => L.S("upgrades_header_text", "Upgrades");
@@ -367,6 +372,18 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets =>
             [.. State.Troop.UpgradeTargets.Select(t => new TroopUpgradeTargetVM(t))];
+
+        /* ━━━━ Formation Class ━━━ */
+
+        [DataSourceProperty]
+        public string FormationClassText => State.Troop?.FormationClass.GetLocalizedName().ToString();
+
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(State.Troop);
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel FormationClassHint =>
+            Tooltip.MakeTooltip(null, L.S("formation_class_hint", "Change Formation Class"));
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -555,6 +572,76 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                             }
                         },
                         negativeAction: _ => { }
+                    )
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        /// <summary>
+        /// Change the selected troop's formation class override setting.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteChangeFormationClass()
+        {
+            try
+            {
+                if (State.Troop == null)
+                    return;
+
+                List<FormationClass> classes =
+                [
+                    FormationClass.Unset,
+                    FormationClass.Infantry,
+                    FormationClass.Ranged,
+                    FormationClass.Cavalry,
+                    FormationClass.HorseArcher,
+                ];
+
+                var elements = new List<InquiryElement>(classes.Count);
+
+                foreach (var c in classes)
+                {
+                    string text =
+                        c == FormationClass.Unset
+                            ? L.S("formation_auto", "Auto")
+                            : c.GetLocalizedName().ToString();
+
+                    elements.Add(new InquiryElement(c, text, null, true, null));
+                }
+
+                MBInformationManager.ShowMultiSelectionInquiry(
+                    new MultiSelectionInquiryData(
+                        titleText: L.S("change_formation_class_title", "Change Formation Class"),
+                        descriptionText: null,
+                        inquiryElements: elements,
+                        isExitShown: true,
+                        minSelectableOptionCount: 1,
+                        maxSelectableOptionCount: 1,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: selected =>
+                        {
+                            if (selected == null || selected.Count == 0)
+                                return;
+                            if (selected[0]?.Identifier is not FormationClass formationClass)
+                                return;
+                            if (formationClass == State.Troop.FormationClassOverride)
+                                return; // No change
+
+                            // Set override
+                            State.Troop.FormationClassOverride = formationClass;
+
+                            // Update formation class if needed
+                            State.Troop.FormationClass = State.Troop.ComputeFormationClass();
+
+                            // Refresh VM bindings
+                            State.UpdateTroop(State.Troop);
+                        },
+                        negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
                 );
             }
