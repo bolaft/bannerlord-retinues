@@ -11,10 +11,12 @@ namespace Retinues.Safety.Legacy
     /// </summary>
     public class LegacyTroopSaveBehavior : CampaignBehaviorBase
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Sync Data                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private List<LegacyTroopSaveData> _troopData;
         public List<LegacyTroopSaveData> TroopData => _troopData ??= [];
-
-        public override void RegisterEvents() { }
 
         public override void SyncData(IDataStore ds)
         {
@@ -89,6 +91,12 @@ namespace Retinues.Safety.Legacy
 
             Log.Debug($"Migrated {TroopData.Count} legacy root troops.");
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Event Registration                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override void RegisterEvents() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
