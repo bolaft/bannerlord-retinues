@@ -174,7 +174,8 @@ namespace Retinues.Features.Retinues.Behaviors
                     "retinue_hire_inquiry_body",
                     "The following retinues have joined your party: {JOINED}."
                 )
-                .SetTextVariable("JOINED", joined).ToString();
+                .SetTextVariable("JOINED", joined)
+                .ToString();
 
             Log.Message(body);
         }
