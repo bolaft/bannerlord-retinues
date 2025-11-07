@@ -48,8 +48,8 @@ namespace Retinues.Troops.Edition
 
             var eligible = cache ??= BuildEligibilityList(faction, slot, crafted);
 
-            // 2) Availability filter
-            var availableInTown = Config.RestrictItemsToTownInventory
+            // 2) Availability filter (skip if crafted-only)
+            var availableInTown = crafted ? null : Config.RestrictItemsToTownInventory
                 ? BuildCurrentTownAvailabilitySet()
                 : null;
 
