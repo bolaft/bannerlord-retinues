@@ -37,19 +37,25 @@
                 <ImageIdentifierWidget
                     AdditionalArgs="{{ args_var }}" ImageId="{{ id_var }}" TextureProviderName="{{ provider_var }}"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"/>
+                    SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
             {% else %}
                 <ImageIdentifierWidget
                     ImageId="{{ id_var }}" ImageTypeCode="{{ type_var }}" AdditionalArgs="{{ args_var }}"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"/>
+                    SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
             {% endif %}
 
             {# Hover hint widget for the image #}
             {% if hint %}
-                <HintWidget
-                    DataSource="{{ hint }}"
-                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    >
+                    <Children>
+                        <HintWidget
+                            DataSource="{{ hint }}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </ImageIdentifierWidget>
+            {% else %}
+                    />
             {% endif %}
         </Children>
     </Widget>
