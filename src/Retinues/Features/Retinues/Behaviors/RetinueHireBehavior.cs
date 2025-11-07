@@ -61,61 +61,62 @@ namespace Retinues.Features.Retinues.Behaviors
         private void OnDailyTickParty(MobileParty party)
         {
             if (party == null || !party.IsMainParty)
-                return; // Only care about main party
+                return;
 
             var retinues = GetHireableRetinues();
+            Log.Info($"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}");
 
-            Log.Info(
-                $"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}"
-            );
-
-            // Check if any retinues need hiring
             if (retinues.Count == 0)
             {
                 _renownReserve = 0;
-                return; // Nothing to do today
+                return;
             }
 
             var renownGained = Player.Renown - _lastRenown;
             _lastRenown = Player.Renown;
-
             if (renownGained > 0)
                 _renownReserve += renownGained;
 
             var wparty = new WParty(party);
             var space = Math.Max(0, wparty.PartySizeLimit - wparty.MemberRoster.Count);
-
             if (space <= 0)
-                return; // No space today
+                return;
 
-            var hires = new Dictionary<WCharacter, int>();
-            int i = rng.Next(10); // Up to 10 attempts per day to hire retinues
+            // Snapshot counts before adding, so the message reflects what actually stuck
+            var before = new Dictionary<string, int>();
+            foreach (var r in retinues)
+                before[r.StringId] = wparty.MemberRoster.CountOf(r);
 
-            while (space > 0 && i-- > 0)
+            // Attempt hires
+            int attempts = rng.Next(10); // 0..9 attempts
+            while (space > 0 && attempts-- > 0)
             {
-                int idx = rng.Next(retinues.Count);
-                var retinue = retinues[idx];
-
+                var retinue = retinues[rng.Next(retinues.Count)];
                 if (GetCountOf(retinue) >= GetRetinueCap(retinue))
-                    continue; // Already at cap
+                    continue;
 
                 var cost = TroopRules.ConversionRenownCostPerUnit(retinue);
-
                 if (cost > _renownReserve)
-                    continue; // Can't afford this one yet
+                    continue;
 
                 _renownReserve -= cost;
                 wparty.MemberRoster.AddTroop(retinue, 1);
-
-                if (!hires.ContainsKey(retinue))
-                    hires[retinue] = 0;
-                hires[retinue]++;
-
                 space--;
             }
 
-            if (hires.Count > 0)
-                ShowUnlockMessage(hires);
+            // Compute effective deltas
+            var deltas = new Dictionary<WCharacter, int>();
+            foreach (var r in retinues)
+            {
+                var after = wparty.MemberRoster.CountOf(r);
+                var prev = before.TryGetValue(r.StringId, out var b) ? b : 0;
+                var delta = after - prev;
+                if (delta > 0)
+                    deltas[r] = delta;
+            }
+
+            if (deltas.Count > 0)
+                ShowUnlockMessage(deltas);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -155,12 +156,20 @@ namespace Retinues.Features.Retinues.Behaviors
 
         private static List<WCharacter> GetHireableRetinues()
         {
-            List<WCharacter> retinues = Player.Clan.RetinueTroops;
+            // Copy first to avoid mutating the live list
+            var retinues = new List<WCharacter>(Player.Clan.RetinueTroops);
 
             if (Player.Kingdom != null)
                 retinues.AddRange(Player.Kingdom.RetinueTroops);
 
-            return [.. retinues.Where(r => GetRetinueCap(r) > GetCountOf(r))];
+            // De-dup on StringId
+            var unique = retinues
+                .Where(r => r != null)
+                .GroupBy(r => r.StringId)
+                .Select(g => g.First())
+                .ToList();
+
+            return [.. unique.Where(r => GetRetinueCap(r) > GetCountOf(r))];
         }
 
         private static void ShowUnlockMessage(Dictionary<WCharacter, int> hires)
