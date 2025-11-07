@@ -1,3 +1,6 @@
+using System.Linq;
+using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -9,12 +12,12 @@ namespace Retinues.GUI.Helpers
     /// Static helpers for showing popup inquiries.
     /// </summary>
     [SafeClass]
-    public static class Popup
+    public static class Notifications
     {
         /// <summary>
         /// Shows a popup inquiry with a title, description, and an OK button.
         /// </summary>
-        public static void Display(
+        public static void Popup(
             TextObject title,
             TextObject description,
             TextObject buttonText = null,
@@ -36,6 +39,14 @@ namespace Retinues.GUI.Helpers
                 ),
                 pauseGame
             );
+        }
+
+        public static void Information(
+            TextObject message,
+            WCharacter announcer
+        )
+        {
+            MBInformationManager.AddQuickInformation(message, extraTimeInMs: 5000, announcerCharacter: announcer.Base);
         }
     }
 }
