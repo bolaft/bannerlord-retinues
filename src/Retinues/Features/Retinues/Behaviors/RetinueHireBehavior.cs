@@ -170,14 +170,13 @@ namespace Retinues.Features.Retinues.Behaviors
                 hires.Where(h => h.Key != null).Select(h => $"{h.Value} {h.Key.Name}")
             );
 
-            var body = L.T(
+            var description = L.T(
                     "retinue_hire_inquiry_body",
                     "The following retinues have joined your party: {JOINED}."
                 )
-                .SetTextVariable("JOINED", joined)
-                .ToString();
+                .SetTextVariable("JOINED", joined);
 
-            Log.Message(body);
+            Notifications.MapNotification(description);
         }
     }
 }

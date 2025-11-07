@@ -1,10 +1,10 @@
-using System.Linq;
-using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.CampaignSystem.MapNotificationTypes;
 
 namespace Retinues.GUI.Helpers
 {
@@ -47,6 +47,21 @@ namespace Retinues.GUI.Helpers
         )
         {
             MBInformationManager.AddQuickInformation(message, extraTimeInMs: 5000, announcerCharacter: announcer.Base);
+        }
+
+        public static void MapNotification(
+            TextObject message
+        )
+        {
+            var data = new MercenaryOfferMapNotification(null, message);
+            MapNotification(data);
+        }
+
+        public static void MapNotification(
+            InformationData data
+        )
+        {
+            Campaign.Current.CampaignInformationManager.NewMapNoticeAdded(data);
         }
     }
 }

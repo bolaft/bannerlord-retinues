@@ -242,7 +242,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                     if (Pending.Count == 0)
                         RefreshManagedMenuOrDefault();
 
-                    Popup.Display(
+                    Notifications.Popup(
                         L.T("equip_complete", "Equipment Updated"),
                         L.T("equip_complete_text", "{TROOP} has equipped {ITEM}.")
                             .SetTextVariable("TROOP", new WCharacter(troopId).Name)

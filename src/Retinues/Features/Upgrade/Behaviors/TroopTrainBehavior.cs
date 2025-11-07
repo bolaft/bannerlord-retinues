@@ -274,7 +274,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                     if (Pending.Count == 0)
                         RefreshManagedMenuOrDefault();
 
-                    Popup.Display(
+                    Notifications.Popup(
                         L.T("training_complete", "Training Complete"),
                         L.T(
                                 "training_complete_text",

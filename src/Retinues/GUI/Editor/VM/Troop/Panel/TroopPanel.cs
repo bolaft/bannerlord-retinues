@@ -450,7 +450,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                 if (cultures.Count == 0)
                 {
-                    Popup.Display(
+                    Notifications.Popup(
                         L.T("no_cultures_title", "No Cultures Found"),
                         L.T("no_cultures_text", "No cultures are loaded in the current game.")
                     );
@@ -543,7 +543,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 var names = EnsureRaceNames();
                 if (names == null || names.Count == 0)
                 {
-                    Popup.Display(
+                    Notifications.Popup(
                         L.T("no_races_title", "No Races Found"),
                         L.T("no_races_text", "No alternative races are available.")
                     );
@@ -715,7 +715,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             if (TroopRules.SkillPointsLeft(State.Troop) > 0)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_not_maxed_out", "Not Maxed Out"),
                     L.T(
                         "rank_up_not_maxed_out_text",
@@ -728,7 +728,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 && State.Troop.Tier >= State.Faction.RetinueElite.Tier
             )
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_cant_outrank_elite_title", "Cannot Outrank Elite"),
                     L.T(
                             "rank_up_cant_outrank_elite_text",
@@ -740,7 +740,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
             else if (Player.Gold < cost)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_not_enough_gold_title", "Not enough gold"),
                     L.T(
                             "rank_up_not_enough_gold_text",
@@ -752,7 +752,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
             else if (TroopXpBehavior.Get(State.Troop) < cost && TroopXpIsEnabled)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_not_enough_xp_title", "Not enough XP"),
                     L.T(
                             "rank_up_not_enough_xp_text",
@@ -828,7 +828,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             if (PendingTotalGoldCost > Player.Gold)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("convert_not_enough_gold_title", "Not enough gold"),
                     L.T(
                         "convert_not_enough_gold_text",
@@ -840,7 +840,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             if (PendingTotalInfluenceCost > Player.Influence)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("convert_not_enough_influence_title", "Not enough influence"),
                     L.T(
                         "convert_not_enough_influence_text",

@@ -454,7 +454,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                 Log.Debug(
                                     "[ExecuteSelect] Player cannot afford the item, showing popup."
                                 );
-                                Popup.Display(
+                                Notifications.Popup(
                                     L.T("not_enough_gold", "Not enough gold"),
                                     L.T(
                                         "not_enough_gold_text",

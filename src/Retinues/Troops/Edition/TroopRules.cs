@@ -105,7 +105,7 @@ namespace Retinues.Troops.Edition
             else if (faction.IsPlayerKingdom)
                 title = L.T("not_in_kingdom_fief", "Not in Kingdom Fief");
 
-            Popup.Display(title, reason);
+            Notifications.Popup(title, reason);
             return false;
         }
 
