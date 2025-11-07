@@ -20,6 +20,8 @@ namespace Retinues.Safety.Legacy
         //                         Loading                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public static readonly Dictionary<string, string> TroopIdMap = [];
+
         /// <summary>
         /// Loads a WCharacter from LegacyTroopSaveData, recursively restoring upgrades and properties.
         /// </summary>
@@ -27,6 +29,9 @@ namespace Retinues.Safety.Legacy
         {
             // Wrap it
             var troop = new WCharacter();
+
+            // Map legacy ID to new ID
+            TroopIdMap[data.StringId] = troop.StringId;
 
             // Get vanilla base
             var vanilla = new WCharacter(data.VanillaStringId);

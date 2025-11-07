@@ -11,7 +11,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for TroopRoster, provides helpers for accessing elements, troop counts, ratios, and adding/removing troops.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WRoster(TroopRoster roster, WParty party)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -125,7 +125,16 @@ namespace Retinues.Game.Wrappers
             if (troop == null || target == null || Base == null)
                 return;
 
-            Log.Debug($"Swapping {troop.Name} to {target.Name} in {Party?.Name ?? "null"}");
+            string partyName = "null";
+
+            try
+            {
+                partyName = Party?.Name ?? "null";
+            }
+            catch
+            {
+                // ignore
+            }
 
             try
             {
@@ -143,7 +152,7 @@ namespace Retinues.Game.Wrappers
                     if (e.Troop.Equals(troop))
                     {
                         Log.Debug(
-                            $"{Party?.Name ?? "null"}: swapping {e.Number}x {e.Troop.Name} to {target.Name}."
+                            $"{partyName}: swapping {e.Number}x {e.Troop.Name} to {target.Name}."
                         );
 
                         // Stage replacement into temp roster, preserving totals
@@ -175,7 +184,7 @@ namespace Retinues.Game.Wrappers
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, $"SwapTroop failed for {Party?.Name ?? "null"}");
+                Log.Exception(ex, $"SwapTroop failed for {partyName}");
             }
         }
 

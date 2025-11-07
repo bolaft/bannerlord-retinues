@@ -81,6 +81,9 @@ namespace Retinues.Game.Wrappers
                 var troop = new WCharacter(vanilla);
                 if (troop == oldTroop)
                 {
+                    Log.Debug(
+                        $"{Name}: swapping volunteer {oldTroop.Name} to {newTroop.Name}."
+                    );
                     arr[i] = newTroop.Base;
                     break;
                 }

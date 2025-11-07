@@ -88,23 +88,6 @@ namespace Retinues.Safety.Legacy
                             factionData.RootBasic = data;
                         break;
                 }
-
-                // Swap out legacy troops in all parties
-                foreach (var mp in MobileParty.All)
-                {
-                    var party = new WParty(mp);
-                    party.MemberRoster.SwapTroop(troop, new WCharacter(root.StringId));
-                    party.PrisonRoster.SwapTroop(troop, new WCharacter(root.StringId));
-                }
-
-                // Swap out legacy troops in all settlements
-                foreach (var s in Campaign.Current.Settlements)
-                {
-                    var settlement = new WSettlement(s);
-                    
-                    foreach (var notable in settlement.Notables)
-                        notable.SwapVolunteers(troop, new WCharacter(root.StringId));
-                }
             }
 
             Log.Info("Applying migrated troop data to factions...");
@@ -120,7 +103,53 @@ namespace Retinues.Safety.Legacy
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void RegisterEvents() { }
+        public override void RegisterEvents()
+        {
+            CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+                this,
+                OnGameLoadFinished
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void OnGameLoadFinished()
+        {
+            if (LegacyTroopSaveLoader.TroopIdMap.Count == 0)
+                return; // No troops to swap
+
+            Log.Info("Swapping out legacy troops in parties and settlements...");
+
+            foreach (var kvp in LegacyTroopSaveLoader.TroopIdMap)
+            {
+                var oldId = kvp.Key;
+                var newId = kvp.Value;
+
+                var oldTroop = new WCharacter(oldId);
+                var newTroop = new WCharacter(newId);
+
+                // Swap out legacy troops in all parties
+                foreach (var mp in MobileParty.All)
+                {
+                    var party = new WParty(mp);
+                    party?.MemberRoster.SwapTroop(oldTroop, newTroop);
+                    party?.PrisonRoster.SwapTroop(oldTroop, newTroop);
+                }
+
+                // Swap out legacy troops in all settlements
+                foreach (var s in Campaign.Current.Settlements)
+                {
+                    var settlement = new WSettlement(s);
+
+                    foreach (var notable in settlement.Notables)
+                        notable.SwapVolunteers(oldTroop, newTroop);
+                }
+            }
+
+            LegacyTroopSaveLoader.TroopIdMap.Clear();
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
