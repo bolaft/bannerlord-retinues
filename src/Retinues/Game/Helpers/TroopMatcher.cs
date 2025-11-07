@@ -227,19 +227,15 @@ namespace Retinues.Game.Helpers
             if (string.IsNullOrEmpty(id))
                 return;
 
-            Log.Info($"TroopMatcher cache invalidate for {id}");
-
             if (troop.IsRetinue)
             {
                 // Invalidate both slots for retinues
                 _retinueMatchCache.Remove(id);
-                Log.Info($"cleared retinue match cache for troop {id}");
             }
             else
             {
                 // Invalidate entire regular cache because custom troops can change into becoming better matches instead of the existing cache entry
                 _regularMatchCache.Clear();
-                Log.Info("cleared regular match cache entirely");
             }
         }
 
@@ -284,8 +280,6 @@ namespace Retinues.Game.Helpers
 
             slots[index] = matchId;
             _retinueMatchCache[retId] = slots;
-
-            Log.Info($"TroopMatcher cache store (retinue {retId} slot {index}): {matchId}");
         }
 
         /// <summary>
@@ -319,8 +313,6 @@ namespace Retinues.Game.Helpers
                 return false;
             }
 
-            Log.Info($"TroopMatcher cache hit (retinue {retId} slot {index}): {cached.StringId}");
-
             return true;
         }
 
@@ -330,8 +322,6 @@ namespace Retinues.Game.Helpers
         private static void CacheRegularMatch(string regularId, string matchId)
         {
             _regularMatchCache[regularId] = matchId;
-
-            Log.Info($"TroopMatcher cache store (regular {regularId}): {matchId}");
         }
 
         /// <summary>
@@ -353,11 +343,8 @@ namespace Retinues.Game.Helpers
             {
                 _regularMatchCache.Remove(regularId);
                 cached = null;
-                Log.Info($"TroopMatcher cache purge (regular {regularId}) due to invalid entry");
                 return false;
             }
-
-            Log.Info($"TroopMatcher cache hit (regular {regularId}): {cached.StringId}");
 
             return true;
         }
