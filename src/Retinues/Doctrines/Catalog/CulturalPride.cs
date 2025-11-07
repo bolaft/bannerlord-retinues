@@ -35,8 +35,8 @@ namespace Retinues.Doctrines.Catalog
                 if (tournament.Winner != Player.Character)
                     return;
 
-                if (ModuleChecker.GetModule("Shokuho") != null)
-                    AdvanceProgress(1); // Items don't have cultures in Shokuho, skip the check.
+                if (ModuleChecker.IsLoaded("Shokuho") || ModuleChecker.IsLoaded("AD1259"))
+                    AdvanceProgress(1); // Items don't have cultures in those mods, skip the check.
 
                 var blockedBy = new List<ItemObject>();
 
