@@ -145,8 +145,6 @@ namespace Retinues.Game.Helpers
                 }
             }
 
-            Log.Info($"Best replacement for {troop.Name} is {best?.Name} with score {bestScore}");
-
             if (best?.IsValid == true)
             {
                 var bestId = best.StringId;
