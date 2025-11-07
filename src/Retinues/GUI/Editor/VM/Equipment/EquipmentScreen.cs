@@ -272,6 +272,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /// </summary>
         protected override void OnSlotChange()
         {
+            EquipmentList.ShowCrafted = false; // reset crafted toggle on slot change
+
             var previous = _lastSlotIndex;
             var current = State.Slot;
 
