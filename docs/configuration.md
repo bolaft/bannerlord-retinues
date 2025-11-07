@@ -55,6 +55,8 @@ When you may edit troops, and whether extra appearance controls are exposed.
 |---|---|---:|---:|---:|
 | **Restrict Editing To Fiefs** | If **On**, most **editor actions** (renaming, skills, upgrade targets, equipment) require being **inside a settlement/fief**. | Off | Off | On |
 | **Experimental: Enable Appearance Controls** | If **On**, exposes **age / height / weight / build** sliders in addition to the **gender** toggle. **Experimental**: may cause visual oddities with some armors/cultures. | Off | Off | Off |
+| **Max Elite Upgrades** | Maximum number of **upgrade targets** a single **elite** troop can have. Higher values allow wider branching (more elite paths). | 1 | 4 | 1 |
+| **Max Basic Upgrades** | Maximum number of **upgrade targets** a single **basic** troop can have. Higher values allow wider branching (more basic paths). | 2 | 4 | 2 |
 
 ---
 
