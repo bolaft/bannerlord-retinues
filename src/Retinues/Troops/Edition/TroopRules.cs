@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Doctrines;
@@ -294,14 +295,14 @@ namespace Retinues.Troops.Edition
             if (character.IsMaxTier)
                 return L.T("max_tier", "Troop is at max tier.");
 
-            int maxUpgrades;
-            if (character.IsElite)
-                if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>())
-                    maxUpgrades = 2; // 2 upgrades for elite troops with Masters at Arms
-                else
-                    maxUpgrades = 1; // 1 upgrade for elite troops without Masters at Arms
-            else
-                maxUpgrades = 2; // 2 upgrades for basic troops
+            // Determine max upgrades allowed
+            int maxUpgrades = character.IsElite ? Config.MaxEliteUpgrades : Config.MaxBasicUpgrades;
+
+            if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>() && character.IsElite)
+                maxUpgrades += 1; // +1 upgrade slot for elite troops with Masters at Arms
+
+            // Cap upgrades at 4
+            maxUpgrades = Math.Min(maxUpgrades, 4);
 
             // Max upgrades reached
             if (character.UpgradeTargets.Count() >= maxUpgrades)

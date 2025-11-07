@@ -325,6 +325,44 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<int> MaxEliteUpgrades = CreateOption(
+            section: () => L.S("mcm_section_restrictions", "Restrictions"),
+            name: () => L.S("mcm_option_max_elite_upgrades", "Max Elite Upgrades"),
+            key: "MaxEliteUpgrades",
+            hint: () =>
+                L.S(
+                    "mcm_option_max_elite_upgrades_hint",
+                    "Maximum number of upgrade targets for elite troops."
+                ),
+            @default: 1,
+            minValue: 1,
+            maxValue: 4,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 4,
+                [Presets.Realistic] = 1,
+            }
+        );
+
+        public static readonly Option<int> MaxBasicUpgrades = CreateOption(
+            section: () => L.S("mcm_section_restrictions", "Restrictions"),
+            name: () => L.S("mcm_option_max_basic_upgrades", "Max Basic Upgrades"),
+            key: "MaxBasicUpgrades",
+            hint: () =>
+                L.S(
+                    "mcm_option_max_basic_upgrades_hint",
+                    "Maximum number of upgrade targets for basic troops."
+                ),
+            @default: 2,
+            minValue: 1,
+            maxValue: 4,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 4,
+                [Presets.Realistic] = 2,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Doctrines
         // ─────────────────────────────────────────────────────

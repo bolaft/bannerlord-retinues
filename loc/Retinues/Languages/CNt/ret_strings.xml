@@ -456,7 +456,7 @@
       text="使用精銳部隊累計獲得1000擊殺。" />
     <string
       id="ret_masters_at_arms_description"
-      text="精銳部隊的第二條升級分支。" />
+      text="為精銳部隊提供額外的升級分支。" />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="在競技場擊倒50名對手。" />
@@ -608,11 +608,23 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="玩家隊伍中基礎隨從的最大比例。" />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="基礎升級目標上限" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="基礎部隊的最大升級目標數量。" />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="精銳隨從比例上限" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="玩家隊伍中精銳隨從的最大比例。" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="精銳升級目標上限" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="精銳部隊的最大升級目標數量。" />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="無王國部隊" />

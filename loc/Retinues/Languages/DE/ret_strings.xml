@@ -456,7 +456,7 @@
       text="Erziele 1000 Kills mit Elitetruppen." />
     <string
       id="ret_masters_at_arms_description"
-      text="Zweiter Upgrade-Zweig für Elitetruppen." />
+      text="Zusätzlicher Upgrade-Zweig für Elitetruppen." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Schalte 50 Gegner in der Arena aus." />
@@ -608,11 +608,23 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Maximaler Anteil von Basis-Gefolgschaften in der Spielergruppe." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Maximale Anzahl an Basis-Upgrade-Zielen" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Maximale Anzahl von Upgrade-Zielen für Basistruppen." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Maximales Elite-Gefolgsverhältnis" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Maximale Anzahl an Elite-Upgrade-Zielen" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Maximale Anzahl von Upgrade-Zielen für Elitetruppen." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Keine Königreichstruppen" />

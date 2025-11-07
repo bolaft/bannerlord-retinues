@@ -456,7 +456,7 @@
       text="Seçkin askerlerle 1000 öldürme yap." />
     <string
       id="ret_masters_at_arms_description"
-      text="Seçkin askerler için 2. yükseltme dalı." />
+      text="Seçkin askerler için ekstra yükseltme dalı." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Arenada 50 rakibi nakavt et." />
@@ -608,11 +608,23 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Oyuncu grubundaki temel yandaş askerlerin azami oranı." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Maksimum Temel Yükseltme Hedefleri" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Temel askerler için maksimum yükseltme hedefi sayısı." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Maksimum Seçkin Yandaş Oranı" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Oyuncu grubundaki seçkin yandaş askerlerin azami oranı." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Maksimum Seçkin Yükseltme Hedefleri" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Seçkin askerler için maksimum yükseltme hedefi sayısı." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Krallık Askeri Yok" />

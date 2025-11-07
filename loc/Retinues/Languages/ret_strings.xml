@@ -456,7 +456,7 @@
       text="Get 1000 kills with elite troops." />
     <string
       id="ret_masters_at_arms_description"
-      text="2nd upgrade branch for elite troops." />
+      text="Extra upgrade branch for elite troops." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Knock out 50 opponents in the arena." />
@@ -608,11 +608,23 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Maximum proportion of basic retinue troops in player party." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Max Basic Upgrades" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Maximum number of upgrade targets for basic troops." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Max Elite Retinue Ratio" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximum proportion of elite retinue troops in player party." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Max Elite Upgrades" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Maximum number of upgrade targets for elite troops." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="No Kingdom Troops" />

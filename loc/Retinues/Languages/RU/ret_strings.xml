@@ -456,7 +456,7 @@
       text="Совершите 1000 убийств элитными войсками." />
     <string
       id="ret_masters_at_arms_description"
-      text="Вторая ветка улучшений для элитных войск." />
+      text="Дополнительная ветвь улучшений для элитных войск." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Выведите из строя 50 противников на арене." />
@@ -608,11 +608,23 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Максимальная доля базовой свиты в отряде игрока." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Макс. Количество Целей Базового Обновления" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Максимальное количество целей обновления для базовых войск." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Макс. Доля Элитной Свиты" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Максимальная доля элитной свиты в отряде игрока." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Макс. Количество Целей Элитного Обновления" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Максимальное количество целей обновления для элитных войск." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Без Королевских Войск" />

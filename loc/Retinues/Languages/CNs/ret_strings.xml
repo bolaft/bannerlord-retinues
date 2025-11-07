@@ -456,7 +456,7 @@
       text="使用精锐部队累计获得1000击杀。" />
     <string
       id="ret_masters_at_arms_description"
-      text="精锐部队的第二条升级分支。" />
+      text="为精锐部队提供额外的升级分支。" />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="在竞技场击倒50名对手。" />
@@ -608,11 +608,23 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="玩家队伍中基础随从的最大比例。" />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="基础升级目标上限" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="基础部队的最大升级目标数量。" />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="精锐随从比例上限" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="玩家队伍中精锐随从的最大比例。" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="精锐升级目标上限" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="精锐部队的最大升级目标数量。" />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="无王国部队" />

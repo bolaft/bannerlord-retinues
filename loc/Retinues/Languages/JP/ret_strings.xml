@@ -456,7 +456,7 @@
       text="精鋭兵で1000キルを達成する。" />
     <string
       id="ret_masters_at_arms_description"
-      text="精鋭兵の第2分岐アップグレード。" />
+      text="精鋭兵のための追加アップグレード分岐。" />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="闘技場で50人の相手を気絶させる。" />
@@ -608,11 +608,23 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="プレイヤー部隊内の基礎随伴兵の最大比率。" />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="基礎アップグレード目標の最大数" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="基礎部隊の最大アップグレード目標数。" />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="精鋭随伴兵の比率上限" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="プレイヤー部隊内の精鋭随伴兵の最大比率。" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="精鋭アップグレード目標の最大数" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="精鋭部隊の最大アップグレード目標数。" />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="王国軍なし" />
