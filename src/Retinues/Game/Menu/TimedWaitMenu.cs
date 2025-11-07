@@ -28,6 +28,7 @@ namespace Retinues.Game.Menu
         private static Action _onCompleted;
         private static Action _onAborted;
         private static Action<float> _onWholeHour;
+        private static bool _kickUnpauseOnce;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Public API                      //
@@ -66,6 +67,7 @@ namespace Retinues.Game.Menu
             _onCompleted = onCompleted;
             _onAborted = onAborted;
             _onWholeHour = onWholeHour;
+            _kickUnpauseOnce = true;
 
             // Capture where we were BEFORE switching into our wait menu.
             _returnMenuId =
@@ -139,6 +141,13 @@ namespace Retinues.Game.Menu
 
         private static void WaitMenu_OnTick(MenuCallbackArgs args, CampaignTime dt)
         {
+            // Ensure unpaused state on next tick after starting wait.
+            if (_kickUnpauseOnce)
+            {
+                _kickUnpauseOnce = false;
+                EnsureUnpaused(); // one-time nudge so the new wait doesn’t start paused
+            }
+
             _progressHours += (float)dt.ToHours;
 
             // Fire whole-hour ticks: 1.0, 2.0, 3.0, ...
@@ -184,31 +193,52 @@ namespace Retinues.Game.Menu
         {
             Log.Debug($"TimedWaitMenu.Finish called: {_menuId}, completed={completed}");
 
+            // Snapshot current run to detect a restart inside the callback.
+            var prevRunSeq = _runSeq;
+            var prevMenuId = _menuId;
+            var fallback = string.IsNullOrEmpty(_returnMenuId)
+                ? GuessFallbackMenu()
+                : _returnMenuId;
+
             try
             {
+                // 1) Fire the caller's callback FIRST (it may call TimedWaitMenu.Start again).
+                if (completed)
+                {
+                    _onCompleted?.Invoke();
+                }
+                else
+                {
+                    _onAborted?.Invoke();
+                }
+
+                // 2) If a new wait started during the callback, _runSeq changed.
+                bool restarted = _runSeq != prevRunSeq || _menuId != prevMenuId;
+                if (restarted)
+                {
+                    // A new wait has already opened its own menu and set all static state.
+                    // Do NOT switch away, and do NOT wipe the new state.
+                    return;
+                }
+
+                // 3) No restart → we can safely end waiting and switch back.
                 if (PlayerEncounter.Current != null)
                     PlayerEncounter.Current.IsPlayerWaiting = false;
 
-                // Return to the menu we came from (or a sensible default).
-                string next = string.IsNullOrEmpty(_returnMenuId)
-                    ? GuessFallbackMenu()
-                    : _returnMenuId;
-                if (!string.IsNullOrEmpty(next))
-                    GameMenu.SwitchToMenu(next);
-
-                if (completed)
-                    if (_onCompleted != null)
-                        _onCompleted();
-                    else if (_onAborted != null)
-                        _onAborted();
+                if (!string.IsNullOrEmpty(fallback))
+                    GameMenu.SwitchToMenu(fallback);
             }
             finally
             {
-                _menuId = _returnMenuId = null;
-                _onCompleted = _onAborted = null;
-                _targetHours = _progressHours = 0f;
-                _onWholeHour = null;
-                _nextWholeHour = 1f;
+                // 4) Cleanup ONLY if we did not restart (static state still belongs to this run).
+                if (_runSeq == prevRunSeq && _menuId == prevMenuId)
+                {
+                    _menuId = _returnMenuId = null;
+                    _onCompleted = _onAborted = null;
+                    _targetHours = _progressHours = 0f;
+                    _onWholeHour = null;
+                    _nextWholeHour = 1f;
+                }
             }
         }
 
@@ -232,6 +262,22 @@ namespace Retinues.Game.Menu
                     return "hideout_place";
             }
             return "town";
+        }
+
+        private static void EnsureUnpaused()
+        {
+            var c = Campaign.Current;
+            if (c == null)
+                return;
+
+            // If paused or in a stop-like state, kick back into waiting fast-forward.
+            if (
+                c.TimeControlMode == CampaignTimeControlMode.Stop
+                || c.TimeControlMode == CampaignTimeControlMode.FastForwardStop
+            )
+            {
+                c.TimeControlMode = CampaignTimeControlMode.UnstoppableFastForwardForPartyWaitTime;
+            }
         }
     }
 }

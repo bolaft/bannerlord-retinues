@@ -199,9 +199,9 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected override string OptionId => "ret_equip_pending";
         protected override string OptionText => L.S("upgrade_equip_pending_btn", "Equip troops");
         protected override string InquiryTitle =>
-            L.S("upgrade_equip_select_troop", "Select a troop to equip");
+            L.S("upgrade_equip_select_troop", "Select troops to equip");
         protected override string InquiryDescription =>
-            L.S("upgrade_equip_choose_troop", "Choose one pending troop to start equipping now.");
+            L.S("upgrade_equip_choose_troop", "Choose one or more troops to start equipping now.");
         protected override string InquiryAffirmative =>
             L.S("upgrade_equip_begin", "Begin upgrading equipment");
         protected override string InquiryNegative => L.S("cancel", "Cancel");
@@ -215,12 +215,62 @@ namespace Retinues.Features.Upgrade.Behaviors
             return $"{troop.Name}\n{itemName} ({data.Remaining}h)";
         }
 
+        private readonly Dictionary<WCharacter, List<WItem>> _batchedActions = [];
+
+        protected override void FinalModalSummary()
+        {
+            if (_batchedActions.Count == 0)
+                return;
+
+            var summaryLines = new List<string>();
+            foreach (var entry in _batchedActions)
+            {
+                var troop = entry.Key;
+                var items = entry.Value;
+
+                var itemCounts = new Dictionary<string, int>();
+                foreach (var item in items)
+                {
+                    var name =
+                        item != null
+                            ? item.Name.ToString()
+                            : L.S("upgrade_equip_unequip", "Unequip").ToString();
+                    if (!itemCounts.ContainsKey(name))
+                        itemCounts[name] = 0;
+                    itemCounts[name] += 1;
+                }
+
+                var itemSummaries = new List<string>();
+                foreach (var ic in itemCounts)
+                {
+                    if (ic.Value > 1)
+                        itemSummaries.Add($"{ic.Value} x {ic.Key}");
+                    else
+                        itemSummaries.Add(ic.Key);
+                }
+
+                var line = $"{troop.Name}: {string.Join(", ", itemSummaries)}";
+                summaryLines.Add(line);
+            }
+
+            var summary = L.T(
+                    "equip_complete_summary",
+                    "The following troops have equipped new items:\n\n{SUMMARY}"
+                )
+                .SetTextVariable("SUMMARY", string.Join("\n", summaryLines));
+
+            Notifications.Popup(L.T("equip_complete", "Equipment Updated"), summary);
+
+            _batchedActions.Clear();
+        }
+
         // Start the timed wait for a single (troop, slot:item) entry
         protected override void StartWait(
             CampaignGameStarter starter,
             string troopId,
             string objId,
-            PendingEquipData data
+            PendingEquipData data,
+            Action onAfterCompleted = null
         )
         {
             var troop = new WCharacter(troopId);
@@ -242,17 +292,32 @@ namespace Retinues.Features.Upgrade.Behaviors
                     if (Pending.Count == 0)
                         RefreshManagedMenuOrDefault();
 
-                    Notifications.Popup(
-                        L.T("equip_complete", "Equipment Updated"),
-                        L.T("equip_complete_text", "{TROOP} has equipped {ITEM}.")
-                            .SetTextVariable("TROOP", new WCharacter(troopId).Name)
-                            .SetTextVariable(
-                                "ITEM",
-                                item?.Name ?? L.S("upgrade_equip_unequip", "Unequip")
-                            )
-                    );
+                    var message = L.T("equip_complete_text", "{TROOP} has equipped {ITEM}.")
+                        .SetTextVariable("TROOP", new WCharacter(troopId).Name)
+                        .SetTextVariable(
+                            "ITEM",
+                            item?.Name ?? L.S("upgrade_equip_unequip", "Unequip")
+                        );
+
+                    if (!_batchActive)
+                        Notifications.Popup(L.T("equip_complete", "Equipment Updated"), message);
+                    else
+                    {
+                        if (!_batchedActions.ContainsKey(troop))
+                            _batchedActions[troop] = [];
+                        _batchedActions[troop].Add(item);
+
+                        Log.Message(message.ToString()); // Log instead of popup in batch mode
+                    }
+
+                    // Continue the batch
+                    onAfterCompleted?.Invoke();
                 },
-                onAborted: () => { },
+                onAborted: () =>
+                {
+                    // Keep staged; just continue the batch so others can run
+                    onAfterCompleted?.Invoke();
+                },
 # if BL13
                 overlay: GameMenu.MenuOverlayType.SettlementWithBoth,
 # else

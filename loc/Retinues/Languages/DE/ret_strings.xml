@@ -257,6 +257,12 @@
       id="ret_equip_complete"
       text="Ausrüstung Aktualisiert" />
     <string
+      id="ret_equip_complete_summary"
+      text="Die folgenden Truppen haben neue Gegenstände ausgerüstet:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} hat ({ITEM}) ausgerüstet." />
     <string
@@ -1070,6 +1076,12 @@
       id="ret_tier"
       text="Stufe" />
     <string
+      id="ret_train_complete"
+      text="Training Abgeschlossen" />
+    <string
+      id="ret_train_complete_summary"
+      text="Die folgenden Truppen haben ihr Training abgeschlossen:{newline}{newline}{SUMMARY}" />
+    <string
       id="ret_training_complete"
       text="Training Abgeschlossen" />
     <string
@@ -1131,7 +1143,7 @@
       text="Beginne mit der Ausrüstungsverbesserung" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="Wähle eine ausstehende Truppe, um jetzt mit der Ausrüstung zu beginnen." />
+      text="Wähle eine oder mehrere Truppen, um jetzt mit dem Ausrüsten zu beginnen." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="Truppen ausrüsten" />
@@ -1140,7 +1152,7 @@
       text="Rüste {NAME} aus..." />
     <string
       id="ret_upgrade_equip_select_troop"
-      text="Wähle eine Truppe zum Ausrüsten" />
+      text="Wähle die Truppen zum Ausrüsten" />
     <string
       id="ret_upgrade_equip_unequip"
       text="Ablegen" />
@@ -1149,7 +1161,7 @@
       text="Beginne mit dem Training" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="Wähle eine ausstehende Truppe, um jetzt mit dem Training zu beginnen." />
+      text="Wähle eine oder mehrere Truppen, um jetzt mit dem Training zu beginnen." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="Truppen ausbilden" />
@@ -1158,7 +1170,7 @@
       text="Trainiere {NAME}..." />
     <string
       id="ret_upgrade_train_select_troop"
-      text="Wähle eine Truppe zum Trainieren" />
+      text="Wähle die Truppen zum Trainieren" />
     <string
       id="ret_upgrades_header_text"
       text="Upgrades" />

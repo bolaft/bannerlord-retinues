@@ -257,6 +257,12 @@
       id="ret_equip_complete"
       text="Equipo Actualizado" />
     <string
+      id="ret_equip_complete_summary"
+      text="Las siguientes tropas han equipado nuevos objetos:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} ha equipado ({ITEM})." />
     <string
@@ -1070,6 +1076,12 @@
       id="ret_tier"
       text="Nivel" />
     <string
+      id="ret_train_complete"
+      text="Entrenamiento Completo" />
+    <string
+      id="ret_train_complete_summary"
+      text="Las siguientes tropas han completado su entrenamiento:{newline}{newline}{SUMMARY}" />
+    <string
       id="ret_training_complete"
       text="Entrenamiento Completo" />
     <string
@@ -1131,7 +1143,7 @@
       text="Comenzar a mejorar el equipo" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="Elige una tropa pendiente para comenzar a equiparla ahora." />
+      text="Elige una o más tropas para comenzar a equipar ahora." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="Equipar tropas" />
@@ -1140,7 +1152,7 @@
       text="Equipando a {NAME}..." />
     <string
       id="ret_upgrade_equip_select_troop"
-      text="Selecciona una tropa para equipar" />
+      text="Selecciona las tropas para equipar" />
     <string
       id="ret_upgrade_equip_unequip"
       text="Quitar" />
@@ -1149,7 +1161,7 @@
       text="Comenzar el entrenamiento" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="Elige una tropa pendiente para comenzar su entrenamiento ahora." />
+      text="Elige una o más tropas para comenzar el entrenamiento ahora." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="Entrenar tropas" />
@@ -1158,7 +1170,7 @@
       text="Entrenando a {NAME}..." />
     <string
       id="ret_upgrade_train_select_troop"
-      text="Selecciona una tropa para entrenar" />
+      text="Selecciona las tropas para entrenar" />
     <string
       id="ret_upgrades_header_text"
       text="Mejoras" />

@@ -257,6 +257,12 @@
       id="ret_equip_complete"
       text="장비 업데이트 완료" />
     <string
+      id="ret_equip_complete_summary"
+      text="다음 병력들이 새 아이템을 장착했습니다:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP}이(가) ({ITEM})을(를) 장착했습니다." />
     <string
@@ -1070,6 +1076,12 @@
       id="ret_tier"
       text="등급" />
     <string
+      id="ret_train_complete"
+      text="훈련 완료" />
+    <string
+      id="ret_train_complete_summary"
+      text="다음 병력들이 훈련을 완료했습니다:{newline}{newline}{SUMMARY}" />
+    <string
       id="ret_training_complete"
       text="훈련 완료" />
     <string
@@ -1131,7 +1143,7 @@
       text="장비 업그레이드 시작" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="대기 중인 병력 중 한 명을 선택하여 지금 장비를 시작하십시오." />
+      text="한 명 이상의 병력을 선택하여 지금 장비를 시작하십시오." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="병력 장비" />
@@ -1149,7 +1161,7 @@
       text="훈련 시작" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="대기 중인 병력 중 한 명을 선택하여 지금 훈련을 시작하십시오." />
+      text="한 명 이상의 병력을 선택하여 지금 훈련을 시작하십시오." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="병력 훈련" />

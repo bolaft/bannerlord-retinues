@@ -257,6 +257,12 @@
       id="ret_equip_complete"
       text="装备已更新" />
     <string
+      id="ret_equip_complete_summary"
+      text="以下部队已装备新物品：{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}：{SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} 已装备 ({ITEM})。" />
     <string
@@ -1070,6 +1076,12 @@
       id="ret_tier"
       text="等级" />
     <string
+      id="ret_train_complete"
+      text="训练完成" />
+    <string
+      id="ret_train_complete_summary"
+      text="以下部队已完成训练：{newline}{newline}{SUMMARY}" />
+    <string
       id="ret_training_complete"
       text="训练完成" />
     <string
@@ -1131,7 +1143,7 @@
       text="开始升级装备" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="选择一名待命部队立即开始装备。" />
+      text="选择一名或多名部队立即开始装备。" />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="装备部队" />
@@ -1140,7 +1152,7 @@
       text="正在装备 {NAME}..." />
     <string
       id="ret_upgrade_equip_select_troop"
-      text="选择一名部队进行装备" />
+      text="选择要装备的部队" />
     <string
       id="ret_upgrade_equip_unequip"
       text="卸下" />
@@ -1149,7 +1161,7 @@
       text="开始训练" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="选择一名待命部队立即开始训练。" />
+      text="选择一名或多名部队立即开始训练。" />
     <string
       id="ret_upgrade_train_pending_btn"
       text="训练部队" />
@@ -1158,7 +1170,7 @@
       text="正在训练 {NAME}..." />
     <string
       id="ret_upgrade_train_select_troop"
-      text="选择一名部队进行训练" />
+      text="选择要训练的部队" />
     <string
       id="ret_upgrades_header_text"
       text="升级" />

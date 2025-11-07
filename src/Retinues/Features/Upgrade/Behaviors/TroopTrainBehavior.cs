@@ -231,9 +231,9 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected override string OptionId => "ret_train_pending";
         protected override string OptionText => L.S("upgrade_train_pending_btn", "Train troops");
         protected override string InquiryTitle =>
-            L.S("upgrade_train_select_troop", "Select a troop to train");
+            L.S("upgrade_train_select_troop", "Select troops to train");
         protected override string InquiryDescription =>
-            L.S("upgrade_train_choose_troop", "Choose one pending troop to start training now.");
+            L.S("upgrade_train_choose_troop", "Choose one or more troops to start training now.");
         protected override string InquiryAffirmative =>
             L.S("upgrade_train_begin", "Begin training");
         protected override string InquiryNegative => L.S("cancel", "Cancel");
@@ -246,11 +246,56 @@ namespace Retinues.Features.Upgrade.Behaviors
             return $"{troop.Name}\n+{data.PointsRemaining} {skill.Name} ({data.Remaining}h)";
         }
 
+        private readonly Dictionary<WCharacter, List<SkillObject>> _batchedActions = [];
+
+        protected override void FinalModalSummary()
+        {
+            if (_batchedActions.Count == 0)
+                return;
+
+            var summaryLines = new List<string>();
+            foreach (var entry in _batchedActions)
+            {
+                var troop = entry.Key;
+                var skills = entry.Value;
+                var skillCounts = new Dictionary<string, int>();
+                foreach (var skill in skills)
+                {
+                    if (!skillCounts.ContainsKey(skill.Name.ToString()))
+                        skillCounts[skill.Name.ToString()] = 0;
+                    skillCounts[skill.Name.ToString()] += 1;
+                }
+
+                var skillSummaries = new List<string>();
+                foreach (var kvp in skillCounts)
+                {
+                    skillSummaries.Add($"{kvp.Value} {kvp.Key}");
+                }
+
+                var line = L.T("equip_complete_summary_line", "{TROOP}: {SKILLS}")
+                    .SetTextVariable("TROOP", troop.Name)
+                    .SetTextVariable("SKILLS", string.Join(", ", skillSummaries));
+
+                summaryLines.Add(line.ToString());
+            }
+
+            var summary = L.T(
+                    "train_complete_summary",
+                    "The following troops have completed their training:\n\n{SUMMARY}"
+                )
+                .SetTextVariable("SUMMARY", string.Join("\n", summaryLines));
+
+            Notifications.Popup(L.T("train_complete", "Training Complete"), summary);
+
+            _batchedActions.Clear();
+        }
+
         protected override void StartWait(
             CampaignGameStarter starter,
             string troopId,
             string objId,
-            PendingTrainData data
+            PendingTrainData data,
+            Action onAfterCompleted = null
         )
         {
             var troop = new WCharacter(troopId);
@@ -267,24 +312,38 @@ namespace Retinues.Features.Upgrade.Behaviors
                 {
                     while (data.PointsRemaining > 0)
                     {
-                        ApplyChange(troopId, skill, +1);
+                        TroopTrainBehavior.ApplyChange(troopId, skill, +1);
                         data.PointsRemaining -= 1;
                     }
                     RemovePending(troopId, objId);
+
                     if (Pending.Count == 0)
                         RefreshManagedMenuOrDefault();
 
-                    Notifications.Popup(
-                        L.T("training_complete", "Training Complete"),
-                        L.T(
-                                "training_complete_text",
-                                "{TROOP} has completed their {SKILL} training."
-                            )
-                            .SetTextVariable("TROOP", new WCharacter(troopId).Name)
-                            .SetTextVariable("SKILL", skill?.Name)
-                    );
+                    var message = L.T(
+                            "training_complete_text",
+                            "{TROOP} has completed their {SKILL} training."
+                        )
+                        .SetTextVariable("TROOP", troop.Name)
+                        .SetTextVariable("SKILL", skill.Name);
+
+                    if (!_batchActive)
+                        Notifications.Popup(L.T("training_complete", "Training Complete"), message);
+                    else
+                    {
+                        if (!_batchedActions.ContainsKey(troop))
+                            _batchedActions[troop] = [];
+                        _batchedActions[troop].Add(skill);
+
+                        Log.Message(message.ToString()); // Log instead of popup in batch mode
+                    }
+
+                    onAfterCompleted?.Invoke();
                 },
-                onAborted: () => { /* keep staged */
+                onAborted: () =>
+                {
+                    // Keep staged; continue so the batch doesn't stall
+                    onAfterCompleted?.Invoke();
                 },
 # if BL13
                 overlay: GameMenu.MenuOverlayType.SettlementWithBoth,
@@ -301,7 +360,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                         int steps = Math.Min((int)Math.Floor(data.Carry), data.PointsRemaining);
                         if (steps > 0)
                         {
-                            ApplyChange(troopId, skill, steps);
+                            TroopTrainBehavior.ApplyChange(troopId, skill, steps);
                             data.PointsRemaining -= steps;
                             data.Carry -= steps;
                         }
