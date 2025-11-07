@@ -199,19 +199,19 @@ namespace Retinues.Troops.Edition
             var stagedAll =
                 TroopTrainBehavior.GetAllStagedChanges(character)?.Sum(d => d.PointsRemaining) ?? 0;
 
-            // 1) per-skill cap
+            // per-skill cap
             if (trueSkillValue >= SkillCapByTier(character))
                 return L.T("skill_at_cap", "Skill is at cap for this troop.");
 
-            // 2) total points cap (use ALL staged, not just this skill)
+            // total points cap (use all staged, not just this skill)
             if (SkillPointsLeft(character) - stagedAll <= 0)
                 return L.T("no_skill_points_left", "No skill points left for this troop.");
 
-            // 3) xp affordability for THIS skill’s next point
+            // xp affordability for the next point
             if (!HasEnoughXpForNextPoint(character, skill))
                 return L.T("not_enough_xp", "Not enough XP for next skill point.");
 
-            // 4) can't go above children
+            // can't go above children
             foreach (var child in character.UpgradeTargets)
             {
                 if (trueSkillValue >= GetTrueSkillValue(child, skill))

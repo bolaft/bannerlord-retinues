@@ -153,8 +153,6 @@ namespace Retinues.Game.Wrappers
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsUniqueItem => _itemObject.IsUniqueItem;
-
         public bool IsCrafted => _itemObject.IsCraftedByPlayer && Base.WeaponDesign != null;
 
         public string CraftedCode
