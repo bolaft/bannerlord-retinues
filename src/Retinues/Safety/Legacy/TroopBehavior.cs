@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Safety.Legacy
 {
@@ -85,6 +87,23 @@ namespace Retinues.Safety.Legacy
                         else
                             factionData.RootBasic = data;
                         break;
+                }
+
+                // Swap out legacy troops in all parties
+                foreach (var mp in MobileParty.All)
+                {
+                    var party = new WParty(mp);
+                    party.MemberRoster.SwapTroop(troop, new WCharacter(root.StringId));
+                    party.PrisonRoster.SwapTroop(troop, new WCharacter(root.StringId));
+                }
+
+                // Swap out legacy troops in all settlements
+                foreach (var s in Campaign.Current.Settlements)
+                {
+                    var settlement = new WSettlement(s);
+                    
+                    foreach (var notable in settlement.Notables)
+                        notable.SwapVolunteers(troop, new WCharacter(root.StringId));
                 }
             }
 

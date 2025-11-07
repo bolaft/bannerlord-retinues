@@ -60,5 +60,31 @@ namespace Retinues.Game.Wrappers
                     arr[i] = replacement.Base;
             }
         }
+
+        public void SwapVolunteers(WCharacter oldTroop, WCharacter newTroop)
+        {
+            if (Base == null || oldTroop == null || newTroop == null)
+                return;
+
+            var arr = Base.VolunteerTypes;
+            if (arr == null || arr.Length == 0)
+                return;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                var vanilla = arr[i];
+
+                // Preserve empty slots
+                if (vanilla == null)
+                    continue;
+
+                var troop = new WCharacter(vanilla);
+                if (troop == oldTroop)
+                {
+                    arr[i] = newTroop.Base;
+                    break;
+                }
+            }
+        }
     }
 }

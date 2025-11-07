@@ -125,7 +125,7 @@ namespace Retinues.Game.Wrappers
             if (troop == null || target == null || Base == null)
                 return;
 
-            Log.Debug($"Swapping {troop.Name} to {target.Name} in {Party.Name}");
+            Log.Debug($"Swapping {troop.Name} to {target.Name} in {Party?.Name ?? "null"}");
 
             try
             {
@@ -143,7 +143,7 @@ namespace Retinues.Game.Wrappers
                     if (e.Troop.Equals(troop))
                     {
                         Log.Debug(
-                            $"{Party.Name}: swapping {e.Number}x {e.Troop.Name} to {target.Name}."
+                            $"{Party?.Name ?? "null"}: swapping {e.Number}x {e.Troop.Name} to {target.Name}."
                         );
 
                         // Stage replacement into temp roster, preserving totals
@@ -175,7 +175,7 @@ namespace Retinues.Game.Wrappers
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, $"SwapTroop failed for {Party.Name}");
+                Log.Exception(ex, $"SwapTroop failed for {Party?.Name ?? "null"}");
             }
         }
 
