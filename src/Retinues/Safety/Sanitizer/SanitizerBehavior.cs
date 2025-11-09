@@ -82,7 +82,7 @@ namespace Retinues.Safety.Sanitizer
             if (w?.IsValid != true)
                 return false;
 
-            if (replaceAllCustom && w.IsCustom)
+            if (replaceAllCustom && (w.IsCustom || w.IsLegacyCustom))
                 return false; // Force replace all custom troops
 
             // Ensure the object manager can resolve it back

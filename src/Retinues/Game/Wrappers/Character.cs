@@ -26,6 +26,7 @@ namespace Retinues.Game.Wrappers
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
         public const string CustomIdPrefix = "retinues_custom_";
+        public const string LegacyCustomIdPrefix = "ret_";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Character Helper                   //
@@ -129,6 +130,7 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool IsCustom => StringId.StartsWith(CustomIdPrefix) == true;
+        public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
         public bool IsElite => Helper.IsElite(this);
         public bool IsRetinue => Helper.IsRetinue(this);
         public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
