@@ -78,8 +78,18 @@ namespace Retinues.GUI.Editor.VM.Troop
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool RemoveTroopButtonIsVisible =>
-            State.Troop?.IsMilitia == false && State.Troop?.IsRetinue == false && IsVisible;
+        public bool RemoveTroopButtonIsVisible
+        {
+            get
+            {
+                bool isStudio = EditorVM.IsStudioMode;
+                bool troopIsMilitiaFalse = State.Troop?.IsMilitia == false;
+                bool troopIsRetinueFalse = State.Troop?.IsRetinue == false;
+                bool visible = IsVisible;
+
+                return !isStudio && troopIsMilitiaFalse && troopIsRetinueFalse && visible;
+            }
+        }
 
         [DataSourceProperty]
         public bool RemoveTroopButtonIsEnabled => State.Troop?.IsDeletable == true;

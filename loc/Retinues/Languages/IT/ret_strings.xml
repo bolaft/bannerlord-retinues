@@ -131,6 +131,9 @@
       id="ret_change_race_title"
       text="Cambia Razza" />
     <string
+      id="ret_clan_troops_button_text"
+      text="Truppe del Clan" />
+    <string
       id="ret_clanic_traditions"
       text="Tradizioni Claniche" />
     <string
@@ -944,6 +947,9 @@
       id="ret_remove_set_text"
       text="Rimuovere {SET} per {TROOP_NAME}?{newline}Tutte le modifiche in corso saranno annullate e gli oggetti verranno disequipaggiati e immagazzinati." />
     <string
+      id="ret_remove_set_text_studio"
+      text="Rimuovere {SET} per {TROOP_NAME}?" />
+    <string
       id="ret_remove_set_title"
       text="Rimuovi Set" />
     <string
@@ -1013,6 +1019,12 @@
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recluta 100 truppe personalizzate del regno." />
     <string
+      id="ret_select_culture_hint"
+      text="Seleziona una cultura." />
+    <string
+      id="ret_select_culture_title"
+      text="Seleziona Cultura" />
+    <string
       id="ret_set_alt_n"
       text="Alt {N}" />
     <string
@@ -1079,6 +1091,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Massimizza le abilità di 15 truppe personalizzate." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Passa all&apos;editor delle truppe del clan." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Passa a{newline}Truppe del Clan" />
     <string
@@ -1109,8 +1124,14 @@
       id="ret_transfer_header_text"
       text="Trasferisci" />
     <string
+      id="ret_troop_editor_button"
+      text="Editor Truppe" />
+    <string
       id="ret_troop_list.placeholder"
       text="Nessuna Truppa Disponibile" />
+    <string
+      id="ret_troop_studio_title"
+      text="Editor Truppe" />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />
@@ -1126,6 +1147,9 @@
     <string
       id="ret_unequip_all_text"
       text="Rimuovere tutti gli oggetti indossati da {TROOP_NAME}?{newline}{newline}Saranno immagazzinati." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="Rimuovere tutti gli oggetti indossati da {TROOP_NAME}?" />
     <string
       id="ret_unequip_warning_text"
       text="Stai per rimuovere {ITEM}, ci vorrà del tempo per equipaggiarne uno nuovo. Continuare comunque?" />

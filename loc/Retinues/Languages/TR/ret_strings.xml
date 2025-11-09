@@ -131,6 +131,9 @@
       id="ret_change_race_title"
       text="Irkı Değiştir" />
     <string
+      id="ret_clan_troops_button_text"
+      text="Klan Askerleri" />
+    <string
       id="ret_clanic_traditions"
       text="Klan Gelenekleri" />
     <string
@@ -944,6 +947,9 @@
       id="ret_remove_set_text"
       text="{TROOP_NAME} için {SET} kaldırılsın mı?{newline}Tüm aşamalı değişiklikler temizlenecek ve eşyalar donatılmayacak ve stoklanacaktır." />
     <string
+      id="ret_remove_set_text_studio"
+      text="{TROOP_NAME} için {SET} kaldırılsın mı?" />
+    <string
       id="ret_remove_set_title"
       text="Seti Kaldır" />
     <string
@@ -1013,6 +1019,12 @@
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="100 krallık askeri topla." />
     <string
+      id="ret_select_culture_hint"
+      text="Bir kültür seçin." />
+    <string
+      id="ret_select_culture_title"
+      text="Kültür Seç" />
+    <string
       id="ret_set_alt_n"
       text="Yedek {N}" />
     <string
@@ -1079,6 +1091,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="15 özel askerin becerilerini en üst düzeye çıkar." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Klan askerleri düzenleyicisine geç." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Geçiş Yap{newline}Klan Askerleri" />
     <string
@@ -1109,8 +1124,14 @@
       id="ret_transfer_header_text"
       text="Aktar" />
     <string
+      id="ret_troop_editor_button"
+      text="Asker Düzenleyici" />
+    <string
       id="ret_troop_list.placeholder"
       text="Kullanılabilir Asker Yok" />
+    <string
+      id="ret_troop_studio_title"
+      text="Asker Düzenleyici" />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />
@@ -1126,6 +1147,9 @@
     <string
       id="ret_unequip_all_text"
       text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?{newline}{newline}Eşyalar stoklanacaktır." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?" />
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} eşyasını çıkarmak üzeresin, yenisini donatmak zaman alacak. Yine de devam etmek istiyor musun?" />

@@ -8,6 +8,7 @@ using Retinues.Features.Unlocks.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -29,7 +30,7 @@ namespace Retinues.Troops.Edition
             bool isUnlocked,
             int progress
         )> CollectAvailableItems(
-            WFaction faction,
+            ITroopFaction faction,
             EquipmentIndex slot,
             List<(WItem item, bool unlocked, int progress)> cache = null,
             bool crafted = false
@@ -48,10 +49,11 @@ namespace Retinues.Troops.Edition
 
             var eligible = cache ??= BuildEligibilityList(faction, slot, crafted);
 
-            // 2) Availability filter (skip if crafted-only)
-            var availableInTown = crafted ? null : Config.RestrictItemsToTownInventory
-                ? BuildCurrentTownAvailabilitySet()
-                : null;
+            HashSet<WItem> availableInTown = null;
+
+            // 2) Availability filter (skip if crafted-only or in studio)
+            if (crafted == false && !EditorVM.IsStudioMode && Config.RestrictItemsToTownInventory)
+                availableInTown = BuildCurrentTownAvailabilitySet();
 
             var items = eligible
                 .Select(p =>
@@ -72,7 +74,7 @@ namespace Retinues.Troops.Edition
         /// Builds the list of eligible items for a faction, slot, and civilian status.
         /// </summary>
         private static List<(WItem item, bool unlocked, int progress)> BuildEligibilityList(
-            WFaction faction,
+            ITroopFaction faction,
             EquipmentIndex slot,
             bool includeCrafted = true
         )
@@ -246,7 +248,13 @@ namespace Retinues.Troops.Edition
         /// <summary>
         /// Equips an item to a troop.
         /// </summary>
-        public static void Equip(WCharacter troop, EquipmentIndex slot, WItem item, int index = 0)
+        public static void Equip(
+            WCharacter troop,
+            EquipmentIndex slot,
+            WItem item,
+            int index = 0,
+            bool stock = true
+        )
         {
             // If unequipping a horse, also unequip the harness
             if (slot == EquipmentIndex.Horse && item == null)
@@ -255,11 +263,11 @@ namespace Retinues.Troops.Edition
                 Equip(troop, EquipmentIndex.HorseHarness, null, index);
             }
 
-            if (Config.EquipmentChangeTakesTime && item != null)
+            if (!EditorVM.IsStudioMode && Config.EquipmentChangeTakesTime && item != null)
                 TroopEquipBehavior.StageChange(troop, slot, item, index);
             else
             {
-                troop.Unequip(slot, index, stock: true);
+                troop.Unequip(slot, index, stock: stock);
                 troop.Equip(item, slot, index);
             }
         }
@@ -274,6 +282,9 @@ namespace Retinues.Troops.Edition
 
             if (Config.PayForEquipment == false)
                 return 0;
+
+            if (EditorVM.IsStudioMode)
+                return 0; // No cost in studio mode
 
             int baseValue = item?.Value ?? 0;
             float rebate = 0.0f;

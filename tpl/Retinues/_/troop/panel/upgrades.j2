@@ -3,7 +3,7 @@
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
 <!-- Upgrades Header -->
-{{ text.header(text="@UpgradesHeaderText", is_visible="@IsRegular", margin_bottom="4", margin_top="0") }}
+{{ text.header(text="@UpgradesHeaderText", is_visible="@ShowUpgradesHeader", margin_bottom="4", margin_top="0") }}
 
 <!-- Add Upgrade Button -->
 {{ button.text(
@@ -13,7 +13,7 @@
     brush="Popup.Done.Button",
     height="60",
     font_size="20",
-    is_visible="@IsRegular",
+    is_visible="@IsCustomRegular",
     is_enabled="@CanAddUpgrade",
     vertical_alignment="Bottom"
 )}}

@@ -19,7 +19,7 @@
     {% call list.panel("{TroopList}", "TroopList") %}
 
         <!-- Retinue Header -->
-        {{ list.header_toggle("TroopList", "Retinue", "@RetinueToggleText") }}
+        {{ list.header_toggle("TroopList", "Retinue", "@RetinueToggleText", is_visible="@ShowRetinueList") }}
 
         <!-- Retinue List -->
         {% call list.rows("{RetinueTroops}", "Retinue") %}
@@ -43,7 +43,7 @@
         {% endcall %}
 
         <!-- Militia Header -->
-        {{ list.header_toggle("TroopList", "Militia", "@MilitiaToggleText") }}
+        {{ list.header_toggle("TroopList", "Militia", "@MilitiaToggleText", is_visible="@ShowMilitiaList") }}
 
         <!-- Militia List -->
         {% call list.rows("{MilitiaTroops}", "Militia") %}

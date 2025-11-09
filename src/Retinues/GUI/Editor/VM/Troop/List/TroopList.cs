@@ -34,7 +34,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             BasicTroops = [.. State.Faction.BasicTroops.Select(t => new TroopRowVM(t))];
             MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
 
-            if (EliteTroops.Count == 0)
+            if (EliteTroops.Count == 0 && !EditorVM.IsStudioMode)
                 EliteTroops.Add(
                     new TroopRowVM(
                         null,
@@ -45,7 +45,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (BasicTroops.Count == 0)
+            if (BasicTroops.Count == 0 && !EditorVM.IsStudioMode)
                 BasicTroops.Add(
                     new TroopRowVM(
                         null,
@@ -56,7 +56,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (MilitiaTroops.Count == 0)
+            if (MilitiaTroops.Count == 0 && !EditorVM.IsStudioMode)
                 MilitiaTroops.Add(
                     new TroopRowVM(
                         null,
@@ -75,6 +75,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(EliteTroops));
             OnPropertyChanged(nameof(BasicTroops));
             OnPropertyChanged(nameof(MilitiaTroops));
+            OnPropertyChanged(nameof(ShowRetinueList));
+            OnPropertyChanged(nameof(ShowMilitiaList));
 
             RefreshFilter();
         }
@@ -112,7 +114,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         {
             get
             {
-                if (State.Faction == Player.Kingdom)
+                if ((StringIdentifier)State.Faction == Player.Kingdom)
                     return Player.IsFemale
                         ? L.S("queen_guard", "Queen's Guard")
                         : L.S("king_guard", "King's Guard");
@@ -123,6 +125,14 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         [DataSourceProperty]
         public string MilitiaToggleText => L.S("list_toggle_militia", "Militia");
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool ShowRetinueList => RetinueTroops.Count > 0 || !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !EditorVM.IsStudioMode;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //

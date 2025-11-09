@@ -131,6 +131,9 @@
       id="ret_change_race_title"
       text="Rasse ändern" />
     <string
+      id="ret_clan_troops_button_text"
+      text="Clantruppen" />
+    <string
       id="ret_clanic_traditions"
       text="Clantraditionen" />
     <string
@@ -944,6 +947,9 @@
       id="ret_remove_set_text"
       text="Willst du {SET} für {TROOP_NAME} entfernen?{newline}Alle vorgenommenen Änderungen werden gelöscht, und Gegenstände werden abgelegt und eingelagert." />
     <string
+      id="ret_remove_set_text_studio"
+      text="Willst du {SET} für {TROOP_NAME} entfernen?" />
+    <string
       id="ret_remove_set_title"
       text="Set entfernen" />
     <string
@@ -1013,6 +1019,12 @@
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Rekrutiere 100 benutzerdefinierte Königreichstruppen." />
     <string
+      id="ret_select_culture_hint"
+      text="Wähle eine Kultur." />
+    <string
+      id="ret_select_culture_title"
+      text="Kultur auswählen" />
+    <string
       id="ret_set_alt_n"
       text="Alt {N}" />
     <string
@@ -1079,6 +1091,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Maximiere die Fertigkeiten von 15 benutzerdefinierten Truppen." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Wechsel zum Klantruppen-Editor." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Wechsel zu{newline}Clantruppen" />
     <string
@@ -1109,8 +1124,14 @@
       id="ret_transfer_header_text"
       text="Übertragen" />
     <string
+      id="ret_troop_editor_button"
+      text="Truppen-Editor" />
+    <string
       id="ret_troop_list.placeholder"
       text="Keine Truppen verfügbar" />
+    <string
+      id="ret_troop_studio_title"
+      text="Truppen-Editor" />
     <string
       id="ret_troop_xp"
       text="{XP} EP" />
@@ -1126,6 +1147,9 @@
     <string
       id="ret_unequip_all_text"
       text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?{newline}{newline}Sie werden eingelagert." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?" />
     <string
       id="ret_unequip_warning_text"
       text="Du bist dabei, {ITEM} abzulegen. Es wird Zeit brauchen, ein neues auszurüsten. Trotzdem fortfahren?" />

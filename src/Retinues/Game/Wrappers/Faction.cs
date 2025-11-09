@@ -8,11 +8,39 @@ using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Game.Wrappers
 {
+    public interface ITroopFaction
+    {
+        public string StringId { get; }
+        public string Name { get; }
+        public uint Color { get; }
+        public uint Color2 { get; }
+        public string BannerCodeText { get; }
+
+        public WCulture Culture { get; }
+
+        public WCharacter RetinueElite { get; }
+        public WCharacter RetinueBasic { get; }
+
+        public WCharacter RootElite { get; }
+        public WCharacter RootBasic { get; }
+
+        public WCharacter MilitiaMelee { get; }
+        public WCharacter MilitiaMeleeElite { get; }
+        public WCharacter MilitiaRanged { get; }
+        public WCharacter MilitiaRangedElite { get; }
+
+        public List<WCharacter> Troops { get; }
+        public List<WCharacter> RetinueTroops { get; }
+        public List<WCharacter> EliteTroops { get; }
+        public List<WCharacter> BasicTroops { get; }
+        public List<WCharacter> MilitiaTroops { get; }
+    }
+
     /// <summary>
     /// Wrapper for IFaction (Clan or Kingdom), exposes troop roots, retinues, and helpers for custom logic.
     /// </summary>
     [SafeClass(SwallowByDefault = false)]
-    public class WFaction(IFaction faction) : StringIdentifier
+    public class WFaction(IFaction faction) : StringIdentifier, ITroopFaction
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //

@@ -269,7 +269,6 @@ namespace Retinues
 
         /// <summary>
         /// Allow external mods to override a behavior used by Retinues.
-        /// Register before the campaign starts (e.g., in your mod's OnSubModuleLoad).
         /// If multiple mods register for the same base type, the last registration wins.
         /// </summary>
         public static void RegisterBehavior<TBehavior>(Func<TBehavior> factory)

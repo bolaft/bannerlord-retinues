@@ -672,6 +672,22 @@
     "TR": "Irkı Değiştir"
   },
   {
+    "id": "ret_clan_troops_button_text",
+    "EN": "Clan Troops",
+    "BR": "Tropas do Clã",
+    "CNs": "家族部队",
+    "CNt": "家族部隊",
+    "DE": "Clantruppen",
+    "FR": "Troupes du Clan",
+    "IT": "Truppe del Clan",
+    "JP": "一族の兵士",
+    "KO": "가문 병력",
+    "PL": "Oddziały Klanu",
+    "RU": "Войска Клана",
+    "SP": "Tropas del Clan",
+    "TR": "Klan Askerleri"
+  },
+  {
     "id": "ret_clanic_traditions",
     "EN": "Clan Traditions",
     "BR": "Tradições do Clã",
@@ -5008,6 +5024,22 @@
     "TR": "{TROOP_NAME} için {SET} kaldırılsın mı?\\nTüm aşamalı değişiklikler temizlenecek ve eşyalar donatılmayacak ve stoklanacaktır."
   },
   {
+    "id": "ret_remove_set_text_studio",
+    "EN": "Remove {EQUIPMENT} for {TROOP}?",
+    "BR": "Remover {SET} para {TROOP_NAME}?",
+    "CNs": "为 {TROOP_NAME} 移除 {SET}？",
+    "CNt": "為 {TROOP_NAME} 移除 {SET}？",
+    "DE": "Willst du {SET} für {TROOP_NAME} entfernen?",
+    "FR": "Retirer {SET} pour {TROOP_NAME} ?",
+    "IT": "Rimuovere {SET} per {TROOP_NAME}?",
+    "JP": "{TROOP_NAME} の {SET} を削除しますか？",
+    "KO": "{TROOP_NAME} 에게서 {SET} 을(를) 제거하시겠습니까?",
+    "PL": "Usunąć {SET} dla {TROOP_NAME}?",
+    "RU": "Удалить {SET} для {TROOP_NAME}?",
+    "SP": "¿Eliminar {SET} para {TROOP_NAME}?",
+    "TR": "{TROOP_NAME} için {SET} kaldırılsın mı?"
+  },
+  {
     "id": "ret_remove_set_title",
     "EN": "Remove Set",
     "BR": "Remover Conjunto",
@@ -5376,6 +5408,38 @@
     "TR": "100 krallık askeri topla."
   },
   {
+    "id": "ret_select_culture_hint",
+    "EN": "Select a culture.",
+    "BR": "Selecione uma cultura.",
+    "CNs": "选择一种文化。",
+    "CNt": "選擇一種文化。",
+    "DE": "Wähle eine Kultur.",
+    "FR": "Sélectionne une culture.",
+    "IT": "Seleziona una cultura.",
+    "JP": "文化を選択します。",
+    "KO": "문화를 선택하십시오.",
+    "PL": "Wybierz kulturę.",
+    "RU": "Выберите культуру.",
+    "SP": "Selecciona una cultura.",
+    "TR": "Bir kültür seçin."
+  },
+  {
+    "id": "ret_select_culture_title",
+    "EN": "Select Culture",
+    "BR": "Selecionar Cultura",
+    "CNs": "选择文化",
+    "CNt": "選擇文化",
+    "DE": "Kultur auswählen",
+    "FR": "Sélection de la la culture",
+    "IT": "Seleziona Cultura",
+    "JP": "文化を選択",
+    "KO": "문화 선택",
+    "PL": "Wybierz Kulturę",
+    "RU": "Выбрать Культуру",
+    "SP": "Seleccionar Cultura",
+    "TR": "Kültür Seç"
+  },
+  {
     "id": "ret_set_alt_n",
     "EN": "Alt {N}",
     "BR": "Alt {N}",
@@ -5728,6 +5792,22 @@
     "TR": "15 özel askerin becerilerini en üst düzeye çıkar."
   },
   {
+    "id": "ret_switch_player_mode_hint",
+    "EN": "Switch to clan troops editor.",
+    "BR": "Trocar para o editor de tropas do clã.",
+    "CNs": "切换到家族部队编辑器。",
+    "CNt": "切換到家族部隊編輯器。",
+    "DE": "Wechsel zum Klantruppen-Editor.",
+    "FR": "Basculer vers l'éditeur de troupes de clan.",
+    "IT": "Passa all'editor delle truppe del clan.",
+    "JP": "一族兵エディターに切り替えます。",
+    "KO": "가문 병력 편집기로 전환하십시오.",
+    "PL": "Przełącz na edytor wojsk klanu.",
+    "RU": "Переключиться на редактор войск клана.",
+    "SP": "Cambiar al editor de tropas del clan.",
+    "TR": "Klan askerleri düzenleyicisine geç."
+  },
+  {
     "id": "ret_switch_to_clan_troops",
     "EN": "Switch to\\nClan Troops",
     "BR": "Trocar para\\nTropas do Clã",
@@ -5888,6 +5968,22 @@
     "TR": "Aktar"
   },
   {
+    "id": "ret_troop_editor_button",
+    "EN": "Troop Editor",
+    "BR": "Editor de Tropas",
+    "CNs": "部队编辑器",
+    "CNt": "部隊編輯器",
+    "DE": "Truppen-Editor",
+    "FR": "Éditeur de Troupes",
+    "IT": "Editor Truppe",
+    "JP": "兵士エディター",
+    "KO": "병력 편집기",
+    "PL": "Edytor Jednostek",
+    "RU": "Редактор Войск",
+    "SP": "Editor de Tropas",
+    "TR": "Asker Düzenleyici"
+  },
+  {
     "id": "ret_troop_list.placeholder",
     "EN": "No Troops Available",
     "BR": "Nenhuma Tropa Disponível",
@@ -5902,6 +5998,22 @@
     "RU": "Нет доступных войск",
     "SP": "No hay tropas disponibles",
     "TR": "Kullanılabilir Asker Yok"
+  },
+  {
+    "id": "ret_troop_studio_title",
+    "EN": "Troop Editor",
+    "BR": "Editor de Tropas",
+    "CNs": "部队编辑器",
+    "CNt": "部隊編輯器",
+    "DE": "Truppen-Editor",
+    "FR": "Éditeur de Troupes",
+    "IT": "Editor Truppe",
+    "JP": "兵士エディター",
+    "KO": "병력 편집기",
+    "PL": "Edytor Jednostek",
+    "RU": "Редактор Войск",
+    "SP": "Editor de Tropas",
+    "TR": "Asker Düzenleyici"
   },
   {
     "id": "ret_troop_xp",
@@ -5982,6 +6094,22 @@
     "RU": "Снять все предметы с {TROOP_NAME}?\\n\\nОни будут сохранены.",
     "SP": "¿Quitar todo el equipo de {TROOP_NAME}?\\n\\nSe almacenará para uso posterior.",
     "TR": "{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?\\n\\nEşyalar stoklanacaktır."
+  },
+  {
+    "id": "ret_unequip_all_text_studio",
+    "EN": "Unequip all items worn by {TROOP_NAME}?",
+    "BR": "Remover todos os itens usados por {TROOP_NAME}?",
+    "CNs": "卸下 {TROOP_NAME} 穿戴的所有物品？",
+    "CNt": "卸下 {TROOP_NAME} 穿戴的所有物品？",
+    "DE": "Alle von {TROOP_NAME} getragenen Gegenstände ablegen?",
+    "FR": "Retirer tout l’équipement porté par {TROOP_NAME} ?",
+    "IT": "Rimuovere tutti gli oggetti indossati da {TROOP_NAME}?",
+    "JP": "{TROOP_NAME} が装備しているすべてのアイテムを外しますか？",
+    "KO": "{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?",
+    "PL": "Zdjąć wszystkie przedmioty noszone przez {TROOP_NAME}?",
+    "RU": "Снять все предметы с {TROOP_NAME}?",
+    "SP": "¿Quitar todo el equipo de {TROOP_NAME}?",
+    "TR": "{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?"
   },
   {
     "id": "ret_unequip_warning_text",

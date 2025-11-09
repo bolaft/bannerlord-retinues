@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -105,7 +106,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 return;
             }
 
-            if (Config.TrainingTakesTime == false)
+            if (Config.TrainingTakesTime == false || EditorVM.IsStudioMode)
             {
                 ApplyChange(troop.StringId, tc.Skill, tc.Points);
                 return;

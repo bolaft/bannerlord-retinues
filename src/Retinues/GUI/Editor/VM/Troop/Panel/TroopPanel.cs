@@ -72,6 +72,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(UpgradeTargets),
                     nameof(IsRetinue),
                     nameof(IsRegular),
+                    nameof(ShowUpgradesHeader),
+                    nameof(IsCustomRegular),
                     nameof(HasPendingConversions),
                     nameof(PendingTotalGoldCost),
                     nameof(PendingTotalInfluenceCost),
@@ -263,7 +265,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool TroopXpIsEnabled =>
-            Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0;
+            !EditorVM.IsStudioMode
+            && (Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0);
 
         [DataSourceProperty]
         public string TroopXpText =>
@@ -298,7 +301,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int TrainingRequired => State.SkillData?.Sum(kv => kv.Value.Train?.Remaining) ?? 0;
 
         [DataSourceProperty]
-        public bool TrainingTakesTime => Config.TrainingTakesTime;
+        public bool TrainingTakesTime => Config.TrainingTakesTime && !EditorVM.IsStudioMode;
 
         [DataSourceProperty]
         public string TrainingRequiredText
@@ -331,6 +334,22 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool IsRegular => State.Troop?.IsRetinue == false && State.Troop?.IsMilitia == false;
+
+        [DataSourceProperty]
+        public bool ShowUpgradesHeader =>
+            IsRegular && (!EditorVM.IsStudioMode || UpgradeTargets.Count > 0);
+
+        [DataSourceProperty]
+        public bool IsCustomRegular
+        {
+            get
+            {
+                bool isRegular = IsRegular;
+                bool isCustom = State.Troop?.IsCustom == true;
+
+                return isRegular && isCustom;
+            }
+        }
 
         [DataSourceProperty]
         public bool CanAddUpgrade => CantAddUpgradeReason == null;
@@ -670,6 +689,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             )
                 return; // Modification not allowed in current context
 
+            if (EditorVM.IsStudioMode)
+                return; // Adding upgrades disabled in studio mode
+
             InformationManager.ShowTextInquiry(
                 new TextInquiryData(
                     titleText: L.S("add_upgrade", "Add Upgrade"),
@@ -705,6 +727,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /// </summary>
         public void ExecuteRankUp()
         {
+            if (EditorVM.IsStudioMode)
+                return; // Rank up disabled in studio mode
+
             if (
                 TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_modify", "modify"))
                 == false

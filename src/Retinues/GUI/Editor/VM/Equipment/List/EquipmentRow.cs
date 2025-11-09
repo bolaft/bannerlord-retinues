@@ -179,11 +179,20 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public bool ShowInStockText =>
-            IsEnabled && !IsSelected && !IsEquipped && RowItem?.IsStocked == true;
+            !EditorVM.IsStudioMode
+            && IsEnabled
+            && !IsSelected
+            && !IsEquipped
+            && RowItem?.IsStocked == true;
 
         [DataSourceProperty]
         public bool ShowValue =>
-            IsEnabled && !IsSelected && !IsEquipped && !ShowInStockText && Value > 0;
+            !EditorVM.IsStudioMode
+            && IsEnabled
+            && !IsSelected
+            && !IsEquipped
+            && !ShowInStockText
+            && Value > 0;
 
         [DataSourceProperty]
         public override bool IsSelected => RowItem == Item;
@@ -270,6 +279,20 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             bool selectionIsNull = RowItem == null;
             bool selectionIsEquipped = RowItem != null && RowItem == equippedItem;
             bool selectionIsStaged = RowItem != null && RowItem == stagedItem;
+
+            if (EditorVM.IsStudioMode)
+            {
+                Log.Debug("[ExecuteSelect] Studio mode active, equipping without restrictions.");
+                EquipmentManager.Equip(
+                    State.Troop,
+                    State.Slot,
+                    RowItem,
+                    State.Equipment.Index,
+                    stock: false // No stock management in studio mode
+                );
+                State.UpdateEquipData();
+                return;
+            }
 
             // Selecting the already staged item
             if (selectionIsStaged)

@@ -2,15 +2,14 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.GUI.Editor.VM;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Mixins
 {
-    /// <summary>
-    /// Mixin for ClanManagementVM to inject the custom troop editor screen and manage tab selection.
-    /// </summary>
     [ViewModelMixin(
         "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM"
     )]
@@ -20,9 +19,6 @@ namespace Retinues.GUI.Editor.Mixins
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Initialize the mixin, create editor VM and hook tab events.
-        /// </summary>
         public ClanTroopScreen(ClanManagementVM vm)
             : base(vm)
         {
@@ -30,7 +26,6 @@ namespace Retinues.GUI.Editor.Mixins
             {
                 Log.Info("Initializing ClanTroopScreen...");
 
-                // Load sprite categories early
                 try
                 {
                     SpriteLoader.LoadCategories("ui_charactercreation", "ui_characterdeveloper");
@@ -40,18 +35,20 @@ namespace Retinues.GUI.Editor.Mixins
                     Log.Exception(e);
                 }
 
-                // Reset state
+                // Build editor VM for current launch mode
                 State.ResetAll();
+                Editor = new EditorVM();
 
-                // Build editor VM
-                _editor = new EditorVM();
-
-                // Listen to vanilla tab changes to toggle editor visibility
+                // Listen once for vanilla tab changes
                 ViewModel.PropertyChangedWithBoolValue += OnVanillaTabChanged;
 
-                // Block tab hotkeys when the editor is open
+                // Gate hotkeys while the editor is around
                 ClanHotkeyGate.Active = true;
                 ClanHotkeyGate.RequireShift = false;
+
+                // Auto-select our editor tab if we launched in Studio Mode
+                if (EditorVM.IsStudioMode)
+                    SelectEditorTab();
 
                 Log.Info("ClanTroopScreen initialized.");
             }
@@ -61,14 +58,11 @@ namespace Retinues.GUI.Editor.Mixins
             }
         }
 
-        /// <summary>
-        /// Finalize mixin and restore original hotkey behavior.
-        /// </summary>
         public override void OnFinalize()
         {
             try
             {
-                ClanHotkeyGate.Active = false; // restore default behavior
+                ClanHotkeyGate.Active = false;
                 base.OnFinalize();
             }
             catch (Exception e)
@@ -81,25 +75,27 @@ namespace Retinues.GUI.Editor.Mixins
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly EditorVM _editor;
-
-        /// <summary>
-        /// Editor view-model instance exposed to the view.
-        /// </summary>
         [DataSourceProperty]
-        public EditorVM Editor => _editor;
+        public EditorVM Editor { get; private set; }
 
-        /// <summary>
-        /// Label for the troops tab.
-        /// </summary>
         [DataSourceProperty]
         public string TroopsTabText => L.S("troops_tab_text", "Troops");
 
-        /// <summary>
-        /// Whether the troop editor tab is currently selected.
-        /// </summary>
+        [DataSourceProperty]
+        public string ClanTroopsButtonText => L.S("clan_troops_button_text", "Clan Troops");
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel ClanTroopsHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S("switch_player_mode_hint", "Switch to clan troops editor.")
+            );
+
         [DataSourceProperty]
         public bool IsTroopsSelected => Editor?.IsVisible == true;
+
+        [DataSourceProperty]
+        public bool IsTopPanelVisible => EditorVM.IsStudioMode == false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -107,25 +103,12 @@ namespace Retinues.GUI.Editor.Mixins
 
         [DataSourceMethod]
         [SafeMethod]
-        /// <summary>
-        /// Select and show the troop editor tab.
-        /// </summary>
         public void ExecuteSelectTroops()
         {
             try
             {
-                if (Editor?.IsVisible == true)
-                    return;
-
-                Log.Debug("Selecting Troops tab.");
-
-                UnselectVanillaTabs();
-
-                // Show editor
-                Editor.Show();
-
-                // Notify UI
-                OnPropertyChanged(nameof(IsTroopsSelected));
+                if (Editor?.IsVisible != true)
+                    SelectEditorTab();
             }
             catch (Exception e)
             {
@@ -133,19 +116,44 @@ namespace Retinues.GUI.Editor.Mixins
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        [DataSourceMethod]
+        public void ExecuteOpenPlayerMode()
+        {
+            Log.Info("Switching to player troop editor mode...");
 
-        /// <summary>
-        /// Unselects all vanilla clan management tabs when switching to troop editor.
-        /// </summary>
+            // flip global mode
+            EditorVM.IsStudioMode = false;
+
+            // rebuild state & VM
+            State.ResetAll();
+            Editor = new EditorVM();
+            OnPropertyChanged(nameof(Editor));
+
+            // select our tab & refresh bindings
+            SelectEditorTab();
+
+            Log.Info("Player troop editor mode ready.");
+        }
+
+        // ── Helpers ───────────────────────────────────────────
+
+        private void SelectEditorTab()
+        {
+            UnselectVanillaTabs();
+            Editor.Show();
+            UpdateVisibilityFlags();
+        }
+
+        private void HideEditor()
+        {
+            Editor.Hide();
+            UpdateVisibilityFlags();
+        }
+
         public void UnselectVanillaTabs()
         {
             try
             {
-                Log.Debug("Unselecting vanilla clan management tabs.");
-
                 ViewModel.IsMembersSelected = false;
                 ViewModel.IsFiefsSelected = false;
                 ViewModel.IsPartiesSelected = false;
@@ -162,13 +170,16 @@ namespace Retinues.GUI.Editor.Mixins
             }
         }
 
+        private void UpdateVisibilityFlags()
+        {
+            OnPropertyChanged(nameof(IsTroopsSelected));
+            OnPropertyChanged(nameof(IsTopPanelVisible));
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
+        //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Handle vanilla tab selection changes and hide the troop editor when a vanilla tab is chosen.
-        /// </summary>
         private void OnVanillaTabChanged(object sender, PropertyChangedWithBoolValueEventArgs e)
         {
             try
@@ -176,21 +187,15 @@ namespace Retinues.GUI.Editor.Mixins
                 if (!e.Value)
                     return;
 
-                if (
-                    e.PropertyName == "IsMembersSelected"
-                    || e.PropertyName == "IsFiefsSelected"
-                    || e.PropertyName == "IsPartiesSelected"
-                    || e.PropertyName == "IsIncomeSelected"
-                )
+                switch (e.PropertyName)
                 {
-                    // A vanilla tab was selected, hide the troop editor
-                    Log.Debug($"Vanilla tab selected ({e.PropertyName}), hiding troop editor.");
-
-                    // Hide editor
-                    Editor.Hide();
-
-                    // Notify UI
-                    OnPropertyChanged(nameof(IsTroopsSelected));
+                    case "IsMembersSelected":
+                    case "IsFiefsSelected":
+                    case "IsPartiesSelected":
+                    case "IsIncomeSelected":
+                        Log.Debug($"Vanilla tab selected ({e.PropertyName}), hiding troop editor.");
+                        HideEditor();
+                        break;
                 }
             }
             catch (Exception ex)

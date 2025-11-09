@@ -131,6 +131,9 @@
       id="ret_change_race_title"
       text="Сменить Расу" />
     <string
+      id="ret_clan_troops_button_text"
+      text="Войска Клана" />
+    <string
       id="ret_clanic_traditions"
       text="Клановые Традиции" />
     <string
@@ -944,6 +947,9 @@
       id="ret_remove_set_text"
       text="Удалить {SET} для {TROOP_NAME}?{newline}Все внесенные изменения будут отменены, а предметы будут сняты и сохранены." />
     <string
+      id="ret_remove_set_text_studio"
+      text="Удалить {SET} для {TROOP_NAME}?" />
+    <string
       id="ret_remove_set_title"
       text="Удалить Комплект" />
     <string
@@ -1013,6 +1019,12 @@
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Нанимайте 100 собственных войск королевства." />
     <string
+      id="ret_select_culture_hint"
+      text="Выберите культуру." />
+    <string
+      id="ret_select_culture_title"
+      text="Выбрать Культуру" />
+    <string
       id="ret_set_alt_n"
       text="Альт {N}" />
     <string
@@ -1079,6 +1091,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Максимизируйте навыки 15 собственных войск." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Переключиться на редактор войск клана." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Переключиться на{newline}Войска Клана" />
     <string
@@ -1109,8 +1124,14 @@
       id="ret_transfer_header_text"
       text="Передать" />
     <string
+      id="ret_troop_editor_button"
+      text="Редактор Войск" />
+    <string
       id="ret_troop_list.placeholder"
       text="Нет доступных войск" />
+    <string
+      id="ret_troop_studio_title"
+      text="Редактор Войск" />
     <string
       id="ret_troop_xp"
       text="{XP} очков опыта" />
@@ -1126,6 +1147,9 @@
     <string
       id="ret_unequip_all_text"
       text="Снять все предметы с {TROOP_NAME}?{newline}{newline}Они будут сохранены." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="Снять все предметы с {TROOP_NAME}?" />
     <string
       id="ret_unequip_warning_text"
       text="Вы собираетесь снять {ITEM}, на переоснащение новым предметом потребуется время. Всё равно продолжить?" />

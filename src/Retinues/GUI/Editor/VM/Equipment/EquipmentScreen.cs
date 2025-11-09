@@ -187,10 +187,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool CanShowCrafted =>
             DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
-            && EquipmentListVM.WeaponSlots.Contains(State.Slot.ToString());
+            && EquipmentListVM.WeaponSlots.Contains(State.Slot.ToString())
+            && !EditorVM.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowCrafted => EquipmentList.ShowCrafted;
+        public bool ShowCrafted => EquipmentList.ShowCrafted && !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowCraftedIsVisible => IsVisible && !EditorVM.IsStudioMode;
 
         /* ━━━ Unequip / Unstage ━━ */
 
@@ -238,7 +242,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public bool CanCreateSet => !ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
 
         [DataSourceProperty]
-        public bool CanEnableSet => State.Equipment?.Category == EquipmentCategory.Alternate;
+        public bool CanEnableSet =>
+            State.Equipment?.Category == EquipmentCategory.Alternate && !EditorVM.IsStudioMode;
 
         [DataSourceProperty]
         public bool SetIsEnabledForFieldBattle =>
@@ -442,12 +447,16 @@ namespace Retinues.GUI.Editor.VM.Equipment
             InformationManager.ShowInquiry(
                 new InquiryData(
                     titleText: L.S("unequip_all", "Unequip All"),
-                    text: L.T(
-                            "unequip_all_text",
-                            "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
-                        )
-                        .SetTextVariable("TROOP_NAME", State.Troop.Name)
-                        .ToString(),
+                    text: EditorVM.IsStudioMode
+                        ? L.T("unequip_all_text_studio", "Unequip all items worn by {TROOP_NAME}?")
+                            .SetTextVariable("TROOP_NAME", State.Troop.Name)
+                            .ToString()
+                        : L.T(
+                                "unequip_all_text",
+                                "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
+                            )
+                            .SetTextVariable("TROOP_NAME", State.Troop.Name)
+                            .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
                     affirmativeText: L.S("confirm", "Confirm"),
@@ -529,13 +538,16 @@ namespace Retinues.GUI.Editor.VM.Equipment
             InformationManager.ShowInquiry(
                 new InquiryData(
                     L.S("remove_set_title", "Remove Set"),
-                    L.T(
-                            "remove_set_text",
-                            "Remove {EQUIPMENT} for {TROOP}?\nAll staged changes will be cleared and items will be unequipped and stocked."
-                        )
-                        .SetTextVariable("EQUIPMENT", EquipmentName)
-                        .SetTextVariable("TROOP", State.Troop.Name)
-                        .ToString(),
+                    EditorVM.IsStudioMode
+                        ? L.T("remove_set_text_studio", "Remove {EQUIPMENT} for {TROOP}?")
+                            .ToString()
+                        : L.T(
+                                "remove_set_text",
+                                "Remove {EQUIPMENT} for {TROOP}?\nAll staged changes will be cleared and items will be unequipped and stocked."
+                            )
+                            .SetTextVariable("EQUIPMENT", EquipmentName)
+                            .SetTextVariable("TROOP", State.Troop.Name)
+                            .ToString(),
                     true,
                     true,
                     L.S("confirm", "Confirm"),

@@ -153,10 +153,11 @@
 {#       Header Toggle      #}
 {# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
 
-{% macro header_toggle(identifier, type, text) -%}
+{% macro header_toggle(identifier, type, text, is_visible="true") -%}
 
 <PartyHeaderToggleWidget
     Id="{{ identifier }}Toggle"
+    IsVisible="{{ is_visible }}"
     RenderLate="true"
     IsEnabled="false"
     DoNotPassEventsToChildren="true"

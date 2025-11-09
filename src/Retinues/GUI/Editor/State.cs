@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM;
 using Retinues.Troops;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
@@ -59,7 +61,7 @@ namespace Retinues.GUI.Editor
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static WFaction Faction { get; private set; }
+        public static ITroopFaction Faction { get; private set; }
         public static WCharacter Troop { get; private set; }
         public static WEquipment Equipment { get; private set; }
         public static EquipmentIndex Slot { get; private set; }
@@ -78,10 +80,11 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void ResetAll()
         {
-            // Ensure troops exist for player factions
-            foreach (var f in new[] { Player.Clan, Player.Kingdom })
-                if (f != null)
-                    TroopBuilder.EnsureTroopsExist(f);
+            if (!EditorVM.IsStudioMode)
+                // Ensure troops exist for player factions
+                foreach (var f in new[] { Player.Clan, Player.Kingdom })
+                    if (f != null)
+                        TroopBuilder.EnsureTroopsExist(f);
 
             EventManager.FireBatch(() =>
             {
@@ -97,9 +100,9 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Set current faction (defaults to player clan).
         /// </summary>
-        public static void UpdateFaction(WFaction faction = null)
+        public static void UpdateFaction(ITroopFaction faction = null)
         {
-            faction ??= Player.Clan;
+            faction ??= EditorVM.IsStudioMode ? Player.Culture : Player.Clan;
 
             EventManager.FireBatch(() =>
             {
@@ -123,6 +126,20 @@ namespace Retinues.GUI.Editor
             EventManager.FireBatch(() =>
             {
                 Troop = troop;
+
+                if (EditorVM.IsStudioMode && Troop != null)
+                {
+                    try
+                    {
+                        // Normalize troop loadout if not custom
+                        if (Troop?.IsCustom == false)
+                            Troop.Loadout.Normalize();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Exception(ex);
+                    }
+                }
 
                 UpdateEquipment();
                 UpdateSkillData();

@@ -20,6 +20,7 @@
                         <!-- Character Tableau and Top Controls -->
                         <Widget
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            MarginLeft="@TableauMarginLeft"
                             MarginRight="290">
                             <Children>
                                 <Widget
@@ -55,7 +56,7 @@
                             VisualDefinition="RightPanel"
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                             PositionXOffset="800"
-                            MarginLeft="340">
+                            MarginTop="@PanelMarginTop" MarginLeft="@PanelMarginLeft">
                             <Children>
                                 {% include "_/panel.j2" %}
                             </Children>

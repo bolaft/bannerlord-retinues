@@ -131,6 +131,9 @@
       id="ret_change_race_title"
       text="種族を変更" />
     <string
+      id="ret_clan_troops_button_text"
+      text="一族の兵士" />
+    <string
       id="ret_clanic_traditions"
       text="一族の伝統" />
     <string
@@ -944,6 +947,9 @@
       id="ret_remove_set_text"
       text="{TROOP_NAME} の {SET} を削除しますか？{newline}すべての変更がクリアされ、アイテムは装備解除されて保管されます。" />
     <string
+      id="ret_remove_set_text_studio"
+      text="{TROOP_NAME} の {SET} を削除しますか？" />
+    <string
       id="ret_remove_set_title"
       text="セットを削除" />
     <string
@@ -1013,6 +1019,12 @@
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="カスタム王国兵100人を募集する。" />
     <string
+      id="ret_select_culture_hint"
+      text="文化を選択します。" />
+    <string
+      id="ret_select_culture_title"
+      text="文化を選択" />
+    <string
       id="ret_set_alt_n"
       text="予備 {N}" />
     <string
@@ -1079,6 +1091,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="カスタム兵15人のスキルを最大化する。" />
     <string
+      id="ret_switch_player_mode_hint"
+      text="一族兵エディターに切り替えます。" />
+    <string
       id="ret_switch_to_clan_troops"
       text="切り替え：{newline}一族兵" />
     <string
@@ -1109,8 +1124,14 @@
       id="ret_transfer_header_text"
       text="移動" />
     <string
+      id="ret_troop_editor_button"
+      text="兵士エディター" />
+    <string
       id="ret_troop_list.placeholder"
       text="利用可能な兵士がいません" />
+    <string
+      id="ret_troop_studio_title"
+      text="兵士エディター" />
     <string
       id="ret_troop_xp"
       text="{XP} 経験値" />
@@ -1126,6 +1147,9 @@
     <string
       id="ret_unequip_all_text"
       text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？{newline}{newline}装備は保管されます。" />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？" />
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} を外そうとしています。新しいものを装備するには時間がかかります。それでも続行しますか？" />

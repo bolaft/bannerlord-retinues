@@ -329,5 +329,50 @@ namespace Retinues.Game.Wrappers
             else
                 return null;
         }
+
+        /// <summary>
+        /// Normalizes this loadout by ensuring the first two equipments are Battle and Civilian,
+        /// and reordering alternates accordingly.
+        /// </summary>
+        public void Normalize()
+        {
+            var all = Equipments; // current order
+
+            // Partition once
+            var battles = new List<WEquipment>();
+            var civilians = new List<WEquipment>();
+            foreach (var eq in all)
+                (eq.IsCivilian ? civilians : battles).Add(eq);
+
+            // Pick canonical sets
+            WEquipment battle = battles.Count > 0 ? battles[0] : null;
+            WEquipment civilian = civilians.Count > 0 ? civilians[0] : null;
+
+            // Drop extra civilians entirely
+            // Alternates are non-civilian only
+            var alternates = battles.Count > 1 ? battles.GetRange(1, battles.Count - 1) : [];
+
+            // Create empties if missing
+            battle ??= WEquipment.FromCode(null, this, 0); // battle
+            civilian ??= WEquipment.FromCode(null, this, 1); // civilian
+
+            // Rebuild ordered list: 0 = battle, 1 = civilian, 2+ = alternates (battle)
+            var ordered = new List<WEquipment>(2 + alternates.Count)
+            {
+                // FromCode with the target index ensures type enforcement by your setter:
+                WEquipment.FromCode(battle.Code, this, 0),
+                WEquipment.FromCode(civilian.Code, this, 1),
+            };
+
+            for (int i = 0; i < alternates.Count; i++)
+                ordered.Add(WEquipment.FromCode(alternates[i].Code, this, i + 2));
+
+            // Assign back (Equipments/BaseEquipments setter enforces types by index:
+            // index 1 -> civilian; all others -> battle)
+            Equipments = ordered;
+
+            // Refresh any downstream caches
+            Troop.UpgradeItemRequirement = ComputeUpgradeItemRequirement();
+        }
     }
 }

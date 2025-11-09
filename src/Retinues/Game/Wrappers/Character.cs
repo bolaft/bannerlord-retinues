@@ -221,9 +221,6 @@ namespace Retinues.Game.Wrappers
             {
                 try
                 {
-                    if (!IsCustom)
-                        return;
-
                     // protected setter -> set via reflection
                     Reflector.SetPropertyValue(Base, "DefaultFormationClass", value);
                     Reflector.SetPropertyValue(Base, "DefaultFormationGroup", (int)value);
@@ -440,13 +437,7 @@ namespace Retinues.Game.Wrappers
         public ItemCategory UpgradeItemRequirement
         {
             get { return Base.UpgradeRequiresItemFromCategory; }
-            set
-            {
-                if (!IsCustom)
-                    return;
-
-                Reflector.SetPropertyValue(Base, "UpgradeRequiresItemFromCategory", value);
-            }
+            set { Reflector.SetPropertyValue(Base, "UpgradeRequiresItemFromCategory", value); }
         }
 
         public void AddUpgradeTarget(WCharacter target)

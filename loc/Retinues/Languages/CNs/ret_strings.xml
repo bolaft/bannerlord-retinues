@@ -131,6 +131,9 @@
       id="ret_change_race_title"
       text="更改种族" />
     <string
+      id="ret_clan_troops_button_text"
+      text="家族部队" />
+    <string
       id="ret_clanic_traditions"
       text="家族传统" />
     <string
@@ -944,6 +947,9 @@
       id="ret_remove_set_text"
       text="为 {TROOP_NAME} 移除 {SET}？{newline}所有已分配的更改将被清除，物品将被卸下并存入库存。" />
     <string
+      id="ret_remove_set_text_studio"
+      text="为 {TROOP_NAME} 移除 {SET}？" />
+    <string
       id="ret_remove_set_title"
       text="移除套装" />
     <string
@@ -1013,6 +1019,12 @@
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定义王国部队。" />
     <string
+      id="ret_select_culture_hint"
+      text="选择一种文化。" />
+    <string
+      id="ret_select_culture_title"
+      text="选择文化" />
+    <string
       id="ret_set_alt_n"
       text="备用 {N}" />
     <string
@@ -1079,6 +1091,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="让15名自定义部队技能达到满值。" />
     <string
+      id="ret_switch_player_mode_hint"
+      text="切换到家族部队编辑器。" />
+    <string
       id="ret_switch_to_clan_troops"
       text="切换至{newline}家族部队" />
     <string
@@ -1109,8 +1124,14 @@
       id="ret_transfer_header_text"
       text="转移" />
     <string
+      id="ret_troop_editor_button"
+      text="部队编辑器" />
+    <string
       id="ret_troop_list.placeholder"
       text="无可用部队" />
+    <string
+      id="ret_troop_studio_title"
+      text="部队编辑器" />
     <string
       id="ret_troop_xp"
       text="{XP} 经验" />
@@ -1126,6 +1147,9 @@
     <string
       id="ret_unequip_all_text"
       text="卸下 {TROOP_NAME} 穿戴的所有物品？{newline}{newline}它们将被存入库存以供后用。" />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="卸下 {TROOP_NAME} 穿戴的所有物品？" />
     <string
       id="ret_unequip_warning_text"
       text="你即将卸下 {ITEM}，重新装备一个新物品需要时间。是否继续？" />

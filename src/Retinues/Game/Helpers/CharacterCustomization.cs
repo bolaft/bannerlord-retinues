@@ -208,7 +208,7 @@ namespace Retinues.Game.Helpers
         /// </summary>
         public static void ApplyPropertiesFromCulture(WCharacter troop, CultureObject culture)
         {
-            if (culture == null || !troop.IsCustom)
+            if (culture == null)
                 return;
 
             var template = culture.BasicTroop ?? culture.EliteBasicTroop;

@@ -7,6 +7,7 @@ using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -29,7 +30,7 @@ namespace Retinues.Troops.Edition
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
         public static bool IsAllowedInContext(WCharacter troop, string action) =>
-            GetContextReason(troop, action) == null;
+            EditorVM.IsStudioMode || GetContextReason(troop, action) == null;
 
         /// <summary>
         /// Returns the string reason why editing is not allowed, or null if allowed.
@@ -92,6 +93,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool IsAllowedInContextWithPopup(WCharacter troop, string action)
         {
+            if (EditorVM.IsStudioMode)
+                return true; // Always allow in Studio Mode
+
             var reason = GetContextReason(troop, action);
             if (reason == null)
                 return true;
@@ -316,6 +320,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int SkillPointXpCost(int fromValue)
         {
+            if (EditorVM.IsStudioMode)
+                return 0; // No XP cost in Studio Mode
+
             int baseCost = Config.BaseSkillXpCost;
             int perPoint = Config.SkillXpCostPerPoint;
 
@@ -327,6 +334,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
         {
+            if (EditorVM.IsStudioMode)
+                return true; // No XP checks in Studio Mode
+
             if (c == null || s == null)
                 return false;
 

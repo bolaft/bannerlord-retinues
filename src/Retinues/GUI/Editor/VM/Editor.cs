@@ -1,19 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;
+using Retinues.Game.Helpers;
+using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.GUI.Editor.VM
 {
@@ -33,6 +38,10 @@ namespace Retinues.GUI.Editor.VM
     [SafeClass]
     public class EditorVM : BaseVM
     {
+        // Launch mode
+        [DataSourceProperty]
+        public static bool IsStudioMode { get; set; }
+
         /// <summary>
         /// Initialize the editor and its child screens.
         /// </summary>
@@ -41,6 +50,9 @@ namespace Retinues.GUI.Editor.VM
             TroopScreen = new TroopScreenVM();
             EquipmentScreen = new EquipmentScreenVM();
             DoctrineScreen = new DoctrineScreenVM();
+
+            if (IsStudioMode)
+                RefreshCultureBanner();
 
             SwitchScreen(Screen.Troop);
         }
@@ -58,6 +70,9 @@ namespace Retinues.GUI.Editor.VM
         {
             if (Screen == value && IsVisible)
                 return;
+
+            if (IsStudioMode && value == Screen.Doctrine)
+                return; // Doctrines not available in Studio Mode
 
             Log.Info($"Switching screen from {Screen} to {value}");
 
@@ -78,6 +93,7 @@ namespace Retinues.GUI.Editor.VM
                 DoctrineScreen.Hide();
 
             // Notify UI
+            OnPropertyChanged(nameof(IsStudioMode));
             OnPropertyChanged(nameof(InTroopScreen));
             OnPropertyChanged(nameof(InEquipmentScreen));
             OnPropertyChanged(nameof(InDoctrineScreen));
@@ -119,10 +135,48 @@ namespace Retinues.GUI.Editor.VM
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━ Studio Mode ━━━━━ */
+
+        [DataSourceProperty]
+        public string TroopStudioTitle => L.S("troop_studio_title", "Troop Editor");
+
+        private ImageIdentifierVM _cultureBanner;
+
+        [DataSourceProperty]
+        public ImageIdentifierVM CultureBanner
+        {
+            get => _cultureBanner;
+            private set
+            {
+                if (_cultureBanner == value)
+                    return;
+                _cultureBanner = value;
+                OnPropertyChanged(nameof(CultureBanner));
+            }
+        }
+
+        [DataSourceProperty]
+        public string CultureName => IsStudioMode ? State.Faction?.Culture?.Name : string.Empty;
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel CultureBannerHint =>
+            Tooltip.MakeTooltip(null, L.S("select_culture_hint", "Select a culture."));
+
         /* ━━━━━━━ 3D Model ━━━━━━━ */
 
         [DataSourceProperty]
         public CharacterViewModel Model => State.Troop?.GetModel(State.Equipment.Index);
+
+        /* ━━━━━━━━ Margins ━━━━━━━ */
+
+        [DataSourceProperty]
+        public int TableauMarginLeft => IsStudioMode ? 60 : 0;
+
+        [DataSourceProperty]
+        public int PanelMarginLeft => IsStudioMode ? 540 : 340;
+
+        [DataSourceProperty]
+        public int PanelMarginTop => IsStudioMode ? 40 : 0;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -140,7 +194,7 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public string FactionButtonText =>
-            State.Faction == Player.Clan
+            (StringIdentifier)State.Faction == Player.Clan
                 ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops")
                 : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
 
@@ -151,11 +205,14 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public bool ShowFactionButton =>
-            Screen == Screen.Troop && Player.Kingdom != null && !Config.NoKingdomTroops;
+            Screen == Screen.Troop
+            && Player.Kingdom != null
+            && !Config.NoKingdomTroops
+            && !IsStudioMode;
 
         [DataSourceProperty]
         public bool ShowDoctrinesButton =>
-            Screen != Screen.Equipment && (Config.EnableDoctrines ?? false);
+            Screen != Screen.Equipment && (Config.EnableDoctrines ?? false) && !IsStudioMode;
 
         [DataSourceProperty]
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
@@ -242,7 +299,7 @@ namespace Retinues.GUI.Editor.VM
                             .ToString()
                     )
                 );
-                // Replace with your logger if different:
+
                 Log.Error($"Failed to open URL '{url}': {ex}");
             }
         }
@@ -270,6 +327,123 @@ namespace Retinues.GUI.Editor.VM
         /// </summary>
         [DataSourceMethod]
         public void ExecuteSwitchFaction() =>
-            State.UpdateFaction(State.Faction == Player.Clan ? Player.Kingdom : Player.Clan);
+            State.UpdateFaction(
+                (StringIdentifier)State.Faction == Player.Clan ? Player.Kingdom : Player.Clan
+            );
+
+        /* ━━━━━━ Studio Mode ━━━━━ */
+
+        /// <summary>
+        /// Change the selected troop's culture.
+        /// </summary>[DataSourceMethod]
+        [DataSourceMethod]
+        public void ExecuteSelectCulture()
+        {
+            try
+            {
+                // Collect all cultures from the object database.
+                var cultures =
+                    MBObjectManager
+                        .Instance.GetObjectTypeList<CultureObject>()
+                        ?.OrderBy(c => c?.Name?.ToString())
+                        .ToList()
+                    ?? [];
+
+                if (cultures.Count == 0)
+                {
+                    Notifications.Popup(
+                        L.T("no_cultures_title", "No Cultures Found"),
+                        L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                    );
+                    return;
+                }
+
+                // Build selection elements (single-select).
+                var elements = new List<InquiryElement>(cultures.Count);
+
+                foreach (var c in cultures)
+                {
+                    if (c?.Name == null)
+                        continue;
+
+                    var wc = new WCulture(c);
+                    var root = wc.RootBasic ?? wc.RootElite;
+                    var imageIdentifier = root?.ImageIdentifier;
+
+                    // Mods (shokuho) can have weird behaviors, skip them.
+                    if (imageIdentifier == null)
+                        continue;
+
+                    elements.Add(
+                        new InquiryElement(c, wc.Name.ToString(), root.ImageIdentifier, true, null)
+                    );
+                }
+
+                MBInformationManager.ShowMultiSelectionInquiry(
+                    new MultiSelectionInquiryData(
+                        titleText: L.S("select_culture_title", "Select Culture"),
+                        descriptionText: null,
+                        inquiryElements: elements,
+                        isExitShown: true,
+                        minSelectableOptionCount: 1,
+                        maxSelectableOptionCount: 1,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: selected =>
+                        {
+                            if (selected == null || selected.Count == 0)
+                                return;
+                            if (selected[0]?.Identifier is not CultureObject culture)
+                                return;
+                            if (culture.StringId == State.Faction.Culture.StringId)
+                                return; // No change
+
+                            // Refresh VM bindings & visuals.
+                            State.UpdateFaction(new WCulture(culture));
+
+                            // Notify UI
+                            OnPropertyChanged(nameof(CultureBanner));
+                            RefreshCultureBanner();
+                            OnPropertyChanged(nameof(CultureName));
+                        },
+                        negativeAction: new Action<List<InquiryElement>>(_ => { })
+                    )
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        [DataSourceMethod]
+        public void ExecuteExportAll()
+        {
+            Log.Info("Exporting all troop data...");
+        }
+
+        [DataSourceMethod]
+        public void ExecuteImportAll()
+        {
+            Log.Info("Importing all troop data...");
+        }
+
+        [DataSourceMethod]
+        public void ExecuteResetAll()
+        {
+            Log.Info("Resetting all troop data...");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void RefreshCultureBanner()
+        {
+            CultureBanner = BannerHelper.GetBannerImageFromCulture(
+                State.Faction as WCulture,
+                scale: 0.85f
+            );
+        }
     }
 }
