@@ -361,26 +361,25 @@ namespace Retinues.Utils
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the color associated with a log level for in-game messages.
+        /// </summary>
         private static Color LevelColor(LogLevel level)
         {
-            // Palette tuned for readability on most backgrounds
-            return level switch
+            string colorString = level switch
             {
-                LogLevel.Trace => FromHex("#9E9E9EFF"), // grey 600
-                LogLevel.Debug => FromHex("#64B5F6FF"), // light blue
-                LogLevel.Info => FromHex("#2196F3FF"), // blue
-                LogLevel.Success => FromHex("#43A047FF"), // green
-                LogLevel.Warn => FromHex("#FFA000FF"), // amber
-                LogLevel.Error => FromHex("#E53935FF"), // red
-                LogLevel.Critical => FromHex("#B71C1CFF"), // deep red
-                LogLevel.Message => FromHex("#ffffffe0"), // off-white
-                _ => Color.White,
+                LogLevel.Trace => "#9E9E9EFF", // grey 600
+                LogLevel.Debug => "#64B5F6FF", // light blue
+                LogLevel.Info => "#2196F3FF", // blue
+                LogLevel.Success => "#43A047FF", // green
+                LogLevel.Warn => "#FFA000FF", // amber
+                LogLevel.Error => "#E53935FF", // red
+                LogLevel.Critical => "#B71C1CFF", // deep red
+                LogLevel.Message => "#ffffffe0", // off-white
+                _ => "#ffffffff",
             };
-        }
 
-        private static Color FromHex(string rrggbbaa)
-        {
-            return Color.ConvertStringToColor(rrggbbaa);
+            return Color.ConvertStringToColor(colorString);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

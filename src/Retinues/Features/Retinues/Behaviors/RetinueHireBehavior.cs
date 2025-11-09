@@ -64,7 +64,9 @@ namespace Retinues.Features.Retinues.Behaviors
                 return;
 
             var retinues = GetHireableRetinues();
-            Log.Info($"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}");
+            Log.Info(
+                $"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}"
+            );
 
             if (retinues.Count == 0)
             {
@@ -185,7 +187,7 @@ namespace Retinues.Features.Retinues.Behaviors
                 )
                 .SetTextVariable("JOINED", joined);
 
-            Notifications.MapNotification(description);
+            Notifications.Log(description.ToString(), "#c7f5caff"); // green
         }
     }
 }
