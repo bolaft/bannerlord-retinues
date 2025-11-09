@@ -33,7 +33,7 @@ namespace Retinues.Doctrines.Catalog
                 {
                     if (ws == null || ws.Settlement == null)
                         continue;
-                    if (ws.WorkshopType?.StringId != "smithy")
+                    if (ws.WorkshopType?.StringId.Contains("smith") == false)
                         continue;
                     if (new WCulture(ws.Settlement.Culture) != Player.Culture)
                         continue;
