@@ -56,20 +56,28 @@ namespace Retinues.Game.Events
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Kill(Agent victim, Agent killer, AgentState state, KillingBlow blow)
             {
+                // Resolve a safe reference to "player team" for all mission types
+                var mission = Mission.Current;
+                Team playerTeam = mission?.PlayerTeam ?? mission?.MainAgent?.Team; // spectating tournaments often have no PlayerTeam
+
                 // Inline simple checks to avoid delegate/virtual overhead
                 KillerIsPlayer = killer?.IsPlayerControlled == true;
                 KillerIsPlayerTroop =
                     killer?.IsAIControlled == true && killer?.Team?.IsPlayerTeam == true;
                 KillerIsAllyTroop =
                     killer?.Team?.IsPlayerAlly == true && !KillerIsPlayer && !KillerIsPlayerTroop;
-                KillerIsEnemyTroop = killer?.Team?.IsEnemyOf(Mission.Current?.PlayerTeam) == true;
+
+                // Only call IsEnemyOf if playerTeam is known
+                KillerIsEnemyTroop =
+                    playerTeam != null && killer?.Team?.IsEnemyOf(playerTeam) == true;
 
                 VictimIsPlayer = victim?.IsPlayerControlled == true;
                 VictimIsPlayerTroop =
                     victim?.IsAIControlled == true && victim?.Team?.IsPlayerTeam == true;
                 VictimIsAllyTroop =
                     victim?.Team?.IsPlayerAlly == true && !VictimIsPlayer && !VictimIsPlayerTroop;
-                VictimIsEnemyTroop = victim?.Team?.IsEnemyOf(Mission.Current?.PlayerTeam) == true;
+                VictimIsEnemyTroop =
+                    playerTeam != null && victim?.Team?.IsEnemyOf(playerTeam) == true;
 
                 KillerCharacterId = killer?.Character?.StringId;
                 VictimCharacterId = victim?.Character?.StringId;
@@ -125,6 +133,7 @@ namespace Retinues.Game.Events
             }
         }
 
+        [SafeClass]
         internal sealed class KillTracker : MissionBehavior
         {
             internal readonly List<Kill> Kills = [];
@@ -146,8 +155,15 @@ namespace Retinues.Game.Events
                 KillingBlow blow
             )
             {
-                if (Kill.IsValid(victim, killer, state))
-                    Kills.Add(new Kill(victim, killer, state, blow));
+                try
+                {
+                    if (Kill.IsValid(victim, killer, state))
+                        Kills.Add(new Kill(victim, killer, state, blow));
+                }
+                catch (System.Exception e)
+                {
+                    Log.Exception(e);
+                }
             }
 
             public sealed override void OnEndMissionInternal()
