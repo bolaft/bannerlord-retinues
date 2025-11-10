@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Features.Missions.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Helpers;
@@ -127,19 +128,8 @@ namespace Retinues.GUI.Editor
             {
                 Troop = troop;
 
-                if (EditorVM.IsStudioMode && Troop != null)
-                {
-                    try
-                    {
-                        // Normalize troop loadout if not custom
-                        if (Troop?.IsCustom == false)
-                            Troop.Loadout.Normalize();
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Exception(ex);
-                    }
-                }
+                if (Troop != null)
+                    FixIntegrity(Troop);
 
                 UpdateEquipment();
                 UpdateSkillData();
@@ -376,6 +366,57 @@ namespace Retinues.GUI.Editor
                 return null;
 
             return new EquipChangeDelta(oldEquippedId, newEquippedId, oldStagedId, newStagedId);
+        }
+
+        public static void FixIntegrity(WCharacter troop)
+        {
+            if (troop == null)
+                return;
+
+            try
+            {
+                troop.Loadout.EnsureMinimumSets();
+                troop.Loadout.Normalize();
+                FixCombatPolicies(troop);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        /// <summary>
+        /// Ensure at least one battle set is enabled for each situation.
+        /// </summary>
+        public static void FixCombatPolicies(WCharacter troop)
+        {
+            if (troop == null)
+                return;
+
+            // Helper that checks a situation and enables index 0 if none enabled
+            void EnsureOne(BattleType t)
+            {
+                // Count enabled among battle sets
+                int enabled = 0;
+                var eqs = troop.Loadout.Equipments;
+                for (int i = 0; i < eqs.Count; i++)
+                {
+                    if (eqs[i].IsCivilian)
+                        continue;
+                    if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
+                        enabled++;
+                }
+                if (enabled == 0)
+                {
+                    // Enable index 0 (Normalize guarantees index 0 is a battle set)
+                    if (!CombatEquipmentBehavior.IsEnabled(troop, 0, t))
+                        CombatEquipmentBehavior.Toggle(troop, 0, t); // Toggle will enable
+                }
+            }
+
+            EnsureOne(BattleType.FieldBattle);
+            EnsureOne(BattleType.SiegeDefense);
+            EnsureOne(BattleType.SiegeAssault);
         }
     }
 }

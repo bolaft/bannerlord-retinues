@@ -231,13 +231,44 @@ namespace Retinues.Troops.Save
         [SaveableField(1)]
         public List<string> Codes = [.. equipments.Select(we => we.Code)];
 
+        // Per-index civilian flags, null for old saves
+        [SaveableField(2)]
+        public List<bool> Civilians = [.. equipments.Select(we => we.IsCivilian)];
+
         // Parameterless constructor for import/export deserialization
         public TroopEquipmentData()
             : this([]) { }
 
         public List<WEquipment> Deserialize(WCharacter owner)
         {
-            return [.. Codes.Select((code, idx) => WEquipment.FromCode(code, owner.Loadout, idx))];
+            var result = new List<WEquipment>(Codes?.Count ?? 0);
+
+            // Back-compat default: if Civilians is missing or size mismatch,
+            // use "index 1 is civilian, all others battle".
+            bool hasFlags = Civilians != null && Civilians.Count == Codes?.Count;
+
+            for (int idx = 0; idx < (Codes?.Count ?? 0); idx++)
+            {
+                var code = Codes[idx];
+
+                bool? forceCivilian;
+
+                if (hasFlags)
+                    forceCivilian = Civilians[idx];
+                else
+                    forceCivilian = idx == 1; // legacy default
+
+                // FromCode respects explicit type when provided
+                var we = WEquipment.FromCode(
+                    code,
+                    owner.Loadout,
+                    idx,
+                    forceCivilian: forceCivilian
+                );
+                result.Add(we);
+            }
+
+            return result;
         }
     }
 }

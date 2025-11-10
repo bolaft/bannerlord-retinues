@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Features.Missions.Behaviors;
@@ -27,6 +28,9 @@ namespace Retinues.Features.Missions.Patches
                     return;
 
                 var troop = new WCharacter(character.StringId);
+                if (troop.IsHero)
+                    return; // Don't affect heroes
+
                 // if (!troop.IsCustom)
                 //     return; // Only affect custom troops
 
@@ -37,39 +41,45 @@ namespace Retinues.Features.Missions.Patches
 
                 if (agentBuildData.AgentCivilianEquipment)
                 {
-                    // Use civilian set if spawning as civilian.
-                    eq = troop.Loadout.Civilian.Base;
+                    // Pick a civilian set if available
+                    var civs = troop.Loadout.GetCivilianSets().ToList();
+                    if (civs.Count == 0)
+                        eq = troop.Loadout.Civilian.Base; // EnsureMinimumSets guarantees one exists
+                    else
+                        eq = civs[MBRandom.RandomInt(civs.Count)].Base;
                 }
                 else if (Config.ForceMainBattleSetInCombat || ModuleChecker.IsLoaded("Shokuho"))
                 {
-                    // Use main battle set if configured to do so.
-                    eq = troop.Loadout.Battle.Base;
+                    eq = troop.Loadout.Battle.Base; // index 0 is normalized to a battle set
                 }
                 else
                 {
                     var battleType = BattleType.FieldBattle;
-
                     var battle = new Battle();
                     if (battle.IsSiege)
                         battleType = battle.PlayerIsDefender
                             ? BattleType.SiegeDefense
                             : BattleType.SiegeAssault;
 
-                    // Build eligible sets according to mask; battle set is always eligible.
-                    var eligible = new List<WEquipment> { troop.Loadout.Battle };
+                    var all = troop.Loadout.Equipments;
+                    var eligible = new List<WEquipment>();
 
-                    foreach (var alt in troop.Loadout.Alternates)
+                    for (int i = 0; i < all.Count; i++)
+                    {
+                        var we = all[i];
+                        if (we.IsCivilian)
+                            continue;
                         if (
                             !troop.IsCustom
-                            || CombatEquipmentBehavior.IsEnabled(troop, alt.Index, battleType)
+                            || CombatEquipmentBehavior.IsEnabled(troop, i, battleType)
                         )
-                            eligible.Add(alt);
+                            eligible.Add(we);
+                    }
 
-                    // Fallback safety: if somehow none, force battle set.
-                    var pick = eligible.Count > 0 ? eligible : [troop.Loadout.Battle];
+                    if (eligible.Count == 0)
+                        eligible.Add(troop.Loadout.Battle); // safety fallback
 
-                    var idx = MBRandom.RandomInt(pick.Count);
-                    eq = pick[idx].Base;
+                    eq = eligible[MBRandom.RandomInt(eligible.Count)].Base;
                 }
 
                 // Force the main battle set and prevent randomization/variants.

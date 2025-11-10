@@ -12,6 +12,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
+using TaleWorlds.TwoDimension;
 
 namespace Retinues.GUI.Editor.VM.Equipment
 {
@@ -73,10 +74,19 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanCreateSet),
                     nameof(RemoveSetHint),
                     nameof(CreateSetHint),
-                    nameof(CanEnableSet),
+                    nameof(SetIsCivilian),
+                    nameof(SetIsBattle),
                     nameof(SetIsEnabledForFieldBattle),
                     nameof(SetIsEnabledForSiegeDefense),
                     nameof(SetIsEnabledForSiegeAssault),
+                    nameof(FieldBattleHint),
+                    nameof(SiegeDefenseHint),
+                    nameof(SiegeAssaultHint),
+                    nameof(CivilianHint),
+                    nameof(CanToggleCivilianSet),
+                    nameof(CanToggleEnableForFieldBattle),
+                    nameof(CanToggleEnableForSiegeDefense),
+                    nameof(CanToggleEnableForSiegeAssault),
                 ],
                 [UIEvent.Equip] = [nameof(CanUnstage), nameof(CanUnequip)],
                 [UIEvent.Slot] =
@@ -178,6 +188,28 @@ namespace Retinues.GUI.Editor.VM.Equipment
         private EquipmentSlotVM GetSlotVm(EquipmentIndex index) =>
             _slotsByIndex.TryGetValue(index, out var vm) ? vm : null;
 
+        /// <summary>
+        /// Count the number of enabled equipment sets for the given battle type.
+        /// </summary>
+        private int CountEnabled(BattleType t)
+        {
+            var troop = State.Troop;
+            if (troop == null)
+                return 0;
+
+            int c = 0;
+            var eqs = troop.Loadout.Equipments;
+            for (int i = 0; i < eqs.Count; i++)
+            {
+                var we = eqs[i];
+                if (we.IsCivilian)
+                    continue;
+                if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
+                    c++;
+            }
+            return c;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -213,20 +245,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /* ━━━━ Equipment Sets ━━━━ */
 
         [DataSourceProperty]
-        public string EquipmentName
-        {
-            get
-            {
-                return State.Equipment?.Category switch
-                {
-                    EquipmentCategory.Battle => L.S("set_battle", "Battle"),
-                    EquipmentCategory.Civilian => L.S("set_civilian", "Civilian"),
-                    _ => L.T("set_alt_n", "Alt {N}")
-                        .SetTextVariable("N", State.Equipment?.Index + -1 ?? '?')
-                        .ToString(),
-                };
-            }
-        }
+        public bool CanEditSets => State.Troop != null && !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public string EquipmentName => (State.Equipment?.Index + 1).ToString();
 
         [DataSourceProperty]
         public bool CanSelectPrevSet => (State.Equipment?.Index ?? 0) > 0;
@@ -236,18 +258,66 @@ namespace Retinues.GUI.Editor.VM.Equipment
             (State.Equipment?.Index ?? 0) < ((State.Troop?.Loadout.Equipments.Count ?? 1) - 1);
 
         [DataSourceProperty]
-        public bool CanRemoveSet => State.Equipment?.Category == EquipmentCategory.Alternate;
+        public bool CanRemoveSet
+        {
+            get
+            {
+                var troop = State.Troop;
+                var eq = State.Equipment;
+                if (troop == null || eq == null)
+                    return false;
+
+                var civs = troop.Loadout.GetCivilianSets().Count();
+                var bats = troop.Loadout.GetBattleSets().Count();
+
+                return eq.IsCivilian ? civs > 1 : bats > 1;
+            }
+        }
 
         [DataSourceProperty]
         public bool CanCreateSet => !ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
 
         [DataSourceProperty]
-        public bool CanEnableSet =>
-            State.Equipment?.Category == EquipmentCategory.Alternate && !EditorVM.IsStudioMode;
+        public bool SetIsCivilian => State.Equipment?.IsCivilian == true;
+
+        [DataSourceProperty]
+        public bool SetIsBattle => State.Equipment?.IsCivilian == false;
+
+        [DataSourceProperty]
+        public bool CanToggleCivilianSet
+        {
+            get
+            {
+                var troop = State.Troop;
+                var eq = State.Equipment;
+                if (troop == null || eq == null)
+                    return false;
+
+                // Target after click
+                bool targetCivilian = !eq.IsCivilian;
+
+                if (targetCivilian)
+                {
+                    if (eq.Index == 0)
+                        return false; // First set cannot be civilian
+                    // Making this battle set civilian must leave >=1 battle set
+                    if (!eq.IsCivilian && troop.Loadout.GetBattleSets().Count() <= 1)
+                        return false;
+                }
+                else
+                {
+                    // Making this civilian set battle must leave >=1 civilian set
+                    if (eq.IsCivilian && troop.Loadout.GetCivilianSets().Count() <= 1)
+                        return false;
+                }
+
+                return true;
+            }
+        }
 
         [DataSourceProperty]
         public bool SetIsEnabledForFieldBattle =>
-            CanEnableSet
+            !SetIsCivilian
             && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
@@ -256,7 +326,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeDefense =>
-            CanEnableSet
+            !SetIsCivilian
             && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
@@ -265,7 +335,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeAssault =>
-            CanEnableSet
+            !SetIsCivilian
             && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
@@ -329,34 +399,109 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 );
 
         [DataSourceProperty]
+        public BasicTooltipViewModel CivilianHint
+        {
+            get
+            {
+                if (!CanToggleCivilianSet)
+                {
+                    var eq = State.Equipment;
+                    var msg =
+                        (eq?.IsCivilian == true)
+                            ? L.S(
+                                "civilian_toggle_forbidden_battle_left",
+                                "You must keep at least one civilian set."
+                            )
+                        : eq.Index != 0
+                            ? L.S(
+                                "civilian_toggle_forbidden_civilian_left",
+                                "You must keep at least one battle set."
+                            )
+                        : L.S(
+                            "civilian_toggle_forbidden_first_set",
+                            "The first set must remain a battle set."
+                        );
+                    return Tooltip.MakeTooltip(null, msg);
+                }
+
+                return Tooltip.MakeTooltip(
+                    null,
+                    L.T("civilian_hint", "Enable or disable this set for civilian use.").ToString()
+                );
+            }
+        }
+
+        [DataSourceProperty]
+        public bool CanToggleEnableForFieldBattle =>
+            SetIsBattle
+            && ( // only battle sets participate
+                !SetIsEnabledForFieldBattle // enabling is always allowed
+                || CountEnabled(BattleType.FieldBattle) > 1 // disabling allowed only if another remains
+            );
+
+        [DataSourceProperty]
+        public bool CanToggleEnableForSiegeDefense =>
+            SetIsBattle
+            && (!SetIsEnabledForSiegeDefense || CountEnabled(BattleType.SiegeDefense) > 1);
+
+        [DataSourceProperty]
+        public bool CanToggleEnableForSiegeAssault =>
+            SetIsBattle
+            && (!SetIsEnabledForSiegeAssault || CountEnabled(BattleType.SiegeAssault) > 1);
+
+        [DataSourceProperty]
         public BasicTooltipViewModel FieldBattleHint =>
-            CanEnableSet
+            !SetIsBattle
                 ? Tooltip.MakeTooltip(
                     null,
-                    L.T("field_battle_hint", "Enable or disable this set for field battles.")
-                        .ToString()
+                    L.S("hint_set_disabled", "Can't enable for civilian sets.")
                 )
-                : null;
+            : (!CanToggleEnableForFieldBattle && SetIsEnabledForFieldBattle)
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S(
+                        "hint_last_enabled",
+                        "At least one battle set must remain enabled for field battles."
+                    )
+                )
+            : Tooltip.MakeTooltip(null, L.S("hint_field_ok", "Available in field battles."));
 
         [DataSourceProperty]
         public BasicTooltipViewModel SiegeDefenseHint =>
-            CanEnableSet
+            !SetIsBattle
                 ? Tooltip.MakeTooltip(
                     null,
-                    L.T("siege_defense_hint", "Enable or disable this set for siege defense.")
-                        .ToString()
+                    L.S("hint_set_disabled", "Can't enable for civilian sets.")
                 )
-                : null;
+            : (!CanToggleEnableForSiegeDefense && SetIsEnabledForSiegeDefense)
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S(
+                        "hint_last_enabled",
+                        "At least one battle set must remain enabled for siege defense."
+                    )
+                )
+            : Tooltip.MakeTooltip(null, L.S("hint_def_ok", "Available while defending a siege."));
 
         [DataSourceProperty]
         public BasicTooltipViewModel SiegeAssaultHint =>
-            CanEnableSet
+            !SetIsBattle
                 ? Tooltip.MakeTooltip(
                     null,
-                    L.T("siege_assault_hint", "Enable or disable this set for siege assault.")
-                        .ToString()
+                    L.S("hint_set_disabled", "Can't enable for civilian sets.")
                 )
-                : null;
+            : (!CanToggleEnableForSiegeAssault && SetIsEnabledForSiegeAssault)
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S(
+                        "hint_last_enabled",
+                        "At least one battle set must remain enabled for siege assault."
+                    )
+                )
+            : Tooltip.MakeTooltip(
+                null,
+                L.S("hint_assault_ok", "Available while assaulting a siege.")
+            );
 
         [DataSourceProperty]
         public BasicTooltipViewModel ShowCraftedHint =>
@@ -397,9 +542,95 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceMethod]
+        public void ExecuteToggleCivilianSet()
+        {
+            var troop = State.Troop;
+            var eq = State.Equipment;
+            if (troop == null || eq == null)
+                return;
+            if (!CanToggleCivilianSet)
+                return;
+
+            bool targetCivilian = !eq.IsCivilian;
+
+            // Only need the warning when we're switching TO civilian (and not studio mode).
+            if (targetCivilian && !EditorVM.IsStudioMode)
+            {
+                var badSlots = new List<EquipmentIndex>();
+                var badItems = new List<WItem>();
+
+                // Collect non-civilian equipped items on this set
+                foreach (var slot in WEquipment.Slots)
+                {
+                    var it = eq.Get(slot); // current equipped item on this slot
+                    if (it != null && !it.IsCivilian) // non-civilian item found
+                    {
+                        badSlots.Add(slot);
+                        badItems.Add(it);
+                    }
+                }
+
+                if (badSlots.Count > 0)
+                {
+                    var title = L.S("make_civilian_title", "Make set civilian?");
+                    var text = L.T(
+                            "toggle_to_civilian_warn",
+                            "This set has {COUNT} non-civilian item(s). They will be unequipped if you continue.\n\nProceed?"
+                        )
+                        .SetTextVariable("COUNT", badSlots.Count)
+                        .ToString();
+
+                    InformationManager.ShowInquiry(
+                        new InquiryData(
+                            title,
+                            text,
+                            true,
+                            true,
+                            L.S("confirm", "Confirm"),
+                            L.S("cancel", "Cancel"),
+                            affirmativeAction: () =>
+                            {
+                                // 1) Stock + unstage + unset each offending item
+                                for (int i = 0; i < badSlots.Count; i++)
+                                {
+                                    var slot = badSlots[i];
+                                    var it = eq.Get(slot);
+                                    it?.Stock(); // keep it available in stocks
+                                    eq.UnstageItem(slot); // clear any pending staged change
+                                    eq.UnsetItem(slot); // remove from the set
+                                }
+
+                                // 2) Flip to civilian (also enforces min-sets + normalize)
+                                troop.Loadout.ToggleCivilian(eq, targetCivilian);
+
+                                // 3) Ensure combat situation masks still have ≥1 enabled set
+                                State.FixCombatPolicies(troop);
+
+                                // 4) Selection might have shifted after Normalize()
+                                var list = troop.Loadout.Equipments;
+                                State.UpdateEquipment(
+                                    list[Mathf.Clamp(eq.Index, 0, list.Count - 1)]
+                                );
+                            },
+                            negativeAction: () => { }
+                        )
+                    );
+                    return; // stop here; popup will handle the rest
+                }
+            }
+
+            // No offending items or switching away from civilian -> flip directly
+            troop.Loadout.ToggleCivilian(eq, targetCivilian);
+            State.FixCombatPolicies(troop);
+
+            var eqs = troop.Loadout.Equipments;
+            State.UpdateEquipment(eqs[Mathf.Clamp(eq.Index, 0, eqs.Count - 1)]);
+        }
+
+        [DataSourceMethod]
         public void ExecuteToggleEnableSetForFieldBattle()
         {
-            if (!CanEnableSet)
+            if (!CanToggleEnableForFieldBattle)
                 return;
             CombatEquipmentBehavior.Toggle(
                 State.Troop,
@@ -412,7 +643,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteToggleEnableSetForSiegeDefense()
         {
-            if (!CanEnableSet)
+            if (!CanToggleEnableForSiegeDefense)
                 return;
             CombatEquipmentBehavior.Toggle(
                 State.Troop,
@@ -425,7 +656,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceMethod]
         public void ExecuteToggleEnableSetForSiegeAssault()
         {
-            if (!CanEnableSet)
+            if (!CanToggleEnableForSiegeAssault)
                 return;
             CombatEquipmentBehavior.Toggle(
                 State.Troop,
@@ -523,7 +754,21 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /// </summary>
         public void ExecuteCreateSet()
         {
-            State.UpdateEquipment(State.Troop?.Loadout.CreateAlternate());
+            if (!CanCreateSet)
+                return;
+
+            // New default = create a battle set
+            var created = State.Troop?.Loadout.CreateBattle();
+            if (created == null)
+                return;
+
+            CombatEquipmentBehavior.DisableAll(State.Troop, created.Index); // default to disabled
+
+            // Ensure combat masks remain valid
+            State.FixCombatPolicies(State.Troop);
+
+            // Select the newly created set
+            State.UpdateEquipment(created);
         }
 
         [DataSourceMethod]
@@ -540,6 +785,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     L.S("remove_set_title", "Remove Set"),
                     EditorVM.IsStudioMode
                         ? L.T("remove_set_text_studio", "Remove {EQUIPMENT} for {TROOP}?")
+                            .SetTextVariable("EQUIPMENT", EquipmentName)
+                            .SetTextVariable("TROOP", State.Troop.Name)
                             .ToString()
                         : L.T(
                                 "remove_set_text",
@@ -554,19 +801,16 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     L.S("cancel", "Cancel"),
                     () =>
                     {
-                        // Clear staged changes
-                        State.Troop.UnstageAll(State.Equipment?.Index ?? 0, stock: true);
-
-                        // Unequip all items
+                        // Clear staged & unequip first
                         State.Troop.UnequipAll(State.Equipment?.Index ?? 0, stock: true);
+                        State.Troop.UnstageAll(State.Equipment?.Index ?? 0, true);
 
-                        // Update persistence
+                        // Persist mask removal and remove the set
                         CombatEquipmentBehavior.OnRemoved(State.Troop, State.Equipment.Index);
-
-                        // Remove the set
                         State.Troop.Loadout.Remove(State.Equipment);
 
-                        // Select the battle set after removal
+                        // Keep masks valid and select canonical battle set (index 0)
+                        State.FixCombatPolicies(State.Troop);
                         State.UpdateEquipment(State.Troop.Loadout.Battle);
                     },
                     () => { }

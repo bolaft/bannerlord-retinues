@@ -593,6 +593,23 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<bool> CopyAllSetsWhenCloning = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () => L.S("mcm_option_copy_all_sets_when_cloning", "Copy All Sets When Cloning"),
+            key: "CopyAllSetsWhenCloning",
+            hint: () =>
+                L.S(
+                    "mcm_option_copy_all_sets_when_cloning_hint",
+                    "When cloning troop equipment, copy all equipment sets instead of just one battle and one civilian set."
+                ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Skills (training)
         // ─────────────────────────────────────────────────────

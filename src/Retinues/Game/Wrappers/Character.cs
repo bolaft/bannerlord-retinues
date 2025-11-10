@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Safety.Sanitizer;
@@ -600,17 +601,27 @@ namespace Retinues.Game.Wrappers
             // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
             {
-                // Loadout copy
-                Loadout.FillFrom(src.Loadout);
+                if (Config.CopyAllSetsWhenCloning)
+                {
+                    // Copy every set verbatim
+                    Loadout.FillFrom(src.Loadout, copyAll: true);
+                }
+                else
+                {
+                    // Default: one battle + one civilian
+                    Loadout.FillFrom(src.Loadout, copyAll: false);
+                }
 
                 // Upgrade item requirement refresh
                 UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
 
-                // Formation class refresh
+                // Formation class from first battle set (index 0 normalized to battle)
                 FormationClass = ComputeFormationClass();
             }
             else
+            {
                 Loadout.Clear();
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

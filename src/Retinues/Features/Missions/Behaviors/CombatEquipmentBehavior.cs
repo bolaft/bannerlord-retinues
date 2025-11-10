@@ -71,38 +71,56 @@ namespace Retinues.Features.Missions.Behaviors
 
         /* ━━━━━━━━ Queries ━━━━━━━ */
 
-        public EquipmentUsePolicy GetPolicy(WCharacter troop, int altIndex)
+        public EquipmentUsePolicy GetPolicy(WCharacter troop, int index)
         {
-            if (troop == null || altIndex < 2)
-                return EquipmentUsePolicy.All; // 0 battle, 1 civilian => always allowed
+            if (troop == null)
+                return EquipmentUsePolicy.None;
             if (
-                _byTroop.TryGetValue(troop.StringId, out var perAlt)
-                && perAlt.TryGetValue(altIndex, out var p)
+                _byTroop.TryGetValue(troop.StringId, out var per)
+                && per.TryGetValue(index, out var p)
                 && p != null
             )
                 return p;
-            return EquipmentUsePolicy.None;
+            return EquipmentUsePolicy.All;
         }
 
-        public bool IsEnabled_Field(WCharacter troop, int altIndex) =>
-            GetPolicy(troop, altIndex).FieldBattle;
+        public bool IsEnabled_Field(WCharacter troop, int index) =>
+            GetPolicy(troop, index).FieldBattle;
 
-        public bool IsEnabled_SiegeDefense(WCharacter troop, int altIndex) =>
-            GetPolicy(troop, altIndex).SiegeDefense;
+        public bool IsEnabled_SiegeDefense(WCharacter troop, int index) =>
+            GetPolicy(troop, index).SiegeDefense;
 
-        public bool IsEnabled_SiegeAssault(WCharacter troop, int altIndex) =>
-            GetPolicy(troop, altIndex).SiegeAssault;
+        public bool IsEnabled_SiegeAssault(WCharacter troop, int index) =>
+            GetPolicy(troop, index).SiegeAssault;
 
         /* ━━━━━━━ Commands ━━━━━━━ */
 
-        public void Toggle_Field(WCharacter troop, int altIndex) =>
-            Set(troop, altIndex, p => p.FieldBattle = !p.FieldBattle);
+        public void Toggle_Field(WCharacter troop, int index)
+        {
+            if (troop == null)
+                return;
+            if (!CanDisable(troop, index, BattleType.FieldBattle))
+                return;
+            Set(troop, index, p => p.FieldBattle = !p.FieldBattle);
+        }
 
-        public void Toggle_SiegeDefense(WCharacter troop, int altIndex) =>
-            Set(troop, altIndex, p => p.SiegeDefense = !p.SiegeDefense);
+        public void Toggle_SiegeDefense(WCharacter troop, int index)
+        {
+            if (troop == null)
+                return;
+            if (!CanDisable(troop, index, BattleType.SiegeDefense))
+                return;
+            Set(troop, index, p => p.SiegeDefense = !p.SiegeDefense);
+        }
 
-        public void Toggle_SiegeAssault(WCharacter troop, int altIndex) =>
-            Set(troop, altIndex, p => p.SiegeAssault = !p.SiegeAssault);
+        public void Toggle_SiegeAssault(WCharacter troop, int index)
+        {
+            if (troop == null)
+                return;
+            if (!CanDisable(troop, index, BattleType.SiegeAssault))
+                return;
+            Set(troop, index, p => p.SiegeAssault = !p.SiegeAssault);
+        }
 
         public void OnRemoveAlt(WCharacter troop, int removedIndex)
         {
@@ -125,16 +143,16 @@ namespace Retinues.Features.Missions.Behaviors
                 _byTroop[troop.StringId] = next;
         }
 
-        private void Set(WCharacter troop, int altIndex, System.Action<EquipmentUsePolicy> mut)
+        private void Set(WCharacter troop, int index, Action<EquipmentUsePolicy> mut)
         {
-            if (troop == null || altIndex < 2)
+            if (troop == null)
                 return;
 
-            if (!_byTroop.TryGetValue(troop.StringId, out var perAlt))
-                _byTroop[troop.StringId] = perAlt = [];
+            if (!_byTroop.TryGetValue(troop.StringId, out var per))
+                _byTroop[troop.StringId] = per = [];
 
-            if (!perAlt.TryGetValue(altIndex, out var p) || p == null)
-                perAlt[altIndex] = p = new EquipmentUsePolicy();
+            if (!per.TryGetValue(index, out var p) || p == null)
+                per[index] = p = new EquipmentUsePolicy();
 
             mut(p);
         }
@@ -169,7 +187,54 @@ namespace Retinues.Features.Missions.Behaviors
             }
         }
 
+        public static void DisableAll(WCharacter troop, int altIndex)
+        {
+            if (troop == null)
+                return;
+            Inst?.Set(
+                troop,
+                altIndex,
+                p =>
+                {
+                    p.FieldBattle = false;
+                    p.SiegeDefense = false;
+                    p.SiegeAssault = false;
+                }
+            );
+        }
+
         public static void OnRemoved(WCharacter troop, int removedIndex) =>
             Inst?.OnRemoveAlt(troop, removedIndex);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private int CountEnabled(WCharacter troop, BattleType t)
+        {
+            if (troop == null)
+                return 0;
+            int c = 0;
+            var eqs = troop.Loadout.Equipments;
+            for (int i = 0; i < eqs.Count; i++)
+            {
+                if (eqs[i].IsCivilian)
+                    continue;
+                if (IsEnabled(troop, i, t))
+                    c++;
+            }
+            return c;
+        }
+
+        private bool CanDisable(WCharacter troop, int index, BattleType t)
+        {
+            // If it's already disabled, ok
+            if (!IsEnabled(troop, index, t))
+                return true;
+
+            // Otherwise ensure at least one other enabled
+            int enabled = CountEnabled(troop, t);
+            return enabled > 1; // after disabling there will be >=1 left
+        }
     }
 }

@@ -30,63 +30,75 @@ namespace Retinues.Game.Wrappers
         public EquipmentCategory Category => Loadout.GetCategory(Index);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Civilian                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Change this equipment's civilian/battle type in-place.
+        /// </summary>
+        public void SetCivilian(bool makeCivilian)
+        {
+#if BL13
+            try
+            {
+                var want = makeCivilian
+                    ? Equipment.EquipmentType.Civilian
+                    : Equipment.EquipmentType.Battle;
+                Reflector.SetFieldValue(_equipment, "_equipmentType", want);
+            }
+            catch
+            {
+                // best-effort; ignore if field name changes in a future version
+            }
+#else
+            if (_equipment.IsCivilian == makeCivilian)
+                return;
+
+            // Swap backing field
+            Reflector.SetFieldValue(
+                Base,
+                "_equipmentType",
+                makeCivilian ? Equipment.EquipmentType.Civilian : Equipment.EquipmentType.Battle
+            );
+#endif
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Code                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Creates a WEquipment from an equipment code string.
+        /// If forceCivilian is provided, the created Equipment will be coerced to that type.
         /// </summary>
-        public static WEquipment FromCode(string code, WLoadout loadout, int index)
+        public static WEquipment FromCode(
+            string code,
+            WLoadout loadout,
+            int index,
+            bool? forceCivilian = null
+        )
         {
-            bool civilian = loadout.GetCategory(index) == EquipmentCategory.Civilian;
-
             Equipment obj;
 
             if (code is null)
             {
 #if BL13
-                obj = new Equipment(
-                    civilian ? Equipment.EquipmentType.Civilian : Equipment.EquipmentType.Battle
-                );
+                obj = new Equipment(Equipment.EquipmentType.Battle);
 #else
-                obj = new Equipment(civilian);
+                obj = new Equipment(false);
 #endif
             }
             else
             {
-                var tmp = Equipment.CreateFromEquipmentCode(code);
-
-#if BL13
-                // Force the equipment type regardless of what the code implied
-                try
-                {
-                    var want = civilian
-                        ? Equipment.EquipmentType.Civilian
-                        : Equipment.EquipmentType.Battle;
-                    Reflector.SetFieldValue(tmp, "_equipmentType", want);
-                    obj = tmp;
-                }
-                catch
-                {
-                    obj = tmp; // best effort
-                }
-#else
-                // BL12 has no public setter; rebuild a fresh one of the right type and copy items
-                if (tmp.IsCivilian == civilian)
-                {
-                    obj = tmp;
-                }
-                else
-                {
-                    obj = new Equipment(civilian);
-                    // copy all slots
-                    foreach (var slot in WEquipment.Slots)
-                        obj[slot] = tmp[slot];
-                }
-#endif
+                obj = Equipment.CreateFromEquipmentCode(code);
             }
 
-            return new WEquipment(obj, loadout, index);
+            var we = new WEquipment(obj, loadout, index);
+
+            if (forceCivilian.HasValue)
+                we.SetCivilian(forceCivilian.Value);
+
+            return we;
         }
 
         /// <summary>

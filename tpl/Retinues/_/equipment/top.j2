@@ -7,7 +7,7 @@
     DataSource="{EquipmentScreen}"
     IsVisible="@ShowCraftedIsVisible"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-    SuggestedHeight="36"
+    SuggestedHeight="32"
     MarginTop="15" MarginLeft="60"
     HorizontalAlignment="Left">
     <Children>
@@ -23,7 +23,7 @@
         {{ button.checkbox(
             command="ExecuteToggleShowCrafted",
             is_selected="@ShowCrafted",
-            size="30",
+            size="24",
             is_enabled="@CanShowCrafted",
             hint="{ShowCraftedHint}"
         )}}
@@ -65,28 +65,18 @@
             HorizontalAlignment="Center">
             <Children>
 
-                {{ button.chevron_l("ExecutePrevSet", size="36", is_enabled="@CanSelectPrevSet") }}
-                {{ text.base(text="@EquipmentName", margin_left="16", margin_right="16") }}
-                {{ button.chevron_r("ExecuteNextSet", size="36", is_enabled="@CanSelectNextSet") }}
-
-            </Children>
-        </ListPanel>
-
-        <!-- Create / Remove Set -->
-        <ListPanel
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            StackLayout.LayoutMethod="HorizontalLeftToRight"
-            HorizontalAlignment="Center">
-            <Children>
-
                 <!-- Remove Set Button -->
                 {{ button.brush(
                     command="ExecuteRemoveSet",
                     brush="Inventory.Tuple.Extension.MinusButton",
                     height="36", width="36",
                     is_enabled="@CanRemoveSet",
+                    is_visible="@CanEditSets",
                     hint="{RemoveSetHint}"
                 ) }}
+                {{ button.chevron_l("ExecutePrevSet", size="36", is_enabled="@CanSelectPrevSet") }}
+                {{ text.base(text="@EquipmentName", margin_left="16", margin_right="16") }}
+                {{ button.chevron_r("ExecuteNextSet", size="36", is_enabled="@CanSelectNextSet") }}
 
                 <!-- Create Set Button -->
                 {{ button.brush(
@@ -94,6 +84,7 @@
                     brush="Inventory.Tuple.Extension.PlusButton",
                     height="36", width="36",
                     is_enabled="@CanCreateSet",
+                    is_visible="@CanEditSets",
                     hint="{CreateSetHint}"
                 ) }}
 
@@ -102,32 +93,56 @@
 
         <!-- Set Toggles -->
         <ListPanel
-            IsVisible="@CanEnableSet"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center"
             MarginTop="4"
             StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
 
+                <!-- Civilian -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Civilian Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_militia_big",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Civilian Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleCivilianSet",
+                            is_selected="@SetIsCivilian",
+                            is_enabled="@CanToggleCivilianSet",
+                            size="24",
+                            hint="{CivilianHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
                 <!-- Field Battle -->
                 <ListPanel
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    SuggestedHeight="36"
+                    SuggestedHeight="32"
                     HorizontalAlignment="Center">
                     <Children>
 
                         <!-- Field Battle Icon -->
                         {{ image.sprite(
                             sprite="SPGeneral\MapOverlay\Settlement\icon_garrison_big",
-                            width="36", height="36",
-                            margin_left="6", margin_right="6"
+                            width="32", height="32"
                         ) }}
 
                         <!-- Field Battle Checkbox -->
                         {{ button.checkbox(
                             command="ExecuteToggleEnableSetForFieldBattle",
                             is_selected="@SetIsEnabledForFieldBattle",
-                            size="30",
+                            is_enabled="@CanToggleEnableForFieldBattle",
+                            size="24",
                             hint="{FieldBattleHint}"
                         )}}
 
@@ -137,7 +152,7 @@
                 <!-- Siege Defense -->
                 <ListPanel
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    SuggestedHeight="36"
+                    SuggestedHeight="32"
                     HorizontalAlignment="Center">
                     <Children>
 
@@ -145,15 +160,15 @@
                         {{ image.sprite(
                             sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
                             color="#a5bcd6ff",
-                            width="36", height="36",
-                            margin_left="6", margin_right="6"
+                            width="32", height="32"
                         ) }}
 
                         <!-- Siege Defense Checkbox -->
                         {{ button.checkbox(
                             command="ExecuteToggleEnableSetForSiegeDefense",
                             is_selected="@SetIsEnabledForSiegeDefense",
-                            size="30",
+                            is_enabled="@CanToggleEnableForSiegeDefense",
+                            size="24",
                             hint="{SiegeDefenseHint}"
                         )}}
 
@@ -163,7 +178,7 @@
                 <!-- Siege Assault -->
                 <ListPanel
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    SuggestedHeight="36"
+                    SuggestedHeight="32"
                     HorizontalAlignment="Center">
                     <Children>
 
@@ -171,15 +186,15 @@
                         {{ image.sprite(
                             sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
                             color="#dbaeaeff",
-                            width="36", height="36",
-                            margin_left="6", margin_right="6"
+                            width="32", height="32"
                         ) }}
 
                         <!-- Siege Assault Checkbox -->
                         {{ button.checkbox(
                             command="ExecuteToggleEnableSetForSiegeAssault",
                             is_selected="@SetIsEnabledForSiegeAssault",
-                            size="30",
+                            is_enabled="@CanToggleEnableForSiegeAssault",
+                            size="24",
                             hint="{SiegeAssaultHint}"
                         )}}
 
