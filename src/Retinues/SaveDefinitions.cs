@@ -68,6 +68,9 @@ namespace Retinues
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(List<string>));
 
+            // Faction save data containers
+            ConstructContainerDefinition(typeof(List<FactionSaveData>));
+
             // Combat equipment behavior containers
             ConstructContainerDefinition(typeof(Dictionary<int, byte>));
             ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<int, byte>>));

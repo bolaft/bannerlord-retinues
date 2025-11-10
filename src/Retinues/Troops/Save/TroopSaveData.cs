@@ -51,6 +51,11 @@ namespace Retinues.Troops.Save
         [SaveableField(12)]
         public FormationClass FormationClassOverride;
 
+        public TroopSaveData()
+        {
+            // Default constructor for deserialization
+        }
+
         public TroopSaveData(WCharacter troop)
         {
             if (troop is null)
@@ -141,28 +146,32 @@ namespace Retinues.Troops.Save
     public class TroopBodySaveData(WCharacter troop)
     {
         [SaveableField(1)]
-        public float AgeMin = troop.AgeMin;
+        public float AgeMin = troop?.AgeMin ?? 0;
 
         [SaveableField(2)]
-        public float AgeMax = troop.AgeMax;
+        public float AgeMax = troop?.AgeMax ?? 0;
 
         [SaveableField(3)]
-        public float WeightMin = troop.WeightMin;
+        public float WeightMin = troop?.WeightMin ?? 0;
 
         [SaveableField(4)]
-        public float WeightMax = troop.WeightMax;
+        public float WeightMax = troop?.WeightMax ?? 0;
 
         [SaveableField(5)]
-        public float BuildMin = troop.BuildMin;
+        public float BuildMin = troop?.BuildMin ?? 0;
 
         [SaveableField(6)]
-        public float BuildMax = troop.BuildMax;
+        public float BuildMax = troop?.BuildMax ?? 0;
 
         [SaveableField(7)]
-        public float HeightMin = troop.HeightMin;
+        public float HeightMin = troop?.HeightMin ?? 0;
 
         [SaveableField(8)]
-        public float HeightMax = troop.HeightMax;
+        public float HeightMax = troop?.HeightMax ?? 0;
+
+        // Parameterless constructor for import/export deserialization
+        public TroopBodySaveData()
+            : this(null) { }
 
         public void Apply(WCharacter troop)
         {
@@ -187,6 +196,10 @@ namespace Retinues.Troops.Save
     {
         [SaveableField(1)]
         public string Code = string.Join(";", skills.Select(kv => $"{kv.Key.StringId}:{kv.Value}"));
+
+        // Parameterless constructor for import/export deserialization
+        public TroopSkillData()
+            : this([]) { }
 
         public Dictionary<SkillObject, int> Deserialize()
         {
@@ -217,6 +230,10 @@ namespace Retinues.Troops.Save
     {
         [SaveableField(1)]
         public List<string> Codes = [.. equipments.Select(we => we.Code)];
+
+        // Parameterless constructor for import/export deserialization
+        public TroopEquipmentData()
+            : this([]) { }
 
         public List<WEquipment> Deserialize(WCharacter owner)
         {

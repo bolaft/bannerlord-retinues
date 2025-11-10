@@ -197,7 +197,9 @@ namespace Retinues.Configuration
                                     try
                                     {
                                         Directory.CreateDirectory(TroopImportExport.DefaultDir);
-                                        var used = TroopImportExport.ExportAllToXml(_exportName);
+                                        var used = TroopImportExport.ExportCustomTroopsToXml(
+                                            _exportName
+                                        );
                                         if (!string.IsNullOrWhiteSpace(used))
                                             Log.Message($"Exported custom troops to: {used}");
                                         else
@@ -289,11 +291,13 @@ namespace Retinues.Configuration
                                                     Directory.CreateDirectory(
                                                         TroopImportExport.DefaultDir
                                                     );
-                                                    TroopImportExport.ExportAllToXml(
+                                                    TroopImportExport.ExportCustomTroopsToXml(
                                                         "backup_" + SuggestDefaultExportName()
                                                     );
 
-                                                    TroopImportExport.ImportFromXml(choice);
+                                                    TroopImportExport.ImportCustomTroopsFromXml(
+                                                        choice
+                                                    );
                                                     Log.Message(
                                                         $"Imported {Player.Troops.Count()} root troop definitions from '{choice}'."
                                                     );

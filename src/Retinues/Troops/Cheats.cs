@@ -23,7 +23,7 @@ namespace Retinues.Troops
                 return "Usage: retinues.export_custom_troops [fileName]";
 
             var fileName = args.Count > 0 ? args[0] : "custom_troops.xml";
-            var path = TroopImportExport.ExportAllToXml(fileName);
+            var path = TroopImportExport.ExportCustomTroopsToXml(fileName);
             if (path == null)
                 return $"Export failed for '{fileName}'.";
             return $"Exported custom troops to '{path}'.";
@@ -42,7 +42,7 @@ namespace Retinues.Troops
 
             try
             {
-                TroopImportExport.ImportFromXml(fileName);
+                TroopImportExport.ImportCustomTroopsFromXml(fileName);
             }
             catch (Exception e)
             {

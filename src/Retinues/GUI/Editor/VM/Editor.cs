@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;
@@ -12,12 +12,14 @@ using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
 using Retinues.GUI.Helpers;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade.ViewModelCollection.Inquiries;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.GUI.Editor.VM
@@ -419,19 +421,119 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceMethod]
         public void ExecuteExportAll()
         {
-            Log.Info("Exporting all troop data...");
+            InformationManager.ShowTextInquiry(
+                new TextInquiryData(
+                    titleText: L.S("export_all_cultural_troops", "Export All Troops"),
+                    text: L.S("enter_file_name", "Enter a file name:"),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
+                    affirmativeAction: name =>
+                    {
+                        Directory.CreateDirectory(TroopImportExport.DefaultDir);
+                        TroopImportExport.ExportCultureTroopsToXml(name);
+                    },
+                    negativeAction: () => { },
+                    defaultInputText: SuggestDefaultExportName()
+                )
+            );
         }
 
         [DataSourceMethod]
         public void ExecuteImportAll()
         {
-            Log.Info("Importing all troop data...");
+            Directory.CreateDirectory(TroopImportExport.DefaultDir);
+
+            var files = Directory
+                .EnumerateFiles(
+                    TroopImportExport.DefaultDir,
+                    "*.xml",
+                    SearchOption.TopDirectoryOnly
+                )
+                .OrderByDescending(File.GetLastWriteTimeUtc)
+                .Select(Path.GetFileName)
+                .ToList();
+
+            if (files.Count == 0)
+            {
+                Log.Message("No export files found.");
+                return;
+            }
+
+            var elements = files.Select(f => new InquiryElement(f, f, null)).ToList();
+            var inquiry = new MultiSelectionInquiryData(
+                L.S("editor_import_pick_title", "Import Troops"),
+                L.S(
+                    "editor_import_pick_body",
+                    "Select the XML file to import. This will replace your current culture troop definitions."
+                ),
+                elements,
+                true, // isSingleSelection
+                1, // minSelectable
+                1, // maxSelectable
+                L.S("editor_import_btn", "Import"),
+                L.S("cancel", "Cancel"),
+                selected =>
+                {
+                    var choice = selected?.FirstOrDefault()?.Identifier as string;
+                    if (string.IsNullOrWhiteSpace(choice))
+                    {
+                        Log.Message("No file selected.");
+                        return;
+                    }
+                    try
+                    {
+                        TroopImportExport.ImportCultureTroopsFromXml(choice);
+                        Log.Message($"Imported culture troop definitions from '{choice}'.");
+                        State.UpdateFaction(State.Faction); // refresh troops
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e);
+                        Log.Message("Import failed, see log for details.");
+                    }
+                },
+                _ => { }
+            );
+            MBInformationManager.ShowMultiSelectionInquiry(inquiry);
+        }
+
+        private static string SuggestDefaultExportName()
+        {
+            var ts = DateTime.Now.ToString("yyyy_MM_dd_HH_mm");
+            return $"culture_troops_{ts}.xml";
         }
 
         [DataSourceMethod]
         public void ExecuteResetAll()
         {
-            Log.Info("Resetting all troop data...");
+            // Confirmation dialog
+            var inquiry = new InquiryData(
+                titleText: L.S("reset_all", "Reset All Troop Data"),
+                text: L.S(
+                    "reset_all_body",
+                    "This will reset all culture troop data to their default values. Player clan and kingdom troops will not be affected.\n\nContinue?"
+                ),
+                isAffirmativeOptionShown: true,
+                isNegativeOptionShown: true,
+                affirmativeText: GameTexts.FindText("str_ok").ToString(),
+                negativeText: GameTexts.FindText("str_cancel").ToString(),
+                affirmativeAction: () =>
+                {
+                    FactionBehavior.ResetCultureTroops = true;
+                    Notifications.Popup(
+                        L.T("reset_culture_troops_title", "Culture Troops Reset"),
+                        L.T(
+                            "reset_culture_troops_text",
+                            "All culture troops will be reset upon saving and reloading the game."
+                        )
+                    );
+                },
+                negativeAction: () => { }
+            );
+
+            InformationManager.ShowInquiry(inquiry);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

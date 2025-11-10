@@ -34,7 +34,12 @@ namespace Retinues.Troops.Save
         [SaveableField(8)]
         public TroopSaveData MilitiaRangedElite;
 
-        public FactionSaveData(WFaction faction)
+        public FactionSaveData()
+        {
+            // Default constructor for deserialization
+        }
+
+        public FactionSaveData(ITroopFaction faction)
         {
             if (faction is null)
                 return; // Null faction, nothing to do
@@ -64,6 +69,18 @@ namespace Retinues.Troops.Save
             faction.MilitiaRangedElite = MilitiaRangedElite.Deserialize();
 
             CharacterGraphIndex.RegisterFactionRoots(faction);
+        }
+
+        public void DeserializeTroops()
+        {
+            RetinueElite?.Deserialize();
+            RetinueBasic?.Deserialize();
+            RootElite?.Deserialize();
+            RootBasic?.Deserialize();
+            MilitiaMelee?.Deserialize();
+            MilitiaMeleeElite?.Deserialize();
+            MilitiaRanged?.Deserialize();
+            MilitiaRangedElite?.Deserialize();
         }
     }
 }
