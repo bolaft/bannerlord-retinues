@@ -312,6 +312,9 @@ namespace Retinues.Game.Wrappers
                 }
             }
 
+            if (Config.NeverRequireNobleHorse && bestCategory == DefaultItemCategories.NobleHorse)
+                return DefaultItemCategories.WarHorse; // downgrade to War Horse if configured
+
             return bestCategory;
         }
 

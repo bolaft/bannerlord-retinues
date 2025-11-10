@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Maximale Anzahl von Upgrade-Zielen für Elitetruppen." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Niemals ein edles Pferd benötigen" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Truppen benötigen für Upgrades niemals edle Pferde, ein Kriegspferd ist immer ausreichend." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Keine Königreichstruppen" />
     <string

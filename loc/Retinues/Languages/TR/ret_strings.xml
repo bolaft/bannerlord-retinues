@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Seçkin askerler için maksimum yükseltme hedefi sayısı." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Asla Seçkin At Gerektirme" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Askerler yükseltmeler için asla seçkin at gerektirmez, savaş atı her zaman yeterlidir." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Krallık Askeri Yok" />
     <string

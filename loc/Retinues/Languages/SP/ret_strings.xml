@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Número máximo de objetivos de mejora para tropas de élite." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Nunca Requerir Caballo Noble" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Las tropas nunca requieren caballos nobles para las mejoras, un caballo de guerra siempre es suficiente." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Sin Tropas del Reino" />
     <string

@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Maximum number of upgrade targets for elite troops." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Never Require Noble Horse" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Troops never require noble horses for upgrades, a war horse is always enough." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="No Kingdom Troops" />
     <string

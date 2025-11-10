@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Maksymalna liczba celów ulepszenia dla elitarnych jednostek." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Nigdy Nie Wymagaj Szlacheckiego Konia" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Jednostki nigdy nie wymagają szlacheckich koni do ulepszeń, koń wojenny zawsze wystarczy." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Brak Jednostek Królestwa" />
     <string

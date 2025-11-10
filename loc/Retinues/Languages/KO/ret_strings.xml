@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="정예 병력의 최대 업그레이드 대상 수." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="고급 말이 필요하지 않음" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="병력은 업그레이드에 고급 말이 필요하지 않으며 전쟁 말이면 충분합니다." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="왕국 병력 없음" />
     <string

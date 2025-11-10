@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Nombre maximum de promotions pour les troupes d’élite." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Ne Jamais Exiger de Cheval Noble" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Les troupes n’exigent jamais de chevaux nobles pour être promues, un cheval de guerre suffit toujours." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Pas de Troupes Royales" />
     <string

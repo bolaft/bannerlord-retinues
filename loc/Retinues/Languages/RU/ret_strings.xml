@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Максимальное количество целей обновления для элитных войск." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Никогда Не Требовать Благородную Лошадь" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Войска никогда не требуют благородных лошадей для обновлений, боевой лошади всегда достаточно." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Без Королевских Войск" />
     <string

@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Número máximo de alvos de upgrade para tropas de elite." />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Nunca Requerer Cavalo Nobre" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Tropas nunca exigem cavalos nobres para upgrades, um cavalo de guerra é sempre suficiente." />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Sem Tropas de Reino" />
     <string

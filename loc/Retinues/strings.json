@@ -3616,6 +3616,38 @@
     "TR": "Seçkin askerler için maksimum yükseltme hedefi sayısı."
   },
   {
+    "id": "ret_mcm_option_never_require_noble_horse",
+    "EN": "Never Require Noble Horse",
+    "BR": "Nunca Requerer Cavalo Nobre",
+    "CNs": "从不需要贵族马匹",
+    "CNt": "從不需要貴族馬匹",
+    "DE": "Niemals ein edles Pferd benötigen",
+    "FR": "Ne Jamais Exiger de Cheval Noble",
+    "IT": "Non Richiedere Mai il Cavallo Nobile",
+    "JP": "貴族の馬を必要としない",
+    "KO": "고급 말이 필요하지 않음",
+    "PL": "Nigdy Nie Wymagaj Szlacheckiego Konia",
+    "RU": "Никогда Не Требовать Благородную Лошадь",
+    "SP": "Nunca Requerir Caballo Noble",
+    "TR": "Asla Seçkin At Gerektirme"
+  },
+  {
+    "id": "ret_mcm_option_never_require_noble_horse_hint",
+    "EN": "Troops never require noble horses for upgrades, a war horse is always enough.",
+    "BR": "Tropas nunca exigem cavalos nobres para upgrades, um cavalo de guerra é sempre suficiente.",
+    "CNs": "部队升级时从不需要贵族马匹，战马总是足够的。",
+    "CNt": "部隊升級時從不需要貴族馬匹，戰馬總是足夠的。",
+    "DE": "Truppen benötigen für Upgrades niemals edle Pferde, ein Kriegspferd ist immer ausreichend.",
+    "FR": "Les troupes n’exigent jamais de chevaux nobles pour être promues, un cheval de guerre suffit toujours.",
+    "IT": "Le truppe non richiedono mai cavalli nobili per gli upgrade, un cavallo da guerra è sempre sufficiente.",
+    "JP": "部隊はアップグレードに貴族の馬を必要とせず、戦馬で十分です。",
+    "KO": "병력은 업그레이드에 고급 말이 필요하지 않으며 전쟁 말이면 충분합니다.",
+    "PL": "Jednostki nigdy nie wymagają szlacheckich koni do ulepszeń, koń wojenny zawsze wystarczy.",
+    "RU": "Войска никогда не требуют благородных лошадей для обновлений, боевой лошади всегда достаточно.",
+    "SP": "Las tropas nunca requieren caballos nobles para las mejoras, un caballo de guerra siempre es suficiente.",
+    "TR": "Askerler yükseltmeler için asla seçkin at gerektirmez, savaş atı her zaman yeterlidir."
+  },
+  {
     "id": "ret_mcm_option_no_kingdom_troops",
     "EN": "No Kingdom Troops",
     "BR": "Sem Tropas de Reino",

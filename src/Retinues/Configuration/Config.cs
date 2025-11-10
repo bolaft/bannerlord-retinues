@@ -559,6 +559,23 @@ namespace Retinues.Configuration
                 }
             );
 
+        public static readonly Option<bool> NeverRequireNobleHorse = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () => L.S("mcm_option_never_require_noble_horse", "Never Require Noble Horse"),
+            key: "NeverRequireNobleHorse",
+            hint: () =>
+                L.S(
+                    "mcm_option_never_require_noble_horse_hint",
+                    "Troops never require noble horses for upgrades, a war horse is always enough."
+                ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
+            }
+        );
+
         public static readonly Option<bool> NoMountForTier1 = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () => L.S("mcm_option_disallow_mounts_for_tier_1", "Disallow Mounts For Tier 1"),

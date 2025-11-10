@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="精锐部队的最大升级目标数量。" />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="从不需要贵族马匹" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="部队升级时从不需要贵族马匹，战马总是足够的。" />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="无王国部队" />
     <string

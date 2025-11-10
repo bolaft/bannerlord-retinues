@@ -683,6 +683,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="精鋭部隊の最大アップグレード目標数。" />
     <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="貴族の馬を必要としない" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="部隊はアップグレードに貴族の馬を必要とせず、戦馬で十分です。" />
+    <string
       id="ret_mcm_option_no_kingdom_troops"
       text="王国軍なし" />
     <string
