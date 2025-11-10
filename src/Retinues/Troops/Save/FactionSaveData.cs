@@ -34,6 +34,18 @@ namespace Retinues.Troops.Save
         [SaveableField(8)]
         public TroopSaveData MilitiaRangedElite;
 
+        [SaveableField(9)]
+        public TroopSaveData CaravanGuard;
+
+        [SaveableField(10)]
+        public TroopSaveData CaravanMaster;
+
+        [SaveableField(11)]
+        public TroopSaveData Villager;
+
+        [SaveableField(12)]
+        public TroopSaveData PrisonGuard;
+
         public FactionSaveData()
         {
             // Default constructor for deserialization
@@ -52,6 +64,10 @@ namespace Retinues.Troops.Save
             MilitiaMeleeElite = new TroopSaveData(faction.MilitiaMeleeElite);
             MilitiaRanged = new TroopSaveData(faction.MilitiaRanged);
             MilitiaRangedElite = new TroopSaveData(faction.MilitiaRangedElite);
+            CaravanGuard = new TroopSaveData(faction.CaravanGuard);
+            CaravanMaster = new TroopSaveData(faction.CaravanMaster);
+            Villager = new TroopSaveData(faction.Villager);
+            PrisonGuard = new TroopSaveData(faction.PrisonGuard);
         }
 
         public void Apply(WFaction faction)
@@ -59,14 +75,18 @@ namespace Retinues.Troops.Save
             if (faction is null)
                 return; // Null faction, nothing to do
 
-            faction.RetinueElite = RetinueElite.Deserialize();
-            faction.RetinueBasic = RetinueBasic.Deserialize();
-            faction.RootElite = RootElite.Deserialize();
-            faction.RootBasic = RootBasic.Deserialize();
-            faction.MilitiaMelee = MilitiaMelee.Deserialize();
-            faction.MilitiaMeleeElite = MilitiaMeleeElite.Deserialize();
-            faction.MilitiaRanged = MilitiaRanged.Deserialize();
-            faction.MilitiaRangedElite = MilitiaRangedElite.Deserialize();
+            faction.RetinueElite = RetinueElite?.Deserialize();
+            faction.RetinueBasic = RetinueBasic?.Deserialize();
+            faction.RootElite = RootElite?.Deserialize();
+            faction.RootBasic = RootBasic?.Deserialize();
+            faction.MilitiaMelee = MilitiaMelee?.Deserialize();
+            faction.MilitiaMeleeElite = MilitiaMeleeElite?.Deserialize();
+            faction.MilitiaRanged = MilitiaRanged?.Deserialize();
+            faction.MilitiaRangedElite = MilitiaRangedElite?.Deserialize();
+            faction.CaravanGuard = CaravanGuard?.Deserialize();
+            faction.CaravanMaster = CaravanMaster?.Deserialize();
+            faction.Villager = Villager?.Deserialize();
+            faction.PrisonGuard = PrisonGuard?.Deserialize();
 
             CharacterGraphIndex.RegisterFactionRoots(faction);
         }
@@ -81,6 +101,10 @@ namespace Retinues.Troops.Save
             MilitiaMeleeElite?.Deserialize();
             MilitiaRanged?.Deserialize();
             MilitiaRangedElite?.Deserialize();
+            CaravanGuard?.Deserialize();
+            CaravanMaster?.Deserialize();
+            Villager?.Deserialize();
+            PrisonGuard?.Deserialize();
         }
     }
 }

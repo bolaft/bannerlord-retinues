@@ -167,12 +167,10 @@ namespace Retinues.Game.Wrappers
             if (faction == null)
                 return; // no player faction
 
-            Log.Debug(
-                $"{Party.Name} (militia: {Party.IsMilitia}): swapping all troops to faction {faction?.Name ?? "null"}."
-            );
-
             try
             {
+                bool swapped = false;
+
                 // Build temp roster (dummy so it won't fire OwnerParty events during staging)
                 var tmp = TroopRoster.CreateDummyTroopRoster();
 
@@ -197,18 +195,23 @@ namespace Retinues.Game.Wrappers
                         continue;
                     }
 
-                    // Default replacement = same troop
+                    // Try to pick best replacement from faction
                     WCharacter replacement =
-                        (
+                        TroopMatcher.PickSpecialFromFaction(faction, e.Troop)
+                        ?? (
                             Party.IsMilitia
                                 ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
                                 : TroopMatcher.PickBestFromFaction(faction, e.Troop)
-                        ) ?? e.Troop;
+                        )
+                        ?? e.Troop;
 
                     if (replacement != e.Troop)
+                    {
                         Log.Debug(
                             $"{Party.Name}: swapping {e.Number}x {e.Troop.Name} to {replacement.Name}."
                         );
+                        swapped = true;
+                    }
 
                     // Stage into temp roster, preserving totals
                     tmp.AddToCounts(
@@ -224,6 +227,11 @@ namespace Retinues.Game.Wrappers
                 var original = Base;
                 original.Clear();
                 original.Add(tmp);
+
+                if (swapped)
+                    Log.Debug(
+                        $"{Party.Name} (militia: {Party.IsMilitia}): swapped all troops to faction {faction?.Name ?? "null"}."
+                    );
             }
             catch (Exception ex)
             {

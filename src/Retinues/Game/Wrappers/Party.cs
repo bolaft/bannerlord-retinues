@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -11,6 +12,19 @@ namespace Retinues.Game.Wrappers
     [SafeClass]
     public class WParty(MobileParty party) : FactionObject
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static IEnumerable<WParty> All
+        {
+            get
+            {
+                foreach (var mp in MobileParty.All)
+                    yield return new WParty(mp);
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -105,5 +119,45 @@ namespace Retinues.Game.Wrappers
         public Army Army => _party.Army;
 
         public bool IsInArmy => Army != null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Swaps all troops in member and prisoner rosters to their corresponding player versions.
+        /// </summary>
+        public static void SwapAll(
+            bool members,
+            bool prisoners,
+            bool skipMainParty = false,
+            bool skipGarrisons = false,
+            bool skipCaravans = false,
+            bool skipVillagers = false,
+            bool skipBandits = false,
+            bool skipMilitia = false
+        )
+        {
+            foreach (var party in All)
+            {
+                if (skipMainParty && party.IsMainParty)
+                    continue;
+                if (skipGarrisons && party.IsGarrison)
+                    continue;
+                if (skipCaravans && party.IsCaravan)
+                    continue;
+                if (skipVillagers && party.IsVillager)
+                    continue;
+                if (skipBandits && party.IsBandit)
+                    continue;
+                if (skipMilitia && party.IsMilitia)
+                    continue;
+
+                if (members)
+                    party.MemberRoster?.SwapTroops();
+                if (prisoners)
+                    party.PrisonRoster?.SwapTroops();
+            }
+        }
     }
 }

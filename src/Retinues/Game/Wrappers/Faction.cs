@@ -28,11 +28,19 @@ namespace Retinues.Game.Wrappers
         public WCharacter MilitiaRanged { get; }
         public WCharacter MilitiaRangedElite { get; }
 
+        public WCharacter CaravanGuard { get; }
+        public WCharacter CaravanMaster { get; }
+
+        public WCharacter Villager { get; }
+        public WCharacter PrisonGuard { get; }
+
         public List<WCharacter> Troops { get; }
         public List<WCharacter> RetinueTroops { get; }
         public List<WCharacter> EliteTroops { get; }
         public List<WCharacter> BasicTroops { get; }
         public List<WCharacter> MilitiaTroops { get; }
+        public List<WCharacter> CaravanTroops { get; }
+        public List<WCharacter> SettlementTroops { get; }
     }
 
     /// <summary>
@@ -86,6 +94,12 @@ namespace Retinues.Game.Wrappers
         public WCharacter MilitiaRanged { get; set; }
         public WCharacter MilitiaRangedElite { get; set; }
 
+        public WCharacter CaravanGuard { get; set; }
+        public WCharacter CaravanMaster { get; set; }
+
+        public WCharacter Villager { get; set; }
+        public WCharacter PrisonGuard { get; set; }
+
         /// <summary>
         /// Gets all custom troops for this faction.
         /// </summary>
@@ -101,6 +115,10 @@ namespace Retinues.Game.Wrappers
                 foreach (var troop in BasicTroops)
                     troops.Add(troop);
                 foreach (var troop in MilitiaTroops)
+                    troops.Add(troop);
+                foreach (var troop in CaravanTroops)
+                    troops.Add(troop);
+                foreach (var troop in SettlementTroops)
                     troops.Add(troop);
                 return troops;
             }
@@ -144,6 +162,22 @@ namespace Retinues.Game.Wrappers
                     }.Where(t => t?.IsActive == true),
                 ]
                 : [];
+
+        /// <summary>
+        /// Gets all caravan troops for this faction that are active.
+        /// </summary>
+        public List<WCharacter> CaravanTroops =>
+            [
+                .. new List<WCharacter> { CaravanGuard, CaravanMaster }.Where(t =>
+                    t?.IsActive == true
+                ),
+            ];
+
+        /// <summary>
+        /// Gets all settlement troops for this faction that are active.
+        /// </summary>
+        public List<WCharacter> SettlementTroops =>
+            [.. new List<WCharacter> { Villager, PrisonGuard }.Where(t => t?.IsActive == true)];
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
         public bool IsClan => Base is Clan;

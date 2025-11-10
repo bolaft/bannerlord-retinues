@@ -137,6 +137,46 @@ namespace Retinues.Game.Helpers.Character
         }
 
         /// <summary>
+        /// Returns true if the ID is a caravan guard troop.
+        /// </summary>
+        public bool IsCaravanGuard(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            var cul = co?.Culture;
+            return cul != null && (ReferenceEquals(co, cul.CaravanGuard));
+        }
+
+        /// <summary>
+        /// Returns true if the ID is a caravan master troop.
+        /// </summary>
+        public bool IsCaravanMaster(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            var cul = co?.Culture;
+            return cul != null && (ReferenceEquals(co, cul.CaravanMaster));
+        }
+
+        /// <summary>
+        /// Returns true if the ID is a villager troop.
+        /// </summary>
+        public bool IsVillager(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            var cul = co?.Culture;
+            return cul != null && (ReferenceEquals(co, cul.Villager));
+        }
+
+        /// <summary>
+        /// Returns true if the ID is a prison guard troop.
+        /// </summary>
+        public bool IsPrisonGuard(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            var cul = co?.Culture;
+            return cul != null && (ReferenceEquals(co, cul.PrisonGuard));
+        }
+
+        /// <summary>
         /// Returns true if the ID is an elite troop.
         /// </summary>
         public bool IsElite(WCharacter node)

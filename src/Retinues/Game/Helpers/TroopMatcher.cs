@@ -163,6 +163,28 @@ namespace Retinues.Game.Helpers
         }
 
         /// <summary>
+        /// Pick the correct special civilian/caravan troop from a faction.
+        /// </summary>
+        public static WCharacter PickSpecialFromFaction(WFaction faction, WCharacter troop)
+        {
+            if (faction == null || troop == null || !troop.IsValid)
+                return null;
+
+            WCharacter pick = null;
+
+            if (troop.IsCaravanGuard)
+                pick = faction.CaravanGuard;
+            else if (troop.IsCaravanMaster)
+                pick = faction.CaravanMaster;
+            else if (troop.IsVillager)
+                pick = faction.Villager;
+            else if (troop.IsPrisonGuard)
+                pick = faction.PrisonGuard;
+
+            return (pick != null && pick.IsValid) ? pick : null;
+        }
+
+        /// <summary>
         /// Compute a weighted eligibility score between two troops.
         /// </summary>
         private static int EligibilityScore(

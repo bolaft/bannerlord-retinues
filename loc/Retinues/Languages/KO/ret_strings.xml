@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="전투에서 직접 적 영주를 처치하십시오." />
     <string
+      id="ret_list_toggle_caravan"
+      text="캐러밴 병력" />
+    <string
       id="ret_list_toggle_elite"
       text="정예" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="보통" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="정착지 병력" />
     <string
       id="ret_loc_smoke_test"
       text="현지화 테스트: KO." />
@@ -1137,10 +1143,13 @@
       text="왕국과 같은 문화의 동료가 왕국 영지를 30일간 통치하게 하십시오." />
     <string
       id="ret_royal_patronage_description"
-      text="왕국 문화 아이템 10% 할인." />
+      text="캐러밴 및 도시 병력을 잠금 해제합니다." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="커스텀 왕국 병력 100명을 모집하십시오." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="왕실 후원 교리로 잠금 해제합니다." />
     <string
       id="ret_select_culture_hint"
       text="문화를 선택하십시오." />

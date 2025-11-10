@@ -6,7 +6,7 @@
   <strings>
     <string
       id="ret_acquire_cultural_pride_to_unlock"
-      text="Débloque avec la doctrine Fierté Culturelle." />
+      text="Débloqué avec la doctrine Fierté Culturelle." />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Acquiers un fief pour débloquer les troupes du clan." />
@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Bats personnellement un seigneur ennemi lors d&apos;une bataille." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Troupes de Caravane" />
+    <string
       id="ret_list_toggle_elite"
       text="Troupes d’Élite" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="Troupes Régulières" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="Troupes de Fiefs" />
     <string
       id="ret_loc_smoke_test"
       text="Test de localisation : FR ." />
@@ -1137,10 +1143,13 @@
       text="Fais gouverner un fief royal pendant 30 jours par un compagnon de la même culture que ton royaume." />
     <string
       id="ret_royal_patronage_description"
-      text="10% de réduction sur les objets de la culture du royaume." />
+      text="Débloque les troupes de caravane et de ville." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recrute 100 troupes royales personnalisées." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="Débloqué avec la doctrine de la Faveur Royale." />
     <string
       id="ret_select_culture_hint"
       text="Sélectionne une culture." />

@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Bir düşman lordunu savaşta bizzat öldür." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Kervan Askerleri" />
+    <string
       id="ret_list_toggle_elite"
       text="Seçkin" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="Normal" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="Yerleşim Askerleri" />
     <string
       id="ret_loc_smoke_test"
       text="Yerelleştirme testi: TR." />
@@ -1137,10 +1143,13 @@
       text="Krallığınla aynı kültürden bir yoldaşın 30 gün boyunca bir krallık tımarını yönetmesini sağla." />
     <string
       id="ret_royal_patronage_description"
-      text="Krallık kültüründen eşyalar %10 indirimli." />
+      text="Kervan ve şehir askerlerinin kilidini açar." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="100 krallık askeri topla." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="Kraliyet Himayesi doktrini ile kilidini aç." />
     <string
       id="ret_select_culture_hint"
       text="Bir kültür seçin." />

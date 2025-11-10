@@ -17,6 +17,14 @@ namespace Retinues.Game.Helpers.Character
 
         public bool IsMilitiaRanged(WCharacter node) => CharacterGraphIndex.IsMilitiaRanged(node);
 
+        public bool IsCaravanGuard(WCharacter node) => CharacterGraphIndex.IsCaravanGuard(node);
+
+        public bool IsCaravanMaster(WCharacter node) => CharacterGraphIndex.IsCaravanMaster(node);
+
+        public bool IsVillager(WCharacter node) => CharacterGraphIndex.IsVillager(node);
+
+        public bool IsPrisonGuard(WCharacter node) => CharacterGraphIndex.IsPrisonGuard(node);
+
         public bool IsElite(WCharacter node) => CharacterGraphIndex.IsElite(node);
 
         public bool IsKingdom(WCharacter node) =>

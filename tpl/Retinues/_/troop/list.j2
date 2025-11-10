@@ -50,6 +50,22 @@
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
+        <!-- Caravan Header -->
+        {{ list.header_toggle("TroopList", "Caravan", "@CaravanToggleText", is_visible="@ShowCaravanList") }}
+
+        <!-- Caravan List -->
+        {% call list.rows("{CaravanTroops}", "Caravan") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Settlement Header -->
+        {{ list.header_toggle("TroopList", "Settlement", "@SettlementToggleText", is_visible="@ShowSettlementList") }}
+
+        <!-- Settlement List -->
+        {% call list.rows("{SettlementTroops}", "Settlement") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
     {% endcall %}
 
 {% endcall %}

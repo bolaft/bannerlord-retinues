@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Besiege persönlich einen feindlichen Lord in einer Schlacht." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Karawanen-Truppen" />
+    <string
       id="ret_list_toggle_elite"
       text="Elite" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="Regulär" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="Siedlungs-Truppen" />
     <string
       id="ret_loc_smoke_test"
       text="Lokalisierungstest DE." />
@@ -1137,10 +1143,13 @@
       text="Lass einen Gefährten derselben Kultur wie dein Königreich 30 Tage lang ein Lehen verwalten." />
     <string
       id="ret_royal_patronage_description"
-      text="10% Rabatt auf Gegenstände der Königreichskultur." />
+      text="Schaltet Karawanen- und Stadttruppen frei." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Rekrutiere 100 benutzerdefinierte Königreichstruppen." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="Schalte es mit der Doktrin der königlichen Schirmherrschaft frei." />
     <string
       id="ret_select_culture_hint"
       text="Wähle eine Kultur." />

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -133,6 +134,10 @@ namespace Retinues.Game.Wrappers
                     troops.Add(troop);
                 foreach (var troop in MilitiaTroops)
                     troops.Add(troop);
+                foreach (var troop in CaravanTroops)
+                    troops.Add(troop);
+                foreach (var troop in SettlementTroops)
+                    troops.Add(troop);
                 return troops;
             }
         }
@@ -141,7 +146,7 @@ namespace Retinues.Game.Wrappers
 
         public List<WCharacter> EliteTroops => [.. RootElite?.Tree];
 
-        public List<WCharacter> BasicTroops => [.. RootBasic.Tree];
+        public List<WCharacter> BasicTroops => [.. RootBasic?.Tree];
 
         public List<WCharacter> MilitiaTroops
         {
@@ -159,5 +164,15 @@ namespace Retinues.Game.Wrappers
                 return list;
             }
         }
+
+        public List<WCharacter> CaravanTroops =>
+            [
+                .. new List<WCharacter> { CaravanGuard, CaravanMaster }.Where(t =>
+                    t?.IsActive == true
+                ),
+            ];
+
+        public List<WCharacter> SettlementTroops =>
+            [.. new List<WCharacter> { Villager, PrisonGuard }.Where(t => t?.IsActive == true)];
     }
 }

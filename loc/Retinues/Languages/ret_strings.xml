@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Personally defeat an enemy lord in battle." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Caravan Troops" />
+    <string
       id="ret_list_toggle_elite"
       text="Elite" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="Regular" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="Settlement Troops" />
     <string
       id="ret_loc_smoke_test"
       text="Localization test: default fallback (EN)." />
@@ -1137,10 +1143,13 @@
       text="Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days." />
     <string
       id="ret_royal_patronage_description"
-      text="10% rebate on items of the kingdom&apos;s culture." />
+      text="Unlocks caravan and city troops." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recruit 100 custom kingdom troops." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="Unlock with the Royal Patronage doctrine." />
     <string
       id="ret_select_culture_hint"
       text="Select a culture." />

@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="在戰鬥中親自擊敗一名敵方領主。" />
     <string
+      id="ret_list_toggle_caravan"
+      text="商隊部隊" />
+    <string
       id="ret_list_toggle_elite"
       text="精銳" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="普通" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="定居點部隊" />
     <string
       id="ret_loc_smoke_test"
       text="本地化測試： CNt。" />
@@ -1137,10 +1143,13 @@
       text="讓與你王國同文化的同伴治理一個王國封地30天。" />
     <string
       id="ret_royal_patronage_description"
-      text="王國文化物品享受10%折扣。" />
+      text="解鎖商隊和城市部隊。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定義王國部隊。" />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="通過王室資助信條解鎖。" />
     <string
       id="ret_select_culture_hint"
       text="選擇一種文化。" />

@@ -287,17 +287,8 @@ namespace Retinues.Troops.Edition
                 return 0; // No cost in studio mode
 
             int baseValue = item?.Value ?? 0;
-            float rebate = 0.0f;
 
-            try
-            {
-                if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
-                    if (item?.Culture == Player.Kingdom?.Culture)
-                        rebate += 0.10f; // 10% rebate on items of the kingdom's culture
-            }
-            catch { }
-
-            return (int)(baseValue * (1.0f - rebate) * Config.EquipmentPriceModifier);
+            return (int)(baseValue * Config.EquipmentPriceModifier);
         }
     }
 }

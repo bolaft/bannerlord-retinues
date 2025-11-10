@@ -20,8 +20,9 @@ namespace Retinues.Game.Wrappers.Base
         {
             get
             {
-                var clan = Clan?.IsPlayerClan == true ? Clan : null;
-                var kingdom = Kingdom?.IsPlayerKingdom == true ? Kingdom : null;
+                // Set directly from Player static to avoid new instance without troop attributes
+                var clan = Clan?.IsPlayerClan == true ? Player.Clan : null;
+                var kingdom = Kingdom?.IsPlayerKingdom == true ? Player.Kingdom : null;
 
                 if (Config.ClanTroopsOverKingdomTroops)
                     return clan ?? kingdom;

@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Derrota personalmente a un señor enemigo en batalla." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Tropas de Caravana" />
+    <string
       id="ret_list_toggle_elite"
       text="Élite" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="Regular" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="Tropas de Asentamiento" />
     <string
       id="ret_loc_smoke_test"
       text="Prueba de localización: SP." />
@@ -1137,10 +1143,13 @@
       text="Haz que un compañero de la misma cultura que tu reino gobierne un feudo del reino durante 30 días." />
     <string
       id="ret_royal_patronage_description"
-      text="10% de descuento en objetos de la cultura del reino." />
+      text="Desbloquea tropas de caravana y ciudad." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recluta 100 tropas personalizadas del reino." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="Desbloquea con la doctrina de Patrocinio Real." />
     <string
       id="ret_select_culture_hint"
       text="Selecciona una cultura." />

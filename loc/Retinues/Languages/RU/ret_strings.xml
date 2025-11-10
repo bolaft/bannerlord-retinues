@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Лично победите вражеского лорда в бою." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Войска Каравана" />
+    <string
       id="ret_list_toggle_elite"
       text="Элитные" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="Обычные" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="Войска Поселений" />
     <string
       id="ret_loc_smoke_test"
       text="Тест локализации: RU." />
@@ -1137,10 +1143,13 @@
       text="Позвольте спутнику той же культуры, что и ваше королевство, управлять феодом в течение 30 дней." />
     <string
       id="ret_royal_patronage_description"
-      text="10% скидка на предметы культуры королевства." />
+      text="Разблокирует войска караванов и городов." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Нанимайте 100 собственных войск королевства." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="Разблокируйте с помощью доктрины Королевского Покровительства." />
     <string
       id="ret_select_culture_hint"
       text="Выберите культуру." />

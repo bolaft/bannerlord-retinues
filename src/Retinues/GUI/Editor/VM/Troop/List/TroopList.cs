@@ -33,6 +33,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             EliteTroops = [.. State.Faction.EliteTroops.Select(t => new TroopRowVM(t))];
             BasicTroops = [.. State.Faction.BasicTroops.Select(t => new TroopRowVM(t))];
             MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
+            CaravanTroops = [.. State.Faction.CaravanTroops.Select(t => new TroopRowVM(t))];
+            SettlementTroops = [.. State.Faction.SettlementTroops.Select(t => new TroopRowVM(t))];
 
             if (EliteTroops.Count == 0 && !EditorVM.IsStudioMode)
                 EliteTroops.Add(
@@ -67,6 +69,28 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
+            if (CaravanTroops.Count == 0 && !EditorVM.IsStudioMode)
+                CaravanTroops.Add(
+                    new TroopRowVM(
+                        null,
+                        placeholderText: L.S(
+                            "royal_patronage_to_unlock",
+                            "Unlock with the Royal Patronage doctrine."
+                        )
+                    )
+                ); // placeholder
+
+            if (SettlementTroops.Count == 0 && !EditorVM.IsStudioMode)
+                SettlementTroops.Add(
+                    new TroopRowVM(
+                        null,
+                        placeholderText: L.S(
+                            "royal_patronage_to_unlock",
+                            "Unlock with the Royal Patronage doctrine."
+                        )
+                    )
+                ); // placeholder
+
             // Ensure visibility matches parent
             foreach (var r in Rows)
                 r.IsVisible = IsVisible;
@@ -75,8 +99,12 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(EliteTroops));
             OnPropertyChanged(nameof(BasicTroops));
             OnPropertyChanged(nameof(MilitiaTroops));
+            OnPropertyChanged(nameof(CaravanTroops));
+            OnPropertyChanged(nameof(SettlementTroops));
             OnPropertyChanged(nameof(ShowRetinueList));
             OnPropertyChanged(nameof(ShowMilitiaList));
+            OnPropertyChanged(nameof(ShowCaravanList));
+            OnPropertyChanged(nameof(ShowSettlementList));
 
             RefreshFilter();
         }
@@ -96,6 +124,12 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> MilitiaTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> CaravanTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> SettlementTroops { get; set; } = [];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -126,6 +160,12 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public string MilitiaToggleText => L.S("list_toggle_militia", "Militia");
 
+        [DataSourceProperty]
+        public string CaravanToggleText => L.S("list_toggle_caravan", "Caravan Troops");
+
+        [DataSourceProperty]
+        public string SettlementToggleText => L.S("list_toggle_settlement", "Settlement Troops");
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -134,12 +174,25 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !EditorVM.IsStudioMode;
 
+        [DataSourceProperty]
+        public bool ShowCaravanList => CaravanTroops.Count > 0 || !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowSettlementList => SettlementTroops.Count > 0 || !EditorVM.IsStudioMode;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override List<BaseListElementVM> Rows =>
-            [.. RetinueTroops, .. EliteTroops, .. BasicTroops, .. MilitiaTroops];
+            [
+                .. RetinueTroops,
+                .. EliteTroops,
+                .. BasicTroops,
+                .. MilitiaTroops,
+                .. CaravanTroops,
+                .. SettlementTroops,
+            ];
 
         /// <summary>
         /// Show the troop list and rebuild its contents.

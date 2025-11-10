@@ -51,6 +51,9 @@ namespace Retinues.Troops
 
             CharacterGraphIndex.RegisterFactionRoots(faction);
             troopsAwaitingRegistration = false; // Reset the flag after registration
+
+            // Update all existing parties for this faction
+            WParty.SwapAll(members: true, prisoners: true, skipGarrisons: true);
         }
 
         /// <summary>
@@ -151,11 +154,44 @@ namespace Retinues.Troops
                             CreateMilitiaTroop(faction, isElite: false, isMelee: false);
                         if (!hasMilitiaRangedElite)
                             CreateMilitiaTroop(faction, isElite: true, isMelee: false);
-
-                        // Update all existing militias for this faction
-                        foreach (var s in faction.Settlements)
-                            s.MilitiaParty?.MemberRoster?.SwapTroops(faction);
                     }
+                }
+            }
+
+            if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+            {
+                var culture = faction.Culture;
+
+                if (faction.CaravanGuard is null && culture?.CaravanGuard != null)
+                {
+                    Log.Info("Creating Caravan Guard troop for faction.");
+                    CreateSpecialTroop(
+                        culture.CaravanGuard,
+                        faction,
+                        SpecialTroopType.CaravanGuard
+                    );
+                }
+
+                if (faction.CaravanMaster is null && culture?.CaravanMaster != null)
+                {
+                    Log.Info("Creating Caravan Master troop for faction.");
+                    CreateSpecialTroop(
+                        culture.CaravanMaster,
+                        faction,
+                        SpecialTroopType.CaravanMaster
+                    );
+                }
+
+                if (faction.Villager is null && culture?.Villager != null)
+                {
+                    Log.Info("Creating Villager troop for faction.");
+                    CreateSpecialTroop(culture.Villager, faction, SpecialTroopType.Villager);
+                }
+
+                if (faction.PrisonGuard is null && culture?.PrisonGuard != null)
+                {
+                    Log.Info("Creating Prison Guard troop for faction.");
+                    CreateSpecialTroop(culture.PrisonGuard, faction, SpecialTroopType.PrisonGuard);
                 }
             }
         }
@@ -303,7 +339,66 @@ namespace Retinues.Troops
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Troops                         //
+        //                     Special Troops                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private enum SpecialTroopType
+        {
+            CaravanGuard,
+            CaravanMaster,
+            Villager,
+            PrisonGuard,
+        }
+
+        private static void CreateSpecialTroop(
+            WCharacter tpl,
+            WFaction faction,
+            SpecialTroopType type
+        )
+        {
+            troopsAwaitingRegistration = true; // Mark that new troops have been created
+
+            if (tpl == null)
+                return;
+
+            var troop = new WCharacter();
+
+            troop.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+
+            Log.Info($"Created special troop {troop.Name} (from {tpl})");
+            Log.Info($"troop vanilla id set to {troop.VanillaStringId}");
+
+            // Rename it
+            troop.Name = BuildTroopName(tpl, faction);
+
+            // Unlock items
+            UnlockAll(troop);
+
+            // Activate
+            troop.Activate();
+
+            // Assign to faction
+            switch (type)
+            {
+                case SpecialTroopType.CaravanGuard:
+                    faction.CaravanGuard = troop;
+                    break;
+                case SpecialTroopType.CaravanMaster:
+                    faction.CaravanMaster = troop;
+                    break;
+                case SpecialTroopType.Villager:
+                    faction.Villager = troop;
+                    break;
+                case SpecialTroopType.PrisonGuard:
+                    faction.PrisonGuard = troop;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Regular Troops                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

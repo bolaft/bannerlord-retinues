@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="戦闘で敵の領主を自ら倒す。" />
     <string
+      id="ret_list_toggle_caravan"
+      text="キャラバン兵" />
+    <string
       id="ret_list_toggle_elite"
       text="精鋭" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="通常" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="集落兵" />
     <string
       id="ret_loc_smoke_test"
       text="ローカライズテスト：JP。" />
@@ -1137,10 +1143,13 @@
       text="王国と同じ文化の仲間に30日間王国の領地を統治させる。" />
     <string
       id="ret_royal_patronage_description"
-      text="王国文化のアイテムが10%割引。" />
+      text="キャラバンと都市の部隊をアンロックします。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="カスタム王国兵100人を募集する。" />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="王室の後援教義でアンロックします。" />
     <string
       id="ret_select_culture_hint"
       text="文化を選択します。" />

@@ -524,6 +524,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Samodzielnie pokonaj w bitwie wrogiego lorda." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Jednostki Karawany" />
+    <string
       id="ret_list_toggle_elite"
       text="Elita" />
     <string
@@ -532,6 +535,9 @@
     <string
       id="ret_list_toggle_regular"
       text="Zwykły" />
+    <string
+      id="ret_list_toggle_settlement"
+      text="Jednostki Osadnicze" />
     <string
       id="ret_loc_smoke_test"
       text="Test lokalizacji: PL." />
@@ -1137,10 +1143,13 @@
       text="Niech towarzysz tej samej kultury co twoje królestwo rządzi lennem przez 30 dni." />
     <string
       id="ret_royal_patronage_description"
-      text="10% zniżki na przedmioty kultury królestwa." />
+      text="Odblokowuje wojska karawanowe i miejskie." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Zwerbuj 100 własnych wojsk królestwa." />
+    <string
+      id="ret_royal_patronage_to_unlock"
+      text="Odblokuj za pomocą doktryny Patronatu Królewskiego." />
     <string
       id="ret_select_culture_hint"
       text="Wybierz kulturę." />
