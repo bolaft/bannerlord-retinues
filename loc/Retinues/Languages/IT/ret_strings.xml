@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="Apri la documentazione online dei Seguiti." />
     <string
+      id="ret_editor_import_btn"
+      text="Importa" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="Seleziona il file XML da importare. Questo sostituirà le definizioni delle truppe della tua cultura attuali." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="Importa Truppe" />
+    <string
       id="ret_empty_item"
       text="Vuoto" />
+    <string
+      id="ret_enter_file_name"
+      text="Inserisci un nome file:" />
     <string
       id="ret_enter_new_name"
       text="Inserisci un nuovo nome:" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="È necessaria una competenza per gli oggetti equipaggiati." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="Esporta Tutte le Truppe" />
     <string
       id="ret_feat_completed_title"
       text="Impresa Completata" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="Rinomina Truppa" />
+    <string
+      id="ret_reset_all"
+      text="Reimpostare tutti i dati delle truppe" />
+    <string
+      id="ret_reset_all_body"
+      text="Questo reimposterà tutti i dati delle truppe culturali ai loro valori predefiniti. Le truppe del clan e del regno del giocatore non saranno interessate.{newline}{newline}Continuare?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Tutte le truppe culturali verranno ripristinate al salvataggio e al ricaricamento del gioco." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Reimpostazione delle truppe culturali" />
     <string
       id="ret_retinue"
       text="Seguito" />

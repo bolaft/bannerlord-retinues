@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="Откройте онлайн-документацию по свите." />
     <string
+      id="ret_editor_import_btn"
+      text="Импорт" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="Выберите XML-файл для импорта. Это заменит текущие определения войск вашей культуры." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="Импорт войск" />
+    <string
       id="ret_empty_item"
       text="Пусто" />
+    <string
+      id="ret_enter_file_name"
+      text="Введите имя файла:" />
     <string
       id="ret_enter_new_name"
       text="Введите новое имя:" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="Для экипированных предметов требуется навык." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="Экспортировать Все Войска" />
     <string
       id="ret_feat_completed_title"
       text="Подвиг Завершён" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="Переименовать Войска" />
+    <string
+      id="ret_reset_all"
+      text="Сбросить все данные войск" />
+    <string
+      id="ret_reset_all_body"
+      text="Это сбросит все данные культурных войск до их значений по умолчанию. Войска клана и королевства игрока не будут затронуты.{newline}{newline}Продолжить?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Все культурные войска будут сброшены после сохранения и перезагрузки игры." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Сброс Культурных Войск" />
     <string
       id="ret_retinue"
       text="Свита" />

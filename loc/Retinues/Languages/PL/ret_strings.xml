@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="Otwórz dokumentację Retinues online." />
     <string
+      id="ret_editor_import_btn"
+      text="Importuj" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="Wybierz plik XML do importu. Spowoduje to zastąpienie bieżących definicji oddziałów twojej kultury." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="Importuj Oddziały" />
+    <string
       id="ret_empty_item"
       text="Puste" />
+    <string
+      id="ret_enter_file_name"
+      text="Wpisz nazwę pliku:" />
     <string
       id="ret_enter_new_name"
       text="Wpisz nową nazwę:" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="Do wyposażonych przedmiotów wymagana jest umiejętność." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="Eksportuj Wszystkie Oddziały" />
     <string
       id="ret_feat_completed_title"
       text="Osiągnięcie Ukończone" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="Zmień Nazwę Jednostki" />
+    <string
+      id="ret_reset_all"
+      text="Zresetuj wszystkie dane jednostek" />
+    <string
+      id="ret_reset_all_body"
+      text="Spowoduje to zresetowanie wszystkich danych jednostek kulturowych do ich domyślnych wartości. Jednostki klanu i królestwa gracza nie zostaną dotknięte.{newline}{newline}Kontynuować?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Wszystkie jednostki kulturowe zostaną zresetowane po zapisaniu i ponownym załadowaniu gry." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Reset Jednostek Kulturowych" />
     <string
       id="ret_retinue"
       text="Orszak" />

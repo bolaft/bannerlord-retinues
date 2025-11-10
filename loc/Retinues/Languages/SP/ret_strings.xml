@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="Abre la documentación en línea de Séquitos." />
     <string
+      id="ret_editor_import_btn"
+      text="Importar" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="Selecciona el archivo XML para importar. Esto reemplazará las definiciones actuales de tropas de tu cultura." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="Importar Tropas" />
+    <string
       id="ret_empty_item"
       text="Vacío" />
+    <string
+      id="ret_enter_file_name"
+      text="Introduce un nombre de archivo:" />
     <string
       id="ret_enter_new_name"
       text="Introduce un nuevo nombre:" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="Se requiere habilidad para los objetos equipados." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="Exportar Todas las Tropas" />
     <string
       id="ret_feat_completed_title"
       text="Hazaña Completada" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="Renombrar Tropa" />
+    <string
+      id="ret_reset_all"
+      text="Restablecer todos los datos de las tropas" />
+    <string
+      id="ret_reset_all_body"
+      text="Esto restablecerá todos los datos de las tropas culturales a sus valores predeterminados. Las tropas del clan y del reino del jugador no se verán afectadas.{newline}{newline}¿Continuar?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Todas las tropas culturales se restablecerán al guardar y recargar el juego." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Restablecimiento de Tropas Culturales" />
     <string
       id="ret_retinue"
       text="Séquito" />

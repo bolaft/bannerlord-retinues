@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="온라인 수행원 문서를 엽니다." />
     <string
+      id="ret_editor_import_btn"
+      text="가져오기" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="가져올 XML 파일을 선택하십시오. 이렇게 하면 현재 문화 부대 정의가 대체됩니다." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="부대 가져오기" />
+    <string
       id="ret_empty_item"
       text="비어 있음" />
+    <string
+      id="ret_enter_file_name"
+      text="파일 이름 입력:" />
     <string
       id="ret_enter_new_name"
       text="새 이름 입력:" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="장착된 아이템에는 기술이 필요합니다." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="모든 부대 내보내기" />
     <string
       id="ret_feat_completed_title"
       text="위업 달성" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="병력 이름 변경" />
+    <string
+      id="ret_reset_all"
+      text="모든 병력 데이터 재설정" />
+    <string
+      id="ret_reset_all_body"
+      text="이렇게 하면 모든 문화 병력 데이터가 기본값으로 재설정됩니다. 플레이어 클랜 및 왕국 병력에는 영향을 미치지 않습니다.{newline}{newline}계속하시겠습니까?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="모든 문화 병력은 게임을 저장하고 다시 로드하면 재설정됩니다。" />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="문화 병력 재설정" />
     <string
       id="ret_retinue"
       text="수행원" />

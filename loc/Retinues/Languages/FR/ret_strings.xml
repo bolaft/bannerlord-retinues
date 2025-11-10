@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="Ouvre la documentation en ligne." />
     <string
+      id="ret_editor_import_btn"
+      text="Importer" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="Sélectionne le fichier XML à importer. Cela remplacera les définitions actuelles des troupes de ta culture." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="Importer des Troupes" />
+    <string
       id="ret_empty_item"
       text="Vide" />
+    <string
+      id="ret_enter_file_name"
+      text="Entrez un nom de fichier :" />
     <string
       id="ret_enter_new_name"
       text="Nouveau nom :" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="La compétence est requise pour les objets équipés." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="Exporter Toutes les Troupes" />
     <string
       id="ret_feat_completed_title"
       text="Exploit Accompli" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="Renommer" />
+    <string
+      id="ret_reset_all"
+      text="Réinitialiser les troupes" />
+    <string
+      id="ret_reset_all_body"
+      text="Cela réinitialisera toutes les données des troupes culturelles à leurs valeurs par défaut. Les troupes du clan et du royaume du joueur ne seront pas affectées.{newline}{newline}Continuer ?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Toutes les troupes culturelles seront réinitialisées lors de l&apos;enregistrement et du rechargement du jeu." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Réinitialisation des troupes culturelles" />
     <string
       id="ret_retinue"
       text="Rétinue" />

@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="打開在線隨從文件。" />
     <string
+      id="ret_editor_import_btn"
+      text="導入" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="選擇要導入的XML文件。這將替換您當前的文化部隊定義。" />
+    <string
+      id="ret_editor_import_pick_title"
+      text="導入部隊" />
+    <string
       id="ret_empty_item"
       text="空" />
+    <string
+      id="ret_enter_file_name"
+      text="輸入文件名：" />
     <string
       id="ret_enter_new_name"
       text="輸入一個新名稱：" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="裝備物品需要技能。" />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="導出所有部隊" />
     <string
       id="ret_feat_completed_title"
       text="成就完成" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="重命名部隊" />
+    <string
+      id="ret_reset_all"
+      text="重置所有部隊數據" />
+    <string
+      id="ret_reset_all_body"
+      text="這將把所有文化部隊數據重置為默認值。玩家氏族和王國部隊不會受到影響。{newline}{newline}繼續？" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="所有文化部隊將在保存和重新加載遊戲時重置。" />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="文化部隊重置" />
     <string
       id="ret_retinue"
       text="隨從" />

@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="Çevrimiçi Yandaşlar belgelerini açın." />
     <string
+      id="ret_editor_import_btn"
+      text="İçe Aktar" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="İçe aktarılacak XML dosyasını seçin. Bu, mevcut kültür birlik tanımlarınızı değiştirecektir." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="Askerleri İçe Aktar" />
+    <string
       id="ret_empty_item"
       text="Boş" />
+    <string
+      id="ret_enter_file_name"
+      text="Bir dosya adı girin:" />
     <string
       id="ret_enter_new_name"
       text="Yeni bir ad gir:" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="Donatılan eşyalar için beceri gereklidir." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="Tüm Askerleri Dışa Aktar" />
     <string
       id="ret_feat_completed_title"
       text="Başarı Tamamlandı" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="Askerin Adını Değiştir" />
+    <string
+      id="ret_reset_all"
+      text="Tüm Askeri Verileri Sıfırla" />
+    <string
+      id="ret_reset_all_body"
+      text="Bu, tüm kültür askeri verilerini varsayılan değerlerine sıfırlayacaktır. Oyuncu klanı ve krallık askerleri etkilenmeyecektir.{newline}{newline}Devam edilsin mi?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Tüm kültür askerleri, oyunu kaydedip yeniden yüklediğinizde sıfırlanacaktır." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Kültür Askerleri Sıfırlama" />
     <string
       id="ret_retinue"
       text="Yandaş" />

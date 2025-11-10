@@ -245,8 +245,20 @@
       id="ret_editor_help_tooltip_text"
       text="Öffne die Online-Dokumentation zu Gefolgschaften." />
     <string
+      id="ret_editor_import_btn"
+      text="Importieren" />
+    <string
+      id="ret_editor_import_pick_body"
+      text="Wähle die zu importierende XML-Datei aus. Dadurch werden deine aktuellen Kulturtruppendefinitionen ersetzt." />
+    <string
+      id="ret_editor_import_pick_title"
+      text="Truppen importieren" />
+    <string
       id="ret_empty_item"
       text="Leer" />
+    <string
+      id="ret_enter_file_name"
+      text="Dateinamen eingeben:" />
     <string
       id="ret_enter_new_name"
       text="Neuen Namen eingeben:" />
@@ -274,6 +286,9 @@
     <string
       id="ret_equipment_requirement"
       text="Fähigkeit ist für ausgerüstete Gegenstände erforderlich." />
+    <string
+      id="ret_export_all_cultural_troops"
+      text="Alle Truppen exportieren" />
     <string
       id="ret_feat_completed_title"
       text="Errungenschaft abgeschlossen" />
@@ -961,6 +976,18 @@
     <string
       id="ret_rename_troop"
       text="Truppe umbenennen" />
+    <string
+      id="ret_reset_all"
+      text="Alle Truppendaten zurücksetzen" />
+    <string
+      id="ret_reset_all_body"
+      text="Dies wird alle Kulturdaten der Truppen auf ihre Standardwerte zurücksetzen. Die Truppen des Spielerclans und -königreichs werden nicht betroffen sein.{newline}{newline}Fortfahren?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Alle Kulturtruppen werden beim Speichern und Neuladen des Spiels zurückgesetzt." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Kulturtruppen zurücksetzen" />
     <string
       id="ret_retinue"
       text="Gefolgschaft" />
