@@ -461,7 +461,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.S(
                         "hint_last_enabled",
-                        "At least one battle set must remain enabled for field battles."
+                        "At least one battle set must remain enabled for each battle type."
                     )
                 )
             : Tooltip.MakeTooltip(null, L.S("hint_field_ok", "Available in field battles."));
@@ -478,7 +478,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.S(
                         "hint_last_enabled",
-                        "At least one battle set must remain enabled for siege defense."
+                        "At least one battle set must remain enabled for each battle type."
                     )
                 )
             : Tooltip.MakeTooltip(null, L.S("hint_def_ok", "Available while defending a siege."));
@@ -495,7 +495,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.S(
                         "hint_last_enabled",
-                        "At least one battle set must remain enabled for siege assault."
+                        "At least one battle set must remain enabled for each battle type."
                     )
                 )
             : Tooltip.MakeTooltip(
