@@ -366,7 +366,7 @@
       text="Dostępne w bitwach polowych." />
     <string
       id="ret_hint_last_enabled"
-      text="Co najmniej jeden zestaw bitewny musi pozostać włączony do bitew polowych." />
+      text="Co najmniej jeden zestaw bitewny musi pozostać włączony dla każdego typu bitwy." />
     <string
       id="ret_hint_set_disabled"
       text="Nie można włączyć dla zestawów cywilnych." />
@@ -660,7 +660,7 @@
       text="Eksperymentalne: Włącz Kontrolę Wyglądu" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Dodaje kontrolki dostosowywania wyglądu (wiek, wzrost, waga, budowa). Eksperymentalne: może mieć niezamierzone konsekwencje." />
+      text="Dodaje kontrolki dostosowywania wyglądu (wiek, wzrost, waga, budowa)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Zmiana Wyposażenia Jednostek Zajmuje Czas" />

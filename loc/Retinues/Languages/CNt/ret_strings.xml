@@ -366,7 +366,7 @@
       text="在野戰中可用。" />
     <string
       id="ret_hint_last_enabled"
-      text="至少必須為野戰保留一個啟用的戰鬥套裝。" />
+      text="每種戰鬥類型至少必須保留一個啟用的戰鬥套裝。" />
     <string
       id="ret_hint_set_disabled"
       text="無法為平民套裝啟用。" />
@@ -660,7 +660,7 @@
       text="實驗性：啟用外觀控制" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="添加外觀自定義控制（年齡、身高、體重、體型）。實驗性：可能會有意想不到的後果。" />
+      text="添加外觀自定義控制（年齡、身高、體重、體型）。" />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="更換部隊裝備需要時間" />

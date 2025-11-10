@@ -366,7 +366,7 @@
       text="Available in field battles." />
     <string
       id="ret_hint_last_enabled"
-      text="At least one battle set must remain enabled for field battles." />
+      text="At least one battle set must remain enabled for each battle type." />
     <string
       id="ret_hint_set_disabled"
       text="Can&apos;t enable for civilian sets." />
@@ -657,10 +657,10 @@
       text="Enable the Doctrines system and its features." />
     <string
       id="ret_mcm_option_enable_troop_customization"
-      text="Experimental: Enable Appearance Controls" />
+      text="Enable Appearance Controls" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences." />
+      text="Adds appearance customization controls (age, height, weight, build)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Changing Troop Equipment Takes Time" />

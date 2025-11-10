@@ -366,7 +366,7 @@
       text="Disponibile nelle battaglie campali." />
     <string
       id="ret_hint_last_enabled"
-      text="Almeno un set di battaglia deve rimanere abilitato per le battaglie campali." />
+      text="Almeno un set di battaglia deve rimanere abilitato per ogni tipo di battaglia." />
     <string
       id="ret_hint_set_disabled"
       text="Impossibile abilitare per set civili." />
@@ -660,7 +660,7 @@
       text="Sperimentale: Abilita Controlli Aspetto" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Aggiunge controlli di personalizzazione dell’aspetto (età, altezza, peso, corporatura). Sperimentale: potrebbe avere conseguenze indesiderate." />
+      text="Aggiunge controlli di personalizzazione dell’aspetto (età, altezza, peso, corporatura)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Cambiare l’Equipaggiamento delle Truppe Richiede Tempo" />

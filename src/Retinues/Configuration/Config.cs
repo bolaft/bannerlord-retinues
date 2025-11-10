@@ -309,19 +309,19 @@ namespace Retinues.Configuration
             name: () =>
                 L.S(
                     "mcm_option_enable_troop_customization",
-                    "Experimental: Enable Appearance Controls"
+                    "Enable Appearance Controls"
                 ),
             key: "EnableTroopCustomization",
             hint: () =>
                 L.S(
                     "mcm_option_enable_troop_customization_hint",
-                    "Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences."
+                    "Adds appearance customization controls (age, height, weight, build)."
                 ),
-            @default: false,
+            @default: true,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = false,
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
             }
         );
 

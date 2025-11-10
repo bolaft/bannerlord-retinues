@@ -366,7 +366,7 @@
       text="Disponível em batalhas campais." />
     <string
       id="ret_hint_last_enabled"
-      text="Pelo menos um conjunto de batalha deve permanecer ativado para batalhas campais." />
+      text="Pelo menos um conjunto de batalha deve permanecer ativado para cada tipo de batalha." />
     <string
       id="ret_hint_set_disabled"
       text="Não é possível ativar para conjuntos civis." />
@@ -660,7 +660,7 @@
       text="Experimental: Ativar Controles de Aparência" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Adiciona controles de personalização de aparência (idade, altura, peso, físico). Experimental: pode ter consequências inesperadas." />
+      text="Adiciona controles de personalização de aparência (idade, altura, peso, físico)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Trocar Equipamento de Tropas Leva Tempo" />

@@ -366,7 +366,7 @@
       text="Saha savaşlarında kullanılabilir." />
     <string
       id="ret_hint_last_enabled"
-      text="Saha savaşları için en az bir savaş seti etkin kalmalıdır." />
+      text="Her savaş türü için en az bir savaş seti etkin kalmalıdır." />
     <string
       id="ret_hint_set_disabled"
       text="Sivil setler için etkinleştirilemez." />
@@ -660,7 +660,7 @@
       text="Deneysel: Görünüm Kontrollerini Etkinleştir" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Görünüm özelleştirme kontrolleri ekler (yaş, boy, kilo, yapı). Deneysel: istenmeyen sonuçlara yol açabilir." />
+      text="Görünüm özelleştirme kontrolleri ekler (yaş, boy, kilo, yapı)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Asker Teçhizatını Değiştirmek Zaman Alır" />

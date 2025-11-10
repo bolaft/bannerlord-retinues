@@ -366,7 +366,7 @@
       text="Disponible dans les batailles rangées." />
     <string
       id="ret_hint_last_enabled"
-      text="Au moins un ensemble de bataille doit rester activé pour les batailles rangées." />
+      text="Au moins un ensemble de bataille doit rester activé pour chaque type de bataille." />
     <string
       id="ret_hint_set_disabled"
       text="Impossible d’activer pour les ensembles civils." />
@@ -660,7 +660,7 @@
       text="Expérimental : Activer les Contrôles d’Apparence" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Ajoute des contrôles de personnalisation de l’apparence (âge, taille, poids, carrure). Expérimental : peut avoir des conséquences inattendues." />
+      text="Ajoute des contrôles de personnalisation de l’apparence (âge, taille, poids, carrure)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Changer l’équipement des troupes prend du temps" />

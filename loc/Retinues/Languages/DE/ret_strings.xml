@@ -366,7 +366,7 @@
       text="Verfügbar in Feldschlachten." />
     <string
       id="ret_hint_last_enabled"
-      text="Mindestens ein Kampfsatz muss für Feldschlachten aktiviert bleiben." />
+      text="Mindestens ein Kampfsatz muss für jeden Kampftyp aktiviert bleiben." />
     <string
       id="ret_hint_set_disabled"
       text="Kann für zivile Sets nicht aktiviert werden." />
@@ -660,7 +660,7 @@
       text="Experimentell: Erscheinungskontrollen aktivieren" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Fügt Anpassungskontrollen für das Aussehen hinzu (Alter, Größe, Gewicht, Körperbau). Experimentell: kann unbeabsichtigte Folgen haben." />
+      text="Fügt Anpassungskontrollen für das Aussehen hinzu (Alter, Größe, Gewicht, Körperbau)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Das Ändern der Truppenausrüstung dauert" />

@@ -366,7 +366,7 @@
       text="野戦で利用可能。" />
     <string
       id="ret_hint_last_enabled"
-      text="野戦用に少なくとも1つの戦闘セットを有効にしておく必要があります。" />
+      text="各戦闘タイプに対して、少なくとも1つの戦闘セットを有効にしておく必要があります。" />
     <string
       id="ret_hint_set_disabled"
       text="民間用セットには有効にできません。" />
@@ -660,7 +660,7 @@
       text="実験的：外観コントロールを有効化" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="外観のカスタマイズコントロールを追加します（年齢、身長、体重、体型）。実験的：予期しない結果をもたらす可能性があります。" />
+      text="外観のカスタマイズコントロールを追加します（年齢、身長、体重、体型）。" />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="部隊の装備を変更するには時間がかかります" />
