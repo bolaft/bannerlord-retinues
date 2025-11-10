@@ -31,9 +31,6 @@ namespace Retinues.Features.Missions.Patches
                 if (troop.IsHero)
                     return; // Don't affect heroes
 
-                // if (!troop.IsCustom)
-                //     return; // Only affect custom troops
-
                 if (Mission.Current?.GetMissionBehavior<TournamentBehavior>() != null)
                     return; // Don't modify equipment in tournaments
 
@@ -69,10 +66,7 @@ namespace Retinues.Features.Missions.Patches
                         var we = all[i];
                         if (we.IsCivilian)
                             continue;
-                        if (
-                            !troop.IsCustom
-                            || CombatEquipmentBehavior.IsEnabled(troop, i, battleType)
-                        )
+                        if (CombatEquipmentBehavior.IsEnabled(troop, i, battleType))
                             eligible.Add(we);
                     }
 
