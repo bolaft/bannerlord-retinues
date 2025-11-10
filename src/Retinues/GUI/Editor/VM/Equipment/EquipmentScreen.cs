@@ -554,7 +554,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             bool targetCivilian = !eq.IsCivilian;
 
             // Only need the warning when we're switching TO civilian (and not studio mode).
-            if (targetCivilian && !EditorVM.IsStudioMode)
+            if (targetCivilian)
             {
                 var badSlots = new List<EquipmentIndex>();
                 var badItems = new List<WItem>();
@@ -595,7 +595,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                                 {
                                     var slot = badSlots[i];
                                     var it = eq.Get(slot);
-                                    it?.Stock(); // keep it available in stocks
+                                    if (!EditorVM.IsStudioMode)
+                                        it?.Stock(); // keep it available in stocks
                                     eq.UnstageItem(slot); // clear any pending staged change
                                     eq.UnsetItem(slot); // remove from the set
                                 }
