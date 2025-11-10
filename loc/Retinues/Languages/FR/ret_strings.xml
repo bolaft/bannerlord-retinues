@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="Changer de Race" />
     <string
+      id="ret_civilian_hint"
+      text="Active ou désactive cet ensemble pour une utilisation civile." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Au moins un équipement civil doit être conservé." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Au moins un équipement de combat doit être conservé." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="Le premier équipement doit rester un équipement de combat." />
+    <string
       id="ret_clan_troops_button_text"
       text="Troupes du Clan" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="Féminin" />
     <string
-      id="ret_field_battle_hint"
-      text="Active ou désactive cet ensemble pour les batailles rangées." />
-    <string
       id="ret_formation_auto"
       text="Auto" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="Masquer les objets fabriqués." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Disponible lors de l’assaut d’un siège." />
+    <string
+      id="ret_hint_def_ok"
+      text="Disponible lors de la défense d’un siège." />
+    <string
+      id="ret_hint_field_ok"
+      text="Disponible dans les batailles rangées." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Au moins un ensemble de bataille doit rester activé pour les batailles rangées." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Impossible d’activer pour les ensembles civils." />
     <string
       id="ret_horse_harness_slot_text"
       text="Harnais" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="Réduire la compétence de cette troupe ne remboursera aucun point d’expérience. Continuer quand même ?" />
     <string
+      id="ret_make_civilian_title"
+      text="Définir l’ensemble comme civil ?" />
+    <string
       id="ret_male"
       text="Masculin" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Si un fief est à la fois un fief de clan et un fief royal, les troupes de clan seront prioritaires sur les troupes royales." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Copier tous les ensembles lors du clonage." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Lors du clonage de l’équipement des troupes, copiez tous les ensembles d’équipement au lieu d’un seul ensemble de combat et d’un ensemble civil." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Mode Débogage" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="Sélection de la la culture" />
     <string
-      id="ret_set_alt_n"
-      text="Alt {N}" />
-    <string
-      id="ret_set_battle"
-      text="Bataille" />
-    <string
-      id="ret_set_civilian"
-      text="Civil" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="Débloque la doctrine « Traditions Claniques » pour afficher les objets forgés." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="Seuls les emplacements d&apos;armes peuvent contenir des objets forgés." />
-    <string
-      id="ret_siege_assault_hint"
-      text="Activer ou désactiver cet ensemble pour les assauts de siège." />
-    <string
-      id="ret_siege_defense_hint"
-      text="Activer ou désactiver cet ensemble pour la défense de siège." />
     <string
       id="ret_skill_at_cap"
       text="La compétence a atteint son maximum pour cette troupe." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="Rang" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Cet ensemble contient {COUNT} objet(s) non civil(s). Ils seront déséquipés si vous continuez.{newline}{newline}Continuer ?" />
     <string
       id="ret_train_complete"
       text="Entraînement Terminé" />

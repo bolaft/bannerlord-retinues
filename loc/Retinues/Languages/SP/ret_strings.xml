@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="Cambiar Raza" />
     <string
+      id="ret_civilian_hint"
+      text="Activa o desactiva este conjunto para uso civil." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Debes mantener al menos un conjunto civil." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Debes mantener al menos un conjunto de batalla." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="El primer conjunto debe seguir siendo un conjunto de batalla." />
+    <string
       id="ret_clan_troops_button_text"
       text="Tropas del Clan" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="Femenino" />
     <string
-      id="ret_field_battle_hint"
-      text="Activa o desactiva este conjunto para batallas campales." />
-    <string
       id="ret_formation_auto"
       text="Auto" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="Ocultar objetos fabricados." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Disponible al asaltar un sitio." />
+    <string
+      id="ret_hint_def_ok"
+      text="Disponible al defender un sitio." />
+    <string
+      id="ret_hint_field_ok"
+      text="Disponible en batallas campales." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Al menos un conjunto de batalla debe permanecer activado para batallas campales." />
+    <string
+      id="ret_hint_set_disabled"
+      text="No se puede activar para conjuntos civiles." />
     <string
       id="ret_horse_harness_slot_text"
       text="Arnés" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="Reducir la habilidad de esta tropa no reembolsará experiencia. ¿Continuar de todos modos?" />
     <string
+      id="ret_make_civilian_title"
+      text="¿Hacer el conjunto civil?" />
+    <string
       id="ret_male"
       text="Masculino" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Si un feudo es tanto de clan como del reino, las tropas de clan tendrán prioridad sobre las tropas del reino." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Copiar Todos los Conjuntos al Clonar" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Al clonar el equipo de las tropas, copia todos los conjuntos de equipo en lugar de solo un conjunto de batalla y un conjunto civil." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo Depuración" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="Seleccionar Cultura" />
     <string
-      id="ret_set_alt_n"
-      text="Alt {N}" />
-    <string
-      id="ret_set_battle"
-      text="Batalla" />
-    <string
-      id="ret_set_civilian"
-      text="Civil" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="Desbloquea la doctrina &apos;Tradiciones Clánicas&apos; para mostrar objetos fabricados." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="Solo los espacios de armas pueden tener objetos fabricados." />
-    <string
-      id="ret_siege_assault_hint"
-      text="Habilita o deshabilita este conjunto para asalto de asedio." />
-    <string
-      id="ret_siege_defense_hint"
-      text="Habilita o deshabilita este conjunto para defensa de asedio." />
     <string
       id="ret_skill_at_cap"
       text="La habilidad ha alcanzado el límite para esta tropa." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="Nivel" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Este conjunto tiene {COUNT} objeto(s) no civil(es). Se desequiparán si continúas.{newline}{newline}¿Continuar?" />
     <string
       id="ret_train_complete"
       text="Entrenamiento Completo" />

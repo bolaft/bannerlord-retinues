@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="Change Race" />
     <string
+      id="ret_civilian_hint"
+      text="Enable or disable this set for civilian use." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="You must keep at least one civilian set." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="You must keep at least one battle set." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="The first set must remain a battle set." />
+    <string
       id="ret_clan_troops_button_text"
       text="Clan Troops" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="Female" />
     <string
-      id="ret_field_battle_hint"
-      text="Enable or disable this set for field battles." />
-    <string
       id="ret_formation_auto"
       text="Auto" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="Hide crafted items." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Available while assaulting a siege." />
+    <string
+      id="ret_hint_def_ok"
+      text="Available while defending a siege." />
+    <string
+      id="ret_hint_field_ok"
+      text="Available in field battles." />
+    <string
+      id="ret_hint_last_enabled"
+      text="At least one battle set must remain enabled for field battles." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Can&apos;t enable for civilian sets." />
     <string
       id="ret_horse_harness_slot_text"
       text="Harness" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="Lowering this troop&apos;s skill will not refund any experience points. Continue anyway?" />
     <string
+      id="ret_make_civilian_title"
+      text="Make set civilian?" />
+    <string
       id="ret_male"
       text="Male" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Copy All Sets When Cloning" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="When cloning troop equipment, copy all equipment sets instead of just one battle and one civilian set." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="Select Culture" />
     <string
-      id="ret_set_alt_n"
-      text="Alt {N}" />
-    <string
-      id="ret_set_battle"
-      text="Battle" />
-    <string
-      id="ret_set_civilian"
-      text="Civilian" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="Unlock the &apos;Clanic Traditions&apos; doctrine to show crafted items." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="Only weapon slots can have crafted items." />
-    <string
-      id="ret_siege_assault_hint"
-      text="Enable or disable this set for siege assault." />
-    <string
-      id="ret_siege_defense_hint"
-      text="Enable or disable this set for siege defense." />
     <string
       id="ret_skill_at_cap"
       text="Skill is at cap for this troop." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="Tier" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="This set has {COUNT} non-civilian item(s). They will be unequipped if you continue.{newline}{newline}Proceed?" />
     <string
       id="ret_train_complete"
       text="Training Complete" />

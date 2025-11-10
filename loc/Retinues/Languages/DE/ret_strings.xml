@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="Rasse ändern" />
     <string
+      id="ret_civilian_hint"
+      text="Aktiviere oder deaktiviere dieses Set für den zivilen Gebrauch." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Du musst mindestens ein Zivilset behalten." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Du musst mindestens ein Kampfausrüstungsset behalten." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="Das erste Set muss ein Kampfausrüstungsset bleiben." />
+    <string
       id="ret_clan_troops_button_text"
       text="Clantruppen" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="Weiblich" />
     <string
-      id="ret_field_battle_hint"
-      text="Aktiviere oder deaktiviere dieses Set für Feldschlachten." />
-    <string
       id="ret_formation_auto"
       text="Auto" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="Verstecke hergestellte Gegenstände." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Verfügbar beim Angriff auf eine Belagerung." />
+    <string
+      id="ret_hint_def_ok"
+      text="Verfügbar beim Verteidigen einer Belagerung." />
+    <string
+      id="ret_hint_field_ok"
+      text="Verfügbar in Feldschlachten." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Mindestens ein Kampfsatz muss für Feldschlachten aktiviert bleiben." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Kann für zivile Sets nicht aktiviert werden." />
     <string
       id="ret_horse_harness_slot_text"
       text="Zaumzeug" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="Das Senken dieser Truppenfertigkeit erstattet keine EP zurück. Trotzdem fortfahren?" />
     <string
+      id="ret_make_civilian_title"
+      text="Set als zivil festlegen?" />
+    <string
       id="ret_male"
       text="Männlich" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Wenn ein Lehen sowohl ein Klanlehen als auch ein Königreichslehen ist, werden Klantruppen gegenüber Königreichstruppen priorisiert." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Alle Ausrüstungssets beim Klonen kopieren." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Beim Klonen von Truppenausrüstung alle Ausrüstungssets kopieren, anstatt nur ein Kampf- und ein Zivilset." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="Kultur auswählen" />
     <string
-      id="ret_set_alt_n"
-      text="Alt {N}" />
-    <string
-      id="ret_set_battle"
-      text="Schlacht" />
-    <string
-      id="ret_set_civilian"
-      text="Zivilist" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="Schalte die Doktrin &apos;Klantraditionen&apos; frei, um hergestellte Gegenstände anzuzeigen." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="Nur Waffenslots können hergestellte Gegenstände haben." />
-    <string
-      id="ret_siege_assault_hint"
-      text="Aktiviere oder deaktiviere dieses Set für Belagerungsangriffe." />
-    <string
-      id="ret_siege_defense_hint"
-      text="Aktiviere oder deaktiviere dieses Set für Belagerungsverteidigung." />
     <string
       id="ret_skill_at_cap"
       text="Fertigkeit ist für diese Truppe am Limit." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="Stufe" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Dieses Set hat {COUNT} nicht-zivile Gegenstände. Sie werden abgelegt, wenn du fortfährst.{newline}{newline}Fortfahren?" />
     <string
       id="ret_train_complete"
       text="Training Abgeschlossen" />

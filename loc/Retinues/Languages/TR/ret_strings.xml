@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="Irkı Değiştir" />
     <string
+      id="ret_civilian_hint"
+      text="Bu seti sivil kullanım için etkinleştir veya devre dışı bırak." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="En az bir sivil seti tutmalısın." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="En az bir savaş seti tutmalısın." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="İlk set bir savaş seti olarak kalmalıdır." />
+    <string
       id="ret_clan_troops_button_text"
       text="Klan Askerleri" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="Kadın" />
     <string
-      id="ret_field_battle_hint"
-      text="Bu seti saha savaşları için etkinleştir veya devre dışı bırak." />
-    <string
       id="ret_formation_auto"
       text="Oto" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="Üretilen eşyaları gizle." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Bir kuşatmayı saldırırken kullanılabilir." />
+    <string
+      id="ret_hint_def_ok"
+      text="Bir kuşatmayı savunurken kullanılabilir." />
+    <string
+      id="ret_hint_field_ok"
+      text="Saha savaşlarında kullanılabilir." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Saha savaşları için en az bir savaş seti etkin kalmalıdır." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Sivil setler için etkinleştirilemez." />
     <string
       id="ret_horse_harness_slot_text"
       text="Koşum" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="Bu askerin becerisini düşürmek deneyim puanı iadesi yapmayacak. Yine de devam edilsin mi?" />
     <string
+      id="ret_make_civilian_title"
+      text="Seti sivil yap?" />
+    <string
       id="ret_male"
       text="Erkek" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Eğer bir toprak hem klan toprağı hem de krallık toprağı ise, klan askerleri krallık askerlerine göre öncelikli olacaktır." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Klonlama sırasında tüm ekipman setlerini kopyala." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Asker teçhizatını klonlarken, sadece bir savaş ve bir sivil set yerine tüm teçhizat setlerini kopyalayın." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="Kültür Seç" />
     <string
-      id="ret_set_alt_n"
-      text="Yedek {N}" />
-    <string
-      id="ret_set_battle"
-      text="Savaş" />
-    <string
-      id="ret_set_civilian"
-      text="Sivil" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="&apos;Klan Gelenekleri&apos; doktrinini açarak el yapımı eşyaları göster." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="Yalnızca silah yuvaları el yapımı eşyalara sahip olabilir." />
-    <string
-      id="ret_siege_assault_hint"
-      text="Bu seti kuşatma saldırısı için etkinleştir veya devre dışı bırak." />
-    <string
-      id="ret_siege_defense_hint"
-      text="Bu seti kuşatma savunması için etkinleştir veya devre dışı bırak." />
     <string
       id="ret_skill_at_cap"
       text="Bu birliğin becerisi sınırda." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="Seviye" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Bu sette {COUNT} sivil olmayan eşya var. Devam ederseniz, bunların donanımı kaldırılacaktır.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_train_complete"
       text="Eğitim Tamamlandı" />

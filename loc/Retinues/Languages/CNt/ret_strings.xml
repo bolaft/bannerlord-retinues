@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="更改種族" />
     <string
+      id="ret_civilian_hint"
+      text="啟用或禁用此套裝以供平民使用。" />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="你必須至少保留一套平民裝備。" />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="你必須至少保留一套戰鬥裝備。" />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="第一個套裝必須保持為戰鬥裝備。" />
+    <string
       id="ret_clan_troops_button_text"
       text="家族部隊" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="女性" />
     <string
-      id="ret_field_battle_hint"
-      text="為野戰啟用或禁用此套裝。" />
-    <string
       id="ret_formation_auto"
       text="自動" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="隱藏製作的物品。" />
+    <string
+      id="ret_hint_assault_ok"
+      text="在攻擊圍城時可用。" />
+    <string
+      id="ret_hint_def_ok"
+      text="在防禦圍城時可用。" />
+    <string
+      id="ret_hint_field_ok"
+      text="在野戰中可用。" />
+    <string
+      id="ret_hint_last_enabled"
+      text="至少必須為野戰保留一個啟用的戰鬥套裝。" />
+    <string
+      id="ret_hint_set_disabled"
+      text="無法為平民套裝啟用。" />
     <string
       id="ret_horse_harness_slot_text"
       text="馬具" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="降低此部隊技能不會返還經驗值。仍要繼續嗎？" />
     <string
+      id="ret_make_civilian_title"
+      text="將套裝設為民用？" />
+    <string
       id="ret_male"
       text="男性" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="如果一個領地既是氏族領地又是王國領地，則氏族部隊將優先於王國部隊。" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="克隆部队装备时复制所有装备套装" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="克隆部队装备时，复制所有装备套装，而不仅仅是一个战斗套装和一个平民套装。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="除錯模式" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="選擇文化" />
     <string
-      id="ret_set_alt_n"
-      text="備用 {N}" />
-    <string
-      id="ret_set_battle"
-      text="戰鬥" />
-    <string
-      id="ret_set_civilian"
-      text="平民" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="解鎖“氏族傳統”信條以顯示手工製作的物品。" />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="只有武器槽可以擁有手工製作的物品。" />
-    <string
-      id="ret_siege_assault_hint"
-      text="為攻城戰啟用或禁用此套裝。" />
-    <string
-      id="ret_siege_defense_hint"
-      text="為守城戰啟用或禁用此套裝。" />
     <string
       id="ret_skill_at_cap"
       text="該部隊的技能已達上限。" />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="等級" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="此套裝有 {COUNT} 個非平民物品。如果繼續，它們將被卸下。{newline}{newline}繼續？" />
     <string
       id="ret_train_complete"
       text="訓練完成" />

@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="종족 변경" />
     <string
+      id="ret_civilian_hint"
+      text="이 세트를 민간용으로 사용하도록 활성화하거나 비활성화하십시오." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="최소한 하나의 민간용 세트를 유지해야 합니다." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="최소한 하나의 전투용 세트를 유지해야 합니다." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="첫 번째 세트는 전투용 세트로 유지되어야 합니다." />
+    <string
       id="ret_clan_troops_button_text"
       text="가문 병력" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="여성" />
     <string
-      id="ret_field_battle_hint"
-      text="야전 전투에 이 세트를 활성화 또는 비활성화하십시오." />
-    <string
       id="ret_formation_auto"
       text="자동" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="제작된 아이템 숨기기." />
+    <string
+      id="ret_hint_assault_ok"
+      text="공성 공격 시 사용 가능." />
+    <string
+      id="ret_hint_def_ok"
+      text="공성 방어 시 사용 가능." />
+    <string
+      id="ret_hint_field_ok"
+      text="야전 전투에서 사용 가능." />
+    <string
+      id="ret_hint_last_enabled"
+      text="야전 전투를 위해 최소한 하나의 전투 세트가 활성 상태로 유지되어야 합니다." />
+    <string
+      id="ret_hint_set_disabled"
+      text="민간인 세트에는 활성화할 수 없습니다." />
     <string
       id="ret_horse_harness_slot_text"
       text="마구" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="이 병력의 기술을 낮춰도 경험치가 환급되지 않습니다. 계속하시겠습니까?" />
     <string
+      id="ret_make_civilian_title"
+      text="세트를 민간용으로 설정하시겠습니까?" />
+    <string
       id="ret_male"
       text="남성" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="영지가 씨족 영지이자 왕국 영지인 경우 씨족 병력이 왕국 병력보다 우선합니다." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="부대 장비를 복제할 때 모든 장비 세트를 복사합니다." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="부대 장비를 복제할 때 전투 세트와 민간 세트 하나만이 아닌 모든 장비 세트를 복사합니다." />
     <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="문화 선택" />
     <string
-      id="ret_set_alt_n"
-      text="대체 {N}" />
-    <string
-      id="ret_set_battle"
-      text="전투" />
-    <string
-      id="ret_set_civilian"
-      text="민간인" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="&apos;씨족 전통&apos; 교리를 잠금 해제하여 제작된 아이템을 표시하십시오." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="무기 슬롯만 제작된 아이템을 가질 수 있습니다." />
-    <string
-      id="ret_siege_assault_hint"
-      text="공성 공격을 위해 이 세트를 활성화 또는 비활성화하십시오." />
-    <string
-      id="ret_siege_defense_hint"
-      text="공성 방어를 위해 이 세트를 활성화 또는 비활성화하십시오." />
     <string
       id="ret_skill_at_cap"
       text="이 병력의 기술이 한계에 도달했습니다." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="등급" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="이 세트에는 {COUNT} 개의 비민간인 아이템이 있습니다. 계속하면 장착 해제됩니다.{newline}{newline}계속하시겠습니까?" />
     <string
       id="ret_train_complete"
       text="훈련 완료" />

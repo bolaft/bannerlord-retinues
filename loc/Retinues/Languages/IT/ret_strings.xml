@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="Cambia Razza" />
     <string
+      id="ret_civilian_hint"
+      text="Abilita o disabilita questo set per uso civile." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Devi mantenere almeno un set civile." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Devi mantenere almeno un set da battaglia." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="Il primo set deve rimanere un set da battaglia." />
+    <string
       id="ret_clan_troops_button_text"
       text="Truppe del Clan" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="Femminile" />
     <string
-      id="ret_field_battle_hint"
-      text="Abilita o disabilita questo set per le battaglie campali." />
-    <string
       id="ret_formation_auto"
       text="Auto" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="Nascondi gli oggetti creati." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Disponibile durante l’assalto a un assedio." />
+    <string
+      id="ret_hint_def_ok"
+      text="Disponibile durante la difesa di un assedio." />
+    <string
+      id="ret_hint_field_ok"
+      text="Disponibile nelle battaglie campali." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Almeno un set di battaglia deve rimanere abilitato per le battaglie campali." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Impossibile abilitare per set civili." />
     <string
       id="ret_horse_harness_slot_text"
       text="Bardatura" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="Abbassare l’abilità di questa truppa non rimborserà punti esperienza. Continuare comunque?" />
     <string
+      id="ret_make_civilian_title"
+      text="Impostare il set come civile?" />
+    <string
       id="ret_male"
       text="Maschile" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Se un feudo è sia un feudo di clan che un feudo del regno, le truppe di clan avranno la priorità sulle truppe del regno." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Copia tutti i set durante la clonazione." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Durante la clonazione dell’equipaggiamento delle truppe, copia tutti i set di equipaggiamento invece di un solo set da battaglia e un set civile." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modalità Debug" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="Seleziona Cultura" />
     <string
-      id="ret_set_alt_n"
-      text="Alt {N}" />
-    <string
-      id="ret_set_battle"
-      text="Battaglia" />
-    <string
-      id="ret_set_civilian"
-      text="Civile" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="Sblocca la dottrina &apos;Tradizioni Claniche&apos; per mostrare gli oggetti artigianali." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="Solo gli slot delle armi possono avere oggetti artigianali." />
-    <string
-      id="ret_siege_assault_hint"
-      text="Abilita o disabilita questo set per l&apos;assalto di assedio." />
-    <string
-      id="ret_siege_defense_hint"
-      text="Abilita o disabilita questo set per la difesa di assedio." />
     <string
       id="ret_skill_at_cap"
       text="L&apos;abilità ha raggiunto il limite per questa truppa." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="Livello" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Questo set ha {COUNT} oggetto(i) non civile(i). Verranno disequipaggiati se continui.{newline}{newline}Procedere?" />
     <string
       id="ret_train_complete"
       text="Addestramento Completo" />

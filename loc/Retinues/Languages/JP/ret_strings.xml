@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="種族を変更" />
     <string
+      id="ret_civilian_hint"
+      text="このセットを民間用に有効または無効にします。" />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="少なくとも1つの民間用セットを保持する必要があります。" />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="少なくとも1つの戦闘用セットを保持する必要があります。" />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="最初のセットは戦闘用セットのままでなければなりません。" />
+    <string
       id="ret_clan_troops_button_text"
       text="一族の兵士" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="女性" />
     <string
-      id="ret_field_battle_hint"
-      text="野戦用にこのセットを有効または無効にします。" />
-    <string
       id="ret_formation_auto"
       text="自動" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="作成したアイテムを非表示にします。" />
+    <string
+      id="ret_hint_assault_ok"
+      text="包囲攻撃中に利用可能。" />
+    <string
+      id="ret_hint_def_ok"
+      text="包囲防御中に利用可能。" />
+    <string
+      id="ret_hint_field_ok"
+      text="野戦で利用可能。" />
+    <string
+      id="ret_hint_last_enabled"
+      text="野戦用に少なくとも1つの戦闘セットを有効にしておく必要があります。" />
+    <string
+      id="ret_hint_set_disabled"
+      text="民間用セットには有効にできません。" />
     <string
       id="ret_horse_harness_slot_text"
       text="馬具" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="この兵のスキルを下げても経験値は返還されません。続行しますか？" />
     <string
+      id="ret_make_civilian_title"
+      text="セットを民間用にしますか？" />
+    <string
       id="ret_male"
       text="男性" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="領地が氏族領地であり王国領地である場合、氏族軍が王国軍より優先される。" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="部隊装備をクローンする際に、すべての装備セットをコピーします。" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="部隊装備をクローンする際に、戦闘用セットと平常用セットの1つずつだけでなく、すべての装備セットをコピーします。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="文化を選択" />
     <string
-      id="ret_set_alt_n"
-      text="予備 {N}" />
-    <string
-      id="ret_set_battle"
-      text="戦闘" />
-    <string
-      id="ret_set_civilian"
-      text="民間人" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="「氏族の伝統」教義を解除して、手作りのアイテムを表示します。" />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="武器スロットのみが手作りのアイテムを持つことができます。" />
-    <string
-      id="ret_siege_assault_hint"
-      text="攻城戦の突撃用にこのセットを有効または無効にします。" />
-    <string
-      id="ret_siege_defense_hint"
-      text="攻城戦の防御用にこのセットを有効または無効にします。" />
     <string
       id="ret_skill_at_cap"
       text="この部隊のスキルは上限に達しています。" />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="ランク" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="このセットには {COUNT} 個の非民間人アイテムがあります。続行するとそれらは装備解除されます。{newline}{newline}続行しますか？" />
     <string
       id="ret_train_complete"
       text="訓練完了" />

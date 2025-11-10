@@ -131,6 +131,18 @@
       id="ret_change_race_title"
       text="Сменить Расу" />
     <string
+      id="ret_civilian_hint"
+      text="Включите или отключите этот набор для гражданского использования." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Вы должны сохранить как минимум один гражданский набор." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Вы должны сохранить как минимум один боевой набор." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="Первый набор должен оставаться боевым набором." />
+    <string
       id="ret_clan_troops_button_text"
       text="Войска Клана" />
     <string
@@ -317,9 +329,6 @@
       id="ret_female"
       text="Женский" />
     <string
-      id="ret_field_battle_hint"
-      text="Включите или отключите этот набор для полевых боёв." />
-    <string
       id="ret_formation_auto"
       text="Авто" />
     <string
@@ -346,6 +355,21 @@
     <string
       id="ret_hide_crafted_hint"
       text="Скрыть созданные предметы." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Доступно при штурме осады." />
+    <string
+      id="ret_hint_def_ok"
+      text="Доступно при обороне осады." />
+    <string
+      id="ret_hint_field_ok"
+      text="Доступно в полевых боях." />
+    <string
+      id="ret_hint_last_enabled"
+      text="По крайней мере один боевой набор должен оставаться включённым для полевых боёв." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Невозможно включить для гражданских наборов." />
     <string
       id="ret_horse_harness_slot_text"
       text="Сбруя" />
@@ -515,6 +539,9 @@
       id="ret_lower_skill_no_refund"
       text="Понижение навыка этого войска не вернёт опыт. Всё равно продолжить?" />
     <string
+      id="ret_make_civilian_title"
+      text="Сделать набор гражданским?" />
+    <string
       id="ret_male"
       text="Мужской" />
     <string
@@ -598,6 +625,12 @@
     <string
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Если феод является как клановым, так и королевским, клановые войска будут иметь приоритет над королевскими." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Копировать все комплекты при клонировании." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="При клонировании снаряжения войск копируйте все комплекты снаряжения, а не только один боевой и один гражданский комплект." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />
@@ -1115,15 +1148,6 @@
       id="ret_select_culture_title"
       text="Выбрать Культуру" />
     <string
-      id="ret_set_alt_n"
-      text="Альт {N}" />
-    <string
-      id="ret_set_battle"
-      text="Битва" />
-    <string
-      id="ret_set_civilian"
-      text="Гражданский" />
-    <string
       id="ret_show_crafted_disabled_hint"
       text="Разблокируйте доктрину «Клановые традиции», чтобы показывать изготовленные предметы." />
     <string
@@ -1132,12 +1156,6 @@
     <string
       id="ret_show_crafted_weapon_hint"
       text="Только слоты для оружия могут содержать изготовленные предметы." />
-    <string
-      id="ret_siege_assault_hint"
-      text="Включите или отключите этот комплект для штурма осады." />
-    <string
-      id="ret_siege_defense_hint"
-      text="Включите или отключите этот комплект для обороны осады." />
     <string
       id="ret_skill_at_cap"
       text="Навык достиг предела для этой войсковой единицы." />
@@ -1192,6 +1210,9 @@
     <string
       id="ret_tier"
       text="Ранг" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="В этом наборе есть {COUNT} не гражданских предмет(ов). Они будут сняты, если вы продолжите.{newline}{newline}Продолжить?" />
     <string
       id="ret_train_complete"
       text="Обучение Завершено" />
