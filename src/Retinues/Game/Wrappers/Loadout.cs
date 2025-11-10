@@ -227,7 +227,7 @@ namespace Retinues.Game.Wrappers
             {
                 Equipments =
                 [
-                    .. loadout.Equipments.Select((eq, i) => WEquipment.FromCode(eq.Code, this, i)),
+                    .. loadout.Equipments.Select((eq, i) => WEquipment.FromCode(eq.Code, this, i, eq.IsCivilian)),
                 ];
                 EnsureMinimumSets();
                 Normalize();
