@@ -19,8 +19,11 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-using TaleWorlds.MountAndBlade.ViewModelCollection.Inquiries;
 using TaleWorlds.ObjectSystem;
+
+# if BL13
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
+# endif
 
 namespace Retinues.GUI.Editor.VM
 {
@@ -142,10 +145,17 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public string TroopStudioTitle => L.S("troop_studio_title", "Troop Editor");
 
+# if BL13
+        private BannerImageIdentifierVM _cultureBanner;
+
+        [DataSourceProperty]
+        public BannerImageIdentifierVM CultureBanner
+# else
         private ImageIdentifierVM _cultureBanner;
 
         [DataSourceProperty]
         public ImageIdentifierVM CultureBanner
+# endif
         {
             get => _cultureBanner;
             private set

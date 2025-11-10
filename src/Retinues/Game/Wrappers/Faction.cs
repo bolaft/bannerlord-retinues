@@ -14,7 +14,6 @@ namespace Retinues.Game.Wrappers
         public string Name { get; }
         public uint Color { get; }
         public uint Color2 { get; }
-        public string BannerCodeText { get; }
 
         public WCulture Culture { get; }
 

@@ -21,7 +21,7 @@ namespace Retinues.GUI.Editor.Menus
             try
             {
                 var title = L.T("troop_editor_button", "Troop Editor");
-                static Tuple<bool, TextObject> notDisabled() => new(false, TextObject.Empty);
+                static Tuple<bool, TextObject> notDisabled() => new(false, new TextObject(string.Empty));
 
                 void OnExecute(object _)
                 {

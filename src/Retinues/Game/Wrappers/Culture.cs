@@ -36,8 +36,6 @@ namespace Retinues.Game.Wrappers
 
         public uint Color2 => _culture?.Color2 ?? 0;
 
-        public string BannerCodeText => _culture?.BannerKey;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
