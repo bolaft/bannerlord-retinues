@@ -1053,13 +1053,13 @@
       text="Kaldır" />
     <string
       id="ret_remove_set_hint"
-      text="Yalnızca alternatif ekipman setlerini kaldırabilirsiniz." />
+      text="Bu türden en az bir set kalmalıdır." />
     <string
       id="ret_remove_set_text"
-      text="{TROOP_NAME} için {SET} kaldırılsın mı?{newline}Tüm aşamalı değişiklikler temizlenecek ve eşyalar donatılmayacak ve stoklanacaktır." />
+      text="{TROOP_NAME} için set n°{SET} kaldırılsın mı{newline}Tüm aşamalı değişiklikler temizlenecek ve eşyalar donatılmayacak ve stoklanacaktır." />
     <string
       id="ret_remove_set_text_studio"
-      text="{TROOP_NAME} için {SET} kaldırılsın mı?" />
+      text="{TROOP_NAME} için set n°{SET} kaldırılsın mı?" />
     <string
       id="ret_remove_set_title"
       text="Seti Kaldır" />

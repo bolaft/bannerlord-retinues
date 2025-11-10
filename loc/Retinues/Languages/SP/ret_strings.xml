@@ -1053,13 +1053,13 @@
       text="Eliminar" />
     <string
       id="ret_remove_set_hint"
-      text="Solo puedes eliminar conjuntos de equipo alternativos." />
+      text="Al menos un conjunto de este tipo debe permanecer." />
     <string
       id="ret_remove_set_text"
-      text="¿Eliminar {SET} para {TROOP_NAME}?{newline}Todos los cambios en curso se borrarán y los objetos se desequiparán y almacenarán." />
+      text="¿Eliminar el conjunto n°{SET} para {TROOP_NAME}?{newline}Todos los cambios en curso se borrarán y los objetos se desequiparán y almacenarán." />
     <string
       id="ret_remove_set_text_studio"
-      text="¿Eliminar {SET} para {TROOP_NAME}?" />
+      text="¿Eliminar el conjunto n°{SET} para {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Eliminar Conjunto" />

@@ -1053,13 +1053,13 @@
       text="Remove" />
     <string
       id="ret_remove_set_hint"
-      text="You can only remove alternate equipment sets." />
+      text="At least one set of this type must remain." />
     <string
       id="ret_remove_set_text"
-      text="Remove {EQUIPMENT} for {TROOP}?{newline}All staged changes will be cleared and items will be unequipped and stocked." />
+      text="Remove set n°{EQUIPMENT} for {TROOP}?{newline}All staged changes will be cleared and items will be unequipped and stocked." />
     <string
       id="ret_remove_set_text_studio"
-      text="Remove {EQUIPMENT} for {TROOP}?" />
+      text="Remove set n°{EQUIPMENT} for {TROOP}?" />
     <string
       id="ret_remove_set_title"
       text="Remove Set" />

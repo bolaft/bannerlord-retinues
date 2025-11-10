@@ -1053,13 +1053,13 @@
       text="Usuń" />
     <string
       id="ret_remove_set_hint"
-      text="Możesz usunąć tylko alternatywne zestawy wyposażenia." />
+      text="Przynajmniej jeden zestaw tego typu musi pozostać." />
     <string
       id="ret_remove_set_text"
-      text="Usunąć {SET} dla {TROOP_NAME}?{newline}Wszystkie wprowadzone zmiany zostaną usunięte, a przedmioty zostaną zdjęte i zmagazynowane." />
+      text="Usunąć zestaw nr {SET} dla {TROOP_NAME}?{newline}Wszystkie wprowadzone zmiany zostaną usunięte, a przedmioty zostaną zdjęte i zmagazynowane." />
     <string
       id="ret_remove_set_text_studio"
-      text="Usunąć {SET} dla {TROOP_NAME}?" />
+      text="Usunąć zestaw nr {SET} dla {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Usuń Zestaw" />

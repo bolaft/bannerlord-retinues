@@ -1053,13 +1053,13 @@
       text="Удалить" />
     <string
       id="ret_remove_set_hint"
-      text="Вы можете удалить только альтернативные комплекты экипировки." />
+      text="Должен остаться как минимум один комплект этого типа." />
     <string
       id="ret_remove_set_text"
-      text="Удалить {SET} для {TROOP_NAME}?{newline}Все внесенные изменения будут отменены, а предметы будут сняты и сохранены." />
+      text="Удалить комплект №{SET} для {TROOP_NAME}?{newline}Все внесенные изменения будут отменены, а предметы будут сняты и сохранены." />
     <string
       id="ret_remove_set_text_studio"
-      text="Удалить {SET} для {TROOP_NAME}?" />
+      text="Удалить комплект №{SET} для {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Удалить Комплект" />

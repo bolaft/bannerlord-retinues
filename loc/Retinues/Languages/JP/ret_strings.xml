@@ -1053,13 +1053,13 @@
       text="削除" />
     <string
       id="ret_remove_set_hint"
-      text="代替の装備セットのみを削除できます。" />
+      text="このタイプのセットが少なくとも1つは残っている必要があります。" />
     <string
       id="ret_remove_set_text"
-      text="{TROOP_NAME} の {SET} を削除しますか？{newline}すべての変更がクリアされ、アイテムは装備解除されて保管されます。" />
+      text="{TROOP_NAME} のセット n°{SET} を削除しますか？{newline}すべての変更がクリアされ、アイテムは装備解除されて保管されます。" />
     <string
       id="ret_remove_set_text_studio"
-      text="{TROOP_NAME} の {SET} を削除しますか？" />
+      text="{TROOP_NAME} のセット n°{SET} を削除しますか？" />
     <string
       id="ret_remove_set_title"
       text="セットを削除" />

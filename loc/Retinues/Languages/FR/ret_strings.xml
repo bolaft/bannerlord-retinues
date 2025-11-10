@@ -1053,13 +1053,13 @@
       text="Retirer" />
     <string
       id="ret_remove_set_hint"
-      text="Vous ne pouvez retirer que des ensembles d’équipement alternatifs." />
+      text="Au moins un ensemble de ce type doit rester." />
     <string
       id="ret_remove_set_text"
-      text="Retirer {SET} pour {TROOP_NAME} ?{newline}Tous les changements en cours seront annulés, et les objets seront déséquipés et stockés." />
+      text="Retirer l’ensemble n°{SET} pour {TROOP_NAME} ?{newline}Tous les changements en cours seront annulés, et les objets seront déséquipés et stockés." />
     <string
       id="ret_remove_set_text_studio"
-      text="Retirer {SET} pour {TROOP_NAME} ?" />
+      text="Retirer l’ensemble n°{SET} pour {TROOP_NAME} ?" />
     <string
       id="ret_remove_set_title"
       text="Supprimer l’ensemble" />

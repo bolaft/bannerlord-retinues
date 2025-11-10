@@ -1053,13 +1053,13 @@
       text="移除" />
     <string
       id="ret_remove_set_hint"
-      text="您只能移除备用装备套装。" />
+      text="此类型的至少一个套装必须保留。" />
     <string
       id="ret_remove_set_text"
-      text="为 {TROOP_NAME} 移除 {SET}？{newline}所有已分配的更改将被清除，物品将被卸下并存入库存。" />
+      text="为 {TROOP_NAME} 移除套装 n°{SET}？{newline}所有已分配的更改将被清除，物品将被卸下并存入库存。" />
     <string
       id="ret_remove_set_text_studio"
-      text="为 {TROOP_NAME} 移除 {SET}？" />
+      text="为 {TROOP_NAME} 移除套装 n°{SET}？" />
     <string
       id="ret_remove_set_title"
       text="移除套装" />

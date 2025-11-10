@@ -245,9 +245,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /* ━━━━ Equipment Sets ━━━━ */
 
         [DataSourceProperty]
-        public bool CanEditSets => State.Troop != null && !EditorVM.IsStudioMode;
-
-        [DataSourceProperty]
         public string EquipmentName => (State.Equipment?.Index + 1).ToString();
 
         [DataSourceProperty]
@@ -385,8 +382,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 ? null
                 : Tooltip.MakeTooltip(
                     null,
-                    L.T("remove_set_hint", "You can only remove alternate equipment sets.")
-                        .ToString()
+                    L.T("remove_set_hint", "At least one set of this type must remain.").ToString()
                 );
 
         [DataSourceProperty]
@@ -785,13 +781,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 new InquiryData(
                     L.S("remove_set_title", "Remove Set"),
                     EditorVM.IsStudioMode
-                        ? L.T("remove_set_text_studio", "Remove {EQUIPMENT} for {TROOP}?")
+                        ? L.T("remove_set_text_studio", "Remove set n°{EQUIPMENT} for {TROOP}?")
                             .SetTextVariable("EQUIPMENT", EquipmentName)
                             .SetTextVariable("TROOP", State.Troop.Name)
                             .ToString()
                         : L.T(
                                 "remove_set_text",
-                                "Remove {EQUIPMENT} for {TROOP}?\nAll staged changes will be cleared and items will be unequipped and stocked."
+                                "Remove set n°{EQUIPMENT} for {TROOP}?\nAll staged changes will be cleared and items will be unequipped and stocked."
                             )
                             .SetTextVariable("EQUIPMENT", EquipmentName)
                             .SetTextVariable("TROOP", State.Troop.Name)
@@ -803,8 +799,11 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     () =>
                     {
                         // Clear staged & unequip first
-                        State.Troop.UnequipAll(State.Equipment?.Index ?? 0, stock: true);
-                        State.Troop.UnstageAll(State.Equipment?.Index ?? 0, true);
+                        State.Troop.UnequipAll(
+                            State.Equipment?.Index ?? 0,
+                            stock: !EditorVM.IsStudioMode
+                        );
+                        State.Troop.UnstageAll(State.Equipment?.Index ?? 0, !EditorVM.IsStudioMode);
 
                         // Persist mask removal and remove the set
                         CombatEquipmentBehavior.OnRemoved(State.Troop, State.Equipment.Index);

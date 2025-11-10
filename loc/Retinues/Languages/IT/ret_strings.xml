@@ -1053,13 +1053,13 @@
       text="Rimuovi" />
     <string
       id="ret_remove_set_hint"
-      text="Puoi rimuovere solo set di equipaggiamento alternativi." />
+      text="Almeno un set di questo tipo deve rimanere." />
     <string
       id="ret_remove_set_text"
-      text="Rimuovere {SET} per {TROOP_NAME}?{newline}Tutte le modifiche in corso saranno annullate e gli oggetti verranno disequipaggiati e immagazzinati." />
+      text="Rimuovere il set n°{SET} per {TROOP_NAME}?{newline}Tutte le modifiche in corso saranno annullate e gli oggetti verranno disequipaggiati e immagazzinati." />
     <string
       id="ret_remove_set_text_studio"
-      text="Rimuovere {SET} per {TROOP_NAME}?" />
+      text="Rimuovere il set n°{SET} per {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Rimuovi Set" />
