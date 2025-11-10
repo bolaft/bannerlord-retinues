@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -117,6 +118,8 @@ namespace Retinues.Safety.Legacy
 
         private void OnGameLoadFinished()
         {
+            EnsureMainPartyLeader();
+
             if (LegacyTroopSaveLoader.TroopIdMap.Count == 0)
                 return; // No troops to swap
 
@@ -177,5 +180,30 @@ namespace Retinues.Safety.Legacy
         /// Returns true if the ID is a kingdom troop.
         /// </summary>
         public bool IsKingdom(string id) => id != null && id.Contains("_kingdom_");
+
+        /// <summary>
+        /// Ensures that the main party has the correct leader assigned.
+        /// </summary>
+        public static void EnsureMainPartyLeader()
+        {
+            var p = MobileParty.MainParty;
+            var h = Hero.MainHero;
+
+            if (p == null || h == null)
+                return;
+
+            if (p.LeaderHero == h)
+                return; // All good
+
+            Log.Info(
+                $"[Repair] Before: leader={p.LeaderHero?.Name} owner={p.LeaderHero?.Clan?.Leader?.Name} clanTier={p.LeaderHero?.Clan?.Tier}"
+            );
+
+            p.PartyComponent.ChangePartyLeader(h);
+
+            Log.Info(
+                $"[Repair] After:  leader={p.LeaderHero?.Name} owner={p.LeaderHero?.Clan?.Leader?.Name} clanTier={p.LeaderHero?.Clan?.Tier}"
+            );
+        }
     }
 }
