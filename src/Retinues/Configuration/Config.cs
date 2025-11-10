@@ -306,11 +306,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> EnableTroopCustomization = CreateOption(
             section: () => L.S("mcm_section_restrictions", "Restrictions"),
-            name: () =>
-                L.S(
-                    "mcm_option_enable_troop_customization",
-                    "Enable Appearance Controls"
-                ),
+            name: () => L.S("mcm_option_enable_troop_customization", "Enable Appearance Controls"),
             key: "EnableTroopCustomization",
             hint: () =>
                 L.S(
