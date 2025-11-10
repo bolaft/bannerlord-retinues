@@ -27,8 +27,8 @@ namespace Retinues.Features.Missions.Patches
                     return;
 
                 var troop = new WCharacter(character.StringId);
-                if (!troop.IsCustom)
-                    return; // Only affect custom troops
+                // if (!troop.IsCustom)
+                //     return; // Only affect custom troops
 
                 if (Mission.Current?.GetMissionBehavior<TournamentBehavior>() != null)
                     return; // Don't modify equipment in tournaments
@@ -59,7 +59,7 @@ namespace Retinues.Features.Missions.Patches
                     var eligible = new List<WEquipment> { troop.Loadout.Battle };
 
                     foreach (var alt in troop.Loadout.Alternates)
-                        if (CombatEquipmentBehavior.IsEnabled(troop, alt.Index, battleType))
+                        if (!troop.IsCustom || CombatEquipmentBehavior.IsEnabled(troop, alt.Index, battleType))
                             eligible.Add(alt);
 
                     // Fallback safety: if somehow none, force battle set.
