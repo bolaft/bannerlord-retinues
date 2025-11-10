@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="확인" />
     <string
+      id="ret_confirm_import_body"
+      text="기존 병력 정의가 대체됩니다." />
+    <string
+      id="ret_confirm_import_title"
+      text="가져오기를 적용하시겠습니까?" />
+    <string
       id="ret_continue"
       text="계속" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="온라인 수행원 문서를 엽니다." />
     <string
-      id="ret_editor_import_btn"
-      text="가져오기" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="가져올 XML 파일을 선택하십시오. 이렇게 하면 현재 문화 부대 정의가 대체됩니다." />
-    <string
-      id="ret_editor_import_pick_title"
-      text="부대 가져오기" />
-    <string
       id="ret_empty_item"
       text="비어 있음" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="장착된 아이템에는 기술이 필요합니다." />
     <string
-      id="ret_export_all_cultural_troops"
-      text="모든 부대 내보내기" />
+      id="ret_exp_culture_troops"
+      text="문화 병력" />
+    <string
+      id="ret_exp_player_troops"
+      text="플레이어 병력" />
+    <string
+      id="ret_export_done_body"
+      text="다음 위치로 내보내기: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="내보내기 완료" />
+    <string
+      id="ret_export_fail_title"
+      text="내보내기 실패" />
+    <string
+      id="ret_export_which_body"
+      text="하나 또는 둘 다 선택하십시오." />
+    <string
+      id="ret_export_which_title"
+      text="내보내기 선택" />
     <string
       id="ret_feat_completed_title"
       text="위업 달성" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="아군이 단 한 명도 죽지 않고 혼자서 100명 이상의 적을 물리치십시오." />
+    <string
+      id="ret_imp_culture_troops"
+      text="문화 병력" />
+    <string
+      id="ret_imp_player_troops"
+      text="플레이어 병력" />
+    <string
+      id="ret_import"
+      text="가져오기" />
+    <string
+      id="ret_import_done_body"
+      text="파일 {FILE}이(가) 성공적으로 가져와졌습니다." />
+    <string
+      id="ret_import_done_title"
+      text="가져오기 완료" />
+    <string
+      id="ret_import_empty_body"
+      text="파일에 병력이 포함되어 있지 않습니다." />
+    <string
+      id="ret_import_empty_title"
+      text="가져올 항목이 없습니다" />
+    <string
+      id="ret_import_fail_title"
+      text="가져오기 실패" />
+    <string
+      id="ret_import_pick_body"
+      text="가져올 내보낸 파일을 선택하십시오." />
+    <string
+      id="ret_import_pick_title"
+      text="병력 가져오기" />
+    <string
+      id="ret_import_which_body"
+      text="하나 또는 둘 다 선택하십시오." />
+    <string
+      id="ret_import_which_title"
+      text="가져오기 선택" />
     <string
       id="ret_in_stock"
       text="재고 ({STOCK})" />
@@ -504,31 +555,19 @@
       text="내보내기" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="모든 Retinues 맞춤 병력 정의를 XML 파일로 내보냅니다." />
+      text="병력 정의를 XML로 내보냅니다." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="병력을 XML로 내보내기" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="예: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="파일 이름" />
     <string
       id="ret_mcm_ie_import_btn"
       text="가져오기" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="XML 파일에서 모든 Retinues 맞춤 병력 정의를 가져옵니다." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="가져올 XML 파일을 선택하십시오. 이렇게 하면 현재 맞춤 병력 정의가 대체됩니다." />
+      text="XML에서 병력 정의를 가져옵니다." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="XML에서 가져오기" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="병력 가져오기" />
+      text="XML에서 병력 가져오기" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="모든 장비 해제됨" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
     <string
+      id="ret_no_exports_body"
+      text="Exports 폴더에서 유효한 내보내기 파일을 찾을 수 없습니다." />
+    <string
+      id="ret_no_exports_title"
+      text="내보내기가 없습니다" />
+    <string
       id="ret_no_races_text"
       text="사용 가능한 대체 종족이 없습니다." />
     <string
       id="ret_no_races_title"
       text="종족이 없습니다" />
+    <string
+      id="ret_no_selection_body"
+      text="선택된 파일이 없습니다." />
+    <string
+      id="ret_no_selection_title"
+      text="선택 없음" />
     <string
       id="ret_no_skill_points_left"
       text="이 병력에는 남은 스킬 포인트가 없습니다." />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="다음 스킬 포인트에 대한 충분한 XP가 없습니다." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="가져오기/내보내기 기능을 사용하기 전에 먼저 저장을 로드해야 합니다." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="캠페인 로드 안됨" />
     <string
       id="ret_not_in_clan_fief"
       text="씨족 영지에 없음" />

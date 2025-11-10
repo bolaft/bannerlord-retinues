@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="Confirm" />
     <string
+      id="ret_confirm_import_body"
+      text="This will replace existing troop definitions." />
+    <string
+      id="ret_confirm_import_title"
+      text="Apply Import?" />
+    <string
       id="ret_continue"
       text="Continue" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="Open the online Retinues documentation." />
     <string
-      id="ret_editor_import_btn"
-      text="Import" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="Select the XML file to import. This will replace your current culture troop definitions." />
-    <string
-      id="ret_editor_import_pick_title"
-      text="Import Troops" />
-    <string
       id="ret_empty_item"
       text="Empty" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="Skill is required for equipped items." />
     <string
-      id="ret_export_all_cultural_troops"
-      text="Export All Troops" />
+      id="ret_exp_culture_troops"
+      text="Culture Troops" />
+    <string
+      id="ret_exp_player_troops"
+      text="Player Troops" />
+    <string
+      id="ret_export_done_body"
+      text="Exported to: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Export Completed" />
+    <string
+      id="ret_export_fail_title"
+      text="Export Failed" />
+    <string
+      id="ret_export_which_body"
+      text="Select one or both." />
+    <string
+      id="ret_export_which_title"
+      text="Export Selection" />
     <string
       id="ret_feat_completed_title"
       text="Feat Completed" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Win by yourself against 100+ enemies without a single death on your side." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Culture Troops" />
+    <string
+      id="ret_imp_player_troops"
+      text="Player Troops" />
+    <string
+      id="ret_import"
+      text="Import" />
+    <string
+      id="ret_import_done_body"
+      text="File {FILE} imported successfully." />
+    <string
+      id="ret_import_done_title"
+      text="Import Completed" />
+    <string
+      id="ret_import_empty_body"
+      text="The file contains no troops." />
+    <string
+      id="ret_import_empty_title"
+      text="Nothing To Import" />
+    <string
+      id="ret_import_fail_title"
+      text="Import Failed" />
+    <string
+      id="ret_import_pick_body"
+      text="Select an exported file to import." />
+    <string
+      id="ret_import_pick_title"
+      text="Import Troops" />
+    <string
+      id="ret_import_which_body"
+      text="Select one or both." />
+    <string
+      id="ret_import_which_title"
+      text="Import Selection" />
     <string
       id="ret_in_stock"
       text="In Stock ({STOCK})" />
@@ -504,31 +555,19 @@
       text="Export" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Exports all Retinues custom troop definitions to an XML file." />
+      text="Exports troop definitions to XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Export Troops to XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Name of the exported file." />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="File name" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Import" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Imports all Retinues custom troop definitions from an XML file." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Select the XML file to import. This will replace your current custom troop definitions." />
+      text="Imports troop definitions from XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Import from XML" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Import Troops" />
+      text="Import Troops from XML" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="All Equipment Unlocked" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="No Cultures Found" />
     <string
+      id="ret_no_exports_body"
+      text="No valid export files were found in the Exports folder." />
+    <string
+      id="ret_no_exports_title"
+      text="No Exports Found" />
+    <string
       id="ret_no_races_text"
       text="No alternative races are available." />
     <string
       id="ret_no_races_title"
       text="No Races Found" />
+    <string
+      id="ret_no_selection_body"
+      text="No file was selected." />
+    <string
+      id="ret_no_selection_title"
+      text="No Selection" />
     <string
       id="ret_no_skill_points_left"
       text="No skill points left for this troop." />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="Not enough XP for next skill point." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="A save must be loaded first before using import/export functions." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="No Campaign Loaded" />
     <string
       id="ret_not_in_clan_fief"
       text="Not in Clan Fief" />

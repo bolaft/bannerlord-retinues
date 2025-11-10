@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="確認" />
     <string
+      id="ret_confirm_import_body"
+      text="這將替換現有的部隊定義。" />
+    <string
+      id="ret_confirm_import_title"
+      text="應用導入？" />
+    <string
       id="ret_continue"
       text="繼續" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="打開在線隨從文件。" />
     <string
-      id="ret_editor_import_btn"
-      text="導入" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="選擇要導入的XML文件。這將替換您當前的文化部隊定義。" />
-    <string
-      id="ret_editor_import_pick_title"
-      text="導入部隊" />
-    <string
       id="ret_empty_item"
       text="空" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="裝備物品需要技能。" />
     <string
-      id="ret_export_all_cultural_troops"
-      text="導出所有部隊" />
+      id="ret_exp_culture_troops"
+      text="文化部隊" />
+    <string
+      id="ret_exp_player_troops"
+      text="玩家部隊" />
+    <string
+      id="ret_export_done_body"
+      text="已導出到：{PATH}。" />
+    <string
+      id="ret_export_done_title"
+      text="導出完成" />
+    <string
+      id="ret_export_fail_title"
+      text="導出失敗" />
+    <string
+      id="ret_export_which_body"
+      text="選擇一個或兩個。" />
+    <string
+      id="ret_export_which_title"
+      text="導出選擇" />
     <string
       id="ret_feat_completed_title"
       text="成就完成" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="單槍匹馬戰勝100+敵人，且我方無一陣亡。" />
+    <string
+      id="ret_imp_culture_troops"
+      text="文化部隊" />
+    <string
+      id="ret_imp_player_troops"
+      text="玩家部隊" />
+    <string
+      id="ret_import"
+      text="導入" />
+    <string
+      id="ret_import_done_body"
+      text="文件 {FILE} 導入成功。" />
+    <string
+      id="ret_import_done_title"
+      text="導入完成" />
+    <string
+      id="ret_import_empty_body"
+      text="該文件不包含任何部隊。" />
+    <string
+      id="ret_import_empty_title"
+      text="無可導入內容" />
+    <string
+      id="ret_import_fail_title"
+      text="導入失敗" />
+    <string
+      id="ret_import_pick_body"
+      text="選擇要導入的導出文件。" />
+    <string
+      id="ret_import_pick_title"
+      text="導入部隊" />
+    <string
+      id="ret_import_which_body"
+      text="選擇一個或兩個。" />
+    <string
+      id="ret_import_which_title"
+      text="導入選擇" />
     <string
       id="ret_in_stock"
       text="庫存 ({STOCK})" />
@@ -504,31 +555,19 @@
       text="導出" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="將所有Retinues自定義部隊定義導出到XML文件。" />
+      text="將部隊定義導出為XML。" />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="將部隊導出為XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="示例: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="文件名" />
     <string
       id="ret_mcm_ie_import_btn"
       text="導入" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="從XML文件導入所有Retinues自定義部隊定義。" />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="選擇要導入的XML文件。這將替換您當前的自定義部隊定義。" />
+      text="從XML導入部隊定義。" />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="從XML導入" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="導入部隊" />
+      text="從XML導入部隊" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="所有裝備已解鎖" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="未找到文化" />
     <string
+      id="ret_no_exports_body"
+      text="在Exports文件夾中未找到有效的導出文件。" />
+    <string
+      id="ret_no_exports_title"
+      text="未找到導出" />
+    <string
       id="ret_no_races_text"
       text="沒有可用的替代種族。" />
     <string
       id="ret_no_races_title"
       text="未找到種族" />
+    <string
+      id="ret_no_selection_body"
+      text="未選擇任何文件。" />
+    <string
+      id="ret_no_selection_title"
+      text="未選擇" />
     <string
       id="ret_no_skill_points_left"
       text="這支部隊沒有剩餘的技能點。" />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="沒有足夠的經驗值獲得下一個技能點。" />
+    <string
+      id="ret_not_in_campaign_body"
+      text="在使用導入/導出功能之前，必須先加載一個存檔。" />
+    <string
+      id="ret_not_in_campaign_title"
+      text="未加載戰役" />
     <string
       id="ret_not_in_clan_fief"
       text="不在氏族領地" />

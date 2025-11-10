@@ -7,209 +7,518 @@ using System.Xml;
 using System.Xml.Serialization;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
 using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.ModuleManager;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Troops
 {
     /// <summary>
-    /// Export/import all defined custom troops (roots only) to/from a single XML file.
+    /// Unified import/export (single root) + validated pickers + context-aware flows.
     /// </summary>
     [SafeClass]
     public static class TroopImportExport
     {
-        const string ClanKey = "Clan";
-        const string KingdomKey = "Kingdom";
+        // ──────────────────────────────────────────────────────────────────────────
+        // Constants
+        // ──────────────────────────────────────────────────────────────────────────
 
         public static readonly string DefaultDir = Path.Combine(
             ModuleHelper.GetModuleFullPath("Retinues"),
             "Exports"
         );
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Export                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private const string RootUnified = "RetinuesTroops";
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // DTOs
+        // ──────────────────────────────────────────────────────────────────────────
 
         public struct FactionExportData
         {
             public FactionSaveData clanData;
             public FactionSaveData kingdomData;
+
+            public readonly bool HasAny => clanData != null || kingdomData != null;
         }
 
         /// <summary>
-        /// Exports all current custom troop roots to an XML file.
-        /// Returns the absolute path used (for logging/UX).
+        /// Unified package (single root). Either section can be null/empty.
         /// </summary>
-        public static string ExportCustomTroopsToXml(string fileName)
+        [XmlRoot(RootUnified)]
+        public class RetinuesTroopsPackage
         {
-            string safeFileName = fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
+            public FactionExportData Factions { get; set; }
+            public List<FactionSaveData> Cultures { get; set; } = [];
+
+            public bool HasFactions => Factions.HasAny;
+            public bool HasCultures => Cultures != null && Cultures.Count > 0;
+        }
+
+        public enum ImportScope
+        {
+            CustomOnly,
+            CulturesOnly,
+            Both,
+        }
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // Utilities
+        // ──────────────────────────────────────────────────────────────────────────
+
+        private static void EnsureDir() =>
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.Combine(DefaultDir, "x")) ?? ".");
+
+        public static string SuggestTimestampName(string prefix) =>
+            $"{prefix}_{DateTime.Now:yyyy_MM_dd_HH_mm}.xml";
+
+        private static string NormalizePath(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                return Path.Combine(DefaultDir, "troops.xml");
+
+            var name = fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
                 ? fileName
                 : fileName + ".xml";
-            string filePath = Path.Combine(DefaultDir, safeFileName);
 
-            FactionExportData payload = new()
+            return Path.Combine(DefaultDir, name);
+        }
+
+        /// <summary>
+        /// Does this xml file have the expected unified root?
+        /// </summary>
+        private static bool IsUnifiedExport(string absPath)
+        {
+            try
             {
-                clanData = new FactionSaveData(Player.Clan),
-                kingdomData = new FactionSaveData(Player.Kingdom),
-            };
+                using var fs = File.OpenRead(absPath);
+                using var xr = XmlReader.Create(
+                    fs,
+                    new XmlReaderSettings { IgnoreComments = true }
+                );
+                while (xr.Read())
+                {
+                    if (xr.NodeType == XmlNodeType.Element)
+                        return xr.Name == RootUnified;
+                }
+            }
+            catch
+            {
+                // ignore; treated as invalid
+            }
+            return false;
+        }
 
-            var serializer = new XmlSerializer(
-                typeof(FactionExportData),
-                new XmlRootAttribute("Factions")
-            );
+        public static List<string> ListValidUnifiedFilesNewestFirst()
+        {
+            EnsureDir();
+            return
+            [
+                .. Directory
+                    .EnumerateFiles(DefaultDir, "*.xml", SearchOption.TopDirectoryOnly)
+                    .Where(IsUnifiedExport)
+                    .OrderByDescending(File.GetLastWriteTimeUtc)
+                    .Select(Path.GetFileName),
+            ];
+        }
 
+        private static bool TryResolveExistingPath(string fileName, out string absPath)
+        {
+            var p = Path.Combine(DefaultDir, fileName ?? "");
+            if (File.Exists(p) && IsUnifiedExport(p))
+            {
+                absPath = p;
+                return true;
+            }
+
+            if (
+                !string.IsNullOrWhiteSpace(fileName)
+                && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
+            )
+            {
+                p = Path.Combine(DefaultDir, fileName + ".xml");
+                if (File.Exists(p) && IsUnifiedExport(p))
+                {
+                    absPath = p;
+                    return true;
+                }
+            }
+
+            absPath = null!;
+            return false;
+        }
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // XML (de)serialization
+        // ──────────────────────────────────────────────────────────────────────────
+
+        private static void SerializeUnifiedToFile(RetinuesTroopsPackage payload, string absPath)
+        {
+            var serializer = new XmlSerializer(typeof(RetinuesTroopsPackage));
             var settings = new XmlWriterSettings
             {
                 Indent = true,
                 Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
             };
 
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
-            using (var fs = File.Create(filePath))
-            using (var writer = XmlWriter.Create(fs, settings))
+            EnsureDir();
+            using var fs = File.Create(absPath);
+            using var writer = XmlWriter.Create(fs, settings);
+            serializer.Serialize(writer, payload);
+        }
+
+        private static RetinuesTroopsPackage DeserializeUnifiedFromFile(string absPath)
+        {
+            var serializer = new XmlSerializer(typeof(RetinuesTroopsPackage));
+            using var fs = File.OpenRead(absPath);
+            return (RetinuesTroopsPackage)serializer.Deserialize(fs);
+        }
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // Export (unified)
+        // ──────────────────────────────────────────────────────────────────────────
+
+        public static string ExportUnified(
+            string fileName,
+            bool includeCustom,
+            bool includeCultures
+        )
+        {
+            if (!includeCustom && !includeCultures)
+                throw new InvalidOperationException("Nothing selected to export.");
+
+            var filePath = NormalizePath(fileName);
+
+            var pkg = new RetinuesTroopsPackage();
+
+            if (includeCustom)
             {
-                serializer.Serialize(writer, payload);
+                pkg.Factions = new FactionExportData
+                {
+                    clanData = new FactionSaveData(Player.Clan),
+                    kingdomData = new FactionSaveData(Player.Kingdom),
+                };
             }
 
+            if (includeCultures)
+            {
+                var cultures =
+                    MBObjectManager
+                        .Instance.GetObjectTypeList<CultureObject>()
+                        ?.OrderBy(c => c?.Name?.ToString())
+                        .ToList()
+                    ?? [];
+
+                foreach (var culture in cultures)
+                    pkg.Cultures.Add(new FactionSaveData(new WCulture(culture)));
+            }
+
+            SerializeUnifiedToFile(pkg, filePath);
             return Path.GetFullPath(filePath);
         }
 
-        /// <summary>
-        /// Exports all current culture troop roots to an XML file.
-        /// </summary>
-        public static string ExportCultureTroopsToXml(string fileName)
+        // ──────────────────────────────────────────────────────────────────────────
+        // Import (unified)
+        // ──────────────────────────────────────────────────────────────────────────
+
+        public static void ImportUnified(string fileName, ImportScope scope)
         {
-            Log.Info("Exporting culture troops to XML...");
+            if (!TryResolveExistingPath(fileName, out var path))
+                throw new FileNotFoundException($"File not found or invalid format: '{fileName}'.");
 
-            string safeFileName = fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
-                ? fileName
-                : fileName + ".xml";
-            string filePath = Path.Combine(DefaultDir, safeFileName);
+            var pkg = DeserializeUnifiedFromFile(path);
 
-            List<FactionSaveData> payload = [];
+            // Apply per scope
+            if (scope is ImportScope.CustomOnly or ImportScope.Both)
+            {
+                if (pkg.HasFactions)
+                {
+                    pkg.Factions.clanData?.Apply(Player.Clan);
+                    pkg.Factions.kingdomData?.Apply(Player.Kingdom);
+                }
+            }
 
-            // Collect all base cultures
-            var cultures =
-                MBObjectManager
-                    .Instance.GetObjectTypeList<CultureObject>()
-                    ?.OrderBy(c => c?.Name?.ToString())
-                    .ToList()
-                ?? [];
+            if (scope is ImportScope.CulturesOnly or ImportScope.Both)
+            {
+                if (pkg.HasCultures)
+                {
+                    foreach (var f in pkg.Cultures)
+                        f.DeserializeTroops();
+                }
+            }
+        }
 
-            // Save each culture's troop data
-            foreach (var culture in cultures)
-                payload.Add(new FactionSaveData(new WCulture(culture)));
+        // ──────────────────────────────────────────────────────────────────────────
+        // Pickers (validated) + High-level UX shortcuts
+        // ──────────────────────────────────────────────────────────────────────────
 
-            var serializer = new XmlSerializer(
-                typeof(List<FactionSaveData>),
-                new XmlRootAttribute("Cultures")
+        /// <summary>
+        /// Shows a validated file picker listing only RetinuesTroops files and invokes onChoice(name).
+        /// </summary>
+        public static void ShowUnifiedPicker(
+            string title,
+            string body,
+            string confirmText,
+            Action<string> onChoice
+        )
+        {
+            EnsureDir();
+            var files = ListValidUnifiedFilesNewestFirst();
+            if (files.Count == 0)
+            {
+                Notifications.Popup(
+                    L.T("no_exports_title", "No Exports Found"),
+                    L.T(
+                        "no_exports_body",
+                        "No valid export files were found in the Exports folder."
+                    )
+                );
+                return;
+            }
+
+            var elements = files.Select(f => new InquiryElement(f, f, null)).ToList();
+
+            var inquiry = new MultiSelectionInquiryData(
+                title,
+                body,
+                elements,
+                isExitShown: true,
+                minSelectableOptionCount: 1,
+                maxSelectableOptionCount: 1,
+                affirmativeText: confirmText,
+                negativeText: L.S("cancel", "Cancel"),
+                affirmativeAction: sel =>
+                {
+                    var name = sel?.FirstOrDefault()?.Identifier as string;
+                    if (string.IsNullOrWhiteSpace(name))
+                    {
+                        Notifications.Popup(
+                            L.T("no_selection_title", "No Selection"),
+                            L.T("no_selection_body", "No file was selected.")
+                        );
+                        return;
+                    }
+                    onChoice(name);
+                },
+                negativeAction: _ => { }
             );
 
-            var settings = new XmlWriterSettings
+            MBInformationManager.ShowMultiSelectionInquiry(inquiry);
+        }
+
+        /// <summary>
+        /// Export flow prompting scope based on context (true = MCM, false = Editor Studio),
+        /// then prompt for file name, then export and show a popup.
+        /// </summary>
+        public static void PromptAndExport(bool isMcmContext, string suggestedName = null)
+        {
+            // Unified multiselect: Player Troops (custom clan+kingdom) and Culture Troops
+            var elements = new List<InquiryElement>
             {
-                Indent = true,
-                Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+                new("custom", L.S("exp_player_troops", "Player Troops"), null, true, null),
+                new("cultures", L.S("exp_culture_troops", "Culture Troops"), null, true, null),
             };
 
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
+            MBInformationManager.ShowMultiSelectionInquiry(
+                new MultiSelectionInquiryData(
+                    L.S("export_which_title", "Export Selection"),
+                    L.S("export_which_body", "Select one or both."),
+                    elements,
+                    isExitShown: true,
+                    minSelectableOptionCount: 1,
+                    maxSelectableOptionCount: 2,
+                    L.S("continue", "Continue"),
+                    L.S("cancel", "Cancel"),
+                    selected =>
+                    {
+                        var ids = selected?.Select(e => e.Identifier as string).ToHashSet() ?? [];
+                        var includeCustom = ids.Contains("custom");
+                        var includeCultures = ids.Contains("cultures");
 
-            using (var fs = File.Create(filePath))
-            using (var writer = XmlWriter.Create(fs, settings))
-            {
-                serializer.Serialize(writer, payload);
-            }
-
-            return Path.GetFullPath(filePath);
+                        InformationManager.ShowTextInquiry(
+                            new TextInquiryData(
+                                L.S("enter_file_name", "Enter a file name:"),
+                                string.Empty,
+                                true, // affirmative
+                                true, // negative
+                                L.S("confirm", "Confirm"),
+                                L.S("cancel", "Cancel"),
+                                name =>
+                                {
+                                    try
+                                    {
+                                        EnsureDir();
+                                        var file = string.IsNullOrWhiteSpace(name)
+                                            ? SuggestTimestampName("troops")
+                                            : name.Trim();
+                                        var used = ExportUnified(
+                                            file,
+                                            includeCustom,
+                                            includeCultures
+                                        );
+                                        Notifications.Popup(
+                                            L.T("export_done_title", "Export Completed"),
+                                            L.T("export_done_body", "Exported to: {PATH}.")
+                                                .SetTextVariable("PATH", used)
+                                        );
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Notifications.Popup(
+                                            L.T("export_fail_title", "Export Failed"),
+                                            L.T("export_fail_body", e.Message)
+                                        );
+                                    }
+                                },
+                                () => { },
+                                defaultInputText: suggestedName ?? SuggestTimestampName("troops")
+                            )
+                        );
+                    },
+                    _ => { }
+                )
+            );
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Import                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         /// <summary>
-        /// Imports custom troop roots from an XML file and rebuilds their trees.
-        /// Returns the number of root definitions imported.
+        /// Import flow: validated picker -> if both sections, ask scope according to context -> confirm -> import -> popup.
         /// </summary>
-        public static void ImportCustomTroopsFromXml(string fileName)
+        public static void PickAndImportUnified(bool isMcmContext, Action afterImport = null)
         {
-            string filePath = Path.Combine(DefaultDir, fileName);
+            ShowUnifiedPicker(
+                L.S("import_pick_title", "Import Troops"),
+                L.S("import_pick_body", "Select an exported file to import."),
+                L.S("import", "Import"),
+                choice =>
+                {
+                    // Peek the package to know what's inside (both? one?)
+                    RetinuesTroopsPackage pkg;
+                    try
+                    {
+                        var abs = Path.Combine(DefaultDir, choice);
+                        pkg = DeserializeUnifiedFromFile(abs);
+                    }
+                    catch (Exception e)
+                    {
+                        Notifications.Popup(
+                            L.T("import_fail_title", "Import Failed"),
+                            L.T("import_fail_body", e.Message)
+                        );
+                        return;
+                    }
 
-            // If file doesn't exist and doesn't end with .xml, try appending .xml and check again
-            if (
-                !File.Exists(filePath)
-                && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
-            )
-            {
-                string xmlFileName = fileName + ".xml";
-                string xmlFilePath = Path.Combine(DefaultDir, xmlFileName);
-                if (File.Exists(xmlFilePath))
-                    filePath = xmlFilePath;
-            }
+                    if (!pkg.HasFactions && !pkg.HasCultures)
+                    {
+                        Notifications.Popup(
+                            L.T("import_empty_title", "Nothing To Import"),
+                            L.T("import_empty_body", "The file contains no troops.")
+                        );
+                        return;
+                    }
 
-            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
-                Log.Message($"ImportFromXml: file not found '{filePath ?? "<null>"}'.");
+                    // If both present, ask scope based on context
+                    void ConfirmAndImport(ImportScope scope)
+                    {
+                        var confirm = new InquiryData(
+                            L.S("confirm_import_title", "Apply Import?"),
+                            L.S(
+                                "confirm_import_body",
+                                "This will replace existing troop definitions."
+                            ),
+                            true,
+                            true,
+                            L.S("continue", "Continue"),
+                            L.S("cancel", "Cancel"),
+                            () =>
+                            {
+                                try
+                                {
+                                    ImportUnified(choice, scope);
+                                    Notifications.Popup(
+                                        L.T("import_done_title", "Import Completed"),
+                                        L.T(
+                                                "import_done_body",
+                                                "File {FILE} imported successfully."
+                                            )
+                                            .SetTextVariable("FILE", choice)
+                                    );
+                                    afterImport?.Invoke();
+                                }
+                                catch (Exception e)
+                                {
+                                    Notifications.Popup(
+                                        L.T("import_fail_title", "Import Failed"),
+                                        L.T("import_fail_body", e.Message)
+                                    );
+                                }
+                            },
+                            () => { }
+                        );
+                        InformationManager.ShowInquiry(confirm);
+                    }
 
-            var serializer = new XmlSerializer(
-                typeof(FactionExportData),
-                new XmlRootAttribute("Factions")
+                    if (pkg.HasFactions && pkg.HasCultures)
+                    {
+                        var els = new List<InquiryElement>
+                        {
+                            new(
+                                "custom",
+                                L.S("imp_player_troops", "Player Troops"),
+                                null,
+                                true,
+                                null
+                            ),
+                            new(
+                                "cultures",
+                                L.S("imp_culture_troops", "Culture Troops"),
+                                null,
+                                true,
+                                null
+                            ),
+                        };
+
+                        MBInformationManager.ShowMultiSelectionInquiry(
+                            new MultiSelectionInquiryData(
+                                L.S("import_which_title", "Import Selection"),
+                                L.S("import_which_body", "Select one or both."),
+                                els,
+                                isExitShown: true,
+                                minSelectableOptionCount: 1,
+                                maxSelectableOptionCount: 2,
+                                L.S("continue", "Continue"),
+                                L.S("cancel", "Cancel"),
+                                picked =>
+                                {
+                                    var ids =
+                                        picked?.Select(e => e.Identifier as string).ToHashSet()
+                                        ?? [];
+                                    ImportScope scope =
+                                        ids.Contains("custom") && ids.Contains("cultures")
+                                            ? ImportScope.Both
+                                        : ids.Contains("custom") ? ImportScope.CustomOnly
+                                        : ImportScope.CulturesOnly;
+
+                                    ConfirmAndImport(scope);
+                                },
+                                _ => { }
+                            )
+                        );
+                    }
+                    else
+                    {
+                        // Only one section present -> determine scope automatically
+                        var scope = pkg.HasFactions
+                            ? ImportScope.CustomOnly
+                            : ImportScope.CulturesOnly;
+                        ConfirmAndImport(scope);
+                    }
+                }
             );
-            FactionExportData payload;
-
-            using (var fs = File.OpenRead(filePath))
-            {
-                payload = (FactionExportData)serializer.Deserialize(fs);
-            }
-
-            payload.clanData?.Apply(Player.Clan);
-            payload.kingdomData?.Apply(Player.Kingdom);
-
-            Log.Message($"Imported and rebuilt root troop definitions from '{filePath}'.");
-        }
-
-        /// <summary>
-        /// Imports culture troop roots from an XML file and rebuilds their trees.
-        /// </summary>
-        public static void ImportCultureTroopsFromXml(string fileName)
-        {
-            string filePath = Path.Combine(DefaultDir, fileName);
-
-            // If file doesn't exist and doesn't end with .xml, try appending .xml and check again
-            if (
-                !File.Exists(filePath)
-                && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
-            )
-            {
-                string xmlFileName = fileName + ".xml";
-                string xmlFilePath = Path.Combine(DefaultDir, xmlFileName);
-                if (File.Exists(xmlFilePath))
-                    filePath = xmlFilePath;
-            }
-
-            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
-                Log.Message($"ImportFromXml: file not found '{filePath ?? "<null>"}'.");
-
-            var serializer = new XmlSerializer(
-                typeof(List<FactionSaveData>),
-                new XmlRootAttribute("Cultures")
-            );
-
-            List<FactionSaveData> payload;
-
-            using (var fs = File.OpenRead(filePath))
-            {
-                payload = (List<FactionSaveData>)serializer.Deserialize(fs);
-            }
-
-            if (payload == null || payload.Count == 0)
-                Log.Message($"ImportFromXml: no troops in '{filePath}'.");
-
-            foreach (var f in payload)
-                f.DeserializeTroops();
-
-            Log.Message($"Imported and rebuilt culture troop definitions from '{filePath}'.");
         }
     }
 }

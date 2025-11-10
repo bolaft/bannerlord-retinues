@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="確認" />
     <string
+      id="ret_confirm_import_body"
+      text="これにより、既存の部隊定義が置き換えられます。" />
+    <string
+      id="ret_confirm_import_title"
+      text="インポートを適用しますか？" />
+    <string
       id="ret_continue"
       text="続行" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="オンライン随伴兵ドキュメントを開く。" />
     <string
-      id="ret_editor_import_btn"
-      text="インポート" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="インポートするXMLファイルを選択します。これにより、現在の文化部隊の定義が置き換えられます。" />
-    <string
-      id="ret_editor_import_pick_title"
-      text="部隊をインポート" />
-    <string
       id="ret_empty_item"
       text="空" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="装備品にはスキルが必要です。" />
     <string
-      id="ret_export_all_cultural_troops"
-      text="すべての部隊をエクスポート" />
+      id="ret_exp_culture_troops"
+      text="文化の兵" />
+    <string
+      id="ret_exp_player_troops"
+      text="プレイヤーの兵" />
+    <string
+      id="ret_export_done_body"
+      text="エクスポート先：{PATH}。" />
+    <string
+      id="ret_export_done_title"
+      text="エクスポート完了" />
+    <string
+      id="ret_export_fail_title"
+      text="エクスポート失敗" />
+    <string
+      id="ret_export_which_body"
+      text="1つまたは両方を選択してください。" />
+    <string
+      id="ret_export_which_title"
+      text="エクスポートの選択" />
     <string
       id="ret_feat_completed_title"
       text="偉業達成" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="味方に死者を出さずに1人で100人以上の敵を倒す。" />
+    <string
+      id="ret_imp_culture_troops"
+      text="文化の兵" />
+    <string
+      id="ret_imp_player_troops"
+      text="プレイヤーの兵" />
+    <string
+      id="ret_import"
+      text="インポート" />
+    <string
+      id="ret_import_done_body"
+      text="ファイル {FILE} のインポートに成功しました。" />
+    <string
+      id="ret_import_done_title"
+      text="インポート完了" />
+    <string
+      id="ret_import_empty_body"
+      text="ファイルに兵が含まれていません。" />
+    <string
+      id="ret_import_empty_title"
+      text="インポートするものがありません" />
+    <string
+      id="ret_import_fail_title"
+      text="インポート失敗" />
+    <string
+      id="ret_import_pick_body"
+      text="インポートするエクスポートファイルを選択してください。" />
+    <string
+      id="ret_import_pick_title"
+      text="部隊をインポート" />
+    <string
+      id="ret_import_which_body"
+      text="1つまたは両方を選択してください。" />
+    <string
+      id="ret_import_which_title"
+      text="インポートの選択" />
     <string
       id="ret_in_stock"
       text="在庫 ({STOCK})" />
@@ -504,31 +555,19 @@
       text="エクスポート" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="すべてのRetinuesカスタム部隊定義をXMLファイルにエクスポートします。" />
+      text="部隊定義をXMLにエクスポートします。" />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="部隊をXMLにエクスポート" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="例: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="ファイル名" />
     <string
       id="ret_mcm_ie_import_btn"
       text="インポート" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="XMLファイルからすべてのRetinuesカスタム部隊定義をインポートします。" />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="インポートするXMLファイルを選択します。これにより、現在のカスタム部隊定義が置き換えられます。" />
+      text="XMLから部隊定義をインポートします。" />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="XMLからインポート" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="部隊をインポート" />
+      text="XMLから部隊をインポート" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="全装備解除済み" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
     <string
+      id="ret_no_exports_body"
+      text="Exportsフォルダーに有効なエクスポートファイルが見つかりませんでした。" />
+    <string
+      id="ret_no_exports_title"
+      text="エクスポートが見つかりません" />
+    <string
       id="ret_no_races_text"
       text="利用可能な代替種族はありません。" />
     <string
       id="ret_no_races_title"
       text="種族が見つかりません" />
+    <string
+      id="ret_no_selection_body"
+      text="ファイルが選択されていません。" />
+    <string
+      id="ret_no_selection_title"
+      text="選択なし" />
     <string
       id="ret_no_skill_points_left"
       text="この部隊には残りのスキルポイントがありません。" />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="次のスキルポイントに十分なXPがありません。" />
+    <string
+      id="ret_not_in_campaign_body"
+      text="インポート/エクスポート機能を使用する前に、最初にセーブをロードする必要があります。" />
+    <string
+      id="ret_not_in_campaign_title"
+      text="キャンペーンが読み込まれていません" />
     <string
       id="ret_not_in_clan_fief"
       text="氏族の領地にいない" />

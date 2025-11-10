@@ -1,6 +1,5 @@
 using Retinues.Game.Wrappers;
 using TaleWorlds.Core;
-
 # if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
@@ -24,9 +23,7 @@ namespace Retinues.Game.Helpers
             if (scale != 1.0f)
                 banner = ScaleBannerIcon(banner, scale);
 
-            return banner != null
-                ? new BannerImageIdentifierVM(banner, nineGrid: true)
-                : null;
+            return banner != null ? new BannerImageIdentifierVM(banner, nineGrid: true) : null;
         }
 #else
         public static ImageIdentifierVM GetBannerImageFromCulture(
@@ -88,12 +85,11 @@ namespace Retinues.Game.Helpers
 
                 // Swap primary/secondary colors for culture banners
                 banner.ChangePrimaryColor(banner.GetSecondaryColor());
-                banner.ChangeBackgroundColor(
-                    banner.GetSecondaryColor(),
-                    banner.GetPrimaryColor()
-                );
+                banner.ChangeBackgroundColor(banner.GetSecondaryColor(), banner.GetPrimaryColor());
             }
-            catch { /* ignore */ }
+            catch
+            { /* ignore */
+            }
 
             return banner;
         }

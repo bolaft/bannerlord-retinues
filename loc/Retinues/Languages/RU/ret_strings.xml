@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="Подтвердить" />
     <string
+      id="ret_confirm_import_body"
+      text="Это заменит существующие определения войск." />
+    <string
+      id="ret_confirm_import_title"
+      text="Применить импорт?" />
+    <string
       id="ret_continue"
       text="Продолжить" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="Откройте онлайн-документацию по свите." />
     <string
-      id="ret_editor_import_btn"
-      text="Импорт" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="Выберите XML-файл для импорта. Это заменит текущие определения войск вашей культуры." />
-    <string
-      id="ret_editor_import_pick_title"
-      text="Импорт войск" />
-    <string
       id="ret_empty_item"
       text="Пусто" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="Для экипированных предметов требуется навык." />
     <string
-      id="ret_export_all_cultural_troops"
-      text="Экспортировать Все Войска" />
+      id="ret_exp_culture_troops"
+      text="Войска Культуры" />
+    <string
+      id="ret_exp_player_troops"
+      text="Войска Игрока" />
+    <string
+      id="ret_export_done_body"
+      text="Экспортировано в: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Экспорт Завершён" />
+    <string
+      id="ret_export_fail_title"
+      text="Экспорт Неудачен" />
+    <string
+      id="ret_export_which_body"
+      text="Выберите один или оба варианта." />
+    <string
+      id="ret_export_which_title"
+      text="Экспорт Выбора" />
     <string
       id="ret_feat_completed_title"
       text="Подвиг Завершён" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Одержите победу в одиночку против 100+ врагов без единой смерти с вашей стороны." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Войска Культуры" />
+    <string
+      id="ret_imp_player_troops"
+      text="Войска Игрока" />
+    <string
+      id="ret_import"
+      text="Импорт" />
+    <string
+      id="ret_import_done_body"
+      text="Файл {FILE} успешно импортирован." />
+    <string
+      id="ret_import_done_title"
+      text="Импорт Завершён" />
+    <string
+      id="ret_import_empty_body"
+      text="Файл не содержит войск." />
+    <string
+      id="ret_import_empty_title"
+      text="Импортировать нечего" />
+    <string
+      id="ret_import_fail_title"
+      text="Импорт Неудачен" />
+    <string
+      id="ret_import_pick_body"
+      text="Выберите экспортированный файл для импорта." />
+    <string
+      id="ret_import_pick_title"
+      text="Импорт Войск" />
+    <string
+      id="ret_import_which_body"
+      text="Выберите один или оба варианта." />
+    <string
+      id="ret_import_which_title"
+      text="Импорт Выбора" />
     <string
       id="ret_in_stock"
       text="В наличии ({STOCK})" />
@@ -504,31 +555,19 @@
       text="Экспорт" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Экспортирует все определения пользовательских войск Retinues в XML-файл." />
+      text="Экспортирует определения войск в XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Экспорт войск в XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Пример: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Имя файла" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Импорт" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Импортирует все определения пользовательских войск Retinues из XML-файла." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Выберите XML-файл для импорта. Это заменит ваши текущие определения пользовательских войск." />
+      text="Импортирует определения войск из XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Импорт из XML" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Импорт войск" />
+      text="Импорт войск из XML" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Вся Экипировка Разблокирована" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="Культуры не найдены" />
     <string
+      id="ret_no_exports_body"
+      text="В папке Exports не найдено действительных файлов экспорта." />
+    <string
+      id="ret_no_exports_title"
+      text="Экспорт не найден" />
+    <string
       id="ret_no_races_text"
       text="Нет доступных альтернативных рас." />
     <string
       id="ret_no_races_title"
       text="Расы не найдены" />
+    <string
+      id="ret_no_selection_body"
+      text="Файл не выбран." />
+    <string
+      id="ret_no_selection_title"
+      text="Нет выбора" />
     <string
       id="ret_no_skill_points_left"
       text="У этой войск нет оставшихся очков навыков." />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="Недостаточно опыта для следующего очка навыков." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="Перед использованием функций импорта/экспорта необходимо сначала загрузить сохранение." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Кампания не загружена" />
     <string
       id="ret_not_in_clan_fief"
       text="Не в поместье клана" />

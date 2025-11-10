@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="确认" />
     <string
+      id="ret_confirm_import_body"
+      text="这将替换现有的部队定义。" />
+    <string
+      id="ret_confirm_import_title"
+      text="应用导入？" />
+    <string
       id="ret_continue"
       text="继续" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="打开在线随从文档。" />
     <string
-      id="ret_editor_import_btn"
-      text="导入" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="选择要导入的XML文件。这将替换您当前的文化部队定义。" />
-    <string
-      id="ret_editor_import_pick_title"
-      text="导入部队" />
-    <string
       id="ret_empty_item"
       text="空" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="装备物品需要技能。" />
     <string
-      id="ret_export_all_cultural_troops"
-      text="导出所有部队" />
+      id="ret_exp_culture_troops"
+      text="文化部队" />
+    <string
+      id="ret_exp_player_troops"
+      text="玩家部队" />
+    <string
+      id="ret_export_done_body"
+      text="已导出到：{PATH}。" />
+    <string
+      id="ret_export_done_title"
+      text="导出完成" />
+    <string
+      id="ret_export_fail_title"
+      text="导出失败" />
+    <string
+      id="ret_export_which_body"
+      text="选择一个或两个。" />
+    <string
+      id="ret_export_which_title"
+      text="导出选择" />
     <string
       id="ret_feat_completed_title"
       text="成就完成" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="单枪匹马战胜100+敌人，且我方无一阵亡。" />
+    <string
+      id="ret_imp_culture_troops"
+      text="文化部队" />
+    <string
+      id="ret_imp_player_troops"
+      text="玩家部队" />
+    <string
+      id="ret_import"
+      text="导入" />
+    <string
+      id="ret_import_done_body"
+      text="文件 {FILE} 导入成功。" />
+    <string
+      id="ret_import_done_title"
+      text="导入完成" />
+    <string
+      id="ret_import_empty_body"
+      text="该文件不包含任何部队。" />
+    <string
+      id="ret_import_empty_title"
+      text="无可导入内容" />
+    <string
+      id="ret_import_fail_title"
+      text="导入失败" />
+    <string
+      id="ret_import_pick_body"
+      text="选择要导入的导出文件。" />
+    <string
+      id="ret_import_pick_title"
+      text="导入部队" />
+    <string
+      id="ret_import_which_body"
+      text="选择一个或两个。" />
+    <string
+      id="ret_import_which_title"
+      text="导入选择" />
     <string
       id="ret_in_stock"
       text="库存 ({STOCK})" />
@@ -504,31 +555,19 @@
       text="导出" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="将所有Retinues自定义部队定义导出到XML文件。" />
+      text="将部队定义导出为XML。" />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="将部队导出为XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="示例: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="文件名" />
     <string
       id="ret_mcm_ie_import_btn"
       text="导入" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="从XML文件导入所有Retinues自定义部队定义。" />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="选择要导入的XML文件。这将替换您当前的自定义部队定义。" />
+      text="从XML导入部队定义。" />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="从XML导入" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="导入部队" />
+      text="从XML导入部队" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="所有装备已解锁" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="未找到文化" />
     <string
+      id="ret_no_exports_body"
+      text="在Exports文件夹中未找到有效的导出文件。" />
+    <string
+      id="ret_no_exports_title"
+      text="未找到导出" />
+    <string
       id="ret_no_races_text"
       text="没有可用的替代种族。" />
     <string
       id="ret_no_races_title"
       text="未找到种族" />
+    <string
+      id="ret_no_selection_body"
+      text="未选择任何文件。" />
+    <string
+      id="ret_no_selection_title"
+      text="未选择" />
     <string
       id="ret_no_skill_points_left"
       text="这支部队没有剩余的技能点。" />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="没有足够的经验值获得下一个技能点。" />
+    <string
+      id="ret_not_in_campaign_body"
+      text="在使用导入/导出功能之前，必须先加载一个存档。" />
+    <string
+      id="ret_not_in_campaign_title"
+      text="未加载战役" />
     <string
       id="ret_not_in_clan_fief"
       text="不在氏族领地" />

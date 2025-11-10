@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="Confirmar" />
     <string
+      id="ret_confirm_import_body"
+      text="Esto reemplazará las definiciones de tropas existentes." />
+    <string
+      id="ret_confirm_import_title"
+      text="¿Aplicar importación?" />
+    <string
       id="ret_continue"
       text="Continuar" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="Abre la documentación en línea de Séquitos." />
     <string
-      id="ret_editor_import_btn"
-      text="Importar" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="Selecciona el archivo XML para importar. Esto reemplazará las definiciones actuales de tropas de tu cultura." />
-    <string
-      id="ret_editor_import_pick_title"
-      text="Importar Tropas" />
-    <string
       id="ret_empty_item"
       text="Vacío" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="Se requiere habilidad para los objetos equipados." />
     <string
-      id="ret_export_all_cultural_troops"
-      text="Exportar Todas las Tropas" />
+      id="ret_exp_culture_troops"
+      text="Tropas de Cultura" />
+    <string
+      id="ret_exp_player_troops"
+      text="Tropas del Jugador" />
+    <string
+      id="ret_export_done_body"
+      text="Exportado a: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Exportación Completada" />
+    <string
+      id="ret_export_fail_title"
+      text="Error en la Exportación" />
+    <string
+      id="ret_export_which_body"
+      text="Selecciona uno o ambos." />
+    <string
+      id="ret_export_which_title"
+      text="Exportar Selección" />
     <string
       id="ret_feat_completed_title"
       text="Hazaña Completada" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Gana tú solo contra más de 100 enemigos sin una sola baja de tu lado." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Tropas de Cultura" />
+    <string
+      id="ret_imp_player_troops"
+      text="Tropas del Jugador" />
+    <string
+      id="ret_import"
+      text="Importar" />
+    <string
+      id="ret_import_done_body"
+      text="Archivo {FILE} importado con éxito." />
+    <string
+      id="ret_import_done_title"
+      text="Importación Completada" />
+    <string
+      id="ret_import_empty_body"
+      text="El archivo no contiene tropas." />
+    <string
+      id="ret_import_empty_title"
+      text="Nada que Importar" />
+    <string
+      id="ret_import_fail_title"
+      text="Error en la Importación" />
+    <string
+      id="ret_import_pick_body"
+      text="Selecciona un archivo exportado para importar." />
+    <string
+      id="ret_import_pick_title"
+      text="Importar Tropas" />
+    <string
+      id="ret_import_which_body"
+      text="Selecciona uno o ambos." />
+    <string
+      id="ret_import_which_title"
+      text="Importar Selección" />
     <string
       id="ret_in_stock"
       text="En Stock ({STOCK})" />
@@ -504,31 +555,19 @@
       text="Exportar" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Exporta todas las definiciones de tropas personalizadas de Retinues a un archivo XML." />
+      text="Exporta definiciones de tropas a XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Exportar tropas a XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Ejemplo: tropas_miCampana" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Nombre del archivo" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Importar" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Importa todas las definiciones de tropas personalizadas de Retinues desde un archivo XML." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Selecciona el archivo XML para importar. Esto reemplazará tus definiciones actuales de tropas personalizadas." />
+      text="Importa definiciones de tropas desde XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Importar desde XML" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Importar tropas" />
+      text="Importar tropas desde XML" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Todo el Equipo Desbloqueado" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="No se Encontraron Culturas" />
     <string
+      id="ret_no_exports_body"
+      text="No se encontraron archivos de exportación válidos en la carpeta Exports." />
+    <string
+      id="ret_no_exports_title"
+      text="No se Encontraron Exportaciones" />
+    <string
       id="ret_no_races_text"
       text="No hay razas alternativas disponibles." />
     <string
       id="ret_no_races_title"
       text="No se Encontraron Razas" />
+    <string
+      id="ret_no_selection_body"
+      text="No se seleccionó ningún archivo." />
+    <string
+      id="ret_no_selection_title"
+      text="Sin Selección" />
     <string
       id="ret_no_skill_points_left"
       text="No quedan puntos de habilidad para esta tropa." />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="No hay suficiente XP para el siguiente punto de habilidad." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="Se debe cargar una partida guardada antes de usar las funciones de importación/exportación." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="No se cargó ninguna campaña" />
     <string
       id="ret_not_in_clan_fief"
       text="No en Feudo del Clan" />

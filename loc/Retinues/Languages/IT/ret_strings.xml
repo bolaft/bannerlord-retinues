@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="Conferma" />
     <string
+      id="ret_confirm_import_body"
+      text="Questo sostituirà le definizioni delle truppe esistenti." />
+    <string
+      id="ret_confirm_import_title"
+      text="Applicare l’importazione?" />
+    <string
       id="ret_continue"
       text="Continua" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="Apri la documentazione online dei Seguiti." />
     <string
-      id="ret_editor_import_btn"
-      text="Importa" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="Seleziona il file XML da importare. Questo sostituirà le definizioni delle truppe della tua cultura attuali." />
-    <string
-      id="ret_editor_import_pick_title"
-      text="Importa Truppe" />
-    <string
       id="ret_empty_item"
       text="Vuoto" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="È necessaria una competenza per gli oggetti equipaggiati." />
     <string
-      id="ret_export_all_cultural_troops"
-      text="Esporta Tutte le Truppe" />
+      id="ret_exp_culture_troops"
+      text="Truppe della Cultura" />
+    <string
+      id="ret_exp_player_troops"
+      text="Truppe del Giocatore" />
+    <string
+      id="ret_export_done_body"
+      text="Esportato in: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Esportazione Completata" />
+    <string
+      id="ret_export_fail_title"
+      text="Esportazione Fallita" />
+    <string
+      id="ret_export_which_body"
+      text="Seleziona uno o entrambi." />
+    <string
+      id="ret_export_which_title"
+      text="Esporta Selezione" />
     <string
       id="ret_feat_completed_title"
       text="Impresa Completata" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Vinci da solo contro 100+ nemici senza alcuna perdita dalla tua parte." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Truppe della Cultura" />
+    <string
+      id="ret_imp_player_troops"
+      text="Truppe del Giocatore" />
+    <string
+      id="ret_import"
+      text="Importa" />
+    <string
+      id="ret_import_done_body"
+      text="File {FILE} importato con successo." />
+    <string
+      id="ret_import_done_title"
+      text="Importazione Completata" />
+    <string
+      id="ret_import_empty_body"
+      text="Il file non contiene truppe." />
+    <string
+      id="ret_import_empty_title"
+      text="Niente da Importare" />
+    <string
+      id="ret_import_fail_title"
+      text="Importazione Fallita" />
+    <string
+      id="ret_import_pick_body"
+      text="Seleziona un file esportato da importare." />
+    <string
+      id="ret_import_pick_title"
+      text="Importa Truppe" />
+    <string
+      id="ret_import_which_body"
+      text="Seleziona uno o entrambi." />
+    <string
+      id="ret_import_which_title"
+      text="Importa Selezione" />
     <string
       id="ret_in_stock"
       text="In Magazzino ({STOCK})" />
@@ -504,31 +555,19 @@
       text="Esporta" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Esporta tutte le definizioni delle truppe personalizzate in un file XML." />
+      text="Esporta le definizioni delle truppe in XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Esporta truppe in XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Esempio: truppe_miaCampagna" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Nome del file" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Importa" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Importa tutte le definizioni delle truppe personalizzate da un file XML." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Seleziona il file XML da importare. Questo sostituirà le tue attuali definizioni di truppe personalizzate." />
+      text="Importa le definizioni delle truppe da XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Importa da XML" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Importa truppe" />
+      text="Importa truppe da XML" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Tutto l’Equipaggiamento Sbloccato" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="Nessuna Cultura Trovata" />
     <string
+      id="ret_no_exports_body"
+      text="Nessun file di esportazione valido è stato trovato nella cartella Exports." />
+    <string
+      id="ret_no_exports_title"
+      text="Nessuna Esportazione Trovata" />
+    <string
       id="ret_no_races_text"
       text="Non sono disponibili razze alternative." />
     <string
       id="ret_no_races_title"
       text="Nessuna Razza Trovata" />
+    <string
+      id="ret_no_selection_body"
+      text="Nessun file è stato selezionato." />
+    <string
+      id="ret_no_selection_title"
+      text="Nessuna Selezione" />
     <string
       id="ret_no_skill_points_left"
       text="Non ci sono più punti abilità per questa truppa." />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="Non abbastanza XP per il prossimo punto abilità." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="Devi prima caricare un salvataggio prima di utilizzare le funzioni di importazione/esportazione." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Nessuna campagna caricata" />
     <string
       id="ret_not_in_clan_fief"
       text="Non in Feudo del Clan" />

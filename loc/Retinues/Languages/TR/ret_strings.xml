@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="Onayla" />
     <string
+      id="ret_confirm_import_body"
+      text="Bu, mevcut birlik tanımlarının yerini alacaktır." />
+    <string
+      id="ret_confirm_import_title"
+      text="İçe Aktarmayı Uygula?" />
+    <string
       id="ret_continue"
       text="Devam Et" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="Çevrimiçi Yandaşlar belgelerini açın." />
     <string
-      id="ret_editor_import_btn"
-      text="İçe Aktar" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="İçe aktarılacak XML dosyasını seçin. Bu, mevcut kültür birlik tanımlarınızı değiştirecektir." />
-    <string
-      id="ret_editor_import_pick_title"
-      text="Askerleri İçe Aktar" />
-    <string
       id="ret_empty_item"
       text="Boş" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="Donatılan eşyalar için beceri gereklidir." />
     <string
-      id="ret_export_all_cultural_troops"
-      text="Tüm Askerleri Dışa Aktar" />
+      id="ret_exp_culture_troops"
+      text="Kültür Askerleri" />
+    <string
+      id="ret_exp_player_troops"
+      text="Oyuncu Askerleri" />
+    <string
+      id="ret_export_done_body"
+      text="Şuraya aktarıldı: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Aktarım Tamamlandı" />
+    <string
+      id="ret_export_fail_title"
+      text="Aktarım Başarısız" />
+    <string
+      id="ret_export_which_body"
+      text="Birini veya her ikisini seçin." />
+    <string
+      id="ret_export_which_title"
+      text="Aktarım Seçimi" />
     <string
       id="ret_feat_completed_title"
       text="Başarı Tamamlandı" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Tarafında tek bir ölüm olmadan tek başına 100+ düşmana karşı kazan." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Kültür Askerleri" />
+    <string
+      id="ret_imp_player_troops"
+      text="Oyuncu Askerleri" />
+    <string
+      id="ret_import"
+      text="İçe Aktar" />
+    <string
+      id="ret_import_done_body"
+      text="{FILE} dosyası başarıyla içe aktarıldı." />
+    <string
+      id="ret_import_done_title"
+      text="İçe Aktarım Tamamlandı" />
+    <string
+      id="ret_import_empty_body"
+      text="Dosya herhangi bir asker içermiyor." />
+    <string
+      id="ret_import_empty_title"
+      text="İçe Aktarılacak Bir Şey Yok" />
+    <string
+      id="ret_import_fail_title"
+      text="İçe Aktarım Başarısız" />
+    <string
+      id="ret_import_pick_body"
+      text="İçe aktarmak için dışa aktarılmış bir dosya seçin." />
+    <string
+      id="ret_import_pick_title"
+      text="Askerleri İçe Aktar" />
+    <string
+      id="ret_import_which_body"
+      text="Birini veya her ikisini seçin." />
+    <string
+      id="ret_import_which_title"
+      text="İçe Aktarım Seçimi" />
     <string
       id="ret_in_stock"
       text="Stokta ({STOCK})" />
@@ -504,31 +555,19 @@
       text="Dışa Aktar" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Tüm Retinues özel asker tanımlarını bir XML dosyasına dışa aktarır." />
+      text="Asker tanımlarını XML’ye dışa aktarır." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Askerleri XML’ye Dışa Aktar" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Örnek: troops_benimKampanyaOturumum" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Dosya adı" />
     <string
       id="ret_mcm_ie_import_btn"
       text="İçe Aktar" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Tüm Retinues özel asker tanımlarını bir XML dosyasından içe aktarır." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="İçe aktarılacak XML dosyasını seçin. Bu, mevcut özel asker tanımlarınızı değiştirecektir." />
+      text="XML’den asker tanımlarını içe aktarır." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="XML’den İçe Aktar" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Askerleri İçe Aktar" />
+      text="XML’den Askerleri İçe Aktar" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Tüm Teçhizat Açıldı" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="Kültür Bulunamadı" />
     <string
+      id="ret_no_exports_body"
+      text="Exports klasöründe geçerli ihracat dosyası bulunamadı." />
+    <string
+      id="ret_no_exports_title"
+      text="İhracat Bulunamadı" />
+    <string
       id="ret_no_races_text"
       text="Alternatif ırklar mevcut değil." />
     <string
       id="ret_no_races_title"
       text="Irk Bulunamadı" />
+    <string
+      id="ret_no_selection_body"
+      text="Hiçbir dosya seçilmedi." />
+    <string
+      id="ret_no_selection_title"
+      text="Seçim Yok" />
     <string
       id="ret_no_skill_points_left"
       text="Bu asker için kalan beceri puanı yok." />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="Sonraki beceri puanı için yeterli XP yok." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="İçe/dışa aktarma işlevlerini kullanmadan önce bir kayıt yüklenmelidir." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Kampanya Yüklenmedi" />
     <string
       id="ret_not_in_clan_fief"
       text="Klan Arazisinde Değil" />

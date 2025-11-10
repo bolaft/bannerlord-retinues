@@ -59,7 +59,10 @@ namespace Retinues.Features.Missions.Patches
                     var eligible = new List<WEquipment> { troop.Loadout.Battle };
 
                     foreach (var alt in troop.Loadout.Alternates)
-                        if (!troop.IsCustom || CombatEquipmentBehavior.IsEnabled(troop, alt.Index, battleType))
+                        if (
+                            !troop.IsCustom
+                            || CombatEquipmentBehavior.IsEnabled(troop, alt.Index, battleType)
+                        )
                             eligible.Add(alt);
 
                     // Fallback safety: if somehow none, force battle set.

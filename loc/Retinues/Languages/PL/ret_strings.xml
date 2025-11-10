@@ -161,6 +161,12 @@
       id="ret_confirm"
       text="Potwierdź" />
     <string
+      id="ret_confirm_import_body"
+      text="To zastąpi istniejące definicje jednostek." />
+    <string
+      id="ret_confirm_import_title"
+      text="Zastosować import?" />
+    <string
       id="ret_continue"
       text="Kontynuuj" />
     <string
@@ -245,15 +251,6 @@
       id="ret_editor_help_tooltip_text"
       text="Otwórz dokumentację Retinues online." />
     <string
-      id="ret_editor_import_btn"
-      text="Importuj" />
-    <string
-      id="ret_editor_import_pick_body"
-      text="Wybierz plik XML do importu. Spowoduje to zastąpienie bieżących definicji oddziałów twojej kultury." />
-    <string
-      id="ret_editor_import_pick_title"
-      text="Importuj Oddziały" />
-    <string
       id="ret_empty_item"
       text="Puste" />
     <string
@@ -287,8 +284,26 @@
       id="ret_equipment_requirement"
       text="Do wyposażonych przedmiotów wymagana jest umiejętność." />
     <string
-      id="ret_export_all_cultural_troops"
-      text="Eksportuj Wszystkie Oddziały" />
+      id="ret_exp_culture_troops"
+      text="Jednostki Kulturowe" />
+    <string
+      id="ret_exp_player_troops"
+      text="Jednostki Gracza" />
+    <string
+      id="ret_export_done_body"
+      text="Eksportowano do: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Eksport Zakończony" />
+    <string
+      id="ret_export_fail_title"
+      text="Eksport Niepowodzenie" />
+    <string
+      id="ret_export_which_body"
+      text="Wybierz jeden lub oba." />
+    <string
+      id="ret_export_which_title"
+      text="Eksportuj Wybór" />
     <string
       id="ret_feat_completed_title"
       text="Osiągnięcie Ukończone" />
@@ -352,6 +367,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Pokonaj samotnie ponad 100 wrogów bez żadnych strat po twojej stronie." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Jednostki Kulturowe" />
+    <string
+      id="ret_imp_player_troops"
+      text="Jednostki Gracza" />
+    <string
+      id="ret_import"
+      text="Importuj" />
+    <string
+      id="ret_import_done_body"
+      text="Plik {FILE} został pomyślnie zaimportowany." />
+    <string
+      id="ret_import_done_title"
+      text="Import Zakończony" />
+    <string
+      id="ret_import_empty_body"
+      text="Plik nie zawiera jednostek." />
+    <string
+      id="ret_import_empty_title"
+      text="Brak do Importu" />
+    <string
+      id="ret_import_fail_title"
+      text="Import Niepowodzenie" />
+    <string
+      id="ret_import_pick_body"
+      text="Wybierz wyeksportowany plik do importu." />
+    <string
+      id="ret_import_pick_title"
+      text="Importuj Jednostki" />
+    <string
+      id="ret_import_which_body"
+      text="Wybierz jeden lub oba." />
+    <string
+      id="ret_import_which_title"
+      text="Importuj Wybór" />
     <string
       id="ret_in_stock"
       text="Na stanie ({STOCK})" />
@@ -504,31 +555,19 @@
       text="Eksportuj" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Eksportuje wszystkie definicje niestandardowych jednostek Retinues do pliku XML." />
+      text="Eksportuje definicje jednostek do XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Eksportuj jednostki do XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Przykład: troops_mojaKampania" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Nazwa pliku" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Importuj" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Importuje wszystkie definicje niestandardowych jednostek Retinues z pliku XML." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Wybierz plik XML do importu. Spowoduje to zastąpienie bieżących definicji niestandardowych jednostek." />
+      text="Importuje definicje jednostek z XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Importuj z XML" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Importuj jednostki" />
+      text="Importuj jednostki z XML" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Cały Ekwipunek Odblokowany" />
@@ -851,11 +890,23 @@
       id="ret_no_cultures_title"
       text="Nie znaleziono kultur" />
     <string
+      id="ret_no_exports_body"
+      text="W folderze Exports nie znaleziono żadnych prawidłowych plików eksportu." />
+    <string
+      id="ret_no_exports_title"
+      text="Nie znaleziono eksportów" />
+    <string
       id="ret_no_races_text"
       text="Brak dostępnych alternatywnych ras." />
     <string
       id="ret_no_races_title"
       text="Nie znaleziono ras" />
+    <string
+      id="ret_no_selection_body"
+      text="Nie wybrano żadnego pliku." />
+    <string
+      id="ret_no_selection_title"
+      text="Brak wyboru" />
     <string
       id="ret_no_skill_points_left"
       text="Brak pozostałych punktów umiejętności dla tego oddziału." />
@@ -874,6 +925,12 @@
     <string
       id="ret_not_enough_xp"
       text="Za mało XP na następny punkt umiejętności." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="Najpierw należy załadować zapis gry przed użyciem funkcji importu/eksportu." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Nie załadowano kampanii" />
     <string
       id="ret_not_in_clan_fief"
       text="Nie w lenie klanu" />

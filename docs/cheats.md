@@ -20,24 +20,6 @@ If you pass a wrong number/type of arguments, the command prints a short **Usage
 
 ---
 
-## Troops import / export
-
-Export or import all **custom troop roots** to/from a single XML file.
-
-- **Export**
-  ```
-  retinues.export_custom_troops [fileName]
-  ```
-  If `fileName` is omitted, it defaults to `custom_troops.xml`. The command prints the full path on success.
-
-- **Import**
-  ```
-  retinues.import_custom_troops <fileName>
-  ```
-  Recreates roots from the given file and prints how many were imported.
-
----
-
 ## Troop XP
 
 - **Add XP to a troop**
