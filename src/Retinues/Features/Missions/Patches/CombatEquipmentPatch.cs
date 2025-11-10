@@ -31,8 +31,20 @@ namespace Retinues.Features.Missions.Patches
                 if (troop.IsHero)
                     return; // Don't affect heroes
 
-                if (Mission.Current?.GetMissionBehavior<TournamentBehavior>() != null)
-                    return; // Don't modify equipment in tournaments
+                // Try to ensure we are not in a tournament or arena battle
+                foreach (var behavior in Mission.Current?.MissionBehaviors)
+                {
+                    if (behavior is TournamentBehavior)
+                        return;
+
+                    if (behavior.GetType().FullName.ToLowerInvariant().Contains("tournament"))
+                        return;
+
+                    if (behavior.GetType().FullName.ToLowerInvariant().Contains("arena"))
+                        return;
+                }
+
+                Log.Debug($"Applying Combat Equipment Patch to {troop.Name} ({troop.StringId})");
 
                 Equipment eq = null;
 
