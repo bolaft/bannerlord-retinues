@@ -18,11 +18,15 @@ namespace Retinues.Safety.Patches
         {
             try
             {
-                if (boneIndex < 0)
+                if (boneIndex < 0 || __instance == null)
+                    return true;
+
+                var visuals = __instance.AgentVisuals;
+                if (visuals == null)
                     return true;
 
                 EquipmentIndex idx = EquipmentIndex.None;
-                switch (__instance.AgentVisuals.GetBoneTypeData(boneIndex).BodyPartType)
+                switch (visuals.GetBoneTypeData(boneIndex).BodyPartType)
                 {
                     case BoneBodyPartType.Chest:
                     case BoneBodyPartType.Abdomen:
