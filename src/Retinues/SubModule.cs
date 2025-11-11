@@ -256,9 +256,13 @@ namespace Retinues
             if (Config.EnableDoctrines)
             {
                 AddBehavior<DoctrineServiceBehavior>(cs);
-                AddBehavior<FeatServiceBehavior>(cs);
-                AddBehavior<FeatNotificationBehavior>(cs);
                 AddBehavior<DoctrineEffectRuntimeBehavior>(cs);
+
+                if (Config.DisableFeatRequirements == false)
+                {
+                    AddBehavior<FeatServiceBehavior>(cs);
+                    AddBehavior<FeatNotificationBehavior>(cs);
+                }
             }
 
             // Mod compatibility behaviors

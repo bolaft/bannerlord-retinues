@@ -423,13 +423,13 @@ namespace Retinues.Configuration
                     "mcm_option_enable_doctrines_hint",
                     "Enable the Doctrines system and its features."
                 ),
-            requiresRestart: true,
             @default: true,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = true,
-            }
+            },
+            requiresRestart: true
         );
 
         public static readonly Option<bool> DisableFeatRequirements = CreateOption(
@@ -446,7 +446,8 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
-            }
+            },
+            requiresRestart: true
         );
 
         // ─────────────────────────────────────────────────────
