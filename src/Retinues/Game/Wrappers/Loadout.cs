@@ -78,15 +78,6 @@ namespace Retinues.Game.Wrappers
                     ?.AllEquipments ?? [];
             set
             {
-                // Shokuho compatibility kept: it expects exactly 2 sets, both battle-visible.
-                if (ModuleChecker.IsLoaded("Shokuho"))
-                {
-                    var battle =
-                        value.FirstOrDefault(eq => !eq.IsCivilian)
-                        ?? WEquipment.FromCode(null, this, 0, forceCivilian: false).Base;
-                    value = [battle, battle];
-                }
-
                 var roster = new MBEquipmentRoster();
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
                 Reflector.SetFieldValue(_troop.Base, "_equipmentRoster", roster);
@@ -200,7 +191,7 @@ namespace Retinues.Game.Wrappers
             Equipments = list;
 
             // Update combat-use mask indices
-            Retinues.Features.Missions.Behaviors.CombatEquipmentBehavior.OnRemoved(Troop, idx);
+            Features.Missions.Behaviors.CombatEquipmentBehavior.OnRemoved(Troop, idx);
 
             Normalize();
         }
@@ -212,8 +203,8 @@ namespace Retinues.Game.Wrappers
         {
             Equipments =
             [
-                WEquipment.FromCode(null, this, (int)EquipmentCategory.Battle),
-                WEquipment.FromCode(null, this, (int)EquipmentCategory.Civilian),
+                WEquipment.FromCode(null, this, (int)EquipmentCategory.Battle, false),
+                WEquipment.FromCode(null, this, (int)EquipmentCategory.Civilian, true),
             ];
         }
 

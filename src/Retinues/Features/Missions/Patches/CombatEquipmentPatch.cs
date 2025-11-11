@@ -31,6 +31,9 @@ namespace Retinues.Features.Missions.Patches
                 if (troop.IsHero)
                     return; // Don't affect heroes
 
+                if (!troop.IsCustom && ModuleChecker.IsLoaded("Shokuho"))
+                    return; // Don't affect non-custom troops when Shokuho is loaded
+
                 if (Mission.Current?.Mode == MissionMode.Tournament)
                     return; // Don't affect tournaments
 

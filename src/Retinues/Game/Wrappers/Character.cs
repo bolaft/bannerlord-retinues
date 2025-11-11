@@ -605,7 +605,9 @@ namespace Retinues.Game.Wrappers
             // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
             {
-                if (Config.CopyAllSetsWhenCloning)
+                if (
+                    Config.CopyAllSetsWhenCloning && !ModuleChecker.IsLoaded("Shokuho") // Only two sets supported in Shokuho
+                )
                 {
                     // Copy every set verbatim
                     Loadout.FillFrom(src.Loadout, copyAll: true);
