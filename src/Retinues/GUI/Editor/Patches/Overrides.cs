@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
+using Retinues.Configuration;
 
 [PrefabExtension("ClanScreen", "descendant::ButtonWidget[@CommandParameter.Click='0']")]
 internal class ClanScreen_MembersWidth : PrefabExtensionSetAttributePatch
@@ -47,5 +48,15 @@ internal class ClanScreen_FinancePanel_Visible : PrefabExtensionSetAttributePatc
 internal class EscapeMenu_ItemTemplate_Margins : PrefabExtensionSetAttributePatch
 {
     // Reduce the vertical gap between ESC menu buttons (default was 30)
-    public override List<Attribute> Attributes => [new Attribute("MarginBottom", "22")];
+    public override List<Attribute> Attributes
+    {
+        get
+        {
+            // Only apply this patch when the global editor is enabled in config.
+            if (!(Config.GlobalEditorEnabled ?? false))
+                return [];
+
+            return [new Attribute("MarginBottom", "22")];
+        }
+    }
 }
