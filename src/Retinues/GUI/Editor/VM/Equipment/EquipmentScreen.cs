@@ -1057,6 +1057,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             // Ensure filter is refreshed when showing
             EquipmentList.RefreshFilter();
+
+            // Special case
+            OnPropertyChanged(nameof(ShowCraftedIsVisible));
         }
 
         /// <summary>
