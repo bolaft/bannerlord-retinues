@@ -173,12 +173,6 @@
       id="ret_confirm"
       text="Confirmer" />
     <string
-      id="ret_confirm_copy_cost_text"
-      text="La copie de cet ensemble nécessite l’achat des objets manquants pour {COST} pièces d’or. Continuer ?" />
-    <string
-      id="ret_confirm_copy_cost_title"
-      text="Confirmer l’achat" />
-    <string
       id="ret_confirm_import_body"
       text="Cela remplacera les définitions de troupes existantes." />
     <string
@@ -202,12 +196,6 @@
     <string
       id="ret_copy_current"
       text="Copier l’actuel" />
-    <string
-      id="ret_copy_failed_text"
-      text="Une erreur s’est produite lors de la copie de cet ensemble." />
-    <string
-      id="ret_copy_failed_title"
-      text="Échec de la copie" />
     <string
       id="ret_create_from_culture"
       text="Copier les troupes de {CULTURE}" />
@@ -1026,7 +1014,13 @@
       text="Pas assez d’or pour acheter cet objet." />
     <string
       id="ret_not_enough_gold_title"
-      text="Or insuffisant" />
+      text="Or Insuffisant" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="Vous n’avez pas assez d’exemplaires en stock." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Stock Insuffisant" />
     <string
       id="ret_not_enough_xp"
       text="Pas assez d’XP pour le prochain point de compétence." />
@@ -1216,9 +1210,6 @@
     <string
       id="ret_select_culture_title"
       text="Sélection de la la culture" />
-    <string
-      id="ret_set_not_enough_gold_text"
-      text="Vous avez besoin de {COST} d&apos;or pour acheter les objets manquants." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Débloque la doctrine « Traditions Claniques » pour afficher les objets forgés." />

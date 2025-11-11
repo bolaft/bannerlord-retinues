@@ -173,12 +173,6 @@
       id="ret_confirm"
       text="確認" />
     <string
-      id="ret_confirm_copy_cost_text"
-      text="複製此套裝需要購買缺失的物品，費用為 {COST} 金幣。繼續？" />
-    <string
-      id="ret_confirm_copy_cost_title"
-      text="確認購買" />
-    <string
       id="ret_confirm_import_body"
       text="這將替換現有的部隊定義。" />
     <string
@@ -202,12 +196,6 @@
     <string
       id="ret_copy_current"
       text="複製當前" />
-    <string
-      id="ret_copy_failed_text"
-      text="複製此套裝時出錯。" />
-    <string
-      id="ret_copy_failed_title"
-      text="複製失敗" />
     <string
       id="ret_create_from_culture"
       text="複製 {CULTURE} 的部隊" />
@@ -1028,6 +1016,12 @@
       id="ret_not_enough_gold_title"
       text="金幣不足" />
     <string
+      id="ret_not_enough_stock_text"
+      text="您的庫存中沒有足夠的副本。" />
+    <string
+      id="ret_not_enough_stock_title"
+      text="庫存不足" />
+    <string
       id="ret_not_enough_xp"
       text="沒有足夠的經驗值獲得下一個技能點。" />
     <string
@@ -1216,9 +1210,6 @@
     <string
       id="ret_select_culture_title"
       text="選擇文化" />
-    <string
-      id="ret_set_not_enough_gold_text"
-      text="您需要 {COST} 金幣來購買缺少的物品。" />
     <string
       id="ret_show_crafted_disabled_hint"
       text="解鎖“氏族傳統”信條以顯示手工製作的物品。" />

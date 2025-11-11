@@ -173,12 +173,6 @@
       id="ret_confirm"
       text="Conferma" />
     <string
-      id="ret_confirm_copy_cost_text"
-      text="Copiare questo set richiede l’acquisto degli oggetti mancanti per {COST} oro. Procedere?" />
-    <string
-      id="ret_confirm_copy_cost_title"
-      text="Conferma Acquisto" />
-    <string
       id="ret_confirm_import_body"
       text="Questo sostituirà le definizioni delle truppe esistenti." />
     <string
@@ -202,12 +196,6 @@
     <string
       id="ret_copy_current"
       text="Copia Attuale" />
-    <string
-      id="ret_copy_failed_text"
-      text="Si è verificato un errore durante la copia di questo set." />
-    <string
-      id="ret_copy_failed_title"
-      text="Copia Fallita" />
     <string
       id="ret_create_from_culture"
       text="Copia le truppe di {CULTURE}" />
@@ -1026,7 +1014,13 @@
       text="Non hai abbastanza oro per acquistare questo oggetto." />
     <string
       id="ret_not_enough_gold_title"
-      text="Oro insufficiente" />
+      text="Oro Insufficiente" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="Non hai abbastanza copie in magazzino." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Stock Insufficiente" />
     <string
       id="ret_not_enough_xp"
       text="Non abbastanza XP per il prossimo punto abilità." />
@@ -1216,9 +1210,6 @@
     <string
       id="ret_select_culture_title"
       text="Seleziona Cultura" />
-    <string
-      id="ret_set_not_enough_gold_text"
-      text="Hai bisogno di {COST} d&apos;oro per acquistare gli oggetti mancanti." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Sblocca la dottrina &apos;Tradizioni Claniche&apos; per mostrare gli oggetti artigianali." />

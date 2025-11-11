@@ -9,6 +9,7 @@ using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -203,9 +204,6 @@ namespace Retinues.Troops.Edition
             return set;
         }
 
-        /// <summary>
-        /// Equips an item from stock to a troop, reducing stock by 1.
-        /// </summary>
         public static void EquipFromStock(
             WCharacter troop,
             EquipmentIndex slot,
@@ -213,20 +211,21 @@ namespace Retinues.Troops.Edition
             int index = 0
         )
         {
-            Log.Debug(
-                "[EquipFromStock] Called for item " + item?.Name + " and troop " + troop?.Name
-            );
+            Log.Debug("[EquipFromStock] " + item?.Name + " / " + troop?.Name);
 
-            Log.Debug("[EquipFromStock] Unstocking item.");
-            item.Unstock(); // Reduce stock by 1
+            // multiplicity-based adjustment (no purchase allowed)
+            if (!AdjustOwnershipForEquip(troop, index, slot, item, allowPurchase: false))
+            {
+                Notifications.Popup(
+                    L.T("not_enough_stock_title", "Not Enough Stock"),
+                    L.T("not_enough_stock_text", "You don't have enough copies in stock.")
+                );
+                return;
+            }
 
-            Log.Debug("[EquipFromStock] Calling Equip.");
             Equip(troop, slot, item, index);
         }
 
-        /// <summary>
-        /// Purchases and equips an item to a troop, deducting gold.
-        /// </summary>
         public static void EquipFromPurchase(
             WCharacter troop,
             EquipmentIndex slot,
@@ -234,14 +233,21 @@ namespace Retinues.Troops.Edition
             int index = 0
         )
         {
-            Log.Debug(
-                "[EquipFromPurchase] Called for item " + item?.Name + " and troop " + troop?.Name
-            );
+            Log.Debug("[EquipFromPurchase] " + item?.Name + " / " + troop?.Name);
 
-            Log.Debug("[EquipFromPurchase] Deducting gold: " + GetItemCost(item, troop));
-            Player.ChangeGold(-GetItemCost(item, troop)); // Deduct cost
+            // multiplicity-based adjustment (purchase allowed if needed)
+            if (!AdjustOwnershipForEquip(troop, index, slot, item, allowPurchase: true))
+            {
+                Notifications.Popup(
+                    L.T("not_enough_gold_title", "Not Enough Gold"),
+                    L.T(
+                        "not_enough_gold_text",
+                        "You do not have enough gold to purchase this item."
+                    )
+                );
+                return;
+            }
 
-            Log.Debug("[EquipFromPurchase] Calling Equip.");
             Equip(troop, slot, item, index);
         }
 
@@ -272,6 +278,37 @@ namespace Retinues.Troops.Edition
             }
         }
 
+        public static void Unequip(
+            WCharacter troop,
+            EquipmentIndex slot,
+            int index = 0,
+            bool stock = false
+        )
+        {
+            var loadout = troop?.Loadout;
+            var eq = loadout?.Get(index);
+            var oldItem = eq?.Get(slot);
+            if (oldItem == null)
+            {
+                troop.Equip(null, slot, index); // no-op but keeps cascades consistent
+                return;
+            }
+
+            // Compute multiplicity delta BEFORE removing
+            int oldMaxBefore = loadout.MaxCountPerSet(oldItem);
+            int newCountThisSet = Math.Max(0, loadout.CountInSet(oldItem, index) - 1);
+            int oldMaxAfter = Math.Max(newCountThisSet, MaxOverOtherSets(loadout, oldItem, index));
+            int deltaRemove = Math.Max(0, oldMaxBefore - oldMaxAfter); // copies freed
+
+            // Actually unequip (runs formation/requirements updates)
+            troop.Equip(null, slot, index);
+
+            // Refund freed copies if caller asked to stock them
+            if (stock && deltaRemove > 0)
+                for (int i = 0; i < deltaRemove; i++)
+                    oldItem.Stock();
+        }
+
         /// <summary>
         /// Gets the value of an item for a troop, applying doctrine rebates.
         /// </summary>
@@ -289,6 +326,128 @@ namespace Retinues.Troops.Edition
             int baseValue = item?.Value ?? 0;
 
             return (int)(baseValue * Config.EquipmentPriceModifier);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //           Ownership delta / multiplicity core          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static int GetStockCount(WItem item)
+        {
+            // If you expose StockCount on WItem, use it; otherwise emulate with IsStocked bool -> 0/1.
+            try
+            {
+                return item?.GetStock() ?? (item?.IsStocked == true ? 1 : 0);
+            }
+            catch
+            {
+                return item?.IsStocked == true ? 1 : 0;
+            }
+        }
+
+        /// <summary>
+        /// Adjusts inventory (stock / payment) for replacing a slot with 'newItem'.
+        /// Applies the multiplicity rule: required copies = max per single set.
+        /// Returns true if adjustment succeeded (enough stock or gold when needed).
+        /// </summary>
+        private static bool AdjustOwnershipForEquip(
+            WCharacter troop,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem newItem,
+            bool allowPurchase
+        )
+        {
+            var loadout = troop?.Loadout;
+            if (loadout == null)
+                return true;
+
+            var eq = loadout.Get(setIndex);
+            var oldItem = eq?.Get(slot);
+
+            // No change → no adjustment
+            if (oldItem == newItem)
+                return true;
+
+            // REMOVAL DELTA (old item)
+            int oldMaxBefore = loadout.MaxCountPerSet(oldItem);
+            // If we remove oldItem from this slot, what's the new max?
+            int newCountThisSetOldItem =
+                oldItem != null ? Math.Max(0, loadout.CountInSet(oldItem, setIndex) - 1) : 0;
+            int oldMaxAfter =
+                oldItem != null
+                    ? Math.Max(newCountThisSetOldItem, MaxOverOtherSets(loadout, oldItem, setIndex))
+                    : 0;
+            int deltaRemove = Math.Max(0, oldMaxBefore - oldMaxAfter); // copies freed
+
+            // ADDITION DELTA (new item)
+            int newMaxBefore = loadout.MaxCountPerSet(newItem);
+            int newCountThisSetNewItem =
+                newItem != null ? loadout.CountInSet(newItem, setIndex) + 1 : 0;
+            int newMaxAfter =
+                newItem != null
+                    ? Math.Max(newCountThisSetNewItem, MaxOverOtherSets(loadout, newItem, setIndex))
+                    : 0;
+            int deltaAdd = Math.Max(0, newMaxAfter - newMaxBefore); // extra copies needed
+
+            // Apply: first add (need copies), then remove (refund freed)
+            if (deltaAdd > 0 && newItem != null)
+            {
+                // try to consume from stock first
+                int stock = GetStockCount(newItem);
+                int fromStock = Math.Min(stock, deltaAdd);
+                for (int i = 0; i < fromStock; i++)
+                    newItem.Unstock();
+
+                int stillNeeded = deltaAdd - fromStock;
+                if (stillNeeded > 0)
+                {
+                    if (!allowPurchase || Config.PayForEquipment == false)
+                        return false; // blocked — not allowed to buy here
+
+                    int unitCost = GetItemCost(newItem, troop);
+                    int totalCost = unitCost * stillNeeded;
+                    if (Player.Gold < totalCost)
+                        return false;
+
+                    // purchase 'stillNeeded' copies: stock then immediately consume
+                    if (unitCost > 0)
+                        Player.ChangeGold(-totalCost);
+                    for (int i = 0; i < stillNeeded; i++)
+                    {
+                        newItem.Stock();
+                        newItem.Unstock();
+                    }
+                }
+            }
+
+            // Refund freed copies to stock for oldItem
+            if (deltaRemove > 0 && oldItem != null)
+            {
+                for (int i = 0; i < deltaRemove; i++)
+                    oldItem.Stock();
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Helper: max count of 'item' considering all sets except the given one.
+        /// </summary>
+        private static int MaxOverOtherSets(WLoadout loadout, WItem item, int excludingSet)
+        {
+            if (item == null)
+                return 0;
+            int max = 0;
+            for (int i = 0; i < loadout.Equipments.Count; i++)
+            {
+                if (i == excludingSet)
+                    continue;
+                int c = loadout.CountInSet(item, i);
+                if (c > max)
+                    max = c;
+            }
+            return max;
         }
     }
 }

@@ -803,14 +803,11 @@ namespace Retinues.GUI.Editor.VM.Equipment
             );
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Create Set (free)                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         [DataSourceMethod]
-        /// <summary>
-        /// Create a new alternate equipment set:
-        /// - Prompt: Copy current set OR create empty.
-        /// - If copying and Config.PayForEquipment: compute and display total cost for missing stocks,
-        ///   check affordability, pay and top-up stocks, then consume 1 stock per item copied.
-        /// - New set starts disabled in combat masks; policies normalized; select created set.
-        /// </summary>
         public void ExecuteCreateSet()
         {
             if (!CanCreateSet)
@@ -821,7 +818,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (troop == null || src == null)
                 return;
 
-            // Compose the inquiry text (with or without cost hint, computed below when needed).
             var title = L.S("create_set_title", "Create Equipment Set");
             var baseText = L.S(
                 "create_set_text",
@@ -842,202 +838,60 @@ namespace Retinues.GUI.Editor.VM.Equipment
             );
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         /// <summary>
         /// Create an empty battle set, then apply mask defaults and select it.
         /// </summary>
         private void ExecuteCreateSet_EmptyFlow(WCharacter troop)
         {
-            // New default = create a BATTLE set
             var created = troop?.Loadout.CreateBattle();
             if (created == null)
                 return;
 
-            // Default to disabled for all battle types, then fix invariants
             CombatLoadoutBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
-
-            // Select the newly created set
             State.UpdateEquipment(created);
         }
 
         /// <summary>
-        /// Copy the current set into a new one. If PayForEquipment=false or StudioMode:
-        ///  - direct copy of items (no payment, no stock checks).
-        /// Else:
-        ///  - compute missing-stock items, sum their costs, ensure affordability,
-        ///  - charge gold & top-up stock by +1 for each missing item,
-        ///  - create the new set, equip all items into it,
-        ///  - consume 1 stock per equipped item.
+        /// Copy the current set into a new one — always free:
+        /// no payment, no stock changes, just duplicate the items.
         /// </summary>
         private void ExecuteCreateSet_CopyFlow(WCharacter troop, WEquipment src)
         {
-            // Studio mode or free equipment: do a straight copy (no cost, no stocks)
-            bool free = EditorVM.IsStudioMode || Config.PayForEquipment == false;
-
-            // Build the per-item copy plan from the source set
             var plan = CollectCopyPlan(src);
 
-            if (free)
-            {
-                var created = troop.Loadout.CreateBattle();
-                CopyItemsInto(created, plan);
-                CombatLoadoutBehavior.DisableAll(troop, created.Index);
-                State.FixCombatPolicies(troop);
-                State.UpdateEquipment(created);
-                return;
-            }
+            var created = troop.Loadout.CreateBattle();
+            CopyItemsInto(created, plan);
 
-            // Paid path: precompute total gold required for items that are NOT stocked
-            int totalCost = 0;
-            foreach (var (slot, item, isStocked) in plan)
-            {
-                if (!isStocked)
-                    totalCost += EquipmentManager.GetItemCost(item, troop);
-            }
-
-            // If there's a cost, announce it and ask for confirmation (and affordability)
-            if (totalCost > 0)
-            {
-                // If the player can't afford, show a popup and abort
-                if (Player.Gold < totalCost)
-                {
-                    Notifications.Popup(
-                        L.T("not_enough_gold_title", "Not Enough Gold"),
-                        L.T(
-                                "set_not_enough_gold_text",
-                                "You need {COST} gold to purchase missing items."
-                            )
-                            .SetTextVariable("COST", Format.Number(totalCost))
-                    );
-                    return;
-                }
-
-                // Ask confirmation with the total cost
-                var title = L.S("confirm_copy_cost_title", "Confirm Purchase");
-                var text = L.T(
-                        "confirm_copy_cost_text",
-                        "Copying this set requires purchasing missing items for {COST} gold. Proceed?"
-                    )
-                    .SetTextVariable("COST", Format.Number(totalCost))
-                    .ToString();
-
-                InformationManager.ShowInquiry(
-                    new InquiryData(
-                        title,
-                        text,
-                        true,
-                        true,
-                        L.S("confirm", "Confirm"),
-                        L.S("cancel", "Cancel"),
-                        affirmativeAction: () =>
-                            ExecuteCreateSet_CopyPaid_Do(troop, src, plan, totalCost),
-                        negativeAction: () => { }
-                    )
-                );
-            }
-            else
-            {
-                // No cost (everything already stocked)
-                ExecuteCreateSet_CopyPaid_Do(troop, src, plan, totalCost);
-            }
+            CombatLoadoutBehavior.DisableAll(troop, created.Index);
+            State.FixCombatPolicies(troop);
+            State.UpdateEquipment(created);
         }
 
-        /// <summary>
-        /// Finalize the paid copy: charge, top-up missing stocks, create set, equip items, then consume stocks.
-        /// </summary>
-        private void ExecuteCreateSet_CopyPaid_Do(
-            WCharacter troop,
-            WEquipment src,
-            List<(EquipmentIndex slot, WItem item, bool isStocked)> plan,
-            int totalCost
-        )
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>Build (slot, item) for all defined slots from the source equipment.</summary>
+        private List<(EquipmentIndex slot, WItem item)> CollectCopyPlan(WEquipment src)
         {
-            try
-            {
-                // 1) Pay once for all missing-stock items and top-up their stock by +1
-                foreach (var (slot, item, isStocked) in plan)
-                {
-                    if (!isStocked)
-                    {
-                        // Pay (uses doctrine rebates via EquipmentManager)
-                        var cost = EquipmentManager.GetItemCost(item, troop);
-                        if (cost > 0)
-                            Player.ChangeGold(-cost);
-
-                        // Top-up
-                        item.Stock();
-                    }
-                }
-
-                // 2) Create the new battle set
-                var created = troop.Loadout.CreateBattle();
-
-                // 3) Equip: set items directly into the created set
-                CopyItemsInto(created, plan);
-
-                // 4) Consume 1 stock for each equipped item
-                foreach (var (slot, item, isStocked) in plan)
-                    item.Unstock();
-
-                // 5) Default mask state and policy fix
-                CombatLoadoutBehavior.DisableAll(troop, created.Index);
-                State.FixCombatPolicies(troop);
-
-                // 6) Select the new set
-                State.UpdateEquipment(created);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-                Notifications.Popup(
-                    L.T("copy_failed_title", "Copy Failed"),
-                    L.T("copy_failed_text", "Something went wrong while copying this set.")
-                );
-            }
-        }
-
-        /// <summary>
-        /// Build (slot, item, isStocked) for all defined slots from the source equipment.
-        /// </summary>
-        private List<(EquipmentIndex slot, WItem item, bool isStocked)> CollectCopyPlan(
-            WEquipment src
-        )
-        {
-            var list = new List<(EquipmentIndex, WItem, bool)>(WEquipment.Slots.Count);
+            var list = new List<(EquipmentIndex, WItem)>(WEquipment.Slots.Count);
             foreach (var slot in WEquipment.Slots)
             {
                 var it = src.Get(slot);
-                if (it == null)
-                    continue;
-
-                // If your API is StockCount > 0, replace with (it.StockCount > 0)
-                bool stocked = false;
-                try
-                {
-                    stocked = it.IsStocked; // adjust if your wrapper uses a different name
-                }
-                catch
-                { /* fallback if property not present; treat as not stocked */
-                }
-
-                list.Add((slot, it, stocked));
+                if (it != null)
+                    list.Add((slot, it));
             }
             return list;
         }
 
-        /// <summary>
-        /// Copy items (by slot) into the destination equipment (direct set, no timing/staging).
-        /// </summary>
+        /// <summary>Copy items (by slot) into the destination equipment (direct set, no staging).</summary>
         private static void CopyItemsInto(
             WEquipment dst,
-            List<(EquipmentIndex slot, WItem item, bool isStocked)> plan
+            List<(EquipmentIndex slot, WItem item)> plan
         )
         {
-            foreach (var (slot, item, _) in plan)
+            foreach (var (slot, item) in plan)
                 dst.SetItem(slot, item);
         }
 

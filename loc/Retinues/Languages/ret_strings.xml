@@ -173,12 +173,6 @@
       id="ret_confirm"
       text="Confirm" />
     <string
-      id="ret_confirm_copy_cost_text"
-      text="Copying this set requires purchasing missing items for {COST} gold. Proceed?" />
-    <string
-      id="ret_confirm_copy_cost_title"
-      text="Confirm Purchase" />
-    <string
       id="ret_confirm_import_body"
       text="This will replace existing troop definitions." />
     <string
@@ -202,12 +196,6 @@
     <string
       id="ret_copy_current"
       text="Copy Current" />
-    <string
-      id="ret_copy_failed_text"
-      text="Something went wrong while copying this set." />
-    <string
-      id="ret_copy_failed_title"
-      text="Copy Failed" />
     <string
       id="ret_create_from_culture"
       text="Copy {CULTURE}&apos;s Troops" />
@@ -1028,6 +1016,12 @@
       id="ret_not_enough_gold_title"
       text="Not Enough Gold" />
     <string
+      id="ret_not_enough_stock_text"
+      text="You don&apos;t have enough copies in stock." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Not Enough Stock" />
+    <string
       id="ret_not_enough_xp"
       text="Not enough XP for next skill point." />
     <string
@@ -1216,9 +1210,6 @@
     <string
       id="ret_select_culture_title"
       text="Select Culture" />
-    <string
-      id="ret_set_not_enough_gold_text"
-      text="You need {COST} gold to purchase missing items." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Unlock the &apos;Clanic Traditions&apos; doctrine to show crafted items." />

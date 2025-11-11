@@ -7,6 +7,7 @@ using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Mods;
 using Retinues.Safety.Sanitizer;
+using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -381,17 +382,13 @@ namespace Retinues.Game.Wrappers
 
         public void Unequip(EquipmentIndex slot, int index = 0, bool stock = false)
         {
-            if (stock)
-                Loadout.Get(index).Get(slot)?.Stock();
-
-            // Same as equip with null item
-            Equip(null, slot, index);
+            EquipmentManager.Unequip(this, slot, index, stock);
         }
 
         public void UnequipAll(int index, bool stock = false)
         {
             foreach (var slot in WEquipment.Slots)
-                Unequip(slot, index: index, stock: stock);
+                EquipmentManager.Unequip(this, slot, index, stock);
         }
 
         public void Unstage(EquipmentIndex slot, int index = 0, bool stock = false)

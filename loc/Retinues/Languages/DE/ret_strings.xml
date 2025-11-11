@@ -173,12 +173,6 @@
       id="ret_confirm"
       text="Bestätigen" />
     <string
-      id="ret_confirm_copy_cost_text"
-      text="Das Kopieren dieses Sets erfordert den Kauf fehlender Gegenstände für {COST} Gold. Fortfahren?" />
-    <string
-      id="ret_confirm_copy_cost_title"
-      text="Kauf bestätigen" />
-    <string
       id="ret_confirm_import_body"
       text="Dies wird die bestehenden Truppendefinitionen ersetzen." />
     <string
@@ -202,12 +196,6 @@
     <string
       id="ret_copy_current"
       text="Aktuelles kopieren" />
-    <string
-      id="ret_copy_failed_text"
-      text="Beim Kopieren dieses Sets ist etwas schiefgelaufen." />
-    <string
-      id="ret_copy_failed_title"
-      text="Kopieren fehlgeschlagen" />
     <string
       id="ret_create_from_culture"
       text="Kopiere {CULTURE}s Truppen" />
@@ -1028,6 +1016,12 @@
       id="ret_not_enough_gold_title"
       text="Nicht genug Gold" />
     <string
+      id="ret_not_enough_stock_text"
+      text="Du hast nicht genug Exemplare auf Lager." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Nicht genug Lagerbestand" />
+    <string
       id="ret_not_enough_xp"
       text="Nicht genug XP für den nächsten Fertigkeitspunkt." />
     <string
@@ -1216,9 +1210,6 @@
     <string
       id="ret_select_culture_title"
       text="Kultur auswählen" />
-    <string
-      id="ret_set_not_enough_gold_text"
-      text="Du benötigst {COST} Gold, um fehlende Gegenstände zu kaufen." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Schalte die Doktrin &apos;Klantraditionen&apos; frei, um hergestellte Gegenstände anzuzeigen." />

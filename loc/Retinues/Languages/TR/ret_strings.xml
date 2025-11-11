@@ -173,12 +173,6 @@
       id="ret_confirm"
       text="Onayla" />
     <string
-      id="ret_confirm_copy_cost_text"
-      text="Bu seti kopyalamak, eksik öğeleri {COST} altına satın almayı gerektirir. Devam edilsin mi?" />
-    <string
-      id="ret_confirm_copy_cost_title"
-      text="Satın Almayı Onayla" />
-    <string
       id="ret_confirm_import_body"
       text="Bu, mevcut birlik tanımlarının yerini alacaktır." />
     <string
@@ -202,12 +196,6 @@
     <string
       id="ret_copy_current"
       text="Mevcut Kopya" />
-    <string
-      id="ret_copy_failed_text"
-      text="Bu seti kopyalarken bir şeyler ters gitti." />
-    <string
-      id="ret_copy_failed_title"
-      text="Kopyalama Başarısız" />
     <string
       id="ret_create_from_culture"
       text="{CULTURE} Askerlerini Kopyala" />
@@ -1028,6 +1016,12 @@
       id="ret_not_enough_gold_title"
       text="Yetersiz Altın" />
     <string
+      id="ret_not_enough_stock_text"
+      text="Stokta yeterli kopya yok." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Yetersiz Stok" />
+    <string
       id="ret_not_enough_xp"
       text="Sonraki beceri puanı için yeterli XP yok." />
     <string
@@ -1216,9 +1210,6 @@
     <string
       id="ret_select_culture_title"
       text="Kültür Seç" />
-    <string
-      id="ret_set_not_enough_gold_text"
-      text="Eksik eşyaları satın almak için {COST} altına ihtiyacınız var." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="&apos;Klan Gelenekleri&apos; doktrinini açarak el yapımı eşyaları göster." />

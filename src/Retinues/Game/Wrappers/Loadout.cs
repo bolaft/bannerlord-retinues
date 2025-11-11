@@ -378,5 +378,96 @@ namespace Retinues.Game.Wrappers
             // Recompute upgrade horse requirement (checks all sets)
             Troop.UpgradeItemRequirement = ComputeUpgradeItemRequirement();
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Cross-set item usage                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Enumerate every (setIndex, slot, item) currently equipped.
+        /// </summary>
+        public IEnumerable<(int setIndex, EquipmentIndex slot, WItem item)> EnumerateEquipped()
+        {
+            var list = Equipments;
+            for (int i = 0; i < list.Count; i++)
+                foreach (var slot in WEquipment.Slots)
+                {
+                    var it = list[i].Get(slot);
+                    if (it != null)
+                        yield return (i, slot, it);
+                }
+        }
+
+        /// <summary>
+        /// How many times is this exact item equipped across all sets.
+        /// </summary>
+        public int CountEquipped(WItem item)
+        {
+            if (item == null)
+                return 0;
+            int c = 0;
+            foreach (var (_, _, it) in EnumerateEquipped())
+                if (it == item)
+                    c++;
+            return c;
+        }
+
+        /// <summary>
+        /// Is this item equipped in any set other than the given one/slot.
+        /// </summary>
+        public bool IsEquippedElsewhere(
+            WItem item,
+            int excludingSetIndex = -1,
+            EquipmentIndex? excludingSlot = null
+        )
+        {
+            if (item == null)
+                return false;
+            foreach (var (i, slot, it) in EnumerateEquipped())
+                if (
+                    it == item
+                    && (
+                        i != excludingSetIndex
+                        || (excludingSlot.HasValue && slot != excludingSlot.Value)
+                    )
+                )
+                    return true;
+            return false;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //              Per-set multiplicity helpers              //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public int CountInSet(WItem item, int setIndex)
+        {
+            if (item == null || setIndex < 0 || setIndex >= Equipments.Count)
+                return 0;
+
+            int c = 0;
+            var eq = Equipments[setIndex];
+            foreach (var slot in WEquipment.Slots)
+                if (eq.Get(slot) == item)
+                    c++;
+            return c;
+        }
+
+        /// <summary>
+        /// Maximum number of simultaneous copies of 'item' present in any single set.
+        /// This is the number of physical copies you actually need to own.
+        /// </summary>
+        public int MaxCountPerSet(WItem item)
+        {
+            if (item == null)
+                return 0;
+            int max = 0;
+            for (int i = 0; i < Equipments.Count; i++)
+            {
+                int c = CountInSet(item, i);
+                if (c > max)
+                    max = c;
+            }
+            return max;
+        }
     }
 }

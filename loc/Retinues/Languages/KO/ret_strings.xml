@@ -173,12 +173,6 @@
       id="ret_confirm"
       text="확인" />
     <string
-      id="ret_confirm_copy_cost_text"
-      text="이 세트를 복사하려면 {COST} 골드로 누락된 아이템을 구매해야 합니다. 계속하시겠습니까?" />
-    <string
-      id="ret_confirm_copy_cost_title"
-      text="구매 확인" />
-    <string
       id="ret_confirm_import_body"
       text="기존 병력 정의가 대체됩니다." />
     <string
@@ -202,12 +196,6 @@
     <string
       id="ret_copy_current"
       text="현재 복사" />
-    <string
-      id="ret_copy_failed_text"
-      text="이 세트를 복사하는 동안 문제가 발생했습니다." />
-    <string
-      id="ret_copy_failed_title"
-      text="복사 실패" />
     <string
       id="ret_create_from_culture"
       text="{CULTURE} 의 부대 복사" />
@@ -1028,6 +1016,12 @@
       id="ret_not_enough_gold_title"
       text="골드 부족" />
     <string
+      id="ret_not_enough_stock_text"
+      text="재고에 충분한 사본이 없습니다." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="재고 부족" />
+    <string
       id="ret_not_enough_xp"
       text="다음 스킬 포인트에 대한 충분한 XP가 없습니다." />
     <string
@@ -1216,9 +1210,6 @@
     <string
       id="ret_select_culture_title"
       text="문화 선택" />
-    <string
-      id="ret_set_not_enough_gold_text"
-      text="누락된 아이템을 구매하려면 {COST} 골드가 필요합니다." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="&apos;씨족 전통&apos; 교리를 잠금 해제하여 제작된 아이템을 표시하십시오." />
