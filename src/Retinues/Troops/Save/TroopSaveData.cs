@@ -136,6 +136,13 @@ namespace Retinues.Troops.Save
             // Activate
             troop.Activate();
 
+            if (
+                troop?.Name?.ToLowerInvariant().Contains("banner") == true
+                && troop?.Name.ToLowerInvariant().Contains("knight") == true
+            )
+                Log.Info(
+                    $"Upgrade Requirement: {troop?.UpgradeItemRequirement?.GetName()} for {troop?.Name}"
+                );
             // Return the created troop
             return troop;
         }

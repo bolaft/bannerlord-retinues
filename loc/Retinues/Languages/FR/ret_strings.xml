@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Lors de la vérification des exigences de monture lors de la montée en grade des troupes, le cheval de l’équipement civil est ignoré." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Conserver les Exigences de Promotions pour les Troupes Originelles" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Les troupes originelles conservent leurs exigences d’objets de promotion d’origine lorsqu’elles sont modifiées." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Ratio Maximum de Rétinue Basique" />
     <string

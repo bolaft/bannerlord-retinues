@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="When checking for mount requirements when upgrading troops, ignore the civilian set&apos;s horse." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Keep Upgrade Requirements For Vanilla Troops" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Vanilla troops retain their original upgrade item requirements when edited." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Max Basic Retinue Ratio" />
     <string

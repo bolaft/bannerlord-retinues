@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="在升级部队时检查坐骑需求时，忽略平民装备的马匹。" />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="保留原版部队的升级需求" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="编辑时，原版部队保留其原始升级物品需求。" />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基础随从比例上限" />
     <string

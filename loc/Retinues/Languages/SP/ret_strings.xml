@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Al verificar los requisitos de montura al mejorar las tropas, ignore el caballo del conjunto civil." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Mantener los Requisitos de Mejora para Tropas Vanilla" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Las tropas vanilla conservan sus requisitos originales de objetos de mejora cuando se editan." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Proporción Máxima de Séquito Básico" />
     <string

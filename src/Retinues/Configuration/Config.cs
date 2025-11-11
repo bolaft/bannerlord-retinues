@@ -330,6 +330,27 @@ namespace Retinues.Configuration
                 )
         );
 
+        public static readonly Option<bool> KeepUpgradeRequirementsForVanilla = CreateOption(
+            section: () => L.S("mcm_section_global_editor", "Global Editor"),
+            name: () =>
+                L.S(
+                    "mcm_option_keep_upgrade_requirements_for_vanilla",
+                    "Keep Upgrade Requirements For Vanilla Troops"
+                ),
+            key: "KeepUpgradeRequirementsForVanilla",
+            hint: () =>
+                L.S(
+                    "mcm_option_keep_upgrade_requirements_for_vanilla_hint",
+                    "Vanilla troops retain their original upgrade item requirements when edited."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Restrictions
         // ─────────────────────────────────────────────────────
@@ -632,11 +653,11 @@ namespace Retinues.Configuration
                     "mcm_option_never_require_noble_horse_hint",
                     "Troops never require noble horses for upgrades, a war horse is always enough."
                 ),
-            @default: false,
+            @default: true,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = true,
-                [Presets.Realistic] = false,
+                [Presets.Realistic] = true,
             }
         );
 

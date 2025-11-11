@@ -3904,6 +3904,38 @@
     "TR": "Askerleri yükseltirken binek gereksinimlerini kontrol ederken sivil setin atını yoksayın."
   },
   {
+    "id": "ret_mcm_option_keep_upgrade_requirements_for_vanilla",
+    "EN": "Keep Upgrade Requirements For Vanilla Troops",
+    "BR": "Manter Requisitos de Upgrade para Tropas Vanilla",
+    "CNs": "保留原版部队的升级需求",
+    "CNt": "保留原版部隊的升級需求",
+    "DE": "Upgrade-Anforderungen für Vanilla-Truppen beibehalten",
+    "FR": "Conserver les Exigences de Promotions pour les Troupes Originelles",
+    "IT": "Mantieni i Requisiti di Upgrade per le Truppe Vanilla",
+    "JP": "バニラ部隊のアップグレード要件を保持",
+    "KO": "바닐라 병력의 업그레이드 요구 사항 유지",
+    "PL": "Zachowaj Wymagania Ulepszenia dla Podstawowych Jednostek",
+    "RU": "Сохранить Требования Обновления для Обычных Войск",
+    "SP": "Mantener los Requisitos de Mejora para Tropas Vanilla",
+    "TR": "Vanilla Askerler için Yükseltme Gereksinimlerini Koru"
+  },
+  {
+    "id": "ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint",
+    "EN": "Vanilla troops retain their original upgrade item requirements when edited.",
+    "BR": "Tropas vanilla mantêm seus requisitos originais de itens de upgrade quando editadas.",
+    "CNs": "编辑时，原版部队保留其原始升级物品需求。",
+    "CNt": "編輯時，原版部隊保留其原始升級物品需求。",
+    "DE": "Vanilla-Truppen behalten ihre ursprünglichen Upgrade-Gegenstandsanforderungen bei der Bearbeitung bei.",
+    "FR": "Les troupes originelles conservent leurs exigences d’objets de promotion d’origine lorsqu’elles sont modifiées.",
+    "IT": "Le truppe vanilla mantengono i loro requisiti originali di oggetti di upgrade quando vengono modificate.",
+    "JP": "バニラ部隊は編集時に元のアップグレードアイテムの要件を保持します。",
+    "KO": "바닐라 병력은 편집 시 원래의 업그레이드 아이템 요구 사항을 유지합니다.",
+    "PL": "Podstawowe jednostki zachowują swoje oryginalne wymagania dotyczące przedmiotów ulepszeń po edycji.",
+    "RU": "Обычные войска сохраняют свои первоначальные требования к предметам обновления при редактировании.",
+    "SP": "Las tropas vanilla conservan sus requisitos originales de objetos de mejora cuando se editan.",
+    "TR": "Vanilla askerler düzenlendiğinde orijinal yükseltme öğesi gereksinimlerini korur."
+  },
+  {
     "id": "ret_mcm_option_max_basic_retinue_ratio",
     "EN": "Max Basic Retinue Ratio",
     "BR": "Proporção Máxima de Séquito Básico",

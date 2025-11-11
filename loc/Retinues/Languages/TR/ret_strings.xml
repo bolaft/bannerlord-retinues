@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Askerleri yükseltirken binek gereksinimlerini kontrol ederken sivil setin atını yoksayın." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Vanilla Askerler için Yükseltme Gereksinimlerini Koru" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Vanilla askerler düzenlendiğinde orijinal yükseltme öğesi gereksinimlerini korur." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksimum Temel Yandaş Oranı" />
     <string

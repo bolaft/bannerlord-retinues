@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="При проверке требований к лошадям при обновлении войск игнорируйте лошадь из гражданского набора." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Сохранить Требования Обновления для Обычных Войск" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Обычные войска сохраняют свои первоначальные требования к предметам обновления при редактировании." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Макс. Доля Базовой Свиты" />
     <string

@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="部隊をアップグレードする際に乗り物の要件を確認する場合、市民装備の馬を無視します。" />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="バニラ部隊のアップグレード要件を保持" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="バニラ部隊は編集時に元のアップグレードアイテムの要件を保持します。" />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基礎随伴兵の比率上限" />
     <string

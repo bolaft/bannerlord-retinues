@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Quando si verificano i requisiti di cavalcatura durante l’upgrade delle truppe, ignorare il cavallo del set civile." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Mantieni i Requisiti di Upgrade per le Truppe Vanilla" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Le truppe vanilla mantengono i loro requisiti originali di oggetti di upgrade quando vengono modificate." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Rapporto Massimo Seguito Base" />
     <string

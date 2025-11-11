@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Podczas sprawdzania wymagań dotyczących wierzchowców przy ulepszaniu jednostek, ignoruj konia z zestawu cywilnego." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Zachowaj Wymagania Ulepszenia dla Podstawowych Jednostek" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Podstawowe jednostki zachowują swoje oryginalne wymagania dotyczące przedmiotów ulepszeń po edycji." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksymalny Udział Orszaku Podstawowego" />
     <string

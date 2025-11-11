@@ -328,9 +328,6 @@ namespace Retinues.Game.Wrappers
                 }
             }
 
-            if (Config.NeverRequireNobleHorse && bestCategory == DefaultItemCategories.NobleHorse)
-                return DefaultItemCategories.WarHorse; // downgrade to War Horse if configured
-
             return bestCategory;
         }
 
@@ -340,8 +337,15 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public ItemCategory ComputeUpgradeItemRequirement()
         {
+            if (!Troop.IsCustom && Config.KeepUpgradeRequirementsForVanilla)
+                return Troop.UpgradeItemRequirement; // keep vanilla requirement
+
             var bestHorse = FindBestHorseCategory();
             var bestHorseOfParent = Troop.Parent?.Loadout.FindBestHorseCategory();
+
+            if (Config.NeverRequireNobleHorse)
+                if (bestHorse == DefaultItemCategories.NobleHorse)
+                    bestHorse = DefaultItemCategories.WarHorse;
 
             if (IsBetterHorseCategory(bestHorse, bestHorseOfParent))
                 return bestHorse;

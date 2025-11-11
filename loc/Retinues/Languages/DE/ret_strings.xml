@@ -737,6 +737,12 @@
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Beim Überprüfen der Reitanforderungen beim Aufrüsten von Truppen das Pferd des Zivilsets ignorieren." />
     <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Upgrade-Anforderungen für Vanilla-Truppen beibehalten" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Vanilla-Truppen behalten ihre ursprünglichen Upgrade-Gegenstandsanforderungen bei der Bearbeitung bei." />
+    <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maximales Basis-Gefolgsverhältnis" />
     <string
