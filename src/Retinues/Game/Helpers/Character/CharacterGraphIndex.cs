@@ -17,10 +17,10 @@ namespace Retinues.Game.Helpers.Character
         private static readonly HashSet<string> _militiaRanged = [];
         private static readonly HashSet<string> _militiaMeleeElite = [];
         private static readonly HashSet<string> _militiaRangedElite = [];
+        private static readonly HashSet<string> _armedTrader = [];
         private static readonly HashSet<string> _caravanGuard = [];
         private static readonly HashSet<string> _caravanMaster = [];
         private static readonly HashSet<string> _villager = [];
-        private static readonly HashSet<string> _prisonGuard = [];
         private static readonly HashSet<string> _eliteTree = [];
         private static readonly HashSet<string> _basicTree = [];
 
@@ -35,10 +35,10 @@ namespace Retinues.Game.Helpers.Character
             _militiaRanged.Clear();
             _militiaMeleeElite.Clear();
             _militiaRangedElite.Clear();
+            _armedTrader.Clear();
             _caravanGuard.Clear();
             _caravanMaster.Clear();
             _villager.Clear();
-            _prisonGuard.Clear();
             _eliteTree.Clear();
             _basicTree.Clear();
         }
@@ -70,11 +70,13 @@ namespace Retinues.Game.Helpers.Character
             if (f.MilitiaRangedElite != null && f.MilitiaRangedElite.IsActive)
                 _militiaRangedElite.Add(f.MilitiaRangedElite.StringId);
 
-            // Caravan and other troops
+            // Caravan troops
+            MarkOne(f, f.ArmedTrader, _armedTrader);
             MarkOne(f, f.CaravanGuard, _caravanGuard);
             MarkOne(f, f.CaravanMaster, _caravanMaster);
+
+            // Villager troops
             MarkOne(f, f.Villager, _villager);
-            MarkOne(f, f.PrisonGuard, _prisonGuard);
         }
 
         private static void MarkTree(WFaction f, WCharacter root, HashSet<string> bucket)
@@ -139,6 +141,9 @@ namespace Retinues.Game.Helpers.Character
         public static bool IsMilitiaRanged(WCharacter c) =>
             c != null && _militiaRanged.Contains(c.StringId);
 
+        public static bool IsArmedTrader(WCharacter c) =>
+            c != null && c.StringId == "retinues_caravan_armed_trader";
+
         public static bool IsCaravanGuard(WCharacter c) =>
             c != null && _caravanGuard.Contains(c.StringId);
 
@@ -147,9 +152,6 @@ namespace Retinues.Game.Helpers.Character
 
         public static bool IsVillager(WCharacter c) => c != null && _villager.Contains(c.StringId);
 
-        public static bool IsPrisonGuard(WCharacter c) =>
-            c != null && _prisonGuard.Contains(c.StringId);
-
         public static bool IsElite(WCharacter c) =>
             c != null
             && (
@@ -157,7 +159,6 @@ namespace Retinues.Game.Helpers.Character
                 || _retinuesElite.Contains(c.StringId)
                 || _militiaMeleeElite.Contains(c.StringId)
                 || _militiaRangedElite.Contains(c.StringId)
-                || _caravanMaster.Contains(c.StringId)
             );
     }
 }

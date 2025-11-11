@@ -549,7 +549,10 @@
       text="Besiege persönlich einen feindlichen Lord in einer Schlacht." />
     <string
       id="ret_list_toggle_caravan"
-      text="Karawanen-Truppen" />
+      text="Karawanen" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Zivilisten" />
     <string
       id="ret_list_toggle_elite"
       text="Elite" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="Regulär" />
     <string
-      id="ret_list_toggle_settlement"
-      text="Siedlungs-Truppen" />
+      id="ret_list_toggle_villager"
+      text="Dorfbewohner" />
     <string
       id="ret_loc_smoke_test"
       text="Lokalisierungstest DE." />
@@ -1194,7 +1197,7 @@
       text="Lass einen Gefährten derselben Kultur wie dein Königreich 30 Tage lang ein Lehen verwalten." />
     <string
       id="ret_royal_patronage_description"
-      text="Schaltet Karawanen- und Stadttruppen frei." />
+      text="Schaltet Karawanen- und Dorfbewohnertruppen frei." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Rekrutiere 100 benutzerdefinierte Königreichstruppen." />

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using TaleWorlds.SaveSystem;
@@ -34,6 +36,9 @@ namespace Retinues.Troops.Save
         [SaveableField(8)]
         public TroopSaveData MilitiaRangedElite;
 
+        [SaveableField(14)]
+        public TroopSaveData ArmedTrader;
+
         [SaveableField(9)]
         public TroopSaveData CaravanGuard;
 
@@ -44,7 +49,10 @@ namespace Retinues.Troops.Save
         public TroopSaveData Villager;
 
         [SaveableField(12)]
-        public TroopSaveData PrisonGuard;
+        public TroopSaveData PrisonGuard; // Legacy, unused
+
+        [SaveableField(13)]
+        public List<TroopSaveData> Civilians;
 
         public FactionSaveData()
         {
@@ -56,6 +64,7 @@ namespace Retinues.Troops.Save
             if (faction is null)
                 return; // Null faction, nothing to do
 
+            // Troop references
             RetinueElite = new TroopSaveData(faction.RetinueElite);
             RetinueBasic = new TroopSaveData(faction.RetinueBasic);
             RootElite = new TroopSaveData(faction.RootElite);
@@ -64,10 +73,13 @@ namespace Retinues.Troops.Save
             MilitiaMeleeElite = new TroopSaveData(faction.MilitiaMeleeElite);
             MilitiaRanged = new TroopSaveData(faction.MilitiaRanged);
             MilitiaRangedElite = new TroopSaveData(faction.MilitiaRangedElite);
+            ArmedTrader = new TroopSaveData(faction.ArmedTrader);
             CaravanGuard = new TroopSaveData(faction.CaravanGuard);
             CaravanMaster = new TroopSaveData(faction.CaravanMaster);
             Villager = new TroopSaveData(faction.Villager);
-            PrisonGuard = new TroopSaveData(faction.PrisonGuard);
+
+            // Civilians troops
+            Civilians = [.. faction.CivilianTroops.Select(t => new TroopSaveData(t))];
         }
 
         public void Apply(WFaction faction)
@@ -86,7 +98,6 @@ namespace Retinues.Troops.Save
             faction.CaravanGuard = CaravanGuard?.Deserialize();
             faction.CaravanMaster = CaravanMaster?.Deserialize();
             faction.Villager = Villager?.Deserialize();
-            faction.PrisonGuard = PrisonGuard?.Deserialize();
 
             CharacterGraphIndex.RegisterFactionRoots(faction);
         }
@@ -101,10 +112,14 @@ namespace Retinues.Troops.Save
             MilitiaMeleeElite?.Deserialize();
             MilitiaRanged?.Deserialize();
             MilitiaRangedElite?.Deserialize();
+            ArmedTrader?.Deserialize();
             CaravanGuard?.Deserialize();
             CaravanMaster?.Deserialize();
             Villager?.Deserialize();
-            PrisonGuard?.Deserialize();
+
+            if (Civilians != null)
+                foreach (var troopData in Civilians)
+                    troopData.Deserialize();
         }
     }
 }

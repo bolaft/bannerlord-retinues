@@ -58,11 +58,19 @@
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
-        <!-- Settlement Header -->
-        {{ list.header_toggle("TroopList", "Settlement", "@SettlementToggleText", is_visible="@ShowSettlementList") }}
+        <!-- Villager Header -->
+        {{ list.header_toggle("TroopList", "Villager", "@VillagerToggleText", is_visible="@ShowVillagerList") }}
 
-        <!-- Settlement List -->
-        {% call list.rows("{SettlementTroops}", "Settlement") %}
+        <!-- Villager List -->
+        {% call list.rows("{VillagerTroops}", "Villager") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Civilian Header -->
+        {{ list.header_toggle("TroopList", "Civilian", "@CivilianToggleText", is_visible="@ShowCivilianList") }}
+
+        <!-- Civilian List -->
+        {% call list.rows("{CivilianTroops}", "Civilian") %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 

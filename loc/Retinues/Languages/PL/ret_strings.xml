@@ -549,7 +549,10 @@
       text="Samodzielnie pokonaj w bitwie wrogiego lorda." />
     <string
       id="ret_list_toggle_caravan"
-      text="Jednostki Karawany" />
+      text="Karawany" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Cywile" />
     <string
       id="ret_list_toggle_elite"
       text="Elita" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="Zwykły" />
     <string
-      id="ret_list_toggle_settlement"
-      text="Jednostki Osadnicze" />
+      id="ret_list_toggle_villager"
+      text="Mieszkańcy wsi" />
     <string
       id="ret_loc_smoke_test"
       text="Test lokalizacji: PL." />
@@ -1194,7 +1197,7 @@
       text="Niech towarzysz tej samej kultury co twoje królestwo rządzi lennem przez 30 dni." />
     <string
       id="ret_royal_patronage_description"
-      text="Odblokowuje wojska karawanowe i miejskie." />
+      text="Odblokowuje oddziały karawan i wieśniaków." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Zwerbuj 100 własnych wojsk królestwa." />

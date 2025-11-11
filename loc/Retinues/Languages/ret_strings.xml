@@ -549,7 +549,10 @@
       text="Personally defeat an enemy lord in battle." />
     <string
       id="ret_list_toggle_caravan"
-      text="Caravan Troops" />
+      text="Caravans" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Civilians" />
     <string
       id="ret_list_toggle_elite"
       text="Elite" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="Regular" />
     <string
-      id="ret_list_toggle_settlement"
-      text="Settlement Troops" />
+      id="ret_list_toggle_villager"
+      text="Villagers" />
     <string
       id="ret_loc_smoke_test"
       text="Localization test: default fallback (EN)." />
@@ -1194,7 +1197,7 @@
       text="Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days." />
     <string
       id="ret_royal_patronage_description"
-      text="Unlocks caravan and city troops." />
+      text="Unlocks caravan and villager troops." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recruit 100 custom kingdom troops." />

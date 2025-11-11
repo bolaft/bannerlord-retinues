@@ -549,7 +549,10 @@
       text="戦闘で敵の領主を自ら倒す。" />
     <string
       id="ret_list_toggle_caravan"
-      text="キャラバン兵" />
+      text="キャラバン" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="民間人" />
     <string
       id="ret_list_toggle_elite"
       text="精鋭" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="通常" />
     <string
-      id="ret_list_toggle_settlement"
-      text="集落兵" />
+      id="ret_list_toggle_villager"
+      text="村人" />
     <string
       id="ret_loc_smoke_test"
       text="ローカライズテスト：JP。" />
@@ -1194,7 +1197,7 @@
       text="王国と同じ文化の仲間に30日間王国の領地を統治させる。" />
     <string
       id="ret_royal_patronage_description"
-      text="キャラバンと都市の部隊をアンロックします。" />
+      text="キャラバンと村人の部隊をアンロックします。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="カスタム王国兵100人を募集する。" />

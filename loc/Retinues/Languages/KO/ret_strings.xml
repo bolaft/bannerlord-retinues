@@ -549,7 +549,10 @@
       text="전투에서 직접 적 영주를 처치하십시오." />
     <string
       id="ret_list_toggle_caravan"
-      text="캐러밴 병력" />
+      text="캐러밴" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="민간인" />
     <string
       id="ret_list_toggle_elite"
       text="정예" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="보통" />
     <string
-      id="ret_list_toggle_settlement"
-      text="정착지 병력" />
+      id="ret_list_toggle_villager"
+      text="마을 사람들" />
     <string
       id="ret_loc_smoke_test"
       text="현지화 테스트: KO." />
@@ -1194,7 +1197,7 @@
       text="왕국과 같은 문화의 동료가 왕국 영지를 30일간 통치하게 하십시오." />
     <string
       id="ret_royal_patronage_description"
-      text="캐러밴 및 도시 병력을 잠금 해제합니다." />
+      text="캐러밴 및 마을 주민 병력을 잠금 해제합니다." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="커스텀 왕국 병력 100명을 모집하십시오." />

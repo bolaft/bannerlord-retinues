@@ -549,7 +549,10 @@
       text="Derrote pessoalmente um lorde inimigo em batalha." />
     <string
       id="ret_list_toggle_caravan"
-      text="Tropas de Caravana" />
+      text="Caravanas" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Civis" />
     <string
       id="ret_list_toggle_elite"
       text="Elite" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="Regulares" />
     <string
-      id="ret_list_toggle_settlement"
-      text="Tropas do Assentamento" />
+      id="ret_list_toggle_villager"
+      text="Vilarejos" />
     <string
       id="ret_loc_smoke_test"
       text="Teste de localização: BR." />
@@ -1194,7 +1197,7 @@
       text="Tenha um companheiro da mesma cultura do seu reino governando um feudo do reino por 30 dias." />
     <string
       id="ret_royal_patronage_description"
-      text="Desbloqueia tropas de caravana e cidade." />
+      text="Desbloqueia tropas de caravanas e aldeões." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recrute 100 tropas personalizadas do reino." />

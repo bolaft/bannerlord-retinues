@@ -549,7 +549,10 @@
       text="Bir düşman lordunu savaşta bizzat öldür." />
     <string
       id="ret_list_toggle_caravan"
-      text="Kervan Askerleri" />
+      text="Kervanlar" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Siviller" />
     <string
       id="ret_list_toggle_elite"
       text="Seçkin" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="Normal" />
     <string
-      id="ret_list_toggle_settlement"
-      text="Yerleşim Askerleri" />
+      id="ret_list_toggle_villager"
+      text="Köylüler" />
     <string
       id="ret_loc_smoke_test"
       text="Yerelleştirme testi: TR." />
@@ -1194,7 +1197,7 @@
       text="Krallığınla aynı kültürden bir yoldaşın 30 gün boyunca bir krallık tımarını yönetmesini sağla." />
     <string
       id="ret_royal_patronage_description"
-      text="Kervan ve şehir askerlerinin kilidini açar." />
+      text="Kervan ve köylü askerlerinin kilidini açar." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="100 krallık askeri topla." />

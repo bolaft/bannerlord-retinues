@@ -178,8 +178,6 @@ namespace Retinues.Game.Helpers
                 pick = faction.CaravanMaster;
             else if (troop.IsVillager)
                 pick = faction.Villager;
-            else if (troop.IsPrisonGuard)
-                pick = faction.PrisonGuard;
 
             return (pick != null && pick.IsValid) ? pick : null;
         }

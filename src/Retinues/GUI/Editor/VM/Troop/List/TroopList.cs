@@ -34,7 +34,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             BasicTroops = [.. State.Faction.BasicTroops.Select(t => new TroopRowVM(t))];
             MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
             CaravanTroops = [.. State.Faction.CaravanTroops.Select(t => new TroopRowVM(t))];
-            SettlementTroops = [.. State.Faction.SettlementTroops.Select(t => new TroopRowVM(t))];
+            VillagerTroops = [.. State.Faction.VillagerTroops.Select(t => new TroopRowVM(t))];
+            CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
 
             if (EliteTroops.Count == 0 && !EditorVM.IsStudioMode)
                 EliteTroops.Add(
@@ -80,8 +81,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (SettlementTroops.Count == 0 && !EditorVM.IsStudioMode)
-                SettlementTroops.Add(
+            if (VillagerTroops.Count == 0 && !EditorVM.IsStudioMode)
+                VillagerTroops.Add(
                     new TroopRowVM(
                         null,
                         placeholderText: L.S(
@@ -100,11 +101,13 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(BasicTroops));
             OnPropertyChanged(nameof(MilitiaTroops));
             OnPropertyChanged(nameof(CaravanTroops));
-            OnPropertyChanged(nameof(SettlementTroops));
+            OnPropertyChanged(nameof(VillagerTroops));
+            OnPropertyChanged(nameof(CivilianTroops));
             OnPropertyChanged(nameof(ShowRetinueList));
             OnPropertyChanged(nameof(ShowMilitiaList));
             OnPropertyChanged(nameof(ShowCaravanList));
-            OnPropertyChanged(nameof(ShowSettlementList));
+            OnPropertyChanged(nameof(ShowVillagerList));
+            OnPropertyChanged(nameof(ShowCivilianList));
 
             RefreshFilter();
         }
@@ -129,7 +132,10 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public MBBindingList<TroopRowVM> CaravanTroops { get; set; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<TroopRowVM> SettlementTroops { get; set; } = [];
+        public MBBindingList<TroopRowVM> VillagerTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> CivilianTroops { get; set; } = [];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -161,10 +167,13 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public string MilitiaToggleText => L.S("list_toggle_militia", "Militia");
 
         [DataSourceProperty]
-        public string CaravanToggleText => L.S("list_toggle_caravan", "Caravan Troops");
+        public string CaravanToggleText => L.S("list_toggle_caravan", "Caravans");
 
         [DataSourceProperty]
-        public string SettlementToggleText => L.S("list_toggle_settlement", "Settlement Troops");
+        public string VillagerToggleText => L.S("list_toggle_villager", "Villagers");
+
+        [DataSourceProperty]
+        public string CivilianToggleText => L.S("list_toggle_civilian", "Civilians");
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -178,7 +187,10 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public bool ShowCaravanList => CaravanTroops.Count > 0 || !EditorVM.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowSettlementList => SettlementTroops.Count > 0 || !EditorVM.IsStudioMode;
+        public bool ShowVillagerList => VillagerTroops.Count > 0 || !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowCivilianList => CivilianTroops.Count > 0 && EditorVM.IsStudioMode;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
@@ -191,7 +203,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 .. BasicTroops,
                 .. MilitiaTroops,
                 .. CaravanTroops,
-                .. SettlementTroops,
+                .. VillagerTroops,
+                .. CivilianTroops,
             ];
 
         /// <summary>

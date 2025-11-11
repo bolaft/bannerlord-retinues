@@ -100,6 +100,12 @@ namespace Retinues.Game.Wrappers
         public WCharacter Villager => _culture?.Villager != null ? new(_culture.Villager) : null;
 
         /// <summary>
+        ///  Gets the armed trader troop for this culture.
+        /// </summary>
+        public WCharacter ArmedTrader =>
+            _culture?.ArmedTrader != null ? new(_culture.ArmedTrader) : null;
+
+        /// <summary>
         ///  Gets the caravan master troop for this culture.
         /// </summary>
         public WCharacter CaravanMaster =>
@@ -110,12 +116,6 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public WCharacter CaravanGuard =>
             _culture?.CaravanGuard != null ? new(_culture.CaravanGuard) : null;
-
-        /// <summary>
-        /// Gets the prison guard troop for this culture.
-        /// </summary>
-        public WCharacter PrisonGuard =>
-            _culture?.PrisonGuard != null ? new(_culture.PrisonGuard) : null;
 
         public WCharacter RetinueElite => null;
 
@@ -136,7 +136,7 @@ namespace Retinues.Game.Wrappers
                     troops.Add(troop);
                 foreach (var troop in CaravanTroops)
                     troops.Add(troop);
-                foreach (var troop in SettlementTroops)
+                foreach (var troop in VillagerTroops)
                     troops.Add(troop);
                 return troops;
             }
@@ -167,12 +167,58 @@ namespace Retinues.Game.Wrappers
 
         public List<WCharacter> CaravanTroops =>
             [
-                .. new List<WCharacter> { CaravanGuard, CaravanMaster }.Where(t =>
+                .. new List<WCharacter> { ArmedTrader, CaravanGuard, CaravanMaster }.Where(t =>
                     t?.IsActive == true
                 ),
             ];
 
-        public List<WCharacter> SettlementTroops =>
-            [.. new List<WCharacter> { Villager, PrisonGuard }.Where(t => t?.IsActive == true)];
+        public List<WCharacter> VillagerTroops =>
+            [.. new List<WCharacter> { Villager }.Where(t => t?.IsActive == true)];
+
+        public List<WCharacter> CivilianTroops =>
+            [
+                .. new List<CharacterObject>
+                {
+                    Base.PrisonGuard,
+                    Base.Guard,
+                    Base.Steward,
+                    Base.Blacksmith,
+                    Base.Weaponsmith,
+                    Base.Townswoman,
+                    Base.TownswomanInfant,
+                    Base.TownswomanChild,
+                    Base.TownswomanTeenager,
+                    Base.VillageWoman,
+                    Base.VillagerMaleChild,
+                    Base.VillagerMaleTeenager,
+                    Base.VillagerFemaleChild,
+                    Base.VillagerFemaleTeenager,
+                    Base.Townsman,
+                    Base.TownsmanInfant,
+                    Base.TownsmanChild,
+                    Base.TownsmanTeenager,
+                    Base.RansomBroker,
+                    Base.GangleaderBodyguard,
+                    Base.MerchantNotary,
+                    Base.ArtisanNotary,
+                    Base.PreacherNotary,
+                    Base.RuralNotableNotary,
+                    Base.ShopWorker,
+                    Base.Tavernkeeper,
+                    Base.TavernGamehost,
+                    Base.Musician,
+                    Base.TavernWench,
+                    Base.Armorer,
+                    Base.HorseMerchant,
+                    Base.Barber,
+                    Base.Merchant,
+                    Base.Beggar,
+                    Base.FemaleBeggar,
+                    Base.FemaleDancer,
+                }
+                    .Where(t => t != null)
+                    .Select(t => new WCharacter(t))
+                    .Where(w => w?.IsActive == true && w?.Age >= 18),
+            ];
     }
 }

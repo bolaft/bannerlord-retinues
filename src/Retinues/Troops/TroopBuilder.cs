@@ -162,6 +162,12 @@ namespace Retinues.Troops
             {
                 var culture = faction.Culture;
 
+                if (faction.ArmedTrader is null && culture?.ArmedTrader != null)
+                {
+                    Log.Info("Creating Caravan Guard troop for faction.");
+                    CreateSpecialTroop(culture.ArmedTrader, faction, SpecialTroopType.ArmedTrader);
+                }
+
                 if (faction.CaravanGuard is null && culture?.CaravanGuard != null)
                 {
                     Log.Info("Creating Caravan Guard troop for faction.");
@@ -186,12 +192,6 @@ namespace Retinues.Troops
                 {
                     Log.Info("Creating Villager troop for faction.");
                     CreateSpecialTroop(culture.Villager, faction, SpecialTroopType.Villager);
-                }
-
-                if (faction.PrisonGuard is null && culture?.PrisonGuard != null)
-                {
-                    Log.Info("Creating Prison Guard troop for faction.");
-                    CreateSpecialTroop(culture.PrisonGuard, faction, SpecialTroopType.PrisonGuard);
                 }
             }
         }
@@ -344,10 +344,10 @@ namespace Retinues.Troops
 
         private enum SpecialTroopType
         {
+            ArmedTrader,
             CaravanGuard,
             CaravanMaster,
             Villager,
-            PrisonGuard,
         }
 
         private static void CreateSpecialTroop(
@@ -380,6 +380,9 @@ namespace Retinues.Troops
             // Assign to faction
             switch (type)
             {
+                case SpecialTroopType.ArmedTrader:
+                    faction.ArmedTrader = troop;
+                    break;
                 case SpecialTroopType.CaravanGuard:
                     faction.CaravanGuard = troop;
                     break;
@@ -388,9 +391,6 @@ namespace Retinues.Troops
                     break;
                 case SpecialTroopType.Villager:
                     faction.Villager = troop;
-                    break;
-                case SpecialTroopType.PrisonGuard:
-                    faction.PrisonGuard = troop;
                     break;
                 default:
                     break;

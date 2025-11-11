@@ -549,7 +549,10 @@
       text="在战斗中亲自击败一名敌方领主。" />
     <string
       id="ret_list_toggle_caravan"
-      text="商队部队" />
+      text="商队" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="平民" />
     <string
       id="ret_list_toggle_elite"
       text="精锐" />
@@ -560,8 +563,8 @@
       id="ret_list_toggle_regular"
       text="普通" />
     <string
-      id="ret_list_toggle_settlement"
-      text="定居点部队" />
+      id="ret_list_toggle_villager"
+      text="村民" />
     <string
       id="ret_loc_smoke_test"
       text="本地化测试： CNs。" />
@@ -1194,7 +1197,7 @@
       text="让与你王国同文化的同伴治理一个王国封地30天。" />
     <string
       id="ret_royal_patronage_description"
-      text="解锁商队和城市部队。" />
+      text="解锁商队和村民部队。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定义王国部队。" />
