@@ -632,6 +632,9 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="領地が氏族領地であり王国領地である場合、氏族軍が王国軍より優先される。" />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="代替セットは、他のアクティブなモッドとの互換性の問題により無効になっています。" />
+    <string
       id="ret_mcm_option_copy_all_sets_when_cloning"
       text="部隊装備をクローンする際に、すべての装備セットをコピーします。" />
     <string
@@ -694,6 +697,9 @@
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="グローバル部隊エディターを有効化" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="他のアクティブなモッドとの互換性の問題により、グローバル部隊エディターは無効になっています。" />
     <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="ゲーム内の任意の部隊を変更するためにグローバル部隊エディターを有効化します。プレイヤー以外の部隊で問題が発生している場合は無効にしてください。" />

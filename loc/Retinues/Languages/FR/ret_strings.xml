@@ -632,6 +632,9 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Si un fief est à la fois un fief de clan et un fief royal, les troupes de clan seront prioritaires sur les troupes royales." />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="Les ensembles alternatifs sont désactivés en raison d&apos;incompatibilités avec d&apos;autres mods activés." />
+    <string
       id="ret_mcm_option_copy_all_sets_when_cloning"
       text="Copier tous les ensembles lors du clonage." />
     <string
@@ -694,6 +697,9 @@
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Activer l’Éditeur Global de Troupes" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="L’éditeur global de troupes est désactivé en raison de problèmes de compatibilité avec d’autres mods activés." />
     <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="Active l’éditeur global de troupes pour modifier n’importe quelle troupe dans le jeu. Désactivez-le si vous rencontrez des problèmes avec des troupes non contrôlées par le joueur." />

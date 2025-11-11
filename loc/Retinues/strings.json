@@ -3344,6 +3344,22 @@
     "TR": "Eğer bir toprak hem klan toprağı hem de krallık toprağı ise, klan askerleri krallık askerlerine göre öncelikli olacaktır."
   },
   {
+    "id": "ret_mcm_option_copy_all_sets_disabled_hint",
+    "EN": "Alternate sets are disabled due to incompatibilities with other activated mods.",
+    "BR": "Conjuntos alternativos estão desativados devido a incompatibilidades com outros mods ativados.",
+    "CNs": "由于与其他激活的模组不兼容，替代套装已被禁用。",
+    "CNt": "由於與其他激活的模組不兼容，替代套裝已被禁用。",
+    "DE": "Alternative Sets sind aufgrund von Inkompatibilitäten mit anderen aktivierten Mods deaktiviert.",
+    "FR": "Les ensembles alternatifs sont désactivés en raison d'incompatibilités avec d'autres mods activés.",
+    "IT": "I set alternativi sono disabilitati a causa di incompatibilità con altri mod attivati.",
+    "JP": "代替セットは、他のアクティブなモッドとの互換性の問題により無効になっています。",
+    "KO": "대체 세트는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다.",
+    "PL": "Zestawy alternatywne są wyłączone z powodu niekompatybilności z innymi aktywowanymi modami.",
+    "RU": "Альтернативные комплекты отключены из-за несовместимости с другими активированными модами.",
+    "SP": "Los conjuntos alternativos están desactivados debido a incompatibilidades con otros mods activados.",
+    "TR": "Alternatif setler, etkinleştirilmiş diğer modlarla uyumsuzluklar nedeniyle devre dışı bırakıldı."
+  },
+  {
     "id": "ret_mcm_option_copy_all_sets_when_cloning",
     "EN": "Copy All Sets When Cloning",
     "BR": "Copiar Todos os Conjuntos ao Clonar",
@@ -3678,6 +3694,22 @@
     "RU": "Включить Глобальный Редактор Войск",
     "SP": "Habilitar Editor Global de Tropas",
     "TR": "Küresel Asker Düzenleyicisini Etkinleştir"
+  },
+  {
+    "id": "ret_mcm_option_global_editor_enabled_disabled_hint",
+    "EN": "The global troop editor is disabled due to compatibility issues with other activated mods.",
+    "BR": "O editor global de tropas está desativado devido a problemas de compatibilidade com outros mods ativados.",
+    "CNs": "由于与其他激活的模组存在兼容性问题，全局部队编辑器已被禁用。",
+    "CNt": "由於與其他激活的模組存在兼容性問題，全局部隊編輯器已被禁用。",
+    "DE": "Der globale Truppen-Editor ist aufgrund von Kompatibilitätsproblemen mit anderen aktivierten Mods deaktiviert.",
+    "FR": "L’éditeur global de troupes est désactivé en raison de problèmes de compatibilité avec d’autres mods activés.",
+    "IT": "L’editor globale delle truppe è disabilitato a causa di problemi di compatibilità con altri mod attivati.",
+    "JP": "他のアクティブなモッドとの互換性の問題により、グローバル部隊エディターは無効になっています。",
+    "KO": "글로벌 병력 편집기는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다.",
+    "PL": "Globalny edytor jednostek jest wyłączony z powodu problemów z kompatybilnością z innymi aktywowanymi modami.",
+    "RU": "Глобальный редактор войск отключен из-за проблем совместимости с другими активированными модами.",
+    "SP": "El editor global de tropas está desactivado debido a problemas de compatibilidad con otros mods activados.",
+    "TR": "Küresel asker düzenleyicisi, etkinleştirilmiş diğer modlarla uyumluluk sorunları nedeniyle devre dışı bırakıldı."
   },
   {
     "id": "ret_mcm_option_global_editor_enabled_hint",

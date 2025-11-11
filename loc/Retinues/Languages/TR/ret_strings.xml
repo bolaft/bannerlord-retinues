@@ -632,6 +632,9 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Eğer bir toprak hem klan toprağı hem de krallık toprağı ise, klan askerleri krallık askerlerine göre öncelikli olacaktır." />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="Alternatif setler, etkinleştirilmiş diğer modlarla uyumsuzluklar nedeniyle devre dışı bırakıldı." />
+    <string
       id="ret_mcm_option_copy_all_sets_when_cloning"
       text="Klonlama sırasında tüm ekipman setlerini kopyala." />
     <string
@@ -694,6 +697,9 @@
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Küresel Asker Düzenleyicisini Etkinleştir" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="Küresel asker düzenleyicisi, etkinleştirilmiş diğer modlarla uyumluluk sorunları nedeniyle devre dışı bırakıldı." />
     <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="Oyundaki herhangi bir askeri değiştirmek için küresel asker düzenleyicisini etkinleştirir. Oyuncu olmayan askerlerle ilgili sorunlar yaşıyorsanız devre dışı bırakın." />
