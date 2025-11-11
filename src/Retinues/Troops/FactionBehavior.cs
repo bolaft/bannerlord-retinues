@@ -85,7 +85,7 @@ namespace Retinues.Troops
                 return;
             }
 
-            if (Config.GlobalEditorEnabled == true)
+            if (Config.EnableGlobalEditor == true)
             {
                 // Collect all base cultures
                 var cultures =
@@ -120,7 +120,7 @@ namespace Retinues.Troops
             // Rebuild kingdom troops
             _kingdomTroops?.Apply(Player.Kingdom);
 
-            if (Config.GlobalEditorEnabled == true)
+            if (Config.EnableGlobalEditor == true)
             {
                 // Rebuild culture troops
                 if (_cultureTroops is not null)

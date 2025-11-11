@@ -20,7 +20,7 @@ namespace Retinues.Mods
         ];
 
         // Ruleset flags
-        public static bool NoEditorMode => IsLoaded("Shokuho");
+        public static bool NoGlobalEditor => IsLoaded("Shokuho");
         public static bool NoAlternateEquipmentSets => IsLoaded("Shokuho");
         public static bool DailyVolunteerSwap => IsLoaded("Shokuho");
         public static bool Tier7Unlocked => IsLoaded("T7TroopUnlocker");

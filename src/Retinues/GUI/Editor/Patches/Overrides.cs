@@ -53,7 +53,7 @@ internal class EscapeMenu_ItemTemplate_Margins : PrefabExtensionSetAttributePatc
         get
         {
             // Only apply this patch when the global editor is enabled in config.
-            if (!(Config.GlobalEditorEnabled ?? false))
+            if (!(Config.EnableGlobalEditor ?? false))
                 return [];
 
             return [new Attribute("MarginBottom", "22")];

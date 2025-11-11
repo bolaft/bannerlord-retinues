@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Mods;
 using Retinues.Utils;
 
 namespace Retinues.Configuration
@@ -29,8 +30,25 @@ namespace Retinues.Configuration
             int minValue = 0,
             int maxValue = 1000,
             bool requiresRestart = false,
-            IReadOnlyDictionary<string, object> presets = null
-        ) => new(section, name, key, hint, @default, minValue, maxValue, requiresRestart, presets);
+            IReadOnlyDictionary<string, object> presets = null,
+            bool disabled = false,
+            System.Func<string> disabledHint = null,
+            T disabledOverride = default
+        ) =>
+            new(
+                section,
+                name,
+                key,
+                hint,
+                @default,
+                minValue,
+                maxValue,
+                requiresRestart,
+                presets,
+                disabled,
+                disabledHint,
+                disabledOverride
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Options                        //
@@ -287,10 +305,10 @@ namespace Retinues.Configuration
         // Global Troop Editor
         // ─────────────────────────────────────────────────────
 
-        public static readonly Option<bool> GlobalEditorEnabled = CreateOption(
+        public static readonly Option<bool> EnableGlobalEditor = CreateOption(
             section: () => L.S("mcm_section_global_editor", "Global Editor"),
             name: () => L.S("mcm_option_global_editor_enabled", "Enable Global Troop Editor"),
-            key: "GlobalEditorEnabled",
+            key: "EnableGlobalEditor",
             hint: () =>
                 L.S(
                     "mcm_option_global_editor_enabled_hint",
@@ -302,7 +320,14 @@ namespace Retinues.Configuration
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = true,
             },
-            requiresRestart: true
+            requiresRestart: true,
+            disabled: ModCompatibility.NoGlobalEditor,
+            disabledOverride: false,
+            disabledHint: () =>
+                L.S(
+                    "mcm_option_global_editor_enabled_disabled_hint",
+                    "The global troop editor is disabled due to compatibility issues with other activated mods."
+                )
         );
 
         // ─────────────────────────────────────────────────────
@@ -625,7 +650,14 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
-            }
+            },
+            disabled: ModCompatibility.NoAlternateEquipmentSets,
+            disabledOverride: false,
+            disabledHint: () =>
+                L.S(
+                    "mcm_option_copy_all_sets_disabled_hint",
+                    "Alternate sets are disabled due to incompatibilities with other activated mods."
+                )
         );
 
         // ─────────────────────────────────────────────────────

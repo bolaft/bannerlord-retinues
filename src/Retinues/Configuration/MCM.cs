@@ -123,7 +123,20 @@ namespace Retinues.Configuration
         /// Builds a Func<T> that reads the backing value for the given key.
         /// </summary>
         private static Func<T> MakeGetter<T>(string key) =>
-            () => (T)Convert.ChangeType(_values[key], typeof(T), CultureInfo.InvariantCulture);
+            () =>
+            {
+                var raw = (T)
+                    Convert.ChangeType(_values[key], typeof(T), CultureInfo.InvariantCulture);
+
+                if (
+                    _byKey.TryGetValue(key, out var iopt)
+                    && iopt is Option<T> optT
+                    && optT.IsDisabled
+                )
+                    return optT.DisabledOverride;
+
+                return raw;
+            };
 
         /// <summary>
         /// Builds an Action<T> that writes the given value into the backing store for the key.
@@ -302,7 +315,17 @@ namespace Retinues.Configuration
                         {
                             var id = opt.Key;
                             var name = opt.Name;
-                            var hint = opt.Hint;
+
+                            // select hint (disabled or regular)
+                            var hint = opt.IsDisabled ? opt.DisabledHint : opt.Hint;
+
+                            // If disabled, force the value and skip adding the control entirely
+                            if (opt.IsDisabled)
+                            {
+                                _values[id] = opt.DisabledOverrideBoxed;
+                                // Do not add any UI control for this option.
+                                continue;
+                            }
 
                             switch (Type.GetTypeCode(opt.Type))
                             {

@@ -33,7 +33,7 @@ namespace Retinues.Features.Missions.Patches
                     return; // Don't affect heroes
 
                 if (!troop.IsCustom)
-                    if (Config.GlobalEditorEnabled == false)
+                    if (Config.EnableGlobalEditor == false)
                         return; // Feature disabled for vanilla troops
 
                 if (Mission.Current?.Mode == MissionMode.Tournament)
