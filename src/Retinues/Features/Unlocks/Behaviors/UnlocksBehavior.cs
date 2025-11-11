@@ -144,8 +144,9 @@ namespace Retinues.Features.Unlocks.Behaviors
             );
             AddUnlockCounts(counts, addCultureBonuses: false);
 
-            if (_newlyUnlocked.Count > 0)
-                ShowUnlockInquiry(_newlyUnlocked);
+            ShowUnlockInquiry(_newlyUnlocked);
+
+            _newlyUnlocked.Clear();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
