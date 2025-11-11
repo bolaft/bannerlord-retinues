@@ -107,5 +107,3 @@ Browse, advance, or complete feats that gate certain doctrine bonuses.
   retinues.fix_main_party
   ```
   Attempts to fix some weird behaviors such as party size limit being stuck at 20, or the main party not having a troop number on the world map.
-
----
