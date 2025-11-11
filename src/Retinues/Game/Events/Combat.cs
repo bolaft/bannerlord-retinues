@@ -45,7 +45,6 @@ namespace Retinues.Game.Events
             public readonly string LootCode;
             public readonly AgentState State;
             public readonly bool IsMissile;
-            public readonly bool IsHeadShot;
             public readonly int BlowWeaponClass;
 
             /* ━━━━━━ Convenience (create wrappers on-demand) ━━━━━ */
@@ -85,7 +84,6 @@ namespace Retinues.Game.Events
 
                 State = state;
                 IsMissile = blow.IsMissile;
-                IsHeadShot = blow.IsHeadShot();
                 BlowWeaponClass = blow.WeaponClass;
             }
 
