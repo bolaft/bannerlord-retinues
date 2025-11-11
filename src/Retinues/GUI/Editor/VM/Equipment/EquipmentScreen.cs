@@ -8,6 +8,7 @@ using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.List;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
 using Retinues.GUI.Helpers;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -272,10 +273,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceProperty]
-        public bool ShowSetControls => !ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
+        public bool ShowSetControls => !ModCompatibility.NoAlternateEquipmentSets;
 
         [DataSourceProperty]
-        public bool CanCreateSet => !ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
+        public bool CanCreateSet => !ModCompatibility.NoAlternateEquipmentSets;
 
         [DataSourceProperty]
         public bool SetIsCivilian => State.Equipment?.IsCivilian == true;

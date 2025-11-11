@@ -6,6 +6,7 @@ using Retinues.Configuration;
 using Retinues.Features.Missions.Behaviors;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
+using Retinues.Mods;
 using Retinues.Utils;
 using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
@@ -32,7 +33,7 @@ namespace Retinues.Features.Missions.Patches
                     return; // Don't affect heroes
 
                 if (!troop.IsCustom)
-                    if (Config.GlobalEditorEnabled == false || ModuleChecker.IsLoaded("Shokuho"))
+                    if (Config.GlobalEditorEnabled == false)
                         return; // Feature disabled for vanilla troops
 
                 if (Mission.Current?.Mode == MissionMode.Tournament)
@@ -66,7 +67,7 @@ namespace Retinues.Features.Missions.Patches
                 {
                     eq = troop.Loadout.Battle.Base; // index 0 is normalized to a battle set
                 }
-                else if (ModuleChecker.IsLoaded("Shokuho"))
+                else if (ModCompatibility.NoAlternateEquipmentSets)
                 {
                     eq = troop.Loadout.Battle.Base; // force main battle set for Shokuho to avoid issues
                 }

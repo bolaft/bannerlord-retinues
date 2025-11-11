@@ -5,6 +5,7 @@ using System.Reflection;
 using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
+using Retinues.Mods;
 using Retinues.Safety.Sanitizer;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -258,7 +259,7 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool IsMaxTier =>
-            Tier >= (IsElite ? 6 : 5) + (ModuleChecker.IsLoaded("T7TroopUnlocker") ? 1 : 0);
+            Tier >= (IsElite ? 6 : 5) + (ModCompatibility.Tier7Unlocked ? 1 : 0);
 
         public bool IsHero => Base.IsHero;
 
@@ -605,7 +606,7 @@ namespace Retinues.Game.Wrappers
             // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
             {
-                if (Config.CopyAllSetsWhenCloning && !ModuleChecker.IsLoaded("Shokuho")) // Only two sets supported in Shokuho
+                if (Config.CopyAllSetsWhenCloning && !ModCompatibility.NoAlternateEquipmentSets)
                 {
                     // Copy every set verbatim
                     Loadout.FillFrom(src.Loadout, copyAll: true);

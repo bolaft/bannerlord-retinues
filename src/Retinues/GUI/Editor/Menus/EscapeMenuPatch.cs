@@ -21,7 +21,7 @@ namespace Retinues.GUI.Editor.Menus
         {
             try
             {
-                if (Config.GlobalEditorEnabled == false || ModuleChecker.IsLoaded("Shokuho"))
+                if (Config.GlobalEditorEnabled == false)
                     return; // Feature disabled
 
                 var title = L.T("troop_editor_button", "Troop Editor");

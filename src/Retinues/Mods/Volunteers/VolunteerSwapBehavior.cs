@@ -8,7 +8,7 @@ namespace Retinues.Mods.Shokuho
     /// Campaign behavior for Shokuho mod compatibility.
     /// Swaps volunteers in settlements on daily tick using WSettlement wrapper.
     /// </summary>
-    public sealed class ShokuhoVolunteerSwapBehavior : CampaignBehaviorBase
+    public sealed class VolunteerSwapBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //

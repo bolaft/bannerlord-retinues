@@ -4,6 +4,7 @@ using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -35,7 +36,7 @@ namespace Retinues.Doctrines.Catalog
                 if (tournament.Winner != Player.Character)
                     return;
 
-                if (ModuleChecker.IsLoaded("Shokuho") || ModuleChecker.IsLoaded("AD1259"))
+                if (ModCompatibility.SkipItemCultureChecks)
                     AdvanceProgress(1); // Items don't have cultures in those mods, skip the check.
 
                 var blockedBy = new List<ItemObject>();
