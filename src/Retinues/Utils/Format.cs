@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Retinues.Utils
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -39,6 +41,16 @@ namespace Retinues.Utils
             if (text.Length > maxLength)
                 return text.Substring(0, maxLength) + "(...)";
             return text;
+        }
+
+        /// <summary>
+        /// Format an integer using a space as the thousands separator (e.g. "1 234 567").
+        /// </summary>
+        public static string Number(int value)
+        {
+            var nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
+            nfi.NumberGroupSeparator = " ";
+            return value.ToString("N0", nfi);
         }
     }
 }

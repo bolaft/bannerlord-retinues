@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="確認" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="複製此套裝需要購買缺失的物品，費用為 {COST} 金幣。繼續？" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="確認購買" />
+    <string
       id="ret_confirm_import_body"
       text="這將替換現有的部隊定義。" />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="影響力不足" />
     <string
+      id="ret_copy_current"
+      text="複製當前" />
+    <string
+      id="ret_copy_failed_text"
+      text="複製此套裝時出錯。" />
+    <string
+      id="ret_copy_failed_title"
+      text="複製失敗" />
+    <string
       id="ret_create_from_culture"
       text="複製 {CULTURE} 的部隊" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="由於衝突的模組（Shokuho）而被禁用。" />
+    <string
+      id="ret_create_set_text"
+      text="你想複製當前套裝還是創建一個空套裝？" />
+    <string
+      id="ret_create_set_title"
+      text="創建裝備套裝" />
     <string
       id="ret_cultural_pride"
       text="文化自豪" />
@@ -264,6 +285,9 @@
       text="打開在線隨從文件。" />
     <string
       id="ret_empty_item"
+      text="空" />
+    <string
+      id="ret_empty_set"
       text="空" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="你沒有足夠的金幣購買此物品。" />
     <string
+      id="ret_not_enough_gold_title"
+      text="金幣不足" />
+    <string
       id="ret_not_enough_xp"
       text="沒有足夠的經驗值獲得下一個技能點。" />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="選擇文化" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="您需要 {COST} 金幣來購買缺少的物品。" />
     <string
       id="ret_show_crafted_disabled_hint"
       text="解鎖“氏族傳統”信條以顯示手工製作的物品。" />

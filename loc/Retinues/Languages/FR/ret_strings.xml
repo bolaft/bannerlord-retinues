@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="Confirmer" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="La copie de cet ensemble nécessite l’achat des objets manquants pour {COST} pièces d’or. Continuer ?" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="Confirmer l’achat" />
+    <string
       id="ret_confirm_import_body"
       text="Cela remplacera les définitions de troupes existantes." />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="Influence insuffisante" />
     <string
+      id="ret_copy_current"
+      text="Copier l’actuel" />
+    <string
+      id="ret_copy_failed_text"
+      text="Une erreur s’est produite lors de la copie de cet ensemble." />
+    <string
+      id="ret_copy_failed_title"
+      text="Échec de la copie" />
+    <string
       id="ret_create_from_culture"
       text="Copier les troupes de {CULTURE}" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="Désactivé en raison de mods conflictuels (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="Copier l’ensemble actuel ou créer un ensemble vide ?" />
+    <string
+      id="ret_create_set_title"
+      text="Créer un équipement" />
     <string
       id="ret_cultural_pride"
       text="Fierté Culturelle" />
@@ -264,6 +285,9 @@
       text="Ouvre la documentation en ligne." />
     <string
       id="ret_empty_item"
+      text="Vide" />
+    <string
+      id="ret_empty_set"
       text="Vide" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="Pas assez d’or pour acheter cet objet." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Or insuffisant" />
+    <string
       id="ret_not_enough_xp"
       text="Pas assez d’XP pour le prochain point de compétence." />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="Sélection de la la culture" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="Vous avez besoin de {COST} d&apos;or pour acheter les objets manquants." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Débloque la doctrine « Traditions Claniques » pour afficher les objets forgés." />

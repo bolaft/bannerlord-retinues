@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="Potwierdź" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="Kopiowanie tego zestawu wymaga zakupu brakujących przedmiotów za {COST} złota. Kontynuować?" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="Potwierdź Zakup" />
+    <string
       id="ret_confirm_import_body"
       text="To zastąpi istniejące definicje jednostek." />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="Za mało wpływów" />
     <string
+      id="ret_copy_current"
+      text="Kopiuj Obecny" />
+    <string
+      id="ret_copy_failed_text"
+      text="Coś poszło nie tak podczas kopiowania tego zestawu." />
+    <string
+      id="ret_copy_failed_title"
+      text="Kopiowanie Nieudane" />
+    <string
       id="ret_create_from_culture"
       text="Kopiuj oddziały {CULTURE}" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="Wyłączone z powodu konfliktów z modami (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="Czy chcesz skopiować obecny zestaw czy utworzyć pusty zestaw?" />
+    <string
+      id="ret_create_set_title"
+      text="Utwórz Zestaw Ekwipunku" />
     <string
       id="ret_cultural_pride"
       text="Duma Kulturowa" />
@@ -264,6 +285,9 @@
       text="Otwórz dokumentację Retinues online." />
     <string
       id="ret_empty_item"
+      text="Puste" />
+    <string
+      id="ret_empty_set"
       text="Puste" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="Nie masz wystarczająco złota, aby kupić ten przedmiot." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Za mało złota" />
+    <string
       id="ret_not_enough_xp"
       text="Za mało XP na następny punkt umiejętności." />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="Wybierz Kulturę" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="Potrzebujesz {COST} złota, aby kupić brakujące przedmioty." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Odblokuj doktrynę &apos;Tradycje Klanu&apos;, aby wyświetlić wykonane przedmioty." />

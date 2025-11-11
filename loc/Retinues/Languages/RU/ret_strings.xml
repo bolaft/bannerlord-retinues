@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="Подтвердить" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="Копирование этого набора требует покупки недостающих предметов за {COST} золота. Продолжить?" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="Подтвердить Покупку" />
+    <string
       id="ret_confirm_import_body"
       text="Это заменит существующие определения войск." />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="Недостаточно влияния" />
     <string
+      id="ret_copy_current"
+      text="Скопировать Текущий" />
+    <string
+      id="ret_copy_failed_text"
+      text="При копировании этого набора что-то пошло не так." />
+    <string
+      id="ret_copy_failed_title"
+      text="Ошибка Копирования" />
+    <string
       id="ret_create_from_culture"
       text="Скопировать войска {CULTURE}" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="Отключено из-за конфликтующих модов (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="Вы хотите скопировать текущий набор или создать пустой набор?" />
+    <string
+      id="ret_create_set_title"
+      text="Создать Набор Снаряжения" />
     <string
       id="ret_cultural_pride"
       text="Культурная Гордость" />
@@ -264,6 +285,9 @@
       text="Откройте онлайн-документацию по свите." />
     <string
       id="ret_empty_item"
+      text="Пусто" />
+    <string
+      id="ret_empty_set"
       text="Пусто" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="У вас недостаточно золота, чтобы купить этот предмет." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Недостаточно золота" />
+    <string
       id="ret_not_enough_xp"
       text="Недостаточно опыта для следующего очка навыков." />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="Выбрать Культуру" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="Вам нужно {COST} золота, чтобы купить недостающие предметы." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Разблокируйте доктрину «Клановые традиции», чтобы показывать изготовленные предметы." />

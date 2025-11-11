@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="確認" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="このセットをコピーするには、{COST} ゴールドで不足しているアイテムを購入する必要があります。続行しますか？" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="購入を確認" />
+    <string
       id="ret_confirm_import_body"
       text="これにより、既存の部隊定義が置き換えられます。" />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="影響力不足" />
     <string
+      id="ret_copy_current"
+      text="現在のものをコピー" />
+    <string
+      id="ret_copy_failed_text"
+      text="このセットをコピー中に問題が発生しました。" />
+    <string
+      id="ret_copy_failed_title"
+      text="コピーに失敗しました" />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} の部隊をコピー" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="競合するMOD（Shokuho）のため無効化されています。" />
+    <string
+      id="ret_create_set_text"
+      text="現在のセットをコピーしますか、それとも空のセットを作成しますか？" />
+    <string
+      id="ret_create_set_title"
+      text="装備セットを作成" />
     <string
       id="ret_cultural_pride"
       text="文化的誇り" />
@@ -264,6 +285,9 @@
       text="オンライン随伴兵ドキュメントを開く。" />
     <string
       id="ret_empty_item"
+      text="空" />
+    <string
+      id="ret_empty_set"
       text="空" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="このアイテムを購入するのに十分なゴールドがない。" />
     <string
+      id="ret_not_enough_gold_title"
+      text="ゴールド不足" />
+    <string
       id="ret_not_enough_xp"
       text="次のスキルポイントに十分なXPがありません。" />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="文化を選択" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="不足しているアイテムを購入するには、{COST} ゴールドが必要です。" />
     <string
       id="ret_show_crafted_disabled_hint"
       text="「氏族の伝統」教義を解除して、手作りのアイテムを表示します。" />

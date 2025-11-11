@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="Confirm" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="Copying this set requires purchasing missing items for {COST} gold. Proceed?" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="Confirm Purchase" />
+    <string
       id="ret_confirm_import_body"
       text="This will replace existing troop definitions." />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="Not enough influence" />
     <string
+      id="ret_copy_current"
+      text="Copy Current" />
+    <string
+      id="ret_copy_failed_text"
+      text="Something went wrong while copying this set." />
+    <string
+      id="ret_copy_failed_title"
+      text="Copy Failed" />
+    <string
       id="ret_create_from_culture"
       text="Copy {CULTURE}&apos;s Troops" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="Disabled due to conflicting mods (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="Do you want to copy the current set or create an empty set?" />
+    <string
+      id="ret_create_set_title"
+      text="Create Equipment Set" />
     <string
       id="ret_cultural_pride"
       text="Cultural Pride" />
@@ -264,6 +285,9 @@
       text="Open the online Retinues documentation." />
     <string
       id="ret_empty_item"
+      text="Empty" />
+    <string
+      id="ret_empty_set"
       text="Empty" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="You do not have enough gold to purchase this item." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Not Enough Gold" />
+    <string
       id="ret_not_enough_xp"
       text="Not enough XP for next skill point." />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="Select Culture" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="You need {COST} gold to purchase missing items." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Unlock the &apos;Clanic Traditions&apos; doctrine to show crafted items." />

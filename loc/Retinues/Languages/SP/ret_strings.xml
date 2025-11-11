@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="Confirmar" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="Copiar este conjunto requiere comprar los objetos que faltan por {COST} de oro. ¿Continuar?" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="Confirmar Compra" />
+    <string
       id="ret_confirm_import_body"
       text="Esto reemplazará las definiciones de tropas existentes." />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="Influencia insuficiente" />
     <string
+      id="ret_copy_current"
+      text="Copiar Actual" />
+    <string
+      id="ret_copy_failed_text"
+      text="Algo salió mal al copiar este conjunto." />
+    <string
+      id="ret_copy_failed_title"
+      text="Copia Fallida" />
+    <string
       id="ret_create_from_culture"
       text="Copiar las tropas de {CULTURE}" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="Deshabilitado debido a mods en conflicto (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="¿Quieres copiar el conjunto actual o crear un conjunto vacío?" />
+    <string
+      id="ret_create_set_title"
+      text="Crear Conjunto de Equipo" />
     <string
       id="ret_cultural_pride"
       text="Orgullo Cultural" />
@@ -264,6 +285,9 @@
       text="Abre la documentación en línea de Séquitos." />
     <string
       id="ret_empty_item"
+      text="Vacío" />
+    <string
+      id="ret_empty_set"
       text="Vacío" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="No tienes suficiente oro para comprar este objeto." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Oro insuficiente" />
+    <string
       id="ret_not_enough_xp"
       text="No hay suficiente XP para el siguiente punto de habilidad." />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="Seleccionar Cultura" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="Necesitas {COST} de oro para comprar los objetos que faltan." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="Desbloquea la doctrina &apos;Tradiciones Clánicas&apos; para mostrar objetos fabricados." />

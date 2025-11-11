@@ -173,6 +173,12 @@
       id="ret_confirm"
       text="확인" />
     <string
+      id="ret_confirm_copy_cost_text"
+      text="이 세트를 복사하려면 {COST} 골드로 누락된 아이템을 구매해야 합니다. 계속하시겠습니까?" />
+    <string
+      id="ret_confirm_copy_cost_title"
+      text="구매 확인" />
+    <string
       id="ret_confirm_import_body"
       text="기존 병력 정의가 대체됩니다." />
     <string
@@ -194,6 +200,15 @@
       id="ret_convert_not_enough_influence_title"
       text="영향력 부족" />
     <string
+      id="ret_copy_current"
+      text="현재 복사" />
+    <string
+      id="ret_copy_failed_text"
+      text="이 세트를 복사하는 동안 문제가 발생했습니다." />
+    <string
+      id="ret_copy_failed_title"
+      text="복사 실패" />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} 의 부대 복사" />
     <string
@@ -202,6 +217,12 @@
     <string
       id="ret_create_set_hint"
       text="충돌하는 모드(Shokuho)로 인해 비활성화되었습니다." />
+    <string
+      id="ret_create_set_text"
+      text="현재 세트를 복사하시겠습니까, 아니면 빈 세트를 생성하시겠습니까?" />
+    <string
+      id="ret_create_set_title"
+      text="장비 세트 생성" />
     <string
       id="ret_cultural_pride"
       text="문화적 자부심" />
@@ -264,6 +285,9 @@
       text="온라인 수행원 문서를 엽니다." />
     <string
       id="ret_empty_item"
+      text="비어 있음" />
+    <string
+      id="ret_empty_set"
       text="비어 있음" />
     <string
       id="ret_enter_file_name"
@@ -983,6 +1007,9 @@
       id="ret_not_enough_gold_text"
       text="이 아이템을 구매할 충분한 골드가 없습니다." />
     <string
+      id="ret_not_enough_gold_title"
+      text="골드 부족" />
+    <string
       id="ret_not_enough_xp"
       text="다음 스킬 포인트에 대한 충분한 XP가 없습니다." />
     <string
@@ -1171,6 +1198,9 @@
     <string
       id="ret_select_culture_title"
       text="문화 선택" />
+    <string
+      id="ret_set_not_enough_gold_text"
+      text="누락된 아이템을 구매하려면 {COST} 골드가 필요합니다." />
     <string
       id="ret_show_crafted_disabled_hint"
       text="&apos;씨족 전통&apos; 교리를 잠금 해제하여 제작된 아이템을 표시하십시오." />
