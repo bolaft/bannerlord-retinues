@@ -178,16 +178,13 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public CharacterViewModel Model => State.Troop?.GetModel(State.Equipment.Index);
 
-        /* ━━━━━━━━ Margins ━━━━━━━ */
+        /* ━━━━━━━ Gauntlet ━━━━━━━ */
 
         [DataSourceProperty]
         public int TableauMarginLeft => IsStudioMode ? 60 : 0;
 
         [DataSourceProperty]
-        public int PanelMarginLeft => IsStudioMode ? 540 : 340;
-
-        [DataSourceProperty]
-        public int PanelMarginTop => IsStudioMode ? 40 : 0;
+        public int PanelMarginLeft => IsStudioMode ? 440 : 340;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 

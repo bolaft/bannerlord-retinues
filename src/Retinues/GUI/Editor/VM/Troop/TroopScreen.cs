@@ -109,6 +109,11 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceProperty]
         public bool CustomizationIsEnabled => Config.EnableTroopCustomization;
 
+        /* ━━━━━━━ Gauntlet ━━━━━━━ */
+
+        [DataSourceProperty]
+        public int CustomizationMarginRight => EditorVM.IsStudioMode ? 340 : 280;
+
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
