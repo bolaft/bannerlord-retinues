@@ -794,6 +794,12 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="При снижении навыка войска возвращать стоимость опыта." />
     <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="Заменить Окружающих NPC" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="Заменяет окружающих NPC в поселениях персонажами фракции игрока." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Необходимые Отклоненные Предметы для Разблокировки" />
     <string
@@ -928,6 +934,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="Снаряжение" />
+    <string
+      id="ret_mcm_section_fluff"
+      text="Погружение и Украшения" />
     <string
       id="ret_mcm_section_general"
       text="Общее" />

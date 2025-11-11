@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Retinues.Features.Missions.Behaviors;
+using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;

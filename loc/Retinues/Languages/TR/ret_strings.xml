@@ -794,6 +794,12 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="Bir askerin becerisini düşürürken, XP maliyetini iade et." />
     <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="Ortam NPC&apos;lerini Değiştir" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="Yerleşimlerdeki ortam NPC&apos;lerini oyuncu fraksiyon karakterleriyle değiştirir." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Açmak İçin Gerekli Atılmış Eşyalar" />
     <string
@@ -928,6 +934,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="Teçhizat" />
+    <string
+      id="ret_mcm_section_fluff"
+      text="Daldırma ve Süslemeler" />
     <string
       id="ret_mcm_section_general"
       text="Genel" />

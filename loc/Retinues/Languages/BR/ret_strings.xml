@@ -794,6 +794,12 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="Ao diminuir a habilidade de uma tropa, reembolse o custo de XP." />
     <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="Substituir NPCs Ambientais" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="Substitui NPCs ambientais em assentamentos por personagens da facção do jogador." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Itens Descartados Necessários para Desbloquear" />
     <string
@@ -928,6 +934,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="Equipamento" />
+    <string
+      id="ret_mcm_section_fluff"
+      text="Imersão &amp; Enfeites" />
     <string
       id="ret_mcm_section_general"
       text="Geral" />

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Features.Missions.Behaviors;
+using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Helpers;
@@ -403,14 +403,14 @@ namespace Retinues.GUI.Editor
                 {
                     if (eqs[i].IsCivilian)
                         continue;
-                    if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
+                    if (CombatLoadoutBehavior.IsEnabled(troop, i, t))
                         enabled++;
                 }
                 if (enabled == 0)
                 {
                     // Enable index 0 (Normalize guarantees index 0 is a battle set)
-                    if (!CombatEquipmentBehavior.IsEnabled(troop, 0, t))
-                        CombatEquipmentBehavior.Toggle(troop, 0, t); // Toggle will enable
+                    if (!CombatLoadoutBehavior.IsEnabled(troop, 0, t))
+                        CombatLoadoutBehavior.Toggle(troop, 0, t); // Toggle will enable
                 }
             }
 

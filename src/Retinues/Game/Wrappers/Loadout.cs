@@ -191,7 +191,7 @@ namespace Retinues.Game.Wrappers
             Equipments = list;
 
             // Update combat-use mask indices
-            Features.Missions.Behaviors.CombatEquipmentBehavior.OnRemoved(Troop, idx);
+            Features.Loadouts.Behaviors.CombatLoadoutBehavior.OnRemoved(Troop, idx);
 
             Normalize();
         }

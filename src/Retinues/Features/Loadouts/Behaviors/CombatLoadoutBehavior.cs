@@ -4,7 +4,7 @@ using Retinues.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Features.Missions.Behaviors
+namespace Retinues.Features.Loadouts.Behaviors
 {
     public enum BattleType
     {
@@ -46,7 +46,7 @@ namespace Retinues.Features.Missions.Behaviors
     /// <summary>
     /// Stores which alternates are enabled for each battle context.
     /// </summary>
-    public sealed class CombatEquipmentBehavior : CampaignBehaviorBase
+    public sealed class CombatLoadoutBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -159,8 +159,8 @@ namespace Retinues.Features.Missions.Behaviors
 
         /* ━━━━━━━ Accessors ━━━━━━ */
 
-        private static CombatEquipmentBehavior Inst =>
-            Campaign.Current?.GetCampaignBehavior<CombatEquipmentBehavior>();
+        private static CombatLoadoutBehavior Inst =>
+            Campaign.Current?.GetCampaignBehavior<CombatLoadoutBehavior>();
 
         public static bool IsEnabled(WCharacter troop, int altIndex, BattleType t) =>
             t switch

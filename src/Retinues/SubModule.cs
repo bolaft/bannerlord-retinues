@@ -5,7 +5,7 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
-using Retinues.Features.Missions.Behaviors;
+using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Features.Recruits.Behaviors;
 using Retinues.Features.Retinues.Behaviors;
 using Retinues.Features.Stocks.Behaviors;
@@ -240,7 +240,7 @@ namespace Retinues
             AddBehavior<RetinueHireBehavior>(cs);
 
             // Combat equipment behavior
-            AddBehavior<CombatEquipmentBehavior>(cs);
+            AddBehavior<CombatLoadoutBehavior>(cs);
 
             // Training behavior
             AddBehavior<TroopTrainBehavior>(cs);

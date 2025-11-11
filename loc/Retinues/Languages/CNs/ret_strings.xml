@@ -794,6 +794,12 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="减少部队技能时，退还经验值成本。" />
     <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="替换环境NPC" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="用玩家派系角色替换定居点中的环境NPC。" />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解锁所需丢弃物品" />
     <string
@@ -928,6 +934,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="装备" />
+    <string
+      id="ret_mcm_section_fluff"
+      text="沉浸与装饰" />
     <string
       id="ret_mcm_section_general"
       text="通用" />

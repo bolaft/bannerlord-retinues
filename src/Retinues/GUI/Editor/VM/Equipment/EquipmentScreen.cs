@@ -5,7 +5,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
-using Retinues.Features.Missions.Behaviors;
+using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.List;
@@ -209,7 +209,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 var we = eqs[i];
                 if (we.IsCivilian)
                     continue;
-                if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
+                if (CombatLoadoutBehavior.IsEnabled(troop, i, t))
                     c++;
             }
             return c;
@@ -323,7 +323,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForFieldBattle =>
             !SetIsCivilian
-            && CombatEquipmentBehavior.IsEnabled(
+            && CombatLoadoutBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.FieldBattle
@@ -332,7 +332,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeDefense =>
             !SetIsCivilian
-            && CombatEquipmentBehavior.IsEnabled(
+            && CombatLoadoutBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeDefense
@@ -341,7 +341,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeAssault =>
             !SetIsCivilian
-            && CombatEquipmentBehavior.IsEnabled(
+            && CombatLoadoutBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeAssault
@@ -637,7 +637,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForFieldBattle)
                 return;
-            CombatEquipmentBehavior.Toggle(
+            CombatLoadoutBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.FieldBattle
@@ -650,7 +650,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForSiegeDefense)
                 return;
-            CombatEquipmentBehavior.Toggle(
+            CombatLoadoutBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeDefense
@@ -663,7 +663,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForSiegeAssault)
                 return;
-            CombatEquipmentBehavior.Toggle(
+            CombatLoadoutBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeAssault
@@ -791,7 +791,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                         State.Troop.UnstageAll(State.Equipment?.Index ?? 0, !EditorVM.IsStudioMode);
 
                         // Persist mask removal and remove the set
-                        CombatEquipmentBehavior.OnRemoved(State.Troop, State.Equipment.Index);
+                        CombatLoadoutBehavior.OnRemoved(State.Troop, State.Equipment.Index);
                         State.Troop.Loadout.Remove(State.Equipment);
 
                         // Keep masks valid and select canonical battle set (index 0)
@@ -857,7 +857,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 return;
 
             // Default to disabled for all battle types, then fix invariants
-            CombatEquipmentBehavior.DisableAll(troop, created.Index);
+            CombatLoadoutBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
 
             // Select the newly created set
@@ -885,7 +885,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             {
                 var created = troop.Loadout.CreateBattle();
                 CopyItemsInto(created, plan);
-                CombatEquipmentBehavior.DisableAll(troop, created.Index);
+                CombatLoadoutBehavior.DisableAll(troop, created.Index);
                 State.FixCombatPolicies(troop);
                 State.UpdateEquipment(created);
                 return;
@@ -984,7 +984,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     item.Unstock();
 
                 // 5) Default mask state and policy fix
-                CombatEquipmentBehavior.DisableAll(troop, created.Index);
+                CombatLoadoutBehavior.DisableAll(troop, created.Index);
                 State.FixCombatPolicies(troop);
 
                 // 6) Select the new set

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Retinues.Configuration;
-using Retinues.Features.Missions.Behaviors;
+using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
@@ -12,7 +12,7 @@ using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Features.Missions.Patches
+namespace Retinues.Features.Loadouts.Patches
 {
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class Mission_SpawnAgent_Prefix
@@ -89,7 +89,7 @@ namespace Retinues.Features.Missions.Patches
                         if (we.IsCivilian)
                             continue;
 
-                        if (CombatEquipmentBehavior.IsEnabled(troop, i, battleType))
+                        if (CombatLoadoutBehavior.IsEnabled(troop, i, battleType))
                             eligible.Add(we);
                     }
 

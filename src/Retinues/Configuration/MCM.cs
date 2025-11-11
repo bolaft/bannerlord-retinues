@@ -282,6 +282,7 @@ namespace Retinues.Configuration
             {
                 L.S("mcm_section_global_editor", "Global Editor"),
                 L.S("mcm_section_doctrines", "Doctrines"),
+                L.S("mcm_section_fluff", "Immersion & Fluff"),
                 L.S("mcm_section_retinues", "Retinues"),
                 L.S("mcm_section_recruitment", "Recruitment"),
                 L.S("mcm_section_equipment", "Equipment"),

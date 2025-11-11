@@ -351,23 +351,6 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> EnableTroopCustomization = CreateOption(
-            section: () => L.S("mcm_section_restrictions", "Restrictions"),
-            name: () => L.S("mcm_option_enable_troop_customization", "Enable Appearance Controls"),
-            key: "EnableTroopCustomization",
-            hint: () =>
-                L.S(
-                    "mcm_option_enable_troop_customization_hint",
-                    "Adds appearance customization controls (age, height, weight, build)."
-                ),
-            @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            }
-        );
-
         public static readonly Option<int> MaxEliteUpgrades = CreateOption(
             section: () => L.S("mcm_section_restrictions", "Restrictions"),
             name: () => L.S("mcm_option_max_elite_upgrades", "Max Elite Upgrades"),
@@ -442,6 +425,44 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
+            }
+        );
+
+        // ─────────────────────────────────────────────────────
+        // Immersion & Fluff
+        // ─────────────────────────────────────────────────────
+
+        public static readonly Option<bool> EnableTroopCustomization = CreateOption(
+            section: () => L.S("mcm_section_fluff", "Immersion & Fluff"),
+            name: () => L.S("mcm_option_enable_troop_customization", "Enable Appearance Controls"),
+            key: "EnableTroopCustomization",
+            hint: () =>
+                L.S(
+                    "mcm_option_enable_troop_customization_hint",
+                    "Adds appearance customization controls (age, height, weight, build)."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
+            }
+        );
+
+        public static readonly Option<bool> ReplaceAmbientNPCs = CreateOption(
+            section: () => L.S("mcm_section_fluff", "Immersion & Fluff"),
+            name: () => L.S("mcm_option_replace_ambient_npcs", "Replace Ambient NPCs"),
+            key: "ReplaceAmbientNPCs",
+            hint: () =>
+                L.S(
+                    "mcm_option_replace_ambient_npcs_hint",
+                    "Replaces ambient NPCs in settlements with player faction characters."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
             }
         );
 

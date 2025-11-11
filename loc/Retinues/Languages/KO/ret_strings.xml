@@ -794,6 +794,12 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="병력의 기술을 감소시킬 때 XP 비용을 환불합니다." />
     <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="주변 NPC 교체" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="정착지의 주변 NPC를 플레이어 진영 캐릭터로 교체합니다." />
+    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="해제를 위한 필요 폐기 아이템" />
     <string
@@ -928,6 +934,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="장비" />
+    <string
+      id="ret_mcm_section_fluff"
+      text="몰입감 &amp; 장식" />
     <string
       id="ret_mcm_section_general"
       text="일반" />
