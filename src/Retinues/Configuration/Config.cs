@@ -314,11 +314,11 @@ namespace Retinues.Configuration
                     "mcm_option_global_editor_enabled_hint",
                     "Enables the global troop editor to modify any troop in the game. Disable if you are encountering issues with non-player troops."
                 ),
-            @default: true,
+            @default: false,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = false,
             },
             requiresRestart: true,
             disabled: ModCompatibility.NoGlobalEditor,
