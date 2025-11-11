@@ -267,6 +267,7 @@ namespace Retinues.Configuration
 
             string[] order =
             {
+                "Global Editor",
                 "Doctrines",
                 "Retinues",
                 "Recruitment",

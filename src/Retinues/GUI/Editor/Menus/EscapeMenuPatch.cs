@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.EscapeMenu;
@@ -20,6 +21,9 @@ namespace Retinues.GUI.Editor.Menus
         {
             try
             {
+                if (Config.GlobalEditorEnabled == false || ModuleChecker.IsLoaded("Shokuho"))
+                    return; // Feature disabled
+
                 var title = L.T("troop_editor_button", "Troop Editor");
                 static Tuple<bool, TextObject> notDisabled() =>
                     new(false, new TextObject(string.Empty));

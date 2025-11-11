@@ -284,6 +284,28 @@ namespace Retinues.Configuration
         );
 
         // ─────────────────────────────────────────────────────
+        // Global Troop Editor
+        // ─────────────────────────────────────────────────────
+
+        public static readonly Option<bool> GlobalEditorEnabled = CreateOption(
+            section: () => L.S("mcm_section_global_editor", "Global Editor"),
+            name: () => L.S("mcm_option_global_editor_enabled", "Enable Global Troop Editor"),
+            key: "GlobalEditorEnabled",
+            hint: () =>
+                L.S(
+                    "mcm_option_global_editor_enabled_hint",
+                    "Enables the global troop editor to modify any troop in the game. Disable if you are encountering issues with non-player troops."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
+            },
+            requiresRestart: true
+        );
+
+        // ─────────────────────────────────────────────────────
         // Restrictions
         // ─────────────────────────────────────────────────────
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Save;
 using Retinues.Utils;
@@ -84,20 +85,23 @@ namespace Retinues.Troops
                 return;
             }
 
-            // Collect all base cultures
-            var cultures =
-                MBObjectManager
-                    .Instance.GetObjectTypeList<CultureObject>()
-                    ?.OrderBy(c => c?.Name?.ToString())
-                    .ToList()
-                ?? [];
+            if (Config.GlobalEditorEnabled == true && !ModuleChecker.IsLoaded("Shokuho"))
+            {
+                // Collect all base cultures
+                var cultures =
+                    MBObjectManager
+                        .Instance.GetObjectTypeList<CultureObject>()
+                        ?.OrderBy(c => c?.Name?.ToString())
+                        .ToList()
+                    ?? [];
 
-            // Initialize culture troops
-            _cultureTroops = [];
+                // Initialize culture troops
+                _cultureTroops = [];
 
-            // Save each culture's troop data
-            foreach (var culture in cultures)
-                _cultureTroops.Add(new FactionSaveData(new WCulture(culture)));
+                // Save each culture's troop data
+                foreach (var culture in cultures)
+                    _cultureTroops.Add(new FactionSaveData(new WCulture(culture)));
+            }
         }
 
         /* ━━━━━━━━ Loading ━━━━━━━ */
@@ -116,10 +120,13 @@ namespace Retinues.Troops
             // Rebuild kingdom troops
             _kingdomTroops?.Apply(Player.Kingdom);
 
-            // Rebuild culture troops
-            if (_cultureTroops is not null)
-                foreach (FactionSaveData data in _cultureTroops)
-                    data.DeserializeTroops();
+            if (Config.GlobalEditorEnabled == true && !ModuleChecker.IsLoaded("Shokuho"))
+            {
+                // Rebuild culture troops
+                if (_cultureTroops is not null)
+                    foreach (FactionSaveData data in _cultureTroops)
+                        data.DeserializeTroops();
+            }
         }
 
         /* ━━━━━ Fief Acquired ━━━━ */

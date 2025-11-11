@@ -31,8 +31,9 @@ namespace Retinues.Features.Missions.Patches
                 if (troop.IsHero)
                     return; // Don't affect heroes
 
-                if (!troop.IsCustom && ModuleChecker.IsLoaded("Shokuho"))
-                    return; // Don't affect non-custom troops when Shokuho is loaded
+                if (!troop.IsCustom)
+                    if (Config.GlobalEditorEnabled == false || ModuleChecker.IsLoaded("Shokuho"))
+                        return; // Feature disabled for vanilla troops
 
                 if (Mission.Current?.Mode == MissionMode.Tournament)
                     return; // Don't affect tournaments
@@ -61,9 +62,13 @@ namespace Retinues.Features.Missions.Patches
                     else
                         eq = civs[MBRandom.RandomInt(civs.Count)].Base;
                 }
-                else if (Config.ForceMainBattleSetInCombat || ModuleChecker.IsLoaded("Shokuho"))
+                else if (Config.ForceMainBattleSetInCombat)
                 {
                     eq = troop.Loadout.Battle.Base; // index 0 is normalized to a battle set
+                }
+                else if (ModuleChecker.IsLoaded("Shokuho"))
+                {
+                    eq = troop.Loadout.Battle.Base; // force main battle set for Shokuho to avoid issues
                 }
                 else
                 {
@@ -82,6 +87,7 @@ namespace Retinues.Features.Missions.Patches
                         var we = all[i];
                         if (we.IsCivilian)
                             continue;
+
                         if (CombatEquipmentBehavior.IsEnabled(troop, i, battleType))
                             eligible.Add(we);
                     }

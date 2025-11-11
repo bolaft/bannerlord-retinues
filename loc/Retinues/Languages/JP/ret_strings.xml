@@ -692,6 +692,12 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="部隊は戦闘中に常にメインバトル装備セットを使用します。" />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="グローバル部隊エディターを有効化" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="ゲーム内の任意の部隊を変更するためにグローバル部隊エディターを有効化します。プレイヤー以外の部隊で問題が発生している場合は無効にしてください。" />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="アップグレード要件に市民の馬を無視" />
     <string
@@ -895,6 +901,9 @@
     <string
       id="ret_mcm_section_general"
       text="一般" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="グローバルエディター" />
     <string
       id="ret_mcm_section_import_export"
       text="インポートとエクスポート" />

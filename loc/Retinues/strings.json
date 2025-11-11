@@ -3664,6 +3664,38 @@
     "TR": "Askerler savaşta her zaman ana savaş teçhizat setlerini kullanır."
   },
   {
+    "id": "ret_mcm_option_global_editor_enabled",
+    "EN": "Enable Global Troop Editor",
+    "BR": "Ativar Editor Global de Tropas",
+    "CNs": "启用全局部队编辑器",
+    "CNt": "啟用全局部隊編輯器",
+    "DE": "Globalen Truppen-Editor aktivieren",
+    "FR": "Activer l’Éditeur Global de Troupes",
+    "IT": "Abilita Editor Globale delle Truppe",
+    "JP": "グローバル部隊エディターを有効化",
+    "KO": "글로벌 병력 편집기 활성화",
+    "PL": "Włącz Globalny Edytor Jednostek",
+    "RU": "Включить Глобальный Редактор Войск",
+    "SP": "Habilitar Editor Global de Tropas",
+    "TR": "Küresel Asker Düzenleyicisini Etkinleştir"
+  },
+  {
+    "id": "ret_mcm_option_global_editor_enabled_hint",
+    "EN": "Enables the global troop editor to modify any troop in the game. Disable if you are encountering issues with non-player troops.",
+    "BR": "Ativa o editor global de tropas para modificar qualquer tropa no jogo. Desative se estiver enfrentando problemas com tropas não controladas pelo jogador.",
+    "CNs": "启用全局部队编辑器以修改游戏中的任何部队。如果遇到非玩家部队的问题，请禁用。",
+    "CNt": "啟用全局部隊編輯器以修改遊戲中的任何部隊。如果遇到非玩家部隊的問題，請禁用。",
+    "DE": "Aktiviert den globalen Truppen-Editor, um jede Truppe im Spiel zu ändern. Deaktivieren Sie ihn, wenn Sie Probleme mit nicht spielergesteuerten Truppen haben.",
+    "FR": "Active l’éditeur global de troupes pour modifier n’importe quelle troupe dans le jeu. Désactivez-le si vous rencontrez des problèmes avec des troupes non contrôlées par le joueur.",
+    "IT": "Abilita l’editor globale delle truppe per modificare qualsiasi truppa nel gioco. Disabilitalo se riscontri problemi con le truppe non controllate dal giocatore.",
+    "JP": "ゲーム内の任意の部隊を変更するためにグローバル部隊エディターを有効化します。プレイヤー以外の部隊で問題が発生している場合は無効にしてください。",
+    "KO": "게임 내 모든 병력을 수정할 수 있는 글로벌 병력 편집기를 활성화합니다. 플레이어가 아닌 병력에 문제가 발생하는 경우 비활성화하십시오.",
+    "PL": "Włącza globalny edytor jednostek do modyfikowania dowolnej jednostki w grze. Wyłącz go, jeśli napotkasz problemy z jednostkami niekontrolowanymi przez gracza.",
+    "RU": "Включает глобальный редактор войск для изменения любых войск в игре. Отключите его, если у вас возникают проблемы с войсками, не управляемыми игроком.",
+    "SP": "Habilita el editor global de tropas para modificar cualquier tropa en el juego. Desactívelo si encuentra problemas con tropas que no son del jugador.",
+    "TR": "Oyundaki herhangi bir askeri değiştirmek için küresel asker düzenleyicisini etkinleştirir. Oyuncu olmayan askerlerle ilgili sorunlar yaşıyorsanız devre dışı bırakın."
+  },
+  {
     "id": "ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements",
     "EN": "Ignore Civilian Horse for Upgrade Requirements",
     "BR": "Ignorar Cavalo Civil para Requisitos de Upgrade",
@@ -4750,6 +4782,22 @@
     "RU": "Общее",
     "SP": "General",
     "TR": "Genel"
+  },
+  {
+    "id": "ret_mcm_section_global_editor",
+    "EN": "Global Editor",
+    "BR": "Editor Global",
+    "CNs": "全局编辑器",
+    "CNt": "全局編輯器",
+    "DE": "Globaler Editor",
+    "FR": "Éditeur Global",
+    "IT": "Editor Globale",
+    "JP": "グローバルエディター",
+    "KO": "글로벌 편집기",
+    "PL": "Globalny Edytor",
+    "RU": "Глобальный Редактор",
+    "SP": "Editor Global",
+    "TR": "Küresel Düzenleyici"
   },
   {
     "id": "ret_mcm_section_import_export",

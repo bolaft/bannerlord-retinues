@@ -692,6 +692,12 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Truppen verwenden im Kampf immer ihren Hauptkampfausrüstungsset." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="Globalen Truppen-Editor aktivieren" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="Aktiviert den globalen Truppen-Editor, um jede Truppe im Spiel zu ändern. Deaktivieren Sie ihn, wenn Sie Probleme mit nicht spielergesteuerten Truppen haben." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="Zivilpferd für Upgrade-Anforderungen ignorieren" />
     <string
@@ -895,6 +901,9 @@
     <string
       id="ret_mcm_section_general"
       text="Allgemein" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="Globaler Editor" />
     <string
       id="ret_mcm_section_import_export"
       text="Import &amp; Export" />

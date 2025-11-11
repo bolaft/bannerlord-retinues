@@ -692,6 +692,12 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="部隊在戰鬥中始終使用其主戰裝備。" />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="啟用全局部隊編輯器" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="啟用全局部隊編輯器以修改遊戲中的任何部隊。如果遇到非玩家部隊的問題，請禁用。" />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="升級需求忽略平民馬匹" />
     <string
@@ -895,6 +901,9 @@
     <string
       id="ret_mcm_section_general"
       text="通用" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="全局編輯器" />
     <string
       id="ret_mcm_section_import_export"
       text="導入與導出" />

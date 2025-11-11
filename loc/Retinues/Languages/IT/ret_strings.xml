@@ -692,6 +692,12 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Le truppe usano sempre il loro set di equipaggiamento da battaglia principale in combattimento." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="Abilita Editor Globale delle Truppe" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="Abilita l’editor globale delle truppe per modificare qualsiasi truppa nel gioco. Disabilitalo se riscontri problemi con le truppe non controllate dal giocatore." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="Ignora il Cavallo Civile per i Requisiti di Upgrade" />
     <string
@@ -895,6 +901,9 @@
     <string
       id="ret_mcm_section_general"
       text="Generale" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="Editor Globale" />
     <string
       id="ret_mcm_section_import_export"
       text="Importa &amp; Esporta" />

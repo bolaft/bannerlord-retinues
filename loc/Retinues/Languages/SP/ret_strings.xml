@@ -692,6 +692,12 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Las tropas siempre usan su conjunto de equipo de batalla principal en combate." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="Habilitar Editor Global de Tropas" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="Habilita el editor global de tropas para modificar cualquier tropa en el juego. Desactívelo si encuentra problemas con tropas que no son del jugador." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="Ignorar el Caballo Civil para los Requisitos de Mejora" />
     <string
@@ -895,6 +901,9 @@
     <string
       id="ret_mcm_section_general"
       text="General" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="Editor Global" />
     <string
       id="ret_mcm_section_import_export"
       text="Importar y Exportar" />
