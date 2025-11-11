@@ -138,7 +138,6 @@ namespace Retinues.Game.Wrappers
         public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
         public bool IsMilitiaMelee => Helper.IsMilitiaMelee(this);
         public bool IsMilitiaRanged => Helper.IsMilitiaRanged(this);
-        public bool IsArmedTrader => Helper.IsArmedTrader(this);
         public bool IsCaravanGuard => Helper.IsCaravanGuard(this);
         public bool IsCaravanMaster => Helper.IsCaravanMaster(this);
         public bool IsVillager => Helper.IsVillager(this);

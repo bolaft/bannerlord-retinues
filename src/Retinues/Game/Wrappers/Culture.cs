@@ -100,12 +100,6 @@ namespace Retinues.Game.Wrappers
         public WCharacter Villager => _culture?.Villager != null ? new(_culture.Villager) : null;
 
         /// <summary>
-        ///  Gets the armed trader troop for this culture.
-        /// </summary>
-        public WCharacter ArmedTrader =>
-            _culture?.ArmedTrader != null ? new(_culture.ArmedTrader) : null;
-
-        /// <summary>
         ///  Gets the caravan master troop for this culture.
         /// </summary>
         public WCharacter CaravanMaster =>
@@ -167,7 +161,7 @@ namespace Retinues.Game.Wrappers
 
         public List<WCharacter> CaravanTroops =>
             [
-                .. new List<WCharacter> { ArmedTrader, CaravanGuard, CaravanMaster }.Where(t =>
+                .. new List<WCharacter> { CaravanGuard, CaravanMaster }.Where(t =>
                     t?.IsActive == true
                 ),
             ];
@@ -181,7 +175,9 @@ namespace Retinues.Game.Wrappers
                 {
                     Base.PrisonGuard,
                     Base.Guard,
+# if BL12
                     Base.Steward,
+# endif
                     Base.Blacksmith,
                     Base.Weaponsmith,
                     Base.Townswoman,

@@ -17,8 +17,6 @@ namespace Retinues.Game.Helpers.Character
 
         public bool IsMilitiaRanged(WCharacter node) => CharacterGraphIndex.IsMilitiaRanged(node);
 
-        public bool IsArmedTrader(WCharacter node) => CharacterGraphIndex.IsArmedTrader(node);
-
         public bool IsCaravanGuard(WCharacter node) => CharacterGraphIndex.IsCaravanGuard(node);
 
         public bool IsCaravanMaster(WCharacter node) => CharacterGraphIndex.IsCaravanMaster(node);

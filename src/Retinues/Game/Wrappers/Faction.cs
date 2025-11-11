@@ -28,7 +28,6 @@ namespace Retinues.Game.Wrappers
         public WCharacter MilitiaRanged { get; }
         public WCharacter MilitiaRangedElite { get; }
 
-        public WCharacter ArmedTrader { get; }
         public WCharacter CaravanGuard { get; }
         public WCharacter CaravanMaster { get; }
 
@@ -95,7 +94,6 @@ namespace Retinues.Game.Wrappers
         public WCharacter MilitiaRanged { get; set; }
         public WCharacter MilitiaRangedElite { get; set; }
 
-        public WCharacter ArmedTrader { get; set; }
         public WCharacter CaravanGuard { get; set; }
         public WCharacter CaravanMaster { get; set; }
 
@@ -169,7 +167,7 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public List<WCharacter> CaravanTroops =>
             [
-                .. new List<WCharacter> { ArmedTrader, CaravanGuard, CaravanMaster }.Where(t =>
+                .. new List<WCharacter> { CaravanGuard, CaravanMaster }.Where(t =>
                     t?.IsActive == true
                 ),
             ];

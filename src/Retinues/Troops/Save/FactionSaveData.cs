@@ -36,9 +36,6 @@ namespace Retinues.Troops.Save
         [SaveableField(8)]
         public TroopSaveData MilitiaRangedElite;
 
-        [SaveableField(14)]
-        public TroopSaveData ArmedTrader;
-
         [SaveableField(9)]
         public TroopSaveData CaravanGuard;
 
@@ -73,7 +70,6 @@ namespace Retinues.Troops.Save
             MilitiaMeleeElite = new TroopSaveData(faction.MilitiaMeleeElite);
             MilitiaRanged = new TroopSaveData(faction.MilitiaRanged);
             MilitiaRangedElite = new TroopSaveData(faction.MilitiaRangedElite);
-            ArmedTrader = new TroopSaveData(faction.ArmedTrader);
             CaravanGuard = new TroopSaveData(faction.CaravanGuard);
             CaravanMaster = new TroopSaveData(faction.CaravanMaster);
             Villager = new TroopSaveData(faction.Villager);
@@ -112,7 +108,6 @@ namespace Retinues.Troops.Save
             MilitiaMeleeElite?.Deserialize();
             MilitiaRanged?.Deserialize();
             MilitiaRangedElite?.Deserialize();
-            ArmedTrader?.Deserialize();
             CaravanGuard?.Deserialize();
             CaravanMaster?.Deserialize();
             Villager?.Deserialize();

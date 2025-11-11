@@ -162,12 +162,6 @@ namespace Retinues.Troops
             {
                 var culture = faction.Culture;
 
-                if (faction.ArmedTrader is null && culture?.ArmedTrader != null)
-                {
-                    Log.Info("Creating Caravan Guard troop for faction.");
-                    CreateSpecialTroop(culture.ArmedTrader, faction, SpecialTroopType.ArmedTrader);
-                }
-
                 if (faction.CaravanGuard is null && culture?.CaravanGuard != null)
                 {
                     Log.Info("Creating Caravan Guard troop for faction.");
@@ -344,7 +338,6 @@ namespace Retinues.Troops
 
         private enum SpecialTroopType
         {
-            ArmedTrader,
             CaravanGuard,
             CaravanMaster,
             Villager,
@@ -380,9 +373,6 @@ namespace Retinues.Troops
             // Assign to faction
             switch (type)
             {
-                case SpecialTroopType.ArmedTrader:
-                    faction.ArmedTrader = troop;
-                    break;
                 case SpecialTroopType.CaravanGuard:
                     faction.CaravanGuard = troop;
                     break;

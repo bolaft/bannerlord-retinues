@@ -18,7 +18,6 @@ namespace Retinues.Game.Helpers.Character
         bool IsRetinue(WCharacter troop);
         bool IsMilitiaMelee(WCharacter troop);
         bool IsMilitiaRanged(WCharacter troop);
-        bool IsArmedTrader(WCharacter troop);
         bool IsCaravanGuard(WCharacter troop);
         bool IsCaravanMaster(WCharacter troop);
         bool IsVillager(WCharacter troop);

@@ -137,16 +137,6 @@ namespace Retinues.Game.Helpers.Character
         }
 
         /// <summary>
-        /// Returns true if the ID is an armed trader troop.
-        /// </summary>
-        public bool IsArmedTrader(WCharacter node)
-        {
-            var co = GetCharacterObject(node.StringId);
-            var cul = co?.Culture;
-            return cul != null && ReferenceEquals(co, cul.ArmedTrader);
-        }
-
-        /// <summary>
         /// Returns true if the ID is a caravan guard troop.
         /// </summary>
         public bool IsCaravanGuard(WCharacter node)

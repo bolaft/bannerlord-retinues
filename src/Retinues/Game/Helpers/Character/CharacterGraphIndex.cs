@@ -17,7 +17,6 @@ namespace Retinues.Game.Helpers.Character
         private static readonly HashSet<string> _militiaRanged = [];
         private static readonly HashSet<string> _militiaMeleeElite = [];
         private static readonly HashSet<string> _militiaRangedElite = [];
-        private static readonly HashSet<string> _armedTrader = [];
         private static readonly HashSet<string> _caravanGuard = [];
         private static readonly HashSet<string> _caravanMaster = [];
         private static readonly HashSet<string> _villager = [];
@@ -35,7 +34,6 @@ namespace Retinues.Game.Helpers.Character
             _militiaRanged.Clear();
             _militiaMeleeElite.Clear();
             _militiaRangedElite.Clear();
-            _armedTrader.Clear();
             _caravanGuard.Clear();
             _caravanMaster.Clear();
             _villager.Clear();
@@ -71,7 +69,6 @@ namespace Retinues.Game.Helpers.Character
                 _militiaRangedElite.Add(f.MilitiaRangedElite.StringId);
 
             // Caravan troops
-            MarkOne(f, f.ArmedTrader, _armedTrader);
             MarkOne(f, f.CaravanGuard, _caravanGuard);
             MarkOne(f, f.CaravanMaster, _caravanMaster);
 
@@ -140,9 +137,6 @@ namespace Retinues.Game.Helpers.Character
 
         public static bool IsMilitiaRanged(WCharacter c) =>
             c != null && _militiaRanged.Contains(c.StringId);
-
-        public static bool IsArmedTrader(WCharacter c) =>
-            c != null && c.StringId == "retinues_caravan_armed_trader";
 
         public static bool IsCaravanGuard(WCharacter c) =>
             c != null && _caravanGuard.Contains(c.StringId);
