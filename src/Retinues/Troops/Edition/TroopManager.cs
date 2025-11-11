@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
@@ -61,8 +62,18 @@ namespace Retinues.Troops.Edition
             // Wrap the custom troop
             var child = new WCharacter();
 
+            bool keepEquipment = false; // default
+
+            if (Config.EquipmentChangeTakesTime == false && Config.PayForEquipment == false)
+                keepEquipment = true; // Copy equipment if no time or cost is involved
+
             // Copy from the original troop
-            child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);
+            child.FillFrom(
+                troop,
+                keepUpgrades: false,
+                keepEquipment: keepEquipment,
+                keepSkills: true
+            );
 
             // Set name and level
             child.Name = targetName.Trim();
