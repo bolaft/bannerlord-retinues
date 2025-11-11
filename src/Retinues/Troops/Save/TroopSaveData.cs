@@ -72,7 +72,7 @@ namespace Retinues.Troops.Save
             EquipmentData = new TroopEquipmentData(troop.Loadout.Equipments);
             SkillData = new TroopSkillData(troop.Skills);
             BodyData =
-                Config.EnableTroopCustomization && !ModuleChecker.IsLoaded("Shokuho")
+                Config.EnableTroopCustomization
                     ? new TroopBodySaveData(troop)
                     : null;
             Race = troop.Race;
@@ -127,7 +127,7 @@ namespace Retinues.Troops.Save
             }
 
             // Set body customization (if enabled)
-            if (Config.EnableTroopCustomization && !ModuleChecker.IsLoaded("Shokuho"))
+            if (Config.EnableTroopCustomization)
                 BodyData?.Apply(troop);
 
             // Set formation class override
