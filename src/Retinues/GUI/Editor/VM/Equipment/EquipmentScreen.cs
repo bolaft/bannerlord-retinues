@@ -272,6 +272,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceProperty]
+        public bool ShowSetControls => !ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
+
+        [DataSourceProperty]
         public bool CanCreateSet => !ModuleChecker.IsLoaded("Shokuho"); // Disable if Shokuho is present
 
         [DataSourceProperty]

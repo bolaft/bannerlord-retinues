@@ -71,10 +71,7 @@ namespace Retinues.Troops.Save
             UpgradeTargets = [.. troop.UpgradeTargets.Select(t => new TroopSaveData(t))];
             EquipmentData = new TroopEquipmentData(troop.Loadout.Equipments);
             SkillData = new TroopSkillData(troop.Skills);
-            BodyData =
-                Config.EnableTroopCustomization
-                    ? new TroopBodySaveData(troop)
-                    : null;
+            BodyData = Config.EnableTroopCustomization ? new TroopBodySaveData(troop) : null;
             Race = troop.Race;
             FormationClassOverride = troop.FormationClassOverride;
         }

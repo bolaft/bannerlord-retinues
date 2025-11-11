@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Game;
 using Retinues.Configuration;
+using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops.Save;
 using Retinues.Utils;
