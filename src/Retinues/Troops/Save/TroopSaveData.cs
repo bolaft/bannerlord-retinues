@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -70,7 +71,10 @@ namespace Retinues.Troops.Save
             UpgradeTargets = [.. troop.UpgradeTargets.Select(t => new TroopSaveData(t))];
             EquipmentData = new TroopEquipmentData(troop.Loadout.Equipments);
             SkillData = new TroopSkillData(troop.Skills);
-            BodyData = new TroopBodySaveData(troop);
+            BodyData =
+                Config.EnableTroopCustomization && !ModuleChecker.IsLoaded("Shokuho")
+                    ? new TroopBodySaveData(troop)
+                    : null;
             Race = troop.Race;
             FormationClassOverride = troop.FormationClassOverride;
         }
@@ -123,8 +127,8 @@ namespace Retinues.Troops.Save
             }
 
             // Set body customization (if enabled)
-            if (Config.EnableTroopCustomization)
-                BodyData.Apply(troop);
+            if (Config.EnableTroopCustomization && !ModuleChecker.IsLoaded("Shokuho"))
+                BodyData?.Apply(troop);
 
             // Set formation class override
             troop.FormationClassOverride = FormationClassOverride;
