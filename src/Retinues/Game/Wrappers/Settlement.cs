@@ -10,7 +10,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for Settlement, provides helpers for notables, garrison, culture, faction, and volunteer swapping.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WSettlement(Settlement settlement) : FactionObject
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -164,10 +164,6 @@ namespace Retinues.Game.Wrappers
                 }
             }
         }
-
-        // // Update all existing militias for this faction
-        // foreach (var s in faction.Settlements)
-        //     s.MilitiaParty?.MemberRoster?.SwapTroops(faction);
 
         /// <summary>
         /// Swap all volunteers in notables to match the given faction.

@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Features.Settlements.Patches
+namespace Retinues.Features.Scenes.Patches
 {
     /// <summary>
     /// Patch entry for dynamic swapping of ambiant NPCs in settlement missions.

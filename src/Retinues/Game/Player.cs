@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -12,7 +11,7 @@ namespace Retinues.Game
     /// Static helpers for accessing player-related game state and attributes.
     /// Provides wrappers for clan, kingdom, character, party, and resources.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public static class Player
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -188,58 +187,6 @@ namespace Retinues.Game
                 if (Kingdom != null)
                     foreach (var troop in Kingdom.Troops)
                         yield return troop;
-            }
-        }
-
-        public static IEnumerable<WCharacter> RetinueTroops
-        {
-            get
-            {
-                if (Clan != null)
-                    foreach (var troop in Clan.RetinueTroops)
-                        yield return troop;
-
-                if (Kingdom != null)
-                    foreach (var troop in Kingdom.RetinueTroops)
-                        yield return troop;
-            }
-        }
-
-        public static IEnumerable<WCharacter> EliteTroops
-        {
-            get
-            {
-                if (Clan != null)
-                    foreach (var troop in Clan.EliteTroops)
-                        yield return troop;
-
-                if (Kingdom != null)
-                    foreach (var troop in Kingdom.EliteTroops)
-                        yield return troop;
-            }
-        }
-
-        public static IEnumerable<WCharacter> MilitiaMeleeTroops
-        {
-            get
-            {
-                if (Clan != null)
-                    yield return Clan.MilitiaMelee;
-
-                if (Kingdom != null)
-                    yield return Kingdom.MilitiaMelee;
-            }
-        }
-
-        public static IEnumerable<WCharacter> MilitiaRangedTroops
-        {
-            get
-            {
-                if (Clan != null)
-                    yield return Clan.MilitiaRanged;
-
-                if (Kingdom != null)
-                    yield return Kingdom.MilitiaRanged;
             }
         }
 
