@@ -23,8 +23,8 @@ namespace Retinues.Features.Volunteers.Patches
         //                         State                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static Settlement _settlement;
-        private static Dictionary<string, CharacterObject[]> _snapshot;
+        private static WSettlement _settlement;
+        private static Dictionary<string, WCharacter[]> _snapshot;
 
         static VolunteerSwapForPlayer()
         {
@@ -39,31 +39,34 @@ namespace Retinues.Features.Volunteers.Patches
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                 Snapshot / Restore Helpers             //
+        //                Snapshot / Restore Helpers              //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Store the current volunteers for each notable in the settlement.
+        /// Store the current volunteers for each notable in the settlement (wrapper-based).
         /// </summary>
-        private static void SnapshotVolunteers(Settlement settlement)
+        private static void SnapshotVolunteers(WSettlement settlement)
         {
             var notables = settlement?.Notables;
             if (notables == null || notables.Count == 0)
                 return;
 
-            var snapshot = new Dictionary<string, CharacterObject[]>(StringComparer.Ordinal);
+            var snapshot = new Dictionary<string, WCharacter[]>(StringComparer.Ordinal);
 
             foreach (var notable in notables)
             {
-                if (notable?.StringId == null)
+                if (string.IsNullOrEmpty(notable?.StringId))
                     continue;
 
-                var volunteers = notable.VolunteerTypes;
+                var volunteers = notable.Base?.VolunteerTypes;
                 if (volunteers == null || volunteers.Length == 0)
                     continue;
 
-                var notableSnapshot = new CharacterObject[volunteers.Length];
-                Array.Copy(volunteers, notableSnapshot, volunteers.Length);
+                var notableSnapshot = new WCharacter[volunteers.Length];
+                for (int i = 0; i < volunteers.Length; i++)
+                    notableSnapshot[i] =
+                        volunteers[i] != null ? new WCharacter(volunteers[i]) : null;
+
                 snapshot[notable.StringId] = notableSnapshot;
             }
 
@@ -75,14 +78,14 @@ namespace Retinues.Features.Volunteers.Patches
         }
 
         /// <summary>
-        /// Restore the volunteers for the settlement if a snapshot exists.
+        /// Restore the volunteers for the settlement if a snapshot exists (wrapper-based).
         /// </summary>
         private static void RestoreSnapshot()
         {
             if (_snapshot == null || _settlement == null)
                 return;
 
-            var notables = _settlement?.Notables;
+            var notables = _settlement.Notables;
             if (notables == null || notables.Count == 0)
             {
                 ClearSnapshot();
@@ -91,30 +94,33 @@ namespace Retinues.Features.Volunteers.Patches
 
             foreach (var notable in notables)
             {
-                if (notable?.StringId == null)
+                if (string.IsNullOrEmpty(notable?.StringId))
                     continue;
 
                 if (!_snapshot.TryGetValue(notable.StringId, out var notableSnapshot))
                     continue;
 
-                var volunteers = notable.VolunteerTypes;
+                var volunteers = notable.Base?.VolunteerTypes;
                 if (volunteers == null)
                     continue;
 
                 var count = Math.Min(volunteers.Length, notableSnapshot.Length);
-                for (var i = 0; i < count; i++)
+                for (int i = 0; i < count; i++)
                 {
+                    // Preserve empty slots currently in-game (mirror original behavior)
                     if (volunteers[i] == null)
                         continue;
 
-                    volunteers[i] = notableSnapshot[i];
+                    // Write back from snapshot (null-safe)
+                    var snap = notableSnapshot[i];
+                    volunteers[i] = snap != null ? snap.Base : null;
                 }
             }
 
             ClearSnapshot();
             Log.Debug(
                 "[VolunteerSwapForPlayer] Restored volunteers for settlement "
-                    + _settlement?.StringId
+                    + _settlement.StringId
             );
         }
 
@@ -126,6 +132,10 @@ namespace Retinues.Features.Volunteers.Patches
             _snapshot = null;
             _settlement = null;
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //             Hooks That Restore Snapshot                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Restore native volunteers once the player starts waiting in the settlement.
@@ -143,7 +153,7 @@ namespace Retinues.Features.Volunteers.Patches
         /// <summary>
         /// Restore native volunteers once the main party leaves the settlement.
         /// </summary>
-        private static void OnSettlementLeft(MobileParty party, Settlement settlement)
+        private static void OnSettlementLeft(MobileParty party, Settlement _)
         {
             if (party != MobileParty.MainParty)
                 return;
@@ -172,27 +182,27 @@ namespace Retinues.Features.Volunteers.Patches
             [HarmonyPostfix]
             private static void Postfix()
             {
-                var settlement = Settlement.CurrentSettlement;
+                var settlement = WSettlement.Current;
                 if (settlement == null || string.IsNullOrEmpty(settlement.StringId))
                     return;
 
-                var wrapper = new WSettlement(settlement);
-                bool playerOwnsFief = wrapper.PlayerFaction != null;
+                bool inPlayerOwnedFief = settlement.PlayerFaction != null;
 
-                if (!playerOwnsFief && !Config.RecruitAnywhere)
+                if (!inPlayerOwnedFief && !Config.RecruitAnywhere)
                     return;
 
-                var faction = playerOwnsFief ? wrapper.PlayerFaction : Player.Clan;
+                var faction = inPlayerOwnedFief ? settlement.PlayerFaction : Player.Clan;
                 if (faction == null)
                     return;
 
                 SnapshotVolunteers(settlement);
+
                 Log.Debug(
                     "[VolunteerSwapForPlayer] Swapping volunteers for player faction in settlement "
                         + settlement.StringId
                 );
 
-                wrapper.SwapVolunteers(faction);
+                settlement.SwapVolunteers(faction);
             }
         }
     }
