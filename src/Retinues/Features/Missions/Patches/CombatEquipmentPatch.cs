@@ -12,10 +12,11 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Features.Missions.Patches
 {
-    [HarmonyPatch(typeof(Mission), "SpawnAgent")]
+    //doing manual patching to avoid folded character issues
+    /*    [HarmonyPatch(typeof(Mission), "SpawnAgent")]*/
     internal static class Mission_SpawnAgent_Prefix
     {
-        static void Prefix(AgentBuildData agentBuildData, bool spawnFromAgentVisuals)
+        public static void Prefix(AgentBuildData agentBuildData, bool spawnFromAgentVisuals)
         {
             try
             {

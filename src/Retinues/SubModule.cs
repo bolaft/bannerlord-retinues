@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
+using HarmonyLib.BUTR.Extensions;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
@@ -196,6 +197,28 @@ namespace Retinues
 
             // Smoke test for localization
             Log.Debug(L.S("loc_smoke_test", "Localization test: default fallback (EN)."));
+        }
+
+        public override void OnAfterGameInitializationFinished(
+            TaleWorlds.Core.Game game,
+            object starterObject
+        )
+        {
+            base.OnAfterGameInitializationFinished(game, starterObject);
+
+            if (starterObject is CampaignGameStarter)
+            {
+                //apply mission and agent patches here to avoid folded character issues
+                var CombatEquipmentPatch = AccessTools2.Method(
+                    typeof(Retinues.Features.Missions.Patches.Mission_SpawnAgent_Prefix),
+                    nameof(Retinues.Features.Missions.Patches.Mission_SpawnAgent_Prefix.Prefix)
+                );
+                var CombatEquipmentPatchTarget = AccessTools2.Method(
+                    typeof(TaleWorlds.MountAndBlade.Mission),
+                    "SpawnAgent"
+                );
+                _harmony.TryPatch(CombatEquipmentPatchTarget, prefix: CombatEquipmentPatch);
+            }
         }
 
         /// <summary>
