@@ -36,8 +36,15 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public static void SanitizeArmor(Equipment eq)
         {
-            if (eq == null) return;
-            var slots = new[] { EquipmentIndex.Head, EquipmentIndex.Body, EquipmentIndex.Leg, EquipmentIndex.Gloves };
+            if (eq == null)
+                return;
+            var slots = new[]
+            {
+                EquipmentIndex.Head,
+                EquipmentIndex.Body,
+                EquipmentIndex.Leg,
+                EquipmentIndex.Gloves,
+            };
             foreach (var s in slots)
             {
                 var el = eq[s];
@@ -159,7 +166,7 @@ namespace Retinues.Game.Wrappers
         ];
 
         private static bool IsArmorSlot(EquipmentIndex slot) =>
-                slot == EquipmentIndex.Head
+            slot == EquipmentIndex.Head
             || slot == EquipmentIndex.Body
             || slot == EquipmentIndex.Leg
             || slot == EquipmentIndex.Gloves;
@@ -221,7 +228,9 @@ namespace Retinues.Game.Wrappers
             // Block invalid armor in armor slots
             if (IsArmorSlot(slot) && item.Base?.ArmorComponent == null)
             {
-                Log.Warn($"Attempted to place non-armor item '{item.Base?.Name}' into {slot}; clearing slot instead.");
+                Log.Warn(
+                    $"Attempted to place non-armor item '{item.Base?.Name}' into {slot}; clearing slot instead."
+                );
                 _equipment[slot] = new EquipmentElement(null);
                 return;
             }

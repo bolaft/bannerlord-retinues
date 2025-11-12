@@ -26,12 +26,11 @@ namespace Retinues.Game.Helpers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Caches                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        private static readonly Dictionary<string, string[]> _retinueMatchCache = new(
-            StringComparer.Ordinal
-        ); // key = retinue ID, value = [custom root match ID, non-custom root match ID]
-        private static readonly Dictionary<string, string> _regularMatchCache = new(
-            StringComparer.Ordinal
-        ); // key = regular troop ID, value = custom match ID
+
+        private static readonly Dictionary<string, Dictionary<string, string>> _retinueMatchCache =
+            new(StringComparer.Ordinal);
+        private static readonly Dictionary<string, Dictionary<string, string>> _regularMatchCache =
+            new(StringComparer.Ordinal); // key = regularId, value = (rootId -> customId)
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Matching                       //
@@ -156,7 +155,7 @@ namespace Retinues.Game.Helpers
                 if (troop.IsRetinue)
                     CacheRetinueMatch(troopId, root, bestId);
                 else if (!troop.IsCustom && best.IsCustom)
-                    CacheRegularMatch(troopId, bestId);
+                    CacheRegularMatch(root, troopId, bestId);
             }
 
             return best;
@@ -279,30 +278,28 @@ namespace Retinues.Game.Helpers
                 return TryGetCachedRetinueMatch(root, troopId, excludeId, out cached);
 
             if (!troop.IsCustom)
-                return TryGetCachedRegularMatch(troopId, excludeId, out cached);
+                return TryGetCachedRegularMatch(root, troopId, excludeId, out cached);
 
             return false;
         }
 
-        /// <summary>
-        /// Cache a retinue troop match. Caches two slots per retinue: one for custom root troops and one for non-custom root troops.
-        /// </summary>
         private static void CacheRetinueMatch(string retId, WCharacter root, string matchId)
         {
-            if (!_retinueMatchCache.TryGetValue(retId, out var slots) || slots == null)
-                slots = new string[2];
-
-            var index = DetermineRetinueSlot(root);
-            if (index < 0)
+            if (root?.IsValid != true)
+                return;
+            var rootId = root.StringId;
+            if (string.IsNullOrEmpty(rootId) || string.IsNullOrEmpty(matchId))
                 return;
 
-            slots[index] = matchId;
-            _retinueMatchCache[retId] = slots;
+            if (!_retinueMatchCache.TryGetValue(retId, out var map) || map == null)
+            {
+                map = new Dictionary<string, string>(StringComparer.Ordinal);
+                _retinueMatchCache[retId] = map;
+            }
+
+            map[rootId] = matchId;
         }
 
-        /// <summary>
-        /// Try to get a cached retinue troop match.
-        /// </summary>
         private static bool TryGetCachedRetinueMatch(
             WCharacter root,
             string retId,
@@ -311,70 +308,83 @@ namespace Retinues.Game.Helpers
         )
         {
             cached = null;
-
-            if (!_retinueMatchCache.TryGetValue(retId, out var slots) || slots == null)
+            if (root?.IsValid != true)
                 return false;
 
-            var index = DetermineRetinueSlot(root);
-            if (index < 0 || index >= slots.Length)
+            if (!_retinueMatchCache.TryGetValue(retId, out var map) || map == null)
                 return false;
 
-            var matchId = slots[index];
+            var rootId = root.StringId;
+            if (string.IsNullOrEmpty(rootId) || !map.TryGetValue(rootId, out var matchId))
+                return false;
+
             if (string.IsNullOrEmpty(matchId) || matchId == excludeId)
                 return false;
 
             cached = CreateSafe(matchId);
             if (cached?.IsValid != true)
             {
-                slots[index] = null;
+                map.Remove(rootId);
                 cached = null;
                 return false;
             }
-
             return true;
         }
 
         /// <summary>
         /// Cache a regular troop match. Caches only non-custom to custom matches.
         /// </summary>
-        private static void CacheRegularMatch(string regularId, string matchId)
+        private static void CacheRegularMatch(WCharacter root, string regularId, string matchId)
         {
-            _regularMatchCache[regularId] = matchId;
+            var rootId = root?.StringId;
+            if (
+                string.IsNullOrEmpty(rootId)
+                || string.IsNullOrEmpty(regularId)
+                || string.IsNullOrEmpty(matchId)
+            )
+                return;
+
+            if (!_regularMatchCache.TryGetValue(regularId, out var map) || map == null)
+            {
+                map = new Dictionary<string, string>(StringComparer.Ordinal);
+                _regularMatchCache[regularId] = map;
+            }
+            map[rootId] = matchId;
         }
 
         /// <summary>
         /// Try to get a cached regular troop match.
         /// </summary>
         private static bool TryGetCachedRegularMatch(
+            WCharacter root,
             string regularId,
             string excludeId,
             out WCharacter cached
         )
         {
             cached = null;
+            var rootId = root?.StringId;
+            if (string.IsNullOrEmpty(rootId) || string.IsNullOrEmpty(regularId))
+                return false;
 
-            if (!_regularMatchCache.TryGetValue(regularId, out var matchId) || matchId == excludeId)
+            if (!_regularMatchCache.TryGetValue(regularId, out var map) || map == null)
+                return false;
+
+            if (
+                !map.TryGetValue(rootId, out var matchId)
+                || string.IsNullOrEmpty(matchId)
+                || matchId == excludeId
+            )
                 return false;
 
             cached = CreateSafe(matchId);
             if (cached?.IsValid != true)
             {
-                _regularMatchCache.Remove(regularId);
+                map.Remove(rootId);
                 cached = null;
                 return false;
             }
-
             return true;
-        }
-
-        /// <summary>
-        /// Determine the retinue cache slot index for a given root troop. 0 = custom, 1 = non-custom.
-        /// </summary>
-        private static int DetermineRetinueSlot(WCharacter root)
-        {
-            if (root == null)
-                return -1;
-            return root.IsCustom ? 0 : 1;
         }
 
         /// <summary>
