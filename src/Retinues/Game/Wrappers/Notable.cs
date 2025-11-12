@@ -9,7 +9,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for settlement notables, provides helpers for volunteer swapping and faction logic.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WNotable(Hero notable) : WHero(notable)
     {
         // RNG for generating random floats
@@ -61,7 +61,10 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public void SwapVolunteers(WCharacter oldTroop, WCharacter newTroop)
+        /// <summary>
+        /// Swaps a specific volunteer type in the notable's array.
+        /// </summary>
+        public void SwapVolunteer(WCharacter oldTroop, WCharacter newTroop)
         {
             if (Base == null || oldTroop == null || newTroop == null)
                 return;

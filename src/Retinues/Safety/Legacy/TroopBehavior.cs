@@ -147,7 +147,7 @@ namespace Retinues.Safety.Legacy
                     var settlement = new WSettlement(s);
 
                     foreach (var notable in settlement.Notables)
-                        notable.SwapVolunteers(oldTroop, newTroop);
+                        notable.SwapVolunteer(oldTroop, newTroop);
                 }
             }
 
