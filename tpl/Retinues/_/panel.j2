@@ -1,0 +1,31 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--       Main Panel      -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+{# Panel Macro #}
+{% macro panel(data_source) -%}
+
+<ListPanel
+    DataSource="{{data_source}}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+    MarginLeft="20" MarginRight="20"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+
+        {{ caller() }}
+
+    </Children>
+</ListPanel>
+
+{%- endmacro %}
+
+<!-- Troop Panel -->
+{% call panel("{TroopScreen}") %}
+    {% include "_/troop/panel.j2" %}
+{% endcall %}
+
+<!-- Equipment Panel -->
+{% call panel("{EquipmentScreen}") %}
+    {% include "_/equipment/panel.j2" %}
+{% endcall %}

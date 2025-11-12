@@ -7,10 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retinues", "src\Retinues\Retinues.csproj", "{9828BB98-D901-469C-A242-C58EC397DBF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrefabBuilder", "src\PrefabBuilder\PrefabBuilder.csproj", "{200FF060-7FBF-4D25-A2C5-A66FEB5A2CC6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudToMail", "src\MudToMail\MudToMail.csproj", "{4D3C4059-9A4B-4EDE-9B29-92019CEA685D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

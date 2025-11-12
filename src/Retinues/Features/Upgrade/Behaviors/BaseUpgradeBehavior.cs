@@ -120,10 +120,13 @@ namespace Retinues.Features.Upgrade.Behaviors
             CampaignGameStarter starter,
             string troopId,
             string objId,
-            T data
+            T data,
+            Action onAfterCompleted = null
         );
 
         protected abstract string BuildElementTitle(WCharacter troop, T data);
+
+        protected abstract void FinalModalSummary();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //     Abstract: Unified public API (enforced surface)    //
@@ -147,6 +150,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Virtual                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        protected bool _batchActive;
 
         protected virtual void ShowPicker(CampaignGameStarter starter, MenuCallbackArgs args)
         {
@@ -164,24 +168,68 @@ namespace Retinues.Features.Upgrade.Behaviors
                     inquiryElements: elements,
                     isExitShown: true,
                     minSelectableOptionCount: 1,
-                    maxSelectableOptionCount: 1,
+                    maxSelectableOptionCount: elements.Count,
                     affirmativeText: InquiryAffirmative,
                     negativeText: InquiryNegative,
                     new Action<List<InquiryElement>>(selected =>
                     {
-                        var (troopId, objId) = ParseIdentifier((string)selected[0].Identifier);
-                        var data = GetPending(troopId, objId);
-                        if (data == null)
+                        // Build a queue of (troopId, objId) from selection order
+                        var queue = new Queue<(string troopId, string objId)>();
+                        foreach (var el in selected)
                         {
-                            Log.Error($"Invalid selection: {troopId}::{objId}");
-                            return;
+                            var (troopId, objId) = ParseIdentifier((string)el.Identifier);
+                            queue.Enqueue((troopId, objId));
                         }
-                        StartWait(starter, troopId, objId, data);
+
+                        _batchActive = queue.Count > 1;
+
+                        // Run them sequentially using the new continuation
+                        RunBatch(starter, queue);
                     }),
                     new Action<List<InquiryElement>>(_ =>
                     { /* cancelled */
                     })
                 )
+            );
+        }
+
+        private void RunBatch(
+            CampaignGameStarter starter,
+            Queue<(string troopId, string objId)> queue
+        )
+        {
+            if (queue == null || queue.Count == 0)
+            {
+                if (_batchActive)
+                {
+                    _batchActive = false;
+                    // Final modal summary
+                    FinalModalSummary();
+                }
+                // All done, refresh menu if nothing left globally
+                if (Pending.Count == 0)
+                    RefreshManagedMenuOrDefault();
+                return;
+            }
+
+            var (troopId, objId) = queue.Dequeue();
+            var data = GetPending(troopId, objId);
+            if (data == null)
+            {
+                RunBatch(starter, queue); // skip invalid and continue
+                return;
+            }
+
+            // Ask the concrete behavior to run one, then continue with the rest
+            StartWait(
+                starter,
+                troopId,
+                objId,
+                data,
+                onAfterCompleted: () =>
+                {
+                    RunBatch(starter, queue);
+                }
             );
         }
 

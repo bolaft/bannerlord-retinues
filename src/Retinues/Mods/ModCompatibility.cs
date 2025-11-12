@@ -10,7 +10,7 @@ namespace Retinues.Mods
     /// Registers behaviors for detected mods and warns about known incompatibilities.
     /// </summary>
     [SafeClass]
-    public static class ModCompatibility
+    public class ModCompatibility : ModuleChecker
     {
         private static readonly List<string> IncompatibleMods =
         [
@@ -19,16 +19,20 @@ namespace Retinues.Mods
             "Retinues.MCM",
         ];
 
+        // Ruleset flags
+        public static bool NoGlobalEditor => IsLoaded("Shokuho");
+        public static bool NoAlternateEquipmentSets => IsLoaded("Shokuho");
+        public static bool DailyVolunteerSwap => IsLoaded("Shokuho");
+        public static bool Tier7Unlocked => IsLoaded("T7TroopUnlocker");
+        public static bool SkipItemCultureChecks => IsLoaded("Shokuho", "AD1259");
+
         /// <summary>
         /// Adds mod-specific behaviors to the campaign starter if compatible mods are detected.
         /// </summary>
         public static void AddBehaviors(CampaignGameStarter cs)
         {
-            if (ModuleChecker.GetModule("Shokuho") != null)
-            {
-                Log.Debug("Shokuho detected, using ShokuhoVolunteerSwapBehavior.");
-                cs.AddBehavior(new ShokuhoVolunteerSwapBehavior());
-            }
+            if (DailyVolunteerSwap)
+                cs.AddBehavior(new VolunteerSwapBehavior());
         }
 
         /// <summary>
@@ -38,7 +42,7 @@ namespace Retinues.Mods
         {
             foreach (var modId in IncompatibleMods)
             {
-                var mod = ModuleChecker.GetModule(modId);
+                var mod = GetModule(modId);
                 if (mod != null)
                 {
                     if (modId.Contains("Retinues."))

@@ -20,6 +20,9 @@ namespace Retinues.Configuration
         int MaxValue { get; }
         object Default { get; }
         IReadOnlyDictionary<string, object> PresetOverrides { get; }
+        bool IsDisabled { get; }
+        string DisabledHint { get; }
+        object DisabledOverrideBoxed { get; }
 
         /// <summary>
         /// Get the current option value as an object.
@@ -41,6 +44,7 @@ namespace Retinues.Configuration
         private readonly Func<string> _section;
         private readonly Func<string> _name;
         private readonly Func<string> _hint;
+        private readonly Func<string> _disabledHint;
 
         public Option(
             Func<string> section,
@@ -51,18 +55,26 @@ namespace Retinues.Configuration
             int minValue = 0,
             int maxValue = 1000,
             bool requiresRestart = false,
-            IReadOnlyDictionary<string, object> presetOverrides = null
+            IReadOnlyDictionary<string, object> presetOverrides = null,
+            bool disabled = false,
+            Func<string> disabledHint = null,
+            T disabledOverride = default
         )
         {
             _section = section ?? (() => L.S("mcm_section_general", "General"));
             _name = name ?? (() => string.Empty);
             _hint = hint ?? (() => string.Empty);
+            _disabledHint = disabledHint ?? (() => string.Empty);
+
             Key = key;
             RequiresRestart = requiresRestart;
             MinValue = minValue;
             MaxValue = maxValue;
             DefaultTyped = @default;
             PresetOverrides = presetOverrides ?? new Dictionary<string, object>();
+
+            IsDisabled = disabled;
+            DisabledOverride = disabledOverride;
         }
 
         // Metadata (read-only)
@@ -83,6 +95,10 @@ namespace Retinues.Configuration
         public Type Type => typeof(T);
         public object Default => DefaultTyped!;
         public IReadOnlyDictionary<string, object> PresetOverrides { get; }
+        public bool IsDisabled { get; }
+        public string DisabledHint => _disabledHint();
+        public T DisabledOverride { get; }
+        public object DisabledOverrideBoxed => DisabledOverride!;
 
         /// <summary>
         /// The current typed option value (uses the runtime-backed getter/setter).

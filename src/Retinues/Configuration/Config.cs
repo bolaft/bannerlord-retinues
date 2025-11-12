@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Mods;
 using Retinues.Utils;
 
 namespace Retinues.Configuration
@@ -29,8 +30,25 @@ namespace Retinues.Configuration
             int minValue = 0,
             int maxValue = 1000,
             bool requiresRestart = false,
-            IReadOnlyDictionary<string, object> presets = null
-        ) => new(section, name, key, hint, @default, minValue, maxValue, requiresRestart, presets);
+            IReadOnlyDictionary<string, object> presets = null,
+            bool disabled = false,
+            System.Func<string> disabledHint = null,
+            T disabledOverride = default
+        ) =>
+            new(
+                section,
+                name,
+                key,
+                hint,
+                @default,
+                minValue,
+                maxValue,
+                requiresRestart,
+                presets,
+                disabled,
+                disabledHint,
+                disabledOverride
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Options                        //
@@ -284,6 +302,56 @@ namespace Retinues.Configuration
         );
 
         // ─────────────────────────────────────────────────────
+        // Global Troop Editor
+        // ─────────────────────────────────────────────────────
+
+        public static readonly Option<bool> EnableGlobalEditor = CreateOption(
+            section: () => L.S("mcm_section_global_editor", "Global Editor"),
+            name: () => L.S("mcm_option_global_editor_enabled", "Enable Global Troop Editor"),
+            key: "EnableGlobalEditor",
+            hint: () =>
+                L.S(
+                    "mcm_option_global_editor_enabled_hint",
+                    "Enables the global troop editor to modify any troop in the game. Disable if you are encountering issues with non-player troops."
+                ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = false,
+            },
+            requiresRestart: true,
+            disabled: ModCompatibility.NoGlobalEditor,
+            disabledOverride: false,
+            disabledHint: () =>
+                L.S(
+                    "mcm_option_global_editor_enabled_disabled_hint",
+                    "The global troop editor is disabled due to compatibility issues with other activated mods."
+                )
+        );
+
+        public static readonly Option<bool> KeepUpgradeRequirementsForVanilla = CreateOption(
+            section: () => L.S("mcm_section_global_editor", "Global Editor"),
+            name: () =>
+                L.S(
+                    "mcm_option_keep_upgrade_requirements_for_vanilla",
+                    "Keep Upgrade Requirements For Vanilla Troops"
+                ),
+            key: "KeepUpgradeRequirementsForVanilla",
+            hint: () =>
+                L.S(
+                    "mcm_option_keep_upgrade_requirements_for_vanilla_hint",
+                    "Vanilla troops retain their original upgrade item requirements when edited."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
+            }
+        );
+
+        // ─────────────────────────────────────────────────────
         // Restrictions
         // ─────────────────────────────────────────────────────
 
@@ -304,24 +372,41 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> EnableTroopCustomization = CreateOption(
+        public static readonly Option<int> MaxEliteUpgrades = CreateOption(
             section: () => L.S("mcm_section_restrictions", "Restrictions"),
-            name: () =>
-                L.S(
-                    "mcm_option_enable_troop_customization",
-                    "Experimental: Enable Appearance Controls"
-                ),
-            key: "EnableTroopCustomization",
+            name: () => L.S("mcm_option_max_elite_upgrades", "Max Elite Upgrades"),
+            key: "MaxEliteUpgrades",
             hint: () =>
                 L.S(
-                    "mcm_option_enable_troop_customization_hint",
-                    "Adds appearance customization controls (age, height, weight, build). Experimental: may have unintended consequences."
+                    "mcm_option_max_elite_upgrades_hint",
+                    "Maximum number of upgrade targets for elite troops."
                 ),
-            @default: false,
+            @default: 1,
+            minValue: 1,
+            maxValue: 4,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = false,
+                [Presets.Freeform] = 4,
+                [Presets.Realistic] = 1,
+            }
+        );
+
+        public static readonly Option<int> MaxBasicUpgrades = CreateOption(
+            section: () => L.S("mcm_section_restrictions", "Restrictions"),
+            name: () => L.S("mcm_option_max_basic_upgrades", "Max Basic Upgrades"),
+            key: "MaxBasicUpgrades",
+            hint: () =>
+                L.S(
+                    "mcm_option_max_basic_upgrades_hint",
+                    "Maximum number of upgrade targets for basic troops."
+                ),
+            @default: 2,
+            minValue: 1,
+            maxValue: 4,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 4,
+                [Presets.Realistic] = 2,
             }
         );
 
@@ -338,13 +423,13 @@ namespace Retinues.Configuration
                     "mcm_option_enable_doctrines_hint",
                     "Enable the Doctrines system and its features."
                 ),
-            requiresRestart: true,
             @default: true,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = true,
-            }
+            },
+            requiresRestart: true
         );
 
         public static readonly Option<bool> DisableFeatRequirements = CreateOption(
@@ -361,6 +446,45 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
+            },
+            requiresRestart: true
+        );
+
+        // ─────────────────────────────────────────────────────
+        // Immersion & Fluff
+        // ─────────────────────────────────────────────────────
+
+        public static readonly Option<bool> EnableTroopCustomization = CreateOption(
+            section: () => L.S("mcm_section_fluff", "Immersion & Fluff"),
+            name: () => L.S("mcm_option_enable_troop_customization", "Enable Appearance Controls"),
+            key: "EnableTroopCustomization",
+            hint: () =>
+                L.S(
+                    "mcm_option_enable_troop_customization_hint",
+                    "Adds appearance customization controls (age, height, weight, build)."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
+            }
+        );
+
+        public static readonly Option<bool> ReplaceAmbientNPCs = CreateOption(
+            section: () => L.S("mcm_section_fluff", "Immersion & Fluff"),
+            name: () => L.S("mcm_option_replace_ambient_npcs", "Replace Ambient NPCs"),
+            key: "ReplaceAmbientNPCs",
+            hint: () =>
+                L.S(
+                    "mcm_option_replace_ambient_npcs_hint",
+                    "Replaces ambient NPCs in settlements with player faction characters."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
             }
         );
 
@@ -521,19 +645,19 @@ namespace Retinues.Configuration
                 }
             );
 
-        public static readonly Option<bool> DisableCraftedWeapons = CreateOption(
+        public static readonly Option<bool> NeverRequireNobleHorse = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S("mcm_option_disable_crafted_weapons", "Disable Crafted Weapons"),
-            key: "DisableCraftedWeapons",
+            name: () => L.S("mcm_option_never_require_noble_horse", "Never Require Noble Horse"),
+            key: "NeverRequireNobleHorse",
             hint: () =>
                 L.S(
-                    "mcm_option_disable_crafted_weapons_hint",
-                    "When enabled, crafted weapons will not be available even with the appropriate doctrine unlocked."
+                    "mcm_option_never_require_noble_horse_hint",
+                    "Troops never require noble horses for upgrades, a war horse is always enough."
                 ),
-            @default: false,
+            @default: true,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = false,
+                [Presets.Freeform] = true,
                 [Presets.Realistic] = true,
             }
         );
@@ -553,6 +677,30 @@ namespace Retinues.Configuration
                 [Presets.Freeform] = false,
                 [Presets.Realistic] = true,
             }
+        );
+
+        public static readonly Option<bool> CopyAllSetsWhenCloning = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () => L.S("mcm_option_copy_all_sets_when_cloning", "Copy All Sets When Cloning"),
+            key: "CopyAllSetsWhenCloning",
+            hint: () =>
+                L.S(
+                    "mcm_option_copy_all_sets_when_cloning_hint",
+                    "When cloning troop equipment, copy all equipment sets instead of just one battle and one civilian set."
+                ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
+            },
+            disabled: ModCompatibility.NoAlternateEquipmentSets,
+            disabledOverride: false,
+            disabledHint: () =>
+                L.S(
+                    "mcm_option_copy_all_sets_disabled_hint",
+                    "Alternate sets are disabled due to incompatibilities with other activated mods."
+                )
         );
 
         // ─────────────────────────────────────────────────────
@@ -628,6 +776,23 @@ namespace Retinues.Configuration
             name: () => L.S("mcm_option_shared_xp_pool", "Shared XP Pool"),
             key: "SharedXpPool",
             hint: () => L.S("mcm_option_shared_xp_pool_hint", "All troops share the same XP pool."),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
+            }
+        );
+
+        public static readonly Option<bool> RefundXpOnDecrease = CreateOption(
+            section: () => L.S("mcm_section_skills", "Skills"),
+            name: () => L.S("mcm_option_refund_xp_on_decrease", "Refund XP On Decrease"),
+            key: "RefundXpOnDecrease",
+            hint: () =>
+                L.S(
+                    "mcm_option_refund_xp_on_decrease_hint",
+                    "When decreasing a troop's skill, refund the XP cost."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {

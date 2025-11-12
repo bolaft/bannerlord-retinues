@@ -125,8 +125,26 @@
       id="ret_change_culture_title"
       text="문화 변경" />
     <string
+      id="ret_change_formation_class_title"
+      text="대형 클래스 변경" />
+    <string
       id="ret_change_race_title"
       text="종족 변경" />
+    <string
+      id="ret_civilian_hint"
+      text="이 세트를 민간용으로 사용하도록 활성화하거나 비활성화하십시오." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="최소한 하나의 민간용 세트를 유지해야 합니다." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="최소한 하나의 전투용 세트를 유지해야 합니다." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="첫 번째 세트는 전투용 세트로 유지되어야 합니다." />
+    <string
+      id="ret_clan_troops_button_text"
+      text="가문 병력" />
     <string
       id="ret_clanic_traditions"
       text="가문 전통" />
@@ -155,6 +173,12 @@
       id="ret_confirm"
       text="확인" />
     <string
+      id="ret_confirm_import_body"
+      text="기존 병력 정의가 대체됩니다." />
+    <string
+      id="ret_confirm_import_title"
+      text="가져오기를 적용하시겠습니까?" />
+    <string
       id="ret_continue"
       text="계속" />
     <string
@@ -170,6 +194,9 @@
       id="ret_convert_not_enough_influence_title"
       text="영향력 부족" />
     <string
+      id="ret_copy_current"
+      text="현재 복사" />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} 의 부대 복사" />
     <string
@@ -178,6 +205,12 @@
     <string
       id="ret_create_set_hint"
       text="충돌하는 모드(Shokuho)로 인해 비활성화되었습니다." />
+    <string
+      id="ret_create_set_text"
+      text="현재 세트를 복사하시겠습니까, 아니면 빈 세트를 생성하시겠습니까?" />
+    <string
+      id="ret_create_set_title"
+      text="장비 세트 생성" />
     <string
       id="ret_cultural_pride"
       text="문화적 자부심" />
@@ -193,6 +226,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="자신의 문화 방어구만 착용하고 토너먼트에서 승리하십시오." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="문화 및 종족" />
     <string
       id="ret_culture_header_text"
       text="문화" />
@@ -239,6 +275,12 @@
       id="ret_empty_item"
       text="비어 있음" />
     <string
+      id="ret_empty_set"
+      text="비어 있음" />
+    <string
+      id="ret_enter_file_name"
+      text="파일 이름 입력:" />
+    <string
       id="ret_enter_new_name"
       text="새 이름 입력:" />
     <string
@@ -251,6 +293,12 @@
       id="ret_equip_complete"
       text="장비 업데이트 완료" />
     <string
+      id="ret_equip_complete_summary"
+      text="다음 병력들이 새 아이템을 장착했습니다:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP}이(가) ({ITEM})을(를) 장착했습니다." />
     <string
@@ -259,6 +307,27 @@
     <string
       id="ret_equipment_requirement"
       text="장착된 아이템에는 기술이 필요합니다." />
+    <string
+      id="ret_exp_culture_troops"
+      text="문화 병력" />
+    <string
+      id="ret_exp_player_troops"
+      text="플레이어 병력" />
+    <string
+      id="ret_export_done_body"
+      text="다음 위치로 내보내기: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="내보내기 완료" />
+    <string
+      id="ret_export_fail_title"
+      text="내보내기 실패" />
+    <string
+      id="ret_export_which_body"
+      text="하나 또는 둘 다 선택하십시오." />
+    <string
+      id="ret_export_which_title"
+      text="내보내기 선택" />
     <string
       id="ret_feat_completed_title"
       text="위업 달성" />
@@ -272,11 +341,20 @@
       id="ret_female"
       text="여성" />
     <string
-      id="ret_field_battle_hint"
-      text="야전 전투에 이 세트를 활성화 또는 비활성화하십시오." />
+      id="ret_formation_auto"
+      text="자동" />
+    <string
+      id="ret_formation_class_header_text"
+      text="대형 클래스" />
+    <string
+      id="ret_formation_class_hint"
+      text="대형 클래스 변경" />
     <string
       id="ret_gender_hint"
       text="성별" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="성별 전환" />
     <string
       id="ret_gloves_slot_text"
       text="장갑" />
@@ -286,6 +364,24 @@
     <string
       id="ret_height_hint"
       text="신장" />
+    <string
+      id="ret_hide_crafted_hint"
+      text="제작된 아이템 숨기기." />
+    <string
+      id="ret_hint_assault_ok"
+      text="공성 공격 시 사용 가능." />
+    <string
+      id="ret_hint_def_ok"
+      text="공성 방어 시 사용 가능." />
+    <string
+      id="ret_hint_field_ok"
+      text="야전 전투에서 사용 가능." />
+    <string
+      id="ret_hint_last_enabled"
+      text="각 전투 유형에 대해 최소한 하나의 전투 세트가 활성 상태로 유지되어야 합니다." />
+    <string
+      id="ret_hint_set_disabled"
+      text="민간인 세트에는 활성화할 수 없습니다." />
     <string
       id="ret_horse_harness_slot_text"
       text="마구" />
@@ -307,6 +403,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="아군이 단 한 명도 죽지 않고 혼자서 100명 이상의 적을 물리치십시오." />
+    <string
+      id="ret_imp_culture_troops"
+      text="문화 병력" />
+    <string
+      id="ret_imp_player_troops"
+      text="플레이어 병력" />
+    <string
+      id="ret_import"
+      text="가져오기" />
+    <string
+      id="ret_import_done_body"
+      text="파일 {FILE}이(가) 성공적으로 가져와졌습니다." />
+    <string
+      id="ret_import_done_title"
+      text="가져오기 완료" />
+    <string
+      id="ret_import_empty_body"
+      text="파일에 병력이 포함되어 있지 않습니다." />
+    <string
+      id="ret_import_empty_title"
+      text="가져올 항목이 없습니다" />
+    <string
+      id="ret_import_fail_title"
+      text="가져오기 실패" />
+    <string
+      id="ret_import_pick_body"
+      text="가져올 내보낸 파일을 선택하십시오." />
+    <string
+      id="ret_import_pick_title"
+      text="병력 가져오기" />
+    <string
+      id="ret_import_which_body"
+      text="하나 또는 둘 다 선택하십시오." />
+    <string
+      id="ret_import_which_title"
+      text="가져오기 선택" />
     <string
       id="ret_in_stock"
       text="재고 ({STOCK})" />
@@ -404,6 +536,12 @@
       id="ret_lions_share_kill_enemy_lord"
       text="전투에서 직접 적 영주를 처치하십시오." />
     <string
+      id="ret_list_toggle_caravan"
+      text="캐러밴" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="민간인" />
+    <string
       id="ret_list_toggle_elite"
       text="정예" />
     <string
@@ -413,11 +551,17 @@
       id="ret_list_toggle_regular"
       text="보통" />
     <string
+      id="ret_list_toggle_villager"
+      text="마을 사람들" />
+    <string
       id="ret_loc_smoke_test"
       text="현지화 테스트: KO." />
     <string
       id="ret_lower_skill_no_refund"
       text="이 병력의 기술을 낮춰도 경험치가 환급되지 않습니다. 계속하시겠습니까?" />
+    <string
+      id="ret_make_civilian_title"
+      text="세트를 민간용으로 설정하시겠습니까?" />
     <string
       id="ret_male"
       text="남성" />
@@ -429,7 +573,7 @@
       text="정예 병력으로 1000킬을 기록하십시오." />
     <string
       id="ret_masters_at_arms_description"
-      text="정예 병력의 두 번째 업그레이드 분기." />
+      text="정예 병력을 위한 추가 업그레이드 분기." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="투기장에서 50명의 적을 기절시키십시오." />
@@ -459,31 +603,19 @@
       text="내보내기" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="모든 Retinues 맞춤 병력 정의를 XML 파일로 내보냅니다." />
+      text="병력 정의를 XML로 내보냅니다." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="병력을 XML로 내보내기" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="예: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="파일 이름" />
     <string
       id="ret_mcm_ie_import_btn"
       text="가져오기" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="XML 파일에서 모든 Retinues 맞춤 병력 정의를 가져옵니다." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="가져올 XML 파일을 선택하십시오. 이렇게 하면 현재 맞춤 병력 정의가 대체됩니다." />
+      text="XML에서 병력 정의를 가져옵니다." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="XML에서 가져오기" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="병력 가져오기" />
+      text="XML에서 병력 가져오기" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="모든 장비 해제됨" />
@@ -515,17 +647,20 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="영지가 씨족 영지이자 왕국 영지인 경우 씨족 병력이 왕국 병력보다 우선합니다." />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="대체 세트는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="부대 장비를 복제할 때 모든 장비 세트를 복사합니다." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="부대 장비를 복제할 때 전투 세트와 민간 세트 하나만이 아닌 모든 장비 세트를 복사합니다." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="더 많은 로그를 출력합니다 (성능에 영향을 줄 수 있음)." />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="제작된 무기 비활성화" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="활성화되면 적절한 교리가 해제되어 있어도 제작된 무기를 사용할 수 없습니다." />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="특기 요구 사항 비활성화" />
@@ -549,7 +684,7 @@
       text="실험적: 외형 컨트롤 활성화" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="외형 맞춤 설정 컨트롤 추가(나이, 키, 몸무게, 체형). 실험적: 의도치 않은 결과가 있을 수 있습니다." />
+      text="외형 맞춤 설정 컨트롤 추가(나이, 키, 몸무게, 체형)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="병력 장비 변경에는 시간이 걸립니다" />
@@ -575,11 +710,26 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="병력은 전투 중에 항상 주 전투 장비 세트를 사용합니다." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="글로벌 병력 편집기 활성화" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="글로벌 병력 편집기는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다." />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="게임 내 모든 병력을 수정할 수 있는 글로벌 병력 편집기를 활성화합니다. 플레이어가 아닌 병력에 문제가 발생하는 경우 비활성화하십시오." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="업그레이드 요구 사항에 민간 말 무시" />
     <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="병력을 업그레이드할 때 탈것 요구 사항을 확인할 때 민간 세트의 말을 무시합니다." />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="바닐라 병력의 업그레이드 요구 사항 유지" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="바닐라 병력은 편집 시 원래의 업그레이드 아이템 요구 사항을 유지합니다." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="기본 수행원 비율 상한" />
@@ -587,11 +737,29 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="플레이어 부대 내 기본 수행원의 최대 비율." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="기본 업그레이드 대상 최대치" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="기본 병력의 최대 업그레이드 대상 수." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="정예 수행원 비율 상한" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="플레이어 부대 내 정예 수행원의 최대 비율." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="정예 업그레이드 대상 최대치" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="정예 병력의 최대 업그레이드 대상 수." />
+    <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="고급 말이 필요하지 않음" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="병력은 업그레이드에 고급 말이 필요하지 않으며 전쟁 말이면 충분합니다." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="왕국 병력 없음" />
@@ -616,6 +784,18 @@
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
       text="플레이어는 모든 정착지에서 가문 병력을 모집할 수 있습니다." />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="감소 시 XP 환불" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="병력의 기술을 감소시킬 때 XP 비용을 환불합니다." />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="주변 NPC 교체" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="정착지의 주변 NPC를 플레이어 진영 캐릭터로 교체합니다." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="해제를 위한 필요 폐기 아이템" />
@@ -752,8 +932,14 @@
       id="ret_mcm_section_equipment"
       text="장비" />
     <string
+      id="ret_mcm_section_fluff"
+      text="몰입감 &amp; 장식" />
+    <string
       id="ret_mcm_section_general"
       text="일반" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="글로벌 편집기" />
     <string
       id="ret_mcm_section_import_export"
       text="가져오기 &amp; 내보내기" />
@@ -794,11 +980,23 @@
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
     <string
+      id="ret_no_exports_body"
+      text="Exports 폴더에서 유효한 내보내기 파일을 찾을 수 없습니다." />
+    <string
+      id="ret_no_exports_title"
+      text="내보내기가 없습니다" />
+    <string
       id="ret_no_races_text"
       text="사용 가능한 대체 종족이 없습니다." />
     <string
       id="ret_no_races_title"
       text="종족이 없습니다" />
+    <string
+      id="ret_no_selection_body"
+      text="선택된 파일이 없습니다." />
+    <string
+      id="ret_no_selection_title"
+      text="선택 없음" />
     <string
       id="ret_no_skill_points_left"
       text="이 병력에는 남은 스킬 포인트가 없습니다." />
@@ -815,8 +1013,23 @@
       id="ret_not_enough_gold_text"
       text="이 아이템을 구매할 충분한 골드가 없습니다." />
     <string
+      id="ret_not_enough_gold_title"
+      text="골드 부족" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="재고에 충분한 사본이 없습니다." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="재고 부족" />
+    <string
       id="ret_not_enough_xp"
       text="다음 스킬 포인트에 대한 충분한 XP가 없습니다." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="가져오기/내보내기 기능을 사용하기 전에 먼저 저장을 로드해야 합니다." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="캠페인 로드 안됨" />
     <string
       id="ret_not_in_clan_fief"
       text="씨족 영지에 없음" />
@@ -900,10 +1113,13 @@
       text="제거" />
     <string
       id="ret_remove_set_hint"
-      text="대체 장비 세트만 제거할 수 있습니다." />
+      text="이 유형의 세트가 최소한 하나는 남아 있어야 합니다." />
     <string
       id="ret_remove_set_text"
-      text="{TROOP_NAME} 에게서 {SET} 을(를) 제거하시겠습니까?{newline}모든 변경 사항이 초기화되고 아이템이 장비 해제되어 보관됩니다." />
+      text="{TROOP_NAME} 에게서 세트 n°{SET} 을(를) 제거하시겠습니까?{newline}모든 변경 사항이 초기화되고 아이템이 장비 해제되어 보관됩니다." />
+    <string
+      id="ret_remove_set_text_studio"
+      text="{TROOP_NAME} 에게서 세트 n°{SET} 을(를) 제거하시겠습니까?" />
     <string
       id="ret_remove_set_title"
       text="세트 제거" />
@@ -916,6 +1132,18 @@
     <string
       id="ret_rename_troop"
       text="병력 이름 변경" />
+    <string
+      id="ret_reset_all"
+      text="모든 병력 데이터 재설정" />
+    <string
+      id="ret_reset_all_body"
+      text="이렇게 하면 모든 문화 병력 데이터가 기본값으로 재설정됩니다. 플레이어 클랜 및 왕국 병력에는 영향을 미치지 않습니다.{newline}{newline}계속하시겠습니까?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="모든 문화 병력은 게임을 저장하고 다시 로드하면 재설정됩니다。" />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="문화 병력 재설정" />
     <string
       id="ret_retinue"
       text="수행원" />
@@ -969,25 +1197,28 @@
       text="왕국과 같은 문화의 동료가 왕국 영지를 30일간 통치하게 하십시오." />
     <string
       id="ret_royal_patronage_description"
-      text="왕국 문화 아이템 10% 할인." />
+      text="캐러밴 및 마을 주민 병력을 잠금 해제합니다." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="커스텀 왕국 병력 100명을 모집하십시오." />
     <string
-      id="ret_set_alt_n"
-      text="대체 {N}" />
+      id="ret_royal_patronage_to_unlock"
+      text="왕실 후원 교리로 잠금 해제합니다." />
     <string
-      id="ret_set_battle"
-      text="전투" />
+      id="ret_select_culture_hint"
+      text="문화를 선택하십시오." />
     <string
-      id="ret_set_civilian"
-      text="민간인" />
+      id="ret_select_culture_title"
+      text="문화 선택" />
     <string
-      id="ret_siege_assault_hint"
-      text="공성 공격을 위해 이 세트를 활성화 또는 비활성화하십시오." />
+      id="ret_show_crafted_disabled_hint"
+      text="&apos;씨족 전통&apos; 교리를 잠금 해제하여 제작된 아이템을 표시하십시오." />
     <string
-      id="ret_siege_defense_hint"
-      text="공성 방어를 위해 이 세트를 활성화 또는 비활성화하십시오." />
+      id="ret_show_crafted_hint"
+      text="제작된 아이템을 표시하십시오." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="무기 슬롯만 제작된 아이템을 가질 수 있습니다." />
     <string
       id="ret_skill_at_cap"
       text="이 병력의 기술이 한계에 도달했습니다." />
@@ -1031,6 +1262,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="커스텀 병력 15명의 기술을 최고치까지 올리십시오." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="가문 병력 편집기로 전환하십시오." />
+    <string
       id="ret_switch_to_clan_troops"
       text="전환 →{newline}가문 병력" />
     <string
@@ -1039,6 +1273,15 @@
     <string
       id="ret_tier"
       text="등급" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="이 세트에는 {COUNT} 개의 비민간인 아이템이 있습니다. 계속하면 장착 해제됩니다.{newline}{newline}계속하시겠습니까?" />
+    <string
+      id="ret_train_complete"
+      text="훈련 완료" />
+    <string
+      id="ret_train_complete_summary"
+      text="다음 병력들이 훈련을 완료했습니다:{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
       text="훈련 완료" />
@@ -1055,8 +1298,14 @@
       id="ret_transfer_header_text"
       text="이동" />
     <string
+      id="ret_troop_editor_button"
+      text="병력 편집기" />
+    <string
       id="ret_troop_list.placeholder"
       text="사용 가능한 병력이 없습니다" />
+    <string
+      id="ret_troop_studio_title"
+      text="병력 편집기" />
     <string
       id="ret_troop_xp"
       text="{XP} 경험치" />
@@ -1072,6 +1321,9 @@
     <string
       id="ret_unequip_all_text"
       text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?{newline}{newline}아이템은 보관됩니다." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?" />
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} 을(를) 해제하려고 합니다. 새 아이템을 장착하는 데 시간이 걸립니다. 그래도 계속하시겠습니까?" />
@@ -1101,7 +1353,7 @@
       text="장비 업그레이드 시작" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="대기 중인 병력 중 한 명을 선택하여 지금 장비를 시작하십시오." />
+      text="한 명 이상의 병력을 선택하여 지금 장비를 시작하십시오." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="병력 장비" />
@@ -1119,7 +1371,7 @@
       text="훈련 시작" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="대기 중인 병력 중 한 명을 선택하여 지금 훈련을 시작하십시오." />
+      text="한 명 이상의 병력을 선택하여 지금 훈련을 시작하십시오." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="병력 훈련" />

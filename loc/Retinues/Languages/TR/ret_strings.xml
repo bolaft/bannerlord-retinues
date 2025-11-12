@@ -125,8 +125,26 @@
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
     <string
+      id="ret_change_formation_class_title"
+      text="Düzen Sınıfını Değiştir" />
+    <string
       id="ret_change_race_title"
       text="Irkı Değiştir" />
+    <string
+      id="ret_civilian_hint"
+      text="Bu seti sivil kullanım için etkinleştir veya devre dışı bırak." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="En az bir sivil seti tutmalısın." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="En az bir savaş seti tutmalısın." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="İlk set bir savaş seti olarak kalmalıdır." />
+    <string
+      id="ret_clan_troops_button_text"
+      text="Klan Askerleri" />
     <string
       id="ret_clanic_traditions"
       text="Klan Gelenekleri" />
@@ -155,6 +173,12 @@
       id="ret_confirm"
       text="Onayla" />
     <string
+      id="ret_confirm_import_body"
+      text="Bu, mevcut birlik tanımlarının yerini alacaktır." />
+    <string
+      id="ret_confirm_import_title"
+      text="İçe Aktarmayı Uygula?" />
+    <string
       id="ret_continue"
       text="Devam Et" />
     <string
@@ -170,6 +194,9 @@
       id="ret_convert_not_enough_influence_title"
       text="Yetersiz etki" />
     <string
+      id="ret_copy_current"
+      text="Mevcut Kopya" />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} Askerlerini Kopyala" />
     <string
@@ -178,6 +205,12 @@
     <string
       id="ret_create_set_hint"
       text="Çakışan modlar (Shokuho) nedeniyle devre dışı bırakıldı." />
+    <string
+      id="ret_create_set_text"
+      text="Mevcut seti kopyalamak mı yoksa boş bir set mi oluşturmak istiyorsunuz?" />
+    <string
+      id="ret_create_set_title"
+      text="Ekipman Seti Oluştur" />
     <string
       id="ret_cultural_pride"
       text="Kültürel Gurur" />
@@ -193,6 +226,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Sadece kendi kültürünün zırhını giyerek bir turnuva kazan." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Kültür ve Irk" />
     <string
       id="ret_culture_header_text"
       text="Kültür" />
@@ -239,6 +275,12 @@
       id="ret_empty_item"
       text="Boş" />
     <string
+      id="ret_empty_set"
+      text="Boş" />
+    <string
+      id="ret_enter_file_name"
+      text="Bir dosya adı girin:" />
+    <string
       id="ret_enter_new_name"
       text="Yeni bir ad gir:" />
     <string
@@ -251,6 +293,12 @@
       id="ret_equip_complete"
       text="Teçhizat Güncellendi" />
     <string
+      id="ret_equip_complete_summary"
+      text="Aşağıdaki askerler yeni eşyalar donattı:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} ({ITEM}) teçhizatını donattı." />
     <string
@@ -259,6 +307,27 @@
     <string
       id="ret_equipment_requirement"
       text="Donatılan eşyalar için beceri gereklidir." />
+    <string
+      id="ret_exp_culture_troops"
+      text="Kültür Askerleri" />
+    <string
+      id="ret_exp_player_troops"
+      text="Oyuncu Askerleri" />
+    <string
+      id="ret_export_done_body"
+      text="Şuraya aktarıldı: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Aktarım Tamamlandı" />
+    <string
+      id="ret_export_fail_title"
+      text="Aktarım Başarısız" />
+    <string
+      id="ret_export_which_body"
+      text="Birini veya her ikisini seçin." />
+    <string
+      id="ret_export_which_title"
+      text="Aktarım Seçimi" />
     <string
       id="ret_feat_completed_title"
       text="Başarı Tamamlandı" />
@@ -272,11 +341,20 @@
       id="ret_female"
       text="Kadın" />
     <string
-      id="ret_field_battle_hint"
-      text="Bu seti saha savaşları için etkinleştir veya devre dışı bırak." />
+      id="ret_formation_auto"
+      text="Oto" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Formasyon Sınıfı" />
+    <string
+      id="ret_formation_class_hint"
+      text="Formasyon Sınıfını Değiştir" />
     <string
       id="ret_gender_hint"
       text="Cinsiyet" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cinsiyeti Değiştir" />
     <string
       id="ret_gloves_slot_text"
       text="Eldiven" />
@@ -286,6 +364,24 @@
     <string
       id="ret_height_hint"
       text="Boy" />
+    <string
+      id="ret_hide_crafted_hint"
+      text="Üretilen eşyaları gizle." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Bir kuşatmayı saldırırken kullanılabilir." />
+    <string
+      id="ret_hint_def_ok"
+      text="Bir kuşatmayı savunurken kullanılabilir." />
+    <string
+      id="ret_hint_field_ok"
+      text="Saha savaşlarında kullanılabilir." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Her savaş türü için en az bir savaş seti etkin kalmalıdır." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Sivil setler için etkinleştirilemez." />
     <string
       id="ret_horse_harness_slot_text"
       text="Koşum" />
@@ -307,6 +403,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Tarafında tek bir ölüm olmadan tek başına 100+ düşmana karşı kazan." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Kültür Askerleri" />
+    <string
+      id="ret_imp_player_troops"
+      text="Oyuncu Askerleri" />
+    <string
+      id="ret_import"
+      text="İçe Aktar" />
+    <string
+      id="ret_import_done_body"
+      text="{FILE} dosyası başarıyla içe aktarıldı." />
+    <string
+      id="ret_import_done_title"
+      text="İçe Aktarım Tamamlandı" />
+    <string
+      id="ret_import_empty_body"
+      text="Dosya herhangi bir asker içermiyor." />
+    <string
+      id="ret_import_empty_title"
+      text="İçe Aktarılacak Bir Şey Yok" />
+    <string
+      id="ret_import_fail_title"
+      text="İçe Aktarım Başarısız" />
+    <string
+      id="ret_import_pick_body"
+      text="İçe aktarmak için dışa aktarılmış bir dosya seçin." />
+    <string
+      id="ret_import_pick_title"
+      text="Askerleri İçe Aktar" />
+    <string
+      id="ret_import_which_body"
+      text="Birini veya her ikisini seçin." />
+    <string
+      id="ret_import_which_title"
+      text="İçe Aktarım Seçimi" />
     <string
       id="ret_in_stock"
       text="Stokta ({STOCK})" />
@@ -404,6 +536,12 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Bir düşman lordunu savaşta bizzat öldür." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Kervanlar" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Siviller" />
+    <string
       id="ret_list_toggle_elite"
       text="Seçkin" />
     <string
@@ -413,11 +551,17 @@
       id="ret_list_toggle_regular"
       text="Normal" />
     <string
+      id="ret_list_toggle_villager"
+      text="Köylüler" />
+    <string
       id="ret_loc_smoke_test"
       text="Yerelleştirme testi: TR." />
     <string
       id="ret_lower_skill_no_refund"
       text="Bu askerin becerisini düşürmek deneyim puanı iadesi yapmayacak. Yine de devam edilsin mi?" />
+    <string
+      id="ret_make_civilian_title"
+      text="Seti sivil yap?" />
     <string
       id="ret_male"
       text="Erkek" />
@@ -429,7 +573,7 @@
       text="Seçkin askerlerle 1000 öldürme yap." />
     <string
       id="ret_masters_at_arms_description"
-      text="Seçkin askerler için 2. yükseltme dalı." />
+      text="Seçkin askerler için ekstra yükseltme dalı." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Arenada 50 rakibi nakavt et." />
@@ -459,31 +603,19 @@
       text="Dışa Aktar" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Tüm Retinues özel asker tanımlarını bir XML dosyasına dışa aktarır." />
+      text="Asker tanımlarını XML’ye dışa aktarır." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Askerleri XML’ye Dışa Aktar" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Örnek: troops_benimKampanyaOturumum" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Dosya adı" />
     <string
       id="ret_mcm_ie_import_btn"
       text="İçe Aktar" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Tüm Retinues özel asker tanımlarını bir XML dosyasından içe aktarır." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="İçe aktarılacak XML dosyasını seçin. Bu, mevcut özel asker tanımlarınızı değiştirecektir." />
+      text="XML’den asker tanımlarını içe aktarır." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="XML’den İçe Aktar" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Askerleri İçe Aktar" />
+      text="XML’den Askerleri İçe Aktar" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Tüm Teçhizat Açıldı" />
@@ -515,17 +647,20 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Eğer bir toprak hem klan toprağı hem de krallık toprağı ise, klan askerleri krallık askerlerine göre öncelikli olacaktır." />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="Alternatif setler, etkinleştirilmiş diğer modlarla uyumsuzluklar nedeniyle devre dışı bırakıldı." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Klonlama sırasında tüm ekipman setlerini kopyala." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Asker teçhizatını klonlarken, sadece bir savaş ve bir sivil set yerine tüm teçhizat setlerini kopyalayın." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="Çok daha fazla kayıt üretir (performansı etkileyebilir)." />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="El Yapımı Silahları Devre Dışı Bırak" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Etkinleştirildiğinde, uygun doktrin kilidi açılsa bile el yapımı silahlar kullanılamaz." />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Başarı Gereksinimlerini Devre Dışı Bırak" />
@@ -549,7 +684,7 @@
       text="Deneysel: Görünüm Kontrollerini Etkinleştir" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Görünüm özelleştirme kontrolleri ekler (yaş, boy, kilo, yapı). Deneysel: istenmeyen sonuçlara yol açabilir." />
+      text="Görünüm özelleştirme kontrolleri ekler (yaş, boy, kilo, yapı)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Asker Teçhizatını Değiştirmek Zaman Alır" />
@@ -575,11 +710,26 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Askerler savaşta her zaman ana savaş teçhizat setlerini kullanır." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="Küresel Asker Düzenleyicisini Etkinleştir" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="Küresel asker düzenleyicisi, etkinleştirilmiş diğer modlarla uyumluluk sorunları nedeniyle devre dışı bırakıldı." />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="Oyundaki herhangi bir askeri değiştirmek için küresel asker düzenleyicisini etkinleştirir. Oyuncu olmayan askerlerle ilgili sorunlar yaşıyorsanız devre dışı bırakın." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="Yükseltme Gereksinimleri için Sivil Atı Yoksay" />
     <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Askerleri yükseltirken binek gereksinimlerini kontrol ederken sivil setin atını yoksayın." />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Vanilla Askerler için Yükseltme Gereksinimlerini Koru" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Vanilla askerler düzenlendiğinde orijinal yükseltme öğesi gereksinimlerini korur." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksimum Temel Yandaş Oranı" />
@@ -587,11 +737,29 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Oyuncu grubundaki temel yandaş askerlerin azami oranı." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Maksimum Temel Yükseltme Hedefleri" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Temel askerler için maksimum yükseltme hedefi sayısı." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Maksimum Seçkin Yandaş Oranı" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Oyuncu grubundaki seçkin yandaş askerlerin azami oranı." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Maksimum Seçkin Yükseltme Hedefleri" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Seçkin askerler için maksimum yükseltme hedefi sayısı." />
+    <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Asla Seçkin At Gerektirme" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Askerler yükseltmeler için asla seçkin at gerektirmez, savaş atı her zaman yeterlidir." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Krallık Askeri Yok" />
@@ -616,6 +784,18 @@
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Oyuncu herhangi bir yerleşimde klan askerleri toplayabilir." />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Azaltıldığında XP İadesi" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="Bir askerin becerisini düşürürken, XP maliyetini iade et." />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="Ortam NPC&apos;lerini Değiştir" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="Yerleşimlerdeki ortam NPC&apos;lerini oyuncu fraksiyon karakterleriyle değiştirir." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Açmak İçin Gerekli Atılmış Eşyalar" />
@@ -752,8 +932,14 @@
       id="ret_mcm_section_equipment"
       text="Teçhizat" />
     <string
+      id="ret_mcm_section_fluff"
+      text="Daldırma ve Süslemeler" />
+    <string
       id="ret_mcm_section_general"
       text="Genel" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="Küresel Düzenleyici" />
     <string
       id="ret_mcm_section_import_export"
       text="İçe ve Dışa Aktar" />
@@ -794,11 +980,23 @@
       id="ret_no_cultures_title"
       text="Kültür Bulunamadı" />
     <string
+      id="ret_no_exports_body"
+      text="Exports klasöründe geçerli ihracat dosyası bulunamadı." />
+    <string
+      id="ret_no_exports_title"
+      text="İhracat Bulunamadı" />
+    <string
       id="ret_no_races_text"
       text="Alternatif ırklar mevcut değil." />
     <string
       id="ret_no_races_title"
       text="Irk Bulunamadı" />
+    <string
+      id="ret_no_selection_body"
+      text="Hiçbir dosya seçilmedi." />
+    <string
+      id="ret_no_selection_title"
+      text="Seçim Yok" />
     <string
       id="ret_no_skill_points_left"
       text="Bu asker için kalan beceri puanı yok." />
@@ -815,8 +1013,23 @@
       id="ret_not_enough_gold_text"
       text="Bu eşyayı satın almak için yeterli altının yok." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Yetersiz Altın" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="Stokta yeterli kopya yok." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Yetersiz Stok" />
+    <string
       id="ret_not_enough_xp"
       text="Sonraki beceri puanı için yeterli XP yok." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="İçe/dışa aktarma işlevlerini kullanmadan önce bir kayıt yüklenmelidir." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Kampanya Yüklenmedi" />
     <string
       id="ret_not_in_clan_fief"
       text="Klan Arazisinde Değil" />
@@ -900,10 +1113,13 @@
       text="Kaldır" />
     <string
       id="ret_remove_set_hint"
-      text="Yalnızca alternatif ekipman setlerini kaldırabilirsiniz." />
+      text="Bu türden en az bir set kalmalıdır." />
     <string
       id="ret_remove_set_text"
-      text="{TROOP_NAME} için {SET} kaldırılsın mı?{newline}Tüm aşamalı değişiklikler temizlenecek ve eşyalar donatılmayacak ve stoklanacaktır." />
+      text="{TROOP_NAME} için set n°{SET} kaldırılsın mı{newline}Tüm aşamalı değişiklikler temizlenecek ve eşyalar donatılmayacak ve stoklanacaktır." />
+    <string
+      id="ret_remove_set_text_studio"
+      text="{TROOP_NAME} için set n°{SET} kaldırılsın mı?" />
     <string
       id="ret_remove_set_title"
       text="Seti Kaldır" />
@@ -916,6 +1132,18 @@
     <string
       id="ret_rename_troop"
       text="Askerin Adını Değiştir" />
+    <string
+      id="ret_reset_all"
+      text="Tüm Askeri Verileri Sıfırla" />
+    <string
+      id="ret_reset_all_body"
+      text="Bu, tüm kültür askeri verilerini varsayılan değerlerine sıfırlayacaktır. Oyuncu klanı ve krallık askerleri etkilenmeyecektir.{newline}{newline}Devam edilsin mi?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Tüm kültür askerleri, oyunu kaydedip yeniden yüklediğinizde sıfırlanacaktır." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Kültür Askerleri Sıfırlama" />
     <string
       id="ret_retinue"
       text="Yandaş" />
@@ -969,25 +1197,28 @@
       text="Krallığınla aynı kültürden bir yoldaşın 30 gün boyunca bir krallık tımarını yönetmesini sağla." />
     <string
       id="ret_royal_patronage_description"
-      text="Krallık kültüründen eşyalar %10 indirimli." />
+      text="Kervan ve köylü askerlerinin kilidini açar." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="100 krallık askeri topla." />
     <string
-      id="ret_set_alt_n"
-      text="Yedek {N}" />
+      id="ret_royal_patronage_to_unlock"
+      text="Kraliyet Himayesi doktrini ile kilidini aç." />
     <string
-      id="ret_set_battle"
-      text="Savaş" />
+      id="ret_select_culture_hint"
+      text="Bir kültür seçin." />
     <string
-      id="ret_set_civilian"
-      text="Sivil" />
+      id="ret_select_culture_title"
+      text="Kültür Seç" />
     <string
-      id="ret_siege_assault_hint"
-      text="Bu seti kuşatma saldırısı için etkinleştir veya devre dışı bırak." />
+      id="ret_show_crafted_disabled_hint"
+      text="&apos;Klan Gelenekleri&apos; doktrinini açarak el yapımı eşyaları göster." />
     <string
-      id="ret_siege_defense_hint"
-      text="Bu seti kuşatma savunması için etkinleştir veya devre dışı bırak." />
+      id="ret_show_crafted_hint"
+      text="El yapımı eşyaları göster." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Yalnızca silah yuvaları el yapımı eşyalara sahip olabilir." />
     <string
       id="ret_skill_at_cap"
       text="Bu birliğin becerisi sınırda." />
@@ -1031,6 +1262,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="15 özel askerin becerilerini en üst düzeye çıkar." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Klan askerleri düzenleyicisine geç." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Geçiş Yap{newline}Klan Askerleri" />
     <string
@@ -1039,6 +1273,15 @@
     <string
       id="ret_tier"
       text="Seviye" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Bu sette {COUNT} sivil olmayan eşya var. Devam ederseniz, bunların donanımı kaldırılacaktır.{newline}{newline}Devam edilsin mi?" />
+    <string
+      id="ret_train_complete"
+      text="Eğitim Tamamlandı" />
+    <string
+      id="ret_train_complete_summary"
+      text="Aşağıdaki birlikler eğitimlerini tamamladı:{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
       text="Eğitim Tamamlandı" />
@@ -1055,8 +1298,14 @@
       id="ret_transfer_header_text"
       text="Aktar" />
     <string
+      id="ret_troop_editor_button"
+      text="Asker Düzenleyici" />
+    <string
       id="ret_troop_list.placeholder"
       text="Kullanılabilir Asker Yok" />
+    <string
+      id="ret_troop_studio_title"
+      text="Asker Düzenleyici" />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />
@@ -1072,6 +1321,9 @@
     <string
       id="ret_unequip_all_text"
       text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?{newline}{newline}Eşyalar stoklanacaktır." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="{TROOP_NAME} üzerindeki tüm eşyaları çıkarmak istiyor musun?" />
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} eşyasını çıkarmak üzeresin, yenisini donatmak zaman alacak. Yine de devam etmek istiyor musun?" />
@@ -1101,7 +1353,7 @@
       text="Ekipman yükseltmeye başla" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="Şimdi donatmaya başlamak için beklemedeki bir askeri seç." />
+      text="Şimdi donatmaya başlamak için bir veya daha fazla askeri seç." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="Askerleri donat" />
@@ -1110,7 +1362,7 @@
       text="{NAME} donatılıyor..." />
     <string
       id="ret_upgrade_equip_select_troop"
-      text="Donatılacak askeri seç" />
+      text="Donatılacak askerleri seç" />
     <string
       id="ret_upgrade_equip_unequip"
       text="Çıkar" />
@@ -1119,7 +1371,7 @@
       text="Eğitime başla" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="Şimdi eğitime başlamak için beklemedeki bir askeri seç." />
+      text="Şimdi eğitime başlamak için bir veya daha fazla askeri seç." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="Askerleri eğit" />
@@ -1128,7 +1380,7 @@
       text="{NAME} eğitiliyor..." />
     <string
       id="ret_upgrade_train_select_troop"
-      text="Eğitilecek askeri seç" />
+      text="Eğitilecek askerleri seç" />
     <string
       id="ret_upgrades_header_text"
       text="Yükseltmeler" />

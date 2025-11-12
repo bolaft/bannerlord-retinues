@@ -110,7 +110,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                     HasPendingItem
                         ? Item.Name + $" ({State.EquipData[Index].Equip.Remaining}h)"
                         : Item?.Name,
-                    50
+                    EditorVM.IsStudioMode ? 75 : 50
                 );
 
         [DataSourceProperty]

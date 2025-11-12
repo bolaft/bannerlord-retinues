@@ -33,8 +33,11 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             EliteTroops = [.. State.Faction.EliteTroops.Select(t => new TroopRowVM(t))];
             BasicTroops = [.. State.Faction.BasicTroops.Select(t => new TroopRowVM(t))];
             MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
+            CaravanTroops = [.. State.Faction.CaravanTroops.Select(t => new TroopRowVM(t))];
+            VillagerTroops = [.. State.Faction.VillagerTroops.Select(t => new TroopRowVM(t))];
+            CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
 
-            if (EliteTroops.Count == 0)
+            if (EliteTroops.Count == 0 && !EditorVM.IsStudioMode)
                 EliteTroops.Add(
                     new TroopRowVM(
                         null,
@@ -45,7 +48,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (BasicTroops.Count == 0)
+            if (BasicTroops.Count == 0 && !EditorVM.IsStudioMode)
                 BasicTroops.Add(
                     new TroopRowVM(
                         null,
@@ -56,13 +59,35 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (MilitiaTroops.Count == 0)
+            if (MilitiaTroops.Count == 0 && !EditorVM.IsStudioMode)
                 MilitiaTroops.Add(
                     new TroopRowVM(
                         null,
                         placeholderText: L.S(
                             "acquire_cultural_pride_to_unlock",
                             "Unlock with the Cultural Pride doctrine."
+                        )
+                    )
+                ); // placeholder
+
+            if (CaravanTroops.Count == 0 && !EditorVM.IsStudioMode)
+                CaravanTroops.Add(
+                    new TroopRowVM(
+                        null,
+                        placeholderText: L.S(
+                            "royal_patronage_to_unlock",
+                            "Unlock with the Royal Patronage doctrine."
+                        )
+                    )
+                ); // placeholder
+
+            if (VillagerTroops.Count == 0 && !EditorVM.IsStudioMode)
+                VillagerTroops.Add(
+                    new TroopRowVM(
+                        null,
+                        placeholderText: L.S(
+                            "royal_patronage_to_unlock",
+                            "Unlock with the Royal Patronage doctrine."
                         )
                     )
                 ); // placeholder
@@ -75,6 +100,14 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(EliteTroops));
             OnPropertyChanged(nameof(BasicTroops));
             OnPropertyChanged(nameof(MilitiaTroops));
+            OnPropertyChanged(nameof(CaravanTroops));
+            OnPropertyChanged(nameof(VillagerTroops));
+            OnPropertyChanged(nameof(CivilianTroops));
+            OnPropertyChanged(nameof(ShowRetinueList));
+            OnPropertyChanged(nameof(ShowMilitiaList));
+            OnPropertyChanged(nameof(ShowCaravanList));
+            OnPropertyChanged(nameof(ShowVillagerList));
+            OnPropertyChanged(nameof(ShowCivilianList));
 
             RefreshFilter();
         }
@@ -95,6 +128,15 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> MilitiaTroops { get; set; } = [];
 
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> CaravanTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> VillagerTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> CivilianTroops { get; set; } = [];
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -112,7 +154,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         {
             get
             {
-                if (State.Faction == Player.Kingdom)
+                if ((StringIdentifier)State.Faction == Player.Kingdom)
                     return Player.IsFemale
                         ? L.S("queen_guard", "Queen's Guard")
                         : L.S("king_guard", "King's Guard");
@@ -124,12 +166,46 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public string MilitiaToggleText => L.S("list_toggle_militia", "Militia");
 
+        [DataSourceProperty]
+        public string CaravanToggleText => L.S("list_toggle_caravan", "Caravans");
+
+        [DataSourceProperty]
+        public string VillagerToggleText => L.S("list_toggle_villager", "Villagers");
+
+        [DataSourceProperty]
+        public string CivilianToggleText => L.S("list_toggle_civilian", "Civilians");
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool ShowRetinueList => RetinueTroops.Count > 0 || !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowCaravanList => CaravanTroops.Count > 0 || !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowVillagerList => VillagerTroops.Count > 0 || !EditorVM.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowCivilianList => CivilianTroops.Count > 0 && EditorVM.IsStudioMode;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override List<BaseListElementVM> Rows =>
-            [.. RetinueTroops, .. EliteTroops, .. BasicTroops, .. MilitiaTroops];
+            [
+                .. RetinueTroops,
+                .. EliteTroops,
+                .. BasicTroops,
+                .. MilitiaTroops,
+                .. CaravanTroops,
+                .. VillagerTroops,
+                .. CivilianTroops,
+            ];
 
         /// <summary>
         /// Show the troop list and rebuild its contents.

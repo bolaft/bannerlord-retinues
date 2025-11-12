@@ -20,24 +20,6 @@ If you pass a wrong number/type of arguments, the command prints a short **Usage
 
 ---
 
-## Troops import / export
-
-Export or import all **custom troop roots** to/from a single XML file.
-
-- **Export**
-  ```
-  retinues.export_custom_troops [fileName]
-  ```
-  If `fileName` is omitted, it defaults to `custom_troops.xml`. The command prints the full path on success.
-
-- **Import**
-  ```
-  retinues.import_custom_troops <fileName>
-  ```
-  Recreates roots from the given file and prints how many were imported.
-
----
-
 ## Troop XP
 
 - **Add XP to a troop**
@@ -115,3 +97,13 @@ Browse, advance, or complete feats that gate certain doctrine bonuses.
   retinues.feat_unlock_all
   ```
   Completes every feat in one go.
+
+---
+
+## Fixes
+
+- **Fix main party**
+  ```
+  retinues.fix_main_party
+  ```
+  Attempts to fix some weird behaviors such as party size limit being stuck at 20, or the main party not having a troop number on the world map.

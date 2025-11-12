@@ -5,69 +5,73 @@ nav_order: 10
 
 # Import & Export
 
-Here is how to **export** all your custom troop roots to a single XML file and how to **import** them back into another save (or after a reset).
+Retinues uses a unified XML format for moving troops between saves, which can include clan & kingdom troops (player troops) and culture troops (vanilla and modded troops used by existing factions).
 
-> Exports/Imports deal with **root troop definitions** (your custom Regular/Elite roots, retinues roots, and their trees).
+You can export either or **both**, and you can import either or **both** from the same file.
+
+> Exports/Imports operate on **root troop definitions and their trees**. Roster contents, XP, or equipment unlock progress are **not** exported.
 
 ---
 
 ## Where files go
 
 - **Folder:** `Modules/Retinues/Exports/`
-- **Default names:**
-  - From **MCM Export button:** `troops_YYYY_MM_DD_HH_mm.xml` (timestamped suggestion)
-  - From **Console command:** `custom_troops.xml` if you don't provide a name
-
-You can safely create your own file names; the mod will add `.xml` if missing.
+- **Filename:** you are prompted for a name (e.g. `troops_YYYY_MM_DD_HH_mm.xml`). The `.xml` extension is added automatically if missing.
 
 ---
 
-## Method 1: Using Mod Options (MCM)
+## Exporting
 
-Open **Options → Mod Options → Retinues**.
+There are two places to export from:
 
-### Export
+### From Mod Options (MCM)
 
-1. At the top (**Import & Export** section), set **File name** if you want (optional).  
-2. Click **Export Troops to XML**.  
-3. A message will print the absolute path used. Your file is now in `Modules/Retinues/Exports/`.
+1. Open **Options → Mod Options → Retinues**.
+2. In **Import & Export**, click **Export Troops to XML**.
+3. **Choose sections** to include (tick one or both).  
+4. **Enter a filename** when prompted.  
+5. A confirmation popup shows the absolute path of the saved file.
 
-### Import
+> You must be **in a running campaign** (not the main menu).
 
-1. Click **Import from XML**.  
-2. Pick a file from the list (the *Confirm* button reads **Import**).  
-3. The mod will:  
-   - Make an automatic safety backup first (e.g., `backup_troops_YYYY_MM_DD_HH_mm.xml`)  
-   - Then import and rebuild the selected roots  
-4. A message will report how many root troop definitions were imported.
+### From the Editor (Studio)
 
-> **Important:** MCM export/import actions require you to be **in a running campaign** (not from the main menu).
+1. On the world map, open the **Troop Editor** from the escape menu.
+2. Click **Export All**.
+3. **Choose what to export** (tick one or both).  
+4. **Enter a filename** when prompted.  
+5. A confirmation popup shows where the file was written.
 
 ---
 
-## Method 2: Using the Console
+## Importing
 
-> You'll need to have enabled the cheat console. Commands live under the `retinues` namespace.
+Importing is symmetrical and always asks for confirmation before applying changes.
 
-### Export command
+1. Click **Import from XML** (MCM or Editor).  
+2. The file picker lists **only valid Retinues exports** (correct root).  
+3. If the selected file contains both kinds of troops, select which one you want, or both. 
+5. After applying, a **success popup** should appear.
 
-```text
-retinues.export_custom_troops [fileName]
+> **Note:** Importing **replaces** your current root troop definitions for the selected sections.
+> For **volunteers/recruits**, it can take **a couple of in‑game days** for settlements to refresh and reflect newly imported culture roots.
+
+---
+
+## Format details (for advanced users)
+
+```xml
+<RetinuesTroops>
+  <Factions>
+    <!-- Player Troops (custom Clan + Kingdom) -->
+    <!-- Internal structure is versioned and handled by the mod. -->
+  </Factions>
+
+  <Cultures>
+    <!-- Culture Troops (all culture roots) -->
+    <!-- Internal structure is versioned and handled by the mod. -->
+  </Cultures>
+</RetinuesTroops>
 ```
-- If `fileName` is omitted, the mod uses `custom_troops.xml`.
-- Prints the full path upon success.
 
-### Import command
-
-```text
-retinues.import_custom_troops <fileName>
-```
-- Looks in `Modules/Retinues/Exports/`.
-- If you pass a name without `.xml`, the mod also tries `<name>.xml` automatically.
-- Reports how many **root** definitions were rebuilt.
-
----
-
-## What gets exported
-
-- **All currently defined custom troop roots** (regular & elite lines, retinues roots, etc.) with the data needed to rebuild their trees on import.
+Either `<Factions>` or `<Cultures>` can be **absent**; the importer only offers what's present in the file.

@@ -72,6 +72,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(UpgradeTargets),
                     nameof(IsRetinue),
                     nameof(IsRegular),
+                    nameof(ShowUpgradesHeader),
+                    nameof(IsCustomRegular),
                     nameof(HasPendingConversions),
                     nameof(PendingTotalGoldCost),
                     nameof(PendingTotalInfluenceCost),
@@ -80,6 +82,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(CultureText),
                     nameof(RaceText),
                     nameof(CanChangeRace),
+                    nameof(FormationClassIcon),
+                    nameof(FormationClassText),
                 ],
                 [UIEvent.Train] =
                 [
@@ -185,7 +189,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Headers ━━━━━━━ */
 
         [DataSourceProperty]
-        public string CultureHeaderText => L.S("culture_header_text", "Culture");
+        public string CultureHeaderText =>
+            CanChangeRace
+                ? L.S("culture_and_race_header_text", "Culture & Race")
+                : L.S("culture_header_text", "Culture");
 
         [DataSourceProperty]
         public string RaceHeaderText => L.S("race_header_text", "Race");
@@ -194,7 +201,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string NameHeaderText => L.S("name_header_text", "Name");
 
         [DataSourceProperty]
-        public string SkillsHeaderText => L.S("skills_header_text", "Skills");
+        public string SkillsHeaderText => L.S("skills_header_text", "Skills & Formation");
+
+        [DataSourceProperty]
+        public string FormationClassHeaderText =>
+            L.S("formation_class_header_text", "Formation Class");
 
         [DataSourceProperty]
         public string UpgradesHeaderText => L.S("upgrades_header_text", "Upgrades");
@@ -254,7 +265,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool TroopXpIsEnabled =>
-            Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0;
+            !EditorVM.IsStudioMode
+            && (Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0);
 
         [DataSourceProperty]
         public string TroopXpText =>
@@ -289,7 +301,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int TrainingRequired => State.SkillData?.Sum(kv => kv.Value.Train?.Remaining) ?? 0;
 
         [DataSourceProperty]
-        public bool TrainingTakesTime => Config.TrainingTakesTime;
+        public bool TrainingTakesTime => Config.TrainingTakesTime && !EditorVM.IsStudioMode;
 
         [DataSourceProperty]
         public string TrainingRequiredText
@@ -322,6 +334,22 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool IsRegular => State.Troop?.IsRetinue == false && State.Troop?.IsMilitia == false;
+
+        [DataSourceProperty]
+        public bool ShowUpgradesHeader =>
+            IsRegular && (!EditorVM.IsStudioMode || UpgradeTargets.Count > 0);
+
+        [DataSourceProperty]
+        public bool IsCustomRegular
+        {
+            get
+            {
+                bool isRegular = IsRegular;
+                bool isCustom = State.Troop?.IsCustom == true;
+
+                return isRegular && isCustom;
+            }
+        }
 
         [DataSourceProperty]
         public bool CanAddUpgrade => CantAddUpgradeReason == null;
@@ -368,16 +396,29 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public MBBindingList<TroopUpgradeTargetVM> UpgradeTargets =>
             [.. State.Troop.UpgradeTargets.Select(t => new TroopUpgradeTargetVM(t))];
 
+        /* ━━━━ Formation Class ━━━ */
+
+        [DataSourceProperty]
+        public string FormationClassText =>
+            State.Troop?.FormationClass.GetLocalizedName().ToString();
+
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(State.Troop);
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel FormationClassHint =>
+            Tooltip.MakeTooltip(null, L.S("formation_class_hint", "Change Formation Class"));
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /* ━━━━━━━ Character ━━━━━━ */
 
-        [DataSourceMethod]
         /// <summary>
         /// Prompt to rename the selected troop.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRename()
         {
             var oldName = State.Troop.Name;
@@ -407,10 +448,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             );
         }
 
-        [DataSourceMethod]
         /// <summary>
         /// Change the selected troop's culture.
         /// </summary>[DataSourceMethod]
+        [DataSourceMethod]
         public void ExecuteChangeCulture()
         {
             try
@@ -428,7 +469,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                 if (cultures.Count == 0)
                 {
-                    Popup.Display(
+                    Notifications.Popup(
                         L.T("no_cultures_title", "No Cultures Found"),
                         L.T("no_cultures_text", "No cultures are loaded in the current game.")
                     );
@@ -437,17 +478,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                 // Build selection elements (single-select).
                 var elements = new List<InquiryElement>(cultures.Count);
-                var currentId = State.Troop.Culture?.StringId;
+
                 foreach (var c in cultures)
                 {
                     if (c?.Name == null)
                         continue;
-                    // Show current selection as pre-checked
-                    bool isSelected = string.Equals(
-                        c.StringId,
-                        currentId,
-                        StringComparison.Ordinal
-                    );
 
                     var wc = new WCulture(c);
                     var root = wc.RootBasic ?? wc.RootElite;
@@ -465,7 +500,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 MBInformationManager.ShowMultiSelectionInquiry(
                     new MultiSelectionInquiryData(
                         titleText: L.S("change_culture_title", "Change Culture"),
-                        descriptionText: L.S("change_culture_desc", string.Empty),
+                        descriptionText: null,
                         inquiryElements: elements,
                         isExitShown: true,
                         minSelectableOptionCount: 1,
@@ -478,15 +513,19 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                                 return;
                             if (selected[0]?.Identifier is not CultureObject culture)
                                 return;
+                            if (culture.StringId == State.Troop.Culture.StringId)
+                                return; // No change
 
+                            // Store prior race before culture change.
                             var priorRace = State.Troop.Race;
 
                             // Apply via wrapper (uses reflection under the hood).
                             State.Troop.Culture = new WCulture(culture);
 
-                            // Update visuals
+                            // Update visuals.
                             CharacterCustomization.ApplyPropertiesFromCulture(State.Troop, culture);
 
+                            // Reapply prior race if needed.
                             if (priorRace >= 0)
                             {
                                 State.Troop.Race = priorRace;
@@ -523,7 +562,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 var names = EnsureRaceNames();
                 if (names == null || names.Count == 0)
                 {
-                    Popup.Display(
+                    Notifications.Popup(
                         L.T("no_races_title", "No Races Found"),
                         L.T("no_races_text", "No alternative races are available.")
                     );
@@ -566,6 +605,76 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
         }
 
+        /// <summary>
+        /// Change the selected troop's formation class override setting.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteChangeFormationClass()
+        {
+            try
+            {
+                if (State.Troop == null)
+                    return;
+
+                List<FormationClass> classes =
+                [
+                    FormationClass.Unset,
+                    FormationClass.Infantry,
+                    FormationClass.Ranged,
+                    FormationClass.Cavalry,
+                    FormationClass.HorseArcher,
+                ];
+
+                var elements = new List<InquiryElement>(classes.Count);
+
+                foreach (var c in classes)
+                {
+                    string text =
+                        c == FormationClass.Unset
+                            ? L.S("formation_auto", "Auto")
+                            : c.GetLocalizedName().ToString();
+
+                    elements.Add(new InquiryElement(c, text, null, true, null));
+                }
+
+                MBInformationManager.ShowMultiSelectionInquiry(
+                    new MultiSelectionInquiryData(
+                        titleText: L.S("change_formation_class_title", "Change Formation Class"),
+                        descriptionText: null,
+                        inquiryElements: elements,
+                        isExitShown: true,
+                        minSelectableOptionCount: 1,
+                        maxSelectableOptionCount: 1,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: selected =>
+                        {
+                            if (selected == null || selected.Count == 0)
+                                return;
+                            if (selected[0]?.Identifier is not FormationClass formationClass)
+                                return;
+                            if (formationClass == State.Troop.FormationClassOverride)
+                                return; // No change
+
+                            // Set override
+                            State.Troop.FormationClassOverride = formationClass;
+
+                            // Update formation class if needed
+                            State.Troop.FormationClass = State.Troop.ComputeFormationClass();
+
+                            // Refresh VM bindings
+                            State.UpdateTroop(State.Troop);
+                        },
+                        negativeAction: new Action<List<InquiryElement>>(_ => { })
+                    )
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
         [DataSourceMethod]
@@ -579,6 +688,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 == false
             )
                 return; // Modification not allowed in current context
+
+            if (EditorVM.IsStudioMode)
+                return; // Adding upgrades disabled in studio mode
 
             InformationManager.ShowTextInquiry(
                 new TextInquiryData(
@@ -615,6 +727,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /// </summary>
         public void ExecuteRankUp()
         {
+            if (EditorVM.IsStudioMode)
+                return; // Rank up disabled in studio mode
+
             if (
                 TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_modify", "modify"))
                 == false
@@ -625,7 +740,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             if (TroopRules.SkillPointsLeft(State.Troop) > 0)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_not_maxed_out", "Not Maxed Out"),
                     L.T(
                         "rank_up_not_maxed_out_text",
@@ -633,9 +748,12 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     )
                 );
             }
-            else if (!State.Troop.IsElite && State.Troop.Tier >= State.Faction.RetinueElite.Tier)
+            else if (
+                State.Troop == State.Faction.RetinueBasic
+                && State.Troop.Tier >= State.Faction.RetinueElite.Tier
+            )
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_cant_outrank_elite_title", "Cannot Outrank Elite"),
                     L.T(
                             "rank_up_cant_outrank_elite_text",
@@ -647,7 +765,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
             else if (Player.Gold < cost)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_not_enough_gold_title", "Not enough gold"),
                     L.T(
                             "rank_up_not_enough_gold_text",
@@ -659,7 +777,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
             else if (TroopXpBehavior.Get(State.Troop) < cost && TroopXpIsEnabled)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("rank_up_not_enough_xp_title", "Not enough XP"),
                     L.T(
                             "rank_up_not_enough_xp_text",
@@ -735,7 +853,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             if (PendingTotalGoldCost > Player.Gold)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("convert_not_enough_gold_title", "Not enough gold"),
                     L.T(
                         "convert_not_enough_gold_text",
@@ -747,7 +865,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             if (PendingTotalInfluenceCost > Player.Influence)
             {
-                Popup.Display(
+                Notifications.Popup(
                     L.T("convert_not_enough_influence_title", "Not enough influence"),
                     L.T(
                         "convert_not_enough_influence_text",

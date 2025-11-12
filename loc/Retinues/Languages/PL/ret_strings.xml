@@ -125,8 +125,26 @@
       id="ret_change_culture_title"
       text="Zmień Kulturę" />
     <string
+      id="ret_change_formation_class_title"
+      text="Zmień Klasę Formacji" />
+    <string
       id="ret_change_race_title"
       text="Zmień Rasę" />
+    <string
+      id="ret_civilian_hint"
+      text="Włącz lub wyłącz ten zestaw do użytku cywilnego." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Musisz zachować co najmniej jeden zestaw cywilny." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Musisz zachować co najmniej jeden zestaw bojowy." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="Pierwszy zestaw musi pozostać zestawem bojowym." />
+    <string
+      id="ret_clan_troops_button_text"
+      text="Oddziały Klanu" />
     <string
       id="ret_clanic_traditions"
       text="Tradycje Klanu" />
@@ -155,6 +173,12 @@
       id="ret_confirm"
       text="Potwierdź" />
     <string
+      id="ret_confirm_import_body"
+      text="To zastąpi istniejące definicje jednostek." />
+    <string
+      id="ret_confirm_import_title"
+      text="Zastosować import?" />
+    <string
       id="ret_continue"
       text="Kontynuuj" />
     <string
@@ -170,6 +194,9 @@
       id="ret_convert_not_enough_influence_title"
       text="Za mało wpływów" />
     <string
+      id="ret_copy_current"
+      text="Kopiuj Obecny" />
+    <string
       id="ret_create_from_culture"
       text="Kopiuj oddziały {CULTURE}" />
     <string
@@ -178,6 +205,12 @@
     <string
       id="ret_create_set_hint"
       text="Wyłączone z powodu konfliktów z modami (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="Czy chcesz skopiować obecny zestaw czy utworzyć pusty zestaw?" />
+    <string
+      id="ret_create_set_title"
+      text="Utwórz Zestaw Ekwipunku" />
     <string
       id="ret_cultural_pride"
       text="Duma Kulturowa" />
@@ -193,6 +226,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Wygraj turniej nosząc tylko zbroję swojej kultury." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Kultura i Rasa" />
     <string
       id="ret_culture_header_text"
       text="Kultura" />
@@ -239,6 +275,12 @@
       id="ret_empty_item"
       text="Puste" />
     <string
+      id="ret_empty_set"
+      text="Puste" />
+    <string
+      id="ret_enter_file_name"
+      text="Wpisz nazwę pliku:" />
+    <string
       id="ret_enter_new_name"
       text="Wpisz nową nazwę:" />
     <string
@@ -251,6 +293,12 @@
       id="ret_equip_complete"
       text="Ekwipunek Zaktualizowany" />
     <string
+      id="ret_equip_complete_summary"
+      text="Następujące oddziały wyposażyły nowe przedmioty:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} wyposażył(a) ({ITEM})." />
     <string
@@ -259,6 +307,27 @@
     <string
       id="ret_equipment_requirement"
       text="Do wyposażonych przedmiotów wymagana jest umiejętność." />
+    <string
+      id="ret_exp_culture_troops"
+      text="Jednostki Kulturowe" />
+    <string
+      id="ret_exp_player_troops"
+      text="Jednostki Gracza" />
+    <string
+      id="ret_export_done_body"
+      text="Eksportowano do: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Eksport Zakończony" />
+    <string
+      id="ret_export_fail_title"
+      text="Eksport Niepowodzenie" />
+    <string
+      id="ret_export_which_body"
+      text="Wybierz jeden lub oba." />
+    <string
+      id="ret_export_which_title"
+      text="Eksportuj Wybór" />
     <string
       id="ret_feat_completed_title"
       text="Osiągnięcie Ukończone" />
@@ -272,11 +341,20 @@
       id="ret_female"
       text="Kobieta" />
     <string
-      id="ret_field_battle_hint"
-      text="Włącz lub wyłącz ten zestaw do bitew polowych." />
+      id="ret_formation_auto"
+      text="Auto" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Klasa Formacji" />
+    <string
+      id="ret_formation_class_hint"
+      text="Zmień klasę formacji" />
     <string
       id="ret_gender_hint"
       text="Płeć" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Przełącz płeć" />
     <string
       id="ret_gloves_slot_text"
       text="Rękawice" />
@@ -286,6 +364,24 @@
     <string
       id="ret_height_hint"
       text="Wzrost" />
+    <string
+      id="ret_hide_crafted_hint"
+      text="Ukryj wykonane przedmioty." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Dostępne podczas szturmu na oblężenie." />
+    <string
+      id="ret_hint_def_ok"
+      text="Dostępne podczas obrony oblężenia." />
+    <string
+      id="ret_hint_field_ok"
+      text="Dostępne w bitwach polowych." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Co najmniej jeden zestaw bitewny musi pozostać włączony dla każdego typu bitwy." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Nie można włączyć dla zestawów cywilnych." />
     <string
       id="ret_horse_harness_slot_text"
       text="Rząd koński" />
@@ -307,6 +403,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Pokonaj samotnie ponad 100 wrogów bez żadnych strat po twojej stronie." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Jednostki Kulturowe" />
+    <string
+      id="ret_imp_player_troops"
+      text="Jednostki Gracza" />
+    <string
+      id="ret_import"
+      text="Importuj" />
+    <string
+      id="ret_import_done_body"
+      text="Plik {FILE} został pomyślnie zaimportowany." />
+    <string
+      id="ret_import_done_title"
+      text="Import Zakończony" />
+    <string
+      id="ret_import_empty_body"
+      text="Plik nie zawiera jednostek." />
+    <string
+      id="ret_import_empty_title"
+      text="Brak do Importu" />
+    <string
+      id="ret_import_fail_title"
+      text="Import Niepowodzenie" />
+    <string
+      id="ret_import_pick_body"
+      text="Wybierz wyeksportowany plik do importu." />
+    <string
+      id="ret_import_pick_title"
+      text="Importuj Jednostki" />
+    <string
+      id="ret_import_which_body"
+      text="Wybierz jeden lub oba." />
+    <string
+      id="ret_import_which_title"
+      text="Importuj Wybór" />
     <string
       id="ret_in_stock"
       text="Na stanie ({STOCK})" />
@@ -404,6 +536,12 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Samodzielnie pokonaj w bitwie wrogiego lorda." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Karawany" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Cywile" />
+    <string
       id="ret_list_toggle_elite"
       text="Elita" />
     <string
@@ -413,11 +551,17 @@
       id="ret_list_toggle_regular"
       text="Zwykły" />
     <string
+      id="ret_list_toggle_villager"
+      text="Mieszkańcy wsi" />
+    <string
       id="ret_loc_smoke_test"
       text="Test lokalizacji: PL." />
     <string
       id="ret_lower_skill_no_refund"
       text="Obniżenie umiejętności tej jednostki nie zwróci punktów doświadczenia. Kontynuować mimo to?" />
+    <string
+      id="ret_make_civilian_title"
+      text="Ustawić zestaw jako cywilny?" />
     <string
       id="ret_male"
       text="Mężczyzna" />
@@ -429,7 +573,7 @@
       text="Zdobądź 1000 zabójstw elitarnymi jednostkami." />
     <string
       id="ret_masters_at_arms_description"
-      text="Druga ścieżka ulepszeń dla elitarnych jednostek." />
+      text="Dodatkowa gałąź ulepszeń dla elitarnych jednostek." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Powal 50 przeciwników na arenie." />
@@ -459,31 +603,19 @@
       text="Eksportuj" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Eksportuje wszystkie definicje niestandardowych jednostek Retinues do pliku XML." />
+      text="Eksportuje definicje jednostek do XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Eksportuj jednostki do XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Przykład: troops_mojaKampania" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Nazwa pliku" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Importuj" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Importuje wszystkie definicje niestandardowych jednostek Retinues z pliku XML." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Wybierz plik XML do importu. Spowoduje to zastąpienie bieżących definicji niestandardowych jednostek." />
+      text="Importuje definicje jednostek z XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Importuj z XML" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Importuj jednostki" />
+      text="Importuj jednostki z XML" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Cały Ekwipunek Odblokowany" />
@@ -515,17 +647,20 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Jeśli lenno jest zarówno lennem klanu, jak i lennem królestwa, jednostki klanu będą miały priorytet nad jednostkami królestwa." />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="Zestawy alternatywne są wyłączone z powodu niekompatybilności z innymi aktywowanymi modami." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Kopiuj wszystkie zestawy podczas klonowania." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Podczas klonowania wyposażenia jednostek, kopiuj wszystkie zestawy wyposażenia zamiast tylko jednego zestawu bojowego i jednego cywilnego." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="Generuje znacznie więcej logów (może wpłynąć na wydajność)." />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Wyłącz Wykonane Bronie" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Po włączeniu, wykonane bronie nie będą dostępne, nawet po odblokowaniu odpowiedniej doktryny." />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Wyłącz Wymagania Osiągnięć" />
@@ -549,7 +684,7 @@
       text="Eksperymentalne: Włącz Kontrolę Wyglądu" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Dodaje kontrolki dostosowywania wyglądu (wiek, wzrost, waga, budowa). Eksperymentalne: może mieć niezamierzone konsekwencje." />
+      text="Dodaje kontrolki dostosowywania wyglądu (wiek, wzrost, waga, budowa)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Zmiana Wyposażenia Jednostek Zajmuje Czas" />
@@ -575,11 +710,26 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Jednostki zawsze używają swojego głównego zestawu wyposażenia bojowego w walce." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="Włącz Globalny Edytor Jednostek" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="Globalny edytor jednostek jest wyłączony z powodu problemów z kompatybilnością z innymi aktywowanymi modami." />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="Włącza globalny edytor jednostek do modyfikowania dowolnej jednostki w grze. Wyłącz go, jeśli napotkasz problemy z jednostkami niekontrolowanymi przez gracza." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="Ignoruj Konia Cywilnego dla Wymagań Ulepszenia" />
     <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Podczas sprawdzania wymagań dotyczących wierzchowców przy ulepszaniu jednostek, ignoruj konia z zestawu cywilnego." />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Zachowaj Wymagania Ulepszenia dla Podstawowych Jednostek" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Podstawowe jednostki zachowują swoje oryginalne wymagania dotyczące przedmiotów ulepszeń po edycji." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksymalny Udział Orszaku Podstawowego" />
@@ -587,11 +737,29 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Maksymalny udział podstawowych jednostek orszaku w drużynie gracza." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Maksymalna Liczba Celów Ulepszenia Podstawowego" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Maksymalna liczba celów ulepszenia dla podstawowych jednostek." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Maksymalny Udział Orszaku Elitarnego" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maksymalny udział elitarnych jednostek orszaku w drużynie gracza." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Maksymalna Liczba Celów Ulepszenia Elitarnego" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Maksymalna liczba celów ulepszenia dla elitarnych jednostek." />
+    <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Nigdy Nie Wymagaj Szlacheckiego Konia" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Jednostki nigdy nie wymagają szlacheckich koni do ulepszeń, koń wojenny zawsze wystarczy." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Brak Jednostek Królestwa" />
@@ -616,6 +784,18 @@
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Gracz może rekrutować wojska klanu w dowolnej osadzie." />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Zwrot XP przy zmniejszeniu" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="Podczas zmniejszania umiejętności jednostki zwróć koszt XP." />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="Zamień Otaczających NPC" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="Zamienia otaczających NPC w osadach na postacie z frakcji gracza." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Wymagane Przedmioty Odrzucone do Odblokowania" />
@@ -752,8 +932,14 @@
       id="ret_mcm_section_equipment"
       text="Ekwipunek" />
     <string
+      id="ret_mcm_section_fluff"
+      text="Imersja i Dodatki" />
+    <string
       id="ret_mcm_section_general"
       text="Ogólne" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="Globalny Edytor" />
     <string
       id="ret_mcm_section_import_export"
       text="Importuj i Eksportuj" />
@@ -794,11 +980,23 @@
       id="ret_no_cultures_title"
       text="Nie znaleziono kultur" />
     <string
+      id="ret_no_exports_body"
+      text="W folderze Exports nie znaleziono żadnych prawidłowych plików eksportu." />
+    <string
+      id="ret_no_exports_title"
+      text="Nie znaleziono eksportów" />
+    <string
       id="ret_no_races_text"
       text="Brak dostępnych alternatywnych ras." />
     <string
       id="ret_no_races_title"
       text="Nie znaleziono ras" />
+    <string
+      id="ret_no_selection_body"
+      text="Nie wybrano żadnego pliku." />
+    <string
+      id="ret_no_selection_title"
+      text="Brak wyboru" />
     <string
       id="ret_no_skill_points_left"
       text="Brak pozostałych punktów umiejętności dla tego oddziału." />
@@ -815,8 +1013,23 @@
       id="ret_not_enough_gold_text"
       text="Nie masz wystarczająco złota, aby kupić ten przedmiot." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Za mało złota" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="Nie masz wystarczającej liczby kopii na stanie." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Za mało zapasów" />
+    <string
       id="ret_not_enough_xp"
       text="Za mało XP na następny punkt umiejętności." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="Najpierw należy załadować zapis gry przed użyciem funkcji importu/eksportu." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Nie załadowano kampanii" />
     <string
       id="ret_not_in_clan_fief"
       text="Nie w lenie klanu" />
@@ -900,10 +1113,13 @@
       text="Usuń" />
     <string
       id="ret_remove_set_hint"
-      text="Możesz usunąć tylko alternatywne zestawy wyposażenia." />
+      text="Przynajmniej jeden zestaw tego typu musi pozostać." />
     <string
       id="ret_remove_set_text"
-      text="Usunąć {SET} dla {TROOP_NAME}?{newline}Wszystkie wprowadzone zmiany zostaną usunięte, a przedmioty zostaną zdjęte i zmagazynowane." />
+      text="Usunąć zestaw nr {SET} dla {TROOP_NAME}?{newline}Wszystkie wprowadzone zmiany zostaną usunięte, a przedmioty zostaną zdjęte i zmagazynowane." />
+    <string
+      id="ret_remove_set_text_studio"
+      text="Usunąć zestaw nr {SET} dla {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Usuń Zestaw" />
@@ -916,6 +1132,18 @@
     <string
       id="ret_rename_troop"
       text="Zmień Nazwę Jednostki" />
+    <string
+      id="ret_reset_all"
+      text="Zresetuj wszystkie dane jednostek" />
+    <string
+      id="ret_reset_all_body"
+      text="Spowoduje to zresetowanie wszystkich danych jednostek kulturowych do ich domyślnych wartości. Jednostki klanu i królestwa gracza nie zostaną dotknięte.{newline}{newline}Kontynuować?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Wszystkie jednostki kulturowe zostaną zresetowane po zapisaniu i ponownym załadowaniu gry." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Reset Jednostek Kulturowych" />
     <string
       id="ret_retinue"
       text="Orszak" />
@@ -969,25 +1197,28 @@
       text="Niech towarzysz tej samej kultury co twoje królestwo rządzi lennem przez 30 dni." />
     <string
       id="ret_royal_patronage_description"
-      text="10% zniżki na przedmioty kultury królestwa." />
+      text="Odblokowuje oddziały karawan i wieśniaków." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Zwerbuj 100 własnych wojsk królestwa." />
     <string
-      id="ret_set_alt_n"
-      text="Alt {N}" />
+      id="ret_royal_patronage_to_unlock"
+      text="Odblokuj za pomocą doktryny Patronatu Królewskiego." />
     <string
-      id="ret_set_battle"
-      text="Bitwa" />
+      id="ret_select_culture_hint"
+      text="Wybierz kulturę." />
     <string
-      id="ret_set_civilian"
-      text="Cywil" />
+      id="ret_select_culture_title"
+      text="Wybierz Kulturę" />
     <string
-      id="ret_siege_assault_hint"
-      text="Włącz lub wyłącz ten zestaw do szturmu na oblężenie." />
+      id="ret_show_crafted_disabled_hint"
+      text="Odblokuj doktrynę &apos;Tradycje Klanu&apos;, aby wyświetlić wykonane przedmioty." />
     <string
-      id="ret_siege_defense_hint"
-      text="Włącz lub wyłącz ten zestaw do obrony oblężenia." />
+      id="ret_show_crafted_hint"
+      text="Wyświetl wykonane przedmioty." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Tylko sloty na broń mogą mieć wykonane przedmioty." />
     <string
       id="ret_skill_at_cap"
       text="Umiejętność osiągnęła limit dla tej jednostki." />
@@ -1031,6 +1262,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Maksymalizuj umiejętności 15 własnych jednostek." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Przełącz na edytor wojsk klanu." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Przełącz na{newline}Wojska Klanu" />
     <string
@@ -1039,6 +1273,15 @@
     <string
       id="ret_tier"
       text="Poziom" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Ten zestaw zawiera {COUNT} przedmiot(y) niecywilny(e). Zostaną one zdjęte, jeśli będziesz kontynuować.{newline}{newline}Kontynuować?" />
+    <string
+      id="ret_train_complete"
+      text="Szkolenie Zakończone" />
+    <string
+      id="ret_train_complete_summary"
+      text="Następujące jednostki ukończyły szkolenie:{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
       text="Szkolenie Zakończone" />
@@ -1055,8 +1298,14 @@
       id="ret_transfer_header_text"
       text="Przenieś" />
     <string
+      id="ret_troop_editor_button"
+      text="Edytor Jednostek" />
+    <string
       id="ret_troop_list.placeholder"
       text="Brak dostępnych jednostek" />
+    <string
+      id="ret_troop_studio_title"
+      text="Edytor Jednostek" />
     <string
       id="ret_troop_xp"
       text="{XP} pkt. doświadczenia" />
@@ -1072,6 +1321,9 @@
     <string
       id="ret_unequip_all_text"
       text="Zdjąć wszystkie przedmioty noszone przez {TROOP_NAME}?{newline}{newline}Zostaną one zmagazynowane." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="Zdjąć wszystkie przedmioty noszone przez {TROOP_NAME}?" />
     <string
       id="ret_unequip_warning_text"
       text="Zamierzasz zdjąć {ITEM}, ponowne wyposażenie nowego zajmie trochę czasu. Kontynuować mimo to?" />
@@ -1101,7 +1353,7 @@
       text="Rozpocznij ulepszanie ekwipunku" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="Wybierz jedną oczekującą jednostkę, aby rozpocząć jej wyposażanie." />
+      text="Wybierz jedną lub więcej jednostek, aby rozpocząć ich wyposażanie." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="Wyposaż jednostki" />
@@ -1110,7 +1362,7 @@
       text="Wyposażanie {NAME}..." />
     <string
       id="ret_upgrade_equip_select_troop"
-      text="Wybierz jednostkę do wyposażenia" />
+      text="Wybierz jednostki do wyposażenia" />
     <string
       id="ret_upgrade_equip_unequip"
       text="Zdejmij" />
@@ -1119,7 +1371,7 @@
       text="Rozpocznij szkolenie" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="Wybierz jedną oczekującą jednostkę, aby rozpocząć jej szkolenie." />
+      text="Wybierz jedną lub więcej jednostek, aby rozpocząć ich szkolenie." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="Trenuj jednostki" />
@@ -1128,7 +1380,7 @@
       text="Szkolenie {NAME}..." />
     <string
       id="ret_upgrade_train_select_troop"
-      text="Wybierz jednostkę do szkolenia" />
+      text="Wybierz jednostki do szkolenia" />
     <string
       id="ret_upgrades_header_text"
       text="Ulepszenia" />

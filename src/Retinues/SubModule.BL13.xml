@@ -1,7 +1,7 @@
 <Module>
   <Name value="Retinues" />
   <Id value="Retinues" />
-  <Version value="v1.3.1.9" />
+  <Version value="v1.3.1.10" />
   <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
@@ -33,6 +33,16 @@
   <Xmls>
     <XmlNode>
       <XmlName id="NPCCharacters" path="troop_stubs" />
+      <IncludedGameTypes>
+        <GameType value="Campaign" />
+        <GameType value="CampaignStoryMode" />
+        <GameType value="CustomGame" />
+        <GameType value="EditorGame" />
+        <GameType value="ShokuhoCampaign" />
+      </IncludedGameTypes>
+    </XmlNode>
+    <XmlNode>
+      <XmlName id="NPCCharacters" path="troop_stubs_legacy" />
       <IncludedGameTypes>
         <GameType value="Campaign" />
         <GameType value="CampaignStoryMode" />

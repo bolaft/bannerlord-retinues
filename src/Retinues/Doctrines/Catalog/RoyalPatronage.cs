@@ -12,7 +12,7 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("royal_patronage", "Royal Patronage");
         public override TextObject Description =>
-            L.T("royal_patronage_description", "10% rebate on items of the kingdom's culture.");
+            L.T("royal_patronage_description", "Unlocks caravan and villager troops.");
         public override int Column => 1;
         public override int Row => 2;
 

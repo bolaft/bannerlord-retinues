@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <!-- Where PrefabBuilder writes the generated Gauntlet UI -->
+    <!-- Where the prefabs are written -->
     <PrefabsOutputDir>$(RepoRoot)gui\$(ModuleName)\</PrefabsOutputDir>
   </PropertyGroup>
 

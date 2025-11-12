@@ -194,6 +194,7 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                             if (DoctrineAPI.TryAcquireDoctrine(_id, out var reason))
                             {
                                 Column?.Refresh();
+                                State.UpdateFaction(); // refresh to trigger rebuilds if needed
                             }
                             else
                             {

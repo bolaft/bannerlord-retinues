@@ -1,0 +1,40 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--     Upgrades Block    -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- Upgrades Header -->
+{{ text.header(text="@UpgradesHeaderText", is_visible="@ShowUpgradesHeader", margin_bottom="4", margin_top="0") }}
+
+<!-- Add Upgrade Button -->
+{{ button.text(
+    text="@AddUpgradeButtonText",
+    command="ExecuteAddUpgrade",
+    hint="{AddUpgradeHint}",
+    brush="Popup.Done.Button",
+    height="60",
+    font_size="20",
+    is_visible="@IsCustomRegular",
+    is_enabled="@CanAddUpgrade",
+    vertical_alignment="Bottom"
+)}}
+
+<ListPanel
+    MarginTop="4"
+    DataSource="{UpgradeTargets}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <ItemTemplate>
+        <ListPanel
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+            <Children>
+                <!-- Formation Class Icon -->
+                {{ image.sprite(sprite="@FormationClassIcon", width="24", height="24", margin_right="6") }}
+
+                <!-- Upgrade Name -->
+                {{ text.base(text="@Name", font_size="24", height="24", margin_right="8", margin_bottom="4") }}
+            </Children>
+        </ListPanel>
+    </ItemTemplate>
+</ListPanel>

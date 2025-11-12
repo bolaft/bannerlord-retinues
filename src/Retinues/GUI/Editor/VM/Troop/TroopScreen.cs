@@ -42,8 +42,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     nameof(CanLowerRetinueCap),
                     nameof(RetinueJoinText),
                     nameof(CountInParty),
+                    nameof(GenderIcon),
                 ],
                 [UIEvent.Party] = [nameof(RetinueJoinText), nameof(CountInParty)],
+                [UIEvent.Appearance] = [nameof(GenderIcon)],
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -76,8 +78,18 @@ namespace Retinues.GUI.Editor.VM.Troop
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool RemoveTroopButtonIsVisible =>
-            State.Troop?.IsMilitia == false && State.Troop?.IsRetinue == false;
+        public bool RemoveTroopButtonIsVisible
+        {
+            get
+            {
+                bool isStudio = EditorVM.IsStudioMode;
+                bool troopIsMilitiaFalse = State.Troop?.IsMilitia == false;
+                bool troopIsRetinueFalse = State.Troop?.IsRetinue == false;
+                bool visible = IsVisible;
+
+                return !isStudio && troopIsMilitiaFalse && troopIsRetinueFalse && visible;
+            }
+        }
 
         [DataSourceProperty]
         public bool RemoveTroopButtonIsEnabled => State.Troop?.IsDeletable == true;
@@ -96,6 +108,11 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public bool CustomizationIsEnabled => Config.EnableTroopCustomization;
+
+        /* ━━━━━━━ Gauntlet ━━━━━━━ */
+
+        [DataSourceProperty]
+        public int CustomizationMarginRight => EditorVM.IsStudioMode ? 340 : 280;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -124,6 +141,12 @@ namespace Retinues.GUI.Editor.VM.Troop
                     .ToString();
             }
         }
+
+        [DataSourceProperty]
+        public string GenderIcon =>
+            State.Troop?.IsFemale == true
+                ? "SPGeneral\\GeneralFlagIcons\\female_only"
+                : "SPGeneral\\GeneralFlagIcons\\male_only";
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 
@@ -172,6 +195,10 @@ namespace Retinues.GUI.Editor.VM.Troop
             );
 
         [DataSourceProperty]
+        public BasicTooltipViewModel GenderToggleHint =>
+            Tooltip.MakeTooltip(null, L.S("gender_toggle_hint", "Toggle Gender"));
+
+        [DataSourceProperty]
         public BasicTooltipViewModel GenderHint =>
             Tooltip.MakeTooltip(null, L.S("gender_hint", "Gender"));
 
@@ -194,6 +221,9 @@ namespace Retinues.GUI.Editor.VM.Troop
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Raise the retinue cap for the selected troop.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteRaiseRetinueCap()
         {
@@ -212,6 +242,9 @@ namespace Retinues.GUI.Editor.VM.Troop
             OnPropertyChanged(nameof(RetinueJoinText));
         }
 
+        /// <summary>
+        /// Lower the retinue cap for the selected troop.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteLowerRetinueCap()
         {
@@ -230,10 +263,10 @@ namespace Retinues.GUI.Editor.VM.Troop
             OnPropertyChanged(nameof(RetinueJoinText));
         }
 
-        [DataSourceMethod]
         /// <summary>
         /// Remove the currently selected troop (with confirmation).
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRemoveTroop()
         {
             if (State.Troop == null)
@@ -301,6 +334,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             State.Troop.IsFemale = !State.Troop.IsFemale;
             State.UpdateAppearance();
+            OnPropertyChanged(nameof(GenderIcon));
         }
 
         [DataSourceMethod]
@@ -395,6 +429,9 @@ namespace Retinues.GUI.Editor.VM.Troop
             base.Show();
             TroopList.Show();
             TroopPanel.Show();
+
+            // Notify visibility-dependent properties
+            OnPropertyChanged(nameof(RemoveTroopButtonIsVisible));
         }
 
         /// <summary>
@@ -405,6 +442,9 @@ namespace Retinues.GUI.Editor.VM.Troop
             TroopList.Hide();
             TroopPanel.Hide();
             base.Hide();
+
+            // Notify visibility-dependent properties
+            OnPropertyChanged(nameof(RemoveTroopButtonIsVisible));
         }
     }
 }

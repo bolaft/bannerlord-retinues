@@ -8,7 +8,7 @@ namespace Retinues.Features.Stocks.Behaviors
     /// Campaign behavior for tracking item stocks. Provides static API for getting, setting, and adding stock counts.
     /// </summary>
     [SafeClass]
-    public sealed class StocksBehavior : CampaignBehaviorBase
+    public class StocksBehavior : CampaignBehaviorBase
     {
         public static StocksBehavior Instance { get; private set; }
 

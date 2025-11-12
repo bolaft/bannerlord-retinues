@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <!-- Default stays Retinues; build.sh passes -p:ModuleName=MudToMail when needed -->
+    <!-- Default stays Retinues; build.sh passes -p:ModuleName=ModuleName when needed -->
     <ModuleName Condition="'$(ModuleName)'==''">Retinues</ModuleName>
     <ModuleProjectDir>$(MSBuildThisFileDirectory)src\$(ModuleName)</ModuleProjectDir>
     <ModuleCsproj>$(ModuleProjectDir)\$(ModuleName).csproj</ModuleCsproj>

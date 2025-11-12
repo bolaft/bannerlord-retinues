@@ -125,8 +125,26 @@
       id="ret_change_culture_title"
       text="Сменить Культуру" />
     <string
+      id="ret_change_formation_class_title"
+      text="Сменить Класс Формации" />
+    <string
       id="ret_change_race_title"
       text="Сменить Расу" />
+    <string
+      id="ret_civilian_hint"
+      text="Включите или отключите этот набор для гражданского использования." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Вы должны сохранить как минимум один гражданский набор." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Вы должны сохранить как минимум один боевой набор." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="Первый набор должен оставаться боевым набором." />
+    <string
+      id="ret_clan_troops_button_text"
+      text="Войска Клана" />
     <string
       id="ret_clanic_traditions"
       text="Клановые Традиции" />
@@ -155,6 +173,12 @@
       id="ret_confirm"
       text="Подтвердить" />
     <string
+      id="ret_confirm_import_body"
+      text="Это заменит существующие определения войск." />
+    <string
+      id="ret_confirm_import_title"
+      text="Применить импорт?" />
+    <string
       id="ret_continue"
       text="Продолжить" />
     <string
@@ -170,6 +194,9 @@
       id="ret_convert_not_enough_influence_title"
       text="Недостаточно влияния" />
     <string
+      id="ret_copy_current"
+      text="Скопировать Текущий" />
+    <string
       id="ret_create_from_culture"
       text="Скопировать войска {CULTURE}" />
     <string
@@ -178,6 +205,12 @@
     <string
       id="ret_create_set_hint"
       text="Отключено из-за конфликтующих модов (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="Вы хотите скопировать текущий набор или создать пустой набор?" />
+    <string
+      id="ret_create_set_title"
+      text="Создать Набор Снаряжения" />
     <string
       id="ret_cultural_pride"
       text="Культурная Гордость" />
@@ -193,6 +226,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Выиграйте турнир, надев только доспехи своей культуры." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Культура и Раса" />
     <string
       id="ret_culture_header_text"
       text="Культура" />
@@ -239,6 +275,12 @@
       id="ret_empty_item"
       text="Пусто" />
     <string
+      id="ret_empty_set"
+      text="Пусто" />
+    <string
+      id="ret_enter_file_name"
+      text="Введите имя файла:" />
+    <string
       id="ret_enter_new_name"
       text="Введите новое имя:" />
     <string
@@ -251,6 +293,12 @@
       id="ret_equip_complete"
       text="Снаряжение Обновлено" />
     <string
+      id="ret_equip_complete_summary"
+      text="Следующие войска экипировали новые предметы:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} экипировал ({ITEM})." />
     <string
@@ -259,6 +307,27 @@
     <string
       id="ret_equipment_requirement"
       text="Для экипированных предметов требуется навык." />
+    <string
+      id="ret_exp_culture_troops"
+      text="Войска Культуры" />
+    <string
+      id="ret_exp_player_troops"
+      text="Войска Игрока" />
+    <string
+      id="ret_export_done_body"
+      text="Экспортировано в: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Экспорт Завершён" />
+    <string
+      id="ret_export_fail_title"
+      text="Экспорт Неудачен" />
+    <string
+      id="ret_export_which_body"
+      text="Выберите один или оба варианта." />
+    <string
+      id="ret_export_which_title"
+      text="Экспорт Выбора" />
     <string
       id="ret_feat_completed_title"
       text="Подвиг Завершён" />
@@ -272,11 +341,20 @@
       id="ret_female"
       text="Женский" />
     <string
-      id="ret_field_battle_hint"
-      text="Включите или отключите этот набор для полевых боёв." />
+      id="ret_formation_auto"
+      text="Авто" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Класс формации" />
+    <string
+      id="ret_formation_class_hint"
+      text="Изменить класс формации" />
     <string
       id="ret_gender_hint"
       text="Пол" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Переключить пол" />
     <string
       id="ret_gloves_slot_text"
       text="Перчатки" />
@@ -286,6 +364,24 @@
     <string
       id="ret_height_hint"
       text="Рост" />
+    <string
+      id="ret_hide_crafted_hint"
+      text="Скрыть созданные предметы." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Доступно при штурме осады." />
+    <string
+      id="ret_hint_def_ok"
+      text="Доступно при обороне осады." />
+    <string
+      id="ret_hint_field_ok"
+      text="Доступно в полевых боях." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Для каждого типа боя должен оставаться включенным как минимум один боевой набор." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Невозможно включить для гражданских наборов." />
     <string
       id="ret_horse_harness_slot_text"
       text="Сбруя" />
@@ -307,6 +403,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Одержите победу в одиночку против 100+ врагов без единой смерти с вашей стороны." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Войска Культуры" />
+    <string
+      id="ret_imp_player_troops"
+      text="Войска Игрока" />
+    <string
+      id="ret_import"
+      text="Импорт" />
+    <string
+      id="ret_import_done_body"
+      text="Файл {FILE} успешно импортирован." />
+    <string
+      id="ret_import_done_title"
+      text="Импорт Завершён" />
+    <string
+      id="ret_import_empty_body"
+      text="Файл не содержит войск." />
+    <string
+      id="ret_import_empty_title"
+      text="Импортировать нечего" />
+    <string
+      id="ret_import_fail_title"
+      text="Импорт Неудачен" />
+    <string
+      id="ret_import_pick_body"
+      text="Выберите экспортированный файл для импорта." />
+    <string
+      id="ret_import_pick_title"
+      text="Импорт Войск" />
+    <string
+      id="ret_import_which_body"
+      text="Выберите один или оба варианта." />
+    <string
+      id="ret_import_which_title"
+      text="Импорт Выбора" />
     <string
       id="ret_in_stock"
       text="В наличии ({STOCK})" />
@@ -404,6 +536,12 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Лично победите вражеского лорда в бою." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Караваны" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Гражданские" />
+    <string
       id="ret_list_toggle_elite"
       text="Элитные" />
     <string
@@ -413,11 +551,17 @@
       id="ret_list_toggle_regular"
       text="Обычные" />
     <string
+      id="ret_list_toggle_villager"
+      text="Жители деревни" />
+    <string
       id="ret_loc_smoke_test"
       text="Тест локализации: RU." />
     <string
       id="ret_lower_skill_no_refund"
       text="Понижение навыка этого войска не вернёт опыт. Всё равно продолжить?" />
+    <string
+      id="ret_make_civilian_title"
+      text="Сделать набор гражданским?" />
     <string
       id="ret_male"
       text="Мужской" />
@@ -429,7 +573,7 @@
       text="Совершите 1000 убийств элитными войсками." />
     <string
       id="ret_masters_at_arms_description"
-      text="Вторая ветка улучшений для элитных войск." />
+      text="Дополнительная ветвь улучшений для элитных войск." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Выведите из строя 50 противников на арене." />
@@ -459,31 +603,19 @@
       text="Экспорт" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Экспортирует все определения пользовательских войск Retinues в XML-файл." />
+      text="Экспортирует определения войск в XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Экспорт войск в XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Пример: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Имя файла" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Импорт" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Импортирует все определения пользовательских войск Retinues из XML-файла." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Выберите XML-файл для импорта. Это заменит ваши текущие определения пользовательских войск." />
+      text="Импортирует определения войск из XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Импорт из XML" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Импорт войск" />
+      text="Импорт войск из XML" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Вся Экипировка Разблокирована" />
@@ -515,17 +647,20 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Если феод является как клановым, так и королевским, клановые войска будут иметь приоритет над королевскими." />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="Альтернативные комплекты отключены из-за несовместимости с другими активированными модами." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Копировать все комплекты при клонировании." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="При клонировании снаряжения войск копируйте все комплекты снаряжения, а не только один боевой и один гражданский комплект." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="Выводит гораздо больше логов (может повлиять на производительность)." />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Отключить Изготовленное Оружие" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Когда включено, изготовленное оружие не будет доступно, даже при разблокированной соответствующей доктрине." />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Отключить Требования Подвигов" />
@@ -549,7 +684,7 @@
       text="Экспериментально: Включить Управление Внешностью" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Добавляет элементы управления настройкой внешности (возраст, рост, вес, телосложение). Экспериментально: может иметь непредвиденные последствия." />
+      text="Добавляет элементы управления настройкой внешности (возраст, рост, вес, телосложение)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Смена Снаряжения Войск Занимает Время" />
@@ -575,11 +710,26 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Войска всегда используют свой основной боевой комплект в бою." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="Включить Глобальный Редактор Войск" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="Глобальный редактор войск отключен из-за проблем совместимости с другими активированными модами." />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="Включает глобальный редактор войск для изменения любых войск в игре. Отключите его, если у вас возникают проблемы с войсками, не управляемыми игроком." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="Игнорировать Гражданскую Лошадь для Требований Обновления" />
     <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="При проверке требований к лошадям при обновлении войск игнорируйте лошадь из гражданского набора." />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Сохранить Требования Обновления для Обычных Войск" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Обычные войска сохраняют свои первоначальные требования к предметам обновления при редактировании." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Макс. Доля Базовой Свиты" />
@@ -587,11 +737,29 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Максимальная доля базовой свиты в отряде игрока." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Макс. Количество Целей Базового Обновления" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Максимальное количество целей обновления для базовых войск." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Макс. Доля Элитной Свиты" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Максимальная доля элитной свиты в отряде игрока." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Макс. Количество Целей Элитного Обновления" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Максимальное количество целей обновления для элитных войск." />
+    <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Никогда Не Требовать Благородную Лошадь" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Войска никогда не требуют благородных лошадей для обновлений, боевой лошади всегда достаточно." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Без Королевских Войск" />
@@ -616,6 +784,18 @@
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Игрок может нанимать войска клана в любом поселении." />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Возврат опыта при уменьшении" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="При снижении навыка войска возвращать стоимость опыта." />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="Заменить Окружающих NPC" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="Заменяет окружающих NPC в поселениях персонажами фракции игрока." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Необходимые Отклоненные Предметы для Разблокировки" />
@@ -752,8 +932,14 @@
       id="ret_mcm_section_equipment"
       text="Снаряжение" />
     <string
+      id="ret_mcm_section_fluff"
+      text="Погружение и Украшения" />
+    <string
       id="ret_mcm_section_general"
       text="Общее" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="Глобальный Редактор" />
     <string
       id="ret_mcm_section_import_export"
       text="Импорт и Экспорт" />
@@ -794,11 +980,23 @@
       id="ret_no_cultures_title"
       text="Культуры не найдены" />
     <string
+      id="ret_no_exports_body"
+      text="В папке Exports не найдено действительных файлов экспорта." />
+    <string
+      id="ret_no_exports_title"
+      text="Экспорт не найден" />
+    <string
       id="ret_no_races_text"
       text="Нет доступных альтернативных рас." />
     <string
       id="ret_no_races_title"
       text="Расы не найдены" />
+    <string
+      id="ret_no_selection_body"
+      text="Файл не выбран." />
+    <string
+      id="ret_no_selection_title"
+      text="Нет выбора" />
     <string
       id="ret_no_skill_points_left"
       text="У этой войск нет оставшихся очков навыков." />
@@ -815,8 +1013,23 @@
       id="ret_not_enough_gold_text"
       text="У вас недостаточно золота, чтобы купить этот предмет." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Недостаточно золота" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="У вас нет достаточного количества копий на складе." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Недостаточно запасов" />
+    <string
       id="ret_not_enough_xp"
       text="Недостаточно опыта для следующего очка навыков." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="Перед использованием функций импорта/экспорта необходимо сначала загрузить сохранение." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Кампания не загружена" />
     <string
       id="ret_not_in_clan_fief"
       text="Не в поместье клана" />
@@ -900,10 +1113,13 @@
       text="Удалить" />
     <string
       id="ret_remove_set_hint"
-      text="Вы можете удалить только альтернативные комплекты экипировки." />
+      text="Должен остаться как минимум один комплект этого типа." />
     <string
       id="ret_remove_set_text"
-      text="Удалить {SET} для {TROOP_NAME}?{newline}Все внесенные изменения будут отменены, а предметы будут сняты и сохранены." />
+      text="Удалить комплект №{SET} для {TROOP_NAME}?{newline}Все внесенные изменения будут отменены, а предметы будут сняты и сохранены." />
+    <string
+      id="ret_remove_set_text_studio"
+      text="Удалить комплект №{SET} для {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Удалить Комплект" />
@@ -916,6 +1132,18 @@
     <string
       id="ret_rename_troop"
       text="Переименовать Войска" />
+    <string
+      id="ret_reset_all"
+      text="Сбросить все данные войск" />
+    <string
+      id="ret_reset_all_body"
+      text="Это сбросит все данные культурных войск до их значений по умолчанию. Войска клана и королевства игрока не будут затронуты.{newline}{newline}Продолжить?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Все культурные войска будут сброшены после сохранения и перезагрузки игры." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Сброс Культурных Войск" />
     <string
       id="ret_retinue"
       text="Свита" />
@@ -969,25 +1197,28 @@
       text="Позвольте спутнику той же культуры, что и ваше королевство, управлять феодом в течение 30 дней." />
     <string
       id="ret_royal_patronage_description"
-      text="10% скидка на предметы культуры королевства." />
+      text="Разблокирует войска караванов и деревенских жителей." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Нанимайте 100 собственных войск королевства." />
     <string
-      id="ret_set_alt_n"
-      text="Альт {N}" />
+      id="ret_royal_patronage_to_unlock"
+      text="Разблокируйте с помощью доктрины Королевского Покровительства." />
     <string
-      id="ret_set_battle"
-      text="Битва" />
+      id="ret_select_culture_hint"
+      text="Выберите культуру." />
     <string
-      id="ret_set_civilian"
-      text="Гражданский" />
+      id="ret_select_culture_title"
+      text="Выбрать Культуру" />
     <string
-      id="ret_siege_assault_hint"
-      text="Включите или отключите этот комплект для штурма осады." />
+      id="ret_show_crafted_disabled_hint"
+      text="Разблокируйте доктрину «Клановые традиции», чтобы показывать изготовленные предметы." />
     <string
-      id="ret_siege_defense_hint"
-      text="Включите или отключите этот комплект для обороны осады." />
+      id="ret_show_crafted_hint"
+      text="Показать изготовленные предметы." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Только слоты для оружия могут содержать изготовленные предметы." />
     <string
       id="ret_skill_at_cap"
       text="Навык достиг предела для этой войсковой единицы." />
@@ -1031,6 +1262,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Максимизируйте навыки 15 собственных войск." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Переключиться на редактор войск клана." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Переключиться на{newline}Войска Клана" />
     <string
@@ -1039,6 +1273,15 @@
     <string
       id="ret_tier"
       text="Ранг" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="В этом наборе есть {COUNT} не гражданских предмет(ов). Они будут сняты, если вы продолжите.{newline}{newline}Продолжить?" />
+    <string
+      id="ret_train_complete"
+      text="Обучение Завершено" />
+    <string
+      id="ret_train_complete_summary"
+      text="Следующие войска завершили обучение:{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
       text="Обучение Завершено" />
@@ -1055,8 +1298,14 @@
       id="ret_transfer_header_text"
       text="Передать" />
     <string
+      id="ret_troop_editor_button"
+      text="Редактор Войск" />
+    <string
       id="ret_troop_list.placeholder"
       text="Нет доступных войск" />
+    <string
+      id="ret_troop_studio_title"
+      text="Редактор Войск" />
     <string
       id="ret_troop_xp"
       text="{XP} очков опыта" />
@@ -1072,6 +1321,9 @@
     <string
       id="ret_unequip_all_text"
       text="Снять все предметы с {TROOP_NAME}?{newline}{newline}Они будут сохранены." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="Снять все предметы с {TROOP_NAME}?" />
     <string
       id="ret_unequip_warning_text"
       text="Вы собираетесь снять {ITEM}, на переоснащение новым предметом потребуется время. Всё равно продолжить?" />
@@ -1101,7 +1353,7 @@
       text="Начать улучшение снаряжения" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="Выберите одну ожидающую войска, чтобы начать экипировку сейчас." />
+      text="Выберите одну или несколько войск, чтобы начать экипировку сейчас." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="Экипировать войска" />
@@ -1119,7 +1371,7 @@
       text="Начать обучение" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="Выберите одну ожидающую войска, чтобы начать обучение сейчас." />
+      text="Выберите одну или несколько войск, чтобы начать обучение сейчас." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="Обучить войска" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
+using Retinues.GUI.Helpers;
 using Retinues.Safety.Sanitizer;
 using Retinues.Troops;
 using Retinues.Utils;
@@ -55,7 +56,6 @@ namespace Retinues.Configuration
                 }
 
                 // Builder not ready or provider refused the page this tick
-                // (We'll try again next tick from SubModule)
                 return false;
             }
             catch (Exception e)
@@ -123,7 +123,20 @@ namespace Retinues.Configuration
         /// Builds a Func<T> that reads the backing value for the given key.
         /// </summary>
         private static Func<T> MakeGetter<T>(string key) =>
-            () => (T)Convert.ChangeType(_values[key], typeof(T), CultureInfo.InvariantCulture);
+            () =>
+            {
+                var raw = (T)
+                    Convert.ChangeType(_values[key], typeof(T), CultureInfo.InvariantCulture);
+
+                if (
+                    _byKey.TryGetValue(key, out var iopt)
+                    && iopt is Option<T> optT
+                    && optT.IsDisabled
+                )
+                    return optT.DisabledOverride;
+
+                return raw;
+            };
 
         /// <summary>
         /// Builds an Action<T> that writes the given value into the backing store for the key.
@@ -158,27 +171,26 @@ namespace Retinues.Configuration
                     group.SetGroupOrder(-100); // keep at the very top
                     var order = 0;
 
-                    // File name for export (editable)
-                    group.AddText(
-                        "ExportFileName",
-                        L.S("mcm_ie_export_name", "File name"),
-                        new ProxyRef<string>(
-                            () => _exportName,
-                            v =>
-                            {
-                                _exportName = string.IsNullOrWhiteSpace(v)
-                                    ? SuggestDefaultExportName()
-                                    : v.Trim();
-                            }
-                        ),
-                        b =>
-                            b.SetOrder(order++)
-                                .SetHintText(
-                                    L.S("mcm_ie_export_hint", "Name of the exported file.")
-                                )
-                    );
+                    void NotifyNotInCampaign()
+                    {
+                        InformationManager.ShowInquiry(
+                            new InquiryData(
+                                L.S("not_in_campaign_title", "No Campaign Loaded"),
+                                L.S(
+                                    "not_in_campaign_body",
+                                    "A save must be loaded first before using import/export functions."
+                                ),
+                                true, // isAffirmativeOptionShown
+                                false, // isNegativeOptionShown
+                                GameTexts.FindText("str_ok").ToString(),
+                                null,
+                                () => { },
+                                null
+                            )
+                        );
+                    }
 
-                    // Export button
+                    // Export button (context-aware; offers Custom-only or Custom+Cultures)
                     group.AddButton(
                         "ExportButton",
                         L.S("mcm_ie_export_btn_text", "Export Troops to XML"),
@@ -188,25 +200,26 @@ namespace Retinues.Configuration
                                 {
                                     if (!InCampaign())
                                     {
-                                        Log.Message(
-                                            "Not in a running campaign. Load a save first."
-                                        );
+                                        NotifyNotInCampaign();
                                         return;
                                     }
 
                                     try
                                     {
                                         Directory.CreateDirectory(TroopImportExport.DefaultDir);
-                                        var used = TroopImportExport.ExportAllToXml(_exportName);
-                                        if (!string.IsNullOrWhiteSpace(used))
-                                            Log.Message($"Exported custom troops to: {used}");
-                                        else
-                                            Log.Message("Export failed, invalid file.");
+                                        TroopImportExport.PromptAndExport(
+                                            isMcmContext: true,
+                                            suggestedName: string.IsNullOrWhiteSpace(_exportName)
+                                                ? TroopImportExport.SuggestTimestampName("troops")
+                                                : _exportName
+                                        );
                                     }
                                     catch (Exception e)
                                     {
-                                        Log.Message("Export failed, see log for details.");
-                                        Log.Exception(e);
+                                        Notifications.Popup(
+                                            L.T("export_fail_title", "Export Failed"),
+                                            L.T("export_fail_body", e.Message)
+                                        );
                                     }
                                 },
                             _ => { }
@@ -218,107 +231,34 @@ namespace Retinues.Configuration
                                 .SetHintText(
                                     L.S(
                                         "mcm_ie_export_btn_hint",
-                                        "Exports all Retinues custom troop definitions to an XML file."
+                                        "Exports troop definitions to XML."
                                     )
                                 )
                     );
 
-                    // One-click import: opens a fresh file list, confirm button says "Import" and runs immediately.
+                    // Import button (validated picker; if both sections → ask which to load)
                     group.AddButton(
                         "ImportFromXml",
-                        L.S("mcm_ie_import_pick_btn_text", "Import from XML"),
+                        L.S("mcm_ie_import_pick_btn_text", "Import Troops from XML"),
                         new ProxyRef<Action>(
                             () =>
                                 () =>
                                 {
+                                    if (!InCampaign())
+                                    {
+                                        NotifyNotInCampaign();
+                                        return;
+                                    }
+
                                     try
                                     {
-                                        if (!InCampaign())
-                                        {
-                                            Log.Message(
-                                                "Not in a running campaign. Load a save first."
-                                            );
-                                            return;
-                                        }
-
-                                        Directory.CreateDirectory(TroopImportExport.DefaultDir);
-                                        var files = Directory
-                                            .EnumerateFiles(
-                                                TroopImportExport.DefaultDir,
-                                                "*.xml",
-                                                SearchOption.TopDirectoryOnly
-                                            )
-                                            .OrderByDescending(File.GetLastWriteTimeUtc)
-                                            .Select(Path.GetFileName)
-                                            .ToList();
-
-                                        if (files.Count == 0)
-                                        {
-                                            Log.Message("No export files found.");
-                                            return;
-                                        }
-
-                                        var elements = files
-                                            .Select(f => new InquiryElement(f, f, null))
-                                            .ToList();
-                                        var inquiry = new MultiSelectionInquiryData(
-                                            L.S("mcm_ie_import_pick_title", "Import Troops"),
-                                            L.S(
-                                                "mcm_ie_import_pick_body",
-                                                "Select the XML file to import. This will replace your current custom troop definitions."
-                                            ),
-                                            elements,
-                                            true, // isSingleSelection
-                                            1, // minSelectable
-                                            1, // maxSelectable
-                                            L.S("mcm_ie_import_btn", "Import"),
-                                            L.S("cancel", "Cancel"),
-                                            selected =>
-                                            {
-                                                var choice =
-                                                    selected?.FirstOrDefault()?.Identifier
-                                                    as string;
-                                                if (string.IsNullOrWhiteSpace(choice))
-                                                {
-                                                    Log.Message("No file selected.");
-                                                    return;
-                                                }
-                                                try
-                                                {
-                                                    // optional safety backup
-                                                    Directory.CreateDirectory(
-                                                        TroopImportExport.DefaultDir
-                                                    );
-                                                    TroopImportExport.ExportAllToXml(
-                                                        "backup_" + SuggestDefaultExportName()
-                                                    );
-
-                                                    var count = TroopImportExport.ImportFromXml(
-                                                        choice
-                                                    );
-                                                    Log.Message(
-                                                        count > 0
-                                                            ? $"Imported {count} root troop definitions from '{choice}'."
-                                                            : $"No troops were imported from '{choice}'."
-                                                    );
-                                                }
-                                                catch (Exception e)
-                                                {
-                                                    Log.Exception(e);
-                                                    Log.Message(
-                                                        "Import failed, see log for details."
-                                                    );
-                                                }
-                                            },
-                                            _ => { }
-                                        );
-                                        MBInformationManager.ShowMultiSelectionInquiry(inquiry);
+                                        TroopImportExport.PickAndImportUnified(isMcmContext: true);
                                     }
                                     catch (Exception e)
                                     {
-                                        Log.Exception(e);
-                                        Log.Message(
-                                            "Failed to list export files, see log for details."
+                                        Notifications.Popup(
+                                            L.T("import_fail_title", "Import Failed"),
+                                            L.T("import_fail_body", e.Message)
                                         );
                                     }
                                 },
@@ -331,7 +271,7 @@ namespace Retinues.Configuration
                                 .SetHintText(
                                     L.S(
                                         "mcm_ie_import_btn_hint",
-                                        "Imports all Retinues custom troop definitions from an XML file."
+                                        "Imports troop definitions from XML."
                                     )
                                 )
                     );
@@ -340,17 +280,20 @@ namespace Retinues.Configuration
 
             string[] order =
             {
-                "Doctrines",
-                "Retinues",
-                "Recruitment",
-                "Equipment",
-                "Unlocks",
-                "Skills",
-                "Restrictions",
-                "Skill Caps",
-                "Skill Totals",
-                "Debug",
+                L.S("mcm_section_global_editor", "Global Editor"),
+                L.S("mcm_section_doctrines", "Doctrines"),
+                L.S("mcm_section_fluff", "Immersion & Fluff"),
+                L.S("mcm_section_retinues", "Retinues"),
+                L.S("mcm_section_recruitment", "Recruitment"),
+                L.S("mcm_section_equipment", "Equipment"),
+                L.S("mcm_section_unlocks", "Unlocks"),
+                L.S("mcm_section_skills", "Skills"),
+                L.S("mcm_section_restrictions", "Restrictions"),
+                L.S("mcm_section_skill_caps", "Skill Caps"),
+                L.S("mcm_section_skill_totals", "Skill Totals"),
+                L.S("mcm_section_debug", "Debug"),
             };
+
             var index = order
                 .Select((name, i) => (name, i))
                 .ToDictionary(x => x.name, x => x.i, StringComparer.InvariantCulture);
@@ -373,7 +316,17 @@ namespace Retinues.Configuration
                         {
                             var id = opt.Key;
                             var name = opt.Name;
-                            var hint = opt.Hint;
+
+                            // select hint (disabled or regular)
+                            var hint = opt.IsDisabled ? opt.DisabledHint : opt.Hint;
+
+                            // If disabled, force the value and skip adding the control entirely
+                            if (opt.IsDisabled)
+                            {
+                                _values[id] = opt.DisabledOverrideBoxed;
+                                // Do not add any UI control for this option.
+                                continue;
+                            }
 
                             switch (Type.GetTypeCode(opt.Type))
                             {

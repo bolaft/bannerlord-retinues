@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Doctrines;
@@ -6,6 +7,7 @@ using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -28,7 +30,7 @@ namespace Retinues.Troops.Edition
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
         public static bool IsAllowedInContext(WCharacter troop, string action) =>
-            GetContextReason(troop, action) == null;
+            EditorVM.IsStudioMode || GetContextReason(troop, action) == null;
 
         /// <summary>
         /// Returns the string reason why editing is not allowed, or null if allowed.
@@ -91,6 +93,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool IsAllowedInContextWithPopup(WCharacter troop, string action)
         {
+            if (EditorVM.IsStudioMode)
+                return true; // Always allow in Studio Mode
+
             var reason = GetContextReason(troop, action);
             if (reason == null)
                 return true;
@@ -105,7 +110,7 @@ namespace Retinues.Troops.Edition
             else if (faction.IsPlayerKingdom)
                 title = L.T("not_in_kingdom_fief", "Not in Kingdom Fief");
 
-            Popup.Display(title, reason);
+            Notifications.Popup(title, reason);
             return false;
         }
 
@@ -199,19 +204,19 @@ namespace Retinues.Troops.Edition
             var stagedAll =
                 TroopTrainBehavior.GetAllStagedChanges(character)?.Sum(d => d.PointsRemaining) ?? 0;
 
-            // 1) per-skill cap
+            // per-skill cap
             if (trueSkillValue >= SkillCapByTier(character))
                 return L.T("skill_at_cap", "Skill is at cap for this troop.");
 
-            // 2) total points cap (use ALL staged, not just this skill)
+            // total points cap (use all staged, not just this skill)
             if (SkillPointsLeft(character) - stagedAll <= 0)
                 return L.T("no_skill_points_left", "No skill points left for this troop.");
 
-            // 3) xp affordability for THIS skill’s next point
+            // xp affordability for the next point
             if (!HasEnoughXpForNextPoint(character, skill))
                 return L.T("not_enough_xp", "Not enough XP for next skill point.");
 
-            // 4) can't go above children
+            // can't go above children
             foreach (var child in character.UpgradeTargets)
             {
                 if (trueSkillValue >= GetTrueSkillValue(child, skill))
@@ -294,14 +299,14 @@ namespace Retinues.Troops.Edition
             if (character.IsMaxTier)
                 return L.T("max_tier", "Troop is at max tier.");
 
-            int maxUpgrades;
-            if (character.IsElite)
-                if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>())
-                    maxUpgrades = 2; // 2 upgrades for elite troops with Masters at Arms
-                else
-                    maxUpgrades = 1; // 1 upgrade for elite troops without Masters at Arms
-            else
-                maxUpgrades = 2; // 2 upgrades for basic troops
+            // Determine max upgrades allowed
+            int maxUpgrades = character.IsElite ? Config.MaxEliteUpgrades : Config.MaxBasicUpgrades;
+
+            if (DoctrineAPI.IsDoctrineUnlocked<MastersAtArms>() && character.IsElite)
+                maxUpgrades += 1; // +1 upgrade slot for elite troops with Masters at Arms
+
+            // Cap upgrades at 4
+            maxUpgrades = Math.Min(maxUpgrades, 4);
 
             // Max upgrades reached
             if (character.UpgradeTargets.Count() >= maxUpgrades)
@@ -315,6 +320,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int SkillPointXpCost(int fromValue)
         {
+            if (EditorVM.IsStudioMode)
+                return 0; // No XP cost in Studio Mode
+
             int baseCost = Config.BaseSkillXpCost;
             int perPoint = Config.SkillXpCostPerPoint;
 
@@ -326,6 +334,9 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
         {
+            if (EditorVM.IsStudioMode)
+                return true; // No XP checks in Studio Mode
+
             if (c == null || s == null)
                 return false;
 

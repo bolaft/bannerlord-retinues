@@ -1,0 +1,46 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--     Culture Block     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- Culture Header -->
+{{ text.header("@CultureHeaderText") }}
+
+<!-- Culture Block -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true">
+    <Children>
+        <!-- Culture Name -->
+        {{ text.base(text="@CultureText", brush="Clan.RightPanel.Name.Text") }}
+
+        <!-- Change Culture Button -->
+        {{ button.brush(
+            command="ExecuteChangeCulture",
+            brush="SPClan.Parties.ChangePartyLeaderIcon",
+            height="40", width="40",
+            margin_left="8"
+        ) }}
+
+        <!-- Divider -->
+        <BrushWidget
+            IsVisible="@CanChangeRace"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="25"
+            Brush="Inventory.Tuple.TupleDivider.Vertical"/>
+        
+        <!-- Race Name -->
+        {{ text.base(text="@RaceText", brush="Clan.RightPanel.Name.Text", is_visible="@CanChangeRace") }}
+
+        <!-- Change Race Button -->
+        {{ button.brush(
+            command="ExecuteChangeRace",
+            brush="SPClan.Parties.ChangePartyLeaderIcon",
+            height="40", width="40",
+            margin_left="8",
+            is_visible="@CanChangeRace"
+        ) }}
+    </Children>
+</ListPanel>

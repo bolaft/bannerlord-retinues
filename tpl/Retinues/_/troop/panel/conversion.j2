@@ -1,0 +1,78 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--    Conversion Block   -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- Conversion Header -->
+{{ text.header(text="@TransferHeaderText", is_visible="@IsRetinue", margin_top="0") }}
+
+<!-- Conversion List -->
+<ListPanel
+    DataSource="{ConversionRows}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <ItemTemplate>
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <!-- Source Troop -->
+                {{ text.base(text="@SourceDisplay", margin_right="8") }}
+                
+                <!-- Release Button -->
+                {{ button.chevron_l("ExecuteRelease", is_enabled="@CanRelease") }}
+
+                <!-- Gold Cost -->
+                {{ text.base(text="@GoldConversionCost", is_int="true") }}
+
+                <!-- Gold Icon -->
+                {{ image.sprite(sprite="General\Icons\Coin@2x", width="20", height="20") }}
+
+                <!-- Influence Cost -->
+                {{ text.base(text="@InfluenceConversionCost", is_int="true") }}
+
+                <!-- Influence Icon -->
+                {{ image.sprite(sprite="General\Icons\Influence@2x", width="20", height="20") }}
+
+                <!-- Recruit Button -->
+                {{ button.chevron_r("ExecuteRecruit", is_enabled="@CanRecruit") }}
+
+                <!-- Target Troop -->
+                {{ text.base(text="@TargetDisplay", margin_left="8") }}
+            </Children>
+        </ListPanel>
+    </ItemTemplate>
+</ListPanel>
+
+<!-- Conversion Action Buttons -->
+<ListPanel
+    IsVisible="@IsRetinue"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight">
+    <Children>
+
+        <!-- Apply Conversions Button -->
+        {{ button.text(
+            text="@ButtonApplyConversionsText",
+            command="ExecuteApplyConversions",
+            brush="Popup.Done.Button",
+            is_enabled="@HasPendingConversions",
+            vertical_alignment="Top", horizontal_alignment="Center",
+            margin_top="15"
+        )}}
+
+        <!-- Clear Conversions Button -->
+        {{ button.text(
+            text="@ButtonClearConversionsText",
+            command="ExecuteClearConversions",
+            brush="Popup.Delete.Button",
+            is_enabled="@HasPendingConversions",
+            vertical_alignment="Top", horizontal_alignment="Center",
+            margin_top="15"
+        )}}
+
+    </Children>
+</ListPanel>

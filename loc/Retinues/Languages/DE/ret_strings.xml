@@ -125,8 +125,26 @@
       id="ret_change_culture_title"
       text="Kultur ändern" />
     <string
+      id="ret_change_formation_class_title"
+      text="Formationsklasse ändern" />
+    <string
       id="ret_change_race_title"
       text="Rasse ändern" />
+    <string
+      id="ret_civilian_hint"
+      text="Aktiviere oder deaktiviere dieses Set für den zivilen Gebrauch." />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="Du musst mindestens ein Zivilset behalten." />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="Du musst mindestens ein Kampfausrüstungsset behalten." />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="Das erste Set muss ein Kampfausrüstungsset bleiben." />
+    <string
+      id="ret_clan_troops_button_text"
+      text="Clantruppen" />
     <string
       id="ret_clanic_traditions"
       text="Clantraditionen" />
@@ -155,6 +173,12 @@
       id="ret_confirm"
       text="Bestätigen" />
     <string
+      id="ret_confirm_import_body"
+      text="Dies wird die bestehenden Truppendefinitionen ersetzen." />
+    <string
+      id="ret_confirm_import_title"
+      text="Import anwenden?" />
+    <string
       id="ret_continue"
       text="Fortfahren" />
     <string
@@ -170,6 +194,9 @@
       id="ret_convert_not_enough_influence_title"
       text="Nicht genug Einfluss" />
     <string
+      id="ret_copy_current"
+      text="Aktuelles kopieren" />
+    <string
       id="ret_create_from_culture"
       text="Kopiere {CULTURE}s Truppen" />
     <string
@@ -178,6 +205,12 @@
     <string
       id="ret_create_set_hint"
       text="Deaktiviert aufgrund von Konflikten mit Mods (Shokuho)." />
+    <string
+      id="ret_create_set_text"
+      text="Möchtest du das aktuelle Set kopieren oder ein leeres Set erstellen?" />
+    <string
+      id="ret_create_set_title"
+      text="Ausrüstungsset erstellen" />
     <string
       id="ret_cultural_pride"
       text="Kultureller Stolz" />
@@ -193,6 +226,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Gewinne ein Turnier, während du nur Rüstung deiner eigenen Kultur trägst." />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="Kultur &amp; Rasse" />
     <string
       id="ret_culture_header_text"
       text="Kultur" />
@@ -239,6 +275,12 @@
       id="ret_empty_item"
       text="Leer" />
     <string
+      id="ret_empty_set"
+      text="Leer" />
+    <string
+      id="ret_enter_file_name"
+      text="Dateinamen eingeben:" />
+    <string
       id="ret_enter_new_name"
       text="Neuen Namen eingeben:" />
     <string
@@ -251,6 +293,12 @@
       id="ret_equip_complete"
       text="Ausrüstung Aktualisiert" />
     <string
+      id="ret_equip_complete_summary"
+      text="Die folgenden Truppen haben neue Gegenstände ausgerüstet:{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}: {SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} hat ({ITEM}) ausgerüstet." />
     <string
@@ -259,6 +307,27 @@
     <string
       id="ret_equipment_requirement"
       text="Fähigkeit ist für ausgerüstete Gegenstände erforderlich." />
+    <string
+      id="ret_exp_culture_troops"
+      text="Kulturtruppen" />
+    <string
+      id="ret_exp_player_troops"
+      text="Spielertruppen" />
+    <string
+      id="ret_export_done_body"
+      text="Exportiert nach: {PATH}." />
+    <string
+      id="ret_export_done_title"
+      text="Export Abgeschlossen" />
+    <string
+      id="ret_export_fail_title"
+      text="Export Fehlgeschlagen" />
+    <string
+      id="ret_export_which_body"
+      text="Wähle eines oder beide." />
+    <string
+      id="ret_export_which_title"
+      text="Exportauswahl" />
     <string
       id="ret_feat_completed_title"
       text="Errungenschaft abgeschlossen" />
@@ -272,11 +341,20 @@
       id="ret_female"
       text="Weiblich" />
     <string
-      id="ret_field_battle_hint"
-      text="Aktiviere oder deaktiviere dieses Set für Feldschlachten." />
+      id="ret_formation_auto"
+      text="Auto" />
+    <string
+      id="ret_formation_class_header_text"
+      text="Formationsklasse" />
+    <string
+      id="ret_formation_class_hint"
+      text="Formationsklasse ändern" />
     <string
       id="ret_gender_hint"
       text="Geschlecht" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Geschlecht umschalten" />
     <string
       id="ret_gloves_slot_text"
       text="Handschuhe" />
@@ -286,6 +364,24 @@
     <string
       id="ret_height_hint"
       text="Größe" />
+    <string
+      id="ret_hide_crafted_hint"
+      text="Verstecke hergestellte Gegenstände." />
+    <string
+      id="ret_hint_assault_ok"
+      text="Verfügbar beim Angriff auf eine Belagerung." />
+    <string
+      id="ret_hint_def_ok"
+      text="Verfügbar beim Verteidigen einer Belagerung." />
+    <string
+      id="ret_hint_field_ok"
+      text="Verfügbar in Feldschlachten." />
+    <string
+      id="ret_hint_last_enabled"
+      text="Mindestens ein Kampfsatz muss für jeden Kampftyp aktiviert bleiben." />
+    <string
+      id="ret_hint_set_disabled"
+      text="Kann für zivile Sets nicht aktiviert werden." />
     <string
       id="ret_horse_harness_slot_text"
       text="Zaumzeug" />
@@ -307,6 +403,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="Gewinne allein gegen 100+ Feinde ohne einen einzigen Verlust auf deiner Seite." />
+    <string
+      id="ret_imp_culture_troops"
+      text="Kulturtruppen" />
+    <string
+      id="ret_imp_player_troops"
+      text="Spielertruppen" />
+    <string
+      id="ret_import"
+      text="Importieren" />
+    <string
+      id="ret_import_done_body"
+      text="Datei {FILE} erfolgreich importiert." />
+    <string
+      id="ret_import_done_title"
+      text="Import Abgeschlossen" />
+    <string
+      id="ret_import_empty_body"
+      text="Die Datei enthält keine Truppen." />
+    <string
+      id="ret_import_empty_title"
+      text="Nichts zu importieren" />
+    <string
+      id="ret_import_fail_title"
+      text="Import Fehlgeschlagen" />
+    <string
+      id="ret_import_pick_body"
+      text="Wähle eine exportierte Datei zum Importieren aus." />
+    <string
+      id="ret_import_pick_title"
+      text="Truppen importieren" />
+    <string
+      id="ret_import_which_body"
+      text="Wähle eines oder beide." />
+    <string
+      id="ret_import_which_title"
+      text="Importauswahl" />
     <string
       id="ret_in_stock"
       text="Auf Lager ({STOCK})" />
@@ -404,6 +536,12 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Besiege persönlich einen feindlichen Lord in einer Schlacht." />
     <string
+      id="ret_list_toggle_caravan"
+      text="Karawanen" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="Zivilisten" />
+    <string
       id="ret_list_toggle_elite"
       text="Elite" />
     <string
@@ -413,11 +551,17 @@
       id="ret_list_toggle_regular"
       text="Regulär" />
     <string
+      id="ret_list_toggle_villager"
+      text="Dorfbewohner" />
+    <string
       id="ret_loc_smoke_test"
       text="Lokalisierungstest DE." />
     <string
       id="ret_lower_skill_no_refund"
       text="Das Senken dieser Truppenfertigkeit erstattet keine EP zurück. Trotzdem fortfahren?" />
+    <string
+      id="ret_make_civilian_title"
+      text="Set als zivil festlegen?" />
     <string
       id="ret_male"
       text="Männlich" />
@@ -429,7 +573,7 @@
       text="Erziele 1000 Kills mit Elitetruppen." />
     <string
       id="ret_masters_at_arms_description"
-      text="Zweiter Upgrade-Zweig für Elitetruppen." />
+      text="Zusätzlicher Upgrade-Zweig für Elitetruppen." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Schalte 50 Gegner in der Arena aus." />
@@ -459,31 +603,19 @@
       text="Exportieren" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Exportiert alle benutzerdefinierten Truppendefinitionen von Retinues in eine XML-Datei." />
+      text="Exportiert Truppendefinitionen als XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Truppen als XML exportieren" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="Beispiel: truppen_meinKampagnenlauf" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="Dateiname" />
     <string
       id="ret_mcm_ie_import_btn"
       text="Importieren" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="Importiert alle benutzerdefinierten Truppendefinitionen von Retinues aus einer XML-Datei." />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="Wähle die zu importierende XML-Datei aus. Dadurch werden deine aktuellen benutzerdefinierten Truppendefinitionen ersetzt." />
+      text="Importiert Truppendefinitionen aus XML." />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="Aus XML importieren" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="Truppen importieren" />
+      text="Truppen aus XML importieren" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Alle Ausrüstungen freigeschaltet" />
@@ -515,17 +647,20 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Wenn ein Lehen sowohl ein Klanlehen als auch ein Königreichslehen ist, werden Klantruppen gegenüber Königreichstruppen priorisiert." />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="Alternative Sets sind aufgrund von Inkompatibilitäten mit anderen aktivierten Mods deaktiviert." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Alle Ausrüstungssets beim Klonen kopieren." />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="Beim Klonen von Truppenausrüstung alle Ausrüstungssets kopieren, anstatt nur ein Kampf- und ein Zivilset." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="Gibt deutlich mehr Protokolle aus (kann die Leistung beeinträchtigen)." />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="Handgefertigte Waffen deaktivieren" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="Wenn aktiviert, sind handgefertigte Waffen auch dann nicht verfügbar, wenn die entsprechende Doktrin freigeschaltet ist." />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="Meisterschaftsanforderungen deaktivieren" />
@@ -549,7 +684,7 @@
       text="Experimentell: Erscheinungskontrollen aktivieren" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Fügt Anpassungskontrollen für das Aussehen hinzu (Alter, Größe, Gewicht, Körperbau). Experimentell: kann unbeabsichtigte Folgen haben." />
+      text="Fügt Anpassungskontrollen für das Aussehen hinzu (Alter, Größe, Gewicht, Körperbau)." />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="Das Ändern der Truppenausrüstung dauert" />
@@ -575,11 +710,26 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="Truppen verwenden im Kampf immer ihren Hauptkampfausrüstungsset." />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="Globalen Truppen-Editor aktivieren" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="Der globale Truppen-Editor ist aufgrund von Kompatibilitätsproblemen mit anderen aktivierten Mods deaktiviert." />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="Aktiviert den globalen Truppen-Editor, um jede Truppe im Spiel zu ändern. Deaktivieren Sie ihn, wenn Sie Probleme mit nicht spielergesteuerten Truppen haben." />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="Zivilpferd für Upgrade-Anforderungen ignorieren" />
     <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="Beim Überprüfen der Reitanforderungen beim Aufrüsten von Truppen das Pferd des Zivilsets ignorieren." />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="Upgrade-Anforderungen für Vanilla-Truppen beibehalten" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="Vanilla-Truppen behalten ihre ursprünglichen Upgrade-Gegenstandsanforderungen bei der Bearbeitung bei." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maximales Basis-Gefolgsverhältnis" />
@@ -587,11 +737,29 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="Maximaler Anteil von Basis-Gefolgschaften in der Spielergruppe." />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="Maximale Anzahl an Basis-Upgrade-Zielen" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="Maximale Anzahl von Upgrade-Zielen für Basistruppen." />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="Maximales Elite-Gefolgsverhältnis" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="Maximaler Anteil von Elite-Gefolgschaften in der Spielergruppe." />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="Maximale Anzahl an Elite-Upgrade-Zielen" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="Maximale Anzahl von Upgrade-Zielen für Elitetruppen." />
+    <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="Niemals ein edles Pferd benötigen" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="Truppen benötigen für Upgrades niemals edle Pferde, ein Kriegspferd ist immer ausreichend." />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="Keine Königreichstruppen" />
@@ -616,6 +784,18 @@
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
       text="Der Spieler kann Clantruppen in jeder Siedlung rekrutieren." />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="Rückerstattung von XP bei Verringerung" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="Beim Verringern der Fertigkeit einer Truppe die XP-Kosten zurückerstatten." />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="Umgebungs-NPCs ersetzen" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="Ersetzt Umgebungs-NPCs in Siedlungen durch Charaktere der Spielerfraktion." />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Erforderliche verworfene Gegenstände zum Freischalten" />
@@ -752,8 +932,14 @@
       id="ret_mcm_section_equipment"
       text="Ausrüstung" />
     <string
+      id="ret_mcm_section_fluff"
+      text="Immersion &amp; Fluff" />
+    <string
       id="ret_mcm_section_general"
       text="Allgemein" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="Globaler Editor" />
     <string
       id="ret_mcm_section_import_export"
       text="Import &amp; Export" />
@@ -794,11 +980,23 @@
       id="ret_no_cultures_title"
       text="Keine Kulturen gefunden" />
     <string
+      id="ret_no_exports_body"
+      text="Im Exports-Ordner wurden keine gültigen Exportdateien gefunden." />
+    <string
+      id="ret_no_exports_title"
+      text="Keine Exporte gefunden" />
+    <string
       id="ret_no_races_text"
       text="Es sind keine alternativen Rassen verfügbar." />
     <string
       id="ret_no_races_title"
       text="Keine Rassen gefunden" />
+    <string
+      id="ret_no_selection_body"
+      text="Es wurde keine Datei ausgewählt." />
+    <string
+      id="ret_no_selection_title"
+      text="Keine Auswahl" />
     <string
       id="ret_no_skill_points_left"
       text="Keine Fertigkeitspunkte mehr für diese Truppe übrig." />
@@ -815,8 +1013,23 @@
       id="ret_not_enough_gold_text"
       text="Du hast nicht genug Gold, um diesen Gegenstand zu kaufen." />
     <string
+      id="ret_not_enough_gold_title"
+      text="Nicht genug Gold" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="Du hast nicht genug Exemplare auf Lager." />
+    <string
+      id="ret_not_enough_stock_title"
+      text="Nicht genug Lagerbestand" />
+    <string
       id="ret_not_enough_xp"
       text="Nicht genug XP für den nächsten Fertigkeitspunkt." />
+    <string
+      id="ret_not_in_campaign_body"
+      text="Es muss zuerst ein Spielstand geladen werden, bevor Import-/Exportfunktionen verwendet werden können." />
+    <string
+      id="ret_not_in_campaign_title"
+      text="Keine Kampagne geladen" />
     <string
       id="ret_not_in_clan_fief"
       text="Nicht im Clan-Lehen" />
@@ -900,10 +1113,13 @@
       text="Entfernen" />
     <string
       id="ret_remove_set_hint"
-      text="Du kannst nur alternative Ausrüstungssets entfernen." />
+      text="Mindestens ein Set dieses Typs muss erhalten bleiben." />
     <string
       id="ret_remove_set_text"
-      text="Willst du {SET} für {TROOP_NAME} entfernen?{newline}Alle vorgenommenen Änderungen werden gelöscht, und Gegenstände werden abgelegt und eingelagert." />
+      text="Willst du Set Nr. {SET} für {TROOP_NAME} entfernen?{newline}Alle vorgenommenen Änderungen werden gelöscht, und Gegenstände werden abgelegt und eingelagert." />
+    <string
+      id="ret_remove_set_text_studio"
+      text="Willst du Set Nr. {SET} für {TROOP_NAME} entfernen?" />
     <string
       id="ret_remove_set_title"
       text="Set entfernen" />
@@ -916,6 +1132,18 @@
     <string
       id="ret_rename_troop"
       text="Truppe umbenennen" />
+    <string
+      id="ret_reset_all"
+      text="Alle Truppendaten zurücksetzen" />
+    <string
+      id="ret_reset_all_body"
+      text="Dies wird alle Kulturdaten der Truppen auf ihre Standardwerte zurücksetzen. Die Truppen des Spielerclans und -königreichs werden nicht betroffen sein.{newline}{newline}Fortfahren?" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="Alle Kulturtruppen werden beim Speichern und Neuladen des Spiels zurückgesetzt." />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="Kulturtruppen zurücksetzen" />
     <string
       id="ret_retinue"
       text="Gefolgschaft" />
@@ -969,25 +1197,28 @@
       text="Lass einen Gefährten derselben Kultur wie dein Königreich 30 Tage lang ein Lehen verwalten." />
     <string
       id="ret_royal_patronage_description"
-      text="10% Rabatt auf Gegenstände der Königreichskultur." />
+      text="Schaltet Karawanen- und Dorfbewohnertruppen frei." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Rekrutiere 100 benutzerdefinierte Königreichstruppen." />
     <string
-      id="ret_set_alt_n"
-      text="Alt {N}" />
+      id="ret_royal_patronage_to_unlock"
+      text="Schalte es mit der Doktrin der königlichen Schirmherrschaft frei." />
     <string
-      id="ret_set_battle"
-      text="Schlacht" />
+      id="ret_select_culture_hint"
+      text="Wähle eine Kultur." />
     <string
-      id="ret_set_civilian"
-      text="Zivilist" />
+      id="ret_select_culture_title"
+      text="Kultur auswählen" />
     <string
-      id="ret_siege_assault_hint"
-      text="Aktiviere oder deaktiviere dieses Set für Belagerungsangriffe." />
+      id="ret_show_crafted_disabled_hint"
+      text="Schalte die Doktrin &apos;Klantraditionen&apos; frei, um hergestellte Gegenstände anzuzeigen." />
     <string
-      id="ret_siege_defense_hint"
-      text="Aktiviere oder deaktiviere dieses Set für Belagerungsverteidigung." />
+      id="ret_show_crafted_hint"
+      text="Zeige hergestellte Gegenstände an." />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="Nur Waffenslots können hergestellte Gegenstände haben." />
     <string
       id="ret_skill_at_cap"
       text="Fertigkeit ist für diese Truppe am Limit." />
@@ -1031,6 +1262,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Maximiere die Fertigkeiten von 15 benutzerdefinierten Truppen." />
     <string
+      id="ret_switch_player_mode_hint"
+      text="Wechsel zum Klantruppen-Editor." />
+    <string
       id="ret_switch_to_clan_troops"
       text="Wechsel zu{newline}Clantruppen" />
     <string
@@ -1039,6 +1273,15 @@
     <string
       id="ret_tier"
       text="Stufe" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="Dieses Set hat {COUNT} nicht-zivile Gegenstände. Sie werden abgelegt, wenn du fortfährst.{newline}{newline}Fortfahren?" />
+    <string
+      id="ret_train_complete"
+      text="Training Abgeschlossen" />
+    <string
+      id="ret_train_complete_summary"
+      text="Die folgenden Truppen haben ihr Training abgeschlossen:{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
       text="Training Abgeschlossen" />
@@ -1055,8 +1298,14 @@
       id="ret_transfer_header_text"
       text="Übertragen" />
     <string
+      id="ret_troop_editor_button"
+      text="Truppen-Editor" />
+    <string
       id="ret_troop_list.placeholder"
       text="Keine Truppen verfügbar" />
+    <string
+      id="ret_troop_studio_title"
+      text="Truppen-Editor" />
     <string
       id="ret_troop_xp"
       text="{XP} EP" />
@@ -1072,6 +1321,9 @@
     <string
       id="ret_unequip_all_text"
       text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?{newline}{newline}Sie werden eingelagert." />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?" />
     <string
       id="ret_unequip_warning_text"
       text="Du bist dabei, {ITEM} abzulegen. Es wird Zeit brauchen, ein neues auszurüsten. Trotzdem fortfahren?" />
@@ -1101,7 +1353,7 @@
       text="Beginne mit der Ausrüstungsverbesserung" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="Wähle eine ausstehende Truppe, um jetzt mit der Ausrüstung zu beginnen." />
+      text="Wähle eine oder mehrere Truppen, um jetzt mit dem Ausrüsten zu beginnen." />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="Truppen ausrüsten" />
@@ -1110,7 +1362,7 @@
       text="Rüste {NAME} aus..." />
     <string
       id="ret_upgrade_equip_select_troop"
-      text="Wähle eine Truppe zum Ausrüsten" />
+      text="Wähle die Truppen zum Ausrüsten" />
     <string
       id="ret_upgrade_equip_unequip"
       text="Ablegen" />
@@ -1119,7 +1371,7 @@
       text="Beginne mit dem Training" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="Wähle eine ausstehende Truppe, um jetzt mit dem Training zu beginnen." />
+      text="Wähle eine oder mehrere Truppen, um jetzt mit dem Training zu beginnen." />
     <string
       id="ret_upgrade_train_pending_btn"
       text="Truppen ausbilden" />
@@ -1128,7 +1380,7 @@
       text="Trainiere {NAME}..." />
     <string
       id="ret_upgrade_train_select_troop"
-      text="Wähle eine Truppe zum Trainieren" />
+      text="Wähle die Truppen zum Trainieren" />
     <string
       id="ret_upgrades_header_text"
       text="Upgrades" />

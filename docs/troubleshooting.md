@@ -69,9 +69,6 @@ Use the in-game cheat console (namespace `retinues`). Common commands:
 - **Doctrines & Feats**
   - `retinues.feat_list`
   - `retinues.feat_unlock <FeatNameOrType>` / `retinues.feat_unlock_all`
-- **Import/Export**
-  - `retinues.export_custom_troops [fileName]`
-  - `retinues.import_custom_troops <fileName>`
 
 See [Cheat Console](cheats.md) for full syntax and examples.
 

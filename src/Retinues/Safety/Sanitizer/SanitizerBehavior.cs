@@ -79,10 +79,10 @@ namespace Retinues.Safety.Sanitizer
 
             // Wrapper knows how to detect inactive/unregistered TW objects.
             var w = new WCharacter(c);
-            if (!w.IsValid)
+            if (w?.IsValid != true)
                 return false;
 
-            if (replaceAllCustom && w.IsCustom)
+            if (replaceAllCustom && (w.IsCustom || w.IsLegacyCustom))
                 return false; // Force replace all custom troops
 
             // Ensure the object manager can resolve it back

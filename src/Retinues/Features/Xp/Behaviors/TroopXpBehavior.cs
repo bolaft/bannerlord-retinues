@@ -18,7 +18,7 @@ namespace Retinues.Features.Xp.Behaviors
     /// Provides static API for getting, setting, spending, and refunding troop XP.
     /// </summary>
     [SafeClass]
-    public sealed class TroopXpBehavior : CampaignBehaviorBase
+    public class TroopXpBehavior : CampaignBehaviorBase
     {
         public const float TrainingXpMultiplier = 0.2f; // 20% of the original XP
 
@@ -157,7 +157,7 @@ namespace Retinues.Features.Xp.Behaviors
             if (troop == null || amount <= 0)
                 return;
 
-            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>())
+            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() && !Config.RefundXpOnDecrease)
                 if (!force) // If force is true, skip this check
                     return;
 

@@ -108,7 +108,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static bool PlayerWarnedAboutRetraining = false;
+        private static bool PlayerWarnedAboutRetraining = false || EditorVM.IsStudioMode;
 
         [DataSourceMethod]
         /// <summary>
@@ -154,7 +154,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             // Warn the player if decrementing a skill may require retraining
             if (
-                !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() // No warning if Adaptive Training is unlocked
+                !EditorVM.IsStudioMode // No warning in Studio Mode
+                && !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() // No warning if Adaptive Training is unlocked
+                && !Config.RefundXpOnDecrease // No warning if refunds are enabled
                 && !increment // Only warn on decrement
                 && !IsStaged // No warning if removing staged points
                 && !PlayerWarnedAboutRetraining // No warning if already warned this session

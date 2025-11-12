@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Retinues.Features.Missions.Behaviors;
+using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;
 using TaleWorlds.SaveSystem;
 
@@ -26,7 +27,13 @@ namespace Retinues
             base.DefineClassTypes();
 
             // Troop save data
-            AddClassDefinition(typeof(TroopSaveData), 070_992);
+            AddClassDefinition(typeof(TroopSaveData), 070_910);
+            AddClassDefinition(typeof(TroopBodySaveData), 070_911);
+            AddClassDefinition(typeof(TroopEquipmentData), 070_912);
+            AddClassDefinition(typeof(TroopSkillData), 070_913);
+
+            // Faction save data
+            AddClassDefinition(typeof(FactionSaveData), 070_920);
 
             // Staged operations data
             AddClassDefinition(typeof(PendingTrainData), 070_001);
@@ -35,8 +42,8 @@ namespace Retinues
             // Equipment set usage data
             AddClassDefinition(typeof(EquipmentUsePolicy), 200901);
 
-            // Legacy definitions for backwards compatibility
-            AddClassDefinition(typeof(Safety.Legacy.Behaviors.ItemSaveData), 070_993);
+            // Legacy data
+            AddClassDefinition(typeof(LegacyTroopSaveData), 070_992);
         }
 
         /// <summary>
@@ -61,6 +68,9 @@ namespace Retinues
             ConstructContainerDefinition(typeof(List<TroopSaveData>));
             ConstructContainerDefinition(typeof(List<string>));
 
+            // Faction save data containers
+            ConstructContainerDefinition(typeof(List<FactionSaveData>));
+
             // Combat equipment behavior containers
             ConstructContainerDefinition(typeof(Dictionary<int, byte>));
             ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<int, byte>>));
@@ -74,9 +84,8 @@ namespace Retinues
             // Retinue hire containers
             ConstructContainerDefinition(typeof(Dictionary<string, int>));
 
-            // Legacy containers for backwards compatibility
-            ConstructContainerDefinition(typeof(Dictionary<string, int>));
-            ConstructContainerDefinition(typeof(List<int>));
+            // Legacy containers
+            ConstructContainerDefinition(typeof(List<LegacyTroopSaveData>));
         }
     }
 }

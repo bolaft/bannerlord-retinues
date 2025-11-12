@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.VM;
 using Retinues.Troops;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
@@ -27,25 +30,17 @@ namespace Retinues.GUI.Editor
     /// <summary>
     /// Snapshot of an equip delta for a single slot.
     /// </summary>
-    public readonly struct EquipChangeDelta
+    public readonly struct EquipChangeDelta(
+        string oldEquippedId,
+        string newEquippedId,
+        string oldStagedId,
+        string newStagedId
+    )
     {
-        public EquipChangeDelta(
-            string oldEquippedId,
-            string newEquippedId,
-            string oldStagedId,
-            string newStagedId
-        )
-        {
-            OldEquippedId = oldEquippedId;
-            NewEquippedId = newEquippedId;
-            OldStagedId = oldStagedId;
-            NewStagedId = newStagedId;
-        }
-
-        public readonly string OldEquippedId;
-        public readonly string NewEquippedId;
-        public readonly string OldStagedId;
-        public readonly string NewStagedId;
+        public readonly string OldEquippedId = oldEquippedId;
+        public readonly string NewEquippedId = newEquippedId;
+        public readonly string OldStagedId = oldStagedId;
+        public readonly string NewStagedId = newStagedId;
     }
 
     /// <summary>
@@ -67,7 +62,7 @@ namespace Retinues.GUI.Editor
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static WFaction Faction { get; private set; }
+        public static ITroopFaction Faction { get; private set; }
         public static WCharacter Troop { get; private set; }
         public static WEquipment Equipment { get; private set; }
         public static EquipmentIndex Slot { get; private set; }
@@ -86,10 +81,11 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void ResetAll()
         {
-            // Ensure troops exist for player factions
-            foreach (var f in new[] { Player.Clan, Player.Kingdom })
-                if (f != null)
-                    TroopBuilder.EnsureTroopsExist(f);
+            if (!EditorVM.IsStudioMode)
+                // Ensure troops exist for player factions
+                foreach (var f in new[] { Player.Clan, Player.Kingdom })
+                    if (f != null)
+                        TroopBuilder.EnsureTroopsExist(f);
 
             EventManager.FireBatch(() =>
             {
@@ -105,9 +101,9 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Set current faction (defaults to player clan).
         /// </summary>
-        public static void UpdateFaction(WFaction faction = null)
+        public static void UpdateFaction(ITroopFaction faction = null)
         {
-            faction ??= Player.Clan;
+            faction ??= EditorVM.IsStudioMode ? Player.Culture : Player.Clan;
 
             EventManager.FireBatch(() =>
             {
@@ -131,6 +127,9 @@ namespace Retinues.GUI.Editor
             EventManager.FireBatch(() =>
             {
                 Troop = troop;
+
+                if (Troop != null)
+                    FixIntegrity(Troop);
 
                 UpdateEquipment();
                 UpdateSkillData();
@@ -367,6 +366,57 @@ namespace Retinues.GUI.Editor
                 return null;
 
             return new EquipChangeDelta(oldEquippedId, newEquippedId, oldStagedId, newStagedId);
+        }
+
+        public static void FixIntegrity(WCharacter troop)
+        {
+            if (troop == null)
+                return;
+
+            try
+            {
+                troop.Loadout.EnsureMinimumSets();
+                troop.Loadout.Normalize();
+                FixCombatPolicies(troop);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        /// <summary>
+        /// Ensure at least one battle set is enabled for each situation.
+        /// </summary>
+        public static void FixCombatPolicies(WCharacter troop)
+        {
+            if (troop == null)
+                return;
+
+            // Helper that checks a situation and enables index 0 if none enabled
+            void EnsureOne(BattleType t)
+            {
+                // Count enabled among battle sets
+                int enabled = 0;
+                var eqs = troop.Loadout.Equipments;
+                for (int i = 0; i < eqs.Count; i++)
+                {
+                    if (eqs[i].IsCivilian)
+                        continue;
+                    if (CombatLoadoutBehavior.IsEnabled(troop, i, t))
+                        enabled++;
+                }
+                if (enabled == 0)
+                {
+                    // Enable index 0 (Normalize guarantees index 0 is a battle set)
+                    if (!CombatLoadoutBehavior.IsEnabled(troop, 0, t))
+                        CombatLoadoutBehavior.Toggle(troop, 0, t); // Toggle will enable
+                }
+            }
+
+            EnsureOne(BattleType.FieldBattle);
+            EnsureOne(BattleType.SiegeDefense);
+            EnsureOne(BattleType.SiegeAssault);
         }
     }
 }

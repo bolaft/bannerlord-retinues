@@ -55,6 +55,8 @@ When you may edit troops, and whether extra appearance controls are exposed.
 |---|---|---:|---:|---:|
 | **Restrict Editing To Fiefs** | If **On**, most **editor actions** (renaming, skills, upgrade targets, equipment) require being **inside a settlement/fief**. | Off | Off | On |
 | **Experimental: Enable Appearance Controls** | If **On**, exposes **age / height / weight / build** sliders in addition to the **gender** toggle. **Experimental**: may cause visual oddities with some armors/cultures. | Off | Off | Off |
+| **Max Elite Upgrades** | Maximum number of **upgrade targets** a single **elite** troop can have. Higher values allow wider branching (more elite paths). | 1 | 4 | 1 |
+| **Max Basic Upgrades** | Maximum number of **upgrade targets** a single **basic** troop can have. Higher values allow wider branching (more basic paths). | 2 | 4 | 2 |
 
 ---
 
@@ -71,7 +73,7 @@ Gates and strictness for the doctrine/feat system.
 
 ## Equipment
 
-Money/time rules, availability filters, culture/crafted rules, and mounts.
+Money/time rules, availability filters, culture rules, and mounts.
 
 | Option | What it does (detail) | Default | Freeform | Realistic |
 |---|---|---:|---:|---:|
@@ -83,10 +85,9 @@ Money/time rules, availability filters, culture/crafted rules, and mounts.
 | **Allowed Tier Difference** | Max allowed difference between **troop tier** and **item tier/difficulty**. If exceeded, the item is blocked until the troop ranks up or a doctrine loosens the rule. | 3 | 6 | 2 |
 | **Force Main Battle Set In Combat** | If **On**, the **main Battle** set is forced during missions (ignores alternates). Useful for simplicity or compatibility. | Off | Off | Off |
 | **Ignore Civilian Horse for Upgrade Requirements** | If **On**, civilian horse **does not count** toward mounted upgrade checks (prevents weird gating via civilian kits). If **Off**, civilian horses can satisfy mount requirements. | On | On | Off |
-| **Disable Crafted Weapons** | If **On**, **crafted** designs are **excluded** from the equipment lists. If **Off**, the game can show the **latest crafted variant per design**. | Off | Off | On |
 | **Disallow Mounts For Tier 1** | If **On**, **T1 troops** cannot equip **horse/harness** (slots disabled). If **Off**, T1 can mount if other rules allow. | On | Off | On |
 
-> Doctrines can also modify costs/availability (e.g., **Royal Patronage** gives rebates for kingdom-culture gear; **Ancestral Heritage** and **Clanic Traditions** affect culture/crafted availability).
+> Doctrines can also modify costs/availability (e.g., **Royal Patronage** gives rebates for kingdom-culture gear and **Ancestral Heritage** affect cultural item availability).
 
 ---
 
@@ -101,6 +102,7 @@ Time and XP economy for skill increases; pool behavior.
 | **Base Skill XP Cost** | Baseline **XP** required to buy the **next skill point** (before slope). | 100 | 0 | 200 |
 | **Skill XP Cost Per Point** | Linear **slope** added per current skill value (makes later points costlier). Example: nextCost = base + (currentValue × slope). | 1 | 0 | 2 |
 | **Shared XP Pool** | If **On**, all custom troops draw from a **single shared XP pool**. If **Off**, each troop has its **own pool**. | Off | On | Off |
+| **Refund XP On Decrease** | If **On**, all custom troops regain **XP** when their skill level decreases. If **Off**, no XP is refunded. | Off | On | Off |
 
 ---
 

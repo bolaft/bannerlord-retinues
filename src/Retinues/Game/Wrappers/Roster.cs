@@ -11,7 +11,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for TroopRoster, provides helpers for accessing elements, troop counts, ratios, and adding/removing troops.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WRoster(TroopRoster roster, WParty party)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -122,60 +122,33 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public void SwapTroop(WCharacter troop, WCharacter target)
         {
-            if (troop == null || target == null || Base == null)
+            if (troop.Base == null || target.Base == null)
                 return;
 
-            Log.Debug($"Swapping {troop.Name} to {target.Name} in {Party.Name}");
-
-            try
+            foreach (var e in Elements)
             {
-                // Build temp roster (dummy so it won't fire OwnerParty events during staging)
-                var tmp = TroopRoster.CreateDummyTroopRoster();
-
-                // Enumerate a snapshot so we don't fight internal mutations while staging
-                var elements = new List<WRosterElement>(Elements);
-
-                foreach (var e in elements)
+                if (e.Troop == troop)
                 {
-                    if (e?.Troop?.Base == null)
-                        continue;
+                    int healthy = e.Number;
+                    int wounded = e.WoundedNumber;
+                    int xp = e.Xp;
+                    int index = e.Index;
 
-                    if (e.Troop.Equals(troop))
-                    {
-                        Log.Debug(
-                            $"{Party.Name}: swapping {e.Number}x {e.Troop.Name} to {target.Name}."
-                        );
+                    // Remove old troop
+                    _roster.AddToCounts(troop.Base, -healthy, woundedCount: -wounded);
 
-                        // Stage replacement into temp roster, preserving totals
-                        tmp.AddToCounts(
-                            target.Base,
-                            e.Number,
-                            insertAtFront: false,
-                            woundedCount: e.WoundedNumber,
-                            xpChange: e.Xp
-                        );
-                    }
-                    else
-                    {
-                        // Stage original into temp roster, preserving totals
-                        tmp.AddToCounts(
-                            e.Troop.Base,
-                            e.Number,
-                            insertAtFront: false,
-                            woundedCount: e.WoundedNumber,
-                            xpChange: e.Xp
-                        );
-                    }
+                    // Add new troop at same index
+                    _roster.AddToCounts(
+                        target.Base,
+                        healthy,
+                        woundedCount: wounded,
+                        xpChange: xp,
+                        index: index
+                    );
+
+                    Log.Debug($"{Party.Name}: swapped {healthy}x {troop.Name} to {target.Name}.");
+                    return;
                 }
-
-                // Apply to the original instance to keep engine refs intact
-                var original = Base;
-                original.Clear();
-                original.Add(tmp);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, $"SwapTroop failed for {Party.Name}");
             }
         }
 
@@ -194,12 +167,10 @@ namespace Retinues.Game.Wrappers
             if (faction == null)
                 return; // no player faction
 
-            Log.Debug(
-                $"{Party.Name} (militia: {Party.IsMilitia}): swapping all troops to faction {faction?.Name ?? "null"}."
-            );
-
             try
             {
+                bool swapped = false;
+
                 // Build temp roster (dummy so it won't fire OwnerParty events during staging)
                 var tmp = TroopRoster.CreateDummyTroopRoster();
 
@@ -224,18 +195,23 @@ namespace Retinues.Game.Wrappers
                         continue;
                     }
 
-                    // Default replacement = same troop
+                    // Try to pick best replacement from faction
                     WCharacter replacement =
-                        (
+                        TroopMatcher.PickSpecialFromFaction(faction, e.Troop)
+                        ?? (
                             Party.IsMilitia
                                 ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
                                 : TroopMatcher.PickBestFromFaction(faction, e.Troop)
-                        ) ?? e.Troop;
+                        )
+                        ?? e.Troop;
 
                     if (replacement != e.Troop)
+                    {
                         Log.Debug(
                             $"{Party.Name}: swapping {e.Number}x {e.Troop.Name} to {replacement.Name}."
                         );
+                        swapped = true;
+                    }
 
                     // Stage into temp roster, preserving totals
                     tmp.AddToCounts(
@@ -251,6 +227,11 @@ namespace Retinues.Game.Wrappers
                 var original = Base;
                 original.Clear();
                 original.Add(tmp);
+
+                if (swapped)
+                    Log.Debug(
+                        $"{Party.Name} (militia: {Party.IsMilitia}): swapped all troops to faction {faction?.Name ?? "null"}."
+                    );
             }
             catch (Exception ex)
             {

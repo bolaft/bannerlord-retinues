@@ -125,8 +125,26 @@
       id="ret_change_culture_title"
       text="文化を変更" />
     <string
+      id="ret_change_formation_class_title"
+      text="編成クラスを変更" />
+    <string
       id="ret_change_race_title"
       text="種族を変更" />
+    <string
+      id="ret_civilian_hint"
+      text="このセットを民間用に有効または無効にします。" />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="少なくとも1つの民間用セットを保持する必要があります。" />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="少なくとも1つの戦闘用セットを保持する必要があります。" />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="最初のセットは戦闘用セットのままでなければなりません。" />
+    <string
+      id="ret_clan_troops_button_text"
+      text="一族の兵士" />
     <string
       id="ret_clanic_traditions"
       text="一族の伝統" />
@@ -155,6 +173,12 @@
       id="ret_confirm"
       text="確認" />
     <string
+      id="ret_confirm_import_body"
+      text="これにより、既存の部隊定義が置き換えられます。" />
+    <string
+      id="ret_confirm_import_title"
+      text="インポートを適用しますか？" />
+    <string
       id="ret_continue"
       text="続行" />
     <string
@@ -170,6 +194,9 @@
       id="ret_convert_not_enough_influence_title"
       text="影響力不足" />
     <string
+      id="ret_copy_current"
+      text="現在のものをコピー" />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} の部隊をコピー" />
     <string
@@ -178,6 +205,12 @@
     <string
       id="ret_create_set_hint"
       text="競合するMOD（Shokuho）のため無効化されています。" />
+    <string
+      id="ret_create_set_text"
+      text="現在のセットをコピーしますか、それとも空のセットを作成しますか？" />
+    <string
+      id="ret_create_set_title"
+      text="装備セットを作成" />
     <string
       id="ret_cultural_pride"
       text="文化的誇り" />
@@ -193,6 +226,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="自文化の鎧だけを装備してトーナメントに勝利する。" />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="文化と種族" />
     <string
       id="ret_culture_header_text"
       text="文化" />
@@ -239,6 +275,12 @@
       id="ret_empty_item"
       text="空" />
     <string
+      id="ret_empty_set"
+      text="空" />
+    <string
+      id="ret_enter_file_name"
+      text="ファイル名を入力：" />
+    <string
       id="ret_enter_new_name"
       text="新しい名前を入力：" />
     <string
@@ -251,6 +293,12 @@
       id="ret_equip_complete"
       text="装備更新完了" />
     <string
+      id="ret_equip_complete_summary"
+      text="以下の部隊が新しいアイテムを装備しました：{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}：{SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} が ({ITEM}) を装備した。" />
     <string
@@ -259,6 +307,27 @@
     <string
       id="ret_equipment_requirement"
       text="装備品にはスキルが必要です。" />
+    <string
+      id="ret_exp_culture_troops"
+      text="文化の兵" />
+    <string
+      id="ret_exp_player_troops"
+      text="プレイヤーの兵" />
+    <string
+      id="ret_export_done_body"
+      text="エクスポート先：{PATH}。" />
+    <string
+      id="ret_export_done_title"
+      text="エクスポート完了" />
+    <string
+      id="ret_export_fail_title"
+      text="エクスポート失敗" />
+    <string
+      id="ret_export_which_body"
+      text="1つまたは両方を選択してください。" />
+    <string
+      id="ret_export_which_title"
+      text="エクスポートの選択" />
     <string
       id="ret_feat_completed_title"
       text="偉業達成" />
@@ -272,11 +341,20 @@
       id="ret_female"
       text="女性" />
     <string
-      id="ret_field_battle_hint"
-      text="野戦用にこのセットを有効または無効にします。" />
+      id="ret_formation_auto"
+      text="自動" />
+    <string
+      id="ret_formation_class_header_text"
+      text="編成クラス" />
+    <string
+      id="ret_formation_class_hint"
+      text="編成クラスを変更" />
     <string
       id="ret_gender_hint"
       text="性別" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="性別を切り替え" />
     <string
       id="ret_gloves_slot_text"
       text="手袋" />
@@ -286,6 +364,24 @@
     <string
       id="ret_height_hint"
       text="身長" />
+    <string
+      id="ret_hide_crafted_hint"
+      text="作成したアイテムを非表示にします。" />
+    <string
+      id="ret_hint_assault_ok"
+      text="包囲攻撃中に利用可能。" />
+    <string
+      id="ret_hint_def_ok"
+      text="包囲防御中に利用可能。" />
+    <string
+      id="ret_hint_field_ok"
+      text="野戦で利用可能。" />
+    <string
+      id="ret_hint_last_enabled"
+      text="各戦闘タイプに対して、少なくとも1つの戦闘セットを有効にしておく必要があります。" />
+    <string
+      id="ret_hint_set_disabled"
+      text="民間用セットには有効にできません。" />
     <string
       id="ret_horse_harness_slot_text"
       text="馬具" />
@@ -307,6 +403,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="味方に死者を出さずに1人で100人以上の敵を倒す。" />
+    <string
+      id="ret_imp_culture_troops"
+      text="文化の兵" />
+    <string
+      id="ret_imp_player_troops"
+      text="プレイヤーの兵" />
+    <string
+      id="ret_import"
+      text="インポート" />
+    <string
+      id="ret_import_done_body"
+      text="ファイル {FILE} のインポートに成功しました。" />
+    <string
+      id="ret_import_done_title"
+      text="インポート完了" />
+    <string
+      id="ret_import_empty_body"
+      text="ファイルに兵が含まれていません。" />
+    <string
+      id="ret_import_empty_title"
+      text="インポートするものがありません" />
+    <string
+      id="ret_import_fail_title"
+      text="インポート失敗" />
+    <string
+      id="ret_import_pick_body"
+      text="インポートするエクスポートファイルを選択してください。" />
+    <string
+      id="ret_import_pick_title"
+      text="部隊をインポート" />
+    <string
+      id="ret_import_which_body"
+      text="1つまたは両方を選択してください。" />
+    <string
+      id="ret_import_which_title"
+      text="インポートの選択" />
     <string
       id="ret_in_stock"
       text="在庫 ({STOCK})" />
@@ -404,6 +536,12 @@
       id="ret_lions_share_kill_enemy_lord"
       text="戦闘で敵の領主を自ら倒す。" />
     <string
+      id="ret_list_toggle_caravan"
+      text="キャラバン" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="民間人" />
+    <string
       id="ret_list_toggle_elite"
       text="精鋭" />
     <string
@@ -413,11 +551,17 @@
       id="ret_list_toggle_regular"
       text="通常" />
     <string
+      id="ret_list_toggle_villager"
+      text="村人" />
+    <string
       id="ret_loc_smoke_test"
       text="ローカライズテスト：JP。" />
     <string
       id="ret_lower_skill_no_refund"
       text="この兵のスキルを下げても経験値は返還されません。続行しますか？" />
+    <string
+      id="ret_make_civilian_title"
+      text="セットを民間用にしますか？" />
     <string
       id="ret_male"
       text="男性" />
@@ -429,7 +573,7 @@
       text="精鋭兵で1000キルを達成する。" />
     <string
       id="ret_masters_at_arms_description"
-      text="精鋭兵の第2分岐アップグレード。" />
+      text="精鋭兵のための追加アップグレード分岐。" />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="闘技場で50人の相手を気絶させる。" />
@@ -459,31 +603,19 @@
       text="エクスポート" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="すべてのRetinuesカスタム部隊定義をXMLファイルにエクスポートします。" />
+      text="部隊定義をXMLにエクスポートします。" />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="部隊をXMLにエクスポート" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="例: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="ファイル名" />
     <string
       id="ret_mcm_ie_import_btn"
       text="インポート" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="XMLファイルからすべてのRetinuesカスタム部隊定義をインポートします。" />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="インポートするXMLファイルを選択します。これにより、現在のカスタム部隊定義が置き換えられます。" />
+      text="XMLから部隊定義をインポートします。" />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="XMLからインポート" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="部隊をインポート" />
+      text="XMLから部隊をインポート" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="全装備解除済み" />
@@ -515,17 +647,20 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="領地が氏族領地であり王国領地である場合、氏族軍が王国軍より優先される。" />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="代替セットは、他のアクティブなモッドとの互換性の問題により無効になっています。" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="部隊装備をクローンする際に、すべての装備セットをコピーします。" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="部隊装備をクローンする際に、戦闘用セットと平常用セットの1つずつだけでなく、すべての装備セットをコピーします。" />
+    <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="より多くのログを出力します（パフォーマンスに影響する可能性があります）。" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="手作りの武器を無効化" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="有効にすると、適切なドクトリンが解除されていても、手作りの武器は使用できなくなります。" />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="功績要件を無効化" />
@@ -549,7 +684,7 @@
       text="実験的：外観コントロールを有効化" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="外観のカスタマイズコントロールを追加します（年齢、身長、体重、体型）。実験的：予期しない結果をもたらす可能性があります。" />
+      text="外観のカスタマイズコントロールを追加します（年齢、身長、体重、体型）。" />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="部隊の装備を変更するには時間がかかります" />
@@ -575,11 +710,26 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="部隊は戦闘中に常にメインバトル装備セットを使用します。" />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="グローバル部隊エディターを有効化" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="他のアクティブなモッドとの互換性の問題により、グローバル部隊エディターは無効になっています。" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="ゲーム内の任意の部隊を変更するためにグローバル部隊エディターを有効化します。プレイヤー以外の部隊で問題が発生している場合は無効にしてください。" />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="アップグレード要件に市民の馬を無視" />
     <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="部隊をアップグレードする際に乗り物の要件を確認する場合、市民装備の馬を無視します。" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="バニラ部隊のアップグレード要件を保持" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="バニラ部隊は編集時に元のアップグレードアイテムの要件を保持します。" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基礎随伴兵の比率上限" />
@@ -587,11 +737,29 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="プレイヤー部隊内の基礎随伴兵の最大比率。" />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="基礎アップグレード目標の最大数" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="基礎部隊の最大アップグレード目標数。" />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="精鋭随伴兵の比率上限" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="プレイヤー部隊内の精鋭随伴兵の最大比率。" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="精鋭アップグレード目標の最大数" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="精鋭部隊の最大アップグレード目標数。" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="貴族の馬を必要としない" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="部隊はアップグレードに貴族の馬を必要とせず、戦馬で十分です。" />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="王国軍なし" />
@@ -616,6 +784,18 @@
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
       text="プレイヤーは任意の集落で一族兵を募集できる。" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="減少時にXPを返金" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="部隊のスキルを下げると、XPコストが返金されます。" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="環境NPCを置き換え" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="集落の環境NPCをプレイヤー派閥のキャラクターに置き換えます。" />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解除に必要な廃棄アイテム" />
@@ -752,8 +932,14 @@
       id="ret_mcm_section_equipment"
       text="装備" />
     <string
+      id="ret_mcm_section_fluff"
+      text="没入感と装飾" />
+    <string
       id="ret_mcm_section_general"
       text="一般" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="グローバルエディター" />
     <string
       id="ret_mcm_section_import_export"
       text="インポートとエクスポート" />
@@ -794,11 +980,23 @@
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
     <string
+      id="ret_no_exports_body"
+      text="Exportsフォルダーに有効なエクスポートファイルが見つかりませんでした。" />
+    <string
+      id="ret_no_exports_title"
+      text="エクスポートが見つかりません" />
+    <string
       id="ret_no_races_text"
       text="利用可能な代替種族はありません。" />
     <string
       id="ret_no_races_title"
       text="種族が見つかりません" />
+    <string
+      id="ret_no_selection_body"
+      text="ファイルが選択されていません。" />
+    <string
+      id="ret_no_selection_title"
+      text="選択なし" />
     <string
       id="ret_no_skill_points_left"
       text="この部隊には残りのスキルポイントがありません。" />
@@ -815,8 +1013,23 @@
       id="ret_not_enough_gold_text"
       text="このアイテムを購入するのに十分なゴールドがない。" />
     <string
+      id="ret_not_enough_gold_title"
+      text="ゴールド不足" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="在庫に十分なコピーがありません。" />
+    <string
+      id="ret_not_enough_stock_title"
+      text="在庫不足" />
+    <string
       id="ret_not_enough_xp"
       text="次のスキルポイントに十分なXPがありません。" />
+    <string
+      id="ret_not_in_campaign_body"
+      text="インポート/エクスポート機能を使用する前に、最初にセーブをロードする必要があります。" />
+    <string
+      id="ret_not_in_campaign_title"
+      text="キャンペーンが読み込まれていません" />
     <string
       id="ret_not_in_clan_fief"
       text="氏族の領地にいない" />
@@ -900,10 +1113,13 @@
       text="削除" />
     <string
       id="ret_remove_set_hint"
-      text="代替の装備セットのみを削除できます。" />
+      text="このタイプのセットが少なくとも1つは残っている必要があります。" />
     <string
       id="ret_remove_set_text"
-      text="{TROOP_NAME} の {SET} を削除しますか？{newline}すべての変更がクリアされ、アイテムは装備解除されて保管されます。" />
+      text="{TROOP_NAME} のセット n°{SET} を削除しますか？{newline}すべての変更がクリアされ、アイテムは装備解除されて保管されます。" />
+    <string
+      id="ret_remove_set_text_studio"
+      text="{TROOP_NAME} のセット n°{SET} を削除しますか？" />
     <string
       id="ret_remove_set_title"
       text="セットを削除" />
@@ -916,6 +1132,18 @@
     <string
       id="ret_rename_troop"
       text="兵を改名" />
+    <string
+      id="ret_reset_all"
+      text="すべての部隊データをリセット" />
+    <string
+      id="ret_reset_all_body"
+      text="これにより、すべての文化部隊データがデフォルト値にリセットされます。プレイヤーの氏族と王国の部隊には影響しません。{newline}{newline}続行しますか？" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="すべての文化部隊は、ゲームを保存して再読み込みするとリセットされます。" />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="文化部隊リセット" />
     <string
       id="ret_retinue"
       text="随伴兵" />
@@ -969,25 +1197,28 @@
       text="王国と同じ文化の仲間に30日間王国の領地を統治させる。" />
     <string
       id="ret_royal_patronage_description"
-      text="王国文化のアイテムが10%割引。" />
+      text="キャラバンと村人の部隊をアンロックします。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="カスタム王国兵100人を募集する。" />
     <string
-      id="ret_set_alt_n"
-      text="予備 {N}" />
+      id="ret_royal_patronage_to_unlock"
+      text="王室の後援教義でアンロックします。" />
     <string
-      id="ret_set_battle"
-      text="戦闘" />
+      id="ret_select_culture_hint"
+      text="文化を選択します。" />
     <string
-      id="ret_set_civilian"
-      text="民間人" />
+      id="ret_select_culture_title"
+      text="文化を選択" />
     <string
-      id="ret_siege_assault_hint"
-      text="攻城戦の突撃用にこのセットを有効または無効にします。" />
+      id="ret_show_crafted_disabled_hint"
+      text="「氏族の伝統」教義を解除して、手作りのアイテムを表示します。" />
     <string
-      id="ret_siege_defense_hint"
-      text="攻城戦の防御用にこのセットを有効または無効にします。" />
+      id="ret_show_crafted_hint"
+      text="手作りのアイテムを表示します。" />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="武器スロットのみが手作りのアイテムを持つことができます。" />
     <string
       id="ret_skill_at_cap"
       text="この部隊のスキルは上限に達しています。" />
@@ -1031,6 +1262,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="カスタム兵15人のスキルを最大化する。" />
     <string
+      id="ret_switch_player_mode_hint"
+      text="一族兵エディターに切り替えます。" />
+    <string
       id="ret_switch_to_clan_troops"
       text="切り替え：{newline}一族兵" />
     <string
@@ -1039,6 +1273,15 @@
     <string
       id="ret_tier"
       text="ランク" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="このセットには {COUNT} 個の非民間人アイテムがあります。続行するとそれらは装備解除されます。{newline}{newline}続行しますか？" />
+    <string
+      id="ret_train_complete"
+      text="訓練完了" />
+    <string
+      id="ret_train_complete_summary"
+      text="以下の部隊が訓練を完了しました：{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
       text="訓練完了" />
@@ -1055,8 +1298,14 @@
       id="ret_transfer_header_text"
       text="移動" />
     <string
+      id="ret_troop_editor_button"
+      text="兵士エディター" />
+    <string
       id="ret_troop_list.placeholder"
       text="利用可能な兵士がいません" />
+    <string
+      id="ret_troop_studio_title"
+      text="兵士エディター" />
     <string
       id="ret_troop_xp"
       text="{XP} 経験値" />
@@ -1072,6 +1321,9 @@
     <string
       id="ret_unequip_all_text"
       text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？{newline}{newline}装備は保管されます。" />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？" />
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} を外そうとしています。新しいものを装備するには時間がかかります。それでも続行しますか？" />
@@ -1101,7 +1353,7 @@
       text="装備のアップグレードを開始する" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="保留中の兵を1人選んで、今すぐ装備を開始します。" />
+      text="1人以上の兵を選んで、今すぐ装備を開始します。" />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="兵を装備する" />
@@ -1119,7 +1371,7 @@
       text="訓練を開始する" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="保留中の兵を1人選んで、今すぐ訓練を開始します。" />
+      text="1人以上の兵を選んで、今すぐ訓練を開始します。" />
     <string
       id="ret_upgrade_train_pending_btn"
       text="兵を訓練する" />

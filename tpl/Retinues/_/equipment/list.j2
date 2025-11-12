@@ -1,0 +1,41 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--     Equipment List    -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+{% call list.container("{EquipmentScreen}") %}
+
+    <!-- Sort Row -->
+    {% call list.sort_header_buttons("{EquipmentList}") %}
+
+        {{ list.sort_button("@SortByNameText", "ExecuteSortByName", "175", "@SortByNameSelected", "@SortByNameState") }}
+        {{ list.sort_button("@SortByCategoryText", "ExecuteSortByCategory", "173", "@SortByCategorySelected", "@SortByCategoryState") }}
+        {{ list.sort_button("@SortByTierText", "ExecuteSortByTier", "120", "@SortByTierSelected", "@SortByTierState") }}
+        {{ list.sort_button("@SortByCostText", "ExecuteSortByCost", "120", "@SortByCostSelected", "@SortByCostState") }}
+
+        <!-- Cap Header Area -->
+        {{ list.sort_header_sprite() }}
+
+    {% endcall %}
+
+    <!-- Filter Row -->
+    {% call list.sort_header_buttons("{EquipmentList}") %}
+
+        <!-- Search Filter -->
+        {{ list.search_filter() }}
+
+        <!-- Cap Header Area -->
+        {{ list.sort_header_sprite() }}
+
+    {% endcall %}
+
+    <!-- List Panel -->
+    {% call list.panel("{EquipmentList}", "EquipmentList") %}
+
+        <!-- Item List -->
+        {% call list.rows("{EquipmentRows}", "Equipment") %}
+            {% include "_/equipment/row.j2" %}
+        {% endcall %}
+
+    {% endcall %}
+
+{% endcall %}

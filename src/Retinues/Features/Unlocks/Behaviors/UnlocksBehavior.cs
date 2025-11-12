@@ -20,7 +20,7 @@ namespace Retinues.Features.Unlocks.Behaviors
     /// Handles unlocking items from kills, culture bonuses, and showing unlock popups.
     /// </summary>
     [SafeClass]
-    public sealed class UnlocksBehavior : CampaignBehaviorBase
+    public class UnlocksBehavior : CampaignBehaviorBase
     {
         public static UnlocksBehavior Instance { get; private set; }
 
@@ -144,8 +144,9 @@ namespace Retinues.Features.Unlocks.Behaviors
             );
             AddUnlockCounts(counts, addCultureBonuses: false);
 
-            if (_newlyUnlocked.Count > 0)
-                ShowUnlockInquiry(_newlyUnlocked);
+            ShowUnlockInquiry(_newlyUnlocked);
+
+            _newlyUnlocked.Clear();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

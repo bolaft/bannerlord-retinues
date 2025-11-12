@@ -1,0 +1,26 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--       Doctrines       -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<Widget
+    DataSource="{DoctrineScreen}"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+    <Children>
+
+        <!-- Column List -->
+        <ListPanel 
+            DataSource="{Columns}"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+            DoNotAcceptEvents="false"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            PositionXOffset="60">
+            <ItemTemplate>
+
+                {# Doctrine Column #}
+                {% include "_/doctrines/column.j2" %}
+
+            </ItemTemplate>
+        </ListPanel>
+
+    </Children>
+</Widget>

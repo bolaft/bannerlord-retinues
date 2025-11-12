@@ -12,7 +12,7 @@ namespace Retinues.Utils
     /// Provides access to active modules, their names, versions, and official status.
     /// </summary>
     [SafeClass]
-    public static class ModuleChecker
+    public class ModuleChecker
     {
         /// <summary>
         /// Represents a module entry with metadata parsed from SubModule.xml.
@@ -41,6 +41,32 @@ namespace Retinues.Utils
                     return mod;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Checks if a module with the given ID is active.
+        /// </summary>
+        public static bool IsLoaded(string id) => GetModule(id) != null;
+
+        /// <summary>
+        /// Checks if any of the given module IDs is active. Pass multiple IDs to test several modules at once.
+        /// Returns true if at least one of the provided IDs is present in the active modules list.
+        /// </summary>
+        public static bool IsLoaded(params string[] ids)
+        {
+            if (ids == null || ids.Length == 0)
+                return false;
+
+            foreach (var id in ids)
+            {
+                if (string.IsNullOrWhiteSpace(id))
+                    continue;
+
+                if (GetModule(id) != null)
+                    return true;
+            }
+
+            return false;
         }
 
         private static List<ModuleEntry> _cachedActiveModules;

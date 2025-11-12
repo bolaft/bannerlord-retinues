@@ -11,7 +11,7 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("masters_at_arms", "Masters-At-Arms");
         public override TextObject Description =>
-            L.T("masters_at_arms_description", "2nd upgrade branch for elite troops.");
+            L.T("masters_at_arms_description", "Extra upgrade branch for elite troops.");
         public override int Column => 2;
         public override int Row => 2;
 

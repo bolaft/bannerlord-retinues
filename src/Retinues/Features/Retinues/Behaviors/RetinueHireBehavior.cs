@@ -64,7 +64,9 @@ namespace Retinues.Features.Retinues.Behaviors
                 return;
 
             var retinues = GetHireableRetinues();
-            Log.Info($"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}");
+            Log.Info(
+                $"[RetinueHire] Hireable: {retinues.Count}, Renown: {Player.Renown}, Reserve: {_renownReserve}"
+            );
 
             if (retinues.Count == 0)
             {
@@ -179,13 +181,13 @@ namespace Retinues.Features.Retinues.Behaviors
                 hires.Where(h => h.Key != null).Select(h => $"{h.Value} {h.Key.Name}")
             );
 
-            var body = L.T(
+            var description = L.T(
                     "retinue_hire_inquiry_body",
                     "The following retinues have joined your party: {JOINED}."
                 )
-                .SetTextVariable("JOINED", joined).ToString();
+                .SetTextVariable("JOINED", joined);
 
-            Log.Message(body);
+            Notifications.Log(description.ToString(), "#c7f5caff"); // green
         }
     }
 }

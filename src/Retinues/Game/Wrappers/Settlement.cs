@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem.Party.PartyComponents;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Game.Wrappers
@@ -13,6 +14,19 @@ namespace Retinues.Game.Wrappers
     [SafeClass(SwallowByDefault = false)]
     public class WSettlement(Settlement settlement) : FactionObject
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static IEnumerable<WSettlement> All
+        {
+            get
+            {
+                foreach (var s in Settlement.All)
+                    yield return new WSettlement(s);
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -47,11 +61,6 @@ namespace Retinues.Game.Wrappers
         public List<WNotable> Notables =>
             _settlement?.Notables.Where(n => n != null).Select(n => new WNotable(n)).ToList() ?? [];
 
-        public WParty Garrison =>
-            _settlement?.Town?.GarrisonParty != null
-                ? new WParty(_settlement.Town.GarrisonParty)
-                : null;
-
         public WCulture Culture => new(_settlement?.Culture);
 
         public override WFaction Clan
@@ -59,14 +68,31 @@ namespace Retinues.Game.Wrappers
             get
             {
                 var clan = _settlement?.OwnerClan;
-                if (clan != null)
-                    return new WFaction(clan);
-                return null;
+                if (clan == null)
+                    return null;
+
+                if (clan == TaleWorlds.CampaignSystem.Clan.PlayerClan)
+                    return Player.Clan;
+
+                return new WFaction(clan);
             }
         }
 
-        public override WFaction Kingdom =>
-            Clan != null ? new WFaction(_settlement?.OwnerClan.Kingdom) : null;
+        public override WFaction Kingdom
+        {
+            get
+            {
+                var clan = _settlement?.OwnerClan;
+                var kingdom = clan?.Kingdom;
+                if (kingdom == null)
+                    return null;
+
+                if (kingdom == Player.Kingdom?.Base)
+                    return Player.Kingdom;
+
+                return new WFaction(kingdom);
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //
@@ -113,6 +139,36 @@ namespace Retinues.Game.Wrappers
                 items.Add((new WItem(e.EquipmentElement.Item), e.Amount));
             return items;
         }
+
+        public static void SwapAll(
+            bool members,
+            bool prisoners,
+            bool skipGarrisons = false,
+            bool skipMilitias = false
+        )
+        {
+            foreach (var s in All)
+            {
+                if (!skipGarrisons)
+                {
+                    if (members)
+                        s.GarrisonParty?.MemberRoster?.SwapTroops();
+                    if (prisoners)
+                        s.GarrisonParty?.PrisonRoster?.SwapTroops();
+                }
+                if (!skipMilitias)
+                {
+                    if (members)
+                        s.MilitiaParty?.MemberRoster?.SwapTroops();
+                    if (prisoners)
+                        s.MilitiaParty?.PrisonRoster?.SwapTroops();
+                }
+            }
+        }
+
+        // // Update all existing militias for this faction
+        // foreach (var s in faction.Settlements)
+        //     s.MilitiaParty?.MemberRoster?.SwapTroops(faction);
 
         /// <summary>
         /// Swap all volunteers in notables to match the given faction.

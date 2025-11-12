@@ -4,6 +4,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Game.Helpers
 {
@@ -145,6 +146,9 @@ namespace Retinues.Game.Helpers
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
 
+        /// <summary>
+        /// Applies the preset step to the given troop and property getters/setters.
+        /// </summary>
         private static void ApplyPresetStep(
             WCharacter t,
             List<(float min, float max)> presets,
@@ -171,6 +175,9 @@ namespace Retinues.Game.Helpers
             setMax(max);
         }
 
+        /// <summary>
+        /// Finds the index of the preset closest to the given min/max values.
+        /// </summary>
         private static int NearestPresetIndex(
             List<(float min, float max)> presets,
             float curMin,
@@ -196,9 +203,12 @@ namespace Retinues.Game.Helpers
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Applies body properties from the given culture to the specified troop.
+        /// </summary>
         public static void ApplyPropertiesFromCulture(WCharacter troop, CultureObject culture)
         {
-            if (culture == null || !troop.IsCustom)
+            if (culture == null)
                 return;
 
             var template = culture.BasicTroop ?? culture.EliteBasicTroop;
@@ -227,6 +237,15 @@ namespace Retinues.Game.Helpers
 
             // 4) Snap age to the template's mid-age
             troop.Age = (min.Age + max.Age) * 0.5f;
+        }
+
+        /// <summary>
+        /// Applies body properties from the given culture id to the specified troop.
+        /// </summary>
+        public static void ApplyPropertiesFromCulture(WCharacter troop, string cultureId)
+        {
+            var culture = MBObjectManager.Instance.GetObject<CultureObject>(cultureId);
+            ApplyPropertiesFromCulture(troop, culture);
         }
     }
 }

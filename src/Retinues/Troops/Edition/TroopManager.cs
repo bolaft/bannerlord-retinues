@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
@@ -58,14 +59,21 @@ namespace Retinues.Troops.Edition
         {
             Log.Debug($"Adding upgrade target '{targetName}' to troop {troop?.Name}.");
 
-            // Determine the position in the tree
-            List<int> path = [.. troop.PositionInTree, troop.UpgradeTargets.Length];
-
             // Wrap the custom troop
-            var child = new WCharacter(troop.Faction == Player.Kingdom, troop.IsElite, path: path);
+            var child = new WCharacter();
+
+            bool keepEquipment = false; // default
+
+            if (Config.EquipmentChangeTakesTime == false && Config.PayForEquipment == false)
+                keepEquipment = true; // Copy equipment if no time or cost is involved
 
             // Copy from the original troop
-            child.FillFrom(troop, keepUpgrades: false, keepEquipment: false, keepSkills: true);
+            child.FillFrom(
+                troop,
+                keepUpgrades: false,
+                keepEquipment: keepEquipment,
+                keepSkills: true
+            );
 
             // Set name and level
             child.Name = targetName.Trim();
@@ -183,8 +191,8 @@ namespace Retinues.Troops.Edition
                 return sources;
 
             // Identify which root to look under for culture and faction
-            WCharacter cultureRoot = null,
-                factionRoot = null;
+            WCharacter cultureRoot;
+            WCharacter factionRoot;
 
             if (retinue.IsElite)
             {

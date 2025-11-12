@@ -67,6 +67,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     nameof(BannerTypeCode),
 #endif
                     nameof(Hint),
+                    nameof(AvailableFromAnotherSet),
                 ],
                 [UIEvent.Equip] =
                 [
@@ -77,6 +78,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     nameof(ShowValue),
                     nameof(ShowIsEquipped),
                     nameof(IsDisabledText),
+                    nameof(AvailableFromAnotherSet),
                 ],
                 [UIEvent.Equipment] =
                 [
@@ -86,6 +88,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     nameof(ShowIsEquipped),
                     nameof(ShowValue),
                     nameof(IsSelected),
+                    nameof(AvailableFromAnotherSet),
                 ],
             };
 
@@ -175,18 +178,28 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool IsCrafted => RowItem?.IsCrafted == true;
-
-        [DataSourceProperty]
-        public bool ShowIsEquipped => StagedItem != null && IsEquipped;
+        public bool ShowIsEquipped =>
+            (StagedItem != null && IsEquipped)
+            || (AvailableFromAnotherSet && !IsEquipmentTypeBlocked);
 
         [DataSourceProperty]
         public bool ShowInStockText =>
-            IsEnabled && !IsSelected && !IsEquipped && RowItem?.IsStocked == true;
+            !EditorVM.IsStudioMode
+            && IsEnabled
+            && !IsSelected
+            && !IsEquipped
+            && !AvailableFromAnotherSet
+            && RowItem?.IsStocked == true;
 
         [DataSourceProperty]
         public bool ShowValue =>
-            IsEnabled && !IsSelected && !IsEquipped && !ShowInStockText && Value > 0;
+            !EditorVM.IsStudioMode
+            && IsEnabled
+            && !IsSelected
+            && !IsEquipped
+            && !AvailableFromAnotherSet
+            && !ShowInStockText
+            && Value > 0;
 
         [DataSourceProperty]
         public override bool IsSelected => RowItem == Item;
@@ -201,6 +214,25 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 && !IsTierBlocked
                 && !IsEquipmentTypeBlocked
             );
+
+        [DataSourceProperty]
+        public bool AvailableFromAnotherSet
+        {
+            get
+            {
+                if (RowItem == null || State.Troop == null || State.Equipment == null)
+                    return false;
+
+                var loadout = State.Troop.Loadout;
+                // current set has 0 of this item…
+                int inThisSet = loadout.CountInSet(RowItem, State.Equipment.Index);
+                if (inThisSet > 0)
+                    return false;
+
+                // …and at least one other set has >= 1 (i.e., free to share one)
+                return loadout.MaxCountPerSet(RowItem) >= 1;
+            }
+        }
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
@@ -273,6 +305,20 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             bool selectionIsNull = RowItem == null;
             bool selectionIsEquipped = RowItem != null && RowItem == equippedItem;
             bool selectionIsStaged = RowItem != null && RowItem == stagedItem;
+
+            if (EditorVM.IsStudioMode)
+            {
+                Log.Debug("[ExecuteSelect] Studio mode active, equipping without restrictions.");
+                EquipmentManager.Equip(
+                    State.Troop,
+                    State.Slot,
+                    RowItem,
+                    State.Equipment.Index,
+                    stock: false // No stock management in studio mode
+                );
+                State.UpdateEquipData();
+                return;
+            }
 
             // Selecting the already staged item
             if (selectionIsStaged)
@@ -381,9 +427,33 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 else
                 {
                     Log.Debug("[ExecuteSelect] Selection is a new item, proceeding to equip.");
+
                     // Case 3a: Item has a cost
                     if (Value > 0)
                     {
+                        // Will this equip increase the required physical copies?
+                        int oldMax = State.Troop.Loadout.MaxCountPerSet(RowItem);
+                        int newCountThisSet =
+                            State.Troop.Loadout.CountInSet(RowItem, State.Equipment.Index) + 1;
+                        bool needsAdditionalCopies = newCountThisSet > oldMax;
+
+                        // If we don't actually need extra copies (cross-set share covers it), equip silently
+                        if (!needsAdditionalCopies)
+                        {
+                            Log.Debug(
+                                "[ExecuteSelect] Ownership covers this equip; no extra copies needed."
+                            );
+                            State.Troop.Unstage(State.Slot, stock: true);
+                            EquipmentManager.EquipFromStock(
+                                State.Troop,
+                                State.Slot,
+                                RowItem,
+                                State.Equipment.Index
+                            );
+                            State.UpdateEquipData();
+                            return;
+                        }
+
                         Log.Debug("[ExecuteSelect] Item has a cost: " + Value);
                         // Case 3a1: Item is in stock
                         if (Stock > 0)
@@ -457,7 +527,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                 Log.Debug(
                                     "[ExecuteSelect] Player cannot afford the item, showing popup."
                                 );
-                                Popup.Display(
+                                Notifications.Popup(
                                     L.T("not_enough_gold", "Not enough gold"),
                                     L.T(
                                         "not_enough_gold_text",
@@ -520,6 +590,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(ShowInStockText));
             OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(AvailableFromAnotherSet));
         }
 
         /// <summary>
@@ -534,6 +605,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(ShowValue));
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(IsDisabledText));
+            OnPropertyChanged(nameof(AvailableFromAnotherSet));
         }
 
         /// <summary>
@@ -547,6 +619,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(IsDisabledText));
             OnPropertyChanged(nameof(ShowInStockText));
             OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(AvailableFromAnotherSet));
         }
     }
 }

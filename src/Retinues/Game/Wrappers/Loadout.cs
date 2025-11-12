@@ -12,7 +12,6 @@ namespace Retinues.Game.Wrappers
         Invalid = 0,
         Battle = 0,
         Civilian = 1,
-        Alternate = 2,
     }
 
     [SafeClass(SwallowByDefault = false)]
@@ -33,32 +32,35 @@ namespace Retinues.Game.Wrappers
         // Battle equipment
         public WEquipment Battle
         {
-            get => Equipments[(int)EquipmentCategory.Battle];
+            get => GetBattleSets().FirstOrDefault() ?? CreateBattle();
             set
             {
+                // Replace first battle set
                 var list = Equipments;
-                list[(int)EquipmentCategory.Battle] = value;
+                var i = list.FindIndex(e => !e.IsCivilian);
+                if (i < 0)
+                    list.Insert(0, value);
+                else
+                    list[i] = value;
                 Equipments = list;
+                Normalize();
             }
         }
 
-        // Civilian equipment
         public WEquipment Civilian
         {
-            get => Equipments[(int)EquipmentCategory.Civilian];
+            get => GetCivilianSets().FirstOrDefault() ?? CreateCivilian();
             set
             {
                 var list = Equipments;
-                list[(int)EquipmentCategory.Civilian] = value;
+                var i = list.FindIndex(e => e.IsCivilian);
+                if (i < 0)
+                    list.Add(value);
+                else
+                    list[i] = value;
                 Equipments = list;
+                Normalize();
             }
-        }
-
-        // Alternate equipments (if any)
-        public List<WEquipment> Alternates
-        {
-            get => [.. Equipments.Skip((int)EquipmentCategory.Alternate)];
-            set => Equipments = [.. Equipments.Take((int)EquipmentCategory.Alternate), .. value];
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -75,42 +77,7 @@ namespace Retinues.Game.Wrappers
                     .GetFieldValue<MBEquipmentRoster>(_troop.Base, "_equipmentRoster")
                     ?.AllEquipments ?? [];
             set
-            { // Shokuho compatibility: collapse to exactly 2 sets (Battle, Civilian)
-                if (ModuleChecker.GetModule("Shokuho") != null)
-                {
-                    // Pick first non-civilian as Battle; if none, create an empty battle set
-                    var battle =
-                        value.FirstOrDefault(eq => !eq.IsCivilian)
-                        ?? WEquipment.FromCode(null, this, 0).Base;
-
-                    value = [battle, battle];
-                }
-
-                for (int i = 0; i < value.Count; i++)
-                {
-#if BL13
-                    var want =
-                        (i == 1)
-                            ? Equipment.EquipmentType.Civilian
-                            : Equipment.EquipmentType.Battle;
-                    try
-                    {
-                        Reflector.SetFieldValue(value[i], "_equipmentType", want);
-                    }
-                    catch { }
-#else
-                    bool shouldBeCivilian = (i == 1);
-                    if (value[i].IsCivilian != shouldBeCivilian)
-                    {
-                        var src = value[i];
-                        var fixedEq = new Equipment(shouldBeCivilian);
-                        foreach (var slot in WEquipment.Slots)
-                            fixedEq[slot] = src[slot];
-                        value[i] = fixedEq;
-                    }
-#endif
-                }
-
+            {
                 var roster = new MBEquipmentRoster();
                 Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
                 Reflector.SetFieldValue(_troop.Base, "_equipmentRoster", roster);
@@ -138,6 +105,10 @@ namespace Retinues.Game.Wrappers
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public IEnumerable<WEquipment> GetBattleSets() => Equipments.Where(eq => !eq.IsCivilian);
+
+        public IEnumerable<WEquipment> GetCivilianSets() => Equipments.Where(eq => eq.IsCivilian);
+
         public WEquipment Get(int index)
         {
             if (index < 0 || index >= Equipments.Count)
@@ -147,47 +118,82 @@ namespace Retinues.Game.Wrappers
 
         public EquipmentCategory GetCategory(int index)
         {
-            if (index < 0 || index >= Equipments.Count)
+            var eq = Get(index);
+            if (eq == null)
                 return EquipmentCategory.Invalid;
-
-            switch (index)
-            {
-                case 0:
-                    return EquipmentCategory.Battle;
-                case 1:
-                    return EquipmentCategory.Civilian;
-                default:
-                    return EquipmentCategory.Alternate;
-            }
+            return eq.IsCivilian ? EquipmentCategory.Civilian : EquipmentCategory.Battle;
         }
 
-        public WEquipment CreateAlternate()
+        public WEquipment CreateBattle()
         {
-            var alternates = Alternates;
-            var equipment = WEquipment.FromCode(
-                null,
-                this,
-                alternates.Count + (int)EquipmentCategory.Alternate
-            );
-            alternates.Add(equipment);
-            Alternates = alternates; // re-assign to trigger any bindings
-            return equipment;
+            var we = WEquipment.FromCode(null, this, Equipments.Count, forceCivilian: false);
+            var list = Equipments;
+            list.Add(we);
+            Equipments = list;
+            Normalize();
+            return we;
+        }
+
+        public WEquipment CreateCivilian()
+        {
+            var we = WEquipment.FromCode(null, this, Equipments.Count, forceCivilian: true);
+            var list = Equipments;
+            list.Add(we);
+            Equipments = list;
+            Normalize();
+            return we;
         }
 
         /// <summary>
-        /// Removes an alternate equipment from this loadout.
+        /// Flip one set to civilian/battle and keep invariants.
+        /// </summary>
+        public void ToggleCivilian(WEquipment eq, bool makeCivilian)
+        {
+            if (eq == null)
+                return;
+
+            // If switching a battle set to civilian and it is the last battle set → forbid.
+            if (makeCivilian && !eq.IsCivilian && GetBattleSets().Count() <= 1)
+                return;
+
+            // If switching a civilian set to battle and it is the last civilian set → forbid.
+            if (!makeCivilian && eq.IsCivilian && GetCivilianSets().Count() <= 1)
+                return;
+
+            eq.SetCivilian(makeCivilian);
+
+            // Still normalize (index 0 battle) but do NOT auto-create sets here anymore.
+            Normalize();
+        }
+
+        /// <summary>
+        /// Remove a set while enforcing: ≥1 battle AND ≥1 civilian must remain.
         /// </summary>
         public void Remove(WEquipment equipment)
         {
-            if (equipment.Index < (int)EquipmentCategory.Alternate)
-                return; // cannot remove Battle/Civilian
+            var list = Equipments;
+            if (equipment == null)
+                return;
+            var idx = equipment.Index;
+            if (idx < 0 || idx >= list.Count)
+                return;
 
-            if (equipment.Index >= Equipments.Count)
-                return; // invalid index
+            bool removingCivilian = equipment.IsCivilian;
+            int civilians = GetCivilianSets().Count();
+            int battles = GetBattleSets().Count();
 
-            var equipments = Equipments;
-            equipments.RemoveAt(equipment.Index);
-            Equipments = equipments; // re-assign to trigger any bindings
+            if (removingCivilian && civilians <= 1)
+                return; // cannot remove last civilian
+            if (!removingCivilian && battles <= 1)
+                return; // cannot remove last battle
+
+            list.RemoveAt(idx);
+            Equipments = list;
+
+            // Update combat-use mask indices
+            Features.Loadouts.Behaviors.CombatLoadoutBehavior.OnRemoved(Troop, idx);
+
+            Normalize();
         }
 
         /// <summary>
@@ -197,64 +203,74 @@ namespace Retinues.Game.Wrappers
         {
             Equipments =
             [
-                WEquipment.FromCode(null, this, (int)EquipmentCategory.Battle),
-                WEquipment.FromCode(null, this, (int)EquipmentCategory.Civilian),
+                WEquipment.FromCode(null, this, (int)EquipmentCategory.Battle, false),
+                WEquipment.FromCode(null, this, (int)EquipmentCategory.Civilian, true),
             ];
         }
 
         /// <summary>
-        /// Fills this loadout from another loadout.
+        /// Fill from another loadout.
+        /// If copyAll==true, copy all sets as-is; otherwise copy first battle + first civilian only.
         /// </summary>
-        public void FillFrom(WLoadout loadout, bool ordered = false)
+        public void FillFrom(WLoadout loadout, bool copyAll = false)
         {
-            // Origin loadout is already in order
-            if (ordered)
+            if (copyAll)
             {
-                Battle = WEquipment.FromCode(
-                    loadout.Battle.Code,
-                    this,
-                    (int)EquipmentCategory.Battle
-                );
-                Civilian = WEquipment.FromCode(
-                    loadout.Civilian.Code,
-                    this,
-                    (int)EquipmentCategory.Civilian
-                );
-                Alternates =
-                [
-                    .. loadout.Alternates.Select(eq =>
-                        WEquipment.FromCode(eq.Code, this, eq.Index)
-                    ),
-                ];
-            }
-            // Need to detect categories
-            else
-            {
-                WEquipment battle = null;
-                WEquipment civilian = null;
-
-                foreach (var eq in loadout.Equipments)
-                {
-                    if (eq.IsCivilian && civilian == null)
-                        civilian = WEquipment.FromCode(
-                            eq.Code,
-                            this,
-                            (int)EquipmentCategory.Civilian
-                        );
-                    else if (!eq.IsCivilian && battle == null)
-                        battle = WEquipment.FromCode(eq.Code, this, (int)EquipmentCategory.Battle);
-
-                    if (battle != null && civilian != null)
-                        break;
-                }
-
-                // Replace the entire list so no alternates leak in from source
                 Equipments =
                 [
-                    battle ?? WEquipment.FromCode(null, this, (int)EquipmentCategory.Battle),
-                    civilian ?? WEquipment.FromCode(null, this, (int)EquipmentCategory.Civilian),
+                    .. loadout.Equipments.Select(
+                        (eq, i) => WEquipment.FromCode(eq.Code, this, i, eq.IsCivilian)
+                    ),
                 ];
+                EnsureMinimumSets();
+                Normalize();
+                return;
             }
+
+            // old behavior: pick one battle and one civilian
+            WEquipment battle = null;
+            WEquipment civilian = null;
+
+            foreach (var eq in loadout.Equipments)
+            {
+                if (eq.IsCivilian && civilian == null)
+                    civilian = WEquipment.FromCode(
+                        eq.Code,
+                        this,
+                        Equipments.Count,
+                        forceCivilian: true
+                    );
+                else if (!eq.IsCivilian && battle == null)
+                    battle = WEquipment.FromCode(
+                        eq.Code,
+                        this,
+                        Equipments.Count,
+                        forceCivilian: false
+                    );
+
+                if (battle != null && civilian != null)
+                    break;
+            }
+
+            Equipments =
+            [
+                battle ?? WEquipment.FromCode(null, this, 0, forceCivilian: false),
+                civilian ?? WEquipment.FromCode(null, this, 1, forceCivilian: true),
+            ];
+
+            Normalize();
+        }
+
+        /// <summary>
+        /// Ensure there is at least one battle and one civilian set.
+        /// </summary>
+        public void EnsureMinimumSets()
+        {
+            if (!GetBattleSets().Any())
+                CreateBattle();
+
+            if (!GetCivilianSets().Any())
+                CreateCivilian();
         }
 
         /// <summary>
@@ -321,13 +337,137 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public ItemCategory ComputeUpgradeItemRequirement()
         {
+            if (!Troop.IsCustom && Config.KeepUpgradeRequirementsForVanilla)
+                return Troop.UpgradeItemRequirement; // keep vanilla requirement
+
             var bestHorse = FindBestHorseCategory();
             var bestHorseOfParent = Troop.Parent?.Loadout.FindBestHorseCategory();
+
+            if (Config.NeverRequireNobleHorse)
+                if (bestHorse == DefaultItemCategories.NobleHorse)
+                    bestHorse = DefaultItemCategories.WarHorse;
 
             if (IsBetterHorseCategory(bestHorse, bestHorseOfParent))
                 return bestHorse;
             else
                 return null;
+        }
+
+        /// <summary>
+        /// Reorder so that index 0 is a battle set (if any), preserving relative order of the rest.
+        /// </summary>
+        public void Normalize()
+        {
+            var list = Equipments;
+            if (list.Count == 0)
+            {
+                EnsureMinimumSets();
+                list = Equipments;
+            }
+
+            // Move the first battle set to index 0 if necessary
+            int firstBattle = list.FindIndex(e => !e.IsCivilian);
+            if (firstBattle > 0)
+            {
+                var battle = list[firstBattle];
+                list.RemoveAt(firstBattle);
+                list.Insert(0, battle);
+                Equipments = list; // reassign to refresh indices
+            }
+
+            // Recompute upgrade horse requirement (checks all sets)
+            Troop.UpgradeItemRequirement = ComputeUpgradeItemRequirement();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Cross-set item usage                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Enumerate every (setIndex, slot, item) currently equipped.
+        /// </summary>
+        public IEnumerable<(int setIndex, EquipmentIndex slot, WItem item)> EnumerateEquipped()
+        {
+            var list = Equipments;
+            for (int i = 0; i < list.Count; i++)
+                foreach (var slot in WEquipment.Slots)
+                {
+                    var it = list[i].Get(slot);
+                    if (it != null)
+                        yield return (i, slot, it);
+                }
+        }
+
+        /// <summary>
+        /// How many times is this exact item equipped across all sets.
+        /// </summary>
+        public int CountEquipped(WItem item)
+        {
+            if (item == null)
+                return 0;
+            int c = 0;
+            foreach (var (_, _, it) in EnumerateEquipped())
+                if (it == item)
+                    c++;
+            return c;
+        }
+
+        /// <summary>
+        /// Is this item equipped in any set other than the given one/slot.
+        /// </summary>
+        public bool IsEquippedElsewhere(
+            WItem item,
+            int excludingSetIndex = -1,
+            EquipmentIndex? excludingSlot = null
+        )
+        {
+            if (item == null)
+                return false;
+            foreach (var (i, slot, it) in EnumerateEquipped())
+                if (
+                    it == item
+                    && (
+                        i != excludingSetIndex
+                        || (excludingSlot.HasValue && slot != excludingSlot.Value)
+                    )
+                )
+                    return true;
+            return false;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //              Per-set multiplicity helpers              //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public int CountInSet(WItem item, int setIndex)
+        {
+            if (item == null || setIndex < 0 || setIndex >= Equipments.Count)
+                return 0;
+
+            int c = 0;
+            var eq = Equipments[setIndex];
+            foreach (var slot in WEquipment.Slots)
+                if (eq.Get(slot) == item)
+                    c++;
+            return c;
+        }
+
+        /// <summary>
+        /// Maximum number of simultaneous copies of 'item' present in any single set.
+        /// This is the number of physical copies you actually need to own.
+        /// </summary>
+        public int MaxCountPerSet(WItem item)
+        {
+            if (item == null)
+                return 0;
+            int max = 0;
+            for (int i = 0; i < Equipments.Count; i++)
+            {
+                int c = CountInSet(item, i);
+                if (c > max)
+                    max = c;
+            }
+            return max;
         }
     }
 }

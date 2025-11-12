@@ -125,8 +125,26 @@
       id="ret_change_culture_title"
       text="更改文化" />
     <string
+      id="ret_change_formation_class_title"
+      text="更改编队类别" />
+    <string
       id="ret_change_race_title"
       text="更改种族" />
+    <string
+      id="ret_civilian_hint"
+      text="启用或禁用此套装以供平民使用。" />
+    <string
+      id="ret_civilian_toggle_forbidden_battle_left"
+      text="你必须至少保留一套平民装备。" />
+    <string
+      id="ret_civilian_toggle_forbidden_civilian_left"
+      text="你必须至少保留一套战斗装备。" />
+    <string
+      id="ret_civilian_toggle_forbidden_first_set"
+      text="第一个套装必须保持为战斗装备。" />
+    <string
+      id="ret_clan_troops_button_text"
+      text="家族部队" />
     <string
       id="ret_clanic_traditions"
       text="家族传统" />
@@ -155,6 +173,12 @@
       id="ret_confirm"
       text="确认" />
     <string
+      id="ret_confirm_import_body"
+      text="这将替换现有的部队定义。" />
+    <string
+      id="ret_confirm_import_title"
+      text="应用导入？" />
+    <string
       id="ret_continue"
       text="继续" />
     <string
@@ -170,6 +194,9 @@
       id="ret_convert_not_enough_influence_title"
       text="影响力不足" />
     <string
+      id="ret_copy_current"
+      text="复制当前" />
+    <string
       id="ret_create_from_culture"
       text="复制 {CULTURE} 的部队" />
     <string
@@ -178,6 +205,12 @@
     <string
       id="ret_create_set_hint"
       text="由于冲突的模组（Shokuho）而被禁用。" />
+    <string
+      id="ret_create_set_text"
+      text="你想复制当前套装还是创建一个空套装？" />
+    <string
+      id="ret_create_set_title"
+      text="创建装备套装" />
     <string
       id="ret_cultural_pride"
       text="文化自豪" />
@@ -193,6 +226,9 @@
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="仅穿着本文化的护甲赢得一场锦标赛。" />
+    <string
+      id="ret_culture_and_race_header_text"
+      text="文化与种族" />
     <string
       id="ret_culture_header_text"
       text="文化" />
@@ -239,6 +275,12 @@
       id="ret_empty_item"
       text="空" />
     <string
+      id="ret_empty_set"
+      text="空" />
+    <string
+      id="ret_enter_file_name"
+      text="输入文件名：" />
+    <string
       id="ret_enter_new_name"
       text="输入一个新名称：" />
     <string
@@ -251,6 +293,12 @@
       id="ret_equip_complete"
       text="装备已更新" />
     <string
+      id="ret_equip_complete_summary"
+      text="以下部队已装备新物品：{newline}{newline}{SUMMARY}" />
+    <string
+      id="ret_equip_complete_summary_line"
+      text="{TROOP}：{SKILLS}" />
+    <string
       id="ret_equip_complete_text"
       text="{TROOP} 已装备 ({ITEM})。" />
     <string
@@ -259,6 +307,27 @@
     <string
       id="ret_equipment_requirement"
       text="装备物品需要技能。" />
+    <string
+      id="ret_exp_culture_troops"
+      text="文化部队" />
+    <string
+      id="ret_exp_player_troops"
+      text="玩家部队" />
+    <string
+      id="ret_export_done_body"
+      text="已导出到：{PATH}。" />
+    <string
+      id="ret_export_done_title"
+      text="导出完成" />
+    <string
+      id="ret_export_fail_title"
+      text="导出失败" />
+    <string
+      id="ret_export_which_body"
+      text="选择一个或两个。" />
+    <string
+      id="ret_export_which_title"
+      text="导出选择" />
     <string
       id="ret_feat_completed_title"
       text="成就完成" />
@@ -272,11 +341,20 @@
       id="ret_female"
       text="女性" />
     <string
-      id="ret_field_battle_hint"
-      text="为野战启用或禁用此套装。" />
+      id="ret_formation_auto"
+      text="自动" />
+    <string
+      id="ret_formation_class_header_text"
+      text="阵型类别" />
+    <string
+      id="ret_formation_class_hint"
+      text="更改阵型类别" />
     <string
       id="ret_gender_hint"
       text="性别" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="切换性别" />
     <string
       id="ret_gloves_slot_text"
       text="手套" />
@@ -286,6 +364,24 @@
     <string
       id="ret_height_hint"
       text="身高" />
+    <string
+      id="ret_hide_crafted_hint"
+      text="隐藏制作的物品。" />
+    <string
+      id="ret_hint_assault_ok"
+      text="在攻击围城时可用。" />
+    <string
+      id="ret_hint_def_ok"
+      text="在防御围城时可用。" />
+    <string
+      id="ret_hint_field_ok"
+      text="在野战中可用。" />
+    <string
+      id="ret_hint_last_enabled"
+      text="每种战斗类型至少必须保留一个启用的战斗套装。" />
+    <string
+      id="ret_hint_set_disabled"
+      text="无法为平民套装启用。" />
     <string
       id="ret_horse_harness_slot_text"
       text="马具" />
@@ -307,6 +403,42 @@
     <string
       id="ret_immortals_win_100_no_deaths"
       text="单枪匹马战胜100+敌人，且我方无一阵亡。" />
+    <string
+      id="ret_imp_culture_troops"
+      text="文化部队" />
+    <string
+      id="ret_imp_player_troops"
+      text="玩家部队" />
+    <string
+      id="ret_import"
+      text="导入" />
+    <string
+      id="ret_import_done_body"
+      text="文件 {FILE} 导入成功。" />
+    <string
+      id="ret_import_done_title"
+      text="导入完成" />
+    <string
+      id="ret_import_empty_body"
+      text="该文件不包含任何部队。" />
+    <string
+      id="ret_import_empty_title"
+      text="无可导入内容" />
+    <string
+      id="ret_import_fail_title"
+      text="导入失败" />
+    <string
+      id="ret_import_pick_body"
+      text="选择要导入的导出文件。" />
+    <string
+      id="ret_import_pick_title"
+      text="导入部队" />
+    <string
+      id="ret_import_which_body"
+      text="选择一个或两个。" />
+    <string
+      id="ret_import_which_title"
+      text="导入选择" />
     <string
       id="ret_in_stock"
       text="库存 ({STOCK})" />
@@ -404,6 +536,12 @@
       id="ret_lions_share_kill_enemy_lord"
       text="在战斗中亲自击败一名敌方领主。" />
     <string
+      id="ret_list_toggle_caravan"
+      text="商队" />
+    <string
+      id="ret_list_toggle_civilian"
+      text="平民" />
+    <string
       id="ret_list_toggle_elite"
       text="精锐" />
     <string
@@ -413,11 +551,17 @@
       id="ret_list_toggle_regular"
       text="普通" />
     <string
+      id="ret_list_toggle_villager"
+      text="村民" />
+    <string
       id="ret_loc_smoke_test"
       text="本地化测试： CNs。" />
     <string
       id="ret_lower_skill_no_refund"
       text="降低此部队技能不会返还经验值。仍要继续吗？" />
+    <string
+      id="ret_make_civilian_title"
+      text="将套装设为民用？" />
     <string
       id="ret_male"
       text="男性" />
@@ -429,7 +573,7 @@
       text="使用精锐部队累计获得1000击杀。" />
     <string
       id="ret_masters_at_arms_description"
-      text="精锐部队的第二条升级分支。" />
+      text="为精锐部队提供额外的升级分支。" />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="在竞技场击倒50名对手。" />
@@ -459,31 +603,19 @@
       text="导出" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="将所有Retinues自定义部队定义导出到XML文件。" />
+      text="将部队定义导出为XML。" />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="将部队导出为XML" />
-    <string
-      id="ret_mcm_ie_export_hint"
-      text="示例: troops_myCampaignRun" />
-    <string
-      id="ret_mcm_ie_export_name"
-      text="文件名" />
     <string
       id="ret_mcm_ie_import_btn"
       text="导入" />
     <string
       id="ret_mcm_ie_import_btn_hint"
-      text="从XML文件导入所有Retinues自定义部队定义。" />
-    <string
-      id="ret_mcm_ie_import_pick_body"
-      text="选择要导入的XML文件。这将替换您当前的自定义部队定义。" />
+      text="从XML导入部队定义。" />
     <string
       id="ret_mcm_ie_import_pick_btn_text"
-      text="从XML导入" />
-    <string
-      id="ret_mcm_ie_import_pick_title"
-      text="导入部队" />
+      text="从XML导入部队" />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="所有装备已解锁" />
@@ -515,17 +647,20 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="如果一个领地既是氏族领地又是王国领地，则氏族部队将优先于王国部队。" />
     <string
+      id="ret_mcm_option_copy_all_sets_disabled_hint"
+      text="由于与其他激活的模组不兼容，替代套装已被禁用。" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="克隆部队装备时复制所有装备套装" />
+    <string
+      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
+      text="克隆部队装备时，复制所有装备套装，而不仅仅是一个战斗套装和一个平民套装。" />
+    <string
       id="ret_mcm_option_debug_mode"
       text="调试模式" />
     <string
       id="ret_mcm_option_debug_mode_hint"
       text="输出更多日志（可能影响性能）。" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons"
-      text="禁用手工制作的武器" />
-    <string
-      id="ret_mcm_option_disable_crafted_weapons_hint"
-      text="启用后，即使解锁了相应的教义，手工制作的武器也将不可用。" />
     <string
       id="ret_mcm_option_disable_feat_requirements"
       text="禁用功绩要求" />
@@ -549,7 +684,7 @@
       text="实验性：启用外观控制" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="添加外观自定义控制（年龄、身高、体重、体型）。实验性：可能会有意想不到的后果。" />
+      text="添加外观自定义控制（年龄、身高、体重、体型）。" />
     <string
       id="ret_mcm_option_equipment_change_takes_time"
       text="更换部队装备需要时间" />
@@ -575,11 +710,26 @@
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
       text="部队在战斗中始终使用其主战装备。" />
     <string
+      id="ret_mcm_option_global_editor_enabled"
+      text="启用全局部队编辑器" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_disabled_hint"
+      text="由于与其他激活的模组存在兼容性问题，全局部队编辑器已被禁用。" />
+    <string
+      id="ret_mcm_option_global_editor_enabled_hint"
+      text="启用全局部队编辑器以修改游戏中的任何部队。如果遇到非玩家部队的问题，请禁用。" />
+    <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
       text="升级需求忽略平民马匹" />
     <string
       id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
       text="在升级部队时检查坐骑需求时，忽略平民装备的马匹。" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
+      text="保留原版部队的升级需求" />
+    <string
+      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
+      text="编辑时，原版部队保留其原始升级物品需求。" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基础随从比例上限" />
@@ -587,11 +737,29 @@
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
       text="玩家队伍中基础随从的最大比例。" />
     <string
+      id="ret_mcm_option_max_basic_upgrades"
+      text="基础升级目标上限" />
+    <string
+      id="ret_mcm_option_max_basic_upgrades_hint"
+      text="基础部队的最大升级目标数量。" />
+    <string
       id="ret_mcm_option_max_elite_retinue_ratio"
       text="精锐随从比例上限" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
       text="玩家队伍中精锐随从的最大比例。" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades"
+      text="精锐升级目标上限" />
+    <string
+      id="ret_mcm_option_max_elite_upgrades_hint"
+      text="精锐部队的最大升级目标数量。" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse"
+      text="从不需要贵族马匹" />
+    <string
+      id="ret_mcm_option_never_require_noble_horse_hint"
+      text="部队升级时从不需要贵族马匹，战马总是足够的。" />
     <string
       id="ret_mcm_option_no_kingdom_troops"
       text="无王国部队" />
@@ -616,6 +784,18 @@
     <string
       id="ret_mcm_option_recruit_anywhere_hint"
       text="玩家可在任何定居点招募家族部队。" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease"
+      text="减少时退款经验值" />
+    <string
+      id="ret_mcm_option_refund_xp_on_decrease_hint"
+      text="减少部队技能时，退还经验值成本。" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs"
+      text="替换环境NPC" />
+    <string
+      id="ret_mcm_option_replace_ambient_npcs_hint"
+      text="用玩家派系角色替换定居点中的环境NPC。" />
     <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解锁所需丢弃物品" />
@@ -752,8 +932,14 @@
       id="ret_mcm_section_equipment"
       text="装备" />
     <string
+      id="ret_mcm_section_fluff"
+      text="沉浸与装饰" />
+    <string
       id="ret_mcm_section_general"
       text="通用" />
+    <string
+      id="ret_mcm_section_global_editor"
+      text="全局编辑器" />
     <string
       id="ret_mcm_section_import_export"
       text="导入与导出" />
@@ -794,11 +980,23 @@
       id="ret_no_cultures_title"
       text="未找到文化" />
     <string
+      id="ret_no_exports_body"
+      text="在Exports文件夹中未找到有效的导出文件。" />
+    <string
+      id="ret_no_exports_title"
+      text="未找到导出" />
+    <string
       id="ret_no_races_text"
       text="没有可用的替代种族。" />
     <string
       id="ret_no_races_title"
       text="未找到种族" />
+    <string
+      id="ret_no_selection_body"
+      text="未选择任何文件。" />
+    <string
+      id="ret_no_selection_title"
+      text="未选择" />
     <string
       id="ret_no_skill_points_left"
       text="这支部队没有剩余的技能点。" />
@@ -815,8 +1013,23 @@
       id="ret_not_enough_gold_text"
       text="你没有足够的金币购买此物品。" />
     <string
+      id="ret_not_enough_gold_title"
+      text="金币不足" />
+    <string
+      id="ret_not_enough_stock_text"
+      text="您的库存中没有足够的副本。" />
+    <string
+      id="ret_not_enough_stock_title"
+      text="库存不足" />
+    <string
       id="ret_not_enough_xp"
       text="没有足够的经验值获得下一个技能点。" />
+    <string
+      id="ret_not_in_campaign_body"
+      text="在使用导入/导出功能之前，必须先加载一个存档。" />
+    <string
+      id="ret_not_in_campaign_title"
+      text="未加载战役" />
     <string
       id="ret_not_in_clan_fief"
       text="不在氏族领地" />
@@ -900,10 +1113,13 @@
       text="移除" />
     <string
       id="ret_remove_set_hint"
-      text="您只能移除备用装备套装。" />
+      text="此类型的至少一个套装必须保留。" />
     <string
       id="ret_remove_set_text"
-      text="为 {TROOP_NAME} 移除 {SET}？{newline}所有已分配的更改将被清除，物品将被卸下并存入库存。" />
+      text="为 {TROOP_NAME} 移除套装 n°{SET}？{newline}所有已分配的更改将被清除，物品将被卸下并存入库存。" />
+    <string
+      id="ret_remove_set_text_studio"
+      text="为 {TROOP_NAME} 移除套装 n°{SET}？" />
     <string
       id="ret_remove_set_title"
       text="移除套装" />
@@ -916,6 +1132,18 @@
     <string
       id="ret_rename_troop"
       text="重命名部队" />
+    <string
+      id="ret_reset_all"
+      text="重置所有部队数据" />
+    <string
+      id="ret_reset_all_body"
+      text="这将把所有文化部队数据重置为默认值。玩家氏族和王国部队不会受到影响。{newline}{newline}继续？" />
+    <string
+      id="ret_reset_culture_troops_text"
+      text="所有文化部队将在保存和重新加载游戏时重置。" />
+    <string
+      id="ret_reset_culture_troops_title"
+      text="文化部队重置" />
     <string
       id="ret_retinue"
       text="随从" />
@@ -969,25 +1197,28 @@
       text="让与你王国同文化的同伴治理一个王国封地30天。" />
     <string
       id="ret_royal_patronage_description"
-      text="王国文化物品享受10%折扣。" />
+      text="解锁商队和村民部队。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定义王国部队。" />
     <string
-      id="ret_set_alt_n"
-      text="备用 {N}" />
+      id="ret_royal_patronage_to_unlock"
+      text="通过王室资助信条解锁。" />
     <string
-      id="ret_set_battle"
-      text="战斗" />
+      id="ret_select_culture_hint"
+      text="选择一种文化。" />
     <string
-      id="ret_set_civilian"
-      text="平民" />
+      id="ret_select_culture_title"
+      text="选择文化" />
     <string
-      id="ret_siege_assault_hint"
-      text="为攻城战启用或禁用此套装。" />
+      id="ret_show_crafted_disabled_hint"
+      text="解锁“氏族传统”信条以显示手工制作的物品。" />
     <string
-      id="ret_siege_defense_hint"
-      text="为守城战启用或禁用此套装。" />
+      id="ret_show_crafted_hint"
+      text="显示手工制作的物品。" />
+    <string
+      id="ret_show_crafted_weapon_hint"
+      text="只有武器槽可以拥有手工制作的物品。" />
     <string
       id="ret_skill_at_cap"
       text="该部队的技能已达上限。" />
@@ -1031,6 +1262,9 @@
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="让15名自定义部队技能达到满值。" />
     <string
+      id="ret_switch_player_mode_hint"
+      text="切换到家族部队编辑器。" />
+    <string
       id="ret_switch_to_clan_troops"
       text="切换至{newline}家族部队" />
     <string
@@ -1039,6 +1273,15 @@
     <string
       id="ret_tier"
       text="等级" />
+    <string
+      id="ret_toggle_to_civilian_warn"
+      text="此套装有 {COUNT} 个非平民物品。如果继续，它们将被卸下。{newline}{newline}继续？" />
+    <string
+      id="ret_train_complete"
+      text="训练完成" />
+    <string
+      id="ret_train_complete_summary"
+      text="以下部队已完成训练：{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
       text="训练完成" />
@@ -1055,8 +1298,14 @@
       id="ret_transfer_header_text"
       text="转移" />
     <string
+      id="ret_troop_editor_button"
+      text="部队编辑器" />
+    <string
       id="ret_troop_list.placeholder"
       text="无可用部队" />
+    <string
+      id="ret_troop_studio_title"
+      text="部队编辑器" />
     <string
       id="ret_troop_xp"
       text="{XP} 经验" />
@@ -1072,6 +1321,9 @@
     <string
       id="ret_unequip_all_text"
       text="卸下 {TROOP_NAME} 穿戴的所有物品？{newline}{newline}它们将被存入库存以供后用。" />
+    <string
+      id="ret_unequip_all_text_studio"
+      text="卸下 {TROOP_NAME} 穿戴的所有物品？" />
     <string
       id="ret_unequip_warning_text"
       text="你即将卸下 {ITEM}，重新装备一个新物品需要时间。是否继续？" />
@@ -1101,7 +1353,7 @@
       text="开始升级装备" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="选择一名待命部队立即开始装备。" />
+      text="选择一名或多名部队立即开始装备。" />
     <string
       id="ret_upgrade_equip_pending_btn"
       text="装备部队" />
@@ -1110,7 +1362,7 @@
       text="正在装备 {NAME}..." />
     <string
       id="ret_upgrade_equip_select_troop"
-      text="选择一名部队进行装备" />
+      text="选择要装备的部队" />
     <string
       id="ret_upgrade_equip_unequip"
       text="卸下" />
@@ -1119,7 +1371,7 @@
       text="开始训练" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="选择一名待命部队立即开始训练。" />
+      text="选择一名或多名部队立即开始训练。" />
     <string
       id="ret_upgrade_train_pending_btn"
       text="训练部队" />
@@ -1128,7 +1380,7 @@
       text="正在训练 {NAME}..." />
     <string
       id="ret_upgrade_train_select_troop"
-      text="选择一名部队进行训练" />
+      text="选择要训练的部队" />
     <string
       id="ret_upgrades_header_text"
       text="升级" />
