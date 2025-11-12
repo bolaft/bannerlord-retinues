@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
-using Retinues.Features.Loadouts.Behaviors;
+using Retinues.Features.Equipments;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -165,7 +165,7 @@ namespace Retinues.Game.Wrappers
             SetEquipments(list);
 
             // Update combat-use mask indices (structure/indices maintenance)
-            CombatLoadoutBehavior.OnRemoved(Troop, idx);
+            EquipmentPolicyBehavior.OnRemoved(Troop, idx);
 
             Normalize();
         }

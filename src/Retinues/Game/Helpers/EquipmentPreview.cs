@@ -1,4 +1,4 @@
-using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Features.Staging;
 using Retinues.Game.Wrappers;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -19,7 +19,7 @@ namespace Retinues.Game.Helpers
             var eq = new Equipment(src.Base);
 
             // apply staged equip (if any)
-            var pending = TroopEquipBehavior.Get(troop);
+            var pending = EquipStagingBehavior.Get(troop);
             if (pending == null)
                 return eq; // nothing staged
             foreach (var p in pending)

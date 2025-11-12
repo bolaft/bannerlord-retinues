@@ -3,7 +3,6 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
-using TaleWorlds.CampaignSystem.Party.PartyComponents;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Game.Wrappers

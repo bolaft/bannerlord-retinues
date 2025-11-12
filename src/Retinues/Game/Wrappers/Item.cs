@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Features.Stocks.Behaviors;
-using Retinues.Features.Unlocks.Behaviors;
+using Retinues.Features.Stocks;
+using Retinues.Features.Unlocks;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;

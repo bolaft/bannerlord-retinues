@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
-using Retinues.Features.Retinues.Behaviors;
-using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Features.AutoJoin;
+using Retinues.Features.Staging;
 using Retinues.Game.Helpers;
 using Retinues.GUI.Editor.VM.Troop.List;
 using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.GUI.Helpers;
-using Retinues.Troops.Edition;
+using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
@@ -69,11 +69,13 @@ namespace Retinues.GUI.Editor.VM.Troop
             State.PartyData.TryGetValue(State.Troop, out var count) ? count : 0;
 
         [DataSourceProperty]
-        public int RetinueCapValue => RetinueHireBehavior.GetRetinueCap(State.Troop);
+        public int RetinueCapValue => AutoJoinBehavior.GetJoinCap(State.Troop);
 
         [DataSourceProperty]
         public int RetinueCapMax =>
-            State.Troop?.IsElite == true ? TroopRules.MaxEliteRetinue : TroopRules.MaxBasicRetinue;
+            State.Troop?.IsElite == true
+                ? RetinueManager.EliteRetinueCap
+                : RetinueManager.BasicRetinueCap;
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
@@ -137,7 +139,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     return L.S("retinue_join_text_full", "The hiring limit has been reached.");
 
                 return L.T("retinue_join_text", "One new retinue per {COST} renown earned.")
-                    .SetTextVariable("COST", TroopRules.ConversionRenownCostPerUnit(State.Troop))
+                    .SetTextVariable(
+                        "COST",
+                        RetinueManager.ConversionRenownCostPerUnit(State.Troop)
+                    )
                     .ToString();
             }
         }
@@ -234,7 +239,7 @@ namespace Retinues.GUI.Editor.VM.Troop
                 return;
 
             var cap = Math.Min(RetinueCapValue + BatchInput(capped: false), RetinueCapMax);
-            RetinueHireBehavior.SetRetinueCap(State.Troop, cap);
+            AutoJoinBehavior.SetJoinCap(State.Troop, cap);
 
             OnPropertyChanged(nameof(RetinueCapValue));
             OnPropertyChanged(nameof(CanRaiseRetinueCap));
@@ -255,7 +260,7 @@ namespace Retinues.GUI.Editor.VM.Troop
                 return;
 
             var cap = Math.Max(RetinueCapValue - BatchInput(capped: false), 0);
-            RetinueHireBehavior.SetRetinueCap(State.Troop, cap);
+            AutoJoinBehavior.SetJoinCap(State.Troop, cap);
 
             OnPropertyChanged(nameof(RetinueCapValue));
             OnPropertyChanged(nameof(CanRaiseRetinueCap));
@@ -276,8 +281,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                 return;
 
             if (
-                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_remove", "remove"))
-                == false
+                ContextManager.IsAllowedInContextWithPopup(
+                    State.Troop,
+                    L.S("action_remove", "remove")
+                ) == false
             )
                 return; // Removal not allowed in current context
 
@@ -298,10 +305,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     affirmativeAction: () =>
                     {
                         // Clear all staged equipment changes
-                        TroopEquipBehavior.Unstage(State.Troop);
+                        EquipStagingBehavior.Unstage(State.Troop);
 
                         // Clear all staged skill changes
-                        TroopTrainBehavior.Unstage(State.Troop);
+                        TrainStagingBehavior.Unstage(State.Troop);
 
                         // Remove the troop
                         State.Troop.Remove();

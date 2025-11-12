@@ -4,12 +4,12 @@ using System.Globalization;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
-using Retinues.Features.Xp.Behaviors;
+using Retinues.Features.Experience;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
-using Retinues.Troops.Edition;
+using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -270,7 +270,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceProperty]
         public string TroopXpText =>
             L.T("troop_xp", "{XP} xp")
-                .SetTextVariable("XP", TroopXpBehavior.Get(State.Troop))
+                .SetTextVariable("XP", BattleXpBehavior.Get(State.Troop))
                 .ToString();
 
         /* ━━━━━━━━ Skills ━━━━━━━━ */
@@ -280,7 +280,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         {
             get
             {
-                int cap = State.Troop != null ? TroopRules.SkillCapByTier(State.Troop) : 0;
+                int cap = State.Troop != null ? SkillManager.SkillCapByTier(State.Troop) : 0;
                 return L.T("skill_cap_text", "{CAP} skill cap")
                     .SetTextVariable("CAP", cap)
                     .ToString();
@@ -289,7 +289,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public int SkillPointsTotal =>
-            State.Troop != null ? TroopRules.SkillTotalByTier(State.Troop) : 0;
+            State.Troop != null ? SkillManager.SkillTotalByTier(State.Troop) : 0;
 
         [DataSourceProperty]
         public int SkillPointsUsed => SkillsRow1.Concat(SkillsRow2).Sum(s => s.Value);
@@ -358,7 +358,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public TextObject CantAddUpgradeReason =>
-            TroopRules.GetAddUpgradeToTroopReason(State.Troop);
+            UpgradeManager.GetAddUpgradeToTroopReason(State.Troop);
 
         [DataSourceProperty]
         public BasicTooltipViewModel AddUpgradeHint =>
@@ -388,7 +388,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int PendingTotalCount => ConversionRows.Sum(r => Math.Abs(r.PendingAmount));
 
         [DataSourceProperty]
-        public int RetinueCap => State.Troop != null ? TroopRules.RetinueCapFor(State.Troop) : 0;
+        public int RetinueCap =>
+            State.Troop != null ? RetinueManager.RetinueCapFor(State.Troop) : 0;
 
         /* ━━━━ Upgrade Targets ━━━ */
 
@@ -683,8 +684,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteAddUpgrade()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_modify", "modify"))
-                == false
+                ContextManager.IsAllowedInContextWithPopup(
+                    State.Troop,
+                    L.S("action_modify", "modify")
+                ) == false
             )
                 return; // Modification not allowed in current context
 
@@ -704,7 +707,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         if (string.IsNullOrWhiteSpace(name))
                             return;
 
-                        var target = TroopManager.AddUpgradeTarget(State.Troop, name);
+                        var target = UpgradeManager.AddUpgradeTarget(State.Troop, name);
 
                         // Refresh troops
                         State.UpdateFaction(State.Faction);
@@ -730,14 +733,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 return; // Rank up disabled in studio mode
 
             if (
-                TroopRules.IsAllowedInContextWithPopup(State.Troop, L.S("action_modify", "modify"))
-                == false
+                ContextManager.IsAllowedInContextWithPopup(
+                    State.Troop,
+                    L.S("action_modify", "modify")
+                ) == false
             )
                 return; // Rank up not allowed in current context
 
-            int cost = TroopRules.RankUpCost(State.Troop);
+            int cost = RetinueManager.RankUpCost(State.Troop);
 
-            if (TroopRules.SkillPointsLeft(State.Troop) > 0)
+            if (SkillManager.SkillPointsLeft(State.Troop) > 0)
             {
                 Notifications.Popup(
                     L.T("rank_up_not_maxed_out", "Not Maxed Out"),
@@ -774,7 +779,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         .SetTextVariable("COST", cost)
                 );
             }
-            else if (TroopXpBehavior.Get(State.Troop) < cost && TroopXpIsEnabled)
+            else if (BattleXpBehavior.Get(State.Troop) < cost && TroopXpIsEnabled)
             {
                 Notifications.Popup(
                     L.T("rank_up_not_enough_xp_title", "Not enough XP"),
@@ -813,7 +818,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         negativeText: L.S("cancel", "Cancel"),
                         affirmativeAction: () =>
                         {
-                            TroopManager.RankUp(State.Troop);
+                            RetinueManager.RankUp(State.Troop);
 
                             TroopMatcher.InvalidateTroopCache(State.Troop);
 
@@ -843,7 +848,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 return;
 
             if (
-                TroopRules.IsAllowedInContextWithPopup(
+                ContextManager.IsAllowedInContextWithPopup(
                     State.Troop,
                     L.S("action_convert", "convert")
                 ) == false
@@ -887,7 +892,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
                 int amount = Math.Abs(conversion.Value);
 
-                TroopManager.Convert(source, target, amount);
+                RetinueManager.Convert(source, target, amount);
             }
 
             // Clear pending conversions

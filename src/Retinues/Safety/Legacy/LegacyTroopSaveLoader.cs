@@ -51,19 +51,20 @@ namespace Retinues.Safety.Legacy
                 Log.Warn(
                     "TroopSaveData.EquipmentCode is deprecated, use EquipmentCodes list instead."
                 );
-                troop.Loadout.Equipments =
-                [
-                    WEquipment.FromCode(
-                        data.EquipmentCode,
-                        troop.Loadout,
-                        (int)EquipmentCategory.Battle
-                    ),
-                    WEquipment.FromCode(
-                        data.EquipmentCode,
-                        troop.Loadout,
-                        (int)EquipmentCategory.Civilian
-                    ),
-                ];
+                troop.Loadout.SetEquipments(
+                    [
+                        WEquipment.FromCode(
+                            data.EquipmentCode,
+                            troop.Loadout,
+                            (int)EquipmentCategory.Battle
+                        ),
+                        WEquipment.FromCode(
+                            data.EquipmentCode,
+                            troop.Loadout,
+                            (int)EquipmentCategory.Civilian
+                        ),
+                    ]
+                );
             }
             else
             {
@@ -75,21 +76,27 @@ namespace Retinues.Safety.Legacy
                 else if (troop.Loadout.Equipments.Count == 1)
                 {
                     // ensure we have a second equipment for civilian
-                    troop.Loadout.Equipments =
-                    [
-                        troop.Loadout.Equipments[0],
-                        WEquipment.FromCode(null, troop.Loadout, (int)EquipmentCategory.Civilian),
-                    ];
+                    troop.Loadout.SetEquipments(
+                        [
+                            troop.Loadout.Equipments[0],
+                            WEquipment.FromCode(
+                                null,
+                                troop.Loadout,
+                                (int)EquipmentCategory.Civilian
+                            ),
+                        ]
+                    );
                 }
                 else
                 {
                     // set correct flags
-                    troop.Loadout.Equipments =
-                    [
-                        .. data.EquipmentCodes.Select(
-                            (code, idx) => WEquipment.FromCode(code, troop.Loadout, idx)
-                        ),
-                    ];
+                    troop.Loadout.SetEquipments(
+                        [
+                            .. data.EquipmentCodes.Select(
+                                (code, idx) => WEquipment.FromCode(code, troop.Loadout, idx)
+                            ),
+                        ]
+                    );
                 }
             }
 

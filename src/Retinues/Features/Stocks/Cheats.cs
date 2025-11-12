@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Retinues.Features.Stocks.Behaviors;
 using TaleWorlds.Library;
 
 namespace Retinues.Features.Stocks

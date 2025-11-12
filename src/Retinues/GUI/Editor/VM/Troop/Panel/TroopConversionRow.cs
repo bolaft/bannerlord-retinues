@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Game.Wrappers;
-using Retinues.Troops.Edition;
+using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
@@ -69,11 +69,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public int GoldConversionCost =>
-            TroopRules.ConversionGoldCostPerUnit(State.Troop) * Math.Max(0, Amount);
+            RetinueManager.ConversionGoldCostPerUnit(State.Troop) * Math.Max(0, Amount);
 
         [DataSourceProperty]
         public int InfluenceConversionCost =>
-            TroopRules.ConversionInfluenceCostPerUnit(State.Troop) * Math.Max(0, Amount);
+            RetinueManager.ConversionInfluenceCostPerUnit(State.Troop) * Math.Max(0, Amount);
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -90,14 +90,14 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public string TargetDisplay =>
-            $"{Format.Crop(State.Troop.Name, 40)} ({TargetCount + TotalAmount}/{TroopRules.RetinueCapFor(State.Troop)})";
+            $"{Format.Crop(State.Troop.Name, 40)} ({TargetCount + TotalAmount}/{RetinueManager.RetinueCapFor(State.Troop)})";
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
         public bool CanRecruit =>
             !OtherRowsHavePendingConversions
-            && TargetCount + TotalAmount < TroopRules.RetinueCapFor(State.Troop)
+            && TargetCount + TotalAmount < RetinueManager.RetinueCapFor(State.Troop)
             && SourceCount - Amount > 0;
 
         [DataSourceProperty]
@@ -117,7 +117,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteRecruit()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(
+                ContextManager.IsAllowedInContextWithPopup(
                     State.Troop,
                     L.S("action_convert", "convert")
                 ) == false
@@ -142,7 +142,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public void ExecuteRelease()
         {
             if (
-                TroopRules.IsAllowedInContextWithPopup(
+                ContextManager.IsAllowedInContextWithPopup(
                     State.Troop,
                     L.S("action_convert", "convert")
                 ) == false

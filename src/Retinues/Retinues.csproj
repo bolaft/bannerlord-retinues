@@ -108,17 +108,17 @@
     </Reference>
     <!-- UIExtenderEx -->
     <Reference Include="Bannerlord.UIExtenderEx">
-      <HintPath>$(BannerlordGameDir)/Modules/Bannerlord.UIExtenderEx/bin/Win64_Shipping_Client/Bannerlord.UIExtenderEx.dll</HintPath>
+      <HintPath>$(ReferenceRoot)/Modules/Bannerlord.UIExtenderEx/bin/Win64_Shipping_Client/Bannerlord.UIExtenderEx.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <!-- Harmony -->
     <Reference Include="0Harmony">
-      <HintPath>$(BannerlordGameDir)/Modules/Bannerlord.Harmony/bin/Win64_Shipping_Client/0Harmony.dll</HintPath>
+      <HintPath>$(ReferenceRoot)/Modules/Bannerlord.Harmony/bin/Win64_Shipping_Client/0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <!-- MCM -->
     <Reference Include="MCM">
-      <HintPath>$(BannerlordGameDir)/Modules/Bannerlord.MBOptionScreen/bin/Win64_Shipping_Client/MCMv5.dll</HintPath>
+      <HintPath>$(ReferenceRoot)/Modules/Bannerlord.MBOptionScreen/bin/Win64_Shipping_Client/MCMv5.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

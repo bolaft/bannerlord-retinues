@@ -5,13 +5,13 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
-using Retinues.Features.Loadouts.Behaviors;
-using Retinues.Features.Recruits.Behaviors;
-using Retinues.Features.Retinues.Behaviors;
-using Retinues.Features.Stocks.Behaviors;
-using Retinues.Features.Unlocks.Behaviors;
-using Retinues.Features.Upgrade.Behaviors;
-using Retinues.Features.Xp.Behaviors;
+using Retinues.Features.AutoJoin;
+using Retinues.Features.Equipments;
+using Retinues.Features.Experience;
+using Retinues.Features.Staging;
+using Retinues.Features.Stocks;
+using Retinues.Features.Swaps;
+using Retinues.Features.Unlocks;
 using Retinues.Game;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
@@ -237,20 +237,18 @@ namespace Retinues
             AddBehavior<MilitiaSwapBehavior>(cs);
 
             // Retinue behaviors
-            AddBehavior<RetinueHireBehavior>(cs);
+            AddBehavior<AutoJoinBehavior>(cs);
 
             // Combat equipment behavior
-            AddBehavior<CombatLoadoutBehavior>(cs);
+            AddBehavior<EquipmentPolicyBehavior>(cs);
 
-            // Training behavior
-            AddBehavior<TroopTrainBehavior>(cs);
+            // Staging behaviors
+            AddBehavior<TrainStagingBehavior>(cs);
+            AddBehavior<EquipStagingBehavior>(cs);
 
-            // Equipment behavior
-            AddBehavior<TroopEquipBehavior>(cs);
-
-            // XP behavior (skip if both costs are 0)
-            AddBehavior<TroopXpBehavior>(cs);
-            AddBehavior<TroopXpAutoResolveBehavior>(cs);
+            // XP behaviors
+            AddBehavior<BattleXpBehavior>(cs);
+            AddBehavior<BattleSimulationXpBehavior>(cs);
 
             // Doctrine behaviors (skip if doctrines disabled)
             if (Config.EnableDoctrines)

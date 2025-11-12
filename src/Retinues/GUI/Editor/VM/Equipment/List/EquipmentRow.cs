@@ -6,7 +6,7 @@ using Retinues.Doctrines.Catalog;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
-using Retinues.Troops.Edition;
+using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
@@ -293,7 +293,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Context restriction (only for instant mode)
             if (!Config.EquipmentChangeTakesTime)
                 if (
-                    !TroopRules.IsAllowedInContextWithPopup(
+                    !ContextManager.IsAllowedInContextWithPopup(
                         State.Troop,
                         L.S("action_modify", "modify")
                     )

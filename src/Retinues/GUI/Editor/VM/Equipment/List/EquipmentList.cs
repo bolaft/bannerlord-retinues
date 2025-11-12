@@ -5,7 +5,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Wrappers;
-using Retinues.Troops.Edition;
+using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
@@ -253,7 +253,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 State.Faction,
                 State.Slot,
                 cache: cache,
-                crafted: ShowCrafted
+                craftedOnly: ShowCrafted
             );
 
             // Keep cache fully updated

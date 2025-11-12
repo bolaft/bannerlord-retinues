@@ -4,7 +4,7 @@ using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.GUI.Helpers;
-using Retinues.Troops.Edition;
+using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -64,10 +64,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.SkillData.TryGetValue(Skill, out var data) ? data : null;
 
         private TextObject CantIncrementReason =>
-            TroopRules.GetIncrementSkillReason(State.Troop, Skill);
+            SkillManager.GetIncrementSkillReason(State.Troop, Skill);
 
         private TextObject CantDecrementReason =>
-            TroopRules.GetDecrementSkillReason(State.Troop, Skill);
+            SkillManager.GetDecrementSkillReason(State.Troop, Skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -129,7 +129,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         {
             if (Config.TrainingTakesTime == false) // Only check in instant training mode
                 if (
-                    TroopRules.IsAllowedInContextWithPopup(
+                    ContextManager.IsAllowedInContextWithPopup(
                         State.Troop,
                         L.S("action_modify", "modify")
                     ) == false
@@ -146,7 +146,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     if (increment == false && !CanDecrement)
                         break; // Can't decrement further
 
-                    TroopManager.ModifySkill(State.Troop, Skill, increment);
+                    SkillManager.ModifySkill(State.Troop, Skill, increment);
                 }
 
                 State.UpdateSkillData();

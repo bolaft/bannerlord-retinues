@@ -1,7 +1,7 @@
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
-using Retinues.Troops.Edition;
+using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 
@@ -31,7 +31,7 @@ namespace Retinues.Doctrines.Catalog
                 int maxedCount = 0;
 
                 foreach (var troop in Player.Troops)
-                    if (TroopRules.SkillPointsLeft(troop) == 0)
+                    if (SkillManager.SkillPointsLeft(troop) == 0)
                         maxedCount++;
 
                 SetProgress(maxedCount);

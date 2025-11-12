@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Features.Loadouts.Behaviors;
-using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Features.Equipments;
+using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.Managers;
 using Retinues.Troops;
-using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.Core;
 
@@ -291,7 +291,7 @@ namespace Retinues.GUI.Editor
                 data[slot] = new EquipData
                 {
                     Item = Equipment.Get(slot),
-                    Equip = TroopEquipBehavior.Get(Troop, slot, Equipment.Index),
+                    Equip = EquipStagingBehavior.Get(Troop, slot, Equipment.Index),
                 };
             }
             return data;
@@ -308,7 +308,7 @@ namespace Retinues.GUI.Editor
                 data[kvp.Key] = new SkillData
                 {
                     Value = kvp.Value,
-                    Train = TroopTrainBehavior.Get(Troop, kvp.Key),
+                    Train = TrainStagingBehavior.Get(Troop, kvp.Key),
                 };
             }
             return data;
@@ -324,7 +324,7 @@ namespace Retinues.GUI.Editor
             if (Troop?.IsRetinue != true)
                 return data;
 
-            foreach (var source in TroopManager.GetRetinueSourceTroops(Troop))
+            foreach (var source in RetinueManager.GetRetinueSourceTroops(Troop))
                 if (source?.IsValid == true)
                     data[source] = 0;
 
@@ -408,14 +408,14 @@ namespace Retinues.GUI.Editor
                 {
                     if (eqs[i].IsCivilian)
                         continue;
-                    if (CombatLoadoutBehavior.IsEnabled(troop, i, t))
+                    if (EquipmentPolicyBehavior.IsEnabled(troop, i, t))
                         enabled++;
                 }
                 if (enabled == 0)
                 {
                     // Enable index 0 (Normalize guarantees index 0 is a battle set)
-                    if (!CombatLoadoutBehavior.IsEnabled(troop, 0, t))
-                        CombatLoadoutBehavior.Toggle(troop, 0, t); // Toggle will enable
+                    if (!EquipmentPolicyBehavior.IsEnabled(troop, 0, t))
+                        EquipmentPolicyBehavior.Toggle(troop, 0, t); // Toggle will enable
                 }
             }
 

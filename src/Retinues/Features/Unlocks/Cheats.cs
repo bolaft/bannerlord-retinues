@@ -56,7 +56,7 @@ namespace Retinues.Features.Unlocks
         [CommandLineFunctionality.CommandLineArgumentFunction("reset_unlocks", "retinues")]
         public static string ResetUnlocks(List<string> args)
         {
-            Behaviors.UnlocksBehavior.Instance?.Reset();
+            UnlocksBehavior.Instance?.Reset();
             return "All unlocks have been reset.";
         }
     }

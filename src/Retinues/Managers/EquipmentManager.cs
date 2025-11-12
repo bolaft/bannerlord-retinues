@@ -1,0 +1,602 @@
+using System;
+using System.Collections.Generic;
+using Retinues.Configuration;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
+using Retinues.Features.Staging;
+using Retinues.Features.Unlocks;
+using Retinues.Game;
+using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor;
+using Retinues.Utils;
+using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
+
+namespace Retinues.Managers
+{
+    /// <summary>
+    /// Equipment rules and action flows: validation, affordability, multiplicity deltas,
+    /// staging decisions and application. No UI here.
+    /// </summary>
+    [SafeClass]
+    public static class EquipmentManager
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Public Result Types                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public enum EquipFailReason
+        {
+            None = 0,
+            NotAllowed = 1,
+            NotEnoughStock = 2,
+            NotEnoughGold = 3,
+        }
+
+        /// <summary>
+        /// Non-mutating cost/behavior preview for equipping an item.
+        /// </summary>
+        public sealed class EquipQuote
+        {
+            public bool IsChange; // false if old == new
+            public int DeltaAdd; // physical copies to add
+            public int DeltaRemove; // physical copies to destroy/refund
+            public int CopiesFromStock; // how many of DeltaAdd can be taken from stock
+            public int CopiesToBuy; // how many of DeltaAdd must be purchased
+            public int GoldCost; // total gold cost for CopiesToBuy (0 in studio or PayForEquipment=false)
+            public bool WouldStage; // true iff DeltaAdd>0 and Config.EquipmentChangeTakesTime and not studio
+        }
+
+        /// <summary>
+        /// Mutating result for equip/unequip operations.
+        /// </summary>
+        public sealed class EquipResult
+        {
+            public bool Ok;
+            public bool Staged; // true if a staged task was created (loadout not yet changed)
+            public EquipFailReason Reason;
+            public int GoldDelta; // negative when gold was spent, positive on refunds (if you choose to support)
+            public int AddedCopies; // consumed/bought now
+            public int RefundedCopies; // returned to stock now
+        }
+
+        /// <summary>
+        /// Non-mutating quote for deleting a set.
+        /// </summary>
+        public sealed class DeleteSetQuote
+        {
+            public Dictionary<WItem, int> Refunds; // item -> copies to refund
+        }
+
+        /// <summary>
+        /// Mutating result for deleting a set.
+        /// </summary>
+        public sealed class DeleteSetResult
+        {
+            public bool Ok;
+            public Dictionary<WItem, int> Refunded; // item -> copies refunded
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Availability                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Collects all available items for a troop, faction, and slot, considering unlocks, doctrines, and config.
+        /// </summary>
+        public static List<(
+            WItem item,
+            bool isAvailable,
+            bool isUnlocked,
+            int progress
+        )> CollectAvailableItems(
+            ITroopFaction faction,
+            EquipmentIndex slot,
+            List<(WItem item, bool unlocked, int progress)> cache = null,
+            bool craftedOnly = false
+        )
+        {
+            if (craftedOnly)
+            {
+                if (!DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
+                    return new List<(WItem, bool, bool, int)>();
+                cache = null; // ignore caller cache for crafted-only
+            }
+
+            var eligible =
+                cache ?? BuildEligibilityList(faction, slot, includeCrafted: !craftedOnly);
+
+            HashSet<WItem> availableInTown = null;
+            if (!craftedOnly && !State.IsStudioMode && Config.RestrictItemsToTownInventory)
+                availableInTown = BuildCurrentTownAvailabilitySet();
+
+            var items = new List<(WItem, bool, bool, int)>(eligible.Count);
+            foreach (var p in eligible)
+            {
+                bool okTown = availableInTown == null || availableInTown.Contains(p.item);
+                items.Add((p.item, okTown, p.unlocked, p.progress));
+            }
+            return items;
+        }
+
+        /// <summary>
+        /// Builds a list of items eligible for equipping into the given slot,
+        /// considering unlocks and config, but ignoring town stock.
+        /// </summary>
+        private static List<(WItem item, bool unlocked, int progress)> BuildEligibilityList(
+            ITroopFaction faction,
+            EquipmentIndex slot,
+            bool includeCrafted
+        )
+        {
+            bool craftedUnlocked = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
+            bool cultureUnlocked = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
+
+            var factionCultureId = faction?.Culture?.StringId;
+            var clanCultureId = Player.Clan?.Culture?.StringId;
+            var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
+
+            var allObjects = MBObjectManager.Instance.GetObjectTypeList<ItemObject>();
+            var list = new List<(WItem, bool, int)>();
+            var craftedCodes = new HashSet<string>();
+
+            foreach (var io in allObjects)
+            {
+                var item = new WItem(io);
+
+                try
+                {
+                    if (includeCrafted)
+                    {
+                        if (item.IsCrafted)
+                        {
+                            if (!craftedUnlocked)
+                                continue;
+                            if (!item.Slots.Contains(slot))
+                                continue;
+
+                            if (
+                                item.CraftedCode != null
+                                && !craftedCodes.Contains(item.CraftedCode)
+                            )
+                            {
+                                list.Add((item, true, 0));
+                                craftedCodes.Add(item.CraftedCode);
+                            }
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (item.IsCrafted)
+                            continue;
+                    }
+
+                    if (Config.AllEquipmentUnlocked)
+                    {
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, true, 0));
+                        continue;
+                    }
+
+                    if (item.IsUnlocked)
+                    {
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, true, 0));
+                        continue;
+                    }
+
+                    var itemCultureId = item.Culture?.StringId;
+
+                    if (Config.UnlockFromCulture && itemCultureId == factionCultureId)
+                    {
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, true, 0));
+                        continue;
+                    }
+
+                    if (
+                        cultureUnlocked
+                        && (itemCultureId == clanCultureId || itemCultureId == kingdomCultureId)
+                    )
+                    {
+                        if (item.Slots.Contains(slot))
+                            list.Add((item, true, 0));
+                        continue;
+                    }
+
+                    if (
+                        Config.UnlockFromKills
+                        && UnlocksBehavior.Instance.ProgressByItemId.TryGetValue(
+                            item.StringId,
+                            out var prog
+                        )
+                    )
+                    {
+                        if (prog >= Config.KillsForUnlock)
+                        {
+                            item.Unlock();
+                            if (item.Slots.Contains(slot))
+                                list.Add((item, true, 0));
+                        }
+                        else
+                        {
+                            if (item.Slots.Contains(slot))
+                                list.Add((item, false, prog));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex);
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Builds a set of items available in the current town's inventory.
+        /// Returns null if no restriction is to be applied.
+        /// </summary>
+        private static HashSet<WItem> BuildCurrentTownAvailabilitySet()
+        {
+            if (Player.CurrentSettlement == null)
+                return null;
+
+            var set = new HashSet<WItem>();
+            foreach (var pair in Player.CurrentSettlement.ItemCounts())
+                if (pair.count > 0)
+                    set.Add(pair.item);
+            return set;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Pure Checks / Quoting                 //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Can this troop equip the item into the given slot of the set, ignoring stock/gold?
+        /// Put skills/compat/culture checks here. Keep it side-effect free.
+        /// </summary>
+        public static bool CanEquip(WCharacter troop, int setIndex, EquipmentIndex slot, WItem item)
+        {
+            if (troop == null)
+                return false;
+
+            // Example minimal checks (expand as needed):
+            if (item != null && item.RelevantSkill != null)
+                if (!troop.MeetsItemSkillRequirements(item))
+                    return false;
+
+            // Add slot-compatibility, 2H vs shield, horse/harness consistency, doctrine gates, etc.
+            return true;
+        }
+
+        /// <summary>
+        /// Non-mutating preview for an equip change, including multiplicity deltas and whether it would stage.
+        /// </summary>
+        public static EquipQuote QuoteEquip(
+            WCharacter troop,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem newItem
+        )
+        {
+            var q = new EquipQuote();
+
+            var loadout = troop.Loadout;
+            var eq = loadout.Get(setIndex);
+            var oldItem = eq?.Get(slot);
+
+            q.IsChange = oldItem != newItem;
+
+            // No change -> trivial quote
+            if (!q.IsChange)
+            {
+                q.DeltaAdd = 0;
+                q.DeltaRemove = 0;
+                q.CopiesFromStock = 0;
+                q.CopiesToBuy = 0;
+                q.GoldCost = 0;
+                q.WouldStage = false;
+                return q;
+            }
+
+            // Compute deltas using the loadout "what-if" helpers
+            int beforeOld = loadout.MaxCountPerSet(oldItem);
+            int afterOld =
+                oldItem != null
+                    ? loadout.RequiredAfterForItem(oldItem, setIndex, slot, newItem)
+                    : 0;
+
+            int beforeNew = loadout.MaxCountPerSet(newItem);
+            int afterNew =
+                newItem != null
+                    ? loadout.RequiredAfterForItem(newItem, setIndex, slot, newItem)
+                    : 0;
+
+            q.DeltaRemove = Math.Max(0, beforeOld - afterOld);
+            q.DeltaAdd = Math.Max(0, afterNew - beforeNew);
+
+            // Figure out how many of DeltaAdd we can take from stock
+            int stock = newItem != null ? newItem.GetStock() : 0;
+            q.CopiesFromStock = Math.Min(stock, q.DeltaAdd);
+            q.CopiesToBuy = Math.Max(0, q.DeltaAdd - q.CopiesFromStock);
+
+            // Cost preview
+            int unitCost = GetItemCost(newItem, troop);
+            q.GoldCost = unitCost * q.CopiesToBuy;
+
+            // Staging decision - only if adding physical copies
+            bool stagingPossible = Config.EquipmentChangeTakesTime && !State.IsStudioMode;
+            q.WouldStage = stagingPossible && q.DeltaAdd > 0;
+
+            return q;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Mutating Flows                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Try to equip an item into a slot. Handles affordability, stock, multiplicity, staging,
+        /// and applies to the loadout immediately or via staging as per config.
+        /// </summary>
+        public static EquipResult TryEquip(
+            WCharacter troop,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem newItem,
+            bool allowPurchase = true
+        )
+        {
+            var res = new EquipResult
+            {
+                Ok = false,
+                Staged = false,
+                Reason = EquipFailReason.None,
+            };
+
+            if (!CanEquip(troop, setIndex, slot, newItem))
+            {
+                res.Reason = EquipFailReason.NotAllowed;
+                return res;
+            }
+
+            var loadout = troop.Loadout;
+            var eq = loadout.Get(setIndex);
+            var oldItem = eq?.Get(slot);
+
+            var q = QuoteEquip(troop, setIndex, slot, newItem);
+
+            if (!q.IsChange)
+            {
+                res.Ok = true;
+                return res;
+            }
+
+            // Affordability
+            if (q.DeltaAdd > 0)
+            {
+                if (q.CopiesFromStock < q.DeltaAdd && (!allowPurchase || !Config.PayForEquipment))
+                {
+                    res.Reason = EquipFailReason.NotEnoughStock;
+                    return res;
+                }
+
+                if (q.CopiesToBuy > 0 && Player.Gold < q.GoldCost)
+                {
+                    res.Reason = EquipFailReason.NotEnoughGold;
+                    return res;
+                }
+            }
+
+            // Apply acquisitions now (stock consumption and purchases)
+            if (q.DeltaAdd > 0 && newItem != null)
+            {
+                // consume from stock
+                for (int i = 0; i < q.CopiesFromStock; i++)
+                    newItem.Unstock();
+
+                // buy remainder (stock then consume)
+                if (q.CopiesToBuy > 0)
+                {
+                    int unitCost = GetItemCost(newItem, troop);
+                    if (unitCost > 0)
+                        Player.ChangeGold(-unitCost * q.CopiesToBuy);
+
+                    for (int i = 0; i < q.CopiesToBuy; i++)
+                    {
+                        newItem.Stock();
+                        newItem.Unstock();
+                    }
+
+                    res.GoldDelta = -unitCost * q.CopiesToBuy;
+                }
+
+                res.AddedCopies = q.DeltaAdd;
+            }
+
+            // Apply reductions immediately (return freed copies to stock now)
+            if (q.DeltaRemove > 0 && oldItem != null)
+            {
+                for (int i = 0; i < q.DeltaRemove; i++)
+                    oldItem.Stock();
+
+                res.RefundedCopies = q.DeltaRemove;
+            }
+
+            // Decide staging vs instant
+            bool shouldStage = q.WouldStage; // only DeltaAdd>0 under config and not studio
+
+            if (shouldStage)
+            {
+                // Stage the change. Acquisition already done now.
+                EquipStagingBehavior.Stage(troop, slot, newItem, setIndex);
+                res.Ok = true;
+                res.Staged = true;
+                return res;
+            }
+
+            // Instant apply to the loadout.
+            // Horse rule: removing horse also removes harness (structure-only)
+            if (slot == EquipmentIndex.Horse && newItem == null)
+                loadout.Apply(setIndex, EquipmentIndex.HorseHarness, null);
+
+            loadout.Apply(setIndex, slot, newItem);
+
+            res.Ok = true;
+            res.Staged = false;
+            return res;
+        }
+
+        /// <summary>
+        /// Try to unequip a slot (apply immediately, never staged).
+        /// Handles multiplicity reduction refunds.
+        /// </summary>
+        public static EquipResult TryUnequip(WCharacter troop, int setIndex, EquipmentIndex slot)
+        {
+            var res = new EquipResult
+            {
+                Ok = false,
+                Staged = false,
+                Reason = EquipFailReason.None,
+            };
+
+            var loadout = troop.Loadout;
+            var eq = loadout.Get(setIndex);
+            var oldItem = eq?.Get(slot);
+            if (oldItem == null)
+            {
+                res.Ok = true;
+                return res;
+            }
+
+            // Compute reduction delta for this slot
+            int beforeOld = loadout.MaxCountPerSet(oldItem);
+            int afterOld = loadout.RequiredAfterForItem(oldItem, setIndex, slot, null);
+            int deltaRemove = Math.Max(0, beforeOld - afterOld);
+
+            // Horse rule: unequipping horse also clears harness (and may refund its copies)
+            if (slot == EquipmentIndex.Horse)
+            {
+                var harness = eq.Get(EquipmentIndex.HorseHarness);
+                if (harness != null)
+                {
+                    int beforeHarness = loadout.MaxCountPerSet(harness);
+                    int afterHarness = loadout.RequiredAfterForItem(
+                        harness,
+                        setIndex,
+                        EquipmentIndex.HorseHarness,
+                        null
+                    );
+                    int deltaHarness = Math.Max(0, beforeHarness - afterHarness);
+
+                    // Apply structure first for harness
+                    loadout.Apply(setIndex, EquipmentIndex.HorseHarness, null);
+                    for (int i = 0; i < deltaHarness; i++)
+                        harness.Stock();
+
+                    res.RefundedCopies += deltaHarness;
+                }
+            }
+
+            // Apply structure
+            loadout.Apply(setIndex, slot, null);
+
+            // Refund freed copies
+            for (int i = 0; i < deltaRemove; i++)
+                oldItem.Stock();
+
+            res.RefundedCopies += deltaRemove;
+            res.Ok = true;
+            return res;
+        }
+
+        /// <summary>
+        /// Quote delete-set refunds: item -> copies that would be returned to stock if the set is removed.
+        /// </summary>
+        public static DeleteSetQuote QuoteDeleteSet(WCharacter troop, int setIndex)
+        {
+            var q = new DeleteSetQuote { Refunds = new Dictionary<WItem, int>() };
+            var preview = troop.Loadout.PreviewDeleteSet(setIndex);
+            foreach (var kv in preview)
+            {
+                if (kv.Value.deltaRemove > 0)
+                    q.Refunds[kv.Key] = kv.Value.deltaRemove;
+            }
+            return q;
+        }
+
+        /// <summary>
+        /// Remove a set. Cancels staged ops for the set (if you maintain such a list) and refunds only
+        /// the copies whose required count drops because this set disappears. No staging here.
+        /// </summary>
+        public static DeleteSetResult TryDeleteSet(WCharacter troop, int setIndex)
+        {
+            var res = new DeleteSetResult { Ok = false, Refunded = new Dictionary<WItem, int>() };
+
+            // If you track staged ops per set, cancel them here and revert their acquisitions.
+            // TroopEquipBehavior.CancelSetStages(troop, setIndex); // optional, implement if needed
+
+            var preview = troop.Loadout.PreviewDeleteSet(setIndex);
+            foreach (var kv in preview)
+            {
+                var item = kv.Key;
+                int deltaRemove = kv.Value.deltaRemove;
+                if (deltaRemove > 0)
+                {
+                    for (int i = 0; i < deltaRemove; i++)
+                        item.Stock();
+                    res.Refunded[item] = deltaRemove;
+                }
+            }
+
+            // Structure removal
+            var eq = troop.Loadout.Get(setIndex);
+            troop.Loadout.Remove(eq);
+
+            res.Ok = true;
+            return res;
+        }
+
+        /// <summary>
+        /// Immediate structural application helper for staging completion callbacks.
+        /// Does not perform any stock/gold work; that was already done at stage creation.
+        /// </summary>
+        public static void ApplyImmediate(
+            WCharacter troop,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem newItem
+        )
+        {
+            var loadout = troop.Loadout;
+
+            if (slot == EquipmentIndex.Horse && newItem == null)
+                loadout.Apply(setIndex, EquipmentIndex.HorseHarness, null);
+
+            loadout.Apply(setIndex, slot, newItem);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                 Pricing / Stock Helpers                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Price for one copy of the item for this troop, after config modifiers.
+        /// </summary>
+        public static int GetItemCost(WItem item, WCharacter troop)
+        {
+            if (item == null || troop == null)
+                return 0;
+            if (!Config.PayForEquipment)
+                return 0;
+            if (State.IsStudioMode)
+                return 0;
+            int baseValue = item.Value;
+            return (int)(baseValue * Config.EquipmentPriceModifier);
+        }
+    }
+}

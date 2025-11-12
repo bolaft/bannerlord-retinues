@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Retinues.Features.Loadouts.Behaviors;
-using Retinues.Features.Upgrade.Behaviors;
+using Retinues.Features.Equipments;
+using Retinues.Features.Staging;
 using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;
 using TaleWorlds.SaveSystem;
@@ -40,7 +40,7 @@ namespace Retinues
             AddClassDefinition(typeof(PendingEquipData), 070_002);
 
             // Equipment set usage data
-            AddClassDefinition(typeof(EquipmentUsePolicy), 200901);
+            AddClassDefinition(typeof(EquipmentPolicy), 200901);
 
             // Legacy data
             AddClassDefinition(typeof(LegacyTroopSaveData), 070_992);
@@ -76,9 +76,9 @@ namespace Retinues
             ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<int, byte>>));
 
             // Equipment set usage containers
-            ConstructContainerDefinition(typeof(Dictionary<int, EquipmentUsePolicy>));
+            ConstructContainerDefinition(typeof(Dictionary<int, EquipmentPolicy>));
             ConstructContainerDefinition(
-                typeof(Dictionary<string, Dictionary<int, EquipmentUsePolicy>>)
+                typeof(Dictionary<string, Dictionary<int, EquipmentPolicy>>)
             );
 
             // Retinue hire containers

@@ -97,7 +97,7 @@ namespace Retinues.Troops.Save
             troop.Skills = SkillData.Deserialize();
 
             // Set equipment
-            troop.Loadout.Equipments = EquipmentData.Deserialize(troop);
+            troop.Loadout.SetEquipments(EquipmentData.Deserialize(troop));
 
             // Restore upgrade targets
             foreach (var child in UpgradeTargets ?? [])
