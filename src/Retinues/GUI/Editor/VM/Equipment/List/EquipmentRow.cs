@@ -110,7 +110,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         private bool IsEquipped => !IsEmptyRow && EquippedItem == RowItem;
         private bool IsEmptyRow => RowItem == null;
         private bool IsRequirementBlocked =>
-            !IsEmptyRow && State.Troop?.MeetsItemRequirements(RowItem) == false;
+            !IsEmptyRow && State.Troop?.MeetsItemSkillRequirements(RowItem) == false;
         private bool IsTierBlocked =>
             !IsEmptyRow
             && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
@@ -184,7 +184,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public bool ShowInStockText =>
-            !EditorVM.IsStudioMode
+            !State.IsStudioMode
             && IsEnabled
             && !IsSelected
             && !IsEquipped
@@ -193,7 +193,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public bool ShowValue =>
-            !EditorVM.IsStudioMode
+            !State.IsStudioMode
             && IsEnabled
             && !IsSelected
             && !IsEquipped
@@ -280,280 +280,173 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceMethod]
         /// <summary>
-        /// Handle selection of this equipment row (equip/buy/unstage logic).
+        /// Handle selection of this equipment row.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteSelect()
         {
+            // Slot sanity
             if (RowItem != null && !RowItem.Slots.Contains(State.Slot))
-                return; // Invalid slot for this item
+                return;
 
-            if (Config.EquipmentChangeTakesTime == false) // Only check in instant equip mode
+            // Context restriction (only for instant mode)
+            if (!Config.EquipmentChangeTakesTime)
                 if (
-                    TroopRules.IsAllowedInContextWithPopup(
+                    !TroopRules.IsAllowedInContextWithPopup(
                         State.Troop,
                         L.S("action_modify", "modify")
-                    ) == false
+                    )
                 )
-                    return; // Modification not allowed in current context
+                    return;
 
-            var equippedItem = State.Equipment.Get(State.Slot);
-            var stagedItem = State.Equipment.GetStaged(State.Slot);
+            var troop = State.Troop;
+            var setIndex = State.Equipment.Index;
+            var slot = State.Slot;
 
-            bool staging = stagedItem != null;
-            bool selectionIsNull = RowItem == null;
-            bool selectionIsEquipped = RowItem != null && RowItem == equippedItem;
-            bool selectionIsStaged = RowItem != null && RowItem == stagedItem;
+            var equippedItem = State.Equipment.Get(slot);
+            var selectionIsNull = RowItem == null;
+            var selectionIsEquipped = RowItem != null && RowItem == equippedItem;
 
-            if (EditorVM.IsStudioMode)
+            // Studio: bypass rules/costs/time
+            if (State.IsStudioMode)
             {
-                Log.Debug("[ExecuteSelect] Studio mode active, equipping without restrictions.");
-                EquipmentManager.Equip(
-                    State.Troop,
-                    State.Slot,
+                var res = EquipmentManager.TryEquip(
+                    troop,
+                    setIndex,
+                    slot,
                     RowItem,
-                    State.Equipment.Index,
-                    stock: false // No stock management in studio mode
+                    allowPurchase: false
                 );
+                // (res.Staged will be false in studio, by design)
                 State.UpdateEquipData();
                 return;
             }
 
-            // Selecting the already staged item
-            if (selectionIsStaged)
+            // Case 1: Unequip
+            if (selectionIsNull)
             {
-                Log.Debug("[ExecuteSelect] Already staged item selected, no-op.");
-            }
-            // Something unstaged
-            else
-            {
-                // Case 1: Selection is null (unequip)
-                if (selectionIsNull)
+                // Only warn if reverting would later take time.
+                // That’s exactly when this unequip reduces required copies (deltaRemove > 0).
+                if (!State.IsStudioMode && Config.EquipmentChangeTakesTime && equippedItem != null)
                 {
-                    Log.Debug("[ExecuteSelect] Selection is null (unequip).");
+                    var loadout = troop.Loadout;
+                    int beforeOld = loadout.MaxCountPerSet(equippedItem);
+                    int afterOld = loadout.RequiredAfterForItem(equippedItem, setIndex, slot, null);
+                    bool revertWouldStage = afterOld < beforeOld; // deltaRemove > 0
 
-                    // Case 1a: Nothing is equipped (no-op)
-                    if (equippedItem == null)
+                    if (revertWouldStage)
                     {
-                        Log.Debug("[ExecuteSelect] Nothing is equipped.");
-
-                        if (staging)
-                        {
-                            Log.Debug("[ExecuteSelect] Something is staged, unstaging.");
-                            // Unstage if something is staged
-                            State.Troop.Unstage(State.Slot, stock: true);
-                            // Select the row
-                            State.UpdateEquipData();
-                        }
-                        else
-                        {
-                            Log.Debug("[ExecuteSelect] Nothing is staged, no-op.");
-                        }
-                    }
-                    // Case 1b: An item is equipped
-                    else
-                    {
-                        Log.Debug("[ExecuteSelect] An item is equipped, proceeding to unequip.");
-                        // Warn if unequipping will take time
-                        if (Config.EquipmentChangeTakesTime)
-                        {
-                            Log.Debug(
-                                "[ExecuteSelect] Equipment change takes time, showing warning inquiry."
-                            );
-                            InformationManager.ShowInquiry(
-                                new InquiryData(
-                                    titleText: L.S("warning", "Warning"),
-                                    text: L.T(
-                                            "unequip_warning_text",
-                                            "You are about to unequip {ITEM}, it will take time to re-equip a new one. Continue anyway?"
-                                        )
-                                        .SetTextVariable("ITEM", equippedItem.Name)
-                                        .ToString(),
-                                    isAffirmativeOptionShown: true,
-                                    isNegativeOptionShown: true,
-                                    affirmativeText: L.S("continue", "Continue"),
-                                    negativeText: L.S("cancel", "Cancel"),
-                                    affirmativeAction: () =>
-                                    {
-                                        Log.Debug("[ExecuteSelect] Applying unequip.");
-                                        // Unstage if something is staged
-                                        State.Troop.Unstage(State.Slot, stock: true);
-                                        // Apply unequip
-                                        EquipmentManager.Equip(
-                                            State.Troop,
-                                            State.Slot,
-                                            RowItem,
-                                            State.Equipment.Index
-                                        );
-                                        // Select the row
-                                        State.UpdateEquipData();
-                                    },
-                                    negativeAction: () => { } // Give the player an out
-                                )
-                            );
-                        }
-                        // No warning needed, just unequip
-                        else
-                        {
-                            Log.Debug("[ExecuteSelect] Applying unequip without warning.");
-                            // Unstage if something is staged
-                            State.Troop.Unstage(State.Slot, stock: true);
-                            // Apply unequip
-                            EquipmentManager.Equip(
-                                State.Troop,
-                                State.Slot,
-                                RowItem,
-                                State.Equipment.Index
-                            );
-                            // Select the row
-                            State.UpdateEquipData();
-                        }
-                    }
-                }
-                // Case 2: Selection is already equipped
-                else if (selectionIsEquipped)
-                {
-                    Log.Debug("[ExecuteSelect] Selection is already equipped.");
-
-                    // Unstage if something is staged
-                    State.Troop.Unstage(State.Slot, stock: true);
-                    // Select the row
-                    State.UpdateEquipData();
-
-                    return; // No-op if already equipped after unstaging
-                }
-                // Case 3: Selection is something else (equip)
-                else
-                {
-                    Log.Debug("[ExecuteSelect] Selection is a new item, proceeding to equip.");
-
-                    // Case 3a: Item has a cost
-                    if (Value > 0)
-                    {
-                        // Will this equip increase the required physical copies?
-                        int oldMax = State.Troop.Loadout.MaxCountPerSet(RowItem);
-                        int newCountThisSet =
-                            State.Troop.Loadout.CountInSet(RowItem, State.Equipment.Index) + 1;
-                        bool needsAdditionalCopies = newCountThisSet > oldMax;
-
-                        // If we don't actually need extra copies (cross-set share covers it), equip silently
-                        if (!needsAdditionalCopies)
-                        {
-                            Log.Debug(
-                                "[ExecuteSelect] Ownership covers this equip; no extra copies needed."
-                            );
-                            State.Troop.Unstage(State.Slot, stock: true);
-                            EquipmentManager.EquipFromStock(
-                                State.Troop,
-                                State.Slot,
-                                RowItem,
-                                State.Equipment.Index
-                            );
-                            State.UpdateEquipData();
-                            return;
-                        }
-
-                        Log.Debug("[ExecuteSelect] Item has a cost: " + Value);
-                        // Case 3a1: Item is in stock
-                        if (Stock > 0)
-                        {
-                            Log.Debug("[ExecuteSelect] Item is in stock, equipping from stock.");
-                            // Unstage if something is staged
-                            State.Troop.Unstage(State.Slot, stock: true);
-                            // Apply the item change
-                            EquipmentManager.EquipFromStock(
-                                State.Troop,
-                                State.Slot,
-                                RowItem,
-                                State.Equipment.Index
-                            );
-                            // Select the row
-                            State.UpdateEquipData();
-                        }
-                        // Case 3a2: Item is out of stock
-                        else
-                        {
-                            Log.Debug("[ExecuteSelect] Item is out of stock.");
-                            // Case 3a2i: Player can afford
-                            if (Player.Gold >= Value)
-                            {
-                                Log.Debug(
-                                    "[ExecuteSelect] Player can afford the item, showing inquiry."
-                                );
-                                InformationManager.ShowInquiry(
-                                    new InquiryData(
-                                        titleText: L.S("buy_item", "Buy Item"),
-                                        text: L.T(
-                                                "buy_item_text",
-                                                "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?"
-                                            )
-                                            .SetTextVariable("ITEM_NAME", RowItem.Name)
-                                            .SetTextVariable("ITEM_VALUE", Value)
-                                            .ToString(),
-                                        isAffirmativeOptionShown: true,
-                                        isNegativeOptionShown: true,
-                                        affirmativeText: L.S("yes", "Yes"),
-                                        negativeText: L.S("no", "No"),
-                                        affirmativeAction: () =>
-                                        {
-                                            Log.Debug(
-                                                "[ExecuteSelect] Player confirmed purchase, equipping from purchase."
-                                            );
-                                            // Unstage if something is staged
-                                            State.Troop.Unstage(State.Slot, stock: true);
-                                            // Apply the item change
-                                            EquipmentManager.EquipFromPurchase(
-                                                State.Troop,
-                                                State.Slot,
-                                                RowItem,
-                                                State.Equipment.Index
-                                            );
-                                            // Select the row
-                                            State.UpdateEquipData();
-                                        },
-                                        negativeAction: () =>
-                                        {
-                                            Log.Debug(
-                                                "[ExecuteSelect] Player cancelled purchase, no-op."
-                                            );
-                                        }
+                        InformationManager.ShowInquiry(
+                            new InquiryData(
+                                L.S("unequip_warn_title", "Unequip Item"),
+                                L.T(
+                                        "unequip_warning_text",
+                                        "Unequipping is instant.\n\nRe-equipping {ITEM_NAME} later may take time."
                                     )
-                                );
-                            }
-                            // Case 3a2ii: Player cannot afford
-                            else
-                            {
-                                Log.Debug(
-                                    "[ExecuteSelect] Player cannot afford the item, showing popup."
-                                );
+                                    .SetTextVariable("ITEM_NAME", equippedItem.Name)
+                                    .ToString(),
+                                true,
+                                true,
+                                L.S("confirm", "Confirm"),
+                                L.S("cancel", "Cancel"),
+                                () =>
+                                {
+                                    var res = EquipmentManager.TryUnequip(troop, setIndex, slot);
+                                    State.UpdateEquipData();
+                                },
+                                () => { }
+                            )
+                        );
+                        return;
+                    }
+                }
+
+                // No warning needed: either studio, equip-changes don’t take time,
+                // or this unequip does not reduce required copies.
+                {
+                    var res = EquipmentManager.TryUnequip(troop, setIndex, slot);
+                    State.UpdateEquipData();
+                    return;
+                }
+            }
+
+            // Case 2: Already equipped -> no-op (but still refresh to collapse any staged visuals)
+            if (selectionIsEquipped)
+            {
+                State.UpdateEquipData();
+                return;
+            }
+
+            // Case 3: Equip a different item
+            // Preview the change to drive UI flow (confirm cost if needed).
+            var quote = EquipmentManager.QuoteEquip(troop, setIndex, slot, RowItem);
+
+            // No structural change (defensive)
+            if (!quote.IsChange)
+            {
+                State.UpdateEquipData();
+                return;
+            }
+
+            // If we must buy copies (and player pays for equipment), ask for confirmation
+            bool needsPurchase = quote.CopiesToBuy > 0 && quote.GoldCost > 0;
+            if (needsPurchase)
+            {
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        L.S("buy_item", "Buy Item"),
+                        L.T(
+                                "buy_item_text",
+                                "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?"
+                            )
+                            .SetTextVariable("ITEM_NAME", RowItem.Name)
+                            .SetTextVariable("ITEM_VALUE", quote.GoldCost)
+                            .ToString(),
+                        true,
+                        true,
+                        L.S("yes", "Yes"),
+                        L.S("no", "No"),
+                        () =>
+                        {
+                            var res = EquipmentManager.TryEquip(
+                                troop,
+                                setIndex,
+                                slot,
+                                RowItem,
+                                allowPurchase: true
+                            );
+                            if (
+                                !res.Ok
+                                && res.Reason == EquipmentManager.EquipFailReason.NotEnoughGold
+                            )
                                 Notifications.Popup(
-                                    L.T("not_enough_gold", "Not enough gold"),
+                                    L.T("not_enough_gold_title", "Not Enough Gold"),
                                     L.T(
                                         "not_enough_gold_text",
                                         "You do not have enough gold to purchase this item."
                                     )
                                 );
-                            }
-                        }
-                    }
-                    // Case 3b: Item is free
-                    else
-                    {
-                        Log.Debug("[ExecuteSelect] Item is free, equipping.");
-                        // Unstage if something is staged
-                        State.Troop.Unstage(State.Slot, stock: true);
-                        // Apply the item change
-                        EquipmentManager.Equip(
-                            State.Troop,
-                            State.Slot,
-                            RowItem,
-                            State.Equipment.Index
-                        );
-                        // Select the row
-                        State.UpdateEquipData();
-                    }
-                }
+                            // res.Staged indicates if it went into staging (only DeltaAdd > 0 and option on)
+                            State.UpdateEquipData();
+                        },
+                        () => { }
+                    )
+                );
+                return;
+            }
+
+            // Otherwise, try equip directly (free, stocked, or cross-set share)
+            {
+                var res = EquipmentManager.TryEquip(
+                    troop,
+                    setIndex,
+                    slot,
+                    RowItem,
+                    allowPurchase: true
+                );
+                State.UpdateEquipData();
+                return;
             }
         }
 

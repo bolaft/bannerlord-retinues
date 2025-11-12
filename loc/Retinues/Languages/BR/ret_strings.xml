@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="Não Permitido" />
     <string
-      id="ret_not_enough_gold"
-      text="Ouro insuficiente" />
-    <string
       id="ret_not_enough_gold_text"
       text="Você não tem ouro suficiente para comprar este item." />
     <string
       id="ret_not_enough_gold_title"
       text="Ouro Insuficiente" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="Você não tem cópias suficientes em estoque." />
-    <string
-      id="ret_not_enough_stock_title"
-      text="Estoque Insuficiente" />
     <string
       id="ret_not_enough_xp"
       text="XP insuficiente para o próximo ponto de habilidade." />
@@ -1117,9 +1108,6 @@
     <string
       id="ret_remove_set_text"
       text="Remover conjunto n°{SET} para {TROOP_NAME}?{newline}Todas as alterações em andamento serão limpas e os itens serão desequipados e guardados no estoque." />
-    <string
-      id="ret_remove_set_text_studio"
-      text="Remover conjunto n°{SET} para {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Remover Conjunto" />
@@ -1322,8 +1310,8 @@
       id="ret_unequip_all_text"
       text="Remover todos os itens usados por {TROOP_NAME}?{newline}{newline}Eles serão guardados no estoque para uso posterior." />
     <string
-      id="ret_unequip_all_text_studio"
-      text="Remover todos os itens usados por {TROOP_NAME}?" />
+      id="ret_unequip_warn_title"
+      text="Remover Item" />
     <string
       id="ret_unequip_warning_text"
       text="Você está prestes a remover {ITEM}, levará tempo para equipar um novo. Continuar assim mesmo?" />

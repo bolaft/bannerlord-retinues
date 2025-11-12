@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Game.Menu;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.VM;
+using Retinues.GUI.Editor;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -106,7 +106,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 return;
             }
 
-            if (Config.TrainingTakesTime == false || EditorVM.IsStudioMode)
+            if (Config.TrainingTakesTime == false || State.IsStudioMode)
             {
                 ApplyChange(troop.StringId, tc.Skill, tc.Points);
                 return;
@@ -155,7 +155,7 @@ namespace Retinues.Features.Upgrade.Behaviors
             RemovePending(troop.StringId, objectKey);
         }
 
-        protected override void ClearStagedChanges(WCharacter troop)
+        protected override void UnstageChanges(WCharacter troop)
         {
             if (troop == null)
                 return;
@@ -163,23 +163,28 @@ namespace Retinues.Features.Upgrade.Behaviors
                 RemovePending(troop.StringId, kvp.Key.StringId);
         }
 
-        // Static convenience wrappers (callers use these)
-        public static PendingTrainData GetStagedChange(WCharacter troop, SkillObject skill) =>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Static Accessors                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static PendingTrainData Get(WCharacter troop, SkillObject skill) =>
             ((TroopTrainBehavior)Instance).GetStagedChange(troop, skill?.StringId);
 
-        public static List<PendingTrainData> GetAllStagedChanges(WCharacter troop) =>
+        public static List<PendingTrainData> Get(WCharacter troop) =>
             ((TroopTrainBehavior)Instance).GetStagedChanges(troop);
 
-        public static void StageChange(WCharacter troop, SkillObject skill, int points = 1) =>
+        public static void Stage(WCharacter troop, SkillObject skill, int points = 1) =>
             ((TroopTrainBehavior)Instance).StageChange(troop, new TrainChange(skill, points));
 
-        public static void UnstageChange(WCharacter troop, SkillObject skill) =>
+        public static void Unstage(WCharacter troop, SkillObject skill) =>
             ((TroopTrainBehavior)Instance).UnstageChange(troop, skill?.StringId);
 
-        public static void ClearAllStagedChanges(WCharacter troop) =>
-            ((TroopTrainBehavior)Instance).ClearStagedChanges(troop);
+        public static void Unstage(WCharacter troop) =>
+            ((TroopTrainBehavior)Instance).UnstageChanges(troop);
 
-        /// <summary>Applies skill point changes immediately (used by timers and instant training).</summary>
+        /// <summary>
+        /// Applies skill point changes immediately (used by timers and instant training).
+        /// </summary>
         public static void ApplyChange(string troopId, SkillObject skill, int delta)
         {
             if (string.IsNullOrEmpty(troopId) || skill == null)
@@ -313,7 +318,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                 {
                     while (data.PointsRemaining > 0)
                     {
-                        TroopTrainBehavior.ApplyChange(troopId, skill, +1);
+                        ApplyChange(troopId, skill, +1);
                         data.PointsRemaining -= 1;
                     }
                     RemovePending(troopId, objId);
@@ -361,7 +366,7 @@ namespace Retinues.Features.Upgrade.Behaviors
                         int steps = Math.Min((int)Math.Floor(data.Carry), data.PointsRemaining);
                         if (steps > 0)
                         {
-                            TroopTrainBehavior.ApplyChange(troopId, skill, steps);
+                            ApplyChange(troopId, skill, steps);
                             data.PointsRemaining -= steps;
                             data.Carry -= steps;
                         }

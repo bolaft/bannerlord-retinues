@@ -19,7 +19,7 @@ namespace Retinues.Game.Helpers
             var eq = new Equipment(src.Base);
 
             // apply staged equip (if any)
-            var pending = TroopEquipBehavior.GetAllStagedChanges(troop);
+            var pending = TroopEquipBehavior.Get(troop);
             if (pending == null)
                 return eq; // nothing staged
             foreach (var p in pending)

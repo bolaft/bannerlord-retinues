@@ -37,7 +37,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             VillagerTroops = [.. State.Faction.VillagerTroops.Select(t => new TroopRowVM(t))];
             CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
 
-            if (EliteTroops.Count == 0 && !EditorVM.IsStudioMode)
+            if (EliteTroops.Count == 0 && !State.IsStudioMode)
                 EliteTroops.Add(
                     new TroopRowVM(
                         null,
@@ -48,7 +48,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (BasicTroops.Count == 0 && !EditorVM.IsStudioMode)
+            if (BasicTroops.Count == 0 && !State.IsStudioMode)
                 BasicTroops.Add(
                     new TroopRowVM(
                         null,
@@ -59,7 +59,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (MilitiaTroops.Count == 0 && !EditorVM.IsStudioMode)
+            if (MilitiaTroops.Count == 0 && !State.IsStudioMode)
                 MilitiaTroops.Add(
                     new TroopRowVM(
                         null,
@@ -70,7 +70,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (CaravanTroops.Count == 0 && !EditorVM.IsStudioMode)
+            if (CaravanTroops.Count == 0 && !State.IsStudioMode)
                 CaravanTroops.Add(
                     new TroopRowVM(
                         null,
@@ -81,7 +81,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (VillagerTroops.Count == 0 && !EditorVM.IsStudioMode)
+            if (VillagerTroops.Count == 0 && !State.IsStudioMode)
                 VillagerTroops.Add(
                     new TroopRowVM(
                         null,
@@ -178,19 +178,19 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowRetinueList => RetinueTroops.Count > 0 || !EditorVM.IsStudioMode;
+        public bool ShowRetinueList => RetinueTroops.Count > 0 || !State.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !EditorVM.IsStudioMode;
+        public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !State.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowCaravanList => CaravanTroops.Count > 0 || !EditorVM.IsStudioMode;
+        public bool ShowCaravanList => CaravanTroops.Count > 0 || !State.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowVillagerList => VillagerTroops.Count > 0 || !EditorVM.IsStudioMode;
+        public bool ShowVillagerList => VillagerTroops.Count > 0 || !State.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowCivilianList => CivilianTroops.Count > 0 && EditorVM.IsStudioMode;
+        public bool ShowCivilianList => CivilianTroops.Count > 0 && State.IsStudioMode;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //

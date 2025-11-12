@@ -7,7 +7,7 @@ using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Features.Xp.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.VM;
+using Retinues.GUI.Editor;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -30,7 +30,7 @@ namespace Retinues.Troops.Edition
         /// Returns true if editing is allowed in the current context (fief ownership, location, etc).
         /// </summary>
         public static bool IsAllowedInContext(WCharacter troop, string action) =>
-            EditorVM.IsStudioMode || GetContextReason(troop, action) == null;
+            State.IsStudioMode || GetContextReason(troop, action) == null;
 
         /// <summary>
         /// Returns the string reason why editing is not allowed, or null if allowed.
@@ -93,7 +93,7 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool IsAllowedInContextWithPopup(WCharacter troop, string action)
         {
-            if (EditorVM.IsStudioMode)
+            if (State.IsStudioMode)
                 return true; // Always allow in Studio Mode
 
             var reason = GetContextReason(troop, action);
@@ -201,8 +201,7 @@ namespace Retinues.Troops.Edition
             var trueSkillValue = GetTrueSkillValue(character, skill);
 
             // staged across ALL skills for this troop
-            var stagedAll =
-                TroopTrainBehavior.GetAllStagedChanges(character)?.Sum(d => d.PointsRemaining) ?? 0;
+            var stagedAll = TroopTrainBehavior.Get(character)?.Sum(d => d.PointsRemaining) ?? 0;
 
             // per-skill cap
             if (trueSkillValue >= SkillCapByTier(character))
@@ -272,7 +271,7 @@ namespace Retinues.Troops.Edition
         private static int GetTrueSkillValue(WCharacter character, SkillObject skill)
         {
             return character.GetSkill(skill)
-                + (TroopTrainBehavior.GetStagedChange(character, skill)?.PointsRemaining ?? 0);
+                + (TroopTrainBehavior.Get(character, skill)?.PointsRemaining ?? 0);
         }
 
         /// <summary>
@@ -320,7 +319,7 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static int SkillPointXpCost(int fromValue)
         {
-            if (EditorVM.IsStudioMode)
+            if (State.IsStudioMode)
                 return 0; // No XP cost in Studio Mode
 
             int baseCost = Config.BaseSkillXpCost;
@@ -334,13 +333,13 @@ namespace Retinues.Troops.Edition
         /// </summary>
         public static bool HasEnoughXpForNextPoint(WCharacter c, SkillObject s)
         {
-            if (EditorVM.IsStudioMode)
+            if (State.IsStudioMode)
                 return true; // No XP checks in Studio Mode
 
             if (c == null || s == null)
                 return false;
 
-            var staged = TroopTrainBehavior.GetStagedChange(c, s)?.PointsRemaining ?? 0;
+            var staged = TroopTrainBehavior.Get(c, s)?.PointsRemaining ?? 0;
             int cost = SkillPointXpCost(c.GetSkill(s) + staged);
             return TroopXpBehavior.Get(c) >= cost;
         }

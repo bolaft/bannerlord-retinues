@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="Non autorisé" />
     <string
-      id="ret_not_enough_gold"
-      text="Or insuffisant" />
-    <string
       id="ret_not_enough_gold_text"
       text="Pas assez d’or pour acheter cet objet." />
     <string
       id="ret_not_enough_gold_title"
       text="Or Insuffisant" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="Vous n’avez pas assez d’exemplaires en stock." />
-    <string
-      id="ret_not_enough_stock_title"
-      text="Stock Insuffisant" />
     <string
       id="ret_not_enough_xp"
       text="Pas assez d’XP pour le prochain point de compétence." />
@@ -1117,9 +1108,6 @@
     <string
       id="ret_remove_set_text"
       text="Retirer l’ensemble n°{SET} pour {TROOP_NAME} ?{newline}Tous les changements en cours seront annulés, et les objets seront déséquipés et stockés." />
-    <string
-      id="ret_remove_set_text_studio"
-      text="Retirer l’ensemble n°{SET} pour {TROOP_NAME} ?" />
     <string
       id="ret_remove_set_title"
       text="Supprimer l’ensemble" />
@@ -1322,8 +1310,8 @@
       id="ret_unequip_all_text"
       text="Retirer tout l’équipement porté par {TROOP_NAME} ?{newline}{newline}Il sera stocké pour une utilisation ultérieure." />
     <string
-      id="ret_unequip_all_text_studio"
-      text="Retirer tout l’équipement porté par {TROOP_NAME} ?" />
+      id="ret_unequip_warn_title"
+      text="Retirer l’objet" />
     <string
       id="ret_unequip_warning_text"
       text="Tu es sur le point de retirer {ITEM}, il faudra du temps pour en équiper un nouveau. Continuer quand même ?" />

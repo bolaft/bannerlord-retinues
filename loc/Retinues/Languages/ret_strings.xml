@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="Not Allowed" />
     <string
-      id="ret_not_enough_gold"
-      text="Not enough gold" />
-    <string
       id="ret_not_enough_gold_text"
       text="You do not have enough gold to purchase this item." />
     <string
       id="ret_not_enough_gold_title"
       text="Not Enough Gold" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="You don&apos;t have enough copies in stock." />
-    <string
-      id="ret_not_enough_stock_title"
-      text="Not Enough Stock" />
     <string
       id="ret_not_enough_xp"
       text="Not enough XP for next skill point." />
@@ -1116,9 +1107,6 @@
       text="At least one set of this type must remain." />
     <string
       id="ret_remove_set_text"
-      text="Remove set n°{EQUIPMENT} for {TROOP}?{newline}All staged changes will be cleared and items will be unequipped and stocked." />
-    <string
-      id="ret_remove_set_text_studio"
       text="Remove set n°{EQUIPMENT} for {TROOP}?" />
     <string
       id="ret_remove_set_title"
@@ -1320,13 +1308,13 @@
       text="Unequip All" />
     <string
       id="ret_unequip_all_text"
-      text="Unequip all items worn by {TROOP_NAME}?{newline}{newline}They will be stocked for later use." />
-    <string
-      id="ret_unequip_all_text_studio"
       text="Unequip all items worn by {TROOP_NAME}?" />
     <string
+      id="ret_unequip_warn_title"
+      text="Unequip Item" />
+    <string
       id="ret_unequip_warning_text"
-      text="You are about to unequip {ITEM}, it will take time to re-equip a new one. Continue anyway?" />
+      text="Unequipping is instant.{newline}{newline}Re-equipping {ITEM_NAME} later may take time." />
     <string
       id="ret_unknown"
       text="Unknown" />
@@ -1341,7 +1329,7 @@
       text="Unlocking ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
-      text="Unstage All" />
+      text="Reset Changes" />
     <string
       id="ret_unstage_all_button_text"
       text="Reset Changes" />

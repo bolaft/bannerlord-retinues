@@ -23,8 +23,6 @@ namespace Retinues.Features.Upgrade.Behaviors
 
     /// <summary>
     /// Generic base for settlement-driven, timed "staged" jobs (training, equipping, etc.).
-    /// Provides menu wiring, persistence plumbing, and a unified public API shape that
-    /// concrete behaviors must implement (Stage/Unstage/Get/Clear).
     /// </summary>
     [SafeClass]
     public abstract class BaseUpgradeBehavior<T> : CampaignBehaviorBase
@@ -145,7 +143,7 @@ namespace Retinues.Features.Upgrade.Behaviors
         protected abstract void UnstageChange(WCharacter troop, string objectKey);
 
         /// <summary>Remove all staged changes for a given troop.</summary>
-        protected abstract void ClearStagedChanges(WCharacter troop);
+        protected abstract void UnstageChanges(WCharacter troop);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Virtual                        //

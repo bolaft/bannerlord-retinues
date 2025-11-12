@@ -1,5 +1,4 @@
 using HarmonyLib;
-using Retinues.GUI.Editor.VM;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 
 namespace Retinues.GUI.Editor.Patches
@@ -9,7 +8,7 @@ namespace Retinues.GUI.Editor.Patches
     {
         static void Prefix()
         {
-            EditorVM.IsStudioMode = false;
+            State.IsStudioMode = false;
         }
     }
 }

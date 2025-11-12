@@ -138,10 +138,10 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceMethod]
         /// <summary>
         /// Select this troop as the current troop in state.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteSelect() => State.UpdateTroop(RowTroop, checkCurrentTroop: true);
     }
 }

@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Loadouts.Behaviors;
-using Retinues.Game;
+using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.List;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
@@ -225,13 +224,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public bool CanShowCrafted =>
             DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
             && EquipmentListVM.WeaponSlots.Contains(State.Slot.ToString())
-            && !EditorVM.IsStudioMode;
+            && !State.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowCrafted => EquipmentList.ShowCrafted && !EditorVM.IsStudioMode;
+        public bool ShowCrafted => EquipmentList.ShowCrafted && !State.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowCraftedIsVisible => IsVisible && !EditorVM.IsStudioMode;
+        public bool ShowCraftedIsVisible => IsVisible && !State.IsStudioMode;
 
         /* ━━━ Unequip / Unstage ━━ */
 
@@ -269,8 +268,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 if (troop == null || eq == null)
                     return false;
 
-                var civs = troop.Loadout.GetCivilianSets().Count();
-                var bats = troop.Loadout.GetBattleSets().Count();
+                var civs = troop.Loadout.CivilianSets.Count();
+                var bats = troop.Loadout.BattleSets.Count();
 
                 return eq.IsCivilian ? civs > 1 : bats > 1;
             }
@@ -306,13 +305,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     if (eq.Index == 0)
                         return false; // First set cannot be civilian
                     // Making this battle set civilian must leave >=1 battle set
-                    if (!eq.IsCivilian && troop.Loadout.GetBattleSets().Count() <= 1)
+                    if (!eq.IsCivilian && troop.Loadout.BattleSets.Count() <= 1)
                         return false;
                 }
                 else
                 {
                     // Making this civilian set battle must leave >=1 civilian set
-                    if (eq.IsCivilian && troop.Loadout.GetCivilianSets().Count() <= 1)
+                    if (eq.IsCivilian && troop.Loadout.CivilianSets.Count() <= 1)
                         return false;
                 }
 
@@ -594,24 +593,19 @@ namespace Retinues.GUI.Editor.VM.Equipment
                             L.S("cancel", "Cancel"),
                             affirmativeAction: () =>
                             {
-                                // 1) Stock + unstage + unset each offending item
-                                for (int i = 0; i < badSlots.Count; i++)
-                                {
-                                    var slot = badSlots[i];
-                                    var it = eq.Get(slot);
-                                    if (!EditorVM.IsStudioMode)
-                                        it?.Stock(); // keep it available in stocks
-                                    eq.UnstageItem(slot); // clear any pending staged change
-                                    eq.UnsetItem(slot); // remove from the set
-                                }
+                                var setIndex = eq.Index;
 
-                                // 2) Flip to civilian (also enforces min-sets + normalize)
+                                // Unequip offending items through the manager (handles multiplicity refunds)
+                                for (int i = 0; i < badSlots.Count; i++)
+                                    EquipmentManager.TryUnequip(troop, setIndex, badSlots[i]);
+
+                                // Flip to civilian (structure + normalize)
                                 troop.Loadout.ToggleCivilian(eq, targetCivilian);
 
-                                // 3) Ensure combat situation masks still have ≥1 enabled set
+                                // Ensure combat situation masks still have ≥1 enabled set
                                 State.FixCombatPolicies(troop);
 
-                                // 4) Selection might have shifted after Normalize()
+                                // Selection might have shifted after Normalize()
                                 var list = troop.Loadout.Equipments;
                                 State.UpdateEquipment(
                                     list[Mathf.Clamp(eq.Index, 0, list.Count - 1)]
@@ -672,34 +666,27 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceMethod]
-        /// <summary>
-        /// Unequip all items from the current equipment set (with confirmation).
-        /// </summary>
         public void ExecuteUnequipAll()
         {
-            if (CanUnequip == false)
-                return; // No-op if cannot unequip
+            if (!CanUnequip)
+                return;
 
             InformationManager.ShowInquiry(
                 new InquiryData(
                     titleText: L.S("unequip_all", "Unequip All"),
-                    text: EditorVM.IsStudioMode
-                        ? L.T("unequip_all_text_studio", "Unequip all items worn by {TROOP_NAME}?")
-                            .SetTextVariable("TROOP_NAME", State.Troop.Name)
-                            .ToString()
-                        : L.T(
-                                "unequip_all_text",
-                                "Unequip all items worn by {TROOP_NAME}?\n\nThey will be stocked for later use."
-                            )
-                            .SetTextVariable("TROOP_NAME", State.Troop.Name)
-                            .ToString(),
+                    text: L.T("unequip_all_text", "Unequip all items worn by {TROOP_NAME}?")
+                        .SetTextVariable("TROOP_NAME", State.Troop.Name)
+                        .ToString(),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
                     affirmativeText: L.S("confirm", "Confirm"),
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        State.Troop.UnequipAll(State.Equipment.Index, stock: true);
+                        var setIndex = State.Equipment.Index;
+                        foreach (var slot in WEquipment.Slots)
+                            EquipmentManager.TryUnequip(State.Troop, setIndex, slot);
+
                         State.UpdateEquipment(State.Equipment);
                     },
                     negativeAction: () => { }
@@ -708,17 +695,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceMethod]
-        /// <summary>
-        /// Revert all staged equipment changes for the current equipment set (with confirmation).
-        /// </summary>
         public void ExecuteUnstageAll()
         {
-            if (CanUnstage == false)
-                return; // No-op if nothing to unstage
+            if (!CanUnstage)
+                return;
 
             InformationManager.ShowInquiry(
                 new InquiryData(
-                    titleText: L.S("unstage_all", "Unstage All"),
+                    titleText: L.S("unstage_all", "Reset Changes"),
                     text: L.T(
                             "unstage_all_text",
                             "Revert all staged equipment changes for {TROOP_NAME}?"
@@ -731,7 +715,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        State.Troop.UnstageAll(State.Equipment.Index, true);
+                        // Cancel staged tasks for this set
+                        TroopEquipBehavior.Unstage(State.Troop, State.Equipment.Index);
                         State.UpdateEquipment(State.Equipment);
                     },
                     negativeAction: () => { }
@@ -739,64 +724,56 @@ namespace Retinues.GUI.Editor.VM.Equipment
             );
         }
 
-        [DataSourceMethod]
         /// <summary>
         /// Select the previous equipment set.
         /// </summary>
+        [DataSourceMethod]
         public void ExecutePrevSet() =>
             State.UpdateEquipment(State.Troop.Loadout.Equipments[State.Equipment.Index - 1]);
 
-        [DataSourceMethod]
         /// <summary>
         /// Select the next equipment set.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteNextSet() =>
             State.UpdateEquipment(State.Troop.Loadout.Equipments[State.Equipment.Index + 1]);
 
-        [DataSourceMethod]
         /// <summary>
-        /// Remove the current alternate equipment set (with confirmation).
+        /// Remove the current equipment set after confirmation.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRemoveSet()
         {
-            if (CanRemoveSet == false)
+            if (!CanRemoveSet)
                 return;
+
+            var troop = State.Troop;
+            var eq = State.Equipment;
+            if (troop == null || eq == null)
+                return;
+
+            var title = L.S("remove_set_title", "Remove Set");
+            var text = L.T("remove_set_text", "Remove set n°{EQUIPMENT} for {TROOP}?")
+                .SetTextVariable("EQUIPMENT", EquipmentName)
+                .SetTextVariable("TROOP", troop.Name)
+                .ToString();
 
             InformationManager.ShowInquiry(
                 new InquiryData(
-                    L.S("remove_set_title", "Remove Set"),
-                    EditorVM.IsStudioMode
-                        ? L.T("remove_set_text_studio", "Remove set n°{EQUIPMENT} for {TROOP}?")
-                            .SetTextVariable("EQUIPMENT", EquipmentName)
-                            .SetTextVariable("TROOP", State.Troop.Name)
-                            .ToString()
-                        : L.T(
-                                "remove_set_text",
-                                "Remove set n°{EQUIPMENT} for {TROOP}?\nAll staged changes will be cleared and items will be unequipped and stocked."
-                            )
-                            .SetTextVariable("EQUIPMENT", EquipmentName)
-                            .SetTextVariable("TROOP", State.Troop.Name)
-                            .ToString(),
+                    title,
+                    text,
                     true,
                     true,
                     L.S("confirm", "Confirm"),
                     L.S("cancel", "Cancel"),
                     () =>
                     {
-                        // Clear staged & unequip first
-                        State.Troop.UnequipAll(
-                            State.Equipment?.Index ?? 0,
-                            stock: !EditorVM.IsStudioMode
-                        );
-                        State.Troop.UnstageAll(State.Equipment?.Index ?? 0, !EditorVM.IsStudioMode);
-
-                        // Persist mask removal and remove the set
-                        CombatLoadoutBehavior.OnRemoved(State.Troop, State.Equipment.Index);
-                        State.Troop.Loadout.Remove(State.Equipment);
+                        // Manager handles refunds and structural removal
+                        var result = EquipmentManager.TryDeleteSet(troop, eq.Index);
 
                         // Keep masks valid and select canonical battle set (index 0)
-                        State.FixCombatPolicies(State.Troop);
-                        State.UpdateEquipment(State.Troop.Loadout.Battle);
+                        State.FixCombatPolicies(troop);
+                        State.UpdateEquipment(troop.Loadout.Battle);
                     },
                     () => { }
                 )
@@ -843,7 +820,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /// </summary>
         private void ExecuteCreateSet_EmptyFlow(WCharacter troop)
         {
-            var created = troop?.Loadout.CreateBattle();
+            var created = troop?.Loadout.CreateBattleSet();
             if (created == null)
                 return;
 
@@ -860,7 +837,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             var plan = CollectCopyPlan(src);
 
-            var created = troop.Loadout.CreateBattle();
+            var created = troop.Loadout.CreateBattleSet();
             CopyItemsInto(created, plan);
 
             CombatLoadoutBehavior.DisableAll(troop, created.Index);

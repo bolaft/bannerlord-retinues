@@ -7,7 +7,6 @@ using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Mods;
 using Retinues.Safety.Sanitizer;
-using Retinues.Troops.Edition;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -353,59 +352,7 @@ namespace Retinues.Game.Wrappers
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Equipment                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public WLoadout Loadout => new(this);
-
-        public void Equip(WItem item, EquipmentIndex slot, int index = 0)
-        {
-            // Get equipment in specified category/index
-            var equipment = Loadout.Get(index);
-
-            // Equip item in correct equipment's specified slot
-            equipment.SetItem(slot, item);
-
-            // Formation class is derived from main battle equipment
-            if (equipment.Category == EquipmentCategory.Battle)
-                FormationClass = ComputeFormationClass();
-
-            // Horse requirements may need an update
-            if (slot == EquipmentIndex.Horse)
-                UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
-
-            // Cascade to children
-            foreach (var child in UpgradeTargets)
-                child.UpgradeItemRequirement = child.Loadout.ComputeUpgradeItemRequirement();
-        }
-
-        public void Unequip(EquipmentIndex slot, int index = 0, bool stock = false)
-        {
-            EquipmentManager.Unequip(this, slot, index, stock);
-        }
-
-        public void UnequipAll(int index, bool stock = false)
-        {
-            foreach (var slot in WEquipment.Slots)
-                EquipmentManager.Unequip(this, slot, index, stock);
-        }
-
-        public void Unstage(EquipmentIndex slot, int index = 0, bool stock = false)
-        {
-            if (stock)
-                Loadout.Get(index).GetStaged(slot)?.Stock();
-
-            Loadout.Get(index).UnstageItem(slot);
-        }
-
-        public void UnstageAll(int index, bool stock = false)
-        {
-            foreach (var slot in WEquipment.Slots)
-                Unstage(slot, index: index, stock: stock);
-        }
-
-        public bool MeetsItemRequirements(WItem item)
+        public bool MeetsItemSkillRequirements(WItem item)
         {
             if (item == null)
                 return true;
@@ -413,6 +360,12 @@ namespace Retinues.Game.Wrappers
                 return true;
             return item.Difficulty <= GetSkill(item.RelevantSkill);
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Equipment                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WLoadout Loadout => new(this);
 
         public bool IsRanged => Loadout.Battle.HasNonThrowableRangedWeapons;
         public bool IsMounted => Loadout.Battle.HasMount;
@@ -489,7 +442,7 @@ namespace Retinues.Game.Wrappers
         //                Registration & Lifecycle                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public void Remove(bool stock = false)
+        public void Remove()
         {
             if (!IsCustom)
                 return;
@@ -506,17 +459,7 @@ namespace Retinues.Game.Wrappers
 
             // Remove all children
             foreach (var target in UpgradeTargets)
-                target.Remove(stock: stock);
-
-            // Stock equipment if requested
-            if (stock)
-            {
-                foreach (WEquipment equipment in Loadout.Equipments)
-                {
-                    UnequipAll(equipment.Index, stock: true);
-                    UnstageAll(equipment.Index, stock: true);
-                }
-            }
+                target.Remove();
 
             // Revert existing instances in parties
             SanitizerBehavior.Sanitize();

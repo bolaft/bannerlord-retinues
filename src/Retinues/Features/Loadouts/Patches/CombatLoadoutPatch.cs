@@ -57,7 +57,7 @@ namespace Retinues.Features.Loadouts.Patches
                 if (agentBuildData.AgentCivilianEquipment)
                 {
                     // Pick a civilian set if available
-                    var civs = troop.Loadout.GetCivilianSets().ToList();
+                    var civs = troop.Loadout.CivilianSets.ToList();
                     if (civs.Count == 0)
                         eq = troop.Loadout.Civilian.Base; // EnsureMinimumSets guarantees one exists
                     else

@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="Niedozwolone" />
     <string
-      id="ret_not_enough_gold"
-      text="Za mało złota" />
-    <string
       id="ret_not_enough_gold_text"
       text="Nie masz wystarczająco złota, aby kupić ten przedmiot." />
     <string
       id="ret_not_enough_gold_title"
       text="Za mało złota" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="Nie masz wystarczającej liczby kopii na stanie." />
-    <string
-      id="ret_not_enough_stock_title"
-      text="Za mało zapasów" />
     <string
       id="ret_not_enough_xp"
       text="Za mało XP na następny punkt umiejętności." />
@@ -1117,9 +1108,6 @@
     <string
       id="ret_remove_set_text"
       text="Usunąć zestaw nr {SET} dla {TROOP_NAME}?{newline}Wszystkie wprowadzone zmiany zostaną usunięte, a przedmioty zostaną zdjęte i zmagazynowane." />
-    <string
-      id="ret_remove_set_text_studio"
-      text="Usunąć zestaw nr {SET} dla {TROOP_NAME}?" />
     <string
       id="ret_remove_set_title"
       text="Usuń Zestaw" />
@@ -1322,8 +1310,8 @@
       id="ret_unequip_all_text"
       text="Zdjąć wszystkie przedmioty noszone przez {TROOP_NAME}?{newline}{newline}Zostaną one zmagazynowane." />
     <string
-      id="ret_unequip_all_text_studio"
-      text="Zdjąć wszystkie przedmioty noszone przez {TROOP_NAME}?" />
+      id="ret_unequip_warn_title"
+      text="Zdejmij Przedmiot" />
     <string
       id="ret_unequip_warning_text"
       text="Zamierzasz zdjąć {ITEM}, ponowne wyposażenie nowego zajmie trochę czasu. Kontynuować mimo to?" />

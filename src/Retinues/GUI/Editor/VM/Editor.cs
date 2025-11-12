@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
@@ -42,10 +41,6 @@ namespace Retinues.GUI.Editor.VM
     [SafeClass]
     public class EditorVM : BaseVM
     {
-        // Launch mode
-        [DataSourceProperty]
-        public static bool IsStudioMode { get; set; }
-
         /// <summary>
         /// Initialize the editor and its child screens.
         /// </summary>
@@ -55,7 +50,7 @@ namespace Retinues.GUI.Editor.VM
             EquipmentScreen = new EquipmentScreenVM();
             DoctrineScreen = new DoctrineScreenVM();
 
-            if (IsStudioMode)
+            if (State.IsStudioMode)
                 RefreshCultureBanner();
 
             SwitchScreen(Screen.Troop);
@@ -75,7 +70,7 @@ namespace Retinues.GUI.Editor.VM
             if (Screen == value && IsVisible)
                 return;
 
-            if (IsStudioMode && value == Screen.Doctrine)
+            if (State.IsStudioMode && value == Screen.Doctrine)
                 return; // Doctrines not available in Studio Mode
 
             Log.Info($"Switching screen from {Screen} to {value}");
@@ -97,7 +92,6 @@ namespace Retinues.GUI.Editor.VM
                 DoctrineScreen.Hide();
 
             // Notify UI
-            OnPropertyChanged(nameof(IsStudioMode));
             OnPropertyChanged(nameof(InTroopScreen));
             OnPropertyChanged(nameof(InEquipmentScreen));
             OnPropertyChanged(nameof(InDoctrineScreen));
@@ -167,7 +161,8 @@ namespace Retinues.GUI.Editor.VM
         }
 
         [DataSourceProperty]
-        public string CultureName => IsStudioMode ? State.Faction?.Culture?.Name : string.Empty;
+        public string CultureName =>
+            State.IsStudioMode ? State.Faction?.Culture?.Name : string.Empty;
 
         [DataSourceProperty]
         public BasicTooltipViewModel CultureBannerHint =>
@@ -181,10 +176,10 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━ Gauntlet ━━━━━━━ */
 
         [DataSourceProperty]
-        public int TableauMarginLeft => IsStudioMode ? 60 : 0;
+        public int TableauMarginLeft => State.IsStudioMode ? 60 : 0;
 
         [DataSourceProperty]
-        public int PanelMarginLeft => IsStudioMode ? 440 : 340;
+        public int PanelMarginLeft => State.IsStudioMode ? 440 : 340;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -216,11 +211,11 @@ namespace Retinues.GUI.Editor.VM
             Screen == Screen.Troop
             && Player.Kingdom != null
             && !Config.NoKingdomTroops
-            && !IsStudioMode;
+            && !State.IsStudioMode;
 
         [DataSourceProperty]
         public bool ShowDoctrinesButton =>
-            Screen != Screen.Equipment && (Config.EnableDoctrines ?? false) && !IsStudioMode;
+            Screen != Screen.Equipment && (Config.EnableDoctrines ?? false) && !State.IsStudioMode;
 
         [DataSourceProperty]
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;

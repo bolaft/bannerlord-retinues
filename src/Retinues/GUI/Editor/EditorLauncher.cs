@@ -1,7 +1,5 @@
-using Retinues.GUI.Editor.VM;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.GameState;
-using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor
 {
@@ -13,7 +11,7 @@ namespace Retinues.GUI.Editor
             try
             {
                 Log.Info("Launching Editor in Studio Mode…");
-                EditorVM.IsStudioMode = true; // single source of truth
+                State.IsStudioMode = true; // single source of truth
 
                 var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
                 if (gsm == null)

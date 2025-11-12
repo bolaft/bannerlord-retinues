@@ -143,7 +143,7 @@ namespace Retinues.Features.Upgrade.Behaviors
             RemovePending(troop.StringId, objectKey);
         }
 
-        protected override void ClearStagedChanges(WCharacter troop)
+        protected override void UnstageChanges(WCharacter troop)
         {
             if (troop == null)
                 return;
@@ -153,9 +153,11 @@ namespace Retinues.Features.Upgrade.Behaviors
                 RemovePending(troop.StringId, ComposeKey((int)slot, equipment.Index));
         }
 
-        // Static convenience wrappers (callers use these)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Static Accessors                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static PendingEquipData GetStagedChange(
+        public static PendingEquipData Get(
             WCharacter troop,
             EquipmentIndex slot,
             int equipmentIndex = 0
@@ -165,10 +167,10 @@ namespace Retinues.Features.Upgrade.Behaviors
                 ComposeKey((int)slot, equipmentIndex)
             );
 
-        public static List<PendingEquipData> GetAllStagedChanges(WCharacter troop) =>
+        public static List<PendingEquipData> Get(WCharacter troop) =>
             ((TroopEquipBehavior)Instance).GetStagedChanges(troop);
 
-        public static void StageChange(
+        public static void Stage(
             WCharacter troop,
             EquipmentIndex slot,
             WItem item,
@@ -179,18 +181,26 @@ namespace Retinues.Features.Upgrade.Behaviors
                 new EquipChange(slot, equipmentIndex, item)
             );
 
-        public static void UnstageChange(
-            WCharacter troop,
-            EquipmentIndex slot,
-            int equipmentIndex = 0
-        ) =>
+        public static void Unstage(WCharacter troop, EquipmentIndex slot, int equipmentIndex = 0) =>
             ((TroopEquipBehavior)Instance).UnstageChange(
                 troop,
                 ComposeKey((int)slot, equipmentIndex)
             );
 
-        public static void ClearAllStagedChanges(WCharacter troop) =>
-            ((TroopEquipBehavior)Instance).ClearStagedChanges(troop);
+        public static void Unstage(WCharacter troop, int equipmentIndex = 0)
+        {
+            var behavior = (TroopEquipBehavior)Instance;
+            foreach (var slot in WEquipment.Slots)
+            {
+                behavior.UnstageChange(troop, ComposeKey((int)slot, equipmentIndex));
+            }
+        }
+
+        public static void Unstage(WCharacter troop)
+        {
+            var behavior = (TroopEquipBehavior)Instance;
+            behavior.UnstageChanges(troop);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
@@ -285,29 +295,41 @@ namespace Retinues.Features.Upgrade.Behaviors
                 durationHours: data.Remaining,
                 onCompleted: () =>
                 {
-                    troop.Unequip(data.Slot, data.EquipmentIndex, stock: true);
-                    troop.Equip(item, data.Slot, data.EquipmentIndex);
+                    var finalTroop = new WCharacter(troopId);
+                    var finalItem = data.ItemId != null ? new WItem(data.ItemId) : null;
+
+                    EquipmentManager.ApplyImmediate(
+                        finalTroop,
+                        data.EquipmentIndex,
+                        data.Slot,
+                        finalItem
+                    );
+
                     RemovePending(troopId, objId);
 
                     if (Pending.Count == 0)
                         RefreshManagedMenuOrDefault();
 
                     var message = L.T("equip_complete_text", "{TROOP} has equipped {ITEM}.")
-                        .SetTextVariable("TROOP", new WCharacter(troopId).Name)
+                        .SetTextVariable("TROOP", finalTroop.Name)
                         .SetTextVariable(
                             "ITEM",
-                            item?.Name ?? L.S("upgrade_equip_unequip", "Unequip")
+                            finalItem != null
+                                ? finalItem.Name
+                                : L.S("upgrade_equip_unequip", "Unequip")
                         );
 
                     if (!_batchActive)
+                    {
                         Notifications.Popup(L.T("equip_complete", "Equipment Updated"), message);
+                    }
                     else
                     {
-                        if (!_batchedActions.ContainsKey(troop))
-                            _batchedActions[troop] = [];
-                        _batchedActions[troop].Add(item);
+                        if (!_batchedActions.ContainsKey(finalTroop))
+                            _batchedActions[finalTroop] = new List<WItem>();
+                        _batchedActions[finalTroop].Add(finalItem);
 
-                        Log.Message(message.ToString()); // Log instead of popup in batch mode
+                        Log.Message(message.ToString());
                     }
 
                     // Continue the batch
@@ -335,11 +357,15 @@ namespace Retinues.Features.Upgrade.Behaviors
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>Compose a unique key for (slot, equipmentIndex).</summary>
+        /// <summary>
+        /// Compose a unique key for (slot, equipmentIndex).
+        /// </summary>
         private static string ComposeKey(int slot, int equipmentIndex) =>
             $"{slot}:{equipmentIndex}";
 
-        /// <summary>Estimate hours required to equip an item based on its value in gold.</summary>
+        /// <summary>
+        /// Estimate hours required to equip an item based on its value in gold.
+        /// </summary>
         private static int HoursFromGold(int gold)
         {
             double g = Math.Max(1, gold);

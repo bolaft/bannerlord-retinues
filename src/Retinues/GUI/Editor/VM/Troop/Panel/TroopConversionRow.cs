@@ -110,10 +110,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceMethod]
         /// <summary>
         /// Increase pending conversion amount from source into the retinue.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRecruit()
         {
             if (
@@ -135,10 +135,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.UpdateConversionData(State.ConversionData);
         }
 
-        [DataSourceMethod]
         /// <summary>
         /// Decrease pending conversion amount (release from retinue back to source).
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRelease()
         {
             if (

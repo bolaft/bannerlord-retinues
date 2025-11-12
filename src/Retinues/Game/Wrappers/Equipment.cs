@@ -1,14 +1,13 @@
 using System.Collections.Generic;
-using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Utils;
 using TaleWorlds.Core;
 
 namespace Retinues.Game.Wrappers
 {
     /// <summary>
-    /// Wrapper for Equipment, provides helpers for slot/item access, skill requirements, and equipment code serialization.
+    /// Wrapper for Equipment.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WEquipment(Equipment equipment, WLoadout loadout, int index)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -47,14 +46,12 @@ namespace Retinues.Game.Wrappers
                 Reflector.SetFieldValue(_equipment, "_equipmentType", want);
             }
             catch
-            {
-                // best-effort; ignore if field name changes in a future version
+            { /* best-effort */
             }
 #else
             if (_equipment.IsCivilian == makeCivilian)
                 return;
 
-            // Swap backing field
             Reflector.SetFieldValue(
                 Base,
                 "_equipmentType",
@@ -68,8 +65,7 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Creates a WEquipment from an equipment code string.
-        /// If forceCivilian is provided, the created Equipment will be coerced to that type.
+        /// Create WEquipment from an equipment code.
         /// </summary>
         public static WEquipment FromCode(
             string code,
@@ -101,22 +97,15 @@ namespace Retinues.Game.Wrappers
             return we;
         }
 
-        /// <summary>
-        /// Gets the equipment code string for this equipment.
-        /// </summary>
-        public string Code
-        {
-            get
-            {
-                var obj = Base;
-                return obj.CalculateEquipmentCode();
-            }
-        }
+        public string Code => Base.CalculateEquipmentCode();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Slots                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// All defined equipment slots.
+        /// </summary>
         public static readonly List<EquipmentIndex> Slots =
         [
             EquipmentIndex.Head,
@@ -136,8 +125,8 @@ namespace Retinues.Game.Wrappers
         //                          Items                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Gets all equipped items in defined slots as WItem list.
+        /// <summary>A
+        /// ll non-null items in defined slots.
         /// </summary>
         public List<WItem> Items
         {
@@ -154,29 +143,16 @@ namespace Retinues.Game.Wrappers
         }
 
         /// <summary>
-        /// Gets the item in the specified equipment slot.
+        /// Get the item in the given slot.
         /// </summary>
         public WItem Get(EquipmentIndex slot)
         {
             var obj = _equipment[slot].Item;
-            if (obj == null)
-                return null;
-            return new WItem(obj);
+            return obj == null ? null : new WItem(obj);
         }
 
         /// <summary>
-        /// Gets the staged item in the specified equipment slot.
-        /// </summary>
-        public WItem GetStaged(EquipmentIndex slot)
-        {
-            var change = TroopEquipBehavior.GetStagedChange(Loadout.Troop, slot, Index);
-            if (change == null)
-                return null;
-            return new WItem(change.ItemId);
-        }
-
-        /// <summary>
-        /// Sets the item in the specified equipment slot.
+        /// Set the item in the given slot.
         /// </summary>
         public void SetItem(EquipmentIndex slot, WItem item)
         {
@@ -184,7 +160,7 @@ namespace Retinues.Game.Wrappers
         }
 
         /// <summary>
-        /// Unsets (removes) the item in the specified equipment slot.
+        /// Unset the item in the given slot.
         /// </summary>
         public void UnsetItem(EquipmentIndex slot)
         {
@@ -192,7 +168,7 @@ namespace Retinues.Game.Wrappers
         }
 
         /// <summary>
-        /// Unsets (removes) all items in all defined equipment slots.
+        /// Unset all items in defined slots.
         /// </summary>
         public void UnsetAll()
         {
@@ -200,79 +176,54 @@ namespace Retinues.Game.Wrappers
                 UnsetItem(slot);
         }
 
-        /// <summary>
-        /// Unstages all staged changes in all defined equipment slots.
-        /// </summary>
-        public void UnstageAll()
-        {
-            foreach (var slot in Slots)
-                UnstageItem(slot);
-        }
-
-        /// <summary>
-        /// Unstages the staged change in the specified equipment slot.
-        /// </summary>
-        public void UnstageItem(EquipmentIndex slot)
-        {
-            TroopEquipBehavior.UnstageChange(Loadout.Troop, slot, Index);
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Skill Requirements                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Gets the skill requirements for all equipped items.
+        /// Skill requirements for this equipment.
         /// </summary>
         public Dictionary<SkillObject, int> SkillRequirements
         {
             get
             {
                 var reqs = new Dictionary<SkillObject, int>();
-
                 foreach (var slot in Slots)
                 {
                     var item = Get(slot);
                     if (item != null && item.RelevantSkill != null)
                     {
-                        // Initialize if not present
                         if (!reqs.ContainsKey(item.RelevantSkill))
                             reqs[item.RelevantSkill] = 0;
-
-                        // Update the requirement if this item's difficulty is higher
                         if (item.Difficulty > reqs[item.RelevantSkill])
                             reqs[item.RelevantSkill] = item.Difficulty;
                     }
                 }
-
                 return reqs;
             }
         }
 
         /// <summary>
-        /// Gets the skill requirement for a specific skill.
+        /// Compute the skill requirement for a given skill.
         /// </summary>
-        public int ComputeSkillRequirement(SkillObject skill)
-        {
-            if (SkillRequirements.TryGetValue(skill, out int req))
-                return req;
-            return 0;
-        }
+        public int ComputeSkillRequirement(SkillObject skill) =>
+            SkillRequirements.TryGetValue(skill, out int req) ? req : 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public FormationClass ComputeFormationClass()
-        {
-            return (HasNonThrowableRangedWeapons, HasMount) switch
+        /// <summary>
+        /// Compute the formation class for this equipment.
+        /// </summary>
+        public FormationClass ComputeFormationClass() =>
+            (HasNonThrowableRangedWeapons, HasMount) switch
             {
                 (true, true) => FormationClass.HorseArcher,
                 (true, false) => FormationClass.Ranged,
                 (false, true) => FormationClass.Cavalry,
-                (false, false) => FormationClass.Infantry,
+                _ => FormationClass.Infantry,
             };
-        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //
@@ -280,9 +231,6 @@ namespace Retinues.Game.Wrappers
 
         public bool IsCivilian => _equipment.IsCivilian;
 
-        /// <summary>
-        /// Returns true if any equipped item is a ranged weapon.
-        /// </summary>
         public bool HasRangedWeapons
         {
             get
@@ -297,9 +245,6 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        /// <summary>
-        /// Returns true if any equipped item is a non-throwable ranged weapon.
-        /// </summary>
         public bool HasNonThrowableRangedWeapons
         {
             get
@@ -318,9 +263,6 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        /// <summary>
-        /// Returns true if any equipped item is a mount (horse).
-        /// </summary>
         public bool HasMount
         {
             get

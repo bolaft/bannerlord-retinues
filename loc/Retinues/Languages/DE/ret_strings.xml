@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="Nicht erlaubt" />
     <string
-      id="ret_not_enough_gold"
-      text="Nicht genug Gold" />
-    <string
       id="ret_not_enough_gold_text"
       text="Du hast nicht genug Gold, um diesen Gegenstand zu kaufen." />
     <string
       id="ret_not_enough_gold_title"
       text="Nicht genug Gold" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="Du hast nicht genug Exemplare auf Lager." />
-    <string
-      id="ret_not_enough_stock_title"
-      text="Nicht genug Lagerbestand" />
     <string
       id="ret_not_enough_xp"
       text="Nicht genug XP für den nächsten Fertigkeitspunkt." />
@@ -1117,9 +1108,6 @@
     <string
       id="ret_remove_set_text"
       text="Willst du Set Nr. {SET} für {TROOP_NAME} entfernen?{newline}Alle vorgenommenen Änderungen werden gelöscht, und Gegenstände werden abgelegt und eingelagert." />
-    <string
-      id="ret_remove_set_text_studio"
-      text="Willst du Set Nr. {SET} für {TROOP_NAME} entfernen?" />
     <string
       id="ret_remove_set_title"
       text="Set entfernen" />
@@ -1322,8 +1310,8 @@
       id="ret_unequip_all_text"
       text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?{newline}{newline}Sie werden eingelagert." />
     <string
-      id="ret_unequip_all_text_studio"
-      text="Alle von {TROOP_NAME} getragenen Gegenstände ablegen?" />
+      id="ret_unequip_warn_title"
+      text="Gegenstand ablegen" />
     <string
       id="ret_unequip_warning_text"
       text="Du bist dabei, {ITEM} abzulegen. Es wird Zeit brauchen, ein neues auszurüsten. Trotzdem fortfahren?" />

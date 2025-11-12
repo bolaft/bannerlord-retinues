@@ -16,7 +16,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for ItemObject, provides helpers for slot logic, computed stats, unlocks, and stocks.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WItem(ItemObject itemObject) : StringIdentifier
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

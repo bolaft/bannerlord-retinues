@@ -47,7 +47,7 @@ namespace Retinues.GUI.Editor.Mixins
                 ClanHotkeyGate.RequireShift = false;
 
                 // Auto-select our editor tab if we launched in Studio Mode
-                if (EditorVM.IsStudioMode)
+                if (State.IsStudioMode)
                     SelectEditorTab();
 
                 Log.Info("ClanTroopScreen initialized.");
@@ -95,7 +95,7 @@ namespace Retinues.GUI.Editor.Mixins
         public bool IsTroopsSelected => Editor?.IsVisible == true;
 
         [DataSourceProperty]
-        public bool IsTopPanelVisible => EditorVM.IsStudioMode == false;
+        public bool IsTopPanelVisible => State.IsStudioMode == false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -122,7 +122,7 @@ namespace Retinues.GUI.Editor.Mixins
             Log.Info("Switching to player troop editor mode...");
 
             // flip global mode
-            EditorVM.IsStudioMode = false;
+            State.IsStudioMode = false;
 
             // rebuild state & VM
             State.ResetAll();

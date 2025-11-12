@@ -265,8 +265,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool TroopXpIsEnabled =>
-            !EditorVM.IsStudioMode
-            && (Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0);
+            !State.IsStudioMode && (Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0);
 
         [DataSourceProperty]
         public string TroopXpText =>
@@ -301,7 +300,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int TrainingRequired => State.SkillData?.Sum(kv => kv.Value.Train?.Remaining) ?? 0;
 
         [DataSourceProperty]
-        public bool TrainingTakesTime => Config.TrainingTakesTime && !EditorVM.IsStudioMode;
+        public bool TrainingTakesTime => Config.TrainingTakesTime && !State.IsStudioMode;
 
         [DataSourceProperty]
         public string TrainingRequiredText
@@ -337,7 +336,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool ShowUpgradesHeader =>
-            IsRegular && (!EditorVM.IsStudioMode || UpgradeTargets.Count > 0);
+            IsRegular && (!State.IsStudioMode || UpgradeTargets.Count > 0);
 
         [DataSourceProperty]
         public bool IsCustomRegular
@@ -677,10 +676,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
-        [DataSourceMethod]
         /// <summary>
         /// Prompt to add a new upgrade target for the selected troop.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteAddUpgrade()
         {
             if (
@@ -689,7 +688,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             )
                 return; // Modification not allowed in current context
 
-            if (EditorVM.IsStudioMode)
+            if (State.IsStudioMode)
                 return; // Adding upgrades disabled in studio mode
 
             InformationManager.ShowTextInquiry(
@@ -721,13 +720,13 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         /* ━━━━━━━━ Rank Up ━━━━━━━ */
 
-        [DataSourceMethod]
         /// <summary>
         /// Attempt to rank up the selected troop with confirmations.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteRankUp()
         {
-            if (EditorVM.IsStudioMode)
+            if (State.IsStudioMode)
                 return; // Rank up disabled in studio mode
 
             if (
@@ -834,10 +833,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         /* ━━━━━━ Conversion ━━━━━━ */
 
-        [DataSourceMethod]
         /// <summary>
         /// Apply all staged conversions (with checks and cost handling).
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteApplyConversions()
         {
             if (!HasPendingConversions)
@@ -898,10 +897,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.UpdatePartyData();
         }
 
-        [DataSourceMethod]
         /// <summary>
         /// Clear all staged conversion selections.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteClearConversions()
         {
             // Clear all pending conversions

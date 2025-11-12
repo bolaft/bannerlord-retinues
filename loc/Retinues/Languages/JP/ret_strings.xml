@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="許可されていません" />
     <string
-      id="ret_not_enough_gold"
-      text="ゴールド不足" />
-    <string
       id="ret_not_enough_gold_text"
       text="このアイテムを購入するのに十分なゴールドがない。" />
     <string
       id="ret_not_enough_gold_title"
       text="ゴールド不足" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="在庫に十分なコピーがありません。" />
-    <string
-      id="ret_not_enough_stock_title"
-      text="在庫不足" />
     <string
       id="ret_not_enough_xp"
       text="次のスキルポイントに十分なXPがありません。" />
@@ -1117,9 +1108,6 @@
     <string
       id="ret_remove_set_text"
       text="{TROOP_NAME} のセット n°{SET} を削除しますか？{newline}すべての変更がクリアされ、アイテムは装備解除されて保管されます。" />
-    <string
-      id="ret_remove_set_text_studio"
-      text="{TROOP_NAME} のセット n°{SET} を削除しますか？" />
     <string
       id="ret_remove_set_title"
       text="セットを削除" />
@@ -1322,8 +1310,8 @@
       id="ret_unequip_all_text"
       text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？{newline}{newline}装備は保管されます。" />
     <string
-      id="ret_unequip_all_text_studio"
-      text="{TROOP_NAME} が装備しているすべてのアイテムを外しますか？" />
+      id="ret_unequip_warn_title"
+      text="アイテムを外す" />
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} を外そうとしています。新しいものを装備するには時間がかかります。それでも続行しますか？" />

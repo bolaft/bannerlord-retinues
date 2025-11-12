@@ -108,18 +108,18 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static bool PlayerWarnedAboutRetraining = false || EditorVM.IsStudioMode;
+        private static bool PlayerWarnedAboutRetraining = false || State.IsStudioMode;
 
-        [DataSourceMethod]
         /// <summary>
         /// Increment this skill on the selected troop.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteIncrement() => Modify(true);
 
-        [DataSourceMethod]
         /// <summary>
         /// Decrement this skill on the selected troop.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteDecrement() => Modify(false);
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             // Warn the player if decrementing a skill may require retraining
             if (
-                !EditorVM.IsStudioMode // No warning in Studio Mode
+                !State.IsStudioMode // No warning in Studio Mode
                 && !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() // No warning if Adaptive Training is unlocked
                 && !Config.RefundXpOnDecrease // No warning if refunds are enabled
                 && !increment // Only warn on decrement

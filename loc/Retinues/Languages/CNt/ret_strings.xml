@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="不允許" />
     <string
-      id="ret_not_enough_gold"
-      text="金幣不足" />
-    <string
       id="ret_not_enough_gold_text"
       text="你沒有足夠的金幣購買此物品。" />
     <string
       id="ret_not_enough_gold_title"
       text="金幣不足" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="您的庫存中沒有足夠的副本。" />
-    <string
-      id="ret_not_enough_stock_title"
-      text="庫存不足" />
     <string
       id="ret_not_enough_xp"
       text="沒有足夠的經驗值獲得下一個技能點。" />
@@ -1117,9 +1108,6 @@
     <string
       id="ret_remove_set_text"
       text="為 {TROOP_NAME} 移除套裝 n°{SET}？{newline}所有已分配的更改將被清除，物品將被卸下並存入庫存。" />
-    <string
-      id="ret_remove_set_text_studio"
-      text="為 {TROOP_NAME} 移除套裝 n°{SET}？" />
     <string
       id="ret_remove_set_title"
       text="移除套裝" />
@@ -1322,8 +1310,8 @@
       id="ret_unequip_all_text"
       text="卸下 {TROOP_NAME} 穿戴的所有物品？{newline}{newline}它們將被存入庫存以供後用。" />
     <string
-      id="ret_unequip_all_text_studio"
-      text="卸下 {TROOP_NAME} 穿戴的所有物品？" />
+      id="ret_unequip_warn_title"
+      text="卸下物品" />
     <string
       id="ret_unequip_warning_text"
       text="你即將卸下 {ITEM}，重新裝備一個新物品需要時間。是否繼續？" />

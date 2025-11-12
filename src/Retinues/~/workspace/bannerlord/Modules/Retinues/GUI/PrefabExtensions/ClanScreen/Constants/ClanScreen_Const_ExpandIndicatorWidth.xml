@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Constant
+  Name="Party.Toggle.ExpandIndicator.Width"
+  BrushLayer="Default"
+  BrushName="Party.Toggle.ExpandIndicator"
+  BrushValueType="Width"
+/>

@@ -110,7 +110,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                     HasPendingItem
                         ? Item.Name + $" ({State.EquipData[Index].Equip.Remaining}h)"
                         : Item?.Name,
-                    EditorVM.IsStudioMode ? 75 : 50
+                    State.IsStudioMode ? 75 : 50
                 );
 
         [DataSourceProperty]
@@ -181,10 +181,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceMethod]
         /// <summary>
         /// Select this equipment slot for editing.
         /// </summary>
+        [DataSourceMethod]
         public void ExecuteSelect() => State.UpdateSlot(Index);
 
         /// <summary>

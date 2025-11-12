@@ -1007,20 +1007,11 @@
       id="ret_not_allowed_title"
       text="허용되지 않음" />
     <string
-      id="ret_not_enough_gold"
-      text="골드 부족" />
-    <string
       id="ret_not_enough_gold_text"
       text="이 아이템을 구매할 충분한 골드가 없습니다." />
     <string
       id="ret_not_enough_gold_title"
       text="골드 부족" />
-    <string
-      id="ret_not_enough_stock_text"
-      text="재고에 충분한 사본이 없습니다." />
-    <string
-      id="ret_not_enough_stock_title"
-      text="재고 부족" />
     <string
       id="ret_not_enough_xp"
       text="다음 스킬 포인트에 대한 충분한 XP가 없습니다." />
@@ -1117,9 +1108,6 @@
     <string
       id="ret_remove_set_text"
       text="{TROOP_NAME} 에게서 세트 n°{SET} 을(를) 제거하시겠습니까?{newline}모든 변경 사항이 초기화되고 아이템이 장비 해제되어 보관됩니다." />
-    <string
-      id="ret_remove_set_text_studio"
-      text="{TROOP_NAME} 에게서 세트 n°{SET} 을(를) 제거하시겠습니까?" />
     <string
       id="ret_remove_set_title"
       text="세트 제거" />
@@ -1322,8 +1310,8 @@
       id="ret_unequip_all_text"
       text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?{newline}{newline}아이템은 보관됩니다." />
     <string
-      id="ret_unequip_all_text_studio"
-      text="{TROOP_NAME} 이(가) 착용한 모든 아이템을 해제하시겠습니까?" />
+      id="ret_unequip_warn_title"
+      text="아이템 해제" />
     <string
       id="ret_unequip_warning_text"
       text="{ITEM} 을(를) 해제하려고 합니다. 새 아이템을 장착하는 데 시간이 걸립니다. 그래도 계속하시겠습니까?" />

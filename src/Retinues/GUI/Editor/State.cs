@@ -6,7 +6,6 @@ using Retinues.Features.Upgrade.Behaviors;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.VM;
 using Retinues.Troops;
 using Retinues.Troops.Edition;
 using Retinues.Utils;
@@ -59,6 +58,12 @@ namespace Retinues.GUI.Editor
     public static class State
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Launch Mode                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static bool IsStudioMode { get; set; }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -81,7 +86,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void ResetAll()
         {
-            if (!EditorVM.IsStudioMode)
+            if (!State.IsStudioMode)
                 // Ensure troops exist for player factions
                 foreach (var f in new[] { Player.Clan, Player.Kingdom })
                     if (f != null)
@@ -103,7 +108,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void UpdateFaction(ITroopFaction faction = null)
         {
-            faction ??= EditorVM.IsStudioMode ? Player.Culture : Player.Clan;
+            faction ??= State.IsStudioMode ? Player.Culture : Player.Clan;
 
             EventManager.FireBatch(() =>
             {
@@ -286,7 +291,7 @@ namespace Retinues.GUI.Editor
                 data[slot] = new EquipData
                 {
                     Item = Equipment.Get(slot),
-                    Equip = TroopEquipBehavior.GetStagedChange(Troop, slot, Equipment.Index),
+                    Equip = TroopEquipBehavior.Get(Troop, slot, Equipment.Index),
                 };
             }
             return data;
@@ -303,7 +308,7 @@ namespace Retinues.GUI.Editor
                 data[kvp.Key] = new SkillData
                 {
                     Value = kvp.Value,
-                    Train = TroopTrainBehavior.GetStagedChange(Troop, kvp.Key),
+                    Train = TroopTrainBehavior.Get(Troop, kvp.Key),
                 };
             }
             return data;

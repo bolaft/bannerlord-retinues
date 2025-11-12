@@ -82,7 +82,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             get
             {
-                bool isStudio = EditorVM.IsStudioMode;
+                bool isStudio = State.IsStudioMode;
                 bool troopIsMilitiaFalse = State.Troop?.IsMilitia == false;
                 bool troopIsRetinueFalse = State.Troop?.IsRetinue == false;
                 bool visible = IsVisible;
@@ -112,7 +112,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         /* ━━━━━━━ Gauntlet ━━━━━━━ */
 
         [DataSourceProperty]
-        public int CustomizationMarginRight => EditorVM.IsStudioMode ? 340 : 280;
+        public int CustomizationMarginRight => State.IsStudioMode ? 340 : 280;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -298,13 +298,13 @@ namespace Retinues.GUI.Editor.VM.Troop
                     affirmativeAction: () =>
                     {
                         // Clear all staged equipment changes
-                        TroopEquipBehavior.ClearAllStagedChanges(State.Troop);
+                        TroopEquipBehavior.Unstage(State.Troop);
 
                         // Clear all staged skill changes
-                        TroopTrainBehavior.ClearAllStagedChanges(State.Troop);
+                        TroopTrainBehavior.Unstage(State.Troop);
 
                         // Remove the troop
-                        State.Troop.Remove(stock: true);
+                        State.Troop.Remove();
 
                         // Update global state
                         State.UpdateFaction(State.Faction);
