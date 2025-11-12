@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Retinues.Configuration;
-using Retinues.Features.Loadouts.Behaviors;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
 using Retinues.Utils;
-using SandBox.Tournaments.MissionLogics;
+// using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -42,8 +41,8 @@ namespace Retinues.Features.Loadouts.Patches
                 // Try to ensure we are not in a tournament or arena battle
                 foreach (var behavior in Mission.Current?.MissionBehaviors)
                 {
-                    if (behavior is TournamentBehavior)
-                        return;
+                    // if (behavior is TournamentBehavior)
+                    //     return;
 
                     if (behavior.GetType().FullName.ToLowerInvariant().Contains("tournament"))
                         return;
