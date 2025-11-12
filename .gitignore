@@ -11,6 +11,7 @@
 /**/out/
 
 # DLLs & NuGet packages
+dll/*
 *.dll
 *.nupkg
 
