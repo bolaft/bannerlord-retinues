@@ -221,6 +221,24 @@ namespace Retinues
             }
         }
 
+        public override void OnGameEnd(TaleWorlds.Core.Game game)
+        {
+            base.OnGameEnd(game);
+
+            // unpatch mission patches to avoid issues on subsequent load
+            var combatEquipmentPatchTarget = AccessTools2.Method(
+                typeof(TaleWorlds.MountAndBlade.Mission),
+                "SpawnAgent"
+            );
+
+            var combatEquipmentPatch = AccessTools2.Method(
+                typeof(Retinues.Features.Missions.Patches.Mission_SpawnAgent_Prefix),
+                nameof(Retinues.Features.Missions.Patches.Mission_SpawnAgent_Prefix.Prefix)
+            );
+
+            _harmony.Unpatch(combatEquipmentPatchTarget, HarmonyPatchType.Prefix, _harmony.Id);
+        }
+
         /// <summary>
         /// Called when the module is unloaded.
         /// </summary>
