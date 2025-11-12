@@ -3,7 +3,7 @@ using Retinues.Game.Wrappers;
 
 namespace Retinues.Game.Helpers.Character
 {
-    public static class CharacterGraphIndex
+    public static class CharacterIndexer
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Lookups                        //

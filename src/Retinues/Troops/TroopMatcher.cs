@@ -4,7 +4,7 @@ using System.Linq;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 
-namespace Retinues.Game.Helpers
+namespace Retinues.Troops
 {
     /// <summary>
     /// Static helpers for picking the best matching troop from a faction or tree.

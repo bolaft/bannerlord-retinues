@@ -8,7 +8,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Game.Helpers
 {
-    public static class CharacterCustomization
+    public static class BodyPropertyHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //

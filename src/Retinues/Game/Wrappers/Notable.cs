@@ -1,6 +1,6 @@
 using System;
 using Retinues.Configuration;
-using Retinues.Game.Helpers;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Game.Events;
+using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
 using Retinues.Utils;
@@ -20,14 +21,11 @@ namespace Retinues.Features.Equipments.Patches
         {
             try
             {
-                if (agentBuildData == null)
-                    return;
+                var troop = AgentHelper.TroopFromAgentBuildData(agentBuildData);
 
-                var character = agentBuildData.AgentCharacter;
-                if (character == null)
-                    return;
+                if (troop == null)
+                    return; // Safety check
 
-                var troop = new WCharacter(character.StringId);
                 if (troop.IsHero)
                     return; // Don't affect heroes
 
@@ -58,7 +56,7 @@ namespace Retinues.Features.Equipments.Patches
                     // Pick a civilian set if available
                     var civs = troop.Loadout.CivilianSets.ToList();
                     if (civs.Count == 0)
-                        eq = troop.Loadout.Civilian.Base; // EnsureMinimumSets guarantees one exists
+                        eq = troop.Loadout.Civilian.Base;
                     else
                         eq = civs[MBRandom.RandomInt(civs.Count)].Base;
                 }
@@ -68,7 +66,7 @@ namespace Retinues.Features.Equipments.Patches
                 }
                 else if (ModCompatibility.NoAlternateEquipmentSets)
                 {
-                    eq = troop.Loadout.Battle.Base; // force main battle set for Shokuho to avoid issues
+                    eq = troop.Loadout.Battle.Base; // force main battle set to avoid issues
                 }
                 else
                 {

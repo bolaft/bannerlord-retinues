@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Game.Helpers;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;

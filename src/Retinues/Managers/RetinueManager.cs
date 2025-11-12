@@ -5,8 +5,8 @@ using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Experience;
 using Retinues.Game;
-using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using Retinues.Utils;
 
 namespace Retinues.Managers

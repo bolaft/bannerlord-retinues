@@ -1,7 +1,7 @@
 using HarmonyLib;
 using Retinues.Configuration;
-using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;

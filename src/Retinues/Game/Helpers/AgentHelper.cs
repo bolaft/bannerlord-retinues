@@ -1,3 +1,4 @@
+using Retinues.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
@@ -6,6 +7,22 @@ namespace Retinues.Game.Helpers
 {
     public static class AgentHelper
     {
+        /// <summary>
+        /// Extract a WCharacter from the given AgentBuildData.
+        /// </summary>
+        public static WCharacter TroopFromAgentBuildData(AgentBuildData data, bool origin = false)
+        {
+            if (data == null)
+                return null;
+
+            var character = origin ? data.AgentOrigin?.Troop : data.AgentCharacter;
+
+            if (character is not CharacterObject co)
+                return null;
+
+            return new WCharacter(co);
+        }
+
         /// <summary>
         /// Create a new AgentBuildData using and copy all relevant fields from the source,
         /// but replacing the CharacterObject with the provided replacement.

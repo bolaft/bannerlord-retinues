@@ -119,7 +119,7 @@ namespace Retinues.Safety.Legacy
                 {
                     Log.Info($"Applying culture '{data.CultureId}' to troop '{data.StringId}'");
                     troop.Culture = new WCulture(culture);
-                    CharacterCustomization.ApplyPropertiesFromCulture(troop, culture);
+                    BodyPropertyHelper.ApplyPropertiesFromCulture(troop, culture);
                 }
             }
 

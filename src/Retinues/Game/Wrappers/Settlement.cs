@@ -26,6 +26,17 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        public static WSettlement Current
+        {
+            get
+            {
+                var s = Settlement.CurrentSettlement;
+                if (s == null)
+                    return null;
+                return new WSettlement(s);
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -368,7 +368,7 @@ namespace Retinues
             WCharacter.VanillaStringIdMap.Clear();
 
             // Clear character graph index
-            CharacterGraphIndex.Clear();
+            CharacterIndexer.Clear();
         }
     }
 }

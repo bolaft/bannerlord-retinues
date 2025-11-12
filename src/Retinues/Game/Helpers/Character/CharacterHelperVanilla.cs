@@ -8,7 +8,7 @@ namespace Retinues.Game.Helpers.Character
     /// <summary>
     /// Helper for vanilla troops.
     /// </summary>
-    public sealed class VanillaCharacterHelper : CharacterHelperBase, ICharacterHelper
+    public sealed class CharacterHelperVanilla : CharacterHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Culture Cache                     //
@@ -20,11 +20,6 @@ namespace Retinues.Game.Helpers.Character
 
             public CharacterObject BasicRoot;
             public CharacterObject EliteRoot;
-
-            public CharacterObject MilitiaMelee;
-            public CharacterObject MilitiaMeleeElite;
-            public CharacterObject MilitiaRanged;
-            public CharacterObject MilitiaRangedElite;
 
             public readonly HashSet<string> BasicSet = new(StringComparer.Ordinal);
             public readonly HashSet<string> EliteSet = new(StringComparer.Ordinal);
@@ -55,10 +50,6 @@ namespace Retinues.Game.Helpers.Character
                 CultureId = cid,
                 BasicRoot = culture.BasicTroop,
                 EliteRoot = culture.EliteBasicTroop,
-                MilitiaMelee = culture.MeleeMilitiaTroop,
-                MilitiaMeleeElite = culture.MeleeEliteMilitiaTroop,
-                MilitiaRanged = culture.RangedMilitiaTroop,
-                MilitiaRangedElite = culture.RangedEliteMilitiaTroop,
             };
 
             void Crawl(CharacterObject root, HashSet<string> set)
@@ -101,119 +92,70 @@ namespace Retinues.Game.Helpers.Character
         //                      Public API                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Resolves the faction for a vanilla troop ID (always null).
-        /// </summary>
-        public WFaction ResolveFaction(WCharacter node) => null;
+        public override WFaction ResolveFaction(WCharacter node) => null;
 
-        /// <summary>
-        /// Returns true if the ID is a retinue troop (always false for vanilla).
-        /// </summary>
-        public bool IsRetinue(WCharacter node) => false;
+        public override bool IsRetinue(WCharacter node) => false;
 
-        /// <summary>
-        /// Returns true if the ID is a melee militia troop.
-        /// </summary>
-        public bool IsMilitiaMelee(WCharacter node)
+        public override bool IsMilitiaMelee(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            return IsCultureRef(co, c => c.MeleeMilitiaTroop)
+                || IsCultureRef(co, c => c.MeleeEliteMilitiaTroop);
+        }
+
+        public override bool IsMilitiaRanged(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            return IsCultureRef(co, c => c.RangedMilitiaTroop)
+                || IsCultureRef(co, c => c.RangedEliteMilitiaTroop);
+        }
+
+        public override bool IsCaravanGuard(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            return IsCultureRef(co, c => c.CaravanGuard);
+        }
+
+        public override bool IsCaravanMaster(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            return IsCultureRef(co, c => c.CaravanMaster);
+        }
+
+        public override bool IsVillager(WCharacter node)
+        {
+            var co = GetCharacterObject(node.StringId);
+            return IsCultureRef(co, c => c.Villager);
+        }
+
+        public override bool IsKingdom(WCharacter node) => false;
+
+        public override bool IsClan(WCharacter node) => false;
+
+        public override bool IsElite(WCharacter node)
         {
             var co = GetCharacterObject(node.StringId);
             var c = GetOrBuildCache(co);
             if (c == null || co == null)
                 return false;
-            return ReferenceEquals(co, c.MilitiaMelee) || ReferenceEquals(co, c.MilitiaMeleeElite);
-        }
 
-        /// <summary>
-        /// Returns true if the ID is a ranged militia troop.
-        /// </summary>
-        public bool IsMilitiaRanged(WCharacter node)
-        {
-            var co = GetCharacterObject(node.StringId);
-            var c = GetOrBuildCache(co);
-            if (c == null || co == null)
-                return false;
-            return ReferenceEquals(co, c.MilitiaRanged)
-                || ReferenceEquals(co, c.MilitiaRangedElite);
-        }
-
-        /// <summary>
-        /// Returns true if the ID is a caravan guard troop.
-        /// </summary>
-        public bool IsCaravanGuard(WCharacter node)
-        {
-            var co = GetCharacterObject(node.StringId);
-            var cul = co?.Culture;
-            return cul != null && ReferenceEquals(co, cul.CaravanGuard);
-        }
-
-        /// <summary>
-        /// Returns true if the ID is a caravan master troop.
-        /// </summary>
-        public bool IsCaravanMaster(WCharacter node)
-        {
-            var co = GetCharacterObject(node.StringId);
-            var cul = co?.Culture;
-            return cul != null && ReferenceEquals(co, cul.CaravanMaster);
-        }
-
-        /// <summary>
-        /// Returns true if the ID is a villager troop.
-        /// </summary>
-        public bool IsVillager(WCharacter node)
-        {
-            var co = GetCharacterObject(node.StringId);
-            var cul = co?.Culture;
-            return cul != null && ReferenceEquals(co, cul.Villager);
-        }
-
-        /// <summary>
-        /// Returns true if the ID is an elite troop.
-        /// </summary>
-        public bool IsElite(WCharacter node)
-        {
-            var id = node.StringId;
-            var co = GetCharacterObject(id);
-            var c = GetOrBuildCache(co);
-            if (c == null || co == null)
-                return false;
-
-            // Fast path: explicit militia elites / basics
+            // explicit militia elite fast-path
             if (
-                ReferenceEquals(co, c.MilitiaMeleeElite)
-                || ReferenceEquals(co, c.MilitiaRangedElite)
+                IsCultureRef(co, cul => cul.MeleeEliteMilitiaTroop)
+                || IsCultureRef(co, cul => cul.RangedEliteMilitiaTroop)
             )
                 return true;
-            if (ReferenceEquals(co, c.MilitiaMelee) || ReferenceEquals(co, c.MilitiaRanged))
+            if (
+                IsCultureRef(co, cul => cul.MeleeMilitiaTroop)
+                || IsCultureRef(co, cul => cul.RangedMilitiaTroop)
+            )
                 return false;
 
-            // In-culture trees
-            if (c.EliteSet.Contains(id))
-                return true;
-            if (c.BasicSet.Contains(id))
-                return false;
-
-            return false;
+            // in-culture trees
+            return c.EliteSet.Contains(co.StringId);
         }
 
-        /// <summary>
-        /// Returns true if the ID is a kingdom troop (always false for vanilla).
-        /// </summary>
-        public bool IsKingdom(WCharacter node) => false;
-
-        /// <summary>
-        /// Returns true if the ID is a clan troop (always false for vanilla).
-        /// </summary>
-        public bool IsClan(WCharacter node) => false;
-
-        /// <summary>
-        /// Resolves the faction for a vanilla troop ID (always null).
-        /// </summary>
-        public WFaction ResolveFaction(string id) => null;
-
-        /// <summary>
-        /// Gets the parent troop for a node, or null if root.
-        /// </summary>
-        public WCharacter GetParent(WCharacter node)
+        public override WCharacter GetParent(WCharacter node)
         {
             if (node == null)
                 return null;
@@ -235,6 +177,22 @@ namespace Retinues.Game.Helpers.Character
             var pco = GetCharacterObject(pid);
 
             return pco != null ? new WCharacter(pco) : null;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static bool IsCultureRef(
+            CharacterObject co,
+            Func<CultureObject, CharacterObject> sel
+        )
+        {
+            var cul = co?.Culture;
+            if (cul == null)
+                return false;
+            var target = sel(cul);
+            return ReferenceEquals(co, target);
         }
     }
 }

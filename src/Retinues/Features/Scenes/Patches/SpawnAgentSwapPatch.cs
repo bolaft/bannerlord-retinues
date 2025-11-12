@@ -4,9 +4,8 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using Retinues.Utils;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -47,37 +46,23 @@ namespace Retinues.Features.Scenes.Patches
                 if (blockedModes.Contains(m.Mode))
                     return; // Don't affect these mission modes
 
-                // Get current settlement
-                var s = Settlement.CurrentSettlement;
-                if (s == null)
-                    return; // No settlement, nothing to do
-
                 // Get player faction
-                var faction = new WSettlement(s).PlayerFaction;
+                var faction = WSettlement.Current?.PlayerFaction;
                 if (faction == null)
                     return; // No faction, nothing to do
 
-                // Get basic character from AgentBuildData
-                var basic = agentBuildData.AgentOrigin?.Troop;
-                if (basic == null)
-                    return; // No basic character, nothing to do
-
-                // Direct cast
-                if (basic is not CharacterObject co)
-                    return; // No character object, nothing to do
-
                 // Wrap source character
-                var sourceChar = new WCharacter(co);
-                if (sourceChar.IsHero)
+                var troop = AgentHelper.TroopFromAgentBuildData(agentBuildData, origin: true);
+                if (troop.IsHero)
                     return; // Don't affect heroes
-                if (sourceChar.IsCustom)
+                if (troop.IsCustom)
                     return; // Don't affect custom troops
 
                 // Try to pick best replacement from faction
                 WCharacter replacement =
-                    TroopMatcher.PickSpecialFromFaction(faction, sourceChar)
-                    ?? TroopMatcher.PickBestFromFaction(faction, sourceChar)
-                    ?? sourceChar;
+                    TroopMatcher.PickSpecialFromFaction(faction, troop)
+                    ?? TroopMatcher.PickBestFromFaction(faction, troop)
+                    ?? troop;
 
                 // If we found a different replacement, clone AgentBuildData with it
                 if (replacement != null)

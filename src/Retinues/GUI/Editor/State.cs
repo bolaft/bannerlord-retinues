@@ -4,7 +4,6 @@ using System.Linq;
 using Retinues.Features.Equipments;
 using Retinues.Features.Staging;
 using Retinues.Game;
-using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Managers;
 using Retinues.Troops;

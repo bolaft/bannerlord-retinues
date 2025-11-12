@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Retinues.Features.Staging;
 using Retinues.Utils;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Game.Wrappers
 {
@@ -275,6 +277,37 @@ namespace Retinues.Game.Wrappers
                 }
                 return false;
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Staging Preview                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Get a preview of this equipment with staged changes applied.
+        /// </summary>
+        public Equipment StagingPreview()
+        {
+            // clone so we don't mutate the real thing
+            var eq = new Equipment(Base);
+
+            // apply staged equip (if any)
+            var pending = EquipStagingBehavior.Get(Loadout.Troop);
+
+            if (pending == null)
+                return eq; // nothing staged
+
+            foreach (var p in pending)
+            {
+                if (p.EquipmentIndex != Index)
+                    continue; // not for this equipment
+
+                var item = MBObjectManager.Instance.GetObject<ItemObject>(p.ItemId);
+                if (item != null)
+                    eq[p.Slot] = new EquipmentElement(item);
+            }
+
+            return eq;
         }
     }
 }

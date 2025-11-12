@@ -76,6 +76,9 @@ namespace Retinues.Troops.Save
             FormationClassOverride = troop.FormationClassOverride;
         }
 
+        /// <summary>
+        /// Deserializes the troop save data into a WCharacter instance.
+        /// </summary>
         public WCharacter Deserialize()
         {
             if (string.IsNullOrEmpty(StringId))
@@ -113,7 +116,7 @@ namespace Retinues.Troops.Save
                 troop.Culture = new WCulture(
                     MBObjectManager.Instance.GetObject<CultureObject>(CultureId)
                 );
-                CharacterCustomization.ApplyPropertiesFromCulture(troop, CultureId);
+                BodyPropertyHelper.ApplyPropertiesFromCulture(troop, CultureId);
             }
 
             // Set race if specified

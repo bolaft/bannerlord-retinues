@@ -187,7 +187,7 @@ namespace Retinues.Features.AutoJoin
                 )
                 .SetTextVariable("JOINED", joined);
 
-            Notifications.Log(description.ToString(), "#c7f5caff"); // green
+            Notifications.Log(description.ToString(), "#c7f5caff");
         }
     }
 }

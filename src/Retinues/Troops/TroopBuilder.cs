@@ -49,7 +49,7 @@ namespace Retinues.Troops
             if (!troopsAwaitingRegistration)
                 return; // No new troops to register
 
-            CharacterGraphIndex.RegisterFactionRoots(faction);
+            CharacterIndexer.RegisterFactionRoots(faction);
             troopsAwaitingRegistration = false; // Reset the flag after registration
 
             // Update all existing parties for this faction

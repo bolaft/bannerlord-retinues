@@ -78,6 +78,9 @@ namespace Retinues.Troops.Save
             Civilians = [.. faction.CivilianTroops.Select(t => new TroopSaveData(t))];
         }
 
+        /// <summary>
+        /// Applies the saved troop data to a faction.
+        /// </summary>
         public void Apply(WFaction faction)
         {
             if (faction is null)
@@ -95,9 +98,13 @@ namespace Retinues.Troops.Save
             faction.CaravanMaster = CaravanMaster?.Deserialize();
             faction.Villager = Villager?.Deserialize();
 
-            CharacterGraphIndex.RegisterFactionRoots(faction);
+            CharacterIndexer.RegisterFactionRoots(faction);
         }
 
+        /// <summary>
+        /// Deserializes all troop save data.
+        /// Used to overwrite each troop's CharacterObject data.
+        /// </summary>
         public void DeserializeTroops()
         {
             RetinueElite?.Deserialize();

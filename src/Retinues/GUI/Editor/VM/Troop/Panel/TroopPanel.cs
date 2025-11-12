@@ -10,6 +10,7 @@ using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Managers;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -523,7 +524,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                             State.Troop.Culture = new WCulture(culture);
 
                             // Update visuals.
-                            CharacterCustomization.ApplyPropertiesFromCulture(State.Troop, culture);
+                            BodyPropertyHelper.ApplyPropertiesFromCulture(State.Troop, culture);
 
                             // Reapply prior race if needed.
                             if (priorRace >= 0)

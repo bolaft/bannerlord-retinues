@@ -35,11 +35,11 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Character helper instances
-        private static readonly ICharacterHelper _customHelper = new CustomCharacterHelper();
-        private static readonly ICharacterHelper _vanillaHelper = new VanillaCharacterHelper();
+        private static readonly CharacterHelper _customHelper = new CharacterHelperCustom();
+        private static readonly CharacterHelper _vanillaHelper = new CharacterHelperVanilla();
 
         // Helper instance for this character
-        private ICharacterHelper Helper => IsCustom ? _customHelper : _vanillaHelper;
+        private CharacterHelper Helper => IsCustom ? _customHelper : _vanillaHelper;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -112,7 +112,7 @@ namespace Retinues.Game.Wrappers
             vm.FillFrom(Base, seed: -1);
 
             // Apply staged equipment changes (if any)
-            vm.SetEquipment(EquipmentPreview.BuildStagedEquipment(this, index));
+            vm.SetEquipment(Loadout.Get(index).StagingPreview());
 
             if (Faction != null)
             {
@@ -409,12 +409,12 @@ namespace Retinues.Game.Wrappers
             Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(list));
 
             // Index maintenance
-            CharacterGraphIndex.SetParent(this, target);
+            CharacterIndexer.SetParent(this, target);
 
             // If this node already has a known faction, propagate it to the child.
-            var f = CharacterGraphIndex.TryGetFaction(this);
+            var f = CharacterIndexer.TryGetFaction(this);
             if (f != null)
-                CharacterGraphIndex.SetFaction(f, target);
+                CharacterIndexer.SetFaction(f, target);
         }
 
         public void RemoveUpgradeTarget(WCharacter target)
@@ -433,9 +433,9 @@ namespace Retinues.Game.Wrappers
 
             // Index maintenance
             // Only clear if the index currently points to this as the parent.
-            var currentParent = CharacterGraphIndex.TryGetParent(target);
+            var currentParent = CharacterIndexer.TryGetParent(target);
             if (currentParent != null && currentParent == this)
-                CharacterGraphIndex.SetParent(null, target);
+                CharacterIndexer.SetParent(null, target);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
