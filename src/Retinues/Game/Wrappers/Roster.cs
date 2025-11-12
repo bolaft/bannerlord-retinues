@@ -199,14 +199,7 @@ namespace Retinues.Game.Wrappers
                     }
 
                     // Try to pick best replacement from faction
-                    WCharacter replacement =
-                        TroopMatcher.PickSpecialFromFaction(faction, e.Troop)
-                        ?? (
-                            Party.IsMilitia
-                                ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
-                                : TroopMatcher.PickBestFromFaction(faction, e.Troop)
-                        )
-                        ?? e.Troop;
+                    var replacement = TroopMatcher.PickBestFromFaction(faction, e.Troop) ?? e.Troop;
 
                     if (replacement != e.Troop)
                     {

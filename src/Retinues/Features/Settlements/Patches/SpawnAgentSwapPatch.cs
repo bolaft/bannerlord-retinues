@@ -75,9 +75,7 @@ namespace Retinues.Features.Settlements.Patches
 
                 // Try to pick best replacement from faction
                 WCharacter replacement =
-                    TroopMatcher.PickSpecialFromFaction(faction, sourceChar)
-                    ?? TroopMatcher.PickBestFromFaction(faction, sourceChar)
-                    ?? sourceChar;
+                    TroopMatcher.PickBestFromFaction(faction, sourceChar) ?? sourceChar;
 
                 // If we found a different replacement, clone AgentBuildData with it
                 if (replacement != null)

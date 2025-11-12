@@ -49,11 +49,48 @@ namespace Retinues.Game.Helpers
             if (faction == null || troop == null || !troop.IsValid)
                 return null;
 
+            // 1) SPECIAL CIVILIAN ROLES: villager / caravan
+            // Only map if the faction slot exists AND is a custom troop.
+            if (troop.IsVillager)
+            {
+                var v = faction.Villager;
+                return (v != null && v.IsValid && v.IsCustom) ? v : null;
+            }
+            if (troop.IsCaravanMaster)
+            {
+                var cm = faction.CaravanMaster;
+                return (cm != null && cm.IsValid && cm.IsCustom) ? cm : null;
+            }
+            if (troop.IsCaravanGuard)
+            {
+                var cg = faction.CaravanGuard;
+                return (cg != null && cg.IsValid && cg.IsCustom) ? cg : null;
+            }
+
+            // 2) MILITIA: keep melee/ranged and basic/elite strictly aligned
+            if (troop.IsMilitia)
+            {
+                WCharacter pick = null;
+                if (troop.IsElite)
+                    pick = troop.IsMilitiaRanged
+                        ? faction.MilitiaRangedElite
+                        : faction.MilitiaMeleeElite;
+                else
+                    pick = troop.IsMilitiaRanged ? faction.MilitiaRanged : faction.MilitiaMelee;
+
+                return (pick != null && pick.IsValid && pick.IsCustom) ? pick : null;
+            }
+
+            // 3) REGULAR BASIC/ELITE: same tree (basic vs elite) and tier,
+            //    but accept ONLY a custom candidate; otherwise keep the original.
             var root = troop.IsElite ? faction.RootElite : faction.RootBasic;
             if (root == null || !root.IsValid)
                 return null;
 
-            if (TryGetCachedMatch(root, troop, excludeId: null, out var cached))
+            if (
+                TryGetCachedMatch(root, troop, excludeId: null, out var cached)
+                && cached?.IsCustom == true
+            )
                 return cached;
 
             troopWeapons ??= SafeWeaponClasses(troop);
@@ -66,28 +103,8 @@ namespace Retinues.Game.Helpers
                 troopSkills: troopSkills
             );
 
-            return best;
-        }
-
-        /// <summary>
-        /// Pick the best matching militia troop from a faction for the given troop.
-        /// </summary>
-        public static WCharacter PickMilitiaFromFaction(WFaction faction, WCharacter troop)
-        {
-            if (faction == null || troop == null || !troop.IsValid)
-                return null;
-
-            WCharacter pick;
-
-            if (troop.IsElite)
-                pick = troop.IsRanged ? faction.MilitiaRangedElite : faction.MilitiaMeleeElite;
-            else
-                pick = troop.IsRanged ? faction.MilitiaRanged : faction.MilitiaMelee;
-
-            if (pick == null || !pick.IsValid)
-                return null;
-
-            return pick;
+            // STRICT: only map to custom; otherwise no-op at caller via ?? e.Troop
+            return (best != null && best.IsValid && best.IsCustom) ? best : null;
         }
 
         /// <summary>
@@ -159,26 +176,6 @@ namespace Retinues.Game.Helpers
             }
 
             return best;
-        }
-
-        /// <summary>
-        /// Pick the correct special civilian/caravan troop from a faction.
-        /// </summary>
-        public static WCharacter PickSpecialFromFaction(WFaction faction, WCharacter troop)
-        {
-            if (faction == null || troop == null || !troop.IsValid)
-                return null;
-
-            WCharacter pick = null;
-
-            if (troop.IsCaravanGuard)
-                pick = faction.CaravanGuard;
-            else if (troop.IsCaravanMaster)
-                pick = faction.CaravanMaster;
-            else if (troop.IsVillager)
-                pick = faction.Villager;
-
-            return (pick != null && pick.IsValid) ? pick : null;
         }
 
         /// <summary>
