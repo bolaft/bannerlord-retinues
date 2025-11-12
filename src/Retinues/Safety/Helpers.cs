@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Retinues.Game;
-using Retinues.Game.Wrappers;
-using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;

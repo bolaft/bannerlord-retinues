@@ -53,7 +53,16 @@ namespace Retinues.Troops
             troopsAwaitingRegistration = false; // Reset the flag after registration
 
             // Update all existing parties for this faction
-            WParty.SwapAll(members: true, prisoners: true, skipGarrisons: true);
+            WParty.SwapAll(
+                members: true,
+                prisoners: true,
+                skipMainParty: true,
+                skipLordParties: true,
+                skipCustomParties: true
+            );
+
+            // Safety: Ensure main party leader is valid
+            Safety.Helpers.EnsureMainPartyLeader();
         }
 
         /// <summary>

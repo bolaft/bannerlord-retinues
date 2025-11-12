@@ -101,15 +101,12 @@ namespace Retinues.Game.Wrappers
         public string Name => _party.Name.ToString();
 
         public bool IsMainParty => _party.IsMainParty;
-
+        public bool IsLordParty => _party.IsLordParty;
+        public bool IsCustomParty => _party.IsCustomParty;
         public bool IsVillager => _party.IsVillager;
-
         public bool IsCaravan => _party.IsCaravan;
-
         public bool IsBandit => _party.IsBandit;
-
         public bool IsGarrison => _party.IsGarrison;
-
         public bool IsMilitia => _party.IsMilitia;
 
         public int PartySizeLimit => _party.Party.PartySizeLimit;
@@ -131,6 +128,8 @@ namespace Retinues.Game.Wrappers
             bool members,
             bool prisoners,
             bool skipMainParty = false,
+            bool skipLordParties = false,
+            bool skipCustomParties = false,
             bool skipGarrisons = false,
             bool skipCaravans = false,
             bool skipVillagers = false,
@@ -141,6 +140,10 @@ namespace Retinues.Game.Wrappers
             foreach (var party in All)
             {
                 if (skipMainParty && party.IsMainParty)
+                    continue;
+                if (skipLordParties && party.IsLordParty)
+                    continue;
+                if (skipCustomParties && party.IsCustomParty)
                     continue;
                 if (skipGarrisons && party.IsGarrison)
                     continue;
