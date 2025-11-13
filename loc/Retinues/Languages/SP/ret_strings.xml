@@ -536,6 +536,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Derrota personalmente a un señor enemigo en batalla." />
     <string
+      id="ret_list_toggle_bandit"
+      text="Bandidos" />
+    <string
       id="ret_list_toggle_caravan"
       text="Caravanas" />
     <string
@@ -1254,10 +1257,10 @@
       text="Cambiar al editor de tropas del clan." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Cambiar a{newline}Tropas del Clan" />
+      text="Tropas del Clan" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Cambiar a{newline}Tropas del Reino" />
+      text="Tropas del Reino" />
     <string
       id="ret_tier"
       text="Nivel" />

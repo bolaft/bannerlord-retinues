@@ -74,6 +74,14 @@
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
+        <!-- Bandit Header -->
+        {{ list.header_toggle("TroopList", "Bandit", "@BanditToggleText", is_visible="@ShowBanditList") }}
+
+        <!-- Bandit List -->
+        {% call list.rows("{BanditTroops}", "Bandit") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
     {% endcall %}
 
 {% endcall %}

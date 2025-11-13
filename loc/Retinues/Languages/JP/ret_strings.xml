@@ -536,6 +536,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="戦闘で敵の領主を自ら倒す。" />
     <string
+      id="ret_list_toggle_bandit"
+      text="山賊" />
+    <string
       id="ret_list_toggle_caravan"
       text="キャラバン" />
     <string
@@ -1254,10 +1257,10 @@
       text="一族兵エディターに切り替えます。" />
     <string
       id="ret_switch_to_clan_troops"
-      text="切り替え：{newline}一族兵" />
+      text="一族兵" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="切り替え：{newline}王国兵" />
+      text="王国兵" />
     <string
       id="ret_tier"
       text="ランク" />

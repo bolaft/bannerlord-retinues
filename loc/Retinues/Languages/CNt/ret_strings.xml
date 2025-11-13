@@ -536,6 +536,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="在戰鬥中親自擊敗一名敵方領主。" />
     <string
+      id="ret_list_toggle_bandit"
+      text="強盜" />
+    <string
       id="ret_list_toggle_caravan"
       text="商隊" />
     <string
@@ -1254,10 +1257,10 @@
       text="切換到家族部隊編輯器。" />
     <string
       id="ret_switch_to_clan_troops"
-      text="切換至{newline}家族部隊" />
+      text="家族部隊" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="切換至{newline}王國部隊" />
+      text="王國部隊" />
     <string
       id="ret_tier"
       text="等級" />

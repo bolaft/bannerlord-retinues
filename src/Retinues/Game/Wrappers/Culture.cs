@@ -216,5 +216,19 @@ namespace Retinues.Game.Wrappers
                     .Select(t => new WCharacter(t))
                     .Where(w => w?.IsActive == true && w?.Age >= 18),
             ];
+
+        public List<WCharacter> BanditTroops =>
+            [
+                .. new List<CharacterObject>
+                {
+                    Base.BanditBandit,
+                    Base.BanditChief,
+                    Base.BanditBoss,
+                    Base.BanditRaider,
+                }
+                    .Where(t => t != null)
+                    .Select(t => new WCharacter(t))
+                    .Where(w => w?.IsActive == true && w?.Age >= 18),
+            ];
     }
 }

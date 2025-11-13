@@ -536,6 +536,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Personally defeat an enemy lord in battle." />
     <string
+      id="ret_list_toggle_bandit"
+      text="Bandits" />
+    <string
       id="ret_list_toggle_caravan"
       text="Caravans" />
     <string
@@ -1254,10 +1257,10 @@
       text="Switch to clan troops editor." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Switch to{newline}Clan Troops" />
+      text="Clan Troops" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Switch to{newline}Kingdom Troops" />
+      text="Kingdom Troops" />
     <string
       id="ret_tier"
       text="Tier" />

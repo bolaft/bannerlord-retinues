@@ -198,8 +198,8 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public string FactionButtonText =>
             (StringIdentifier)State.Faction == Player.Clan
-                ? L.S("switch_to_kingdom_troops", "Switch to\nKingdom Troops")
-                : L.S("switch_to_clan_troops", "Switch to\nClan Troops");
+                ? L.S("switch_to_kingdom_troops", "Kingdom Troops")
+                : L.S("switch_to_clan_troops", "Clan Troops");
 
         [DataSourceProperty]
         public string HelpText => L.S("editor_help_text", "Help");

@@ -36,6 +36,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             CaravanTroops = [.. State.Faction.CaravanTroops.Select(t => new TroopRowVM(t))];
             VillagerTroops = [.. State.Faction.VillagerTroops.Select(t => new TroopRowVM(t))];
             CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
+            BanditTroops = [.. State.Faction.BanditTroops.Select(t => new TroopRowVM(t))];
 
             if (EliteTroops.Count == 0 && !State.IsStudioMode)
                 EliteTroops.Add(
@@ -103,11 +104,13 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(CaravanTroops));
             OnPropertyChanged(nameof(VillagerTroops));
             OnPropertyChanged(nameof(CivilianTroops));
+            OnPropertyChanged(nameof(BanditTroops));
             OnPropertyChanged(nameof(ShowRetinueList));
             OnPropertyChanged(nameof(ShowMilitiaList));
             OnPropertyChanged(nameof(ShowCaravanList));
             OnPropertyChanged(nameof(ShowVillagerList));
             OnPropertyChanged(nameof(ShowCivilianList));
+            OnPropertyChanged(nameof(ShowBanditList));
 
             RefreshFilter();
         }
@@ -136,6 +139,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> CivilianTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> BanditTroops { get; set; } = [];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -175,6 +181,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public string CivilianToggleText => L.S("list_toggle_civilian", "Civilians");
 
+        [DataSourceProperty]
+        public string BanditToggleText => L.S("list_toggle_bandit", "Bandits");
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -192,6 +201,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public bool ShowCivilianList => CivilianTroops.Count > 0 && State.IsStudioMode;
 
+        [DataSourceProperty]
+        public bool ShowBanditList => BanditTroops.Count > 0 && State.IsStudioMode;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -205,6 +217,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 .. CaravanTroops,
                 .. VillagerTroops,
                 .. CivilianTroops,
+                .. BanditTroops,
             ];
 
         /// <summary>

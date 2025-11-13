@@ -536,6 +536,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Bir düşman lordunu savaşta bizzat öldür." />
     <string
+      id="ret_list_toggle_bandit"
+      text="Haydutlar" />
+    <string
       id="ret_list_toggle_caravan"
       text="Kervanlar" />
     <string
@@ -1254,10 +1257,10 @@
       text="Klan askerleri düzenleyicisine geç." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Geçiş Yap{newline}Klan Askerleri" />
+      text="Klan Askerleri" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Geçiş Yap{newline}Krallık Askerleri" />
+      text="Krallık Askerleri" />
     <string
       id="ret_tier"
       text="Seviye" />

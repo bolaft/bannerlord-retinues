@@ -536,6 +536,9 @@
       id="ret_lions_share_kill_enemy_lord"
       text="Besiege persönlich einen feindlichen Lord in einer Schlacht." />
     <string
+      id="ret_list_toggle_bandit"
+      text="Banditen" />
+    <string
       id="ret_list_toggle_caravan"
       text="Karawanen" />
     <string
@@ -1254,10 +1257,10 @@
       text="Wechsel zum Klantruppen-Editor." />
     <string
       id="ret_switch_to_clan_troops"
-      text="Wechsel zu{newline}Clantruppen" />
+      text="Clantruppen" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Wechsel zu{newline}Königreichstruppen" />
+      text="Königreichstruppen" />
     <string
       id="ret_tier"
       text="Stufe" />

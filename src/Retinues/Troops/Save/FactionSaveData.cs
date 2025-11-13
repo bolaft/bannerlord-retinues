@@ -51,6 +51,9 @@ namespace Retinues.Troops.Save
         [SaveableField(13)]
         public List<TroopSaveData> Civilians;
 
+        [SaveableField(14)]
+        public List<TroopSaveData> Bandits;
+
         public FactionSaveData()
         {
             // Default constructor for deserialization
@@ -81,6 +84,14 @@ namespace Retinues.Troops.Save
                 .ToList();
 
             Civilians = (civilians != null && civilians.Count > 0) ? civilians : null;
+
+            // Bandit troops
+            var bandits = faction
+                .BanditTroops?.Select(CreateIfNeeded)
+                .Where(d => d != null)
+                .ToList();
+
+            Bandits = (bandits != null && bandits.Count > 0) ? bandits : null;
         }
 
         /// <summary>
@@ -126,6 +137,10 @@ namespace Retinues.Troops.Save
 
             if (Civilians != null)
                 foreach (var troopData in Civilians)
+                    troopData.Deserialize();
+
+            if (Bandits != null)
+                foreach (var troopData in Bandits)
                     troopData.Deserialize();
         }
 

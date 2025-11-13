@@ -49,7 +49,7 @@ namespace Retinues.Troops
             if (faction == null || troop == null || !troop.IsValid)
                 return null;
 
-            // 1) SPECIAL CIVILIAN ROLES: villager / caravan
+            // 1) SPECIAL ROLES: villager / caravan
             // Only map if the faction slot exists AND is a custom troop.
             if (troop.IsVillager)
             {

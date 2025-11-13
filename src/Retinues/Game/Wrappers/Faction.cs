@@ -41,6 +41,7 @@ namespace Retinues.Game.Wrappers
         public List<WCharacter> CaravanTroops { get; }
         public List<WCharacter> VillagerTroops { get; }
         public List<WCharacter> CivilianTroops { get; }
+        public List<WCharacter> BanditTroops { get; }
     }
 
     /// <summary>
@@ -182,6 +183,11 @@ namespace Retinues.Game.Wrappers
         /// Gets all civilian troops for this faction that are active.
         /// </summary>
         public List<WCharacter> CivilianTroops => []; // Player factions don't have civilians
+
+        /// <summary>
+        /// Gets all bandit troops for this faction that are active.
+        /// </summary>
+        public List<WCharacter> BanditTroops => []; // Player factions don't have bandits
 
         public bool HasFiefs => Base.Fiefs?.Count > 0;
         public bool IsClan => Base is Clan;
