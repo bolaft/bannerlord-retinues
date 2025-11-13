@@ -62,8 +62,15 @@
         HorizontalAlignment="Center" VerticalAlignment="Bottom">
         <Children>
 
+            {{ button.sprite(
+                command="ExecuteChangeGender",
+                sprite="@GenderIcon",
+                hint="{GenderToggleHint}",
+                color="#f5df97ff",
+                width="40", height="40"
+            ) }}
+
             {% if contains_controls %}
-                {{ control_row("SPPerks\\CharmInBloom", "{GenderHint}", "ExecuteChangeGender", "ExecuteChangeGender") }}
                 {{ control_row("SPPerks\\TradeRapidDevelopment", "{AgeHint}", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
                 {{ control_row("SPPerks\\AthleticsDurable", "{HeightHint}", "ExecutePrevHeightPreset", "ExecuteNextHeightPreset") }}
                 {{ control_row("SPPerks\\AthleticsFormFittingArmor", "{WeightHint}", "ExecutePrevWeightPreset", "ExecuteNextWeightPreset") }}
@@ -74,14 +81,6 @@
                     brush="SPClan.Members.RecallIcon",
                     hint="{CustomizationHint}",
                     width="60", height="60"
-                ) }}
-            {% else %}
-                {{ button.sprite(
-                    command="ExecuteChangeGender",
-                    sprite="@GenderIcon",
-                    hint="{GenderToggleHint}",
-                    color="#f5df97ff",
-                    width="40", height="40"
                 ) }}
             {% endif %}
 
