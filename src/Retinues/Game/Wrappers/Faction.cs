@@ -84,6 +84,75 @@ namespace Retinues.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Assigns the given troop to the appropriate field based on its type.
+        /// </summary>
+        public void Set(WCharacter troop)
+        {
+            // Clear existing troop of same type (if any)
+            Get(troop.Type)?.Remove();
+
+            // Assign new troop
+            switch (troop.Type)
+            {
+                case WCharacter.TroopType.RetinueElite:
+                    RetinueElite = troop;
+                    break;
+                case WCharacter.TroopType.RetinueBasic:
+                    RetinueBasic = troop;
+                    break;
+                case WCharacter.TroopType.Elite:
+                    RootElite = troop;
+                    break;
+                case WCharacter.TroopType.Basic:
+                    RootBasic = troop;
+                    break;
+                case WCharacter.TroopType.MilitiaMelee:
+                    MilitiaMelee = troop;
+                    break;
+                case WCharacter.TroopType.MilitiaMeleeElite:
+                    MilitiaMeleeElite = troop;
+                    break;
+                case WCharacter.TroopType.MilitiaRanged:
+                    MilitiaRanged = troop;
+                    break;
+                case WCharacter.TroopType.MilitiaRangedElite:
+                    MilitiaRangedElite = troop;
+                    break;
+                case WCharacter.TroopType.CaravanGuard:
+                    CaravanGuard = troop;
+                    break;
+                case WCharacter.TroopType.CaravanMaster:
+                    CaravanMaster = troop;
+                    break;
+                case WCharacter.TroopType.Villager:
+                    Villager = troop;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Gets the troop for the given type.
+        /// </summary>
+        public WCharacter Get(WCharacter.TroopType type)
+        {
+            return type switch
+            {
+                WCharacter.TroopType.RetinueElite => RetinueElite,
+                WCharacter.TroopType.RetinueBasic => RetinueBasic,
+                WCharacter.TroopType.Elite => RootElite,
+                WCharacter.TroopType.Basic => RootBasic,
+                WCharacter.TroopType.MilitiaMelee => MilitiaMelee,
+                WCharacter.TroopType.MilitiaMeleeElite => MilitiaMeleeElite,
+                WCharacter.TroopType.MilitiaRanged => MilitiaRanged,
+                WCharacter.TroopType.MilitiaRangedElite => MilitiaRangedElite,
+                WCharacter.TroopType.CaravanGuard => CaravanGuard,
+                WCharacter.TroopType.CaravanMaster => CaravanMaster,
+                WCharacter.TroopType.Villager => Villager,
+                _ => null,
+            };
+        }
+
         public WCharacter RetinueElite { get; set; }
         public WCharacter RetinueBasic { get; set; }
 

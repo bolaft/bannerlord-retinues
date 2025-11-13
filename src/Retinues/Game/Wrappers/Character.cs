@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Retinues.Configuration;
-using Retinues.Game.Helpers;
 using Retinues.Game.Helpers.Character;
 using Retinues.Mods;
 using Retinues.Safety.Sanitizer;
@@ -27,19 +26,55 @@ namespace Retinues.Game.Wrappers
     [SafeClass]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Constants                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         public const string CustomIdPrefix = "retinues_custom_";
         public const string LegacyCustomIdPrefix = "ret_";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Character Helper                   //
+        //                       Troop Type                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Character helper instances
-        private static readonly CharacterHelper _customHelper = new CharacterHelperCustom();
-        private static readonly CharacterHelper _vanillaHelper = new CharacterHelperVanilla();
+        public enum TroopType
+        {
+            Basic,
+            Elite,
+            RetinueBasic,
+            RetinueElite,
+            MilitiaMelee,
+            MilitiaMeleeElite,
+            MilitiaRanged,
+            MilitiaRangedElite,
+            CaravanGuard,
+            CaravanMaster,
+            Villager,
+            Other
+        }
 
-        // Helper instance for this character
-        private CharacterHelper Helper => IsCustom ? _customHelper : _vanillaHelper;
+        private TroopType _type;
+        public TroopType Type
+        {
+            get => IsCustom ? _type : CharacterHelper.GetType(this);
+            set => _type = value;
+        }
+
+        public bool IsRetinue =>
+            Type == TroopType.RetinueBasic || Type == TroopType.RetinueElite;
+
+        public bool IsElite =>
+            Type == TroopType.Elite
+            || Type == TroopType.RetinueElite
+            || Type == TroopType.MilitiaMeleeElite
+            || Type == TroopType.MilitiaRangedElite
+            || Type == TroopType.CaravanMaster;
+
+        public bool IsMilitia =>
+            Type == TroopType.MilitiaMelee
+            || Type == TroopType.MilitiaMeleeElite
+            || Type == TroopType.MilitiaRanged
+            || Type == TroopType.MilitiaRangedElite;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -67,8 +102,31 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Creates a new WCharacter wrapper around a free stub CharacterObject.
         /// </summary>
-        public WCharacter()
-            : this(AllocateStub()) { }
+        public WCharacter(WFaction faction, WCharacter parent, TroopType type)
+            : this(AllocateStub())
+        {
+            ActiveTroopIds.Add(StringId);
+
+            // Clear existing faction troop of same type (if any)
+            faction.Get(type)?.Remove();
+            faction.Set(this);
+
+            HiddenInEncyclopedia = false;
+            IsNotTransferableInHideouts = false;
+
+            Faction = faction;
+            Parent = parent;
+            Type = type;
+
+            if (IsRetinue)
+                IsNotTransferableInPartyScreen = true;
+            else
+                IsNotTransferableInPartyScreen = false;
+
+            FormationClass = ComputeFormationClass();
+            UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
+
+        }
 
         /// <summary>
         /// Creates a new WCharacter wrapper around the specified CharacterObject id.
@@ -114,17 +172,27 @@ namespace Retinues.Game.Wrappers
         //                        Identity                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━ CharacterObject ━━━ */
+
         private readonly CharacterObject _co =
             characterObject ?? throw new ArgumentNullException(nameof(characterObject));
 
         public CharacterObject Base => _co;
 
-        public override string StringId => _co.StringId;
+        public override string StringId => Base.StringId;
+
+        /* ━━━━━━━ Template ━━━━━━━ */
 
         public static Dictionary<string, string> VanillaStringIdMap = [];
 
         public string VanillaStringId =>
             VanillaStringIdMap.TryGetValue(StringId, out var vid) ? vid : StringId;
+
+        /* ━━━━━━━━━ Type ━━━━━━━━━ */
+
+        public bool IsCustom => StringId.StartsWith(CustomIdPrefix) == true;
+        public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
+        public bool IsVanilla => !IsCustom;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                View-Model (VM) Accessors               //
@@ -165,20 +233,19 @@ namespace Retinues.Game.Wrappers
         //                Tree, Relations & Faction               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsCustom => StringId.StartsWith(CustomIdPrefix) == true;
-        public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
-        public bool IsVanilla => !IsCustom;
-        public bool IsElite => Helper.IsElite(this);
-        public bool IsRetinue => Helper.IsRetinue(this);
-        public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
-        public bool IsMilitiaMelee => Helper.IsMilitiaMelee(this);
-        public bool IsMilitiaRanged => Helper.IsMilitiaRanged(this);
-        public bool IsCaravanGuard => Helper.IsCaravanGuard(this);
-        public bool IsCaravanMaster => Helper.IsCaravanMaster(this);
-        public bool IsVillager => Helper.IsVillager(this);
+        private WCharacter _parent;
+        public WCharacter Parent
+        {
+            get => IsCustom ? _parent : CharacterHelper.GetParent(this);
+            set => _parent = value;
+        }
 
-        public WCharacter Parent => Helper.GetParent(this);
-        public WFaction Faction => Helper.ResolveFaction(this);
+        private WFaction _faction;
+        public WFaction Faction
+        {
+            get => IsCustom ? _faction : null;
+            set => _faction = value;
+        }
 
         public IEnumerable<WCharacter> Tree
         {
@@ -467,12 +534,8 @@ namespace Retinues.Game.Wrappers
             Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(list));
 
             // Index maintenance
-            CharacterIndexer.SetParent(this, target);
-
-            // If this node already has a known faction, propagate it to the child.
-            var f = CharacterIndexer.TryGetFaction(this);
-            if (f != null)
-                CharacterIndexer.SetFaction(f, target);
+            target.Parent = this;
+            target.Faction = Faction;
 
             MarkEdited();
         }
@@ -493,9 +556,8 @@ namespace Retinues.Game.Wrappers
 
             // Index maintenance
             // Only clear if the index currently points to this as the parent.
-            var currentParent = CharacterIndexer.TryGetParent(target);
-            if (currentParent != null && currentParent == this)
-                CharacterIndexer.SetParent(null, target);
+            if (target.Parent == this)
+                target.Parent = null;
 
             MarkEdited();
         }
@@ -517,7 +579,12 @@ namespace Retinues.Game.Wrappers
             );
 
             // Unregister from the game systems
-            Deactivate();
+            HiddenInEncyclopedia = true;
+            IsNotTransferableInPartyScreen = false;
+            IsNotTransferableInHideouts = false;
+
+            if (IsActive)
+                ActiveTroopIds.Remove(StringId);
 
             // Remove all children
             foreach (var target in UpgradeTargets)
@@ -546,33 +613,6 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public void Activate()
-        {
-            HiddenInEncyclopedia = false;
-            IsNotTransferableInHideouts = false;
-
-            if (IsRetinue)
-                IsNotTransferableInPartyScreen = true;
-            else
-                IsNotTransferableInPartyScreen = false;
-
-            FormationClass = ComputeFormationClass();
-            UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
-
-            if (!IsActive)
-                ActiveTroopIds.Add(StringId);
-        }
-
-        public void Deactivate()
-        {
-            HiddenInEncyclopedia = true;
-            IsNotTransferableInPartyScreen = false;
-            IsNotTransferableInHideouts = false;
-
-            if (IsActive)
-                ActiveTroopIds.Remove(StringId);
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Cloning                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -591,7 +631,7 @@ namespace Retinues.Game.Wrappers
             }
 
             // Character object copy
-            Helper.CopyInto(src.Base, _co);
+            CharacterHelper.CopyInto(src.Base, _co);
 
             // Vanilla id
             VanillaStringIdMap[StringId] = src.VanillaStringId;
@@ -755,7 +795,7 @@ namespace Retinues.Game.Wrappers
                     if (rangeType == null)
                     {
                         // Fallback: try to resolve MBBodyProperty type by name
-                        rangeType = Type.GetType("TaleWorlds.Core.MBBodyProperty, TaleWorlds.Core");
+                        rangeType = System.Type.GetType("TaleWorlds.Core.MBBodyProperty, TaleWorlds.Core");
                         if (rangeType == null)
                         {
                             // As a last resort, reuse whatever is already on Base (if any)
@@ -781,7 +821,7 @@ namespace Retinues.Game.Wrappers
                 // Try to clone; if clone not available, re-create with same min/max
                 try
                 {
-                    var clone = Reflector.InvokeMethod(current, "Clone", Type.EmptyTypes);
+                    var clone = Reflector.InvokeMethod(current, "Clone", System.Type.EmptyTypes);
                     if (clone != null)
                     {
                         Reflector.SetPropertyValue(Base, "BodyPropertyRange", clone);

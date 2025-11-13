@@ -143,16 +143,6 @@ namespace Retinues.Troops.Save
             // Recompute formation class
             troop.FormationClass = troop.ComputeFormationClass();
 
-            // Activate
-            troop.Activate();
-
-            if (
-                troop?.Name?.ToLowerInvariant().Contains("banner") == true
-                && troop?.Name.ToLowerInvariant().Contains("knight") == true
-            )
-                Log.Info(
-                    $"Upgrade Requirement: {troop?.UpgradeItemRequirement?.GetName()} for {troop?.Name}"
-                );
             // Return the created troop
             return troop;
         }

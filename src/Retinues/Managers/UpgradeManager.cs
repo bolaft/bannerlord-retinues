@@ -22,7 +22,7 @@ namespace Retinues.Managers
         {
             Log.Debug($"AddUpgradeTarget: '{targetName}' for {troop?.Name}");
 
-            var child = new WCharacter();
+            var child = new WCharacter(faction: troop.Faction, parent: troop, type: troop.Type);
 
             bool keepEquipment = false;
             if (Config.EquipmentChangeTakesTime == false && Config.PayForEquipment == false)
@@ -38,7 +38,6 @@ namespace Retinues.Managers
             child.Level = troop.Level + 5;
 
             troop.AddUpgradeTarget(child);
-            child.Activate();
 
             return child;
         }

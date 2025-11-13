@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
+using Retinues.Utils;
 using TaleWorlds.SaveSystem;
 
 namespace Retinues.Troops.Save
@@ -95,12 +96,62 @@ namespace Retinues.Troops.Save
         }
 
         /// <summary>
+        /// Assigns the given troop to the appropriate field based on its type.
+        /// </summary>
+        public void Assign(WCharacter troop)
+        {
+            if (troop == null)
+                return;
+            
+            var data = new TroopSaveData(troop);
+
+            switch (troop.Type)
+            {
+                case WCharacter.TroopType.RetinueElite:
+                    RetinueElite = data;
+                    break;
+                case WCharacter.TroopType.RetinueBasic:
+                    RetinueBasic = data;
+                    break;
+                case WCharacter.TroopType.Elite:
+                    RootElite = data;
+                    break;
+                case WCharacter.TroopType.Basic:
+                    RootBasic = data;
+                    break;
+                case WCharacter.TroopType.MilitiaMelee:
+                    MilitiaMelee = data;
+                    break;
+                case WCharacter.TroopType.MilitiaMeleeElite:
+                    MilitiaMeleeElite = data;
+                    break;
+                case WCharacter.TroopType.MilitiaRanged:
+                    MilitiaRanged = data;
+                    break;
+                case WCharacter.TroopType.MilitiaRangedElite:
+                    MilitiaRangedElite = data;
+                    break;
+                case WCharacter.TroopType.CaravanGuard:
+                    CaravanGuard = data;
+                    break;
+                case WCharacter.TroopType.CaravanMaster:
+                    CaravanMaster = data;
+                    break;
+                case WCharacter.TroopType.Villager:
+                    Villager = data;
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Applies the saved troop data to a faction.
         /// </summary>
         public void Apply(WFaction faction)
         {
             if (faction is null)
                 return; // Null faction, nothing to do
+
+            Log.Info($"Applying saved troop data to faction '{faction.Name}' (ID: {faction.StringId})");
 
             faction.RetinueElite = RetinueElite?.Deserialize();
             faction.RetinueBasic = RetinueBasic?.Deserialize();
@@ -114,6 +165,9 @@ namespace Retinues.Troops.Save
             faction.CaravanMaster = CaravanMaster?.Deserialize();
             faction.Villager = Villager?.Deserialize();
 
+            Log.Info($"Registering faction roots for faction '{faction.Name}' (ID: {faction.StringId})");
+
+            // To be done before activating troops
             CharacterIndexer.RegisterFactionRoots(faction);
         }
 

@@ -243,9 +243,6 @@ namespace Retinues.Troops
             // Unlock items
             UnlockAll(retinue);
 
-            // Activate
-            retinue.Activate();
-
             // Assign to faction
             if (isElite)
                 faction.RetinueElite = retinue;
@@ -315,14 +312,8 @@ namespace Retinues.Troops
             // Rank up so skill caps/totals match vanilla militia
             militia.Level += 5;
 
-            // Non-transferable
-            militia.IsNotTransferableInPartyScreen = true;
-
             // Unlock items
             UnlockAll(militia);
-
-            // Activate
-            militia.Activate();
 
             // Assign to faction
             if (isMelee)
@@ -375,9 +366,6 @@ namespace Retinues.Troops
 
             // Unlock items
             UnlockAll(troop);
-
-            // Activate
-            troop.Activate();
 
             // Assign to faction
             switch (type)
@@ -468,9 +456,6 @@ namespace Retinues.Troops
 
             // Unlock items (vanilla source items)
             UnlockAll(vanilla);
-
-            // Activate
-            troop.Activate();
 
             yield return troop;
 

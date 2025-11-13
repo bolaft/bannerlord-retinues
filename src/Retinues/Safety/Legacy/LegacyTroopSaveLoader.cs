@@ -25,10 +25,10 @@ namespace Retinues.Safety.Legacy
         /// <summary>
         /// Loads a WCharacter from LegacyTroopSaveData, recursively restoring upgrades and properties.
         /// </summary>
-        public static WCharacter Load(LegacyTroopSaveData data)
+        public static WCharacter Load(LegacyTroopSaveData data, WFaction faction, WCharacter parent, WCharacter.TroopType type)
         {
             // Wrap it
-            var troop = new WCharacter();
+            var troop = new WCharacter(faction: faction, parent: parent, type: type);
 
             // Map legacy ID to new ID
             TroopIdMap[data.StringId] = troop.StringId;
@@ -100,12 +100,9 @@ namespace Retinues.Safety.Legacy
                 }
             }
 
-            // Activate before loading children so ID is allocated
-            troop.Activate();
-
             // Restore upgrade targets
             foreach (var child in data.UpgradeTargets ?? [])
-                troop.AddUpgradeTarget(Load(child));
+                troop.AddUpgradeTarget(Load(child, faction: faction, parent: troop, type: type));
 
             // Retinues are not transferable
             if (troop.IsRetinue)

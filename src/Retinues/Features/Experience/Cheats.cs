@@ -77,7 +77,7 @@ namespace Retinues.Features.Experience
             var result = new List<string>();
             foreach (var troop in Player.Troops)
             {
-                if (troop.IsActive && troop.IsCustom)
+                if (troop.IsCustom)
                 {
                     var name = troop.Name;
                     var id = troop.StringId;

@@ -5,6 +5,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
+using System;
+using System.Collections.Generic;
+
 #if BL13
 using System;
 using System.Collections.Generic;
@@ -17,86 +20,17 @@ namespace Retinues.Game.Helpers.Character
     /// <summary>
     /// Base class for character graph and identity queries.
     /// </summary>
-    public abstract class CharacterHelper
+    public class CharacterHelper
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Public Contract                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Resolve the troop's owning faction (wrapper).
-        /// </summary>
-        public abstract WFaction ResolveFaction(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop is a retinue (any kind).
-        /// </summary>
-        public abstract bool IsRetinue(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop is a militia melee unit (including elite variant).
-        /// </summary>
-        public abstract bool IsMilitiaMelee(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop is a militia ranged unit (including elite variant).
-        /// </summary>
-        public abstract bool IsMilitiaRanged(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop is a caravan guard.
-        /// </summary>
-        public abstract bool IsCaravanGuard(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop is a caravan master.
-        /// </summary>
-        public abstract bool IsCaravanMaster(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop is a villager.
-        /// </summary>
-        public abstract bool IsVillager(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop is elite (by tree or singleton role).
-        /// </summary>
-        public abstract bool IsElite(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop belongs to a kingdom (if you use this graph flag).
-        /// </summary>
-        public abstract bool IsKingdom(WCharacter troop);
-
-        /// <summary>
-        /// True if the troop belongs to a clan (if you use this graph flag).
-        /// </summary>
-        public abstract bool IsClan(WCharacter troop);
-
-        /// <summary>
-        /// Get the parent node in the character graph, or null if none.
-        /// </summary>
-        public abstract WCharacter GetParent(WCharacter node);
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Shared Utilities                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Gets a CharacterObject by vanilla troop ID.
-        /// </summary>
-        public CharacterObject GetCharacterObject(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-                return null;
-            return MBObjectManager.Instance.GetObject<CharacterObject>(id);
-        }
-
-        /// <summary>
         /// Deep-copies key data from src to tgt and calls FillFrom.
         /// BL13 path also installs a fresh battle equipment roster cloned from src.
         /// </summary>
-        public virtual CharacterObject CopyInto(CharacterObject src, CharacterObject tgt)
+        public static CharacterObject CopyInto(CharacterObject src, CharacterObject tgt)
         {
 #if BL13
             if (src == null || tgt == null)
@@ -143,10 +77,11 @@ namespace Retinues.Game.Helpers.Character
         }
 
 #if BL13
+
         /// <summary>
         /// Installs a fresh equipment roster on tgt, deep-cloned from src's battle sets.
         /// </summary>
-        protected void InstallFreshRosterFromSourceBattleSets(
+        protected static void InstallFreshRosterFromSourceBattleSets(
             CharacterObject src,
             CharacterObject tgt
         )
@@ -204,6 +139,155 @@ namespace Retinues.Game.Helpers.Character
             }
         }
 #endif
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Culture Cache                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private sealed class CultureCache
+        {
+            public string CultureId;
+
+            public CharacterObject BasicRoot;
+            public CharacterObject EliteRoot;
+
+            public readonly HashSet<string> BasicSet = new(StringComparer.Ordinal);
+            public readonly HashSet<string> EliteSet = new(StringComparer.Ordinal);
+
+            public readonly Dictionary<string, string> ParentMap = new(StringComparer.Ordinal);
+        }
+
+        private static readonly Dictionary<string, CultureCache> _cache = new(
+            StringComparer.Ordinal
+        );
+
+        private static CultureCache GetOrBuildCache(CharacterObject sample)
+        {
+            var culture = sample?.Culture;
+            if (culture == null)
+                return null;
+
+            var cid = culture.StringId;
+            if (string.IsNullOrEmpty(cid))
+                return null;
+
+            if (_cache.TryGetValue(cid, out var c))
+                return c;
+
+            c = new CultureCache
+            {
+                CultureId = cid,
+                BasicRoot = culture.BasicTroop,
+                EliteRoot = culture.EliteBasicTroop,
+            };
+
+            void Crawl(CharacterObject root, HashSet<string> set)
+            {
+                if (root == null)
+                    return;
+
+                var visited = new HashSet<string>(StringComparer.Ordinal) { root.StringId };
+                var q = new Queue<CharacterObject>();
+                q.Enqueue(root);
+                set.Add(root.StringId);
+
+                while (q.Count > 0)
+                {
+                    var cur = q.Dequeue();
+                    var kids = cur.UpgradeTargets ?? [];
+
+                    foreach (var co in kids)
+                    {
+                        if (co?.Culture != root.Culture)
+                            continue;
+                        if (!visited.Add(co.StringId))
+                            continue;
+
+                        set.Add(co.StringId);
+                        c.ParentMap[co.StringId] = cur.StringId;
+                        q.Enqueue(co);
+                    }
+                }
+            }
+
+            Crawl(c.BasicRoot, c.BasicSet);
+            Crawl(c.EliteRoot, c.EliteSet);
+
+            _cache[cid] = c;
+            return c;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Vanilla Inferences                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static WCharacter GetParent(WCharacter node)
+        {
+            if (node?.Base == null)
+                return null;
+
+            var c = GetOrBuildCache(node.Base);
+            if (c == null)
+                return null;
+
+            var pid = c.ParentMap.TryGetValue(node.StringId, out var tmpPid) ? tmpPid : null;
+
+            if (string.IsNullOrEmpty(pid))
+                return null;
+
+            var pco = GetCharacterObject(pid);
+
+            return pco != null ? new WCharacter(pco) : null;
+        }
+
+        public static WCharacter.TroopType GetType(WCharacter node)
+        {
+            if (node?.Culture?.Base == null)
+                return WCharacter.TroopType.Other;
+
+            // Character object
+            var co = node.Base;
+
+            var c = GetOrBuildCache(co);
+
+            if (c.EliteSet.Contains(co.StringId))
+                return WCharacter.TroopType.Elite;
+            if (c.BasicSet.Contains(co.StringId))
+                return WCharacter.TroopType.Basic;
+
+            // Helper method
+            bool IsCultureRef(Func<CultureObject, CharacterObject> selector)
+            {
+                var target = selector(node.Culture.Base);
+                return ReferenceEquals(co, target);
+            }
+
+            // Match known types
+            return node switch
+            {
+                var _ when IsCultureRef(cul => cul.MeleeMilitiaTroop) => WCharacter.TroopType.MilitiaMelee,
+                var _ when IsCultureRef(cul => cul.MeleeEliteMilitiaTroop) => WCharacter.TroopType.MilitiaMeleeElite,
+                var _ when IsCultureRef(cul => cul.RangedMilitiaTroop) => WCharacter.TroopType.MilitiaRanged,
+                var _ when IsCultureRef(cul => cul.RangedEliteMilitiaTroop) => WCharacter.TroopType.MilitiaRangedElite,
+                var _ when IsCultureRef(cul => cul.CaravanGuard) => WCharacter.TroopType.CaravanGuard,
+                var _ when IsCultureRef(cul => cul.CaravanMaster) => WCharacter.TroopType.CaravanMaster,
+                var _ when IsCultureRef(cul => cul.Villager) => WCharacter.TroopType.Villager,
+                _ => WCharacter.TroopType.Other,
+            };
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets a CharacterObject by vanilla troop ID.
+        /// </summary>
+        private static CharacterObject GetCharacterObject(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return null;
+            return MBObjectManager.Instance.GetObject<CharacterObject>(id);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Reflection Handles                   //

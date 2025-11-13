@@ -61,52 +61,17 @@ namespace Retinues.Safety.Legacy
 
             foreach (var root in roots)
             {
-                // Load legacy troop data
-                var troop = LegacyTroopSaveLoader.Load(root);
+                // Determine if kingdom or clan
+                bool isKingdom = IsKingdom(root.StringId);
 
-                // Create new troop save data
-                var data = new TroopSaveData(troop);
+                // Load legacy troop data
+                var troop = LegacyTroopSaveLoader.Load(root, faction: isKingdom ? Player.Kingdom : Player.Clan, parent: null, type: GetTroopType(root.StringId));
 
                 // Determine faction
-                var factionData = IsKingdom(root.StringId) ? kingdomSaveData : clanSaveData;
+                var factionData = isKingdom ? kingdomSaveData : clanSaveData;
 
-                // Determine troop type
-                var token = ExtractToken(root.StringId);
-
-                // Determine if elite
-                var elite = IsElite(root.StringId);
-
-                // Assign to appropriate slot
-                switch (token)
-                {
-                    case "retinue": // Retinues
-                        if (elite)
-                            factionData.RetinueElite = data;
-                        else
-                            factionData.RetinueBasic = data;
-                        break;
-
-                    case "mmilitia": // Melee Militia
-                        if (elite)
-                            factionData.MilitiaMeleeElite = data;
-                        else
-                            factionData.MilitiaMelee = data;
-                        break;
-
-                    case "rmilitia": // Ranged Militia
-                        if (elite)
-                            factionData.MilitiaRangedElite = data;
-                        else
-                            factionData.MilitiaRanged = data;
-                        break;
-
-                    default: // Regular Roots
-                        if (elite)
-                            factionData.RootElite = data;
-                        else
-                            factionData.RootBasic = data;
-                        break;
-                }
+                // Assign to the faction
+                factionData.Assign(troop);
             }
 
             return (clanSaveData, kingdomSaveData);
@@ -171,19 +136,6 @@ namespace Retinues.Safety.Legacy
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Extracts the token from a custom troop ID.
-        /// </summary>
-        private static string ExtractToken(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-                return null;
-            var underscore = id.LastIndexOf('_');
-            return underscore >= 0 && underscore + 1 < id.Length
-                ? id.Substring(underscore + 1)
-                : null;
-        }
-
-        /// <summary>
         /// Returns true if the ID is an elite troop.
         /// </summary>
         private static bool IsElite(string id) => id != null && id.Contains("_elite_");
@@ -192,5 +144,25 @@ namespace Retinues.Safety.Legacy
         /// Returns true if the ID is a kingdom troop.
         /// </summary>
         private static bool IsKingdom(string id) => id != null && id.Contains("_kingdom_");
+
+        /// <summary>
+        /// Determines the troop type from the ID.
+        /// </summary>
+        private static WCharacter.TroopType GetTroopType(string id)
+        {
+            if (id == null)
+                return WCharacter.TroopType.Other;
+
+            // Special troops
+            if (id.Contains("_retinue_"))
+                return IsElite(id) ? WCharacter.TroopType.RetinueElite : WCharacter.TroopType.RetinueBasic;
+            if (id.Contains("_mmilitia_"))
+                return IsElite(id) ? WCharacter.TroopType.MilitiaMeleeElite : WCharacter.TroopType.MilitiaMelee;
+            if (id.Contains("_rmilitia_"))
+                return IsElite(id) ? WCharacter.TroopType.MilitiaRangedElite : WCharacter.TroopType.MilitiaRanged;
+
+            // Regular troops
+            return IsElite(id) ? WCharacter.TroopType.Elite : WCharacter.TroopType.Basic;
+        }
     }
 }
