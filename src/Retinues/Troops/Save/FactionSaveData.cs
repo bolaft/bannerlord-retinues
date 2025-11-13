@@ -62,20 +62,25 @@ namespace Retinues.Troops.Save
                 return; // Null faction, nothing to do
 
             // Troop references
-            RetinueElite = new TroopSaveData(faction.RetinueElite);
-            RetinueBasic = new TroopSaveData(faction.RetinueBasic);
-            RootElite = new TroopSaveData(faction.RootElite);
-            RootBasic = new TroopSaveData(faction.RootBasic);
-            MilitiaMelee = new TroopSaveData(faction.MilitiaMelee);
-            MilitiaMeleeElite = new TroopSaveData(faction.MilitiaMeleeElite);
-            MilitiaRanged = new TroopSaveData(faction.MilitiaRanged);
-            MilitiaRangedElite = new TroopSaveData(faction.MilitiaRangedElite);
-            CaravanGuard = new TroopSaveData(faction.CaravanGuard);
-            CaravanMaster = new TroopSaveData(faction.CaravanMaster);
-            Villager = new TroopSaveData(faction.Villager);
+            RetinueElite = CreateIfNeeded(faction.RetinueElite);
+            RetinueBasic = CreateIfNeeded(faction.RetinueBasic);
+            RootElite = CreateIfNeeded(faction.RootElite);
+            RootBasic = CreateIfNeeded(faction.RootBasic);
+            MilitiaMelee = CreateIfNeeded(faction.MilitiaMelee);
+            MilitiaMeleeElite = CreateIfNeeded(faction.MilitiaMeleeElite);
+            MilitiaRanged = CreateIfNeeded(faction.MilitiaRanged);
+            MilitiaRangedElite = CreateIfNeeded(faction.MilitiaRangedElite);
+            CaravanGuard = CreateIfNeeded(faction.CaravanGuard);
+            CaravanMaster = CreateIfNeeded(faction.CaravanMaster);
+            Villager = CreateIfNeeded(faction.Villager);
 
             // Civilians troops
-            Civilians = [.. faction.CivilianTroops.Select(t => new TroopSaveData(t))];
+            var civilians = faction
+                .CivilianTroops?.Select(CreateIfNeeded)
+                .Where(d => d != null)
+                .ToList();
+
+            Civilians = (civilians != null && civilians.Count > 0) ? civilians : null;
         }
 
         /// <summary>
@@ -122,6 +127,23 @@ namespace Retinues.Troops.Save
             if (Civilians != null)
                 foreach (var troopData in Civilians)
                     troopData.Deserialize();
+        }
+
+        /// <summary>
+        /// Creates a TroopSaveData instance for the given troop if needed.
+        /// Custom and edited troops are always saved; unedited vanilla troops are not.
+        /// </summary>
+        private static TroopSaveData CreateIfNeeded(WCharacter troop)
+        {
+            if (troop is null)
+                return null;
+
+            // Custom / retinue / cloned troops are always persisted
+            if (troop.IsCustom)
+                return new TroopSaveData(troop);
+
+            // Vanilla troops are only persisted if they were edited
+            return troop.IsVanillaEdited ? new TroopSaveData(troop) : null;
         }
     }
 }

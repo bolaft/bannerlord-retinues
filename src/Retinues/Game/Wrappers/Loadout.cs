@@ -59,8 +59,11 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Set the equipment sets from wrapped objects.
         /// </summary>
-        public void SetEquipments(List<WEquipment> value) =>
+        public void SetEquipments(List<WEquipment> value)
+        {
             BaseEquipments = [.. value.Select(we => we.Base)];
+            Troop.MarkEdited();
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Accessors                      //
@@ -119,6 +122,7 @@ namespace Retinues.Game.Wrappers
             list.Add(we);
             SetEquipments(list);
             Normalize();
+            Troop.MarkEdited();
             return we;
         }
 
@@ -137,6 +141,7 @@ namespace Retinues.Game.Wrappers
 
             eq.SetCivilian(makeCivilian);
             Normalize();
+            Troop.MarkEdited();
         }
 
         /// <summary>
@@ -168,6 +173,7 @@ namespace Retinues.Game.Wrappers
             EquipmentPolicyBehavior.OnRemoved(Troop, idx);
 
             Normalize();
+            Troop.MarkEdited();
         }
 
         /// <summary>Ensure at least one battle and one civilian set exist.</summary>

@@ -77,6 +77,40 @@ namespace Retinues.Game.Wrappers
             : this(MBObjectManager.Instance.GetObject<CharacterObject>(stringId)) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Vanilla                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Vanilla troops that were modified through the editor and must be persisted.
+        /// </summary>
+        public static HashSet<string> EditedVanillaTroopIds { get; } =
+            new HashSet<string>(StringComparer.Ordinal);
+
+        /// <summary>
+        /// True if this is a vanilla troop that has been edited in the studio/global editor.
+        /// Custom troops always return false here.
+        /// </summary>
+        public bool IsVanillaEdited => IsVanilla && EditedVanillaTroopIds.Contains(StringId);
+
+        /// <summary>
+        /// Mark this vanilla troop as edited (no-op for custom troops).
+        /// </summary>
+        internal void MarkEdited()
+        {
+            if (IsVanilla)
+                EditedVanillaTroopIds.Add(StringId);
+        }
+
+        /// <summary>
+        /// Clear the edited flag for this vanilla troop (no-op for custom troops).
+        /// </summary>
+        internal void ClearEditedFlag()
+        {
+            if (IsVanilla)
+                EditedVanillaTroopIds.Remove(StringId);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Identity                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -133,6 +167,7 @@ namespace Retinues.Game.Wrappers
 
         public bool IsCustom => StringId.StartsWith(CustomIdPrefix) == true;
         public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
+        public bool IsVanilla => !IsCustom;
         public bool IsElite => Helper.IsElite(this);
         public bool IsRetinue => Helper.IsRetinue(this);
         public bool IsMilitia => IsMilitiaMelee || IsMilitiaRanged;
@@ -171,6 +206,7 @@ namespace Retinues.Game.Wrappers
                     [typeof(TextObject)],
                     new TextObject(value, null)
                 );
+                MarkEdited();
             }
         }
 
@@ -179,7 +215,11 @@ namespace Retinues.Game.Wrappers
         public int Level
         {
             get => Base.Level;
-            set => Base.Level = value;
+            set
+            {
+                Base.Level = value;
+                MarkEdited();
+            }
         }
 
         public WCulture Culture
@@ -205,6 +245,7 @@ namespace Retinues.Game.Wrappers
                             | BindingFlags.DeclaredOnly
                     );
                     prop?.SetValue(Base, value.Base, null);
+                    MarkEdited();
                 }
                 catch (Exception ex)
                 {
@@ -217,7 +258,17 @@ namespace Retinues.Game.Wrappers
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public FormationClass FormationClassOverride { get; set; } = FormationClass.Unset;
+        private FormationClass _formationClassOverride = FormationClass.Unset;
+
+        public FormationClass FormationClassOverride
+        {
+            get => _formationClassOverride;
+            set
+            {
+                _formationClassOverride = value;
+                MarkEdited();
+            }
+        }
 
         public FormationClass FormationClass
         {
@@ -235,6 +286,8 @@ namespace Retinues.Game.Wrappers
                         value == FormationClass.Cavalry || value == FormationClass.HorseArcher;
                     Reflector.SetFieldValue(Base, "_isRanged", isRanged);
                     Reflector.SetFieldValue(Base, "_isMounted", isMounted);
+
+                    MarkEdited();
                 }
                 catch (Exception ex)
                 {
@@ -265,7 +318,11 @@ namespace Retinues.Game.Wrappers
         public bool IsFemale
         {
             get => Reflector.GetPropertyValue<bool>(Base, "IsFemale");
-            set => Reflector.SetPropertyValue(Base, "IsFemale", value);
+            set
+            {
+                Reflector.SetPropertyValue(Base, "IsFemale", value);
+                MarkEdited();
+            }
         }
 
         public bool IsDeletable
@@ -350,6 +407,7 @@ namespace Retinues.Game.Wrappers
         {
             var skills = Reflector.GetFieldValue<MBCharacterSkills>(Base, "DefaultCharacterSkills");
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
+            MarkEdited();
         }
 
         public bool MeetsItemSkillRequirements(WItem item)
@@ -415,6 +473,8 @@ namespace Retinues.Game.Wrappers
             var f = CharacterIndexer.TryGetFaction(this);
             if (f != null)
                 CharacterIndexer.SetFaction(f, target);
+
+            MarkEdited();
         }
 
         public void RemoveUpgradeTarget(WCharacter target)
@@ -436,6 +496,8 @@ namespace Retinues.Game.Wrappers
             var currentParent = CharacterIndexer.TryGetParent(target);
             if (currentParent != null && currentParent == this)
                 CharacterIndexer.SetParent(null, target);
+
+            MarkEdited();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -522,6 +584,12 @@ namespace Retinues.Game.Wrappers
             bool keepSkills = true
         )
         {
+            if (IsVanilla && !IsVanillaEdited)
+            {
+                Log.Error("Cannot FillFrom on an unedited vanilla troop.");
+                return;
+            }
+
             // Character object copy
             Helper.CopyInto(src.Base, _co);
 
@@ -575,7 +643,11 @@ namespace Retinues.Game.Wrappers
         public int Race
         {
             get => Base.Race;
-            set => Reflector.SetPropertyValue(Base, "Race", value);
+            set
+            {
+                Reflector.SetPropertyValue(Base, "Race", value);
+                MarkEdited();
+            }
         }
 
         public float Age
@@ -652,6 +724,8 @@ namespace Retinues.Game.Wrappers
                     newMin,
                     newMax
                 );
+
+                MarkEdited();
             }
             catch (Exception ex)
             {
@@ -804,6 +878,8 @@ namespace Retinues.Game.Wrappers
                     newMin,
                     newMax
                 );
+
+                MarkEdited();
             }
             catch (Exception ex)
             {

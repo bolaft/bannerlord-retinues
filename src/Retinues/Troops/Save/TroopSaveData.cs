@@ -87,6 +87,13 @@ namespace Retinues.Troops.Save
             // Wrap it
             var troop = new WCharacter(StringId);
 
+            // If this is a vanilla troop, keep it marked as edited so it continues to be saved
+            if (troop.IsVanilla)
+            {
+                Log.Info($"Deserializing vanilla troop: {StringId}");
+                troop.MarkEdited();
+            }
+
             // Get vanilla base
             var vanilla = new WCharacter(VanillaStringId);
 
