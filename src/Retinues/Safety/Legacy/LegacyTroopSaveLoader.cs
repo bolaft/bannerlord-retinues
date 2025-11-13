@@ -93,7 +93,7 @@ namespace Retinues.Safety.Legacy
                     troop.Loadout.SetEquipments(
                         [
                             .. data.EquipmentCodes.Select(
-                                (code, idx) => WEquipment.FromCode(code, troop.Loadout, idx)
+                                (code, idx) => WEquipment.FromCode(code, troop.Loadout, idx, idx == 1)
                             ),
                         ]
                     );
