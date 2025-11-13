@@ -130,27 +130,37 @@ namespace Retinues.Troops
 
         private static bool TryResolveExistingPath(string fileName, out string absPath)
         {
-            var p = Path.Combine(DefaultDir, fileName ?? "");
-            if (File.Exists(p) && IsUnifiedExport(p))
+            absPath = null!;
+
+            if (string.IsNullOrWhiteSpace(fileName))
+                return false;
+
+            // If caller passed an absolute/relative path that exists, trust it
+            if (File.Exists(fileName))
+            {
+                absPath = Path.GetFullPath(fileName);
+                return true;
+            }
+
+            // Try inside our DefaultDir
+            var p = Path.Combine(DefaultDir, fileName);
+            if (File.Exists(p))
             {
                 absPath = p;
                 return true;
             }
 
-            if (
-                !string.IsNullOrWhiteSpace(fileName)
-                && !fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)
-            )
+            // Try adding .xml
+            if (!fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
             {
                 p = Path.Combine(DefaultDir, fileName + ".xml");
-                if (File.Exists(p) && IsUnifiedExport(p))
+                if (File.Exists(p))
                 {
                     absPath = p;
                     return true;
                 }
             }
 
-            absPath = null!;
             return false;
         }
 
@@ -227,14 +237,34 @@ namespace Retinues.Troops
         //                         Import                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void ImportUnified(string fileName, ImportScope scope)
+        public static bool ImportUnified(string fileName, ImportScope scope)
         {
             if (!TryResolveExistingPath(fileName, out var path))
-                throw new FileNotFoundException($"File not found or invalid format: '{fileName}'.");
+                return false; // file missing -> caller shows generic error
 
-            var pkg = DeserializeUnifiedFromFile(path);
+            RetinuesTroopsPackage pkg;
 
-            // Apply per scope
+            if (LegacyImporter.IsLegacyExport(path))
+            {
+                // Legacy: Troops -> TroopSaveData -> LegacyTroopSaveData -> FactionSaveData
+                pkg = LegacyImporter.LoadLegacyPackage(path);
+                if (pkg == null)
+                    throw new InvalidOperationException(
+                        $"Failed to load legacy export '{fileName}'."
+                    );
+            }
+            else
+            {
+                // Unified: <RetinuesTroops ...>
+                pkg = DeserializeUnifiedFromFile(path);
+            }
+
+            if (pkg == null)
+                throw new InvalidOperationException(
+                    $"File not found or invalid format: '{fileName}'."
+                );
+
+            // Apply per scope (unchanged)
             if (scope is ImportScope.CustomOnly or ImportScope.Both)
             {
                 if (pkg.HasFactions)
@@ -252,6 +282,8 @@ namespace Retinues.Troops
                         f.DeserializeTroops();
                 }
             }
+
+            return true;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -443,7 +475,10 @@ namespace Retinues.Troops
                             {
                                 try
                                 {
-                                    ImportUnified(choice, scope);
+                                    bool success = ImportUnified(choice, scope);
+                                    if (!success)
+                                        throw new Exception();
+
                                     Notifications.Popup(
                                         L.T("import_done_title", "Import Completed"),
                                         L.T(

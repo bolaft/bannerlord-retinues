@@ -97,16 +97,15 @@ namespace Retinues.Safety.Legacy
                     return null;
                 }
 
-                var serializer = new XmlSerializer(
-                    typeof(List<LegacyTroopSaveData>),
-                    new XmlRootAttribute(LegacyRoot)
-                );
+                var serializer = new XmlSerializer(typeof(LegacyTroopsContainer));
 
-                List<LegacyTroopSaveData> raw;
+                LegacyTroopsContainer container;
                 using (var fs = File.OpenRead(absPath))
                 {
-                    raw = (List<LegacyTroopSaveData>)serializer.Deserialize(fs);
+                    container = (LegacyTroopsContainer)serializer.Deserialize(fs);
                 }
+
+                var raw = container?.Troops ?? [];
 
                 var (clanSaveData, kingdomSaveData) = TroopBehavior.ConvertLegacyDataLegacyData(
                     raw
