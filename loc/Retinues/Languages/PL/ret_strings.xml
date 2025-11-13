@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="Przełącz płeć" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="Otwórz globalny edytor dla wszystkich frakcji." />
+    <string
       id="ret_gloves_slot_text"
       text="Rękawice" />
     <string

@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="Toggle Gender" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="Open the global editor for all factions." />
+    <string
       id="ret_gloves_slot_text"
       text="Gloves" />
     <string

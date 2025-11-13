@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="Cambia Genere" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="Apri l’editor globale per tutte le fazioni." />
+    <string
       id="ret_gloves_slot_text"
       text="Guanti" />
     <string

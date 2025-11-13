@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="Cinsiyeti Değiştir" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="Tüm fraksiyonlar için küresel düzenleyiciyi açın." />
+    <string
       id="ret_gloves_slot_text"
       text="Eldiven" />
     <string

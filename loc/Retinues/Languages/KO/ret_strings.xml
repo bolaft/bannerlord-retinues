@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="성별 전환" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="모든 진영에 대한 글로벌 편집기 열기." />
+    <string
       id="ret_gloves_slot_text"
       text="장갑" />
     <string

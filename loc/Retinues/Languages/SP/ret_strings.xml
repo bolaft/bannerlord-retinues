@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="Cambiar Género" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="Abre el editor global para todas las facciones." />
+    <string
       id="ret_gloves_slot_text"
       text="Guantes" />
     <string

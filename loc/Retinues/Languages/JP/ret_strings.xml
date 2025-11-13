@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="性別を切り替え" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="すべての派閥のグローバルエディターを開く。" />
+    <string
       id="ret_gloves_slot_text"
       text="手袋" />
     <string

@@ -356,6 +356,9 @@
       id="ret_gender_toggle_hint"
       text="切換性別" />
     <string
+      id="ret_global_editor_tooltip_text"
+      text="打開所有派系的全局編輯器。" />
+    <string
       id="ret_gloves_slot_text"
       text="手套" />
     <string
