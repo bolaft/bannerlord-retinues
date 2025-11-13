@@ -28,7 +28,11 @@
                             SuggestedWidth="105" SuggestedHeight="126"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             Brush="Clan.TornBanner"
-                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode" />
+                        {% if version == "13" %}
+                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"/>
+                        {% else %}
+                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>
+                        {% endif %}
                         <HintWidget
                             DataSource="{CultureBannerHint}"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
@@ -59,7 +63,11 @@
                             SuggestedWidth="105" SuggestedHeight="126"
                             HorizontalAlignment="Right" VerticalAlignment="Center"
                             Brush="Clan.TornBanner"
+                        {% if version == "13" %}
+                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"/>
+                        {% else %}
                             AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>
+                        {% endif %}
                         <HintWidget
                             DataSource="{ClanTroopsHint}"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"
