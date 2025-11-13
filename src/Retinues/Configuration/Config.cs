@@ -383,10 +383,10 @@ namespace Retinues.Configuration
                 ),
             @default: 1,
             minValue: 1,
-            maxValue: 4,
+            maxValue: 3,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = 4,
+                [Presets.Freeform] = 3,
                 [Presets.Realistic] = 1,
             }
         );
