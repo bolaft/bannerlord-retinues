@@ -5,6 +5,8 @@ using System.Text;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
+using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -194,7 +196,13 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                             if (DoctrineAPI.TryAcquireDoctrine(_id, out var reason))
                             {
                                 Column?.Refresh();
-                                State.UpdateFaction(); // refresh to trigger rebuilds if needed
+
+                                if (State.Faction is WFaction f)
+                                {
+                                    // Trigger rebuild and refresh if needed
+                                    TroopBuilder.EnsureTroopsExist(f);
+                                    State.UpdateFaction();
+                                }
                             }
                             else
                             {
