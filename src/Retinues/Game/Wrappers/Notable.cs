@@ -56,6 +56,10 @@ namespace Retinues.Game.Wrappers
 
                 var replacement = TroopMatcher.PickBestFromFaction(faction, troop);
 
+                Log.Info(
+                    $"{Name}: replacing volunteer {troop.Name} with {replacement?.Name} from faction {faction.StringId}"
+                );
+
                 if (replacement != null)
                     arr[i] = replacement.Base;
             }

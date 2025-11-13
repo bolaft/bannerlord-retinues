@@ -10,24 +10,57 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for Equipment.
     /// </summary>
     [SafeClass]
-    public class WEquipment(Equipment equipment, WLoadout loadout, int index)
+    public class WEquipment
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly Equipment _equipment = equipment;
+        private readonly Equipment _equipment;
         public Equipment Base => _equipment;
+
+        public WEquipment(Equipment equipment, WLoadout loadout, int index)
+        {
+            _equipment = equipment;
+            Loadout = loadout;
+            Index = index;
+
+            SanitizeArmor(_equipment);
+        }
 
         public WEquipment(Equipment equipment, WCharacter troop, int index)
             : this(equipment, troop.Loadout, index) { }
+
+        /// <summary>
+        /// Clears any item placed in an armor slot that has no ArmorComponent.
+        /// Use before handing Equipment to the engine.
+        /// </summary>
+        public static void SanitizeArmor(Equipment eq)
+        {
+            if (eq == null)
+                return;
+            var slots = new[]
+            {
+                EquipmentIndex.Head,
+                EquipmentIndex.Body,
+                EquipmentIndex.Leg,
+                EquipmentIndex.Gloves,
+            };
+            foreach (var s in slots)
+            {
+                var el = eq[s];
+                var it = el.Item;
+                if (it != null && it.ArmorComponent == null)
+                    eq[s] = default; // clear slot
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Loadout                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WLoadout Loadout { get; private set; } = loadout;
-        public int Index { get; private set; } = index;
+        public WLoadout Loadout { get; private set; }
+        public int Index { get; private set; }
         public EquipmentCategory Category => Loadout.GetCategory(Index);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -123,6 +156,12 @@ namespace Retinues.Game.Wrappers
             EquipmentIndex.HorseHarness,
         ];
 
+        private static bool IsArmorSlot(EquipmentIndex slot) =>
+            slot == EquipmentIndex.Head
+            || slot == EquipmentIndex.Body
+            || slot == EquipmentIndex.Leg
+            || slot == EquipmentIndex.Gloves;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Items                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -158,7 +197,23 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public void SetItem(EquipmentIndex slot, WItem item)
         {
-            _equipment[slot] = new EquipmentElement(item?.Base);
+            if (item == null)
+            {
+                _equipment[slot] = new EquipmentElement(null);
+                return;
+            }
+
+            // Block invalid armor in armor slots
+            if (IsArmorSlot(slot) && item.Base?.ArmorComponent == null)
+            {
+                Log.Warn(
+                    $"Attempted to place non-armor item '{item.Base?.Name}' into {slot}; clearing slot instead."
+                );
+                _equipment[slot] = new EquipmentElement(null);
+                return;
+            }
+
+            _equipment[slot] = new EquipmentElement(item.Base);
         }
 
         /// <summary>

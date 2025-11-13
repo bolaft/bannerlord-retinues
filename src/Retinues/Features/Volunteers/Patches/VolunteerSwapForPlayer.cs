@@ -196,12 +196,6 @@ namespace Retinues.Features.Volunteers.Patches
                     return;
 
                 SnapshotVolunteers(settlement);
-
-                Log.Debug(
-                    "[VolunteerSwapForPlayer] Swapping volunteers for player faction in settlement "
-                        + settlement.StringId
-                );
-
                 settlement.SwapVolunteers(faction);
             }
         }

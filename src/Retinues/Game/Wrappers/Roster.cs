@@ -156,7 +156,7 @@ namespace Retinues.Game.Wrappers
         /// Swap all troops in a roster to the best match from the given faction.
         /// Preserves heroes and logs replacements.
         /// </summary>
-        public void SwapTroops(WFaction faction = null)
+        public void SwapTroops(WFaction faction = null, bool skipHeroParties = true)
         {
             if (Base == null)
                 return;
@@ -185,6 +185,9 @@ namespace Retinues.Game.Wrappers
                     // Keep heroes as-is
                     if (e.Troop.IsHero)
                     {
+                        if (skipHeroParties)
+                            return; // skip entire swap if hero party
+
                         tmp.AddToCounts(
                             e.Troop.Base,
                             e.Number,
@@ -196,14 +199,7 @@ namespace Retinues.Game.Wrappers
                     }
 
                     // Try to pick best replacement from faction
-                    WCharacter replacement =
-                        TroopMatcher.PickSpecialFromFaction(faction, e.Troop)
-                        ?? (
-                            Party.IsMilitia
-                                ? TroopMatcher.PickMilitiaFromFaction(faction, e.Troop)
-                                : TroopMatcher.PickBestFromFaction(faction, e.Troop)
-                        )
-                        ?? e.Troop;
+                    var replacement = TroopMatcher.PickBestFromFaction(faction, e.Troop) ?? e.Troop;
 
                     if (replacement != e.Troop)
                     {
