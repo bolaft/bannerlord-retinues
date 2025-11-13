@@ -35,7 +35,7 @@ namespace Retinues.Features.Experience
         //                         Start                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [SafeMethod(swallow: true)]
+        [SafeMethod]
         private void OnMapEventStarted(
             MapEvent me,
             PartyBase attackerParty,
@@ -118,7 +118,7 @@ namespace Retinues.Features.Experience
         //                         End                            //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [SafeMethod(swallow: true)]
+        [SafeMethod]
         private void OnMapEventEnded(MapEvent me)
         {
             if (me == null)

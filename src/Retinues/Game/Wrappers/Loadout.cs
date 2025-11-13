@@ -19,7 +19,7 @@ namespace Retinues.Game.Wrappers
     /// Loadout is the structural model of all sets for a troop:
     /// contains/create/remove sets, slot contents, and all counting utilities.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WLoadout(WCharacter troop)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

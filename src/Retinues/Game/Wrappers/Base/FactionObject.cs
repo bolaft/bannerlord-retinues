@@ -6,7 +6,7 @@ namespace Retinues.Game.Wrappers.Base
     /// <summary>
     /// Abstract base for faction-related wrappers, provides access to clan, kingdom, and player faction logic.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public abstract class FactionObject : StringIdentifier
     {
         public abstract WFaction Clan { get; }

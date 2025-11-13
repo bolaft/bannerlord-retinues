@@ -7,7 +7,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for Hero, exposes culture, clan, kingdom, and party leader status for custom logic.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WHero(Hero hero) : FactionObject
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -47,7 +47,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for IFaction (Clan or Kingdom), exposes troop roots, retinues, and helpers for custom logic.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WFaction(IFaction faction) : StringIdentifier, ITroopFaction
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

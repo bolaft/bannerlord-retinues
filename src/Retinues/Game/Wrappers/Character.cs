@@ -24,7 +24,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for CharacterObject, providing helpers for custom troop logic, equipment, skills, upgrades, and lifecycle.
     /// Used for all custom troop operations and UI integration.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
         public const string CustomIdPrefix = "retinues_custom_";

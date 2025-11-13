@@ -12,7 +12,7 @@ namespace Retinues.Game.Wrappers
     /// <summary>
     /// Wrapper for CultureObject, exposing troop roots and militia for custom logic.
     /// </summary>
-    [SafeClass(SwallowByDefault = false)]
+    [SafeClass]
     public class WCulture(CultureObject culture) : StringIdentifier, ITroopFaction
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
