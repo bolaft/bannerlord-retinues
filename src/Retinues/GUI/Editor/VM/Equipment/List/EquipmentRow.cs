@@ -286,9 +286,17 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceMethod]
         public void ExecuteSelect()
         {
+            // Enter
+            Log.Debug(
+                $"ExecuteSelect: Start RowItem={(RowItem?.Name?.ToString() ?? "null")}, Slot={State.Slot}, SetIndex={(State.Equipment?.Index.ToString() ?? "null")}"
+            );
+
             // Slot sanity
             if (RowItem != null && !RowItem.Slots.Contains(State.Slot))
+            {
+                Log.Debug("ExecuteSelect: Aborting - RowItem does not fit slot");
                 return;
+            }
 
             // Context restriction (only for instant mode)
             if (!Config.EquipmentChangeTakesTime)
@@ -298,7 +306,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         L.S("action_modify", "modify")
                     )
                 )
+                {
+                    Log.Debug("ExecuteSelect: Aborting - Context not allowed for modification");
                     return;
+                }
 
             var troop = State.Troop;
             var setIndex = State.Equipment.Index;
@@ -308,15 +319,25 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             var selectionIsNull = RowItem == null;
             var selectionIsEquipped = RowItem != null && RowItem == equippedItem;
 
+            Log.Debug(
+                $"ExecuteSelect: Computed state - Troop={(troop?.ToString() ?? "null")}, EquippedItem={(equippedItem?.Name?.ToString() ?? "null")}, selectionIsNull={selectionIsNull}, selectionIsEquipped={selectionIsEquipped}"
+            );
+
             // Studio: bypass rules/costs/time
             if (State.IsStudioMode)
             {
+                Log.Debug(
+                    "ExecuteSelect: Studio mode - calling EquipmentManager.TryEquip (allowPurchase:false)"
+                );
                 var res = EquipmentManager.TryEquip(
                     troop,
                     setIndex,
                     slot,
                     RowItem,
                     allowPurchase: false
+                );
+                Log.Debug(
+                    $"ExecuteSelect: TryEquip (studio) result - Ok={res.Ok}, Reason={res.Reason}, Staged={res.Staged}, RefundedCopies={res.RefundedCopies}, AddedCopies={res.AddedCopies}, GoldDelta={res.GoldDelta}"
                 );
                 // (res.Staged will be false in studio, by design)
                 State.UpdateEquipData();
@@ -335,8 +356,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     int afterOld = loadout.RequiredAfterForItem(equippedItem, setIndex, slot, null);
                     bool revertWouldStage = afterOld < beforeOld; // deltaRemove > 0
 
+                    Log.Debug(
+                        $"ExecuteSelect: Unequip path - revertWouldStage={revertWouldStage}, beforeOld={beforeOld}, afterOld={afterOld}"
+                    );
+
                     if (revertWouldStage)
                     {
+                        Log.Debug("ExecuteSelect: Showing unequip warning inquiry");
                         InformationManager.ShowInquiry(
                             new InquiryData(
                                 L.S("unequip_warn_title", "Unequip Item"),
@@ -352,10 +378,19 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                 L.S("cancel", "Cancel"),
                                 () =>
                                 {
+                                    Log.Debug(
+                                        "ExecuteSelect: Unequip warning confirmed - calling EquipmentManager.TryUnequip"
+                                    );
                                     var res = EquipmentManager.TryUnequip(troop, setIndex, slot);
+                                    Log.Debug(
+                                        $"ExecuteSelect: TryUnequip result - Ok={res.Ok}, Reason={res.Reason}, Staged={res.Staged}, RefundedCopies={res.RefundedCopies}, AddedCopies={res.AddedCopies}, GoldDelta={res.GoldDelta}"
+                                    );
                                     State.UpdateEquipData();
                                 },
-                                () => { }
+                                () =>
+                                {
+                                    Log.Debug("ExecuteSelect: Unequip warning cancelled by user");
+                                }
                             )
                         );
                         return;
@@ -365,7 +400,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 // No warning needed: either studio, equip-changes don’t take time,
                 // or this unequip does not reduce required copies.
                 {
+                    Log.Debug(
+                        "ExecuteSelect: Unequip without warning - calling EquipmentManager.TryUnequip"
+                    );
                     var res = EquipmentManager.TryUnequip(troop, setIndex, slot);
+                    Log.Debug(
+                        $"ExecuteSelect: TryUnequip result - Ok={res.Ok}, Reason={res.Reason}, Staged={res.Staged}, RefundedCopies={res.RefundedCopies}, AddedCopies={res.AddedCopies}, GoldDelta={res.GoldDelta}"
+                    );
                     State.UpdateEquipData();
                     return;
                 }
@@ -374,6 +415,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Case 2: Already equipped -> no-op (but still refresh to collapse any staged visuals)
             if (selectionIsEquipped)
             {
+                Log.Debug("ExecuteSelect: Selection is already equipped - refreshing state");
                 State.UpdateEquipData();
                 return;
             }
@@ -381,18 +423,24 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Case 3: Equip a different item
             // Preview the change to drive UI flow (confirm cost if needed).
             var quote = EquipmentManager.QuoteEquip(troop, setIndex, slot, RowItem);
+            Log.Debug(
+                $"ExecuteSelect: Quote - IsChange={quote.IsChange}, CopiesToBuy={quote.CopiesToBuy}, GoldCost={quote.GoldCost}"
+            );
 
             // No structural change (defensive)
             if (!quote.IsChange)
             {
+                Log.Debug("ExecuteSelect: Quote indicates no change - refreshing state");
                 State.UpdateEquipData();
                 return;
             }
 
             // If we must buy copies (and player pays for equipment), ask for confirmation
             bool needsPurchase = quote.CopiesToBuy > 0 && quote.GoldCost > 0;
+            Log.Debug($"ExecuteSelect: needsPurchase={needsPurchase}");
             if (needsPurchase)
             {
+                Log.Debug("ExecuteSelect: Showing purchase confirmation inquiry");
                 InformationManager.ShowInquiry(
                     new InquiryData(
                         L.S("buy_item", "Buy Item"),
@@ -409,6 +457,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         L.S("no", "No"),
                         () =>
                         {
+                            Log.Debug(
+                                "ExecuteSelect: Purchase confirmed - calling EquipmentManager.TryEquip (allowPurchase:true)"
+                            );
                             var res = EquipmentManager.TryEquip(
                                 troop,
                                 setIndex,
@@ -416,10 +467,14 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                 RowItem,
                                 allowPurchase: true
                             );
+                            Log.Debug(
+                                $"ExecuteSelect: TryEquip (purchase) result - Ok={res.Ok}, Reason={res.Reason}, Staged={res.Staged}, RefundedCopies={res.RefundedCopies}, AddedCopies={res.AddedCopies}, GoldDelta={res.GoldDelta}, Reason={(res.Ok ? "Ok" : res.Reason.ToString())}"
+                            );
                             if (
                                 !res.Ok
                                 && res.Reason == EquipmentManager.EquipFailReason.NotEnoughGold
                             )
+                            {
                                 Notifications.Popup(
                                     L.T("not_enough_gold_title", "Not Enough Gold"),
                                     L.T(
@@ -427,10 +482,15 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                         "You do not have enough gold to purchase this item."
                                     )
                                 );
+                                Log.Debug("ExecuteSelect: TryEquip failed - NotEnoughGold");
+                            }
                             // res.Staged indicates if it went into staging (only DeltaAdd > 0 and option on)
                             State.UpdateEquipData();
                         },
-                        () => { }
+                        () =>
+                        {
+                            Log.Debug("ExecuteSelect: Purchase cancelled by user");
+                        }
                     )
                 );
                 return;
@@ -438,12 +498,18 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
             // Otherwise, try equip directly (free, stocked, or cross-set share)
             {
+                Log.Debug(
+                    "ExecuteSelect: Direct equip path - calling EquipmentManager.TryEquip (allowPurchase:true)"
+                );
                 var res = EquipmentManager.TryEquip(
                     troop,
                     setIndex,
                     slot,
                     RowItem,
                     allowPurchase: true
+                );
+                Log.Debug(
+                    $"ExecuteSelect: TryEquip (direct) result - Ok={res.Ok}, Reason={res.Reason}, Staged={res.Staged}, RefundedCopies={res.RefundedCopies}, AddedCopies={res.AddedCopies}, GoldDelta={res.GoldDelta}"
                 );
                 State.UpdateEquipData();
                 return;

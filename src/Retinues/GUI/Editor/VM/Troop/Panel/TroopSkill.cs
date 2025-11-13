@@ -52,6 +52,20 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(IncrementHint),
                     nameof(DecrementHint),
                 ],
+                [UIEvent.Equip] =
+                [
+                    nameof(CanIncrement),
+                    nameof(CanDecrement),
+                    nameof(IncrementHint),
+                    nameof(DecrementHint),
+                ],
+                [UIEvent.Equipment] =
+                [
+                    nameof(CanIncrement),
+                    nameof(CanDecrement),
+                    nameof(IncrementHint),
+                    nameof(DecrementHint),
+                ],
             };
 
         protected override void OnTroopChange() => PlayerWarnedAboutRetraining = false;

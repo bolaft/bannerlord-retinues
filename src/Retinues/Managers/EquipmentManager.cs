@@ -99,22 +99,22 @@ namespace Retinues.Managers
             if (craftedOnly)
             {
                 if (!DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
-                    return new List<(WItem, bool, bool, int)>();
+                    return [];
                 cache = null; // ignore caller cache for crafted-only
             }
 
             var eligible =
                 cache ?? BuildEligibilityList(faction, slot, includeCrafted: !craftedOnly);
 
-            HashSet<WItem> availableInTown = null;
+            HashSet<string> availableInTown = null;
             if (!craftedOnly && !State.IsStudioMode && Config.RestrictItemsToTownInventory)
                 availableInTown = BuildCurrentTownAvailabilitySet();
 
             var items = new List<(WItem, bool, bool, int)>(eligible.Count);
-            foreach (var p in eligible)
+            foreach (var (item, unlocked, progress) in eligible)
             {
-                bool okTown = availableInTown == null || availableInTown.Contains(p.item);
-                items.Add((p.item, okTown, p.unlocked, p.progress));
+                bool okTown = availableInTown == null || availableInTown.Contains(item.StringId);
+                items.Add((item, okTown, unlocked, progress));
             }
             return items;
         }
@@ -239,15 +239,15 @@ namespace Retinues.Managers
         /// Builds a set of items available in the current town's inventory.
         /// Returns null if no restriction is to be applied.
         /// </summary>
-        private static HashSet<WItem> BuildCurrentTownAvailabilitySet()
+        private static HashSet<string> BuildCurrentTownAvailabilitySet()
         {
             if (Player.CurrentSettlement == null)
                 return null;
 
-            var set = new HashSet<WItem>();
-            foreach (var pair in Player.CurrentSettlement.ItemCounts())
-                if (pair.count > 0)
-                    set.Add(pair.item);
+            var set = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var (item, count) in Player.CurrentSettlement.ItemCounts())
+                if (count > 0)
+                    set.Add(item.StringId);
             return set;
         }
 
@@ -257,19 +257,26 @@ namespace Retinues.Managers
 
         /// <summary>
         /// Can this troop equip the item into the given slot of the set, ignoring stock/gold?
-        /// Put skills/compat/culture checks here. Keep it side-effect free.
         /// </summary>
-        public static bool CanEquip(WCharacter troop, int setIndex, EquipmentIndex slot, WItem item)
+        public static bool CanEquip(WCharacter troop, WItem item)
         {
             if (troop == null)
                 return false;
 
-            // Example minimal checks (expand as needed):
+            // Example minimal checks:
             if (item != null && item.RelevantSkill != null)
                 if (!troop.MeetsItemSkillRequirements(item))
                     return false;
 
-            // Add slot-compatibility, 2H vs shield, horse/harness consistency, doctrine gates, etc.
+            // No horse rule
+            if (Config.NoMountForTier1)
+                if (troop.Tier <= 1 && item != null && item.IsHorse)
+                    return false;
+
+            // Tier cap rule
+            if ((item?.Tier ?? 0) - troop.Tier > Config.AllowedTierDifference)
+                return false;
+
             return true;
         }
 
@@ -335,6 +342,20 @@ namespace Retinues.Managers
             return q;
         }
 
+        /// <summary>
+        /// Check affordability of an equip quote.
+        /// </summary>
+        private static EquipFailReason CheckAffordability(in EquipQuote q, bool allowPurchase)
+        {
+            if (q.DeltaAdd <= 0)
+                return EquipFailReason.None;
+            if (q.CopiesFromStock < q.DeltaAdd && (!allowPurchase || !Config.PayForEquipment))
+                return EquipFailReason.NotEnoughStock;
+            if (q.CopiesToBuy > 0 && Player.Gold < q.GoldCost)
+                return EquipFailReason.NotEnoughGold;
+            return EquipFailReason.None;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Mutating Flows                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -358,12 +379,59 @@ namespace Retinues.Managers
                 Reason = EquipFailReason.None,
             };
 
-            if (!CanEquip(troop, setIndex, slot, newItem))
+            if (!CanEquip(troop, newItem))
             {
                 res.Reason = EquipFailReason.NotAllowed;
                 return res;
             }
 
+            if (State.IsStudioMode)
+                return TryEquip_Studio(troop, setIndex, slot, newItem, res);
+            else
+                return TryEquip_Custom(troop, setIndex, slot, newItem, res, allowPurchase);
+        }
+
+        public static EquipResult TryEquip_Studio(
+            WCharacter troop,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem newItem,
+            EquipResult res
+        )
+        {
+            var loadoutStudio = troop.Loadout;
+            var eqStudio = loadoutStudio.Get(setIndex);
+            var oldItemStudio = eqStudio?.Get(slot);
+
+            // If no change, just succeed
+            if (oldItemStudio == newItem)
+            {
+                res.Ok = true;
+                return res;
+            }
+
+            // Instant apply to the loadout.
+            // Horse rule: removing horse also removes harness.
+            ApplyStructureWithHorseRule(troop, setIndex, slot, newItem);
+
+            // No stock/gold/staging deltas in studio
+            res.Ok = true;
+            res.Staged = false;
+            res.GoldDelta = 0;
+            res.AddedCopies = 0;
+            res.RefundedCopies = 0;
+            return res;
+        }
+
+        public static EquipResult TryEquip_Custom(
+            WCharacter troop,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem newItem,
+            EquipResult res,
+            bool allowPurchase = true
+        )
+        {
             var loadout = troop.Loadout;
             var eq = loadout.Get(setIndex);
             var oldItem = eq?.Get(slot);
@@ -379,15 +447,10 @@ namespace Retinues.Managers
             // Affordability
             if (q.DeltaAdd > 0)
             {
-                if (q.CopiesFromStock < q.DeltaAdd && (!allowPurchase || !Config.PayForEquipment))
+                var reason = CheckAffordability(q, allowPurchase);
+                if (reason != EquipFailReason.None)
                 {
-                    res.Reason = EquipFailReason.NotEnoughStock;
-                    return res;
-                }
-
-                if (q.CopiesToBuy > 0 && Player.Gold < q.GoldCost)
-                {
-                    res.Reason = EquipFailReason.NotEnoughGold;
+                    res.Reason = reason;
                     return res;
                 }
             }
@@ -441,10 +504,7 @@ namespace Retinues.Managers
 
             // Instant apply to the loadout.
             // Horse rule: removing horse also removes harness (structure-only)
-            if (slot == EquipmentIndex.Horse && newItem == null)
-                loadout.Apply(setIndex, EquipmentIndex.HorseHarness, null);
-
-            loadout.Apply(setIndex, slot, newItem);
+            ApplyStructureWithHorseRule(troop, setIndex, slot, newItem);
 
             res.Ok = true;
             res.Staged = false;
@@ -519,7 +579,7 @@ namespace Retinues.Managers
         /// </summary>
         public static DeleteSetQuote QuoteDeleteSet(WCharacter troop, int setIndex)
         {
-            var q = new DeleteSetQuote { Refunds = new Dictionary<WItem, int>() };
+            var q = new DeleteSetQuote { Refunds = [] };
             var preview = troop.Loadout.PreviewDeleteSet(setIndex);
             foreach (var kv in preview)
             {
@@ -535,7 +595,7 @@ namespace Retinues.Managers
         /// </summary>
         public static DeleteSetResult TryDeleteSet(WCharacter troop, int setIndex)
         {
-            var res = new DeleteSetResult { Ok = false, Refunded = new Dictionary<WItem, int>() };
+            var res = new DeleteSetResult { Ok = false, Refunded = [] };
 
             // If you track staged ops per set, cancel them here and revert their acquisitions.
             // TroopEquipBehavior.CancelSetStages(troop, setIndex); // optional, implement if needed
@@ -572,12 +632,24 @@ namespace Retinues.Managers
             WItem newItem
         )
         {
-            var loadout = troop.Loadout;
+            ApplyStructureWithHorseRule(troop, setIndex, slot, newItem);
+        }
 
-            if (slot == EquipmentIndex.Horse && newItem == null)
+        /// <summary>
+        /// Immediate structural application helper for staging completion callbacks,
+        /// applying the "horse removal also removes harness" rule.
+        /// </summary>
+        private static void ApplyStructureWithHorseRule(
+            WCharacter t,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem item
+        )
+        {
+            var loadout = t.Loadout;
+            if (slot == EquipmentIndex.Horse && item == null)
                 loadout.Apply(setIndex, EquipmentIndex.HorseHarness, null);
-
-            loadout.Apply(setIndex, slot, newItem);
+            loadout.Apply(setIndex, slot, item);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
