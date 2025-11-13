@@ -208,7 +208,6 @@ namespace Retinues.Configuration
                                     {
                                         Directory.CreateDirectory(TroopImportExport.DefaultDir);
                                         TroopImportExport.PromptAndExport(
-                                            isMcmContext: true,
                                             suggestedName: string.IsNullOrWhiteSpace(_exportName)
                                                 ? TroopImportExport.SuggestTimestampName("troops")
                                                 : _exportName
@@ -252,7 +251,7 @@ namespace Retinues.Configuration
 
                                     try
                                     {
-                                        TroopImportExport.PickAndImportUnified(isMcmContext: true);
+                                        TroopImportExport.PickAndImportUnified();
                                     }
                                     catch (Exception e)
                                     {

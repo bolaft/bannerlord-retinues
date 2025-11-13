@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
+using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -24,9 +25,9 @@ namespace Retinues.Troops
     [SafeClass]
     public static class TroopImportExport
     {
-        // ──────────────────────────────────────────────────────────────────────────
-        // Constants
-        // ──────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Constants                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static readonly string DefaultDir = Path.Combine(
             ModuleHelper.GetModuleFullPath("Retinues"),
@@ -35,9 +36,9 @@ namespace Retinues.Troops
 
         private const string RootUnified = "RetinuesTroops";
 
-        // ──────────────────────────────────────────────────────────────────────────
-        // DTOs
-        // ──────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          DTOs                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public struct FactionExportData
         {
@@ -67,9 +68,9 @@ namespace Retinues.Troops
             Both,
         }
 
-        // ──────────────────────────────────────────────────────────────────────────
-        // Utilities
-        // ──────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Utilities                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void EnsureDir() =>
             Directory.CreateDirectory(Path.GetDirectoryName(Path.Combine(DefaultDir, "x")) ?? ".");
@@ -121,7 +122,7 @@ namespace Retinues.Troops
             [
                 .. Directory
                     .EnumerateFiles(DefaultDir, "*.xml", SearchOption.TopDirectoryOnly)
-                    .Where(IsUnifiedExport)
+                    .Where(p => IsUnifiedExport(p) || LegacyImporter.IsLegacyExport(p))
                     .OrderByDescending(File.GetLastWriteTimeUtc)
                     .Select(Path.GetFileName),
             ];
@@ -153,9 +154,9 @@ namespace Retinues.Troops
             return false;
         }
 
-        // ──────────────────────────────────────────────────────────────────────────
-        // XML (de)serialization
-        // ──────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                           XML                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void SerializeUnifiedToFile(RetinuesTroopsPackage payload, string absPath)
         {
@@ -179,9 +180,9 @@ namespace Retinues.Troops
             return (RetinuesTroopsPackage)serializer.Deserialize(fs);
         }
 
-        // ──────────────────────────────────────────────────────────────────────────
-        // Export (unified)
-        // ──────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Export                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static string ExportUnified(
             string fileName,
@@ -222,9 +223,9 @@ namespace Retinues.Troops
             return Path.GetFullPath(filePath);
         }
 
-        // ──────────────────────────────────────────────────────────────────────────
-        // Import (unified)
-        // ──────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Import                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static void ImportUnified(string fileName, ImportScope scope)
         {
@@ -253,9 +254,9 @@ namespace Retinues.Troops
             }
         }
 
-        // ──────────────────────────────────────────────────────────────────────────
-        // Pickers (validated) + High-level UX shortcuts
-        // ──────────────────────────────────────────────────────────────────────────
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Picker                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Shows a validated file picker listing only RetinuesTroops files and invokes onChoice(name).
@@ -315,7 +316,7 @@ namespace Retinues.Troops
         /// Export flow prompting scope based on context (true = MCM, false = Editor Studio),
         /// then prompt for file name, then export and show a popup.
         /// </summary>
-        public static void PromptAndExport(bool isMcmContext, string suggestedName = null)
+        public static void PromptAndExport(string suggestedName = null)
         {
             // Unified multiselect: Player Troops (custom clan+kingdom) and Culture Troops
             var elements = new List<InquiryElement>
@@ -388,7 +389,7 @@ namespace Retinues.Troops
         /// <summary>
         /// Import flow: validated picker -> if both sections, ask scope according to context -> confirm -> import -> popup.
         /// </summary>
-        public static void PickAndImportUnified(bool isMcmContext, Action afterImport = null)
+        public static void PickAndImportUnified(Action afterImport = null)
         {
             ShowUnifiedPicker(
                 L.S("import_pick_title", "Import Troops"),
@@ -401,7 +402,11 @@ namespace Retinues.Troops
                     try
                     {
                         var abs = Path.Combine(DefaultDir, choice);
-                        pkg = DeserializeUnifiedFromFile(abs);
+
+                        if (LegacyImporter.IsLegacyExport(abs))
+                            pkg = LegacyImporter.LoadLegacyPackage(abs);
+                        else
+                            pkg = DeserializeUnifiedFromFile(abs);
                     }
                     catch (Exception e)
                     {

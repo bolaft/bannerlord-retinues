@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -36,12 +35,31 @@ namespace Retinues.Safety.Legacy
                 return;
             }
 
+            var (clanSaveData, kingdomSaveData) = ConvertLegacyDataLegacyData(TroopData);
+
+            Log.Info("Applying migrated troop data to factions...");
+
+            // Apply migrated data back to factions
+            clanSaveData.Apply(Player.Clan);
+            kingdomSaveData.Apply(Player.Kingdom);
+
+            Log.Debug($"Migrated {TroopData.Count} legacy root troops.");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static (FactionSaveData clan, FactionSaveData kingdom) ConvertLegacyDataLegacyData(
+            List<LegacyTroopSaveData> roots
+        )
+        {
             var clanSaveData = new FactionSaveData(Player.Clan);
             var kingdomSaveData = new FactionSaveData(Player.Kingdom);
 
-            Log.Info($"{TroopData.Count} legacy root troops found, migrating.");
+            Log.Info($"{roots.Count} legacy root troops found, migrating.");
 
-            foreach (var root in TroopData)
+            foreach (var root in roots)
             {
                 // Load legacy troop data
                 var troop = LegacyTroopSaveLoader.Load(root);
@@ -91,13 +109,7 @@ namespace Retinues.Safety.Legacy
                 }
             }
 
-            Log.Info("Applying migrated troop data to factions...");
-
-            // Apply migrated data back to factions
-            clanSaveData.Apply(Player.Clan);
-            kingdomSaveData.Apply(Player.Kingdom);
-
-            Log.Debug($"Migrated {TroopData.Count} legacy root troops.");
+            return (clanSaveData, kingdomSaveData);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -174,11 +186,11 @@ namespace Retinues.Safety.Legacy
         /// <summary>
         /// Returns true if the ID is an elite troop.
         /// </summary>
-        public bool IsElite(string id) => id != null && id.Contains("_elite_");
+        private static bool IsElite(string id) => id != null && id.Contains("_elite_");
 
         /// <summary>
         /// Returns true if the ID is a kingdom troop.
         /// </summary>
-        public bool IsKingdom(string id) => id != null && id.Contains("_kingdom_");
+        private static bool IsKingdom(string id) => id != null && id.Contains("_kingdom_");
     }
 }

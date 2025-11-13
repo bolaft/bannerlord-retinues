@@ -423,7 +423,6 @@ namespace Retinues.GUI.Editor.VM
         public void ExecuteExportAll()
         {
             TroopImportExport.PromptAndExport(
-                isMcmContext: false, // studio context
                 suggestedName: TroopImportExport.SuggestTimestampName("troops")
             );
         }
@@ -431,16 +430,13 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceMethod]
         public void ExecuteImportAll()
         {
-            TroopImportExport.PickAndImportUnified(
-                isMcmContext: false, // studio context
-                afterImport: () =>
-                {
-                    // Refresh VM bindings & visuals after possible culture import
-                    State.UpdateFaction(State.Faction);
-                    OnPropertyChanged(nameof(CultureBanner));
-                    OnPropertyChanged(nameof(CultureName));
-                }
-            );
+            TroopImportExport.PickAndImportUnified(afterImport: () =>
+            {
+                // Refresh VM bindings & visuals after possible culture import
+                State.UpdateFaction(State.Faction);
+                OnPropertyChanged(nameof(CultureBanner));
+                OnPropertyChanged(nameof(CultureName));
+            });
         }
 
         [DataSourceMethod]

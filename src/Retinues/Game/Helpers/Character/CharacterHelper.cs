@@ -153,13 +153,11 @@ namespace Retinues.Game.Helpers.Character
         {
             try
             {
-                var srcEquipments =
-                    src.BattleEquipments?.ToList()
-                    ?? new System.Collections.Generic.List<Equipment>();
+                var srcEquipments = src.BattleEquipments?.ToList() ?? new List<Equipment>();
                 if (srcEquipments.Count == 0)
                     srcEquipments.Add(new Equipment(Equipment.EquipmentType.Battle));
 
-                var cloned = new System.Collections.Generic.List<Equipment>(srcEquipments.Count);
+                var cloned = new List<Equipment>(srcEquipments.Count);
                 foreach (var e in srcEquipments)
                 {
                     var code = e != null ? e.CalculateEquipmentCode() : null;
