@@ -19,6 +19,8 @@ namespace Retinues.GUI.Editor.Mixins
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public static ClanTroopScreen Instance { get; private set; }
+
         public ClanTroopScreen(ClanManagementVM vm)
             : base(vm)
         {
@@ -49,6 +51,8 @@ namespace Retinues.GUI.Editor.Mixins
                 // Auto-select our editor tab if we launched in Studio Mode
                 if (State.IsStudioMode)
                     SelectEditorTab();
+
+                Instance = this;
 
                 Log.Info("ClanTroopScreen initialized.");
             }
@@ -135,7 +139,26 @@ namespace Retinues.GUI.Editor.Mixins
             Log.Info("Player troop editor mode ready.");
         }
 
-        // ── Helpers ───────────────────────────────────────────
+        [DataSourceMethod]
+        public void ExecuteOpenStudioMode()
+        {
+            Log.Info("Switching to studio mode...");
+
+            // flip global mode
+            State.IsStudioMode = true;
+
+            // rebuild state & VM
+            State.ResetAll();
+            Editor = new EditorVM();
+            OnPropertyChanged(nameof(Editor));
+
+            // select our tab & refresh bindings
+            SelectEditorTab();
+
+            Log.Info("Studio mode ready.");
+        }
+
+        /* ━━━━━━━━ Helpers ━━━━━━━ */
 
         private void SelectEditorTab()
         {

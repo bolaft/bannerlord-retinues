@@ -1,33 +1,61 @@
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
-<!--          Help         -->
+<!--         Links         -->
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
+{# Link Macro #}
+{% macro link(text, command, hint, margin_top, brush, is_visible) -%}
+
 <ListPanel
+    IsVisible="{{ is_visible }}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Right" VerticalAlignment="Top"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
-    MarginRight="40" MarginTop="10">
+    MarginRight="40" MarginTop="{{ margin_top }}">
     <Children>
         <TextWidget
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             Brush="Clan.Tuple.Name.Text" Brush.FontSize="24"
             MarginRight="8"
             VerticalAlignment="Center" HorizontalAlignment="Center"
-            Text="@HelpText"/>
+            Text="{{ text }}"/>
         <ButtonWidget
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             VerticalAlignment="Center" HorizontalAlignment="Center"
             SuggestedWidth="40" SuggestedHeight="40"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            Brush="DescriptionButtonToggleBrush"
-            Command.Click="ExecuteShowHelp">
+            Brush="{{ brush }}"
+            Command.Click="{{ command }}">
             <Children>
                 <HintWidget
-                    DataSource="{HelpHint}"
+                    DataSource="{{ hint }}"
                     Command.HoverBegin="ExecuteBeginHint"
                     Command.HoverEnd="ExecuteEndHint"/>
             </Children>
         </ButtonWidget>
     </Children>
 </ListPanel>
+
+{%- endmacro %}
+
+<!-- Global Editor -->
+
+{{ link(
+    text="Global Editor",
+    command="ExecuteShowGlobalEditor",
+    hint="{GlobalEditorHint}",
+    margin_top="10",
+    brush="HowToLearnButtonToggleBrush",
+    is_visible="@ShowGlobalEditorLink"
+) }}
+
+<!-- Help Button -->
+
+{{ link(
+    text="@HelpText",
+    command="ExecuteShowHelp",
+    hint="{HelpHint}",
+    margin_top="60",
+    brush="DescriptionButtonToggleBrush",
+    is_visible="true"
+) }}

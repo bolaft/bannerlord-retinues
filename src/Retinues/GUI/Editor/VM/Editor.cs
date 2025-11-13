@@ -7,6 +7,7 @@ using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor.Mixins;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
@@ -98,6 +99,7 @@ namespace Retinues.GUI.Editor.VM
             OnPropertyChanged(nameof(ShowFactionButton));
             OnPropertyChanged(nameof(ShowDoctrinesButton));
             OnPropertyChanged(nameof(ShowEquipmentButton));
+            OnPropertyChanged(nameof(ShowGlobalEditorLink));
             OnPropertyChanged(nameof(EquipmentButtonText));
             OnPropertyChanged(nameof(DoctrinesButtonText));
             OnPropertyChanged(nameof(FactionButtonText));
@@ -220,6 +222,9 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
 
+        [DataSourceProperty]
+        public bool ShowGlobalEditorLink => State.IsStudioMode == false;
+
         /* ━━━━━━━━ Brushes ━━━━━━━ */
 
         [DataSourceProperty]
@@ -250,11 +255,27 @@ namespace Retinues.GUI.Editor.VM
                 L.S("editor_help_tooltip_text", "Open the online Retinues documentation.")
             );
 
+        [DataSourceProperty]
+        public BasicTooltipViewModel GlobalEditorHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S("global_editor_tooltip_text", "Open the global editor for all factions.")
+            );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /* ━━━━━━━━━ Help ━━━━━━━━━ */
+
+        /// <summary>
+        /// Open the global editor view.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteShowGlobalEditor()
+        {
+            ClanTroopScreen.Instance?.ExecuteOpenStudioMode();
+        }
 
         /// <summary>
         /// Open the documentation page.
