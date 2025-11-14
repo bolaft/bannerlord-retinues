@@ -73,12 +73,30 @@ namespace Retinues.Safety.Fixes
         /// </summary>
         private static void EnsurePartyLeader(MobileParty party, Hero hero = null)
         {
+            if (party?.PartyComponent == null)
+            {
+                Log.Warn(
+                    $"Party {party?.Name} has no leader but also no PartyComponent; skipping."
+                );
+                return;
+            }
+
             Log.Warn($"Party {party.Name} has no leader, attempting to assign one.");
 
             hero ??= FindHeroLeader(party);
 
-            if (hero != null)
-                party.PartyComponent.ChangePartyLeader(hero);
+            if (hero == null)
+                return;
+
+            if (hero.PartyBelongedTo != null && hero.PartyBelongedTo != party && !party.IsMainParty)
+            {
+                Log.Warn(
+                    $"Candidate leader {hero.Name} already belongs to party {hero.PartyBelongedTo.Name}; not changing leader for {party.Name}."
+                );
+                return;
+            }
+
+            party.PartyComponent.ChangePartyLeader(hero);
         }
 
         /// <summary>
