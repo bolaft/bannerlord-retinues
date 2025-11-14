@@ -85,7 +85,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void ResetAll()
         {
-            if (!State.IsStudioMode)
+            if (!IsStudioMode)
                 // Ensure troops exist for player factions
                 foreach (var f in new[] { Player.Clan, Player.Kingdom })
                     if (f != null)

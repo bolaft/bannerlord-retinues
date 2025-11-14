@@ -64,7 +64,7 @@ namespace Retinues.Game.Wrappers
         /// Used to force old legacy ids to be reallocated.
         /// </summary>
         private static string NullifyLegacyIds(string stringId) =>
-            stringId.StartsWith(LegacyCustomIdPrefix) ? null : stringId;
+            stringId?.StartsWith(LegacyCustomIdPrefix) == true ? null : stringId;
 
         // Constructor for root troops
         public WCharacter(WFaction faction, RootCategory category, string stringId = null)

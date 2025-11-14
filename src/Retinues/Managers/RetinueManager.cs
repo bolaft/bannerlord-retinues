@@ -148,6 +148,9 @@ namespace Retinues.Managers
 
                 WCharacter root = retinue.IsElite ? f.RootElite : f.RootBasic;
 
+                if (root == null)
+                    return;
+
                 Log.Info($"IsElite: {retinue.IsElite}, Picking from root: {root.Name}");
 
                 var pick = TroopMatcher.PickBestFromTree(root, retinue);
