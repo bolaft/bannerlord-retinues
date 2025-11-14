@@ -171,25 +171,6 @@ namespace Retinues.Configuration
                     group.SetGroupOrder(-100); // keep at the very top
                     var order = 0;
 
-                    void NotifyNotInCampaign()
-                    {
-                        InformationManager.ShowInquiry(
-                            new InquiryData(
-                                L.S("not_in_campaign_title", "No Campaign Loaded"),
-                                L.S(
-                                    "not_in_campaign_body",
-                                    "A save must be loaded first before using import/export functions."
-                                ),
-                                true, // isAffirmativeOptionShown
-                                false, // isNegativeOptionShown
-                                GameTexts.FindText("str_ok").ToString(),
-                                null,
-                                () => { },
-                                null
-                            )
-                        );
-                    }
-
                     // Export button (context-aware; offers Custom-only or Custom+Cultures)
                     group.AddButton(
                         "ExportButton",
@@ -200,7 +181,9 @@ namespace Retinues.Configuration
                                 {
                                     if (!InCampaign())
                                     {
-                                        NotifyNotInCampaign();
+                                        Log.Message(
+                                            L.S("not_in_running_campaign", "Not in a running campaign. Load a save first.")
+                                        );
                                         return;
                                     }
 
@@ -245,7 +228,9 @@ namespace Retinues.Configuration
                                 {
                                     if (!InCampaign())
                                     {
-                                        NotifyNotInCampaign();
+                                        Log.Message(
+                                            L.S("not_in_running_campaign", "Not in a running campaign. Load a save first.")
+                                        );
                                         return;
                                     }
 
@@ -421,7 +406,7 @@ namespace Retinues.Configuration
                                             if (!InCampaign())
                                             {
                                                 Log.Message(
-                                                    "Not in a running campaign. Load a save first."
+                                                    L.S("not_in_running_campaign", "Not in a running campaign. Load a save first.")
                                                 );
                                                 return;
                                             }
