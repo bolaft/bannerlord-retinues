@@ -152,7 +152,15 @@ namespace Retinues.Features.Equipments
                 _byTroop[troop.StringId] = per = [];
 
             if (!per.TryGetValue(index, out var p) || p == null)
-                per[index] = p = new EquipmentPolicy();
+            {
+                // Initialize as "All" so the first toggle actually flips from true -> false
+                per[index] = p = new EquipmentPolicy
+                {
+                    FieldBattle = true,
+                    SiegeDefense = true,
+                    SiegeAssault = true,
+                };
+            }
 
             mut(p);
         }
