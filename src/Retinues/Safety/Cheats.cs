@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TaleWorlds.Library;
+using Retinues.Safety.Fixes;
 
 namespace Retinues.Safety
 {
@@ -13,12 +14,12 @@ namespace Retinues.Safety
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Fixes the main party if bugged (e.g. party size stuck at 20).
+        /// Fixes party leaders if a party has no leader assigned.
         /// </summary>
-        [CommandLineFunctionality.CommandLineArgumentFunction("fix_main_party", "retinues")]
-        public static string ResetUnlocks(List<string> args)
+        [CommandLineFunctionality.CommandLineArgumentFunction("fix_party_leaders", "retinues")]
+        public static string FixPartyLeaders(List<string> args)
         {
-            Helpers.EnsureMainPartyLeader();
+            PartyLeaderFixBehavior.FixPartyLeaders();
             return "Fix applied.";
         }
     }

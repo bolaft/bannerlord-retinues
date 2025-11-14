@@ -17,6 +17,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Mods;
 using Retinues.Safety.Legacy;
 using Retinues.Safety.Sanitizer;
+using Retinues.Safety.Fixes;
 using Retinues.Safety.Version;
 using Retinues.Troops;
 using Retinues.Utils;
@@ -227,6 +228,7 @@ namespace Retinues
             // Safety behaviors
             AddBehavior<SanitizerBehavior>(cs);
             AddBehavior<VersionBehavior>(cs);
+            AddBehavior<PartyLeaderFixBehavior>(cs);
 
             // Item behaviors
             AddBehavior<UnlocksBehavior>(cs);
