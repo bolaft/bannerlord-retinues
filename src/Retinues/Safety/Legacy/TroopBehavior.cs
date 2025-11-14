@@ -66,39 +66,6 @@ namespace Retinues.Safety.Legacy
         private void OnGameLoadFinished()
         {
             Helpers.EnsureMainPartyLeader();
-
-            if (LegacyTroopSaveConverter.TroopIdMap.Count == 0)
-                return; // No troops to swap
-
-            Log.Info("Swapping out legacy troops in parties and settlements...");
-
-            foreach (var kvp in LegacyTroopSaveConverter.TroopIdMap)
-            {
-                var oldId = kvp.Key;
-                var (faction, category) = kvp.Value;
-
-                var oldTroop = new WCharacter(oldId);
-                var newTroop = faction.GetRoot(category);
-
-                // Swap out legacy troops in all parties
-                foreach (var mp in MobileParty.All)
-                {
-                    var party = new WParty(mp);
-                    party?.MemberRoster.SwapTroop(oldTroop, newTroop);
-                    party?.PrisonRoster.SwapTroop(oldTroop, newTroop);
-                }
-
-                // Swap out legacy troops in all settlements
-                foreach (var s in Campaign.Current.Settlements)
-                {
-                    var settlement = new WSettlement(s);
-
-                    foreach (var notable in settlement.Notables)
-                        notable.SwapVolunteer(oldTroop, newTroop);
-                }
-            }
-
-            LegacyTroopSaveConverter.TroopIdMap.Clear();
         }
     }
 }

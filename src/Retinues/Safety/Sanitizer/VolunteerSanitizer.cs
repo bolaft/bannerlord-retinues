@@ -1,8 +1,9 @@
 using System;
+using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Safety.Sanitizer
 {
@@ -16,7 +17,7 @@ namespace Retinues.Safety.Sanitizer
         /// <summary>
         /// Cleans all notables' volunteers in a settlement, replacing invalid entries.
         /// </summary>
-        public static void CleanSettlement(Settlement settlement, bool replaceAllCustom = false)
+        public static void SanitizeSettlement(Settlement settlement, bool replaceAllCustom = false)
         {
             if (settlement == null)
                 return;
@@ -26,19 +27,22 @@ namespace Retinues.Safety.Sanitizer
                 if (notable == null)
                     continue;
 
-                SwapNotable(notable, settlement, replaceAllCustom);
+                SanitizeNotable(notable, settlement, replaceAllCustom);
             }
         }
 
         /// <summary>
         /// Swaps or removes invalid volunteers for a notable in a settlement.
         /// </summary>
-        private static void SwapNotable(
+        private static void SanitizeNotable(
             Hero notable,
             Settlement settlement,
             bool replaceAllCustom = false
         )
         {
+            if (settlement == null)
+                return;
+
             if (notable?.VolunteerTypes == null)
                 return;
 
@@ -54,22 +58,26 @@ namespace Retinues.Safety.Sanitizer
                     if (SanitizerBehavior.IsCharacterValid(c, replaceAllCustom))
                         continue;
 
-                    var fallback = GetFallbackVolunteer(settlement);
+                    Log.Warn(
+                        $"Invalid volunteer troop '{c.StringId}' found at notable '{notable.Name}' in settlement '{settlement.Name}'."
+                    );
+
+                    // Wrap the old troop
+                    var troop = new WCharacter(c);
+
+                    // Find fallback from the settlement's vanilla culture if possible
+                    CharacterObject fallback = TroopMatcher
+                        .PickBestFromFaction(new WSettlement(settlement).Culture, troop)
+                        .Base;
+
                     if (fallback != null)
                     {
-                        Log.Warn(
-                            $"Replacing invalid volunteer at [{settlement?.Name}] "
-                                + $"notable '{notable?.Name}' slot {i} "
-                                + $"('{c?.StringId ?? "NULL"}' -> '{fallback.StringId}')."
-                        );
+                        Log.Warn($"Fallback found, replacing with '{fallback}'");
                         notable.VolunteerTypes[i] = fallback;
                     }
                     else
                     {
-                        Log.Warn(
-                            $"Removing invalid volunteer at [{settlement?.Name}] "
-                                + $"notable '{notable?.Name}' slot {i} ('{c?.StringId ?? "NULL"}')."
-                        );
+                        Log.Warn("No fallback found, removing volunteer entry.");
                         notable.VolunteerTypes[i] = null;
                     }
                 }
@@ -77,28 +85,10 @@ namespace Retinues.Safety.Sanitizer
                 {
                     Log.Exception(
                         e,
-                        $"Exception while processing notable '{notable?.Name}' in settlement '{settlement?.Name}'"
+                        $"Exception while processing notable '{notable.Name}' in settlement '{settlement.Name}'"
                     );
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets a fallback volunteer for a settlement, preferring culture basic troop or "looter".
-        /// </summary>
-        private static CharacterObject GetFallbackVolunteer(Settlement settlement)
-        {
-            CharacterObject pick = null;
-
-            try
-            {
-                pick = settlement?.Culture?.BasicTroop;
-            }
-            catch { }
-
-            pick ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
-
-            return SanitizerBehavior.IsCharacterValid(pick) ? pick : null;
         }
     }
 }

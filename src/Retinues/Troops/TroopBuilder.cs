@@ -149,7 +149,7 @@ namespace Retinues.Troops
                     titleText: L.S("custom_troops_inquiry_title", "Custom Troops Unlocked"),
                     text: L.T(
                             "custom_troops_inquiry_body",
-                            "Your {FACTION}'s custom troops are now unlocked.\\n\\nWould you like to clone the entire {CULTURE} troop tree, or would you prefer building them from scratch?\\n\\nCopying your culture's troops will provide you with good gear and good troops. Starting from scratch is the more difficult choice.\\n\\nThis decision is irreversible."
+                            "Your {FACTION}'s custom troops are now unlocked.\n\nWould you like to clone the entire {CULTURE} troop tree, or would you prefer building them from scratch?\n\nCopying your culture's troops will provide you with good gear and good troops. Starting from scratch is the more difficult choice.\n\nThis decision is irreversible."
                         )
                         .SetTextVariable("FACTION", faction.IsPlayerClan ? "clan" : "kingdom")
                         .SetTextVariable("CULTURE", faction.Culture?.Name ?? "culture")

@@ -83,7 +83,10 @@ namespace Retinues.Troops.Save
         /// </summary>
         public WCharacter Deserialize()
         {
-            return Deserialize(new WCharacter(StringId));
+            if (string.IsNullOrEmpty(StringId))
+                return null; // Nothing to do
+
+            return DeserializeInternal(new WCharacter(StringId));
         }
 
         /// <summary>
@@ -95,7 +98,7 @@ namespace Retinues.Troops.Save
             if (faction == null)
                 return Deserialize(); // Fallback to no-faction deserialization
 
-            return DeserializeInternal(new WCharacter(faction, category));
+            return DeserializeInternal(new WCharacter(faction, category, stringId: StringId));
         }
 
         /// <summary>
@@ -104,7 +107,7 @@ namespace Retinues.Troops.Save
         /// </summary>
         public WCharacter Deserialize(WCharacter parent)
         {
-            return DeserializeInternal(new WCharacter(parent));
+            return DeserializeInternal(new WCharacter(parent, stringId: StringId));
         }
 
         /// <summary>

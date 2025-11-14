@@ -59,6 +59,17 @@ namespace Retinues.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Replaces an old troop with a new troop in all relevant references.
+        /// </summary>
+        private void Replace(WCharacter oldTroop, WCharacter newTroop)
+        {
+            if (oldTroop == null || newTroop == null)
+                return;
+
+            oldTroop.Remove(replacement: newTroop);
+        }
+
         /* ━━━━━━━ Retinues ━━━━━━━ */
 
         private WCharacter _retinueElite;
@@ -67,7 +78,7 @@ namespace Retinues.Game.Wrappers
             get => _retinueElite;
             set
             {
-                _retinueElite?.Remove();
+                Replace(_retinueElite, value);
                 _retinueElite = value;
             }
         }
@@ -78,7 +89,7 @@ namespace Retinues.Game.Wrappers
             get => _retinueBasic;
             set
             {
-                _retinueBasic?.Remove();
+                Replace(_retinueBasic, value);
                 _retinueBasic = value;
             }
         }
@@ -91,7 +102,7 @@ namespace Retinues.Game.Wrappers
             get => _rootElite;
             set
             {
-                _rootElite?.Remove();
+                Replace(_rootElite, value);
                 _rootElite = value;
             }
         }
@@ -102,7 +113,7 @@ namespace Retinues.Game.Wrappers
             get => _rootBasic;
             set
             {
-                _rootBasic?.Remove();
+                Replace(_rootBasic, value);
                 _rootBasic = value;
             }
         }
@@ -115,7 +126,7 @@ namespace Retinues.Game.Wrappers
             get => _militiaMelee;
             set
             {
-                _militiaMelee?.Remove();
+                Replace(_militiaMelee, value);
                 _militiaMelee = value;
             }
         }
@@ -126,7 +137,7 @@ namespace Retinues.Game.Wrappers
             get => _militiaMeleeElite;
             set
             {
-                _militiaMeleeElite?.Remove();
+                Replace(_militiaMeleeElite, value);
                 _militiaMeleeElite = value;
             }
         }
@@ -137,7 +148,7 @@ namespace Retinues.Game.Wrappers
             get => _militiaRanged;
             set
             {
-                _militiaRanged?.Remove();
+                Replace(_militiaRanged, value);
                 _militiaRanged = value;
             }
         }
@@ -148,7 +159,7 @@ namespace Retinues.Game.Wrappers
             get => _militiaRangedElite;
             set
             {
-                _militiaRangedElite?.Remove();
+                Replace(_militiaRangedElite, value);
                 _militiaRangedElite = value;
             }
         }
@@ -159,7 +170,7 @@ namespace Retinues.Game.Wrappers
             get => _caravanGuard;
             set
             {
-                _caravanGuard?.Remove();
+                Replace(_caravanGuard, value);
                 _caravanGuard = value;
             }
         }
@@ -170,7 +181,7 @@ namespace Retinues.Game.Wrappers
             get => _caravanMaster;
             set
             {
-                _caravanMaster?.Remove();
+                Replace(_caravanMaster, value);
                 _caravanMaster = value;
             }
         }
@@ -181,7 +192,7 @@ namespace Retinues.Game.Wrappers
             get => _villager;
             set
             {
-                _villager?.Remove();
+                Replace(_villager, value);
                 _villager = value;
             }
         }

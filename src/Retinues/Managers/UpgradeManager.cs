@@ -25,18 +25,17 @@ namespace Retinues.Managers
             // Create child troop using parent constructor
             var child = new WCharacter(troop);
 
-            bool keepEquipment = false;
-            if (Config.EquipmentChangeTakesTime == false && Config.PayForEquipment == false)
-                keepEquipment = true;
-
-            child.Name = targetName.Trim();
-            child.Level = troop.Level + 5;
+            // Fill child from parent
             child.FillFrom(
                 troop,
                 keepUpgrades: false,
-                keepEquipment: keepEquipment,
+                keepEquipment: Config.PayForEquipment == false, // don't copy equipment unless it's free
                 keepSkills: true
             );
+
+            // Customize child properties
+            child.Name = targetName.Trim();
+            child.Level = troop.Level + 5;
 
             return child;
         }

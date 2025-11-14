@@ -20,7 +20,7 @@ namespace Retinues.Safety.Patches
 
             try
             {
-                RosterSanitizer.CleanParty(__instance);
+                PartySanitizer.SanitizeParty(__instance);
             }
             catch (Exception exDump)
             {

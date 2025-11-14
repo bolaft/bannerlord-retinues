@@ -6,6 +6,7 @@ using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Mods;
 using Retinues.Safety.Sanitizer;
+using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -49,10 +50,7 @@ namespace Retinues.Game.Wrappers
             foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
                 if (co.StringId.StartsWith(CustomIdPrefix))
                     if (!ActiveStubIds.Contains(co.StringId)) // not allocated yet
-                    {
-                        ActiveStubIds.Add(co.StringId);
                         return co;
-                    }
 
             throw new InvalidOperationException("No free stub CharacterObject available.");
         }
@@ -62,8 +60,8 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Constructor for root troops
-        public WCharacter(WFaction faction, RootCategory category)
-            : this(AllocateStub())
+        public WCharacter(WFaction faction, RootCategory category, string stringId = null)
+            : this(stringId ?? AllocateStub().StringId)
         {
             Log.Info($"Creating new custom troop as {category} of faction {faction.Name}");
 
@@ -74,8 +72,8 @@ namespace Retinues.Game.Wrappers
         }
 
         // Constructor for upgrade troops
-        public WCharacter(WCharacter parent)
-            : this(AllocateStub())
+        public WCharacter(WCharacter parent, string stringId = null)
+            : this(stringId ?? AllocateStub().StringId)
         {
             Log.Info($"Creating new custom troop as upgrade of {parent.Name}");
 
@@ -90,8 +88,13 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         private void Initialize(BaseFaction faction)
         {
+            // Register as active stub
+            ActiveStubIds.Add(StringId);
+
+            // Assign to faction
             Faction = faction;
 
+            // Toggle flags
             HiddenInEncyclopedia = false;
             IsNotTransferableInHideouts = false;
             IsNotTransferableInPartyScreen = IsRetinue;
@@ -234,7 +237,13 @@ namespace Retinues.Game.Wrappers
                 IsVanilla ? Culture
                 : BaseFaction.TroopFactionMap.TryGetValue(StringId, out var faction) ? faction
                 : null;
-            set => BaseFaction.TroopFactionMap[StringId] = value;
+            set
+            {
+                if (value == null)
+                    BaseFaction.TroopFactionMap.Remove(StringId);
+                else
+                    BaseFaction.TroopFactionMap[StringId] = value;
+            }
         }
 
         public IEnumerable<WCharacter> Tree
@@ -545,13 +554,23 @@ namespace Retinues.Game.Wrappers
         //                        Lifecycle                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public void Remove()
+        /// <summary>
+        /// Removes this custom troop from the game, including all its upgrades and existing instances.
+        /// </summary>
+        public void Remove(WCharacter replacement = null)
         {
             if (!IsCustom)
                 return; // Only custom troops can be removed
 
+            Log.Debug(
+                $"Removing troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}"
+            );
+
             // Detach from parent
             Parent = null;
+
+            // Detach from faction
+            Faction = null;
 
             // Unregister from the game systems
             HiddenInEncyclopedia = true;
@@ -566,11 +585,44 @@ namespace Retinues.Game.Wrappers
                 target.Remove();
 
             // Revert existing instances in parties
-            SanitizerBehavior.Sanitize();
+            if (replacement != null)
+                Log.Info(
+                    $"Replacing existing instances of {Name} with {replacement.Name}."
+                );
+            else
+                Log.Info($"Replacing existing instances of {Name} with best match from culture.");
 
-            Log.Debug(
-                $"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}"
-            );
+
+            Replace(replacement ?? TroopMatcher.PickBestFromFaction(Culture, this));
+        }
+
+        /// <summary>
+        /// Replaces all instances of this troop with another troop in parties and settlements.
+        /// </summary>
+        public void Replace(WCharacter other)
+        {
+            if (other == null || other == this)
+                return;
+
+            // Replace in all parties
+            foreach (var party in WParty.All)
+            {
+                party?.MemberRoster.SwapTroop(this, other);
+                party?.PrisonRoster.SwapTroop(this, other);
+            }
+
+            // Replace in all settlements
+            foreach (var settlement in WSettlement.All)
+            foreach (var notable in settlement.Notables)
+                notable.SwapVolunteer(this, other);
+
+            // Recurse into upgrades
+            for (int i = 0; i < UpgradeTargets.Length; i++)
+            {
+                if (other.UpgradeTargets.Length <= i)
+                    break;
+                UpgradeTargets[i].Replace(other.UpgradeTargets[i]);
+            }
         }
 
         public bool IsActive => !IsCustom || ActiveStubIds.Contains(StringId);

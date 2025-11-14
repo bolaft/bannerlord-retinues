@@ -84,8 +84,6 @@ namespace Retinues.Safety.Legacy
         //                         Loading                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static readonly Dictionary<string, (WFaction, RootCategory)> TroopIdMap = [];
-
         public static (FactionSaveData clan, FactionSaveData kingdom) ConvertLegacyFactionData(
             List<LegacyTroopSaveData> roots
         )
@@ -108,9 +106,6 @@ namespace Retinues.Safety.Legacy
 
                 // Determine category
                 var category = GetCategory(root.StringId);
-
-                // Record in ID map
-                TroopIdMap[root.StringId] = (isKingdom ? Player.Kingdom : Player.Clan, category);
 
                 // Add to appropriate faction based on category
                 switch (category)
@@ -160,6 +155,8 @@ namespace Retinues.Safety.Legacy
         {
             TroopSaveData troop = new()
             {
+                StringId = data.StringId,
+                VanillaStringId = data.VanillaStringId,
                 Name = data.Name,
                 Level = data.Level,
                 IsFemale = data.IsFemale,

@@ -54,14 +54,17 @@ namespace Retinues.Safety.Sanitizer
         public static void Sanitize(bool replaceAllCustom = false)
         {
             foreach (var mp in MobileParty.All)
-                RosterSanitizer.CleanParty(mp, replaceAllCustom);
+                PartySanitizer.SanitizeParty(mp, replaceAllCustom);
 
             foreach (var s in Campaign.Current.Settlements)
             {
-                RosterSanitizer.CleanParty(s?.Town?.GarrisonParty, replaceAllCustom);
-                RosterSanitizer.CleanParty(s?.MilitiaPartyComponent?.MobileParty, replaceAllCustom);
+                PartySanitizer.SanitizeParty(s?.Town?.GarrisonParty, replaceAllCustom);
+                PartySanitizer.SanitizeParty(
+                    s?.MilitiaPartyComponent?.MobileParty,
+                    replaceAllCustom
+                );
 
-                VolunteerSanitizer.CleanSettlement(s, replaceAllCustom);
+                VolunteerSanitizer.SanitizeSettlement(s, replaceAllCustom);
             }
         }
 

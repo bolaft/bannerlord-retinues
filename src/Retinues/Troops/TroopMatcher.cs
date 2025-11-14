@@ -54,7 +54,7 @@ namespace Retinues.Troops
         /// Special roles (villager/caravan/militia) use direct mapped slots; regular troops
         /// use similarity within the basic/elite tree, and only map to custom candidates.
         /// </summary>
-        public static WCharacter PickBestFromFaction(WFaction faction, WCharacter troop)
+        public static WCharacter PickBestFromFaction(BaseFaction faction, WCharacter troop)
         {
             if (faction == null || troop == null || !troop.IsValid)
                 return null;
@@ -96,6 +96,10 @@ namespace Retinues.Troops
         {
             if (root?.IsValid != true || troop == null || !troop.IsValid)
                 return null;
+
+            Log.Info(
+                $"Picking best match for troop {troop.Name} (Tier {troop.Tier}) from tree rooted at {root.Name}"
+            );
 
             var candidates =
                 root.Tree?.Where(t =>
