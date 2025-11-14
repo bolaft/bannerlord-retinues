@@ -97,10 +97,6 @@ namespace Retinues.Troops
             if (root?.IsValid != true || troop == null || !troop.IsValid)
                 return null;
 
-            Log.Info(
-                $"Picking best match for troop {troop.Name} (Tier {troop.Tier}) from tree rooted at {root.Name}"
-            );
-
             var candidates =
                 root.Tree?.Where(t =>
                         t.IsValid

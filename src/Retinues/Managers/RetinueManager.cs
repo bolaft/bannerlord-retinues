@@ -151,8 +151,6 @@ namespace Retinues.Managers
                 if (root == null)
                     return;
 
-                Log.Info($"IsElite: {retinue.IsElite}, Picking from root: {root.Name}");
-
                 var pick = TroopMatcher.PickBestFromTree(root, retinue);
 
                 if (pick?.IsValid == true)
