@@ -125,7 +125,7 @@ namespace Retinues.Troops
                 // Rebuild culture troops
                 if (_cultureTroops is not null)
                     foreach (FactionSaveData data in _cultureTroops)
-                        data.DeserializeTroops();
+                        data.Apply();
             }
         }
 

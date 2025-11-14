@@ -49,7 +49,7 @@ namespace Retinues.Managers
                     .SetTextVariable("ACTION", action);
             }
 
-            if (faction.IsPlayerClan)
+            if (faction == Player.Clan)
             {
                 if (settlement?.Clan == Player.Clan)
                     return null;
@@ -60,7 +60,7 @@ namespace Retinues.Managers
                     .SetTextVariable("ACTION", action);
             }
 
-            if (faction.IsPlayerKingdom)
+            if (faction == Player.Kingdom)
             {
                 if (settlement?.Kingdom == Player.Kingdom)
                     return null;
@@ -91,9 +91,9 @@ namespace Retinues.Managers
             TextObject title = L.T("not_allowed_title", "Not Allowed");
             if (troop.IsRetinue == true && faction == Player.Clan)
                 title = L.T("not_in_settlement", "Not in Settlement");
-            else if (faction.IsPlayerClan)
+            else if (faction == Player.Clan)
                 title = L.T("not_in_clan_fief", "Not in Clan Fief");
-            else if (faction.IsPlayerKingdom)
+            else if (faction == Player.Kingdom)
                 title = L.T("not_in_kingdom_fief", "Not in Kingdom Fief");
 
             Notifications.Popup(title, reason);

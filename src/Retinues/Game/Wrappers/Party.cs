@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -10,7 +9,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for MobileParty, provides helpers for accessing rosters, leader, faction, and swapping troops to match a faction.
     /// </summary>
     [SafeClass]
-    public class WParty(MobileParty party) : FactionObject
+    public class WParty(MobileParty party) : BaseFactionMember
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Static                         //

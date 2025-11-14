@@ -66,7 +66,7 @@ namespace Retinues.GUI.Editor
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static ITroopFaction Faction { get; private set; }
+        public static BaseFaction Faction { get; private set; }
         public static WCharacter Troop { get; private set; }
         public static WEquipment Equipment { get; private set; }
         public static EquipmentIndex Slot { get; private set; }
@@ -105,7 +105,7 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Set current faction (defaults to player clan).
         /// </summary>
-        public static void UpdateFaction(ITroopFaction faction = null)
+        public static void UpdateFaction(BaseFaction faction = null)
         {
             faction ??= State.IsStudioMode ? Player.Culture : Player.Clan;
 
@@ -178,20 +178,6 @@ namespace Retinues.GUI.Editor
         )
         {
             equipData ??= ComputeEquipData();
-
-            if (
-                singleUpdate
-                && (
-                    Slot == EquipmentIndex.Weapon0
-                    || Slot == EquipmentIndex.Weapon1
-                    || Slot == EquipmentIndex.Weapon2
-                    || Slot == EquipmentIndex.Weapon3
-                    || Slot == EquipmentIndex.Horse
-                )
-            )
-            {
-                TroopMatcher.InvalidateTroopCache(Troop);
-            }
 
             if (Troop?.IsRetinue == true)
                 UpdateConversionData();

@@ -9,10 +9,22 @@ using Retinues.Utils;
 namespace Retinues.Safety.Legacy
 {
     /// <summary>
+    /// Container for legacy troop save data in XML format.
+    /// </summary>
+    [XmlRoot("Troops")]
+    public class LegacyTroopsContainer
+    {
+        [XmlElement("TroopSaveData")]
+        public List<LegacyTroopSaveData> Troops { get; set; } = [];
+
+        public LegacyTroopsContainer() { }
+    }
+
+    /// <summary>
     /// Handles the legacy (pre-unified) troop export format.
     /// </summary>
     [SafeClass]
-    internal static class LegacyImporter
+    internal static class LegacyTroopImporter
     {
         private const string LegacyRoot = "Troops";
 
@@ -57,25 +69,6 @@ namespace Retinues.Safety.Legacy
             return false;
         }
 
-        private static string ResolvePath(string fileNameOrPath)
-        {
-            if (File.Exists(fileNameOrPath))
-                return Path.GetFullPath(fileNameOrPath);
-
-            var p = Path.Combine(TroopImportExport.DefaultDir, fileNameOrPath);
-            if (File.Exists(p))
-                return Path.GetFullPath(p);
-
-            if (!p.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
-            {
-                p += ".xml";
-                if (File.Exists(p))
-                    return Path.GetFullPath(p);
-            }
-
-            return null;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Load Package                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -107,9 +100,8 @@ namespace Retinues.Safety.Legacy
 
                 var raw = container?.Troops ?? [];
 
-                var (clanSaveData, kingdomSaveData) = TroopBehavior.ConvertLegacyDataLegacyData(
-                    raw
-                );
+                var (clanSaveData, kingdomSaveData) =
+                    LegacyTroopSaveConverter.ConvertLegacyFactionData(raw);
 
                 var pkg = new TroopImportExport.RetinuesTroopsPackage
                 {
@@ -127,6 +119,29 @@ namespace Retinues.Safety.Legacy
                 Log.Exception(e, "LoadLegacyPackage failed");
                 return null;
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static string ResolvePath(string fileNameOrPath)
+        {
+            if (File.Exists(fileNameOrPath))
+                return Path.GetFullPath(fileNameOrPath);
+
+            var p = Path.Combine(TroopImportExport.DefaultDir, fileNameOrPath);
+            if (File.Exists(p))
+                return Path.GetFullPath(p);
+
+            if (!p.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
+            {
+                p += ".xml";
+                if (File.Exists(p))
+                    return Path.GetFullPath(p);
+            }
+
+            return null;
         }
     }
 }

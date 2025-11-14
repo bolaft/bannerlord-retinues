@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Retinues.Configuration;
-using Retinues.Game.Helpers.Character;
+using Retinues.Game.Helpers;
 using Retinues.Mods;
 using Retinues.Safety.Sanitizer;
 using Retinues.Utils;
@@ -20,70 +20,26 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 namespace Retinues.Game.Wrappers
 {
     /// <summary>
-    /// Wrapper for CharacterObject, providing helpers for custom troop logic, equipment, skills, upgrades, and lifecycle.
-    /// Used for all custom troop operations and UI integration.
+    /// Wrapper for CharacterObject, exposing custom troop logic and properties.
     /// </summary>
     [SafeClass]
     public class WCharacter(CharacterObject characterObject) : StringIdentifier
     {
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Constants                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public const string CustomIdPrefix = "retinues_custom_";
         public const string LegacyCustomIdPrefix = "ret_";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Troop Type                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public enum TroopType
-        {
-            Basic,
-            Elite,
-            RetinueBasic,
-            RetinueElite,
-            MilitiaMelee,
-            MilitiaMeleeElite,
-            MilitiaRanged,
-            MilitiaRangedElite,
-            CaravanGuard,
-            CaravanMaster,
-            Villager,
-            Other
-        }
-
-        private TroopType _type;
-        public TroopType Type
-        {
-            get => IsCustom ? _type : CharacterHelper.GetType(this);
-            set => _type = value;
-        }
-
-        public bool IsRetinue =>
-            Type == TroopType.RetinueBasic || Type == TroopType.RetinueElite;
-
-        public bool IsElite =>
-            Type == TroopType.Elite
-            || Type == TroopType.RetinueElite
-            || Type == TroopType.MilitiaMeleeElite
-            || Type == TroopType.MilitiaRangedElite
-            || Type == TroopType.CaravanMaster;
-
-        public bool IsMilitia =>
-            Type == TroopType.MilitiaMelee
-            || Type == TroopType.MilitiaMeleeElite
-            || Type == TroopType.MilitiaRanged
-            || Type == TroopType.MilitiaRangedElite;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                          Stubs                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// List of active custom troop ids.
         /// </summary>
-        public static List<string> ActiveTroopIds { get; } = [];
+        public static List<string> ActiveStubIds { get; } = [];
 
         /// <summary>
         /// Allocates a free stub CharacterObject for new custom troop creation.
@@ -92,40 +48,51 @@ namespace Retinues.Game.Wrappers
         {
             foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
                 if (co.StringId.StartsWith(CustomIdPrefix))
-                    if (!ActiveTroopIds.Contains(co.StringId)) // not allocated yet
+                    if (!ActiveStubIds.Contains(co.StringId)) // not allocated yet
+                    {
+                        ActiveStubIds.Add(co.StringId);
                         return co;
+                    }
 
-            Log.Error("No free stub ids left.");
-            return null;
+            throw new InvalidOperationException("No free stub CharacterObject available.");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        // Constructor for root troops
+        public WCharacter(WFaction faction, RootCategory category)
+            : this(AllocateStub())
+        {
+            // Enforce binding on construction
+            faction.SetRoot(category, this);
+
+            Initialize(faction, IsRetinue);
+        }
+
+        // Constructor for upgrade troops
+        public WCharacter(WCharacter parent)
+            : this(AllocateStub())
+        {
+            Parent = parent;
+
+            Initialize(parent.Faction, parent.IsRetinue);
         }
 
         /// <summary>
-        /// Creates a new WCharacter wrapper around a free stub CharacterObject.
+        /// Common initialization logic for custom troops.
         /// </summary>
-        public WCharacter(WFaction faction, WCharacter parent, TroopType type)
-            : this(AllocateStub())
+        private void Initialize(BaseFaction faction, bool isRetinue)
         {
-            ActiveTroopIds.Add(StringId);
-
-            // Clear existing faction troop of same type (if any)
-            faction.Get(type)?.Remove();
-            faction.Set(this);
+            Faction = faction;
 
             HiddenInEncyclopedia = false;
             IsNotTransferableInHideouts = false;
-
-            Faction = faction;
-            Parent = parent;
-            Type = type;
-
-            if (IsRetinue)
-                IsNotTransferableInPartyScreen = true;
-            else
-                IsNotTransferableInPartyScreen = false;
+            IsNotTransferableInPartyScreen = isRetinue;
 
             FormationClass = ComputeFormationClass();
             UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
-
         }
 
         /// <summary>
@@ -194,40 +161,11 @@ namespace Retinues.Game.Wrappers
         public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
         public bool IsVanilla => !IsCustom;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                View-Model (VM) Accessors               //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        /* ━━━━━━━ Category ━━━━━━━ */
 
-        public CharacterCode CharacterCode => CharacterCode.CreateFrom(Base);
-
-#if BL13
-        public CharacterImageIdentifierVM Image => new(CharacterCode);
-        public ImageIdentifier ImageIdentifier => new CharacterImageIdentifier(CharacterCode);
-#else
-        public ImageIdentifierVM Image => new(CharacterCode);
-        public ImageIdentifier ImageIdentifier => new(CharacterCode);
-#endif
-
-        public CharacterViewModel GetModel(int index = 0)
-        {
-            var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-            vm.FillFrom(Base, seed: -1);
-
-            // Apply staged equipment changes (if any)
-            vm.SetEquipment(Loadout.Get(index).StagingPreview());
-
-            if (Faction != null)
-            {
-                // Armor colors
-                vm.ArmorColor1 = Faction.Color;
-                vm.ArmorColor2 = Faction.Color2;
-
-                // Heraldic items
-                vm.BannerCodeText = Faction.BannerCodeText;
-            }
-
-            return vm;
-        }
+        public bool IsRetinue => Faction.RetinueTroops.Contains(this);
+        public bool IsMilitia => Faction.MilitiaTroops.Contains(this);
+        public bool IsElite => Faction.IsElite(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                Tree, Relations & Faction               //
@@ -236,14 +174,53 @@ namespace Retinues.Game.Wrappers
         private WCharacter _parent;
         public WCharacter Parent
         {
-            get => IsCustom ? _parent : CharacterHelper.GetParent(this);
-            set => _parent = value;
+            get => IsCustom ? _parent : VanillaHelper.GetParent(this);
+            set
+            {
+                if (!IsCustom)
+                {
+                    _parent = value; // vanilla shouldn't manipulate upgrade graph
+                    return;
+                }
+
+                if (_parent == value)
+                    return;
+
+                // Prevent cycles
+                if (value == this)
+                    return;
+
+                // 1) Remove from old parent's upgrade list
+                if (_parent != null)
+                {
+                    var oldList = _parent.UpgradeTargets.ToList();
+                    if (oldList.Remove(this))
+                        _parent.UpgradeTargets = [.. oldList];
+                }
+
+                // 2) Assign new parent
+                _parent = value;
+
+                // 3) Add to new parent's upgrade list
+                if (value != null)
+                {
+                    var list = value.UpgradeTargets.ToList();
+                    if (!list.Any(wc => wc.StringId == StringId))
+                    {
+                        list.Add(this);
+                        value.UpgradeTargets = [.. list];
+                    }
+
+                    // Keep faction inherited
+                    Faction = value.Faction;
+                }
+            }
         }
 
-        private WFaction _faction;
-        public WFaction Faction
+        private BaseFaction _faction;
+        public BaseFaction Faction
         {
-            get => IsCustom ? _faction : null;
+            get => IsCustom ? _faction : Culture;
             set => _faction = value;
         }
 
@@ -326,7 +303,6 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private FormationClass _formationClassOverride = FormationClass.Unset;
-
         public FormationClass FormationClassOverride
         {
             get => _formationClassOverride;
@@ -363,6 +339,9 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Computes the formation class for this troop based on its equipment and override.
+        /// </summary>
         public FormationClass ComputeFormationClass()
         {
             // If no override, derive from battle equipment
@@ -374,23 +353,15 @@ namespace Retinues.Game.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Flags & Toggles                    //
+        //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public bool IsMaxTier =>
-            Tier >= (IsElite ? 6 : 5) + (ModCompatibility.Tier7Unlocked ? 1 : 0);
 
         public bool IsHero => Base.IsHero;
 
-        public bool IsFemale
-        {
-            get => Reflector.GetPropertyValue<bool>(Base, "IsFemale");
-            set
-            {
-                Reflector.SetPropertyValue(Base, "IsFemale", value);
-                MarkEdited();
-            }
-        }
+        public bool IsRuler => Base.HeroObject?.IsFactionLeader ?? false;
+
+        public bool IsMaxTier =>
+            Tier >= (IsElite ? 6 : 5) + (ModCompatibility.Tier7Unlocked ? 1 : 0);
 
         public bool IsDeletable
         {
@@ -411,6 +382,10 @@ namespace Retinues.Game.Wrappers
                 return true;
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Toggles                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool HiddenInEncyclopedia
         {
@@ -437,13 +412,12 @@ namespace Retinues.Game.Wrappers
             set => Base.SetTransferableInPartyScreen(!value);
         }
 
-        public bool IsRuler => Base.HeroObject?.IsFactionLeader ?? false;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly SkillObject[] CoreSkills =
+        // List of troop-relevant skills
+        public static readonly SkillObject[] TroopSkills =
         [
             DefaultSkills.Athletics,
             DefaultSkills.Riding,
@@ -455,12 +429,13 @@ namespace Retinues.Game.Wrappers
             DefaultSkills.Throwing,
         ];
 
+        // Skill dictionary for easy get/set
         public Dictionary<SkillObject, int> Skills
         {
-            get { return CoreSkills.ToDictionary(skill => skill, GetSkill); }
+            get { return TroopSkills.ToDictionary(skill => skill, GetSkill); }
             set
             {
-                foreach (var skill in CoreSkills)
+                foreach (var skill in TroopSkills)
                 {
                     var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
                     SetSkill(skill, v);
@@ -468,8 +443,14 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Returns the value of the specified skill.
+        /// </summary>
         public int GetSkill(SkillObject skill) => Base.GetSkillValue(skill);
 
+        /// <summary>
+        /// Sets the specified skill to the given value.
+        /// </summary>
         public void SetSkill(SkillObject skill, int value)
         {
             var skills = Reflector.GetFieldValue<MBCharacterSkills>(Base, "DefaultCharacterSkills");
@@ -477,31 +458,50 @@ namespace Retinues.Game.Wrappers
             MarkEdited();
         }
 
-        public bool MeetsItemSkillRequirements(WItem item)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Visuals                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsFemale
         {
-            if (item == null)
-                return true;
-            if (item.RelevantSkill == null)
-                return true;
-            return item.Difficulty <= GetSkill(item.RelevantSkill);
+            get => Reflector.GetPropertyValue<bool>(Base, "IsFemale");
+            set
+            {
+                Reflector.SetPropertyValue(Base, "IsFemale", value);
+                MarkEdited();
+            }
         }
+
+        public int Race
+        {
+            get => Base.Race;
+            set
+            {
+                Reflector.SetPropertyValue(Base, "Race", value);
+                MarkEdited();
+            }
+        }
+
+        public WBody Body => new(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Equipment                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━━━ Loadout ━━━━━━━ */
+
         public WLoadout Loadout => new(this);
+
+        /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         public bool IsRanged => Loadout.Battle.HasNonThrowableRangedWeapons;
         public bool IsMounted => Loadout.Battle.HasMount;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Upgrades Targets                    //
+        //                        Upgrades                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Helper to convert a list of WCharacter to CharacterObject array
-        private static CharacterObject[] ToCharacterArray(IEnumerable<WCharacter> items) =>
-            items?.Select(wc => wc.Base).ToArray() ?? [];
+        /* ━━━━ Upgrade Targets ━━━ */
 
         public WCharacter[] UpgradeTargets
         {
@@ -511,8 +511,15 @@ namespace Retinues.Game.Wrappers
                     Reflector.GetPropertyValue<CharacterObject[]>(Base, "UpgradeTargets") ?? [];
                 return [.. raw.Select(obj => new WCharacter(obj))];
             }
-            set => Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(value));
+            set =>
+                Reflector.SetPropertyValue(
+                    Base,
+                    "UpgradeTargets",
+                    value?.Select(wc => wc.Base).ToArray() ?? []
+                );
         }
+
+        /* ━ Upgrade Requirements ━ */
 
         public ItemCategory UpgradeItemRequirement
         {
@@ -520,63 +527,17 @@ namespace Retinues.Game.Wrappers
             set { Reflector.SetPropertyValue(Base, "UpgradeRequiresItemFromCategory", value); }
         }
 
-        public void AddUpgradeTarget(WCharacter target)
-        {
-            if (target == null || target == this)
-                return;
-
-            // No duplicate edges
-            if (UpgradeTargets?.Any(wc => wc == target) == true)
-                return;
-
-            var list = UpgradeTargets?.ToList() ?? [];
-            list.Add(target);
-            Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(list));
-
-            // Index maintenance
-            target.Parent = this;
-            target.Faction = Faction;
-
-            MarkEdited();
-        }
-
-        public void RemoveUpgradeTarget(WCharacter target)
-        {
-            if (target == null)
-                return;
-
-            var list = UpgradeTargets?.ToList() ?? [];
-            var before = list.Count;
-            list.RemoveAll(wc => wc == target);
-
-            if (list.Count == before)
-                return; // nothing removed
-
-            Reflector.SetPropertyValue(Base, "UpgradeTargets", ToCharacterArray(list));
-
-            // Index maintenance
-            // Only clear if the index currently points to this as the parent.
-            if (target.Parent == this)
-                target.Parent = null;
-
-            MarkEdited();
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                Registration & Lifecycle                //
+        //                        Lifecycle                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public void Remove()
         {
             if (!IsCustom)
-                return;
+                return; // Only custom troops can be removed
 
-            // Remove from parent's upgrade targets
-            Parent?.RemoveUpgradeTarget(this);
-
-            Log.Debug(
-                $"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}"
-            );
+            // Detach from parent
+            Parent = null;
 
             // Unregister from the game systems
             HiddenInEncyclopedia = true;
@@ -584,7 +545,7 @@ namespace Retinues.Game.Wrappers
             IsNotTransferableInHideouts = false;
 
             if (IsActive)
-                ActiveTroopIds.Remove(StringId);
+                ActiveStubIds.Remove(StringId);
 
             // Remove all children
             foreach (var target in UpgradeTargets)
@@ -592,25 +553,56 @@ namespace Retinues.Game.Wrappers
 
             // Revert existing instances in parties
             SanitizerBehavior.Sanitize();
+
+            Log.Debug(
+                $"Removed troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}"
+            );
         }
 
-        public bool IsActive => !IsCustom || ActiveTroopIds.Contains(StringId);
-        public bool IsValid
+        public bool IsActive => !IsCustom || ActiveStubIds.Contains(StringId);
+
+        public bool IsValid =>
+            IsActive
+            && Base != null
+            && !string.IsNullOrWhiteSpace(StringId)
+            && !string.IsNullOrWhiteSpace(Name);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       View Model                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public CharacterCode CharacterCode => CharacterCode.CreateFrom(Base);
+
+#if BL13
+        public CharacterImageIdentifierVM Image => new(CharacterCode);
+        public ImageIdentifier ImageIdentifier => new CharacterImageIdentifier(CharacterCode);
+#else
+        public ImageIdentifierVM Image => new(CharacterCode);
+        public ImageIdentifier ImageIdentifier => new(CharacterCode);
+#endif
+
+        /// <summary>
+        /// Generates a CharacterViewModel for this troop with the specified equipment set index.
+        /// </summary>
+        public CharacterViewModel GetModel(int index = 0)
         {
-            get
+            var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+            vm.FillFrom(Base, seed: -1);
+
+            // Apply staged equipment changes (if any)
+            vm.SetEquipment(Loadout.Get(index).StagingPreview());
+
+            if (Faction != null)
             {
-                try
-                {
-                    return IsActive
-                        && Base != null
-                        && !string.IsNullOrWhiteSpace(StringId)
-                        && !string.IsNullOrWhiteSpace(Name);
-                }
-                catch
-                {
-                    return false;
-                }
+                // Armor colors
+                vm.ArmorColor1 = Faction.Color;
+                vm.ArmorColor2 = Faction.Color2;
+
+                // Heraldic items
+                vm.BannerCodeText = Faction.BannerCodeText;
             }
+
+            return vm;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -646,7 +638,7 @@ namespace Retinues.Game.Wrappers
 
             // Skills
             if (keepSkills)
-                Skills = CoreSkills.ToDictionary(skill => skill, src.GetSkill);
+                Skills = TroopSkills.ToDictionary(skill => skill, src.GetSkill);
             else
                 Skills = [];
 
@@ -675,373 +667,5 @@ namespace Retinues.Game.Wrappers
                 Loadout.Clear();
             }
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Visuals                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public int Race
-        {
-            get => Base.Race;
-            set
-            {
-                Reflector.SetPropertyValue(Base, "Race", value);
-                MarkEdited();
-            }
-        }
-
-        public float Age
-        {
-            get => Base.Age;
-            set => Reflector.SetPropertyValue(Base, "Age", value);
-        }
-
-        /* ━━━━━━━ Min Side ━━━━━━━ */
-
-        public float AgeMin
-        {
-            get => Base.GetBodyPropertiesMin().Age;
-            set => SetDynamicEnd(minEnd: true, age: value, weight: null, build: null);
-        }
-        public float WeightMin
-        {
-            get => Base.GetBodyPropertiesMin().Weight;
-            set => SetDynamicEnd(minEnd: true, age: null, weight: value, build: null);
-        }
-        public float BuildMin
-        {
-            get => Base.GetBodyPropertiesMin().Build;
-            set => SetDynamicEnd(minEnd: true, age: null, weight: null, build: value);
-        }
-
-        /* ━━━━━━━ Max Side ━━━━━━━ */
-
-        public float AgeMax
-        {
-            get => Base.GetBodyPropertiesMax().Age;
-            set => SetDynamicEnd(minEnd: false, age: value, weight: null, build: null);
-        }
-        public float WeightMax
-        {
-            get => Base.GetBodyPropertiesMax().Weight;
-            set => SetDynamicEnd(minEnd: false, age: null, weight: value, build: null);
-        }
-        public float BuildMax
-        {
-            get => Base.GetBodyPropertiesMax().Build;
-            set => SetDynamicEnd(minEnd: false, age: null, weight: null, build: value);
-        }
-
-        /* ━━━━ Min/Max Helper ━━━━ */
-        public void SetDynamicEnd(bool minEnd, float? age, float? weight, float? build)
-        {
-            try
-            {
-                EnsureOwnBodyRange();
-
-                var curMin = Base.GetBodyPropertiesMin();
-                var curMax = Base.GetBodyPropertiesMax();
-
-                var src = minEnd ? curMin : curMax;
-                var oth = minEnd ? curMax : curMin;
-
-                var dyn = src.DynamicProperties;
-                var newDyn = new DynamicBodyProperties(
-                    age ?? dyn.Age,
-                    weight ?? dyn.Weight,
-                    build ?? dyn.Build
-                );
-
-                var newSrc = new BodyProperties(newDyn, src.StaticProperties);
-                var newMin = minEnd ? newSrc : oth;
-                var newMax = minEnd ? oth : newSrc;
-
-                var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
-                Reflector.InvokeMethod(
-                    range,
-                    "Init",
-                    [typeof(BodyProperties), typeof(BodyProperties)],
-                    newMin,
-                    newMax
-                );
-
-                MarkEdited();
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
-        }
-
-        /* ━━━━━━━━ Helper ━━━━━━━━ */
-
-        /// <summary>
-        /// Ensure this CharacterObject has its *own* BodyPropertyRange instance
-        /// </summary>
-        public void EnsureOwnBodyRange()
-        {
-            try
-            {
-                var current = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
-                if (current == null)
-                {
-                    // Create a fresh one using current min/max
-                    var min = Base.GetBodyPropertiesMin();
-                    var max = Base.GetBodyPropertiesMax();
-                    var type = typeof(BodyProperties); // just to get assembly; we'll reflect range type from current if needed
-
-                    // Try to find the runtime range type via current; if null, create by name fallback
-                    var rangeType = current?.GetType();
-                    if (rangeType == null)
-                    {
-                        // Fallback: try to resolve MBBodyProperty type by name
-                        rangeType = System.Type.GetType("TaleWorlds.Core.MBBodyProperty, TaleWorlds.Core");
-                        if (rangeType == null)
-                        {
-                            // As a last resort, reuse whatever is already on Base (if any)
-                            rangeType = current?.GetType();
-                        }
-                    }
-
-                    var fresh = (rangeType != null) ? Activator.CreateInstance(rangeType) : null;
-                    if (fresh != null)
-                    {
-                        Reflector.InvokeMethod(
-                            fresh,
-                            "Init",
-                            [typeof(BodyProperties), typeof(BodyProperties)],
-                            min,
-                            max
-                        );
-                        Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh);
-                    }
-                    return;
-                }
-
-                // Try to clone; if clone not available, re-create with same min/max
-                try
-                {
-                    var clone = Reflector.InvokeMethod(current, "Clone", System.Type.EmptyTypes);
-                    if (clone != null)
-                    {
-                        Reflector.SetPropertyValue(Base, "BodyPropertyRange", clone);
-                        return;
-                    }
-                }
-                catch
-                { /* ignore */
-                }
-
-                var curMin = Base.GetBodyPropertiesMin();
-                var curMax = Base.GetBodyPropertiesMax();
-                var type2 = current.GetType();
-                var fresh2 = Activator.CreateInstance(type2);
-                Reflector.InvokeMethod(
-                    fresh2,
-                    "Init",
-                    [typeof(BodyProperties), typeof(BodyProperties)],
-                    curMin,
-                    curMax
-                );
-                Reflector.SetPropertyValue(Base, "BodyPropertyRange", fresh2);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
-        }
-
-        /* ━━━━━━━ Height (Min/Max) ━━━━━━━ */
-
-        // Height multiplier: KeyPart7 bits [19..24] (6 bits) → 0..1
-        private const int HEIGHT_PART = 8;
-        private const int HEIGHT_START = 19;
-        private const int HEIGHT_BITS = 6;
-
-        public float HeightMin
-        {
-            get => ReadStaticChannel(minEnd: true, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS);
-            set => SetStaticChannelEnd(minEnd: true, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
-        }
-        public float HeightMax
-        {
-            get => ReadStaticChannel(minEnd: false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS);
-            set =>
-                SetStaticChannelEnd(minEnd: false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
-        }
-
-        private float ReadStaticChannel(bool minEnd, int partIdx, int startBit, int numBits)
-        {
-            var bp = minEnd ? Base.GetBodyPropertiesMin() : Base.GetBodyPropertiesMax();
-            var sp = bp.StaticProperties;
-            ulong part = GetKeyPart(sp, partIdx);
-            int raw = GetBitsValueFromKey(part, startBit, numBits);
-            int max = (1 << numBits) - 1;
-            return max > 0 ? raw / (float)max : 0f;
-        }
-
-        private void SetStaticChannelEnd(
-            bool minEnd,
-            int partIdx,
-            int startBit,
-            int numBits,
-            float value01
-        )
-        {
-            try
-            {
-                EnsureOwnBodyRange();
-
-                float v = Math.Max(0f, Math.Min(1f, value01));
-                int raw = (int)Math.Round(v * ((1 << numBits) - 1));
-
-                var curMin = Base.GetBodyPropertiesMin();
-                var curMax = Base.GetBodyPropertiesMax();
-
-                var src = minEnd ? curMin : curMax;
-                var oth = minEnd ? curMax : curMin;
-
-                var sp = src.StaticProperties;
-                ulong part = GetKeyPart(sp, partIdx);
-                part = SetBits(part, startBit, numBits, raw);
-                var newSp = SetKeyPart(sp, partIdx, part);
-
-                var newSrc = new BodyProperties(src.DynamicProperties, newSp);
-                var newMin = minEnd ? newSrc : oth;
-                var newMax = minEnd ? oth : newSrc;
-
-                var range = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
-                Reflector.InvokeMethod(
-                    range,
-                    "Init",
-                    [typeof(BodyProperties), typeof(BodyProperties)],
-                    newMin,
-                    newMax
-                );
-
-                MarkEdited();
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
-        }
-
-        /* ━━━ StaticBodyProperties bit and part helpers ━━━ */
-
-        private static int GetBitsValueFromKey(ulong part, int startBit, int numBits)
-        {
-            ulong shifted = part >> startBit;
-            ulong mask = ((1UL << numBits) - 1);
-            return (int)(shifted & mask);
-        }
-
-        private static ulong SetBits(ulong part, int startBit, int numBits, int newValue)
-        {
-            ulong mask = (((1UL << numBits) - 1) << startBit);
-            return (part & ~mask) | ((ulong)newValue << startBit);
-        }
-
-        private static ulong GetKeyPart(in StaticBodyProperties sp, int idx) =>
-            idx switch
-            {
-                1 => sp.KeyPart1,
-                2 => sp.KeyPart2,
-                3 => sp.KeyPart3,
-                4 => sp.KeyPart4,
-                5 => sp.KeyPart5,
-                6 => sp.KeyPart6,
-                7 => sp.KeyPart7,
-                _ => sp.KeyPart8,
-            };
-
-        private static StaticBodyProperties SetKeyPart(
-            in StaticBodyProperties sp,
-            int idx,
-            ulong val
-        ) =>
-            idx switch
-            {
-                1 => new(
-                    val,
-                    sp.KeyPart2,
-                    sp.KeyPart3,
-                    sp.KeyPart4,
-                    sp.KeyPart5,
-                    sp.KeyPart6,
-                    sp.KeyPart7,
-                    sp.KeyPart8
-                ),
-                2 => new(
-                    sp.KeyPart1,
-                    val,
-                    sp.KeyPart3,
-                    sp.KeyPart4,
-                    sp.KeyPart5,
-                    sp.KeyPart6,
-                    sp.KeyPart7,
-                    sp.KeyPart8
-                ),
-                3 => new(
-                    sp.KeyPart1,
-                    sp.KeyPart2,
-                    val,
-                    sp.KeyPart4,
-                    sp.KeyPart5,
-                    sp.KeyPart6,
-                    sp.KeyPart7,
-                    sp.KeyPart8
-                ),
-                4 => new(
-                    sp.KeyPart1,
-                    sp.KeyPart2,
-                    sp.KeyPart3,
-                    val,
-                    sp.KeyPart5,
-                    sp.KeyPart6,
-                    sp.KeyPart7,
-                    sp.KeyPart8
-                ),
-                5 => new(
-                    sp.KeyPart1,
-                    sp.KeyPart2,
-                    sp.KeyPart3,
-                    sp.KeyPart4,
-                    val,
-                    sp.KeyPart6,
-                    sp.KeyPart7,
-                    sp.KeyPart8
-                ),
-                6 => new(
-                    sp.KeyPart1,
-                    sp.KeyPart2,
-                    sp.KeyPart3,
-                    sp.KeyPart4,
-                    sp.KeyPart5,
-                    val,
-                    sp.KeyPart7,
-                    sp.KeyPart8
-                ),
-                7 => new(
-                    sp.KeyPart1,
-                    sp.KeyPart2,
-                    sp.KeyPart3,
-                    sp.KeyPart4,
-                    sp.KeyPart5,
-                    sp.KeyPart6,
-                    val,
-                    sp.KeyPart8
-                ),
-                _ => new(
-                    sp.KeyPart1,
-                    sp.KeyPart2,
-                    sp.KeyPart3,
-                    sp.KeyPart4,
-                    sp.KeyPart5,
-                    sp.KeyPart6,
-                    sp.KeyPart7,
-                    val
-                ),
-            };
     }
 }

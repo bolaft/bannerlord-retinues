@@ -1,16 +1,16 @@
 using Retinues.Configuration;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 
-namespace Retinues.Game.Wrappers.Base
+namespace Retinues.Game
 {
     /// <summary>
     /// Abstract base for faction-related wrappers, provides access to clan, kingdom, and player faction logic.
     /// </summary>
     [SafeClass]
-    public abstract class FactionObject : StringIdentifier
+    public abstract class BaseFactionMember : StringIdentifier
     {
         public abstract WFaction Clan { get; }
-
         public abstract WFaction Kingdom { get; }
 
         /// <summary>

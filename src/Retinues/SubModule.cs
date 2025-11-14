@@ -13,7 +13,6 @@ using Retinues.Features.Stocks;
 using Retinues.Features.Swaps;
 using Retinues.Features.Unlocks;
 using Retinues.Game;
-using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
 using Retinues.Safety.Legacy;
@@ -362,13 +361,10 @@ namespace Retinues
             Player.Reset();
 
             // Clear active troops
-            WCharacter.ActiveTroopIds.Clear();
+            WCharacter.ActiveStubIds.Clear();
 
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
-
-            // Clear character graph index
-            CharacterIndexer.Clear();
         }
     }
 }

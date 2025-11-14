@@ -38,7 +38,7 @@ namespace Retinues.Game.Helpers
             string bannerKey = culture.Base.BannerKey;
 
             // 2) Build the Banner
-            Banner banner = null;
+            Banner banner;
 
             if (!string.IsNullOrEmpty(bannerKey))
                 banner = new Banner(bannerKey);

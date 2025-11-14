@@ -8,7 +8,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Game.Helpers
 {
-    public static class BodyPropertyHelper
+    public static class BodyHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //
@@ -61,10 +61,10 @@ namespace Retinues.Game.Helpers
                 t,
                 AgePresets,
                 +1,
-                () => t.AgeMin,
-                v => t.AgeMin = v,
-                () => t.AgeMax,
-                v => t.AgeMax = v
+                () => t.Body.AgeMin,
+                v => t.Body.AgeMin = v,
+                () => t.Body.AgeMax,
+                v => t.Body.AgeMax = v
             );
 
         public static void ApplyPrevAgePreset(WCharacter t) =>
@@ -72,10 +72,10 @@ namespace Retinues.Game.Helpers
                 t,
                 AgePresets,
                 -1,
-                () => t.AgeMin,
-                v => t.AgeMin = v,
-                () => t.AgeMax,
-                v => t.AgeMax = v
+                () => t.Body.AgeMin,
+                v => t.Body.AgeMin = v,
+                () => t.Body.AgeMax,
+                v => t.Body.AgeMax = v
             );
 
         public static void ApplyNextWeightPreset(WCharacter t) =>
@@ -83,10 +83,10 @@ namespace Retinues.Game.Helpers
                 t,
                 WeightPresets,
                 +1,
-                () => t.WeightMin,
-                v => t.WeightMin = v,
-                () => t.WeightMax,
-                v => t.WeightMax = v
+                () => t.Body.WeightMin,
+                v => t.Body.WeightMin = v,
+                () => t.Body.WeightMax,
+                v => t.Body.WeightMax = v
             );
 
         public static void ApplyPrevWeightPreset(WCharacter t) =>
@@ -94,10 +94,10 @@ namespace Retinues.Game.Helpers
                 t,
                 WeightPresets,
                 -1,
-                () => t.WeightMin,
-                v => t.WeightMin = v,
-                () => t.WeightMax,
-                v => t.WeightMax = v
+                () => t.Body.WeightMin,
+                v => t.Body.WeightMin = v,
+                () => t.Body.WeightMax,
+                v => t.Body.WeightMax = v
             );
 
         public static void ApplyNextBuildPreset(WCharacter t) =>
@@ -105,10 +105,10 @@ namespace Retinues.Game.Helpers
                 t,
                 BuildPresets,
                 +1,
-                () => t.BuildMin,
-                v => t.BuildMin = v,
-                () => t.BuildMax,
-                v => t.BuildMax = v
+                () => t.Body.BuildMin,
+                v => t.Body.BuildMin = v,
+                () => t.Body.BuildMax,
+                v => t.Body.BuildMax = v
             );
 
         public static void ApplyPrevBuildPreset(WCharacter t) =>
@@ -116,10 +116,10 @@ namespace Retinues.Game.Helpers
                 t,
                 BuildPresets,
                 -1,
-                () => t.BuildMin,
-                v => t.BuildMin = v,
-                () => t.BuildMax,
-                v => t.BuildMax = v
+                () => t.Body.BuildMin,
+                v => t.Body.BuildMin = v,
+                () => t.Body.BuildMax,
+                v => t.Body.BuildMax = v
             );
 
         public static void ApplyNextHeightPreset(WCharacter t) =>
@@ -127,10 +127,10 @@ namespace Retinues.Game.Helpers
                 t,
                 HeightPresets,
                 +1,
-                () => t.HeightMin,
-                v => t.HeightMin = v,
-                () => t.HeightMax,
-                v => t.HeightMax = v
+                () => t.Body.HeightMin,
+                v => t.Body.HeightMin = v,
+                () => t.Body.HeightMax,
+                v => t.Body.HeightMax = v
             );
 
         public static void ApplyPrevHeightPreset(WCharacter t) =>
@@ -138,10 +138,10 @@ namespace Retinues.Game.Helpers
                 t,
                 HeightPresets,
                 -1,
-                () => t.HeightMin,
-                v => t.HeightMin = v,
-                () => t.HeightMax,
-                v => t.HeightMax = v
+                () => t.Body.HeightMin,
+                v => t.Body.HeightMin = v,
+                () => t.Body.HeightMax,
+                v => t.Body.HeightMax = v
             );
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
@@ -216,7 +216,7 @@ namespace Retinues.Game.Helpers
                 return;
 
             // break shared reference
-            troop.EnsureOwnBodyRange();
+            troop.Body.EnsureOwnBodyRange();
 
             var range = Reflector.GetPropertyValue<object>(troop.Base, "BodyPropertyRange");
             var tplRange = Reflector.GetPropertyValue<object>(template, "BodyPropertyRange");
@@ -236,7 +236,7 @@ namespace Retinues.Game.Helpers
             );
 
             // 4) Snap age to the template's mid-age
-            troop.Age = (min.Age + max.Age) * 0.5f;
+            troop.Body.Age = (min.Age + max.Age) * 0.5f;
         }
 
         /// <summary>

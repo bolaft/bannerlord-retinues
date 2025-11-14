@@ -90,7 +90,7 @@ namespace Retinues.Managers
             bool isUnlocked,
             int progress
         )> CollectAvailableItems(
-            ITroopFaction faction,
+            BaseFaction faction,
             EquipmentIndex slot,
             List<(WItem item, bool unlocked, int progress)> cache = null,
             bool craftedOnly = false
@@ -124,7 +124,7 @@ namespace Retinues.Managers
         /// considering unlocks and config, but ignoring town stock.
         /// </summary>
         private static List<(WItem item, bool unlocked, int progress)> BuildEligibilityList(
-            ITroopFaction faction,
+            BaseFaction faction,
             EquipmentIndex slot,
             bool includeCrafted
         )
@@ -265,7 +265,7 @@ namespace Retinues.Managers
 
             // Example minimal checks:
             if (item != null && item.RelevantSkill != null)
-                if (!troop.MeetsItemSkillRequirements(item))
+                if (!MeetsItemSkillRequirements(troop, item))
                     return false;
 
             // No horse rule
@@ -278,6 +278,18 @@ namespace Retinues.Managers
                 return false;
 
             return true;
+        }
+
+        /// <summary>
+        /// Returns true if the troop meets the skill requirements for the specified item.
+        /// </summary>
+        public static bool MeetsItemSkillRequirements(WCharacter troop, WItem item)
+        {
+            if (item == null)
+                return true;
+            if (item.RelevantSkill == null)
+                return true;
+            return item.Difficulty <= troop.GetSkill(item.RelevantSkill);
         }
 
         /// <summary>

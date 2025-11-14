@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
@@ -71,21 +72,48 @@ namespace Retinues.Troops.Save
             UpgradeTargets = [.. troop.UpgradeTargets.Select(t => new TroopSaveData(t))];
             EquipmentData = new TroopEquipmentData(troop.Loadout.Equipments);
             SkillData = new TroopSkillData(troop.Skills);
-            BodyData = Config.EnableTroopCustomization ? new TroopBodySaveData(troop) : null;
+            BodyData = Config.EnableTroopCustomization ? new TroopBodySaveData(troop.Body) : null;
             Race = troop.Race;
             FormationClassOverride = troop.FormationClassOverride;
         }
 
         /// <summary>
         /// Deserializes the troop save data into a WCharacter instance.
+        /// Used when the faction context is not needed (culture troops).
         /// </summary>
         public WCharacter Deserialize()
         {
+            return Deserialize(new WCharacter(StringId));
+        }
+
+        /// <summary>
+        /// Deserializes the troop save data into a WCharacter instance.
+        /// Used when the faction context is needed (faction roots).
+        /// </summary>
+        public WCharacter Deserialize(WFaction faction, RootCategory category)
+        {
+            if (faction == null)
+                return Deserialize(); // Fallback to no-faction deserialization
+
+            return DeserializeInternal(new WCharacter(faction, category));
+        }
+
+        /// <summary>
+        /// Deserializes the troop save data into a WCharacter instance.
+        /// Used when the parent troop context is needed (upgrade targets).
+        /// </summary>
+        public WCharacter Deserialize(WCharacter parent)
+        {
+            return DeserializeInternal(new WCharacter(parent));
+        }
+
+        /// <summary>
+        /// Deserializes the troop save data into a WCharacter instance.
+        /// </summary>
+        public WCharacter DeserializeInternal(WCharacter troop)
+        {
             if (string.IsNullOrEmpty(StringId))
                 return null; // Null troop, nothing to do
-
-            // Wrap it
-            var troop = new WCharacter(StringId);
 
             // If this is a vanilla troop, keep it marked as edited so it continues to be saved
             if (troop.IsVanilla)
@@ -111,7 +139,7 @@ namespace Retinues.Troops.Save
 
             // Restore upgrade targets
             foreach (var child in UpgradeTargets ?? [])
-                troop.AddUpgradeTarget(child.Deserialize());
+                child.Deserialize(troop);
 
             // Retinues are not transferable
             if (troop.IsRetinue)
@@ -123,19 +151,19 @@ namespace Retinues.Troops.Save
                 troop.Culture = new WCulture(
                     MBObjectManager.Instance.GetObject<CultureObject>(CultureId)
                 );
-                BodyPropertyHelper.ApplyPropertiesFromCulture(troop, CultureId);
+                BodyHelper.ApplyPropertiesFromCulture(troop, CultureId);
             }
 
             // Set race if specified
             if (Race >= 0)
             {
                 troop.Race = Race;
-                troop.EnsureOwnBodyRange();
+                troop.Body.EnsureOwnBodyRange();
             }
 
             // Set body customization (if enabled)
             if (Config.EnableTroopCustomization)
-                BodyData?.Apply(troop);
+                BodyData?.Apply(troop.Body);
 
             // Set formation class override
             troop.FormationClassOverride = FormationClassOverride;
@@ -151,48 +179,48 @@ namespace Retinues.Troops.Save
     /// <summary>
     /// Serializable save data for a troop, including identity, stats, skills, equipment, and upgrade targets.
     /// </summary>
-    public class TroopBodySaveData(WCharacter troop)
+    public class TroopBodySaveData(WBody body)
     {
         [SaveableField(1)]
-        public float AgeMin = troop?.AgeMin ?? 0;
+        public float AgeMin = body?.AgeMin ?? 0;
 
         [SaveableField(2)]
-        public float AgeMax = troop?.AgeMax ?? 0;
+        public float AgeMax = body?.AgeMax ?? 0;
 
         [SaveableField(3)]
-        public float WeightMin = troop?.WeightMin ?? 0;
+        public float WeightMin = body?.WeightMin ?? 0;
 
         [SaveableField(4)]
-        public float WeightMax = troop?.WeightMax ?? 0;
+        public float WeightMax = body?.WeightMax ?? 0;
 
         [SaveableField(5)]
-        public float BuildMin = troop?.BuildMin ?? 0;
+        public float BuildMin = body?.BuildMin ?? 0;
 
         [SaveableField(6)]
-        public float BuildMax = troop?.BuildMax ?? 0;
+        public float BuildMax = body?.BuildMax ?? 0;
 
         [SaveableField(7)]
-        public float HeightMin = troop?.HeightMin ?? 0;
+        public float HeightMin = body?.HeightMin ?? 0;
 
         [SaveableField(8)]
-        public float HeightMax = troop?.HeightMax ?? 0;
+        public float HeightMax = body?.HeightMax ?? 0;
 
         // Parameterless constructor for import/export deserialization
         public TroopBodySaveData()
             : this(null) { }
 
-        public void Apply(WCharacter troop)
+        public void Apply(WBody body)
         {
             // Set dynamic properties (already handles nulls)
-            troop.SetDynamicEnd(true, AgeMin, WeightMin, BuildMin);
-            troop.SetDynamicEnd(false, AgeMax, WeightMax, BuildMax);
-            troop.Age = troop.AgeMin + troop.AgeMax / 2;
+            body.SetDynamicEnd(true, AgeMin, WeightMin, BuildMin);
+            body.SetDynamicEnd(false, AgeMax, WeightMax, BuildMax);
+            body.Age = body.AgeMin + body.AgeMax / 2;
 
             // Set height properties
             if (HeightMin > 0 && HeightMax > 0)
             {
-                troop.HeightMin = HeightMin;
-                troop.HeightMax = HeightMax;
+                body.HeightMin = HeightMin;
+                body.HeightMax = HeightMax;
             }
         }
     }

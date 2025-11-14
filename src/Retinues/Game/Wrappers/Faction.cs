@@ -1,78 +1,53 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Doctrines;
-using Retinues.Doctrines.Catalog;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Game.Wrappers
 {
-    public interface ITroopFaction
-    {
-        public string StringId { get; }
-        public string Name { get; }
-        public uint Color { get; }
-        public uint Color2 { get; }
-
-        public WCulture Culture { get; }
-
-        public WCharacter RetinueElite { get; }
-        public WCharacter RetinueBasic { get; }
-
-        public WCharacter RootElite { get; }
-        public WCharacter RootBasic { get; }
-
-        public WCharacter MilitiaMelee { get; }
-        public WCharacter MilitiaMeleeElite { get; }
-        public WCharacter MilitiaRanged { get; }
-        public WCharacter MilitiaRangedElite { get; }
-
-        public WCharacter CaravanGuard { get; }
-        public WCharacter CaravanMaster { get; }
-
-        public WCharacter Villager { get; }
-
-        public List<WCharacter> Troops { get; }
-        public List<WCharacter> RetinueTroops { get; }
-        public List<WCharacter> EliteTroops { get; }
-        public List<WCharacter> BasicTroops { get; }
-        public List<WCharacter> MilitiaTroops { get; }
-        public List<WCharacter> CaravanTroops { get; }
-        public List<WCharacter> VillagerTroops { get; }
-        public List<WCharacter> CivilianTroops { get; }
-        public List<WCharacter> BanditTroops { get; }
-    }
-
     /// <summary>
-    /// Wrapper for IFaction (Clan or Kingdom), exposes troop roots, retinues, and helpers for custom logic.
+    /// Wrapper for IFaction (Clan or Kingdom).
     /// </summary>
     [SafeClass]
-    public class WFaction(IFaction faction) : StringIdentifier, ITroopFaction
+    public class WFaction(IFaction faction) : BaseFaction
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly IFaction _faction = faction;
-
         public IFaction Base => _faction;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => _faction?.Name.ToString();
-
+        public override string Name => _faction?.Name.ToString();
         public override string StringId => _faction?.StringId;
+        public override string BannerCodeText => _faction?.Banner.Serialize();
+        public override uint Color => _faction?.Color ?? 0;
+        public override uint Color2 => _faction?.Color2 ?? 0;
 
-        public string BannerCodeText => _faction?.Banner.Serialize();
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Flags                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public uint Color => _faction?.Color ?? 0;
+        /* ━━━━━━━━ General ━━━━━━━ */
 
-        public uint Color2 => _faction?.Color2 ?? 0;
+        public bool HasFiefs => Base.Fiefs?.Count > 0;
+        public bool IsClan => Base is Clan;
+        public bool IsKingdom => Base is Kingdom;
 
-        public WCulture Culture => new(_faction?.Culture);
+        /* ━━━━━━━━ Player ━━━━━━━━ */
+
+        public bool IsPlayerFaction => this == Player.Clan || this == Player.Kingdom;
+        public bool IsPlayerClan => this == Player.Clan;
+        public bool IsPlayerKingdom => this == Player.Kingdom;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Lists                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public List<WSettlement> Settlements =>
             [.. _faction?.Settlements.Select(s => s == null ? null : new WSettlement(s))];
@@ -84,186 +59,131 @@ namespace Retinues.Game.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Assigns the given troop to the appropriate field based on its type.
-        /// </summary>
-        public void Set(WCharacter troop)
-        {
-            // Clear existing troop of same type (if any)
-            Get(troop.Type)?.Remove();
+        /* ━━━━━━━ Retinues ━━━━━━━ */
 
-            // Assign new troop
-            switch (troop.Type)
+        private WCharacter _retinueElite;
+        public override WCharacter RetinueElite
+        {
+            get => _retinueElite;
+            set
             {
-                case WCharacter.TroopType.RetinueElite:
-                    RetinueElite = troop;
-                    break;
-                case WCharacter.TroopType.RetinueBasic:
-                    RetinueBasic = troop;
-                    break;
-                case WCharacter.TroopType.Elite:
-                    RootElite = troop;
-                    break;
-                case WCharacter.TroopType.Basic:
-                    RootBasic = troop;
-                    break;
-                case WCharacter.TroopType.MilitiaMelee:
-                    MilitiaMelee = troop;
-                    break;
-                case WCharacter.TroopType.MilitiaMeleeElite:
-                    MilitiaMeleeElite = troop;
-                    break;
-                case WCharacter.TroopType.MilitiaRanged:
-                    MilitiaRanged = troop;
-                    break;
-                case WCharacter.TroopType.MilitiaRangedElite:
-                    MilitiaRangedElite = troop;
-                    break;
-                case WCharacter.TroopType.CaravanGuard:
-                    CaravanGuard = troop;
-                    break;
-                case WCharacter.TroopType.CaravanMaster:
-                    CaravanMaster = troop;
-                    break;
-                case WCharacter.TroopType.Villager:
-                    Villager = troop;
-                    break;
+                _retinueElite?.Remove();
+                _retinueElite = value;
             }
         }
 
-        /// <summary>
-        /// Gets the troop for the given type.
-        /// </summary>
-        public WCharacter Get(WCharacter.TroopType type)
+        private WCharacter _retinueBasic;
+        public override WCharacter RetinueBasic
         {
-            return type switch
+            get => _retinueBasic;
+            set
             {
-                WCharacter.TroopType.RetinueElite => RetinueElite,
-                WCharacter.TroopType.RetinueBasic => RetinueBasic,
-                WCharacter.TroopType.Elite => RootElite,
-                WCharacter.TroopType.Basic => RootBasic,
-                WCharacter.TroopType.MilitiaMelee => MilitiaMelee,
-                WCharacter.TroopType.MilitiaMeleeElite => MilitiaMeleeElite,
-                WCharacter.TroopType.MilitiaRanged => MilitiaRanged,
-                WCharacter.TroopType.MilitiaRangedElite => MilitiaRangedElite,
-                WCharacter.TroopType.CaravanGuard => CaravanGuard,
-                WCharacter.TroopType.CaravanMaster => CaravanMaster,
-                WCharacter.TroopType.Villager => Villager,
-                _ => null,
-            };
-        }
-
-        public WCharacter RetinueElite { get; set; }
-        public WCharacter RetinueBasic { get; set; }
-
-        public WCharacter RootElite { get; set; }
-        public WCharacter RootBasic { get; set; }
-
-        public WCharacter MilitiaMelee { get; set; }
-        public WCharacter MilitiaMeleeElite { get; set; }
-        public WCharacter MilitiaRanged { get; set; }
-        public WCharacter MilitiaRangedElite { get; set; }
-
-        public WCharacter CaravanGuard { get; set; }
-        public WCharacter CaravanMaster { get; set; }
-
-        public WCharacter Villager { get; set; }
-
-        /// <summary>
-        /// Gets all custom troops for this faction.
-        /// </summary>
-        public List<WCharacter> Troops
-        {
-            get
-            {
-                var troops = new List<WCharacter>();
-                foreach (var troop in RetinueTroops)
-                    troops.Add(troop);
-                foreach (var troop in EliteTroops)
-                    troops.Add(troop);
-                foreach (var troop in BasicTroops)
-                    troops.Add(troop);
-                foreach (var troop in MilitiaTroops)
-                    troops.Add(troop);
-                foreach (var troop in CaravanTroops)
-                    troops.Add(troop);
-                foreach (var troop in VillagerTroops)
-                    troops.Add(troop);
-                return troops;
+                _retinueBasic?.Remove();
+                _retinueBasic = value;
             }
         }
 
-        /// <summary>
-        /// Gets all retinue troops for this faction that are active.
-        /// </summary>
-        public List<WCharacter> RetinueTroops =>
-            [
-                .. new List<WCharacter> { RetinueElite, RetinueBasic }.Where(t =>
-                    t?.IsActive == true
-                ),
-            ];
+        /* ━━━━━━━━ Regular ━━━━━━━ */
 
-        /// <summary>
-        /// Gets all elite troops in the upgrade tree that are active.
-        /// </summary>
-        public List<WCharacter> EliteTroops =>
-            RootElite == null ? [] : [.. RootElite.Tree.Where(t => t?.IsActive == true)];
+        private WCharacter _rootElite;
+        public override WCharacter RootElite
+        {
+            get => _rootElite;
+            set
+            {
+                _rootElite?.Remove();
+                _rootElite = value;
+            }
+        }
 
-        /// <summary>
-        /// Gets all basic troops in the upgrade tree that are active.
-        /// </summary>
-        public List<WCharacter> BasicTroops =>
-            RootBasic == null ? [] : [.. RootBasic.Tree.Where(t => t?.IsActive == true)];
+        private WCharacter _rootBasic;
+        public override WCharacter RootBasic
+        {
+            get => _rootBasic;
+            set
+            {
+                _rootBasic?.Remove();
+                _rootBasic = value;
+            }
+        }
 
-        /// <summary>
-        /// Gets all militia troops for this faction that are active.
-        /// </summary>
-        public List<WCharacter> MilitiaTroops =>
-            DoctrineAPI.IsDoctrineUnlocked<CulturalPride>()
-                ?
-                [
-                    .. new List<WCharacter>
-                    {
-                        MilitiaMeleeElite,
-                        MilitiaMelee,
-                        MilitiaRangedElite,
-                        MilitiaRanged,
-                    }.Where(t => t?.IsActive == true),
-                ]
-                : [];
+        /* ━━━━━━━━ Special ━━━━━━━ */
 
-        /// <summary>
-        /// Gets all caravan troops for this faction that are active.
-        /// </summary>
-        public List<WCharacter> CaravanTroops =>
-            [
-                .. new List<WCharacter> { CaravanGuard, CaravanMaster }.Where(t =>
-                    t?.IsActive == true
-                ),
-            ];
+        private WCharacter _militiaMelee;
+        public override WCharacter MilitiaMelee
+        {
+            get => _militiaMelee;
+            set
+            {
+                _militiaMelee?.Remove();
+                _militiaMelee = value;
+            }
+        }
 
-        /// <summary>
-        /// Gets all villager troops for this faction that are active.
-        /// </summary>
-        public List<WCharacter> VillagerTroops =>
-            [.. new List<WCharacter> { Villager }.Where(t => t?.IsActive == true)];
+        private WCharacter _militiaMeleeElite;
+        public override WCharacter MilitiaMeleeElite
+        {
+            get => _militiaMeleeElite;
+            set
+            {
+                _militiaMeleeElite?.Remove();
+                _militiaMeleeElite = value;
+            }
+        }
 
-        /// <summary>
-        /// Gets all civilian troops for this faction that are active.
-        /// </summary>
-        public List<WCharacter> CivilianTroops => []; // Player factions don't have civilians
+        private WCharacter _militiaRanged;
+        public override WCharacter MilitiaRanged
+        {
+            get => _militiaRanged;
+            set
+            {
+                _militiaRanged?.Remove();
+                _militiaRanged = value;
+            }
+        }
 
-        /// <summary>
-        /// Gets all bandit troops for this faction that are active.
-        /// </summary>
-        public List<WCharacter> BanditTroops => []; // Player factions don't have bandits
+        private WCharacter _militiaRangedElite;
+        public override WCharacter MilitiaRangedElite
+        {
+            get => _militiaRangedElite;
+            set
+            {
+                _militiaRangedElite?.Remove();
+                _militiaRangedElite = value;
+            }
+        }
 
-        public bool HasFiefs => Base.Fiefs?.Count > 0;
-        public bool IsClan => Base is Clan;
-        public bool IsKingdom => Base is Kingdom;
+        private WCharacter _caravanGuard;
+        public override WCharacter CaravanGuard
+        {
+            get => _caravanGuard;
+            set
+            {
+                _caravanGuard?.Remove();
+                _caravanGuard = value;
+            }
+        }
 
-        public bool IsPlayerFaction => this == Player.Clan || this == Player.Kingdom;
-        public bool IsPlayerClan => this == Player.Clan;
-        public bool IsPlayerKingdom => this == Player.Kingdom;
+        private WCharacter _caravanMaster;
+        public override WCharacter CaravanMaster
+        {
+            get => _caravanMaster;
+            set
+            {
+                _caravanMaster?.Remove();
+                _caravanMaster = value;
+            }
+        }
+
+        private WCharacter _villager;
+        public override WCharacter Villager
+        {
+            get => _villager;
+            set
+            {
+                _villager?.Remove();
+                _villager = value;
+            }
+        }
     }
 }

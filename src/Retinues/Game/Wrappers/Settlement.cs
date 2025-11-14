@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
-using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Settlements;
 
@@ -11,7 +10,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for Settlement, provides helpers for notables, garrison, culture, faction, and volunteer swapping.
     /// </summary>
     [SafeClass]
-    public class WSettlement(Settlement settlement) : FactionObject
+    public class WSettlement(Settlement settlement) : BaseFactionMember
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Static                         //

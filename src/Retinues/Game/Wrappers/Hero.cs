@@ -1,4 +1,3 @@
-using Retinues.Game.Wrappers.Base;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
@@ -8,7 +7,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for Hero, exposes culture, clan, kingdom, and party leader status for custom logic.
     /// </summary>
     [SafeClass]
-    public class WHero(Hero hero) : FactionObject
+    public class WHero(Hero hero) : BaseFactionMember
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //

@@ -4,7 +4,6 @@ using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game;
-using Retinues.Game.Helpers.Character;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Library;
@@ -19,38 +18,24 @@ namespace Retinues.Troops
     [SafeClass]
     public static class TroopBuilder
     {
-        private static bool troopsAwaitingRegistration = false;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Ensures all required custom troops exist for the given faction.
-        /// Registers new troops if any were created.
+        /// Only refreshes parties and fixes the main party leader if at least
+        /// one non-retinue troop was created during this call.
         /// </summary>
         public static void EnsureTroopsExist(WFaction faction)
         {
             if (faction == null)
                 return; // Cannot ensure troops exist for null (no kingdom?) faction.
 
-            UpdateFactionTroops(faction);
-            RegisterNewTroops(faction);
-        }
+            var createdNonRetinue = UpdateFactionTroops(faction);
 
-        /// <summary>
-        /// Registers any newly created troops into the CharacterGraphIndex.
-        /// </summary>
-        public static void RegisterNewTroops(WFaction faction)
-        {
-            if (faction == null)
-                return; // Cannot ensure troops exist for null (no kingdom?) faction.
-
-            if (!troopsAwaitingRegistration)
-                return; // No new troops to register
-
-            CharacterIndexer.RegisterFactionRoots(faction);
-            troopsAwaitingRegistration = false; // Reset the flag after registration
+            if (!createdNonRetinue)
+                return;
 
             // Update all existing parties for this faction
             WParty.SwapAll(
@@ -66,12 +51,56 @@ namespace Retinues.Troops
         }
 
         /// <summary>
-        /// Ensures all required custom troops exist for the given faction, creating defaults if needed.
+        /// Internal implementation that ensures retinues and, when allowed, regular/militia/special troops.
+        /// Returns true if at least one non-retinue troop (regular, militia, special) was created.
         /// </summary>
-        public static void UpdateFactionTroops(WFaction faction)
+        private static bool UpdateFactionTroops(WFaction faction)
         {
+            if (faction == null)
+                return false;
+
             Log.Debug($"Ensuring troops exist for faction: {faction?.Name ?? "null"}");
 
+            // Retinues are always ensured, but do NOT trigger party swaps.
+            EnsureRetinueTroops(faction);
+
+            // Player clan without fiefs and no recruit-anywhere: skip non-retinue troops.
+            if (ShouldSkipNonRetinueForPlayerClan(faction))
+            {
+                Log.Debug(
+                    "Skipping non-retinue troop initialization for player clan without fiefs "
+                        + "and recruit-anywhere disabled."
+                );
+                return false;
+            }
+
+            bool createdAnyNonRetinue = false;
+
+            createdAnyNonRetinue |= EnsureRegularTroops(faction);
+            createdAnyNonRetinue |= EnsureMilitiaTroops(faction);
+            createdAnyNonRetinue |= EnsureSpecialTroops(faction);
+
+            return createdAnyNonRetinue;
+        }
+
+        /// <summary>
+        /// Determines whether we should skip creating non-retinue troops for the player clan.
+        /// </summary>
+        private static bool ShouldSkipNonRetinueForPlayerClan(WFaction faction)
+        {
+            if (faction != Player.Clan)
+                return false;
+
+            var recruitAnywhereEnabled = Config.RecruitAnywhere == true;
+            return !faction.HasFiefs && !recruitAnywhereEnabled;
+        }
+
+        /// <summary>
+        /// Ensures both basic and elite retinues exist for the faction.
+        /// Retinue creation does not count as "non-retinue" for party refresh.
+        /// </summary>
+        private static void EnsureRetinueTroops(WFaction faction)
+        {
             if (faction.RetinueElite is null)
                 CreateRetinueTroop(faction, isElite: true);
             else
@@ -81,122 +110,149 @@ namespace Retinues.Troops
                 CreateRetinueTroop(faction, isElite: false);
             else
                 Log.Debug("Basic retinue found, no need to initialize.");
+        }
 
-            if (faction == Player.Clan)
-                if (!faction.HasFiefs && !Config.RecruitAnywhere == true)
-                    return; // Can't initialize troops for player clan without fiefs or recruit anywhere
-
+        /// <summary>
+        /// Ensures basic and elite regular custom troops exist (if possible).
+        /// May show an inquiry to let the player choose between copying the culture
+        /// tree or starting from scratch.
+        ///
+        /// NOTE: The actual creation of regular troops happens later in the
+        /// inquiry callbacks, so this method returns false to avoid triggering
+        /// party swaps prematurely.
+        /// </summary>
+        private static bool EnsureRegularTroops(WFaction faction)
+        {
             var hasBasic = faction.BasicTroops.Count > 0;
             var hasElite = faction.EliteTroops.Count > 0;
 
             Log.Debug($"Custom troop presence: Basic={hasBasic}, Elite={hasElite}.");
 
-            if (!hasBasic || !hasElite)
+            if (hasBasic && hasElite)
+                return false;
+
+            bool canInitClanTroops = faction.HasFiefs || Config.RecruitAnywhere == true;
+            if (!canInitClanTroops)
+                return false;
+
+            // Local function to create all missing troops
+            void CreateAllTroops(bool copyWholeTree)
             {
-                bool canInitClanTroops = faction.HasFiefs || Config.RecruitAnywhere == true;
+                if (!hasBasic)
+                    CreateTroops(faction, isElite: false, copyWholeTree: copyWholeTree);
+                if (!hasElite)
+                    CreateTroops(faction, isElite: true, copyWholeTree: copyWholeTree);
+            }
 
-                if (canInitClanTroops)
-                {
-                    // Local function to create all missing troops
-                    void CreateAllTroops(bool copyWholeTree)
-                    {
-                        if (!hasBasic)
-                            CreateTroops(faction, false, copyWholeTree);
-                        if (!hasElite)
-                            CreateTroops(faction, true, copyWholeTree);
-                    }
-
-                    InformationManager.ShowInquiry(
-                        new InquiryData(
-                            titleText: L.S("custom_troops_inquiry_title", "Custom Troops Unlocked"),
-                            text: L.T(
-                                    "custom_troops_inquiry_body",
-                                    "Your {FACTION}'s custom troops are now unlocked.\n\nWould you like to clone the entire {CULTURE} troop tree, or would you prefer building them from scratch?\n\nCopying your culture's troops will provide you with good gear and good troops. Starting from scratch is the more difficult choice.\n\nThis decision is irreversible."
-                                )
-                                .SetTextVariable(
-                                    "FACTION",
-                                    faction.IsPlayerClan ? "clan" : "kingdom"
-                                )
-                                .SetTextVariable("CULTURE", faction.Culture?.Name ?? "culture")
-                                .ToString(),
-                            isAffirmativeOptionShown: true,
-                            isNegativeOptionShown: true,
-                            affirmativeText: L.T("create_from_culture", "Copy {CULTURE}'s Troops")
-                                .SetTextVariable("CULTURE", faction.Culture?.Name ?? "Culture")
-                                .ToString(),
-                            negativeText: L.S("create_from_scratch", "Start from Scratch"),
-                            affirmativeAction: () => CreateAllTroops(copyWholeTree: true),
-                            negativeAction: () => CreateAllTroops(copyWholeTree: false)
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    titleText: L.S("custom_troops_inquiry_title", "Custom Troops Unlocked"),
+                    text: L.T(
+                            "custom_troops_inquiry_body",
+                            "Your {FACTION}'s custom troops are now unlocked.\\n\\nWould you like to clone the entire {CULTURE} troop tree, or would you prefer building them from scratch?\\n\\nCopying your culture's troops will provide you with good gear and good troops. Starting from scratch is the more difficult choice.\\n\\nThis decision is irreversible."
                         )
-                    );
-                }
-            }
-
-            if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
-            {
-                bool hasMilitiaMelee = faction.MilitiaMelee != null;
-                bool hasMilitiaMeleeElite = faction.MilitiaMeleeElite != null;
-                bool hasMilitiaRanged = faction.MilitiaRanged != null;
-                bool hasMilitiaRangedElite = faction.MilitiaRangedElite != null;
-
-                Log.Debug(
-                    $"Militia presence: Melee={hasMilitiaMelee}, MeleeElite={hasMilitiaMeleeElite}, Ranged={hasMilitiaRanged}, RangedElite={hasMilitiaRangedElite}."
-                );
-
-                if (
-                    !(
-                        hasMilitiaMelee
-                        && hasMilitiaMeleeElite
-                        && hasMilitiaRanged
-                        && hasMilitiaRangedElite
-                    )
+                        .SetTextVariable("FACTION", faction.IsPlayerClan ? "clan" : "kingdom")
+                        .SetTextVariable("CULTURE", faction.Culture?.Name ?? "culture")
+                        .ToString(),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.T("create_from_culture", "Copy {CULTURE}'s Troops")
+                        .SetTextVariable("CULTURE", faction.Culture?.Name ?? "Culture")
+                        .ToString(),
+                    negativeText: L.S("create_from_scratch", "Start from Scratch"),
+                    affirmativeAction: () => CreateAllTroops(copyWholeTree: true),
+                    negativeAction: () => CreateAllTroops(copyWholeTree: false)
                 )
-                {
-                    {
-                        Log.Info("Initializing missing militia troops.");
+            );
 
-                        if (!hasMilitiaMelee)
-                            CreateMilitiaTroop(faction, isElite: false, isMelee: true);
-                        if (!hasMilitiaMeleeElite)
-                            CreateMilitiaTroop(faction, isElite: true, isMelee: true);
-                        if (!hasMilitiaRanged)
-                            CreateMilitiaTroop(faction, isElite: false, isMelee: false);
-                        if (!hasMilitiaRangedElite)
-                            CreateMilitiaTroop(faction, isElite: true, isMelee: false);
-                    }
-                }
-            }
+            // Regular troops are created asynchronously via the inquiry callbacks,
+            // so we cannot detect creation here. Do not trigger party swaps.
+            return false;
+        }
 
-            if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+        /// <summary>
+        /// Ensures militia troops exist for the faction when the Cultural Pride
+        /// doctrine is unlocked. Returns true if any militia troop was created.
+        /// </summary>
+        private static bool EnsureMilitiaTroops(WFaction faction)
+        {
+            if (!DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
+                return false;
+
+            bool hasMilitiaMelee = faction.MilitiaMelee != null;
+            bool hasMilitiaMeleeElite = faction.MilitiaMeleeElite != null;
+            bool hasMilitiaRanged = faction.MilitiaRanged != null;
+            bool hasMilitiaRangedElite = faction.MilitiaRangedElite != null;
+
+            Log.Debug(
+                $"Militia presence: Melee={hasMilitiaMelee}, MeleeElite={hasMilitiaMeleeElite}, "
+                    + $"Ranged={hasMilitiaRanged}, RangedElite={hasMilitiaRangedElite}."
+            );
+
+            bool created = false;
+
+            if (!hasMilitiaMelee)
             {
-                var culture = faction.Culture;
-
-                if (faction.CaravanGuard is null && culture?.CaravanGuard != null)
-                {
-                    Log.Info("Creating Caravan Guard troop for faction.");
-                    CreateSpecialTroop(
-                        culture.CaravanGuard,
-                        faction,
-                        SpecialTroopType.CaravanGuard
-                    );
-                }
-
-                if (faction.CaravanMaster is null && culture?.CaravanMaster != null)
-                {
-                    Log.Info("Creating Caravan Master troop for faction.");
-                    CreateSpecialTroop(
-                        culture.CaravanMaster,
-                        faction,
-                        SpecialTroopType.CaravanMaster
-                    );
-                }
-
-                if (faction.Villager is null && culture?.Villager != null)
-                {
-                    Log.Info("Creating Villager troop for faction.");
-                    CreateSpecialTroop(culture.Villager, faction, SpecialTroopType.Villager);
-                }
+                CreateMilitiaTroop(faction, isElite: false, isMelee: true);
+                created = true;
             }
+
+            if (!hasMilitiaMeleeElite)
+            {
+                CreateMilitiaTroop(faction, isElite: true, isMelee: true);
+                created = true;
+            }
+
+            if (!hasMilitiaRanged)
+            {
+                CreateMilitiaTroop(faction, isElite: false, isMelee: false);
+                created = true;
+            }
+
+            if (!hasMilitiaRangedElite)
+            {
+                CreateMilitiaTroop(faction, isElite: true, isMelee: false);
+                created = true;
+            }
+
+            return created;
+        }
+
+        /// <summary>
+        /// Ensures special troops (caravan guard/master, villager) exist for the
+        /// faction when the Royal Patronage doctrine is unlocked.
+        /// Returns true if any special troop was created.
+        /// </summary>
+        private static bool EnsureSpecialTroops(WFaction faction)
+        {
+            if (!DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+                return false;
+
+            var culture = faction.Culture;
+            bool created = false;
+
+            if (faction.CaravanGuard is null && culture?.CaravanGuard != null)
+            {
+                Log.Info("Creating Caravan Guard troop for faction.");
+                CreateSpecialTroop(culture.CaravanGuard, faction, RootCategory.CaravanGuard);
+                created = true;
+            }
+
+            if (faction.CaravanMaster is null && culture?.CaravanMaster != null)
+            {
+                Log.Info("Creating Caravan Master troop for faction.");
+                CreateSpecialTroop(culture.CaravanMaster, faction, RootCategory.CaravanMaster);
+                created = true;
+            }
+
+            if (faction.Villager is null && culture?.Villager != null)
+            {
+                Log.Info("Creating Villager troop for faction.");
+                CreateSpecialTroop(culture.Villager, faction, RootCategory.Villager);
+                created = true;
+            }
+
+            return created;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -210,44 +266,33 @@ namespace Retinues.Troops
         {
             Log.Info($"Creating retinue troop for faction {faction.Name} (elite={isElite})");
 
-            troopsAwaitingRegistration = true; // Mark that new troops have been created
-
             var root = isElite ? faction.Culture.RootElite : faction.Culture.RootBasic;
             if (root == null)
             {
                 Log.Error(
-                    $"Cannot create retinue troop for faction {faction.Name} because its culture {faction.Culture.Name} has no {(isElite ? "elite" : "basic")} root troop."
+                    $"Cannot create retinue troop for faction {faction.Name} because its culture {faction.Culture.Name} "
+                        + $"has no {(isElite ? "elite" : "basic")} root troop."
                 );
                 return;
             }
 
             var tpl = FindTemplate(root, tierBonus: faction == Player.Kingdom ? 2 : 0);
 
-            Log.Info($"Creating retinue troop from template {tpl.Name} ({tpl})");
-            Log.Info($"Tier: {tpl.Tier}");
+            var retinue = isElite
+                ? new WCharacter(faction, RootCategory.RetinueElite)
+                : new WCharacter(faction, RootCategory.RetinueBasic);
 
-            var retinue = new WCharacter();
-
+            // Copy from template
             retinue.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
             // Rename it
             retinue.Name = MakeRetinueName(faction, isElite);
-
-            Log.Info(
-                $"Created retinue troop {retinue.Name} ({retinue}) for {faction.Name} (from {tpl})"
-            );
 
             // Non-transferable
             retinue.IsNotTransferableInPartyScreen = true;
 
             // Unlock items
             UnlockAll(retinue);
-
-            // Assign to faction
-            if (isElite)
-                faction.RetinueElite = retinue;
-            else
-                faction.RetinueBasic = retinue;
         }
 
         /// <summary>
@@ -282,8 +327,6 @@ namespace Retinues.Troops
         /// </summary>
         private static void CreateMilitiaTroop(WFaction faction, bool isElite, bool isMelee)
         {
-            troopsAwaitingRegistration = true; // Mark that new troops have been created
-
             WCharacter root;
 
             if (isMelee)
@@ -294,17 +337,20 @@ namespace Retinues.Troops
             if (root == null)
             {
                 Log.Error(
-                    $"Cannot create militia troop for faction {faction.Name} because its culture {faction.Culture.Name} has no {(isElite ? "elite" : "basic")} {(isMelee ? "melee" : "ranged")} militia troop."
+                    $"Cannot create militia troop for faction {faction.Name} because its culture {faction.Culture.Name} "
+                        + $"has no {(isElite ? "elite" : "basic")} {(isMelee ? "melee" : "ranged")} militia troop."
                 );
                 return;
             }
 
-            var militia = new WCharacter();
+            var category = isMelee
+                ? (isElite ? RootCategory.MilitiaMeleeElite : RootCategory.MilitiaMelee)
+                : (isElite ? RootCategory.MilitiaRangedElite : RootCategory.MilitiaRanged);
 
+            var militia = new WCharacter(faction, category);
+
+            // Copy from template
             militia.FillFrom(root, keepUpgrades: false, keepEquipment: true, keepSkills: true);
-
-            Log.Info($"Created militia troop {militia.Name} for {faction.Name} (from {root})");
-            Log.Info($"troop vanilla id set to {militia.VanillaStringId}");
 
             // Rename it
             militia.Name = BuildTroopName(root, faction);
@@ -315,51 +361,26 @@ namespace Retinues.Troops
             // Unlock items
             UnlockAll(militia);
 
-            // Assign to faction
-            if (isMelee)
-            {
-                if (isElite)
-                    faction.MilitiaMeleeElite = militia;
-                else
-                    faction.MilitiaMelee = militia;
-            }
-            else
-            {
-                if (isElite)
-                    faction.MilitiaRangedElite = militia;
-                else
-                    faction.MilitiaRanged = militia;
-            }
+            Log.Info($"Created militia troop {militia.Name} for {faction.Name} (from {root})");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Special Troops                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private enum SpecialTroopType
-        {
-            CaravanGuard,
-            CaravanMaster,
-            Villager,
-        }
-
         private static void CreateSpecialTroop(
             WCharacter tpl,
             WFaction faction,
-            SpecialTroopType type
+            RootCategory category
         )
         {
-            troopsAwaitingRegistration = true; // Mark that new troops have been created
-
             if (tpl == null)
                 return;
 
-            var troop = new WCharacter();
+            var troop = new WCharacter(faction, category);
 
+            // Copy from template
             troop.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
-
-            Log.Info($"Created special troop {troop.Name} (from {tpl})");
-            Log.Info($"troop vanilla id set to {troop.VanillaStringId}");
 
             // Rename it
             troop.Name = BuildTroopName(tpl, faction);
@@ -367,21 +388,7 @@ namespace Retinues.Troops
             // Unlock items
             UnlockAll(troop);
 
-            // Assign to faction
-            switch (type)
-            {
-                case SpecialTroopType.CaravanGuard:
-                    faction.CaravanGuard = troop;
-                    break;
-                case SpecialTroopType.CaravanMaster:
-                    faction.CaravanMaster = troop;
-                    break;
-                case SpecialTroopType.Villager:
-                    faction.Villager = troop;
-                    break;
-                default:
-                    break;
-            }
+            Log.Info($"Created special troop {troop.Name} (from {tpl})");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -389,19 +396,18 @@ namespace Retinues.Troops
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Build the elite tree for a faction.
+        /// Build the elite or basic tree for a faction.
         /// </summary>
         public static void CreateTroops(WFaction faction, bool isElite, bool copyWholeTree)
         {
-            troopsAwaitingRegistration = true; // Mark that new troops have been created
-
             var culture = faction.Culture;
 
             var root = isElite ? culture?.RootElite : culture?.RootBasic;
             if (root == null)
             {
                 Log.Warn(
-                    $"Cannot clone {(isElite ? "elite" : "basic")} troops for {faction.Name}: no {(isElite ? "elite" : "basic")} culture root."
+                    $"Cannot clone {(isElite ? "elite" : "basic")} troops for {faction.Name}: "
+                        + $"no {(isElite ? "elite" : "basic")} culture root."
                 );
                 return;
             }
@@ -413,12 +419,6 @@ namespace Retinues.Troops
             Log.Info(
                 $"Cloned {clones.Count} {(isElite ? "elite" : "basic")} troops for {faction.Name}."
             );
-
-            // Assign to faction
-            if (isElite)
-                faction.RootElite = clones.FirstOrDefault();
-            else
-                faction.RootBasic = clones.FirstOrDefault();
         }
 
         /// <summary>
@@ -437,22 +437,29 @@ namespace Retinues.Troops
             if (tpl == null)
             {
                 Log.Error(
-                    $"Cannot clone troop {vanilla.Name} because no template was found for {(isElite ? "elite" : "basic")} troops."
+                    $"Cannot clone troop {vanilla.Name} because no template was found for "
+                        + $"{(isElite ? "elite" : "basic")} troops."
                 );
                 yield break;
             }
 
             // Wrap the custom troop
-            var troop = new WCharacter();
+            WCharacter troop = null;
+
+            // If parent is given, create as upgrade target of parent
+            if (parent != null)
+                troop = new WCharacter(parent);
+            else
+                // If no parent, create as root troop of faction
+                troop = isElite
+                    ? new WCharacter(faction, RootCategory.RootElite)
+                    : new WCharacter(faction, RootCategory.RootBasic);
 
             // Copy from the original troop
             troop.FillFrom(tpl, keepUpgrades: false, keepEquipment: true, keepSkills: true);
 
             // Rename it
             troop.Name = BuildTroopName(tpl, faction);
-
-            // Add to upgrade targets of the parent, if any
-            parent?.AddUpgradeTarget(troop);
 
             // Unlock items (vanilla source items)
             UnlockAll(vanilla);

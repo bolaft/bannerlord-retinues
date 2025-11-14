@@ -110,7 +110,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         private bool IsEquipped => !IsEmptyRow && EquippedItem == RowItem;
         private bool IsEmptyRow => RowItem == null;
         private bool IsRequirementBlocked =>
-            !IsEmptyRow && State.Troop?.MeetsItemSkillRequirements(RowItem) == false;
+            !IsEmptyRow
+            && EquipmentManager.MeetsItemSkillRequirements(State.Troop, RowItem) == false;
         private bool IsTierBlocked =>
             !IsEmptyRow
             && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()

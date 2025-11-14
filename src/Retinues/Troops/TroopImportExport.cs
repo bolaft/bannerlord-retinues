@@ -122,7 +122,7 @@ namespace Retinues.Troops
             [
                 .. Directory
                     .EnumerateFiles(DefaultDir, "*.xml", SearchOption.TopDirectoryOnly)
-                    .Where(p => IsUnifiedExport(p) || LegacyImporter.IsLegacyExport(p))
+                    .Where(p => IsUnifiedExport(p) || LegacyTroopImporter.IsLegacyExport(p))
                     .OrderByDescending(File.GetLastWriteTimeUtc)
                     .Select(Path.GetFileName),
             ];
@@ -244,10 +244,10 @@ namespace Retinues.Troops
 
             RetinuesTroopsPackage pkg;
 
-            if (LegacyImporter.IsLegacyExport(path))
+            if (LegacyTroopImporter.IsLegacyExport(path))
             {
                 // Legacy: Troops -> TroopSaveData -> LegacyTroopSaveData -> FactionSaveData
-                pkg = LegacyImporter.LoadLegacyPackage(path);
+                pkg = LegacyTroopImporter.LoadLegacyPackage(path);
                 if (pkg == null)
                     throw new InvalidOperationException(
                         $"Failed to load legacy export '{fileName}'."
@@ -279,7 +279,7 @@ namespace Retinues.Troops
                 if (pkg.HasCultures)
                 {
                     foreach (var f in pkg.Cultures)
-                        f.DeserializeTroops();
+                        f.Apply();
                 }
             }
 
@@ -435,8 +435,8 @@ namespace Retinues.Troops
                     {
                         var abs = Path.Combine(DefaultDir, choice);
 
-                        if (LegacyImporter.IsLegacyExport(abs))
-                            pkg = LegacyImporter.LoadLegacyPackage(abs);
+                        if (LegacyTroopImporter.IsLegacyExport(abs))
+                            pkg = LegacyTroopImporter.LoadLegacyPackage(abs);
                         else
                             pkg = DeserializeUnifiedFromFile(abs);
                     }

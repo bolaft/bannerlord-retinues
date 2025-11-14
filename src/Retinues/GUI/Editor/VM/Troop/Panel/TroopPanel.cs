@@ -524,17 +524,14 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                             State.Troop.Culture = new WCulture(culture);
 
                             // Update visuals.
-                            BodyPropertyHelper.ApplyPropertiesFromCulture(State.Troop, culture);
+                            BodyHelper.ApplyPropertiesFromCulture(State.Troop, culture);
 
                             // Reapply prior race if needed.
                             if (priorRace >= 0)
                             {
                                 State.Troop.Race = priorRace;
-                                State.Troop.EnsureOwnBodyRange();
+                                State.Troop.Body.EnsureOwnBodyRange();
                             }
-
-                            // Invalidate troop matches for culture change.
-                            TroopMatcher.InvalidateTroopCache(State.Troop);
 
                             // Refresh VM bindings & visuals.
                             State.UpdateTroop(State.Troop);
@@ -592,7 +589,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                             if (selected?.Count > 0 && selected[0]?.Identifier is int race)
                             {
                                 State.Troop.Race = race;
-                                State.Troop.EnsureOwnBodyRange();
+                                State.Troop.Body.EnsureOwnBodyRange();
                                 State.UpdateTroop(State.Troop);
                             }
                         },
@@ -820,8 +817,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         affirmativeAction: () =>
                         {
                             RetinueManager.RankUp(State.Troop);
-
-                            TroopMatcher.InvalidateTroopCache(State.Troop);
 
                             // Refresh bindings
                             OnPropertyChanged(nameof(TierText));

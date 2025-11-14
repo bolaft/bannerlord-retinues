@@ -140,33 +140,22 @@ namespace Retinues.Managers
             if (retinue == null || !retinue.IsRetinue)
                 return sources;
 
-            WCharacter cultureRoot = retinue.IsElite
-                ? retinue.Culture?.RootElite
-                : retinue.Culture?.RootBasic;
-            WCharacter factionRoot = retinue.IsElite
-                ? retinue.Faction?.RootElite
-                : retinue.Faction?.RootBasic;
+            // Helper to add a source troop from a faction or culture.
+            void AddSourceIfValid(BaseFaction f)
+            {
+                if (f == null)
+                    return;
 
-            var (weapons, skills) = TroopMatcher.GetTroopClassesSkills(retinue);
+                WCharacter root = retinue.IsElite ? f.RootElite : f.RootBasic;
 
-            var culturePick = TroopMatcher.PickBestFromTree(
-                cultureRoot,
-                retinue,
-                troopWeapons: weapons,
-                troopSkills: skills
-            );
-            if (culturePick?.IsValid == true)
-                sources.Add(culturePick);
+                var pick = TroopMatcher.PickBestFromTree(root, retinue);
 
-            var factionPick = TroopMatcher.PickBestFromTree(
-                factionRoot,
-                retinue,
-                exclude: culturePick,
-                troopWeapons: weapons,
-                troopSkills: skills
-            );
-            if (factionPick?.IsValid == true)
-                sources.Add(factionPick);
+                if (pick?.IsValid == true)
+                    sources.Add(pick);
+            }
+
+            AddSourceIfValid(retinue.Faction);
+            AddSourceIfValid(retinue.Culture);
 
             return sources;
         }

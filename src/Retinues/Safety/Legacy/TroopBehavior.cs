@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -35,7 +34,9 @@ namespace Retinues.Safety.Legacy
                 return;
             }
 
-            var (clanSaveData, kingdomSaveData) = ConvertLegacyDataLegacyData(TroopData);
+            var (clanSaveData, kingdomSaveData) = LegacyTroopSaveConverter.ConvertLegacyFactionData(
+                TroopData
+            );
 
             Log.Info("Applying migrated troop data to factions...");
 
@@ -44,37 +45,6 @@ namespace Retinues.Safety.Legacy
             kingdomSaveData.Apply(Player.Kingdom);
 
             Log.Debug($"Migrated {TroopData.Count} legacy root troops.");
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static (FactionSaveData clan, FactionSaveData kingdom) ConvertLegacyDataLegacyData(
-            List<LegacyTroopSaveData> roots
-        )
-        {
-            var clanSaveData = new FactionSaveData(Player.Clan);
-            var kingdomSaveData = new FactionSaveData(Player.Kingdom);
-
-            Log.Info($"{roots.Count} legacy root troops found, migrating.");
-
-            foreach (var root in roots)
-            {
-                // Determine if kingdom or clan
-                bool isKingdom = IsKingdom(root.StringId);
-
-                // Load legacy troop data
-                var troop = LegacyTroopSaveLoader.Load(root, faction: isKingdom ? Player.Kingdom : Player.Clan, parent: null, type: GetTroopType(root.StringId));
-
-                // Determine faction
-                var factionData = isKingdom ? kingdomSaveData : clanSaveData;
-
-                // Assign to the faction
-                factionData.Assign(troop);
-            }
-
-            return (clanSaveData, kingdomSaveData);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -97,12 +67,12 @@ namespace Retinues.Safety.Legacy
         {
             Helpers.EnsureMainPartyLeader();
 
-            if (LegacyTroopSaveLoader.TroopIdMap.Count == 0)
+            if (LegacyTroopSaveConverter.TroopIdMap.Count == 0)
                 return; // No troops to swap
 
             Log.Info("Swapping out legacy troops in parties and settlements...");
 
-            foreach (var kvp in LegacyTroopSaveLoader.TroopIdMap)
+            foreach (var kvp in LegacyTroopSaveConverter.TroopIdMap)
             {
                 var oldId = kvp.Key;
                 var newId = kvp.Value;
@@ -128,41 +98,7 @@ namespace Retinues.Safety.Legacy
                 }
             }
 
-            LegacyTroopSaveLoader.TroopIdMap.Clear();
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Returns true if the ID is an elite troop.
-        /// </summary>
-        private static bool IsElite(string id) => id != null && id.Contains("_elite_");
-
-        /// <summary>
-        /// Returns true if the ID is a kingdom troop.
-        /// </summary>
-        private static bool IsKingdom(string id) => id != null && id.Contains("_kingdom_");
-
-        /// <summary>
-        /// Determines the troop type from the ID.
-        /// </summary>
-        private static WCharacter.TroopType GetTroopType(string id)
-        {
-            if (id == null)
-                return WCharacter.TroopType.Other;
-
-            // Special troops
-            if (id.Contains("_retinue_"))
-                return IsElite(id) ? WCharacter.TroopType.RetinueElite : WCharacter.TroopType.RetinueBasic;
-            if (id.Contains("_mmilitia_"))
-                return IsElite(id) ? WCharacter.TroopType.MilitiaMeleeElite : WCharacter.TroopType.MilitiaMelee;
-            if (id.Contains("_rmilitia_"))
-                return IsElite(id) ? WCharacter.TroopType.MilitiaRangedElite : WCharacter.TroopType.MilitiaRanged;
-
-            // Regular troops
-            return IsElite(id) ? WCharacter.TroopType.Elite : WCharacter.TroopType.Basic;
+            LegacyTroopSaveConverter.TroopIdMap.Clear();
         }
     }
 }

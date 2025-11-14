@@ -350,7 +350,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyNextAgePreset(State.Troop);
+            BodyHelper.ApplyNextAgePreset(State.Troop);
             State.UpdateAppearance();
         }
 
@@ -360,7 +360,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyPrevAgePreset(State.Troop);
+            BodyHelper.ApplyPrevAgePreset(State.Troop);
             State.UpdateAppearance();
         }
 
@@ -370,7 +370,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyNextHeightPreset(State.Troop);
+            BodyHelper.ApplyNextHeightPreset(State.Troop);
             State.UpdateAppearance();
         }
 
@@ -380,7 +380,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyPrevHeightPreset(State.Troop);
+            BodyHelper.ApplyPrevHeightPreset(State.Troop);
             State.UpdateAppearance();
         }
 
@@ -390,7 +390,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyNextWeightPreset(State.Troop);
+            BodyHelper.ApplyNextWeightPreset(State.Troop);
             State.UpdateAppearance();
         }
 
@@ -400,7 +400,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyPrevWeightPreset(State.Troop);
+            BodyHelper.ApplyPrevWeightPreset(State.Troop);
             State.UpdateAppearance();
         }
 
@@ -410,7 +410,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyNextBuildPreset(State.Troop);
+            BodyHelper.ApplyNextBuildPreset(State.Troop);
             State.UpdateAppearance();
         }
 
@@ -420,7 +420,7 @@ namespace Retinues.GUI.Editor.VM.Troop
             if (!Config.EnableTroopCustomization)
                 return;
 
-            BodyPropertyHelper.ApplyPrevBuildPreset(State.Troop);
+            BodyHelper.ApplyPrevBuildPreset(State.Troop);
             State.UpdateAppearance();
         }
 

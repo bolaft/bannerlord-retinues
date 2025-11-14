@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -13,29 +12,24 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for CultureObject, exposing troop roots and militia for custom logic.
     /// </summary>
     [SafeClass]
-    public class WCulture(CultureObject culture) : StringIdentifier, ITroopFaction
+    public class WCulture(CultureObject culture) : BaseFaction
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly CultureObject _culture = culture;
-
         public CultureObject Base => _culture;
-
-        public WCulture Culture => this; // Self-reference for interface
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => _culture?.Name?.ToString();
-
-        public override string StringId => _culture?.StringId ?? Name; // Some cultures have no StringId?
-
-        public uint Color => _culture?.Color ?? 0;
-
-        public uint Color2 => _culture?.Color2 ?? 0;
+        public override string Name => Base?.Name?.ToString();
+        public override string StringId => Base?.StringId ?? Name; // Some cultures have no StringId?
+        public override string BannerCodeText => null; // TODO
+        public override uint Color => Base?.Color ?? 0;
+        public override uint Color2 => Base?.Color2 ?? 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //
@@ -43,9 +37,9 @@ namespace Retinues.Game.Wrappers
 
 #if BL13
         public BannerImageIdentifier Image =>
-            _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+            Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
         public ImageIdentifier ImageIdentifier =>
-            _culture.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+            Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
 #else
         public BannerCode BannerCode => BannerCode.CreateFrom(Base.BannerKey);
         public ImageIdentifierVM Image => new(BannerCode);
@@ -53,126 +47,96 @@ namespace Retinues.Game.Wrappers
 #endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Troops                         //
+        //                          Roots                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Gets the basic root troop for this culture.
-        /// </summary>
-        public WCharacter RootBasic =>
-            _culture?.BasicTroop != null ? new(_culture.BasicTroop) : null;
-
-        /// <summary>
-        /// Gets the elite root troop for this culture.
-        /// </summary>
-        public WCharacter RootElite =>
-            _culture?.EliteBasicTroop != null ? new(_culture.EliteBasicTroop) : null;
-
-        /// <summary>
-        /// Gets the melee militia troop for this culture.
-        /// </summary>
-        public WCharacter MilitiaMelee =>
-            _culture?.MeleeMilitiaTroop != null ? new(_culture.MeleeMilitiaTroop) : null;
-
-        /// <summary>
-        /// Gets the elite melee militia troop for this culture.
-        /// </summary>
-        public WCharacter MilitiaMeleeElite =>
-            _culture?.MeleeEliteMilitiaTroop != null ? new(_culture.MeleeEliteMilitiaTroop) : null;
-
-        /// <summary>
-        /// Gets the ranged militia troop for this culture.
-        /// </summary>
-        public WCharacter MilitiaRanged =>
-            _culture?.RangedMilitiaTroop != null ? new(_culture.RangedMilitiaTroop) : null;
-
-        /// <summary>
-        /// Gets the elite ranged militia troop for this culture.
-        /// </summary>
-        public WCharacter MilitiaRangedElite =>
-            _culture?.RangedEliteMilitiaTroop != null
-                ? new(_culture.RangedEliteMilitiaTroop)
-                : null;
-
-        /// <summary>
-        /// Gets the villager troop for this culture.
-        /// </summary>
-        public WCharacter Villager => _culture?.Villager != null ? new(_culture.Villager) : null;
-
-        /// <summary>
-        ///  Gets the caravan master troop for this culture.
-        /// </summary>
-        public WCharacter CaravanMaster =>
-            _culture?.CaravanMaster != null ? new(_culture.CaravanMaster) : null;
-
-        /// <summary>
-        ///  Gets the caravan guard troop for this culture.
-        /// </summary>
-        public WCharacter CaravanGuard =>
-            _culture?.CaravanGuard != null ? new(_culture.CaravanGuard) : null;
-
-        public WCharacter RetinueElite => null;
-
-        public WCharacter RetinueBasic => null;
-
-        public List<WCharacter> Troops
+        public WCharacter TryGet(CharacterObject co)
         {
-            get
-            {
-                var troops = new List<WCharacter>();
-                foreach (var troop in RetinueTroops)
-                    troops.Add(troop);
-                foreach (var troop in EliteTroops)
-                    troops.Add(troop);
-                foreach (var troop in BasicTroops)
-                    troops.Add(troop);
-                foreach (var troop in MilitiaTroops)
-                    troops.Add(troop);
-                foreach (var troop in CaravanTroops)
-                    troops.Add(troop);
-                foreach (var troop in VillagerTroops)
-                    troops.Add(troop);
-                return troops;
-            }
+            if (co == null)
+                return null;
+
+            return new WCharacter(co);
         }
 
-        public List<WCharacter> RetinueTroops => [];
+        /* ━━━━━━━ Retinues ━━━━━━━ */
 
-        public List<WCharacter> EliteTroops => [.. RootElite?.Tree];
-
-        public List<WCharacter> BasicTroops => [.. RootBasic?.Tree];
-
-        public List<WCharacter> MilitiaTroops
+        public override WCharacter RetinueElite
         {
-            get
-            {
-                var list = new List<WCharacter>();
-                if (MilitiaMelee != null)
-                    list.Add(MilitiaMelee);
-                if (MilitiaMeleeElite != null)
-                    list.Add(MilitiaMeleeElite);
-                if (MilitiaRanged != null)
-                    list.Add(MilitiaRanged);
-                if (MilitiaRangedElite != null)
-                    list.Add(MilitiaRangedElite);
-                return list;
-            }
+            get => null; // Retinues don't have a culture
+            set => throw new System.NotImplementedException();
         }
 
-        public List<WCharacter> CaravanTroops =>
-            [
-                .. new List<WCharacter> { CaravanGuard, CaravanMaster }.Where(t =>
-                    t?.IsActive == true
-                ),
-            ];
+        public override WCharacter RetinueBasic
+        {
+            get => null; // Retinues don't have a culture
+            set => throw new System.NotImplementedException();
+        }
 
-        public List<WCharacter> VillagerTroops =>
-            [.. new List<WCharacter> { Villager }.Where(t => t?.IsActive == true)];
+        /* ━━━━━━━━ Regular ━━━━━━━ */
 
-        public List<WCharacter> CivilianTroops =>
-            [
-                .. new List<CharacterObject>
-                {
+        public override WCharacter RootBasic
+        {
+            get => TryGet(Base.BasicTroop);
+            set => throw new System.NotImplementedException();
+        }
+
+        public override WCharacter RootElite
+        {
+            get => TryGet(Base.EliteBasicTroop);
+            set => throw new System.NotImplementedException();
+        }
+
+        /* ━━━━━━━━ Special ━━━━━━━ */
+
+        public override WCharacter MilitiaMelee
+        {
+            get => TryGet(Base.MeleeMilitiaTroop);
+            set => throw new System.NotImplementedException();
+        }
+
+        public override WCharacter MilitiaMeleeElite
+        {
+            get => TryGet(Base.MeleeEliteMilitiaTroop);
+            set => throw new System.NotImplementedException();
+        }
+
+        public override WCharacter MilitiaRanged
+        {
+            get => TryGet(Base.RangedMilitiaTroop);
+            set => throw new System.NotImplementedException();
+        }
+
+        public override WCharacter MilitiaRangedElite
+        {
+            get => TryGet(Base.RangedEliteMilitiaTroop);
+            set => throw new System.NotImplementedException();
+        }
+
+        public override WCharacter Villager
+        {
+            get => TryGet(Base.Villager);
+            set => throw new System.NotImplementedException();
+        }
+
+        public override WCharacter CaravanMaster
+        {
+            get => TryGet(Base.CaravanMaster);
+            set => throw new System.NotImplementedException();
+        }
+
+        public override WCharacter CaravanGuard
+        {
+            get => TryGet(Base.CaravanGuard);
+            set => throw new System.NotImplementedException();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Troop Lists                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override List<WCharacter> CivilianTroops =>
+            GetActiveList(
+                [
                     Base.PrisonGuard,
                     Base.Guard,
 # if BL12
@@ -211,24 +175,12 @@ namespace Retinues.Game.Wrappers
                     Base.Beggar,
                     Base.FemaleBeggar,
                     Base.FemaleDancer,
-                }
-                    .Where(t => t != null)
-                    .Select(t => new WCharacter(t))
-                    .Where(w => w?.IsActive == true && w?.Age >= 18),
-            ];
+                ]
+            );
 
-        public List<WCharacter> BanditTroops =>
-            [
-                .. new List<CharacterObject>
-                {
-                    Base.BanditBandit,
-                    Base.BanditChief,
-                    Base.BanditBoss,
-                    Base.BanditRaider,
-                }
-                    .Where(t => t != null)
-                    .Select(t => new WCharacter(t))
-                    .Where(w => w?.IsActive == true && w?.Age >= 18),
-            ];
+        public override List<WCharacter> BanditTroops =>
+            GetActiveList(
+                [Base.BanditBandit, Base.BanditChief, Base.BanditBoss, Base.BanditRaider]
+            );
     }
 }

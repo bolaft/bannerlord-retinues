@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Game.Helpers.Character;
+using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.SaveSystem;
@@ -60,7 +60,7 @@ namespace Retinues.Troops.Save
             // Default constructor for deserialization
         }
 
-        public FactionSaveData(ITroopFaction faction)
+        public FactionSaveData(BaseFaction faction)
         {
             if (faction is null)
                 return; // Null faction, nothing to do
@@ -96,106 +96,53 @@ namespace Retinues.Troops.Save
         }
 
         /// <summary>
-        /// Assigns the given troop to the appropriate field based on its type.
-        /// </summary>
-        public void Assign(WCharacter troop)
-        {
-            if (troop == null)
-                return;
-            
-            var data = new TroopSaveData(troop);
-
-            switch (troop.Type)
-            {
-                case WCharacter.TroopType.RetinueElite:
-                    RetinueElite = data;
-                    break;
-                case WCharacter.TroopType.RetinueBasic:
-                    RetinueBasic = data;
-                    break;
-                case WCharacter.TroopType.Elite:
-                    RootElite = data;
-                    break;
-                case WCharacter.TroopType.Basic:
-                    RootBasic = data;
-                    break;
-                case WCharacter.TroopType.MilitiaMelee:
-                    MilitiaMelee = data;
-                    break;
-                case WCharacter.TroopType.MilitiaMeleeElite:
-                    MilitiaMeleeElite = data;
-                    break;
-                case WCharacter.TroopType.MilitiaRanged:
-                    MilitiaRanged = data;
-                    break;
-                case WCharacter.TroopType.MilitiaRangedElite:
-                    MilitiaRangedElite = data;
-                    break;
-                case WCharacter.TroopType.CaravanGuard:
-                    CaravanGuard = data;
-                    break;
-                case WCharacter.TroopType.CaravanMaster:
-                    CaravanMaster = data;
-                    break;
-                case WCharacter.TroopType.Villager:
-                    Villager = data;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Applies the saved troop data to a faction.
-        /// </summary>
-        public void Apply(WFaction faction)
-        {
-            if (faction is null)
-                return; // Null faction, nothing to do
-
-            Log.Info($"Applying saved troop data to faction '{faction.Name}' (ID: {faction.StringId})");
-
-            faction.RetinueElite = RetinueElite?.Deserialize();
-            faction.RetinueBasic = RetinueBasic?.Deserialize();
-            faction.RootElite = RootElite?.Deserialize();
-            faction.RootBasic = RootBasic?.Deserialize();
-            faction.MilitiaMelee = MilitiaMelee?.Deserialize();
-            faction.MilitiaMeleeElite = MilitiaMeleeElite?.Deserialize();
-            faction.MilitiaRanged = MilitiaRanged?.Deserialize();
-            faction.MilitiaRangedElite = MilitiaRangedElite?.Deserialize();
-            faction.CaravanGuard = CaravanGuard?.Deserialize();
-            faction.CaravanMaster = CaravanMaster?.Deserialize();
-            faction.Villager = Villager?.Deserialize();
-
-            Log.Info($"Registering faction roots for faction '{faction.Name}' (ID: {faction.StringId})");
-
-            // To be done before activating troops
-            CharacterIndexer.RegisterFactionRoots(faction);
-        }
-
-        /// <summary>
         /// Deserializes all troop save data.
         /// Used to overwrite each troop's CharacterObject data.
         /// </summary>
-        public void DeserializeTroops()
+        public void Apply(WFaction faction = null)
         {
-            RetinueElite?.Deserialize();
-            RetinueBasic?.Deserialize();
-            RootElite?.Deserialize();
-            RootBasic?.Deserialize();
-            MilitiaMelee?.Deserialize();
-            MilitiaMeleeElite?.Deserialize();
-            MilitiaRanged?.Deserialize();
-            MilitiaRangedElite?.Deserialize();
-            CaravanGuard?.Deserialize();
-            CaravanMaster?.Deserialize();
-            Villager?.Deserialize();
+            if (faction == null)
+            {
+                Log.Info("Deserializing culture troop data.");
 
-            if (Civilians != null)
-                foreach (var troopData in Civilians)
-                    troopData.Deserialize();
+                // Culture troops
+                RetinueElite?.Deserialize();
+                RetinueBasic?.Deserialize();
+                RootElite?.Deserialize();
+                RootBasic?.Deserialize();
+                MilitiaMelee?.Deserialize();
+                MilitiaMeleeElite?.Deserialize();
+                MilitiaRanged?.Deserialize();
+                MilitiaRangedElite?.Deserialize();
+                CaravanGuard?.Deserialize();
+                CaravanMaster?.Deserialize();
+                Villager?.Deserialize();
 
-            if (Bandits != null)
-                foreach (var troopData in Bandits)
-                    troopData.Deserialize();
+                if (Civilians != null)
+                    foreach (var troopData in Civilians)
+                        troopData.Deserialize(); // No assignments
+
+                if (Bandits != null)
+                    foreach (var troopData in Bandits)
+                        troopData.Deserialize(); // No assignments
+            }
+            else
+            {
+                Log.Info($"Deserializing troop data for faction: {faction.Name}");
+
+                // Faction troops
+                RetinueElite?.Deserialize(faction, RootCategory.RetinueElite);
+                RetinueBasic?.Deserialize(faction, RootCategory.RetinueBasic);
+                RootElite?.Deserialize(faction, RootCategory.RootElite);
+                RootBasic?.Deserialize(faction, RootCategory.RootBasic);
+                MilitiaMelee?.Deserialize(faction, RootCategory.MilitiaMelee);
+                MilitiaMeleeElite?.Deserialize(faction, RootCategory.MilitiaMeleeElite);
+                MilitiaRanged?.Deserialize(faction, RootCategory.MilitiaRanged);
+                MilitiaRangedElite?.Deserialize(faction, RootCategory.MilitiaRangedElite);
+                CaravanGuard?.Deserialize(faction, RootCategory.CaravanGuard);
+                CaravanMaster?.Deserialize(faction, RootCategory.CaravanMaster);
+                Villager?.Deserialize(faction, RootCategory.Villager);
+            }
         }
 
         /// <summary>

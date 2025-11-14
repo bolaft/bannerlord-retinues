@@ -22,22 +22,21 @@ namespace Retinues.Managers
         {
             Log.Debug($"AddUpgradeTarget: '{targetName}' for {troop?.Name}");
 
-            var child = new WCharacter(faction: troop.Faction, parent: troop, type: troop.Type);
+            // Create child troop using parent constructor
+            var child = new WCharacter(troop);
 
             bool keepEquipment = false;
             if (Config.EquipmentChangeTakesTime == false && Config.PayForEquipment == false)
                 keepEquipment = true;
 
+            child.Name = targetName.Trim();
+            child.Level = troop.Level + 5;
             child.FillFrom(
                 troop,
                 keepUpgrades: false,
                 keepEquipment: keepEquipment,
                 keepSkills: true
             );
-            child.Name = targetName.Trim();
-            child.Level = troop.Level + 5;
-
-            troop.AddUpgradeTarget(child);
 
             return child;
         }
