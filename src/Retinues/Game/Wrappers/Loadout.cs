@@ -287,6 +287,9 @@ namespace Retinues.Game.Wrappers
                 Troop.FormationClass = eq.ComputeFormationClass();
 
             Troop.UpgradeItemRequirement = ComputeUpgradeItemRequirement();
+
+            foreach (var upgrade in Troop.UpgradeTargets)
+                upgrade.UpgradeItemRequirement = upgrade.Loadout.ComputeUpgradeItemRequirement();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
