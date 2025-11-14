@@ -1,4 +1,5 @@
 using Retinues.Game.Wrappers;
+using Retinues.Utils;
 using TaleWorlds.Core;
 # if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -18,10 +19,20 @@ namespace Retinues.Game.Helpers
                 return null; // no culture, no banner
 
             Banner banner = culture.Base.Banner;
-            banner ??= CreateRandomBanner(culture);
+            Log.Debug($"Banner from culture {culture.StringId}: {banner}");
+
+            if (IsEmptyBanner(banner))
+            {
+                Log.Debug($"Culture {culture.StringId} has no meaningful banner, generating one.");
+                banner = CreateRandomBanner(culture) ?? Banner.CreateRandomClanBanner();
+            }
+
+            Log.Debug($"Using banner: {banner}");
 
             if (scale != 1.0f)
                 banner = ScaleBannerIcon(banner, scale);
+
+            Log.Debug($"Final banner after scaling: {banner}");
 
             return banner != null ? new BannerImageIdentifierVM(banner, nineGrid: true) : null;
         }
@@ -57,38 +68,71 @@ namespace Retinues.Game.Helpers
         public static Banner CreateRandomBanner(WCulture culture)
         {
             if (culture == null || culture.Base == null)
-                return null; // no culture, no bannerbanner = Banner.CreateRandomClanBanner(Seed.FromString(culture.StringId ?? "null"));
+                return null; // no culture, no banner
 
-            Banner banner = new(); // empty;
+            Log.Debug($"Creating random banner for culture {culture.StringId}");
+
+            // Start from a guaranteed non-empty random banner.
+            Banner banner = Banner.CreateRandomClanBanner();
 
             try
             {
-                // Base banner on the culture's root troop banner
+                // Base banner on the culture's root troop banner if possible
                 var root = culture.RootBasic ?? culture.RootElite;
 
-                foreach (var troop in root.Tree)
+                Log.Debug($"Using root troop {root?.StringId} for culture {culture.StringId}");
+
+                if (root != null)
                 {
+                    foreach (var troop in root.Tree)
+                    {
 #if BL13
-                    if (troop?.Culture?.Base?.Banner != null)
-                    {
-                        banner = troop.Culture.Base.Banner;
-                        break;
-                    }
+                        var troopBanner = troop?.Culture?.Base?.Banner;
+                        if (!IsEmptyBanner(troopBanner))
+                        {
+                            Log.Debug(
+                                $"Found banner from troop {troop.StringId} for culture {culture.StringId}"
+                            );
+                            // copy to avoid mutating the original
+                            banner = new Banner(troopBanner);
+                            break;
+                        }
 #else
-                    if (!string.IsNullOrEmpty(troop?.Culture?.Base?.BannerKey))
-                    {
-                        banner = new Banner(troop.Culture.Base.BannerKey);
-                        break;
-                    }
+                        var troopBannerKey = troop?.Culture?.Base?.BannerKey;
+                        if (!string.IsNullOrEmpty(troopBannerKey))
+                        {
+                            Log.Debug(
+                                $"Found banner key from troop {troop.StringId} for culture {culture.StringId}"
+                            );
+                            banner = new Banner(troopBannerKey);
+                            break;
+                        }
 #endif
+                    }
                 }
 
-                // Swap primary/secondary colors for culture banners
-                banner.ChangePrimaryColor(banner.GetSecondaryColor());
-                banner.ChangeBackgroundColor(banner.GetSecondaryColor(), banner.GetPrimaryColor());
+                if (!IsEmptyBanner(banner))
+                {
+                    try
+                    {
+                        // 1. Get the design as a code
+                        var code = banner.Serialize(); // uses Banner.Serialize()
+
+                        // 2. Grab the culture's faction colors and swap them
+                        uint primary = culture.Base.Color2; // swapped
+                        uint secondary = culture.Base.Color; // swapped
+
+                        // 3. Rebuild a banner from the design, but with swapped colors
+                        banner = new Banner(code, primary, secondary);
+                    }
+                    catch
+                    { /* ignore recolor errors */
+                    }
+                }
             }
-            catch
-            { /* ignore */
+            catch (System.Exception ex)
+            {
+                Log.Exception(ex);
             }
 
             return banner;
@@ -111,6 +155,30 @@ namespace Retinues.Game.Helpers
             }
 
             return b;
+        }
+
+        public static bool IsEmptyBanner(Banner banner)
+        {
+            if (banner == null)
+                return true;
+
+            try
+            {
+                var list = banner.BannerDataList;
+                if (list == null || list.Count == 0)
+                    return true;
+
+                // If the primary color is "invalid", Banner reports uint.MaxValue.
+                if (banner.GetPrimaryColor() == uint.MaxValue)
+                    return true;
+            }
+            catch
+            {
+                // If BannerDataList access explodes, just treat it as empty/suspect
+                return true;
+            }
+
+            return false;
         }
     }
 }
