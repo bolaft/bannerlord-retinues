@@ -365,6 +365,12 @@ namespace Retinues
 
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
+
+            // Clear upgrade map
+            WCharacter.UpgradeMap.Clear();
+
+            // Clear faction troop map
+            BaseFaction.TroopFactionMap.Clear();
         }
     }
 }

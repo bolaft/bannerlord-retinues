@@ -24,6 +24,9 @@ namespace Retinues.Game
 
     public abstract class BaseFaction : StringIdentifier
     {
+        // Character -> Faction map for quick lookup
+        public static Dictionary<string, BaseFaction> TroopFactionMap = [];
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -82,6 +85,8 @@ namespace Retinues.Game
             {
                 RootCategory.RetinueBasic => RetinueBasic,
                 RootCategory.RetinueElite => RetinueElite,
+                RootCategory.RootBasic => RootBasic,
+                RootCategory.RootElite => RootElite,
                 RootCategory.MilitiaMelee => MilitiaMelee,
                 RootCategory.MilitiaMeleeElite => MilitiaMeleeElite,
                 RootCategory.MilitiaRanged => MilitiaRanged,
@@ -102,6 +107,12 @@ namespace Retinues.Game
                     break;
                 case RootCategory.RetinueElite:
                     RetinueElite = troop;
+                    break;
+                case RootCategory.RootBasic:
+                    RootBasic = troop;
+                    break;
+                case RootCategory.RootElite:
+                    RootElite = troop;
                     break;
                 case RootCategory.MilitiaMelee:
                     MilitiaMelee = troop;
@@ -185,7 +196,7 @@ namespace Retinues.Game
             list == null ? [] : [.. list.Where(t => t?.IsActive == true && t?.Body.Age >= 18)];
 
         protected List<WCharacter> GetActiveList(List<CharacterObject> list) =>
-            GetActiveList([.. list.Select(t => new WCharacter(t))]);
+            GetActiveList([.. list.Where(t => t != null).Select(t => new WCharacter(t))]);
 
         /* ━━━━━━━ Retinues ━━━━━━━ */
 
@@ -193,8 +204,10 @@ namespace Retinues.Game
 
         /* ━━━━━━━━ Regular ━━━━━━━ */
 
-        public List<WCharacter> EliteTroops => GetActiveList([.. RootElite.Tree]);
-        public List<WCharacter> BasicTroops => GetActiveList([.. RootBasic.Tree]);
+        public List<WCharacter> EliteTroops =>
+            RootElite != null ? GetActiveList([.. RootElite.Tree]) : [];
+        public List<WCharacter> BasicTroops =>
+            RootBasic != null ? GetActiveList([.. RootBasic.Tree]) : [];
 
         /* ━━━━━━━━ Special ━━━━━━━ */
 

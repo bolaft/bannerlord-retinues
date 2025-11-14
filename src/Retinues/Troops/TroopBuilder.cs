@@ -288,11 +288,8 @@ namespace Retinues.Troops
             // Rename it
             retinue.Name = MakeRetinueName(faction, isElite);
 
-            // Non-transferable
-            retinue.IsNotTransferableInPartyScreen = true;
-
-            // Unlock items
-            UnlockAll(retinue);
+            // Common operations
+            Initialize(retinue);
         }
 
         /// <summary>
@@ -358,8 +355,8 @@ namespace Retinues.Troops
             // Rank up so skill caps/totals match vanilla militia
             militia.Level += 5;
 
-            // Unlock items
-            UnlockAll(militia);
+            // Common operations
+            Initialize(militia);
 
             Log.Info($"Created militia troop {militia.Name} for {faction.Name} (from {root})");
         }
@@ -385,8 +382,8 @@ namespace Retinues.Troops
             // Rename it
             troop.Name = BuildTroopName(tpl, faction);
 
-            // Unlock items
-            UnlockAll(troop);
+            // Common operations
+            Initialize(troop);
 
             Log.Info($"Created special troop {troop.Name} (from {tpl})");
         }
@@ -444,7 +441,7 @@ namespace Retinues.Troops
             }
 
             // Wrap the custom troop
-            WCharacter troop = null;
+            WCharacter troop;
 
             // If parent is given, create as upgrade target of parent
             if (parent != null)
@@ -461,8 +458,8 @@ namespace Retinues.Troops
             // Rename it
             troop.Name = BuildTroopName(tpl, faction);
 
-            // Unlock items (vanilla source items)
-            UnlockAll(vanilla);
+            // Common operations
+            Initialize(troop);
 
             yield return troop;
 
@@ -555,8 +552,12 @@ namespace Retinues.Troops
         /// <summary>
         /// Unlocks items for a single troop.
         /// </summary>
-        private static void UnlockAll(WCharacter troop)
+        private static void Initialize(WCharacter troop)
         {
+            // Recompute derived properties
+            troop.ComputeDerivedProperties();
+
+            // Unlock all items in loadout
             foreach (var equipment in troop.Loadout.Equipments)
             foreach (var item in equipment.Items)
                 item.Unlock();

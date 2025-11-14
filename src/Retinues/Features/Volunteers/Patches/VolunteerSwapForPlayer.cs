@@ -113,15 +113,14 @@ namespace Retinues.Features.Volunteers.Patches
 
                     // Write back from snapshot (null-safe)
                     var snap = notableSnapshot[i];
-                    volunteers[i] = snap != null ? snap.Base : null;
+                    volunteers[i] = snap?.Base;
                 }
             }
+            Log.Debug(
+                $"[VolunteerSwapForPlayer] Restored volunteers for settlement {_settlement.StringId}"
+            );
 
             ClearSnapshot();
-            Log.Debug(
-                "[VolunteerSwapForPlayer] Restored volunteers for settlement "
-                    + _settlement.StringId
-            );
         }
 
         /// <summary>

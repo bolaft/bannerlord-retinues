@@ -75,10 +75,10 @@ namespace Retinues.Safety.Legacy
             foreach (var kvp in LegacyTroopSaveConverter.TroopIdMap)
             {
                 var oldId = kvp.Key;
-                var newId = kvp.Value;
+                var (faction, category) = kvp.Value;
 
                 var oldTroop = new WCharacter(oldId);
-                var newTroop = new WCharacter(newId);
+                var newTroop = faction.GetRoot(category);
 
                 // Swap out legacy troops in all parties
                 foreach (var mp in MobileParty.All)

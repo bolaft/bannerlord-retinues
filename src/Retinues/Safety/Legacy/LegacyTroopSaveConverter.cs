@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -83,7 +84,7 @@ namespace Retinues.Safety.Legacy
         //                         Loading                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static readonly Dictionary<string, string> TroopIdMap = [];
+        public static readonly Dictionary<string, (WFaction, RootCategory)> TroopIdMap = [];
 
         public static (FactionSaveData clan, FactionSaveData kingdom) ConvertLegacyFactionData(
             List<LegacyTroopSaveData> roots
@@ -100,10 +101,19 @@ namespace Retinues.Safety.Legacy
                 var data = ConvertLegacyTroopData(root);
 
                 // Determine if kingdom or clan
-                FactionSaveData faction = IsKingdom(root.StringId) ? kingdomData : clanData;
+                bool isKingdom = IsKingdom(root.StringId);
+
+                // Select appropriate faction save data
+                FactionSaveData faction = isKingdom ? kingdomData : clanData;
+
+                // Determine category
+                var category = GetCategory(root.StringId);
+
+                // Record in ID map
+                TroopIdMap[root.StringId] = (isKingdom ? Player.Kingdom : Player.Clan, category);
 
                 // Add to appropriate faction based on category
-                switch (GetCategory(root.StringId))
+                switch (category)
                 {
                     case RootCategory.RetinueBasic:
                         faction.RetinueBasic = data;

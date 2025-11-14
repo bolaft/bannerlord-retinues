@@ -65,32 +65,43 @@ namespace Retinues.Game.Wrappers
         public WCharacter(WFaction faction, RootCategory category)
             : this(AllocateStub())
         {
+            Log.Info($"Creating new custom troop as {category} of faction {faction.Name}");
+
             // Enforce binding on construction
             faction.SetRoot(category, this);
 
-            Initialize(faction, IsRetinue);
+            Initialize(faction);
         }
 
         // Constructor for upgrade troops
         public WCharacter(WCharacter parent)
             : this(AllocateStub())
         {
-            Parent = parent;
+            Log.Info($"Creating new custom troop as upgrade of {parent.Name}");
 
-            Initialize(parent.Faction, parent.IsRetinue);
+            Initialize(parent.Faction);
+
+            // Set parent AFTER initialization
+            Parent = parent;
         }
 
         /// <summary>
         /// Common initialization logic for custom troops.
         /// </summary>
-        private void Initialize(BaseFaction faction, bool isRetinue)
+        private void Initialize(BaseFaction faction)
         {
             Faction = faction;
 
             HiddenInEncyclopedia = false;
             IsNotTransferableInHideouts = false;
-            IsNotTransferableInPartyScreen = isRetinue;
+            IsNotTransferableInPartyScreen = IsRetinue;
+        }
 
+        /// <summary>
+        /// Computes derived properties such as FormationClass and UpgradeItemRequirement.
+        /// </summary>
+        public void ComputeDerivedProperties()
+        {
             FormationClass = ComputeFormationClass();
             UpgradeItemRequirement = Loadout.ComputeUpgradeItemRequirement();
         }
@@ -163,45 +174,39 @@ namespace Retinues.Game.Wrappers
 
         /* ━━━━━━━ Category ━━━━━━━ */
 
-        public bool IsRetinue => Faction.RetinueTroops.Contains(this);
-        public bool IsMilitia => Faction.MilitiaTroops.Contains(this);
-        public bool IsElite => Faction.IsElite(this);
+        public bool IsRetinue => Faction != null && Faction.RetinueTroops.Contains(this);
+        public bool IsMilitia => Faction != null && Faction.MilitiaTroops.Contains(this);
+        public bool IsElite => Faction != null && Faction.IsElite(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                Tree, Relations & Faction               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WCharacter _parent;
+        // Mapping of upgrade troop -> parent troop
+        public static readonly Dictionary<string, WCharacter> UpgradeMap = [];
+
         public WCharacter Parent
         {
-            get => IsCustom ? _parent : VanillaHelper.GetParent(this);
+            get =>
+                IsCustom
+                    ? UpgradeMap.TryGetValue(StringId, out var parent)
+                        ? parent
+                        : null
+                    : VanillaHelper.GetParent(this);
             set
             {
-                if (!IsCustom)
-                {
-                    _parent = value; // vanilla shouldn't manipulate upgrade graph
-                    return;
-                }
-
-                if (_parent == value)
-                    return;
-
-                // Prevent cycles
-                if (value == this)
-                    return;
+                if (IsVanilla)
+                    return; // Cannot set parent on vanilla troops
 
                 // 1) Remove from old parent's upgrade list
-                if (_parent != null)
+                if (Parent != null)
                 {
-                    var oldList = _parent.UpgradeTargets.ToList();
+                    var oldList = Parent.UpgradeTargets.ToList();
                     if (oldList.Remove(this))
-                        _parent.UpgradeTargets = [.. oldList];
+                        Parent.UpgradeTargets = [.. oldList];
                 }
 
-                // 2) Assign new parent
-                _parent = value;
-
-                // 3) Add to new parent's upgrade list
+                // 2) Add to new parent's upgrade list
                 if (value != null)
                 {
                     var list = value.UpgradeTargets.ToList();
@@ -214,14 +219,22 @@ namespace Retinues.Game.Wrappers
                     // Keep faction inherited
                     Faction = value.Faction;
                 }
+
+                // Update map
+                if (value == null)
+                    UpgradeMap.Remove(StringId);
+                else
+                    UpgradeMap[StringId] = value;
             }
         }
 
-        private BaseFaction _faction;
         public BaseFaction Faction
         {
-            get => IsCustom ? _faction : Culture;
-            set => _faction = value;
+            get =>
+                IsVanilla ? Culture
+                : BaseFaction.TroopFactionMap.TryGetValue(StringId, out var faction) ? faction
+                : null;
+            set => BaseFaction.TroopFactionMap[StringId] = value;
         }
 
         public IEnumerable<WCharacter> Tree
@@ -417,7 +430,8 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // List of troop-relevant skills
-        public static readonly SkillObject[] TroopSkills =
+        // Cannot be static because SkillObject is not initialized yet at that time
+        public readonly SkillObject[] TroopSkills =
         [
             DefaultSkills.Athletics,
             DefaultSkills.Riding,

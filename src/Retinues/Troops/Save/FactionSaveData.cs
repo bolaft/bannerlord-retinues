@@ -103,8 +103,6 @@ namespace Retinues.Troops.Save
         {
             if (faction == null)
             {
-                Log.Info("Deserializing culture troop data.");
-
                 // Culture troops
                 RetinueElite?.Deserialize();
                 RetinueBasic?.Deserialize();

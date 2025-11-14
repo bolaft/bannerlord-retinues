@@ -168,8 +168,8 @@ namespace Retinues.Troops.Save
             // Set formation class override
             troop.FormationClassOverride = FormationClassOverride;
 
-            // Recompute formation class
-            troop.FormationClass = troop.ComputeFormationClass();
+            // Recompute formation class, upgrade requirements, etc.
+            troop.ComputeDerivedProperties();
 
             // Return the created troop
             return troop;
