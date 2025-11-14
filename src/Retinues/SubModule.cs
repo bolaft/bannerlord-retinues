@@ -371,8 +371,13 @@ namespace Retinues
             // Clear upgrade map
             WCharacter.UpgradeMap.Clear();
 
+            // Clear edited vanilla roots
+            WCharacter.EditedVanillaRootIds.Clear();
+
             // Clear faction troop map
             BaseFaction.TroopFactionMap.Clear();
+
+            Log.Debug("All static properties cleared.");
         }
     }
 }
