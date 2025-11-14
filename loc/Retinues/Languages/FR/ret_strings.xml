@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Produit beaucoup plus de journaux (peut affecter les performances)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Désactiver les Exigences de Haut-Faits" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Désactive les exigences de haut-faits pour débloquer les doctrines." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Montures Interdites pour Rang 1" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Active le système de doctrines et ses fonctionnalités." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Activer les exigences de haut-faits" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Active les exigences de haut-faits pour débloquer les doctrines." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Expérimental : Activer les Contrôles d’Apparence" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="Pas assez d’XP pour le prochain point de compétence." />
     <string
-      id="ret_not_in_campaign_body"
-      text="Une sauvegarde doit d’abord être chargée avant d’utiliser les fonctions d’importation/exportation." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="Aucune campagne chargée" />
-    <string
       id="ret_not_in_clan_fief"
       text="Pas dans un Fief de Clan" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Vous devez être dans l&apos;un des fiefs de votre royaume pour {ACTION} cette troupe." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Pas de campagne en cours. Chargez d’abord une sauvegarde." />
     <string
       id="ret_not_in_settlement"
       text="Pas dans un établissement" />

@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Gibt deutlich mehr Protokolle aus (kann die Leistung beeinträchtigen)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Meisterschaftsanforderungen deaktivieren" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Deaktiviert Meisterschaftsanforderungen zum Freischalten von Doktrinen." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Reittiere für Stufe 1 verbieten" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Aktiviere das Doktrinensystem und seine Funktionen." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Meisterschaftsanforderungen aktivieren" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Aktiviert Meisterschaftsanforderungen zum Freischalten von Doktrinen." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Experimentell: Erscheinungskontrollen aktivieren" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="Nicht genug XP für den nächsten Fertigkeitspunkt." />
     <string
-      id="ret_not_in_campaign_body"
-      text="Es muss zuerst ein Spielstand geladen werden, bevor Import-/Exportfunktionen verwendet werden können." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="Keine Kampagne geladen" />
-    <string
       id="ret_not_in_clan_fief"
       text="Nicht im Clan-Lehen" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Du musst in einem der Lehen deines Königreichs sein, um diese Truppe {ACTION} zu können." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Nicht in einer laufenden Kampagne. Lade zuerst einen Spielstand." />
     <string
       id="ret_not_in_settlement"
       text="Nicht in Siedlung" />

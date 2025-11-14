@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Generuje znacznie więcej logów (może wpłynąć na wydajność)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Wyłącz Wymagania Osiągnięć" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Wyłącza wymagania osiągnięć do odblokowania doktryn." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Zakaz Wierzchowców dla Poziomu 1" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Włącz system Doktryn i jego funkcje." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Włącz Wymagania Osiągnięć" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Włącza wymagania osiągnięć do odblokowywania doktryn." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Eksperymentalne: Włącz Kontrolę Wyglądu" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="Za mało XP na następny punkt umiejętności." />
     <string
-      id="ret_not_in_campaign_body"
-      text="Najpierw należy załadować zapis gry przed użyciem funkcji importu/eksportu." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="Nie załadowano kampanii" />
-    <string
       id="ret_not_in_clan_fief"
       text="Nie w lenie klanu" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Musisz być w jednym z lenów swojego królestwa, aby {ACTION} tę jednostkę." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Nie w trwającej kampanii. Najpierw załaduj zapis." />
     <string
       id="ret_not_in_settlement"
       text="Nie w osadzie" />

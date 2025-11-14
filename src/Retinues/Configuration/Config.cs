@@ -411,20 +411,20 @@ namespace Retinues.Configuration
             requiresRestart: true
         );
 
-        public static readonly Option<bool> DisableFeatRequirements = CreateOption(
+        public static readonly Option<bool> EnableFeatRequirements = CreateOption(
             section: () => L.S("mcm_section_doctrines", "Doctrines"),
-            name: () => L.S("mcm_option_disable_feat_requirements", "Disable Feat Requirements"),
-            key: "DisableFeatRequirements",
+            name: () => L.S("mcm_option_enable_feat_requirements", "Enable Feat Requirements"),
+            key: "EnableFeatRequirements",
             hint: () =>
                 L.S(
-                    "mcm_option_disable_feat_requirements_hint",
-                    "Disables feat requirements for unlocking doctrines."
+                    "mcm_option_enable_feat_requirements_hint",
+                    "Enables feat requirements for unlocking doctrines."
                 ),
-            @default: false,
+            @default: true,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = false,
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = true,
             },
             requiresRestart: true
         );

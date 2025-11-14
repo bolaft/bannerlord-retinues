@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Выводит гораздо больше логов (может повлиять на производительность)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Отключить Требования Подвигов" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Отключает требования подвигов для разблокировки доктрин." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Запрет на Лошадей для 1 Ранга" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Включить систему Доктрин и её функции." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Включить Требования Подвигов" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Включает требования подвигов для разблокировки доктрин." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Экспериментально: Включить Управление Внешностью" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="Недостаточно опыта для следующего очка навыков." />
     <string
-      id="ret_not_in_campaign_body"
-      text="Перед использованием функций импорта/экспорта необходимо сначала загрузить сохранение." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="Кампания не загружена" />
-    <string
       id="ret_not_in_clan_fief"
       text="Не в поместье клана" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Вы должны находиться в одном из владений вашего королевства, чтобы {ACTION} этот отряд." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Не в текущей кампании. Сначала загрузите сохранение." />
     <string
       id="ret_not_in_settlement"
       text="Не в поселении" />

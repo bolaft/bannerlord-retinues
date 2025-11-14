@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="輸出更多日誌（可能影響效能）。" />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="禁用功績要求" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="禁用解鎖教義的功績要求。" />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="禁止1級部隊騎乘" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="啟用教義系統及其功能。" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="啟用功績要求" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="啟用解鎖教義的功績要求。" />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="實驗性：啟用外觀控制" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="沒有足夠的經驗值獲得下一個技能點。" />
     <string
-      id="ret_not_in_campaign_body"
-      text="在使用導入/導出功能之前，必須先加載一個存檔。" />
-    <string
-      id="ret_not_in_campaign_title"
-      text="未加載戰役" />
-    <string
       id="ret_not_in_clan_fief"
       text="不在氏族領地" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="您必須在您王國的一個封地中才能{ACTION}這支部隊。" />
+    <string
+      id="ret_not_in_running_campaign"
+      text="不在進行中的戰役中。請先加載一個存檔。" />
     <string
       id="ret_not_in_settlement"
       text="不在定居點" />

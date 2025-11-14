@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Çok daha fazla kayıt üretir (performansı etkileyebilir)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Başarı Gereksinimlerini Devre Dışı Bırak" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Doktrinlerin kilidini açmak için başarı gereksinimlerini devre dışı bırakır." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Seviye 1 İçin Binekler Yasak" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Doktrin sistemini ve özelliklerini etkinleştir." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Başarı Gereksinimlerini Etkinleştir" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Doktrinlerin kilidini açmak için başarı gereksinimlerini etkinleştirir." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Deneysel: Görünüm Kontrollerini Etkinleştir" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="Sonraki beceri puanı için yeterli XP yok." />
     <string
-      id="ret_not_in_campaign_body"
-      text="İçe/dışa aktarma işlevlerini kullanmadan önce bir kayıt yüklenmelidir." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="Kampanya Yüklenmedi" />
-    <string
       id="ret_not_in_clan_fief"
       text="Klan Arazisinde Değil" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Bu birliği {ACTION} için krallığınızın mülklerinden birinde olmalısınız." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Devam eden bir kampanyada değil. Önce bir kaydı yükleyin." />
     <string
       id="ret_not_in_settlement"
       text="Yerleşim yerinde değil" />

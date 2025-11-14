@@ -257,7 +257,7 @@ namespace Retinues
                 AddBehavior<DoctrineServiceBehavior>(cs);
                 AddBehavior<DoctrineEffectRuntimeBehavior>(cs);
 
-                if (Config.DisableFeatRequirements == false)
+                if (Config.EnableFeatRequirements)
                 {
                     AddBehavior<FeatServiceBehavior>(cs);
                     AddBehavior<FeatNotificationBehavior>(cs);

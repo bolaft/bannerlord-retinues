@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Gera muito mais registros (pode impactar o desempenho)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Desativar Requisitos de Proeza" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Desativa os requisitos de proeza para desbloquear doutrinas." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Proibir Montarias para Nível 1" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Ativa o sistema de Doutrinas e seus recursos." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Ativar Requisitos de Proezas" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Ativa os requisitos de proeza para desbloquear doutrinas." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Experimental: Ativar Controles de Aparência" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="XP insuficiente para o próximo ponto de habilidade." />
     <string
-      id="ret_not_in_campaign_body"
-      text="Um salvamento deve ser carregado primeiro antes de usar as funções de importação/exportação." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="Nenhuma Campanha Carregada" />
-    <string
       id="ret_not_in_clan_fief"
       text="Não em Feudo do Clã" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Você deve estar em um dos feudos do seu reino para {ACTION} esta tropa." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Não está em uma campanha em andamento. Carregue um salvamento primeiro." />
     <string
       id="ret_not_in_settlement"
       text="Não está em assentamento" />

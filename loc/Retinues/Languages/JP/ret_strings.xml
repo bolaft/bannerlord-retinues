@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="より多くのログを出力します（パフォーマンスに影響する可能性があります）。" />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="功績要件を無効化" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="ドクトリンの解除に必要な功績要件を無効化する。" />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="ランク1に騎乗禁止" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="ドクトリンシステムとその機能を有効化する。" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="功績要件を有効化" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="ドクトリンの解除に功績要件を有効化する。" />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="実験的：外観コントロールを有効化" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="次のスキルポイントに十分なXPがありません。" />
     <string
-      id="ret_not_in_campaign_body"
-      text="インポート/エクスポート機能を使用する前に、最初にセーブをロードする必要があります。" />
-    <string
-      id="ret_not_in_campaign_title"
-      text="キャンペーンが読み込まれていません" />
-    <string
       id="ret_not_in_clan_fief"
       text="氏族の領地にいない" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="王国の領地のいずれかにいて{ACTION}この部隊を行う必要があります。" />
+    <string
+      id="ret_not_in_running_campaign"
+      text="進行中のキャンペーンにいません。最初にセーブをロードしてください。" />
     <string
       id="ret_not_in_settlement"
       text="居住地にいません" />

@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Outputs many more logs (may impact performance)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Disable Feat Requirements" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Disables feat requirements for unlocking doctrines." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Disallow Mounts For Tier 1" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Enable the Doctrines system and its features." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Enable Feat Requirements" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Enables feat requirements for unlocking doctrines." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Enable Appearance Controls" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="Not enough XP for next skill point." />
     <string
-      id="ret_not_in_campaign_body"
-      text="A save must be loaded first before using import/export functions." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="No Campaign Loaded" />
-    <string
       id="ret_not_in_clan_fief"
       text="Not in Clan Fief" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="You must be in one of your kingdom&apos;s fiefs to {ACTION} this troop." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Not in a running campaign. Load a save first." />
     <string
       id="ret_not_in_settlement"
       text="Not in Settlement" />

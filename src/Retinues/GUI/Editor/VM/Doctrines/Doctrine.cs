@@ -61,7 +61,7 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                 if (!IsEnabled)
                     return _name;
 
-                if (Config.DisableFeatRequirements)
+                if (Config.EnableFeatRequirements == false)
                     return _name; // Show name only if feats are disabled
 
                 int total = _def?.Feats?.Count ?? 0;
@@ -173,7 +173,7 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                 .SetTextVariable("INFLUENCE", InfluenceCost)
                 .ToString();
 
-            var text = Config.DisableFeatRequirements
+            var text = Config.EnableFeatRequirements == false
                 ? $"{Description}\n\n{costs}"
                 : $"{Description}\n\n{featsText}\n\n{costs}";
 

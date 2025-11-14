@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Genera muchos más registros (puede afectar el rendimiento)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Desactivar Requisitos de Hazaña" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Desactiva los requisitos de hazaña para desbloquear doctrinas." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Prohibir Monturas para Nivel 1" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Habilita el sistema de Doctrinas y sus características." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Habilitar Requisitos de Hazañas" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Habilita los requisitos de hazañas para desbloquear doctrinas." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Experimental: Habilitar Controles de Apariencia" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="No hay suficiente XP para el siguiente punto de habilidad." />
     <string
-      id="ret_not_in_campaign_body"
-      text="Se debe cargar una partida guardada antes de usar las funciones de importación/exportación." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="No se cargó ninguna campaña" />
-    <string
       id="ret_not_in_clan_fief"
       text="No en Feudo del Clan" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Debes estar en uno de los feudos de tu reino para {ACTION} esta tropa." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="No en una campaña en curso. Carga una partida guardada primero." />
     <string
       id="ret_not_in_settlement"
       text="No en asentamiento" />

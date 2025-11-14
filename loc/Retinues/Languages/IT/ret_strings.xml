@@ -674,12 +674,6 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Genera molti più log (può influire sulle prestazioni)." />
     <string
-      id="ret_mcm_option_disable_feat_requirements"
-      text="Disabilita Requisiti di Impresa" />
-    <string
-      id="ret_mcm_option_disable_feat_requirements_hint"
-      text="Disabilita i requisiti di impresa per sbloccare le dottrine." />
-    <string
       id="ret_mcm_option_disallow_mounts_for_tier_1"
       text="Vietare Cavalcature per Livello 1" />
     <string
@@ -691,6 +685,12 @@
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Abilita il sistema di Dottrine e le sue funzionalità." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Abilita Requisiti di Impresa" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Abilita i requisiti di impresa per sbloccare le dottrine." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Sperimentale: Abilita Controlli Aspetto" />
@@ -1022,12 +1022,6 @@
       id="ret_not_enough_xp"
       text="Non abbastanza XP per il prossimo punto abilità." />
     <string
-      id="ret_not_in_campaign_body"
-      text="Devi prima caricare un salvataggio prima di utilizzare le funzioni di importazione/esportazione." />
-    <string
-      id="ret_not_in_campaign_title"
-      text="Nessuna campagna caricata" />
-    <string
       id="ret_not_in_clan_fief"
       text="Non in Feudo del Clan" />
     <string
@@ -1039,6 +1033,9 @@
     <string
       id="ret_not_in_kingdom_fief_text"
       text="Devi essere in uno dei feudi del tuo regno per {ACTION} questa truppa." />
+    <string
+      id="ret_not_in_running_campaign"
+      text="Non in una campagna in corso. Carica prima un salvataggio." />
     <string
       id="ret_not_in_settlement"
       text="Non in insediamento" />

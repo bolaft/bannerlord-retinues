@@ -262,7 +262,7 @@ namespace Retinues.Doctrines
         {
             _activeFeats.Clear();
 
-            if (Config.DisableFeatRequirements)
+            if (Config.EnableFeatRequirements == false)
                 return;
 
             // Ask the service for the discovered doctrine defs; filter by status.
@@ -321,7 +321,7 @@ namespace Retinues.Doctrines
         /// </summary>
         private void NotifyFeats(Action<Feat, object[]> action, params object[] args)
         {
-            if (Config.DisableFeatRequirements)
+            if (Config.EnableFeatRequirements == false)
                 return; // No-op if feats are disabled
 
             foreach (var feat in _activeFeats.ToList())

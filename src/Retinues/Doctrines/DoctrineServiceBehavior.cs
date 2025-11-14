@@ -111,7 +111,7 @@ namespace Retinues.Doctrines
                 return DoctrineStatus.Locked;
 
             // ignore feats if disabled
-            if (Config.DisableFeatRequirements)
+            if (Config.EnableFeatRequirements == false)
                 return DoctrineStatus.InProgress;
 
             // feats
@@ -174,7 +174,7 @@ namespace Retinues.Doctrines
         /// </summary>
         public int GetFeatTarget(string featKey)
         {
-            if (Config.DisableFeatRequirements)
+            if (Config.EnableFeatRequirements == false)
                 return 0;
             var dKey = _featToDoctrine.TryGetValue(featKey, out var did) ? did : null;
             if (dKey == null)
@@ -194,7 +194,7 @@ namespace Retinues.Doctrines
         /// </summary>
         public bool IsFeatComplete(string featKey)
         {
-            if (Config.DisableFeatRequirements)
+            if (Config.EnableFeatRequirements == false)
                 return true;
             int target = GetFeatTarget(featKey);
             if (target <= 0)
