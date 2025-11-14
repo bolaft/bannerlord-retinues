@@ -9,7 +9,7 @@ namespace Retinues.Doctrines
     /// <summary>
     /// Console cheats for doctrine feats. Allows listing, advancing, setting, and unlocking feats via command.
     /// </summary>
-    public static class Cheats
+    public static class DoctrineCheats
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Commands                        //
@@ -232,7 +232,8 @@ namespace Retinues.Doctrines
                         return t;
                 }
                 catch
-                { // ignore dynamic loaders //
+                {
+                    // ignore dynamic loaders //
                 }
             }
             return null;

@@ -416,6 +416,9 @@
       id="ret_import"
       text="導入" />
     <string
+      id="ret_import_culture_mismatch_body"
+      text="在創建此導出文件後，本戰役中的某些文化部隊樹已被編輯。{newline}{newline}要將世界狀態恢復到導出此文件時的狀態，請首先在全局編輯器中使用“全部重置”，重新啟動遊戲，然後再次導入。" />
+    <string
       id="ret_import_done_body"
       text="文件 {FILE} 導入成功。" />
     <string

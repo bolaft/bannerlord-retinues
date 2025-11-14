@@ -68,6 +68,9 @@ namespace Retinues.Features.Unlocks
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Handles the start of a mission to attach unlock tracking behavior.
+        /// </summary>
         private void OnMissionStarted(IMission mission)
         {
             // Return if the feature is disabled
@@ -84,6 +87,9 @@ namespace Retinues.Features.Unlocks
             _newlyUnlocked.Clear();
         }
 
+        /// <summary>
+        /// Handles the end of a map event to show unlock summaries.
+        /// </summary>
         private void OnMapEventEnded(MapEvent mapEvent)
         {
             if (_newlyUnlocked.Count == 0)
@@ -97,6 +103,9 @@ namespace Retinues.Features.Unlocks
             _newlyUnlocked.Clear();
         }
 
+        /// <summary>
+        /// Handles items discarded by the player to contribute to unlock progress.
+        /// </summary>
         private void OnItemsDiscardedByPlayer(ItemRoster roster)
         {
             // Return if the feature is disabled
@@ -350,6 +359,9 @@ namespace Retinues.Features.Unlocks
                 AddOwnCultureBonuses(ownCultureBonuses);
         }
 
+        /// <summary>
+        /// Shows an inquiry popup listing newly unlocked items.
+        /// </summary>
         private static void ShowUnlockInquiry(List<ItemObject> items)
         {
             if (items == null || items.Count == 0)
@@ -382,6 +394,54 @@ namespace Retinues.Features.Unlocks
                     null
                 )
             );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Unlocks an item by ID. Usage: retinues.unlock_item [id]
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("unlock_item", "retinues")]
+        public static string UnlockItem(List<string> args)
+        {
+            if (args.Count != 1)
+                return "Usage: retinues.unlock_item [id]";
+
+            WItem item;
+
+            // Find the item
+            try
+            {
+                item = new(MBObjectManager.Instance.GetObject<ItemObject>(args[0]));
+            }
+            catch
+            {
+                return "Invalid item ID.";
+            }
+
+            // Unlock the item
+            try
+            {
+                item.Unlock();
+            }
+            catch (Exception e)
+            {
+                return $"Failed to unlock item: {e.Message}";
+            }
+
+            return $"Unlocked item {item.Name} ({item}).";
+        }
+
+        /// <summary>
+        /// Resets all unlocks. Usage: retinues.reset_unlocks
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("reset_unlocks", "retinues")]
+        public static string ResetUnlocks(List<string> args)
+        {
+            Instance?.Reset();
+            return "All unlocks have been reset.";
         }
     }
 }

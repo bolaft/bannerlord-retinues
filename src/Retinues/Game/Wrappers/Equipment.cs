@@ -93,7 +93,7 @@ namespace Retinues.Game.Wrappers
                 makeCivilian ? Equipment.EquipmentType.Civilian : Equipment.EquipmentType.Battle
             );
 #endif
-            Loadout.Troop.MarkEdited();
+            Loadout.Troop.NeedsPersistence = true;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -215,7 +215,7 @@ namespace Retinues.Game.Wrappers
             }
 
             _equipment[slot] = new EquipmentElement(item.Base);
-            Loadout.Troop.MarkEdited();
+            Loadout.Troop.NeedsPersistence = true;
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace Retinues.Game.Wrappers
         public void UnsetItem(EquipmentIndex slot)
         {
             _equipment[slot] = new EquipmentElement(null);
-            Loadout.Troop.MarkEdited();
+            Loadout.Troop.NeedsPersistence = true;
         }
 
         /// <summary>

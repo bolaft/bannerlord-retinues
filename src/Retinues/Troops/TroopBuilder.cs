@@ -47,7 +47,7 @@ namespace Retinues.Troops
             );
 
             // Safety: Ensure main party leader is valid
-            Safety.Helpers.EnsureMainPartyLeader();
+            Safety.Fixes.PartyLeaderFixBehavior.FixPartyLeaders();
         }
 
         /// <summary>

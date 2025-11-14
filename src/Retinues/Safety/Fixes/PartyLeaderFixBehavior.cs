@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Library;
 
 namespace Retinues.Safety.Fixes
 {
@@ -16,10 +17,7 @@ namespace Retinues.Safety.Fixes
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void SyncData(IDataStore dataStore)
-        {
-            throw new System.NotImplementedException();
-        }
+        public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Registration                  //
@@ -61,7 +59,6 @@ namespace Retinues.Safety.Fixes
 
                 if (party.IsMainParty)
                     EnsurePartyLeader(party, Hero.MainHero);
-
                 else if (party.IsLordParty)
                     EnsurePartyLeader(party);
             }
@@ -129,6 +126,20 @@ namespace Retinues.Safety.Fixes
                 Log.Warn($"Failed to find leader for party {party.Name}.");
 
             return leader;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Fixes party leaders if a party has no leader assigned.
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("fix_party_leaders", "retinues")]
+        public static string FixCommand(List<string> args)
+        {
+            FixPartyLeaders();
+            return "Fix applied.";
         }
     }
 }

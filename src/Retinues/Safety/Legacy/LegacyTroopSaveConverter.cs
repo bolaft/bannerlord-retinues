@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 using Retinues.Configuration;
 using Retinues.Game;
-using Retinues.Game.Wrappers;
 using Retinues.Troops.Save;
 using Retinues.Utils;
 using TaleWorlds.Core;
@@ -35,6 +35,8 @@ namespace Retinues.Safety.Legacy
         public string EquipmentCode; // Legacy
 
         [SaveableField(8)]
+        [XmlArray("UpgradeTargets")]
+        [XmlArrayItem("TroopSaveData")]
         public List<LegacyTroopSaveData> UpgradeTargets = [];
 
         [SaveableField(9)]
@@ -116,6 +118,12 @@ namespace Retinues.Safety.Legacy
                     case RootCategory.RetinueElite:
                         faction.RetinueElite = data;
                         break;
+                    case RootCategory.RootElite:
+                        faction.RootElite = data;
+                        break;
+                    case RootCategory.RootBasic:
+                        faction.RootBasic = data;
+                        break;
                     case RootCategory.MilitiaMelee:
                         faction.MilitiaMelee = data;
                         break;
@@ -163,8 +171,8 @@ namespace Retinues.Safety.Legacy
                 CultureId = data.CultureId,
                 Race = data.Race,
                 UpgradeTargets = [.. data.UpgradeTargets.Select(ConvertLegacyTroopData)],
-                SkillData = new TroopSkillData(SkillsFromCode(data.SkillCode)),
                 EquipmentData = ConvertEquipmentData(data),
+                SkillData = new TroopSkillData(SkillsFromCode(data.SkillCode)),
                 BodyData = Config.EnableTroopCustomization ? ConvertBodyData(data) : null,
             };
 
@@ -253,11 +261,11 @@ namespace Retinues.Safety.Legacy
                 return RootCategory.Other;
 
             // Special troops
-            if (id.Contains("_retinue_"))
+            if (id.EndsWith("_retinue"))
                 return IsElite(id) ? RootCategory.RetinueElite : RootCategory.RetinueBasic;
-            if (id.Contains("_mmilitia_"))
+            if (id.EndsWith("_mmilitia"))
                 return IsElite(id) ? RootCategory.MilitiaMeleeElite : RootCategory.MilitiaMelee;
-            if (id.Contains("_rmilitia_"))
+            if (id.EndsWith("_rmilitia"))
                 return IsElite(id) ? RootCategory.MilitiaRangedElite : RootCategory.MilitiaRanged;
 
             // Regular troops

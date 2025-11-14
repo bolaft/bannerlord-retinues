@@ -51,7 +51,7 @@ namespace Retinues.Troops.Save
         public int Race;
 
         [SaveableField(12)]
-        public FormationClass FormationClassOverride;
+        public FormationClass FormationClassOverride = FormationClass.Unset;
 
         public TroopSaveData()
         {
@@ -84,9 +84,12 @@ namespace Retinues.Troops.Save
         public WCharacter Deserialize()
         {
             if (string.IsNullOrEmpty(StringId))
-                return null; // Nothing to do
+                return null;
 
-            return DeserializeInternal(new WCharacter(StringId));
+            // Always wrap vanilla root for culture troops
+            var troop = new WCharacter(StringId);
+
+            return DeserializeInternal(troop);
         }
 
         /// <summary>
@@ -122,14 +125,19 @@ namespace Retinues.Troops.Save
             if (troop.IsVanilla)
             {
                 Log.Info($"Deserializing vanilla troop: {StringId}");
-                troop.MarkEdited();
+                troop.NeedsPersistence = true; // Loaded from save, must be persisted again
             }
 
             // Get vanilla base
             var vanilla = new WCharacter(VanillaStringId);
 
             // Fill it
-            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: false, keepSkills: false);
+            troop.FillFrom(
+                vanilla,
+                keepUpgrades: troop.IsVanilla,
+                keepEquipment: false,
+                keepSkills: false
+            );
 
             // Set properties
             troop.Name = Name;
@@ -142,7 +150,7 @@ namespace Retinues.Troops.Save
 
             // Restore upgrade targets
             foreach (var child in UpgradeTargets ?? [])
-                child.Deserialize(troop);
+                child.Deserialize(troop); // Custom path (Parent)
 
             // Retinues are not transferable
             if (troop.IsRetinue)

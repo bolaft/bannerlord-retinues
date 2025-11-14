@@ -416,6 +416,9 @@
       id="ret_import"
       text="Importieren" />
     <string
+      id="ret_import_culture_mismatch_body"
+      text="Einige Kulturtruppenbäume in dieser Kampagne wurden nach der Erstellung dieses Exports bearbeitet.{newline}{newline}Um den Weltzustand wiederherzustellen, wie er beim Export dieser Datei war, verwende zuerst &apos;Alle zurücksetzen&apos; im globalen Editor, starte das Spiel neu und importiere dann erneut." />
+    <string
       id="ret_import_done_body"
       text="Datei {FILE} erfolgreich importiert." />
     <string

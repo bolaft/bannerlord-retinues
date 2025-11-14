@@ -63,6 +63,9 @@ namespace Retinues.Game
             if (troop == null)
                 return false;
 
+            if (troop == RetinueElite)
+                return true;
+
             if (troop == MilitiaMeleeElite || troop == MilitiaRangedElite)
                 return true;
 

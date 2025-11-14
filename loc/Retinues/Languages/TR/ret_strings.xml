@@ -416,6 +416,9 @@
       id="ret_import"
       text="İçe Aktar" />
     <string
+      id="ret_import_culture_mismatch_body"
+      text="Bu kampanyadaki bazı kültür asker ağaçları, bu aktarım oluşturulduktan sonra düzenlendi.{newline}{newline}Bu dosyanın aktarıldığı zamanki dünya durumunu geri yüklemek için önce küresel düzenleyicide &apos;Tümünü Sıfırla&apos;yı kullanın, oyunu yeniden başlatın ve ardından tekrar içe aktarın." />
+    <string
       id="ret_import_done_body"
       text="{FILE} dosyası başarıyla içe aktarıldı." />
     <string

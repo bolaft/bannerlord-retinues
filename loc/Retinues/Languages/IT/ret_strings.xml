@@ -416,6 +416,9 @@
       id="ret_import"
       text="Importa" />
     <string
+      id="ret_import_culture_mismatch_body"
+      text="Alcuni alberi delle truppe culturali in questa campagna sono stati modificati dopo la creazione di questa esportazione.{newline}{newline}Per ripristinare lo stato del mondo com’era quando questo file è stato esportato, usa prima &apos;Reimposta tutto&apos; nell’editor globale, riavvia il gioco, quindi importa di nuovo." />
+    <string
       id="ret_import_done_body"
       text="File {FILE} importato con successo." />
     <string

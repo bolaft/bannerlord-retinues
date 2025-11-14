@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops;
 using Retinues.Utils;
@@ -89,7 +90,10 @@ namespace Retinues.Safety.Sanitizer
             }
             catch (Exception) { }
 
-            // If no fallback found, try a generic one
+            // If no fallback, get base culture's generic troop
+            fallback ??= Player.Culture?.RootBasic?.Base;
+
+            // If still no fallback, try a generic one
             fallback ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
 
             // Add new troop at same index

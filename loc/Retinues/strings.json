@@ -2192,6 +2192,38 @@
     "TR": "İçe Aktar"
   },
   {
+    "id": "ret_import_culture_mismatch_body",
+    "EN": "Some culture troop trees in this campaign were edited after this export was created.\\n\\nTo restore the world state as it was when this file was exported, first use 'Reset All' in the global editor, restart the game, then import again.",
+    "BR": "Algumas árvores de tropas culturais nesta campanha foram editadas após a criação desta exportação.\\n\\nPara restaurar o estado do mundo como era quando este arquivo foi exportado, primeiro use 'Redefinir Tudo' no editor global, reinicie o jogo e importe novamente.",
+    "CNs": "在创建此导出文件后，本战役中的某些文化部队树已被编辑。\\n\\n要将世界状态恢复到导出此文件时的状态，请首先在全局编辑器中使用“全部重置”，重新启动游戏，然后再次导入。",
+    "CNt": "在創建此導出文件後，本戰役中的某些文化部隊樹已被編輯。\\n\\n要將世界狀態恢復到導出此文件時的狀態，請首先在全局編輯器中使用“全部重置”，重新啟動遊戲，然後再次導入。",
+    "DE": "Einige Kulturtruppenbäume in dieser Kampagne wurden nach der Erstellung dieses Exports bearbeitet.\\n\\nUm den Weltzustand wiederherzustellen, wie er beim Export dieser Datei war, verwende zuerst 'Alle zurücksetzen' im globalen Editor, starte das Spiel neu und importiere dann erneut.",
+    "FR": "Certaines branches de troupes culturelles dans cette campagne ont été modifiées après la création de cet export.\\n\\nPour restaurer l’état du monde tel qu’il était lors de l’exportation de ce fichier, utiliser « Réinitialiser tout » dans l’éditeur global, redémarrer le jeu, puis importer à nouveau.",
+    "IT": "Alcuni alberi delle truppe culturali in questa campagna sono stati modificati dopo la creazione di questa esportazione.\\n\\nPer ripristinare lo stato del mondo com’era quando questo file è stato esportato, usa prima 'Reimposta tutto' nell’editor globale, riavvia il gioco, quindi importa di nuovo.",
+    "JP": "このキャンペーンの一部の文化兵ツリーは、このエクスポートが作成された後に編集されました。\\n\\nこのファイルがエクスポートされたときの世界の状態を復元するには、まずグローバルエディターで「すべてリセット」を使用し、ゲームを再起動してから再度インポートしてください。",
+    "KO": "이 캠페인의 일부 문화 병력 트리는 이 내보내기가 생성된 후에 편집되었습니다.\\n\\n이 파일이 내보내졌을 때의 세계 상태를 복원하려면 먼저 글로벌 편집기에서 '모두 재설정'을 사용하고 게임을 재시작한 다음 다시 가져오십시오.",
+    "PL": "Niektóre drzewa jednostek kulturowych w tej kampanii zostały edytowane po utworzeniu tego eksportu.\\n\\nAby przywrócić stan świata taki, jaki był podczas eksportu tego pliku, najpierw użyj opcji 'Resetuj wszystko' w globalnym edytorze, uruchom ponownie grę, a następnie zaimportuj ponownie.",
+    "RU": "Некоторые древовидные структуры войск культуры в этой кампании были отредактированы после создания этого экспорта.\\n\\nЧтобы восстановить состояние мира таким, каким оно было при экспорте этого файла, сначала используйте 'Сбросить всё' в глобальном редакторе, перезапустите игру, а затем импортируйте снова.",
+    "SP": "Algunas ramas de tropas culturales en esta campaña fueron editadas después de crear esta exportación.\\n\\nPara restaurar el estado del mundo tal como estaba cuando se exportó este archivo, primero usa 'Restablecer todo' en el editor global, reinicia el juego y luego importa de nuevo.",
+    "TR": "Bu kampanyadaki bazı kültür asker ağaçları, bu aktarım oluşturulduktan sonra düzenlendi.\\n\\nBu dosyanın aktarıldığı zamanki dünya durumunu geri yüklemek için önce küresel düzenleyicide 'Tümünü Sıfırla'yı kullanın, oyunu yeniden başlatın ve ardından tekrar içe aktarın."
+  },
+  {
+    "id": "ret_import_culture_mismatch_title",
+    "EN": "Reset Required Before Import",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_import_done_body",
     "EN": "File {FILE} imported successfully.",
     "BR": "Arquivo {FILE} importado com sucesso.",

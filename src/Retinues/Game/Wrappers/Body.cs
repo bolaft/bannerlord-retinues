@@ -108,7 +108,7 @@ namespace Retinues.Game.Wrappers
                     newMax
                 );
 
-                _owner.MarkEdited();
+                _owner.NeedsPersistence = true;
             }
             catch (Exception ex)
             {
@@ -252,7 +252,7 @@ namespace Retinues.Game.Wrappers
                     newMax
                 );
 
-                _owner.MarkEdited();
+                _owner.NeedsPersistence = true;
             }
             catch (Exception ex)
             {

@@ -149,15 +149,7 @@ namespace Retinues.Troops.Save
         /// </summary>
         private static TroopSaveData CreateIfNeeded(WCharacter troop)
         {
-            if (troop is null)
-                return null;
-
-            // Custom / retinue / cloned troops are always persisted
-            if (troop.IsCustom)
-                return new TroopSaveData(troop);
-
-            // Vanilla troops are only persisted if they were edited
-            return troop.IsVanillaEdited ? new TroopSaveData(troop) : null;
+            return troop?.NeedsPersistence == true ? new TroopSaveData(troop) : null;
         }
     }
 }

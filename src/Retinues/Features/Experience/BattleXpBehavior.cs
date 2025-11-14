@@ -9,6 +9,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Features.Experience
@@ -188,5 +189,62 @@ namespace Retinues.Features.Experience
 
         internal int GetPool(string key) =>
             (key != null && _xpPools.TryGetValue(key, out var v)) ? v : 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Adds XP to a troop by ID. Usage: retinues.troop_xp_add [id] [amount]
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("troop_xp_add", "retinues")]
+        public static string TroopXpAdd(List<string> args)
+        {
+            if (args.Count == 0 || args.Count > 2)
+                return "Usage: retinues.troop_xp_add [id] [amount]";
+
+            // Find the troop
+            WCharacter troop;
+
+            try
+            {
+                troop = new(args[0]);
+            }
+            catch
+            {
+                return "Invalid troop ID.";
+            }
+
+            // Parse the amount
+            int amount;
+
+            if (args.Count == 1)
+            {
+                amount = 1000;
+            }
+            else
+            {
+                try
+                {
+                    amount = int.Parse(args[1]);
+                }
+                catch
+                {
+                    return "Amount must be an integer.";
+                }
+            }
+
+            // Add the XP
+            try
+            {
+                Add(troop, amount);
+            }
+            catch (Exception e)
+            {
+                return $"Failed to add XP: {e.Message}";
+            }
+
+            return $"Added {amount} XP to {troop.Name} ({troop}).";
+        }
     }
 }

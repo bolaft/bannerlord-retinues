@@ -416,6 +416,9 @@
       id="ret_import"
       text="インポート" />
     <string
+      id="ret_import_culture_mismatch_body"
+      text="このキャンペーンの一部の文化兵ツリーは、このエクスポートが作成された後に編集されました。{newline}{newline}このファイルがエクスポートされたときの世界の状態を復元するには、まずグローバルエディターで「すべてリセット」を使用し、ゲームを再起動してから再度インポートしてください。" />
+    <string
       id="ret_import_done_body"
       text="ファイル {FILE} のインポートに成功しました。" />
     <string

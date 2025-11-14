@@ -59,9 +59,16 @@ namespace Retinues.Game.Wrappers
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Ensures the given string id is valid, or returns null.
+        /// Used to force old legacy ids to be reallocated.
+        /// </summary>
+        private static string NullifyLegacyIds(string stringId) =>
+            stringId.StartsWith(LegacyCustomIdPrefix) ? null : stringId;
+
         // Constructor for root troops
         public WCharacter(WFaction faction, RootCategory category, string stringId = null)
-            : this(stringId ?? AllocateStub().StringId)
+            : this(NullifyLegacyIds(stringId) ?? AllocateStub().StringId)
         {
             Log.Info($"Creating new custom troop as {category} of faction {faction.Name}");
 
@@ -73,7 +80,7 @@ namespace Retinues.Game.Wrappers
 
         // Constructor for upgrade troops
         public WCharacter(WCharacter parent, string stringId = null)
-            : this(stringId ?? AllocateStub().StringId)
+            : this(NullifyLegacyIds(stringId) ?? AllocateStub().StringId)
         {
             Log.Info($"Creating new custom troop as upgrade of {parent.Name}");
 
@@ -122,31 +129,26 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Vanilla troops that were modified through the editor and must be persisted.
         /// </summary>
-        public static HashSet<string> EditedVanillaTroopIds { get; } =
+        public static HashSet<string> EditedVanillaRootIds { get; } =
             new HashSet<string>(StringComparer.Ordinal);
 
         /// <summary>
         /// True if this is a vanilla troop that has been edited in the studio/global editor.
-        /// Custom troops always return false here.
+        /// Custom troops always return true here.
         /// </summary>
-        public bool IsVanillaEdited => IsVanilla && EditedVanillaTroopIds.Contains(StringId);
-
-        /// <summary>
-        /// Mark this vanilla troop as edited (no-op for custom troops).
-        /// </summary>
-        internal void MarkEdited()
+        public bool NeedsPersistence
         {
-            if (IsVanilla)
-                EditedVanillaTroopIds.Add(StringId);
-        }
+            get => IsCustom || (IsVanilla && EditedVanillaRootIds.Contains(Root.StringId));
+            set
+            {
+                if (IsCustom)
+                    return; // Custom troops are always persisted
 
-        /// <summary>
-        /// Clear the edited flag for this vanilla troop (no-op for custom troops).
-        /// </summary>
-        internal void ClearEditedFlag()
-        {
-            if (IsVanilla)
-                EditedVanillaTroopIds.Remove(StringId);
+                if (value)
+                    EditedVanillaRootIds.Add(Root.StringId);
+                else
+                    EditedVanillaRootIds.Remove(Root.StringId);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -171,7 +173,9 @@ namespace Retinues.Game.Wrappers
 
         /* ━━━━━━━━━ Type ━━━━━━━━━ */
 
-        public bool IsCustom => StringId.StartsWith(CustomIdPrefix) == true;
+        public bool IsCustom =>
+            StringId.StartsWith(CustomIdPrefix) == true
+            || StringId.StartsWith(LegacyCustomIdPrefix) == true;
         public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
         public bool IsVanilla => !IsCustom;
 
@@ -187,6 +191,17 @@ namespace Retinues.Game.Wrappers
 
         // Mapping of upgrade troop -> parent troop
         public static readonly Dictionary<string, WCharacter> UpgradeMap = [];
+
+        public WCharacter Root
+        {
+            get
+            {
+                WCharacter current = this;
+                while (current.Parent != null)
+                    current = current.Parent;
+                return current;
+            }
+        }
 
         public WCharacter Parent
         {
@@ -266,13 +281,14 @@ namespace Retinues.Game.Wrappers
             get => Base.Name.ToString();
             set
             {
+                Log.Info($"Setting name of troop {StringId} to '{value}'");
                 Reflector.InvokeMethod(
                     Base,
                     "SetName",
                     [typeof(TextObject)],
                     new TextObject(value, null)
                 );
-                MarkEdited();
+                NeedsPersistence = true;
             }
         }
 
@@ -284,7 +300,7 @@ namespace Retinues.Game.Wrappers
             set
             {
                 Base.Level = value;
-                MarkEdited();
+                NeedsPersistence = true;
             }
         }
 
@@ -311,7 +327,7 @@ namespace Retinues.Game.Wrappers
                             | BindingFlags.DeclaredOnly
                     );
                     prop?.SetValue(Base, value.Base, null);
-                    MarkEdited();
+                    NeedsPersistence = true;
                 }
                 catch (Exception ex)
                 {
@@ -331,7 +347,7 @@ namespace Retinues.Game.Wrappers
             set
             {
                 _formationClassOverride = value;
-                MarkEdited();
+                NeedsPersistence = true;
             }
         }
 
@@ -352,7 +368,7 @@ namespace Retinues.Game.Wrappers
                     Reflector.SetFieldValue(Base, "_isRanged", isRanged);
                     Reflector.SetFieldValue(Base, "_isMounted", isMounted);
 
-                    MarkEdited();
+                    NeedsPersistence = true;
                 }
                 catch (Exception ex)
                 {
@@ -478,7 +494,7 @@ namespace Retinues.Game.Wrappers
         {
             var skills = Reflector.GetFieldValue<MBCharacterSkills>(Base, "DefaultCharacterSkills");
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
-            MarkEdited();
+            NeedsPersistence = true;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -491,7 +507,7 @@ namespace Retinues.Game.Wrappers
             set
             {
                 Reflector.SetPropertyValue(Base, "IsFemale", value);
-                MarkEdited();
+                NeedsPersistence = true;
             }
         }
 
@@ -501,7 +517,7 @@ namespace Retinues.Game.Wrappers
             set
             {
                 Reflector.SetPropertyValue(Base, "Race", value);
-                MarkEdited();
+                NeedsPersistence = true;
             }
         }
 
@@ -586,12 +602,9 @@ namespace Retinues.Game.Wrappers
 
             // Revert existing instances in parties
             if (replacement != null)
-                Log.Info(
-                    $"Replacing existing instances of {Name} with {replacement.Name}."
-                );
+                Log.Info($"Replacing existing instances of {Name} with {replacement.Name}.");
             else
                 Log.Info($"Replacing existing instances of {Name} with best match from culture.");
-
 
             Replace(replacement ?? TroopMatcher.PickBestFromFaction(Culture, this));
         }
@@ -682,7 +695,7 @@ namespace Retinues.Game.Wrappers
             bool keepSkills = true
         )
         {
-            if (IsVanilla && !IsVanillaEdited)
+            if (IsVanilla && !NeedsPersistence)
             {
                 Log.Error("Cannot FillFrom on an unedited vanilla troop.");
                 return;

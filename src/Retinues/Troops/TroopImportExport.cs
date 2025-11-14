@@ -502,6 +502,34 @@ namespace Retinues.Troops
                         InformationManager.ShowInquiry(confirm);
                     }
 
+                    void TryConfirmAndImport(ImportScope scopeToUse)
+                    {
+                        // If we are going to touch culture troops, ensure we are not missing
+                        // any currently-edited roots from the package.
+                        if (scopeToUse is ImportScope.CulturesOnly or ImportScope.Both)
+                        {
+                            if (HasCulturePersistenceMismatch(pkg, out var missing))
+                            {
+                                // At least one currently-edited culture root is NOT present in the file.
+                                // Warn the player and abort; they should use Reset All + restart first.
+                                Notifications.Popup(
+                                    L.T(
+                                        "import_culture_mismatch_title",
+                                        "Reset Required Before Import"
+                                    ),
+                                    L.T(
+                                        "import_culture_mismatch_body",
+                                        "Some culture troop trees in this campaign were edited after this export was created.\n\nTo restore the world state as it was when this file was exported, first use 'Reset All' in the global editor, restart the game, then import again."
+                                    )
+                                );
+                                return;
+                            }
+                        }
+
+                        // Safe to proceed
+                        ConfirmAndImport(scopeToUse);
+                    }
+
                     if (pkg.HasFactions && pkg.HasCultures)
                     {
                         var els = new List<InquiryElement>
@@ -543,7 +571,7 @@ namespace Retinues.Troops
                                         : ids.Contains("custom") ? ImportScope.CustomOnly
                                         : ImportScope.CulturesOnly;
 
-                                    ConfirmAndImport(scope);
+                                    TryConfirmAndImport(scope);
                                 },
                                 _ => { }
                             )
@@ -555,10 +583,75 @@ namespace Retinues.Troops
                         var scope = pkg.HasFactions
                             ? ImportScope.CustomOnly
                             : ImportScope.CulturesOnly;
-                        ConfirmAndImport(scope);
+
+                        TryConfirmAndImport(scope);
                     }
                 }
             );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Checks if the current game's edited culture roots are fully covered by the given package.
+        /// If some edited roots are missing from the package, returns true and lists them.
+        /// </summary>
+        private static bool HasCulturePersistenceMismatch(
+            RetinuesTroopsPackage pkg,
+            out List<string> missingRootIds
+        )
+        {
+            missingRootIds = null;
+
+            if (pkg == null || pkg.Cultures == null || pkg.Cultures.Count == 0)
+                return false;
+
+            // Current game: which vanilla roots are currently marked as needing persistence?
+            // (EditedVanillaRootIds is your static set, populated via NeedsPersistence / MarkEdited)
+            var editedRoots = WCharacter.EditedVanillaRootIds;
+            if (editedRoots == null || editedRoots.Count == 0)
+                return false; // nothing edited -> no mismatch possible
+
+            // Roots present in the import package (by vanilla id if available, else StringId)
+            var fileRoots = new HashSet<string>(StringComparer.Ordinal);
+
+            void AddRoot(TroopSaveData data)
+            {
+                if (data == null)
+                    return;
+
+                var id = !string.IsNullOrWhiteSpace(data.VanillaStringId)
+                    ? data.VanillaStringId
+                    : data.StringId;
+
+                if (!string.IsNullOrWhiteSpace(id))
+                    fileRoots.Add(id);
+            }
+
+            foreach (var f in pkg.Cultures)
+            {
+                AddRoot(f.RetinueElite);
+                AddRoot(f.RetinueBasic);
+                AddRoot(f.RootElite);
+                AddRoot(f.RootBasic);
+                AddRoot(f.MilitiaMelee);
+                AddRoot(f.MilitiaMeleeElite);
+                AddRoot(f.MilitiaRanged);
+                AddRoot(f.MilitiaRangedElite);
+                AddRoot(f.CaravanGuard);
+                AddRoot(f.CaravanMaster);
+                AddRoot(f.Villager);
+            }
+
+            var missing = editedRoots.Where(id => !fileRoots.Contains(id)).ToList();
+
+            if (missing.Count == 0)
+                return false;
+
+            missingRootIds = missing;
+            return true;
         }
     }
 }

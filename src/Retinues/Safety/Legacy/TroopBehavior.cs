@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Game;
-using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Safety.Legacy
 {
@@ -51,21 +49,6 @@ namespace Retinues.Safety.Legacy
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void RegisterEvents()
-        {
-            CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
-                this,
-                OnGameLoadFinished
-            );
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Events                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private void OnGameLoadFinished()
-        {
-            Helpers.EnsureMainPartyLeader();
-        }
+        public override void RegisterEvents() { }
     }
 }

@@ -416,6 +416,9 @@
       id="ret_import"
       text="Importar" />
     <string
+      id="ret_import_culture_mismatch_body"
+      text="Algunas ramas de tropas culturales en esta campaña fueron editadas después de crear esta exportación.{newline}{newline}Para restaurar el estado del mundo tal como estaba cuando se exportó este archivo, primero usa &apos;Restablecer todo&apos; en el editor global, reinicia el juego y luego importa de nuevo." />
+    <string
       id="ret_import_done_body"
       text="Archivo {FILE} importado con éxito." />
     <string

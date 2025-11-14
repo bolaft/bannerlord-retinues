@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Library;
 
 namespace Retinues.Game
 {
@@ -207,5 +209,22 @@ namespace Retinues.Game
             Party?.Base?.CurrentSettlement != null
                 ? new WSettlement(Party.Base.CurrentSettlement)
                 : null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Lists the IDs of all player troops. Usage: retinues.list_custom_troops
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("list_custom_troops", "retinues")]
+        public static string ListCustomTroops(List<string> args)
+        {
+            var list = Troops.Select(t => $"{t.StringId}: {t.Name}").ToList();
+            if (list.Count == 0)
+                return "No active custom troops found.";
+
+            return string.Join("\n", list);
+        }
     }
 }

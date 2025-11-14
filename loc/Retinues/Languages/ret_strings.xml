@@ -416,6 +416,12 @@
       id="ret_import"
       text="Import" />
     <string
+      id="ret_import_culture_mismatch_body"
+      text="Some culture troop trees in this campaign were edited after this export was created.{newline}{newline}To restore the world state as it was when this file was exported, first use &apos;Reset All&apos; in the global editor, restart the game, then import again." />
+    <string
+      id="ret_import_culture_mismatch_title"
+      text="Reset Required Before Import" />
+    <string
       id="ret_import_done_body"
       text="File {FILE} imported successfully." />
     <string

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Library;
 
 namespace Retinues.Features.Stocks
 {
@@ -79,6 +80,27 @@ namespace Retinues.Features.Stocks
                 Instance.StocksByItemId.Remove(itemId);
             else
                 Instance.StocksByItemId[itemId] = next;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Sets the stock count for an item by ID. Usage: retinues.set_stock [id] [count]
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("set_stock", "retinues")]
+        public static string SetStock(List<string> args)
+        {
+            if (args.Count != 2)
+                return "Usage: retinues.set_stock [id] [count]";
+
+            var itemId = args[0];
+            if (!int.TryParse(args[1], out var count))
+                return "Invalid count.";
+
+            StocksBehavior.Set(itemId, count);
+            return $"Set stock for {itemId} to {count}.";
         }
     }
 }
