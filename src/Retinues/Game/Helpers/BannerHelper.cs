@@ -115,15 +115,25 @@ namespace Retinues.Game.Helpers
                 {
                     try
                     {
-                        // 1. Get the design as a code
-                        var code = banner.Serialize(); // uses Banner.Serialize()
+                        // 1) Copy the design from the troop banner
+                        var code = banner.Serialize();
+                        banner = new Banner(code); // copy of design, original colors
 
-                        // 2. Grab the culture's faction colors and swap them
-                        uint primary = culture.Base.Color2; // swapped
-                        uint secondary = culture.Base.Color; // swapped
+                        // 2) Compute culture colors (swapped)
+                        var basicCulture = culture.Base;
+                        var (primary, secondary) = GetSafeCultureColors(basicCulture, banner);
 
-                        // 3. Rebuild a banner from the design, but with swapped colors
-                        banner = new Banner(code, primary, secondary);
+                        // 3) Apply them explicitly:
+                        //    - background = (primary, secondary)
+                        //    - icons = secondary
+                        if (
+                            BannerManager.GetColorId(primary) >= 0
+                            && BannerManager.GetColorId(secondary) >= 0
+                        )
+                        {
+                            banner.ChangeBackgroundColor(primary, secondary);
+                            banner.ChangeIconColors(secondary);
+                        }
                     }
                     catch
                     { /* ignore recolor errors */
@@ -138,7 +148,10 @@ namespace Retinues.Game.Helpers
             return banner;
         }
 
-        public static Banner ScaleBannerIcon(Banner src, float scale)
+        /// <summary>
+        /// Scales the icons of the given banner by the specified factor.
+        /// </summary>
+        private static Banner ScaleBannerIcon(Banner src, float scale)
         {
             if (src == null || scale == 1.0f)
                 return src;
@@ -157,7 +170,42 @@ namespace Retinues.Game.Helpers
             return b;
         }
 
-        public static bool IsEmptyBanner(Banner banner)
+        /// <summary>
+        /// Get safe culture colors, falling back to banner colors if needed.
+        /// </summary>
+        private static (uint primary, uint secondary) GetSafeCultureColors(
+            BasicCultureObject culture,
+            Banner fallbackBanner
+        )
+        {
+            // Prefer culture's main faction colors
+            uint primary = culture.Color2; // swapped on purpose
+            uint secondary = culture.Color;
+
+            // If those are not valid palette colors, fall back to banner's own colors
+            if (primary == uint.MaxValue || BannerManager.GetColorId(primary) < 0)
+                primary =
+                    fallbackBanner?.GetFirstIconColor()
+                    ?? fallbackBanner?.GetPrimaryColor()
+                    ?? uint.MaxValue;
+
+            if (secondary == uint.MaxValue || BannerManager.GetColorId(secondary) < 0)
+                secondary = fallbackBanner?.GetPrimaryColor() ?? primary;
+
+            // Final guard: if we still have invalids, just keep using the banner's own colors
+            if (primary == uint.MaxValue || BannerManager.GetColorId(primary) < 0)
+                primary = fallbackBanner?.GetPrimaryColor() ?? 0;
+
+            if (secondary == uint.MaxValue || BannerManager.GetColorId(secondary) < 0)
+                secondary = fallbackBanner?.GetFirstIconColor() ?? primary;
+
+            return (primary, secondary);
+        }
+
+        /// <summary>
+        /// Determines if the given banner is empty or invalid.
+        /// </summary>
+        private static bool IsEmptyBanner(Banner banner)
         {
             if (banner == null)
                 return true;
