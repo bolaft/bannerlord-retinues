@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="Bu kampanyadaki bazı kültür asker ağaçları, bu aktarım oluşturulduktan sonra düzenlendi.{newline}{newline}Bu dosyanın aktarıldığı zamanki dünya durumunu geri yüklemek için önce küresel düzenleyicide &apos;Tümünü Sıfırla&apos;yı kullanın, oyunu yeniden başlatın ve ardından tekrar içe aktarın." />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="İçe Aktarım Öncesi Sıfırlama Gerekiyor" />
+    <string
       id="ret_import_done_body"
       text="{FILE} dosyası başarıyla içe aktarıldı." />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Bir eşyayı açmak için kaç düşmanın yenilmesi gerektiği." />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="Yandaş Dönüşümünü Topraklarla Sınırla" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="Oyuncu ancak bir toprakta yandaşları dönüştürebilir (klan yandaşları herhangi bir yerleşimde dönüştürülebilir)." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Düzenlemeyi Topraklarla Sınırla" />

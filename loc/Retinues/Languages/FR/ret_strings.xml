@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="Certaines branches de troupes culturelles dans cette campagne ont été modifiées après la création de cet export.{newline}{newline}Pour restaurer l’état du monde tel qu’il était lors de l’exportation de ce fichier, utiliser « Réinitialiser tout » dans l’éditeur global, redémarrer le jeu, puis importer à nouveau." />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="Réinitialisation Requise Avant l’Importation" />
+    <string
       id="ret_import_done_body"
       text="Fichier {FILE} importé avec succès." />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Combien d’ennemis portant un objet doivent être vaincus pour le débloquer." />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="Restreindre la Conversion de Rétinue aux Fiefs" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="Le joueur ne peut convertir des rétinues que lorsqu&apos;il est dans un fief (les rétinues de clan peuvent être converties dans n&apos;importe quelle ville ou village)." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Restreindre l&apos;Édition aux Fiefs" />

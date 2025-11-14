@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="在创建此导出文件后，本战役中的某些文化部队树已被编辑。{newline}{newline}要将世界状态恢复到导出此文件时的状态，请首先在全局编辑器中使用“全部重置”，重新启动游戏，然后再次导入。" />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="导入前需要重置" />
+    <string
       id="ret_import_done_body"
       text="文件 {FILE} 导入成功。" />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="解锁一件物品所需击败的敌人数量。" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="限制随从转换到领地" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="玩家只能在领地中转换随从（家族随从可以在任何定居点转换）。" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="限制编辑到领地" />

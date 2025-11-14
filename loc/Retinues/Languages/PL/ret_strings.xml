@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="Niektóre drzewa jednostek kulturowych w tej kampanii zostały edytowane po utworzeniu tego eksportu.{newline}{newline}Aby przywrócić stan świata taki, jaki był podczas eksportu tego pliku, najpierw użyj opcji &apos;Resetuj wszystko&apos; w globalnym edytorze, uruchom ponownie grę, a następnie zaimportuj ponownie." />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="Przed importem wymagany jest reset" />
+    <string
       id="ret_import_done_body"
       text="Plik {FILE} został pomyślnie zaimportowany." />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Ilu wrogów noszących przedmiot należy pokonać, aby go odblokować." />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="Ogranicz Konwersję Orszaku do Lenna" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="Gracz może konwertować orszaki tylko w lenie (orszaki klanu można konwertować w dowolnej osadzie)." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Ogranicz Edytowanie do Lenna" />

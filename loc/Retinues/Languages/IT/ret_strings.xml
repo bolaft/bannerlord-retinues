@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="Alcuni alberi delle truppe culturali in questa campagna sono stati modificati dopo la creazione di questa esportazione.{newline}{newline}Per ripristinare lo stato del mondo com’era quando questo file è stato esportato, usa prima &apos;Reimposta tutto&apos; nell’editor globale, riavvia il gioco, quindi importa di nuovo." />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="Reimpostazione Richiesta Prima dell’Importazione" />
+    <string
       id="ret_import_done_body"
       text="File {FILE} importato con successo." />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Quanti nemici che indossano un oggetto devono essere sconfitti per sbloccarlo." />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="Restringi la Conversione del Seguito ai Feudi" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="Il giocatore può convertire i seguaci solo quando si trova in un feudo (i seguaci del clan possono essere convertiti in qualsiasi insediamento)." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Restringi la Modifica ai Feudi" />

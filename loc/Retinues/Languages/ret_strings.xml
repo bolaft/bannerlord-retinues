@@ -821,12 +821,6 @@
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="How many enemies wearing an item must be defeated to unlock it." />
     <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="Restrict Retinue Conversion To Fiefs" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)." />
-    <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Restrict Editing To Fiefs" />
     <string

@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="이 캠페인의 일부 문화 병력 트리는 이 내보내기가 생성된 후에 편집되었습니다.{newline}{newline}이 파일이 내보내졌을 때의 세계 상태를 복원하려면 먼저 글로벌 편집기에서 &apos;모두 재설정&apos;을 사용하고 게임을 재시작한 다음 다시 가져오십시오." />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="가져오기 전에 재설정 필요" />
+    <string
       id="ret_import_done_body"
       text="파일 {FILE}이(가) 성공적으로 가져와졌습니다." />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="아이템을 해제하려면 몇 명의 적을 처치해야 하는지." />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="수행원 변환을 영지로 제한" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="플레이어는 영지에 있을 때만 수행원을 변환할 수 있습니다 (가문 수행원은 모든 정착지에서 변환할 수 있음)." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="편집을 영지로 제한" />

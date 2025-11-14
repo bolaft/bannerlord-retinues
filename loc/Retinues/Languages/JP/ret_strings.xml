@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="このキャンペーンの一部の文化兵ツリーは、このエクスポートが作成された後に編集されました。{newline}{newline}このファイルがエクスポートされたときの世界の状態を復元するには、まずグローバルエディターで「すべてリセット」を使用し、ゲームを再起動してから再度インポートしてください。" />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="インポート前にリセットが必要です" />
+    <string
       id="ret_import_done_body"
       text="ファイル {FILE} のインポートに成功しました。" />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="解除するには何人の敵を倒す必要があるか。" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="随伴兵の変換を領地に制限" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="プレイヤーは領地内でのみ随伴兵を変換できる（一族の随伴兵はどの集落でも変換可能）。" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="編集を領地に制限" />

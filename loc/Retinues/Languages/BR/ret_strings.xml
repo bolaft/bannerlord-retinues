@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="Algumas árvores de tropas culturais nesta campanha foram editadas após a criação desta exportação.{newline}{newline}Para restaurar o estado do mundo como era quando este arquivo foi exportado, primeiro use &apos;Redefinir Tudo&apos; no editor global, reinicie o jogo e importe novamente." />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="Importação Requer Redefinição" />
+    <string
       id="ret_import_done_body"
       text="Arquivo {FILE} importado com sucesso." />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Quantos inimigos usando um item devem ser derrotados para desbloqueá-lo." />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="Restringir Conversão de Séquito a Feudos" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="O jogador só pode converter séquitos quando estiver em um feudo (séquitos de clã podem ser convertidos em qualquer assentamento)." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Restringir Edição a Feudos" />

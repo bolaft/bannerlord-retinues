@@ -139,27 +139,6 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> RestrictConversionToFiefs = CreateOption(
-            section: () => L.S("mcm_section_retinues", "Retinues"),
-            name: () =>
-                L.S(
-                    "mcm_option_restrict_conversion_to_fiefs",
-                    "Restrict Retinue Conversion To Fiefs"
-                ),
-            key: "RestrictConversionToFiefs",
-            hint: () =>
-                L.S(
-                    "mcm_option_restrict_conversion_to_fiefs_hint",
-                    "Player can only convert retinues when in a fief (clan retinues can be converted in any settlement)."
-                ),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = true,
-            }
-        );
-
         // ─────────────────────────────────────────────────────
         // Recruitment
         // ─────────────────────────────────────────────────────

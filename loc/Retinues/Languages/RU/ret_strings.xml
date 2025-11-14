@@ -419,6 +419,9 @@
       id="ret_import_culture_mismatch_body"
       text="Некоторые древовидные структуры войск культуры в этой кампании были отредактированы после создания этого экспорта.{newline}{newline}Чтобы восстановить состояние мира таким, каким оно было при экспорте этого файла, сначала используйте &apos;Сбросить всё&apos; в глобальном редакторе, перезапустите игру, а затем импортируйте снова." />
     <string
+      id="ret_import_culture_mismatch_title"
+      text="Перед импортом требуется сброс" />
+    <string
       id="ret_import_done_body"
       text="Файл {FILE} успешно импортирован." />
     <string
@@ -817,12 +820,6 @@
     <string
       id="ret_mcm_option_required_kills_for_unlock_hint"
       text="Сколько врагов с предметом нужно победить, чтобы его разблокировать." />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs"
-      text="Ограничить Преобразование Свиты до Феодов" />
-    <string
-      id="ret_mcm_option_restrict_conversion_to_fiefs_hint"
-      text="Игрок может преобразовывать свиту только в феоде (свиту клана можно преобразовывать в любом поселении)." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Ограничить редактирование до феодов" />
