@@ -1317,7 +1317,7 @@
       text="Retirer l’objet" />
     <string
       id="ret_unequip_warning_text"
-      text="Tu es sur le point de retirer {ITEM}, il faudra du temps pour en équiper un nouveau. Continuer quand même ?" />
+      text="Le retrait est instantané, mais l’équipement d’un objet différent plus tard peut prendre du temps.{newline}{newline}Confirmer ?" />
     <string
       id="ret_unknown"
       text="Inconnu" />

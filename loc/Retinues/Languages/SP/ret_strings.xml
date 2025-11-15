@@ -1317,7 +1317,7 @@
       text="Quitar Objeto" />
     <string
       id="ret_unequip_warning_text"
-      text="Estás a punto de quitar {ITEM}, tomará tiempo equipar uno nuevo. ¿Continuar de todos modos?" />
+      text="Quitar es instantáneo, pero equipar un objeto diferente más tarde puede llevar tiempo.{newline}{newline}¿Confirmar?" />
     <string
       id="ret_unknown"
       text="Desconocido" />

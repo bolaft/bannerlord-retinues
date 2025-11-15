@@ -1317,7 +1317,7 @@
       text="アイテムを外す" />
     <string
       id="ret_unequip_warning_text"
-      text="{ITEM} を外そうとしています。新しいものを装備するには時間がかかります。それでも続行しますか？" />
+      text="装備解除は即座に行われますが、後で別のアイテムを装備するには時間がかかる場合があります。{newline}{newline}確認しますか？" />
     <string
       id="ret_unknown"
       text="不明" />

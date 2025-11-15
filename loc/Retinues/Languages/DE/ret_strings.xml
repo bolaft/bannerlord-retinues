@@ -1317,7 +1317,7 @@
       text="Gegenstand ablegen" />
     <string
       id="ret_unequip_warning_text"
-      text="Du bist dabei, {ITEM} abzulegen. Es wird Zeit brauchen, ein neues auszurüsten. Trotzdem fortfahren?" />
+      text="Das Ablegen ist sofort, aber das spätere Anlegen eines anderen Gegenstands kann Zeit in Anspruch nehmen.{newline}{newline}Bestätigen?" />
     <string
       id="ret_unknown"
       text="Unbekannt" />

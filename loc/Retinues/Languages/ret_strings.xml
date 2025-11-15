@@ -1317,7 +1317,7 @@
       text="Unequip Item" />
     <string
       id="ret_unequip_warning_text"
-      text="Unequipping is instant.{newline}{newline}Re-equipping {ITEM_NAME} later may take time." />
+      text="Unequipping is instant, but equipping a different item later may take time.{newline}{newline}Confirm?" />
     <string
       id="ret_unknown"
       text="Unknown" />

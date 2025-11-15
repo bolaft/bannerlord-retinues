@@ -1317,7 +1317,7 @@
       text="卸下物品" />
     <string
       id="ret_unequip_warning_text"
-      text="你即將卸下 {ITEM}，重新裝備一個新物品需要時間。是否繼續？" />
+      text="卸下是即時的，但以後裝備不同的物品可能需要時間。{newline}{newline}確認？" />
     <string
       id="ret_unknown"
       text="未知" />

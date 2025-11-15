@@ -1317,7 +1317,7 @@
       text="Zdejmij Przedmiot" />
     <string
       id="ret_unequip_warning_text"
-      text="Zamierzasz zdjąć {ITEM}, ponowne wyposażenie nowego zajmie trochę czasu. Kontynuować mimo to?" />
+      text="Zdjęcie jest natychmiastowe, ale założenie innego przedmiotu później może zająć trochę czasu.{newline}{newline}Potwierdzasz?" />
     <string
       id="ret_unknown"
       text="Nieznany" />

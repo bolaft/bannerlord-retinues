@@ -1317,7 +1317,7 @@
       text="Eşyayı Çıkar" />
     <string
       id="ret_unequip_warning_text"
-      text="{ITEM} eşyasını çıkarmak üzeresin, yenisini donatmak zaman alacak. Yine de devam etmek istiyor musun?" />
+      text="Eşyayı çıkarmak anında gerçekleşir, ancak daha sonra farklı bir eşya donatmak zaman alabilir.{newline}{newline}Onaylıyor musun?" />
     <string
       id="ret_unknown"
       text="Bilinmeyen" />
