@@ -3,6 +3,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
+using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
@@ -186,6 +187,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public bool ShowInStockText =>
             !State.IsStudioMode
+            && Config.PayForEquipment
             && IsEnabled
             && !IsSelected
             && !IsEquipped
@@ -195,6 +197,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public bool ShowValue =>
             !State.IsStudioMode
+            && Config.PayForEquipment
             && IsEnabled
             && !IsSelected
             && !IsEquipped
@@ -287,9 +290,15 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceMethod]
         public void ExecuteSelect()
         {
+            if (State.Troop == null || State.Equipment == null)
+            {
+                Log.Error("ExecuteSelect: Aborting - Troop or Equipment is null");
+                return;
+            }
+
             // Enter
             Log.Debug(
-                $"ExecuteSelect: Start RowItem={(RowItem?.Name?.ToString() ?? "null")}, Slot={State.Slot}, SetIndex={(State.Equipment?.Index.ToString() ?? "null")}"
+                $"ExecuteSelect: Start RowItem={RowItem?.Name?.ToString() ?? "null"}, Slot={State.Slot}, SetIndex={State.Equipment?.Index.ToString() ?? "null"}"
             );
 
             // Slot sanity
@@ -320,8 +329,17 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             var selectionIsNull = RowItem == null;
             var selectionIsEquipped = RowItem != null && RowItem == equippedItem;
 
+            PendingEquipData pending = null;
+            WItem stagedItem = null;
+
+            pending = EquipStagingBehavior.Get(troop, slot, setIndex);
+            if (pending != null)
+                stagedItem = new WItem(pending.ItemId);
+
+            var hasPending = pending != null;
+
             Log.Debug(
-                $"ExecuteSelect: Computed state - Troop={(troop?.ToString() ?? "null")}, EquippedItem={(equippedItem?.Name?.ToString() ?? "null")}, selectionIsNull={selectionIsNull}, selectionIsEquipped={selectionIsEquipped}"
+                $"ExecuteSelect: Computed state - Troop={troop?.ToString() ?? "null"}, EquippedItem={equippedItem?.Name?.ToString() ?? "null"}, selectionIsNull={selectionIsNull}, selectionIsEquipped={selectionIsEquipped}"
             );
 
             // Studio: bypass rules/costs/time
@@ -348,6 +366,17 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Case 1: Unequip
             if (selectionIsNull)
             {
+                if (hasPending && stagedItem != null)
+                {
+                    Log.Debug(
+                        "ExecuteSelect: Empty row clicked with pending change - rolling back staged equip and unstaging."
+                    );
+
+                    EquipmentManager.RollbackStagedEquip(troop, setIndex, slot, stagedItem);
+
+                    pending = null;
+                }
+
                 // Only warn if reverting would later take time.
                 // That’s exactly when this unequip reduces required copies (deltaRemove > 0).
                 if (!State.IsStudioMode && Config.EquipmentChangeTakesTime && equippedItem != null)
@@ -369,9 +398,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                                 L.S("unequip_warn_title", "Unequip Item"),
                                 L.T(
                                         "unequip_warning_text",
-                                        "Unequipping is instant.\n\nRe-equipping {ITEM_NAME} later may take time."
+                                        "Unequipping is instant, but equipping a different item later may take time.\n\nConfirm?"
                                     )
-                                    .SetTextVariable("ITEM_NAME", equippedItem.Name)
                                     .ToString(),
                                 true,
                                 true,
@@ -416,6 +444,20 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Case 2: Already equipped -> no-op (but still refresh to collapse any staged visuals)
             if (selectionIsEquipped)
             {
+                // If a different item is staged for this slot,
+                // treat clicking the equipped row as "cancel staged change".
+                if (hasPending && stagedItem != null)
+                {
+                    Log.Debug(
+                        "ExecuteSelect: Equipped item clicked with pending change - rolling back staged equip and unstaging."
+                    );
+
+                    EquipmentManager.RollbackStagedEquip(troop, setIndex, slot, stagedItem);
+
+                    State.UpdateEquipData();
+                    return;
+                }
+
                 Log.Debug("ExecuteSelect: Selection is already equipped - refreshing state");
                 State.UpdateEquipData();
                 return;
@@ -423,6 +465,18 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
             // Case 3: Equip a different item
             // Preview the change to drive UI flow (confirm cost if needed).
+            if (hasPending && stagedItem != null)
+            {
+                Log.Debug(
+                    "ExecuteSelect: New item clicked while a staged change exists - rolling back previous staged equip and unstaging."
+                );
+
+                EquipmentManager.RollbackStagedEquip(troop, setIndex, slot, stagedItem);
+
+                // Refresh pending state
+                pending = null;
+                hasPending = false;
+            }
             var quote = EquipmentManager.QuoteEquip(troop, setIndex, slot, RowItem);
             Log.Debug(
                 $"ExecuteSelect: Quote - IsChange={quote.IsChange}, CopiesToBuy={quote.CopiesToBuy}, GoldCost={quote.GoldCost}"

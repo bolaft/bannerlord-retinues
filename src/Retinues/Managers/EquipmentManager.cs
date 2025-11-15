@@ -361,10 +361,17 @@ namespace Retinues.Managers
         {
             if (q.DeltaAdd <= 0)
                 return EquipFailReason.None;
-            if (q.CopiesFromStock < q.DeltaAdd && (!allowPurchase || !Config.PayForEquipment))
+
+            // Free mode: no stock or gold gating.
+            if (!Config.PayForEquipment)
+                return EquipFailReason.None;
+
+            if (q.CopiesFromStock < q.DeltaAdd && !allowPurchase)
                 return EquipFailReason.NotEnoughStock;
+
             if (q.CopiesToBuy > 0 && Player.Gold < q.GoldCost)
                 return EquipFailReason.NotEnoughGold;
+
             return EquipFailReason.None;
         }
 
@@ -468,7 +475,7 @@ namespace Retinues.Managers
             }
 
             // Apply acquisitions now (stock consumption and purchases)
-            if (q.DeltaAdd > 0 && newItem != null)
+            if (q.DeltaAdd > 0 && newItem != null && Config.PayForEquipment)
             {
                 // consume from stock
                 for (int i = 0; i < q.CopiesFromStock; i++)
@@ -494,7 +501,7 @@ namespace Retinues.Managers
             }
 
             // Apply reductions immediately (return freed copies to stock now)
-            if (q.DeltaRemove > 0 && oldItem != null)
+            if (q.DeltaRemove > 0 && oldItem != null && Config.PayForEquipment)
             {
                 for (int i = 0; i < q.DeltaRemove; i++)
                     oldItem.Stock();
@@ -681,6 +688,52 @@ namespace Retinues.Managers
                 return 0;
             int baseValue = item.Value;
             return (int)(baseValue * Config.EquipmentPriceModifier);
+        }
+
+        /// <summary>
+        /// Roll back the stock/gold side effects of a staged equip change
+        /// without touching the troop loadout. Used when the player cancels
+        /// a pending change in the editor.
+        /// </summary>
+        public static void RollbackStagedEquip(
+            WCharacter troop,
+            int setIndex,
+            EquipmentIndex slot,
+            WItem stagedItem
+        )
+        {
+            if (troop == null)
+                return;
+
+            if (stagedItem == null)
+                return;
+
+            var loadout = troop.Loadout;
+            var eq = loadout.Get(setIndex);
+            var oldItem = eq?.Get(slot);
+
+            // Recompute the same quote used when staging.
+            var q = QuoteEquip(troop, setIndex, slot, stagedItem);
+            if (!q.IsChange)
+                return;
+
+            // 1) Give back all copies that were acquired when we staged.
+            //    - Copies that came from stock: this reverses the Unstock() calls.
+            //    - Copies that were bought: these now end up as extra stock
+            if (q.DeltaAdd > 0)
+            {
+                for (int i = 0; i < q.DeltaAdd; i++)
+                    stagedItem.Stock();
+            }
+
+            // 2) Remove the early refund of freed old-item copies.
+            if (q.DeltaRemove > 0 && oldItem != null)
+            {
+                for (int i = 0; i < q.DeltaRemove; i++)
+                    oldItem.Unstock();
+            }
+
+            EquipStagingBehavior.Unstage(troop, slot, setIndex);
         }
     }
 }

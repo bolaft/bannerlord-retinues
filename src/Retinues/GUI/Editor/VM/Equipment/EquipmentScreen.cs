@@ -682,9 +682,27 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
+                        var troop = State.Troop;
                         var setIndex = State.Equipment.Index;
+
                         foreach (var slot in WEquipment.Slots)
-                            EquipmentManager.TryUnequip(State.Troop, setIndex, slot);
+                        {
+                            // 1. If a staged change exists, roll it back
+                            var pending = EquipStagingBehavior.Get(troop, slot, setIndex);
+                            if (pending != null)
+                            {
+                                var stagedItem = new WItem(pending.ItemId);
+                                EquipmentManager.RollbackStagedEquip(
+                                    troop,
+                                    setIndex,
+                                    slot,
+                                    stagedItem
+                                );
+                            }
+
+                            // 2. Unequip (ignore individual warnings, user already confirmed)
+                            EquipmentManager.TryUnequip(troop, setIndex, slot);
+                        }
 
                         State.UpdateEquipment(State.Equipment);
                     },
@@ -714,8 +732,22 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        // Cancel staged tasks for this set
-                        EquipStagingBehavior.Unstage(State.Troop, State.Equipment.Index);
+                        var troop = State.Troop;
+                        var setIndex = State.Equipment.Index;
+
+                        // For every slot, if staged → rollback and unstage
+                        foreach (var slot in WEquipment.Slots)
+                        {
+                            var pending = EquipStagingBehavior.Get(troop, slot, setIndex);
+                            if (pending == null)
+                                continue;
+
+                            var stagedItem = new WItem(pending.ItemId);
+
+                            // Rollback staged equip
+                            EquipmentManager.RollbackStagedEquip(troop, setIndex, slot, stagedItem);
+                        }
+
                         State.UpdateEquipment(State.Equipment);
                     },
                     negativeAction: () => { }

@@ -6,6 +6,7 @@ using Retinues.Configuration;
 using Retinues.Features.AutoJoin;
 using Retinues.Features.Staging;
 using Retinues.Game.Helpers;
+using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Troop.List;
 using Retinues.GUI.Editor.VM.Troop.Panel;
 using Retinues.GUI.Helpers;
@@ -304,16 +305,49 @@ namespace Retinues.GUI.Editor.VM.Troop
                     negativeText: L.S("cancel", "Cancel"),
                     affirmativeAction: () =>
                     {
-                        // Clear all staged equipment changes
-                        EquipStagingBehavior.Unstage(State.Troop);
+                        var troop = State.Troop;
 
-                        // Clear all staged skill changes
-                        TrainStagingBehavior.Unstage(State.Troop);
+                        //------------------------------------------------------------------
+                        // 1) ROLLBACK ALL STAGED EQUIPMENT CHANGES (ALL SETS, ALL SLOTS)
+                        //------------------------------------------------------------------
+                        foreach (var set in troop.Loadout.Equipments)
+                        {
+                            int setIndex = set.Index;
 
-                        // Remove the troop
-                        State.Troop.Remove();
+                            foreach (var slot in WEquipment.Slots)
+                            {
+                                var pending = EquipStagingBehavior.Get(troop, slot, setIndex);
+                                if (pending == null)
+                                    continue;
 
-                        // Update global state
+                                var stagedItem = new WItem(pending.ItemId);
+
+                                // Undo stock/gold deltas from staging
+                                EquipmentManager.RollbackStagedEquip(
+                                    troop,
+                                    setIndex,
+                                    slot,
+                                    stagedItem
+                                );
+
+                                // Remove staged job
+                                EquipStagingBehavior.Unstage(troop, slot, setIndex);
+                            }
+                        }
+
+                        //------------------------------------------------------------------
+                        // 2) ROLLBACK ALL PENDING TRAINING CHANGES
+                        //------------------------------------------------------------------
+                        TrainStagingBehavior.Unstage(troop);
+
+                        //------------------------------------------------------------------
+                        // 3) ACTUALLY REMOVE THE TROOP
+                        //------------------------------------------------------------------
+                        troop.Remove();
+
+                        //------------------------------------------------------------------
+                        // 4) REFRESH UI
+                        //------------------------------------------------------------------
                         State.UpdateFaction(State.Faction);
                     },
                     negativeAction: () => { }
