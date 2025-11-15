@@ -10,10 +10,13 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for settlement notables, provides helpers for volunteer swapping and faction logic.
     /// </summary>
     [SafeClass]
-    public class WNotable(Hero notable) : WHero(notable)
+    public class WNotable(Hero notable, WSettlement settlement) : WHero(notable)
     {
         // RNG for generating random floats
         private static readonly Random rng = new();
+
+        private readonly WSettlement _settlement = settlement;
+        public WSettlement Settlement => _settlement;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Public API                      //
@@ -31,6 +34,8 @@ namespace Retinues.Game.Wrappers
             var arr = Base.VolunteerTypes;
             if (arr == null || arr.Length == 0)
                 return;
+
+            int replaced = 0;
 
             for (int i = 0; i < arr.Length; i++)
             {
@@ -56,13 +61,17 @@ namespace Retinues.Game.Wrappers
 
                 var replacement = TroopMatcher.PickBestFromFaction(faction, troop);
 
-                Log.Info(
-                    $"{Name}: replacing volunteer {troop.Name} with {replacement?.Name} from faction {faction.StringId}"
-                );
-
                 if (replacement != null)
+                {
                     arr[i] = replacement.Base;
+                    replaced++;
+                }
             }
+
+            if (replaced > 0)
+                Log.Debug(
+                    $"{Name} ({Settlement.Name}): swapped {replaced} volunteers to faction {faction.StringId}."
+                );
         }
 
         /// <summary>
@@ -77,6 +86,8 @@ namespace Retinues.Game.Wrappers
             if (arr == null || arr.Length == 0)
                 return;
 
+            int replaced = 0;
+
             for (int i = 0; i < arr.Length; i++)
             {
                 var vanilla = arr[i];
@@ -88,11 +99,16 @@ namespace Retinues.Game.Wrappers
                 var troop = new WCharacter(vanilla);
                 if (troop == oldTroop)
                 {
-                    Log.Debug($"{Name}: swapping volunteer {oldTroop.Name} to {newTroop.Name}.");
                     arr[i] = newTroop.Base;
+                    replaced++;
                     break;
                 }
             }
+
+            if (replaced > 0)
+                Log.Debug(
+                    $"{Name} ({Settlement.Name}): swapped {replaced} {oldTroop.Name} ({oldTroop}) to {newTroop.Name} ({newTroop})."
+                );
         }
     }
 }
