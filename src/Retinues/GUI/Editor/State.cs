@@ -79,7 +79,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void ResetAll()
         {
-            if (!ClanScreen.IsGlobalEditorMode)
+            if (!ClanScreen.IsStudioMode)
                 // Ensure troops exist for player factions
                 foreach (var f in new[] { Player.Clan, Player.Kingdom })
                     if (f != null)
@@ -101,7 +101,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void UpdateFaction(BaseFaction faction = null)
         {
-            faction ??= ClanScreen.IsGlobalEditorMode ? Player.Culture : Player.Clan;
+            faction ??= !ClanScreen.IsStudioMode ? Player.Clan : Player.Culture;
 
             EventManager.FireBatch(() =>
             {

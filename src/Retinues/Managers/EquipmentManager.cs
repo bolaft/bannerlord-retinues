@@ -108,7 +108,7 @@ namespace Retinues.Managers
             HashSet<string> availableInTown = null;
             if (
                 !craftedOnly
-                && !ClanScreen.IsGlobalEditorMode
+                && !ClanScreen.IsStudioMode
                 && Config.RestrictItemsToTownInventory
             )
                 availableInTown = BuildCurrentTownAvailabilitySet();
@@ -347,7 +347,7 @@ namespace Retinues.Managers
 
             // Staging decision - only if adding physical copies
             bool stagingPossible =
-                Config.EquipmentChangeTakesTime && !ClanScreen.IsGlobalEditorMode;
+                Config.EquipmentChangeTakesTime && !ClanScreen.IsStudioMode;
             q.WouldStage = stagingPossible && q.DeltaAdd > 0;
 
             return q;
@@ -403,7 +403,7 @@ namespace Retinues.Managers
                 return res;
             }
 
-            if (ClanScreen.IsGlobalEditorMode)
+            if (ClanScreen.IsStudioMode)
                 return TryEquip_Studio(troop, setIndex, slot, newItem, res);
             else
                 return TryEquip_Custom(troop, setIndex, slot, newItem, res, allowPurchase);
@@ -683,7 +683,7 @@ namespace Retinues.Managers
                 return 0;
             if (!Config.PayForEquipment)
                 return 0;
-            if (ClanScreen.IsGlobalEditorMode)
+            if (ClanScreen.IsStudioMode)
                 return 0;
             int baseValue = item.Value;
             return (int)(baseValue * Config.EquipmentPriceModifier);

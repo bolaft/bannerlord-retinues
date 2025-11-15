@@ -11,16 +11,27 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
 {
+    public enum EditorMode
+    {
+        Culture,
+        Personal,
+        Heroes,
+    }
+
     [ViewModelMixin(
         "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM"
     )]
     public sealed class ClanScreen : BaseViewModelMixin<ClanManagementVM>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Launch Mode                       //
+        //                      Editor Mode                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static bool IsGlobalEditorMode { get; set; }
+        // Current global editor mode
+        public static EditorMode EditorMode { get; private set; } = EditorMode.Personal;
+
+        // Studio Mode means editing non-player troops
+        public static bool IsStudioMode => EditorMode != EditorMode.Personal;
 
         /// <summary>
         /// Open the Clan screen with the editor in Studio Mode.
@@ -29,7 +40,7 @@ namespace Retinues.GUI.Editor
         {
             try
             {
-                IsGlobalEditorMode = true;
+                EditorMode = EditorMode.Culture;
 
                 var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
                 if (gsm == null)
@@ -78,7 +89,7 @@ namespace Retinues.GUI.Editor
                 ClanHotkeyGate.RequireShift = false;
 
                 // Auto-select our editor tab if we launched in Studio Mode
-                if (IsGlobalEditorMode)
+                if (IsStudioMode)
                     SelectEditorTab();
 
                 Instance = this;
@@ -96,7 +107,7 @@ namespace Retinues.GUI.Editor
             try
             {
                 // Leaving the clan screen in any way should exit Studio Mode.
-                IsGlobalEditorMode = false;
+                EditorMode = EditorMode.Personal;
                 // Disable hotkey gate
                 ClanHotkeyGate.Active = false;
                 base.OnFinalize();
@@ -131,7 +142,7 @@ namespace Retinues.GUI.Editor
         public bool IsTroopsSelected => Editor?.IsVisible == true;
 
         [DataSourceProperty]
-        public bool IsTopPanelVisible => IsGlobalEditorMode == false;
+        public bool IsTopPanelVisible => IsStudioMode == false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -158,7 +169,7 @@ namespace Retinues.GUI.Editor
             Log.Info("Switching to player troop editor mode...");
 
             // flip global mode
-            IsGlobalEditorMode = false;
+            EditorMode = EditorMode.Personal;
 
             // rebuild state & VM
             State.ResetAll();
@@ -177,7 +188,7 @@ namespace Retinues.GUI.Editor
             Log.Info("Switching to studio mode...");
 
             // flip global mode
-            IsGlobalEditorMode = true;
+            EditorMode = EditorMode.Heroes;
 
             // rebuild state & VM
             State.ResetAll();

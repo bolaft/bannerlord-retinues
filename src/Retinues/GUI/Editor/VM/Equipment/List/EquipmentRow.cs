@@ -186,7 +186,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public bool ShowInStockText =>
-            !ClanScreen.IsGlobalEditorMode
+            !ClanScreen.IsStudioMode
             && Config.PayForEquipment
             && IsEnabled
             && !IsSelected
@@ -196,7 +196,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public bool ShowValue =>
-            !ClanScreen.IsGlobalEditorMode
+            !ClanScreen.IsStudioMode
             && Config.PayForEquipment
             && IsEnabled
             && !IsSelected
@@ -343,7 +343,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             );
 
             // Studio: bypass rules/costs/time
-            if (ClanScreen.IsGlobalEditorMode)
+            if (ClanScreen.IsStudioMode)
             {
                 Log.Debug(
                     "ExecuteSelect: Studio mode - calling EquipmentManager.TryEquip (allowPurchase:false)"
@@ -380,7 +380,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 // Only warn if reverting would later take time.
                 // That’s exactly when this unequip reduces required copies (deltaRemove > 0).
                 if (
-                    !ClanScreen.IsGlobalEditorMode
+                    !ClanScreen.IsStudioMode
                     && Config.EquipmentChangeTakesTime
                     && equippedItem != null
                 )

@@ -19,7 +19,7 @@ namespace Retinues.Managers
         /// </summary>
         public static bool IsAllowedInContext(WCharacter troop, string action)
         {
-            return ClanScreen.IsGlobalEditorMode || GetContextReason(troop, action) == null;
+            return ClanScreen.IsStudioMode || GetContextReason(troop, action) == null;
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Retinues.Managers
         /// </summary>
         public static bool IsAllowedInContextWithPopup(WCharacter troop, string action)
         {
-            if (ClanScreen.IsGlobalEditorMode)
+            if (ClanScreen.IsStudioMode)
                 return true;
 
             var reason = GetContextReason(troop, action);

@@ -49,7 +49,7 @@ namespace Retinues.GUI.Editor.VM
             EquipmentScreen = new EquipmentScreenVM();
             DoctrineScreen = new DoctrineScreenVM();
 
-            if (ClanScreen.IsGlobalEditorMode)
+            if (ClanScreen.IsStudioMode)
                 RefreshCultureBanner();
 
             SwitchScreen(Screen.Troop);
@@ -69,7 +69,7 @@ namespace Retinues.GUI.Editor.VM
             if (Screen == value && IsVisible)
                 return;
 
-            if (ClanScreen.IsGlobalEditorMode && value == Screen.Doctrine)
+            if (ClanScreen.IsStudioMode && value == Screen.Doctrine)
                 return; // Doctrines not available in Studio Mode
 
             Log.Info($"Switching screen from {Screen} to {value}");
@@ -161,8 +161,7 @@ namespace Retinues.GUI.Editor.VM
         }
 
         [DataSourceProperty]
-        public string CultureName =>
-            ClanScreen.IsGlobalEditorMode ? State.Faction?.Culture?.Name : string.Empty;
+        public string CultureName => State.Faction?.Culture?.Name;
 
         [DataSourceProperty]
         public BasicTooltipViewModel CultureBannerHint =>
@@ -176,10 +175,10 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━ Gauntlet ━━━━━━━ */
 
         [DataSourceProperty]
-        public int TableauMarginLeft => ClanScreen.IsGlobalEditorMode ? 60 : 0;
+        public int TableauMarginLeft => ClanScreen.IsStudioMode ? 60 : 0;
 
         [DataSourceProperty]
-        public int PanelMarginLeft => ClanScreen.IsGlobalEditorMode ? 440 : 340;
+        public int PanelMarginLeft => ClanScreen.IsStudioMode ? 440 : 340;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -211,22 +210,22 @@ namespace Retinues.GUI.Editor.VM
             Screen == Screen.Troop
             && Player.Kingdom != null
             && !Config.NoKingdomTroops
-            && !ClanScreen.IsGlobalEditorMode;
+            && !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]
         public bool ShowDoctrinesButton =>
             Screen != Screen.Equipment
             && (Config.EnableDoctrines ?? false)
-            && !ClanScreen.IsGlobalEditorMode;
+            && !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
 
         [DataSourceProperty]
-        public bool ShowGlobalEditorLink => ClanScreen.IsGlobalEditorMode == false;
+        public bool ShowGlobalEditorLink => ClanScreen.IsStudioMode == false;
 
         [DataSourceProperty]
-        public bool ShowPersonalEditorLink => ClanScreen.IsGlobalEditorMode == true;
+        public bool ShowPersonalEditorLink => ClanScreen.IsStudioMode == true;
 
         /* ━━━━━━━━ Brushes ━━━━━━━ */
 

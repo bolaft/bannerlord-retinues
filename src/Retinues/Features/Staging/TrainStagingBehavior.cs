@@ -106,7 +106,7 @@ namespace Retinues.Features.Staging
                 return;
             }
 
-            if (Config.TrainingTakesTime == false || ClanScreen.IsGlobalEditorMode)
+            if (Config.TrainingTakesTime == false || ClanScreen.IsStudioMode)
             {
                 ApplyChange(troop.StringId, tc.Skill, tc.Points);
                 return;

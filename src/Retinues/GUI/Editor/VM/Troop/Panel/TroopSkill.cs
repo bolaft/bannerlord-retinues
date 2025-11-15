@@ -122,7 +122,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static bool PlayerWarnedAboutRetraining = false || ClanScreen.IsGlobalEditorMode;
+        private static bool PlayerWarnedAboutRetraining = false || ClanScreen.IsStudioMode;
 
         /// <summary>
         /// Increment this skill on the selected troop.
@@ -168,7 +168,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             // Warn the player if decrementing a skill may require retraining
             if (
-                !ClanScreen.IsGlobalEditorMode // No warning in Studio Mode
+                !ClanScreen.IsStudioMode // No warning in Studio Mode
                 && !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() // No warning if Adaptive Training is unlocked
                 && !Config.RefundXpOnDecrease // No warning if refunds are enabled
                 && !increment // Only warn on decrement

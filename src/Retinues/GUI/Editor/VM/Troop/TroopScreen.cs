@@ -85,12 +85,11 @@ namespace Retinues.GUI.Editor.VM.Troop
         {
             get
             {
-                bool isStudio = ClanScreen.IsGlobalEditorMode;
                 bool troopIsMilitiaFalse = State.Troop?.IsMilitia == false;
                 bool troopIsRetinueFalse = State.Troop?.IsRetinue == false;
                 bool visible = IsVisible;
 
-                return !isStudio && troopIsMilitiaFalse && troopIsRetinueFalse && visible;
+                return !ClanScreen.IsStudioMode && troopIsMilitiaFalse && troopIsRetinueFalse && visible;
             }
         }
 
@@ -115,7 +114,7 @@ namespace Retinues.GUI.Editor.VM.Troop
         /* ━━━━━━━ Gauntlet ━━━━━━━ */
 
         [DataSourceProperty]
-        public int CustomizationMarginRight => ClanScreen.IsGlobalEditorMode ? 340 : 280;
+        public int CustomizationMarginRight => ClanScreen.IsStudioMode ? 340 : 280;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
