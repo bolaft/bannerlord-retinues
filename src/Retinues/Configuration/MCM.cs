@@ -182,7 +182,10 @@ namespace Retinues.Configuration
                                     if (!InCampaign())
                                     {
                                         Log.Message(
-                                            L.S("not_in_running_campaign", "Not in a running campaign. Load a save first.")
+                                            L.S(
+                                                "not_in_running_campaign",
+                                                "Not in a running campaign. Load a save first."
+                                            )
                                         );
                                         return;
                                     }
@@ -229,7 +232,10 @@ namespace Retinues.Configuration
                                     if (!InCampaign())
                                     {
                                         Log.Message(
-                                            L.S("not_in_running_campaign", "Not in a running campaign. Load a save first.")
+                                            L.S(
+                                                "not_in_running_campaign",
+                                                "Not in a running campaign. Load a save first."
+                                            )
                                         );
                                         return;
                                     }
@@ -406,7 +412,10 @@ namespace Retinues.Configuration
                                             if (!InCampaign())
                                             {
                                                 Log.Message(
-                                                    L.S("not_in_running_campaign", "Not in a running campaign. Load a save first.")
+                                                    L.S(
+                                                        "not_in_running_campaign",
+                                                        "Not in a running campaign. Load a save first."
+                                                    )
                                                 );
                                                 return;
                                             }

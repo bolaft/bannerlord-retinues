@@ -173,9 +173,10 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                 .SetTextVariable("INFLUENCE", InfluenceCost)
                 .ToString();
 
-            var text = Config.EnableFeatRequirements == false
-                ? $"{Description}\n\n{costs}"
-                : $"{Description}\n\n{featsText}\n\n{costs}";
+            var text =
+                Config.EnableFeatRequirements == false
+                    ? $"{Description}\n\n{costs}"
+                    : $"{Description}\n\n{featsText}\n\n{costs}";
 
             bool allComplete = total == 0 || complete == total;
             bool alreadyUnlocked = svc.IsDoctrineUnlocked(_id);

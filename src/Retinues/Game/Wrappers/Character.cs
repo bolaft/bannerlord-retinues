@@ -70,8 +70,6 @@ namespace Retinues.Game.Wrappers
         public WCharacter(WFaction faction, RootCategory category, string stringId = null)
             : this(NullifyLegacyIds(stringId) ?? AllocateStub().StringId)
         {
-            Log.Info($"Creating new custom troop as {category} of faction {faction.Name}");
-
             // Enforce binding on construction
             faction.SetRoot(category, this);
 
@@ -82,8 +80,6 @@ namespace Retinues.Game.Wrappers
         public WCharacter(WCharacter parent, string stringId = null)
             : this(NullifyLegacyIds(stringId) ?? AllocateStub().StringId)
         {
-            Log.Info($"Creating new custom troop as upgrade of {parent.Name}");
-
             Initialize(parent.Faction);
 
             // Set parent AFTER initialization

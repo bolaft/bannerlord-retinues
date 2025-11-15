@@ -78,16 +78,40 @@ namespace Retinues.Troops.Save
         }
 
         /// <summary>
+        /// Checks if the troop save data is valid (has a StringId).
+        /// </summary>
+        private bool IsValid() => !string.IsNullOrEmpty(StringId);
+
+        /// <summary>
+        /// Creates a WCharacter instance based on the available context.
+        /// </summary>
+        private WCharacter MakeTroop(
+            string stringId = null,
+            WFaction faction = null,
+            RootCategory category = RootCategory.Other,
+            WCharacter parent = null
+        )
+        {
+            if (!IsValid())
+                return null; // Null troop, nothing to do
+
+            if (faction != null && category != RootCategory.Other)
+                return new WCharacter(faction, category, stringId ?? StringId);
+            if (parent != null)
+                return new WCharacter(parent, stringId ?? StringId);
+            if (stringId != null)
+                return new WCharacter(stringId);
+
+            return null;
+        }
+
+        /// <summary>
         /// Deserializes the troop save data into a WCharacter instance.
         /// Used when the faction context is not needed (culture troops).
         /// </summary>
         public WCharacter Deserialize()
         {
-            if (string.IsNullOrEmpty(StringId))
-                return null;
-
-            // Always wrap vanilla root for culture troops
-            var troop = new WCharacter(StringId);
+            var troop = MakeTroop(stringId: StringId);
 
             return DeserializeInternal(troop);
         }
@@ -98,10 +122,9 @@ namespace Retinues.Troops.Save
         /// </summary>
         public WCharacter Deserialize(WFaction faction, RootCategory category)
         {
-            if (faction == null)
-                return Deserialize(); // Fallback to no-faction deserialization
+            var troop = MakeTroop(stringId: StringId, faction: faction, category: category);
 
-            return DeserializeInternal(new WCharacter(faction, category, stringId: StringId));
+            return DeserializeInternal(troop);
         }
 
         /// <summary>
@@ -110,7 +133,9 @@ namespace Retinues.Troops.Save
         /// </summary>
         public WCharacter Deserialize(WCharacter parent)
         {
-            return DeserializeInternal(new WCharacter(parent, stringId: StringId));
+            var troop = MakeTroop(stringId: StringId, parent: parent);
+
+            return DeserializeInternal(troop);
         }
 
         /// <summary>
@@ -118,15 +143,12 @@ namespace Retinues.Troops.Save
         /// </summary>
         public WCharacter DeserializeInternal(WCharacter troop)
         {
-            if (string.IsNullOrEmpty(StringId))
+            if (troop == null)
                 return null; // Null troop, nothing to do
 
             // If this is a vanilla troop, keep it marked as edited so it continues to be saved
             if (troop.IsVanilla)
-            {
-                Log.Info($"Deserializing vanilla troop: {StringId}");
                 troop.NeedsPersistence = true; // Loaded from save, must be persisted again
-            }
 
             // Get vanilla base
             var vanilla = new WCharacter(VanillaStringId);
