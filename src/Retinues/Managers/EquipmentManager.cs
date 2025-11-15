@@ -103,8 +103,7 @@ namespace Retinues.Managers
                 cache = null; // ignore caller cache for crafted-only
             }
 
-            var eligible =
-                cache ?? BuildEligibilityList(faction, slot, includeCrafted: !craftedOnly);
+            var eligible = cache ?? BuildEligibilityList(faction, slot, craftedOnly: craftedOnly);
 
             HashSet<string> availableInTown = null;
             if (!craftedOnly && !State.IsStudioMode && Config.RestrictItemsToTownInventory)
@@ -126,7 +125,7 @@ namespace Retinues.Managers
         private static List<(WItem item, bool unlocked, int progress)> BuildEligibilityList(
             BaseFaction faction,
             EquipmentIndex slot,
-            bool includeCrafted
+            bool craftedOnly
         )
         {
             bool craftedUnlocked = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
@@ -146,7 +145,7 @@ namespace Retinues.Managers
 
                 try
                 {
-                    if (includeCrafted)
+                    if (craftedOnly)
                     {
                         if (item.IsCrafted)
                         {
@@ -163,13 +162,8 @@ namespace Retinues.Managers
                                 list.Add((item, true, 0));
                                 craftedCodes.Add(item.CraftedCode);
                             }
-                            continue;
                         }
-                    }
-                    else
-                    {
-                        if (item.IsCrafted)
-                            continue;
+                        continue;
                     }
 
                     if (Config.AllEquipmentUnlocked)
