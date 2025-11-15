@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="Non può scendere al di sotto del livello di abilità del genitore {PARENT}." />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="Apri l’editor per le truppe del tuo clan e del tuo regno." />
+    <string
       id="ret_pragmatic_scavengers"
       text="Spazzini Pragmatici" />
     <string

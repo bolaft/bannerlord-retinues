@@ -95,7 +95,7 @@ namespace Retinues.Managers
         /// </summary>
         public static int SkillPointXpCost(int fromValue)
         {
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
                 return 0;
             int baseCost = Config.BaseSkillXpCost;
             int perPoint = Config.SkillXpCostPerPoint;
@@ -107,7 +107,7 @@ namespace Retinues.Managers
         /// </summary>
         public static bool HasEnoughXpForNextPoint(WCharacter troop, SkillObject skill)
         {
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
                 return true;
             if (troop == null || skill == null)
                 return false;

@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="No puede bajar del nivel de habilidad del padre {PARENT}." />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="Abre el editor para las tropas de tu clan y reino." />
+    <string
       id="ret_pragmatic_scavengers"
       text="Carroñeros Pragmáticos" />
     <string

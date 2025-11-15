@@ -266,7 +266,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool TroopXpIsEnabled =>
-            !State.IsStudioMode && (Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0);
+            !ClanScreen.IsGlobalEditorMode
+            && (Config.BaseSkillXpCost > 0 || Config.SkillXpCostPerPoint > 0);
 
         [DataSourceProperty]
         public string TroopXpText =>
@@ -301,7 +302,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int TrainingRequired => State.SkillData?.Sum(kv => kv.Value.Train?.Remaining) ?? 0;
 
         [DataSourceProperty]
-        public bool TrainingTakesTime => Config.TrainingTakesTime && !State.IsStudioMode;
+        public bool TrainingTakesTime => Config.TrainingTakesTime && !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
         public string TrainingRequiredText
@@ -337,7 +338,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool ShowUpgradesHeader =>
-            IsRegular && (!State.IsStudioMode || UpgradeTargets.Count > 0);
+            IsRegular && (!ClanScreen.IsGlobalEditorMode || UpgradeTargets.Count > 0);
 
         [DataSourceProperty]
         public bool IsCustomRegular
@@ -689,7 +690,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             )
                 return; // Modification not allowed in current context
 
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
                 return; // Adding upgrades disabled in studio mode
 
             InformationManager.ShowTextInquiry(
@@ -727,7 +728,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceMethod]
         public void ExecuteRankUp()
         {
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
                 return; // Rank up disabled in studio mode
 
             if (

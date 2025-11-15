@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Editor.Mixins;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
 using Retinues.GUI.Editor.VM.Troop;
@@ -51,7 +49,7 @@ namespace Retinues.GUI.Editor.VM
             EquipmentScreen = new EquipmentScreenVM();
             DoctrineScreen = new DoctrineScreenVM();
 
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
                 RefreshCultureBanner();
 
             SwitchScreen(Screen.Troop);
@@ -71,7 +69,7 @@ namespace Retinues.GUI.Editor.VM
             if (Screen == value && IsVisible)
                 return;
 
-            if (State.IsStudioMode && value == Screen.Doctrine)
+            if (ClanScreen.IsGlobalEditorMode && value == Screen.Doctrine)
                 return; // Doctrines not available in Studio Mode
 
             Log.Info($"Switching screen from {Screen} to {value}");
@@ -164,7 +162,7 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public string CultureName =>
-            State.IsStudioMode ? State.Faction?.Culture?.Name : string.Empty;
+            ClanScreen.IsGlobalEditorMode ? State.Faction?.Culture?.Name : string.Empty;
 
         [DataSourceProperty]
         public BasicTooltipViewModel CultureBannerHint =>
@@ -178,10 +176,10 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━ Gauntlet ━━━━━━━ */
 
         [DataSourceProperty]
-        public int TableauMarginLeft => State.IsStudioMode ? 60 : 0;
+        public int TableauMarginLeft => ClanScreen.IsGlobalEditorMode ? 60 : 0;
 
         [DataSourceProperty]
-        public int PanelMarginLeft => State.IsStudioMode ? 440 : 340;
+        public int PanelMarginLeft => ClanScreen.IsGlobalEditorMode ? 440 : 340;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -213,17 +211,22 @@ namespace Retinues.GUI.Editor.VM
             Screen == Screen.Troop
             && Player.Kingdom != null
             && !Config.NoKingdomTroops
-            && !State.IsStudioMode;
+            && !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
         public bool ShowDoctrinesButton =>
-            Screen != Screen.Equipment && (Config.EnableDoctrines ?? false) && !State.IsStudioMode;
+            Screen != Screen.Equipment
+            && (Config.EnableDoctrines ?? false)
+            && !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
 
         [DataSourceProperty]
-        public bool ShowGlobalEditorLink => State.IsStudioMode == false;
+        public bool ShowGlobalEditorLink => ClanScreen.IsGlobalEditorMode == false;
+
+        [DataSourceProperty]
+        public bool ShowPersonalEditorLink => ClanScreen.IsGlobalEditorMode == true;
 
         /* ━━━━━━━━ Brushes ━━━━━━━ */
 
@@ -262,6 +265,16 @@ namespace Retinues.GUI.Editor.VM
                 L.S("global_editor_tooltip_text", "Open the global editor for all factions.")
             );
 
+        [DataSourceProperty]
+        public BasicTooltipViewModel PersonalEditorHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S(
+                    "personal_editor_tooltip_text",
+                    "Open the editor for your clan and kingdom troops."
+                )
+            );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -274,7 +287,16 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceMethod]
         public void ExecuteShowGlobalEditor()
         {
-            ClanTroopScreen.Instance?.ExecuteOpenStudioMode();
+            ClanScreen.Instance?.ExecuteOpenStudioMode();
+        }
+
+        /// <summary>
+        /// Open the global editor view.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteShowPersonalEditor()
+        {
+            ClanScreen.Instance?.ExecuteOpenPlayerMode();
         }
 
         /// <summary>
@@ -296,36 +318,11 @@ namespace Retinues.GUI.Editor.VM
                 isNegativeOptionShown: true,
                 affirmativeText: GameTexts.FindText("str_ok").ToString(),
                 negativeText: GameTexts.FindText("str_cancel").ToString(),
-                affirmativeAction: () => OpenUrlInBrowser(url),
+                affirmativeAction: () => URL.OpenInBrowser(url),
                 negativeAction: () => { }
             );
 
             InformationManager.ShowInquiry(inquiry);
-        }
-
-        // Utility (kept private so both methods can reuse it)
-        private static void OpenUrlInBrowser(string url)
-        {
-            try
-            {
-                var psi = new ProcessStartInfo(url)
-                {
-                    UseShellExecute = true, // required to open URLs with the OS default handler
-                };
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                InformationManager.DisplayMessage(
-                    new InformationMessage(
-                        L.T("open_browser_fail", "Failed to open browser. URL: {URL}")
-                            .SetTextVariable("URL", url)
-                            .ToString()
-                    )
-                );
-
-                Log.Error($"Failed to open URL '{url}': {ex}");
-            }
         }
 
         /* ━━━━━━ Mode Switch ━━━━━ */

@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="Ne peut pas descendre en dessous du niveau de compétence du parent {PARENT}." />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="Ouvre l’éditeur pour les troupes de votre clan et de votre royaume." />
+    <string
       id="ret_pragmatic_scavengers"
       text="Charognards Pragmatiques" />
     <string

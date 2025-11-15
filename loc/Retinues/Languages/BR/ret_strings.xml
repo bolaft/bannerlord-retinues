@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="Não pode ficar abaixo do nível de habilidade do pai {PARENT}." />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="Abra o editor para suas tropas de clã e reino." />
+    <string
       id="ret_pragmatic_scavengers"
       text="Catadores Pragmáticos" />
     <string

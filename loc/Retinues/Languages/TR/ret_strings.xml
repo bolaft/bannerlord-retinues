@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="Ana {PARENT} beceri seviyesinin altına inemez." />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="Klanınız ve krallığınız birlikleri için düzenleyiciyi açın." />
+    <string
       id="ret_pragmatic_scavengers"
       text="Pragmatik Yağmacılar" />
     <string

@@ -57,12 +57,6 @@ namespace Retinues.GUI.Editor
     public static class State
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Launch Mode                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static bool IsStudioMode { get; set; }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -85,7 +79,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void ResetAll()
         {
-            if (!IsStudioMode)
+            if (!ClanScreen.IsGlobalEditorMode)
                 // Ensure troops exist for player factions
                 foreach (var f in new[] { Player.Clan, Player.Kingdom })
                     if (f != null)
@@ -107,7 +101,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void UpdateFaction(BaseFaction faction = null)
         {
-            faction ??= State.IsStudioMode ? Player.Culture : Player.Clan;
+            faction ??= ClanScreen.IsGlobalEditorMode ? Player.Culture : Player.Clan;
 
             EventManager.FireBatch(() =>
             {

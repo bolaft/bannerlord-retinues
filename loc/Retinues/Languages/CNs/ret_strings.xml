@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="不能低于父级{PARENT}的技能水平。" />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="为您的氏族和王国部队打开编辑器。" />
+    <string
       id="ret_pragmatic_scavengers"
       text="实用清道夫" />
     <string

@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="Kann nicht unter das Fähigkeitsniveau des übergeordneten {PARENT} gehen." />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="Öffne den Editor für deine Clan- und Königreichstruppen." />
+    <string
       id="ret_pragmatic_scavengers"
       text="Pragmatische Plünderer" />
     <string

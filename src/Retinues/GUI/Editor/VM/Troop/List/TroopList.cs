@@ -38,7 +38,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
             BanditTroops = [.. State.Faction.BanditTroops.Select(t => new TroopRowVM(t))];
 
-            if (EliteTroops.Count == 0 && !State.IsStudioMode)
+            if (EliteTroops.Count == 0 && !ClanScreen.IsGlobalEditorMode)
                 EliteTroops.Add(
                     new TroopRowVM(
                         null,
@@ -49,7 +49,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (BasicTroops.Count == 0 && !State.IsStudioMode)
+            if (BasicTroops.Count == 0 && !ClanScreen.IsGlobalEditorMode)
                 BasicTroops.Add(
                     new TroopRowVM(
                         null,
@@ -60,7 +60,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (MilitiaTroops.Count == 0 && !State.IsStudioMode)
+            if (MilitiaTroops.Count == 0 && !ClanScreen.IsGlobalEditorMode)
                 MilitiaTroops.Add(
                     new TroopRowVM(
                         null,
@@ -71,7 +71,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (CaravanTroops.Count == 0 && !State.IsStudioMode)
+            if (CaravanTroops.Count == 0 && !ClanScreen.IsGlobalEditorMode)
                 CaravanTroops.Add(
                     new TroopRowVM(
                         null,
@@ -82,7 +82,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (VillagerTroops.Count == 0 && !State.IsStudioMode)
+            if (VillagerTroops.Count == 0 && !ClanScreen.IsGlobalEditorMode)
                 VillagerTroops.Add(
                     new TroopRowVM(
                         null,
@@ -187,22 +187,22 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowRetinueList => RetinueTroops.Count > 0 || !State.IsStudioMode;
+        public bool ShowRetinueList => RetinueTroops.Count > 0 || !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
-        public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !State.IsStudioMode;
+        public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
-        public bool ShowCaravanList => CaravanTroops.Count > 0 || !State.IsStudioMode;
+        public bool ShowCaravanList => CaravanTroops.Count > 0 || !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
-        public bool ShowVillagerList => VillagerTroops.Count > 0 || !State.IsStudioMode;
+        public bool ShowVillagerList => VillagerTroops.Count > 0 || !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
-        public bool ShowCivilianList => CivilianTroops.Count > 0 && State.IsStudioMode;
+        public bool ShowCivilianList => CivilianTroops.Count > 0 && ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
-        public bool ShowBanditList => BanditTroops.Count > 0 && State.IsStudioMode;
+        public bool ShowBanditList => BanditTroops.Count > 0 && ClanScreen.IsGlobalEditorMode;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //

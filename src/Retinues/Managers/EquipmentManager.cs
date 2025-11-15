@@ -106,7 +106,11 @@ namespace Retinues.Managers
             var eligible = cache ?? BuildEligibilityList(faction, slot, craftedOnly: craftedOnly);
 
             HashSet<string> availableInTown = null;
-            if (!craftedOnly && !State.IsStudioMode && Config.RestrictItemsToTownInventory)
+            if (
+                !craftedOnly
+                && !ClanScreen.IsGlobalEditorMode
+                && Config.RestrictItemsToTownInventory
+            )
                 availableInTown = BuildCurrentTownAvailabilitySet();
 
             var items = new List<(WItem, bool, bool, int)>(eligible.Count);
@@ -342,7 +346,8 @@ namespace Retinues.Managers
             q.GoldCost = unitCost * q.CopiesToBuy;
 
             // Staging decision - only if adding physical copies
-            bool stagingPossible = Config.EquipmentChangeTakesTime && !State.IsStudioMode;
+            bool stagingPossible =
+                Config.EquipmentChangeTakesTime && !ClanScreen.IsGlobalEditorMode;
             q.WouldStage = stagingPossible && q.DeltaAdd > 0;
 
             return q;
@@ -398,7 +403,7 @@ namespace Retinues.Managers
                 return res;
             }
 
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
                 return TryEquip_Studio(troop, setIndex, slot, newItem, res);
             else
                 return TryEquip_Custom(troop, setIndex, slot, newItem, res, allowPurchase);
@@ -678,7 +683,7 @@ namespace Retinues.Managers
                 return 0;
             if (!Config.PayForEquipment)
                 return 0;
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
                 return 0;
             int baseValue = item.Value;
             return (int)(baseValue * Config.EquipmentPriceModifier);

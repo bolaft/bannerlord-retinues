@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Retinues.Configuration;
+using Retinues.GUI.Editor;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.EscapeMenu;
 
-namespace Retinues.GUI.Editor.Menus
+namespace Retinues.GUI.Menus
 {
     [HarmonyPatch(typeof(EscapeMenuVM))]
     internal static class EscapeMenuPatch
@@ -49,7 +50,7 @@ namespace Retinues.GUI.Editor.Menus
                         resume?.ExecuteAction();
 
                         // Launch Studio right after resuming
-                        EditorLauncher.OpenStudio();
+                        ClanScreen.OpenStudio();
                     }
                     catch (Exception e)
                     {

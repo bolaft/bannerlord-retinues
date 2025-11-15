@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="부모 {PARENT}의 기술 수준 아래로 내려갈 수 없습니다." />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="당신의 씨족과 왕국 병력을 위한 편집기를 엽니다." />
+    <string
       id="ret_pragmatic_scavengers"
       text="실용주의 청소부" />
     <string

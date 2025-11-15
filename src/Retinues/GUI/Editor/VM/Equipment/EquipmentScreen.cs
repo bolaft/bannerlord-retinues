@@ -223,13 +223,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public bool CanShowCrafted =>
             DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
             && EquipmentListVM.WeaponSlots.Contains(State.Slot.ToString())
-            && !State.IsStudioMode;
+            && !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
-        public bool ShowCrafted => EquipmentList.ShowCrafted && !State.IsStudioMode;
+        public bool ShowCrafted => EquipmentList.ShowCrafted && !ClanScreen.IsGlobalEditorMode;
 
         [DataSourceProperty]
-        public bool ShowCraftedIsVisible => IsVisible && !State.IsStudioMode;
+        public bool ShowCraftedIsVisible => IsVisible && !ClanScreen.IsGlobalEditorMode;
 
         /* ━━━ Unequip / Unstage ━━ */
 

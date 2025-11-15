@@ -186,7 +186,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public bool ShowInStockText =>
-            !State.IsStudioMode
+            !ClanScreen.IsGlobalEditorMode
             && Config.PayForEquipment
             && IsEnabled
             && !IsSelected
@@ -196,7 +196,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public bool ShowValue =>
-            !State.IsStudioMode
+            !ClanScreen.IsGlobalEditorMode
             && Config.PayForEquipment
             && IsEnabled
             && !IsSelected
@@ -343,7 +343,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             );
 
             // Studio: bypass rules/costs/time
-            if (State.IsStudioMode)
+            if (ClanScreen.IsGlobalEditorMode)
             {
                 Log.Debug(
                     "ExecuteSelect: Studio mode - calling EquipmentManager.TryEquip (allowPurchase:false)"
@@ -379,7 +379,11 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
                 // Only warn if reverting would later take time.
                 // That’s exactly when this unequip reduces required copies (deltaRemove > 0).
-                if (!State.IsStudioMode && Config.EquipmentChangeTakesTime && equippedItem != null)
+                if (
+                    !ClanScreen.IsGlobalEditorMode
+                    && Config.EquipmentChangeTakesTime
+                    && equippedItem != null
+                )
                 {
                     var loadout = troop.Loadout;
                     int beforeOld = loadout.MaxCountPerSet(equippedItem);

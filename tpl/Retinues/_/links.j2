@@ -41,12 +41,21 @@
 <!-- Global Editor -->
 
 {{ link(
-    text="Global Editor",
+    text="Global Troops",
     command="ExecuteShowGlobalEditor",
     hint="{GlobalEditorHint}",
     margin_top="10",
     brush="HowToLearnButtonToggleBrush",
     is_visible="@ShowGlobalEditorLink"
+) }}
+
+{{ link(
+    text="Personal Troops",
+    command="ExecuteShowPersonalEditor",
+    hint="{PersonalEditorHint}",
+    margin_top="10",
+    brush="HowToLearnButtonToggleBrush",
+    is_visible="@ShowPersonalEditorLink"
 ) }}
 
 <!-- Help Button -->

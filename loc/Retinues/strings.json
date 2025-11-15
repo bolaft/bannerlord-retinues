@@ -5568,6 +5568,22 @@
     "TR": "Ana {PARENT} beceri seviyesinin altına inemez."
   },
   {
+    "id": "ret_personal_editor_tooltip_text",
+    "EN": "Open the editor for your clan and kingdom troops.",
+    "BR": "Abra o editor para suas tropas de clã e reino.",
+    "CNs": "为您的氏族和王国部队打开编辑器。",
+    "CNt": "為您的氏族和王國部隊打開編輯器。",
+    "DE": "Öffne den Editor für deine Clan- und Königreichstruppen.",
+    "FR": "Ouvre l’éditeur pour les troupes de votre clan et de votre royaume.",
+    "IT": "Apri l’editor per le truppe del tuo clan e del tuo regno.",
+    "JP": "あなたの氏族と王国の部隊のエディターを開きます。",
+    "KO": "당신의 씨족과 왕국 병력을 위한 편집기를 엽니다.",
+    "PL": "Otwórz edytor dla swoich oddziałów klanu i królestwa.",
+    "RU": "Откройте редактор для войск вашего клана и королевства.",
+    "SP": "Abre el editor para las tropas de tu clan y reino.",
+    "TR": "Klanınız ve krallığınız birlikleri için düzenleyiciyi açın."
+  },
+  {
     "id": "ret_pragmatic_scavengers",
     "EN": "Pragmatic Scavengers",
     "BR": "Catadores Pragmáticos",

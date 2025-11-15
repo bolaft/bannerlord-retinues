@@ -4,24 +4,53 @@ using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.GUI.Editor.VM;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.Mixins
+namespace Retinues.GUI.Editor
 {
     [ViewModelMixin(
         "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM"
     )]
-    public sealed class ClanTroopScreen : BaseViewModelMixin<ClanManagementVM>
+    public sealed class ClanScreen : BaseViewModelMixin<ClanManagementVM>
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Launch Mode                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static bool IsGlobalEditorMode { get; set; }
+
+        /// <summary>
+        /// Open the Clan screen with the editor in Studio Mode.
+        /// </summary>
+        public static void OpenStudio()
+        {
+            try
+            {
+                IsGlobalEditorMode = true;
+
+                var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
+                if (gsm == null)
+                    return;
+
+                var clanState = gsm.CreateState<ClanState>();
+                gsm.PushState(clanState);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static ClanTroopScreen Instance { get; private set; }
+        public static ClanScreen Instance { get; private set; }
 
-        public ClanTroopScreen(ClanManagementVM vm)
+        public ClanScreen(ClanManagementVM vm)
             : base(vm)
         {
             try
@@ -49,7 +78,7 @@ namespace Retinues.GUI.Editor.Mixins
                 ClanHotkeyGate.RequireShift = false;
 
                 // Auto-select our editor tab if we launched in Studio Mode
-                if (State.IsStudioMode)
+                if (IsGlobalEditorMode)
                     SelectEditorTab();
 
                 Instance = this;
@@ -66,6 +95,9 @@ namespace Retinues.GUI.Editor.Mixins
         {
             try
             {
+                // Leaving the clan screen in any way should exit Studio Mode.
+                IsGlobalEditorMode = false;
+                // Disable hotkey gate
                 ClanHotkeyGate.Active = false;
                 base.OnFinalize();
             }
@@ -99,7 +131,7 @@ namespace Retinues.GUI.Editor.Mixins
         public bool IsTroopsSelected => Editor?.IsVisible == true;
 
         [DataSourceProperty]
-        public bool IsTopPanelVisible => State.IsStudioMode == false;
+        public bool IsTopPanelVisible => IsGlobalEditorMode == false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -126,7 +158,7 @@ namespace Retinues.GUI.Editor.Mixins
             Log.Info("Switching to player troop editor mode...");
 
             // flip global mode
-            State.IsStudioMode = false;
+            IsGlobalEditorMode = false;
 
             // rebuild state & VM
             State.ResetAll();
@@ -145,7 +177,7 @@ namespace Retinues.GUI.Editor.Mixins
             Log.Info("Switching to studio mode...");
 
             // flip global mode
-            State.IsStudioMode = true;
+            IsGlobalEditorMode = true;
 
             // rebuild state & VM
             State.ResetAll();

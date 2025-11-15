@@ -1049,6 +1049,9 @@
       id="ret_parent_skill"
       text="親{PARENT}のスキルレベルを下回ることはできません。" />
     <string
+      id="ret_personal_editor_tooltip_text"
+      text="あなたの氏族と王国の部隊のエディターを開きます。" />
+    <string
       id="ret_pragmatic_scavengers"
       text="実利的な清掃人" />
     <string
