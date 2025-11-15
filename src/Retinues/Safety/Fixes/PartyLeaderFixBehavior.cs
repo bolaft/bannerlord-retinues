@@ -8,7 +8,7 @@ using TaleWorlds.Library;
 namespace Retinues.Safety.Fixes
 {
     /// <summary>
-    /// Safety helpers for repairing common issues in the game state.
+    /// Fixes party leaders for parties that have lost their leader hero.
     /// </summary>
     [SafeClass]
     public class PartyLeaderFixBehavior : CampaignBehaviorBase

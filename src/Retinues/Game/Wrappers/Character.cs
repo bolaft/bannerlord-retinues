@@ -640,7 +640,23 @@ namespace Retinues.Game.Wrappers
             IsActive
             && Base != null
             && !string.IsNullOrWhiteSpace(StringId)
-            && !string.IsNullOrWhiteSpace(Name);
+            && !string.IsNullOrWhiteSpace(Name)
+            && !LooksLikeEmptyStub();
+
+        /// <summary>
+        /// Checks if this troop looks like an unedited empty stub.
+        /// </summary>
+        private bool LooksLikeEmptyStub()
+        {
+            if (IsVanilla)
+                return false; // Only applies to custom troops
+            if (Name != StringId)
+                return false; // Not default name
+            if (Level != 1)
+                return false; // Has level
+
+            return true;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       View Model                       //

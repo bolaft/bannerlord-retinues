@@ -65,7 +65,7 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WHero Governor =>
-            _settlement?.Town?.Governor != null ? new WHero(_settlement.Town.Governor) : null;
+            _settlement?.Town?.Governor != null ? new WHero(_settlement?.Town?.Governor) : null;
 
         public List<WNotable> Notables =>
             _settlement?.Notables.Where(n => n != null).Select(n => new WNotable(n)).ToList() ?? [];
@@ -109,30 +109,30 @@ namespace Retinues.Game.Wrappers
 
         public WParty MilitiaParty =>
             _settlement?.MilitiaPartyComponent?.MobileParty != null
-                ? new WParty(_settlement.MilitiaPartyComponent.MobileParty)
+                ? new WParty(_settlement?.MilitiaPartyComponent?.MobileParty)
                 : null;
 
         public WParty GarrisonParty =>
             _settlement?.Town?.GarrisonParty != null
-                ? new WParty(_settlement.Town.GarrisonParty)
+                ? new WParty(_settlement?.Town?.GarrisonParty)
                 : null;
 
         public WCharacter MilitiaMelee =>
-            PlayerFaction?.MilitiaMelee.IsActive == true
-                ? PlayerFaction.MilitiaMelee
-                : Culture.MilitiaMelee;
+            PlayerFaction?.MilitiaMelee?.IsActive == true
+                ? PlayerFaction?.MilitiaMelee
+                : Culture?.MilitiaMelee;
         public WCharacter MilitiaMeleeElite =>
-            PlayerFaction?.MilitiaMeleeElite.IsActive == true
-                ? PlayerFaction.MilitiaMeleeElite
-                : Culture.MilitiaMeleeElite;
+            PlayerFaction?.MilitiaMeleeElite?.IsActive == true
+                ? PlayerFaction?.MilitiaMeleeElite
+                : Culture?.MilitiaMeleeElite;
         public WCharacter MilitiaRanged =>
-            PlayerFaction?.MilitiaRanged.IsActive == true
-                ? PlayerFaction.MilitiaRanged
-                : Culture.MilitiaRanged;
+            PlayerFaction?.MilitiaRanged?.IsActive == true
+                ? PlayerFaction?.MilitiaRanged
+                : Culture?.MilitiaRanged;
         public WCharacter MilitiaRangedElite =>
-            PlayerFaction?.MilitiaRangedElite.IsActive == true
-                ? PlayerFaction.MilitiaRangedElite
-                : Culture.MilitiaRangedElite;
+            PlayerFaction?.MilitiaRangedElite?.IsActive == true
+                ? PlayerFaction?.MilitiaRangedElite
+                : Culture?.MilitiaRangedElite;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
