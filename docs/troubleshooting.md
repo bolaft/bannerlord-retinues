@@ -69,7 +69,7 @@ You can fix this in two ways:
    - Close the game and Steam.
    - Browse to your game’s Modules folder, then:
      - `...\Mount & Blade II Bannerlord\Modules\Retinues\bin\Win64_Shipping_Client\`
-   - For each `.dll` in that folder (e.g. `Retinues.Core.dll`):
+   - For each `.dll` in that folder (there should only be one: `Retinues.dll`):
      - Right-click → **Properties**.
      - On the **General** tab, if you see an **"Unblock"** checkbox, tick it.
      - Click **Apply** → **OK**.
