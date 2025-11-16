@@ -143,9 +143,6 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="첫 번째 세트는 전투용 세트로 유지되어야 합니다." />
     <string
-      id="ret_clan_troops_button_text"
-      text="가문 병력" />
-    <string
       id="ret_clanic_traditions"
       text="가문 전통" />
     <string
@@ -556,6 +553,9 @@
     <string
       id="ret_list_toggle_elite"
       text="정예" />
+    <string
+      id="ret_list_toggle_hero"
+      text="영웅" />
     <string
       id="ret_list_toggle_militia"
       text="민병대" />
@@ -980,6 +980,12 @@
       id="ret_no"
       text="아니오" />
     <string
+      id="ret_no_clans_text"
+      text="현재 게임에 로드된 클랜이 없습니다." />
+    <string
+      id="ret_no_clans_title"
+      text="클랜을 찾을 수 없습니다" />
+    <string
       id="ret_no_cultures_text"
       text="현재 게임에 로드된 문화가 없습니다." />
     <string
@@ -1199,6 +1205,12 @@
       id="ret_royal_patronage_to_unlock"
       text="왕실 후원 교리로 잠금 해제합니다." />
     <string
+      id="ret_select_clan_hint"
+      text="씨족을 선택하십시오." />
+    <string
+      id="ret_select_clan_title"
+      text="씨족을 선택" />
+    <string
       id="ret_select_culture_hint"
       text="문화를 선택하십시오." />
     <string
@@ -1255,9 +1267,6 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="커스텀 병력 15명의 기술을 최고치까지 올리십시오." />
-    <string
-      id="ret_switch_player_mode_hint"
-      text="가문 병력 편집기로 전환하십시오." />
     <string
       id="ret_switch_to_clan_troops"
       text="가문 병력" />

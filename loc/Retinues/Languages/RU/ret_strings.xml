@@ -143,9 +143,6 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Первый набор должен оставаться боевым набором." />
     <string
-      id="ret_clan_troops_button_text"
-      text="Войска Клана" />
-    <string
       id="ret_clanic_traditions"
       text="Клановые Традиции" />
     <string
@@ -556,6 +553,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Элитные" />
+    <string
+      id="ret_list_toggle_hero"
+      text="Герои" />
     <string
       id="ret_list_toggle_militia"
       text="Милиция" />
@@ -980,6 +980,12 @@
       id="ret_no"
       text="Нет" />
     <string
+      id="ret_no_clans_text"
+      text="В текущей игре не загружены никакие кланы." />
+    <string
+      id="ret_no_clans_title"
+      text="Кланы не найдены" />
+    <string
       id="ret_no_cultures_text"
       text="В текущей игре не загружены никакие культуры." />
     <string
@@ -1199,6 +1205,12 @@
       id="ret_royal_patronage_to_unlock"
       text="Разблокируйте с помощью доктрины Королевского Покровительства." />
     <string
+      id="ret_select_clan_hint"
+      text="Выберите клан." />
+    <string
+      id="ret_select_clan_title"
+      text="Выберите клан." />
+    <string
       id="ret_select_culture_hint"
       text="Выберите культуру." />
     <string
@@ -1255,9 +1267,6 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Максимизируйте навыки 15 собственных войск." />
-    <string
-      id="ret_switch_player_mode_hint"
-      text="Переключиться на редактор войск клана." />
     <string
       id="ret_switch_to_clan_troops"
       text="Войска Клана" />

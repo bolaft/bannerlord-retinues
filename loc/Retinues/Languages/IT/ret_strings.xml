@@ -143,9 +143,6 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Il primo set deve rimanere un set da battaglia." />
     <string
-      id="ret_clan_troops_button_text"
-      text="Truppe del Clan" />
-    <string
       id="ret_clanic_traditions"
       text="Tradizioni Claniche" />
     <string
@@ -556,6 +553,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Élite" />
+    <string
+      id="ret_list_toggle_hero"
+      text="Eroi" />
     <string
       id="ret_list_toggle_militia"
       text="Milizia" />
@@ -980,6 +980,12 @@
       id="ret_no"
       text="No" />
     <string
+      id="ret_no_clans_text"
+      text="Nessun clan è caricato nella partita corrente." />
+    <string
+      id="ret_no_clans_title"
+      text="Nessun clan trovato" />
+    <string
       id="ret_no_cultures_text"
       text="Nessuna cultura è caricata nella partita corrente." />
     <string
@@ -1199,6 +1205,12 @@
       id="ret_royal_patronage_to_unlock"
       text="Sblocca con la dottrina del Patrocinio Reale." />
     <string
+      id="ret_select_clan_hint"
+      text="Seleziona un clan." />
+    <string
+      id="ret_select_clan_title"
+      text="Seleziona un clan" />
+    <string
       id="ret_select_culture_hint"
       text="Seleziona una cultura." />
     <string
@@ -1255,9 +1267,6 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Massimizza le abilità di 15 truppe personalizzate." />
-    <string
-      id="ret_switch_player_mode_hint"
-      text="Passa all&apos;editor delle truppe del clan." />
     <string
       id="ret_switch_to_clan_troops"
       text="Truppe del Clan" />

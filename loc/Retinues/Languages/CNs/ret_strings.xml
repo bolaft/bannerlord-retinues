@@ -143,9 +143,6 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="第一个套装必须保持为战斗装备。" />
     <string
-      id="ret_clan_troops_button_text"
-      text="家族部队" />
-    <string
       id="ret_clanic_traditions"
       text="家族传统" />
     <string
@@ -556,6 +553,9 @@
     <string
       id="ret_list_toggle_elite"
       text="精锐" />
+    <string
+      id="ret_list_toggle_hero"
+      text="英雄" />
     <string
       id="ret_list_toggle_militia"
       text="民兵" />
@@ -980,6 +980,12 @@
       id="ret_no"
       text="否" />
     <string
+      id="ret_no_clans_text"
+      text="当前游戏中没有加载任何氏族。" />
+    <string
+      id="ret_no_clans_title"
+      text="未找到氏族" />
+    <string
       id="ret_no_cultures_text"
       text="当前游戏中没有加载任何文化。" />
     <string
@@ -1199,6 +1205,12 @@
       id="ret_royal_patronage_to_unlock"
       text="通过王室资助信条解锁。" />
     <string
+      id="ret_select_clan_hint"
+      text="选择一个氏族。" />
+    <string
+      id="ret_select_clan_title"
+      text="选择氏族" />
+    <string
       id="ret_select_culture_hint"
       text="选择一种文化。" />
     <string
@@ -1255,9 +1267,6 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="让15名自定义部队技能达到满值。" />
-    <string
-      id="ret_switch_player_mode_hint"
-      text="切换到家族部队编辑器。" />
     <string
       id="ret_switch_to_clan_troops"
       text="家族部队" />

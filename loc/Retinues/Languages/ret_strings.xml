@@ -143,9 +143,6 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="The first set must remain a battle set." />
     <string
-      id="ret_clan_troops_button_text"
-      text="Clan Troops" />
-    <string
       id="ret_clanic_traditions"
       text="Clan Traditions" />
     <string
@@ -556,6 +553,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Elite" />
+    <string
+      id="ret_list_toggle_hero"
+      text="Heroes" />
     <string
       id="ret_list_toggle_militia"
       text="Militia" />
@@ -980,6 +980,12 @@
       id="ret_no"
       text="No" />
     <string
+      id="ret_no_clans_text"
+      text="No clans are loaded in the current game." />
+    <string
+      id="ret_no_clans_title"
+      text="No Clans Found" />
+    <string
       id="ret_no_cultures_text"
       text="No cultures are loaded in the current game." />
     <string
@@ -1199,6 +1205,12 @@
       id="ret_royal_patronage_to_unlock"
       text="Unlock with the Royal Patronage doctrine." />
     <string
+      id="ret_select_clan_hint"
+      text="Select a clan." />
+    <string
+      id="ret_select_clan_title"
+      text="Select Clan" />
+    <string
       id="ret_select_culture_hint"
       text="Select a culture." />
     <string
@@ -1255,9 +1267,6 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Max out the skills of 15 custom troops." />
-    <string
-      id="ret_switch_player_mode_hint"
-      text="Switch to clan troops editor." />
     <string
       id="ret_switch_to_clan_troops"
       text="Clan Troops" />

@@ -143,9 +143,6 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Le premier équipement doit rester un équipement de combat." />
     <string
-      id="ret_clan_troops_button_text"
-      text="Troupes du Clan" />
-    <string
       id="ret_clanic_traditions"
       text="Traditions Claniques" />
     <string
@@ -556,6 +553,9 @@
     <string
       id="ret_list_toggle_elite"
       text="Troupes d’Élite" />
+    <string
+      id="ret_list_toggle_hero"
+      text="Héros" />
     <string
       id="ret_list_toggle_militia"
       text="Milice" />
@@ -980,6 +980,12 @@
       id="ret_no"
       text="Non" />
     <string
+      id="ret_no_clans_text"
+      text="Aucun clan n’est chargé dans la partie en cours." />
+    <string
+      id="ret_no_clans_title"
+      text="Aucun clan trouvé" />
+    <string
       id="ret_no_cultures_text"
       text="Aucune culture n’est chargée dans la partie en cours." />
     <string
@@ -1199,6 +1205,12 @@
       id="ret_royal_patronage_to_unlock"
       text="Débloqué avec la doctrine de la Faveur Royale." />
     <string
+      id="ret_select_clan_hint"
+      text="Sélectionne un clan." />
+    <string
+      id="ret_select_clan_title"
+      text="Sélectionner un clan" />
+    <string
       id="ret_select_culture_hint"
       text="Sélectionne une culture." />
     <string
@@ -1255,9 +1267,6 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Maximise les compétences de 15 troupes personnalisées." />
-    <string
-      id="ret_switch_player_mode_hint"
-      text="Basculer vers l&apos;éditeur de troupes de clan." />
     <string
       id="ret_switch_to_clan_troops"
       text="Troupes de Clan" />

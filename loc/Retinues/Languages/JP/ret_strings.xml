@@ -143,9 +143,6 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="最初のセットは戦闘用セットのままでなければなりません。" />
     <string
-      id="ret_clan_troops_button_text"
-      text="一族の兵士" />
-    <string
       id="ret_clanic_traditions"
       text="一族の伝統" />
     <string
@@ -556,6 +553,9 @@
     <string
       id="ret_list_toggle_elite"
       text="精鋭" />
+    <string
+      id="ret_list_toggle_hero"
+      text="英雄" />
     <string
       id="ret_list_toggle_militia"
       text="民兵" />
@@ -980,6 +980,12 @@
       id="ret_no"
       text="いいえ" />
     <string
+      id="ret_no_clans_text"
+      text="現在のゲームには氏族が読み込まれていません。" />
+    <string
+      id="ret_no_clans_title"
+      text="氏族が見つかりません" />
+    <string
       id="ret_no_cultures_text"
       text="現在のゲームには文化が読み込まれていません。" />
     <string
@@ -1199,6 +1205,12 @@
       id="ret_royal_patronage_to_unlock"
       text="王室の後援教義でアンロックします。" />
     <string
+      id="ret_select_clan_hint"
+      text="氏族を選択します。" />
+    <string
+      id="ret_select_clan_title"
+      text="氏族を選択" />
+    <string
       id="ret_select_culture_hint"
       text="文化を選択します。" />
     <string
@@ -1255,9 +1267,6 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="カスタム兵15人のスキルを最大化する。" />
-    <string
-      id="ret_switch_player_mode_hint"
-      text="一族兵エディターに切り替えます。" />
     <string
       id="ret_switch_to_clan_troops"
       text="一族兵" />

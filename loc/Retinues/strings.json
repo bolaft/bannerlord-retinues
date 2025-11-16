@@ -736,22 +736,6 @@
     "TR": "İlk set bir savaş seti olarak kalmalıdır."
   },
   {
-    "id": "ret_clan_troops_button_text",
-    "EN": "Clan Troops",
-    "BR": "Tropas do Clã",
-    "CNs": "家族部队",
-    "CNt": "家族部隊",
-    "DE": "Clantruppen",
-    "FR": "Troupes du Clan",
-    "IT": "Truppe del Clan",
-    "JP": "一族の兵士",
-    "KO": "가문 병력",
-    "PL": "Oddziały Klanu",
-    "RU": "Войска Клана",
-    "SP": "Tropas del Clan",
-    "TR": "Klan Askerleri"
-  },
-  {
     "id": "ret_clanic_traditions",
     "EN": "Clan Traditions",
     "BR": "Tradições do Clã",
@@ -2942,6 +2926,22 @@
     "RU": "Элитные",
     "SP": "Élite",
     "TR": "Seçkin"
+  },
+  {
+    "id": "ret_list_toggle_hero",
+    "EN": "Heroes",
+    "BR": "Heróis",
+    "CNs": "英雄",
+    "CNt": "英雄",
+    "DE": "Helden",
+    "FR": "Héros",
+    "IT": "Eroi",
+    "JP": "英雄",
+    "KO": "영웅",
+    "PL": "Bohaterowie",
+    "RU": "Герои",
+    "SP": "Héroes",
+    "TR": "Kahramanlar"
   },
   {
     "id": "ret_list_toggle_militia",
@@ -5200,6 +5200,38 @@
     "TR": "Hayır"
   },
   {
+    "id": "ret_no_clans_text",
+    "EN": "No clans are loaded in the current game.",
+    "BR": "Nenhum clã está carregado no jogo atual.",
+    "CNs": "当前游戏中没有加载任何氏族。",
+    "CNt": "當前遊戲中沒有加載任何氏族。",
+    "DE": "In dem aktuellen Spiel sind keine Clans geladen.",
+    "FR": "Aucun clan n’est chargé dans la partie en cours.",
+    "IT": "Nessun clan è caricato nella partita corrente.",
+    "JP": "現在のゲームには氏族が読み込まれていません。",
+    "KO": "현재 게임에 로드된 클랜이 없습니다.",
+    "PL": "W bieżącej grze nie załadowano żadnych klanów.",
+    "RU": "В текущей игре не загружены никакие кланы.",
+    "SP": "No hay clanes cargados en el juego actual.",
+    "TR": "Mevcut oyunda yüklenen klan yok."
+  },
+  {
+    "id": "ret_no_clans_title",
+    "EN": "No Clans Found",
+    "BR": "Nenhum Clã Encontrado",
+    "CNs": "未找到氏族",
+    "CNt": "未找到氏族",
+    "DE": "Keine Clans gefunden",
+    "FR": "Aucun clan trouvé",
+    "IT": "Nessun clan trovato",
+    "JP": "氏族が見つかりません",
+    "KO": "클랜을 찾을 수 없습니다",
+    "PL": "Nie znaleziono klanów",
+    "RU": "Кланы не найдены",
+    "SP": "No se Encontraron Clanes",
+    "TR": "Klan Bulunamadı"
+  },
+  {
     "id": "ret_no_cultures_text",
     "EN": "No cultures are loaded in the current game.",
     "BR": "Nenhuma cultura está carregada no jogo atual.",
@@ -6368,6 +6400,38 @@
     "TR": "Kraliyet Himayesi doktrini ile kilidini aç."
   },
   {
+    "id": "ret_select_clan_hint",
+    "EN": "Select a clan.",
+    "BR": "Selecione um clã.",
+    "CNs": "选择一个氏族。",
+    "CNt": "選擇一個氏族。",
+    "DE": "Wähle einen Clan.",
+    "FR": "Sélectionne un clan.",
+    "IT": "Seleziona un clan.",
+    "JP": "氏族を選択します。",
+    "KO": "씨족을 선택하십시오.",
+    "PL": "Wybierz klan.",
+    "RU": "Выберите клан.",
+    "SP": "Selecciona un clan.",
+    "TR": "Bir klan seçin."
+  },
+  {
+    "id": "ret_select_clan_title",
+    "EN": "Select Clan",
+    "BR": "Selecionar Clã",
+    "CNs": "选择氏族",
+    "CNt": "選擇氏族",
+    "DE": "Clan auswählen",
+    "FR": "Sélectionner un clan",
+    "IT": "Seleziona un clan",
+    "JP": "氏族を選択",
+    "KO": "씨족을 선택",
+    "PL": "Wybierz klan.",
+    "RU": "Выберите клан.",
+    "SP": "Seleccionar Clan",
+    "TR": "Klan Seç"
+  },
+  {
     "id": "ret_select_culture_hint",
     "EN": "Select a culture.",
     "BR": "Selecione uma cultura.",
@@ -6670,22 +6734,6 @@
     "RU": "Максимизируйте навыки 15 собственных войск.",
     "SP": "Maximiza las habilidades de 15 tropas personalizadas.",
     "TR": "15 özel askerin becerilerini en üst düzeye çıkar."
-  },
-  {
-    "id": "ret_switch_player_mode_hint",
-    "EN": "Switch to clan troops editor.",
-    "BR": "Trocar para o editor de tropas do clã.",
-    "CNs": "切换到家族部队编辑器。",
-    "CNt": "切換到家族部隊編輯器。",
-    "DE": "Wechsel zum Klantruppen-Editor.",
-    "FR": "Basculer vers l'éditeur de troupes de clan.",
-    "IT": "Passa all'editor delle truppe del clan.",
-    "JP": "一族兵エディターに切り替えます。",
-    "KO": "가문 병력 편집기로 전환하십시오.",
-    "PL": "Przełącz na edytor wojsk klanu.",
-    "RU": "Переключиться на редактор войск клана.",
-    "SP": "Cambiar al editor de tropas del clan.",
-    "TR": "Klan askerleri düzenleyicisine geç."
   },
   {
     "id": "ret_switch_to_clan_troops",
