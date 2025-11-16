@@ -115,7 +115,7 @@
                                                 <TextWidget
                                                     Brush.FontColor="#cfc1a1ff"
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
-                                                    Brush.FontSize="60" Text="@TroopStudioTitle"/>
+                                                    Brush.FontSize="60" Text="@TroopEditorTitle"/>
                                             </Children>
                                         </ListPanel>
                                     </Children>
@@ -131,7 +131,9 @@
                     command="ExecuteImportAll",
                     vertical_alignment="Bottom",
                     brush="ButtonBrush1",
-                    margin_right="540", margin_bottom="8"
+                    margin_right="540", margin_bottom="8",
+                    is_enabled="@EnableTopPanelButtons",
+                    hint="{TopPanelButtonsHint}"
                 ) }}
 
                 {{ button.text(
@@ -140,7 +142,9 @@
                     command="ExecuteExportAll",
                     vertical_alignment="Bottom",
                     brush="ButtonBrush2",
-                    margin_bottom="8"
+                    margin_bottom="8",
+                    is_enabled="@EnableTopPanelButtons",
+                    hint="{TopPanelButtonsHint}"
                 ) }}
 
                 {{ button.text(
@@ -149,7 +153,9 @@
                     command="ExecuteResetAll",
                     vertical_alignment="Bottom",
                     brush="Popup.Delete.Button",
-                    margin_left="540", margin_bottom="8"
+                    margin_left="540", margin_bottom="8",
+                    is_enabled="@EnableTopPanelButtons",
+                    hint="{TopPanelButtonsHint}"
                 ) }}
             </Children>
         </Widget>

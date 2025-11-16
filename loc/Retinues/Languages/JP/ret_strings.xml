@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="カスタム部隊のアンロック完了" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="英雄は保存された世界の状態に結び付けられています。" />
+    <string
       id="ret_docs_body"
       text="これにより、既定のWebブラウザーで随伴兵のドキュメントが開きます。{newline}{newline}続行しますか？" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="スキル" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="スキル" />
+    <string
       id="ret_sort_category"
       text="カテゴリー" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="兵士エディター" />
+    <string
+      id="ret_troop_editor_title"
+      text="兵士エディター" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="文化エディター" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="英雄エディター" />
     <string
       id="ret_troop_list.placeholder"
       text="利用可能な兵士がいません" />

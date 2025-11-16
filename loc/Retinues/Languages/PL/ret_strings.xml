@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Niestandardowe Oddziały Odblokowane" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Bohaterowie są powiązani z zapisanym stanem świata." />
+    <string
       id="ret_docs_body"
       text="To otworzy dokumentację orszaków w domyślnej przeglądarce internetowej.{newline}{newline}Kontynuować?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Umiejętności" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Umiejętności" />
+    <string
       id="ret_sort_category"
       text="Kategoria" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="Edytor Jednostek" />
+    <string
+      id="ret_troop_editor_title"
+      text="Edytor Jednostek" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Edytor Kultury" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Edytor Bohaterów" />
     <string
       id="ret_troop_list.placeholder"
       text="Brak dostępnych jednostek" />

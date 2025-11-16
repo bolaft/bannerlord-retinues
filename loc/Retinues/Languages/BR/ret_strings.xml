@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Tropas Personalizadas Desbloqueadas" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Heróis estão vinculados ao estado salvo do mundo." />
+    <string
       id="ret_docs_body"
       text="Isto abrirá a documentação dos Séquitos no seu navegador padrão.{newline}{newline}Continuar?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Habilidades" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Habilidades" />
+    <string
       id="ret_sort_category"
       text="Categoria" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="Editor de Tropas" />
+    <string
+      id="ret_troop_editor_title"
+      text="Editor de Tropas" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Editor de Cultura" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Editor de Heróis" />
     <string
       id="ret_troop_list.placeholder"
       text="Nenhuma Tropa Disponível" />

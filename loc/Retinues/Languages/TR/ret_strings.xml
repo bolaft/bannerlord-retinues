@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Özel Askerler Kilidi Açıldı" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Kahramanlar kaydedilmiş dünya durumuna bağlıdır." />
+    <string
       id="ret_docs_body"
       text="Bu, Varsayılan web tarayıcınızda Yandaşlar belgelerini açacaktır.{newline}{newline}Devam etmek istiyor musunuz?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Beceriler" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Beceriler" />
+    <string
       id="ret_sort_category"
       text="Kategori" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="Asker Düzenleyici" />
+    <string
+      id="ret_troop_editor_title"
+      text="Asker Düzenleyici" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Kültür Düzenleyici" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Kahraman Düzenleyici" />
     <string
       id="ret_troop_list.placeholder"
       text="Kullanılabilir Asker Yok" />

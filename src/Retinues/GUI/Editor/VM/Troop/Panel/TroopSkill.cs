@@ -150,7 +150,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 )
                     return; // Modification not allowed in current context
 
-            bool skillsAreFree = ClanScreen.IsStudioMode || (Config.BaseSkillXpCost == 0 && Config.SkillXpCostPerPoint == 0);
+            bool skillsAreFree =
+                ClanScreen.IsStudioMode
+                || (Config.BaseSkillXpCost == 0 && Config.SkillXpCostPerPoint == 0);
             bool skillsAreInstant = ClanScreen.IsStudioMode || Config.TrainingTakesTime == false;
             bool capped = !skillsAreFree || !skillsAreInstant; // No batch cap if skills are free and instant
 

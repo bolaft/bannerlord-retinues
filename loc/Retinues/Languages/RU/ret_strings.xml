@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Пользовательские войска разблокированы" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Герои привязаны к сохранённому состоянию мира." />
+    <string
       id="ret_docs_body"
       text="Это откроет документацию по свите в вашем браузере по умолчанию.{newline}{newline}Продолжить?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Навыки" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Навыки" />
+    <string
       id="ret_sort_category"
       text="Категория" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="Редактор Войск" />
+    <string
+      id="ret_troop_editor_title"
+      text="Редактор Войск" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Редактор Культуры" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Редактор Героев" />
     <string
       id="ret_troop_list.placeholder"
       text="Нет доступных войск" />

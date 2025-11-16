@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Custom Troops Unlocked" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Heroes are tied to the saved world state." />
+    <string
       id="ret_docs_body"
       text="This will open the Retinues documentation in your default web browser.{newline}{newline}Continue?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Skills &amp; Formation" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Skills" />
+    <string
       id="ret_sort_category"
       text="Category" />
     <string
@@ -1316,11 +1322,17 @@
       id="ret_troop_editor_button"
       text="Troop Editor" />
     <string
+      id="ret_troop_editor_title"
+      text="Troop Editor" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Culture Editor" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Heroes Editor" />
+    <string
       id="ret_troop_list.placeholder"
       text="No Troops Available" />
-    <string
-      id="ret_troop_studio_title"
-      text="Troop Editor" />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />

@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="自定义部队已解锁" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="英雄与已保存的世界状态相关联。" />
+    <string
       id="ret_docs_body"
       text="这将在您的默认网络浏览器中打开随从文档。{newline}{newline}继续？" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="技能" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="技能" />
+    <string
       id="ret_sort_category"
       text="类别" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="部队编辑器" />
+    <string
+      id="ret_troop_editor_title"
+      text="部队编辑器" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="文化编辑器" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="英雄编辑器" />
     <string
       id="ret_troop_list.placeholder"
       text="无可用部队" />

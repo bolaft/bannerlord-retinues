@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Troupes Personnalisées Débloquées" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Les héros sont liés à l’état du monde sauvegardé." />
+    <string
       id="ret_docs_body"
       text="Cela ouvrira la documentation de Retinues dans le navigateur web par défaut.{newline}{newline}Continuer ?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Compétences" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Compétences" />
+    <string
       id="ret_sort_category"
       text="Catégorie" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="Éditeur de Troupes" />
+    <string
+      id="ret_troop_editor_title"
+      text="Éditeur de Troupes" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Éditeur de Culture" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Éditeur de Héros" />
     <string
       id="ret_troop_list.placeholder"
       text="Aucune troupe disponible" />

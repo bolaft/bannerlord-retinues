@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="사용자 지정 부대 잠금 해제" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="영웅은 저장된 세계 상태에 연결되어 있습니다." />
+    <string
       id="ret_docs_body"
       text="기본 웹 브라우저에서 수행원 문서가 열립니다.{newline}{newline}계속하시겠습니까?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="기술" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="기술" />
+    <string
       id="ret_sort_category"
       text="카테고리" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="병력 편집기" />
+    <string
+      id="ret_troop_editor_title"
+      text="병력 편집기" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="문화 편집기" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="영웅 편집기" />
     <string
       id="ret_troop_list.placeholder"
       text="사용 가능한 병력이 없습니다" />

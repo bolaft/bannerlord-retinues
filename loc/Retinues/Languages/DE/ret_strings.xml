@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Benutzerdefinierte Truppen freigeschaltet" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Helden sind an den gespeicherten Weltzustand gebunden." />
+    <string
       id="ret_docs_body"
       text="Dies öffnet die Retinues-Dokumentation in deinem Standard-Webbrowser.{newline}{newline}Fortfahren?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Fertigkeiten" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Fertigkeiten" />
+    <string
       id="ret_sort_category"
       text="Kategorie" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="Truppen-Editor" />
+    <string
+      id="ret_troop_editor_title"
+      text="Truppen-Editor" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Kultur-Editor" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Helden-Editor" />
     <string
       id="ret_troop_list.placeholder"
       text="Keine Truppen verfügbar" />

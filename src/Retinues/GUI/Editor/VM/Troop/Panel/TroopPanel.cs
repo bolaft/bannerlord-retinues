@@ -201,7 +201,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string NameHeaderText => L.S("name_header_text", "Name");
 
         [DataSourceProperty]
-        public string SkillsHeaderText => L.S("skills_header_text", "Skills & Formation");
+        public string SkillsHeaderText =>
+            ShowSkillSummary
+                ? L.S("skills_header_text", "Skills & Formation")
+                : L.S("skills_header_text_no_formation", "Skills");
 
         [DataSourceProperty]
         public string FormationClassHeaderText =>

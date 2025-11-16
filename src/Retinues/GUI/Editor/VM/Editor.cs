@@ -115,6 +115,8 @@ namespace Retinues.GUI.Editor.VM
                     nameof(ClanBanner),
                     nameof(CultureName),
                     nameof(ClanName),
+                    nameof(TroopEditorTitle),
+                    nameof(EnableTopPanelButtons),
                 ],
                 [UIEvent.Appearance] = [nameof(Model)],
             };
@@ -139,7 +141,31 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━ Studio Mode ━━━━━ */
 
         [DataSourceProperty]
-        public string TroopStudioTitle => L.S("troop_studio_title", "Troop Editor");
+        public string TroopEditorTitle
+        {
+            get
+            {
+                if (ClanScreen.EditorMode == EditorMode.Culture)
+                    return L.S("troop_editor_title_culture", "Culture Editor");
+
+                if (ClanScreen.EditorMode == EditorMode.Heroes)
+                    return L.S("troop_editor_title_heroes", "Heroes Editor");
+
+                return L.S("troop_editor_title", "Troop Editor");
+            }
+        }
+
+        [DataSourceProperty]
+        public bool EnableTopPanelButtons => ClanScreen.EditorMode != EditorMode.Heroes;
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel TopPanelButtonsHint =>
+            EnableTopPanelButtons
+                ? null
+                : Tooltip.MakeTooltip(
+                    null,
+                    L.S("disabled_in_hero_editor", "Heroes are tied to the saved world state.")
+                );
 
 #if BL13
         [DataSourceProperty]

@@ -239,6 +239,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Truppe Personalizzate Sbloccate" />
     <string
+      id="ret_disabled_in_hero_editor"
+      text="Gli eroi sono legati allo stato salvato del mondo." />
+    <string
       id="ret_docs_body"
       text="Questo aprirà la documentazione dei Seguaci nel tuo browser web predefinito.{newline}{newline}Continuare?" />
     <string
@@ -1253,6 +1256,9 @@
       id="ret_skills_header_text"
       text="Abilità" />
     <string
+      id="ret_skills_header_text_no_formation"
+      text="Abilità" />
+    <string
       id="ret_sort_category"
       text="Categoria" />
     <string
@@ -1315,6 +1321,15 @@
     <string
       id="ret_troop_editor_button"
       text="Editor Truppe" />
+    <string
+      id="ret_troop_editor_title"
+      text="Editor Truppe" />
+    <string
+      id="ret_troop_editor_title_culture"
+      text="Editor Cultura" />
+    <string
+      id="ret_troop_editor_title_heroes"
+      text="Editor Eroi" />
     <string
       id="ret_troop_list.placeholder"
       text="Nessuna Truppa Disponibile" />
