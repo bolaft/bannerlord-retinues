@@ -216,14 +216,6 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public CharacterViewModel Model => State.Troop?.GetModel(State.Equipment.Index);
 
-        /* ━━━━━━━ Gauntlet ━━━━━━━ */
-
-        [DataSourceProperty]
-        public int TableauMarginLeft => ClanScreen.IsStudioMode ? 60 : 0;
-
-        [DataSourceProperty]
-        public int PanelMarginLeft => ClanScreen.IsStudioMode ? 440 : 340;
-
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
         [DataSourceProperty]
