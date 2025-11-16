@@ -208,35 +208,76 @@ namespace Retinues.Game.Helpers
         /// </summary>
         public static void ApplyPropertiesFromCulture(WCharacter troop, CultureObject culture)
         {
-            if (culture == null)
+            if (troop == null || culture == null)
                 return;
 
             var template = culture.BasicTroop ?? culture.EliteBasicTroop;
             if (template == null)
                 return;
 
+            // Hero path: edit Hero.BodyProperties instead of template range
+            var hero = troop.Base?.HeroObject;
+            if (hero != null)
+            {
+                try
+                {
+                    // 1) Take the template's min/max envelope
+                    var min = template.GetBodyPropertiesMin();
+                    var max = template.GetBodyPropertiesMax();
+
+                    // 2) Compute a "mid" dynamic body (age/weight/build)
+                    float midAge = (min.Age + max.Age) * 0.5f;
+                    float midWeight = (min.Weight + max.Weight) * 0.5f;
+                    float midBuild = (min.Build + max.Build) * 0.5f;
+
+                    var dyn = new DynamicBodyProperties(midAge, midWeight, midBuild);
+
+                    // 3) Use the template's static properties (includes race/face style etc.)
+                    var stat = min.StaticProperties;
+                    var newBody = new BodyProperties(dyn, stat);
+
+                    // 4) Apply to the hero
+                    hero.StaticBodyProperties = newBody.StaticProperties;
+                    hero.Weight = dyn.Weight;
+                    hero.Build = dyn.Build;
+
+                    // Age is derived from birthday
+                    hero.SetBirthDay(CampaignTime.YearsFromNow(-midAge));
+
+                    // Optional: keep internal flag for save/export
+                    troop.NeedsPersistence = true;
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex);
+                }
+
+                return;
+            }
+
+            // Troop path (non-hero): keep existing template-based logic
+
             // break shared reference
             troop.Body.EnsureOwnBodyRange();
 
             var range = Reflector.GetPropertyValue<object>(troop.Base, "BodyPropertyRange");
-            var tplRange = Reflector.GetPropertyValue<object>(template, "BodyPropertyRange");
 
             // 1) Copy style tags & race (affects FaceGen sampling)
             troop.Race = template.Race;
 
             // 2) Copy min/max envelope from template
-            var min = template.GetBodyPropertiesMin();
-            var max = template.GetBodyPropertiesMax();
+            var minTroop = template.GetBodyPropertiesMin();
+            var maxTroop = template.GetBodyPropertiesMax();
             Reflector.InvokeMethod(
                 range,
                 "Init",
                 [typeof(BodyProperties), typeof(BodyProperties)],
-                min,
-                max
+                minTroop,
+                maxTroop
             );
 
             // 4) Snap age to the template's mid-age
-            troop.Body.Age = (min.Age + max.Age) * 0.5f;
+            troop.Body.Age = (minTroop.Age + maxTroop.Age) * 0.5f;
         }
 
         /// <summary>

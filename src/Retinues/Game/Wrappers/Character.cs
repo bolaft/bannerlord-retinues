@@ -5,7 +5,6 @@ using System.Reflection;
 using Retinues.Configuration;
 using Retinues.Game.Helpers;
 using Retinues.Mods;
-using Retinues.Safety.Sanitizer;
 using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -24,7 +23,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for CharacterObject, exposing custom troop logic and properties.
     /// </summary>
     [SafeClass]
-    public class WCharacter(CharacterObject characterObject) : StringIdentifier
+    public class WCharacter(CharacterObject characterObject) : BaseFactionMember
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Constants                      //
@@ -242,6 +241,17 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        public IEnumerable<WCharacter> Tree
+        {
+            get
+            {
+                yield return this;
+                foreach (var child in UpgradeTargets)
+                foreach (var descendant in child.Tree)
+                    yield return descendant;
+            }
+        }
+
         public BaseFaction Faction
         {
             get =>
@@ -257,22 +267,14 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public IEnumerable<WCharacter> Tree
-        {
-            get
-            {
-                yield return this;
-                foreach (var child in UpgradeTargets)
-                foreach (var descendant in child.Tree)
-                    yield return descendant;
-            }
-        }
+        public override WFaction Clan => IsCustom ? Player.Clan : null;
+        public override WFaction Kingdom => IsCustom ? Player.Kingdom : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Basic Attributes                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name
+        public virtual string Name
         {
             get => Base.Name.ToString();
             set
@@ -287,9 +289,9 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public int Tier => IsHero ? MaxTier : Base.Tier;
+        public int Tier => Base.Tier;
 
-        public int Level
+        public virtual int Level
         {
             get => Base.Level;
             set
@@ -299,7 +301,7 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public WCulture Culture
+        public virtual WCulture Culture
         {
             get => new(Base.Culture);
             set
@@ -467,7 +469,7 @@ namespace Retinues.Game.Wrappers
         ];
 
         // Skill dictionary for easy get/set
-        public Dictionary<SkillObject, int> Skills
+        public virtual Dictionary<SkillObject, int> Skills
         {
             get { return TroopSkills.ToDictionary(skill => skill, GetSkill); }
             set
@@ -483,12 +485,12 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Returns the value of the specified skill.
         /// </summary>
-        public int GetSkill(SkillObject skill) => Base.GetSkillValue(skill);
+        public virtual int GetSkill(SkillObject skill) => Base.GetSkillValue(skill);
 
         /// <summary>
         /// Sets the specified skill to the given value.
         /// </summary>
-        public void SetSkill(SkillObject skill, int value)
+        public virtual void SetSkill(SkillObject skill, int value)
         {
             var skills = Reflector.GetFieldValue<MBCharacterSkills>(Base, "DefaultCharacterSkills");
             ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
@@ -499,7 +501,7 @@ namespace Retinues.Game.Wrappers
         //                         Visuals                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsFemale
+        public virtual bool IsFemale
         {
             get => Reflector.GetPropertyValue<bool>(Base, "IsFemale");
             set

@@ -1,46 +1,175 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Game.Wrappers
 {
     /// <summary>
-    /// Wrapper for Hero, exposes culture, clan, kingdom, and party leader status for custom logic.
+    /// Wrapper for Hero that reuses WCharacter but redirects hero-specific state
+    /// (name, culture, skills, gender, clan/kingdom) to Hero instead of the template.
     /// </summary>
     [SafeClass]
-    public class WHero(Hero hero) : BaseFactionMember
+    public class WHero(Hero hero) : WCharacter(hero?.CharacterObject)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly Hero _hero = hero;
+        private readonly Hero _hero = hero ?? throw new ArgumentNullException(nameof(hero));
 
-        public Hero Base => _hero;
+        /// <summary>
+        /// Underlying hero.
+        /// </summary>
+        public Hero Hero => _hero;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Properties                       //
+        //                   Identification / Faction             //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => _hero?.Name?.ToString();
-
-        public override string StringId => _hero?.StringId;
-
         /// <summary>
-        /// Gets the hero's culture as a WCulture wrapper, or null if missing.
+        /// Use hero string id rather than character template id.
         /// </summary>
-        public WCulture Culture => _hero?.Culture == null ? null : new(_hero.Culture);
+        public override string StringId => _hero.StringId;
 
         /// <summary>
-        /// Gets the hero's clan as a WFaction wrapper, or null if missing.
+        /// Hero name (full name as string).
         /// </summary>
-        public override WFaction Clan => _hero?.Clan == null ? null : new(_hero.Clan);
+        public override string Name
+        {
+            // Display just the first name if present, otherwise fall back to full name
+            get => _hero.FirstName?.ToString() ?? _hero.Name?.ToString();
+            set
+            {
+                if (_hero == null || string.IsNullOrWhiteSpace(value))
+                    return;
+
+                var first = new TextObject(value);
+                var full = new TextObject(
+                    _hero
+                        .Name.Value.Replace(_hero.FirstName?.ToString() ?? "", first.ToString())
+                        .Trim()
+                );
+
+                _hero.SetName(full, first);
+                NeedsPersistence = true;
+            }
+        }
 
         /// <summary>
-        /// Gets the hero's kingdom as a WFaction wrapper, or null if missing.
+        /// Hero culture wrapper.
+        /// </summary>
+        public override WCulture Culture
+        {
+            get => _hero.Culture == null ? null : new WCulture(_hero.Culture);
+            set
+            {
+                var newCulture = value?.Base;
+                if (newCulture == null || newCulture == _hero.Culture)
+                    return;
+
+                _hero.Culture = newCulture;
+                NeedsPersistence = true;
+            }
+        }
+
+        /// <summary>
+        /// Hero clan wrapper.
+        /// </summary>
+        public override WFaction Clan => _hero.Clan == null ? null : new WFaction(_hero.Clan);
+
+        /// <summary>
+        /// Hero kingdom wrapper.
         /// </summary>
         public override WFaction Kingdom =>
-            _hero?.Clan?.Kingdom == null ? null : new(_hero.Clan.Kingdom);
+            _hero.Clan?.Kingdom == null ? null : new WFaction(_hero.Clan.Kingdom);
 
-        public bool IsPartyLeader => _hero?.IsPartyLeader ?? false;
+        public bool IsPartyLeader => _hero.IsPartyLeader;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Skills                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// For heroes, skills live on Hero, not on CharacterObject.DefaultCharacterSkills.
+        /// Override the WCharacter skill API to hit Hero.GetSkillValue / SetSkillValue.
+        /// </summary>
+        public override int GetSkill(SkillObject skill)
+        {
+            if (_hero == null || skill == null)
+                return 0;
+
+            return _hero.GetSkillValue(skill);
+        }
+
+        public override void SetSkill(SkillObject skill, int value)
+        {
+            if (_hero == null || skill == null)
+                return;
+
+            _hero.SetSkillValue(skill, value);
+            NeedsPersistence = true;
+        }
+
+        /// <summary>
+        /// Shortcut for the troop-relevant skill set, mapped to hero skills.
+        /// </summary>
+        public override Dictionary<SkillObject, int> Skills
+        {
+            get
+            {
+                if (_hero == null)
+                    return TroopSkills.ToDictionary(s => s, _ => 0);
+
+                return TroopSkills.ToDictionary(s => s, s => _hero.GetSkillValue(s));
+            }
+            set
+            {
+                if (_hero == null)
+                    return;
+
+                foreach (var skill in TroopSkills)
+                {
+                    var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
+                    _hero.SetSkillValue(skill, v);
+                }
+
+                NeedsPersistence = true;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Visuals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override bool IsFemale
+        {
+            get => _hero.IsFemale;
+            set
+            {
+                if (_hero.IsFemale == value)
+                    return;
+
+                _hero.IsFemale = value;
+                NeedsPersistence = true;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Convenience                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override int Level
+        {
+            get => _hero.Level;
+            set
+            {
+                _hero.Level = value;
+                NeedsPersistence = true;
+            }
+        }
     }
 }

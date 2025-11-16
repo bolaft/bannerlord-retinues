@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Features.Equipments;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -29,38 +30,74 @@ namespace Retinues.Game.Wrappers
         private readonly WCharacter _troop = troop;
         public WCharacter Troop => _troop;
 
+        private bool IsHero => _troop.IsHero;
+        private Hero Hero => _troop.Base.HeroObject;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Equipment Lists                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Base equipment list.
+        /// For troops: CharacterObject._equipmentRoster.AllEquipments.
+        /// For heroes: [Hero.BattleEquipment, Hero.CivilianEquipment].
         /// </summary>
         public List<Equipment> BaseEquipments
         {
-            get =>
-                Reflector
-                    .GetFieldValue<MBEquipmentRoster>(_troop.Base, "_equipmentRoster")
-                    ?.AllEquipments ?? [];
+            get
+            {
+                if (IsHero)
+                {
+                    if (Hero == null)
+                        return [];
+
+                    var list = new List<Equipment>();
+                    if (Hero.BattleEquipment != null)
+                        list.Add(Hero.BattleEquipment);
+                    if (Hero.CivilianEquipment != null)
+                        list.Add(Hero.CivilianEquipment);
+                    return list;
+                }
+
+                return Reflector
+                        .GetFieldValue<MBEquipmentRoster>(_troop.Base, "_equipmentRoster")
+                        ?.AllEquipments ?? [];
+            }
             set
             {
+                // For heroes, we do not replace the Equipment instances themselves.
+                // All hero editing goes through SetEquipments / ApplyHeroEquipments.
+                if (IsHero)
+                    return;
+
                 var roster = new MBEquipmentRoster();
-                Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value));
+                Reflector.SetFieldValue(roster, "_equipments", new MBList<Equipment>(value ?? []));
                 Reflector.SetFieldValue(_troop.Base, "_equipmentRoster", roster);
             }
         }
 
         /// <summary>
         /// All equipment sets as wrapped objects.
+        /// Troops: one WEquipment per roster entry.
+        /// Heroes: index 0 = battle, index 1 = civilian (when present).
         /// </summary>
         public List<WEquipment> Equipments =>
             [.. BaseEquipments.Select(e => new WEquipment(e, this, BaseEquipments.IndexOf(e)))];
 
         /// <summary>
         /// Set the equipment sets from wrapped objects.
+        /// For heroes, this copies into Hero.BattleEquipment / CivilianEquipment.
+        /// For troops, this writes the CharacterObject._equipmentRoster.
         /// </summary>
         public void SetEquipments(List<WEquipment> value)
         {
+            if (IsHero)
+            {
+                ApplyHeroEquipments(value);
+                Troop.NeedsPersistence = true;
+                return;
+            }
+
             BaseEquipments = [.. value.Select(we => we.Base)];
             Troop.NeedsPersistence = true;
         }
@@ -69,12 +106,21 @@ namespace Retinues.Game.Wrappers
         //                         Accessors                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WEquipment Battle => Equipments.FirstOrDefault(eq => !eq.IsCivilian);
-        public WEquipment Civilian => Equipments.FirstOrDefault(eq => eq.IsCivilian);
+        public WEquipment Battle =>
+            IsHero ? Equipments.FirstOrDefault() : Equipments.FirstOrDefault(eq => !eq.IsCivilian);
 
-        public List<WEquipment> BattleSets => [.. Equipments.Where(eq => !eq.IsCivilian)];
+        public WEquipment Civilian =>
+            IsHero
+                ? (Equipments.Count > 1 ? Equipments[1] : null)
+                : Equipments.FirstOrDefault(eq => eq.IsCivilian);
 
-        public List<WEquipment> CivilianSets => [.. Equipments.Where(eq => eq.IsCivilian)];
+        public List<WEquipment> BattleSets =>
+            IsHero ? (Battle != null ? [Battle] : []) : [.. Equipments.Where(eq => !eq.IsCivilian)];
+
+        public List<WEquipment> CivilianSets =>
+            IsHero
+                ? (Civilian != null ? [Civilian] : [])
+                : [.. Equipments.Where(eq => eq.IsCivilian)];
 
         /// <summary>
         /// Get equipment set by index.
@@ -89,9 +135,19 @@ namespace Retinues.Game.Wrappers
 
         /// <summary>
         /// Get equipment category by index.
+        /// For heroes: 0 = battle, 1 = civilian.
         /// </summary>
         public EquipmentCategory GetCategory(int index)
         {
+            if (IsHero)
+            {
+                if (index == 0)
+                    return EquipmentCategory.Battle;
+                if (index == 1)
+                    return EquipmentCategory.Civilian;
+                return EquipmentCategory.Invalid;
+            }
+
             var eq = Get(index);
             if (eq == null)
                 return EquipmentCategory.Invalid;
@@ -114,9 +170,13 @@ namespace Retinues.Game.Wrappers
 
         /// <summary>
         /// Create a new equipment set of given type.
+        /// For heroes, returns the existing battle/civilian set (no extra sets).
         /// </summary>
         public WEquipment CreateSet(bool civilian)
         {
+            if (IsHero)
+                return civilian ? Civilian ?? Battle : Battle ?? Civilian;
+
             var we = WEquipment.FromCode(null, this, Equipments.Count, forceCivilian: civilian);
             var list = Equipments;
             list.Add(we);
@@ -134,9 +194,13 @@ namespace Retinues.Game.Wrappers
             if (eq == null)
                 return;
 
-            if (makeCivilian && !eq.IsCivilian && BattleSets.Count() <= 1)
+            // Heroes only have one battle + one civilian; flipping categories makes no sense here.
+            if (IsHero)
                 return;
-            if (!makeCivilian && eq.IsCivilian && CivilianSets.Count() <= 1)
+
+            if (makeCivilian && !eq.IsCivilian && BattleSets.Count <= 1)
+                return;
+            if (!makeCivilian && eq.IsCivilian && CivilianSets.Count <= 1)
                 return;
 
             eq.SetCivilian(makeCivilian);
@@ -149,17 +213,22 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public void Remove(WEquipment equipment)
         {
-            var list = Equipments;
             if (equipment == null)
                 return;
+
+            // Do not remove hero equipment sets; engine does not support "no battle set".
+            if (IsHero)
+                return;
+
+            var list = Equipments;
 
             int idx = equipment.Index;
             if (idx < 0 || idx >= list.Count)
                 return;
 
             bool removingCivilian = equipment.IsCivilian;
-            int civilians = CivilianSets.Count();
-            int battles = BattleSets.Count();
+            int civilians = CivilianSets.Count;
+            int battles = BattleSets.Count;
 
             if (removingCivilian && civilians <= 1)
                 return;
@@ -191,6 +260,7 @@ namespace Retinues.Game.Wrappers
 
         /// <summary>
         /// Fill from another loadout (copy all sets or the first battle + civilian).
+        /// For heroes, the relevant battle/civilian sets are copied into Hero.Battle/Civilian.
         /// </summary>
         public void FillFrom(WLoadout loadout, bool copyAll = false)
         {
@@ -564,6 +634,37 @@ namespace Retinues.Game.Wrappers
                 }
             }
             return bestCategory;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Hero helpers                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void ApplyHeroEquipments(List<WEquipment> sets)
+        {
+            if (!IsHero)
+                return;
+
+            var hero = Hero;
+            if (hero == null || sets == null || sets.Count == 0)
+                return;
+
+            var battleSet = sets.FirstOrDefault(eq => !eq.IsCivilian) ?? sets.FirstOrDefault();
+            var civilianSet = sets.FirstOrDefault(eq => eq.IsCivilian);
+
+            if (battleSet != null)
+                CopyEquipment(battleSet.Base, hero.BattleEquipment);
+            if (civilianSet != null)
+                CopyEquipment(civilianSet.Base, hero.CivilianEquipment);
+        }
+
+        private static void CopyEquipment(Equipment src, Equipment dst)
+        {
+            if (src == null || dst == null)
+                return;
+
+            for (var i = 0; i < Equipment.EquipmentSlotLength; i++)
+                dst[i] = src[i];
         }
     }
 }

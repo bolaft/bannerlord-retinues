@@ -230,6 +230,6 @@ namespace Retinues.Game
 
         /* ━━━━━━━━━ NPCs ━━━━━━━━━ */
 
-        public virtual List<WCharacter> Heroes => [];
+        public virtual List<WHero> Heroes => [];
     }
 }

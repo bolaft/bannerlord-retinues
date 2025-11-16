@@ -30,6 +30,9 @@ namespace Retinues.Managers
             if (troop == null)
                 return 0;
 
+            if (troop.IsHero)
+                return Config.SkillCapHeroes;
+
             int cap = troop.Tier switch
             {
                 0 => Config.SkillCapTier0,
@@ -143,6 +146,9 @@ namespace Retinues.Managers
             if (trueValue >= SkillCapByTier(troop))
                 return L.T("skill_at_cap", "Skill is at cap for this troop.");
 
+            if (troop.IsHero)
+                return null; // Heroes can always unless at hero cap above
+
             if (SkillPointsLeft(troop) - stagedAll <= 0)
                 return L.T("no_skill_points_left", "No skill points left for this troop.");
 
@@ -198,6 +204,22 @@ namespace Retinues.Managers
             if (troop == null || skill == null)
                 return;
 
+            // Heroes: apply directly, no staging / XP system.
+            if (troop.IsHero)
+            {
+                // Current value as seen by the UI / equipment rules.
+                var current = troop.GetSkill(skill);
+                var next = increment ? current + 1 : current - 1;
+                if (next < 0)
+                    next = 0;
+
+                // This ultimately calls Hero.SetSkillValue(...) via WHero override.
+                troop.SetSkill(skill, next);
+
+                return;
+            }
+
+            // Troops: keep existing staged training behavior.
             int staged = TrainStagingBehavior.Get(troop, skill)?.PointsRemaining ?? 0;
             int stagedSkill = troop.GetSkill(skill) + staged;
 
@@ -213,6 +235,8 @@ namespace Retinues.Managers
                 BattleXpBehavior.RefundOnePoint(troop, stagedSkill, force);
                 TrainStagingBehavior.ApplyChange(troop.StringId, skill, -1);
             }
+
+            Log.Info($"Skill '{skill.Name}' for troop '{troop.Name}' modified successfully.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

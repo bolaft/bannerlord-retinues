@@ -31,7 +31,7 @@ namespace Retinues.Game.Wrappers
             if (Base == null || faction == null)
                 return;
 
-            var arr = Base.VolunteerTypes;
+            var arr = Hero.VolunteerTypes;
             if (arr == null || arr.Length == 0)
                 return;
 
@@ -82,7 +82,7 @@ namespace Retinues.Game.Wrappers
             if (Base == null || oldTroop == null || newTroop == null)
                 return;
 
-            var arr = Base.VolunteerTypes;
+            var arr = Hero.VolunteerTypes;
             if (arr == null || arr.Length == 0)
                 return;
 

@@ -10,7 +10,8 @@
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
-    UpdateChildrenStates="true">
+    UpdateChildrenStates="true"
+    IsVisible="@ShowSkillSummary">
     <Children>
 
         <!-- Points Used -->
@@ -31,7 +32,8 @@
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true"
-    MarginBottom="10">
+    MarginBottom="10"
+    IsVisible="@ShowSkillSummary">
     <Children>
         <!-- Value Displays -->
         {{ text.small(text="@TroopXpText", is_visible="@TroopXpIsEnabled") }}

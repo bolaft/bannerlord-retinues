@@ -263,12 +263,12 @@ namespace Retinues.Managers
                     return false;
 
             // No horse rule
-            if (Config.NoMountForTier1)
+            if (Config.NoMountForTier1 && !troop.IsHero)
                 if (troop.Tier <= 1 && item != null && item.IsHorse)
                     return false;
 
             // Tier cap rule
-            if ((item?.Tier ?? 0) - troop.Tier > Config.AllowedTierDifference)
+            if ((item?.Tier ?? 0) - troop.Tier > Config.AllowedTierDifference && !troop.IsHero)
                 return false;
 
             return true;

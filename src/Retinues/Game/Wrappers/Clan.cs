@@ -76,22 +76,26 @@ namespace Retinues.Game.Wrappers
         //                       Troop Lists                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override List<WCharacter> Heroes
+        public override List<WHero> Heroes
         {
             get
             {
-                var heroes = new List<WCharacter>();
+                var heroes = new List<WHero>();
                 foreach (var hero in Base.Heroes)
                 {
                     if (hero == null)
                         continue;
-                    var wc = new WCharacter(hero.CharacterObject);
+
+                    var wc = new WHero(hero);
 
                     if (!wc.IsValid)
                         continue;
 
                     if (wc.Base.HiddenInEncyclopedia)
-                        continue;
+                        continue; // Skip hidden heroes
+
+                    if (wc.Skills.Sum(kv => kv.Value) == 0)
+                        continue; // Skip unskilled heroes (probably not fully initialized)
 
                     heroes.Add(wc);
                 }

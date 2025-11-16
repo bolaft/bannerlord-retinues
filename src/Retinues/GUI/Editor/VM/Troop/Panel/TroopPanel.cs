@@ -10,14 +10,12 @@ using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Managers;
-using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.ObjectSystem;
 
 namespace Retinues.GUI.Editor.VM.Troop.Panel
 {
@@ -74,6 +72,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(IsRetinue),
                     nameof(IsRegular),
                     nameof(ShowUpgradesHeader),
+                    nameof(ShowSkillSummary),
                     nameof(IsCustomRegular),
                     nameof(HasPendingConversions),
                     nameof(PendingTotalGoldCost),
@@ -276,6 +275,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 .ToString();
 
         /* ━━━━━━━━ Skills ━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool ShowSkillSummary => State.Troop?.IsHero == false;
 
         [DataSourceProperty]
         public string SkillCapText

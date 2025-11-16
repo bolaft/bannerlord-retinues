@@ -67,14 +67,6 @@ namespace Retinues.Game
         }
 
         /// <summary>
-        /// Fallback banner when raw banner is null or empty.
-        /// </summary>
-        protected virtual Banner CreateFallbackBanner()
-        {
-            return Banner.CreateRandomClanBanner();
-        }
-
-        /// <summary>
         /// Determines if the given banner is empty or invalid.
         /// </summary>
         protected static bool IsEmptyBanner(Banner banner)
@@ -132,8 +124,6 @@ namespace Retinues.Game
             if (basicCulture == null)
                 return Banner.CreateRandomClanBanner();
 
-            Log.Debug($"Creating random banner for culture {StringId}");
-
             // Start from a guaranteed non-empty random banner.
             Banner banner = Banner.CreateRandomClanBanner();
 
@@ -141,8 +131,6 @@ namespace Retinues.Game
             {
                 // Base banner on the culture's root troop banner if possible
                 var root = RootBasic ?? RootElite;
-
-                Log.Debug($"Using root troop {root?.StringId} for culture {StringId}");
 
                 if (root != null)
                 {
@@ -152,9 +140,6 @@ namespace Retinues.Game
                         var troopBanner = troop?.Culture?.Base?.Banner;
                         if (!IsEmptyBanner(troopBanner))
                         {
-                            Log.Debug(
-                                $"Found banner from troop {troop.StringId} for culture {StringId}"
-                            );
                             // copy to avoid mutating the original
                             banner = new Banner(troopBanner);
                             break;
@@ -163,9 +148,6 @@ namespace Retinues.Game
                         var troopBannerKey = troop?.Culture?.Base?.BannerKey;
                         if (!string.IsNullOrEmpty(troopBannerKey))
                         {
-                            Log.Debug(
-                                $"Found banner key from troop {troop.StringId} for culture {StringId}"
-                            );
                             banner = new Banner(troopBannerKey);
                             break;
                         }

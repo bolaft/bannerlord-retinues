@@ -258,6 +258,13 @@ namespace Retinues.GUI.Editor.VM.Equipment
             (State.Equipment?.Index ?? 0) < ((State.Troop?.Loadout.Equipments.Count ?? 1) - 1);
 
         [DataSourceProperty]
+        public bool ShowSetControls => !ModCompatibility.NoAlternateEquipmentSets;
+
+        [DataSourceProperty]
+        public bool CanCreateSet =>
+            !State.Troop.IsHero && !ModCompatibility.NoAlternateEquipmentSets;
+
+        [DataSourceProperty]
         public bool CanRemoveSet
         {
             get
@@ -267,18 +274,15 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 if (troop == null || eq == null)
                     return false;
 
+                if (troop.IsHero)
+                    return false; // Heroes cannot create/remove sets
+
                 var civs = troop.Loadout.CivilianSets.Count();
                 var bats = troop.Loadout.BattleSets.Count();
 
                 return eq.IsCivilian ? civs > 1 : bats > 1;
             }
         }
-
-        [DataSourceProperty]
-        public bool ShowSetControls => !ModCompatibility.NoAlternateEquipmentSets;
-
-        [DataSourceProperty]
-        public bool CanCreateSet => !ModCompatibility.NoAlternateEquipmentSets;
 
         [DataSourceProperty]
         public bool SetIsCivilian => State.Equipment?.IsCivilian == true;
@@ -384,21 +388,31 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public BasicTooltipViewModel RemoveSetHint =>
-            CanRemoveSet
-                ? null
-                : Tooltip.MakeTooltip(
+            CanRemoveSet ? null
+            : State.Troop.IsHero
+                ? Tooltip.MakeTooltip(
                     null,
-                    L.T("remove_set_hint", "At least one set of this type must remain.").ToString()
-                );
+                    L.T("remove_set_hero_hint", "Cannot remove equipment sets for heroes.")
+                        .ToString()
+                )
+            : Tooltip.MakeTooltip(
+                null,
+                L.T("remove_set_hint", "At least one set of this type must remain.").ToString()
+            );
 
         [DataSourceProperty]
         public BasicTooltipViewModel CreateSetHint =>
-            CanCreateSet
-                ? null
-                : Tooltip.MakeTooltip(
+            CanCreateSet ? null
+            : State.Troop.IsHero
+                ? Tooltip.MakeTooltip(
                     null,
-                    L.T("create_set_hint", "Disabled due to conflicting mods (Shokuho).").ToString()
-                );
+                    L.T("create_set_hero_hint", "Cannot create equipment sets for heroes.")
+                        .ToString()
+                )
+            : Tooltip.MakeTooltip(
+                null,
+                L.T("create_set_hint", "Disabled due to conflicting mods (Shokuho).").ToString()
+            );
 
         [DataSourceProperty]
         public BasicTooltipViewModel CivilianHint

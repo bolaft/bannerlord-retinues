@@ -1083,6 +1083,18 @@ namespace Retinues.Configuration
             presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
         );
 
+        public static readonly Option<int> SkillCapHeroes = CreateOption(
+            section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
+            key: "SkillCapHeroes",
+            name: () => L.S("mcm_option_skill_cap_heroes", "Hero Skill Cap"),
+            hint: () =>
+                L.S("mcm_option_skill_cap_heroes_hint", "The maximum skill level for hero troops."),
+            @default: 420,
+            minValue: 20,
+            maxValue: 420,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 420 }
+        );
+
         // ─────────────────────────────────────────────────────
         // Skill Totals
         // ─────────────────────────────────────────────────────

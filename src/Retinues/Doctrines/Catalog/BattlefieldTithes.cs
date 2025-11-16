@@ -29,7 +29,7 @@ namespace Retinues.Doctrines.Catalog
             {
                 if (!quest.IsSuccessful)
                     return;
-                if (quest.Giver?.Base.MapFaction.StringId != Player.MapFaction.StringId)
+                if (quest.Giver?.Hero.MapFaction.StringId != Player.MapFaction.StringId)
                     return;
                 if (!quest.Giver?.IsPartyLeader ?? true)
                     return;

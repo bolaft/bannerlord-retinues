@@ -58,7 +58,7 @@ namespace Retinues.Features.Volunteers.Patches
                 if (string.IsNullOrEmpty(notable?.StringId))
                     continue;
 
-                var volunteers = notable.Base?.VolunteerTypes;
+                var volunteers = notable.Hero?.VolunteerTypes;
                 if (volunteers == null || volunteers.Length == 0)
                     continue;
 
@@ -100,7 +100,7 @@ namespace Retinues.Features.Volunteers.Patches
                 if (!_snapshot.TryGetValue(notable.StringId, out var notableSnapshot))
                     continue;
 
-                var volunteers = notable.Base?.VolunteerTypes;
+                var volunteers = notable.Hero?.VolunteerTypes;
                 if (volunteers == null)
                     continue;
 

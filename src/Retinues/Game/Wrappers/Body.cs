@@ -7,15 +7,21 @@ namespace Retinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for all body/appearance properties of a WCharacter.
-    /// Mirrors and extends CharacterObject body APIs (Race, Age, min/max dynamic,
-    /// height, body property ranges).
+    /// For troops, edits CharacterObject ranges (BodyPropertyRange).
+    /// For heroes, edits Hero body directly (BodyProperties / StaticBodyProperties).
     /// </summary>
     [SafeClass]
-    public class WBody(WCharacter owner)
+    public class WBody
     {
-        private readonly WCharacter _owner =
-            owner ?? throw new ArgumentNullException(nameof(owner));
+        private readonly WCharacter _owner;
         private CharacterObject Base => _owner.Base;
+        private Hero Hero => Base?.HeroObject;
+        private bool IsHero => Hero != null;
+
+        public WBody(WCharacter owner)
+        {
+            _owner = owner ?? throw new ArgumentNullException(nameof(owner));
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                            Age                         //
@@ -23,20 +29,52 @@ namespace Retinues.Game.Wrappers
 
         public float Age
         {
-            get => Base.Age;
-            set => Reflector.SetPropertyValue(Base, "Age", value);
+            get => IsHero ? Hero.Age : Base.Age;
+            set
+            {
+                if (IsHero)
+                {
+                    // Hero age is derived from birthday
+                    Hero.SetBirthDay(CampaignTime.YearsFromNow(-value));
+                }
+                else
+                {
+                    Reflector.SetPropertyValue(Base, "Age", value);
+                    _owner.NeedsPersistence = true;
+                }
+            }
         }
 
         public float AgeMin
         {
-            get => Base.GetBodyPropertiesMin().Age;
-            set => SetDynamicEnd(true, age: value, weight: null, build: null);
+            get => IsHero ? Hero.Age : Base.GetBodyPropertiesMin().Age;
+            set
+            {
+                if (IsHero)
+                {
+                    Hero.SetBirthDay(CampaignTime.YearsFromNow(-value));
+                }
+                else
+                {
+                    SetDynamicEnd(true, age: value, weight: null, build: null);
+                }
+            }
         }
 
         public float AgeMax
         {
-            get => Base.GetBodyPropertiesMax().Age;
-            set => SetDynamicEnd(false, age: value, weight: null, build: null);
+            get => IsHero ? Hero.Age : Base.GetBodyPropertiesMax().Age;
+            set
+            {
+                if (IsHero)
+                {
+                    Hero.SetBirthDay(CampaignTime.YearsFromNow(-value));
+                }
+                else
+                {
+                    SetDynamicEnd(false, age: value, weight: null, build: null);
+                }
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -45,14 +83,26 @@ namespace Retinues.Game.Wrappers
 
         public float WeightMin
         {
-            get => Base.GetBodyPropertiesMin().Weight;
-            set => SetDynamicEnd(true, age: null, weight: value, build: null);
+            get => IsHero ? Hero.Weight : Base.GetBodyPropertiesMin().Weight;
+            set
+            {
+                if (IsHero)
+                    SetHeroDynamic(age: null, weight: value, build: null);
+                else
+                    SetDynamicEnd(true, age: null, weight: value, build: null);
+            }
         }
 
         public float WeightMax
         {
-            get => Base.GetBodyPropertiesMax().Weight;
-            set => SetDynamicEnd(false, age: null, weight: value, build: null);
+            get => IsHero ? Hero.Weight : Base.GetBodyPropertiesMax().Weight;
+            set
+            {
+                if (IsHero)
+                    SetHeroDynamic(age: null, weight: value, build: null);
+                else
+                    SetDynamicEnd(false, age: null, weight: value, build: null);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -61,14 +111,26 @@ namespace Retinues.Game.Wrappers
 
         public float BuildMin
         {
-            get => Base.GetBodyPropertiesMin().Build;
-            set => SetDynamicEnd(true, age: null, weight: null, build: value);
+            get => IsHero ? Hero.Build : Base.GetBodyPropertiesMin().Build;
+            set
+            {
+                if (IsHero)
+                    SetHeroDynamic(age: null, weight: null, build: value);
+                else
+                    SetDynamicEnd(true, age: null, weight: null, build: value);
+            }
         }
 
         public float BuildMax
         {
-            get => Base.GetBodyPropertiesMax().Build;
-            set => SetDynamicEnd(false, age: null, weight: null, build: value);
+            get => IsHero ? Hero.Build : Base.GetBodyPropertiesMax().Build;
+            set
+            {
+                if (IsHero)
+                    SetHeroDynamic(age: null, weight: null, build: value);
+                else
+                    SetDynamicEnd(false, age: null, weight: null, build: value);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -79,6 +141,13 @@ namespace Retinues.Game.Wrappers
         {
             try
             {
+                // For heroes, we ignore min/max ranges and just edit Hero.BodyProperties
+                if (IsHero)
+                {
+                    SetHeroDynamic(age, weight, build);
+                    return;
+                }
+
                 EnsureOwnBodyRange();
 
                 var curMin = Base.GetBodyPropertiesMin();
@@ -116,12 +185,43 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        private void SetHeroDynamic(float? age, float? weight, float? build)
+        {
+            if (!IsHero)
+                return;
+
+            try
+            {
+                var bp = Hero.BodyProperties;
+                var dyn = bp.DynamicProperties;
+
+                var newDyn = new DynamicBodyProperties(
+                    age ?? dyn.Age,
+                    weight ?? dyn.Weight,
+                    build ?? dyn.Build
+                );
+
+                var newBp = new BodyProperties(newDyn, bp.StaticProperties);
+                Hero.StaticBodyProperties = newBp.StaticProperties;
+                Hero.Weight = newDyn.Weight;
+                Hero.Build = newDyn.Build;
+                // Age is handled via SetBirthDay in Age/AgeMin/AgeMax
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Body Range                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public void EnsureOwnBodyRange()
         {
+            if (IsHero)
+                return; // heroes don't use BodyPropertyRange for their live body
+
             try
             {
                 var current = Reflector.GetPropertyValue<object>(Base, "BodyPropertyRange");
@@ -191,24 +291,61 @@ namespace Retinues.Game.Wrappers
 
         public float HeightMin
         {
-            get => ReadStaticChannel(true, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS);
-            set => SetStaticChannelEnd(true, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
+            get => ReadHeight(true);
+            set => SetHeight(true, value);
         }
 
         public float HeightMax
         {
-            get => ReadStaticChannel(false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS);
-            set => SetStaticChannelEnd(false, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value);
+            get => ReadHeight(false);
+            set => SetHeight(false, value);
         }
 
-        private float ReadStaticChannel(bool minEnd, int partIdx, int startBit, int numBits)
+        private float ReadHeight(bool minEnd)
         {
-            var bp = minEnd ? Base.GetBodyPropertiesMin() : Base.GetBodyPropertiesMax();
-            var sp = bp.StaticProperties;
-            ulong part = GetKeyPart(sp, partIdx);
-            int raw = GetBitsValueFromKey(part, startBit, numBits);
-            int max = (1 << numBits) - 1;
-            return max > 0 ? raw / (float)max : 0f;
+            if (IsHero)
+            {
+                var sp = Hero.StaticBodyProperties;
+                ulong part = GetKeyPart(sp, HEIGHT_PART);
+                int raw = GetBitsValueFromKey(part, HEIGHT_START, HEIGHT_BITS);
+                int max = (1 << HEIGHT_BITS) - 1;
+                return max > 0 ? raw / (float)max : 0f;
+            }
+            else
+            {
+                var bp = minEnd ? Base.GetBodyPropertiesMin() : Base.GetBodyPropertiesMax();
+                var sp = bp.StaticProperties;
+                ulong part = GetKeyPart(sp, HEIGHT_PART);
+                int raw = GetBitsValueFromKey(part, HEIGHT_START, HEIGHT_BITS);
+                int max = (1 << HEIGHT_BITS) - 1;
+                return max > 0 ? raw / (float)max : 0f;
+            }
+        }
+
+        private void SetHeight(bool minEnd, float value01)
+        {
+            try
+            {
+                if (IsHero)
+                {
+                    float v = Math.Max(0f, Math.Min(1f, value01));
+                    int raw = (int)Math.Round(v * ((1 << HEIGHT_BITS) - 1));
+
+                    var sp = Hero.StaticBodyProperties;
+                    ulong part = GetKeyPart(sp, HEIGHT_PART);
+                    part = SetBits(part, HEIGHT_START, HEIGHT_BITS, raw);
+                    var newSp = SetKeyPart(sp, HEIGHT_PART, part);
+                    Hero.StaticBodyProperties = newSp;
+                }
+                else
+                {
+                    SetStaticChannelEnd(minEnd, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value01);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
         }
 
         private void SetStaticChannelEnd(
