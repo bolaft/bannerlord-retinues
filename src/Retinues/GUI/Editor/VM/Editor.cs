@@ -471,7 +471,11 @@ namespace Retinues.GUI.Editor.VM
                 {
                     Notifications.Popup(
                         L.T("no_clans_title", "No Clans Found"),
-                        L.T("no_clans_text", "No clans are loaded in the current game.")
+                        L.T("no_clans_text", "No clans exist for the {CULTURE} culture.")
+                            .SetTextVariable(
+                                "CULTURE",
+                                State.Culture?.Name ?? L.S("current", "Current")
+                            )
                     );
                     return;
                 }

@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="Kultura" />
     <string
+      id="ret_current"
+      text="obecny" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="Niestandardowe oddziały twojej frakcji {FACTION} są teraz odblokowane.{newline}{newline}Czy chcesz sklonować cały drzewo oddziałów {CULTURE}, czy wolisz zbudować je od podstaw?{newline}{newline}Kopiowanie oddziałów twojej kultury zapewni ci dobry sprzęt i dobre oddziały. Rozpoczęcie od zera to trudniejszy wybór.{newline}{newline}Ta decyzja jest nieodwracalna." />
     <string
@@ -993,7 +996,7 @@
       text="Nie" />
     <string
       id="ret_no_clans_text"
-      text="W bieżącej grze nie załadowano żadnych klanów." />
+      text="Dla kultury {CULTURE} nie istnieją żadne klany." />
     <string
       id="ret_no_clans_title"
       text="Nie znaleziono klanów" />

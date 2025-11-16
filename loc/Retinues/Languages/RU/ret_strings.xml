@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="Культура" />
     <string
+      id="ret_current"
+      text="текущий" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="Пользовательские войска вашей фракции {FACTION} теперь разблокированы.{newline}{newline}Хотите клонировать всё дерево войск {CULTURE} или предпочитаете создавать их с нуля?{newline}{newline}Копирование войск вашей культуры обеспечит вас хорошим снаряжением и хорошими войсками. Начать с нуля — более сложный выбор.{newline}{newline}Это решение необратимо." />
     <string
@@ -993,7 +996,7 @@
       text="Нет" />
     <string
       id="ret_no_clans_text"
-      text="В текущей игре не загружены никакие кланы." />
+      text="Для культуры {CULTURE} не существует кланов." />
     <string
       id="ret_no_clans_title"
       text="Кланы не найдены" />

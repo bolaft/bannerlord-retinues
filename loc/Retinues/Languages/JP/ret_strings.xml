@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="文化" />
     <string
+      id="ret_current"
+      text="現在の" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="あなたの {FACTION} のカスタム部隊がアンロックされました。{newline}{newline}{CULTURE} の部隊ツリー全体をクローンしますか？それともゼロから構築しますか？{newline}{newline}あなたの文化の部隊をコピーすると、優れた装備と優れた部隊が提供されます。ゼロから始めるのはより困難な選択です。{newline}{newline}この決定は取り消せません。" />
     <string
@@ -993,7 +996,7 @@
       text="いいえ" />
     <string
       id="ret_no_clans_text"
-      text="現在のゲームには氏族が読み込まれていません。" />
+      text="{CULTURE}文化には氏族が存在しません。" />
     <string
       id="ret_no_clans_title"
       text="氏族が見つかりません" />

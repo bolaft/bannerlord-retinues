@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="문화" />
     <string
+      id="ret_current"
+      text="현재" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="당신의 {FACTION} 사용자 지정 부대가 이제 잠금 해제되었습니다.{newline}{newline}전체 {CULTURE} 부대 트리를 복제하시겠습니까, 아니면 처음부터 구축하시겠습니까?{newline}{newline}문화 부대를 복사하면 좋은 장비와 좋은 부대를 얻을 수 있습니다. 처음부터 시작하는 것이 더 어려운 선택입니다.{newline}{newline}이 결정은 되돌릴 수 없습니다." />
     <string
@@ -993,7 +996,7 @@
       text="아니오" />
     <string
       id="ret_no_clans_text"
-      text="현재 게임에 로드된 클랜이 없습니다." />
+      text="{CULTURE} 문화에는 클랜이 없습니다." />
     <string
       id="ret_no_clans_title"
       text="클랜을 찾을 수 없습니다" />

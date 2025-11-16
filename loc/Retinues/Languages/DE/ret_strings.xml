@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="Kultur" />
     <string
+      id="ret_current"
+      text="aktuelle" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="Die benutzerdefinierten Truppen deiner {FACTION} sind jetzt freigeschaltet.{newline}{newline}Möchtest du den gesamten {CULTURE}-Truppenbaum klonen oder sie lieber von Grund auf neu erstellen?{newline}{newline}Das Kopieren der Truppen deiner Kultur bietet dir gute Ausrüstung und gute Truppen. Von Grund auf neu zu beginnen ist die schwierigere Wahl.{newline}{newline}Diese Entscheidung ist irreversibel." />
     <string
@@ -993,7 +996,7 @@
       text="Nein" />
     <string
       id="ret_no_clans_text"
-      text="In dem aktuellen Spiel sind keine Clans geladen." />
+      text="Für die {CULTURE}-Kultur existieren keine Clans." />
     <string
       id="ret_no_clans_title"
       text="Keine Clans gefunden" />

@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="文化" />
     <string
+      id="ret_current"
+      text="当前" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="你的 {FACTION} 的自定义部队现已解锁。{newline}{newline}你想要克隆整个 {CULTURE} 部队树，还是更喜欢从零开始构建它们？{newline}{newline}复制你的文化部队将为你提供良好的装备和优秀的部队。从零开始是更困难的选择。{newline}{newline}此决定不可逆转。" />
     <string
@@ -993,7 +996,7 @@
       text="否" />
     <string
       id="ret_no_clans_text"
-      text="当前游戏中没有加载任何氏族。" />
+      text="{CULTURE}文化没有氏族。" />
     <string
       id="ret_no_clans_title"
       text="未找到氏族" />

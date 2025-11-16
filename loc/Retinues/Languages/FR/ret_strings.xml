@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="Culture" />
     <string
+      id="ret_current"
+      text="actuelle" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="Les troupes personnalisées de ta faction {FACTION} sont maintenant débloquées.{newline}{newline}Souhaites-tu cloner l’intégralité de l’arbre de troupes de {CULTURE}, ou préfères-tu les créer à partir de zéro ?{newline}{newline}Copier les troupes de ta culture te fournira un bon équipement et de bonnes troupes. Partir de zéro est le choix le plus difficile.{newline}{newline}Cette décision est irréversible." />
     <string
@@ -993,7 +996,7 @@
       text="Non" />
     <string
       id="ret_no_clans_text"
-      text="Aucun clan n’est chargé dans la partie en cours." />
+      text="Aucun clan n’existe pour la culture {CULTURE}." />
     <string
       id="ret_no_clans_title"
       text="Aucun clan trouvé" />

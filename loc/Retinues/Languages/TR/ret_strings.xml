@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="Kültür" />
     <string
+      id="ret_current"
+      text="mevcut" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="{FACTION} özel askerleriniz artık kilidi açıldı.{newline}{newline}Tüm {CULTURE} asker ağacını klonlamak mı istersiniz, yoksa sıfırdan inşa etmeyi mi tercih edersiniz?{newline}{newline}Kültürünüzün askerlerini kopyalamak size iyi teçhizat ve iyi askerler sağlayacaktır. Sıfırdan başlamak daha zor bir seçimdir.{newline}{newline}Bu karar geri alınamaz." />
     <string
@@ -993,7 +996,7 @@
       text="Hayır" />
     <string
       id="ret_no_clans_text"
-      text="Mevcut oyunda yüklenen klan yok." />
+      text="{CULTURE} kültürü için klan yok." />
     <string
       id="ret_no_clans_title"
       text="Klan Bulunamadı" />

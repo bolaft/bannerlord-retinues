@@ -233,6 +233,9 @@
       id="ret_culture_header_text"
       text="Culture" />
     <string
+      id="ret_current"
+      text="Current" />
+    <string
       id="ret_custom_troops_inquiry_body"
       text="Your {FACTION}&apos;s custom troops are now unlocked.{newline}{newline}Would you like to clone the entire {CULTURE} troop tree, or would you prefer building them from scratch?{newline}{newline}Copying your culture&apos;s troops will provide you with good gear and good troops. Starting from scratch is the more difficult choice.{newline}{newline}This decision is irreversible." />
     <string
@@ -993,7 +996,7 @@
       text="No" />
     <string
       id="ret_no_clans_text"
-      text="No clans are loaded in the current game." />
+      text="No clans exist for the {CULTURE} culture." />
     <string
       id="ret_no_clans_title"
       text="No Clans Found" />
