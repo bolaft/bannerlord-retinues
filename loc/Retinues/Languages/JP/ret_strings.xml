@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="利用可能な兵士がいません" />
     <string
-      id="ret_troop_studio_title"
-      text="兵士エディター" />
-    <string
       id="ret_troop_xp"
       text="{XP} 経験値" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="随伴兵のみで100人以上の敵との戦闘に勝利する。" />
+    <string
+      id="ret_vassal_secrets_option"
+      text="あなたの最も貴重なアーティファクトの秘密を明かせば、私はあなたを解放しましょう。" />
+    <string
+      id="ret_vassal_secrets_title"
+      text="秘密が解除されました" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="あなたは {CULTURE} の最も貴重なアーティファクトの秘密を解き明かしました：{ITEMS}。" />
     <string
       id="ret_warning"
       text="警告" />

@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="Nessuna Truppa Disponibile" />
     <string
-      id="ret_troop_studio_title"
-      text="Editor Truppe" />
-    <string
       id="ret_troop_xp"
       text="{XP} xp" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="Vinci una battaglia 100+ usando solo il tuo seguito." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Rivela i segreti dei tuoi artefatti più preziosi e ti lascerò andare." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Segreti Sbloccati" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Hai sbloccato i segreti degli artefatti più preziosi di {CULTURE}: {ITEMS}." />
     <string
       id="ret_warning"
       text="Avviso" />

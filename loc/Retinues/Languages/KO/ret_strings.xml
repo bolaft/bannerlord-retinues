@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="사용 가능한 병력이 없습니다" />
     <string
-      id="ret_troop_studio_title"
-      text="병력 편집기" />
-    <string
       id="ret_troop_xp"
       text="{XP} 경험치" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="수행원만으로 100명 이상의 전투에서 승리하십시오." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="가장 소중한 유물의 비밀을 밝혀내면 당신을 풀어주겠습니다." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="비밀 해제" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="{CULTURE} 의 가장 소중한 유물의 비밀을 잠금 해제했습니다: {ITEMS}." />
     <string
       id="ret_warning"
       text="경고" />

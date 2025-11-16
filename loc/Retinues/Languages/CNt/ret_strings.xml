@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="無可用部隊" />
     <string
-      id="ret_troop_studio_title"
-      text="部隊編輯器" />
-    <string
       id="ret_troop_xp"
       text="{XP} 經驗" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="僅用隨從贏得一場100+敵人的戰鬥。" />
+    <string
+      id="ret_vassal_secrets_option"
+      text="揭示你最珍貴的神器的秘密，我就放你走。" />
+    <string
+      id="ret_vassal_secrets_title"
+      text="秘密已解鎖" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="你已經解鎖了 {CULTURE} 最珍貴的神器的秘密：{ITEMS}。" />
     <string
       id="ret_warning"
       text="警告" />

@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="Нет доступных войск" />
     <string
-      id="ret_troop_studio_title"
-      text="Редактор Войск" />
-    <string
       id="ret_troop_xp"
       text="{XP} очков опыта" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="Выиграйте бой 100+, используя только свиту." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Раскрой секреты своих самых ценных артефактов, и я отпущу тебя." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Секреты Разблокированы" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Вы разблокировали секреты самых ценных артефактов {CULTURE}: {ITEMS}." />
     <string
       id="ret_warning"
       text="Предупреждение" />

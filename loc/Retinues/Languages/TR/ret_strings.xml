@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="Kullanılabilir Asker Yok" />
     <string
-      id="ret_troop_studio_title"
-      text="Asker Düzenleyici" />
-    <string
       id="ret_troop_xp"
       text="{XP} xp" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="Yalnızca yandaşlarınla 100+ savaşı kazan." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="En değerli eserlerinin sırlarını ortaya çıkar ve seni serbest bırakayım." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Sırlar Açıldı" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="{CULTURE} en değerli eserlerinin sırlarını açtınız: {ITEMS}." />
     <string
       id="ret_warning"
       text="Uyarı" />

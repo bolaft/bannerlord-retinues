@@ -242,7 +242,8 @@ namespace Retinues.GUI.Editor.VM
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
 
         [DataSourceProperty]
-        public bool ShowGlobalEditorLink => ClanScreen.IsStudioMode == false && Config.EnableGlobalEditor;
+        public bool ShowGlobalEditorLink =>
+            ClanScreen.IsStudioMode == false && Config.EnableGlobalEditor;
 
         [DataSourceProperty]
         public bool ShowPersonalEditorLink => ClanScreen.IsStudioMode == true;

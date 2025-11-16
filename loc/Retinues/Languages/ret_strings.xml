@@ -1430,6 +1430,15 @@
       id="ret_vanguard_win_100_retinue_only"
       text="Win a 100+ battle using only your retinue." />
     <string
+      id="ret_vassal_secrets_option"
+      text="Reveal the secrets of your most precious artifacts and I will let you go." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Secrets Unlocked" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="You have unlocked the secrets of {CULTURE}&apos;s most precious artifacts: {ITEMS}." />
+    <string
       id="ret_warning"
       text="Warning" />
     <string

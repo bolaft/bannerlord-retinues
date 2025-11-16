@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="无可用部队" />
     <string
-      id="ret_troop_studio_title"
-      text="部队编辑器" />
-    <string
       id="ret_troop_xp"
       text="{XP} 经验" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="仅用随从赢得一场100+敌人的战斗。" />
+    <string
+      id="ret_vassal_secrets_option"
+      text="揭示你最珍贵的神器的秘密，我就放你走。" />
+    <string
+      id="ret_vassal_secrets_title"
+      text="秘密已解锁" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="你已经解锁了 {CULTURE} 最珍贵的神器的秘密：{ITEMS}。" />
     <string
       id="ret_warning"
       text="警告" />

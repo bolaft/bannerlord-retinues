@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="Keine Truppen verfügbar" />
     <string
-      id="ret_troop_studio_title"
-      text="Truppen-Editor" />
-    <string
       id="ret_troop_xp"
       text="{XP} EP" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="Gewinne eine 100+ Schlacht nur mit deiner Gefolgschaft." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Enthülle die Geheimnisse deiner wertvollsten Artefakte, und ich lasse dich gehen." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Geheimnisse Entsperrt" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Du hast die Geheimnisse der wertvollsten Artefakte von {CULTURE} freigeschaltet: {ITEMS}." />
     <string
       id="ret_warning"
       text="Warnung" />

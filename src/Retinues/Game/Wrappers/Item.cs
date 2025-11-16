@@ -153,6 +153,25 @@ namespace Retinues.Game.Wrappers
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private static HashSet<string> _vassalRewardItemIdsCache;
+        private static HashSet<string> VassalRewardItemIds
+        {
+            get
+            {
+                if (_vassalRewardItemIdsCache == null)
+                {
+                    _vassalRewardItemIdsCache = [];
+                    foreach (var culture in WCulture.All)
+                    foreach (var item in culture.Base.VassalRewardItems)
+                        _vassalRewardItemIdsCache.Add(item.StringId);
+                }
+
+                return _vassalRewardItemIdsCache;
+            }
+        }
+
+        public bool IsVassalRewardItem => VassalRewardItemIds.Contains(StringId);
+
         public bool IsCrafted => _itemObject.IsCraftedByPlayer && Base.WeaponDesign != null;
 
         public string CraftedCode

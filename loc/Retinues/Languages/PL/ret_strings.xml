@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="Brak dostępnych jednostek" />
     <string
-      id="ret_troop_studio_title"
-      text="Edytor Jednostek" />
-    <string
       id="ret_troop_xp"
       text="{XP} pkt. doświadczenia" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="Wygraj bitwę 100+, używając tylko orszaku." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Odkryj sekrety swoich najcenniejszych artefaktów, a ja cię wypuszczę." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Sekrety Odblokowane" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Odblokowałeś sekrety najcenniejszych artefaktów {CULTURE}: {ITEMS}." />
     <string
       id="ret_warning"
       text="Ostrzeżenie" />

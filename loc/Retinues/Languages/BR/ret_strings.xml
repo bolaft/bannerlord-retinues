@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="Nenhuma Tropa Disponível" />
     <string
-      id="ret_troop_studio_title"
-      text="Editor de Tropas" />
-    <string
       id="ret_troop_xp"
       text="{XP} xp" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="Vença uma batalha de 100+ inimigos usando apenas seu séquito." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Revele os segredos de seus artefatos mais preciosos e eu o deixarei ir." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Segredos Desbloqueados" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Você desbloqueou os segredos dos artefatos mais preciosos de {CULTURE}: {ITEMS}." />
     <string
       id="ret_warning"
       text="Aviso" />

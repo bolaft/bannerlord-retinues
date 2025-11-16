@@ -1337,9 +1337,6 @@
       id="ret_troop_list.placeholder"
       text="Aucune troupe disponible" />
     <string
-      id="ret_troop_studio_title"
-      text="Éditeur de Troupes" />
-    <string
       id="ret_troop_xp"
       text="{XP} xp" />
     <string
@@ -1432,6 +1429,15 @@
     <string
       id="ret_vanguard_win_100_retinue_only"
       text="Gagne une bataille à 100+ soldats en utilisant uniquement ta rétinue." />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Révèle les secrets de tes artefacts les plus précieux et je te laisserai partir." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Secrets Débloqués" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Tu as débloqué les secrets des artefacts les plus précieux de {CULTURE} : {ITEMS}." />
     <string
       id="ret_warning"
       text="Avertissement" />
