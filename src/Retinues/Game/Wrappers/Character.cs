@@ -277,7 +277,6 @@ namespace Retinues.Game.Wrappers
             get => Base.Name.ToString();
             set
             {
-                Log.Info($"Setting name of troop {StringId} to '{value}'");
                 Reflector.InvokeMethod(
                     Base,
                     "SetName",
@@ -389,6 +388,8 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsCivilian { get; set; } = false; // Default to battle troop
 
         public bool IsHero => Base.IsHero;
 

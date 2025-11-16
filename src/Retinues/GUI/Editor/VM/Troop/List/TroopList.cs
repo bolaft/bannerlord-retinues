@@ -37,6 +37,11 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             VillagerTroops = [.. State.Faction.VillagerTroops.Select(t => new TroopRowVM(t))];
             CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
             BanditTroops = [.. State.Faction.BanditTroops.Select(t => new TroopRowVM(t))];
+            Heroes = [.. State.Faction.Heroes.Select(t => new TroopRowVM(t))];
+
+            // Mark civilian troops as such for default equipment set
+            foreach (var r in CivilianTroops)
+                r.RowTroop.IsCivilian = true;
 
             if (EliteTroops.Count == 0 && !ClanScreen.IsStudioMode)
                 EliteTroops.Add(
@@ -105,12 +110,16 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(VillagerTroops));
             OnPropertyChanged(nameof(CivilianTroops));
             OnPropertyChanged(nameof(BanditTroops));
+            OnPropertyChanged(nameof(Heroes));
             OnPropertyChanged(nameof(ShowRetinueList));
+            OnPropertyChanged(nameof(ShowEliteList));
+            OnPropertyChanged(nameof(ShowBasicList));
             OnPropertyChanged(nameof(ShowMilitiaList));
             OnPropertyChanged(nameof(ShowCaravanList));
             OnPropertyChanged(nameof(ShowVillagerList));
             OnPropertyChanged(nameof(ShowCivilianList));
             OnPropertyChanged(nameof(ShowBanditList));
+            OnPropertyChanged(nameof(ShowHeroesList));
 
             RefreshFilter();
         }
@@ -143,6 +152,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> BanditTroops { get; set; } = [];
 
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> Heroes { get; set; } = [];
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -160,7 +172,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         {
             get
             {
-                if ((StringIdentifier)State.Faction == Player.Kingdom)
+                if (State.Faction == Player.Kingdom)
                     return Player.IsFemale
                         ? L.S("queen_guard", "Queen's Guard")
                         : L.S("king_guard", "King's Guard");
@@ -184,10 +196,21 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public string BanditToggleText => L.S("list_toggle_bandit", "Bandits");
 
+        [DataSourceProperty]
+        public string HeroToggleText => L.S("list_toggle_hero", "Heroes");
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
         public bool ShowRetinueList => RetinueTroops.Count > 0 || !ClanScreen.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowEliteList =>
+            EliteTroops.Count > 0 || ClanScreen.EditorMode != EditorMode.Heroes;
+
+        [DataSourceProperty]
+        public bool ShowBasicList =>
+            BasicTroops.Count > 0 || ClanScreen.EditorMode != EditorMode.Heroes;
 
         [DataSourceProperty]
         public bool ShowMilitiaList => MilitiaTroops.Count > 0 || !ClanScreen.IsStudioMode;
@@ -199,10 +222,16 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public bool ShowVillagerList => VillagerTroops.Count > 0 || !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowCivilianList => CivilianTroops.Count > 0 && ClanScreen.IsStudioMode;
+        public bool ShowCivilianList =>
+            CivilianTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
 
         [DataSourceProperty]
-        public bool ShowBanditList => BanditTroops.Count > 0 && ClanScreen.IsStudioMode;
+        public bool ShowBanditList =>
+            BanditTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
+
+        [DataSourceProperty]
+        public bool ShowHeroesList =>
+            Heroes.Count > 0 && ClanScreen.EditorMode == EditorMode.Heroes;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
@@ -218,6 +247,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 .. VillagerTroops,
                 .. CivilianTroops,
                 .. BanditTroops,
+                .. Heroes,
             ];
 
         /// <summary>

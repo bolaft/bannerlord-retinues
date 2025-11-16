@@ -68,7 +68,8 @@ namespace Retinues.Game.Wrappers
             _settlement?.Town?.Governor != null ? new WHero(_settlement?.Town?.Governor) : null;
 
         public List<WNotable> Notables =>
-            _settlement?.Notables.Where(n => n != null).Select(n => new WNotable(n)).ToList() ?? [];
+            _settlement?.Notables.Where(n => n != null).Select(n => new WNotable(n, this)).ToList()
+            ?? [];
 
         public WCulture Culture => new(_settlement?.Culture);
 

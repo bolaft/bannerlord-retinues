@@ -1,0 +1,88 @@
+using System.Collections.Generic;
+using System.Linq;
+using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+#if BL13
+using TaleWorlds.Core.ImageIdentifiers;
+#endif
+
+namespace Retinues.Game.Wrappers
+{
+    /// <summary>
+    /// Wrapper for CultureObject, exposing troop roots and militia for custom logic.
+    /// </summary>
+    [SafeClass]
+    public class WClan(Clan clan) : BaseBannerFaction
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static IEnumerable<WClan> All
+        {
+            get
+            {
+                foreach (
+                    var clan in Clan
+                        .All.OrderBy(c => c.Culture.ToString())
+                        .ThenBy(c => c.Name.ToString())
+                )
+                    if (clan != null)
+                        yield return new WClan(clan);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Base                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly Clan _clan = clan;
+        public Clan Base => _clan;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Properties                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override string Name => Base?.Name?.ToString();
+        public override string StringId => Base?.StringId ?? Name; // Some cultures have no StringId?
+        public override string BannerCodeText => null; // TODO
+        public override uint Color => Base?.Color ?? 0;
+        public override uint Color2 => Base?.Color2 ?? 0;
+        public override Banner BaseBanner => Base?.Banner;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Image                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+#if BL13
+        public BannerImageIdentifier Image =>
+            Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+        public ImageIdentifier ImageIdentifier =>
+            Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+#else
+        public BannerCode BannerCode => BannerCode.CreateFrom(Base.Banner);
+        public ImageIdentifierVM Image => new(BannerCode);
+        public ImageIdentifier ImageIdentifier => new(BannerCode);
+#endif
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Troop Lists                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override List<WCharacter> Heroes
+        {
+            get
+            {
+                var heroes = new List<WCharacter>();
+                foreach (var hero in Base.Heroes)
+                {
+                    if (hero == null)
+                        continue;
+                    heroes.Add(new WCharacter(hero.CharacterObject));
+                }
+                return heroes;
+            }
+        }
+    }
+}

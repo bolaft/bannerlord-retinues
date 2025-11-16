@@ -461,32 +461,14 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 if (State.Troop == null)
                     return;
 
-                // Collect all cultures from the object database.
-                var cultures =
-                    MBObjectManager
-                        .Instance.GetObjectTypeList<CultureObject>()
-                        ?.OrderBy(c => c?.Name?.ToString())
-                        .ToList()
-                    ?? [];
-
-                if (cultures.Count == 0)
-                {
-                    Notifications.Popup(
-                        L.T("no_cultures_title", "No Cultures Found"),
-                        L.T("no_cultures_text", "No cultures are loaded in the current game.")
-                    );
-                    return;
-                }
+                List<InquiryElement> elements = [];
 
                 // Build selection elements (single-select).
-                var elements = new List<InquiryElement>(cultures.Count);
-
-                foreach (var c in cultures)
+                foreach (var wc in WCulture.All)
                 {
-                    if (c?.Name == null)
+                    if (wc?.Name == null)
                         continue;
 
-                    var wc = new WCulture(c);
                     var root = wc.RootBasic ?? wc.RootElite;
                     var imageIdentifier = root?.ImageIdentifier;
 
@@ -495,8 +477,17 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         continue;
 
                     elements.Add(
-                        new InquiryElement(c, wc.Name.ToString(), root.ImageIdentifier, true, null)
+                        new InquiryElement(wc.Base, wc.Name, root.ImageIdentifier, true, null)
                     );
+                }
+
+                if (elements.Count == 0)
+                {
+                    Notifications.Popup(
+                        L.T("no_cultures_title", "No Cultures Found"),
+                        L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                    );
+                    return;
                 }
 
                 MBInformationManager.ShowMultiSelectionInquiry(

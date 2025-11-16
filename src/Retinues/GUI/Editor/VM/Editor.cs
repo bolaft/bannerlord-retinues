@@ -4,7 +4,6 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;
-using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Doctrines;
 using Retinues.GUI.Editor.VM.Equipment;
@@ -17,7 +16,6 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-using TaleWorlds.ObjectSystem;
 # if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
@@ -50,7 +48,10 @@ namespace Retinues.GUI.Editor.VM
             DoctrineScreen = new DoctrineScreenVM();
 
             if (ClanScreen.IsStudioMode)
+            {
                 RefreshCultureBanner();
+                RefreshClanBanner();
+            }
 
             SwitchScreen(Screen.Troop);
         }
@@ -160,12 +161,55 @@ namespace Retinues.GUI.Editor.VM
             }
         }
 
+# if BL13
+        private BannerImageIdentifierVM _clanBanner;
+
+        [DataSourceProperty]
+        public BannerImageIdentifierVM ClanBanner
+# else
+        private ImageIdentifierVM _clanBanner;
+
+        [DataSourceProperty]
+        public ImageIdentifierVM ClanBanner
+# endif
+        {
+            get => _clanBanner;
+            private set
+            {
+                if (_clanBanner == value)
+                    return;
+                _clanBanner = value;
+                OnPropertyChanged(nameof(ClanBanner));
+            }
+        }
+
         [DataSourceProperty]
         public string CultureName => State.Faction?.Culture?.Name;
 
         [DataSourceProperty]
+        public string ClanName
+        {
+            get
+            {
+                if (State.Faction is WClan clan)
+                    return clan.Name;
+                if (State.Faction is WFaction faction)
+                    return faction.Name;
+                if (State.Faction is WCulture culture)
+                    return WClan
+                        .All.FirstOrDefault(c => c?.Culture?.StringId == culture.StringId)
+                        ?.Name;
+                return null;
+            }
+        }
+
+        [DataSourceProperty]
         public BasicTooltipViewModel CultureBannerHint =>
             Tooltip.MakeTooltip(null, L.S("select_culture_hint", "Select a culture."));
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel ClanBannerHint =>
+            Tooltip.MakeTooltip(null, L.S("select_clan_hint", "Select a clan."));
 
         /* ━━━━━━━ 3D Model ━━━━━━━ */
 
@@ -196,7 +240,7 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public string FactionButtonText =>
-            (StringIdentifier)State.Faction == Player.Clan
+            State.Faction == Player.Clan
                 ? L.S("switch_to_kingdom_troops", "Kingdom Troops")
                 : L.S("switch_to_clan_troops", "Clan Troops");
 
@@ -347,56 +391,42 @@ namespace Retinues.GUI.Editor.VM
         /// </summary>
         [DataSourceMethod]
         public void ExecuteSwitchFaction() =>
-            State.UpdateFaction(
-                (StringIdentifier)State.Faction == Player.Clan ? Player.Kingdom : Player.Clan
-            );
+            State.UpdateFaction(State.Faction == Player.Clan ? Player.Kingdom : Player.Clan);
 
         /* ━━━━━━ Studio Mode ━━━━━ */
 
         /// <summary>
-        /// Change the selected troop's culture.
-        /// </summary>[DataSourceMethod]
+        /// Change the selected culture.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteSelectCulture()
         {
             try
             {
-                // Collect all cultures from the object database.
-                var cultures =
-                    MBObjectManager
-                        .Instance.GetObjectTypeList<CultureObject>()
-                        ?.OrderBy(c => c?.Name?.ToString())
-                        .ToList()
-                    ?? [];
+                List<InquiryElement> elements = [];
 
-                if (cultures.Count == 0)
+                // Build selection elements (single-select).
+                foreach (var wc in WCulture.All)
+                {
+                    if (wc?.Name == null)
+                        continue;
+
+                    // Mods (shokuho) can have weird behaviors, skip them.
+                    if (wc.RootBasic == null && wc.RootElite == null)
+                        continue;
+
+                    elements.Add(
+                        new InquiryElement(wc.Base, wc.Name, wc.ImageIdentifier, true, null)
+                    );
+                }
+
+                if (elements.Count == 0)
                 {
                     Notifications.Popup(
                         L.T("no_cultures_title", "No Cultures Found"),
                         L.T("no_cultures_text", "No cultures are loaded in the current game.")
                     );
                     return;
-                }
-
-                // Build selection elements (single-select).
-                var elements = new List<InquiryElement>(cultures.Count);
-
-                foreach (var c in cultures)
-                {
-                    if (c?.Name == null)
-                        continue;
-
-                    var wc = new WCulture(c);
-                    var root = wc.RootBasic ?? wc.RootElite;
-                    var imageIdentifier = root?.ImageIdentifier;
-
-                    // Mods (shokuho) can have weird behaviors, skip them.
-                    if (imageIdentifier == null)
-                        continue;
-
-                    elements.Add(
-                        new InquiryElement(c, wc.Name.ToString(), root.ImageIdentifier, true, null)
-                    );
                 }
 
                 MBInformationManager.ShowMultiSelectionInquiry(
@@ -418,6 +448,9 @@ namespace Retinues.GUI.Editor.VM
                             if (culture.StringId == State.Faction.Culture.StringId)
                                 return; // No change
 
+                            // Update editor mode
+                            ClanScreen.EditorMode = EditorMode.Culture;
+
                             // Refresh VM bindings & visuals.
                             State.UpdateFaction(new WCulture(culture));
 
@@ -425,6 +458,75 @@ namespace Retinues.GUI.Editor.VM
                             OnPropertyChanged(nameof(CultureBanner));
                             RefreshCultureBanner();
                             OnPropertyChanged(nameof(CultureName));
+                        },
+                        negativeAction: new Action<List<InquiryElement>>(_ => { })
+                    )
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        /// <summary>
+        /// Change the selected clan.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteSelectClan()
+        {
+            try
+            {
+                // Build selection elements (single-select).
+                List<InquiryElement> elements = [];
+
+                foreach (var wc in WClan.All)
+                {
+                    if (wc?.Name == null)
+                        continue;
+
+                    elements.Add(
+                        new InquiryElement(wc.Base, wc.Name, wc.ImageIdentifier, true, null)
+                    );
+                }
+
+                if (elements.Count == 0)
+                {
+                    Notifications.Popup(
+                        L.T("no_clans_title", "No Clans Found"),
+                        L.T("no_clans_text", "No clans are loaded in the current game.")
+                    );
+                    return;
+                }
+
+                MBInformationManager.ShowMultiSelectionInquiry(
+                    new MultiSelectionInquiryData(
+                        titleText: L.S("select_clan_title", "Select Clan"),
+                        descriptionText: null,
+                        inquiryElements: elements,
+                        isExitShown: true,
+                        minSelectableOptionCount: 1,
+                        maxSelectableOptionCount: 1,
+                        affirmativeText: L.S("confirm", "Confirm"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: selected =>
+                        {
+                            if (selected == null || selected.Count == 0)
+                                return;
+                            if (selected[0]?.Identifier is not Clan clan)
+                                return;
+                            if (clan.StringId == State.Faction.StringId)
+                                return; // No change
+
+                            // Update editor mode
+                            ClanScreen.EditorMode = EditorMode.Heroes;
+
+                            // Refresh VM bindings & visuals.
+                            State.UpdateFaction(new WClan(clan));
+                            // Notify UI
+                            OnPropertyChanged(nameof(ClanBanner));
+                            RefreshClanBanner();
+                            OnPropertyChanged(nameof(ClanName));
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
@@ -452,7 +554,9 @@ namespace Retinues.GUI.Editor.VM
                 // Refresh VM bindings & visuals after possible culture import
                 State.UpdateFaction(State.Faction);
                 OnPropertyChanged(nameof(CultureBanner));
+                OnPropertyChanged(nameof(ClanBanner));
                 OnPropertyChanged(nameof(CultureName));
+                OnPropertyChanged(nameof(ClanName));
             });
         }
 
@@ -491,12 +595,37 @@ namespace Retinues.GUI.Editor.VM
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private void RefreshClanBanner()
+        {
+            WClan clan;
+
+            if (ClanScreen.EditorMode == EditorMode.Culture)
+            {
+                var culture = State.Faction.Culture;
+                if (culture == null)
+                    return;
+
+                // Find first clan with this culture
+                clan = WClan.All.FirstOrDefault(c => c?.Culture?.StringId == culture.StringId);
+            }
+            else if (ClanScreen.EditorMode == EditorMode.Heroes)
+            {
+                // The faction is a clan
+                clan = State.Faction as WClan;
+            }
+            else
+            {
+                // Use main hero's clan
+                clan = new WClan(Hero.MainHero.Clan);
+            }
+
+            ClanBanner = clan.GetBannerImage(scale: 0.85f);
+        }
+
         private void RefreshCultureBanner()
         {
-            CultureBanner = BannerHelper.GetBannerImageFromCulture(
-                State.Faction as WCulture,
-                scale: 0.85f
-            );
+            var culture = State.Faction.Culture;
+            CultureBanner = culture?.GetBannerImage(scale: 0.85f);
         }
     }
 }

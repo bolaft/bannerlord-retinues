@@ -116,11 +116,9 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Set current troop (defaults to first faction troop).
         /// </summary>
-        public static void UpdateTroop(WCharacter troop = null, bool checkCurrentTroop = false)
+        public static void UpdateTroop(WCharacter troop = null)
         {
             troop ??= Faction.Troops.FirstOrDefault();
-            if (checkCurrentTroop && Troop != null && Troop.StringId == troop?.StringId)
-                return;
 
             EventManager.FireBatch(() =>
             {
@@ -142,7 +140,8 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void UpdateEquipment(WEquipment equipment = null)
         {
-            equipment ??= Troop.Loadout.Battle;
+            // Default to battle loadout unless civilian troop
+            equipment ??= Troop.IsCivilian ? Troop.Loadout.Civilian : Troop.Loadout.Battle;
 
             Equipment = equipment;
 
@@ -359,7 +358,6 @@ namespace Retinues.GUI.Editor
 
             try
             {
-                troop.Loadout.EnsureMinimumSets();
                 troop.Loadout.Normalize();
                 FixCombatPolicies(troop);
             }

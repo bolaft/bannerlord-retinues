@@ -28,7 +28,7 @@ namespace Retinues.GUI.Editor
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Current global editor mode
-        public static EditorMode EditorMode { get; private set; } = EditorMode.Personal;
+        public static EditorMode EditorMode { get; set; } = EditorMode.Personal;
 
         // Studio Mode means editing non-player troops
         public static bool IsStudioMode => EditorMode != EditorMode.Personal;
@@ -129,16 +129,6 @@ namespace Retinues.GUI.Editor
         public string TroopsTabText => L.S("troops_tab_text", "Troops");
 
         [DataSourceProperty]
-        public string ClanTroopsButtonText => L.S("clan_troops_button_text", "Clan Troops");
-
-        [DataSourceProperty]
-        public BasicTooltipViewModel ClanTroopsHint =>
-            Tooltip.MakeTooltip(
-                null,
-                L.S("switch_player_mode_hint", "Switch to clan troops editor.")
-            );
-
-        [DataSourceProperty]
         public bool IsTroopsSelected => Editor?.IsVisible == true;
 
         [DataSourceProperty]
@@ -164,31 +154,19 @@ namespace Retinues.GUI.Editor
         }
 
         [DataSourceMethod]
-        public void ExecuteOpenPlayerMode()
-        {
-            Log.Info("Switching to player troop editor mode...");
-
-            // flip global mode
-            EditorMode = EditorMode.Personal;
-
-            // rebuild state & VM
-            State.ResetAll();
-            Editor = new EditorVM();
-            OnPropertyChanged(nameof(Editor));
-
-            // select our tab & refresh bindings
-            SelectEditorTab();
-
-            Log.Info("Player troop editor mode ready.");
-        }
+        public void ExecuteOpenPlayerMode() => OpenEditor(EditorMode.Personal);
 
         [DataSourceMethod]
-        public void ExecuteOpenStudioMode()
+        public void ExecuteOpenStudioMode() => OpenEditor(EditorMode.Culture);
+
+        /* ━━━━━━━━ Helpers ━━━━━━━ */
+
+        private void OpenEditor(EditorMode mode = EditorMode.Personal)
         {
-            Log.Info("Switching to studio mode...");
+            Log.Info($"Opening Editor in mode: {mode}");
 
             // flip global mode
-            EditorMode = EditorMode.Heroes;
+            EditorMode = mode;
 
             // rebuild state & VM
             State.ResetAll();
@@ -197,11 +175,7 @@ namespace Retinues.GUI.Editor
 
             // select our tab & refresh bindings
             SelectEditorTab();
-
-            Log.Info("Studio mode ready.");
         }
-
-        /* ━━━━━━━━ Helpers ━━━━━━━ */
 
         private void SelectEditorTab()
         {

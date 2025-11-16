@@ -41,8 +41,11 @@ namespace Retinues.Game
         {
             get
             {
-                if (this is WCulture c)
-                    return c;
+                if (this is WCulture cu)
+                    return cu;
+
+                if (this is WClan cl)
+                    return new(cl.Base.Culture);
 
                 if (this is WFaction f)
                     return new(f.Base.Culture);
@@ -145,23 +148,23 @@ namespace Retinues.Game
 
         /* ━━━━━━━ Retinues ━━━━━━━ */
 
-        public abstract WCharacter RetinueElite { get; set; }
-        public abstract WCharacter RetinueBasic { get; set; }
+        public virtual WCharacter RetinueElite { get; set; }
+        public virtual WCharacter RetinueBasic { get; set; }
 
         /* ━━━━━━━━ Regular ━━━━━━━ */
 
-        public abstract WCharacter RootElite { get; set; }
-        public abstract WCharacter RootBasic { get; set; }
+        public virtual WCharacter RootElite { get; set; }
+        public virtual WCharacter RootBasic { get; set; }
 
         /* ━━━━━━━━ Special ━━━━━━━ */
 
-        public abstract WCharacter MilitiaMelee { get; set; }
-        public abstract WCharacter MilitiaMeleeElite { get; set; }
-        public abstract WCharacter MilitiaRanged { get; set; }
-        public abstract WCharacter MilitiaRangedElite { get; set; }
-        public abstract WCharacter CaravanGuard { get; set; }
-        public abstract WCharacter CaravanMaster { get; set; }
-        public abstract WCharacter Villager { get; set; }
+        public virtual WCharacter MilitiaMelee { get; set; }
+        public virtual WCharacter MilitiaMeleeElite { get; set; }
+        public virtual WCharacter MilitiaRanged { get; set; }
+        public virtual WCharacter MilitiaRangedElite { get; set; }
+        public virtual WCharacter CaravanGuard { get; set; }
+        public virtual WCharacter CaravanMaster { get; set; }
+        public virtual WCharacter Villager { get; set; }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       All Troops                       //
@@ -223,5 +226,9 @@ namespace Retinues.Game
 
         public virtual List<WCharacter> CivilianTroops => [];
         public virtual List<WCharacter> BanditTroops => [];
+
+        /* ━━━━━━━━━ NPCs ━━━━━━━━━ */
+
+        public virtual List<WCharacter> Heroes => [];
     }
 }

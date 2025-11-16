@@ -46,14 +46,15 @@
                     </Children>
                 </ButtonWidget>
 
-                <!--Clan Banner Banner-->
+                <!--Clan Banner-->
                 <ButtonWidget
+                    DataSource="{Editor}"
                     DoNotPassEventsToChildren="true"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     SuggestedHeight="180"
                     HorizontalAlignment="Right" VerticalAlignment="Top"
                     PositionXOffset="-20" PositionYOffset="-8"
-                    Command.Click="ExecuteOpenPlayerMode"
+                    Command.Click="ExecuteSelectClan"
                     UpdateChildrenStates="true"
                     GamepadNavigationIndex="0">
                     <Children>
@@ -69,7 +70,7 @@
                             AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>
                         {% endif %}
                         <HintWidget
-                            DataSource="{ClanTroopsHint}"
+                            DataSource="{ClanBannerHint}"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"
                             IsDisabled="true" />
                         <TextWidget
@@ -77,7 +78,7 @@
                             HorizontalAlignment="Right" VerticalAlignment="Center"
                             PositionXOffset="-120"
                             Brush="Kingdom.NameTitle.Text"
-                            Text="@ClanTroopsButtonText"
+                            Text="@ClanName"
                             TextAlignment="Right" />
                     </Children>
                 </ButtonWidget>

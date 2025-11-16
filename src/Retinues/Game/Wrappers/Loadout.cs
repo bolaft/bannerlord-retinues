@@ -176,15 +176,6 @@ namespace Retinues.Game.Wrappers
             Troop.NeedsPersistence = true;
         }
 
-        /// <summary>Ensure at least one battle and one civilian set exist.</summary>
-        public void EnsureMinimumSets()
-        {
-            if (!BattleSets.Any())
-                CreateBattleSet();
-            if (!CivilianSets.Any())
-                CreateCivilianSet();
-        }
-
         /// <summary>
         /// Reset to one empty battle + one empty civilian.
         /// </summary>
@@ -212,7 +203,6 @@ namespace Retinues.Game.Wrappers
                         ),
                     ]
                 );
-                EnsureMinimumSets();
                 Normalize();
                 return;
             }
@@ -244,24 +234,28 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public void Normalize()
         {
-            var list = Equipments;
-            if (list.Count == 0)
-            {
-                EnsureMinimumSets();
-                list = Equipments;
-            }
-
-            int firstBattle = list.FindIndex(e => !e.IsCivilian);
-            if (firstBattle > 0)
-            {
-                var battle = list[firstBattle];
-                list.RemoveAt(firstBattle);
-                list.Insert(0, battle);
-                SetEquipments(list);
-            }
-
             // Derived (structure-based) recompute:
             Troop.UpgradeItemRequirement = ComputeUpgradeItemRequirement();
+
+            if (Troop.IsCustom)
+            {
+                // Ensure at least one battle and one civilian set
+                if (!BattleSets.Any())
+                    CreateBattleSet();
+                if (!CivilianSets.Any())
+                    CreateCivilianSet();
+
+                // Ensure first set is battle
+                var list = Equipments;
+                int firstBattle = list.FindIndex(e => !e.IsCivilian);
+                if (firstBattle > 0)
+                {
+                    var battle = list[firstBattle];
+                    list.RemoveAt(firstBattle);
+                    list.Insert(0, battle);
+                    SetEquipments(list);
+                }
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -301,7 +301,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
                 if (targetCivilian)
                 {
-                    if (eq.Index == 0)
+                    if (eq.Index == 0 && troop.IsCustom)
                         return false; // First set cannot be civilian
                     // Making this battle set civilian must leave >=1 battle set
                     if (!eq.IsCivilian && troop.Loadout.BattleSets.Count() <= 1)
@@ -414,14 +414,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
                                 "civilian_toggle_forbidden_battle_left",
                                 "You must keep at least one civilian set."
                             )
-                        : eq.Index != 0
+                        : State.Troop.IsCustom && eq.Index == 0
                             ? L.S(
-                                "civilian_toggle_forbidden_civilian_left",
-                                "You must keep at least one battle set."
+                                "civilian_toggle_forbidden_first_set",
+                                "The first set must remain a battle set."
                             )
                         : L.S(
-                            "civilian_toggle_forbidden_first_set",
-                            "The first set must remain a battle set."
+                            "civilian_toggle_forbidden_civilian_left",
+                            "You must keep at least one battle set."
                         );
                     return Tooltip.MakeTooltip(null, msg);
                 }

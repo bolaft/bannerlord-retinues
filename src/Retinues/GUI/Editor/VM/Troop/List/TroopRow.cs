@@ -20,7 +20,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly WCharacter RowTroop = rowTroop;
+        public readonly WCharacter RowTroop = rowTroop;
         private readonly string PlaceholderText = placeholderText;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -142,6 +142,6 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         /// Select this troop as the current troop in state.
         /// </summary>
         [DataSourceMethod]
-        public void ExecuteSelect() => State.UpdateTroop(RowTroop, checkCurrentTroop: true);
+        public void ExecuteSelect() => State.UpdateTroop(RowTroop);
     }
 }

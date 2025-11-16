@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 #if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
@@ -12,8 +14,26 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for CultureObject, exposing troop roots and militia for custom logic.
     /// </summary>
     [SafeClass]
-    public class WCulture(CultureObject culture) : BaseFaction
+    public class WCulture(CultureObject culture) : BaseBannerFaction
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static IEnumerable<WCulture> All
+        {
+            get
+            {
+                foreach (
+                    var culture in MBObjectManager
+                        .Instance.GetObjectTypeList<CultureObject>()
+                        ?.OrderBy(c => c?.Name?.ToString())
+                )
+                    if (culture != null)
+                        yield return new WCulture(culture);
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -30,6 +50,24 @@ namespace Retinues.Game.Wrappers
         public override string BannerCodeText => null; // TODO
         public override uint Color => Base?.Color ?? 0;
         public override uint Color2 => Base?.Color2 ?? 0;
+        public override Banner BaseBanner
+        {
+            get
+            {
+                if (Base == null)
+                    return null;
+
+#if BL13
+                return Base.Banner;
+#else
+                var bannerKey = Base.BannerKey;
+                if (string.IsNullOrEmpty(bannerKey))
+                    return null;
+
+                return new Banner(bannerKey);
+#endif
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //
@@ -58,77 +96,20 @@ namespace Retinues.Game.Wrappers
             return new WCharacter(co);
         }
 
-        /* ━━━━━━━ Retinues ━━━━━━━ */
-
-        public override WCharacter RetinueElite
-        {
-            get => null; // Retinues don't have a culture
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter RetinueBasic
-        {
-            get => null; // Retinues don't have a culture
-            set => throw new System.NotImplementedException();
-        }
-
         /* ━━━━━━━━ Regular ━━━━━━━ */
 
-        public override WCharacter RootBasic
-        {
-            get => TryGet(Base.BasicTroop);
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter RootElite
-        {
-            get => TryGet(Base.EliteBasicTroop);
-            set => throw new System.NotImplementedException();
-        }
+        public override WCharacter RootBasic => TryGet(Base.BasicTroop);
+        public override WCharacter RootElite => TryGet(Base.EliteBasicTroop);
 
         /* ━━━━━━━━ Special ━━━━━━━ */
 
-        public override WCharacter MilitiaMelee
-        {
-            get => TryGet(Base.MeleeMilitiaTroop);
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter MilitiaMeleeElite
-        {
-            get => TryGet(Base.MeleeEliteMilitiaTroop);
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter MilitiaRanged
-        {
-            get => TryGet(Base.RangedMilitiaTroop);
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter MilitiaRangedElite
-        {
-            get => TryGet(Base.RangedEliteMilitiaTroop);
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter Villager
-        {
-            get => TryGet(Base.Villager);
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter CaravanMaster
-        {
-            get => TryGet(Base.CaravanMaster);
-            set => throw new System.NotImplementedException();
-        }
-
-        public override WCharacter CaravanGuard
-        {
-            get => TryGet(Base.CaravanGuard);
-            set => throw new System.NotImplementedException();
-        }
+        public override WCharacter MilitiaMelee => TryGet(Base.MeleeMilitiaTroop);
+        public override WCharacter MilitiaMeleeElite => TryGet(Base.MeleeEliteMilitiaTroop);
+        public override WCharacter MilitiaRanged => TryGet(Base.RangedMilitiaTroop);
+        public override WCharacter MilitiaRangedElite => TryGet(Base.RangedEliteMilitiaTroop);
+        public override WCharacter Villager => TryGet(Base.Villager);
+        public override WCharacter CaravanMaster => TryGet(Base.CaravanMaster);
+        public override WCharacter CaravanGuard => TryGet(Base.CaravanGuard);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Troop Lists                      //

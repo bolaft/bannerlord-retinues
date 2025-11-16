@@ -27,7 +27,7 @@
         {% endcall %}
 
         <!-- Elite Header -->
-        {{ list.header_toggle("TroopList", "Elite", "@EliteToggleText") }}
+        {{ list.header_toggle("TroopList", "Elite", "@EliteToggleText", is_visible="@ShowEliteList") }}
 
         <!-- Elite List -->
         {% call list.rows("{EliteTroops}", "Elite") %}
@@ -35,7 +35,7 @@
         {% endcall %}
 
         <!-- Regular Header -->
-        {{ list.header_toggle("TroopList", "Regular", "@RegularToggleText") }}
+        {{ list.header_toggle("TroopList", "Regular", "@RegularToggleText", is_visible="@ShowBasicList") }}
 
         <!-- Regular List -->
         {% call list.rows("{BasicTroops}", "Regular") %}
@@ -79,6 +79,14 @@
 
         <!-- Bandit List -->
         {% call list.rows("{BanditTroops}", "Bandit") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+    
+        <!-- Hero Header -->
+        {{ list.header_toggle("TroopList", "Hero", "@HeroToggleText", is_visible="@ShowHeroesList") }}
+
+        <!-- Hero List -->
+        {% call list.rows("{Heroes}", "Hero") %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 

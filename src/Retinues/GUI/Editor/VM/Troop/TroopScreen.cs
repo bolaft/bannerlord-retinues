@@ -89,7 +89,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                 bool troopIsRetinueFalse = State.Troop?.IsRetinue == false;
                 bool visible = IsVisible;
 
-                return !ClanScreen.IsStudioMode && troopIsMilitiaFalse && troopIsRetinueFalse && visible;
+                return !ClanScreen.IsStudioMode
+                    && troopIsMilitiaFalse
+                    && troopIsRetinueFalse
+                    && visible;
             }
         }
 

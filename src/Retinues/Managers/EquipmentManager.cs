@@ -106,11 +106,7 @@ namespace Retinues.Managers
             var eligible = cache ?? BuildEligibilityList(faction, slot, craftedOnly: craftedOnly);
 
             HashSet<string> availableInTown = null;
-            if (
-                !craftedOnly
-                && !ClanScreen.IsStudioMode
-                && Config.RestrictItemsToTownInventory
-            )
+            if (!craftedOnly && !ClanScreen.IsStudioMode && Config.RestrictItemsToTownInventory)
                 availableInTown = BuildCurrentTownAvailabilitySet();
 
             var items = new List<(WItem, bool, bool, int)>(eligible.Count);
@@ -346,8 +342,7 @@ namespace Retinues.Managers
             q.GoldCost = unitCost * q.CopiesToBuy;
 
             // Staging decision - only if adding physical copies
-            bool stagingPossible =
-                Config.EquipmentChangeTakesTime && !ClanScreen.IsStudioMode;
+            bool stagingPossible = Config.EquipmentChangeTakesTime && !ClanScreen.IsStudioMode;
             q.WouldStage = stagingPossible && q.DeltaAdd > 0;
 
             return q;

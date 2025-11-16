@@ -115,6 +115,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             && EquipmentManager.MeetsItemSkillRequirements(State.Troop, RowItem) == false;
         private bool IsTierBlocked =>
             !IsEmptyRow
+            && ClanScreen.EditorMode != EditorMode.Heroes // Heroes ignore tier restrictions
             && !DoctrineAPI.IsDoctrineUnlocked<Ironclad>()
             && (RowItem.Tier - (State.Troop?.Tier ?? 0)) > Config.AllowedTierDifference;
         private bool IsEquipmentTypeBlocked =>
