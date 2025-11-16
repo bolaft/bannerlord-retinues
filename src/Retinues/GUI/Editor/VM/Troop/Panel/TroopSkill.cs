@@ -150,14 +150,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 )
                     return; // Modification not allowed in current context
 
-            bool skillsAreFree = Config.BaseSkillXpCost == 0 && Config.SkillXpCostPerPoint == 0;
-            bool skillsAreInstant = Config.TrainingTakesTime == false;
-            bool capped = true; // Cap batch input by default
-
-            if (ClanScreen.IsStudioMode)
-                capped = false; // No batch cap in Studio Mode
-            else if (skillsAreFree && skillsAreInstant)
-                capped = false; // No batch cap if skills are free and instant
+            bool skillsAreFree = ClanScreen.IsStudioMode || (Config.BaseSkillXpCost == 0 && Config.SkillXpCostPerPoint == 0);
+            bool skillsAreInstant = ClanScreen.IsStudioMode || Config.TrainingTakesTime == false;
+            bool capped = !skillsAreFree || !skillsAreInstant; // No batch cap if skills are free and instant
 
             // Local function to perform the actual modification
             void DoModify()
