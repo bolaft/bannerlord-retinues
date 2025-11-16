@@ -1437,7 +1437,7 @@
       text="Secrets Unlocked" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="You have unlocked the secrets of {CULTURE}&apos;s most precious artifacts: {ITEMS}." />
+      text="You have unlocked the secrets of: {ITEMS}." />
     <string
       id="ret_warning"
       text="Warning" />

@@ -1437,7 +1437,7 @@
       text="Sırlar Açıldı" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="{CULTURE} en değerli eserlerinin sırlarını açtınız: {ITEMS}." />
+      text="Şunların sırlarını açtın: {ITEMS}." />
     <string
       id="ret_warning"
       text="Uyarı" />

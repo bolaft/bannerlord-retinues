@@ -1437,7 +1437,7 @@
       text="秘密が解除されました" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="あなたは {CULTURE} の最も貴重なアーティファクトの秘密を解き明かしました：{ITEMS}。" />
+      text="あなたは次の秘密を解除しました：{ITEMS}。" />
     <string
       id="ret_warning"
       text="警告" />

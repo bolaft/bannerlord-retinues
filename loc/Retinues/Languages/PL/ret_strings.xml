@@ -1437,7 +1437,7 @@
       text="Sekrety Odblokowane" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="Odblokowałeś sekrety najcenniejszych artefaktów {CULTURE}: {ITEMS}." />
+      text="Odblokowałeś sekrety: {ITEMS}." />
     <string
       id="ret_warning"
       text="Ostrzeżenie" />

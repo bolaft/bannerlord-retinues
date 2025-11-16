@@ -1437,7 +1437,7 @@
       text="Geheimnisse Entsperrt" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="Du hast die Geheimnisse der wertvollsten Artefakte von {CULTURE} freigeschaltet: {ITEMS}." />
+      text="Du hast die Geheimnisse von: {ITEMS} freigeschaltet." />
     <string
       id="ret_warning"
       text="Warnung" />

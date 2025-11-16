@@ -1437,7 +1437,7 @@
       text="Segredos Desbloqueados" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="Você desbloqueou os segredos dos artefatos mais preciosos de {CULTURE}: {ITEMS}." />
+      text="Você desbloqueou os segredos de: {ITEMS}." />
     <string
       id="ret_warning"
       text="Aviso" />

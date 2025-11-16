@@ -115,20 +115,27 @@ namespace Retinues.Features.Unlocks.Patches
             List<WItem> unlockedItems = [];
 
             // 1) Unlock all relevant vassal reward items for this culture.
-            foreach (var item in culture.VassalRewardItems)
+            try
             {
-                if (item == null)
-                    continue;
-
-                var wItem = new WItem(item);
-                if (wItem.IsVassalRewardItem && !wItem.IsUnlocked)
+                foreach (var item in culture.VassalRewardItems)
                 {
-                    wItem.Unlock();
-                    unlockedItems.Add(wItem);
-                    Log.Info(
-                        $"VassalRewardSecrets: Unlocked vassal reward item '{wItem.StringId}' for culture '{culture.StringId}'."
-                    );
+                    if (item == null)
+                        continue;
+
+                    var wItem = new WItem(item);
+                    if (wItem.IsVassalRewardItem && !wItem.IsUnlocked)
+                    {
+                        wItem.Unlock();
+                        unlockedItems.Add(wItem);
+                        Log.Info(
+                            $"VassalRewardSecrets: Unlocked vassal reward item '{wItem.StringId}' for culture '{culture.StringId}'."
+                        );
+                    }
                 }
+            }
+            catch (System.Exception e)
+            {
+                Log.Exception(e);
             }
 
             // 2) Simulate capture to trigger the same relation penalty and events.
@@ -145,7 +152,7 @@ namespace Retinues.Features.Unlocks.Patches
             }
             catch (System.Exception e)
             {
-                Log.Exception(e, "VassalRewardSecrets: Failed to apply capture+release sequence.");
+                Log.Exception(e);
             }
 
             if (unlockedItems.Count == 0)
@@ -158,7 +165,7 @@ namespace Retinues.Features.Unlocks.Patches
                 L.T("vassal_secrets_title", "Secrets Unlocked"),
                 L.T(
                         "vassal_secrets_unlocked_body",
-                        "You have unlocked the secrets of {CULTURE}'s most precious artifacts: {ITEMS}."
+                        "You have unlocked the secrets of: {ITEMS}."
                     )
                     .SetTextVariable("CULTURE", culture?.Name)
                     .SetTextVariable("ITEMS", itemList)

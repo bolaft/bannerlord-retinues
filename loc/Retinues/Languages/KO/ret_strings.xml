@@ -1437,7 +1437,7 @@
       text="비밀 해제" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="{CULTURE} 의 가장 소중한 유물의 비밀을 잠금 해제했습니다: {ITEMS}." />
+      text="다음의 비밀을 해제했습니다: {ITEMS}." />
     <string
       id="ret_warning"
       text="경고" />

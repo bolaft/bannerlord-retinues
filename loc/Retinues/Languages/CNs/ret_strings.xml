@@ -1437,7 +1437,7 @@
       text="秘密已解锁" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="你已经解锁了 {CULTURE} 最珍贵的神器的秘密：{ITEMS}。" />
+      text="你已解锁以下秘密：{ITEMS}。" />
     <string
       id="ret_warning"
       text="警告" />
