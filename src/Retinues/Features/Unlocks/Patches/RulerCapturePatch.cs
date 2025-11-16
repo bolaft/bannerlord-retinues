@@ -163,10 +163,7 @@ namespace Retinues.Features.Unlocks.Patches
 
             Notifications.Popup(
                 L.T("vassal_secrets_title", "Secrets Unlocked"),
-                L.T(
-                        "vassal_secrets_unlocked_body",
-                        "You have unlocked the secrets of: {ITEMS}."
-                    )
+                L.T("vassal_secrets_unlocked_body", "You have unlocked the secrets of: {ITEMS}.")
                     .SetTextVariable("CULTURE", culture?.Name)
                     .SetTextVariable("ITEMS", itemList)
             );

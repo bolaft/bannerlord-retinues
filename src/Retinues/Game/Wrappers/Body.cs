@@ -202,7 +202,11 @@ namespace Retinues.Game.Wrappers
                 );
 
                 var newBp = new BodyProperties(newDyn, bp.StaticProperties);
+#if BL13
                 Hero.StaticBodyProperties = newBp.StaticProperties;
+#else
+                Reflector.SetPropertyValue(Hero, "StaticBodyProperties", newBp.StaticProperties);
+#endif
                 Hero.Weight = newDyn.Weight;
                 Hero.Build = newDyn.Build;
                 // Age is handled via SetBirthDay in Age/AgeMin/AgeMax
@@ -305,7 +309,14 @@ namespace Retinues.Game.Wrappers
         {
             if (IsHero)
             {
+#if BL13
                 var sp = Hero.StaticBodyProperties;
+#else
+                var sp = Reflector.GetPropertyValue<StaticBodyProperties>(
+                    Hero,
+                    "StaticBodyProperties"
+                );
+#endif
                 ulong part = GetKeyPart(sp, HEIGHT_PART);
                 int raw = GetBitsValueFromKey(part, HEIGHT_START, HEIGHT_BITS);
                 int max = (1 << HEIGHT_BITS) - 1;
@@ -314,7 +325,14 @@ namespace Retinues.Game.Wrappers
             else
             {
                 var bp = minEnd ? Base.GetBodyPropertiesMin() : Base.GetBodyPropertiesMax();
-                var sp = bp.StaticProperties;
+#if BL13
+                var sp = Hero.StaticBodyProperties;
+#else
+                var sp = Reflector.GetPropertyValue<StaticBodyProperties>(
+                    Hero,
+                    "StaticBodyProperties"
+                );
+#endif
                 ulong part = GetKeyPart(sp, HEIGHT_PART);
                 int raw = GetBitsValueFromKey(part, HEIGHT_START, HEIGHT_BITS);
                 int max = (1 << HEIGHT_BITS) - 1;
@@ -331,11 +349,22 @@ namespace Retinues.Game.Wrappers
                     float v = Math.Max(0f, Math.Min(1f, value01));
                     int raw = (int)Math.Round(v * ((1 << HEIGHT_BITS) - 1));
 
+#if BL13
                     var sp = Hero.StaticBodyProperties;
+#else
+                    var sp = Reflector.GetPropertyValue<StaticBodyProperties>(
+                        Hero,
+                        "StaticBodyProperties"
+                    );
+#endif
                     ulong part = GetKeyPart(sp, HEIGHT_PART);
                     part = SetBits(part, HEIGHT_START, HEIGHT_BITS, raw);
                     var newSp = SetKeyPart(sp, HEIGHT_PART, part);
+#if BL13
                     Hero.StaticBodyProperties = newSp;
+#else
+                    Reflector.SetPropertyValue(Hero, "StaticBodyProperties", newSp);
+#endif
                 }
                 else
                 {

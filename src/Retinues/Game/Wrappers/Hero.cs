@@ -147,13 +147,23 @@ namespace Retinues.Game.Wrappers
 
         public override bool IsFemale
         {
-            get => _hero.IsFemale;
+            get => _hero?.IsFemale ?? base.IsFemale;
             set
             {
-                if (_hero.IsFemale == value)
-                    return;
+                if (_hero != null)
+                {
+#if BL13
+                    _hero.IsFemale = value;
+#else
+                    // BL12: IsFemale has a private setter; use reflection/backing field.
+                    Reflector.SetPropertyValue(_hero, "IsFemale", value);
+#endif
+                }
+                else
+                {
+                    base.IsFemale = value;
+                }
 
-                _hero.IsFemale = value;
                 NeedsPersistence = true;
             }
         }

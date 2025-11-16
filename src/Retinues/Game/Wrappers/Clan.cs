@@ -91,7 +91,7 @@ namespace Retinues.Game.Wrappers
                     if (!wc.IsValid)
                         continue;
 
-                    if (wc.Base.HiddenInEncyclopedia)
+                    if (wc.HiddenInEncyclopedia)
                         continue; // Skip hidden heroes
 
                     if (wc.Skills.Sum(kv => kv.Value) == 0)

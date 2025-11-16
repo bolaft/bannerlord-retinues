@@ -237,10 +237,15 @@ namespace Retinues.Game.Helpers
                     var newBody = new BodyProperties(dyn, stat);
 
                     // 4) Apply to the hero
+#if BL13
                     hero.StaticBodyProperties = newBody.StaticProperties;
-                    hero.Weight = dyn.Weight;
-                    hero.Build = dyn.Build;
-
+#else
+                    Reflector.SetPropertyValue(
+                        hero,
+                        "StaticBodyProperties",
+                        newBody.StaticProperties
+                    );
+#endif
                     // Age is derived from birthday
                     hero.SetBirthDay(CampaignTime.YearsFromNow(-midAge));
 
