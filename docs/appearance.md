@@ -31,9 +31,9 @@ Below the 3D character preview (bottom-left corner) there is an icon toggle:
 
 ---
 
-## Experimental: Detailed Appearance Controls
+## Detailed Appearance Controls
 
-If you enable **Experimental Appearance Controls** in **MCM**, the bottom-left panel exposes additional dials:
+If you enable **Appearance Controls** in **MCM**, the bottom-left panel exposes additional dials:
 
 - **Age**
 - **Height**
@@ -41,6 +41,3 @@ If you enable **Experimental Appearance Controls** in **MCM**, the bottom-left p
 - **Build**
 
 These allow you to fine-tune the character's body shape beyond the gender toggle.
-
-> **⚠️ Warning:**  
-> These controls are **experimental** and may have **unintended effects**, such as clipping with certain armors, unexpected hair/face combinations in some cultures, or visual inconsistencies after large age/height deltas. If you run into odd visuals, revert the sliders, switch cultures briefly to refresh presets, or disable the experimental option in MCM.

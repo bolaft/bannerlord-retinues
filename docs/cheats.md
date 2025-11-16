@@ -102,8 +102,8 @@ Browse, advance, or complete feats that gate certain doctrine bonuses.
 
 ## Fixes
 
-- **Fix main party**
+- **Fix party leaders**
   ```
-  retinues.fix_main_party
+  retinues.fix_party_leaders
   ```
-  Attempts to fix some weird behaviors such as party size limit being stuck at 20, or the main party not having a troop number on the world map.
+  Ensures that all parties which have lost their leader hero get a valid leader assigned again (including your main party and lord parties). Useful if your main party or another lord party ends up without a leader and starts behaving strangely on the world map.

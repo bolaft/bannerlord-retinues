@@ -25,7 +25,7 @@ This manual will help you use, configure, and troubleshoot the **Retinues** mod 
 
 - **Retinues:** What they are, how to get them, and how they differ from regular troops → [Retinues](./retinues.md)
 - **Troops:** Find out what troops you can manage and customize → [Troops](./troops.md), [Appearance](./appearance.md)
-- **Skills:** Caps, totals, XP cost, and training flow → [Skills](./skills.md), [Experience](./experience.md)
+- **Skills:** Caps, totals, XP cost, and training flow → [Experience & Skills](./experience_skills.md)
 - **Equipment:** How to unlock and equip new items for your troops → [Equipment](./equipment.md)
 - **Doctrines:** How feats and doctrines work → [Doctrines](./doctrines.md)
 

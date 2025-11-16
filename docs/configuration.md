@@ -11,7 +11,7 @@ You can tune Retinues from the **Mod Configuration Menu (MCM)**. Options are gro
 - **Freeform:** very permissive, fast prototyping.
 - **Realistic:** stricter rules, slower progression, more immersion.
 
-> ⚠️ If an option is marked “*(restart)*”, return to main menu (or start a new game) after changing it.
+> ⚠️ If an option is marked "*(restart)*", return to main menu (or start a new game) after changing it.
 
 ---
 
@@ -25,7 +25,6 @@ Limits and costs for **converting** troops into retinues and **advancing** (rank
 | **Max Basic Retinue Ratio** | Same as above, but for **Basic Retinues**. Basic and Elite have **separate caps** and are checked independently. | 0.20 | 1.00 | 0.10 |
 | **Retinue Conversion Cost Per Tier** | **Gold** charged **per unit tier** when **manually converting** a custom/vanilla unit into a retinue (instant method). Example: T4 unit with cost=50 → 200 gold. | 50 | 0 | 100 |
 | **Retinue Rank Up Cost Per Tier** | **Gold** charged **per retinue tier increase** (Rank Up). May also require sufficient **XP** and skill caps met. | 1000 | 0 | 1000 |
-| **Restrict Retinue Conversion To Fiefs** | If **On**, you may **manually convert** to retinues **only while in a (your) settlement/fief**. If **Off**, conversion can be done anywhere the editor allows. | Off | Off | On |
 
 > Doctrines (e.g., cap boosters) and your party size both influence how many retinues you can field.
 
@@ -38,7 +37,7 @@ Control where/how custom volunteers appear and who can recruit them across the w
 | Option | What it does (detail) | Default | Freeform | Realistic |
 |---|---|---:|---:|---:|
 | **Volunteer Swap Proportion** | Fraction **0.0–1.0** of vanilla volunteer slots replaced by your **custom** volunteers in eligible settlements. **1.0** = fully swapped; **0.5** = half of the volunteers are custom (rounded by slot). | 1.0 | 1.0 | 1.0 |
-| **Recruit Clan Troops Anywhere** | If **On**, the player can recruit **clan** custom troops in **any** settlement (not only “owned/affiliated”). If **Off**, recruitment is more restrictive/organic. | Off | On | Off |
+| **Recruit Clan Troops Anywhere** | If **On**, the player can recruit **clan** custom troops in **any** settlement (not only "owned/affiliated"). If **Off**, recruitment is more restrictive/organic. | Off | On | Off |
 | **Swap Volunteers Only For Correct Culture** | If **On**, a settlement's volunteers are swapped **only if the settlement culture matches** the troop's culture. If **Off**, swaps can happen regardless of culture. | Off | Off | On |
 | **Clan Troops Over Kingdom Troops** | When both **clan** and **kingdom** trees are available, prioritize **clan** volunteers for settlements tied to you. Turning **Off** prioritizes kingdom lines. | On | Off | On |
 | **No Kingdom Troops** | If **On**, disables the **kingdom** layer entirely (only **clan** troops exist). Useful for simpler runs. | Off | Off | Off |
@@ -47,15 +46,25 @@ Control where/how custom volunteers appear and who can recruit them across the w
 
 ---
 
+## Global Troop Editor
+
+Options controlling the escape-menu **Global Troop Editor**.
+
+| Option | What it does (detail) | Default | Freeform | Realistic |
+|---|---|---:|---:|---:|
+| **Enable Global Troop Editor** *(restart)* | Master switch for the **Global Troop Editor** (escape menu). When **Off**, only your own faction troops can be edited. Changing this requires going back to the main menu or starting a new game. This option may be auto-disabled if another mod is incompatible. | On | On | On |
+| **Keep Upgrade Requirements For Vanilla Troops** | If **On**, edited **vanilla** troops keep their **original weapon/horse upgrade requirements** instead of recomputing them from the new loadouts. | On | On | On |
+
+---
+
 ## Restrictions
 
-When you may edit troops, and whether extra appearance controls are exposed.
+When you may edit troops, and how wide upgrade trees can branch.
 
 | Option | What it does (detail) | Default | Freeform | Realistic |
 |---|---|---:|---:|---:|
 | **Restrict Editing To Fiefs** | If **On**, most **editor actions** (renaming, skills, upgrade targets, equipment) require being **inside a settlement/fief**. | Off | Off | On |
-| **Experimental: Enable Appearance Controls** | If **On**, exposes **age / height / weight / build** sliders in addition to the **gender** toggle. **Experimental**: may cause visual oddities with some armors/cultures. | Off | Off | Off |
-| **Max Elite Upgrades** | Maximum number of **upgrade targets** a single **elite** troop can have. Higher values allow wider branching (more elite paths). | 1 | 4 | 1 |
+| **Max Elite Upgrades** | Maximum number of **upgrade targets** a single **elite** troop can have. Higher values allow wider branching (more elite paths). | 1 | 3 | 1 |
 | **Max Basic Upgrades** | Maximum number of **upgrade targets** a single **basic** troop can have. Higher values allow wider branching (more basic paths). | 2 | 4 | 2 |
 
 ---
@@ -67,7 +76,18 @@ Gates and strictness for the doctrine/feat system.
 | Option | What it does (detail) | Default | Freeform | Realistic |
 |---|---|---:|---:|---:|
 | **Enable Doctrines** *(restart)* | Master switch for the **Doctrines & Feats** system. Requires reload/new game if changed. | On | On | On |
-| **Disable Feat Requirements** | If **On**, doctrines **ignore** feat prerequisites (unlock freely). If **Off**, you must **progress feats** to unlock power. | Off | On | Off |
+| **Enable Feat Requirements** *(restart)* | If **On**, doctrines **enforce feat prerequisites** (you must progress feats to unlock doctrines). If **Off**, feat requirements are ignored and doctrines can be unlocked freely. | On | Off | On |
+
+---
+
+## Immersion & Fluff
+
+Visual/ambient extras that don't affect core balance.
+
+| Option | What it does (detail) | Default | Freeform | Realistic |
+|---|---|---:|---:|---:|
+| **Enable Appearance Controls** | Shows **age / height / weight / build** sliders (and gender toggle) in the editor. May cause occasional visual oddities with some armors/cultures. | On | On | On |
+| **Replace Ambient NPCs** | If **On**, replaces settlement **ambient NPCs** (walkers) with characters from your **player faction** where possible. | On | On | On |
 
 ---
 
@@ -79,15 +99,15 @@ Money/time rules, availability filters, culture rules, and mounts.
 |---|---|---:|---:|---:|
 | **Pay For Troop Equipment** | If **On**, equipping an item without **stock** purchases it for **gold** using **Equipment Price Modifier**. If **Off**, no gold cost to equip. | On | Off | On |
 | **Equipment Price Modifier** | Multiplier over item **value** when buying via the editor (e.g., 2.0 means pay **2× item value**). | 2.0 | 0.0 | 4.0 |
-| **Changing Troop Equipment Takes Time** | If **On**, changes are **staged** and resolve after a **time delay** (must confirm in town via “Equip troops”). If **Off**, equip applies instantly (subject to other rules). | Off | Off | On |
+| **Changing Troop Equipment Takes Time** | If **On**, changes are **staged** and resolve after a **time delay** (must confirm in town via "Equip troops"). If **Off**, equip applies instantly (subject to other rules). | Off | Off | On |
 | **Equipment Change Time Modifier** | Scales the **hours** needed for staged equipment changes. Higher = slower. | 2 | 2 | 4 |
 | **Restrict Items To Town Inventory** | If **On**, only items **sold in the current town** are **available** to equip (even if unlocked). If **Off**, unlocked items are usable anywhere. | Off | Off | On |
 | **Allowed Tier Difference** | Max allowed difference between **troop tier** and **item tier/difficulty**. If exceeded, the item is blocked until the troop ranks up or a doctrine loosens the rule. | 3 | 6 | 2 |
-| **Force Main Battle Set In Combat** | If **On**, the **main Battle** set is forced during missions (ignores alternates). Useful for simplicity or compatibility. | Off | Off | Off |
+| **Force Main Battle Set In Combat** | If **On**, troops always use their **first Battle set** in missions, ignoring per-situation battle set toggles (Field / Siege Defense / Siege Assault). Useful for simplicity or compatibility. | Off | Off | Off |
 | **Ignore Civilian Horse for Upgrade Requirements** | If **On**, civilian horse **does not count** toward mounted upgrade checks (prevents weird gating via civilian kits). If **Off**, civilian horses can satisfy mount requirements. | On | On | Off |
+| **Never Require Noble Horse** | If **On**, upgrades never specifically require a **noble horse**; a **war horse** is always sufficient to satisfy mount requirements. | On | On | On |
 | **Disallow Mounts For Tier 1** | If **On**, **T1 troops** cannot equip **horse/harness** (slots disabled). If **Off**, T1 can mount if other rules allow. | On | Off | On |
-
-> Doctrines can also modify costs/availability (e.g., **Royal Patronage** gives rebates for kingdom-culture gear and **Ancestral Heritage** affect cultural item availability).
+| **Copy All Sets When Cloning** | When creating a new troop by **cloning** another's equipment, copy **all equipment sets** (battle and civilian) instead of just the current one. This option may be unavailable if the mod is forced into a single-set compatibility mode by other mods. | Off | On | Off |
 
 ---
 

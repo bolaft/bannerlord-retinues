@@ -14,7 +14,7 @@ Before proceeding further, make sure your issue can't be solved by following the
 ## 1) Where to report
 
 - **Nexus Mods Bug Tracker (preferred):**  
-  👉 Open the [Retinues Bugs](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=bugs) page and click **“Report a bug”**  
+  👉 Open the [Retinues Bugs](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=bugs) page and click **"Report a bug"**  
 
 The Nexus Mods Bugs tab is the only place I can *guarantee* I will look at your report. Bugs and issues reported on the comments section of either Steam Workshop or Nexus Mods might be missed.
 

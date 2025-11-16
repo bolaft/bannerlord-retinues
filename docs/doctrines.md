@@ -13,17 +13,75 @@ nav_order: 8
 
 ## How It Works
 
-1. **Browse the grid**  
-   Each doctrine card shows its requirements and the bonuses it grants.
+1. **Earn feats**  
+   Playing the game (winning battles, capturing fiefs, crafting, etc.) progresses various **feats**. Each doctrine has its own feat track.
 
-2. **Meet the requirements**  
-   Doctrines have specific feat requirements to be unlocked (these can be relaxed; see MCM below).
+2. **Unlock doctrines**  
+   When you have enough feat progress (and if **Feat Requirements** are enabled), the doctrine becomes available. Unlocking a doctrine is permanent for that save.
 
-3. **Progress feats**  
-   Feats level up while you play and can unlock new doctrines.
+3. **Stack the effects**  
+   All unlocked doctrines are always active at the same time. You are not choosing one column or one row: everything you unlock stacks.
 
-4. **Enjoy the bonuses**  
-   Bonuses are passive and apply automatically once unlocked.
+The doctrine grid is organized in four columns, each with its own theme:
+
+- **Unlocks** – how quickly you discover and unlock new gear.
+- **Equipment** – culture-themed troops, militias, crafted weapons, and tier limits.
+- **Troops** – skill caps, skill points, upgrade branches, and XP handling.
+- **Retinues** – retinue size, durability, morale, and survival.
+
+Below is a quick reference of all doctrines and what they do.
+
+---
+
+### Unlocks Doctrines
+
+Affect how quickly gear gets unlocked from battles and casualties.
+
+| Doctrine | Effect |
+| --- | --- |
+| **Lion's Share** | Hero kills count **twice** for equipment unlock progress. |
+| **Battlefield Tithes** | **Allied party kills** can also unlock items from enemy gear. |
+| **Pragmatic Scavengers** | **Allied party casualties** can unlock items from their equipment. |
+| **Ancestral Heritage** | Treats **all items of your clan and kingdom cultures** as unlocked. |
+
+---
+
+### Equipment Doctrines
+
+Open up culture-specific troops and equipment options.
+
+| Doctrine | Effect |
+| --- | --- |
+| **Cultural Pride** | Unlocks **custom militia troops** for your faction. |
+| **Clan Traditions** | Troops can equip **smithed (crafted) weapons** in the equipment editor. |
+| **Royal Patronage** | Unlocks **custom Caravan Guards, Caravan Masters, and Villagers** for your faction. |
+| **Ironclad** | Removes **tier restrictions** for arms and armor when equipping troops. |
+
+---
+
+### Troops Doctrines
+
+Improve troop skill ceilings and progression options.
+
+| Doctrine | Effect |
+| --- | --- |
+| **Iron Discipline** | Increases **skill caps** for your troops (+5 to all caps). |
+| **Steadfast Soldiers** | Grants **+10 skill points** to your troops. |
+| **Masters-At-Arms** | Elite (noble) troops gain an **extra upgrade branch** (second noble path). |
+| **Adaptive Training** | **Refunds XP** when you lower a troop's skill in the editor. |
+
+---
+
+### Retinues Doctrines
+
+Directly improve your **retinues** (not regular faction troops).
+
+| Doctrine | Effect |
+| --- | --- |
+| **Indomitable** | Retinues gain **+5 HP** each. |
+| **Bound by Honor** | Retinues gain **+20% morale**. |
+| **Vanguard** | Increases retinue cap by **+15%**. |
+| **Immortals** | Retinues are **more likely to be wounded instead of killed** (+20% survival chance). |
 
 ---
 
@@ -44,9 +102,9 @@ You'll get on-screen notifications as feats progress or complete.
 
 ## Config Options (MCM)
 
-- **Disable Feat Requirements**  
-  Turn this **ON** for a simpler experience (doctrines unlock without strict prerequisites).  
-  Turn **OFF** for a progression-heavy run where accomplishing feats matter.
+- **Enable Feat Requirements** *(restart)*  
+  When **ON**, doctrines **enforce feat prerequisites** (you must complete the listed feats to unlock them).  
+  When **OFF**, feat requirements are ignored and doctrines can be unlocked freely.
 
 ---
 
