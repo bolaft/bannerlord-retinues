@@ -55,6 +55,9 @@ namespace Retinues.Troops.Save
         [SaveableField(14)]
         public List<TroopSaveData> Bandits;
 
+        [SaveableField(15)]
+        public List<TroopSaveData> Heroes;
+
         public FactionSaveData()
         {
             // Default constructor for deserialization
