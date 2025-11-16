@@ -35,7 +35,6 @@ namespace Retinues.Game
         public abstract string Name { get; }
         public abstract uint Color { get; }
         public abstract uint Color2 { get; }
-        public abstract string BannerCodeText { get; }
 
         public WCulture Culture
         {
@@ -189,6 +188,8 @@ namespace Retinues.Game
                 foreach (var troop in CivilianTroops)
                     yield return troop;
                 foreach (var troop in BanditTroops)
+                    yield return troop;
+                foreach (var troop in Heroes)
                     yield return troop;
             }
         }

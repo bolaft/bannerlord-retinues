@@ -287,7 +287,7 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public int Tier => Base.Tier;
+        public int Tier => IsHero ? MaxTier : Base.Tier;
 
         public int Level
         {
@@ -395,8 +395,9 @@ namespace Retinues.Game.Wrappers
 
         public bool IsRuler => Base.HeroObject?.IsFactionLeader ?? false;
 
-        public bool IsMaxTier =>
-            Tier >= (IsElite ? 6 : 5) + (ModCompatibility.Tier7Unlocked ? 1 : 0);
+        public int MaxTier => (IsElite ? 6 : 5) + (ModCompatibility.Tier7Unlocked ? 1 : 0);
+
+        public bool IsMaxTier => Tier >= MaxTier;
 
         public bool IsDeletable
         {
@@ -691,7 +692,8 @@ namespace Retinues.Game.Wrappers
                 vm.ArmorColor2 = Faction.Color2;
 
                 // Heraldic items
-                vm.BannerCodeText = Faction.BannerCodeText;
+                var bbf = Faction as BaseBannerFaction;
+                vm.BannerCodeText = bbf?.Banner.Serialize();
             }
 
             return vm;

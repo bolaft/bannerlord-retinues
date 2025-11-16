@@ -4,9 +4,9 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
-#if BL13
+# if BL13
 using TaleWorlds.Core.ImageIdentifiers;
-#endif
+# endif
 
 namespace Retinues.Game.Wrappers
 {
@@ -47,9 +47,13 @@ namespace Retinues.Game.Wrappers
 
         public override string Name => Base?.Name?.ToString();
         public override string StringId => Base?.StringId ?? Name; // Some cultures have no StringId?
-        public override string BannerCodeText => null; // TODO
         public override uint Color => Base?.Color ?? 0;
         public override uint Color2 => Base?.Color2 ?? 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Banner                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public override Banner BaseBanner
         {
             get
@@ -68,10 +72,6 @@ namespace Retinues.Game.Wrappers
 #endif
             }
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Image                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 #if BL13
         public BannerImageIdentifier Image =>

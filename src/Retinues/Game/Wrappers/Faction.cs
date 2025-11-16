@@ -3,6 +3,10 @@ using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Core;
+#if BL13
+using TaleWorlds.Core.ImageIdentifiers;
+#endif
 
 namespace Retinues.Game.Wrappers
 {
@@ -10,7 +14,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for IFaction (Clan or Kingdom).
     /// </summary>
     [SafeClass]
-    public class WFaction(IFaction faction) : BaseFaction
+    public class WFaction(IFaction faction) : BaseBannerFaction
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
@@ -25,9 +29,25 @@ namespace Retinues.Game.Wrappers
 
         public override string Name => _faction?.Name.ToString();
         public override string StringId => _faction?.StringId;
-        public override string BannerCodeText => _faction?.Banner.Serialize();
         public override uint Color => _faction?.Color ?? 0;
         public override uint Color2 => _faction?.Color2 ?? 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Banner                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override Banner BaseBanner => Base?.Banner;
+
+#if BL13
+        public BannerImageIdentifier Image =>
+            Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+        public ImageIdentifier ImageIdentifier =>
+            Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+#else
+        public BannerCode BannerCode => BannerCode.CreateFrom(Base.Banner);
+        public ImageIdentifierVM Image => new(BannerCode);
+        public ImageIdentifier ImageIdentifier => new(BannerCode);
+#endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //

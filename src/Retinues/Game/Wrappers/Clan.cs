@@ -46,14 +46,20 @@ namespace Retinues.Game.Wrappers
 
         public override string Name => Base?.Name?.ToString();
         public override string StringId => Base?.StringId ?? Name; // Some cultures have no StringId?
-        public override string BannerCodeText => null; // TODO
         public override uint Color => Base?.Color ?? 0;
         public override uint Color2 => Base?.Color2 ?? 0;
-        public override Banner BaseBanner => Base?.Banner;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Image                         //
+        //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsPlayerClan => Base != null && Base.StringId == Clan.PlayerClan.StringId;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Banner                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override Banner BaseBanner => Base?.Banner;
 
 #if BL13
         public BannerImageIdentifier Image =>
@@ -79,7 +85,15 @@ namespace Retinues.Game.Wrappers
                 {
                     if (hero == null)
                         continue;
-                    heroes.Add(new WCharacter(hero.CharacterObject));
+                    var wc = new WCharacter(hero.CharacterObject);
+
+                    if (!wc.IsValid)
+                        continue;
+
+                    if (wc.Base.HiddenInEncyclopedia)
+                        continue;
+
+                    heroes.Add(wc);
                 }
                 return heroes;
             }

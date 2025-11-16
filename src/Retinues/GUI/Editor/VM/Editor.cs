@@ -47,12 +47,6 @@ namespace Retinues.GUI.Editor.VM
             EquipmentScreen = new EquipmentScreenVM();
             DoctrineScreen = new DoctrineScreenVM();
 
-            if (ClanScreen.IsStudioMode)
-            {
-                RefreshCultureBanner();
-                RefreshClanBanner();
-            }
-
             SwitchScreen(Screen.Troop);
         }
 
@@ -113,7 +107,15 @@ namespace Retinues.GUI.Editor.VM
         protected override Dictionary<UIEvent, string[]> EventMap =>
             new()
             {
-                [UIEvent.Faction] = [nameof(FactionButtonText), nameof(ShowFactionButton)],
+                [UIEvent.Faction] =
+                [
+                    nameof(FactionButtonText),
+                    nameof(ShowFactionButton),
+                    nameof(CultureBanner),
+                    nameof(ClanBanner),
+                    nameof(CultureName),
+                    nameof(ClanName),
+                ],
                 [UIEvent.Appearance] = [nameof(Model)],
             };
 
@@ -139,69 +141,25 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public string TroopStudioTitle => L.S("troop_studio_title", "Troop Editor");
 
-# if BL13
-        private BannerImageIdentifierVM _cultureBanner;
+#if BL13
+        [DataSourceProperty]
+        public BannerImageIdentifierVM CultureBanner => State.Culture?.GetBannerImage();
 
         [DataSourceProperty]
-        public BannerImageIdentifierVM CultureBanner
-# else
-        private ImageIdentifierVM _cultureBanner;
+        public BannerImageIdentifierVM ClanBanner => State.Clan?.GetBannerImage();
+#else
+        [DataSourceProperty]
+        public ImageIdentifierVM CultureBanner => State.Culture?.GetBannerImage();
 
         [DataSourceProperty]
-        public ImageIdentifierVM CultureBanner
-# endif
-        {
-            get => _cultureBanner;
-            private set
-            {
-                if (_cultureBanner == value)
-                    return;
-                _cultureBanner = value;
-                OnPropertyChanged(nameof(CultureBanner));
-            }
-        }
-
-# if BL13
-        private BannerImageIdentifierVM _clanBanner;
+        public ImageIdentifierVM ClanBanner => State.Clan?.GetBannerImage();
+#endif
 
         [DataSourceProperty]
-        public BannerImageIdentifierVM ClanBanner
-# else
-        private ImageIdentifierVM _clanBanner;
+        public string CultureName => State.Culture?.Name;
 
         [DataSourceProperty]
-        public ImageIdentifierVM ClanBanner
-# endif
-        {
-            get => _clanBanner;
-            private set
-            {
-                if (_clanBanner == value)
-                    return;
-                _clanBanner = value;
-                OnPropertyChanged(nameof(ClanBanner));
-            }
-        }
-
-        [DataSourceProperty]
-        public string CultureName => State.Faction?.Culture?.Name;
-
-        [DataSourceProperty]
-        public string ClanName
-        {
-            get
-            {
-                if (State.Faction is WClan clan)
-                    return clan.Name;
-                if (State.Faction is WFaction faction)
-                    return faction.Name;
-                if (State.Faction is WCulture culture)
-                    return WClan
-                        .All.FirstOrDefault(c => c?.Culture?.StringId == culture.StringId)
-                        ?.Name;
-                return null;
-            }
-        }
+        public string ClanName => State.Clan?.Name;
 
         [DataSourceProperty]
         public BasicTooltipViewModel CultureBannerHint =>
@@ -445,11 +403,6 @@ namespace Retinues.GUI.Editor.VM
 
                             // Refresh VM bindings & visuals.
                             State.UpdateFaction(new WCulture(culture));
-
-                            // Notify UI
-                            OnPropertyChanged(nameof(CultureBanner));
-                            RefreshCultureBanner();
-                            OnPropertyChanged(nameof(CultureName));
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
@@ -476,6 +429,12 @@ namespace Retinues.GUI.Editor.VM
                 {
                     if (wc?.Name == null)
                         continue;
+
+                    if (wc.IsPlayerClan)
+                        continue; // Skip player clan
+
+                    if (wc?.Culture != State.Culture)
+                        continue; // Only clans of current culture
 
                     elements.Add(
                         new InquiryElement(wc.Base, wc.Name, wc.ImageIdentifier, true, null)
@@ -515,10 +474,6 @@ namespace Retinues.GUI.Editor.VM
 
                             // Refresh VM bindings & visuals.
                             State.UpdateFaction(new WClan(clan));
-                            // Notify UI
-                            OnPropertyChanged(nameof(ClanBanner));
-                            RefreshClanBanner();
-                            OnPropertyChanged(nameof(ClanName));
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
@@ -581,43 +536,6 @@ namespace Retinues.GUI.Editor.VM
             );
 
             InformationManager.ShowInquiry(inquiry);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private void RefreshClanBanner()
-        {
-            WClan clan;
-
-            if (ClanScreen.EditorMode == EditorMode.Culture)
-            {
-                var culture = State.Faction.Culture;
-                if (culture == null)
-                    return;
-
-                // Find first clan with this culture
-                clan = WClan.All.FirstOrDefault(c => c?.Culture?.StringId == culture.StringId);
-            }
-            else if (ClanScreen.EditorMode == EditorMode.Heroes)
-            {
-                // The faction is a clan
-                clan = State.Faction as WClan;
-            }
-            else
-            {
-                // Use main hero's clan
-                clan = new WClan(Hero.MainHero.Clan);
-            }
-
-            ClanBanner = clan.GetBannerImage(scale: 0.85f);
-        }
-
-        private void RefreshCultureBanner()
-        {
-            var culture = State.Faction.Culture;
-            CultureBanner = culture?.GetBannerImage(scale: 0.85f);
         }
     }
 }

@@ -1,7 +1,6 @@
 using Retinues.Utils;
 using TaleWorlds.Core;
 # if BL13
-using Retinues.Game.Wrappers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
@@ -13,10 +12,6 @@ namespace Retinues.Game
     [SafeClass]
     public abstract class BaseBannerFaction : BaseFaction
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Banner                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         /// <summary>
         /// The raw banner this faction exposes (may be null or "empty").
         /// </summary>
@@ -32,7 +27,7 @@ namespace Retinues.Game
                 var banner = BaseBanner;
 
                 if (IsEmptyBanner(banner))
-                    banner = CreateFallbackBanner();
+                    banner = CreateFallbackBanner(Culture.Base);
 
                 return banner;
             }
@@ -127,10 +122,6 @@ namespace Retinues.Game
 
             return b;
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Banner logic                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Culture-specific fallback banner when the raw banner is null/empty.

@@ -8,6 +8,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Managers;
 using Retinues.Troops;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor
@@ -59,7 +60,6 @@ namespace Retinues.GUI.Editor
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         public static BaseFaction Faction { get; private set; }
         public static WCharacter Troop { get; private set; }
         public static WEquipment Equipment { get; private set; }
@@ -69,6 +69,23 @@ namespace Retinues.GUI.Editor
         public static Dictionary<WCharacter, int> ConversionData { get; private set; }
         public static Dictionary<WCharacter, int> PartyData { get; private set; }
         public static EquipChangeDelta? LastEquipChange;
+
+        /* ━━━━━━ Convenience ━━━━━ */
+
+        public static WCulture Culture => Faction?.Culture;
+        public static WClan Clan
+        {
+            get
+            {
+                if (Faction is WClan clan)
+                    return clan;
+                if (Faction is WFaction faction)
+                    return new(Hero.MainHero.Clan);
+                if (Faction is WCulture culture)
+                    return WClan.All.FirstOrDefault(c => c?.Culture?.StringId == culture.StringId);
+                return null;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Reset                         //
