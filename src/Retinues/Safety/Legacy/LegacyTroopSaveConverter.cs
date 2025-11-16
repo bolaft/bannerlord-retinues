@@ -176,7 +176,7 @@ namespace Retinues.Safety.Legacy
                 BodyData = Config.EnableTroopCustomization ? ConvertBodyData(data) : null,
             };
 
-            // Return the created troop
+            // Return the created troop data
             return troop;
         }
 

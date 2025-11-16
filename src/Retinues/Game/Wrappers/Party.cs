@@ -97,7 +97,21 @@ namespace Retinues.Game.Wrappers
 
         public override string StringId => _party.StringId;
 
-        public string Name => _party.Name.ToString();
+        public string Name
+        {
+            get
+            {
+                try
+                {
+                    return _party.Name.ToString();
+                }
+                catch
+                {
+                    // Crashes when uninitialized
+                    return "Unknown Party";
+                }
+            }
+        }
 
         public bool IsMainParty => _party.IsMainParty;
         public bool IsLordParty => _party.IsLordParty;

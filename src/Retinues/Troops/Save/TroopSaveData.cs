@@ -204,6 +204,17 @@ namespace Retinues.Troops.Save
             // Recompute formation class, upgrade requirements, etc.
             troop.ComputeDerivedProperties();
 
+            // If this is a legacy custom troop, replace its existing instances with the new version
+            try
+            {
+                if (StringId.StartsWith(WCharacter.LegacyCustomIdPrefix))
+                    WCharacter.FromStringId(StringId).Replace(troop);
+            }
+            catch (System.Exception e)
+            {
+                Log.Exception(e);
+            }
+
             // Return the created troop
             return troop;
         }

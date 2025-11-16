@@ -26,7 +26,14 @@ namespace Retinues.Game.Wrappers
     public class WCharacter(CharacterObject characterObject) : BaseFactionMember
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Constants                      //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static WCharacter FromStringId(string stringId) =>
+            new(MBObjectManager.Instance.GetObject<CharacterObject>(stringId));
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Constants                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public const string CustomIdPrefix = "retinues_custom_";
