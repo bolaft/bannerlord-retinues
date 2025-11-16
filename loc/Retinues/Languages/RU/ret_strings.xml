@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="Начать с нуля" />
     <string
+      id="ret_create_set_hero_hint"
+      text="Невозможно создать наборы снаряжения для героев." />
+    <string
       id="ret_create_set_hint"
       text="Отключено из-за конфликтующих модов (Shokuho)." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="Макс. {TIER} Ранг" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="Макс. Навыки Героя" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="Максимальный уровень навыков для войск героев." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Максимальный уровень навыков для войск {TIER} ранга." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="Удалить" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="Невозможно удалить комплекты экипировки для героев." />
     <string
       id="ret_remove_set_hint"
       text="Должен остаться как минимум один комплект этого типа." />

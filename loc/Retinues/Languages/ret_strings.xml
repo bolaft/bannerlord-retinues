@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="Start from Scratch" />
     <string
+      id="ret_create_set_hero_hint"
+      text="Cannot create equipment sets for heroes." />
+    <string
       id="ret_create_set_hint"
       text="Disabled due to conflicting mods (Shokuho)." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="Tier {TIER} Cap" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="Hero Skill Cap" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="The maximum skill level for hero troops." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="The maximum skill level for tier {TIER} troops." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="Remove" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="Cannot remove equipment sets for heroes." />
     <string
       id="ret_remove_set_hint"
       text="At least one set of this type must remain." />

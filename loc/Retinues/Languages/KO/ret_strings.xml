@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="처음부터 시작" />
     <string
+      id="ret_create_set_hero_hint"
+      text="영웅용 장비 세트를 생성할 수 없습니다." />
+    <string
       id="ret_create_set_hint"
       text="충돌하는 모드(Shokuho)로 인해 비활성화되었습니다." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="등급 {TIER} 상한" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="영웅 스킬 상한" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="영웅 병력의 최대 스킬 레벨." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="{TIER} 등급 병력의 최대 스킬 레벨." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="제거" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="영웅의 장비 세트는 제거할 수 없습니다." />
     <string
       id="ret_remove_set_hint"
       text="이 유형의 세트가 최소한 하나는 남아 있어야 합니다." />

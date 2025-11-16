@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="Inizia da Zero" />
     <string
+      id="ret_create_set_hero_hint"
+      text="Non è possibile creare set di equipaggiamento per gli eroi." />
+    <string
       id="ret_create_set_hint"
       text="Disabilitato a causa di mod in conflitto (Shokuho)." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="Limite di Livello {TIER}" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="Limite di Abilità degli Eroi" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="Il livello massimo di abilità per le truppe eroe." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Il livello massimo di abilità per le truppe di livello {TIER}." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="Rimuovi" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="Non è possibile rimuovere i set di equipaggiamento per gli eroi." />
     <string
       id="ret_remove_set_hint"
       text="Almeno un set di questo tipo deve rimanere." />

@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="Von Grund auf neu beginnen" />
     <string
+      id="ret_create_set_hero_hint"
+      text="Ausrüstungssets können nicht für Helden erstellt werden." />
+    <string
       id="ret_create_set_hint"
       text="Deaktiviert aufgrund von Konflikten mit Mods (Shokuho)." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="Stufe {TIER} Limit" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="Helden-Fähigkeitslimit" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="Das maximale Fähigkeitsniveau für Helden-Truppen." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Das maximale Fähigkeitsniveau für Stufe {TIER} Truppen." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="Entfernen" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="Ausrüstungssets für Helden können nicht entfernt werden." />
     <string
       id="ret_remove_set_hint"
       text="Mindestens ein Set dieses Typs muss erhalten bleiben." />

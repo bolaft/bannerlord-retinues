@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="Começar do Zero" />
     <string
+      id="ret_create_set_hero_hint"
+      text="Não é possível criar conjuntos de equipamentos para heróis." />
+    <string
       id="ret_create_set_hint"
       text="Desativado devido a mods conflitantes (Shokuho)." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="Nível Máximo de Nível {TIER}" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="Nível Máximo de Habilidade do Herói" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="O nível máximo de habilidade para tropas heróicas." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="O nível máximo de habilidade para tropas de nível {TIER}." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="Remover" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="Não é possível remover conjuntos de equipamentos para heróis." />
     <string
       id="ret_remove_set_hint"
       text="Pelo menos um conjunto deste tipo deve permanecer." />

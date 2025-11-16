@@ -1040,6 +1040,22 @@
     "TR": "Sıfırdan Başla"
   },
   {
+    "id": "ret_create_set_hero_hint",
+    "EN": "Cannot create equipment sets for heroes.",
+    "BR": "Não é possível criar conjuntos de equipamentos para heróis.",
+    "CNs": "无法为英雄创建装备套装。",
+    "CNt": "無法為英雄創建裝備套裝。",
+    "DE": "Ausrüstungssets können nicht für Helden erstellt werden.",
+    "FR": "Impossible de créer des équipements pour les héros.",
+    "IT": "Non è possibile creare set di equipaggiamento per gli eroi.",
+    "JP": "英雄の装備セットを作成できません。",
+    "KO": "영웅용 장비 세트를 생성할 수 없습니다.",
+    "PL": "Nie można tworzyć zestawów ekwipunku dla bohaterów.",
+    "RU": "Невозможно создать наборы снаряжения для героев.",
+    "SP": "No se pueden crear conjuntos de equipo para héroes.",
+    "TR": "Kahramanlar için ekipman setleri oluşturulamaz."
+  },
+  {
     "id": "ret_create_set_hint",
     "EN": "Disabled due to conflicting mods (Shokuho).",
     "BR": "Desativado devido a mods conflitantes (Shokuho).",
@@ -4592,6 +4608,38 @@
     "TR": "{TIER} Seviye Limiti"
   },
   {
+    "id": "ret_mcm_option_skill_cap_heroes",
+    "EN": "Hero Skill Cap",
+    "BR": "Nível Máximo de Habilidade do Herói",
+    "CNs": "英雄技能上限",
+    "CNt": "英雄技能上限",
+    "DE": "Helden-Fähigkeitslimit",
+    "FR": "Plafond de Compétence des Héros",
+    "IT": "Limite di Abilità degli Eroi",
+    "JP": "英雄スキル上限",
+    "KO": "영웅 스킬 상한",
+    "PL": "Limit Umiejętności Bohatera",
+    "RU": "Макс. Навыки Героя",
+    "SP": "Tope de Habilidad del Héroe",
+    "TR": "Kahraman Yetenek Limiti"
+  },
+  {
+    "id": "ret_mcm_option_skill_cap_heroes_hint",
+    "EN": "The maximum skill level for hero troops.",
+    "BR": "O nível máximo de habilidade para tropas heróicas.",
+    "CNs": "英雄部队的最高技能水平。",
+    "CNt": "英雄部隊的最高技能水平。",
+    "DE": "Das maximale Fähigkeitsniveau für Helden-Truppen.",
+    "FR": "Le niveau de compétence maximum pour les troupes héroïques.",
+    "IT": "Il livello massimo di abilità per le truppe eroe.",
+    "JP": "英雄兵の最大スキルレベル。",
+    "KO": "영웅 병력의 최대 스킬 레벨.",
+    "PL": "Maksymalny poziom umiejętności dla jednostek bohaterów.",
+    "RU": "Максимальный уровень навыков для войск героев.",
+    "SP": "El nivel máximo de habilidad para las tropas heroicas.",
+    "TR": "Kahraman askerler için maksimum beceri seviyesi."
+  },
+  {
     "id": "ret_mcm_option_skill_cap_hint",
     "EN": "The maximum skill level for tier {TIER} troops.",
     "BR": "O nível máximo de habilidade para tropas de nível {TIER}.",
@@ -5918,6 +5966,22 @@
     "RU": "Удалить",
     "SP": "Eliminar",
     "TR": "Kaldır"
+  },
+  {
+    "id": "ret_remove_set_hero_hint",
+    "EN": "Cannot remove equipment sets for heroes.",
+    "BR": "Não é possível remover conjuntos de equipamentos para heróis.",
+    "CNs": "无法为英雄移除装备套装。",
+    "CNt": "無法為英雄移除裝備套裝。",
+    "DE": "Ausrüstungssets für Helden können nicht entfernt werden.",
+    "FR": "Impossible de retirer les ensembles d’équipement pour les héros.",
+    "IT": "Non è possibile rimuovere i set di equipaggiamento per gli eroi.",
+    "JP": "英雄の装備セットを削除することはできません。",
+    "KO": "영웅의 장비 세트는 제거할 수 없습니다.",
+    "PL": "Nie można usunąć zestawów wyposażenia dla bohaterów.",
+    "RU": "Невозможно удалить комплекты экипировки для героев.",
+    "SP": "No se pueden eliminar los conjuntos de equipo para héroes.",
+    "TR": "Kahramanlar için ekipman setleri kaldırılamaz."
   },
   {
     "id": "ret_remove_set_hint",

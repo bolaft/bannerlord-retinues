@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="Sıfırdan Başla" />
     <string
+      id="ret_create_set_hero_hint"
+      text="Kahramanlar için ekipman setleri oluşturulamaz." />
+    <string
       id="ret_create_set_hint"
       text="Çakışan modlar (Shokuho) nedeniyle devre dışı bırakıldı." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="{TIER} Seviye Limiti" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="Kahraman Yetenek Limiti" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="Kahraman askerler için maksimum beceri seviyesi." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="{TIER} seviye askerler için maksimum beceri seviyesi." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="Kaldır" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="Kahramanlar için ekipman setleri kaldırılamaz." />
     <string
       id="ret_remove_set_hint"
       text="Bu türden en az bir set kalmalıdır." />

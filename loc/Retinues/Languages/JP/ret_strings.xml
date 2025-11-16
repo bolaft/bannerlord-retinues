@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="ゼロから始める" />
     <string
+      id="ret_create_set_hero_hint"
+      text="英雄の装備セットを作成できません。" />
+    <string
       id="ret_create_set_hint"
       text="競合するMOD（Shokuho）のため無効化されています。" />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="ランク{TIER}上限" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="英雄スキル上限" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="英雄兵の最大スキルレベル。" />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="ランク{TIER}兵の最大スキルレベル。" />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="削除" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="英雄の装備セットを削除することはできません。" />
     <string
       id="ret_remove_set_hint"
       text="このタイプのセットが少なくとも1つは残っている必要があります。" />

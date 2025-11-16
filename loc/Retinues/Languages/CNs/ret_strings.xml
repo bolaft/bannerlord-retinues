@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="从零开始" />
     <string
+      id="ret_create_set_hero_hint"
+      text="无法为英雄创建装备套装。" />
+    <string
       id="ret_create_set_hint"
       text="由于冲突的模组（Shokuho）而被禁用。" />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="等级上限 {TIER}" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="英雄技能上限" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="英雄部队的最高技能水平。" />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="等级 {TIER} 部队的最高技能水平。" />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="移除" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="无法为英雄移除装备套装。" />
     <string
       id="ret_remove_set_hint"
       text="此类型的至少一个套装必须保留。" />

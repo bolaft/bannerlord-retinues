@@ -200,6 +200,9 @@
       id="ret_create_from_scratch"
       text="Comenzar desde Cero" />
     <string
+      id="ret_create_set_hero_hint"
+      text="No se pueden crear conjuntos de equipo para héroes." />
+    <string
       id="ret_create_set_hint"
       text="Deshabilitado debido a mods en conflicto (Shokuho)." />
     <string
@@ -866,6 +869,12 @@
       id="ret_mcm_option_skill_cap"
       text="Tope de Nivel {TIER}" />
     <string
+      id="ret_mcm_option_skill_cap_heroes"
+      text="Tope de Habilidad del Héroe" />
+    <string
+      id="ret_mcm_option_skill_cap_heroes_hint"
+      text="El nivel máximo de habilidad para las tropas heroicas." />
+    <string
       id="ret_mcm_option_skill_cap_hint"
       text="El nivel máximo de habilidad para las tropas de nivel {TIER}." />
     <string
@@ -1114,6 +1123,9 @@
     <string
       id="ret_remove_button_text"
       text="Eliminar" />
+    <string
+      id="ret_remove_set_hero_hint"
+      text="No se pueden eliminar los conjuntos de equipo para héroes." />
     <string
       id="ret_remove_set_hint"
       text="Al menos un conjunto de este tipo debe permanecer." />
