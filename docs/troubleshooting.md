@@ -42,7 +42,7 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
    - Put **Retinues** **higher (earlier)** in the **load order** than large overhauls that alter troops/equipment/UI.
    - If another mod also edits the Clan screen / troop systems, test with **only Retinues + dependencies**.
 
-2. **Try the “Default” preset**
+2. **Try the "Default" preset**
    - In MCM → **Presets**, apply **Default**. If still blocked, try **Freeform** to remove restrictions for testing.
 
 3. **Disable progression gates temporarily**
@@ -52,6 +52,35 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
      - **Restrict Items To Town Inventory**
      - **Enable Doctrines** (or set **Disable Feat Requirements = On**)
    - If this fixes it, re-enable options one by one to find the cause.
+
+---
+
+## DLLs blocked by Windows
+
+Sometimes Windows marks downloaded `.dll` files as "blocked" for security reasons. When that happens, Bannerlord may:
+
+- Crash on startup when loading mods.
+- Fail to load Retinues at all (no MCM entry, features not working).
+- Log `FileLoadException` / "operation is not supported" errors about Retinues or other mod assemblies.
+
+You can fix this in two ways:
+
+1. **Manual unblocking (Retinues only)**  
+   - Close the game and Steam.
+   - Browse to your game’s Modules folder, then:
+     - `...\Mount & Blade II Bannerlord\Modules\Retinues\bin\Win64_Shipping_Client\`
+   - For each `.dll` in that folder (e.g. `Retinues.Core.dll`):
+     - Right-click → **Properties**.
+     - On the **General** tab, if you see an **"Unblock"** checkbox, tick it.
+     - Click **Apply** → **OK**.
+
+2. **Unblock all mod DLLs at once**  
+   If you have many mods, you can use the community "Unblock Dlls" utility, which automatically unblocks all `.dll` files under `Modules` in one go:  
+   <https://www.nexusmods.com/mountandblade2bannerlord/mods/397>  
+   - Download and follow the instructions on the Nexus page.
+   - Run it once after installing or updating mods that were downloaded via a browser.
+
+After unblocking, start the game again and check if Retinues appears correctly in MCM and the crash is gone.
 
 ---
 
