@@ -60,6 +60,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(Name),
                     nameof(GenderText),
                     nameof(TierText),
+                    nameof(SkillsHeaderText),
                     nameof(CanRankUp),
                     nameof(CanAddUpgrade),
                     nameof(AddUpgradeHint),
@@ -280,7 +281,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Skills ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowSkillSummary => State.Troop?.IsHero == false;
+        public bool ShowSkillSummary => ClanScreen.EditorMode != EditorMode.Heroes;
 
         [DataSourceProperty]
         public string SkillCapText
