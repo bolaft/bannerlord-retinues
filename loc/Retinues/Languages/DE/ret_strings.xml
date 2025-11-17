@@ -1205,6 +1205,18 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Königliche Wache" />
     <string
+      id="ret_retinues_update_title"
+      text="Retinues-Update" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="Die Retinues-Mod-Version in dieser Speicherdatei stimmt nicht mit der aktuellen Mod-Version ({CURRENT_VERSION}) überein. Dies kann zu Problemen führen.{newline}{newline}Als Sicherheitsvorkehrung solltest du überprüfen, ob alles in Ordnung ist, bevor du deinen Speicher überschreibst.{newline}{newline}Wenn du Probleme bemerkst und zur vorherigen Version zurückkehren möchtest, speichere nicht und lade die {SAVE_VERSION}-Datei von Nexus Mods herunter." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues-Versionsänderung" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="Die Retinues-Mod-Version in dieser Speicherdatei wurde auf die nächste Version ({CURRENT_VERSION}) aktualisiert. Deine Speicherdaten wurden automatisch auf die neue Version migriert.{newline}{newline}Als Sicherheitsvorkehrung solltest du überprüfen, ob alles in Ordnung ist, bevor du deinen Speicher überschreibst.{newline}{newline}Wenn du Probleme bemerkst und zur vorherigen Version zurückkehren möchtest, speichere nicht und lade die {SAVE_VERSION}-Datei von Nexus Mods herunter." />
+    <string
       id="ret_royal_patronage"
       text="Königliche Schirmherrschaft" />
     <string

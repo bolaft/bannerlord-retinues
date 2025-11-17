@@ -1205,6 +1205,18 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Guarda Real" />
     <string
+      id="ret_retinues_update_title"
+      text="Atualização de Retinues" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="A versão do mod Retinues neste arquivo de salvamento não corresponde à versão atual do mod ({CURRENT_VERSION}). Isso pode causar problemas.{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se você notar algum problema e desejar voltar para a versão anterior, não salve e baixe o arquivo {SAVE_VERSION} do Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Alteração de Versão de Retinues" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="A versão do mod Retinues neste arquivo de salvamento foi atualizada para a próxima versão ({CURRENT_VERSION}). Seus dados de salvamento foram migrados automaticamente para a nova versão.{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se você notar algum problema e desejar voltar para a versão anterior, não salve e baixe o arquivo {SAVE_VERSION} do Nexus Mods." />
+    <string
       id="ret_royal_patronage"
       text="Patrocínio Real" />
     <string

@@ -1205,6 +1205,18 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} 皇家衛隊" />
     <string
+      id="ret_retinues_update_title"
+      text="隨從更新" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="此保存文件中的隨從模組版本與當前模組版本（{CURRENT_VERSION}）不匹配。這可能會導致問題。{newline}{newline}作為安全預防措施，請在覆蓋保存之前檢查一切是否正常。{newline}{newline}如果您發現任何問題並希望回到以前的版本，請不要保存並從Nexus Mods下載 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_retinues_version_change_title"
+      text="隨從版本更改" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="此保存文件中的隨從模組版本已更新到下一版本（{CURRENT_VERSION}）。您的保存數據已自動遷移到新版本。{newline}{newline}作為安全預防措施，請在覆蓋保存之前檢查一切是否正常。{newline}{newline}如果您發現任何問題並希望回到以前的版本，請不要保存並從Nexus Mods下載 {SAVE_VERSION} 文件。" />
+    <string
       id="ret_royal_patronage"
       text="王室資助" />
     <string

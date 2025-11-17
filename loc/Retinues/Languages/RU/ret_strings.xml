@@ -1205,6 +1205,18 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Королевская Гвардия" />
     <string
+      id="ret_retinues_update_title"
+      text="Обновление Свит" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="Версия мода Retinues в этом файле сохранения не соответствует текущей версии мода ({CURRENT_VERSION}). Это может вызвать проблемы.{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать ваше сохранение.{newline}{newline}Если вы заметите какие-либо проблемы и захотите вернуться к предыдущей версии, не сохраняйте и скачайте файл {SAVE_VERSION} с Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Изменение Версии Свит" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="Версия мода Retinues в этом файле сохранения была обновлена до следующей версии ({CURRENT_VERSION}). Ваши данные сохранения были автоматически перенесены в новую версию.{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать ваше сохранение.{newline}{newline}Если вы заметите какие-либо проблемы и захотите вернуться к предыдущей версии, не сохраняйте и скачайте файл {SAVE_VERSION} с Nexus Mods." />
+    <string
       id="ret_royal_patronage"
       text="Королевское Покровительство" />
     <string

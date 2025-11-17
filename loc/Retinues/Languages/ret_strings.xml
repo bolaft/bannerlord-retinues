@@ -1205,6 +1205,18 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Royal Guard" />
     <string
+      id="ret_retinues_update_title"
+      text="Retinues Update" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="The Retinues mod version in this save file does not match the current mod version ({CURRENT_VERSION}). This may cause issues.{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If you notice any issues and wish to go back to the previous version, do not save and download the {SAVE_VERSION} file from Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues Version Change" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="The Retinues mod version in this save file has been updated to the next version ({CURRENT_VERSION}). Your save data has been automatically migrated to the new version.{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If you notice any issues and wish to go back to the previous version, do not save and download the {SAVE_VERSION} file from Nexus Mods." />
+    <string
       id="ret_royal_patronage"
       text="Royal Patronage" />
     <string
