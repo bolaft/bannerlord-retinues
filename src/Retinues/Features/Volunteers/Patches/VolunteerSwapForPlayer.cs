@@ -25,9 +25,24 @@ namespace Retinues.Features.Volunteers.Patches
 
         private static WSettlement _settlement;
         private static Dictionary<string, WCharacter[]> _snapshot;
+        private static bool _listenersRegistered;
 
-        static VolunteerSwapForPlayer()
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Wiring                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Ensure campaign events are hooked exactly once.
+        /// </summary>
+        private static void EnsureListeners()
         {
+            if (_listenersRegistered)
+                return;
+
+            _listenersRegistered = true;
+
+            Log.Debug("[VolunteerSwapForPlayer] Registering campaign event listeners.");
+
             CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
                 typeof(VolunteerSwapForPlayer),
                 OnSettlementLeft
@@ -36,6 +51,23 @@ namespace Retinues.Features.Volunteers.Patches
                 typeof(VolunteerSwapForPlayer),
                 OnBeforeSave
             );
+            CampaignEvents.SettlementEntered.AddNonSerializedListener(
+                typeof(VolunteerSwapForPlayer),
+                OnSettlementEntered
+            );
+        }
+
+        /// <summary>
+        /// Bootstrap: called once when PlayerTownVisitCampaignBehavior registers its events.
+        /// </summary>
+        [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "RegisterEvents")]
+        private static class VolunteerSwapForPlayer_Bootstrap
+        {
+            [HarmonyPostfix]
+            private static void Postfix()
+            {
+                EnsureListeners();
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -82,6 +114,16 @@ namespace Retinues.Features.Volunteers.Patches
         /// </summary>
         private static void RestoreSnapshot()
         {
+            Log.Info(
+                "[VolunteerSwapForPlayer] Attempting to restore volunteer snapshot for player..."
+            );
+            Log.Info(
+                $"[VolunteerSwapForPlayer] Snapshot is {(_snapshot == null ? "null" : "not null")}."
+            );
+            Log.Info(
+                $"[VolunteerSwapForPlayer] Settlement is {(_settlement == null ? "null" : _settlement.StringId)}."
+            );
+
             if (_snapshot == null || _settlement == null)
                 return;
 
@@ -169,34 +211,57 @@ namespace Retinues.Features.Volunteers.Patches
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Hooks That Swap                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Attempt to swap volunteers when the main party enters a settlement.
+        /// </summary>
+        private static void OnSettlementEntered(MobileParty party, Settlement settlement, Hero hero)
+        {
+            Log.Debug(
+                $"[VolunteerSwapForPlayer] OnSettlementEntered triggered for party {party?.Name} "
+                    + $"and settlement {settlement?.Name}."
+            );
+
+            if (party != MobileParty.MainParty)
+                return;
+
+            // Use Current to stay in wrapper-land consistently.
+            TryBeginSwap();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Volunteer Swap                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [HarmonyPatch(
-            typeof(PlayerTownVisitCampaignBehavior),
-            "game_menu_recruit_volunteers_on_consequence"
-        )]
-        internal static class VolunteerSwapForPlayer_Begin
+        private static void TryBeginSwap()
         {
-            [HarmonyPostfix]
-            private static void Postfix()
-            {
-                var settlement = WSettlement.Current;
-                if (settlement == null || string.IsNullOrEmpty(settlement.StringId))
-                    return;
+            Log.Info("[VolunteerSwapForPlayer] Trying to begin volunteer swap for player...");
+            // Already active for this visit? Don't resnapshot or reswap.
+            if (_snapshot != null)
+                return;
 
-                bool inPlayerOwnedFief = settlement.PlayerFaction != null;
+            var settlement = WSettlement.Current;
+            if (settlement == null || string.IsNullOrEmpty(settlement.StringId))
+                return;
 
-                if (!inPlayerOwnedFief && !Config.RecruitAnywhere)
-                    return;
+            bool inPlayerOwnedFief = settlement.PlayerFaction != null;
 
-                var faction = inPlayerOwnedFief ? settlement.PlayerFaction : Player.Clan;
-                if (faction == null)
-                    return;
+            if (!inPlayerOwnedFief && !Config.RecruitAnywhere)
+                return;
 
-                SnapshotVolunteers(settlement);
-                settlement.SwapVolunteers(faction);
-            }
+            var faction = inPlayerOwnedFief ? settlement.PlayerFaction : Player.Clan;
+            if (faction == null)
+                return;
+
+            SnapshotVolunteers(settlement);
+            settlement.SwapVolunteers(faction);
+
+            Log.Debug(
+                $"[VolunteerSwapForPlayer] Swapped volunteers for settlement {settlement.StringId} "
+                    + $"(faction {faction.Name})."
+            );
         }
     }
 }
