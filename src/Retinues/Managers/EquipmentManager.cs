@@ -165,6 +165,11 @@ namespace Retinues.Managers
                         }
                         continue;
                     }
+                    else
+                    {
+                        if (item.IsCrafted)
+                            continue;
+                    }
 
                     if (Config.AllEquipmentUnlocked)
                     {

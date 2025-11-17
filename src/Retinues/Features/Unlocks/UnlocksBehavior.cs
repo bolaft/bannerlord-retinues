@@ -320,6 +320,9 @@ namespace Retinues.Features.Unlocks
                     if (item == null)
                         continue;
 
+                    if (item.IsCraftedByPlayer == true)
+                        continue; // Ignore player-crafted items
+
                     // accumulate in own culture as well
                     if (
                         addCultureBonuses
