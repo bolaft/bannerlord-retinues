@@ -690,7 +690,11 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skills", "Skills"),
             name: () => L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
             key: "TrainingTakesTime",
-            hint: () => L.S("mcm_option_training_takes_time_hint", "To apply skill increases, troops must spend time training in a fief."),
+            hint: () =>
+                L.S(
+                    "mcm_option_training_takes_time_hint",
+                    "To apply skill increases, troops must spend time training in a fief."
+                ),
             @default: false,
             presets: new Dictionary<string, object>
             {

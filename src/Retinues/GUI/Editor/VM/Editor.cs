@@ -456,8 +456,8 @@ namespace Retinues.GUI.Editor.VM
                     if (wc?.Name == null)
                         continue;
 
-                    if (wc.IsPlayerClan)
-                        continue; // Skip player clan
+                    // if (wc.IsPlayerClan)
+                    //     continue; // Skip player clan
 
                     if (wc?.Culture != State.Culture)
                         continue; // Only clans of current culture

@@ -16,6 +16,35 @@
     margin_right="12"
 ) }}
 
+<!-- Player Icon -->
+{{ image.sprite(
+    horizontal_alignment="Left",
+    is_visible="@ShowPlayerIcon",
+    sprite="General\Mission\hero_icon",
+    color="#c0aa6dff",
+    width="36", height="36",
+    margin_right="12"
+) }}
+
+<!-- Clan Leader Icon -->
+{{ image.sprite(
+    horizontal_alignment="Left",
+    is_visible="@ShowClanLeaderIcon",
+    sprite="SPGeneral\MapOverlay\Settlement\icon_security",
+    color="#c0aa6dff",
+    width="36", height="36",
+    margin_right="12"
+) }}
+
+<!-- Ruler Icon -->
+{{ image.sprite(
+    horizontal_alignment="Left",
+    is_visible="@ShowRulerIcon",
+    sprite="SPGeneral\SPScoreboard\leader_crown_icon",
+    width="24", height="24",
+    margin_right="12"
+) }}
+
 <!-- Name -->
 {{ text.base(
     text="@NameText",

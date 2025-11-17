@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
@@ -37,6 +38,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     nameof(TierIconData),
                     nameof(IsSelected),
                     nameof(FormationClassIcon),
+                    nameof(ShowPlayerIcon),
+                    nameof(ShowRulerIcon),
+                    nameof(ShowClanLeaderIcon),
                 ],
                 [UIEvent.Equipment] = [nameof(FormationClassIcon)],
                 [UIEvent.Appearance] =
@@ -75,7 +79,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         /* ━━━━━━━━━ Icons ━━━━━━━━ */
 
         [DataSourceProperty]
-        public StringItemWithHintVM TierIconData => Icons.GetTierIconData(RowTroop);
+        public StringItemWithHintVM TierIconData =>
+            RowTroop?.IsHero == true ? null : Icons.GetTierIconData(RowTroop);
 
         [DataSourceProperty]
         public string FormationClassIcon => Icons.GetFormationClassIcon(RowTroop);
@@ -93,6 +98,16 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         [DataSourceProperty]
         public override bool IsEnabled => RowTroop != null;
+
+        [DataSourceProperty]
+        public bool ShowPlayerIcon => RowTroop == Player.Character;
+
+        [DataSourceProperty]
+        public bool ShowRulerIcon => RowTroop?.IsRuler == true;
+
+        [DataSourceProperty]
+        public bool ShowClanLeaderIcon =>
+            RowTroop?.IsClanLeader == true && !ShowRulerIcon && !ShowPlayerIcon;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
