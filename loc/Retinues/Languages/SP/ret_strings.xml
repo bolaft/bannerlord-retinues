@@ -726,7 +726,7 @@
       text="Cambiar el Equipo de las Tropas Lleva Tiempo" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Cambiar el equipo de una tropa lleva tiempo." />
+      text="Para aplicar los cambios de objetos, las tropas deben pasar tiempo mejorando el equipo en un feudo." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Modificador de Tiempo para Cambio de Equipo" />
@@ -927,7 +927,7 @@
       text="El Entrenamiento de Tropas Lleva Tiempo" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="El entrenamiento de tropas lleva tiempo." />
+      text="Para aplicar aumentos de habilidad, las tropas deben pasar tiempo entrenando en un feudo." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Modificador de Tiempo de Entrenamiento" />

@@ -726,7 +726,7 @@
       text="Das Ändern der Truppenausrüstung dauert" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Das Ändern der Ausrüstung einer Truppe dauert." />
+      text="Um Artikeländerungen anzuwenden, müssen Truppen Zeit damit verbringen, Ausrüstung in einem Lehen aufzurüsten." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Ausrüstungswechsel-Zeitmodifikator" />
@@ -927,7 +927,7 @@
       text="Truppentraining braucht Zeit" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="Die Ausbildung von Truppen braucht Zeit." />
+      text="Um Fähigkeitssteigerungen anzuwenden, müssen Truppen Zeit mit Training in einem Lehen verbringen." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Trainingszeit-Modifikator" />

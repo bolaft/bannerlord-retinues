@@ -726,7 +726,7 @@
       text="Asker Teçhizatını Değiştirmek Zaman Alır" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Bir askerin teçhizatını değiştirmek zaman alır." />
+      text="Öğe değişikliklerini uygulamak için askerler, bir toprakta teçhizatı yükseltmek için zaman harcamalıdır." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Teçhizat Değiştirme Süresi Değiştiricisi" />
@@ -927,7 +927,7 @@
       text="Asker Eğitimi Zaman Alır" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="Asker eğitimi zaman alır." />
+      text="Yetenek artışlarını uygulamak için birlikler bir toprakta eğitim için zaman harcamalıdır." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Eğitim Süresi Değiştirici" />

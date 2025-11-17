@@ -726,7 +726,7 @@
       text="병력 장비 변경에는 시간이 걸립니다" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="부대의 장비를 변경하는 데 시간이 걸립니다." />
+      text="아이템 변경을 적용하려면 병력이 영지에서 장비 업그레이드에 시간을 할애해야 합니다." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="장비 변경 시간 수정자" />
@@ -927,7 +927,7 @@
       text="병력 훈련에는 시간이 걸립니다" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="병력 훈련에는 시간이 걸립니다." />
+      text="스킬 향상을 적용하려면 병력이 영지에서 훈련하는 데 시간을 보내야 합니다." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="훈련 시간 수정자" />

@@ -726,7 +726,7 @@
       text="Changing Troop Equipment Takes Time" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Changing a troop&apos;s equipment takes time." />
+      text="To apply item changes, troops must spend time upgrading equipment in a fief." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Equipment Change Time Modifier" />
@@ -927,7 +927,7 @@
       text="Troop Training Takes Time" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="Troop training takes time." />
+      text="To apply skill increases, troops must spend time training in a fief." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Training Time Modifier" />

@@ -726,7 +726,7 @@
       text="部隊の装備を変更するには時間がかかります" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="部隊の装備を変更するには時間がかかります。" />
+      text="アイテムの変更を適用するには、部隊は封地で装備をアップグレードするのに時間を費やす必要があります。" />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="装備変更時間修正" />
@@ -927,7 +927,7 @@
       text="部隊の訓練には時間がかかる" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="部隊の訓練には時間がかかります。" />
+      text="スキルの向上を適用するには、部隊は封土で訓練に時間を費やす必要があります。" />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="訓練時間修正" />

@@ -515,7 +515,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_equipment_change_takes_time_hint",
-                    "Changing a troop's equipment takes time."
+                    "To apply item changes, troops must spend time upgrading equipment in a fief."
                 ),
             @default: false,
             presets: new Dictionary<string, object>
@@ -690,7 +690,7 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skills", "Skills"),
             name: () => L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
             key: "TrainingTakesTime",
-            hint: () => L.S("mcm_option_training_takes_time_hint", "Troop training takes time."),
+            hint: () => L.S("mcm_option_training_takes_time_hint", "To apply skill increases, troops must spend time training in a fief."),
             @default: false,
             presets: new Dictionary<string, object>
             {

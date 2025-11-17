@@ -726,7 +726,7 @@
       text="更换部队装备需要时间" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="更换部队装备需要时间。" />
+      text="要应用物品更改，部队必须花时间在封地升级装备。" />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="装备更换时间修正" />
@@ -927,7 +927,7 @@
       text="部队训练需要时间" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="部队训练需要时间。" />
+      text="为了应用技能提升，部队必须在封地中花时间训练。" />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="训练时间修正" />

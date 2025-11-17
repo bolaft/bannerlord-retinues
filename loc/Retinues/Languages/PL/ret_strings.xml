@@ -726,7 +726,7 @@
       text="Zmiana Wyposażenia Jednostek Zajmuje Czas" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Zmiana wyposażenia jednostki zajmuje czas." />
+      text="Aby zastosować zmiany przedmiotów, jednostki muszą poświęcić czas na ulepszanie wyposażenia w lenno." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Modyfikator Czasu Zmiany Ekwipunku" />
@@ -927,7 +927,7 @@
       text="Szkolenie Oddziałów Zajmuje Czas" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="Szkolenie oddziałów zajmuje czas." />
+      text="Aby zastosować zwiększenia umiejętności, oddziały muszą spędzić czas na szkoleniu w lenno." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Modyfikator Czasu Szkolenia" />

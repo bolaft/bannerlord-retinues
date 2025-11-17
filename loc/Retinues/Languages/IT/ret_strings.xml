@@ -726,7 +726,7 @@
       text="Cambiare l’Equipaggiamento delle Truppe Richiede Tempo" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Cambiare l&apos;equipaggiamento di una truppa richiede tempo." />
+      text="Per applicare le modifiche agli oggetti, le truppe devono trascorrere del tempo ad aggiornare l’equipaggiamento in un feudo." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Modificatore del Tempo di Cambio Equipaggiamento" />
@@ -927,7 +927,7 @@
       text="L&apos;Addestramento delle Truppe Richiede Tempo" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="L’addestramento delle truppe richiede tempo." />
+      text="Per applicare gli aumenti di abilità, le truppe devono trascorrere del tempo ad addestrarsi in un feudo." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Modificatore del Tempo di Addestramento" />

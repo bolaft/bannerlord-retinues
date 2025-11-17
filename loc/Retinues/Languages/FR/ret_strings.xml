@@ -726,7 +726,7 @@
       text="Changer l’équipement des troupes prend du temps" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Changer l&apos;équipement d&apos;une troupe prend du temps." />
+      text="Pour appliquer les modifications d’objets, les troupes doivent passer du temps à améliorer leur équipement dans un fief." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Modificateur de Temps de Changement d’Équipement" />
@@ -927,7 +927,7 @@
       text="L&apos;Entraînement des Troupes Prend du Temps" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="L’entraînement des troupes prend du temps." />
+      text="Pour appliquer les augmentations de compétence, les troupes doivent passer du temps à s&apos;entraîner dans un fief." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Modificateur de Temps d&apos;Entraînement" />

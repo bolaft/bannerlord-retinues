@@ -726,7 +726,7 @@
       text="Смена Снаряжения Войск Занимает Время" />
     <string
       id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Смена снаряжения у войск занимает время." />
+      text="Чтобы применить изменения предметов, войска должны потратить время на улучшение снаряжения в феоде." />
     <string
       id="ret_mcm_option_equipment_change_time_modifier"
       text="Модификатор Времени Смены Снаряжения" />
@@ -927,7 +927,7 @@
       text="Обучение войск требует времени" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="Обучение войск требует времени." />
+      text="Чтобы применить повышение навыков, войска должны провести время на тренировках в феоде." />
     <string
       id="ret_mcm_option_training_time_modifier"
       text="Модификатор Времени Обучения" />
