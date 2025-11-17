@@ -50,9 +50,9 @@ namespace Retinues.Doctrines.Catalog
                 if (Player.Kingdom == null)
                     return;
 
-                foreach (var s in Player.Clan.Settlements)
+                foreach (var s in Player.Clan?.Settlements)
                 {
-                    if (s.Governor.Culture == Player.Kingdom?.Culture)
+                    if (s.Governor?.Culture == Player.Kingdom?.Culture)
                     {
                         AdvanceProgress(1);
                         return;
