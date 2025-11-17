@@ -291,6 +291,9 @@ namespace Retinues.Doctrines
                         _activeFeats.Add(feat);
                 }
             }
+
+            string featList = string.Join(", ", _activeFeats.Select(f => f.GetType().FullName));
+            Log.Info($"Active feats refreshed: {featList}.");
         }
 
         private static Type GetTypeByFullName(string fullName)
