@@ -181,14 +181,18 @@ namespace Retinues.Managers
         /// </summary>
         public static void RankUp(WCharacter retinue)
         {
+            Log.Info($"Attempting to rank up retinue '{retinue?.Name}'.");
+            Log.Info($"Current tier: {retinue?.Tier}, IsMaxTier: {retinue?.IsMaxTier}");
             if (retinue == null || retinue.IsMaxTier)
                 return;
 
             int cost = RankUpCost(retinue);
+            Log.Info($"Rank up cost: {cost} gold, current player gold: {Player.Gold}.");
             if (Player.Gold < cost)
                 return;
 
-            if (!BattleXpBehavior.TrySpend(retinue, cost))
+            bool skillsCostXp = Config.SkillXpCostPerPoint > 0 || Config.BaseSkillXpCost > 0;
+            if (skillsCostXp && !BattleXpBehavior.TrySpend(retinue, cost))
                 return;
 
             Player.ChangeGold(-cost);

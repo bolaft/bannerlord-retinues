@@ -235,8 +235,6 @@ namespace Retinues.Managers
                 BattleXpBehavior.RefundOnePoint(troop, stagedSkill, force);
                 TrainStagingBehavior.ApplyChange(troop.StringId, skill, -1);
             }
-
-            Log.Info($"Skill '{skill.Name}' for troop '{troop.Name}' modified successfully.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
