@@ -947,6 +947,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 slot.Hide();
             EquipmentList.Hide();
             base.Hide();
+
+            OnPropertyChanged(nameof(ShowCraftedIsVisible));
         }
     }
 }

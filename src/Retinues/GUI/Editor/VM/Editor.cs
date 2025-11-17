@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Game;

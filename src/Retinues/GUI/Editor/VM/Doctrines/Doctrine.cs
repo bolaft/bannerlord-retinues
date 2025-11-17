@@ -217,6 +217,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                                     TroopBuilder.EnsureTroopsExist(f);
                                     State.UpdateFaction();
                                 }
+
+                                // Refreshes some UI features that can be unlocked by doctrines (smithed items)
+                                EventManager.Fire(UIEvent.Slot);
                             }
                             else
                             {
