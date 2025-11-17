@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="Zurück" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="Durch Konfigurationseinstellungen überschrieben." />
+    <string
       id="ret_confirm"
       text="Bestätigen" />
     <string

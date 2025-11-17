@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Localization;
 
 namespace Retinues.Doctrines
 {
@@ -24,6 +26,10 @@ namespace Retinues.Doctrines
 
         private Dictionary<string, DoctrineDefinition> _defsByKey = [];
         private readonly Dictionary<string, string> _featToDoctrine = []; // featKey -> doctrineKey
+
+        /* ━━━━━━ Live Models ━━━━━ */
+
+        private Dictionary<string, Doctrine> _modelsByKey = [];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -104,10 +110,8 @@ namespace Retinues.Doctrines
                 return DoctrineStatus.Unlocked;
 
             // prereq
-            if (
-                !string.IsNullOrEmpty(def.PrerequisiteKey)
-                && !_unlocked.Contains(def.PrerequisiteKey)
-            )
+            var effectivePrereq = GetEffectivePrerequisiteKey(key);
+            if (!string.IsNullOrEmpty(effectivePrereq) && !_unlocked.Contains(effectivePrereq))
                 return DoctrineStatus.Locked;
 
             // ignore feats if disabled
@@ -122,6 +126,40 @@ namespace Retinues.Doctrines
             if (feats.Any(f => !IsFeatComplete(f.Key)))
                 return DoctrineStatus.Unlockable;
             return DoctrineStatus.InProgress;
+        }
+
+        /// <summary>
+        /// Returns the effective prerequisite for a doctrine, skipping any disabled doctrines.
+        /// </summary>
+        private string GetEffectivePrerequisiteKey(string key)
+        {
+            var def = GetDoctrine(key);
+            if (def == null)
+                return null;
+
+            var prereqKey = def.PrerequisiteKey;
+            if (string.IsNullOrEmpty(prereqKey))
+                return null;
+
+            // Guard against weird cycles
+            var visited = new HashSet<string>();
+
+            while (!string.IsNullOrEmpty(prereqKey) && visited.Add(prereqKey))
+            {
+                // If this prerequisite is not disabled, it is the effective prerequisite.
+                if (!IsDoctrineDisabled(prereqKey))
+                    return prereqKey;
+
+                // Otherwise, skip it and look at its own prerequisite.
+                var prereqDef = GetDoctrine(prereqKey);
+                if (prereqDef == null)
+                    break;
+
+                prereqKey = prereqDef.PrerequisiteKey;
+            }
+
+            // No non-disabled prerequisite found.
+            return null;
         }
 
         /// <summary>
@@ -262,6 +300,7 @@ namespace Retinues.Doctrines
             var doctrines = DoctrineDiscovery.DiscoverDoctrines(); // type discovery
             var defs = new List<DoctrineDefinition>();
             _featToDoctrine.Clear();
+            _modelsByKey = doctrines.ToDictionary(d => d.Key, d => d);
 
             foreach (var d in doctrines)
             {
@@ -321,6 +360,36 @@ namespace Retinues.Doctrines
             _defsByKey = defs.ToDictionary(d => d.Key, d => d);
 
             CatalogBuilt?.Invoke();
+        }
+
+        /// <summary>
+        /// Returns true if the doctrine is disabled according to its model.
+        /// Evaluated against the current config.
+        /// </summary>
+        public bool IsDoctrineDisabled(string key)
+        {
+            if (_modelsByKey != null && _modelsByKey.TryGetValue(key, out var model))
+                return model.IsDisabled;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns the doctrine description, swapping to the model's DisabledMessage when disabled.
+        /// </summary>
+        public TextObject GetDoctrineDescription(string key)
+        {
+            var def = GetDoctrine(key);
+            if (def == null)
+                return new TextObject(string.Empty);
+
+            if (_modelsByKey != null && _modelsByKey.TryGetValue(key, out var model))
+            {
+                if (model.IsDisabled)
+                    return model.DisabledMessage ?? model.Description ?? def.Description;
+            }
+
+            return def.Description;
         }
     }
 }

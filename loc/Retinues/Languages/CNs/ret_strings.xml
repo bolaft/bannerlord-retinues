@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="返回" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="被配置设置覆盖。" />
+    <string
       id="ret_confirm"
       text="确认" />
     <string

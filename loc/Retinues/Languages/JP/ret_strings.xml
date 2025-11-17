@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="戻る" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="設定によって上書きされました。" />
+    <string
       id="ret_confirm"
       text="確認" />
     <string

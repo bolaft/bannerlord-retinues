@@ -83,7 +83,13 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         [DataSourceProperty]
         public bool IsEnabled
         {
-            get { return Status != DoctrineStatus.Locked && Status != DoctrineStatus.Unlocked; }
+            get
+            {
+                if (_svc?.IsDoctrineDisabled(_id) == true)
+                    return false;
+
+                return Status != DoctrineStatus.Locked && Status != DoctrineStatus.Unlocked;
+            }
         }
 
         /* ━━━━━━ Properties ━━━━━━ */
@@ -97,7 +103,14 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         [DataSourceProperty]
         public string Description
         {
-            get { return _def?.Description?.ToString() ?? string.Empty; }
+            get
+            {
+                if (_svc == null)
+                    return _def?.Description?.ToString() ?? string.Empty;
+
+                var textObj = _svc.GetDoctrineDescription(_id);
+                return textObj?.ToString() ?? string.Empty;
+            }
         }
 
         [DataSourceProperty]

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
@@ -16,6 +17,11 @@ namespace Retinues.Doctrines.Catalog
             L.T("adaptive_training_description", "XP is refunded when lowering a troop's skill.");
         public override int Column => 2;
         public override int Row => 3;
+        public override bool IsDisabled =>
+            Config.RefundXpOnDecrease
+            || (Config.SkillXpCostPerPoint == 0 && Config.BaseSkillXpCost == 0);
+        public override TextObject DisabledMessage =>
+            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

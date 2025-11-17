@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game.Events;
 using Retinues.Utils;
@@ -13,6 +14,9 @@ namespace Retinues.Doctrines.Catalog
             L.T("lions_share_description", "Hero kills count twice for unlocks.");
         public override int Column => 0;
         public override int Row => 0;
+        public override bool IsDisabled => !Config.UnlockFromKills;
+        public override TextObject DisabledMessage =>
+            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

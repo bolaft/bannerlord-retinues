@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="Geri" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="Yapılandırma ayarları tarafından geçersiz kılındı." />
+    <string
       id="ret_confirm"
       text="Onayla" />
     <string

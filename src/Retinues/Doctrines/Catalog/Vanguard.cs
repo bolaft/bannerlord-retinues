@@ -1,3 +1,4 @@
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
@@ -12,6 +13,10 @@ namespace Retinues.Doctrines.Catalog
         public override TextObject Description => L.T("vanguard_description", "+15% retinue cap.");
         public override int Column => 3;
         public override int Row => 2;
+        public override bool IsDisabled =>
+            Config.MaxBasicRetinueRatio >= 0.85f && Config.MaxEliteRetinueRatio >= 0.85f;
+        public override TextObject DisabledMessage =>
+            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

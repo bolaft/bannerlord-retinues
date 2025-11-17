@@ -18,6 +18,8 @@ namespace Retinues.Doctrines.Model
         public abstract TextObject Description { get; }
         public virtual int Column => 0; // 0..3
         public virtual int Row => 0; // 0..3
+        public virtual bool IsDisabled => false;
+        public virtual TextObject DisabledMessage => Description;
         public int GoldCost
         {
             get

@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="Indietro" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="Sovrascritto dalle impostazioni di configurazione." />
+    <string
       id="ret_confirm"
       text="Conferma" />
     <string

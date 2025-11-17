@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
@@ -14,6 +15,9 @@ namespace Retinues.Doctrines.Catalog
             L.T("masters_at_arms_description", "Extra upgrade branch for elite troops.");
         public override int Column => 2;
         public override int Row => 2;
+        public override bool IsDisabled => Config.MaxEliteUpgrades == 4;
+        public override TextObject DisabledMessage =>
+            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

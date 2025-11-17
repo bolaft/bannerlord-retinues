@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
@@ -17,6 +18,9 @@ namespace Retinues.Doctrines.Catalog
             );
         public override int Column => 0;
         public override int Row => 2;
+        public override bool IsDisabled => !Config.UnlockFromKills;
+        public override TextObject DisabledMessage =>
+            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

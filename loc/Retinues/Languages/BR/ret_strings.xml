@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="Voltar" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="Substituído pelas configurações do sistema." />
+    <string
       id="ret_confirm"
       text="Confirmar" />
     <string

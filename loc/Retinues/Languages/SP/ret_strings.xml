@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="Atrás" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="Anulado por la configuración." />
+    <string
       id="ret_confirm"
       text="Confirmar" />
     <string

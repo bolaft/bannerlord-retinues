@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="Retour" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="Rendu obsolète par la configuration." />
+    <string
       id="ret_confirm"
       text="Confirmer" />
     <string

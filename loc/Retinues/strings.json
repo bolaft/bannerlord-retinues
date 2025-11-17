@@ -864,6 +864,22 @@
     "TR": "Geri"
   },
   {
+    "id": "ret_config_overrides_doctrine_message",
+    "EN": "Overriden by config settings.",
+    "BR": "Substituído pelas configurações do sistema.",
+    "CNs": "被配置设置覆盖。",
+    "CNt": "被配置設置覆蓋。",
+    "DE": "Durch Konfigurationseinstellungen überschrieben.",
+    "FR": "Rendu obsolète par la configuration.",
+    "IT": "Sovrascritto dalle impostazioni di configurazione.",
+    "JP": "設定によって上書きされました。",
+    "KO": "구성 설정에 의해 재정의되었습니다.",
+    "PL": "Nadpisane przez ustawienia konfiguracji.",
+    "RU": "Переопределено настройками конфигурации.",
+    "SP": "Anulado por la configuración.",
+    "TR": "Yapılandırma ayarları tarafından geçersiz kılındı."
+  },
+  {
     "id": "ret_confirm",
     "EN": "Confirm",
     "BR": "Confirmar",

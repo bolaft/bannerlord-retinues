@@ -167,6 +167,9 @@
       id="ret_close_equipment_button_text"
       text="뒤로" />
     <string
+      id="ret_config_overrides_doctrine_message"
+      text="구성 설정에 의해 재정의되었습니다." />
+    <string
       id="ret_confirm"
       text="확인" />
     <string
