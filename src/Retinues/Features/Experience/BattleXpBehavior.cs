@@ -139,6 +139,8 @@ namespace Retinues.Features.Experience
         /// </summary>
         public static bool TrySpend(WCharacter troop, int amount)
         {
+            if (Config.SkillXpCostPerPoint == 0 && Config.BaseSkillXpCost == 0)
+                return true;
             if (amount <= 0)
                 return true;
             if (troop == null)
