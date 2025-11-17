@@ -925,6 +925,22 @@ namespace Retinues.Configuration
         );
 
         // ─────────────────────────────────────────────────────
+        // User Interface
+        // ─────────────────────────────────────────────────────
+
+        public static readonly Option<bool> EnableEditorHotkey = CreateOption(
+            section: () => L.S("mcm_section_ui", "User Interface"),
+            name: () => L.S("mcm_option_enable_editor_hotkey", "Enable Editor Hotkey (Shift + R)"),
+            key: "EnableEditorHotkey",
+            hint: () =>
+                L.S(
+                    "mcm_option_enable_editor_hotkey_hint",
+                    "Enables the hotkey to open the retinue editor from the campaign map."
+                ),
+            @default: true
+        );
+
+        // ─────────────────────────────────────────────────────
         // Skill Caps
         // ─────────────────────────────────────────────────────
 

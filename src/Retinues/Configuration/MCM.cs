@@ -281,6 +281,7 @@ namespace Retinues.Configuration
                 L.S("mcm_section_restrictions", "Restrictions"),
                 L.S("mcm_section_skill_caps", "Skill Caps"),
                 L.S("mcm_section_skill_totals", "Skill Totals"),
+                L.S("mcm_section_ui", "User Interface"),
                 L.S("mcm_section_debug", "Debug"),
             };
 

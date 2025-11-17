@@ -3712,6 +3712,38 @@
     "TR": "Doktrin sistemini ve özelliklerini etkinleştir."
   },
   {
+    "id": "ret_mcm_option_enable_editor_hotkey",
+    "EN": "Enable Editor Hotkey (Shift + R)",
+    "BR": "Ativar Atalho do Editor (Shift + R)",
+    "CNs": "启用编辑器快捷键（Shift + R）",
+    "CNt": "啟用編輯器快捷鍵（Shift + R）",
+    "DE": "Editor-Hotkey aktivieren (Shift + R)",
+    "FR": "Activer le Raccourci du Éditeur (Shift + R)",
+    "IT": "Abilita Scorciatoia Editor (Shift + R)",
+    "JP": "エディタホットキーを有効化（Shift + R）",
+    "KO": "에디터 단축키 활성화(Shift + R)",
+    "PL": "Włącz Skrót Edytora (Shift + R)",
+    "RU": "Включить Горячую Клавишу Редактора (Shift + R)",
+    "SP": "Habilitar Atajo del Editor (Shift + R)",
+    "TR": "Editör Kısayol Tuşunu Etkinleştir (Shift + R)"
+  },
+  {
+    "id": "ret_mcm_option_enable_editor_hotkey_hint",
+    "EN": "Enables the hotkey to open the retinue editor from the campaign map.",
+    "BR": "Ativa o atalho para abrir o editor de retinências a partir do mapa da campanha.",
+    "CNs": "启用从战役地图打开随从编辑器的快捷键。",
+    "CNt": "啟用從戰役地圖打開隨從編輯器的快捷鍵。",
+    "DE": "Aktiviert die Hotkey zum Öffnen des Gefolgeditors von der Kampagnenkarte aus.",
+    "FR": "Active le raccourci pour ouvrir l’éditeur depuis la carte de campagne.",
+    "IT": "Abilita la scorciatoia per aprire l’editor di scorta dalla mappa della campagna.",
+    "JP": "キャンペーンマップから随行エディターを開くホットキーを有効化する。",
+    "KO": "캠페인 맵에서 수행원 편집기를 열기 위한 단축키를 활성화합니다.",
+    "PL": "Włącza skrót klawiaturowy do otwierania edytora oddziałów z mapy kampanii.",
+    "RU": "Включает горячую клавишу для открытия редактора отряда с карты кампании.",
+    "SP": "Habilita el atajo para abrir el editor de escoltas desde el mapa de campaña.",
+    "TR": "Kampanya haritasından retinue düzenleyicisini açmak için kısayolu etkinleştirir."
+  },
+  {
     "id": "ret_mcm_option_enable_feat_requirements",
     "EN": "Enable Feat Requirements",
     "BR": "Ativar Requisitos de Proezas",
@@ -5246,6 +5278,22 @@
     "RU": "Навыки",
     "SP": "Habilidades",
     "TR": "Beceriler"
+  },
+  {
+    "id": "ret_mcm_section_ui",
+    "EN": "User Interface",
+    "BR": "Interface do Usuário",
+    "CNs": "用户界面",
+    "CNt": "用戶界面",
+    "DE": "Benutzeroberfläche",
+    "FR": "Interface Utilisateur",
+    "IT": "Interfaccia Utente",
+    "JP": "ユーザーインターフェース",
+    "KO": "사용자 인터페이스",
+    "PL": "Interfejs Użytkownika",
+    "RU": "Пользовательский Интерфейс",
+    "SP": "Interfaz de Usuario",
+    "TR": "Kullanıcı Arayüzü"
   },
   {
     "id": "ret_mcm_section_unlocks",

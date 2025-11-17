@@ -50,7 +50,7 @@ namespace Retinues.GUI.Menus
                         resume?.ExecuteAction();
 
                         // Launch Studio right after resuming
-                        ClanScreen.OpenStudio();
+                        ClanScreen.LaunchEditor();
                     }
                     catch (Exception e)
                     {

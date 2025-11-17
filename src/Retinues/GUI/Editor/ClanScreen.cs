@@ -2,11 +2,9 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.GUI.Editor.VM;
-using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
-using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor
@@ -36,11 +34,11 @@ namespace Retinues.GUI.Editor
         /// <summary>
         /// Open the Clan screen with the editor in Studio Mode.
         /// </summary>
-        public static void OpenStudio()
+        public static void LaunchEditor(EditorMode mode = EditorMode.Culture)
         {
             try
             {
-                EditorMode = EditorMode.Culture;
+                EditorMode = mode;
 
                 var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
                 if (gsm == null)
@@ -48,6 +46,9 @@ namespace Retinues.GUI.Editor
 
                 var clanState = gsm.CreateState<ClanState>();
                 gsm.PushState(clanState);
+
+                if (mode == EditorMode.Personal)
+                    Instance?.SelectEditorTab();
             }
             catch (Exception e)
             {

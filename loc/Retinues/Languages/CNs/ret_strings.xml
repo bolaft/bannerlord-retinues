@@ -701,6 +701,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="启用教义系统及其功能。" />
     <string
+      id="ret_mcm_option_enable_editor_hotkey"
+      text="启用编辑器快捷键（Shift + R）" />
+    <string
+      id="ret_mcm_option_enable_editor_hotkey_hint"
+      text="启用从战役地图打开随从编辑器的快捷键。" />
+    <string
       id="ret_mcm_option_enable_feat_requirements"
       text="启用功绩要求" />
     <string
@@ -988,6 +994,9 @@
     <string
       id="ret_mcm_section_skills"
       text="技能" />
+    <string
+      id="ret_mcm_section_ui"
+      text="用户界面" />
     <string
       id="ret_mcm_section_unlocks"
       text="解锁" />

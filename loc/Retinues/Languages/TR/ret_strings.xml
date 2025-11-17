@@ -701,6 +701,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Doktrin sistemini ve özelliklerini etkinleştir." />
     <string
+      id="ret_mcm_option_enable_editor_hotkey"
+      text="Editör Kısayol Tuşunu Etkinleştir (Shift + R)" />
+    <string
+      id="ret_mcm_option_enable_editor_hotkey_hint"
+      text="Kampanya haritasından retinue düzenleyicisini açmak için kısayolu etkinleştirir." />
+    <string
       id="ret_mcm_option_enable_feat_requirements"
       text="Başarı Gereksinimlerini Etkinleştir" />
     <string
@@ -988,6 +994,9 @@
     <string
       id="ret_mcm_section_skills"
       text="Beceriler" />
+    <string
+      id="ret_mcm_section_ui"
+      text="Kullanıcı Arayüzü" />
     <string
       id="ret_mcm_section_unlocks"
       text="Açılışlar" />

@@ -701,6 +701,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Active le système de doctrines et ses fonctionnalités." />
     <string
+      id="ret_mcm_option_enable_editor_hotkey"
+      text="Activer le Raccourci du Éditeur (Shift + R)" />
+    <string
+      id="ret_mcm_option_enable_editor_hotkey_hint"
+      text="Active le raccourci pour ouvrir l’éditeur depuis la carte de campagne." />
+    <string
       id="ret_mcm_option_enable_feat_requirements"
       text="Activer les exigences de haut-faits" />
     <string
@@ -988,6 +994,9 @@
     <string
       id="ret_mcm_section_skills"
       text="Compétences" />
+    <string
+      id="ret_mcm_section_ui"
+      text="Interface Utilisateur" />
     <string
       id="ret_mcm_section_unlocks"
       text="Déblocages" />

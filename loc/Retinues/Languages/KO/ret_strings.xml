@@ -701,6 +701,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="교리 시스템과 그 기능을 활성화합니다." />
     <string
+      id="ret_mcm_option_enable_editor_hotkey"
+      text="에디터 단축키 활성화(Shift + R)" />
+    <string
+      id="ret_mcm_option_enable_editor_hotkey_hint"
+      text="캠페인 맵에서 수행원 편집기를 열기 위한 단축키를 활성화합니다." />
+    <string
       id="ret_mcm_option_enable_feat_requirements"
       text="특기 요구 사항 활성화" />
     <string
@@ -988,6 +994,9 @@
     <string
       id="ret_mcm_section_skills"
       text="기술" />
+    <string
+      id="ret_mcm_section_ui"
+      text="사용자 인터페이스" />
     <string
       id="ret_mcm_section_unlocks"
       text="해제" />

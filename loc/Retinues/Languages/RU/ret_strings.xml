@@ -701,6 +701,12 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Включить систему Доктрин и её функции." />
     <string
+      id="ret_mcm_option_enable_editor_hotkey"
+      text="Включить Горячую Клавишу Редактора (Shift + R)" />
+    <string
+      id="ret_mcm_option_enable_editor_hotkey_hint"
+      text="Включает горячую клавишу для открытия редактора отряда с карты кампании." />
+    <string
       id="ret_mcm_option_enable_feat_requirements"
       text="Включить Требования Подвигов" />
     <string
@@ -988,6 +994,9 @@
     <string
       id="ret_mcm_section_skills"
       text="Навыки" />
+    <string
+      id="ret_mcm_section_ui"
+      text="Пользовательский Интерфейс" />
     <string
       id="ret_mcm_section_unlocks"
       text="Разблокировки" />
