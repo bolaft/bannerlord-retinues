@@ -99,7 +99,7 @@ namespace Retinues.Features.Stocks
             if (!int.TryParse(args[1], out var count))
                 return "Invalid count.";
 
-            StocksBehavior.Set(itemId, count);
+            Set(itemId, count);
             return $"Set stock for {itemId} to {count}.";
         }
     }

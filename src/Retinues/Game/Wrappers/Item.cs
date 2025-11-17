@@ -287,12 +287,6 @@ namespace Retinues.Game.Wrappers
         public bool IsStocked => StocksBehavior.HasStock(StringId);
 
         /// <summary>
-        /// Sets the stock count for the item.
-        /// </summary>
-        public static void SetStock(WItem item, int count) =>
-            StocksBehavior.Set(item?.StringId, count);
-
-        /// <summary>
         /// Gets the current stock count for the item.
         /// </summary>
         public int GetStock() => StocksBehavior.Get(StringId);
