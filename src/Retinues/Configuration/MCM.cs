@@ -33,10 +33,37 @@ namespace Retinues.Configuration
             StringComparer.OrdinalIgnoreCase
         );
 
-        // at top with other registries
+        // Ordinal index for each option key
         private static readonly Dictionary<string, int> _ordinalByKey = new(
             StringComparer.OrdinalIgnoreCase
         );
+
+        // Global config change event
+        public static event Action<string, object> OptionChanged;
+
+        /// <summary>
+        /// Raise the global config change event for a given option key.
+        /// </summary>
+        private static void RaiseOptionChanged(string key, object value)
+        {
+            try
+            {
+                OptionChanged?.Invoke(key, value);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+        }
+
+        /// <summary>
+        /// Central helper to set a raw value and notify listeners.
+        /// </summary>
+        internal static void SetRawValue(string key, object value)
+        {
+            _values[key] = value;
+            RaiseOptionChanged(key, value);
+        }
 
         /// <summary>
         /// Register the configuration page and options with MCM (returns true when successful).
@@ -141,7 +168,7 @@ namespace Retinues.Configuration
         /// <summary>
         /// Builds an Action<T> that writes the given value into the backing store for the key.
         /// </summary>
-        private static Action<T> MakeSetter<T>(string key) => v => _values[key] = v!;
+        private static Action<T> MakeSetter<T>(string key) => v => SetRawValue(key, v);
 
         /// <summary>
         /// Build the MCM menu and register option groups and controls.
@@ -327,7 +354,7 @@ namespace Retinues.Configuration
                                         name,
                                         new ProxyRef<bool>(
                                             () => (bool)_values[id],
-                                            v => _values[id] = v
+                                            v => SetRawValue(id, v)
                                         ),
                                         b =>
                                             b.SetOrder(order++)
@@ -348,7 +375,7 @@ namespace Retinues.Configuration
                                                     _values[id],
                                                     CultureInfo.InvariantCulture
                                                 ),
-                                            v => _values[id] = v
+                                            v => SetRawValue(id, v)
                                         ),
                                         b =>
                                             b.SetOrder(order++)
@@ -370,7 +397,7 @@ namespace Retinues.Configuration
                                                     _values[id],
                                                     CultureInfo.InvariantCulture
                                                 ),
-                                            v => _values[id] = v
+                                            v => SetRawValue(id, v)
                                         ),
                                         b =>
                                             b.SetOrder(order++)
@@ -385,7 +412,7 @@ namespace Retinues.Configuration
                                         name,
                                         new ProxyRef<string>(
                                             () => (string)_values[id],
-                                            v => _values[id] = v
+                                            v => SetRawValue(id, v)
                                         ),
                                         b =>
                                             b.SetOrder(order++)

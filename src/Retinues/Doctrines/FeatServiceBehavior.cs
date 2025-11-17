@@ -46,6 +46,9 @@ namespace Retinues.Doctrines
                     DoctrineAPI.AddCatalogBuiltListener(RefreshActiveFeats);
                     DoctrineAPI.AddFeatCompletedListener(_ => RefreshActiveFeats());
                     DoctrineAPI.AddDoctrineUnlockedListener(_ => RefreshActiveFeats());
+
+                    // Subscribe to config changes
+                    Config.OptionChanged += OnConfigOptionChanged;
                 }
             );
 
@@ -76,6 +79,11 @@ namespace Retinues.Doctrines
                 PlayerUpgradedTroops
             );
         }
+
+        /// <summary>
+        /// Handler for config option changes.
+        /// </summary>
+        private void OnConfigOptionChanged(string key, object value) => RefreshActiveFeats();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
