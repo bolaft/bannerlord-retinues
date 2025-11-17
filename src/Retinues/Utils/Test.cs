@@ -19,7 +19,7 @@ namespace Retinues.Utils
         string name,
         string group = "default",
         string description = null
-        ) : Attribute
+    ) : Attribute
     {
         public string Name { get; } = name;
         public string Group { get; } = group;
@@ -50,7 +50,9 @@ namespace Retinues.Utils
         public void EnsureCampaign()
         {
             if (Campaign.Current == null)
-                throw new GameTestAssertionException("No active campaign. Load a test save before running tests.");
+                throw new GameTestAssertionException(
+                    "No active campaign. Load a test save before running tests."
+                );
         }
     }
 
@@ -65,7 +67,7 @@ namespace Retinues.Utils
         string message,
         Exception exception,
         TimeSpan duration
-        )
+    )
     {
         public string Name { get; } = name;
         public string Group { get; } = group;
@@ -129,9 +131,7 @@ namespace Retinues.Utils
             {
                 var asm = typeof(Tests).Assembly;
                 var bindingFlags =
-                    BindingFlags.Static
-                    | BindingFlags.Public
-                    | BindingFlags.NonPublic;
+                    BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
                 foreach (var type in asm.GetTypes())
                 {
@@ -158,10 +158,7 @@ namespace Retinues.Utils
 
                         Action<GameTestContext> action = ctx =>
                         {
-                            object[] args =
-                                acceptsContext
-                                    ? new object[] { ctx }
-                                    : null;
+                            object[] args = acceptsContext ? new object[] { ctx } : null;
 
                             method.Invoke(null, args);
                         };
@@ -229,10 +226,14 @@ namespace Retinues.Utils
 
             var filtered = _tests
                 .Where(t =>
-                    (string.IsNullOrEmpty(groupFilter)
-                        || t.Group.Equals(groupFilter, StringComparison.OrdinalIgnoreCase))
-                    && (string.IsNullOrEmpty(nameFilter)
-                        || t.Name.IndexOf(nameFilter, StringComparison.OrdinalIgnoreCase) >= 0)
+                    (
+                        string.IsNullOrEmpty(groupFilter)
+                        || t.Group.Equals(groupFilter, StringComparison.OrdinalIgnoreCase)
+                    )
+                    && (
+                        string.IsNullOrEmpty(nameFilter)
+                        || t.Name.IndexOf(nameFilter, StringComparison.OrdinalIgnoreCase) >= 0
+                    )
                 )
                 .ToList();
 
