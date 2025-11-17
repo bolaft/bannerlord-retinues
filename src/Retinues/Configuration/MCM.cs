@@ -553,5 +553,88 @@ namespace Retinues.Configuration
             );
             InformationManager.ShowInquiry(inquiry);
         }
+
+        /// <summary>
+        /// Log the current configuration values grouped by section.
+        /// </summary>
+        public static void LogDump()
+        {
+            try
+            {
+                DiscoverOptions(); // no-op if already done
+
+                Log.Info("========== Retinues Config Dump ==========");
+
+                // Group by section, ordered by first discovery ordinal so it matches field order.
+                var groups = _all.GroupBy(o => o.Section)
+                    .OrderBy(g =>
+                    {
+                        var min = int.MaxValue;
+                        foreach (var opt in g)
+                        {
+                            if (_ordinalByKey.TryGetValue(opt.Key, out var idx) && idx < min)
+                                min = idx;
+                        }
+
+                        return min;
+                    });
+
+                foreach (var group in groups)
+                {
+                    Log.Info($"[Section] {group.Key} ({group.Count()} options)");
+
+                    foreach (
+                        var opt in group.OrderBy(o =>
+                            _ordinalByKey.TryGetValue(o.Key, out var idx) ? idx : int.MaxValue
+                        )
+                    )
+                    {
+                        // Current value (respects disabled overrides via Option<T>.Getter)
+                        var current = opt.GetObject();
+                        var @default = opt.Default;
+
+                        var currentText = FormatConfigValue(current);
+                        var defaultText = FormatConfigValue(@default);
+
+                        // Mark non-default values with an asterisk
+                        var changed = !Equals(current, @default);
+                        var marker = changed ? "*" : " ";
+
+                        // Nice label: localized name + key
+                        var label = string.IsNullOrWhiteSpace(opt.Name)
+                            ? opt.Key
+                            : $"{opt.Name} [{opt.Key}]";
+
+                        if (opt.IsDisabled)
+                        {
+                            // When disabled, value is always the disabled override
+                            var disabledHint = opt.DisabledHint;
+                            Log.Info(
+                                $"{marker} {label} = {currentText} (DISABLED; override; reason: {disabledHint})"
+                            );
+                        }
+                        else
+                        {
+                            Log.Info($"{marker} {label} = {currentText} (default: {defaultText})");
+                        }
+                    }
+                }
+
+                Log.Info("======== End Retinues Config Dump ========");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+        }
+
+        private static string FormatConfigValue(object value)
+        {
+            if (value is null)
+                return "null";
+
+            // Use invariant formatting so numbers are stable in logs
+            return Convert.ToString(value, CultureInfo.InvariantCulture) ?? "null";
+        }
     }
 }

@@ -125,6 +125,8 @@ namespace Retinues
 
                 if (_mcmRegistered)
                     Log.Info("MCM: registration succeeded.");
+
+                Config.LogDump();
             }
         }
 
