@@ -5,10 +5,12 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
 using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment.List
@@ -38,7 +40,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         /* ━━━━━━━━━ Caps ━━━━━━━━━ */
 
-        private const int MaxRows = 1000;
+        public const int MaxRows = 1000;
 
         // Precomputed snapshot for current faction/slot (deduped + keyed for fast sort/filter)
         private List<ItemTuple> _fullTuples;
@@ -59,7 +61,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             public int EnabledRank; // 0 if unlocked+available else 1
         }
 
-        // Crafted
+        public bool IsTruncated => Rows.Count - 1 >= MaxRows;
+
+        /* ━━━━━━━━ Crafted ━━━━━━━ */
+
         private bool _showCrafted = false;
 
         public bool ShowCrafted
@@ -300,6 +305,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
             // 3) Build the visible list
             RebuildVisibleFromSnapshot();
+
+            // Notify truncation bindings
+            OnPropertyChanged(nameof(ShowTruncated));
+            OnPropertyChanged(nameof(TruncatedHint));
         }
 
         private void RebuildVisibleFromSnapshot()
@@ -497,6 +506,25 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         [DataSourceProperty]
         public string SortByCostText => L.S("sort_cost", "Cost");
+
+        /* ━━━━━━━ Truncated ━━━━━━ */
+
+        [DataSourceProperty]
+        public bool ShowTruncated => IsTruncated;
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel TruncatedHint =>
+            IsTruncated
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.T(
+                            "equipment_list_truncated_hint",
+                            "The equipment list has been truncated to show only the first {MAX_ROWS} items. Refine your filters or search to see more specific results."
+                        )
+                        .SetTextVariable("MAX_ROWS", MaxRows)
+                        .ToString()
+                )
+                : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //

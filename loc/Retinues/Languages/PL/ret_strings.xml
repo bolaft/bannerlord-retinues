@@ -311,6 +311,9 @@
       id="ret_equipment_button_text"
       text="Ekwipunek" />
     <string
+      id="ret_equipment_list_truncated_hint"
+      text="Lista ekwipunku została skrócona, aby pokazać tylko pierwsze {MAX_ROWS} przedmiotów. Udoskonal swoje filtry lub wyszukiwanie, aby zobaczyć bardziej szczegółowe wyniki." />
+    <string
       id="ret_equipment_requirement"
       text="Do wyposażonych przedmiotów wymagana jest umiejętność." />
     <string

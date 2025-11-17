@@ -1632,6 +1632,22 @@
     "TR": "Teçhizat"
   },
   {
+    "id": "ret_equipment_list_truncated_hint",
+    "EN": "The equipment list has been truncated to show only the first {MAX_ROWS} items. Refine your filters or search to see more specific results.",
+    "BR": "A lista de equipamentos foi truncada para mostrar apenas os primeiros {MAX_ROWS} itens. Refine seus filtros ou pesquisa para ver resultados mais específicos.",
+    "CNs": "装备列表已被截断，仅显示前 {MAX_ROWS} 个物品。请优化您的过滤器或搜索以查看更多具体结果。",
+    "CNt": "裝備列表已被截斷，僅顯示前 {MAX_ROWS} 個物品。請優化您的過濾器或搜索以查看更多具體結果。",
+    "DE": "Die Ausrüstungsliste wurde gekürzt, um nur die ersten {MAX_ROWS} Gegenstände anzuzeigen. Verfeinere deine Filter oder Suche, um spezifischere Ergebnisse zu sehen.",
+    "FR": "La liste d’équipement a été tronquée pour n’afficher que les {MAX_ROWS} premiers objets. Affine tes filtres ou ta recherche pour voir des résultats plus spécifiques.",
+    "IT": "L’elenco dell’equipaggiamento è stato troncato per mostrare solo i primi {MAX_ROWS} oggetti. Affina i tuoi filtri o la ricerca per vedere risultati più specifici.",
+    "JP": "装備リストは切り詰められ、最初の {MAX_ROWS} アイテムのみが表示されます。フィルターや検索を絞り込んで、より具体的な結果を確認してください。",
+    "KO": "장비 목록이 잘려서 처음 {MAX_ROWS}개의 항목만 표시됩니다. 필터나 검색을 세분화하여 보다 구체적인 결과를 확인하세요.",
+    "PL": "Lista ekwipunku została skrócona, aby pokazać tylko pierwsze {MAX_ROWS} przedmiotów. Udoskonal swoje filtry lub wyszukiwanie, aby zobaczyć bardziej szczegółowe wyniki.",
+    "RU": "Список снаряжения был усечён, чтобы показать только первые {MAX_ROWS} предметов. Уточните свои фильтры или поиск, чтобы увидеть более конкретные результаты.",
+    "SP": "La lista de equipo se ha truncado para mostrar solo los primeros {MAX_ROWS} objetos. Refinar tus filtros o búsqueda para ver resultados más específicos.",
+    "TR": "Ekipman listesi, yalnızca ilk {MAX_ROWS} öğeyi gösterecek şekilde kısaltıldı. Daha spesifik sonuçlar görmek için filtrelerinizi veya aramanızı iyileştirin."
+  },
+  {
     "id": "ret_equipment_requirement",
     "EN": "Skill is required for equipped items.",
     "BR": "Habilidade é necessária para itens equipados.",

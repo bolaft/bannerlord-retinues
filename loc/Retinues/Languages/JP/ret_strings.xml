@@ -311,6 +311,9 @@
       id="ret_equipment_button_text"
       text="装備" />
     <string
+      id="ret_equipment_list_truncated_hint"
+      text="装備リストは切り詰められ、最初の {MAX_ROWS} アイテムのみが表示されます。フィルターや検索を絞り込んで、より具体的な結果を確認してください。" />
+    <string
       id="ret_equipment_requirement"
       text="装備品にはスキルが必要です。" />
     <string

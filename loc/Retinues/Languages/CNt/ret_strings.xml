@@ -311,6 +311,9 @@
       id="ret_equipment_button_text"
       text="裝備" />
     <string
+      id="ret_equipment_list_truncated_hint"
+      text="裝備列表已被截斷，僅顯示前 {MAX_ROWS} 個物品。請優化您的過濾器或搜索以查看更多具體結果。" />
+    <string
       id="ret_equipment_requirement"
       text="裝備物品需要技能。" />
     <string

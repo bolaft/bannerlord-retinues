@@ -311,6 +311,9 @@
       id="ret_equipment_button_text"
       text="Teçhizat" />
     <string
+      id="ret_equipment_list_truncated_hint"
+      text="Ekipman listesi, yalnızca ilk {MAX_ROWS} öğeyi gösterecek şekilde kısaltıldı. Daha spesifik sonuçlar görmek için filtrelerinizi veya aramanızı iyileştirin." />
+    <string
       id="ret_equipment_requirement"
       text="Donatılan eşyalar için beceri gereklidir." />
     <string

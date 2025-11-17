@@ -31,6 +31,30 @@
     </Children>
 </ListPanel>
 
+<!-- Truncated Indicator -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    MarginLeft="72" MarginTop="54"
+    HorizontalAlignment="Left">
+    <Children>
+        <SpriteWidget
+            DataSource="{EquipmentList}"
+            IsVisible="@ShowTruncated"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="32" SuggestedHeight="54"
+            Sprite="General\Icons\icon_story_quest_active">
+            <Children>
+                <HintWidget
+                    DataSource="{TruncatedHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </SpriteWidget>
+    </Children>
+</ListPanel>
+
 <ListPanel
     DataSource="{EquipmentScreen}"
     IsVisible="@IsVisible"

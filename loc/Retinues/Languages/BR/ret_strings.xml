@@ -311,6 +311,9 @@
       id="ret_equipment_button_text"
       text="Equipamento" />
     <string
+      id="ret_equipment_list_truncated_hint"
+      text="A lista de equipamentos foi truncada para mostrar apenas os primeiros {MAX_ROWS} itens. Refine seus filtros ou pesquisa para ver resultados mais específicos." />
+    <string
       id="ret_equipment_requirement"
       text="Habilidade é necessária para itens equipados." />
     <string
