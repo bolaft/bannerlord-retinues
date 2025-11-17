@@ -4,7 +4,6 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
-using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Party;
@@ -40,8 +39,6 @@ namespace Retinues.Features.Volunteers.Patches
                 return;
 
             _listenersRegistered = true;
-
-            Log.Debug("[VolunteerSwapForPlayer] Registering campaign event listeners.");
 
             CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
                 typeof(VolunteerSwapForPlayer),
@@ -114,16 +111,6 @@ namespace Retinues.Features.Volunteers.Patches
         /// </summary>
         private static void RestoreSnapshot()
         {
-            Log.Info(
-                "[VolunteerSwapForPlayer] Attempting to restore volunteer snapshot for player..."
-            );
-            Log.Info(
-                $"[VolunteerSwapForPlayer] Snapshot is {(_snapshot == null ? "null" : "not null")}."
-            );
-            Log.Info(
-                $"[VolunteerSwapForPlayer] Settlement is {(_settlement == null ? "null" : _settlement.StringId)}."
-            );
-
             if (_snapshot == null || _settlement == null)
                 return;
 
@@ -158,9 +145,6 @@ namespace Retinues.Features.Volunteers.Patches
                     volunteers[i] = snap?.Base;
                 }
             }
-            Log.Debug(
-                $"[VolunteerSwapForPlayer] Restored volunteers for settlement {_settlement.StringId}"
-            );
 
             ClearSnapshot();
         }
@@ -219,11 +203,6 @@ namespace Retinues.Features.Volunteers.Patches
         /// </summary>
         private static void OnSettlementEntered(MobileParty party, Settlement settlement, Hero hero)
         {
-            Log.Debug(
-                $"[VolunteerSwapForPlayer] OnSettlementEntered triggered for party {party?.Name} "
-                    + $"and settlement {settlement?.Name}."
-            );
-
             if (party != MobileParty.MainParty)
                 return;
 
@@ -237,7 +216,6 @@ namespace Retinues.Features.Volunteers.Patches
 
         private static void TryBeginSwap()
         {
-            Log.Info("[VolunteerSwapForPlayer] Trying to begin volunteer swap for player...");
             // Already active for this visit? Don't resnapshot or reswap.
             if (_snapshot != null)
                 return;
@@ -257,11 +235,6 @@ namespace Retinues.Features.Volunteers.Patches
 
             SnapshotVolunteers(settlement);
             settlement.SwapVolunteers(faction);
-
-            Log.Debug(
-                $"[VolunteerSwapForPlayer] Swapped volunteers for settlement {settlement.StringId} "
-                    + $"(faction {faction.Name})."
-            );
         }
     }
 }
