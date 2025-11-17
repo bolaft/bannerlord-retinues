@@ -11,17 +11,13 @@ namespace Retinues.Game.Wrappers
     /// For heroes, edits Hero body directly (BodyProperties / StaticBodyProperties).
     /// </summary>
     [SafeClass]
-    public class WBody
+    public class WBody(WCharacter owner)
     {
-        private readonly WCharacter _owner;
+        private readonly WCharacter _owner =
+            owner ?? throw new ArgumentNullException(nameof(owner));
         private CharacterObject Base => _owner.Base;
         private Hero Hero => Base?.HeroObject;
         private bool IsHero => Hero != null;
-
-        public WBody(WCharacter owner)
-        {
-            _owner = owner ?? throw new ArgumentNullException(nameof(owner));
-        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                            Age                         //
@@ -325,14 +321,8 @@ namespace Retinues.Game.Wrappers
             else
             {
                 var bp = minEnd ? Base.GetBodyPropertiesMin() : Base.GetBodyPropertiesMax();
-#if BL13
-                var sp = Hero.StaticBodyProperties;
-#else
-                var sp = Reflector.GetPropertyValue<StaticBodyProperties>(
-                    Hero,
-                    "StaticBodyProperties"
-                );
-#endif
+                var sp = bp.StaticProperties;
+
                 ulong part = GetKeyPart(sp, HEIGHT_PART);
                 int raw = GetBitsValueFromKey(part, HEIGHT_START, HEIGHT_BITS);
                 int max = (1 << HEIGHT_BITS) - 1;
