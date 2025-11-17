@@ -563,7 +563,7 @@ namespace Retinues.Configuration
             {
                 DiscoverOptions(); // no-op if already done
 
-                Log.Info("========== Retinues Config Dump ==========");
+                Log.Info("Retinues Config:");
 
                 // Group by section, ordered by first discovery ordinal so it matches field order.
                 var groups = _all.GroupBy(o => o.Section)
@@ -619,8 +619,6 @@ namespace Retinues.Configuration
                         }
                     }
                 }
-
-                Log.Info("======== End Retinues Config Dump ========");
             }
             catch (Exception e)
             {

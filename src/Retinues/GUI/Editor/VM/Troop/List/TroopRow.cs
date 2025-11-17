@@ -105,7 +105,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     return PlaceholderText
                         ?? L.T("troop_list.placeholder", "No Troops Available").ToString();
 
-                if (RowTroop?.Parent == null)
+                if (RowTroop?.Parent == null && RowTroop?.IsMercenary == false)
                     return RowTroop?.Name;
 
                 // Indent troops by tier

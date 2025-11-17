@@ -49,11 +49,14 @@ namespace Retinues.Troops.Save
         [SaveableField(12)]
         public TroopSaveData PrisonGuard; // Legacy, unused
 
-        [SaveableField(13)]
-        public List<TroopSaveData> Civilians;
+        [SaveableField(16)]
+        public List<TroopSaveData> Mercenaries;
 
         [SaveableField(14)]
         public List<TroopSaveData> Bandits;
+
+        [SaveableField(13)]
+        public List<TroopSaveData> Civilians;
 
         [SaveableField(15)]
         public List<TroopSaveData> Heroes;
@@ -81,13 +84,13 @@ namespace Retinues.Troops.Save
             CaravanMaster = CreateIfNeeded(faction.CaravanMaster);
             Villager = CreateIfNeeded(faction.Villager);
 
-            // Civilians troops
-            var civilians = faction
-                .CivilianTroops?.Select(CreateIfNeeded)
+            // Mercenary troops
+            var mercenaries = faction
+                .MercenaryTroops?.Select(CreateIfNeeded)
                 .Where(d => d != null)
                 .ToList();
 
-            Civilians = (civilians != null && civilians.Count > 0) ? civilians : null;
+            Mercenaries = (mercenaries != null && mercenaries.Count > 0) ? mercenaries : null;
 
             // Bandit troops
             var bandits = faction
@@ -96,6 +99,14 @@ namespace Retinues.Troops.Save
                 .ToList();
 
             Bandits = (bandits != null && bandits.Count > 0) ? bandits : null;
+
+            // Civilians troops
+            var civilians = faction
+                .CivilianTroops?.Select(CreateIfNeeded)
+                .Where(d => d != null)
+                .ToList();
+
+            Civilians = (civilians != null && civilians.Count > 0) ? civilians : null;
         }
 
         /// <summary>
@@ -119,12 +130,16 @@ namespace Retinues.Troops.Save
                 CaravanMaster?.Deserialize();
                 Villager?.Deserialize();
 
-                if (Civilians != null)
-                    foreach (var troopData in Civilians)
+                if (Mercenaries != null)
+                    foreach (var troopData in Mercenaries)
                         troopData.Deserialize(); // No assignments
 
                 if (Bandits != null)
                     foreach (var troopData in Bandits)
+                        troopData.Deserialize(); // No assignments
+
+                if (Civilians != null)
+                    foreach (var troopData in Civilians)
                         troopData.Deserialize(); // No assignments
             }
             else

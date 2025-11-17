@@ -569,6 +569,9 @@
       id="ret_list_toggle_hero"
       text="영웅" />
     <string
+      id="ret_list_toggle_mercenary"
+      text="용병" />
+    <string
       id="ret_list_toggle_militia"
       text="민병대" />
     <string

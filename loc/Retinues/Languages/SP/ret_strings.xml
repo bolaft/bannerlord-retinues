@@ -569,6 +569,9 @@
       id="ret_list_toggle_hero"
       text="Héroes" />
     <string
+      id="ret_list_toggle_mercenary"
+      text="Mercenarios" />
+    <string
       id="ret_list_toggle_militia"
       text="Milicia" />
     <string

@@ -398,7 +398,9 @@ namespace Retinues.Game.Wrappers
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsCivilian { get; set; } = false; // Default to battle troop
+        public bool IsCivilian { get; set; } = false;
+
+        public bool IsMercenary { get; set; } = false;
 
         public bool IsHero => Base.IsHero;
 

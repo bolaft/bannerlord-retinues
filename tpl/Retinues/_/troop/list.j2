@@ -66,11 +66,11 @@
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
-        <!-- Civilian Header -->
-        {{ list.header_toggle("TroopList", "Civilian", "@CivilianToggleText", is_visible="@ShowCivilianList") }}
+        <!-- Mercenary Header -->
+        {{ list.header_toggle("TroopList", "Mercenary", "@MercenaryToggleText", is_visible="@ShowMercenaryList") }}
 
-        <!-- Civilian List -->
-        {% call list.rows("{CivilianTroops}", "Civilian") %}
+        <!-- Mercenary List -->
+        {% call list.rows("{MercenaryTroops}", "Mercenary") %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -79,6 +79,14 @@
 
         <!-- Bandit List -->
         {% call list.rows("{BanditTroops}", "Bandit") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Civilian Header -->
+        {{ list.header_toggle("TroopList", "Civilian", "@CivilianToggleText", is_visible="@ShowCivilianList") }}
+
+        <!-- Civilian List -->
+        {% call list.rows("{CivilianTroops}", "Civilian") %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
     

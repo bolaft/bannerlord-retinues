@@ -225,8 +225,9 @@ namespace Retinues.Game
 
         /* ━━━━━━━ Rootless ━━━━━━━ */
 
-        public virtual List<WCharacter> CivilianTroops => [];
+        public virtual List<WCharacter> MercenaryTroops => [];
         public virtual List<WCharacter> BanditTroops => [];
+        public virtual List<WCharacter> CivilianTroops => [];
 
         /* ━━━━━━━━━ NPCs ━━━━━━━━━ */
 

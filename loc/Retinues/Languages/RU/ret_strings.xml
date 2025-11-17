@@ -569,6 +569,9 @@
       id="ret_list_toggle_hero"
       text="Герои" />
     <string
+      id="ret_list_toggle_mercenary"
+      text="Наемники" />
+    <string
       id="ret_list_toggle_militia"
       text="Милиция" />
     <string

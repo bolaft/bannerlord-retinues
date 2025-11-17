@@ -35,13 +35,18 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
             CaravanTroops = [.. State.Faction.CaravanTroops.Select(t => new TroopRowVM(t))];
             VillagerTroops = [.. State.Faction.VillagerTroops.Select(t => new TroopRowVM(t))];
-            CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
+            MercenaryTroops = [.. State.Faction.MercenaryTroops.Select(t => new TroopRowVM(t))];
             BanditTroops = [.. State.Faction.BanditTroops.Select(t => new TroopRowVM(t))];
+            CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
             Heroes = [.. State.Faction.Heroes.Select(t => new TroopRowVM(t))];
 
-            // Mark civilian troops as such for default equipment set
+            // Mark civilian troops as such
             foreach (var r in CivilianTroops)
                 r.RowTroop.IsCivilian = true;
+
+            // Mark mercenary troops as such
+            foreach (var r in MercenaryTroops)
+                r.RowTroop.IsMercenary = true;
 
             if (EliteTroops.Count == 0 && !ClanScreen.IsStudioMode)
                 EliteTroops.Add(
@@ -108,8 +113,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(MilitiaTroops));
             OnPropertyChanged(nameof(CaravanTroops));
             OnPropertyChanged(nameof(VillagerTroops));
-            OnPropertyChanged(nameof(CivilianTroops));
+            OnPropertyChanged(nameof(MercenaryTroops));
             OnPropertyChanged(nameof(BanditTroops));
+            OnPropertyChanged(nameof(CivilianTroops));
             OnPropertyChanged(nameof(Heroes));
             OnPropertyChanged(nameof(ShowRetinueList));
             OnPropertyChanged(nameof(ShowEliteList));
@@ -117,8 +123,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(ShowMilitiaList));
             OnPropertyChanged(nameof(ShowCaravanList));
             OnPropertyChanged(nameof(ShowVillagerList));
-            OnPropertyChanged(nameof(ShowCivilianList));
+            OnPropertyChanged(nameof(ShowMercenaryList));
             OnPropertyChanged(nameof(ShowBanditList));
+            OnPropertyChanged(nameof(ShowCivilianList));
             OnPropertyChanged(nameof(ShowHeroesList));
 
             RefreshFilter();
@@ -147,10 +154,13 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public MBBindingList<TroopRowVM> VillagerTroops { get; set; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<TroopRowVM> CivilianTroops { get; set; } = [];
+        public MBBindingList<TroopRowVM> MercenaryTroops { get; set; } = [];
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> BanditTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> CivilianTroops { get; set; } = [];
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> Heroes { get; set; } = [];
@@ -191,10 +201,13 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public string VillagerToggleText => L.S("list_toggle_villager", "Villagers");
 
         [DataSourceProperty]
-        public string CivilianToggleText => L.S("list_toggle_civilian", "Civilians");
+        public string MercenaryToggleText => L.S("list_toggle_mercenary", "Mercenaries");
 
         [DataSourceProperty]
         public string BanditToggleText => L.S("list_toggle_bandit", "Bandits");
+
+        [DataSourceProperty]
+        public string CivilianToggleText => L.S("list_toggle_civilian", "Civilians");
 
         [DataSourceProperty]
         public string HeroToggleText => L.S("list_toggle_hero", "Heroes");
@@ -222,12 +235,15 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public bool ShowVillagerList => VillagerTroops.Count > 0 || !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowCivilianList =>
-            CivilianTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
+        public bool ShowMercenaryList => MercenaryTroops.Count > 0 || !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]
         public bool ShowBanditList =>
             BanditTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
+
+        [DataSourceProperty]
+        public bool ShowCivilianList =>
+            CivilianTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
 
         [DataSourceProperty]
         public bool ShowHeroesList =>
@@ -245,8 +261,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 .. MilitiaTroops,
                 .. CaravanTroops,
                 .. VillagerTroops,
-                .. CivilianTroops,
+                .. MercenaryTroops,
                 .. BanditTroops,
+                .. CivilianTroops,
                 .. Heroes,
             ];
 

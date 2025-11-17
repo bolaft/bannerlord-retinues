@@ -3008,6 +3008,22 @@
     "TR": "Kahramanlar"
   },
   {
+    "id": "ret_list_toggle_mercenary",
+    "EN": "Mercenaries",
+    "BR": "Mercenários",
+    "CNs": "雇佣兵",
+    "CNt": "僱傭兵",
+    "DE": "Söldner",
+    "FR": "Mercenaires",
+    "IT": "Mercenari",
+    "JP": "傭兵",
+    "KO": "용병",
+    "PL": "Najemnicy",
+    "RU": "Наемники",
+    "SP": "Mercenarios",
+    "TR": "Paralı Askerler"
+  },
+  {
     "id": "ret_list_toggle_militia",
     "EN": "Militia",
     "BR": "Milícia",

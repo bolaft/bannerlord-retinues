@@ -115,6 +115,29 @@ namespace Retinues.Game.Wrappers
         //                       Troop Lists                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public override List<WCharacter> MercenaryTroops
+        {
+            get
+            {
+                var mercenaries = new List<WCharacter>();
+
+                foreach (var root in Base.BasicMercenaryTroops)
+                {
+                    var troop = TryGet(root);
+                    if (troop != null)
+                        foreach (var t in troop.Tree)
+                            mercenaries.Add(t);
+                }
+
+                return mercenaries;
+            }
+        }
+
+        public override List<WCharacter> BanditTroops =>
+            GetActiveList(
+                [Base.BanditBandit, Base.BanditChief, Base.BanditBoss, Base.BanditRaider]
+            );
+
         public override List<WCharacter> CivilianTroops =>
             GetActiveList(
                 [
@@ -157,11 +180,6 @@ namespace Retinues.Game.Wrappers
                     Base.FemaleBeggar,
                     Base.FemaleDancer,
                 ]
-            );
-
-        public override List<WCharacter> BanditTroops =>
-            GetActiveList(
-                [Base.BanditBandit, Base.BanditChief, Base.BanditBoss, Base.BanditRaider]
             );
     }
 }

@@ -569,6 +569,9 @@
       id="ret_list_toggle_hero"
       text="英雄" />
     <string
+      id="ret_list_toggle_mercenary"
+      text="雇佣兵" />
+    <string
       id="ret_list_toggle_militia"
       text="民兵" />
     <string
