@@ -21,7 +21,21 @@ namespace Retinues.Game.Wrappers
             get
             {
                 foreach (var s in Settlement.All)
-                    yield return new WSettlement(s);
+                    if (s != null)
+                        yield return new WSettlement(s);
+            }
+        }
+
+        public static IEnumerable<WSettlement> PlayerFactionSettlements
+        {
+            get
+            {
+                foreach (var s in All)
+                {
+                    var f = s.PlayerFaction;
+                    if (f != null)
+                        yield return s;
+                }
             }
         }
 
