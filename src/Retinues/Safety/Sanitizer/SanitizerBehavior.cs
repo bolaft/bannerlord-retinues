@@ -1,7 +1,9 @@
+using System.Reflection;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Safety.Sanitizer

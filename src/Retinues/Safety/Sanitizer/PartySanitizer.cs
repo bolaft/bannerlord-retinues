@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops;
@@ -75,46 +76,143 @@ namespace Retinues.Safety.Sanitizer
         /// </summary>
         private static void ReplaceInvalidTroop(TroopRoster roster, TroopRosterElement element)
         {
-            if (element.Character == null)
-                return; // Nothing to replace
-
-            CharacterObject fallback = null;
-
             try
             {
-                // Wrap the old troop
-                WCharacter troop = new(element.Character);
+                // Case 1: Character is null -> remove corrupted entries
+                if (element.Character == null)
+                {
+                    RemoveNullEntries(roster);
+                    return;
+                }
 
-                // Find fallback from the troop's vanilla culture if possible
-                fallback = TroopMatcher.PickBestFromFaction(troop.Culture, troop).Base;
+                // Case 2: Non-null but invalid character -> existing fallback logic
+                CharacterObject fallback = null;
+
+                try
+                {
+                    var troop = new WCharacter(element.Character);
+                    fallback = TroopMatcher.PickBestFromFaction(troop.Culture, troop).Base;
+                }
+                catch
+                {
+                    // ignore, fallback below
+                }
+
+                fallback ??= Player.Culture?.RootBasic?.Base;
+                fallback ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
+
+                if (fallback == null)
+                {
+                    roster.RemoveIf(e => e.Character == element.Character);
+
+                    Log.Warn(
+                        $"Could not find fallback for invalid troop "
+                            + $"'{element.Character?.StringId ?? "NULL"}'; removed from roster."
+                    );
+                    return;
+                }
+
+                var index = roster.FindIndexOfTroop(element.Character);
+
+                roster.AddToCounts(
+                    fallback,
+                    element.Number,
+                    woundedCount: element.WoundedNumber,
+                    xpChange: element.Xp,
+                    index: index >= 0 ? index : -1
+                );
+
+                roster.AddToCounts(
+                    element.Character,
+                    -element.Number,
+                    woundedCount: -element.WoundedNumber
+                );
+
+                Log.Info(
+                    $"Replaced '{element.Character.StringId}' with '{fallback.StringId}' "
+                        + $"(count: {element.Number}, wounded: {element.WoundedNumber})."
+                );
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "ReplaceInvalidTroop failed while sanitizing roster");
+            }
+        }
 
-            // If no fallback, get base culture's generic troop
-            fallback ??= Player.Culture?.RootBasic?.Base;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Null cleanup                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private static readonly FieldInfo TroopRosterDataField = typeof(TroopRoster).GetField(
+            "data",
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
 
-            // If still no fallback, try a generic one
-            fallback ??= MBObjectManager.Instance?.GetObject<CharacterObject>("looter");
+        private static readonly FieldInfo TroopRosterCountField = typeof(TroopRoster).GetField(
+            "_count",
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
 
-            // Add new troop at same index
-            roster.AddToCounts(
-                fallback,
-                element.Number,
-                woundedCount: element.WoundedNumber,
-                xpChange: element.Xp,
-                index: roster.FindIndexOfTroop(element.Character)
-            );
+        /// <summary>
+        /// Removes all entries with Character == null directly from the roster's internal array.
+        /// Bypasses RemoveIf/AddToCountsAtIndex to avoid WoundedNumber/IsHero NREs.
+        /// </summary>
+        private static void RemoveNullEntries(TroopRoster roster)
+        {
+            try
+            {
+                if (roster == null)
+                    return;
 
-            // Remove old troop
-            roster.AddToCounts(
-                element.Character,
-                -element.Number,
-                woundedCount: -element.WoundedNumber
-            );
+                if (TroopRosterDataField == null || TroopRosterCountField == null)
+                {
+                    Log.Warn(
+                        "RemoveNullEntries: could not reflect TroopRoster.data/_count; aborting."
+                    );
+                    return;
+                }
 
-            Log.Info(
-                $"Replaced '{element.Character.StringId}' with '{fallback.StringId}' (count: {element.Number}, wounded: {element.WoundedNumber})."
-            );
+                var data = (TroopRosterElement[])TroopRosterDataField.GetValue(roster);
+                var count = (int)TroopRosterCountField.GetValue(roster);
+
+                if (data == null || count <= 0)
+                    return;
+
+                int dst = 0;
+                int removed = 0;
+
+                // Compact non-null entries to the front
+                for (int src = 0; src < count; src++)
+                {
+                    if (data[src].Character == null)
+                    {
+                        removed++;
+                        continue;
+                    }
+
+                    if (dst != src)
+                        data[dst] = data[src];
+
+                    dst++;
+                }
+
+                // Clear the tail with default struct values
+                for (int i = dst; i < count; i++)
+                {
+                    data[i] = default; // Character=null, numbers=0, xp=0, etc.
+                }
+
+                if (removed > 0)
+                {
+                    TroopRosterCountField.SetValue(roster, dst);
+                    roster.UpdateVersion(); // public method, no reflection needed
+
+                    Log.Info($"Removed {removed} NULL troop roster element(s) from roster.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "RemoveNullEntries failed while sanitizing roster");
+            }
         }
     }
 }
