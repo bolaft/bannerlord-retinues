@@ -14,6 +14,16 @@
     margin_right="16"
 ) }}
 
+<!-- Better icon -->
+{{ image.sprite(
+    sprite="General\TroopTierIcons\icon_tier_3_big",
+    width="20", height="20",
+    vertical_alignment="Center",
+    horizontal_alignment="Left",
+    is_visible="@IsBetterThanCurrent",
+    color="#a5d82fb4"
+) }}
+
 <!-- Name -->
 {{ text.base(
     text="@Name",

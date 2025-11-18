@@ -300,5 +300,430 @@ namespace Retinues.Game.Wrappers
         /// Decreases the stock count for the item by 1.
         /// </summary>
         public void Unstock() => StocksBehavior.Add(StringId, -1);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Comparisons                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly Dictionary<string, bool> _isBetterThanCache = [];
+        private static readonly object _isBetterThanCacheLock = new();
+
+        /// <summary>
+        /// Returns true if this item is a straight upgrade over the other item:
+        /// Uses a static cache keyed by StringId to avoid recomputing.
+        /// </summary>
+        public bool IsBetterThan(WItem other)
+        {
+            if (other == null)
+                return false;
+
+            string key = $"{StringId}=>{other.StringId}";
+            lock (_isBetterThanCacheLock)
+            {
+                if (_isBetterThanCache.TryGetValue(key, out var cached))
+                {
+                    return cached;
+                }
+            }
+
+            bool result = ComputeIsBetter(other);
+
+            lock (_isBetterThanCacheLock)
+            {
+                _isBetterThanCache[key] = result;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Actual computation of IsBetterThan without caching.
+        /// </summary>
+        private bool ComputeIsBetter(WItem other)
+        {
+            if (this == other)
+            {
+                Log.Info("WItem.IsBetterThan: comparing same item -> FALSE");
+                return false;
+            }
+
+            Log.Info(
+                $"WItem.IsBetterThan: comparing {Name} ({StringId})to {(other != null ? other.Name : "null")} ({(other != null ? other.StringId : "null")})"
+            );
+            if (other == null)
+            {
+                Log.Info("WItem.IsBetterThan: other is null -> FALSE");
+                return false;
+            }
+
+            // Weapons (melee / ranged / shields / ammo)
+            if (IsWeapon && other.IsWeapon)
+            {
+                var w1 = PrimaryWeapon;
+                var w2 = other.PrimaryWeapon;
+                if (w1 == null || w2 == null)
+                {
+                    Log.Info(
+                        "WItem.IsBetterThan: one of the weapons has null PrimaryWeapon -> FALSE"
+                    );
+                    return false;
+                }
+
+                // Require same weapon class (sword vs sword, bow vs bow, shield vs shield, etc.).
+                if (w1.WeaponClass != w2.WeaponClass)
+                {
+                    Log.Info("WItem.IsBetterThan: weapon classes differ -> FALSE");
+                    return false;
+                }
+
+                // Shields
+                if (IsShield || other.IsShield)
+                {
+                    if (!IsShield || !other.IsShield)
+                    {
+                        Log.Info("WItem.IsBetterThan: one item is shield, other is not -> FALSE");
+                        return false;
+                    }
+
+                    var result = IsBetterShieldThan(other);
+                    Log.Info($"WItem.IsBetterThan: shield comparison result -> {result}");
+                    return result;
+                }
+
+                // Ammo (arrows, bolts, bullets, thrown stacks, etc.).
+                if (IsAmmo || other.IsAmmo)
+                {
+                    if (!IsAmmo || !other.IsAmmo)
+                    {
+                        Log.Info("WItem.IsBetterThan: one item is ammo, other is not -> FALSE");
+                        return false;
+                    }
+
+                    var result = IsBetterAmmoThan(other);
+                    Log.Info($"WItem.IsBetterThan: ammo comparison result -> {result}");
+                    return result;
+                }
+
+                // Pure ranged weapons (bows, crossbows, guns, throwing).
+                if (IsRangedWeapon && other.IsRangedWeapon)
+                {
+                    var result = IsBetterRangedWeaponThan(other);
+                    Log.Info($"WItem.IsBetterThan: ranged weapon comparison result -> {result}");
+                    return result;
+                }
+
+                // Pure melee weapons (swords, axes, maces, polearms).
+                if (IsMeleeWeapon && other.IsMeleeWeapon)
+                {
+                    var result = IsBetterMeleeWeaponThan(other);
+                    Log.Info($"WItem.IsBetterThan: melee weapon comparison result -> {result}");
+                    return result;
+                }
+
+                // Mixed types (melee vs ranged of same WeaponClass) are not compared.
+                Log.Info("WItem.IsBetterThan: mixed weapon types (melee vs ranged) -> FALSE");
+                return false;
+            }
+
+            // Human armor (head, body, hands, legs).
+            if (
+                ArmorComponent != null
+                && other.ArmorComponent != null
+                && Type != ItemObject.ItemTypeEnum.HorseHarness
+                && other.Type != ItemObject.ItemTypeEnum.HorseHarness
+            )
+            {
+                // Require same armor slot type (two helmets, two body armors, etc.).
+                if (Type != other.Type)
+                {
+                    Log.Info("WItem.IsBetterThan: armor types differ -> FALSE");
+                    return false;
+                }
+
+                var result = IsBetterArmorThan(other);
+                Log.Info($"WItem.IsBetterThan: armor comparison result -> {result}");
+                return result;
+            }
+
+            // Horse harness (horse armor).
+            if (
+                Type == ItemObject.ItemTypeEnum.HorseHarness
+                && other.Type == ItemObject.ItemTypeEnum.HorseHarness
+                && ArmorComponent != null
+                && other.ArmorComponent != null
+            )
+            {
+                var result = IsBetterHorseHarnessThan(other);
+                Log.Info($"WItem.IsBetterThan: horse harness comparison result -> {result}");
+                return result;
+            }
+
+            // Horses.
+            if (IsHorse && other.IsHorse && HorseComponent != null && other.HorseComponent != null)
+            {
+                var result = IsBetterHorseThan(other);
+                Log.Info($"WItem.IsBetterThan: horse comparison result -> {result}");
+                return result;
+            }
+
+            Log.Info("WItem.IsBetterThan: other categories not handled -> FALSE");
+            // Other categories not handled yet → not considered a straight upgrade.
+            return false;
+        }
+
+        private static bool IsStatUpgrade(
+            int thisValue,
+            int otherValue,
+            bool higherIsBetter,
+            ref bool anyBetter
+        )
+        {
+            if (higherIsBetter)
+            {
+                if (thisValue < otherValue)
+                    return false;
+
+                if (thisValue > otherValue)
+                    anyBetter = true;
+            }
+            else
+            {
+                if (thisValue > otherValue)
+                    return false;
+
+                if (thisValue < otherValue)
+                    anyBetter = true;
+            }
+
+            return true;
+        }
+
+        private bool IsBetterMeleeWeaponThan(WItem other)
+        {
+            var w1 = PrimaryWeapon;
+            var w2 = other.PrimaryWeapon;
+
+            bool anyBetter = false;
+
+            // Damage
+            if (!IsStatUpgrade(w1.SwingDamage, w2.SwingDamage, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (
+                !IsStatUpgrade(
+                    w1.ThrustDamage,
+                    w2.ThrustDamage,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+
+            // Speed
+            if (!IsStatUpgrade(w1.SwingSpeed, w2.SwingSpeed, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (!IsStatUpgrade(w1.ThrustSpeed, w2.ThrustSpeed, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            // Reach & handling
+            if (
+                !IsStatUpgrade(
+                    w1.WeaponLength,
+                    w2.WeaponLength,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+            if (!IsStatUpgrade(w1.Handling, w2.Handling, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            return anyBetter;
+        }
+
+        private bool IsBetterRangedWeaponThan(WItem other)
+        {
+            var w1 = PrimaryWeapon;
+            var w2 = other.PrimaryWeapon;
+
+            bool anyBetter = false;
+
+            // Damage (bows/crossbows/guns/throwing): use both swing/thrust and let zeros pass.
+            if (!IsStatUpgrade(w1.SwingDamage, w2.SwingDamage, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (
+                !IsStatUpgrade(
+                    w1.ThrustDamage,
+                    w2.ThrustDamage,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+
+            // Projectile speed & accuracy.
+            if (
+                !IsStatUpgrade(
+                    w1.MissileSpeed,
+                    w2.MissileSpeed,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+            if (!IsStatUpgrade(w1.Accuracy, w2.Accuracy, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            return anyBetter;
+        }
+
+        private bool IsBetterAmmoThan(WItem other)
+        {
+            var w1 = PrimaryWeapon;
+            var w2 = other.PrimaryWeapon;
+
+            bool anyBetter = false;
+
+            // Damage & projectile behavior.
+            if (!IsStatUpgrade(w1.SwingDamage, w2.SwingDamage, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (
+                !IsStatUpgrade(
+                    w1.ThrustDamage,
+                    w2.ThrustDamage,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+            if (
+                !IsStatUpgrade(
+                    w1.MissileSpeed,
+                    w2.MissileSpeed,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+            if (!IsStatUpgrade(w1.Accuracy, w2.Accuracy, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            // Stack size (MaxDataValue): more ammo is better.
+            // MaxDataValue is short, but compare as int.
+            int thisStack = PrimaryWeapon.MaxDataValue;
+            int otherStack = other.PrimaryWeapon.MaxDataValue;
+
+            if (!IsStatUpgrade(thisStack, otherStack, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            return anyBetter;
+        }
+
+        private bool IsBetterShieldThan(WItem other)
+        {
+            var w1 = PrimaryWeapon;
+            var w2 = other.PrimaryWeapon;
+
+            bool anyBetter = false;
+
+            // Shield durability (hit points): MaxDataValue is used by GetModifiedHitPoints.
+            int thisHp = w1.MaxDataValue;
+            int otherHp = w2.MaxDataValue;
+            if (!IsStatUpgrade(thisHp, otherHp, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            // Shield armor (how much damage is blocked).
+            if (!IsStatUpgrade(w1.BodyArmor, w2.BodyArmor, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            // Handling (how quickly it can be moved/raised).
+            if (!IsStatUpgrade(w1.Handling, w2.Handling, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            return anyBetter;
+        }
+
+        private bool IsBetterArmorThan(WItem other)
+        {
+            var a1 = ArmorComponent;
+            var a2 = other.ArmorComponent;
+            if (a1 == null || a2 == null)
+                return false;
+
+            bool anyBetter = false;
+
+            // Human armor: compare all four regions. Zeros simply compare equal.
+            if (!IsStatUpgrade(a1.HeadArmor, a2.HeadArmor, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (!IsStatUpgrade(a1.BodyArmor, a2.BodyArmor, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (!IsStatUpgrade(a1.ArmArmor, a2.ArmArmor, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (!IsStatUpgrade(a1.LegArmor, a2.LegArmor, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            return anyBetter;
+        }
+
+        private bool IsBetterHorseHarnessThan(WItem other)
+        {
+            var a1 = ArmorComponent;
+            var a2 = other.ArmorComponent;
+            if (a1 == null || a2 == null)
+                return false;
+
+            bool anyBetter = false;
+
+            // Horse armor: overall armor + maneuver/speed/charge bonuses.
+            if (!IsStatUpgrade(a1.BodyArmor, a2.BodyArmor, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (
+                !IsStatUpgrade(
+                    a1.ManeuverBonus,
+                    a2.ManeuverBonus,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+            if (!IsStatUpgrade(a1.SpeedBonus, a2.SpeedBonus, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (!IsStatUpgrade(a1.ChargeBonus, a2.ChargeBonus, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            return anyBetter;
+        }
+
+        private bool IsBetterHorseThan(WItem other)
+        {
+            var h1 = HorseComponent;
+            var h2 = other.HorseComponent;
+            if (h1 == null || h2 == null)
+                return false;
+
+            bool anyBetter = false;
+
+            // Horse core stats: speed, maneuver, charge, hit points.
+            if (!IsStatUpgrade(h1.Speed, h2.Speed, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (!IsStatUpgrade(h1.Maneuver, h2.Maneuver, higherIsBetter: true, ref anyBetter))
+                return false;
+            if (
+                !IsStatUpgrade(
+                    h1.ChargeDamage,
+                    h2.ChargeDamage,
+                    higherIsBetter: true,
+                    ref anyBetter
+                )
+            )
+                return false;
+
+            // HitPoints + bonus (more durable mount is better).
+            int thisHp = h1.HitPoints + h1.HitPointBonus;
+            int otherHp = h2.HitPoints + h2.HitPointBonus;
+            if (!IsStatUpgrade(thisHp, otherHp, higherIsBetter: true, ref anyBetter))
+                return false;
+
+            return anyBetter;
+        }
     }
 }

@@ -144,7 +144,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    _emptyRow?.OnEquipChanged();
+                    _emptyRow?.OnEquipChangedForSelected();
                     return;
                 }
 
@@ -152,7 +152,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     return;
 
                 if (_rowsByItemId.TryGetValue(id, out var row) && row != null)
-                    row.OnEquipChanged();
+                    row.OnEquipChangedForSelected();
             }
 
             var delta = deltaNullable.Value;
@@ -160,6 +160,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             Handle(delta.NewEquippedId);
             Handle(delta.OldStagedId);
             Handle(delta.NewStagedId);
+
+            foreach (var row in EquipmentRows)
+                row.OnEquipChanged();
 
             State.LastEquipChange = null;
         }

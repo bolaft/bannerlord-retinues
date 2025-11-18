@@ -41,57 +41,57 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        protected override Dictionary<UIEvent, string[]> EventMap =>
-            new()
-            {
-                [UIEvent.Slot] =
-                [
-                    nameof(IsEnabled),
-                    nameof(IsSelected),
-                    nameof(Value),
-                    nameof(Stock),
-                    nameof(Name),
-                    nameof(InStockText),
-                    nameof(IsDisabledText),
-                    nameof(ShowIsEquipped),
-                    nameof(ShowInStockText),
-                    nameof(ShowValue),
-                    nameof(ImageId),
-                    nameof(BannerId),
-                    nameof(ImageAdditionalArgs),
-                    nameof(BannerAdditionalArgs),
-#if BL13
-                    nameof(ImageTextureProviderName),
-                    nameof(BannerTextureProviderName),
-#else
-                    nameof(ImageTypeCode),
-                    nameof(BannerTypeCode),
-#endif
-                    nameof(Hint),
-                    nameof(AvailableFromAnotherSet),
-                ],
-                [UIEvent.Equip] =
-                [
-                    nameof(IsSelected),
-                    nameof(Stock),
-                    nameof(InStockText),
-                    nameof(ShowInStockText),
-                    nameof(ShowValue),
-                    nameof(ShowIsEquipped),
-                    nameof(IsDisabledText),
-                    nameof(AvailableFromAnotherSet),
-                ],
-                [UIEvent.Equipment] =
-                [
-                    nameof(IsEnabled),
-                    nameof(IsDisabledText),
-                    nameof(ShowInStockText),
-                    nameof(ShowIsEquipped),
-                    nameof(ShowValue),
-                    nameof(IsSelected),
-                    nameof(AvailableFromAnotherSet),
-                ],
-            };
+        // Note: row VMs do not autoregister to events, updates are made in event handlers below.
+        protected override Dictionary<UIEvent, string[]> EventMap => [];
+
+        /// <summary>
+        /// Refresh slot-related bindings when the active slot changes.
+        /// </summary>
+        public void OnSlotChanged()
+        {
+            // Not called when list rebuilds since it creates new row VMs.
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(ShowIsEquipped));
+            OnPropertyChanged(nameof(ShowInStockText));
+            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(AvailableFromAnotherSet));
+            OnPropertyChanged(nameof(IsBetterThanCurrent));
+        }
+
+        public void OnEquipChanged()
+        {
+            OnPropertyChanged(nameof(IsBetterThanCurrent));
+        }
+
+        /// <summary>
+        /// Refresh bindings affected by staged equip for the selected item.
+        /// </summary>
+        public void OnEquipChangedForSelected()
+        {
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(Stock));
+            OnPropertyChanged(nameof(InStockText));
+            OnPropertyChanged(nameof(ShowInStockText));
+            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(ShowIsEquipped));
+            OnPropertyChanged(nameof(IsDisabledText));
+            OnPropertyChanged(nameof(AvailableFromAnotherSet));
+        }
+
+        /// <summary>
+        /// Refresh bindings affected by equipment loadout changes.
+        /// </summary>
+        public void OnEquipmentChanged()
+        {
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(ShowIsEquipped));
+            OnPropertyChanged(nameof(IsDisabledText));
+            OnPropertyChanged(nameof(ShowInStockText));
+            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(AvailableFromAnotherSet));
+            OnPropertyChanged(nameof(IsBetterThanCurrent));
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
@@ -236,6 +236,23 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
                 // …and at least one other set has >= 1 (i.e., free to share one)
                 return loadout.MaxCountPerSet(RowItem) >= 1;
+            }
+        }
+
+        [DataSourceProperty]
+        public bool IsBetterThanCurrent
+        {
+            get
+            {
+                if (IsEnabled == false)
+                    return false;
+
+                bool betterThanEquipped = RowItem?.IsBetterThan(EquippedItem) == true;
+
+                if (StagedItem == null)
+                    return betterThanEquipped;
+                else
+                    return betterThanEquipped && RowItem?.IsBetterThan(StagedItem) == true;
             }
         }
 
@@ -598,47 +615,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 || category.Contains(search)
                 || type.Contains(search)
                 || culture.Contains(search);
-        }
-
-        /// <summary>
-        /// Refresh slot-related bindings when the active slot changes.
-        /// </summary>
-        public void OnSlotChanged()
-        {
-            OnPropertyChanged(nameof(IsSelected));
-            OnPropertyChanged(nameof(ShowIsEquipped));
-            OnPropertyChanged(nameof(ShowInStockText));
-            OnPropertyChanged(nameof(ShowValue));
-            OnPropertyChanged(nameof(AvailableFromAnotherSet));
-        }
-
-        /// <summary>
-        /// Refresh bindings affected by staged equip updates.
-        /// </summary>
-        public void OnEquipChanged()
-        {
-            OnPropertyChanged(nameof(IsSelected));
-            OnPropertyChanged(nameof(Stock));
-            OnPropertyChanged(nameof(InStockText));
-            OnPropertyChanged(nameof(ShowInStockText));
-            OnPropertyChanged(nameof(ShowValue));
-            OnPropertyChanged(nameof(ShowIsEquipped));
-            OnPropertyChanged(nameof(IsDisabledText));
-            OnPropertyChanged(nameof(AvailableFromAnotherSet));
-        }
-
-        /// <summary>
-        /// Refresh bindings affected by equipment loadout changes.
-        /// </summary>
-        public void OnEquipmentChanged()
-        {
-            OnPropertyChanged(nameof(IsSelected));
-            OnPropertyChanged(nameof(IsEnabled));
-            OnPropertyChanged(nameof(ShowIsEquipped));
-            OnPropertyChanged(nameof(IsDisabledText));
-            OnPropertyChanged(nameof(ShowInStockText));
-            OnPropertyChanged(nameof(ShowValue));
-            OnPropertyChanged(nameof(AvailableFromAnotherSet));
         }
     }
 }
