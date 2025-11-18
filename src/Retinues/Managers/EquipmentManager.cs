@@ -274,7 +274,7 @@ namespace Retinues.Managers
 
             // Tier cap rule
             if ((item?.Tier ?? 0) - troop.Tier > Config.AllowedTierDifference && !troop.IsHero)
-                return false;
+                return DoctrineAPI.IsDoctrineUnlocked<Ironclad>();
 
             return true;
         }
