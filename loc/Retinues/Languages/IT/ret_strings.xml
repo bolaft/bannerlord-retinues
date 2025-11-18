@@ -1281,13 +1281,19 @@
       text="Aggiornamento di Retinues" />
     <string
       id="ret_retinues_version_change_text"
-      text="La versione della mod Retinues in questo file di salvataggio non corrisponde alla versione attuale della mod ({CURRENT_VERSION}). Questo potrebbe causare problemi.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe essere prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica il file {SAVE_VERSION} da Nexus Mods." />
+      text="La versione della mod Retinues in questo file di salvataggio non corrisponde alla versione attuale della mod ({CURRENT_VERSION}).{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica il file {SAVE_VERSION} da Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="La versione della mod Retinues in questo file di salvataggio non corrisponde alla versione attuale della mod ({CURRENT_VERSION}).{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica la versione che stavi usando in precedenza da Nexus Mods." />
     <string
       id="ret_retinues_version_change_title"
       text="Cambio di versione di Retinues" />
     <string
       id="ret_retinues_version_update_text"
-      text="La versione della mod Retinues in questo file di salvataggio è stata aggiornata alla versione successiva ({CURRENT_VERSION}). I tuoi dati di salvataggio sono stati automaticamente migrati alla nuova versione.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe essere prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica il file {SAVE_VERSION} da Nexus Mods." />
+      text="La versione della mod Retinues in questo file di salvataggio è stata aggiornata alla versione successiva ({CURRENT_VERSION}). I tuoi dati di salvataggio sono stati automaticamente migrati alla nuova versione.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica il file {SAVE_VERSION} da Nexus Mods." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="La versione della mod Retinues in questo file di salvataggio è stata aggiornata alla versione successiva ({CURRENT_VERSION}). I tuoi dati di salvataggio sono stati automaticamente migrati alla nuova versione.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica la versione che stavi usando in precedenza da Nexus Mods." />
     <string
       id="ret_royal_patronage"
       text="Patrocinio Reale" />

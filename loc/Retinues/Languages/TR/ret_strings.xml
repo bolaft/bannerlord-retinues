@@ -1281,13 +1281,19 @@
       text="Yandaş Güncellemesi" />
     <string
       id="ret_retinues_version_change_text"
-      text="Bu kayıt dosyasındaki Yandaşlar mod sürümü, mevcut mod sürümüyle ({CURRENT_VERSION}) eşleşmiyor. Bu, sorunlara neden olabilir.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve Nexus Mods&apos;tan {SAVE_VERSION} dosyasını indirin." />
+      text="Bu kayıt dosyasındaki Yandaş mod sürümü, mevcut mod sürümüyle ({CURRENT_VERSION}) eşleşmiyor.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve Nexus Mods&apos;tan {SAVE_VERSION} dosyasını indirin." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="Bu kayıt dosyasındaki Yandaş mod sürümü, mevcut mod sürümüyle ({CURRENT_VERSION}) eşleşmiyor.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
     <string
       id="ret_retinues_version_change_title"
       text="Yandaş Sürüm Değişikliği" />
     <string
       id="ret_retinues_version_update_text"
-      text="Bu kayıt dosyasındaki Yandaşlar mod sürümü bir sonraki sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak yeni sürüme taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve Nexus Mods&apos;tan {SAVE_VERSION} dosyasını indirin." />
+      text="Bu kayıt dosyasındaki Yandaş mod sürümü bir sonraki sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak yeni sürüme taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve Nexus Mods&apos;tan {SAVE_VERSION} dosyasını indirin." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="Bu kayıt dosyasındaki Yandaş mod sürümü bir sonraki sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak yeni sürüme taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
     <string
       id="ret_royal_patronage"
       text="Kraliyet Himayesi" />

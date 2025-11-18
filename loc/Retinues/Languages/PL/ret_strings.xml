@@ -1281,13 +1281,19 @@
       text="Aktualizacja Orszaków" />
     <string
       id="ret_retinues_version_change_text"
-      text="Wersja moda Retinues w tym pliku zapisu nie odpowiada bieżącej wersji moda ({CURRENT_VERSION}). Może to powodować problemy.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz plik {SAVE_VERSION} z Nexus Mods." />
+      text="Wersja moda Orszaki w tym pliku zapisu nie odpowiada bieżącej wersji moda ({CURRENT_VERSION}).{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz plik {SAVE_VERSION} z Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="Wersja moda Orszaki w tym pliku zapisu nie odpowiada bieżącej wersji moda ({CURRENT_VERSION}).{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz wersję, której wcześniej używałeś z Nexus Mods." />
     <string
       id="ret_retinues_version_change_title"
       text="Zmiana Wersji Orszaków" />
     <string
       id="ret_retinues_version_update_text"
-      text="Wersja moda Retinues w tym pliku zapisu została zaktualizowana do następnej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione do nowej wersji.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz plik {SAVE_VERSION} z Nexus Mods." />
+      text="Wersja moda Orszaki w tym pliku zapisu została zaktualizowana do następnej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione do nowej wersji.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz plik {SAVE_VERSION} z Nexus Mods." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="Wersja moda Orszaki w tym pliku zapisu została zaktualizowana do następnej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione do nowej wersji.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz wersję, której wcześniej używałeś z Nexus Mods." />
     <string
       id="ret_royal_patronage"
       text="Patronat Królewski" />

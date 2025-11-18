@@ -1281,13 +1281,19 @@
       text="随从更新" />
     <string
       id="ret_retinues_version_change_text"
-      text="此保存文件中的随从模组版本与当前模组版本（{CURRENT_VERSION}）不匹配。这可能会导致问题。{newline}{newline}作为安全预防措施，请在覆盖保存之前检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从Nexus Mods下载 {SAVE_VERSION} 文件。" />
+      text="此保存文件中的随从模组版本与当前模组版本不匹配（{CURRENT_VERSION}）。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从Nexus Mods下载 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="此保存文件中的随从模组版本与当前模组版本不匹配（{CURRENT_VERSION}）。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从Nexus Mods下载您之前使用的版本。" />
     <string
       id="ret_retinues_version_change_title"
       text="随从版本更改" />
     <string
       id="ret_retinues_version_update_text"
-      text="此保存文件中的随从模组版本已更新到下一版本（{CURRENT_VERSION}）。您的保存数据已自动迁移到新版本。{newline}{newline}作为安全预防措施，请在覆盖保存之前检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从Nexus Mods下载 {SAVE_VERSION} 文件。" />
+      text="此保存文件中的随从模组版本已更新到下一版本（{CURRENT_VERSION}）。您的保存数据已自动迁移到新版本。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从Nexus Mods下载 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="此保存文件中的随从模组版本已更新到下一版本（{CURRENT_VERSION}）。您的保存数据已自动迁移到新版本。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从Nexus Mods下载您之前使用的版本。" />
     <string
       id="ret_royal_patronage"
       text="王室资助" />
