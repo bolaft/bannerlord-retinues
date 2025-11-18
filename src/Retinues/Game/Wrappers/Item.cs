@@ -304,57 +304,76 @@ namespace Retinues.Game.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Comparisons                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static readonly Dictionary<string, bool> _isBetterThanCache = [];
-        private static readonly object _isBetterThanCacheLock = new();
-
-        /// <summary>
-        /// Returns true if this item is a straight upgrade over the other item:
-        /// Uses a static cache keyed by StringId to avoid recomputing.
-        /// </summary>
-        public bool IsBetterThan(WItem other)
+        private struct ChevronCacheEntry
         {
-            if (other == null)
-                return false;
+            public int Positive;
+            public int Negative;
+        }
 
-            string key = $"{StringId}=>{other.StringId}";
-            lock (_isBetterThanCacheLock)
+        private static readonly Dictionary<string, ChevronCacheEntry> _chevronCache = [];
+
+        private static readonly object _chevronCacheLock = new object();
+
+        private static string GetChevronCacheKey(WItem a, WItem b)
+        {
+            // Directional comparison: A vs B is not the same as B vs A.
+            // Use StringId; fall back to GetHashCode if needed.
+            var idA = a?.StringId ?? "__NULL_A__";
+            var idB = b?.StringId ?? "__NULL_B__";
+            return idA + "=>" + idB;
+        }
+
+        public void GetComparisonChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
+        {
+            positiveChevrons = 0;
+            negativeChevrons = 0;
+
+            if (other == null)
+                return;
+
+            // Same item: no icons, and no need to cache.
+            if (StringId == other.StringId)
+                return;
+
+            string key = GetChevronCacheKey(this, other);
+
+            // Try cache first
+            lock (_chevronCacheLock)
             {
-                if (_isBetterThanCache.TryGetValue(key, out var cached))
+                if (_chevronCache.TryGetValue(key, out var cached))
                 {
-                    return cached;
+                    positiveChevrons = cached.Positive;
+                    negativeChevrons = cached.Negative;
+                    return;
                 }
             }
 
-            bool result = ComputeIsBetter(other);
+            // Compute fresh
+            ComputeComparisonChevronsCore(other, out positiveChevrons, out negativeChevrons);
 
-            lock (_isBetterThanCacheLock)
+            // Store in cache
+            lock (_chevronCacheLock)
             {
-                _isBetterThanCache[key] = result;
+                _chevronCache[key] = new ChevronCacheEntry
+                {
+                    Positive = positiveChevrons,
+                    Negative = negativeChevrons,
+                };
             }
-
-            return result;
         }
 
-        /// <summary>
-        /// Actual computation of IsBetterThan without caching.
-        /// </summary>
-        private bool ComputeIsBetter(WItem other)
+        private void ComputeComparisonChevronsCore(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
-            if (this == other)
-            {
-                Log.Info("WItem.IsBetterThan: comparing same item -> FALSE");
-                return false;
-            }
-
-            Log.Info(
-                $"WItem.IsBetterThan: comparing {Name} ({StringId})to {(other != null ? other.Name : "null")} ({(other != null ? other.StringId : "null")})"
-            );
-            if (other == null)
-            {
-                Log.Info("WItem.IsBetterThan: other is null -> FALSE");
-                return false;
-            }
+            positiveChevrons = 0;
+            negativeChevrons = 0;
 
             // Weapons (melee / ranged / shields / ammo)
             if (IsWeapon && other.IsWeapon)
@@ -362,67 +381,48 @@ namespace Retinues.Game.Wrappers
                 var w1 = PrimaryWeapon;
                 var w2 = other.PrimaryWeapon;
                 if (w1 == null || w2 == null)
-                {
-                    Log.Info(
-                        "WItem.IsBetterThan: one of the weapons has null PrimaryWeapon -> FALSE"
-                    );
-                    return false;
-                }
+                    return;
 
                 // Require same weapon class (sword vs sword, bow vs bow, shield vs shield, etc.).
                 if (w1.WeaponClass != w2.WeaponClass)
-                {
-                    Log.Info("WItem.IsBetterThan: weapon classes differ -> FALSE");
-                    return false;
-                }
+                    return;
 
                 // Shields
                 if (IsShield || other.IsShield)
                 {
                     if (!IsShield || !other.IsShield)
-                    {
-                        Log.Info("WItem.IsBetterThan: one item is shield, other is not -> FALSE");
-                        return false;
-                    }
+                        return;
 
-                    var result = IsBetterShieldThan(other);
-                    Log.Info($"WItem.IsBetterThan: shield comparison result -> {result}");
-                    return result;
+                    CompareShieldChevrons(other, out positiveChevrons, out negativeChevrons);
+                    return;
                 }
 
                 // Ammo (arrows, bolts, bullets, thrown stacks, etc.).
                 if (IsAmmo || other.IsAmmo)
                 {
                     if (!IsAmmo || !other.IsAmmo)
-                    {
-                        Log.Info("WItem.IsBetterThan: one item is ammo, other is not -> FALSE");
-                        return false;
-                    }
+                        return;
 
-                    var result = IsBetterAmmoThan(other);
-                    Log.Info($"WItem.IsBetterThan: ammo comparison result -> {result}");
-                    return result;
+                    CompareAmmoChevrons(other, out positiveChevrons, out negativeChevrons);
+                    return;
                 }
 
                 // Pure ranged weapons (bows, crossbows, guns, throwing).
                 if (IsRangedWeapon && other.IsRangedWeapon)
                 {
-                    var result = IsBetterRangedWeaponThan(other);
-                    Log.Info($"WItem.IsBetterThan: ranged weapon comparison result -> {result}");
-                    return result;
+                    CompareRangedWeaponChevrons(other, out positiveChevrons, out negativeChevrons);
+                    return;
                 }
 
                 // Pure melee weapons (swords, axes, maces, polearms).
                 if (IsMeleeWeapon && other.IsMeleeWeapon)
                 {
-                    var result = IsBetterMeleeWeaponThan(other);
-                    Log.Info($"WItem.IsBetterThan: melee weapon comparison result -> {result}");
-                    return result;
+                    CompareMeleeWeaponChevrons(other, out positiveChevrons, out negativeChevrons);
+                    return;
                 }
 
                 // Mixed types (melee vs ranged of same WeaponClass) are not compared.
-                Log.Info("WItem.IsBetterThan: mixed weapon types (melee vs ranged) -> FALSE");
-                return false;
+                return;
             }
 
             // Human armor (head, body, hands, legs).
@@ -435,14 +435,10 @@ namespace Retinues.Game.Wrappers
             {
                 // Require same armor slot type (two helmets, two body armors, etc.).
                 if (Type != other.Type)
-                {
-                    Log.Info("WItem.IsBetterThan: armor types differ -> FALSE");
-                    return false;
-                }
+                    return;
 
-                var result = IsBetterArmorThan(other);
-                Log.Info($"WItem.IsBetterThan: armor comparison result -> {result}");
-                return result;
+                CompareArmorChevrons(other, out positiveChevrons, out negativeChevrons);
+                return;
             }
 
             // Horse harness (horse armor).
@@ -453,277 +449,438 @@ namespace Retinues.Game.Wrappers
                 && other.ArmorComponent != null
             )
             {
-                var result = IsBetterHorseHarnessThan(other);
-                Log.Info($"WItem.IsBetterThan: horse harness comparison result -> {result}");
-                return result;
+                CompareHorseHarnessChevrons(other, out positiveChevrons, out negativeChevrons);
+                return;
             }
 
             // Horses.
             if (IsHorse && other.IsHorse && HorseComponent != null && other.HorseComponent != null)
             {
-                var result = IsBetterHorseThan(other);
-                Log.Info($"WItem.IsBetterThan: horse comparison result -> {result}");
-                return result;
+                CompareHorseChevrons(other, out positiveChevrons, out negativeChevrons);
+                return;
             }
 
-            Log.Info("WItem.IsBetterThan: other categories not handled -> FALSE");
-            // Other categories not handled yet → not considered a straight upgrade.
-            return false;
+            // Other categories not handled yet -> no icons.
         }
 
-        private static bool IsStatUpgrade(
+        private static void AccumulateStatComparison(
             int thisValue,
             int otherValue,
             bool higherIsBetter,
-            ref bool anyBetter
+            ref int better,
+            ref int worse
         )
         {
-            if (higherIsBetter)
-            {
-                if (thisValue < otherValue)
-                    return false;
+            if (thisValue == otherValue)
+                return;
 
-                if (thisValue > otherValue)
-                    anyBetter = true;
+            bool thisBetter = higherIsBetter ? thisValue > otherValue : thisValue < otherValue;
+
+            if (thisBetter)
+                better++;
+            else
+                worse++;
+        }
+
+        private static void GetChevronsFromCounts(
+            int better,
+            int worse,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
+        {
+            positiveChevrons = 0;
+            negativeChevrons = 0;
+
+            int nonEqual = better + worse;
+            if (nonEqual == 0)
+                return; // all equal -> no icon
+
+            // Perfect tradeoff (same number of better/worse) -> no icon.
+            if (better == worse)
+                return;
+
+            // All stats in one direction.
+            if (worse == 0)
+            {
+                positiveChevrons = 3;
+                negativeChevrons = 0;
+                return;
+            }
+
+            if (better == 0)
+            {
+                positiveChevrons = 0;
+                negativeChevrons = 3;
+                return;
+            }
+
+            // Mixed: majority side gets 2 chevrons, minority gets 1.
+            if (better > worse)
+            {
+                positiveChevrons = 2;
+                negativeChevrons = 1;
             }
             else
             {
-                if (thisValue > otherValue)
-                    return false;
-
-                if (thisValue < otherValue)
-                    anyBetter = true;
+                positiveChevrons = 1;
+                negativeChevrons = 2;
             }
-
-            return true;
         }
 
-        private bool IsBetterMeleeWeaponThan(WItem other)
+        private void CompareMeleeWeaponChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
             var w1 = PrimaryWeapon;
             var w2 = other.PrimaryWeapon;
 
-            bool anyBetter = false;
+            int better = 0,
+                worse = 0;
 
             // Damage
-            if (!IsStatUpgrade(w1.SwingDamage, w2.SwingDamage, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (
-                !IsStatUpgrade(
-                    w1.ThrustDamage,
-                    w2.ThrustDamage,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
+            AccumulateStatComparison(
+                w1.SwingDamage,
+                w2.SwingDamage,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.ThrustDamage,
+                w2.ThrustDamage,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
             // Speed
-            if (!IsStatUpgrade(w1.SwingSpeed, w2.SwingSpeed, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (!IsStatUpgrade(w1.ThrustSpeed, w2.ThrustSpeed, higherIsBetter: true, ref anyBetter))
-                return false;
+            AccumulateStatComparison(
+                w1.SwingSpeed,
+                w2.SwingSpeed,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.ThrustSpeed,
+                w2.ThrustSpeed,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
             // Reach & handling
-            if (
-                !IsStatUpgrade(
-                    w1.WeaponLength,
-                    w2.WeaponLength,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
-            if (!IsStatUpgrade(w1.Handling, w2.Handling, higherIsBetter: true, ref anyBetter))
-                return false;
+            AccumulateStatComparison(
+                w1.WeaponLength,
+                w2.WeaponLength,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.Handling,
+                w2.Handling,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            return anyBetter;
+            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
 
-        private bool IsBetterRangedWeaponThan(WItem other)
+        private void CompareRangedWeaponChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
             var w1 = PrimaryWeapon;
             var w2 = other.PrimaryWeapon;
 
-            bool anyBetter = false;
+            int better = 0,
+                worse = 0;
 
-            // Damage (bows/crossbows/guns/throwing): use both swing/thrust and let zeros pass.
-            if (!IsStatUpgrade(w1.SwingDamage, w2.SwingDamage, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (
-                !IsStatUpgrade(
-                    w1.ThrustDamage,
-                    w2.ThrustDamage,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
+            // Damage
+            AccumulateStatComparison(
+                w1.SwingDamage,
+                w2.SwingDamage,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.ThrustDamage,
+                w2.ThrustDamage,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            // Projectile speed & accuracy.
-            if (
-                !IsStatUpgrade(
-                    w1.MissileSpeed,
-                    w2.MissileSpeed,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
-            if (!IsStatUpgrade(w1.Accuracy, w2.Accuracy, higherIsBetter: true, ref anyBetter))
-                return false;
+            // Projectile speed & accuracy
+            AccumulateStatComparison(
+                w1.MissileSpeed,
+                w2.MissileSpeed,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.Accuracy,
+                w2.Accuracy,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            return anyBetter;
+            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
 
-        private bool IsBetterAmmoThan(WItem other)
+        private void CompareAmmoChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
             var w1 = PrimaryWeapon;
             var w2 = other.PrimaryWeapon;
 
-            bool anyBetter = false;
+            int better = 0,
+                worse = 0;
 
-            // Damage & projectile behavior.
-            if (!IsStatUpgrade(w1.SwingDamage, w2.SwingDamage, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (
-                !IsStatUpgrade(
-                    w1.ThrustDamage,
-                    w2.ThrustDamage,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
-            if (
-                !IsStatUpgrade(
-                    w1.MissileSpeed,
-                    w2.MissileSpeed,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
-            if (!IsStatUpgrade(w1.Accuracy, w2.Accuracy, higherIsBetter: true, ref anyBetter))
-                return false;
+            // Damage & projectile behavior
+            AccumulateStatComparison(
+                w1.SwingDamage,
+                w2.SwingDamage,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.ThrustDamage,
+                w2.ThrustDamage,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.MissileSpeed,
+                w2.MissileSpeed,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                w1.Accuracy,
+                w2.Accuracy,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
             // Stack size (MaxDataValue): more ammo is better.
-            // MaxDataValue is short, but compare as int.
-            int thisStack = PrimaryWeapon.MaxDataValue;
-            int otherStack = other.PrimaryWeapon.MaxDataValue;
+            int thisStack = w1.MaxDataValue;
+            int otherStack = w2.MaxDataValue;
+            AccumulateStatComparison(
+                thisStack,
+                otherStack,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            if (!IsStatUpgrade(thisStack, otherStack, higherIsBetter: true, ref anyBetter))
-                return false;
-
-            return anyBetter;
+            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
 
-        private bool IsBetterShieldThan(WItem other)
+        private void CompareShieldChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
             var w1 = PrimaryWeapon;
             var w2 = other.PrimaryWeapon;
 
-            bool anyBetter = false;
+            int better = 0,
+                worse = 0;
 
-            // Shield durability (hit points): MaxDataValue is used by GetModifiedHitPoints.
+            // Shield durability (hit points)
             int thisHp = w1.MaxDataValue;
             int otherHp = w2.MaxDataValue;
-            if (!IsStatUpgrade(thisHp, otherHp, higherIsBetter: true, ref anyBetter))
-                return false;
+            AccumulateStatComparison(thisHp, otherHp, higherIsBetter: true, ref better, ref worse);
 
-            // Shield armor (how much damage is blocked).
-            if (!IsStatUpgrade(w1.BodyArmor, w2.BodyArmor, higherIsBetter: true, ref anyBetter))
-                return false;
+            // Shield armor
+            AccumulateStatComparison(
+                w1.BodyArmor,
+                w2.BodyArmor,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            // Handling (how quickly it can be moved/raised).
-            if (!IsStatUpgrade(w1.Handling, w2.Handling, higherIsBetter: true, ref anyBetter))
-                return false;
+            // Handling
+            AccumulateStatComparison(
+                w1.Handling,
+                w2.Handling,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            return anyBetter;
+            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
 
-        private bool IsBetterArmorThan(WItem other)
+        private void CompareArmorChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
             var a1 = ArmorComponent;
             var a2 = other.ArmorComponent;
             if (a1 == null || a2 == null)
-                return false;
+            {
+                positiveChevrons = 0;
+                negativeChevrons = 0;
+                return;
+            }
 
-            bool anyBetter = false;
+            int better = 0,
+                worse = 0;
 
-            // Human armor: compare all four regions. Zeros simply compare equal.
-            if (!IsStatUpgrade(a1.HeadArmor, a2.HeadArmor, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (!IsStatUpgrade(a1.BodyArmor, a2.BodyArmor, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (!IsStatUpgrade(a1.ArmArmor, a2.ArmArmor, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (!IsStatUpgrade(a1.LegArmor, a2.LegArmor, higherIsBetter: true, ref anyBetter))
-                return false;
+            // Human armor: compare all four regions.
+            AccumulateStatComparison(
+                a1.HeadArmor,
+                a2.HeadArmor,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                a1.BodyArmor,
+                a2.BodyArmor,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                a1.ArmArmor,
+                a2.ArmArmor,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                a1.LegArmor,
+                a2.LegArmor,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            return anyBetter;
+            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
 
-        private bool IsBetterHorseHarnessThan(WItem other)
+        private void CompareHorseHarnessChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
             var a1 = ArmorComponent;
             var a2 = other.ArmorComponent;
             if (a1 == null || a2 == null)
-                return false;
+            {
+                positiveChevrons = 0;
+                negativeChevrons = 0;
+                return;
+            }
 
-            bool anyBetter = false;
+            int better = 0,
+                worse = 0;
 
             // Horse armor: overall armor + maneuver/speed/charge bonuses.
-            if (!IsStatUpgrade(a1.BodyArmor, a2.BodyArmor, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (
-                !IsStatUpgrade(
-                    a1.ManeuverBonus,
-                    a2.ManeuverBonus,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
-            if (!IsStatUpgrade(a1.SpeedBonus, a2.SpeedBonus, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (!IsStatUpgrade(a1.ChargeBonus, a2.ChargeBonus, higherIsBetter: true, ref anyBetter))
-                return false;
+            AccumulateStatComparison(
+                a1.BodyArmor,
+                a2.BodyArmor,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                a1.ManeuverBonus,
+                a2.ManeuverBonus,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                a1.SpeedBonus,
+                a2.SpeedBonus,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                a1.ChargeBonus,
+                a2.ChargeBonus,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
-            return anyBetter;
+            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
 
-        private bool IsBetterHorseThan(WItem other)
+        private void CompareHorseChevrons(
+            WItem other,
+            out int positiveChevrons,
+            out int negativeChevrons
+        )
         {
             var h1 = HorseComponent;
             var h2 = other.HorseComponent;
             if (h1 == null || h2 == null)
-                return false;
+            {
+                positiveChevrons = 0;
+                negativeChevrons = 0;
+                return;
+            }
 
-            bool anyBetter = false;
+            int better = 0,
+                worse = 0;
 
-            // Horse core stats: speed, maneuver, charge, hit points.
-            if (!IsStatUpgrade(h1.Speed, h2.Speed, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (!IsStatUpgrade(h1.Maneuver, h2.Maneuver, higherIsBetter: true, ref anyBetter))
-                return false;
-            if (
-                !IsStatUpgrade(
-                    h1.ChargeDamage,
-                    h2.ChargeDamage,
-                    higherIsBetter: true,
-                    ref anyBetter
-                )
-            )
-                return false;
+            // Horse core stats
+            AccumulateStatComparison(
+                h1.Speed,
+                h2.Speed,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                h1.Maneuver,
+                h2.Maneuver,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
+            AccumulateStatComparison(
+                h1.ChargeDamage,
+                h2.ChargeDamage,
+                higherIsBetter: true,
+                ref better,
+                ref worse
+            );
 
             // HitPoints + bonus (more durable mount is better).
             int thisHp = h1.HitPoints + h1.HitPointBonus;
             int otherHp = h2.HitPoints + h2.HitPointBonus;
-            if (!IsStatUpgrade(thisHp, otherHp, higherIsBetter: true, ref anyBetter))
-                return false;
+            AccumulateStatComparison(thisHp, otherHp, higherIsBetter: true, ref better, ref worse);
 
-            return anyBetter;
+            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
     }
 }

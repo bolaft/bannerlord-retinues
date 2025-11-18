@@ -14,15 +14,24 @@
     margin_right="16"
 ) }}
 
-<!-- Better icon -->
-{{ image.sprite(
-    sprite="General\TroopTierIcons\icon_tier_3_big",
-    width="20", height="20",
-    vertical_alignment="Center",
-    horizontal_alignment="Left",
-    is_visible="@IsBetterThanCurrent",
-    color="#a5d82fb4"
-) }}
+<!-- Comparison icon -->
+<SpriteWidget
+    IsVisible="@ShowComparisonIcon"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="20" SuggestedHeight="20"
+    Sprite="@PositiveComparisonSprite"
+    Color="#a5d82fb4"
+    HorizontalAlignment="Left" VerticalAlignment="Center" >
+    <Children>
+        <SpriteWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="20" SuggestedHeight="20"
+            Sprite="@NegativeComparisonSprite"
+            Color="#d82f2fb4"
+            PositionYOffset="@NegativeComparisonSpriteOffset"
+            VerticalFlip="true"/>
+    </Children>
+</SpriteWidget>
 
 <!-- Name -->
 {{ text.base(

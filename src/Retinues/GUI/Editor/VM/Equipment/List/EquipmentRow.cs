@@ -55,12 +55,18 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(ShowInStockText));
             OnPropertyChanged(nameof(ShowValue));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
-            OnPropertyChanged(nameof(IsBetterThanCurrent));
+            OnPropertyChanged(nameof(ShowComparisonIcon));
+            OnPropertyChanged(nameof(PositiveComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
         }
 
         public void OnEquipChanged()
         {
-            OnPropertyChanged(nameof(IsBetterThanCurrent));
+            OnPropertyChanged(nameof(ShowComparisonIcon));
+            OnPropertyChanged(nameof(PositiveComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
         }
 
         /// <summary>
@@ -90,7 +96,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(ShowInStockText));
             OnPropertyChanged(nameof(ShowValue));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
-            OnPropertyChanged(nameof(IsBetterThanCurrent));
+            OnPropertyChanged(nameof(ShowComparisonIcon));
+            OnPropertyChanged(nameof(PositiveComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -239,20 +248,96 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             }
         }
 
+        /* ━━━━━━ Comparisons ━━━━━ */
+
+        /* ━━━━━━━━━ Comparison Icons ━━━━━━━━ */
+
+        private void GetChevronCounts(out int positive, out int negative)
+        {
+            positive = 0;
+            negative = 0;
+
+            if (!IsEnabled)
+                return;
+
+            var rowItem = RowItem;
+            if (rowItem == null)
+                return;
+
+            var current = StagedItem ?? EquippedItem;
+            if (current == null)
+                return;
+
+            // Same item → no icon.
+            if (ReferenceEquals(rowItem, current) || rowItem.StringId == current.StringId)
+                return;
+
+            try
+            {
+                rowItem.GetComparisonChevrons(current, out positive, out negative);
+            }
+            catch (System.Exception e)
+            {
+                Log.Error(
+                    $"EquipmentRowVM.GetChevronCounts failed for RowItem={rowItem.StringId}, Current={current.StringId}: {e}"
+                );
+                positive = 0;
+                negative = 0;
+            }
+        }
+
         [DataSourceProperty]
-        public bool IsBetterThanCurrent
+        public bool ShowComparisonIcon
         {
             get
             {
-                if (IsEnabled == false)
-                    return false;
+                GetChevronCounts(out var positive, out var negative);
+                return positive > 0 || negative > 0;
+            }
+        }
 
-                bool betterThanEquipped = RowItem?.IsBetterThan(EquippedItem) == true;
+        [DataSourceProperty]
+        public string PositiveComparisonSprite
+        {
+            get
+            {
+                GetChevronCounts(out var positive, out _);
+                if (positive <= 0)
+                    return string.Empty;
 
-                if (StagedItem == null)
-                    return betterThanEquipped;
-                else
-                    return betterThanEquipped && RowItem?.IsBetterThan(StagedItem) == true;
+                if (positive > 3)
+                    positive = 3;
+
+                return $"General\\TroopTierIcons\\icon_tier_{positive}_big";
+            }
+        }
+
+        [DataSourceProperty]
+        public string NegativeComparisonSprite
+        {
+            get
+            {
+                GetChevronCounts(out _, out var negative);
+                if (negative <= 0)
+                    return string.Empty;
+
+                if (negative > 3)
+                    negative = 3;
+
+                return $"General\\TroopTierIcons\\icon_tier_{negative}_big";
+            }
+        }
+
+        [DataSourceProperty]
+        public int NegativeComparisonSpriteOffset
+        {
+            get
+            {
+                GetChevronCounts(out var positive, out var negative);
+                if (negative > 0 && positive > 0)
+                    return 5;
+
+                return 0;
             }
         }
 
