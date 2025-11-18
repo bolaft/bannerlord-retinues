@@ -97,8 +97,35 @@
                     is_enabled="@CanRemoveSet",
                     hint="{RemoveSetHint}"
                 ) }}
+
                 {{ button.chevron_l("ExecutePrevSet", size="36", is_enabled="@CanSelectPrevSet") }}
+
+                <!-- Copy Icon -->
+                {{ button.sprite(
+                    command="ExecuteCopyEquipment",
+                    command_hover_begin="ExecuteBeginHoverCopyIcon",
+                    command_hover_end="ExecuteEndHoverCopyIcon",
+                    sprite="General\Icons\copy_item_icon",
+                    color="@CopyEquipmentIconColor",
+                    width="20", height="20",
+                    margin_left="8",
+                    hint="{CopyEquipmentHint}"
+                ) }}
+
                 {{ text.base(text="@EquipmentName", margin_left="16", margin_right="16") }}
+
+                <!-- Paste Icon -->
+                {{ button.sprite(
+                    command="ExecutePasteEquipment",
+                    command_hover_begin="ExecuteBeginHoverPasteIcon",
+                    command_hover_end="ExecuteEndHoverPasteIcon",
+                    sprite="General\Icons\\add_icon",
+                    color="@PasteEquipmentIconColor",
+                    width="20", height="20",
+                    margin_right="8",
+                    hint="{PasteEquipmentHint}"
+                ) }}
+
                 {{ button.chevron_r("ExecuteNextSet", size="36", is_enabled="@CanSelectNextSet") }}
 
                 <!-- Create Set Button -->

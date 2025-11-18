@@ -5,6 +5,7 @@ using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Features.Equipments;
 using Retinues.Features.Staging;
+using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Equipment.List;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
@@ -54,6 +55,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanCreateSet),
                     nameof(RemoveSetHint),
                     nameof(CreateSetHint),
+                    nameof(CopyEquipmentHint),
+                    nameof(PasteEquipmentHint),
+                    nameof(CopyEquipmentIconColor),
+                    nameof(PasteEquipmentIconColor),
                 ],
                 [UIEvent.Equipment] =
                 [
@@ -90,6 +95,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanToggleEnableForFieldBattle),
                     nameof(CanToggleEnableForSiegeDefense),
                     nameof(CanToggleEnableForSiegeAssault),
+                    nameof(CopyEquipmentHint),
+                    nameof(PasteEquipmentHint),
+                    nameof(CopyEquipmentIconColor),
+                    nameof(PasteEquipmentIconColor),
                 ],
                 [UIEvent.Equip] = [nameof(CanUnstage), nameof(CanUnequip)],
                 [UIEvent.Slot] =
@@ -543,9 +552,108 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     .ToString()
             );
 
+        [DataSourceProperty]
+        public BasicTooltipViewModel CopyEquipmentHint
+        {
+            get
+            {
+                if (State.Equipment == null)
+                {
+                    return Tooltip.MakeTooltip(
+                        null,
+                        L.S("copy_equipment_disabled", "No equipment set selected.")
+                    );
+                }
+
+                return Tooltip.MakeTooltip(
+                    null,
+                    L.S("copy_equipment_hint", "Copy this equipment set to the clipboard.")
+                );
+            }
+        }
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel PasteEquipmentHint
+        {
+            get
+            {
+                if (Clipboard == null)
+                {
+                    return Tooltip.MakeTooltip(
+                        null,
+                        L.S(
+                            "paste_equipment_empty",
+                            "Clipboard is empty. Copy an equipment set first."
+                        )
+                    );
+                }
+
+                return Tooltip.MakeTooltip(
+                    null,
+                    L.S("paste_equipment_hint", "Paste the copied equipment onto this set.")
+                );
+            }
+        }
+
+        /* ━━━━━━━━ Colors ━━━━━━━━ */
+
+        const string HoveredColor = "#fdae1ae8";
+        const string EnabledColor = "#f8d28ab4";
+        const string DisabledColor = "#46433db4";
+
+        private bool _copyIsHovered = false;
+        private bool _pasteIsHovered = false;
+
+        [DataSourceProperty]
+        public string CopyEquipmentIconColor => _copyIsHovered ? HoveredColor : EnabledColor;
+
+        [DataSourceProperty]
+        public string PasteEquipmentIconColor
+        {
+            get
+            {
+                if (Clipboard != null)
+                    return _pasteIsHovered ? HoveredColor : EnabledColor;
+
+                return DisabledColor;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━━ Hover ━━━━━━━━ */
+
+        [DataSourceMethod]
+        public void ExecuteBeginHoverCopyIcon()
+        {
+            _copyIsHovered = true;
+            OnPropertyChanged(nameof(CopyEquipmentIconColor));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteEndHoverCopyIcon()
+        {
+            _copyIsHovered = false;
+            OnPropertyChanged(nameof(CopyEquipmentIconColor));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteBeginHoverPasteIcon()
+        {
+            _pasteIsHovered = true;
+            OnPropertyChanged(nameof(PasteEquipmentIconColor));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteEndHoverPasteIcon()
+        {
+            _pasteIsHovered = false;
+            OnPropertyChanged(nameof(PasteEquipmentIconColor));
+        }
+
+        /* ━━━━ Equipment Sets ━━━━ */
 
         [DataSourceMethod]
         public void ExecuteToggleShowCrafted()
@@ -770,6 +878,123 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         /// <summary>
+        /// Copy the current equipment set to the clipboard.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteCopyEquipment()
+        {
+            if (State.Equipment == null)
+                return;
+
+            Clipboard = State.Equipment;
+
+            OnPropertyChanged(nameof(CopyEquipmentHint));
+            OnPropertyChanged(nameof(PasteEquipmentHint));
+            OnPropertyChanged(nameof(CopyEquipmentIconColor));
+            OnPropertyChanged(nameof(PasteEquipmentIconColor));
+
+            Notifications.Log(L.S("equipment_copied", "Equipment set copied to clipboard."));
+        }
+
+        /// <summary>
+        /// Paste the clipboard equipment onto the current set.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecutePasteEquipment()
+        {
+            // nothing to paste
+            if (Clipboard == null)
+                return;
+
+            var source = Clipboard;
+            var target = State.Equipment;
+            if (target == null)
+                return;
+
+            var cost = EquipmentManager.QuotePasteGoldCost(source, target);
+            var gold = Player.Gold;
+
+            // cannot afford
+            if (cost > 0 && gold < cost)
+            {
+                Notifications.Popup(
+                    L.T("paste_equip_cannot_afford_title", "Cannot Afford"),
+                    L.T(
+                            "paste_equip_cannot_afford_text",
+                            "You need {GOLD} gold to paste this equipment, but you only have {CURRENT}."
+                        )
+                        .SetTextVariable("GOLD", cost)
+                        .SetTextVariable("CURRENT", gold)
+                );
+                return;
+            }
+
+            var troopName = source.Loadout.Troop.Name;
+            var equipmentNumber = (source.Index + 1).ToString();
+
+            // confirmation
+            var title = L.T("paste_equip_confirm_title", "Confirm Equipment Copy");
+            var text =
+                cost > 0
+                    ? L.T(
+                            "paste_equip_confirm_text_cost",
+                            "Pasting {TROOP}'s equipment n°{INDEX} will cost {GOLD} gold. Continue?"
+                        )
+                        .SetTextVariable("GOLD", cost)
+                        .SetTextVariable("TROOP", troopName)
+                        .SetTextVariable("INDEX", equipmentNumber)
+                    : L.T(
+                            "paste_equip_confirm_text_free",
+                            "Paste {TROOP}'s equipment n°{INDEX} onto the current set?"
+                        )
+                        .SetTextVariable("TROOP", troopName)
+                        .SetTextVariable("INDEX", equipmentNumber);
+
+            Notifications.ConfirmationPopup(
+                title,
+                text,
+                onConfirm: () =>
+                {
+                    var res = EquipmentManager.TryPasteEquipment(source, target);
+
+                    if (!res.Ok)
+                    {
+                        string msg = res.Reason switch
+                        {
+                            EquipmentManager.EquipFailReason.NotAllowed => L.S(
+                                "paste_failed_not_allowed",
+                                "Some items cannot be equipped by this troop."
+                            ),
+                            EquipmentManager.EquipFailReason.NotEnoughGold => L.S(
+                                "paste_failed_not_enough_gold",
+                                "You do not have enough gold."
+                            ),
+                            EquipmentManager.EquipFailReason.NotEnoughStock => L.S(
+                                "paste_failed_not_enough_stock",
+                                "You lack enough copies of required items."
+                            ),
+                            EquipmentManager.EquipFailReason.NotCivilian => L.S(
+                                "paste_failed_not_civilian",
+                                "A non-civilian item cannot be equipped in a civilian set."
+                            ),
+                            _ => L.S("paste_failed_generic", "The equipment paste failed."),
+                        };
+                        Notifications.Popup(
+                            L.T("paste_equip_failed_title", "Copy Failed"),
+                            L.T("paste_equip_failed_text", msg)
+                        );
+                        return;
+                    }
+
+                    // success
+                    Clipboard = null;
+
+                    State.UpdateEquipment(State.Equipment);
+                }
+            );
+        }
+
+        /// <summary>
         /// Select the previous equipment set.
         /// </summary>
         [DataSourceMethod]
@@ -894,7 +1119,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>Build (slot, item) for all defined slots from the source equipment.</summary>
+        /// <summary>
+        /// Build (slot, item) for all defined slots from the source equipment.
+        /// </summary>
         private List<(EquipmentIndex slot, WItem item)> CollectCopyPlan(WEquipment src)
         {
             var list = new List<(EquipmentIndex, WItem)>(WEquipment.Slots.Count);
@@ -907,7 +1134,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
             return list;
         }
 
-        /// <summary>Copy items (by slot) into the destination equipment (direct set, no staging).</summary>
+        /// <summary>
+        /// Copy items (by slot) into the destination equipment (direct set, no staging).
+        /// </summary>
         private static void CopyItemsInto(
             WEquipment dst,
             List<(EquipmentIndex slot, WItem item)> plan
@@ -916,6 +1145,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
             foreach (var (slot, item) in plan)
                 dst.SetItem(slot, item);
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Clipboard                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private WEquipment Clipboard { get; set; }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //

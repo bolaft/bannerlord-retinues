@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="Copier l’actuel" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="Aucun ensemble d’équipement sélectionné." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="Copier cet ensemble d’équipement dans le presse-papiers." />
+    <string
       id="ret_create_from_culture"
       text="Copier les troupes de {CULTURE}" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="Équipement" />
+    <string
+      id="ret_equipment_copied"
+      text="Ensemble d’équipement copié dans le presse-papiers." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="La liste d’équipement a été tronquée pour n’afficher que les {MAX_ROWS} premiers objets. Affine tes filtres ou ta recherche pour voir des résultats plus spécifiques." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="Ne peut pas descendre en dessous du niveau de compétence du parent {PARENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="Vous avez besoin de {GOLD} or pour coller cet équipement, mais vous n’en avez que {CURRENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="Pas les Moyens" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="Coller l’équipement n°{INDEX} de {TROOP} coûtera {GOLD} or. Continuer ?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="Coller l’équipement n°{INDEX} de {TROOP} sur l’ensemble actuel ?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="Confirmer la copie de l’équipement" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="Échec de la copie" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="Le presse-papiers est vide. Copiez d’abord un ensemble d’équipement." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="Colle l’équipement copié sur cet ensemble." />
+    <string
+      id="ret_paste_failed_generic"
+      text="Le collage de l’équipement a échoué." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="Certains objets ne peuvent pas être équipés par cette troupe." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="Un objet non civil ne peut pas être équipé dans un ensemble civil." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="Vous n’avez pas assez d’or." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="Pas assez de stock pour les objets requis." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Ouvre l’éditeur pour les troupes de votre clan et de votre royaume." />

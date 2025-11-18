@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="Copiar Actual" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="No se ha seleccionado ningún conjunto de equipo." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="Copia este conjunto de equipo al portapapeles." />
+    <string
       id="ret_create_from_culture"
       text="Copiar las tropas de {CULTURE}" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="Equipo" />
+    <string
+      id="ret_equipment_copied"
+      text="Conjunto de equipo copiado al portapapeles." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="La lista de equipo se ha truncado para mostrar solo los primeros {MAX_ROWS} objetos. Refinar tus filtros o búsqueda para ver resultados más específicos." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="No puede bajar del nivel de habilidad del padre {PARENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="Necesitas {GOLD} de oro para pegar este equipo, pero solo tienes {CURRENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="No puede permitírselo" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="Pegar el equipo n°{INDEX} de {TROOP} costará {GOLD} de oro. ¿Continuar?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="¿Pegar el equipo n°{INDEX} de {TROOP} en el conjunto actual?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="Confirmar copia de equipo" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="Copia fallida" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="El portapapeles está vacío. Primero, copia un conjunto de equipo." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="Pega el equipo copiado en este conjunto." />
+    <string
+      id="ret_paste_failed_generic"
+      text="La pegada del equipo falló." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="Algunos objetos no pueden ser equipados por esta tropa." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="Un objeto no civil no puede ser equipado en un conjunto civil." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="No tienes suficiente oro." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="No tienes suficientes copias de los objetos requeridos." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Abre el editor para las tropas de tu clan y reino." />

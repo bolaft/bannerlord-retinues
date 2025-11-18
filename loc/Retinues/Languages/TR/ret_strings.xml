@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="Mevcut Kopya" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="Seçili ekipman seti yok." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="Bu ekipman setini panoya kopyala." />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} Askerlerini Kopyala" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="Teçhizat" />
+    <string
+      id="ret_equipment_copied"
+      text="Teçhizat seti panoya kopyalandı." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="Ekipman listesi, yalnızca ilk {MAX_ROWS} öğeyi gösterecek şekilde kısaltıldı. Daha spesifik sonuçlar görmek için filtrelerinizi veya aramanızı iyileştirin." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="Ana {PARENT} beceri seviyesinin altına inemez." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="Bu ekipmanı yapıştırmak için {GOLD} altına ihtiyacınız var, ancak sadece {CURRENT} var." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="Karşılayamıyor" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="{TROOP}&apos;un ekipman n°{INDEX}&apos;ini yapıştırmak {GOLD} altına mal olacak. Devam edilsin mi?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="{TROOP}&apos;un ekipman n°{INDEX}&apos;ini mevcut sete yapıştırılsın mı?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="Ekipman Kopyasını Onayla" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="Kopyalama Başarısız" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="Pano boş. Önce bir ekipman seti kopyalayın." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="Kopyalanan ekipmanı bu sete yapıştırın." />
+    <string
+      id="ret_paste_failed_generic"
+      text="Ekipman yapıştırma başarısız oldu." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="Bazı öğeler bu birlik tarafından donatılamaz." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="Sivil olmayan bir öğe sivil sette donatılamaz." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="Yeterli altının yok." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="Gerekli öğelerin yeterli kopyalarına sahip değilsiniz." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Klanınız ve krallığınız birlikleri için düzenleyiciyi açın." />

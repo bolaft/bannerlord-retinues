@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="複製當前" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="未選擇裝備套裝。" />
+    <string
+      id="ret_copy_equipment_hint"
+      text="將此裝備套裝複製到剪貼板。" />
+    <string
       id="ret_create_from_culture"
       text="複製 {CULTURE} 的部隊" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="裝備" />
+    <string
+      id="ret_equipment_copied"
+      text="裝備套裝已複製到剪貼板。" />
     <string
       id="ret_equipment_list_truncated_hint"
       text="裝備列表已被截斷，僅顯示前 {MAX_ROWS} 個物品。請優化您的過濾器或搜索以查看更多具體結果。" />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="不能低於父級{PARENT}的技能水平。" />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="您需要{GOLD}金幣來粘貼此裝備，但您只有{CURRENT}。" />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="負擔不起" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="粘貼{TROOP}的裝備n°{INDEX}將花費{GOLD}金幣。繼續嗎？" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="將{TROOP}的裝備n°{INDEX}粘貼到當前套裝上？" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="確認裝備複製" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="複製失敗" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="剪貼板為空。請先複製一個裝備套裝。" />
+    <string
+      id="ret_paste_equipment_hint"
+      text="將複製的裝備粘貼到此套裝上。" />
+    <string
+      id="ret_paste_failed_generic"
+      text="裝備粘貼失敗。" />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="某些物品無法由這支部隊裝備。" />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="非平民物品無法裝備在平民套裝中。" />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="你沒有足夠的金幣。" />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="您缺乏足夠的所需物品副本。" />
     <string
       id="ret_personal_editor_tooltip_text"
       text="為您的氏族和王國部隊打開編輯器。" />

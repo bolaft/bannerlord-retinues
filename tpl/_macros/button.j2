@@ -6,6 +6,8 @@
 
 {% macro base(
     command,
+    command_hover_begin=None,
+    command_hover_end=None,
     data_source=None,
     is_visible="true",
     is_enabled="true",
@@ -42,6 +44,8 @@
             SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
             Brush="{{ brush }}"
             Command.Click="{{ command }}"
+            {% if command_hover_begin %} Command.HoverBegin="{{ command_hover_begin }}"{% endif %}
+            {% if command_hover_end %} Command.HoverEnd="{{ command_hover_end }}"{% endif %}
             UpdateChildrenStates="true"
             DoNotPassEventsToChildren="true">
             <Children>
@@ -222,6 +226,8 @@
     command,
     sprite,
     color=None,
+    command_hover_begin=None,
+    command_hover_end=None,
     data_source=None,
     is_visible="true",
     is_enabled="true",
@@ -235,6 +241,8 @@
 
 {% call base(
     command=command,
+    command_hover_begin=command_hover_begin,
+    command_hover_end=command_hover_end,
     data_source=data_source,
     is_visible=is_visible,
     is_hidden=is_hidden,

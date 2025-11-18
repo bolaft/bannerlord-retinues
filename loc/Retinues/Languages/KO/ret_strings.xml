@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="현재 복사" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="선택된 장비 세트가 없습니다." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="이 장비 세트를 클립보드에 복사하십시오." />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} 의 부대 복사" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="장비" />
+    <string
+      id="ret_equipment_copied"
+      text="장비 세트가 클립보드에 복사되었습니다." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="장비 목록이 잘려서 처음 {MAX_ROWS}개의 항목만 표시됩니다. 필터나 검색을 세분화하여 보다 구체적인 결과를 확인하세요." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="부모 {PARENT}의 기술 수준 아래로 내려갈 수 없습니다." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="이 장비를 붙여넣으려면 {GOLD} 골드가 필요하지만 현재 {CURRENT} 골드만 있습니다." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="감당할 수 없음" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="{TROOP}의 장비 n°{INDEX}를 붙여넣는 데 {GOLD} 골드가 듭니다. 계속하시겠습니까?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="{TROOP}의 장비 n°{INDEX}를 현재 세트에 붙여넣으시겠습니까?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="장비 복사 확인" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="복사 실패" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="클립보드가 비어 있습니다. 먼저 장비 세트를 복사하세요." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="복사한 장비를 이 세트에 붙여넣으세요." />
+    <string
+      id="ret_paste_failed_generic"
+      text="장비 붙여넣기에 실패했습니다." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="일부 아이템은 이 병력이 장착할 수 없습니다." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="비민간 아이템은 민간 세트에 장착할 수 없습니다." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="충분한 골드가 없습니다." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="필요한 아이템의 충분한 사본이 부족합니다." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="당신의 씨족과 왕국 병력을 위한 편집기를 엽니다." />

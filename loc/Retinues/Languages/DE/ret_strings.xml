@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="Aktuelles kopieren" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="Kein Ausrüstungsset ausgewählt." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="Kopiere dieses Ausrüstungsset in die Zwischenablage." />
+    <string
       id="ret_create_from_culture"
       text="Kopiere {CULTURE}s Truppen" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="Ausrüstung" />
+    <string
+      id="ret_equipment_copied"
+      text="Ausrüstungsset in die Zwischenablage kopiert." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="Die Ausrüstungsliste wurde gekürzt, um nur die ersten {MAX_ROWS} Gegenstände anzuzeigen. Verfeinere deine Filter oder Suche, um spezifischere Ergebnisse zu sehen." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="Kann nicht unter das Fähigkeitsniveau des übergeordneten {PARENT} gehen." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="Du benötigst {GOLD} Gold, um diese Ausrüstung einzufügen, hast aber nur {CURRENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="Kann es sich nicht leisten" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="Das Einfügen der Ausrüstung n°{INDEX} von {TROOP} kostet {GOLD} Gold. Fortfahren?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="Die Ausrüstung n°{INDEX} von {TROOP} in das aktuelle Set einfügen?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="Ausrüstungskopie bestätigen" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="Kopie fehlgeschlagen" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="Die Zwischenablage ist leer. Zuerst ein Ausrüstungsset kopieren." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="Füge die kopierte Ausrüstung in dieses Set ein." />
+    <string
+      id="ret_paste_failed_generic"
+      text="Das Einfügen der Ausrüstung ist fehlgeschlagen." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="Einige Gegenstände können von dieser Truppe nicht ausgerüstet werden." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="Ein nicht-ziviler Gegenstand kann in einem zivilen Set nicht ausgerüstet werden." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="Du hast nicht genug Gold." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="Dir fehlen genügend Kopien der benötigten Gegenstände." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Öffne den Editor für deine Clan- und Königreichstruppen." />

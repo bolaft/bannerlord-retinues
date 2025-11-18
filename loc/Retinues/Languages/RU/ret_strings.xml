@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="Скопировать Текущий" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="Не выбран набор снаряжения." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="Скопируйте этот набор снаряжения в буфер обмена." />
+    <string
       id="ret_create_from_culture"
       text="Скопировать войска {CULTURE}" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="Снаряжение" />
+    <string
+      id="ret_equipment_copied"
+      text="Набор снаряжения скопирован в буфер обмена." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="Список снаряжения был усечён, чтобы показать только первые {MAX_ROWS} предметов. Уточните свои фильтры или поиск, чтобы увидеть более конкретные результаты." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="Нельзя опускаться ниже уровня навыков родителя {PARENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="Вам нужно {GOLD} золота, чтобы вставить это оборудование, но у вас есть только {CURRENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="Не по карману" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="Вставка оборудования n°{INDEX} {TROOP} обойдется в {GOLD} золота. Продолжить?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="Вставить оборудование n°{INDEX} {TROOP} в текущий набор?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="Подтвердить копирование оборудования" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="Не удалось скопировать" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="Буфер обмена пуст. Сначала скопируйте набор оборудования." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="Вставьте скопированное оборудование в этот набор." />
+    <string
+      id="ret_paste_failed_generic"
+      text="Не удалось вставить оборудование." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="Некоторые предметы не могут быть экипированы этим отрядом." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="Негражданский предмет не может быть экипирован в гражданском наборе." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="У вас недостаточно золота." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="У вас недостаточно копий необходимых предметов." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Откройте редактор для войск вашего клана и королевства." />

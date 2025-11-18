@@ -1,3 +1,4 @@
+using System;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -35,6 +36,36 @@ namespace Retinues.GUI.Helpers
                     null,
                     buttonText.ToString(),
                     null,
+                    null
+                ),
+                pauseGame
+            );
+        }
+
+        /// <summary>
+        /// Shows a popup inquiry with a title, description, and Confirm/Cancel buttons.
+        /// </summary>
+        public static void ConfirmationPopup(
+            TextObject title,
+            TextObject description,
+            Action onConfirm,
+            TextObject confirmText = null,
+            TextObject cancelText = null,
+            bool pauseGame = true
+        )
+        {
+            confirmText ??= L.T("confirm", "Confirm");
+            cancelText ??= L.T("cancel", "Cancel");
+
+            InformationManager.ShowInquiry(
+                new InquiryData(
+                    title.ToString(),
+                    description.ToString(),
+                    true,
+                    true,
+                    confirmText.ToString(),
+                    cancelText.ToString(),
+                    onConfirm,
                     null
                 ),
                 pauseGame

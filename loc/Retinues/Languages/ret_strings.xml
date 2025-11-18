@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="Copy Current" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="No equipment set selected." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="Copy this equipment set to the clipboard." />
+    <string
       id="ret_create_from_culture"
       text="Copy {CULTURE}&apos;s Troops" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="Equipment" />
+    <string
+      id="ret_equipment_copied"
+      text="Equipment set copied to clipboard." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="The equipment list has been truncated to show only the first {MAX_ROWS} items. Refine your filters or search to see more specific results." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="Cannot go below parent {PARENT}&apos;s skill level." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="You need {GOLD} gold to paste this equipment, but you only have {CURRENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="Cannot Afford" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="Pasting {TROOP}&apos;s equipment n°{INDEX} will cost {GOLD} gold. Continue?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="Paste {TROOP}&apos;s equipment n°{INDEX} onto the current set?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="Confirm Equipment Copy" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="Copy Failed" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="Clipboard is empty. Copy an equipment set first." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="Paste the copied equipment onto this set." />
+    <string
+      id="ret_paste_failed_generic"
+      text="The equipment paste failed." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="Some items cannot be equipped by this troop." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="A non-civilian item cannot be equipped in a civilian set." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="You do not have enough gold." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="You lack enough copies of required items." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Open the editor for your clan and kingdom troops." />

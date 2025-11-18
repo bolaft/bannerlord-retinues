@@ -31,6 +31,7 @@ namespace Retinues.Managers
             NotAllowed = 1,
             NotEnoughStock = 2,
             NotEnoughGold = 3,
+            NotCivilian = 4,
         }
 
         /// <summary>
@@ -397,6 +398,15 @@ namespace Retinues.Managers
                 Reason = EquipFailReason.None,
             };
 
+            if (troop.Loadout.Get(setIndex).IsCivilian)
+            {
+                if (newItem?.IsCivilian == false)
+                {
+                    res.Reason = EquipFailReason.NotCivilian;
+                    return res;
+                }
+            }
+
             if (!CanEquip(troop, newItem))
             {
                 res.Reason = EquipFailReason.NotAllowed;
@@ -733,6 +743,130 @@ namespace Retinues.Managers
             }
 
             EquipStagingBehavior.Unstage(troop, slot, setIndex);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Copy / Paste                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public sealed class PasteResult
+        {
+            public bool Ok;
+            public EquipFailReason Reason;
+        }
+
+        public static PasteResult TryPasteEquipment(WEquipment source, WEquipment target)
+        {
+            var res = new PasteResult { Ok = false, Reason = EquipFailReason.None };
+            if (source == null || target == null)
+                return res;
+
+            var troop = target.Loadout.Troop;
+            if (troop == null)
+                return res;
+
+            bool studio = ClanScreen.IsStudioMode;
+
+            // Precompute cost
+            int totalCost = QuotePasteGoldCost(source, target);
+
+            if (!studio && Config.PayForEquipment && totalCost > 0 && Player.Gold < totalCost)
+            {
+                res.Reason = EquipFailReason.NotEnoughGold;
+                return res;
+            }
+
+            // Deduct global gold once
+            if (!studio && Config.PayForEquipment && totalCost > 0)
+                Player.ChangeGold(-totalCost);
+
+            // Apply slot-by-slot (same as before)
+            foreach (EquipmentIndex slot in WEquipment.Slots)
+            {
+                var srcItem = source.Get(slot);
+                var tgtItem = target.Get(slot);
+                if (srcItem == tgtItem)
+                    continue;
+                if (!CanEquip(troop, srcItem))
+                {
+                    res.Reason = EquipFailReason.NotAllowed;
+                    return res;
+                }
+
+                if (target.IsCivilian)
+                {
+                    if (srcItem?.IsCivilian == false)
+                    {
+                        res.Reason = EquipFailReason.NotCivilian;
+                        return res;
+                    }
+                }
+
+                var q = QuoteEquip(troop, target.Index, slot, srcItem);
+                if (!q.IsChange)
+                    continue;
+
+                if (!studio && Config.PayForEquipment)
+                {
+                    for (int i = 0; i < q.CopiesFromStock; i++)
+                        srcItem.Unstock();
+                    for (int i = 0; i < q.CopiesToBuy; i++)
+                    {
+                        srcItem.Stock();
+                        srcItem.Unstock();
+                    }
+                }
+
+                if (q.DeltaRemove > 0 && tgtItem != null && !studio && Config.PayForEquipment)
+                {
+                    for (int i = 0; i < q.DeltaRemove; i++)
+                        tgtItem.Stock();
+                }
+
+                if (q.WouldStage && !studio)
+                    EquipStagingBehavior.Stage(troop, slot, srcItem, target.Index);
+                else
+                    ApplyStructureWithHorseRule(troop, target.Index, slot, srcItem);
+            }
+
+            res.Ok = true;
+            return res;
+        }
+
+        /// <summary>
+        /// Non-mutating preview: returns the total gold cost required to paste.
+        /// </summary>
+        public static int QuotePasteGoldCost(WEquipment source, WEquipment target)
+        {
+            if (source == null || target == null)
+                return 0;
+
+            var troop = target.Loadout.Troop;
+            if (troop == null)
+                return 0;
+
+            bool studio = ClanScreen.IsStudioMode;
+            if (studio || !Config.PayForEquipment)
+                return 0;
+
+            int total = 0;
+            foreach (EquipmentIndex slot in WEquipment.Slots)
+            {
+                var srcItem = source.Get(slot);
+                var tgtItem = target.Get(slot);
+                if (srcItem == tgtItem)
+                    continue;
+
+                if (!CanEquip(troop, srcItem))
+                    continue;
+
+                var q = QuoteEquip(troop, target.Index, slot, srcItem);
+                if (!q.IsChange)
+                    continue;
+
+                total += q.GoldCost;
+            }
+            return total;
         }
     }
 }

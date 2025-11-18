@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="Copia Attuale" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="Nessun set di equipaggiamento selezionato." />
+    <string
+      id="ret_copy_equipment_hint"
+      text="Copia questo set di equipaggiamento negli appunti." />
+    <string
       id="ret_create_from_culture"
       text="Copia le truppe di {CULTURE}" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="Equipaggiamento" />
+    <string
+      id="ret_equipment_copied"
+      text="Set di equipaggiamento copiato negli appunti." />
     <string
       id="ret_equipment_list_truncated_hint"
       text="L’elenco dell’equipaggiamento è stato troncato per mostrare solo i primi {MAX_ROWS} oggetti. Affina i tuoi filtri o la ricerca per vedere risultati più specifici." />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="Non può scendere al di sotto del livello di abilità del genitore {PARENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="Hai bisogno di {GOLD} oro per incollare questo equipaggiamento, ma ne hai solo {CURRENT}." />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="Non può permetterselo" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="Incollare l’equipaggiamento n°{INDEX} di {TROOP} costerà {GOLD} oro. Continuare?" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="Incollare l’equipaggiamento n°{INDEX} di {TROOP} nel set corrente?" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="Conferma copia dell’equipaggiamento" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="Copia non riuscita" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="Gli appunti sono vuoti. Copia prima un set di equipaggiamento." />
+    <string
+      id="ret_paste_equipment_hint"
+      text="Incolla l’equipaggiamento copiato in questo set." />
+    <string
+      id="ret_paste_failed_generic"
+      text="L’incollaggio dell’equipaggiamento non è riuscito." />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="Alcuni oggetti non possono essere equipaggiati da questa truppa." />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="Un oggetto non civile non può essere equipaggiato in un set civile." />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="Non hai abbastanza oro." />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="Ti mancano abbastanza copie degli oggetti richiesti." />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Apri l’editor per le truppe del tuo clan e del tuo regno." />

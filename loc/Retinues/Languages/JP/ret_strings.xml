@@ -197,6 +197,12 @@
       id="ret_copy_current"
       text="現在のものをコピー" />
     <string
+      id="ret_copy_equipment_disabled"
+      text="装備セットが選択されていません。" />
+    <string
+      id="ret_copy_equipment_hint"
+      text="この装備セットをクリップボードにコピーします。" />
+    <string
       id="ret_create_from_culture"
       text="{CULTURE} の部隊をコピー" />
     <string
@@ -313,6 +319,9 @@
     <string
       id="ret_equipment_button_text"
       text="装備" />
+    <string
+      id="ret_equipment_copied"
+      text="装備セットがクリップボードにコピーされました。" />
     <string
       id="ret_equipment_list_truncated_hint"
       text="装備リストは切り詰められ、最初の {MAX_ROWS} アイテムのみが表示されます。フィルターや検索を絞り込んで、より具体的な結果を確認してください。" />
@@ -1093,6 +1102,45 @@
     <string
       id="ret_parent_skill"
       text="親{PARENT}のスキルレベルを下回ることはできません。" />
+    <string
+      id="ret_paste_equip_cannot_afford_text"
+      text="この装備を貼り付けるには{GOLD}ゴールドが必要ですが、あなたは{CURRENT}しか持っていません。" />
+    <string
+      id="ret_paste_equip_cannot_afford_title"
+      text="手が届かない" />
+    <string
+      id="ret_paste_equip_confirm_text_cost"
+      text="{TROOP}の装備n°{INDEX}を貼り付けるには{GOLD}ゴールドがかかります。続行しますか？" />
+    <string
+      id="ret_paste_equip_confirm_text_free"
+      text="{TROOP}の装備n°{INDEX}を現在のセットに貼り付けますか？" />
+    <string
+      id="ret_paste_equip_confirm_title"
+      text="装備のコピーを確認" />
+    <string
+      id="ret_paste_equip_failed_title"
+      text="コピーに失敗しました" />
+    <string
+      id="ret_paste_equipment_empty"
+      text="クリップボードが空です。最初に装備セットをコピーしてください。" />
+    <string
+      id="ret_paste_equipment_hint"
+      text="コピーした装備をこのセットに貼り付けます。" />
+    <string
+      id="ret_paste_failed_generic"
+      text="装備の貼り付けに失敗しました。" />
+    <string
+      id="ret_paste_failed_not_allowed"
+      text="一部のアイテムはこの部隊に装備できません。" />
+    <string
+      id="ret_paste_failed_not_civilian"
+      text="非市民のアイテムは市民セットに装備できません。" />
+    <string
+      id="ret_paste_failed_not_enough_gold"
+      text="十分なゴールドがありません。" />
+    <string
+      id="ret_paste_failed_not_enough_stock"
+      text="必要なアイテムの十分なコピーが不足しています。" />
     <string
       id="ret_personal_editor_tooltip_text"
       text="あなたの氏族と王国の部隊のエディターを開きます。" />
