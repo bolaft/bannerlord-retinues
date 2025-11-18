@@ -14,6 +14,8 @@ namespace Retinues.Utils
     [SafeClass]
     public class ModuleChecker
     {
+        public const string UnknownVersionString = "unknown";
+
         /// <summary>
         /// Represents a module entry with metadata parsed from SubModule.xml.
         /// </summary>
@@ -105,7 +107,7 @@ namespace Retinues.Utils
                 var submodulePath = System.IO.Path.Combine(modDir, "SubModule.xml");
 
                 string name = id;
-                string version = "unknown";
+                string version = UnknownVersionString;
                 bool isOfficial = IsOfficialModuleId(id); // quick heuristic
 
                 try

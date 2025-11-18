@@ -239,7 +239,7 @@ namespace Retinues.Game.Wrappers
             SetEquipments(list);
 
             // Update combat-use mask indices (structure/indices maintenance)
-            EquipmentPolicyBehavior.OnRemoved(Troop, idx);
+            CombatEquipmentBehavior.OnRemoved(Troop, idx);
 
             Normalize();
             Troop.NeedsPersistence = true;

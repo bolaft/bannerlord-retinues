@@ -117,7 +117,7 @@ namespace Retinues.Managers
 
             var staged = TrainStagingBehavior.Get(troop, skill)?.PointsRemaining ?? 0;
             int cost = SkillPointXpCost(troop.GetSkill(skill) + staged);
-            return BattleXpBehavior.Get(troop) >= cost;
+            return TroopXpBehavior.Get(troop) >= cost;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -225,14 +225,14 @@ namespace Retinues.Managers
 
             if (increment)
             {
-                if (!BattleXpBehavior.TrySpend(troop, SkillPointXpCost(stagedSkill)))
+                if (!TroopXpBehavior.TrySpend(troop, SkillPointXpCost(stagedSkill)))
                     return;
                 TrainStagingBehavior.Stage(troop, skill, 1);
             }
             else
             {
                 bool force = staged > 0;
-                BattleXpBehavior.RefundOnePoint(troop, stagedSkill, force);
+                TroopXpBehavior.RefundOnePoint(troop, stagedSkill, force);
                 TrainStagingBehavior.ApplyChange(troop.StringId, skill, -1);
             }
         }

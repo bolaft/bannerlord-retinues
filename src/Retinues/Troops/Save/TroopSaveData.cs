@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Features.Experience;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
@@ -204,11 +205,17 @@ namespace Retinues.Troops.Save
             // Recompute formation class, upgrade requirements, etc.
             troop.ComputeDerivedProperties();
 
-            // If this is a legacy custom troop, replace its existing instances with the new version
+            // If this is a legacy custom troop, perform special handling
             try
             {
                 if (StringId.StartsWith(WCharacter.LegacyCustomIdPrefix))
+                {
+                    // Replace any existing troop with the same StringId
                     WCharacter.FromStringId(StringId).Replace(troop);
+
+                    // Migrate XP pool from old key to new key
+                    TroopXpBehavior.ReplacePoolKey(StringId, troop.StringId);
+                }
             }
             catch (System.Exception e)
             {

@@ -402,14 +402,14 @@ namespace Retinues.GUI.Editor
                 {
                     if (eqs[i].IsCivilian)
                         continue;
-                    if (EquipmentPolicyBehavior.IsEnabled(troop, i, t))
+                    if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
                         enabled++;
                 }
                 if (enabled == 0)
                 {
                     // Enable index 0 (Normalize guarantees index 0 is a battle set)
-                    if (!EquipmentPolicyBehavior.IsEnabled(troop, 0, t))
-                        EquipmentPolicyBehavior.Toggle(troop, 0, t); // Toggle will enable
+                    if (!CombatEquipmentBehavior.IsEnabled(troop, 0, t))
+                        CombatEquipmentBehavior.Toggle(troop, 0, t); // Toggle will enable
                 }
             }
 

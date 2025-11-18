@@ -19,13 +19,13 @@ namespace Retinues.Features.Experience
     /// Provides static API for getting, setting, spending, and refunding troop XP.
     /// </summary>
     [SafeClass]
-    public class BattleXpBehavior : CampaignBehaviorBase
+    public class TroopXpBehavior : CampaignBehaviorBase
     {
         public const float TrainingXpMultiplier = 0.2f; // 20% of the original XP
 
-        public static BattleXpBehavior Instance { get; private set; }
+        public static TroopXpBehavior Instance { get; private set; }
 
-        public BattleXpBehavior()
+        public TroopXpBehavior()
         {
             Instance = this;
         }
@@ -66,7 +66,7 @@ namespace Retinues.Features.Experience
             Mission m = mission as Mission;
 
             // Attach per-battle tracker
-            m?.AddMissionBehavior(new BattleXpMissionBehavior());
+            m?.AddMissionBehavior(new BattleMissionXpBehavior());
         }
 
         private void OnDailyTickParty(MobileParty mobileParty)
@@ -132,6 +132,20 @@ namespace Retinues.Features.Experience
                 return;
             var cur = Instance.GetPool(PoolKey(troop));
             Instance._xpPools[PoolKey(troop)] = Math.Max(0, cur + delta);
+        }
+
+        /// <summary>
+        /// Replace an old pool key with a new one (e.g., on troop ID change).
+        /// </summary>
+        public static void ReplacePoolKey(string oldKey, string newKey)
+        {
+            if (Instance == null || string.IsNullOrEmpty(oldKey) || string.IsNullOrEmpty(newKey))
+                return;
+            if (Instance._xpPools.TryGetValue(oldKey, out var v))
+            {
+                Instance._xpPools[newKey] = v;
+                Instance._xpPools.Remove(oldKey);
+            }
         }
 
         /// <summary>

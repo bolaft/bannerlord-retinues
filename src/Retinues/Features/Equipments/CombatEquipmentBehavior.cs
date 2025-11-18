@@ -46,7 +46,7 @@ namespace Retinues.Features.Equipments
     /// <summary>
     /// Stores which alternates are enabled for each battle context.
     /// </summary>
-    public sealed class EquipmentPolicyBehavior : CampaignBehaviorBase
+    public sealed class CombatEquipmentBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -167,8 +167,8 @@ namespace Retinues.Features.Equipments
 
         /* ━━━━━━━ Accessors ━━━━━━ */
 
-        private static EquipmentPolicyBehavior Inst =>
-            Campaign.Current?.GetCampaignBehavior<EquipmentPolicyBehavior>();
+        private static CombatEquipmentBehavior Inst =>
+            Campaign.Current?.GetCampaignBehavior<CombatEquipmentBehavior>();
 
         public static bool IsEnabled(WCharacter troop, int altIndex, BattleType t) =>
             t switch

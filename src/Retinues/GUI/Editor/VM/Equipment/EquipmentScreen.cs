@@ -216,7 +216,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 var we = eqs[i];
                 if (we.IsCivilian)
                     continue;
-                if (EquipmentPolicyBehavior.IsEnabled(troop, i, t))
+                if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
                     c++;
             }
             return c;
@@ -334,7 +334,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForFieldBattle =>
             !SetIsCivilian
-            && EquipmentPolicyBehavior.IsEnabled(
+            && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.FieldBattle
@@ -343,7 +343,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeDefense =>
             !SetIsCivilian
-            && EquipmentPolicyBehavior.IsEnabled(
+            && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeDefense
@@ -352,7 +352,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeAssault =>
             !SetIsCivilian
-            && EquipmentPolicyBehavior.IsEnabled(
+            && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeAssault
@@ -752,7 +752,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForFieldBattle)
                 return;
-            EquipmentPolicyBehavior.Toggle(
+            CombatEquipmentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.FieldBattle
@@ -765,7 +765,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForSiegeDefense)
                 return;
-            EquipmentPolicyBehavior.Toggle(
+            CombatEquipmentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeDefense
@@ -778,7 +778,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForSiegeAssault)
                 return;
-            EquipmentPolicyBehavior.Toggle(
+            CombatEquipmentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 BattleType.SiegeAssault
@@ -1094,7 +1094,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (created == null)
                 return;
 
-            EquipmentPolicyBehavior.DisableAll(troop, created.Index);
+            CombatEquipmentBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
             State.UpdateEquipment(created);
         }
@@ -1110,7 +1110,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             var created = troop.Loadout.CreateBattleSet();
             CopyItemsInto(created, plan);
 
-            EquipmentPolicyBehavior.DisableAll(troop, created.Index);
+            CombatEquipmentBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
             State.UpdateEquipment(created);
         }

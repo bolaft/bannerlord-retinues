@@ -192,7 +192,7 @@ namespace Retinues.Managers
                 return;
 
             bool skillsCostXp = Config.SkillXpCostPerPoint > 0 || Config.BaseSkillXpCost > 0;
-            if (skillsCostXp && !BattleXpBehavior.TrySpend(retinue, cost))
+            if (skillsCostXp && !TroopXpBehavior.TrySpend(retinue, cost))
                 return;
 
             Player.ChangeGold(-cost);

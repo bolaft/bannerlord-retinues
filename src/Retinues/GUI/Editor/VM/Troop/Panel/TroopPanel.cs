@@ -275,7 +275,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceProperty]
         public string TroopXpText =>
             L.T("troop_xp", "{XP} xp")
-                .SetTextVariable("XP", BattleXpBehavior.Get(State.Troop))
+                .SetTextVariable("XP", TroopXpBehavior.Get(State.Troop))
                 .ToString();
 
         /* ━━━━━━━━ Skills ━━━━━━━━ */
@@ -775,7 +775,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         .SetTextVariable("COST", cost)
                 );
             }
-            else if (BattleXpBehavior.Get(State.Troop) < cost && TroopXpIsEnabled)
+            else if (TroopXpBehavior.Get(State.Troop) < cost && TroopXpIsEnabled)
             {
                 Notifications.Popup(
                     L.T("rank_up_not_enough_xp_title", "Not enough XP"),

@@ -155,7 +155,7 @@ namespace Retinues.Features.Experience
                     continue;
 
                 if (IsCustom)
-                    BattleXpBehavior.Add(new WCharacter(Troop.StringId), share);
+                    TroopXpBehavior.Add(new WCharacter(Troop.StringId), share);
             }
         }
 

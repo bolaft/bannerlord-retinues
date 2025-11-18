@@ -7,7 +7,7 @@ namespace Retinues.Features.Experience
     /// Mission behavior for awarding XP to custom player-side troops for kills at mission end.
     /// </summary>
     [SafeClass]
-    public class BattleXpMissionBehavior : Combat
+    public class BattleMissionXpBehavior : Combat
     {
         private const int XpPerTier = 10;
 
@@ -34,7 +34,7 @@ namespace Retinues.Features.Experience
                 if (xp <= 0)
                     continue;
 
-                BattleXpBehavior.Add(kill.Killer, xp);
+                TroopXpBehavior.Add(kill.Killer, xp);
             }
         }
     }
