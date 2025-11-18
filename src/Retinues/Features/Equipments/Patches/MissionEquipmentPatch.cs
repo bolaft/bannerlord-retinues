@@ -8,7 +8,7 @@ using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
 using Retinues.Utils;
-// using SandBox.Tournaments.MissionLogics;
+using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -39,8 +39,8 @@ namespace Retinues.Features.Equipments.Patches
                 // Try to ensure we are not in a tournament or arena battle
                 foreach (var behavior in Mission.Current?.MissionBehaviors)
                 {
-                    // if (behavior is TournamentBehavior)
-                    //     return;
+                    if (behavior is TournamentBehavior)
+                        return;
 
                     if (behavior.GetType().FullName.ToLowerInvariant().Contains("tournament"))
                         return;
@@ -86,7 +86,7 @@ namespace Retinues.Features.Equipments.Patches
                         if (we.IsCivilian)
                             continue;
 
-                        if (EquipmentPolicyBehavior.IsEnabled(troop, i, battleType))
+                        if (CombatEquipmentBehavior.IsEnabled(troop, i, battleType))
                             eligible.Add(we);
                     }
 
