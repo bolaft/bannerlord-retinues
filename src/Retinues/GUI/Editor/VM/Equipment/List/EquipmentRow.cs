@@ -248,14 +248,15 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             }
         }
 
-        /* ━━━━━━ Comparisons ━━━━━ */
-
         /* ━━━━━━━━━ Comparison Icons ━━━━━━━━ */
 
         private void GetChevronCounts(out int positive, out int negative)
         {
             positive = 0;
             negative = 0;
+
+            if (!Config.AutoCompareItems)
+                return;
 
             if (!IsEnabled)
                 return;

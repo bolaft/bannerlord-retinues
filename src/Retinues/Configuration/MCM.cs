@@ -300,6 +300,7 @@ namespace Retinues.Configuration
                 L.S("mcm_section_global_editor", "Global Editor"),
                 L.S("mcm_section_doctrines", "Doctrines"),
                 L.S("mcm_section_fluff", "Immersion & Fluff"),
+                L.S("mcm_section_ui", "User Interface"),
                 L.S("mcm_section_retinues", "Retinues"),
                 L.S("mcm_section_recruitment", "Recruitment"),
                 L.S("mcm_section_equipment", "Equipment"),
@@ -308,7 +309,6 @@ namespace Retinues.Configuration
                 L.S("mcm_section_restrictions", "Restrictions"),
                 L.S("mcm_section_skill_caps", "Skill Caps"),
                 L.S("mcm_section_skill_totals", "Skill Totals"),
-                L.S("mcm_section_ui", "User Interface"),
                 L.S("mcm_section_debug", "Debug"),
             };
 

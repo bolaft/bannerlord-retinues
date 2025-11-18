@@ -944,6 +944,18 @@ namespace Retinues.Configuration
             @default: true
         );
 
+        public static readonly Option<bool> AutoCompareItems = CreateOption(
+            section: () => L.S("mcm_section_ui", "User Interface"),
+            name: () => L.S("mcm_option_auto_compare_items", "Auto Compare Items"),
+            key: "AutoCompareItems",
+            hint: () =>
+                L.S(
+                    "mcm_option_auto_compare_items_hint",
+                    "Add a comparison indicator when browsing troop equipment (can slow down the equipment screen)."
+                ),
+            @default: true
+        );
+
         // ─────────────────────────────────────────────────────
         // Skill Caps
         // ─────────────────────────────────────────────────────

@@ -3520,6 +3520,38 @@
     "TR": "Askerlerle teçhizat arasındaki izin verilen maksimum seviye farkı."
   },
   {
+    "id": "ret_mcm_option_auto_compare_items",
+    "EN": "Auto Compare Items",
+    "BR": "Comparar Itens Automaticamente",
+    "CNs": "自动比较物品",
+    "CNt": "自動比較物品",
+    "DE": "Automatischer Vergleich von Gegenständen",
+    "FR": "Comparer les objets automatiquement",
+    "IT": "Confronta Oggetti Automaticamente",
+    "JP": "アイテムを自動比較",
+    "KO": "아이템 자동 비교",
+    "PL": "Automatyczne Porównywanie Przedmiotów",
+    "RU": "Автоматическое Сравнение Предметов",
+    "SP": "Comparar Artículos Automáticamente",
+    "TR": "Öğeleri Otomatik Karşılaştır"
+  },
+  {
+    "id": "ret_mcm_option_auto_compare_items_hint",
+    "EN": "Add a comparison indicator when browsing troop equipment (can slow down the equipment screen).",
+    "BR": "Adiciona um indicador de comparação ao navegar pelo equipamento da tropa (pode deixar a tela de equipamento mais lenta).",
+    "CNs": "浏览部队装备时添加比较指示器（可能会降低装备界面的速度）。",
+    "CNt": "瀏覽部隊裝備時添加比較指示器（可能會降低裝備界面的速度）。",
+    "DE": "Fügt beim Durchsuchen der Truppenausrüstung einen Vergleichsindikator hinzu (kann den Ausrüstungsbildschirm verlangsamen).",
+    "FR": "Ajoute un indicateur de comparaison lors de la navigation dans l’équipement des troupes (peut ralentir l’écran d’équipement).",
+    "IT": "Aggiunge un indicatore di confronto durante la navigazione nell’equipaggiamento delle truppe (può rallentare lo schermo dell’equipaggiamento).",
+    "JP": "部隊の装備を閲覧する際に比較インジケーターを追加します（装備画面が遅くなる可能性があります）。",
+    "KO": "병력 장비를 탐색할 때 비교 표시기를 추가합니다(장비 화면이 느려질 수 있음).",
+    "PL": "Dodaje wskaźnik porównania podczas przeglądania ekwipunku jednostek (może spowolnić ekran ekwipunku).",
+    "RU": "Добавляет индикатор сравнения при просмотре снаряжения войск (может замедлить экран снаряжения).",
+    "SP": "Agrega un indicador de comparación al navegar por el equipo de las tropas (puede ralentizar la pantalla de equipo).",
+    "TR": "Asker teçhizatına göz atarken bir karşılaştırma göstergesi ekler (teçhizat ekranını yavaşlatabilir)."
+  },
+  {
     "id": "ret_mcm_option_base_skill_xp_cost",
     "EN": "Base Skill XP Cost",
     "BR": "Custo Base de XP por Habilidade",
