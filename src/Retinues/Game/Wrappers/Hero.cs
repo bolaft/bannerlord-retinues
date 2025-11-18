@@ -76,18 +76,14 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        /// <summary>
-        /// Hero clan wrapper.
-        /// </summary>
         public override WFaction Clan => _hero.Clan == null ? null : new WFaction(_hero.Clan);
 
-        /// <summary>
-        /// Hero kingdom wrapper.
-        /// </summary>
         public override WFaction Kingdom =>
             _hero.Clan?.Kingdom == null ? null : new WFaction(_hero.Clan.Kingdom);
 
         public bool IsPartyLeader => _hero.IsPartyLeader;
+
+        public bool IsCompanion => _hero.IsPlayerCompanion;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Skills                        //

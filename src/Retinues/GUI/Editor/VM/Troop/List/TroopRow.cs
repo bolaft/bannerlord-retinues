@@ -103,6 +103,18 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public bool ShowPlayerIcon => RowTroop == Player.Character;
 
         [DataSourceProperty]
+        public bool ShowCompanionIcon
+        {
+            get
+            {
+                if (RowTroop == null)
+                    return false;
+                var hero = RowTroop as WHero;
+                return hero?.IsCompanion == true;
+            }
+        }
+
+        [DataSourceProperty]
         public bool ShowRulerIcon => RowTroop?.IsRuler == true;
 
         [DataSourceProperty]
