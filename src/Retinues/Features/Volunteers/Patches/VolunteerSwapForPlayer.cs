@@ -210,6 +210,19 @@ namespace Retinues.Features.Volunteers.Patches
             TryBeginSwap();
         }
 
+        [HarmonyPatch(
+            typeof(PlayerTownVisitCampaignBehavior),
+            "game_menu_recruit_volunteers_on_consequence"
+        )]
+        internal static class VolunteerSwapForPlayer_Begin
+        {
+            [HarmonyPostfix]
+            private static void Postfix()
+            {
+                TryBeginSwap();
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Volunteer Swap                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
