@@ -24,22 +24,10 @@ namespace Retinues.Features.Volunteers.Patches
 
         private static WSettlement _settlement;
         private static Dictionary<string, WCharacter[]> _snapshot;
-        private static bool _listenersRegistered;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Wiring                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Ensure campaign events are hooked exactly once.
-        /// </summary>
-        private static void EnsureListeners()
+        // Wire campaign events once via static ctor (robust across modlists).
+        static VolunteerSwapForPlayer()
         {
-            if (_listenersRegistered)
-                return;
-
-            _listenersRegistered = true;
-
             CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
                 typeof(VolunteerSwapForPlayer),
                 OnSettlementLeft
@@ -52,19 +40,6 @@ namespace Retinues.Features.Volunteers.Patches
                 typeof(VolunteerSwapForPlayer),
                 OnSettlementEntered
             );
-        }
-
-        /// <summary>
-        /// Bootstrap: called once when PlayerTownVisitCampaignBehavior registers its events.
-        /// </summary>
-        [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "RegisterEvents")]
-        private static class VolunteerSwapForPlayer_Bootstrap
-        {
-            [HarmonyPostfix]
-            private static void Postfix()
-            {
-                EnsureListeners();
-            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -200,13 +175,13 @@ namespace Retinues.Features.Volunteers.Patches
 
         /// <summary>
         /// Attempt to swap volunteers when the main party enters a settlement.
+        /// This helps support hotkey mods that jump straight to the volunteer screen.
         /// </summary>
         private static void OnSettlementEntered(MobileParty party, Settlement settlement, Hero hero)
         {
             if (party != MobileParty.MainParty)
                 return;
 
-            // Use Current to stay in wrapper-land consistently.
             TryBeginSwap();
         }
 
@@ -225,8 +200,7 @@ namespace Retinues.Features.Volunteers.Patches
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Volunteer Swap                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━...
         private static void TryBeginSwap()
         {
             // Already active for this visit? Don't resnapshot or reswap.
