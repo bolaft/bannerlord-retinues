@@ -665,6 +665,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="병력과 장비 사이의 허용 최대 등급 차이." />
     <string
+      id="ret_mcm_option_auto_compare_items"
+      text="아이템 자동 비교" />
+    <string
+      id="ret_mcm_option_auto_compare_items_hint"
+      text="병력 장비를 탐색할 때 비교 표시기를 추가합니다(장비 화면이 느려질 수 있음)." />
+    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="기본 기술 경험치 비용" />
     <string

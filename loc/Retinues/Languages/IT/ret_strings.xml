@@ -665,6 +665,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Differenza massima di livello consentita tra truppe ed equipaggiamento." />
     <string
+      id="ret_mcm_option_auto_compare_items"
+      text="Confronta Oggetti Automaticamente" />
+    <string
+      id="ret_mcm_option_auto_compare_items_hint"
+      text="Aggiunge un indicatore di confronto durante la navigazione nell’equipaggiamento delle truppe (può rallentare lo schermo dell’equipaggiamento)." />
+    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Costo Base PE Abilità" />
     <string

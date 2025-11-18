@@ -665,6 +665,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Différence maximale de rang autorisée entre troupes et équipement." />
     <string
+      id="ret_mcm_option_auto_compare_items"
+      text="Comparer les objets automatiquement" />
+    <string
+      id="ret_mcm_option_auto_compare_items_hint"
+      text="Ajoute un indicateur de comparaison lors de la navigation dans l’équipement des troupes (peut ralentir l’écran d’équipement)." />
+    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Coût de base en XP des compétence" />
     <string
