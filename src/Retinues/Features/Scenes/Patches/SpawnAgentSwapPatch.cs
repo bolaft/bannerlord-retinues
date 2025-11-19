@@ -62,23 +62,56 @@ namespace Retinues.Features.Scenes.Patches
                 WCharacter replacement = TroopMatcher.PickBestFromFaction(
                     faction,
                     troop,
-                    sameCategoryOnly: true,
                     sameTierOnly: false
                 );
 
                 // If we found a different replacement, clone AgentBuildData with it
                 if (replacement != null)
                 {
-                    agentBuildData = AgentHelper.ReplaceCharacterInBuildData(
-                        agentBuildData,
-                        replacement.Base
-                    );
+                    agentBuildData = ReplaceCharacterInBuildData(agentBuildData, replacement);
                 }
             }
             catch (Exception ex)
             {
                 Log.Exception(ex);
             }
+        }
+
+        /// <summary>
+        /// Replace the character in the given AgentBuildData with the given WCharacter.
+        /// Keeps the original equipment for non-armor pieces.
+        /// </summary>
+        private static AgentBuildData ReplaceCharacterInBuildData(
+            AgentBuildData src,
+            WCharacter replacement
+        )
+        {
+            // Swap character
+            src.Character(replacement.Base);
+
+            // Use replacement battle armor set
+            var eq = Equipment.CreateFromEquipmentCode(replacement.Loadout.Battle.Code);
+
+            foreach (var slot in WEquipment.Slots)
+            {
+                if (!WEquipment.IsArmorSlot(slot))
+                    continue;
+
+                var piece = eq[slot];
+
+                if (piece.Item != null)
+                {
+                    // Replacement HAS an armor piece: override it
+                    src.AgentOverridenSpawnEquipment[slot] = piece;
+                }
+                else
+                {
+                    // Replacement does NOT have an armor piece: clear original one
+                    src.AgentOverridenSpawnEquipment[slot] = EquipmentElement.Invalid;
+                }
+            }
+
+            return src;
         }
     }
 }
