@@ -157,11 +157,12 @@ namespace Retinues.Game.Wrappers
             EquipmentIndex.HorseHarness,
         ];
 
-        private static bool IsArmorSlot(EquipmentIndex slot) =>
+        public static bool IsArmorSlot(EquipmentIndex slot) =>
             slot == EquipmentIndex.Head
+            || slot == EquipmentIndex.Cape
             || slot == EquipmentIndex.Body
-            || slot == EquipmentIndex.Leg
-            || slot == EquipmentIndex.Gloves;
+            || slot == EquipmentIndex.Gloves
+            || slot == EquipmentIndex.Leg;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Items                         //
