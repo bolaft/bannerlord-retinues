@@ -459,11 +459,11 @@ namespace Retinues.Configuration
                     "mcm_option_replace_ambient_npcs_hint",
                     "Replaces ambient NPCs in settlements with player faction characters."
                 ),
-            @default: true,
+            @default: false,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = false,
             }
         );
 
