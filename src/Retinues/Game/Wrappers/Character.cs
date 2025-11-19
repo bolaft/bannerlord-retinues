@@ -617,7 +617,15 @@ namespace Retinues.Game.Wrappers
             else
                 Log.Info($"Replacing existing instances of {Name} with best match from culture.");
 
-            Replace(replacement ?? TroopMatcher.PickBestFromFaction(Culture, this));
+            Replace(
+                replacement
+                    ?? TroopMatcher.PickBestFromFaction(
+                        Culture,
+                        this,
+                        sameTierOnly: false,
+                        sameCategoryOnly: true
+                    )
+            );
         }
 
         /// <summary>

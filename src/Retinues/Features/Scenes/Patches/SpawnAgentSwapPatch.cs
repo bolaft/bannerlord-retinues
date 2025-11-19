@@ -62,15 +62,18 @@ namespace Retinues.Features.Scenes.Patches
                 WCharacter replacement = TroopMatcher.PickBestFromFaction(
                     faction,
                     troop,
-                    strict: true
+                    sameCategoryOnly: true,
+                    sameTierOnly: false
                 );
 
                 // If we found a different replacement, clone AgentBuildData with it
                 if (replacement != null)
+                {
                     agentBuildData = AgentHelper.ReplaceCharacterInBuildData(
                         agentBuildData,
                         replacement.Base
                     );
+                }
             }
             catch (Exception ex)
             {

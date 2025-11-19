@@ -67,7 +67,12 @@ namespace Retinues.Safety.Sanitizer
 
                     // Find fallback from the settlement's vanilla culture if possible
                     CharacterObject fallback = TroopMatcher
-                        .PickBestFromFaction(new WSettlement(settlement).Culture, troop)
+                        .PickBestFromFaction(
+                            new WSettlement(settlement).Culture,
+                            troop,
+                            sameCategoryOnly: true,
+                            sameTierOnly: false
+                        )
                         .Base;
 
                     if (fallback != null)

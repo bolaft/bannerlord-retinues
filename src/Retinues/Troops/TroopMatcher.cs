@@ -57,7 +57,9 @@ namespace Retinues.Troops
         public static WCharacter PickBestFromFaction(
             BaseFaction faction,
             WCharacter troop,
-            bool strict = false
+            bool sameCategoryOnly = true,
+            bool sameTierOnly = true,
+            WCharacter fallback = null
         )
         {
             if (faction == null || troop == null || !troop.IsValid)
@@ -96,7 +98,7 @@ namespace Retinues.Troops
                 || (srcFaction.RootElite?.Tree?.Contains(troop) == true);
 
             // 4. Strict mode restriction
-            if (strict && !isSlot && !isTreeMember)
+            if (sameCategoryOnly && !isSlot && !isTreeMember)
             {
                 // Bandits, guards, etc.
                 return null;
@@ -108,26 +110,14 @@ namespace Retinues.Troops
                 var root = troop.IsElite ? faction.RootElite : faction.RootBasic;
                 if (root != null && root.IsValid)
                 {
-                    var best = PickBestFromTree(root, troop);
+                    var best = PickBestFromTree(root, troop, sameTierOnly: sameTierOnly);
                     if (Valid(best))
                         return best;
                 }
             }
 
-            // 6. Non-strict fallback
-            if (!strict)
-            {
-                var reuseRoot = troop.IsElite ? faction.RootElite : faction.RootBasic;
-                if (reuseRoot != null && reuseRoot.IsValid)
-                {
-                    var fallback = PickBestFromTree(reuseRoot, troop);
-                    if (Valid(fallback))
-                        return fallback;
-                }
-            }
-
             // 7. No match
-            return null;
+            return fallback;
         }
 
         /// <summary>
@@ -137,19 +127,38 @@ namespace Retinues.Troops
         public static WCharacter PickBestFromTree(
             WCharacter root,
             WCharacter troop,
-            WCharacter exclude = null
+            WCharacter exclude = null,
+            bool sameTierOnly = true
         )
         {
             if (root?.IsValid != true || troop == null || !troop.IsValid)
                 return null;
 
-            var candidates =
+            // Collect all valid candidates (respecting exclude) first.
+            var allCandidates =
                 root.Tree?.Where(t =>
-                        t.IsValid
-                        && t.Tier == troop.Tier
-                        && (exclude == null || t.StringId != exclude.StringId)
+                        t.IsValid && (exclude == null || t.StringId != exclude.StringId)
                     )
-                    .ToList() ?? [];
+                    .ToList() ?? new List<WCharacter>();
+
+            if (allCandidates.Count == 0)
+                return null;
+
+            // Filter by tier according to tierMustBeEqual:
+            // - If true: only candidates with exactly the same tier
+            // - If false: pick candidates whose tier is the closest to the target troop.
+            List<WCharacter> candidates;
+            if (sameTierOnly)
+            {
+                candidates = allCandidates.Where(t => t.Tier == troop.Tier).ToList();
+            }
+            else
+            {
+                int minDiff = allCandidates.Min(t => Math.Abs(t.Tier - troop.Tier));
+                candidates = allCandidates
+                    .Where(t => Math.Abs(t.Tier - troop.Tier) == minDiff)
+                    .ToList();
+            }
 
             if (candidates.Count == 0)
                 return null;

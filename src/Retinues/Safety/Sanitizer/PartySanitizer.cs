@@ -91,7 +91,14 @@ namespace Retinues.Safety.Sanitizer
                 try
                 {
                     var troop = new WCharacter(element.Character);
-                    fallback = TroopMatcher.PickBestFromFaction(troop.Culture, troop).Base;
+                    fallback = TroopMatcher
+                        .PickBestFromFaction(
+                            troop.Culture,
+                            troop,
+                            sameCategoryOnly: false,
+                            sameTierOnly: false
+                        )
+                        .Base;
                 }
                 catch
                 {

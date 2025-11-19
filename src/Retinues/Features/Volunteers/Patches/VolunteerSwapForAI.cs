@@ -55,7 +55,7 @@ namespace Retinues.Features.Volunteers.Patches
             if (root == null)
                 return; // no tree, skip
 
-            var replacement = TroopMatcher.PickBestFromTree(root, wt);
+            var replacement = TroopMatcher.PickBestFromTree(root, wt, sameTierOnly: false);
             if (replacement == null)
                 return;
 
