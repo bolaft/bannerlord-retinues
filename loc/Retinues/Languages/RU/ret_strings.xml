@@ -668,6 +668,9 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="Любой лорд может нанимать пользовательские войска в поместьях игрока." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
+      text="Любой лорд может нанимать пользовательские войска в поместьях игрока (требуется для совместимости с Improved Garrisons)." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Допустимая Разница Рангов" />
     <string

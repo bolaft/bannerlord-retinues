@@ -668,6 +668,9 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="Każdy lord może rekrutować niestandardowe jednostki w lenna gracza." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
+      text="Każdy lord może rekrutować niestandardowe jednostki w lenna gracza (wymagane dla kompatybilności z Improved Garrisons)." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Dozwolona Różnica Poziomów" />
     <string

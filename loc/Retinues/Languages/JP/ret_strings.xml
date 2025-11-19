@@ -668,6 +668,9 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="どの領主でもプレイヤーの領地でカスタム部隊を募集できる。" />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
+      text="どの領主でもプレイヤーの領地でカスタム部隊を募集できる（Improved Garrisonsの互換性に必要）。" />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="許容ランク差" />
     <string

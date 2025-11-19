@@ -256,7 +256,14 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = true,
-            }
+            },
+            disabled: ModCompatibility.ForceDailyVolunteerSwap,
+            disabledOverride: true,
+            disabledHint: () =>
+                L.S(
+                    "mcm_option_global_editor_enabled_disabled_hint",
+                    "The global troop editor is disabled due to compatibility issues with other activated mods."
+                )
         );
 
         public static readonly Option<bool> AllLordsCanRecruitCustomTroops = CreateOption(
@@ -268,16 +275,28 @@ namespace Retinues.Configuration
                 ),
             key: "AllLordsCanRecruitCustomTroops",
             hint: () =>
-                L.S(
-                    "mcm_option_all_lords_recruit_custom_troops_hint",
-                    "Any lord can recruit custom troops in the player's fiefs."
-                ),
+                ModCompatibility.ImprovedGarrisonsHint
+                    ? L.S(
+                        "mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons",
+                        "Any lord can recruit custom troops in the player's fiefs (required for Improved Garrisons compatibility)."
+                    )
+                    : L.S(
+                        "mcm_option_all_lords_recruit_custom_troops_hint",
+                        "Any lord can recruit custom troops in the player's fiefs."
+                    ),
             @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = false,
                 [Presets.Realistic] = true,
-            }
+            },
+            disabled: ModCompatibility.ForceDailyVolunteerSwap,
+            disabledOverride: true,
+            disabledHint: () =>
+                L.S(
+                    "mcm_option_global_editor_enabled_disabled_hint",
+                    "The global troop editor is disabled due to compatibility issues with other activated mods."
+                )
         );
 
         // ─────────────────────────────────────────────────────

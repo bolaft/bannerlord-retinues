@@ -12,6 +12,7 @@ using Retinues.Features.Staging;
 using Retinues.Features.Stocks;
 using Retinues.Features.Swaps;
 using Retinues.Features.Unlocks;
+using Retinues.Features.Volunteers;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Mods;
@@ -243,6 +244,7 @@ namespace Retinues
 
             // Swap behaviors
             AddBehavior<MilitiaSwapBehavior>(cs);
+            AddBehavior<VolunteerSwapBehavior>(cs);
 
             // Retinue behaviors
             AddBehavior<AutoJoinBehavior>(cs);
