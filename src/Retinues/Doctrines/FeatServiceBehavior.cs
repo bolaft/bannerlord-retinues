@@ -129,7 +129,7 @@ namespace Retinues.Doctrines
                 && mission.Mode == MissionMode.StartUp
             )
             {
-                Log.Info("Mission Type: Arena");
+                Log.Info("Mission Type: Combat");
 
                 // Attach Combat behavior (captures kills etc.)
                 var combat = mission.GetMissionBehavior<Combat>();
