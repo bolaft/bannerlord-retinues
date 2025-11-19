@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -9,7 +10,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for MobileParty, provides helpers for accessing rosters, leader, faction, and swapping troops to match a faction.
     /// </summary>
     [SafeClass]
-    public class WParty(MobileParty party) : BaseFactionMember
+    public class WParty(MobileParty party) : BaseFactionMember(party.ActualClan ?? party.LeaderHero?.Clan ?? party.HomeSettlement?.OwnerClan)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Static                         //
@@ -62,34 +63,6 @@ namespace Retinues.Game.Wrappers
                 return new WCharacter(_party.LeaderHero.CharacterObject);
             }
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Faction                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private Clan _ownerClan;
-
-        public override WFaction Clan
-        {
-            get
-            {
-                if (_ownerClan == null)
-                {
-                    if (_party.ActualClan != null)
-                        _ownerClan = _party.ActualClan;
-
-                    if (_party.LeaderHero?.Clan != null)
-                        _ownerClan = _party.LeaderHero.Clan;
-
-                    if (_party.HomeSettlement?.OwnerClan != null)
-                        _ownerClan = _party.HomeSettlement.OwnerClan;
-                }
-
-                return _ownerClan != null ? new WFaction(_ownerClan) : null;
-            }
-        }
-
-        public override WFaction Kingdom => Clan != null ? new WFaction(_ownerClan.Kingdom) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //

@@ -187,6 +187,12 @@ namespace Retinues.Game.Wrappers
         public bool IsMilitia => Faction != null && Faction.MilitiaTroops.Contains(this);
         public bool IsElite => Faction != null && Faction.IsElite(this);
 
+        /* ━━━━━━━ IFaction ━━━━━━━ */
+
+        public override WFaction Clan => Player.GetClan(Culture);
+        public override WFaction Kingdom => Player.GetKingdom(Culture);
+
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                Tree, Relations & Faction               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -274,9 +280,6 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public override WFaction Clan => IsCustom ? Player.Clan : null;
-        public override WFaction Kingdom => IsCustom ? Player.Kingdom : null;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Basic Attributes                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -308,7 +311,7 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public virtual WCulture Culture
+        public override WCulture Culture
         {
             get => new(Base.Culture);
             set

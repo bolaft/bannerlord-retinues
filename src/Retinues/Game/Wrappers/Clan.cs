@@ -44,6 +44,8 @@ namespace Retinues.Game.Wrappers
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public override WCulture Culture { get; } = new(clan.Culture);
+
         public override string Name => Base?.Name?.ToString();
         public override string StringId => Base?.StringId ?? Name; // Some cultures have no StringId?
         public override uint Color => Base?.Color ?? 0;

@@ -1,17 +1,31 @@
 using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Game
 {
-    /// <summary>
-    /// Abstract base for faction-related wrappers, provides access to clan, kingdom, and player faction logic.
-    /// </summary>
-    [SafeClass]
-    public abstract class BaseFactionMember : StringIdentifier
+    public abstract class BaseFactionMember(Clan clan) : StringIdentifier
     {
-        public abstract WFaction Clan { get; }
-        public abstract WFaction Kingdom { get; }
+        /* ━━━━ Clan & Kingdom ━━━━ */
+
+        public virtual Clan Clan => clan;
+        public virtual Kingdom Kingdom => Clan?.Kingdom;
+
+        /* ━━━━━━━━ Culture ━━━━━━━ */
+
+        private WCulture _culture;
+        public virtual WCulture Culture => _culture ??= new(Clan?.Culture);
+
+
+        /* ━━━━ Player Faction ━━━━ */
+
+        public bool IsPlayerClan => Clan != null && Clan == Player.Clan;
+        public bool IsPlayerKingdom => Kingdom != null && Kingdom == Player.Kingdom;
+
+        public WFaction PlayerClan => IsPlayerClan ? WFaction.GetClan(Culture) : null;
+        public WFaction PlayerKingdom => IsPlayerKingdom ? WFaction.GetKingdom(Culture) : null;
+
 
         /// <summary>
         /// Gets the player faction, preferring clan or kingdom based on config.
@@ -20,14 +34,10 @@ namespace Retinues.Game
         {
             get
             {
-                // Set directly from Player static to avoid new instance without troop attributes
-                var clan = Clan?.IsPlayerClan == true ? Player.Clan : null;
-                var kingdom = Kingdom?.IsPlayerKingdom == true ? Player.Kingdom : null;
-
                 if (Config.ClanTroopsOverKingdomTroops)
-                    return clan ?? kingdom;
+                    return PlayerClan ?? PlayerKingdom;
                 else
-                    return kingdom ?? clan;
+                    return PlayerKingdom ?? PlayerClan;
             }
         }
     }

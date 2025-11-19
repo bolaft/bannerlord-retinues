@@ -10,7 +10,7 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for Settlement, provides helpers for notables, garrison, culture, faction, and volunteer swapping.
     /// </summary>
     [SafeClass]
-    public class WSettlement(Settlement settlement) : BaseFactionMember
+    public class WSettlement(Settlement settlement) : BaseFactionMember(settlement.OwnerClan)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Static                         //
@@ -85,38 +85,8 @@ namespace Retinues.Game.Wrappers
             _settlement?.Notables.Where(n => n != null).Select(n => new WNotable(n, this)).ToList()
             ?? [];
 
-        public WCulture Culture => new(_settlement?.Culture);
-
-        public override WFaction Clan
-        {
-            get
-            {
-                var clan = _settlement?.OwnerClan;
-                if (clan == null)
-                    return null;
-
-                if (clan == TaleWorlds.CampaignSystem.Clan.PlayerClan)
-                    return Player.Clan;
-
-                return new WFaction(clan);
-            }
-        }
-
-        public override WFaction Kingdom
-        {
-            get
-            {
-                var clan = _settlement?.OwnerClan;
-                var kingdom = clan?.Kingdom;
-                if (kingdom == null)
-                    return null;
-
-                if (kingdom == Player.Kingdom?.Base)
-                    return Player.Kingdom;
-
-                return new WFaction(kingdom);
-            }
-        }
+        private WCulture _culture;
+        public override WCulture Culture => _culture ??= new WCulture(Base.Culture);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Troops                         //

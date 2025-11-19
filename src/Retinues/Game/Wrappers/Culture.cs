@@ -38,6 +38,9 @@ namespace Retinues.Game.Wrappers
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        // Self-reference for required override
+        public override WCulture Culture => this;
+
         private readonly CultureObject _culture = culture;
         public CultureObject Base => _culture;
 

@@ -4,6 +4,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 #if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
@@ -14,14 +15,91 @@ namespace Retinues.Game.Wrappers
     /// Wrapper for IFaction (Clan or Kingdom).
     /// </summary>
     [SafeClass]
-    public class WFaction(IFaction faction) : BaseBannerFaction
+    public class WFaction : BaseBannerFaction
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        
+        /// <summary>
+        /// If true, allows multiple cultures per faction.
+        /// If false, only one clan and one kingdom.
+        /// </summary>
+        public static bool MultiCultureMode = false;
+
+        /// <summary>
+        /// Lists all existing WFaction wrappers.
+        /// </summary>
+        public static IEnumerable<WFaction> Factions
+        {
+            get
+            {
+                foreach (var faction in FactionCultureMap.Keys)
+                {
+                    foreach (var culture in FactionCultureMap[faction].Keys)
+                    {
+                        yield return FactionCultureMap[faction][culture];
+                    }
+                }
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Base                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly IFaction _faction = faction;
+        private static readonly Dictionary<IFaction, Dictionary<WCulture, WFaction>> FactionCultureMap = [];
+
+        // Private constructor to enforce use of factory methods
+        private WFaction(IFaction faction, WCulture culture)
+        { 
+            _culture = culture;
+            _faction = faction;
+        }
+
+        public static WFaction GetClan(WCulture culture)
+        {
+            var faction = Player.Clan;
+
+            return GetFactionWrapper(faction, culture);
+        }
+
+        public static WFaction GetKingdom(WCulture culture)
+        {
+            if (!Player.IsKingdomLeader)
+                return null;
+
+            var faction = Player.Kingdom;
+
+            return GetFactionWrapper(faction, culture);
+        }
+
+        private static WFaction GetFactionWrapper(IFaction faction, WCulture culture)
+        {
+            if (faction == null)
+                return null;
+
+            if (MultiCultureMode == false)
+                culture = Player.Culture; // Force single culture mode
+
+            if (!FactionCultureMap.ContainsKey(faction))
+                FactionCultureMap[faction] = [];
+
+            if (!FactionCultureMap[faction].ContainsKey(culture))
+                FactionCultureMap[faction][culture] = new WFaction(faction, culture);
+
+            return FactionCultureMap[faction][culture];
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Base                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly IFaction _faction;
         public IFaction Base => _faction;
+
+        private WCulture _culture;
+        public override WCulture Culture => _culture;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
@@ -53,17 +131,7 @@ namespace Retinues.Game.Wrappers
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━ General ━━━━━━━ */
-
         public bool HasFiefs => Base.Fiefs?.Count > 0;
-        public bool IsClan => Base is Clan;
-        public bool IsKingdom => Base is Kingdom;
-
-        /* ━━━━━━━━ Player ━━━━━━━━ */
-
-        public bool IsPlayerFaction => this == Player.Clan || this == Player.Kingdom;
-        public bool IsPlayerClan => this == Player.Clan;
-        public bool IsPlayerKingdom => this == Player.Kingdom;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Lists                         //
@@ -215,6 +283,24 @@ namespace Retinues.Game.Wrappers
                 Replace(_villager, value);
                 _villager = value;
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Lists the IDs of all player troops. Usage: retinues.list_custom_troops
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("list_custom_troops", "retinues")]
+        public static string ListCustomTroops(List<string> args)
+        {
+            List<string> list = [];
+
+            foreach (var faction in Factions)
+                list.AddRange([.. faction.Troops.Select(t => $"{t.StringId}: {t.Name}")]);
+            
+            return string.Join("\n", list);
         }
     }
 }

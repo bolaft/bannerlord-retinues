@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.Library;
 
 namespace Retinues.Game
 {
@@ -27,27 +25,42 @@ namespace Retinues.Game
         {
             _culture = null;
             _character = null;
-            _clan = null;
-            _kingdom = null;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Factions                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns the player's clan as a WFaction wrapper.
+        /// </summary>
+        public static WFaction GetClan(WCulture culture) => WFaction.GetClan(culture);
+
+        /// <summary>
+        /// Returns the player's kingdom as a WFaction wrapper, if leader.
+        /// </summary>
+        public static WFaction GetKingdom(WCulture culture) => WFaction.GetKingdom(culture);
+
+        public static IEnumerable<WCharacter> Troops
+        {
+            get
+            {
+                foreach (var faction in WFaction.Factions)
+                    foreach (var troop in faction.Troops)
+                        yield return troop;
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Components                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static WFaction _clan;
+        /* ━━━━━━━ IFaction ━━━━━━━ */
 
-        /// <summary>
-        /// Returns the player's clan as a WFaction wrapper.
-        /// </summary>
-        public static WFaction Clan
-        {
-            get
-            {
-                _clan ??= new WFaction(Hero.MainHero.Clan);
-                return _clan;
-            }
-        }
+        public static Clan Clan => Hero.MainHero.Clan;
+        public static Kingdom Kingdom => Hero.MainHero.Clan.Kingdom;
+
+        /* ━━━━━━━ Wrappers ━━━━━━━ */
 
         private static WCulture _culture;
 
@@ -101,6 +114,11 @@ namespace Retinues.Game
         /// </summary>
         public static bool IsFemale => Hero.MainHero.IsFemale;
 
+        /// <summary>
+        /// Returns true if the player is a kingdom leader.
+        /// </summary>
+        public static bool IsKingdomLeader => Hero.MainHero.IsKingdomLeader;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Renown                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -108,7 +126,7 @@ namespace Retinues.Game
         /// <summary>
         /// Returns the player's clan renown.
         /// </summary>
-        public static float Renown => Hero.MainHero.Clan.Renown;
+        public static float Renown => Clan.Renown;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Gold                          //
@@ -138,9 +156,9 @@ namespace Retinues.Game
         {
             get
             {
-                if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
+                if (Clan.PlayerClan == null)
                     return 0;
-                return (int)TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence;
+                return (int)Clan.PlayerClan.Influence;
             }
         }
 
@@ -149,47 +167,9 @@ namespace Retinues.Game
         /// </summary>
         public static void ChangeInfluence(int amount)
         {
-            if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
+            if (Clan.PlayerClan == null)
                 return;
-            TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence = Math.Max(0f, Influence + amount);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Kingdom                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Returns true if the player is a kingdom leader.
-        /// </summary>
-        public static bool IsKingdomLeader => Hero.MainHero.IsKingdomLeader;
-
-        /// <summary>
-        /// Returns the player's kingdom as a WFaction wrapper, if leader.
-        /// </summary>
-        public static WFaction Kingdom =>
-            IsKingdomLeader ? _kingdom ??= new WFaction(Hero.MainHero.Clan.Kingdom) : null;
-
-        private static WFaction _kingdom;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Troops                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Enumerates all custom troops for the player's clan and kingdom.
-        /// </summary>
-        public static IEnumerable<WCharacter> Troops
-        {
-            get
-            {
-                if (Clan != null)
-                    foreach (var troop in Clan.Troops)
-                        yield return troop;
-
-                if (Kingdom != null)
-                    foreach (var troop in Kingdom.Troops)
-                        yield return troop;
-            }
+            Clan.PlayerClan.Influence = Math.Max(0f, Influence + amount);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -209,22 +189,5 @@ namespace Retinues.Game
             Party?.Base?.CurrentSettlement != null
                 ? new WSettlement(Party.Base.CurrentSettlement)
                 : null;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Commands                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Lists the IDs of all player troops. Usage: retinues.list_custom_troops
-        /// </summary>
-        [CommandLineFunctionality.CommandLineArgumentFunction("list_custom_troops", "retinues")]
-        public static string ListCustomTroops(List<string> args)
-        {
-            var list = Troops.Select(t => $"{t.StringId}: {t.Name}").ToList();
-            if (list.Count == 0)
-                return "No active custom troops found.";
-
-            return string.Join("\n", list);
-        }
     }
 }

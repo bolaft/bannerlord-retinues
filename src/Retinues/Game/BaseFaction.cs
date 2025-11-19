@@ -31,27 +31,12 @@ namespace Retinues.Game
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public abstract WCulture Culture { get; }
+
         public abstract override string StringId { get; }
         public abstract string Name { get; }
         public abstract uint Color { get; }
         public abstract uint Color2 { get; }
-
-        public WCulture Culture
-        {
-            get
-            {
-                if (this is WCulture cu)
-                    return cu;
-
-                if (this is WClan cl)
-                    return new(cl.Base.Culture);
-
-                if (this is WFaction f)
-                    return new(f.Base.Culture);
-
-                return null;
-            }
-        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
