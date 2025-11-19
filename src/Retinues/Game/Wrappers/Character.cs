@@ -623,7 +623,7 @@ namespace Retinues.Game.Wrappers
                         Culture,
                         this,
                         sameTierOnly: false,
-                        sameCategoryOnly: true
+                        sameCategoryOnly: false
                     )
             );
         }

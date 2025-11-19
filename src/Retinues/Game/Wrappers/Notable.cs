@@ -61,9 +61,7 @@ namespace Retinues.Game.Wrappers
 
                 var replacement = TroopMatcher.PickBestFromFaction(
                     faction,
-                    troop,
-                    sameCategoryOnly: true,
-                    sameTierOnly: true
+                    troop
                 );
 
                 if (replacement != null)

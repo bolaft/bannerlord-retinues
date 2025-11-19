@@ -69,9 +69,7 @@ namespace Retinues.Safety.Sanitizer
                     CharacterObject fallback = TroopMatcher
                         .PickBestFromFaction(
                             new WSettlement(settlement).Culture,
-                            troop,
-                            sameCategoryOnly: true,
-                            sameTierOnly: false
+                            troop
                         )
                         .Base;
 
