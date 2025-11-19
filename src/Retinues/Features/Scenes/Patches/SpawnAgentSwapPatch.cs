@@ -59,7 +59,11 @@ namespace Retinues.Features.Scenes.Patches
                     return; // Don't affect custom troops
 
                 // Try to pick best replacement from faction
-                WCharacter replacement = TroopMatcher.PickBestFromFaction(faction, troop);
+                WCharacter replacement = TroopMatcher.PickBestFromFaction(
+                    faction,
+                    troop,
+                    strict: true
+                );
 
                 // If we found a different replacement, clone AgentBuildData with it
                 if (replacement != null)

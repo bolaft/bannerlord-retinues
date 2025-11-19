@@ -54,33 +54,79 @@ namespace Retinues.Troops
         /// Special roles (villager/caravan/militia) use direct mapped slots; regular troops
         /// use similarity within the basic/elite tree, and only map to custom candidates.
         /// </summary>
-        public static WCharacter PickBestFromFaction(BaseFaction faction, WCharacter troop)
+        public static WCharacter PickBestFromFaction(
+            BaseFaction faction,
+            WCharacter troop,
+            bool strict = false
+        )
         {
             if (faction == null || troop == null || !troop.IsValid)
                 return null;
 
-            // Local validator
-            static bool ValidatePick(WCharacter pick)
+            static bool Valid(WCharacter x) => x != null && x.IsValid && x.IsCustom;
+
+            var srcFaction = troop.Faction;
+
+            // 1. Slot detection
+            bool isSlot =
+                troop == srcFaction.Villager
+                || troop == srcFaction.CaravanGuard
+                || troop == srcFaction.CaravanMaster
+                || troop == srcFaction.MilitiaMelee
+                || troop == srcFaction.MilitiaMeleeElite
+                || troop == srcFaction.MilitiaRanged
+                || troop == srcFaction.MilitiaRangedElite
+                || troop == srcFaction.RetinueBasic
+                || troop == srcFaction.RetinueElite;
+
+            // 2. Direct slot mapping
+            if (isSlot)
             {
-                return pick != null && pick.IsValid && pick.IsCustom;
+                var direct = Pick(troop, faction); // Maps to target slot
+                if (Valid(direct))
+                    return direct;
+
+                // In strict mode: slot troops are allowed to fall through to tree match
+                // If they are not in tree, they will be handled by strict logic below.
             }
 
-            // Try to pick direct mappings first
-            var pick = Pick(troop, faction);
+            // 3. Detect tree membership
+            bool isTreeMember =
+                (srcFaction.RootBasic?.Tree?.Contains(troop) == true)
+                || (srcFaction.RootElite?.Tree?.Contains(troop) == true);
 
-            // If valid direct mapping, return it
-            if (ValidatePick(pick))
-                return pick;
-
-            var root = troop.IsElite ? faction.RootElite : faction.RootBasic;
-            if (root == null || !root.IsValid)
+            // 4. Strict mode restriction
+            if (strict && !isSlot && !isTreeMember)
+            {
+                // Bandits, guards, etc.
                 return null;
+            }
 
-            pick = PickBestFromTree(root, troop, exclude: null);
+            // 5. Tree matching
+            if (isTreeMember)
+            {
+                var root = troop.IsElite ? faction.RootElite : faction.RootBasic;
+                if (root != null && root.IsValid)
+                {
+                    var best = PickBestFromTree(root, troop);
+                    if (Valid(best))
+                        return best;
+                }
+            }
 
-            if (ValidatePick(pick))
-                return pick;
+            // 6. Non-strict fallback
+            if (!strict)
+            {
+                var reuseRoot = troop.IsElite ? faction.RootElite : faction.RootBasic;
+                if (reuseRoot != null && reuseRoot.IsValid)
+                {
+                    var fallback = PickBestFromTree(reuseRoot, troop);
+                    if (Valid(fallback))
+                        return fallback;
+                }
+            }
 
+            // 7. No match
             return null;
         }
 
