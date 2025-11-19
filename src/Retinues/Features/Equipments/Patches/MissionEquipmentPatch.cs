@@ -33,8 +33,19 @@ namespace Retinues.Features.Equipments.Patches
                     if (Config.EnableGlobalEditor == false)
                         return; // Feature disabled for vanilla troops
 
-                if (Mission.Current?.Mode == MissionMode.Tournament)
-                    return; // Don't affect tournaments
+                List<MissionMode> modeWhiteList =
+                [
+                    MissionMode.Battle,
+                    MissionMode.Duel,
+                    MissionMode.Deployment,
+                ];
+
+                var m = Mission.Current;
+                if (m == null)
+                    return; // No mission, nothing to do
+
+                if (!modeWhiteList.Contains(m.Mode))
+                    return; // Only affect allowed missions
 
                 // Try to ensure we are not in a tournament or arena battle
                 foreach (var behavior in Mission.Current?.MissionBehaviors)
