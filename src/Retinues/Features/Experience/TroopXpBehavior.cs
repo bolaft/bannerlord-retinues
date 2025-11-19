@@ -63,10 +63,14 @@ namespace Retinues.Features.Experience
             Log.Debug("Adding TroopXpMissionBehavior.");
 
             // Cast to concrete type
-            Mission m = mission as Mission;
+            if (mission is not Mission m)
+                return;
+
+            // Log mission mode
+            Log.Info($"Mission mode: {m.Mode}.");
 
             // Attach per-battle tracker
-            m?.AddMissionBehavior(new BattleMissionXpBehavior());
+            m.AddMissionBehavior(new BattleMissionXpBehavior());
         }
 
         private void OnDailyTickParty(MobileParty mobileParty)
