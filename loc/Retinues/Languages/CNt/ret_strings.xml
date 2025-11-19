@@ -668,6 +668,9 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="任何領主都可以在玩家的封地中招募自定義部隊。" />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
+      text="任何領主都可以在玩家的封地中招募自定義部隊（需要改進駐軍兼容性）。" />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="允許的等級差" />
     <string

@@ -668,6 +668,9 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="Qualsiasi signore può reclutare truppe personalizzate nei feudi del giocatore." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
+      text="Qualsiasi signore può reclutare truppe personalizzate nei feudi del giocatore (necessario per la compatibilità con Improved Garrisons)." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Differenza di Livello Consentita" />
     <string

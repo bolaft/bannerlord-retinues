@@ -51,6 +51,9 @@ namespace Retinues.Features.Volunteers.Patches
         /// </summary>
         private static void SnapshotVolunteers(WSettlement settlement)
         {
+            if (Config.AllLordsCanRecruitCustomTroops)
+                return; // No snapshot needed if all lords can recruit custom troops
+
             var notables = settlement?.Notables;
             if (notables == null || notables.Count == 0)
                 return;
@@ -88,6 +91,9 @@ namespace Retinues.Features.Volunteers.Patches
         {
             if (_snapshot == null || _settlement == null)
                 return;
+
+            if (!Config.AllLordsCanRecruitCustomTroops)
+                return; // No restore needed if all lords can recruit custom troops
 
             var notables = _settlement.Notables;
             if (notables == null || notables.Count == 0)

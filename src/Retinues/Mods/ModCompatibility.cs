@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Retinues.Mods.Shokuho;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
@@ -22,17 +21,17 @@ namespace Retinues.Mods
         // Ruleset flags
         public static bool NoGlobalEditor => IsLoaded("Shokuho");
         public static bool NoAlternateEquipmentSets => IsLoaded("Shokuho");
-        public static bool DailyVolunteerSwap => IsLoaded("Shokuho");
+        public static bool ForceDailyVolunteerSwap => IsLoaded("Shokuho");
         public static bool Tier7Unlocked => IsLoaded("T7TroopUnlocker");
         public static bool SkipItemCultureChecks => IsLoaded("Shokuho", "AD1259");
+        public static bool ImprovedGarrisonsHint => IsLoaded("ImprovedGarrisons");
 
         /// <summary>
         /// Adds mod-specific behaviors to the campaign starter if compatible mods are detected.
         /// </summary>
         public static void AddBehaviors(CampaignGameStarter cs)
         {
-            if (DailyVolunteerSwap)
-                cs.AddBehavior(new VolunteerSwapBehavior());
+            // Add mod specific behaviors here
         }
 
         /// <summary>

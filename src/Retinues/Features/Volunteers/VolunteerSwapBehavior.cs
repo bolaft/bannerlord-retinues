@@ -1,11 +1,11 @@
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Mods.Shokuho
+namespace Retinues.Features.Volunteers
 {
     /// <summary>
-    /// Campaign behavior for Shokuho mod compatibility.
     /// Swaps volunteers in settlements on daily tick using WSettlement wrapper.
     /// </summary>
     public sealed class VolunteerSwapBehavior : CampaignBehaviorBase
@@ -43,6 +43,9 @@ namespace Retinues.Mods.Shokuho
         /// </summary>
         private void DailyTickSettlement(Settlement settlement)
         {
+            if (Config.AllLordsCanRecruitCustomTroops == false)
+                return; // Feature disabled
+
             var s = new WSettlement(settlement);
             s.SwapVolunteers();
         }

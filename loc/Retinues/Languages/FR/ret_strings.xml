@@ -668,6 +668,9 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="N’importe quel seigneur peut recruter des troupes personnalisées dans les fiefs du joueur." />
     <string
+      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
+      text="N’importe quel seigneur peut recruter des troupes personnalisées dans les fiefs du joueur (nécessaire pour la compatibilité avec Improved Garrisons)." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Différence de Rang Autorisée" />
     <string
