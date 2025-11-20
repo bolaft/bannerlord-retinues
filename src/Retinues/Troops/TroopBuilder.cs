@@ -5,6 +5,7 @@ using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor;
 using Retinues.Utils;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -142,6 +143,9 @@ namespace Retinues.Troops
                     CreateTroops(faction, isElite: false, copyWholeTree: copyWholeTree);
                 if (!hasElite)
                     CreateTroops(faction, isElite: true, copyWholeTree: copyWholeTree);
+
+                // Notify UI of faction change (for troop lists)
+                EventManager.Fire(UIEvent.Faction);
             }
 
             InformationManager.ShowInquiry(
