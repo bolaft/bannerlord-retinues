@@ -1272,7 +1272,7 @@
       text="{FACTION} 여왕의 용사" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="다음 수행원이 당신의 파티에 합류했습니다: {JOINED_LINES}." />
+      text="다음 수행원이 당신의 파티에 합류했습니다: {JOINED}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} 가문의 용사" />

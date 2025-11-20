@@ -1272,7 +1272,7 @@
       text="{FACTION} Чемпион Королевы" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="Следующие свиты присоединились к вашей группе: {JOINED_LINES}." />
+      text="Следующие свиты присоединились к вашей группе: {JOINED}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Чемпион Дома" />

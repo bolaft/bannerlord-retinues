@@ -1272,7 +1272,7 @@
       text="{FACTION} Champion der Königin" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="Die folgenden Gefolgschaften sind deiner Gruppe beigetreten: {JOINED_LINES}." />
+      text="Die folgenden Gefolgschaften sind deiner Gruppe beigetreten: {JOINED}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Haus-Champion" />

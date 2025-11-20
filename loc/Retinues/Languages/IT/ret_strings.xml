@@ -1272,7 +1272,7 @@
       text="{FACTION} Campione della Regina" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="I seguenti seguaci si sono uniti al tuo gruppo: {JOINED_LINES}." />
+      text="I seguenti seguaci si sono uniti al tuo gruppo: {JOINED}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Campione della Casa" />

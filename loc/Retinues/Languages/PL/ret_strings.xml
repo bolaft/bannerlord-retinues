@@ -1272,7 +1272,7 @@
       text="{FACTION} Czempion Królowej" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="Następujące orszaki dołączyły do twojej drużyny: {JOINED_LINES}." />
+      text="Następujące orszaki dołączyły do twojej drużyny: {JOINED}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Czempion Domu" />
