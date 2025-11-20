@@ -681,7 +681,7 @@
       text="Automatyczne Porównywanie Przedmiotów" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Dodaje wskaźnik porównania podczas przeglądania ekwipunku jednostek (może spowolnić ekran ekwipunku)." />
+      text="Dodaje wskaźnik pokazujący, czy przedmiot jest lepszy czy gorszy od wyposażonego podczas przeglądania ekwipunku jednostek (może spowolnić ekran ekwipunku)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Podstawowy Koszt PD Umiejętności" />
@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="Podczas zmniejszania umiejętności jednostki zwróć koszt XP." />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="Zamień Otaczających NPC" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="Zamienia otaczających NPC w osadach na postacie z frakcji gracza." />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Wymagane Przedmioty Odrzucone do Odblokowania" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="Ekwipunek" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="Imersja i Dodatki" />
     <string
       id="ret_mcm_section_general"
       text="Ogólne" />

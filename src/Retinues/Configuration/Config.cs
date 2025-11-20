@@ -449,44 +449,6 @@ namespace Retinues.Configuration
         );
 
         // ─────────────────────────────────────────────────────
-        // Immersion & Fluff
-        // ─────────────────────────────────────────────────────
-
-        public static readonly Option<bool> EnableTroopCustomization = CreateOption(
-            section: () => L.S("mcm_section_fluff", "Immersion & Fluff"),
-            name: () => L.S("mcm_option_enable_troop_customization", "Enable Appearance Controls"),
-            key: "EnableTroopCustomization",
-            hint: () =>
-                L.S(
-                    "mcm_option_enable_troop_customization_hint",
-                    "Adds appearance customization controls (age, height, weight, build)."
-                ),
-            @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            }
-        );
-
-        public static readonly Option<bool> ReplaceAmbientNPCs = CreateOption(
-            section: () => L.S("mcm_section_fluff", "Immersion & Fluff"),
-            name: () => L.S("mcm_option_replace_ambient_npcs", "Replace Ambient NPCs"),
-            key: "ReplaceAmbientNPCs",
-            hint: () =>
-                L.S(
-                    "mcm_option_replace_ambient_npcs_hint",
-                    "Replaces ambient NPCs in settlements with player faction characters."
-                ),
-            @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            }
-        );
-
-        // ─────────────────────────────────────────────────────
         // Equipment
         // ─────────────────────────────────────────────────────
 
@@ -970,9 +932,26 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_auto_compare_items_hint",
-                    "Add a comparison indicator when browsing troop equipment (can slow down the equipment screen)."
+                    "Add an indicator to show if an item is better or worse than the equipped one when browsing troop equipment (can slow down the equipment screen)."
                 ),
-            @default: true
+            @default: false
+        );
+
+        public static readonly Option<bool> EnableTroopCustomization = CreateOption(
+            section: () => L.S("mcm_section_ui", "User Interface"),
+            name: () => L.S("mcm_option_enable_troop_customization", "Enable Appearance Controls"),
+            key: "EnableTroopCustomization",
+            hint: () =>
+                L.S(
+                    "mcm_option_enable_troop_customization_hint",
+                    "Adds appearance customization controls (age, height, weight, build)."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = true,
+            }
         );
 
         // ─────────────────────────────────────────────────────

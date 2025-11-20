@@ -681,7 +681,7 @@
       text="Comparer les objets automatiquement" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Ajoute un indicateur de comparaison lors de la navigation dans l’équipement des troupes (peut ralentir l’écran d’équipement)." />
+      text="Ajoute un indicateur pour montrer si un objet est meilleur ou pire que celui équipé lors de la navigation dans l’équipement des troupes (peut ralentir l’écran d’équipement)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Coût de base en XP des compétence" />
@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="Lors de la diminution des compétences d’une troupe, le coût en XP est remboursé." />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="Remplacer les PNJ Ambiants" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="Remplace les PNJ ambiants dans les villes et villages par des personnages de la faction du joueur." />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Objets Rejetés Requis pour Débloquer" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="Équipement" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="Immersion" />
     <string
       id="ret_mcm_section_general"
       text="Général" />

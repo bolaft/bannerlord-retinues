@@ -681,7 +681,7 @@
       text="アイテムを自動比較" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="部隊の装備を閲覧する際に比較インジケーターを追加します（装備画面が遅くなる可能性があります）。" />
+      text="部隊装備を閲覧する際に、装備されているものよりも優れているか劣っているかを示す指標を追加します（装備画面の動作が遅くなる可能性があります）。" />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="基本スキルXPコスト" />
@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="部隊のスキルを下げると、XPコストが返金されます。" />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="環境NPCを置き換え" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="集落の環境NPCをプレイヤー派閥のキャラクターに置き換えます。" />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解除に必要な廃棄アイテム" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="装備" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="没入感と装飾" />
     <string
       id="ret_mcm_section_general"
       text="一般" />

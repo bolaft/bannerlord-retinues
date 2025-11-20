@@ -97,6 +97,10 @@ namespace Retinues.Managers
             bool craftedOnly = false
         )
         {
+            if (cache == null)
+                Log.Info($"Building equipment eligibility cache for slot {slot}");
+            else
+                Log.Info($"Using provided equipment eligibility cache for slot {slot}");
             if (craftedOnly)
             {
                 if (!DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())

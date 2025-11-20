@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Features.Stocks;
@@ -310,9 +311,7 @@ namespace Retinues.Game.Wrappers
             public int Negative;
         }
 
-        private static readonly Dictionary<string, ChevronCacheEntry> _chevronCache = [];
-
-        private static readonly object _chevronCacheLock = new object();
+        private static readonly ConcurrentDictionary<string, ChevronCacheEntry> _chevronCache = [];
 
         private static string GetChevronCacheKey(WItem a, WItem b)
         {
@@ -336,37 +335,31 @@ namespace Retinues.Game.Wrappers
                 return;
 
             // Same item: no icons, and no need to cache.
-            if (StringId == other.StringId)
+            if (other == this)
                 return;
 
             string key = GetChevronCacheKey(this, other);
 
             // Try cache first
-            lock (_chevronCacheLock)
+            if (_chevronCache.TryGetValue(key, out var cached))
             {
-                if (_chevronCache.TryGetValue(key, out var cached))
-                {
-                    positiveChevrons = cached.Positive;
-                    negativeChevrons = cached.Negative;
-                    return;
-                }
+                positiveChevrons = cached.Positive;
+                negativeChevrons = cached.Negative;
+                return;
             }
 
             // Compute fresh
-            ComputeComparisonChevronsCore(other, out positiveChevrons, out negativeChevrons);
+            ComputeComparisonChevronScore(other, out positiveChevrons, out negativeChevrons);
 
             // Store in cache
-            lock (_chevronCacheLock)
+            _chevronCache[key] = new ChevronCacheEntry
             {
-                _chevronCache[key] = new ChevronCacheEntry
-                {
-                    Positive = positiveChevrons,
-                    Negative = negativeChevrons,
-                };
-            }
+                Positive = positiveChevrons,
+                Negative = negativeChevrons,
+            };
         }
 
-        private void ComputeComparisonChevronsCore(
+        private void ComputeComparisonChevronScore(
             WItem other,
             out int positiveChevrons,
             out int negativeChevrons

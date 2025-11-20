@@ -681,7 +681,7 @@
       text="Auto Compare Items" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Add a comparison indicator when browsing troop equipment (can slow down the equipment screen)." />
+      text="Add an indicator to show if an item is better or worse than the equipped one when browsing troop equipment (can slow down the equipment screen)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Base Skill XP Cost" />
@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="When decreasing a troop&apos;s skill, refund the XP cost." />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="Replace Ambient NPCs" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="Replaces ambient NPCs in settlements with player faction characters." />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Required Discarded Items For Unlock" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="Equipment" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="Immersion &amp; Fluff" />
     <string
       id="ret_mcm_section_general"
       text="General" />

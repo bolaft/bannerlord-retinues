@@ -681,7 +681,7 @@
       text="自动比较物品" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="浏览部队装备时添加比较指示器（可能会降低装备界面的速度）。" />
+      text="在浏览部队装备时添加一个指示器，以显示某个物品是否优于或劣于已装备的物品（可能会降低装备界面的速度）。" />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="基础技能经验消耗" />
@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="减少部队技能时，退还经验值成本。" />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="替换环境NPC" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="用玩家派系角色替换定居点中的环境NPC。" />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解锁所需丢弃物品" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="装备" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="沉浸与装饰" />
     <string
       id="ret_mcm_section_general"
       text="通用" />

@@ -681,7 +681,7 @@
       text="Confronta Oggetti Automaticamente" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Aggiunge un indicatore di confronto durante la navigazione nell’equipaggiamento delle truppe (può rallentare lo schermo dell’equipaggiamento)." />
+      text="Aggiunge un indicatore per mostrare se un oggetto è migliore o peggiore di quello equipaggiato durante la navigazione nell’equipaggiamento delle truppe (può rallentare lo schermo dell’equipaggiamento)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Costo Base PE Abilità" />
@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="Quando si diminuisce la competenza di una truppa, rimborsare il costo in XP." />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="Sostituire gli NPC Ambientali" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="Sostituisce gli NPC ambientali negli insediamenti con personaggi della fazione del giocatore." />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Articoli Scartati Richiesti per Sbloccare" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="Equipaggiamento" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="Immersione &amp; Decorazioni" />
     <string
       id="ret_mcm_section_general"
       text="Generale" />

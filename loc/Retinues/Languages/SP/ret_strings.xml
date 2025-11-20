@@ -681,7 +681,7 @@
       text="Comparar Artículos Automáticamente" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Agrega un indicador de comparación al navegar por el equipo de las tropas (puede ralentizar la pantalla de equipo)." />
+      text="Agrega un indicador para mostrar si un artículo es mejor o peor que el equipado al navegar por el equipo de la tropa (puede ralentizar la pantalla de equipo)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Costo Base de Exp de Habilidad" />
@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="Al disminuir la habilidad de una tropa, reembolsa el costo de XP." />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="Reemplazar NPC Ambientales" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="Reemplaza los NPC ambientales en los asentamientos con personajes de la facción del jugador." />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Artículos Descartados Requeridos para Desbloquear" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="Equipo" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="Inmersión y Adornos" />
     <string
       id="ret_mcm_section_general"
       text="General" />
