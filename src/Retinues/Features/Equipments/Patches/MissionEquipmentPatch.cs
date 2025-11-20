@@ -38,6 +38,8 @@ namespace Retinues.Features.Equipments.Patches
                     MissionMode.Battle,
                     MissionMode.Duel,
                     MissionMode.Deployment,
+                    MissionMode.Stealth,
+                    MissionMode.Duel,
                 ];
 
                 var m = Mission.Current;
