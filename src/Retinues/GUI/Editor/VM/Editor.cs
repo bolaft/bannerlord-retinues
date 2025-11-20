@@ -220,6 +220,12 @@ namespace Retinues.GUI.Editor.VM
                 : L.S("switch_to_clan_troops", "Clan Troops");
 
         [DataSourceProperty]
+        public string GlobalEditorLinkText => L.S("global_editor_link_text", "Global Editor");
+
+        [DataSourceProperty]
+        public string PersonalEditorLinkText => L.S("personal_editor_link_text", "Personal Editor");
+
+        [DataSourceProperty]
         public string HelpText => L.S("editor_help_text", "Help");
 
         /* ━━━━━━━━━ Flags ━━━━━━━━ */

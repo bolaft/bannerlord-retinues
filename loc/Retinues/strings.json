@@ -2080,6 +2080,22 @@
     "TR": "Cinsiyeti Değiştir"
   },
   {
+    "id": "ret_global_editor_link_text",
+    "EN": "Global Editor",
+    "BR": "Editor Global",
+    "CNs": "全局编辑器",
+    "CNt": "全局編輯器",
+    "DE": "Globaler Editor",
+    "FR": "Éditeur Global",
+    "IT": "Editor Globale",
+    "JP": "グローバルエディター",
+    "KO": "글로벌 편집기",
+    "PL": "Globalny Edytor",
+    "RU": "Глобальный Редактор",
+    "SP": "Editor Global",
+    "TR": "Küresel Düzenleyici"
+  },
+  {
     "id": "ret_global_editor_tooltip_text",
     "EN": "Open the global editor for all factions.",
     "BR": "Abra o editor global para todas as facções.",
@@ -6190,6 +6206,22 @@
     "RU": "У вас недостаточно копий необходимых предметов.",
     "SP": "No tienes suficientes copias de los objetos requeridos.",
     "TR": "Gerekli öğelerin yeterli kopyalarına sahip değilsiniz."
+  },
+  {
+    "id": "ret_personal_editor_link_text",
+    "EN": "Personal Editor",
+    "BR": "Editor Pessoal",
+    "CNs": "个人编辑器",
+    "CNt": "個人編輯器",
+    "DE": "Persönlicher Editor",
+    "FR": "Éditeur Personnel",
+    "IT": "Editor Personale",
+    "JP": "パーソナルエディター",
+    "KO": "개인 편집기",
+    "PL": "Edytor Osobisty",
+    "RU": "Личный редактор",
+    "SP": "Editor Personal",
+    "TR": "Kişisel Editör"
   },
   {
     "id": "ret_personal_editor_tooltip_text",

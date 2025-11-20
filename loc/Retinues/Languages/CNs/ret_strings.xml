@@ -395,6 +395,9 @@
       id="ret_gender_toggle_hint"
       text="切换性别" />
     <string
+      id="ret_global_editor_link_text"
+      text="全局编辑器" />
+    <string
       id="ret_global_editor_tooltip_text"
       text="打开所有派系的全局编辑器。" />
     <string
@@ -1165,6 +1168,9 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="您缺乏足够的所需物品副本。" />
+    <string
+      id="ret_personal_editor_link_text"
+      text="个人编辑器" />
     <string
       id="ret_personal_editor_tooltip_text"
       text="为您的氏族和王国部队打开编辑器。" />

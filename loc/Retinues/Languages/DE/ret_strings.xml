@@ -395,6 +395,9 @@
       id="ret_gender_toggle_hint"
       text="Geschlecht umschalten" />
     <string
+      id="ret_global_editor_link_text"
+      text="Globaler Editor" />
+    <string
       id="ret_global_editor_tooltip_text"
       text="Öffne den globalen Editor für alle Fraktionen." />
     <string
@@ -1165,6 +1168,9 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="Dir fehlen genügend Kopien der benötigten Gegenstände." />
+    <string
+      id="ret_personal_editor_link_text"
+      text="Persönlicher Editor" />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Öffne den Editor für deine Clan- und Königreichstruppen." />

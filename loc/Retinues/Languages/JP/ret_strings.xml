@@ -395,6 +395,9 @@
       id="ret_gender_toggle_hint"
       text="性別を切り替え" />
     <string
+      id="ret_global_editor_link_text"
+      text="グローバルエディター" />
+    <string
       id="ret_global_editor_tooltip_text"
       text="すべての派閥のグローバルエディターを開く。" />
     <string
@@ -1165,6 +1168,9 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="必要なアイテムの十分なコピーが不足しています。" />
+    <string
+      id="ret_personal_editor_link_text"
+      text="パーソナルエディター" />
     <string
       id="ret_personal_editor_tooltip_text"
       text="あなたの氏族と王国の部隊のエディターを開きます。" />

@@ -395,6 +395,9 @@
       id="ret_gender_toggle_hint"
       text="Переключить пол" />
     <string
+      id="ret_global_editor_link_text"
+      text="Глобальный Редактор" />
+    <string
       id="ret_global_editor_tooltip_text"
       text="Откройте глобальный редактор для всех фракций." />
     <string
@@ -1165,6 +1168,9 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="У вас недостаточно копий необходимых предметов." />
+    <string
+      id="ret_personal_editor_link_text"
+      text="Личный редактор" />
     <string
       id="ret_personal_editor_tooltip_text"
       text="Откройте редактор для войск вашего клана и королевства." />
