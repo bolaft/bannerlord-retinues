@@ -681,7 +681,7 @@
       text="Auto Compare Items" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Add a comparison indicator when browsing troop equipment (can slow down the equipment screen)." />
+      text="Add an indicator to show if an item is better or worse than the equipped one when browsing troop equipment (can slow down the equipment screen)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Base Skill XP Cost" />

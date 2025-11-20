@@ -681,7 +681,7 @@
       text="自动比较物品" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="浏览部队装备时添加比较指示器（可能会降低装备界面的速度）。" />
+      text="在浏览部队装备时添加一个指示器，以显示某个物品是否优于或劣于已装备的物品（可能会降低装备界面的速度）。" />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="基础技能经验消耗" />

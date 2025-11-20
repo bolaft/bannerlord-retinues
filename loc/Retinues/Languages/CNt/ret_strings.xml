@@ -681,7 +681,7 @@
       text="自動比較物品" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="瀏覽部隊裝備時添加比較指示器（可能會降低裝備界面的速度）。" />
+      text="在瀏覽部隊裝備時添加一個指示器，以顯示某個物品是否優於或劣於已裝備的物品（可能會降低裝備界面的速度）。" />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="基礎技能經驗消耗" />

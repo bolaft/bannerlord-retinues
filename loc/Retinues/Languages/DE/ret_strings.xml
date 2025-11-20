@@ -681,7 +681,7 @@
       text="Automatischer Vergleich von Gegenständen" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Fügt beim Durchsuchen der Truppenausrüstung einen Vergleichsindikator hinzu (kann den Ausrüstungsbildschirm verlangsamen)." />
+      text="Fügt einen Indikator hinzu, der anzeigt, ob ein Gegenstand besser oder schlechter als der ausgerüstete ist, wenn man die Truppenausrüstung durchsucht (kann den Ausrüstungsbildschirm verlangsamen)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Basis-Fertigkeits-EP-Kosten" />

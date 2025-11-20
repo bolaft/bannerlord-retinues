@@ -681,7 +681,7 @@
       text="Automatyczne Porównywanie Przedmiotów" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Dodaje wskaźnik porównania podczas przeglądania ekwipunku jednostek (może spowolnić ekran ekwipunku)." />
+      text="Dodaje wskaźnik pokazujący, czy przedmiot jest lepszy czy gorszy od wyposażonego podczas przeglądania ekwipunku jednostek (może spowolnić ekran ekwipunku)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Podstawowy Koszt PD Umiejętności" />

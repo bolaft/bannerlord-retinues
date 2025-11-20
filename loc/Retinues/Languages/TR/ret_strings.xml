@@ -681,7 +681,7 @@
       text="Öğeleri Otomatik Karşılaştır" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Asker teçhizatına göz atarken bir karşılaştırma göstergesi ekler (teçhizat ekranını yavaşlatabilir)." />
+      text="Asker ekipmanlarını gözden geçirirken bir öğenin donatılmış olandan daha iyi mi yoksa daha kötü mü olduğunu göstermek için bir gösterge ekler (ekipman ekranını yavaşlatabilir)." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Temel Beceri XP Maliyeti" />
