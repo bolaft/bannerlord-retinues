@@ -922,7 +922,7 @@ namespace Retinues.Configuration
                     "mcm_option_enable_editor_hotkey_hint",
                     "Enables the hotkey to open the retinue editor from the campaign map."
                 ),
-            @default: true
+            @default: false
         );
 
         public static readonly Option<bool> AutoCompareItems = CreateOption(
