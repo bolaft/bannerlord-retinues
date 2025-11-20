@@ -934,7 +934,7 @@ namespace Retinues.Configuration
                     "mcm_option_auto_compare_items_hint",
                     "Add an indicator to show if an item is better or worse than the equipped one when browsing troop equipment (can slow down the equipment screen)."
                 ),
-            @default: false
+            @default: true
         );
 
         public static readonly Option<bool> EnableTroopCustomization = CreateOption(
