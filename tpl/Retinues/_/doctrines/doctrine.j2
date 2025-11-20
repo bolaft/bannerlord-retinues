@@ -13,16 +13,22 @@
             height="120", width="340",
             command="ExecuteShowPopup",
             brush="@ButtonBrush",
-            is_enabled="@IsEnabled",
-            margin_top="12"
+            is_enabled="@IsEnabled"
         )}}
 
+
         <!-- Description -->
-        {{ text.base(
-            text="@Description",
-            font_size="20",
-            margin_bottom="4",
-        ) }}
+        <ListPanel
+            DataSource="{DescriptionLines}"
+            StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center"
+            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="400">
+            <ItemTemplate>
+                {{ text.base(
+                    text="@Text",
+                    font_size="20",
+                ) }}
+            </ItemTemplate>
+        </ListPanel>
 
         <!-- Cost Row -->
         <ListPanel
