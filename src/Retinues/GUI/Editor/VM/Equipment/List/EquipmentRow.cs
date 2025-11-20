@@ -9,6 +9,7 @@ using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Managers;
 using Retinues.Utils;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 # if BL13
@@ -49,30 +50,33 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /// </summary>
         public void OnSlotChanged()
         {
-            // Not called when list rebuilds since it creates new row VMs.
+            UpdateComparisonChevrons();
+        }
+
+        /// <summary>
+        /// Refresh bindings affected by slot changes for the selected item.
+        /// </summary>
+        public void OnSlotChangedSelective()
+        {
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(ShowInStockText));
             OnPropertyChanged(nameof(ShowValue));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
-            OnPropertyChanged(nameof(ShowComparisonIcon));
-            OnPropertyChanged(nameof(PositiveComparisonSprite));
-            OnPropertyChanged(nameof(NegativeComparisonSprite));
-            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
         }
 
+        /// <summary>
+        /// Refresh bindings affected by equip changes.
+        /// </summary>
         public void OnEquipChanged()
         {
-            OnPropertyChanged(nameof(ShowComparisonIcon));
-            OnPropertyChanged(nameof(PositiveComparisonSprite));
-            OnPropertyChanged(nameof(NegativeComparisonSprite));
-            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
+            UpdateComparisonChevrons();
         }
 
         /// <summary>
         /// Refresh bindings affected by staged equip for the selected item.
         /// </summary>
-        public void OnEquipChangedForSelected()
+        public void OnEquipChangedSelective()
         {
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(Stock));
@@ -89,6 +93,16 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /// </summary>
         public void OnEquipmentChanged()
         {
+            Log.Info(
+                $"OnEquipmentChanged called for {RowItem?.Name?.ToString() ?? "empty"} with {State.Equipment?.ToString() ?? "null"}"
+            );
+            UpdateComparisonChevrons();
+
+            OnPropertyChanged(nameof(ShowComparisonIcon));
+            OnPropertyChanged(nameof(PositiveComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
+
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(IsEnabled));
             OnPropertyChanged(nameof(ShowIsEquipped));
@@ -96,10 +110,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(ShowInStockText));
             OnPropertyChanged(nameof(ShowValue));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
-            OnPropertyChanged(nameof(ShowComparisonIcon));
-            OnPropertyChanged(nameof(PositiveComparisonSprite));
-            OnPropertyChanged(nameof(NegativeComparisonSprite));
-            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -250,10 +260,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         /* ━━━━━━━━━ Comparison Icons ━━━━━━━━ */
 
-        private void GetChevronCounts(out int positive, out int negative)
+        /// <summary>
+        /// Update the positive/negative comparison chevron counts.
+        /// </summary>
+        private void UpdateComparisonChevrons()
         {
-            positive = 0;
-            negative = 0;
+            PositiveChevrons = 0;
+            NegativeChevrons = 0;
 
             if (!Config.AutoCompareItems)
                 return;
@@ -261,55 +274,41 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             if (!IsEnabled)
                 return;
 
-            var rowItem = RowItem;
-            if (rowItem == null)
-                return;
-
-            var current = StagedItem ?? EquippedItem;
-            if (current == null)
-                return;
-
-            // Same item → no icon.
-            if (ReferenceEquals(rowItem, current) || rowItem.StringId == current.StringId)
-                return;
-
             try
             {
-                rowItem.GetComparisonChevrons(current, out positive, out negative);
+                RowItem?.GetComparisonChevrons(Item, out PositiveChevrons, out NegativeChevrons);
             }
             catch (System.Exception e)
             {
                 Log.Error(
-                    $"EquipmentRowVM.GetChevronCounts failed for RowItem={rowItem.StringId}, Current={current.StringId}: {e}"
+                    $"EquipmentRowVM.GetChevronCounts failed for RowItem={RowItem}, Current={Item}: {e}"
                 );
-                positive = 0;
-                negative = 0;
             }
+
+            OnPropertyChanged(nameof(ShowComparisonIcon));
+            OnPropertyChanged(nameof(PositiveComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
         }
 
+        private int PositiveChevrons = 0;
+        private int NegativeChevrons = 0;
+
         [DataSourceProperty]
-        public bool ShowComparisonIcon
-        {
-            get
-            {
-                GetChevronCounts(out var positive, out var negative);
-                return positive > 0 || negative > 0;
-            }
-        }
+        public bool ShowComparisonIcon => PositiveChevrons > 0 || NegativeChevrons > 0;
 
         [DataSourceProperty]
         public string PositiveComparisonSprite
         {
             get
             {
-                GetChevronCounts(out var positive, out _);
-                if (positive <= 0)
+                if (PositiveChevrons <= 0)
                     return string.Empty;
 
-                if (positive > 3)
-                    positive = 3;
+                if (PositiveChevrons > 3)
+                    PositiveChevrons = 3;
 
-                return $"General\\TroopTierIcons\\icon_tier_{positive}_big";
+                return $"General\\TroopTierIcons\\icon_tier_{PositiveChevrons}_big";
             }
         }
 
@@ -318,14 +317,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             get
             {
-                GetChevronCounts(out _, out var negative);
-                if (negative <= 0)
+                if (NegativeChevrons <= 0)
                     return string.Empty;
 
-                if (negative > 3)
-                    negative = 3;
+                if (NegativeChevrons > 3)
+                    NegativeChevrons = 3;
 
-                return $"General\\TroopTierIcons\\icon_tier_{negative}_big";
+                return $"General\\TroopTierIcons\\icon_tier_{NegativeChevrons}_big";
             }
         }
 
@@ -334,8 +332,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             get
             {
-                GetChevronCounts(out var positive, out var negative);
-                if (negative > 0 && positive > 0)
+                if (NegativeChevrons > 0 && PositiveChevrons > 0)
                     return 5;
 
                 return 0;

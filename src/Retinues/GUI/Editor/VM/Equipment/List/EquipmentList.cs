@@ -43,7 +43,10 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public const int MaxRows = 1000;
 
         // Precomputed snapshot for current faction/slot (deduped + keyed for fast sort/filter)
-        private List<ItemTuple> _fullTuples;
+        private readonly Dictionary<EquipmentIndex, List<ItemTuple>> _fullTuples = [];
+
+        // Context keys for snapshots so we know when they are still valid
+        private readonly Dictionary<EquipmentIndex, string> _fullTupleKeys = [];
 
         // A compact record with precomputed sort keys (avoid recomputing on every compare)
         private sealed class ItemTuple
@@ -144,7 +147,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    _emptyRow?.OnEquipChangedForSelected();
+                    _emptyRow?.OnEquipChangedSelective();
                     return;
                 }
 
@@ -152,7 +155,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     return;
 
                 if (_rowsByItemId.TryGetValue(id, out var row) && row != null)
-                    row.OnEquipChangedForSelected();
+                    row.OnEquipChangedSelective();
             }
 
             var delta = deltaNullable.Value;
@@ -185,34 +188,139 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             _needsRebuild = true;
 
-            if (IsVisible)
+            if (!IsVisible)
+                return;
+
+            var factionId = State.Faction?.StringId;
+
+            if (_lastFactionId == factionId)
             {
-                var factionId = State.Faction?.StringId;
+                var slotId = State.Slot.ToString();
 
-                if (_lastFactionId == factionId)
+                if (_lastSlotId == slotId)
                 {
-                    var slotId = State.Slot.ToString();
-
-                    if (_lastSlotId == slotId)
-                    {
-                        _needsRebuild = false;
-                        return;
-                    }
-                    else if (WeaponSlots.Contains(slotId) && WeaponSlots.Contains(_lastSlotId))
-                    {
-                        _needsRebuild = false;
-                        _lastSlotId = slotId;
-
-                        foreach (var r in EquipmentRows)
-                            r.OnSlotChanged();
-
-                        return;
-                    }
+                    _needsRebuild = false;
+                    return;
                 }
 
-                FilterText = string.Empty;
+                // Weapon → weapon: same faction, just changed which weapon slot is “current”
+                if (WeaponSlots.Contains(slotId) && WeaponSlots.Contains(_lastSlotId))
+                {
+                    _needsRebuild = false;
 
-                Build();
+                    var oldSlotId = _lastSlotId;
+                    _lastSlotId = slotId;
+
+                    // 2) Only the row that WAS equipped and the row that IS equipped
+                    //    need ShowIsEquipped / IsSelected updates.
+                    if (
+                        TryParseSlot(oldSlotId, out var oldSlot)
+                        && TryParseSlot(slotId, out var newSlot)
+                    )
+                    {
+                        NotifyEquippedRowChanged(oldSlot, newSlot);
+                    }
+
+                    // 3) Still notify comparison chevrons for all rows that might be affected
+                    foreach (var r in EquipmentRows)
+                        r.OnSlotChanged();
+
+                    return;
+                }
+            }
+
+            // Faction changed or non-weapon slot change → full rebuild
+            FilterText = string.Empty;
+            Build();
+        }
+
+        /// <summary>
+        /// Try parse equipment slot from string.
+        /// </summary>
+        private static bool TryParseSlot(string slotId, out EquipmentIndex slot)
+        {
+            return Enum.TryParse(slotId, out slot);
+        }
+
+        /// <summary>
+        /// Get the currently equipped or staged item for the given slot.
+        /// </summary>
+        private WItem GetCurrentItemForSlot(EquipmentIndex slot)
+        {
+            // Staged first
+            if (
+                State.EquipData != null
+                && State.EquipData.TryGetValue(slot, out var equipData)
+                && equipData.Equip != null
+            )
+            {
+                return new WItem(equipData.Equip.ItemId);
+            }
+
+            // Then actual equipment
+            return State.Equipment?.Get(slot);
+        }
+
+        private void NotifyEquippedRowChanged(EquipmentIndex oldSlot, EquipmentIndex newSlot)
+        {
+            var oldItem = GetCurrentItemForSlot(oldSlot);
+            var newItem = GetCurrentItemForSlot(newSlot);
+
+            EquipmentRowVM oldRow = null;
+
+            if (
+                oldItem != null
+                && !string.IsNullOrEmpty(oldItem.StringId)
+                && _rowsByItemId.TryGetValue(oldItem.StringId, out oldRow)
+                && oldRow != null
+            )
+            {
+                // Old equipped row loses its “equipped” indicator
+                oldRow.OnSlotChangedSelective();
+            }
+
+            if (
+                newItem != null
+                && !string.IsNullOrEmpty(newItem.StringId)
+                && _rowsByItemId.TryGetValue(newItem.StringId, out var newRow)
+                && newRow != null
+                && newRow != oldRow
+            )
+            {
+                // New equipped row gains its “equipped” indicator
+                newRow.OnSlotChangedSelective();
+            }
+        }
+
+        private void NotifySlotSelectionChanged(EquipmentIndex oldSlot, EquipmentIndex newSlot)
+        {
+            var oldItem = GetCurrentItemForSlot(oldSlot);
+            var newItem = GetCurrentItemForSlot(newSlot);
+
+            if (oldItem != null)
+            {
+                var oldId = oldItem.StringId;
+                if (
+                    !string.IsNullOrEmpty(oldId)
+                    && _rowsByItemId.TryGetValue(oldId, out var oldRow)
+                    && oldRow != null
+                )
+                {
+                    oldRow.OnSlotChangedSelective();
+                }
+            }
+
+            if (newItem != null)
+            {
+                var newId = newItem.StringId;
+                if (
+                    !string.IsNullOrEmpty(newId)
+                    && _rowsByItemId.TryGetValue(newId, out var newRow)
+                    && newRow != null
+                )
+                {
+                    newRow.OnSlotChangedSelective();
+                }
             }
         }
 
@@ -237,10 +345,46 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         {
             if (!_needsRebuild)
                 return;
-            _needsRebuild = false;
 
             var factionId = State.Faction?.StringId;
             var slotId = State.Slot.ToString();
+            var currentSlot = State.Slot;
+
+            // Context key: faction + slot + crafted flag
+            var contextKey = $"{factionId ?? string.Empty}|{slotId}|{(ShowCrafted ? 1 : 0)}";
+
+            // If we already have a snapshot for this exact context, just reuse it
+            if (
+                _fullTupleKeys.TryGetValue(currentSlot, out var existingKey)
+                && existingKey == contextKey
+                && _fullTuples.TryGetValue(currentSlot, out var existingSnapshot)
+                && existingSnapshot != null
+            )
+            {
+                Log.Info($"Reusing cached equipment list for slot {State.Slot}");
+
+                _needsRebuild = false;
+
+                _lastFactionId = factionId;
+                _lastSlotId = slotId;
+
+                // Rebuild visible rows from cached tuples
+                RebuildVisibleFromSnapshot();
+
+                // Notify rows so comparisons and equipped flags update
+                foreach (var r in EquipmentRows)
+                    r.OnSlotChanged();
+
+                // Keep truncation bindings in sync
+                OnPropertyChanged(nameof(ShowTruncated));
+                OnPropertyChanged(nameof(TruncatedHint));
+
+                return;
+            }
+
+            Log.Info($"Rebuilding equipment list for slot {State.Slot}");
+
+            _needsRebuild = false;
 
             _lastFactionId = factionId;
             _lastSlotId = slotId;
@@ -272,31 +416,30 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     _cache[factionId][slotId].Add((it, unlocked, progress));
             }
 
-            // 2) Deduplicate and precompute keys (critical for speed & stability)
+            // 2) Deduplicate and precompute keys
             _rowsByItemId.Clear();
-            _fullTuples = new List<ItemTuple>(raw.Count);
+
+            var slotList = new List<ItemTuple>(raw.Count);
+            _fullTuples[currentSlot] = slotList;
 
             foreach (var (item, isAvailable, isUnlocked, progress) in raw)
             {
-                // Defensive: skip nulls
                 if (item == null)
                     continue;
 
-                // Dedupe by StringId (or fallback to reference hash if needed)
                 var id = item.StringId ?? item.GetHashCode().ToString();
                 if (_rowsByItemId.ContainsKey(id))
                     continue;
 
                 _rowsByItemId[id] = null;
 
-                _fullTuples.Add(
+                slotList.Add(
                     new ItemTuple
                     {
                         Item = item,
                         IsAvailable = isAvailable,
                         IsUnlocked = isUnlocked,
                         Progress = progress,
-
                         Name = item.Name ?? string.Empty,
                         Category = item.Class ?? string.Empty,
                         Tier = item.Tier,
@@ -306,18 +449,40 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 );
             }
 
+            // Remember for which context this snapshot was built
+            _fullTupleKeys[currentSlot] = contextKey;
+
             // 3) Build the visible list
             RebuildVisibleFromSnapshot();
+
+            // Notify rows
+            foreach (var r in EquipmentRows)
+                r.OnSlotChanged();
 
             // Notify truncation bindings
             OnPropertyChanged(nameof(ShowTruncated));
             OnPropertyChanged(nameof(TruncatedHint));
         }
 
+        /// <summary>
+        /// Ensure we have a built snapshot for the current slot before sorting.
+        /// </summary>
+        private void EnsureSnapshotForCurrentSlot()
+        {
+            if (_needsRebuild)
+            {
+                // Build() will populate _fullTuples for State.Slot
+                // and also rebuild the visible list once.
+                Build();
+            }
+        }
+
         private void RebuildVisibleFromSnapshot()
         {
-            // Guard
-            _fullTuples ??= [];
+            // Get snapshot for the current slot (fall back to empty list)
+            var currentSlot = State.Slot;
+            if (!_fullTuples.TryGetValue(currentSlot, out var snapshot) || snapshot == null)
+                snapshot = [];
 
             // 1) Sort comparator over tuples (no UI rows involved)
             int Primary(int v) => _descending ? -v : v;
@@ -366,8 +531,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             }
 
             // Display item list
-            var display = new List<ItemTuple>(Math.Min(_fullTuples.Count, MaxRows));
-            foreach (var t in _fullTuples)
+            var display = new List<ItemTuple>(Math.Min(snapshot.Count, MaxRows));
+            foreach (var t in snapshot)
                 display.Add(t);
 
             // Sort
@@ -387,7 +552,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 {
                     if (item != null && !displayIds.Contains(item.StringId))
                     {
-                        var itemTuple = _fullTuples.FirstOrDefault(t => t.Item.Equals(item));
+                        var itemTuple = snapshot.FirstOrDefault(t => t.Item.Equals(item));
                         if (itemTuple != null)
                             display.Add(itemTuple);
                     }
@@ -536,6 +701,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceMethod]
         public void ExecuteSortByName()
         {
+            EnsureSnapshotForCurrentSlot();
+
             if (_sort == SortMode.Name)
                 _descending = !_descending;
             else
@@ -549,6 +716,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceMethod]
         public void ExecuteSortByCategory()
         {
+            EnsureSnapshotForCurrentSlot();
+
             if (_sort == SortMode.Category)
                 _descending = !_descending;
             else
@@ -562,6 +731,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceMethod]
         public void ExecuteSortByTier()
         {
+            EnsureSnapshotForCurrentSlot();
+
             if (_sort == SortMode.Tier)
                 _descending = !_descending;
             else
@@ -575,6 +746,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceMethod]
         public void ExecuteSortByCost()
         {
+            EnsureSnapshotForCurrentSlot();
+
             if (_sort == SortMode.Cost)
                 _descending = !_descending;
             else

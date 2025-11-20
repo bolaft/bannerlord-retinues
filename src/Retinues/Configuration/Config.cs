@@ -932,9 +932,9 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_auto_compare_items_hint",
-                    "Add a comparison indicator when browsing troop equipment (can slow down the equipment screen)."
+                    "Add an indicator to show if an item is better or worse than the equipped one when browsing troop equipment (can slow down the equipment screen)."
                 ),
-            @default: true
+            @default: false
         );
 
         public static readonly Option<bool> EnableTroopCustomization = CreateOption(
