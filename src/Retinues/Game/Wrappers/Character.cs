@@ -465,19 +465,20 @@ namespace Retinues.Game.Wrappers
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // List of troop-relevant skills
-        // Cannot be static because SkillObject is not initialized yet at that time
-        public readonly SkillObject[] TroopSkills =
-        [
-            DefaultSkills.Athletics,
-            DefaultSkills.Riding,
-            DefaultSkills.OneHanded,
-            DefaultSkills.TwoHanded,
-            DefaultSkills.Polearm,
-            DefaultSkills.Bow,
-            DefaultSkills.Crossbow,
-            DefaultSkills.Throwing,
-        ];
+        // Combined list of base and modded skills
+        private static List<SkillObject> _troopSkills;
+        public static List<SkillObject> TroopSkills => _troopSkills ??= [.. BaseSkills, .. ModdedSkills];
+
+        private static List<SkillObject> _allSkills;
+        public static IReadOnlyList<SkillObject> AllSkills => _allSkills ??= [.. MBObjectManager.Instance.GetObjectTypeList<SkillObject>()];
+
+        // Relevant vanilla skills
+        private static List<SkillObject> _baseSkills;
+        public static IReadOnlyList<SkillObject> BaseSkills => _baseSkills ??= [.. AllSkills.Where(s => SkillsHelper.TroopSkillIds.Contains(s.StringId))];
+
+        // Skills added by mods
+        private static List<SkillObject> _moddedSkills;
+        public static IReadOnlyList<SkillObject> ModdedSkills => _moddedSkills ??= [.. AllSkills.Where(s => !SkillsHelper.VanillaSkillIds.Contains(s.StringId))];
 
         // Skill dictionary for easy get/set
         public virtual Dictionary<SkillObject, int> Skills
