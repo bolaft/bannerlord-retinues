@@ -114,6 +114,35 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         }
 
         [DataSourceProperty]
+        public MBBindingList<DoctrineDescriptionLineVM> DescriptionLines
+        {
+            get
+            {
+                var lines = new MBBindingList<DoctrineDescriptionLineVM>();
+
+                // Split by lines of 45 characters max (split on spaces only)
+                int maxLineLength = 45;
+                var words = Description.Split(' ');
+                var currentLine = new StringBuilder();
+                foreach (var word in words)
+                {
+                    if (currentLine.Length + word.Length + 1 > maxLineLength)
+                    {
+                        // Commit current line
+                        lines.Add(new DoctrineDescriptionLineVM(currentLine.ToString().TrimEnd()));
+                        currentLine.Clear();
+                    }
+                    currentLine.Append(word).Append(' ');
+                }
+                if (currentLine.Length > 0)
+                {
+                    lines.Add(new DoctrineDescriptionLineVM(currentLine.ToString().TrimEnd()));
+                }
+                return lines;
+            }
+        }
+
+        [DataSourceProperty]
         public int GoldCost
         {
             get { return _def?.GoldCost ?? 0; }
