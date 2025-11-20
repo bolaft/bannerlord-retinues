@@ -62,6 +62,24 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Win a tournament in a town of your own culture." />
     <string
+      id="ret_appearance_error_body"
+      text="An error occurred while updating this troop&apos;s appearance. The previous appearance has been restored. See log for details." />
+    <string
+      id="ret_appearance_error_title"
+      text="Appearance Error" />
+    <string
+      id="ret_appearance_not_supported_body"
+      text="This combination of gender and culture is not supported." />
+    <string
+      id="ret_appearance_not_supported_body_species"
+      text="This combination of gender, culture and species is not supported." />
+    <string
+      id="ret_appearance_not_supported_title"
+      text="Not Supported" />
+    <string
+      id="ret_appearance_not_supported_title_species"
+      text="Not Supported" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Convert" />
     <string
@@ -1057,6 +1075,18 @@
     <string
       id="ret_no_training_required"
       text="No training required" />
+    <string
+      id="ret_no_valid_model_body"
+      text="This combination of gender and culture does not have a valid model.{newline}{newline}The previous appearance has been restored." />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="This combination of gender, culture and species does not have a valid model.{newline}{newline}The previous appearance has been restored." />
+    <string
+      id="ret_no_valid_model_title"
+      text="No Valid Model" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="No Valid Model" />
     <string
       id="ret_not_allowed_title"
       text="Not Allowed" />

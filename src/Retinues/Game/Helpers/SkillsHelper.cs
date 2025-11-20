@@ -32,7 +32,7 @@ namespace Retinues.Game.Helpers
             "Engineering",
         ];
 
-        public static readonly string[] TroopSkillIds =
+        public static readonly HashSet<string> TroopSkillIds =
         [
             "Athletics",
             "Riding",

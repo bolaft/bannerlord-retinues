@@ -512,27 +512,25 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                                 return;
                             if (selected[0]?.Identifier is not CultureObject culture)
                                 return;
-                            if (culture.StringId == State.Troop.Culture.StringId)
-                                return; // No change
 
-                            // Store prior race before culture change.
-                            var priorRace = State.Troop.Race;
+                            AppearanceGuard.TryApply(
+                                State.Troop,
+                                State.Equipment.Index,
+                                applyChange: () =>
+                                {
+                                    if (culture.StringId == State.Troop.Culture.StringId)
+                                        return false; // No change
 
-                            // Apply via wrapper (uses reflection under the hood).
-                            State.Troop.Culture = new WCulture(culture);
+                                    // Apply via wrapper (uses reflection under the hood).
+                                    State.Troop.Culture = new WCulture(culture);
 
-                            // Update visuals.
-                            BodyHelper.ApplyPropertiesFromCulture(State.Troop, culture);
-
-                            // Reapply prior race if needed.
-                            if (priorRace >= 0)
-                            {
-                                State.Troop.Race = priorRace;
-                                State.Troop.Body.EnsureOwnBodyRange();
-                            }
-
-                            // Refresh VM bindings & visuals.
-                            State.UpdateTroop(State.Troop);
+                                    // Important: we let BodyHelper pick the default race for this culture.
+                                    // This means changing culture also changes species to the culture's default.
+                                    BodyHelper.ApplyPropertiesFromCulture(State.Troop, culture);
+                                    return true;
+                                },
+                                onSuccess: () => State.UpdateTroop(State.Troop)
+                            );
                         },
                         negativeAction: new Action<List<InquiryElement>>(_ => { })
                     )
@@ -586,9 +584,21 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                         {
                             if (selected?.Count > 0 && selected[0]?.Identifier is int race)
                             {
-                                State.Troop.Race = race;
-                                State.Troop.Body.EnsureOwnBodyRange();
-                                State.UpdateTroop(State.Troop);
+                                AppearanceGuard.TryApply(
+                                    State.Troop,
+                                    State.Equipment.Index,
+                                    applyChange: () =>
+                                    {
+                                        if (race == State.Troop.Race)
+                                            return false; // No change
+
+                                        // Only change the race; keep the current culture.
+                                        State.Troop.Race = race;
+                                        State.Troop.Body.EnsureOwnBodyRange();
+                                        return true;
+                                    },
+                                    onSuccess: () => State.UpdateTroop(State.Troop)
+                                );
                             }
                         },
                         negativeAction: _ => { }
@@ -599,6 +609,33 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             {
                 Log.Exception(ex);
             }
+        }
+
+        private void ShowAppearanceFailurePopup()
+        {
+            bool hasAltSpecies = CanChangeRace;
+
+            TextObject title;
+            TextObject body;
+
+            if (hasAltSpecies)
+            {
+                title = L.T("appearance_not_supported_title_species", "Not Supported");
+                body = L.T(
+                    "appearance_not_supported_body_species",
+                    "This combination of gender, culture and species is not supported."
+                );
+            }
+            else
+            {
+                title = L.T("appearance_not_supported_title", "Not Supported");
+                body = L.T(
+                    "appearance_not_supported_body",
+                    "This combination of gender and culture is not supported."
+                );
+            }
+
+            Notifications.Popup(title, body);
         }
 
         /// <summary>
@@ -933,7 +970,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             if (_cachedRaceNames != null)
                 return _cachedRaceNames;
 
-            var raw = FaceGen.GetRaceNames() ?? Array.Empty<string>();
+            var raw = FaceGen.GetRaceNames() ?? [];
             if (raw.Length == 0)
                 return _cachedRaceNames = new List<string>();
 
@@ -1011,11 +1048,13 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             if (ShowModdedSkills && HasModdedSkills)
             {
+                // Up to 8 modded skills
                 src = WCharacter.ModdedSkills.Take(8);
             }
             else
             {
-                src = WCharacter.BaseSkills.Take(8);
+                // The troop's standard 8 vanilla skills
+                src = State.Troop?.TroopSkills ?? Row1Skills.Concat(TroopPanelVM.Row2Skills);
             }
 
             // 1) Hide old VMs before we rebuild the rows
@@ -1026,7 +1065,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             // 2) Build the new list of VMs
             var list = src.Select(s => new TroopSkillVM(s)).ToList();
 
-            // split into two rows (4 + 4, or fewer if less)
+            // 4 + 4 layout
             var row1 = list.Take(4).ToList();
             var row2 = list.Skip(4).Take(4).ToList();
 

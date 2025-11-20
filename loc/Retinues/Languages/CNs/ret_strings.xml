@@ -62,6 +62,24 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="在本文化的城镇赢得一场锦标赛。" />
     <string
+      id="ret_appearance_error_body"
+      text="更新此部队外观时发生错误。已恢复先前的外观。详情请参阅日志。" />
+    <string
+      id="ret_appearance_error_title"
+      text="外观错误" />
+    <string
+      id="ret_appearance_not_supported_body"
+      text="不支持此性别和文化的组合。" />
+    <string
+      id="ret_appearance_not_supported_body_species"
+      text="不支持此性别、文化和物种的组合。" />
+    <string
+      id="ret_appearance_not_supported_title"
+      text="不支持" />
+    <string
+      id="ret_appearance_not_supported_title_species"
+      text="不支持" />
+    <string
       id="ret_apply_conversions_button_text"
       text="转换" />
     <string
@@ -1057,6 +1075,18 @@
     <string
       id="ret_no_training_required"
       text="不需要训练" />
+    <string
+      id="ret_no_valid_model_body"
+      text="这种性别和文化的组合没有有效的模型。{newline}{newline}已恢复先前的外观。" />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="这种性别、文化和种族的组合没有有效的模型。{newline}{newline}已恢复先前的外观。" />
+    <string
+      id="ret_no_valid_model_title"
+      text="无效模型" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="无效模型" />
     <string
       id="ret_not_allowed_title"
       text="不允许" />

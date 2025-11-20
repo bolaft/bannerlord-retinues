@@ -62,6 +62,24 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Gana un torneo en una ciudad de tu propia cultura." />
     <string
+      id="ret_appearance_error_body"
+      text="Se produjo un error al actualizar la apariencia de esta tropa. Se ha restaurado la apariencia anterior. Consulta el registro para más detalles." />
+    <string
+      id="ret_appearance_error_title"
+      text="Error de Apariencia" />
+    <string
+      id="ret_appearance_not_supported_body"
+      text="Esta combinación de género y cultura no es compatible." />
+    <string
+      id="ret_appearance_not_supported_body_species"
+      text="Esta combinación de género, cultura y especie no es compatible." />
+    <string
+      id="ret_appearance_not_supported_title"
+      text="No Compatible" />
+    <string
+      id="ret_appearance_not_supported_title_species"
+      text="No Compatible" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Convertir" />
     <string
@@ -1057,6 +1075,18 @@
     <string
       id="ret_no_training_required"
       text="No se requiere entrenamiento" />
+    <string
+      id="ret_no_valid_model_body"
+      text="Esta combinación de género y cultura no tiene un modelo válido.{newline}{newline}Se ha restaurado la apariencia anterior." />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="Esta combinación de género, cultura y especie no tiene un modelo válido.{newline}{newline}Se ha restaurado la apariencia anterior." />
+    <string
+      id="ret_no_valid_model_title"
+      text="Modelo No Válido" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="Modelo No Válido" />
     <string
       id="ret_not_allowed_title"
       text="No permitido" />

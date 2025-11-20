@@ -62,6 +62,24 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="자신의 문화가 있는 마을에서 토너먼트에서 승리하십시오." />
     <string
+      id="ret_appearance_error_body"
+      text="이 병력의 외관을 업데이트하는 동안 오류가 발생했습니다. 이전 외관이 복원되었습니다. 자세한 내용은 로그를 참조하십시오." />
+    <string
+      id="ret_appearance_error_title"
+      text="외관 오류" />
+    <string
+      id="ret_appearance_not_supported_body"
+      text="이 성별과 문화의 조합은 지원되지 않습니다." />
+    <string
+      id="ret_appearance_not_supported_body_species"
+      text="이 성별, 문화 및 종의 조합은 지원되지 않습니다." />
+    <string
+      id="ret_appearance_not_supported_title"
+      text="지원되지 않음" />
+    <string
+      id="ret_appearance_not_supported_title_species"
+      text="지원되지 않음" />
+    <string
       id="ret_apply_conversions_button_text"
       text="변환" />
     <string
@@ -1057,6 +1075,18 @@
     <string
       id="ret_no_training_required"
       text="훈련 불필요" />
+    <string
+      id="ret_no_valid_model_body"
+      text="이 성별과 문화의 조합에는 유효한 모델이 없습니다.{newline}{newline}이전 외관이 복원되었습니다." />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="이 성별, 문화 및 종족의 조합에는 유효한 모델이 없습니다.{newline}{newline}이전 외관이 복원되었습니다." />
+    <string
+      id="ret_no_valid_model_title"
+      text="유효한 모델 없음" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="유효한 모델 없음" />
     <string
       id="ret_not_allowed_title"
       text="허용되지 않음" />

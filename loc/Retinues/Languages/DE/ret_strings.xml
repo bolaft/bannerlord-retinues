@@ -62,6 +62,24 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Gewinne ein Turnier in einer Stadt deiner eigenen Kultur." />
     <string
+      id="ret_appearance_error_body"
+      text="Beim Aktualisieren des Aussehens dieser Truppe ist ein Fehler aufgetreten. Das vorherige Aussehen wurde wiederhergestellt. Details findest du im Protokoll." />
+    <string
+      id="ret_appearance_error_title"
+      text="Aussehensfehler" />
+    <string
+      id="ret_appearance_not_supported_body"
+      text="Diese Kombination aus Geschlecht und Kultur wird nicht unterstützt." />
+    <string
+      id="ret_appearance_not_supported_body_species"
+      text="Diese Kombination aus Geschlecht, Kultur und Spezies wird nicht unterstützt." />
+    <string
+      id="ret_appearance_not_supported_title"
+      text="Nicht Unterstützt" />
+    <string
+      id="ret_appearance_not_supported_title_species"
+      text="Nicht Unterstützt" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Umwandeln" />
     <string
@@ -1057,6 +1075,18 @@
     <string
       id="ret_no_training_required"
       text="Kein Training erforderlich" />
+    <string
+      id="ret_no_valid_model_body"
+      text="Diese Kombination aus Geschlecht und Kultur hat kein gültiges Modell.{newline}{newline}Das vorherige Aussehen wurde wiederhergestellt." />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="Diese Kombination aus Geschlecht, Kultur und Spezies hat kein gültiges Modell.{newline}{newline}Das vorherige Aussehen wurde wiederhergestellt." />
+    <string
+      id="ret_no_valid_model_title"
+      text="Kein gültiges Modell" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="Kein gültiges Modell" />
     <string
       id="ret_not_allowed_title"
       text="Nicht erlaubt" />

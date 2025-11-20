@@ -62,6 +62,24 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Kendi kültüründen bir şehirde bir turnuva kazan." />
     <string
+      id="ret_appearance_error_body"
+      text="Bu askerin görünümü güncellenirken bir hata oluştu. Önceki görünüm geri yüklendi. Detaylar için günlük kaydına bakın." />
+    <string
+      id="ret_appearance_error_title"
+      text="Görünüm Hatası" />
+    <string
+      id="ret_appearance_not_supported_body"
+      text="Bu cinsiyet ve kültür kombinasyonu desteklenmiyor." />
+    <string
+      id="ret_appearance_not_supported_body_species"
+      text="Bu cinsiyet, kültür ve tür kombinasyonu desteklenmiyor." />
+    <string
+      id="ret_appearance_not_supported_title"
+      text="Desteklenmiyor" />
+    <string
+      id="ret_appearance_not_supported_title_species"
+      text="Desteklenmiyor" />
+    <string
       id="ret_apply_conversions_button_text"
       text="Dönüştür" />
     <string
@@ -1057,6 +1075,18 @@
     <string
       id="ret_no_training_required"
       text="Eğitim gerekmiyor" />
+    <string
+      id="ret_no_valid_model_body"
+      text="Bu cinsiyet ve kültür kombinasyonunun geçerli bir modeli yok.{newline}{newline}Önceki görünüm geri yüklendi." />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="Bu cinsiyet, kültür ve tür kombinasyonunun geçerli bir modeli yok.{newline}{newline}Önceki görünüm geri yüklendi." />
+    <string
+      id="ret_no_valid_model_title"
+      text="Geçerli Model Yok" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="Geçerli Model Yok" />
     <string
       id="ret_not_allowed_title"
       text="İzin Verilmiyor" />

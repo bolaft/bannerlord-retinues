@@ -370,9 +370,21 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceMethod]
         public void ExecuteChangeGender()
         {
-            State.Troop.IsFemale = !State.Troop.IsFemale;
-            State.UpdateAppearance();
-            OnPropertyChanged(nameof(GenderIcon));
+            AppearanceGuard.TryApply(
+                State.Troop,
+                State.Equipment.Index,
+                applyChange: () =>
+                {
+                    State.Troop.IsFemale = !State.Troop.IsFemale;
+                    State.Troop.Body.EnsureOwnBodyRange();
+                    return true;
+                },
+                onSuccess: () =>
+                {
+                    State.UpdateAppearance();
+                    OnPropertyChanged(nameof(GenderIcon));
+                }
+            );
         }
 
         [DataSourceMethod]

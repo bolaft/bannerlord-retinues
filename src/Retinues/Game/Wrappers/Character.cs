@@ -465,32 +465,45 @@ namespace Retinues.Game.Wrappers
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Combined list of base and modded skills
-        private static List<SkillObject> _troopSkills;
+        // List of troop-relevant vanilla skills
+        // NOTE: cannot be static because SkillObject is not initialized yet at that time.
+        public readonly SkillObject[] BaseSkills =
+        [
+            DefaultSkills.Athletics,
+            DefaultSkills.Riding,
+            DefaultSkills.OneHanded,
+            DefaultSkills.TwoHanded,
+            DefaultSkills.Polearm,
+            DefaultSkills.Bow,
+            DefaultSkills.Crossbow,
+            DefaultSkills.Throwing,
+        ];
 
-        // public static List<SkillObject> TroopSkills => _troopSkills ??= [.. BaseSkills, .. ModdedSkills];
-        public static List<SkillObject> TroopSkills =>
-            _troopSkills ??= [.. BaseSkills, .. ModdedSkills];
-
-        private static List<SkillObject> _allSkills;
-        public static IReadOnlyList<SkillObject> AllSkills =>
-            _allSkills ??= [.. MBObjectManager.Instance.GetObjectTypeList<SkillObject>()];
-
-        // Relevant vanilla skills
-        private static List<SkillObject> _baseSkills;
-        public static IReadOnlyList<SkillObject> BaseSkills =>
-            _baseSkills ??= [
-                .. AllSkills.Where(s => SkillsHelper.TroopSkillIds.Contains(s.StringId)),
-            ];
-
-        // Skills added by mods
+        // Skills added by mods (non-vanilla ids)
+        // This is static, but lazily initialized after MBObjectManager has skills.
         private static List<SkillObject> _moddedSkills;
-        public static IReadOnlyList<SkillObject> ModdedSkills =>
-            _moddedSkills ??= [
-                .. AllSkills.Where(s => !SkillsHelper.VanillaSkillIds.Contains(s.StringId)),
-            ];
+        public static List<SkillObject> ModdedSkills
+        {
+            get
+            {
+                if (_moddedSkills != null)
+                    return _moddedSkills;
 
-        // Skill dictionary for easy get/set
+                var all = MBObjectManager.Instance.GetObjectTypeList<SkillObject>();
+                _moddedSkills =
+                [
+                    .. all.Where(s => !SkillsHelper.VanillaSkillIds.Contains(s.StringId)),
+                ];
+                return _moddedSkills;
+            }
+        }
+
+        public List<SkillObject> TroopSkills
+        {
+            get { return [.. BaseSkills, .. ModdedSkills]; }
+        }
+
+        // Skill dictionary for easy get/set (vanilla troop skills only)
         public virtual Dictionary<SkillObject, int> Skills
         {
             get { return TroopSkills.ToDictionary(skill => skill, GetSkill); }
@@ -507,7 +520,11 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Returns the value of the specified skill.
         /// </summary>
-        public virtual int GetSkill(SkillObject skill) => Base.GetSkillValue(skill);
+        public virtual int GetSkill(SkillObject skill)
+        {
+            var value = Base.GetSkillValue(skill);
+            return value;
+        }
 
         /// <summary>
         /// Sets the specified skill to the given value.
@@ -707,27 +724,60 @@ namespace Retinues.Game.Wrappers
 #endif
 
         /// <summary>
+        /// Tries to generate a CharacterViewModel for this troop with the specified equipment set index.
+        /// Returns false and captures the exception on failure.
+        /// </summary>
+        public bool TryGetModel(int index, out CharacterViewModel model, out Exception error)
+        {
+            model = null;
+            error = null;
+
+            try
+            {
+                var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                vm.FillFrom(Base, seed: -1);
+
+                // Apply staged equipment changes (if any)
+                vm.SetEquipment(Loadout.Get(index).StagingPreview());
+
+                if (Faction != null)
+                {
+                    // Armor colors
+                    vm.ArmorColor1 = Faction.Color;
+                    vm.ArmorColor2 = Faction.Color2;
+
+                    // Heraldic items
+                    var bbf = Faction as BaseBannerFaction;
+                    vm.BannerCodeText = bbf?.Banner.Serialize();
+                }
+
+                model = vm;
+                return true;
+            }
+            catch (AccessViolationException ex)
+            {
+                // FaceGen "bad combo"
+                error = ex;
+                model = null;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Any other error: still capture for the caller
+                Log.Exception(ex);
+                error = ex;
+                model = null;
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Generates a CharacterViewModel for this troop with the specified equipment set index.
+        /// Returns null on failure.
         /// </summary>
         public CharacterViewModel GetModel(int index = 0)
         {
-            var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-            vm.FillFrom(Base, seed: -1);
-
-            // Apply staged equipment changes (if any)
-            vm.SetEquipment(Loadout.Get(index).StagingPreview());
-
-            if (Faction != null)
-            {
-                // Armor colors
-                vm.ArmorColor1 = Faction.Color;
-                vm.ArmorColor2 = Faction.Color2;
-
-                // Heraldic items
-                var bbf = Faction as BaseBannerFaction;
-                vm.BannerCodeText = bbf?.Banner.Serialize();
-            }
-
+            TryGetModel(index, out var vm, out _);
             return vm;
         }
 

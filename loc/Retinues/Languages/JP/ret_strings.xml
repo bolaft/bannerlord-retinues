@@ -62,6 +62,24 @@
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="自文化の町でトーナメントに勝利する。" />
     <string
+      id="ret_appearance_error_body"
+      text="この兵の外観を更新中にエラーが発生しました。以前の外観が復元されました。詳細はログを参照してください。" />
+    <string
+      id="ret_appearance_error_title"
+      text="外観エラー" />
+    <string
+      id="ret_appearance_not_supported_body"
+      text="この性別と文化の組み合わせはサポートされていません。" />
+    <string
+      id="ret_appearance_not_supported_body_species"
+      text="この性別、文化、種族の組み合わせはサポートされていません。" />
+    <string
+      id="ret_appearance_not_supported_title"
+      text="サポートされていません" />
+    <string
+      id="ret_appearance_not_supported_title_species"
+      text="サポートされていません" />
+    <string
       id="ret_apply_conversions_button_text"
       text="変換" />
     <string
@@ -1057,6 +1075,18 @@
     <string
       id="ret_no_training_required"
       text="訓練不要" />
+    <string
+      id="ret_no_valid_model_body"
+      text="この性別と文化の組み合わせには有効なモデルがありません。{newline}{newline}以前の外観が復元されました。" />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="この性別、文化、種族の組み合わせには有効なモデルがありません。{newline}{newline}以前の外観が復元されました。" />
+    <string
+      id="ret_no_valid_model_title"
+      text="有効なモデルがありません" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="有効なモデルがありません" />
     <string
       id="ret_not_allowed_title"
       text="許可されていません" />
