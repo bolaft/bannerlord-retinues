@@ -4480,38 +4480,6 @@
     "TR": "Bir askerin becerisini düşürürken, XP maliyetini iade et."
   },
   {
-    "id": "ret_mcm_option_replace_ambient_npcs",
-    "EN": "Replace Ambient NPCs",
-    "BR": "Substituir NPCs Ambientais",
-    "CNs": "替换环境NPC",
-    "CNt": "替換環境NPC",
-    "DE": "Umgebungs-NPCs ersetzen",
-    "FR": "Remplacer les PNJ Ambiants",
-    "IT": "Sostituire gli NPC Ambientali",
-    "JP": "環境NPCを置き換え",
-    "KO": "주변 NPC 교체",
-    "PL": "Zamień Otaczających NPC",
-    "RU": "Заменить Окружающих NPC",
-    "SP": "Reemplazar NPC Ambientales",
-    "TR": "Ortam NPC'lerini Değiştir"
-  },
-  {
-    "id": "ret_mcm_option_replace_ambient_npcs_hint",
-    "EN": "Replaces ambient NPCs in settlements with player faction characters.",
-    "BR": "Substitui NPCs ambientais em assentamentos por personagens da facção do jogador.",
-    "CNs": "用玩家派系角色替换定居点中的环境NPC。",
-    "CNt": "用玩家派系角色替換定居點中的環境NPC。",
-    "DE": "Ersetzt Umgebungs-NPCs in Siedlungen durch Charaktere der Spielerfraktion.",
-    "FR": "Remplace les PNJ ambiants dans les villes et villages par des personnages de la faction du joueur.",
-    "IT": "Sostituisce gli NPC ambientali negli insediamenti con personaggi della fazione del giocatore.",
-    "JP": "集落の環境NPCをプレイヤー派閥のキャラクターに置き換えます。",
-    "KO": "정착지의 주변 NPC를 플레이어 진영 캐릭터로 교체합니다.",
-    "PL": "Zamienia otaczających NPC w osadach na postacie z frakcji gracza.",
-    "RU": "Заменяет окружающих NPC в поселениях персонажами фракции игрока.",
-    "SP": "Reemplaza los NPC ambientales en los asentamientos con personajes de la facción del jugador.",
-    "TR": "Yerleşimlerdeki ortam NPC'lerini oyuncu fraksiyon karakterleriyle değiştirir."
-  },
-  {
     "id": "ret_mcm_option_required_discards_for_unlock",
     "EN": "Required Discarded Items For Unlock",
     "BR": "Itens Descartados Necessários para Desbloquear",
@@ -5230,22 +5198,6 @@
     "RU": "Снаряжение",
     "SP": "Equipo",
     "TR": "Teçhizat"
-  },
-  {
-    "id": "ret_mcm_section_fluff",
-    "EN": "Immersion & Fluff",
-    "BR": "Imersão & Enfeites",
-    "CNs": "沉浸与装饰",
-    "CNt": "沉浸與裝飾",
-    "DE": "Immersion & Fluff",
-    "FR": "Immersion",
-    "IT": "Immersione & Decorazioni",
-    "JP": "没入感と装飾",
-    "KO": "몰입감 & 장식",
-    "PL": "Imersja i Dodatki",
-    "RU": "Погружение и Украшения",
-    "SP": "Inmersión y Adornos",
-    "TR": "Daldırma ve Süslemeler"
   },
   {
     "id": "ret_mcm_section_general",

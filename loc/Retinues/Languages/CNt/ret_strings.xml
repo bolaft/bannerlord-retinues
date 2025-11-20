@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="減少部隊技能時，退還經驗值成本。" />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="替換環境NPC" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="用玩家派系角色替換定居點中的環境NPC。" />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="解鎖所需丟棄物品" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="裝備" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="沉浸與裝飾" />
     <string
       id="ret_mcm_section_general"
       text="通用" />

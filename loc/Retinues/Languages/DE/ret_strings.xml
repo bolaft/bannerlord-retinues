@@ -845,12 +845,6 @@
       id="ret_mcm_option_refund_xp_on_decrease_hint"
       text="Beim Verringern der Fertigkeit einer Truppe die XP-Kosten zurückerstatten." />
     <string
-      id="ret_mcm_option_replace_ambient_npcs"
-      text="Umgebungs-NPCs ersetzen" />
-    <string
-      id="ret_mcm_option_replace_ambient_npcs_hint"
-      text="Ersetzt Umgebungs-NPCs in Siedlungen durch Charaktere der Spielerfraktion." />
-    <string
       id="ret_mcm_option_required_discards_for_unlock"
       text="Erforderliche verworfene Gegenstände zum Freischalten" />
     <string
@@ -985,9 +979,6 @@
     <string
       id="ret_mcm_section_equipment"
       text="Ausrüstung" />
-    <string
-      id="ret_mcm_section_fluff"
-      text="Immersion &amp; Fluff" />
     <string
       id="ret_mcm_section_general"
       text="Allgemein" />
