@@ -699,7 +699,7 @@
       text="Comparar Itens Automaticamente" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Adiciona um indicador para mostrar se um item é melhor ou pior do que o equipado ao navegar pelo equipamento da tropa (pode deixar a tela de equipamento mais lenta)." />
+      text="Adiciona um indicador para mostrar se um item é melhor ou pior do que o equipado ao navegar pelo equipamento da tropa." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Custo Base de XP por Habilidade" />

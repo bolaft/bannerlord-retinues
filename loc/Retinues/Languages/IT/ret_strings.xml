@@ -699,7 +699,7 @@
       text="Confronta Oggetti Automaticamente" />
     <string
       id="ret_mcm_option_auto_compare_items_hint"
-      text="Aggiunge un indicatore per mostrare se un oggetto è migliore o peggiore di quello equipaggiato durante la navigazione nell’equipaggiamento delle truppe (può rallentare lo schermo dell’equipaggiamento)." />
+      text="Aggiunge un indicatore per mostrare se un oggetto è migliore o peggiore di quello equipaggiato durante la navigazione nell’equipaggiamento delle truppe." />
     <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Costo Base PE Abilità" />
