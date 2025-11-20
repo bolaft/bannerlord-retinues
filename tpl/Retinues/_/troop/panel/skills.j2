@@ -95,6 +95,34 @@
     </Children>
 </ListPanel>
 
+
+<!-- Modded Skills Toggle -->
+<ListPanel
+    IsVisible="@HasModdedSkills"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="24"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+    MarginBottom="10">
+    <Children>
+        <!-- Modded Skills Label -->
+        {{ text.base(
+            text="@ShowModdedSkillsLabel",
+            brush="InventoryGoldFontBrush",
+            margin_right="8",
+            font_size="18"
+        ) }}
+        
+        <!-- Modded Skills Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteToggleShowModdedSkills",
+            is_selected="@ShowModdedSkills",
+            size="24"
+        )}}
+    </Children>
+</ListPanel>
+
 {# Skill Macro #}
 {% macro skill() -%}
 

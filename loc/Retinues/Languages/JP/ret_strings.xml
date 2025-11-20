@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="武器スロットのみが手作りのアイテムを持つことができます。" />
     <string
+      id="ret_show_modded_skills_label"
+      text="より多くのスキルを表示" />
+    <string
       id="ret_skill_at_cap"
       text="この部隊のスキルは上限に達しています。" />
     <string

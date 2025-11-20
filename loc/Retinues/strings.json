@@ -7056,6 +7056,22 @@
     "TR": "Yalnızca silah yuvaları el yapımı eşyalara sahip olabilir."
   },
   {
+    "id": "ret_show_modded_skills_label",
+    "EN": "Show More Skills",
+    "BR": "Mostrar Mais Habilidades",
+    "CNs": "显示更多技能",
+    "CNt": "顯示更多技能",
+    "DE": "Mehr Fertigkeiten anzeigen",
+    "FR": "Afficher plus de compétences",
+    "IT": "Mostra più abilità",
+    "JP": "より多くのスキルを表示",
+    "KO": "더 많은 기술 표시",
+    "PL": "Pokaż więcej umiejętności",
+    "RU": "Показать больше навыков",
+    "SP": "Mostrar Más Habilidades",
+    "TR": "Daha Fazla Beceri Göster"
+  },
+  {
     "id": "ret_skill_at_cap",
     "EN": "Skill is at cap for this troop.",
     "BR": "A habilidade está no limite para esta tropa.",

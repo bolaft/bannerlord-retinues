@@ -467,18 +467,28 @@ namespace Retinues.Game.Wrappers
 
         // Combined list of base and modded skills
         private static List<SkillObject> _troopSkills;
-        public static List<SkillObject> TroopSkills => _troopSkills ??= [.. BaseSkills, .. ModdedSkills];
+
+        // public static List<SkillObject> TroopSkills => _troopSkills ??= [.. BaseSkills, .. ModdedSkills];
+        public static List<SkillObject> TroopSkills =>
+            _troopSkills ??= [.. BaseSkills, .. ModdedSkills];
 
         private static List<SkillObject> _allSkills;
-        public static IReadOnlyList<SkillObject> AllSkills => _allSkills ??= [.. MBObjectManager.Instance.GetObjectTypeList<SkillObject>()];
+        public static IReadOnlyList<SkillObject> AllSkills =>
+            _allSkills ??= [.. MBObjectManager.Instance.GetObjectTypeList<SkillObject>()];
 
         // Relevant vanilla skills
         private static List<SkillObject> _baseSkills;
-        public static IReadOnlyList<SkillObject> BaseSkills => _baseSkills ??= [.. AllSkills.Where(s => SkillsHelper.TroopSkillIds.Contains(s.StringId))];
+        public static IReadOnlyList<SkillObject> BaseSkills =>
+            _baseSkills ??= [
+                .. AllSkills.Where(s => SkillsHelper.TroopSkillIds.Contains(s.StringId)),
+            ];
 
         // Skills added by mods
         private static List<SkillObject> _moddedSkills;
-        public static IReadOnlyList<SkillObject> ModdedSkills => _moddedSkills ??= [.. AllSkills.Where(s => !SkillsHelper.VanillaSkillIds.Contains(s.StringId))];
+        public static IReadOnlyList<SkillObject> ModdedSkills =>
+            _moddedSkills ??= [
+                .. AllSkills.Where(s => !SkillsHelper.VanillaSkillIds.Contains(s.StringId)),
+            ];
 
         // Skill dictionary for easy get/set
         public virtual Dictionary<SkillObject, int> Skills

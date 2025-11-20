@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Solo gli slot delle armi possono avere oggetti artigianali." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Mostra più abilità" />
+    <string
       id="ret_skill_at_cap"
       text="L&apos;abilità ha raggiunto il limite per questa truppa." />
     <string

@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Yalnızca silah yuvaları el yapımı eşyalara sahip olabilir." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Daha Fazla Beceri Göster" />
+    <string
       id="ret_skill_at_cap"
       text="Bu birliğin becerisi sınırda." />
     <string

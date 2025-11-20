@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Apenas os slots de armas podem ter itens fabricados." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Mostrar Mais Habilidades" />
+    <string
       id="ret_skill_at_cap"
       text="A habilidade está no limite para esta tropa." />
     <string

@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Seuls les emplacements d&apos;armes peuvent contenir des objets forgés." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Afficher plus de compétences" />
+    <string
       id="ret_skill_at_cap"
       text="La compétence a atteint son maximum pour cette troupe." />
     <string

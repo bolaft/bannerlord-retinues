@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Only weapon slots can have crafted items." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Show More Skills" />
+    <string
       id="ret_skill_at_cap"
       text="Skill is at cap for this troop." />
     <string

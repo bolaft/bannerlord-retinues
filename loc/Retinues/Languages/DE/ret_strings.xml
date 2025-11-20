@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Nur Waffenslots können hergestellte Gegenstände haben." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Mehr Fertigkeiten anzeigen" />
+    <string
       id="ret_skill_at_cap"
       text="Fertigkeit ist für diese Truppe am Limit." />
     <string

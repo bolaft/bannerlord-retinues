@@ -906,6 +906,12 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.ClearPendingConversions();
         }
 
+        /// <summary>
+        /// Toggle showing modded skills vs base skills.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteToggleModdedSkills() => ShowModdedSkills = !ShowModdedSkills;
+
         /* ━━━━━━━━ Helpers ━━━━━━━ */
 
         private static List<string> _cachedRaceNames;
@@ -968,6 +974,82 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 candidate = parts[0];
 
             return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(candidate);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Modded Skills                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public bool HasModdedSkills => WCharacter.ModdedSkills.Count > 0;
+
+        private bool _showModdedSkills;
+
+        [DataSourceProperty]
+        public bool ShowModdedSkills
+        {
+            get => _showModdedSkills;
+            set
+            {
+                if (_showModdedSkills == value)
+                    return;
+                _showModdedSkills = value;
+                OnPropertyChanged(nameof(ShowModdedSkills));
+                RefreshSkillRows();
+            }
+        }
+
+        [DataSourceProperty]
+        public string ShowModdedSkillsLabel => L.S("show_modded_skills_label", "Show More Skills");
+
+        /// <summary>
+        /// Refresh the skill rows based on the current ShowModdedSkills setting.
+        /// </summary>
+        private void RefreshSkillRows()
+        {
+            IEnumerable<SkillObject> src;
+
+            if (ShowModdedSkills && HasModdedSkills)
+            {
+                src = WCharacter.ModdedSkills.Take(8);
+            }
+            else
+            {
+                src = WCharacter.BaseSkills.Take(8);
+            }
+
+            // 1) Hide old VMs before we rebuild the rows
+            var oldSkills = SkillsRow1.Concat(SkillsRow2);
+            foreach (var vm in oldSkills)
+                vm.Hide();
+
+            // 2) Build the new list of VMs
+            var list = src.Select(s => new TroopSkillVM(s)).ToList();
+
+            // split into two rows (4 + 4, or fewer if less)
+            var row1 = list.Take(4).ToList();
+            var row2 = list.Skip(4).Take(4).ToList();
+
+            _skillsRow1.Clear();
+            _skillsRow2.Clear();
+
+            // 3) Add and Show new VMs if the panel itself is visible
+            foreach (var skill in row1)
+            {
+                _skillsRow1.Add(skill);
+                if (IsVisible)
+                    skill.Show();
+            }
+
+            foreach (var skill in row2)
+            {
+                _skillsRow2.Add(skill);
+                if (IsVisible)
+                    skill.Show();
+            }
+
+            OnPropertyChanged(nameof(SkillsRow1));
+            OnPropertyChanged(nameof(SkillsRow2));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

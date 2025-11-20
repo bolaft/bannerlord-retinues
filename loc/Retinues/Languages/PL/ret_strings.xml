@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Tylko sloty na broń mogą mieć wykonane przedmioty." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Pokaż więcej umiejętności" />
+    <string
       id="ret_skill_at_cap"
       text="Umiejętność osiągnęła limit dla tej jednostki." />
     <string

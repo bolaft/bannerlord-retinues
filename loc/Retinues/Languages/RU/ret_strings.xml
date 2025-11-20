@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="Только слоты для оружия могут содержать изготовленные предметы." />
     <string
+      id="ret_show_modded_skills_label"
+      text="Показать больше навыков" />
+    <string
       id="ret_skill_at_cap"
       text="Навык достиг предела для этой войсковой единицы." />
     <string

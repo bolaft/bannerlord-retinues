@@ -1328,6 +1328,9 @@
       id="ret_show_crafted_weapon_hint"
       text="只有武器槽可以拥有手工制作的物品。" />
     <string
+      id="ret_show_modded_skills_label"
+      text="显示更多技能" />
+    <string
       id="ret_skill_at_cap"
       text="该部队的技能已达上限。" />
     <string

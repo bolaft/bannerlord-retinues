@@ -29,7 +29,7 @@ namespace Retinues.Game.Helpers
             "Trade",
             "Steward",
             "Medicine",
-            "Engineering"
+            "Engineering",
         ];
 
         public static readonly string[] TroopSkillIds =
@@ -41,7 +41,7 @@ namespace Retinues.Game.Helpers
             "Polearm",
             "Bow",
             "Crossbow",
-            "Throwing"
+            "Throwing",
         ];
     }
 }
