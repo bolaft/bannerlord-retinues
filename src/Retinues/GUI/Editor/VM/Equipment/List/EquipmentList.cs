@@ -397,6 +397,11 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
             var cache = _cache[factionId][slotId];
             bool fillCache = cache == null;
+
+            // Do not seed the shared cache from a crafted-only build.
+            if (fillCache && ShowCrafted)
+                fillCache = false;
+
             if (fillCache)
                 _cache[factionId][slotId] = [];
 
