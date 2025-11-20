@@ -93,9 +93,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /// </summary>
         public void OnEquipmentChanged()
         {
-            Log.Info(
-                $"OnEquipmentChanged called for {RowItem?.Name?.ToString() ?? "empty"} with {State.Equipment?.ToString() ?? "null"}"
-            );
             UpdateComparisonChevrons();
 
             OnPropertyChanged(nameof(ShowComparisonIcon));
