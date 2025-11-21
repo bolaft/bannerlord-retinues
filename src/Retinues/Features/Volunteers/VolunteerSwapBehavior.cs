@@ -46,6 +46,9 @@ namespace Retinues.Features.Volunteers
             if (Config.AllLordsCanRecruitCustomTroops == false)
                 return; // Feature disabled
 
+            if (settlement == null)
+                return; // Defensive
+
             var s = new WSettlement(settlement);
             s.SwapVolunteers();
         }

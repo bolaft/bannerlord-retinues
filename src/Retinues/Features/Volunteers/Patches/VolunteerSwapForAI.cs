@@ -30,12 +30,18 @@ namespace Retinues.Features.Volunteers.Patches
             if (settlement == null)
                 return; // no settlement, skip
 
+            if (recruiter == null)
+                return; // no recruiter, skip
+
+            if (recruiter.IsHumanPlayerCharacter == true)
+                return; // skip player recruiter, handled elsewhere
+
             var faction = new WSettlement(settlement).PlayerFaction;
 
             if (faction == null)
                 return; // not player faction settlement, skip
 
-            if (recruiter?.PartyBelongedTo == null || count <= 0 || troop == null)
+            if (recruiter.PartyBelongedTo == null || count <= 0 || troop == null)
                 return; // never touch suspicious input
 
             if (

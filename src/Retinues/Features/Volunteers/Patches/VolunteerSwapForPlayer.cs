@@ -51,9 +51,6 @@ namespace Retinues.Features.Volunteers.Patches
         /// </summary>
         private static void SnapshotVolunteers(WSettlement settlement)
         {
-            if (Config.AllLordsCanRecruitCustomTroops)
-                return; // No snapshot needed if all lords can recruit custom troops
-
             var notables = settlement?.Notables;
             if (notables == null || notables.Count == 0)
                 return;
@@ -91,9 +88,6 @@ namespace Retinues.Features.Volunteers.Patches
         {
             if (_snapshot == null || _settlement == null)
                 return;
-
-            if (Config.AllLordsCanRecruitCustomTroops)
-                return; // No restore needed if all lords can recruit custom troops
 
             var notables = _settlement.Notables;
             if (notables == null || notables.Count == 0)
@@ -206,10 +200,10 @@ namespace Retinues.Features.Volunteers.Patches
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Volunteer Swap                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━...
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private static void TryBeginSwap()
         {
-            // Already active for this visit? Don't resnapshot or reswap.
             if (_snapshot != null)
                 return;
 
@@ -219,9 +213,27 @@ namespace Retinues.Features.Volunteers.Patches
 
             bool inPlayerOwnedFief = settlement.PlayerFaction != null;
 
+            // No player faction here and no Recruit Anywhere => nothing to do.
             if (!inPlayerOwnedFief && !Config.RecruitAnywhere)
                 return;
 
+            // ── All Lords ON ───────────────────────────────────────
+            if (Config.AllLordsCanRecruitCustomTroops)
+            {
+                if (inPlayerOwnedFief)
+                {
+                    settlement.SwapVolunteers();
+                    return;
+                }
+
+                // Non-player settlement + Recruit Anywhere + AllLords:
+                // temporary swap only for the player, with snapshot + restore.
+                SnapshotVolunteers(settlement);
+                settlement.SwapVolunteers(Player.Clan);
+                return;
+            }
+
+            // ── All Lords OFF: original behavior ───────────────────
             var faction = inPlayerOwnedFief ? settlement.PlayerFaction : Player.Clan;
             if (faction == null)
                 return;
