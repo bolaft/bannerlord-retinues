@@ -18,9 +18,17 @@ namespace Retinues.Doctrines.Catalog
             );
         public override int Column => 0;
         public override int Row => 2;
-        public override bool IsDisabled => !Config.UnlockFromKills;
+        public override bool IsDisabled => !Config.UnlockFromKills || Config.AllEquipmentUnlocked;
         public override TextObject DisabledMessage =>
-            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
+            Config.AllEquipmentUnlocked
+                ? L.T(
+                    "pragmatic_scavengers_disabled_message_all_equipment",
+                    "Disabled: all equipment already unlocked by config."
+                )
+                : L.T(
+                    "pragmatic_scavengers_disabled_message_unlocks_from_kills",
+                    "Disabled: unlocks from kills disabled by config."
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

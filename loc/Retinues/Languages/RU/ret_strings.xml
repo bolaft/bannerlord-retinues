@@ -35,6 +35,12 @@
       id="ret_adaptive_training_description"
       text="Опыт возвращается при снижении навыка войска." />
     <string
+      id="ret_adaptive_training_disabled_message_cost"
+      text="Отключено: в конфигурации не установлены затраты опыта." />
+    <string
+      id="ret_adaptive_training_disabled_message_refund"
+      text="Отключено: возврат опыта уже включен в конфигурации." />
+    <string
       id="ret_adaptive_training_win_with_even_split"
       text="Выиграйте бой против более чем 100 врагов, имея отряд, поровну разделённый на пехоту, кавалерию и дальнобойные войска клана." />
     <string
@@ -58,6 +64,12 @@
     <string
       id="ret_ancestral_heritage_description"
       text="Разблокирует все предметы культур клана и королевства." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_all_equipment"
+      text="Отключено: все снаряжение уже разблокировано в конфигурации." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_culture_items"
+      text="Отключено: предметы культуры уже разблокированы в конфигурации." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Выиграйте турнир в городе своей культуры." />
@@ -88,6 +100,12 @@
     <string
       id="ret_battlefield_tithes_description"
       text="Можно разблокировать предметы из убийств союзных отрядов." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_all_equipment"
+      text="Отключено: все снаряжение уже разблокировано в конфигурации." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_unlocks_from_kills"
+      text="Отключено: разблокировки от убийств отключены в конфигурации." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
       text="Возглавьте армию, состоящую в основном из союзников, и победите вражескую армию." />
@@ -184,9 +202,6 @@
     <string
       id="ret_close_equipment_button_text"
       text="Назад" />
-    <string
-      id="ret_config_overrides_doctrine_message"
-      text="Переопределено настройками конфигурации." />
     <string
       id="ret_confirm"
       text="Подтвердить" />
@@ -584,6 +599,12 @@
       id="ret_lions_share_description"
       text="Убийства героя считаются вдвое для разблокировок." />
     <string
+      id="ret_lions_share_disabled_message_all_equipment"
+      text="Отключено: все снаряжение уже разблокировано в конфигурации." />
+    <string
+      id="ret_lions_share_disabled_message_unlocks_from_kills"
+      text="Отключено: разблокировки от убийств отключены в конфигурации." />
+    <string
       id="ret_lions_share_kill_enemy_lord"
       text="Лично победите вражеского лорда в бою." />
     <string
@@ -634,6 +655,9 @@
     <string
       id="ret_masters_at_arms_description"
       text="Дополнительная ветвь улучшений для элитных войск." />
+    <string
+      id="ret_masters_at_arms_disabled_message"
+      text="Отключено: улучшения элитных войск уже максимальны в конфигурации." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Выведите из строя 50 противников на арене." />
@@ -1187,6 +1211,12 @@
       id="ret_pragmatic_scavengers_description"
       text="Можно разблокировать предметы из потерь союзников." />
     <string
+      id="ret_pragmatic_scavengers_disabled_message_all_equipment"
+      text="Отключено: все оборудование уже разблокировано в конфигурации." />
+    <string
+      id="ret_pragmatic_scavengers_disabled_message_unlocks_from_kills"
+      text="Отключено: разблокировки от убийств отключены в конфигурации." />
+    <string
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Спасите поверженного лорда из плена вражеского отряда." />
     <string
@@ -1546,6 +1576,9 @@
     <string
       id="ret_vanguard_description"
       text="+15% лимита свиты." />
+    <string
+      id="ret_vanguard_disabled_message"
+      text="Отключено: лимит свиты уже максимален в конфигурации." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
       text="Пусть свита совершит первое убийство в рукопашной в штурме осады." />

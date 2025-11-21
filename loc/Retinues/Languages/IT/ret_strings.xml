@@ -35,6 +35,12 @@
       id="ret_adaptive_training_description"
       text="I PE vengono rimborsati quando si abbassa un’abilità di una truppa." />
     <string
+      id="ret_adaptive_training_disabled_message_cost"
+      text="Disabilitato: nessun costo PE impostato dalla configurazione." />
+    <string
+      id="ret_adaptive_training_disabled_message_refund"
+      text="Disabilitato: i rimborsi PE sono già abilitati dalla configurazione." />
+    <string
       id="ret_adaptive_training_win_with_even_split"
       text="Vinci una battaglia contro oltre 100 nemici con un gruppo diviso equamente tra fanteria, cavalleria e truppe del clan a distanza." />
     <string
@@ -58,6 +64,12 @@
     <string
       id="ret_ancestral_heritage_description"
       text="Sblocca tutti gli oggetti delle culture del clan e del regno." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_all_equipment"
+      text="Disabilitato: tutta l’attrezzatura già sbloccata dalla configurazione." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_culture_items"
+      text="Disabilitato: gli oggetti culturali già sbloccati dalla configurazione." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Vinci un torneo in una città della tua cultura." />
@@ -88,6 +100,12 @@
     <string
       id="ret_battlefield_tithes_description"
       text="Può sbloccare oggetti dalle uccisioni delle truppe alleate." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_all_equipment"
+      text="Disabilitato: tutta l’attrezzatura già sbloccata dalla configurazione." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_unlocks_from_kills"
+      text="Disabilitato: gli sblocchi dalle uccisioni sono disabilitati dalla configurazione." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
       text="Guida un esercito composto principalmente da alleati alla vittoria contro un esercito nemico." />
@@ -184,9 +202,6 @@
     <string
       id="ret_close_equipment_button_text"
       text="Indietro" />
-    <string
-      id="ret_config_overrides_doctrine_message"
-      text="Sovrascritto dalle impostazioni di configurazione." />
     <string
       id="ret_confirm"
       text="Conferma" />
@@ -584,6 +599,12 @@
       id="ret_lions_share_description"
       text="Le uccisioni dell’eroe valgono doppio per gli sblocchi." />
     <string
+      id="ret_lions_share_disabled_message_all_equipment"
+      text="Disabilitato: tutto l’equipaggiamento è già sbloccato dalla configurazione." />
+    <string
+      id="ret_lions_share_disabled_message_unlocks_from_kills"
+      text="Disabilitato: gli sblocchi dalle uccisioni sono disabilitati dalla configurazione." />
+    <string
       id="ret_lions_share_kill_enemy_lord"
       text="Sconfiggi personalmente un signore nemico in battaglia." />
     <string
@@ -634,6 +655,9 @@
     <string
       id="ret_masters_at_arms_description"
       text="Ramo di potenziamento extra per truppe d’élite." />
+    <string
+      id="ret_masters_at_arms_disabled_message"
+      text="Disabilitato: i potenziamenti d’élite sono già al massimo nella configurazione." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Metti K.O. 50 avversari nell’arena." />
@@ -1187,6 +1211,12 @@
       id="ret_pragmatic_scavengers_description"
       text="Può sbloccare oggetti dalle perdite alleate." />
     <string
+      id="ret_pragmatic_scavengers_disabled_message_all_equipment"
+      text="Disabilitato: tutto l’equipaggiamento è già sbloccato dalla configurazione." />
+    <string
+      id="ret_pragmatic_scavengers_disabled_message_unlocks_from_kills"
+      text="Disabilitato: gli sblocchi dalle uccisioni sono disabilitati dalla configurazione." />
+    <string
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Salva un signore sconfitto da un convoglio di prigionieri nemico." />
     <string
@@ -1546,6 +1576,9 @@
     <string
       id="ret_vanguard_description"
       text="+15% limite seguito." />
+    <string
+      id="ret_vanguard_disabled_message"
+      text="Disabilitato: il limite del seguito è già al massimo nella configurazione." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
       text="Fai ottenere al tuo seguito la prima uccisione corpo a corpo in un assalto d’assedio." />

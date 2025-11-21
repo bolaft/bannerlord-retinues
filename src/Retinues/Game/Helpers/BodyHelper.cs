@@ -8,6 +8,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Game.Helpers
 {
+    [SafeClass]
     public static class BodyHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -173,6 +174,8 @@ namespace Retinues.Game.Helpers
             var (min, max) = presets[next];
             setMin(min);
             setMax(max);
+
+            ApplyTagsFromCulture(t);
         }
 
         /// <summary>
@@ -283,6 +286,9 @@ namespace Retinues.Game.Helpers
 
             // 4) Snap age to the template's mid-age
             troop.Body.Age = (minTroop.Age + maxTroop.Age) * 0.5f;
+
+            // 5) Re-snap hair/scar/tattoo tags from culture template
+            ApplyTagsFromCulture(troop);
         }
 
         /// <summary>
@@ -292,6 +298,125 @@ namespace Retinues.Game.Helpers
         {
             var culture = MBObjectManager.Instance.GetObject<CultureObject>(cultureId);
             ApplyPropertiesFromCulture(troop, culture);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Tags Normalization                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static void ApplyTagsFromCulture(WCharacter troop)
+        {
+            var character = troop?.Base;
+            var culture = troop?.Culture.Base;
+#if !BL13
+            // BL12: no-op, keep behavior unchanged.
+            _ = character;
+            _ = culture;
+            return;
+#else
+            if (character == null || culture == null)
+                return;
+
+            Log.Info(
+                $"[BodyHelper] Applying tags from culture '{culture.StringId}' to character '{character.StringId}'"
+            );
+
+            try
+            {
+                // CharacterObject inherits BasicCharacterObject, so this cast is always valid.
+                if (character is not BasicCharacterObject basic)
+                {
+                    Log.Warn("[BodyHelper] Character is not a BasicCharacterObject, aborting.");
+                    return;
+                }
+
+                // Heroes use Hero.StaticBodyProperties, let that pipeline handle them.
+                if (basic.IsHero)
+                {
+                    Log.Info("[BodyHelper] Character is hero, skipping tag copy.");
+                    return;
+                }
+
+                // Pick a culture template to pull tags from.
+                var template = culture.BasicTroop ?? culture.EliteBasicTroop;
+                if (template == null)
+                {
+                    Log.Warn(
+                        $"[BodyHelper] No BasicTroop/EliteBasicTroop for culture '{culture.StringId}', aborting."
+                    );
+                    return;
+                }
+
+                var templateRange = template.BodyPropertyRange;
+                var targetRange = basic.BodyPropertyRange;
+
+                if (templateRange == null || targetRange == null)
+                {
+                    Log.Warn(
+                        "[BodyHelper] Missing BodyPropertyRange on template or target, aborting."
+                    );
+                    return;
+                }
+
+                // Use the template's tag pools as "valid" tags for this culture.
+                var hairTags = templateRange.HairTags ?? string.Empty;
+                var beardTags = templateRange.BeardTags ?? string.Empty;
+                var tattooTags = templateRange.TattooTags ?? string.Empty;
+
+                bool hasHair = !string.IsNullOrEmpty(hairTags);
+                bool hasBeard = !string.IsNullOrEmpty(beardTags);
+                bool hasTattoo = !string.IsNullOrEmpty(tattooTags);
+
+                // Nothing to apply, bail out.
+                if (!hasHair && !hasBeard && !hasTattoo)
+                {
+                    Log.Info("[BodyHelper] Template has no tags, nothing to apply.");
+                    return;
+                }
+
+                // Check if we actually need to change anything.
+                bool different =
+                    (
+                        hasHair
+                        && !string.Equals(targetRange.HairTags, hairTags, StringComparison.Ordinal)
+                    )
+                    || (
+                        hasBeard
+                        && !string.Equals(
+                            targetRange.BeardTags,
+                            beardTags,
+                            StringComparison.Ordinal
+                        )
+                    )
+                    || (
+                        hasTattoo
+                        && !string.Equals(
+                            targetRange.TattooTags,
+                            tattooTags,
+                            StringComparison.Ordinal
+                        )
+                    );
+
+                // Follow vanilla pattern and clone the MBBodyProperty.
+                var clonedRange = MBBodyProperty.CreateFrom(targetRange);
+
+                if (hasHair)
+                    clonedRange.HairTags = hairTags;
+
+                if (hasBeard)
+                    clonedRange.BeardTags = beardTags;
+
+                if (hasTattoo)
+                    clonedRange.TattooTags = tattooTags;
+
+                // Assign back via reflection because BodyPropertyRange setter is protected.
+                Reflector.SetPropertyValue(basic, "BodyPropertyRange", clonedRange);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+#endif
         }
     }
 }

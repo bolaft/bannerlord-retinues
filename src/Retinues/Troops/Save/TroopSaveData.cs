@@ -234,6 +234,9 @@ namespace Retinues.Troops.Save
                 Log.Exception(e);
             }
 
+            // Fix face tags
+            BodyHelper.ApplyTagsFromCulture(troop);
+
             // Return the created troop
             return troop;
         }

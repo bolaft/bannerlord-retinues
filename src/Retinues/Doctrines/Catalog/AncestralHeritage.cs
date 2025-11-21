@@ -20,7 +20,15 @@ namespace Retinues.Doctrines.Catalog
         public override int Row => 3;
         public override bool IsDisabled => Config.UnlockFromCulture || Config.AllEquipmentUnlocked;
         public override TextObject DisabledMessage =>
-            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
+            Config.AllEquipmentUnlocked
+                ? L.T(
+                    "ancestral_heritage_disabled_message_all_equipment",
+                    "Disabled: all equipment already unlocked by config."
+                )
+                : L.T(
+                    "ancestral_heritage_disabled_message_culture_items",
+                    "Disabled: culture items already unlocked by config."
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

@@ -376,7 +376,7 @@ namespace Retinues.GUI.Editor.VM.Troop
                 applyChange: () =>
                 {
                     State.Troop.IsFemale = !State.Troop.IsFemale;
-                    State.Troop.Body.EnsureOwnBodyRange();
+                    BodyHelper.ApplyPropertiesFromCulture(State.Troop, State.Troop.Culture.Base);
                     return true;
                 },
                 onSuccess: () =>

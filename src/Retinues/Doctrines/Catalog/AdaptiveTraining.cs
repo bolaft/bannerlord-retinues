@@ -21,7 +21,15 @@ namespace Retinues.Doctrines.Catalog
             Config.RefundXpOnDecrease
             || (Config.SkillXpCostPerPoint == 0 && Config.BaseSkillXpCost == 0);
         public override TextObject DisabledMessage =>
-            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
+            Config.RefundXpOnDecrease
+                ? L.T(
+                    "adaptive_training_disabled_message_refund",
+                    "Disabled: XP refunds already enabled by config."
+                )
+                : L.T(
+                    "adaptive_training_disabled_message_cost",
+                    "Disabled: no XP costs set by config."
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

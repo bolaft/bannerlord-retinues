@@ -14,9 +14,17 @@ namespace Retinues.Doctrines.Catalog
             L.T("lions_share_description", "Hero kills count twice for unlocks.");
         public override int Column => 0;
         public override int Row => 0;
-        public override bool IsDisabled => !Config.UnlockFromKills;
+        public override bool IsDisabled => !Config.UnlockFromKills || Config.AllEquipmentUnlocked;
         public override TextObject DisabledMessage =>
-            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
+            Config.AllEquipmentUnlocked
+                ? L.T(
+                    "lions_share_disabled_message_all_equipment",
+                    "Disabled: all equipment already unlocked by config."
+                )
+                : L.T(
+                    "lions_share_disabled_message_unlocks_from_kills",
+                    "Disabled: unlocks from kills disabled by config."
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

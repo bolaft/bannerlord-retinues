@@ -35,6 +35,12 @@
       id="ret_adaptive_training_description"
       text="Bir askerin becerisi düşürüldüğünde XP iade edilir." />
     <string
+      id="ret_adaptive_training_disabled_message_cost"
+      text="Devre dışı: yapılandırma tarafından XP maliyeti ayarlanmadı." />
+    <string
+      id="ret_adaptive_training_disabled_message_refund"
+      text="Devre dışı: yapılandırma tarafından XP iadeleri zaten etkinleştirildi." />
+    <string
       id="ret_adaptive_training_win_with_even_split"
       text="100’den fazla düşmana karşı, piyade, süvari ve menzilli klan askerleri eşit bölünmüş bir grupla savaş kazan." />
     <string
@@ -58,6 +64,12 @@
     <string
       id="ret_ancestral_heritage_description"
       text="Klan ve krallık kültürlerinin tüm eşyalarını açar." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_all_equipment"
+      text="Devre dışı: yapılandırma tarafından tüm ekipman zaten kilidi açıldı." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_culture_items"
+      text="Devre dışı: kültür öğeleri zaten yapılandırma tarafından kilidi açıldı." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Kendi kültüründen bir şehirde bir turnuva kazan." />
@@ -88,6 +100,12 @@
     <string
       id="ret_battlefield_tithes_description"
       text="Müttefik birliklerin öldürdüğü düşmanlardan eşyalar açılabilir." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_all_equipment"
+      text="Devre dışı: yapılandırma tarafından tüm ekipman zaten kilidi açıldı." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_unlocks_from_kills"
+      text="Devre dışı: yapılandırma tarafından öldürmelerden açılmalar devre dışı bırakıldı." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
       text="Çoğunluğu müttefiklerden oluşan bir orduyu düşman ordusuna karşı zafere taşı." />
@@ -184,9 +202,6 @@
     <string
       id="ret_close_equipment_button_text"
       text="Geri" />
-    <string
-      id="ret_config_overrides_doctrine_message"
-      text="Yapılandırma ayarları tarafından geçersiz kılındı." />
     <string
       id="ret_confirm"
       text="Onayla" />
@@ -584,6 +599,12 @@
       id="ret_lions_share_description"
       text="Kahraman öldürmeleri açılışlarda iki kat sayılır." />
     <string
+      id="ret_lions_share_disabled_message_all_equipment"
+      text="Devre dışı: tüm ekipman zaten yapılandırma tarafından açıldı." />
+    <string
+      id="ret_lions_share_disabled_message_unlocks_from_kills"
+      text="Devre dışı: öldürmelerden açılışlar yapılandırma tarafından devre dışı bırakıldı." />
+    <string
       id="ret_lions_share_kill_enemy_lord"
       text="Bir düşman lordunu savaşta bizzat öldür." />
     <string
@@ -634,6 +655,9 @@
     <string
       id="ret_masters_at_arms_description"
       text="Seçkin askerler için ekstra yükseltme dalı." />
+    <string
+      id="ret_masters_at_arms_disabled_message"
+      text="Devre dışı: yapılandırmada seçkin yükseltmeler zaten maksimumda." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Arenada 50 rakibi nakavt et." />
@@ -1187,6 +1211,12 @@
       id="ret_pragmatic_scavengers_description"
       text="Müttefik kayıplarından eşyalar açılabilir." />
     <string
+      id="ret_pragmatic_scavengers_disabled_message_all_equipment"
+      text="Devre dışı: tüm ekipman zaten yapılandırma tarafından açıldı." />
+    <string
+      id="ret_pragmatic_scavengers_disabled_message_unlocks_from_kills"
+      text="Devre dışı: öldürmelerden açmalar yapılandırma tarafından devre dışı bırakıldı." />
+    <string
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Yenilen bir lordu düşman esir kervanından kurtar." />
     <string
@@ -1546,6 +1576,9 @@
     <string
       id="ret_vanguard_description"
       text="+%15 yandaş sınırı." />
+    <string
+      id="ret_vanguard_disabled_message"
+      text="Devre dışı: yapılandırmada yandaş sınırı zaten maksimum." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
       text="Bir kuşatma saldırısında ilk yakın dövüş öldürmesini yandaşlarının almasını sağla." />

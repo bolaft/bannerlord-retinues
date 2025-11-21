@@ -35,6 +35,12 @@
       id="ret_adaptive_training_description"
       text="La experiencia se reembolsa al reducir la habilidad de una tropa." />
     <string
+      id="ret_adaptive_training_disabled_message_cost"
+      text="Deshabilitado: no hay costos de experiencia establecidos por la configuración." />
+    <string
+      id="ret_adaptive_training_disabled_message_refund"
+      text="Deshabilitado: los reembolsos de experiencia ya están habilitados por la configuración." />
+    <string
       id="ret_adaptive_training_win_with_even_split"
       text="Gana una batalla contra más de 100 enemigos con un grupo dividido equitativamente entre infantería, caballería y tropas a distancia del clan." />
     <string
@@ -58,6 +64,12 @@
     <string
       id="ret_ancestral_heritage_description"
       text="Desbloquea todos los objetos de las culturas del clan y del reino." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_all_equipment"
+      text="Deshabilitado: todo el equipo ya desbloqueado por la configuración." />
+    <string
+      id="ret_ancestral_heritage_disabled_message_culture_items"
+      text="Deshabilitado: los objetos culturales ya están desbloqueados por la configuración." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Gana un torneo en una ciudad de tu propia cultura." />
@@ -88,6 +100,12 @@
     <string
       id="ret_battlefield_tithes_description"
       text="Puede desbloquear objetos a partir de bajas de tropas aliadas." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_all_equipment"
+      text="Deshabilitado: todo el equipo ya desbloqueado por la configuración." />
+    <string
+      id="ret_battlefield_tithes_disabled_message_unlocks_from_kills"
+      text="Deshabilitado: los desbloqueos por bajas están deshabilitados por la configuración." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
       text="Lidera un ejército compuesto principalmente por aliados hacia la victoria contra un ejército enemigo." />
@@ -184,9 +202,6 @@
     <string
       id="ret_close_equipment_button_text"
       text="Atrás" />
-    <string
-      id="ret_config_overrides_doctrine_message"
-      text="Anulado por la configuración." />
     <string
       id="ret_confirm"
       text="Confirmar" />
@@ -584,6 +599,12 @@
       id="ret_lions_share_description"
       text="Las muertes de héroes cuentan el doble para los desbloqueos." />
     <string
+      id="ret_lions_share_disabled_message_all_equipment"
+      text="Desactivado: todo el equipo ya está desbloqueado por la configuración." />
+    <string
+      id="ret_lions_share_disabled_message_unlocks_from_kills"
+      text="Desactivado: los desbloqueos por muertes están desactivados por la configuración." />
+    <string
       id="ret_lions_share_kill_enemy_lord"
       text="Derrota personalmente a un señor enemigo en batalla." />
     <string
@@ -634,6 +655,9 @@
     <string
       id="ret_masters_at_arms_description"
       text="Rama de mejora extra para tropas de élite." />
+    <string
+      id="ret_masters_at_arms_disabled_message"
+      text="Desactivado: las mejoras de élite ya están al máximo en la configuración." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Deja fuera de combate a 50 oponentes en la arena." />
@@ -1187,6 +1211,12 @@
       id="ret_pragmatic_scavengers_description"
       text="Puede desbloquear objetos de las bajas aliadas." />
     <string
+      id="ret_pragmatic_scavengers_disabled_message_all_equipment"
+      text="Desactivado: todo el equipo ya está desbloqueado por la configuración." />
+    <string
+      id="ret_pragmatic_scavengers_disabled_message_unlocks_from_kills"
+      text="Desactivado: los desbloqueos por muertes están desactivados por la configuración." />
+    <string
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Rescata a un señor derrotado del tren de prisioneros de un enemigo." />
     <string
@@ -1546,6 +1576,9 @@
     <string
       id="ret_vanguard_description"
       text="+15% de límite del séquito." />
+    <string
+      id="ret_vanguard_disabled_message"
+      text="Desactivado: el límite del séquito ya está al máximo en la configuración." />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
       text="Haz que tu séquito consiga la primera baja cuerpo a cuerpo en un asalto de asedio." />

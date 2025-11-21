@@ -17,7 +17,10 @@ namespace Retinues.Doctrines.Catalog
         public override int Row => 2;
         public override bool IsDisabled => Config.MaxEliteUpgrades == 4;
         public override TextObject DisabledMessage =>
-            L.T("config_overrides_doctrine_message", "Overriden by config settings.");
+            L.T(
+                "masters_at_arms_disabled_message",
+                "Disabled: elite upgrades already maxed in config."
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

@@ -35,6 +35,12 @@
       id="ret_adaptive_training_description"
       text="兵のスキルを下げると経験値が返還される。" />
     <string
+      id="ret_adaptive_training_disabled_message_cost"
+      text="無効：設定でXPコストが設定されていません。" />
+    <string
+      id="ret_adaptive_training_disabled_message_refund"
+      text="無効：設定でXP返還が既に有効になっています。" />
+    <string
       id="ret_adaptive_training_win_with_even_split"
       text="歩兵・騎兵・遠隔兵が均等に編成された一族の兵で、100人以上の敵との戦闘に勝利する。" />
     <string
@@ -58,6 +64,12 @@
     <string
       id="ret_ancestral_heritage_description"
       text="一族と王国文化の全てのアイテムを解放する。" />
+    <string
+      id="ret_ancestral_heritage_disabled_message_all_equipment"
+      text="無効：設定で全ての装備が既に解除されています。" />
+    <string
+      id="ret_ancestral_heritage_disabled_message_culture_items"
+      text="無効：設定で文化アイテムが既に解除されています。" />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="自文化の町でトーナメントに勝利する。" />
@@ -88,6 +100,12 @@
     <string
       id="ret_battlefield_tithes_description"
       text="同盟軍のキルでアイテムを解放できる。" />
+    <string
+      id="ret_battlefield_tithes_disabled_message_all_equipment"
+      text="無効：設定で全ての装備が既に解除されています。" />
+    <string
+      id="ret_battlefield_tithes_disabled_message_unlocks_from_kills"
+      text="無効：設定でキルからの解除が無効になっています。" />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
       text="大半が同盟軍で構成された軍を率いて敵軍に勝利する。" />
@@ -184,9 +202,6 @@
     <string
       id="ret_close_equipment_button_text"
       text="戻る" />
-    <string
-      id="ret_config_overrides_doctrine_message"
-      text="設定によって上書きされました。" />
     <string
       id="ret_confirm"
       text="確認" />
@@ -584,6 +599,12 @@
       id="ret_lions_share_description"
       text="英雄キルは解除に2倍カウントされる。" />
     <string
+      id="ret_lions_share_disabled_message_all_equipment"
+      text="無効：すべての装備は設定で既に解除されています。" />
+    <string
+      id="ret_lions_share_disabled_message_unlocks_from_kills"
+      text="無効：キルからの解除は設定で無効になっています。" />
+    <string
       id="ret_lions_share_kill_enemy_lord"
       text="戦闘で敵の領主を自ら倒す。" />
     <string
@@ -634,6 +655,9 @@
     <string
       id="ret_masters_at_arms_description"
       text="精鋭兵のための追加アップグレード分岐。" />
+    <string
+      id="ret_masters_at_arms_disabled_message"
+      text="無効：設定で精鋭のアップグレードはすでに最大です。" />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="闘技場で50人の相手を気絶させる。" />
@@ -1187,6 +1211,12 @@
       id="ret_pragmatic_scavengers_description"
       text="同盟軍の損失からアイテムを解放できる。" />
     <string
+      id="ret_pragmatic_scavengers_disabled_message_all_equipment"
+      text="無効：すべての装備はすでに設定で解除されています。" />
+    <string
+      id="ret_pragmatic_scavengers_disabled_message_unlocks_from_kills"
+      text="無効：キルからの解除は設定で無効になっています。" />
+    <string
       id="ret_pragmatic_scavengers_rescue_lord"
       text="敵の捕虜護送隊から敗北した領主を救出する。" />
     <string
@@ -1546,6 +1576,9 @@
     <string
       id="ret_vanguard_description"
       text="随伴兵上限+15%。" />
+    <string
+      id="ret_vanguard_disabled_message"
+      text="無効：設定で随伴兵の上限がすでに最大になっています。" />
     <string
       id="ret_vanguard_first_melee_kill_in_siege"
       text="攻城戦で随伴兵に最初の近接キルを取らせる。" />
