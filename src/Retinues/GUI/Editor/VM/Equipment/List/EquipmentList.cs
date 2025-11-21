@@ -113,6 +113,23 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             EquipmentIndex.Weapon3.ToString(),
         ];
 
+        // Use a common snapshot key for all weapon slots so they share the same
+        // precomputed list; only the equipped/compare state is per-slot.
+        private static EquipmentIndex GetSnapshotKey(EquipmentIndex slot)
+        {
+            if (
+                slot == EquipmentIndex.Weapon0
+                || slot == EquipmentIndex.Weapon1
+                || slot == EquipmentIndex.Weapon2
+                || slot == EquipmentIndex.Weapon3
+            )
+            {
+                return EquipmentIndex.Weapon0;
+            }
+
+            return slot;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -424,8 +441,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // 2) Deduplicate and precompute keys
             _rowsByItemId.Clear();
 
+            var snapshotKey = GetSnapshotKey(State.Slot);
             var slotList = new List<ItemTuple>(raw.Count);
-            _fullTuples[currentSlot] = slotList;
+            _fullTuples[snapshotKey] = slotList;
 
             foreach (var (item, isAvailable, isUnlocked, progress) in raw)
             {
@@ -484,9 +502,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
         private void RebuildVisibleFromSnapshot()
         {
-            // Get snapshot for the current slot (fall back to empty list)
-            var currentSlot = State.Slot;
-            if (!_fullTuples.TryGetValue(currentSlot, out var snapshot) || snapshot == null)
+            // Get snapshot for the current slot (weapon slots share one snapshot)
+            var snapshotKey = GetSnapshotKey(State.Slot);
+            if (!_fullTuples.TryGetValue(snapshotKey, out var snapshot) || snapshot == null)
                 snapshot = [];
 
             // 1) Sort comparator over tuples (no UI rows involved)
