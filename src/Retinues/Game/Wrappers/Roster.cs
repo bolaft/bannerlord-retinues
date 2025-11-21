@@ -314,8 +314,15 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Ratio of retinue troops (excluding heroes).
         /// </summary>
-        public float RetinueRatio =>
-            (HealthyCount - HeroCount) <= 0 ? 0f : (float)RetinueCount / (HealthyCount - HeroCount);
+        public float RetinueRatio
+        {
+            get
+            {
+                if (HealthyCount - HeroCount <= 0)
+                    return 0f;
+                return (float)RetinueCount / (HealthyCount - HeroCount);
+            }
+        }
 
         /// <summary>
         /// Gets the number of infantry troops in the roster.

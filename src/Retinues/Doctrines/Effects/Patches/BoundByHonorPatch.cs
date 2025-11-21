@@ -26,10 +26,10 @@ namespace Retinues.Doctrines.Effects.Patches
             if (!DoctrineAPI.IsDoctrineUnlocked<BoundByHonor>())
                 return;
 
-            var party = new WParty(mobileParty);
-
-            if (party != Player.Party)
+            if (!mobileParty.IsMainParty)
                 return; // player party only
+
+            var party = new WParty(mobileParty);
 
             var roster = party.MemberRoster;
             if (roster == null)
@@ -39,6 +39,7 @@ namespace Retinues.Doctrines.Effects.Patches
             // morale values don't invert the intended positive bonus.
             var baseMorale = Math.Max(0f, __result.ResultNumber);
             var bonus = baseMorale * (roster.RetinueRatio * 0.2f);
+
             if (bonus <= 0f)
                 return;
 
