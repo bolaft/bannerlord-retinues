@@ -1,3 +1,4 @@
+using System;
 using HarmonyLib;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game;
@@ -30,7 +31,17 @@ namespace Retinues.Doctrines.Effects.Patches
             if (party != Player.Party)
                 return; // player party only
 
-            var bonus = __result.ResultNumber * (party.MemberRoster.RetinueRatio * 0.2f);
+            var roster = party.MemberRoster;
+            if (roster == null)
+                return;
+
+            // Use a non-negative base morale for percentage-based bonus so negative
+            // morale values don't invert the intended positive bonus.
+            var baseMorale = Math.Max(0f, __result.ResultNumber);
+            var bonus = baseMorale * (roster.RetinueRatio * 0.2f);
+            if (bonus <= 0f)
+                return;
+
             __result.Add(
                 bonus,
                 L.T("retinue_morale_bonus_bound_by_honor", "Retinue (Bound by Honor)")
