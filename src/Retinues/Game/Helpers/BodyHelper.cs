@@ -317,10 +317,6 @@ namespace Retinues.Game.Helpers
             if (character == null || culture == null)
                 return;
 
-            Log.Info(
-                $"[BodyHelper] Applying tags from culture '{culture.StringId}' to character '{character.StringId}'"
-            );
-
             try
             {
                 // CharacterObject inherits BasicCharacterObject, so this cast is always valid.
