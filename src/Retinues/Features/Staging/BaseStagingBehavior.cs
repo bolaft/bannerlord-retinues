@@ -267,7 +267,7 @@ namespace Retinues.Features.Staging
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        protected T GetPending(string troopId, string objId)
+        public T GetPending(string troopId, string objId)
         {
             if (
                 _pending.TryGetValue(troopId, out var dict)
@@ -277,17 +277,19 @@ namespace Retinues.Features.Staging
             return default;
         }
 
-        protected List<T> GetPending(string troopId)
+        public List<T> GetPending(string troopId)
         {
             if (_pending.TryGetValue(troopId, out var dict))
                 return [.. dict.Values];
             return [];
         }
 
-        protected void SetPending(string troopId, string objId, T data)
+        public void SetPending(string troopId, string objId, T data)
         {
+            Log.Debug($"BaseStagingBehavior.SetPending: {troopId}, {objId}");
             if (!_pending.ContainsKey(troopId))
                 _pending[troopId] = [];
+
             _pending[troopId][objId] = data;
         }
 

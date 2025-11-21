@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Features.Experience;
+using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
+using Retinues.Safety.Legacy;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -215,6 +217,16 @@ namespace Retinues.Troops.Save
 
                     // Migrate XP pool from old key to new key
                     TroopXpBehavior.ReplacePoolKey(StringId, troop.StringId);
+
+                    // Migrate staged changes from old key to new key
+                    BaseUpgradeBehavior<PendingEquipData>.ReplacePendingKey(
+                        StringId,
+                        troop.StringId
+                    );
+                    BaseUpgradeBehavior<PendingTrainData>.ReplacePendingKey(
+                        StringId,
+                        troop.StringId
+                    );
                 }
             }
             catch (System.Exception e)

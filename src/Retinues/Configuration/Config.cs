@@ -811,11 +811,11 @@ namespace Retinues.Configuration
             key: "UnlockFromDiscarded",
             hint: () =>
                 L.S("mcm_option_unlock_from_discarded_hint", "Unlock equipment by discarding it."),
-            @default: true,
+            @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = false,
-                [Presets.Realistic] = true,
+                [Presets.Realistic] = false,
             }
         );
 

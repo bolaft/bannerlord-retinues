@@ -223,14 +223,21 @@ namespace Retinues
             Log.Info("Registering behaviors...");
 
             // XP behaviors
-            // Note: XP must come before legacy so pool keys can be replaced.
             AddBehavior<TroopXpBehavior>(cs);
             AddBehavior<BattleSimulationXpBehavior>(cs);
+
+            // Staging behaviors
+            AddBehavior<TrainStagingBehavior>(cs);
+            AddBehavior<EquipStagingBehavior>(cs);
+
+            // Legacy staging behaviors
+            AddBehavior<TroopEquipBehavior>(cs);
+            AddBehavior<TroopTrainBehavior>(cs);
 
             // Legacy behaviors
             AddBehavior<TroopBehavior>(cs);
 
-            // Troop behaviors
+            // Troop behaviors (after legacy migrations and xp)
             AddBehavior<FactionBehavior>(cs);
 
             // Safety behaviors
@@ -251,10 +258,6 @@ namespace Retinues
 
             // Combat equipment behavior
             AddBehavior<CombatEquipmentBehavior>(cs);
-
-            // Staging behaviors
-            AddBehavior<TrainStagingBehavior>(cs);
-            AddBehavior<EquipStagingBehavior>(cs);
 
             // Doctrine behaviors (skip if doctrines disabled)
             if (Config.EnableDoctrines)
