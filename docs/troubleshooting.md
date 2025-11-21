@@ -16,9 +16,6 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 **Q: I can't see modded items in the list**  
 **A:** If the modded items are not worn by any troop then you'll have to either unlock them by discards, unlock all items from the config menu, or use the cheat console (see below) to unlock items individually.
 
-**Q: I have fiefs but the recruits are still vanilla troops?**  
-**A:** It can take a couple of in‑game days for volunteers to refresh and be replaced by your custom troops.
-
 **Q: How can I equip my troops with smithed weapons?**  
 **A:** You have to unlock the *Clan Traditions* doctrine perk first.
 
@@ -34,6 +31,9 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 **Q: The version on Steam Workshop updated automatically and now my save crashes.**  
 **A:** You can go back to any previous version by downloading it from the Nexus Mods [download page](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=files), in the "Old Files" section (unsubscribe from the Steam version first).
 
+**Q: The game freezes on the battle deployment screen.**  
+**A:** If you use **Adonnay's Troop Changer**, the freeze can be caused by load order. Make sure **Adonnay's Troop Changer** is placed *above* **Retinues** in the mod load order. If the problem persists, try disabling one of the two mods temporarily to confirm the conflict.
+
 ---
 
 ## Quick Fixes
@@ -41,6 +41,7 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 1. **Mod order**
    - Put **Retinues** **higher (earlier)** in the **load order** than large overhauls that alter troops/equipment/UI.
    - If another mod also edits the Clan screen / troop systems, test with **only Retinues + dependencies**.
+   - If you use **Adonnay's Troop Changer**, place it **above Retinues** in the load order to avoid freezes on the battle deployment screen.
 
 2. **Try the "Default" preset**
    - In MCM → **Presets**, apply **Default**. If still blocked, try **Freeform** to remove restrictions for testing.
@@ -52,6 +53,13 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
      - **Restrict Items To Town Inventory**
      - **Enable Doctrines** (or set **Disable Feat Requirements = On**)
    - If this fixes it, re-enable options one by one to find the cause.
+
+4. **Clear Retinues MCM cache**
+   - Close the game.
+   - Delete the `Retinues` folder in  
+     `%USERPROFILE%\Documents\Mount and Blade II Bannerlord\Configs\ModSettings\`  
+     (for example: `C:\Users\YourName\Documents\Mount and Blade II Bannerlord\Configs\ModSettings\Retinues`).
+   - Restart the game and re-apply your options in MCM. This is especially useful after updating Retinues if configs seem "stuck" or behave strangely.
 
 ---
 
@@ -107,7 +115,7 @@ See [Cheat Console](cheats.md) for full syntax and examples.
 
 - Place **Retinues** **before** large troop overhauls and UI packs.  
 - Avoid multiple mods patching the **Clan Screen** UI simultaneously.  
-- For conflicts, selectively disable Retinues features (**Unlock From Kills**, **Doctrines**) to isolate.
+- For conflicts, selectively disable Retinues features to isolate.
 
 ---
 

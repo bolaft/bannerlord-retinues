@@ -12,6 +12,13 @@ You can tune Retinues from the **Mod Configuration Menu (MCM)**. Options are gro
 - **Realistic:** stricter rules, slower progression, more immersion.
 
 > ⚠️ If an option is marked "*(restart)*", return to main menu (or start a new game) after changing it.
+>
+> 🧹 If options don't seem to apply correctly or you get strange behavior after updating Retinues, clear MCM's cached settings for the mod:  
+>   1. Close the game.  
+>   2. Delete the `Retinues` folder in  
+>      `%USERPROFILE%\Documents\Mount and Blade II Bannerlord\Configs\ModSettings\`  
+>      (for example: `C:\Users\YourName\Documents\Mount and Blade II Bannerlord\Configs\ModSettings\Retinues`).  
+>   3. Restart the game and re-apply your options in MCM.
 
 ---
 
