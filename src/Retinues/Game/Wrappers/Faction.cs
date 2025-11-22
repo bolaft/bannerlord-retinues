@@ -100,6 +100,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_retinueElite, value);
                 _retinueElite = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -111,6 +112,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_retinueBasic, value);
                 _retinueBasic = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -124,6 +126,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_rootElite, value);
                 _rootElite = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -135,6 +138,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_rootBasic, value);
                 _rootBasic = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -148,6 +152,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_militiaMelee, value);
                 _militiaMelee = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -159,6 +164,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_militiaMeleeElite, value);
                 _militiaMeleeElite = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -170,6 +176,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_militiaRanged, value);
                 _militiaRanged = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -181,6 +188,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_militiaRangedElite, value);
                 _militiaRangedElite = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -192,6 +200,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_caravanGuard, value);
                 _caravanGuard = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -203,6 +212,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_caravanMaster, value);
                 _caravanMaster = value;
+                InvalidateCategoryCache();
             }
         }
 
@@ -214,6 +224,7 @@ namespace Retinues.Game.Wrappers
             {
                 Replace(_villager, value);
                 _villager = value;
+                InvalidateCategoryCache();
             }
         }
     }

@@ -143,6 +143,8 @@ namespace Retinues.Game
                 default:
                     break;
             }
+
+            InvalidateCategoryCache();
         }
 
         /* ━━━━━━━ Retinues ━━━━━━━ */
@@ -233,5 +235,89 @@ namespace Retinues.Game
         /* ━━━━━━━━━ NPCs ━━━━━━━━━ */
 
         public virtual List<WHero> Heroes => [];
+
+        // In BaseFaction.cs
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Category cache                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private bool _categoryCacheDirty = true;
+
+        private readonly HashSet<string> _retinueIds = new(System.StringComparer.Ordinal);
+        private readonly HashSet<string> _regularIds = new(System.StringComparer.Ordinal);
+        private readonly HashSet<string> _eliteIds = new(System.StringComparer.Ordinal);
+
+        public void InvalidateCategoryCache()
+        {
+            Log.Info($"Invalidating category cache for faction {Name} ({StringId})");
+            _categoryCacheDirty = true;
+        }
+
+        private void EnsureCategoryCache()
+        {
+            if (!_categoryCacheDirty)
+                return;
+
+            if (this is not WFaction)
+                return;
+
+            Log.Info($"Rebuilding category cache for faction {Name} ({StringId})");
+
+            _categoryCacheDirty = false;
+
+            _retinueIds.Clear();
+            _regularIds.Clear();
+            _eliteIds.Clear();
+
+            // Retinues
+            foreach (var t in GetActiveList([RetinueElite, RetinueBasic]))
+                _retinueIds.Add(t.StringId);
+
+            // Regulars: RootElite tree (elite) + RootBasic tree (basic)
+            var eliteTree = RootElite != null ? GetActiveList([.. RootElite.Tree]) : [];
+            var basicTree = RootBasic != null ? GetActiveList([.. RootBasic.Tree]) : [];
+
+            foreach (var t in eliteTree)
+            {
+                _eliteIds.Add(t.StringId);
+                _regularIds.Add(t.StringId);
+            }
+
+            foreach (var t in basicTree)
+                _regularIds.Add(t.StringId);
+
+            // Militias
+            var militiaList = GetActiveList([MilitiaRanged, MilitiaRangedElite]);
+            foreach (var t in militiaList)
+            {
+                // Your original IsElite logic also treats militia elites as elite:
+                if (t == MilitiaMeleeElite || t == MilitiaRangedElite)
+                    _eliteIds.Add(t.StringId);
+            }
+
+            // Caravan master is also elite in your IsElite logic
+            if (CaravanMaster != null && CaravanMaster.IsActive)
+                _eliteIds.Add(CaravanMaster.StringId);
+        }
+
+        // Fast lookups used by WCharacter
+        public bool IsRetinueCached(WCharacter troop)
+        {
+            if (troop == null)
+                return false;
+
+            EnsureCategoryCache();
+            return _retinueIds.Contains(troop.StringId);
+        }
+
+        public bool IsRegularCached(WCharacter troop)
+        {
+            if (troop == null)
+                return false;
+
+            EnsureCategoryCache();
+            return _regularIds.Contains(troop.StringId);
+        }
     }
 }

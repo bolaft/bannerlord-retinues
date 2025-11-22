@@ -183,9 +183,8 @@ namespace Retinues.Game.Wrappers
 
         /* ━━━━━━━ Category ━━━━━━━ */
 
-        public bool IsRetinue => Faction != null && Faction.RetinueTroops.Contains(this);
-        public bool IsRegular => Faction != null && Faction.RegularTroops.Contains(this);
-        public bool IsMilitia => Faction != null && Faction.MilitiaTroops.Contains(this);
+        public bool IsRetinue => Faction != null && Faction.IsRetinueCached(this);
+        public bool IsRegular => Faction != null && Faction.IsRegularCached(this);
         public bool IsElite => Faction != null && Faction.IsElite(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -219,6 +218,9 @@ namespace Retinues.Game.Wrappers
                 if (IsVanilla)
                     return; // Cannot set parent on vanilla troops
 
+                var oldParent = Parent;
+                var oldFaction = Faction;
+
                 // 1) Remove from old parent's upgrade list
                 if (Parent != null)
                 {
@@ -246,6 +248,11 @@ namespace Retinues.Game.Wrappers
                     UpgradeMap.Remove(StringId);
                 else
                     UpgradeMap[StringId] = value;
+
+                // Invalidate category caches
+                oldFaction?.InvalidateCategoryCache();
+                if (Faction != null && Faction != oldFaction)
+                    Faction.InvalidateCategoryCache();
             }
         }
 
@@ -421,10 +428,8 @@ namespace Retinues.Game.Wrappers
                     return false; // Vanilla troops cannot be deleted
                 if (Parent == null)
                     return false; // Root troops cannot be deleted
-                if (IsRetinue)
-                    return false; // Retinues cannot be deleted
-                if (IsMilitia)
-                    return false; // Militias cannot be deleted
+                if (!IsRegular)
+                    return false; // Only regular troops can be deleted
                 if (IsHero)
                     return false; // Heroes cannot be deleted
                 if (UpgradeTargets.Any())
