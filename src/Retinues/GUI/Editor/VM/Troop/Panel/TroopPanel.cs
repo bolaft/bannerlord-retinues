@@ -341,7 +341,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool IsRegular => State.Troop?.IsRetinue == false && State.Troop?.IsMilitia == false;
+        public bool IsRegular => State.Troop?.IsRegular == true;
 
         [DataSourceProperty]
         public bool ShowUpgradesHeader =>

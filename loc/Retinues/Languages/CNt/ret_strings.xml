@@ -425,6 +425,9 @@
       id="ret_height_hint"
       text="身高" />
     <string
+      id="ret_hero_no_upgrade"
+      text="英雄無法升級。" />
+    <string
       id="ret_hide_crafted_hint"
       text="隱藏製作的物品。" />
     <string
@@ -1058,9 +1061,6 @@
       id="ret_mcm_section_unlocks"
       text="解鎖" />
     <string
-      id="ret_militia_no_upgrade"
-      text="民兵無法升級。" />
-    <string
       id="ret_name_header_text"
       text="名稱" />
     <string
@@ -1147,6 +1147,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="您必須在一個定居點才能{ACTION}這支部隊。" />
+    <string
+      id="ret_not_regular_no_upgrade"
+      text="只有常規部隊可以升級。" />
     <string
       id="ret_open_browser_fail"
       text="無法打開瀏覽器。網址：{URL}" />
@@ -1330,9 +1333,6 @@
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="隨從（榮譽束縛）" />
-    <string
-      id="ret_retinue_no_upgrade"
-      text="隨從無法升級。" />
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} 皇家衛隊" />

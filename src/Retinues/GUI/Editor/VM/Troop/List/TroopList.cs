@@ -117,6 +117,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(BanditTroops));
             OnPropertyChanged(nameof(CivilianTroops));
             OnPropertyChanged(nameof(Heroes));
+
+            // Needed for editor mode changes
             OnPropertyChanged(nameof(ShowRetinueList));
             OnPropertyChanged(nameof(ShowEliteList));
             OnPropertyChanged(nameof(ShowBasicList));
@@ -235,7 +237,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public bool ShowVillagerList => VillagerTroops.Count > 0 || !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]
-        public bool ShowMercenaryList => MercenaryTroops.Count > 0 || !ClanScreen.IsStudioMode;
+        public bool ShowMercenaryList =>
+            MercenaryTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
 
         [DataSourceProperty]
         public bool ShowBanditList =>

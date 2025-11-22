@@ -1,7 +1,7 @@
 <Module>
   <Name value="Retinues" />
   <Id value="Retinues" />
-  <Version value="v1.3.1.10" />
+  <Version value="v1.3.3.10" />
   <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
@@ -11,9 +11,9 @@
     <DependedModule Id="Bannerlord.ButterLib" DependentVersion="v2.10.0" />
     <DependedModule Id="Bannerlord.UIExtenderEx" DependentVersion="v2.13.0" />
     <DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.10.1" />
-    <DependedModule Id="Native" DependentVersion="v1.3.1" />
-    <DependedModule Id="SandBoxCore" DependentVersion="v1.3.1" />
-    <DependedModule Id="Sandbox" DependentVersion="v1.3.1" />
+    <DependedModule Id="Native" DependentVersion="v1.3.3" />
+    <DependedModule Id="SandBoxCore" DependentVersion="v1.3.3" />
+    <DependedModule Id="Sandbox" DependentVersion="v1.3.3" />
   </DependedModules>
   <SubModules>
     <SubModule>

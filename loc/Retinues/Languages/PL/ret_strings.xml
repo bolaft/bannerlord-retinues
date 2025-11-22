@@ -425,6 +425,9 @@
       id="ret_height_hint"
       text="Wzrost" />
     <string
+      id="ret_hero_no_upgrade"
+      text="Bohaterowie nie mogą być ulepszani." />
+    <string
       id="ret_hide_crafted_hint"
       text="Ukryj wykonane przedmioty." />
     <string
@@ -1058,9 +1061,6 @@
       id="ret_mcm_section_unlocks"
       text="Odblokowania" />
     <string
-      id="ret_militia_no_upgrade"
-      text="Milicja nie może być ulepszana." />
-    <string
       id="ret_name_header_text"
       text="Nazwa" />
     <string
@@ -1147,6 +1147,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Musisz być w osadzie, aby {ACTION} tę jednostkę." />
+    <string
+      id="ret_not_regular_no_upgrade"
+      text="Tylko regularne oddziały mogą być ulepszane." />
     <string
       id="ret_open_browser_fail"
       text="Nie udało się otworzyć przeglądarki. URL: {URL}" />
@@ -1330,9 +1333,6 @@
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Orszak (Związani Honorem)" />
-    <string
-      id="ret_retinue_no_upgrade"
-      text="Orszaki nie mogą być ulepszane." />
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Straż Królewska" />

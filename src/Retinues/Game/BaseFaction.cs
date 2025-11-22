@@ -211,6 +211,7 @@ namespace Retinues.Game
 
         /* ━━━━━━━━ Regular ━━━━━━━ */
 
+        public List<WCharacter> RegularTroops => [.. EliteTroops, .. BasicTroops];
         public List<WCharacter> EliteTroops =>
             RootElite != null ? GetActiveList([.. RootElite.Tree]) : [];
         public List<WCharacter> BasicTroops =>

@@ -425,6 +425,9 @@
       id="ret_height_hint"
       text="身高" />
     <string
+      id="ret_hero_no_upgrade"
+      text="英雄无法升级。" />
+    <string
       id="ret_hide_crafted_hint"
       text="隐藏制作的物品。" />
     <string
@@ -1058,9 +1061,6 @@
       id="ret_mcm_section_unlocks"
       text="解锁" />
     <string
-      id="ret_militia_no_upgrade"
-      text="民兵无法升级。" />
-    <string
       id="ret_name_header_text"
       text="名称" />
     <string
@@ -1147,6 +1147,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="您必须在一个定居点才能{ACTION}这支部队。" />
+    <string
+      id="ret_not_regular_no_upgrade"
+      text="只有常规部队可以升级。" />
     <string
       id="ret_open_browser_fail"
       text="无法打开浏览器。网址：{URL}" />
@@ -1330,9 +1333,6 @@
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="随从（荣誉束缚）" />
-    <string
-      id="ret_retinue_no_upgrade"
-      text="随从无法升级。" />
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} 皇家卫队" />

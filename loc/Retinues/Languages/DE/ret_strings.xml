@@ -425,6 +425,9 @@
       id="ret_height_hint"
       text="Größe" />
     <string
+      id="ret_hero_no_upgrade"
+      text="Helden können nicht aufgerüstet werden." />
+    <string
       id="ret_hide_crafted_hint"
       text="Verstecke hergestellte Gegenstände." />
     <string
@@ -1058,9 +1061,6 @@
       id="ret_mcm_section_unlocks"
       text="Freischaltungen" />
     <string
-      id="ret_militia_no_upgrade"
-      text="Milizen können nicht aufgerüstet werden." />
-    <string
       id="ret_name_header_text"
       text="Name" />
     <string
@@ -1147,6 +1147,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Du musst in einer Siedlung sein, um diese Truppe {ACTION} zu können." />
+    <string
+      id="ret_not_regular_no_upgrade"
+      text="Nur reguläre Truppen können aufgerüstet werden." />
     <string
       id="ret_open_browser_fail"
       text="Fehler beim Öffnen des Browsers. URL: {URL}" />
@@ -1330,9 +1333,6 @@
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Gefolgschaft (An Ehre gebunden)" />
-    <string
-      id="ret_retinue_no_upgrade"
-      text="Gefolgschaften können nicht aufgerüstet werden." />
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Königliche Wache" />

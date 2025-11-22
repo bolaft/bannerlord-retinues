@@ -425,6 +425,9 @@
       id="ret_height_hint"
       text="Altura" />
     <string
+      id="ret_hero_no_upgrade"
+      text="Los héroes no pueden ser mejorados." />
+    <string
       id="ret_hide_crafted_hint"
       text="Ocultar objetos fabricados." />
     <string
@@ -1058,9 +1061,6 @@
       id="ret_mcm_section_unlocks"
       text="Desbloqueos" />
     <string
-      id="ret_militia_no_upgrade"
-      text="La milicia no se puede mejorar." />
-    <string
       id="ret_name_header_text"
       text="Nombre" />
     <string
@@ -1147,6 +1147,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Debes estar en un asentamiento para {ACTION} esta tropa." />
+    <string
+      id="ret_not_regular_no_upgrade"
+      text="Solo las tropas regulares pueden ser mejoradas." />
     <string
       id="ret_open_browser_fail"
       text="No se pudo abrir el navegador. URL: {URL}" />
@@ -1330,9 +1333,6 @@
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Séquito (Atados por el Honor)" />
-    <string
-      id="ret_retinue_no_upgrade"
-      text="Los séquitos no se pueden mejorar." />
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Guardia Real" />

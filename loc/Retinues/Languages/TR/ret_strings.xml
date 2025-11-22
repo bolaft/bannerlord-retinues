@@ -425,6 +425,9 @@
       id="ret_height_hint"
       text="Boy" />
     <string
+      id="ret_hero_no_upgrade"
+      text="Kahramanlar yükseltilemez." />
+    <string
       id="ret_hide_crafted_hint"
       text="Üretilen eşyaları gizle." />
     <string
@@ -1058,9 +1061,6 @@
       id="ret_mcm_section_unlocks"
       text="Açılışlar" />
     <string
-      id="ret_militia_no_upgrade"
-      text="Milis yükseltilemez." />
-    <string
       id="ret_name_header_text"
       text="İsim" />
     <string
@@ -1147,6 +1147,9 @@
     <string
       id="ret_not_in_settlement_text"
       text="Bu birliği {ACTION} için bir yerleşim yerinde olmalısınız." />
+    <string
+      id="ret_not_regular_no_upgrade"
+      text="Yalnızca düzenli birlikler yükseltilebilir." />
     <string
       id="ret_open_browser_fail"
       text="Tarayıcı açılamadı. URL: {URL}" />
@@ -1330,9 +1333,6 @@
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Yandaş (Onura Bağlı)" />
-    <string
-      id="ret_retinue_no_upgrade"
-      text="Yandaşlar yükseltilemez." />
     <string
       id="ret_retinue_royal_guard"
       text="{FACTION} Kraliyet Muhafızı" />

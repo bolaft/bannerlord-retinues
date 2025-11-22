@@ -56,13 +56,12 @@ namespace Retinues.Managers
             if (character == null)
                 return L.T("invalid_args", "Invalid arguments.");
 
-            if (character.IsMilitia)
-                return L.T("militia_no_upgrade", "Militia cannot be upgraded.");
+            if (!character.IsRegular)
+                return L.T("not_regular_no_upgrade", "Only regular troops can be upgraded.");
 
-            if (character.IsRetinue)
-                return L.T("retinue_no_upgrade", "Retinues cannot be upgraded.");
+            if (character.IsHero)
+                return L.T("hero_no_upgrade", "Heroes cannot be upgraded.");
 
-            // Max tier reached
             if (character.IsMaxTier)
                 return L.T("max_tier", "Troop is at max tier.");
 

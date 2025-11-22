@@ -2240,6 +2240,22 @@
     "TR": "Boy"
   },
   {
+    "id": "ret_hero_no_upgrade",
+    "EN": "Heroes cannot be upgraded.",
+    "BR": "Heróis não podem ser aprimorados.",
+    "CNs": "英雄无法升级。",
+    "CNt": "英雄無法升級。",
+    "DE": "Helden können nicht aufgerüstet werden.",
+    "FR": "Les héros ne peuvent pas être promus.",
+    "IT": "Gli eroi non possono essere potenziati.",
+    "JP": "英雄はアップグレードできません。",
+    "KO": "영웅은 업그레이드할 수 없습니다.",
+    "PL": "Bohaterowie nie mogą być ulepszani.",
+    "RU": "Герои не могут быть улучшены.",
+    "SP": "Los héroes no pueden ser mejorados.",
+    "TR": "Kahramanlar yükseltilemez."
+  },
+  {
     "id": "ret_hide_crafted_hint",
     "EN": "Hide crafted items.",
     "BR": "Ocultar itens fabricados.",
@@ -5616,22 +5632,6 @@
     "TR": "Açılışlar"
   },
   {
-    "id": "ret_militia_no_upgrade",
-    "EN": "Militia cannot be upgraded.",
-    "BR": "A milícia não pode ser atualizada.",
-    "CNs": "民兵无法升级。",
-    "CNt": "民兵無法升級。",
-    "DE": "Milizen können nicht aufgerüstet werden.",
-    "FR": "La milice ne peut pas être améliorée.",
-    "IT": "La milizia non può essere potenziata.",
-    "JP": "民兵はアップグレードできません。",
-    "KO": "민병대는 업그레이드할 수 없습니다.",
-    "PL": "Milicja nie może być ulepszana.",
-    "RU": "Ополчение не может быть улучшено.",
-    "SP": "La milicia no se puede mejorar.",
-    "TR": "Milis yükseltilemez."
-  },
-  {
     "id": "ret_name_header_text",
     "EN": "Name",
     "BR": "Nome",
@@ -6094,6 +6094,22 @@
     "RU": "Вы должны находиться в поселении, чтобы {ACTION} этот отряд.",
     "SP": "Debes estar en un asentamiento para {ACTION} esta tropa.",
     "TR": "Bu birliği {ACTION} için bir yerleşim yerinde olmalısınız."
+  },
+  {
+    "id": "ret_not_regular_no_upgrade",
+    "EN": "Only regular troops can be upgraded.",
+    "BR": "Apenas tropas regulares podem ser atualizadas.",
+    "CNs": "只有常规部队可以升级。",
+    "CNt": "只有常規部隊可以升級。",
+    "DE": "Nur reguläre Truppen können aufgerüstet werden.",
+    "FR": "Seules les troupes régulières peuvent être promues.",
+    "IT": "Solo le truppe regolari possono essere aggiornate.",
+    "JP": "通常の部隊のみがアップグレードできます。",
+    "KO": "정규 병력만 업그레이드할 수 있습니다.",
+    "PL": "Tylko regularne oddziały mogą być ulepszane.",
+    "RU": "Повышать уровень могут только регулярные войска.",
+    "SP": "Solo las tropas regulares pueden ser mejoradas.",
+    "TR": "Yalnızca düzenli birlikler yükseltilebilir."
   },
   {
     "id": "ret_open_browser_fail",
@@ -7070,22 +7086,6 @@
     "RU": "Свита (Связанные Честью)",
     "SP": "Séquito (Atados por el Honor)",
     "TR": "Yandaş (Onura Bağlı)"
-  },
-  {
-    "id": "ret_retinue_no_upgrade",
-    "EN": "Retinues cannot be upgraded.",
-    "BR": "Séquitos não podem ser promovidos.",
-    "CNs": "随从无法升级。",
-    "CNt": "隨從無法升級。",
-    "DE": "Gefolgschaften können nicht aufgerüstet werden.",
-    "FR": "Les rétinues ne peuvent pas être améliorées.",
-    "IT": "I seguaci non possono essere potenziati.",
-    "JP": "随伴兵はアップグレードできません。",
-    "KO": "수행원은 업그레이드할 수 없습니다.",
-    "PL": "Orszaki nie mogą być ulepszane.",
-    "RU": "Свиты не могут быть улучшены.",
-    "SP": "Los séquitos no se pueden mejorar.",
-    "TR": "Yandaşlar yükseltilemez."
   },
   {
     "id": "ret_retinue_royal_guard",

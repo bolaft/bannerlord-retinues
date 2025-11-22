@@ -184,6 +184,7 @@ namespace Retinues.Game.Wrappers
         /* ━━━━━━━ Category ━━━━━━━ */
 
         public bool IsRetinue => Faction != null && Faction.RetinueTroops.Contains(this);
+        public bool IsRegular => Faction != null && Faction.RegularTroops.Contains(this);
         public bool IsMilitia => Faction != null && Faction.MilitiaTroops.Contains(this);
         public bool IsElite => Faction != null && Faction.IsElite(this);
 
