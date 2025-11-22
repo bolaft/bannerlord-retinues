@@ -466,7 +466,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         Name = item.Name ?? string.Empty,
                         Category = item.Class ?? string.Empty,
                         Tier = item.Tier,
-                        Cost = EquipmentManager.GetItemCost(item, State.Troop),
+                        Cost = EquipmentManager.GetItemCost(item),
                         EnabledRank = (isUnlocked && isAvailable) ? 0 : 1,
                     }
                 );

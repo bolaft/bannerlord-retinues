@@ -144,7 +144,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /* ━━━━━━━━ Values ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int Value => EquipmentManager.GetItemCost(RowItem, State.Troop);
+        public int Value => EquipmentManager.GetItemCost(RowItem);
 
         [DataSourceProperty]
         public int Stock => RowItem?.GetStock() ?? 0;

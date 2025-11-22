@@ -115,7 +115,7 @@ namespace Retinues.Features.Staging
 
             var item = p.Item;
             // compute time
-            var cost = item == null ? 100 : EquipmentManager.GetItemCost(item, troop);
+            var cost = item == null ? 100 : EquipmentManager.GetItemCost(item);
             var time = HoursFromGold(cost);
 
             SetPending(

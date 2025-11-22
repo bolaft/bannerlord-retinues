@@ -348,7 +348,7 @@ namespace Retinues.Managers
             q.CopiesToBuy = Math.Max(0, q.DeltaAdd - q.CopiesFromStock);
 
             // Cost preview
-            int unitCost = GetItemCost(newItem, troop);
+            int unitCost = GetItemCost(newItem);
             q.GoldCost = unitCost * q.CopiesToBuy;
 
             // Staging decision - only if adding physical copies
@@ -497,7 +497,7 @@ namespace Retinues.Managers
                 // buy remainder (stock then consume)
                 if (q.CopiesToBuy > 0)
                 {
-                    int unitCost = GetItemCost(newItem, troop);
+                    int unitCost = GetItemCost(newItem);
                     if (unitCost > 0)
                         Player.ChangeGold(-unitCost * q.CopiesToBuy);
 
@@ -691,9 +691,9 @@ namespace Retinues.Managers
         /// <summary>
         /// Price for one copy of the item for this troop, after config modifiers.
         /// </summary>
-        public static int GetItemCost(WItem item, WCharacter troop)
+        public static int GetItemCost(WItem item)
         {
-            if (item == null || troop == null)
+            if (item == null)
                 return 0;
             if (!Config.PayForEquipment)
                 return 0;
