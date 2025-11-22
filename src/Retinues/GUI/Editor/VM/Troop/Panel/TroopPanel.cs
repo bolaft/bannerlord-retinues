@@ -102,7 +102,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(PendingTotalInfluenceCost),
                     nameof(PendingTotalCount),
                 ],
-                [UIEvent.Equipment] = [nameof(FormationClassIcon), nameof(FormationClassText)],
+                [UIEvent.Equip] = [nameof(FormationClassIcon), nameof(FormationClassText)],
             };
 
         private bool _needsRebuild = true;
