@@ -9,7 +9,6 @@ using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Managers;
 using Retinues.Utils;
-using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 # if BL13
@@ -24,6 +23,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
     [SafeClass]
     public sealed class EquipmentRowVM(
         WItem rowItem,
+        int cost,
         bool isAvailable,
         bool isUnlocked,
         int progress
@@ -37,6 +37,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public readonly bool IsAvailable = isAvailable;
         public readonly bool IsUnlocked = isUnlocked;
         public readonly int Progress = progress;
+        public readonly int Cost = cost;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -144,7 +145,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /* ━━━━━━━━ Values ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int Value => EquipmentManager.GetItemCost(RowItem);
+        public int Value => Cost;
 
         [DataSourceProperty]
         public int Stock => RowItem?.GetStock() ?? 0;
