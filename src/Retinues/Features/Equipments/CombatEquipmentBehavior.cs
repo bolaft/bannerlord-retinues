@@ -6,11 +6,12 @@ using TaleWorlds.SaveSystem;
 
 namespace Retinues.Features.Equipments
 {
-    public enum BattleType
+    public enum PolicyToggleType
     {
         FieldBattle,
         SiegeDefense,
         SiegeAssault,
+        GenderOverride,
     }
 
     /// <summary>
@@ -28,11 +29,15 @@ namespace Retinues.Features.Equipments
         [SaveableField(3)]
         public bool SiegeAssault = false;
 
+        [SaveableField(4)]
+        public bool GenderOverride = false;
+
         public static readonly EquipmentPolicy None = new()
         {
             FieldBattle = false,
             SiegeDefense = false,
             SiegeAssault = false,
+            GenderOverride = false,
         };
 
         public static readonly EquipmentPolicy All = new()
@@ -40,6 +45,7 @@ namespace Retinues.Features.Equipments
             FieldBattle = true,
             SiegeDefense = true,
             SiegeAssault = true,
+            GenderOverride = false, // default to no override
         };
     }
 
@@ -93,13 +99,16 @@ namespace Retinues.Features.Equipments
         public bool IsEnabled_SiegeAssault(WCharacter troop, int index) =>
             GetPolicy(troop, index).SiegeAssault;
 
+        public bool IsEnabled_GenderOverride(WCharacter troop, int index) =>
+            GetPolicy(troop, index).GenderOverride;
+
         /* ━━━━━━━ Commands ━━━━━━━ */
 
         public void Toggle_Field(WCharacter troop, int index)
         {
             if (troop == null)
                 return;
-            if (!CanDisable(troop, index, BattleType.FieldBattle))
+            if (!CanDisable(troop, index, PolicyToggleType.FieldBattle))
                 return;
             Set(troop, index, p => p.FieldBattle = !p.FieldBattle);
         }
@@ -108,7 +117,7 @@ namespace Retinues.Features.Equipments
         {
             if (troop == null)
                 return;
-            if (!CanDisable(troop, index, BattleType.SiegeDefense))
+            if (!CanDisable(troop, index, PolicyToggleType.SiegeDefense))
                 return;
             Set(troop, index, p => p.SiegeDefense = !p.SiegeDefense);
         }
@@ -117,9 +126,16 @@ namespace Retinues.Features.Equipments
         {
             if (troop == null)
                 return;
-            if (!CanDisable(troop, index, BattleType.SiegeAssault))
+            if (!CanDisable(troop, index, PolicyToggleType.SiegeAssault))
                 return;
             Set(troop, index, p => p.SiegeAssault = !p.SiegeAssault);
+        }
+
+        public void Toggle_GenderOverride(WCharacter troop, int index)
+        {
+            if (troop == null)
+                return;
+            Set(troop, index, p => p.GenderOverride = !p.GenderOverride);
         }
 
         public void OnRemoveAlt(WCharacter troop, int removedIndex)
@@ -159,6 +175,7 @@ namespace Retinues.Features.Equipments
                     FieldBattle = true,
                     SiegeDefense = true,
                     SiegeAssault = true,
+                    GenderOverride = false,
                 };
             }
 
@@ -170,27 +187,34 @@ namespace Retinues.Features.Equipments
         private static CombatEquipmentBehavior Inst =>
             Campaign.Current?.GetCampaignBehavior<CombatEquipmentBehavior>();
 
-        public static bool IsEnabled(WCharacter troop, int altIndex, BattleType t) =>
+        public static bool IsEnabled(WCharacter troop, int altIndex, PolicyToggleType t) =>
             t switch
             {
-                BattleType.FieldBattle => Inst?.IsEnabled_Field(troop, altIndex) ?? true,
-                BattleType.SiegeDefense => Inst?.IsEnabled_SiegeDefense(troop, altIndex) ?? true,
-                BattleType.SiegeAssault => Inst?.IsEnabled_SiegeAssault(troop, altIndex) ?? true,
+                PolicyToggleType.FieldBattle => Inst?.IsEnabled_Field(troop, altIndex) ?? true,
+                PolicyToggleType.SiegeDefense => Inst?.IsEnabled_SiegeDefense(troop, altIndex)
+                    ?? true,
+                PolicyToggleType.SiegeAssault => Inst?.IsEnabled_SiegeAssault(troop, altIndex)
+                    ?? true,
+                PolicyToggleType.GenderOverride => Inst?.IsEnabled_GenderOverride(troop, altIndex)
+                    ?? true,
                 _ => true,
             };
 
-        public static void Toggle(WCharacter troop, int altIndex, BattleType t)
+        public static void Toggle(WCharacter troop, int altIndex, PolicyToggleType t)
         {
             switch (t)
             {
-                case BattleType.FieldBattle:
+                case PolicyToggleType.FieldBattle:
                     Inst?.Toggle_Field(troop, altIndex);
                     break;
-                case BattleType.SiegeDefense:
+                case PolicyToggleType.SiegeDefense:
                     Inst?.Toggle_SiegeDefense(troop, altIndex);
                     break;
-                case BattleType.SiegeAssault:
+                case PolicyToggleType.SiegeAssault:
                     Inst?.Toggle_SiegeAssault(troop, altIndex);
+                    break;
+                case PolicyToggleType.GenderOverride:
+                    Inst?.Toggle_GenderOverride(troop, altIndex);
                     break;
             }
         }
@@ -207,6 +231,7 @@ namespace Retinues.Features.Equipments
                     p.FieldBattle = false;
                     p.SiegeDefense = false;
                     p.SiegeAssault = false;
+                    p.GenderOverride = false;
                 }
             );
         }
@@ -218,7 +243,7 @@ namespace Retinues.Features.Equipments
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private int CountEnabled(WCharacter troop, BattleType t)
+        private int CountEnabled(WCharacter troop, PolicyToggleType t)
         {
             if (troop == null)
                 return 0;
@@ -234,10 +259,14 @@ namespace Retinues.Features.Equipments
             return c;
         }
 
-        private bool CanDisable(WCharacter troop, int index, BattleType t)
+        private bool CanDisable(WCharacter troop, int index, PolicyToggleType t)
         {
             // If it's already disabled, ok
             if (!IsEnabled(troop, index, t))
+                return true;
+
+            // If gender override, always ok
+            if (t == PolicyToggleType.GenderOverride)
                 return true;
 
             // Otherwise ensure at least one other enabled

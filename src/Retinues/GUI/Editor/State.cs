@@ -416,7 +416,7 @@ namespace Retinues.GUI.Editor
                 return;
 
             // Helper that checks a situation and enables index 0 if none enabled
-            void EnsureOne(BattleType t)
+            void EnsureOne(PolicyToggleType t)
             {
                 // Count enabled among battle sets
                 int enabled = 0;
@@ -436,9 +436,9 @@ namespace Retinues.GUI.Editor
                 }
             }
 
-            EnsureOne(BattleType.FieldBattle);
-            EnsureOne(BattleType.SiegeDefense);
-            EnsureOne(BattleType.SiegeAssault);
+            EnsureOne(PolicyToggleType.FieldBattle);
+            EnsureOne(PolicyToggleType.SiegeDefense);
+            EnsureOne(PolicyToggleType.SiegeAssault);
         }
     }
 }

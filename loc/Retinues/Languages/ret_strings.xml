@@ -413,6 +413,12 @@
       id="ret_gender_hint"
       text="Gender" />
     <string
+      id="ret_gender_override_applied_hint"
+      text="This set has a gender override applied." />
+    <string
+      id="ret_gender_override_not_applied_hint"
+      text="Apply a gender override to this set." />
+    <string
       id="ret_gender_toggle_hint"
       text="Toggle Gender" />
     <string

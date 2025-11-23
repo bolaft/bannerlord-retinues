@@ -2176,6 +2176,38 @@
     "TR": "Cinsiyet"
   },
   {
+    "id": "ret_gender_override_applied_hint",
+    "EN": "This set has a gender override applied.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_gender_override_not_applied_hint",
+    "EN": "Apply a gender override to this set.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_gender_toggle_hint",
     "EN": "Toggle Gender",
     "BR": "Alternar Gênero",

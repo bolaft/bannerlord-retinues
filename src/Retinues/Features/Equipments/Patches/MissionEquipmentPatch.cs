@@ -83,12 +83,12 @@ namespace Retinues.Features.Equipments.Patches
                 }
                 else
                 {
-                    var battleType = BattleType.FieldBattle;
+                    var battleType = PolicyToggleType.FieldBattle;
                     var battle = new Battle();
                     if (battle.IsSiege)
                         battleType = battle.PlayerIsDefender
-                            ? BattleType.SiegeDefense
-                            : BattleType.SiegeAssault;
+                            ? PolicyToggleType.SiegeDefense
+                            : PolicyToggleType.SiegeAssault;
 
                     var all = troop.Loadout.Equipments;
                     var eligible = new List<WEquipment>();

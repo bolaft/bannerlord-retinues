@@ -82,14 +82,17 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(CanCreateSet),
                     nameof(RemoveSetHint),
                     nameof(CreateSetHint),
+                    nameof(GenderOverrideIcon),
                     nameof(SetIsCivilian),
                     nameof(SetIsBattle),
                     nameof(SetIsEnabledForFieldBattle),
                     nameof(SetIsEnabledForSiegeDefense),
                     nameof(SetIsEnabledForSiegeAssault),
+                    nameof(SetHasGenderOverride),
                     nameof(FieldBattleHint),
                     nameof(SiegeDefenseHint),
                     nameof(SiegeAssaultHint),
+                    nameof(GenderOverrideHint),
                     nameof(CivilianHint),
                     nameof(CanToggleCivilianSet),
                     nameof(CanToggleEnableForFieldBattle),
@@ -203,7 +206,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         /// <summary>
         /// Count the number of enabled equipment sets for the given battle type.
         /// </summary>
-        private int CountEnabled(BattleType t)
+        private int CountEnabled(PolicyToggleType t)
         {
             var troop = State.Troop;
             if (troop == null)
@@ -337,7 +340,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
-                BattleType.FieldBattle
+                PolicyToggleType.FieldBattle
             );
 
         [DataSourceProperty]
@@ -346,7 +349,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
-                BattleType.SiegeDefense
+                PolicyToggleType.SiegeDefense
             );
 
         [DataSourceProperty]
@@ -355,8 +358,22 @@ namespace Retinues.GUI.Editor.VM.Equipment
             && CombatEquipmentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
-                BattleType.SiegeAssault
+                PolicyToggleType.SiegeAssault
             );
+
+        [DataSourceProperty]
+        public bool SetHasGenderOverride =>
+            CombatEquipmentBehavior.IsEnabled(
+                State.Troop,
+                State.Equipment.Index,
+                PolicyToggleType.GenderOverride
+            );
+
+        [DataSourceProperty]
+        public string GenderOverrideIcon =>
+            State.Troop?.IsFemale == true
+                ? "SPGeneral\\GeneralFlagIcons\\male_only"
+                : "SPGeneral\\GeneralFlagIcons\\female_only";
 
         /// <summary>
         /// Handle slot selection changes and update the affected slot buttons.
@@ -461,18 +478,18 @@ namespace Retinues.GUI.Editor.VM.Equipment
             SetIsBattle
             && ( // only battle sets participate
                 !SetIsEnabledForFieldBattle // enabling is always allowed
-                || CountEnabled(BattleType.FieldBattle) > 1 // disabling allowed only if another remains
+                || CountEnabled(PolicyToggleType.FieldBattle) > 1 // disabling allowed only if another remains
             );
 
         [DataSourceProperty]
         public bool CanToggleEnableForSiegeDefense =>
             SetIsBattle
-            && (!SetIsEnabledForSiegeDefense || CountEnabled(BattleType.SiegeDefense) > 1);
+            && (!SetIsEnabledForSiegeDefense || CountEnabled(PolicyToggleType.SiegeDefense) > 1);
 
         [DataSourceProperty]
         public bool CanToggleEnableForSiegeAssault =>
             SetIsBattle
-            && (!SetIsEnabledForSiegeAssault || CountEnabled(BattleType.SiegeAssault) > 1);
+            && (!SetIsEnabledForSiegeAssault || CountEnabled(PolicyToggleType.SiegeAssault) > 1);
 
         [DataSourceProperty]
         public BasicTooltipViewModel FieldBattleHint =>
@@ -527,6 +544,24 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 null,
                 L.S("hint_assault_ok", "Available while assaulting a siege.")
             );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel GenderOverrideHint =>
+            CombatEquipmentBehavior.IsEnabled(
+                State.Troop,
+                State.Equipment.Index,
+                PolicyToggleType.GenderOverride
+            )
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.T("gender_override_applied_hint", "This set has a gender override applied.")
+                        .ToString()
+                )
+                : Tooltip.MakeTooltip(
+                    null,
+                    L.T("gender_override_not_applied_hint", "Apply a gender override to this set.")
+                        .ToString()
+                );
 
         [DataSourceProperty]
         public BasicTooltipViewModel ShowCraftedHint =>
@@ -755,9 +790,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
             CombatEquipmentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
-                BattleType.FieldBattle
+                PolicyToggleType.FieldBattle
             );
             OnPropertyChanged(nameof(SetIsEnabledForFieldBattle));
+            OnPropertyChanged(nameof(FieldBattleHint));
         }
 
         [DataSourceMethod]
@@ -768,9 +804,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
             CombatEquipmentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
-                BattleType.SiegeDefense
+                PolicyToggleType.SiegeDefense
             );
             OnPropertyChanged(nameof(SetIsEnabledForSiegeDefense));
+            OnPropertyChanged(nameof(SiegeDefenseHint));
         }
 
         [DataSourceMethod]
@@ -781,9 +818,23 @@ namespace Retinues.GUI.Editor.VM.Equipment
             CombatEquipmentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
-                BattleType.SiegeAssault
+                PolicyToggleType.SiegeAssault
             );
             OnPropertyChanged(nameof(SetIsEnabledForSiegeAssault));
+            OnPropertyChanged(nameof(SiegeAssaultHint));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteToggleGenderOverride()
+        {
+            var troop = State.Troop;
+            var eq = State.Equipment;
+            if (troop == null || eq == null)
+                return;
+
+            CombatEquipmentBehavior.Toggle(troop, eq.Index, PolicyToggleType.GenderOverride);
+            OnPropertyChanged(nameof(SetHasGenderOverride));
+            OnPropertyChanged(nameof(GenderOverrideHint));
         }
 
         [DataSourceMethod]

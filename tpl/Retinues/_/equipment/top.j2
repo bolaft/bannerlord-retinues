@@ -252,6 +252,30 @@
                     </Children>
                 </ListPanel>
 
+                <!-- Gender Override -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Gender Override Icon -->
+                        {{ image.sprite(
+                            sprite="@GenderOverrideIcon",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Gender Override Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleGenderOverride",
+                            is_selected="@SetHasGenderOverride",
+                            size="24",
+                            hint="{GenderOverrideHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
             </Children>
         </ListPanel>
     </Children>
