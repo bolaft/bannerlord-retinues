@@ -104,17 +104,6 @@ namespace Retinues.Safety.Version
                         return;
                     }
 
-                    // Legacy special case from previous system:
-                    // Early saves without a stored version string.
-                    if (
-                        saveVersion == ModuleChecker.UnknownVersionString
-                        && currentVersion.EndsWith("10")
-                    )
-                    {
-                        VersionUpdatePopup(currentVersionRaw, saveVersionRaw);
-                        return;
-                    }
-
                     // Otherwise, show mismatch popup
                     VersionMismatchPopup(currentVersionRaw, saveVersionRaw);
                 }
@@ -230,9 +219,15 @@ namespace Retinues.Safety.Version
         {
             // Bridge: switching from old "1.2.12.x / 1.3.3.x / 1.3.1.x" scheme
             // to the new "1.2.13.0 / 1.3.13.0" scheme.
+            Log.Info(
+                $"Checking for legacy version bridge: save={saveVersionString}, current={currentVersionString}"
+            );
             if (
                 (currentVersionString == "1.3.13.0" || currentVersionString == "1.2.13.0")
-                && LegacyPre13Versions.Contains(saveVersionString)
+                && (
+                    LegacyPre13Versions.Contains(saveVersionString)
+                    || saveVersionString == ModuleChecker.UnknownVersionString
+                )
             )
             {
                 return true;
