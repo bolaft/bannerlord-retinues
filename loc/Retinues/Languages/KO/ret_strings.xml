@@ -263,6 +263,9 @@
       id="ret_cultural_pride_description"
       text="사용자 지정 민병대를 잠금 해제합니다." />
     <string
+      id="ret_cultural_pride_disabled_message"
+      text="비활성화: 구성에서 특수 부대가 잠금 해제됩니다." />
+    <string
       id="ret_cultural_pride_full_set_100_kills"
       text="외국 장비를 착용하지 않은 병력으로 전투에서 100킬을 기록하십시오." />
     <string
@@ -707,6 +710,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="XML에서 병력 가져오기" />
     <string
+      id="ret_mcm_option_all_culture_equipment_unlocked"
+      text="모든 문화 장비 해제됨" />
+    <string
+      id="ret_mcm_option_all_culture_equipment_unlocked_hint"
+      text="플레이어 씨족 및 왕국 문화 아이템은 항상 사용할 수 있습니다." />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="모든 장비 해제됨" />
     <string
@@ -728,32 +737,23 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="병력과 장비 사이의 허용 최대 등급 차이." />
     <string
-      id="ret_mcm_option_auto_compare_items"
-      text="아이템 자동 비교" />
-    <string
-      id="ret_mcm_option_auto_compare_items_hint"
-      text="병력 장비를 탐색할 때 아이템이 장착된 아이템보다 더 낫거나 나쁜지 표시하는 지표를 추가합니다." />
-    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="기본 기술 경험치 비용" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="기술 상승에 필요한 기본 경험치." />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops"
-      text="왕국 병력보다 씨족 병력 우선" />
+      id="ret_mcm_option_copy_all_sets_on_unlock"
+      text="잠금 해제 시 모든 세트 복사" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
-      text="영지가 씨족 영지이자 왕국 영지인 경우 씨족 병력이 왕국 병력보다 우선합니다." />
+      id="ret_mcm_option_copy_all_sets_on_unlock_hint"
+      text="새 병력을 잠금 해제할 때 주요 전투 및 민간 세트만 복사하는 대신 원래 병력의 모든 장비 세트를 복사합니다." />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="대체 세트는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다." />
+      id="ret_mcm_option_custom_volunteer_proportion"
+      text="맞춤형 자원봉사자 비율" />
     <string
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="부대 장비를 복제할 때 모든 장비 세트를 복사합니다." />
-    <string
-      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
-      text="부대 장비를 복제할 때 전투 세트와 민간 세트 하나만이 아닌 모든 장비 세트를 복사합니다." />
+      id="ret_mcm_option_custom_volunteer_proportion_hint"
+      text="각 바닐라 자원봉사자가 맞춤 병력으로 대체될 확률(0 = 절대 없음, 1 = 항상 있음)." />
     <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
@@ -761,11 +761,17 @@
       id="ret_mcm_option_debug_mode_hint"
       text="더 많은 로그를 출력합니다 (성능에 영향을 줄 수 있음)." />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1"
-      text="1등급에 탈것 금지" />
+      id="ret_mcm_option_disable_kingdom_troops"
+      text="왕국 병력 비활성화" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
-      text="1등급 병력은 탈것을 가질 수 없습니다." />
+      id="ret_mcm_option_disable_kingdom_troops_hint"
+      text="왕국의 맞춤형 병력 트리가 비활성화되고 대신 씨족 병력이 사용됩니다." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops"
+      text="1단계 병력에 대한 탈것 금지" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
+      text="1단계 병력은 탈것을 가질 수 없습니다." />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="교리 활성화" />
@@ -785,56 +791,68 @@
       id="ret_mcm_option_enable_feat_requirements_hint"
       text="교리를 잠금 해제하기 위한 특기 요구 사항을 활성화합니다(경고: 특기를 비활성화한 상태로 저장하면 모든 특기 데이터가 삭제됩니다)." />
     <string
+      id="ret_mcm_option_enable_item_comparison_icons"
+      text="아이템 비교 아이콘 활성화" />
+    <string
+      id="ret_mcm_option_enable_item_comparison_icons_hint"
+      text="부대 장비를 탐색할 때 장비 목록에 비교 아이콘을 추가하여 아이템이 장착된 아이템보다 나은지 또는 나쁜지 표시합니다." />
+    <string
       id="ret_mcm_option_enable_troop_customization"
       text="실험적: 외형 컨트롤 활성화" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
       text="외형 맞춤 설정 컨트롤 추가(나이, 키, 몸무게, 체형)." />
     <string
-      id="ret_mcm_option_equipment_change_takes_time"
-      text="병력 장비 변경에는 시간이 걸립니다" />
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="장비 비용 배수" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="아이템 변경을 적용하려면 병력이 영지에서 장비 업그레이드에 시간을 할애해야 합니다." />
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="기본 게임 가격과 비교한 장비 가격 배수." />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier"
-      text="장비 변경 시간 수정자" />
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="장비 시간 배수" />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier_hint"
-      text="장비 변경 시간 수정자." />
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="장비 교체 시간 배수." />
     <string
-      id="ret_mcm_option_equipment_price_modifier"
-      text="장비 가격 수정자" />
+      id="ret_mcm_option_equipping_troops_costs_gold"
+      text="병력 장비에는 골드가 필요함" />
     <string
-      id="ret_mcm_option_equipment_price_modifier_hint"
-      text="기본 게임 가격과 비교한 장비 가격 수정자." />
+      id="ret_mcm_option_equipping_troops_costs_gold_hint"
+      text="병력 장비 업그레이드에는 돈이 필요합니다." />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time"
+      text="병력 장비에는 시간이 걸림" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time_hint"
+      text="아이템 변경을 적용하려면 병력이 영지에서 장비를 업그레이드하는 데 시간을 보내야 합니다." />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
       text="전투 중 주 전투 세트 강제" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="병력은 전투 중에 항상 주 전투 장비 세트를 사용합니다." />
+      text="병력은 전투 중 항상 주 전투 장비를 사용하며 대체 장비는 무시합니다. 전투에서 병력이 잘못된 장비를 사용하는 문제가 발생하는 경우 이 설정을 사용하십시오." />
+    <string
+      id="ret_mcm_option_force_xp_refunds"
+      text="경험치 환불 강제" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="글로벌 병력 편집기 활성화" />
     <string
-      id="ret_mcm_option_global_editor_enabled_disabled_hint"
-      text="글로벌 병력 편집기는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다." />
-    <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="게임 내 모든 병력을 수정할 수 있는 글로벌 병력 편집기를 활성화합니다. 플레이어가 아닌 병력에 문제가 발생하는 경우 비활성화하십시오." />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
-      text="업그레이드 요구 사항에 민간 말 무시" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier"
+      text="골드 전환 비용(등급별)" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
-      text="병력을 업그레이드할 때 탈것 요구 사항을 확인할 때 민간 세트의 말을 무시합니다." />
+      id="ret_mcm_option_gold_conversion_cost_per_tier_hint"
+      text="부대를 수행원으로 전환하는 데 드는 골드 비용(대상 수행원 병력의 등급별)." />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
-      text="바닐라 병력의 업그레이드 요구 사항 유지" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier"
+      text="영향력 전환 비용(등급별)" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
-      text="바닐라 병력은 편집 시 원래의 업그레이드 아이템 요구 사항을 유지합니다." />
+      id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
+      text="부대를 수행원으로 전환하는 데 드는 영향력 비용(대상 수행원 병력의 등급별)." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="기본 수행원 비율 상한" />
@@ -860,53 +878,53 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="정예 병력의 최대 업그레이드 대상 수." />
     <string
-      id="ret_mcm_option_never_require_noble_horse"
-      text="고급 말이 필요하지 않음" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements"
+      text="민간 세트 업그레이드 요구 사항 없음" />
     <string
-      id="ret_mcm_option_never_require_noble_horse_hint"
-      text="병력은 업그레이드에 고급 말이 필요하지 않으며 전쟁 말이면 충분합니다." />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements_hint"
+      text="업그레이드를 위한 탈것 요구 사항을 확인할 때 민간 세트의 모든 말을 무시합니다." />
     <string
-      id="ret_mcm_option_no_kingdom_troops"
-      text="왕국 병력 없음" />
+      id="ret_mcm_option_no_doctrine_requirements"
+      text="교리 요구 사항 없음" />
     <string
-      id="ret_mcm_option_no_kingdom_troops_hint"
-      text="사용자 지정 왕국 병력 트리가 비활성화됩니다." />
+      id="ret_mcm_option_no_doctrine_requirements_hint"
+      text="특수 병력(민병대, 마을 주민, 캐러밴 경비원)은 적절한 교리 없이 획득할 수 있습니다." />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="자신의 문화 해제 보너스" />
+      id="ret_mcm_option_no_fief_requirements"
+      text="영지 요구 사항 없음" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="킬이 커스텀 병력 문화의 아이템도 해제하는지 여부." />
+      id="ret_mcm_option_no_fief_requirements_hint"
+      text="영지를 소유하지 않고도 병력을 잠금 해제할 수 있습니다." />
     <string
-      id="ret_mcm_option_pay_for_equipment"
-      text="병력 장비 비용 지불" />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements"
+      text="귀족 말 업그레이드 요구 사항 없음" />
     <string
-      id="ret_mcm_option_pay_for_equipment_hint"
-      text="병력 장비 업그레이드는 돈이 듭니다." />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements_hint"
+      text="병력은 업그레이드에 귀족 말을 필요로 하지 않으며 전쟁 말이면 충분합니다." />
     <string
-      id="ret_mcm_option_recruit_anywhere"
-      text="어디서든 가문 병력 모집" />
+      id="ret_mcm_option_player_culture_unlock_bonus"
+      text="플레이어 문화 잠금 해제 보너스" />
     <string
-      id="ret_mcm_option_recruit_anywhere_hint"
-      text="플레이어는 모든 정착지에서 가문 병력을 모집할 수 있습니다." />
+      id="ret_mcm_option_player_culture_unlock_bonus_hint"
+      text="아이템 잠금 해제 진행 상황이 플레이어 문화의 임의 아이템에도 진행 상황을 추가하는지 여부." />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease"
-      text="감소 시 XP 환불" />
+      id="ret_mcm_option_rank_up_cost_per_tier"
+      text="계급 상승 비용(등급별)" />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="병력의 기술을 감소시킬 때 XP 비용을 환불합니다." />
+      id="ret_mcm_option_rank_up_cost_per_tier_hint"
+      text="수행원 병력의 등급별 계급 상승 비용." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="해제를 위한 필요 폐기 아이템" />
+      id="ret_mcm_option_required_discards_per_item"
+      text="아이템당 필요한 폐기 횟수" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
-      text="아이템을 해제하려면 몇 번 폐기해야 하는지." />
+      id="ret_mcm_option_required_discards_per_item_hint"
+      text="아이템을 잠금 해제하려면 아이템을 몇 번 폐기해야 하는지." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="해제를 위한 필요 킬 수" />
+      id="ret_mcm_option_required_kills_per_item"
+      text="아이템당 필요한 킬 수" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="아이템을 해제하려면 몇 명의 적을 처치해야 하는지." />
+      id="ret_mcm_option_required_kills_per_item_hint"
+      text="아이템을 착용한 적을 몇 명 물리쳐야 아이템을 잠금 해제할 수 있는지." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="편집을 영지로 제한" />
@@ -918,25 +936,19 @@
       text="아이템을 마을 인벤토리로 제한" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
-      text="플레이어는 마을 인벤토리에서 사용할 수 있는 아이템만 구매할 수 있습니다." />
+      text="병력 장비는 현재 마을 인벤토리에서 사용할 수 있는 경우에만 구매할 수 있습니다." />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
-      text="수행원 골드 전환 비용 (등급당)" />
+      id="ret_mcm_option_restrict_to_owned_settlements"
+      text="소유한 정착지로 제한" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
-      text="수행원 부대의 등급당 전환 비용." />
+      id="ret_mcm_option_restrict_to_owned_settlements_hint"
+      text="사용자 정의 병력은 플레이어의 가문이나 왕국이 소유한 정착지에서만 모집할 수 있습니다." />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
-      text="수행원 영향력 전환 비용 (등급당)" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements"
+      text="동일 문화 정착지로 제한" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
-      text="수행원 부대의 등급당 전환 비용." />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="등급당 수행원 승급 비용" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="수행원 승급 시 등급당 비용." />
+      id="ret_mcm_option_restrict_to_same_culture_settlements_hint"
+      text="다른 문화의 정착지에 있는 자원봉사자는 사용자 정의 병력으로 대체되지 않습니다." />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="수행원 스킬 상한 보너스" />
@@ -980,47 +992,35 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="스킬 증가 시 포인트당 경험치 비용." />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture"
-      text="올바른 문화의 자원봉사자만 교체" />
+      id="ret_mcm_option_training_time_multiplier"
+      text="훈련 시간 배수" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture_hint"
-      text="다른 문화의 정착지에 있는 자원봉사자는 커스텀 병력으로 교체되지 않습니다." />
+      id="ret_mcm_option_training_time_multiplier_hint"
+      text="병력 훈련 시간에 대한 배수." />
     <string
-      id="ret_mcm_option_swap_proportion"
-      text="자원봉사자 교체 비율" />
-    <string
-      id="ret_mcm_option_swap_proportion_hint"
-      text="커스텀 병력으로 교체되는 자원봉사자의 비율." />
-    <string
-      id="ret_mcm_option_training_takes_time"
+      id="ret_mcm_option_training_troops_takes_time"
       text="병력 훈련에는 시간이 걸립니다" />
     <string
-      id="ret_mcm_option_training_takes_time_hint"
+      id="ret_mcm_option_training_troops_takes_time_hint"
       text="스킬 향상을 적용하려면 병력이 영지에서 훈련하는 데 시간을 보내야 합니다." />
     <string
-      id="ret_mcm_option_training_time_modifier"
-      text="훈련 시간 수정자" />
+      id="ret_mcm_option_unlock_items_from_discards"
+      text="버리기로 아이템 잠금 해제" />
     <string
-      id="ret_mcm_option_training_time_modifier_hint"
-      text="병력 훈련 시간에 대한 수정자." />
+      id="ret_mcm_option_unlock_items_from_discards_hint"
+      text="장비를 버려서 잠금 해제하세요." />
     <string
-      id="ret_mcm_option_unlock_from_culture"
-      text="문화에서 해제" />
+      id="ret_mcm_option_unlock_items_from_kills"
+      text="킬로 아이템 잠금 해제" />
     <string
-      id="ret_mcm_option_unlock_from_culture_hint"
-      text="플레이어 문화와 플레이어가 이끄는 왕국 문화 장비는 항상 이용 가능." />
+      id="ret_mcm_option_unlock_items_from_kills_hint"
+      text="장비를 착용한 적을 물리쳐서 장비의 잠금을 해제하세요." />
     <string
-      id="ret_mcm_option_unlock_from_discarded"
-      text="버려진 아이템에서 해제" />
+      id="ret_mcm_option_vanilla_upgrade_requirements"
+      text="바닐라 업그레이드 요구사항" />
     <string
-      id="ret_mcm_option_unlock_from_discarded_hint"
-      text="장비를 버려 장비를 해제." />
-    <string
-      id="ret_mcm_option_unlock_from_kills"
-      text="킬로 해제" />
-    <string
-      id="ret_mcm_option_unlock_from_kills_hint"
-      text="착용한 적을 처치하여 장비를 해제." />
+      id="ret_mcm_option_vanilla_upgrade_requirements_hint"
+      text="바닐라 병력은 편집 시 원래의 업그레이드 아이템 요구사항을 유지합니다." />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="봉신 영주가 커스텀 병력 모집" />
@@ -1036,6 +1036,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="장비" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="장비 잠금 해제" />
     <string
       id="ret_mcm_section_general"
       text="일반" />
@@ -1064,11 +1067,11 @@
       id="ret_mcm_section_skills"
       text="기술" />
     <string
+      id="ret_mcm_section_troop_unlocks"
+      text="병력 잠금 해제" />
+    <string
       id="ret_mcm_section_ui"
       text="사용자 인터페이스" />
-    <string
-      id="ret_mcm_section_unlocks"
-      text="해제" />
     <string
       id="ret_name_header_text"
       text="이름" />
@@ -1375,6 +1378,9 @@
     <string
       id="ret_royal_patronage_description"
       text="캐러밴 및 마을 주민 병력을 잠금 해제합니다." />
+    <string
+      id="ret_royal_patronage_disabled_message"
+      text="비활성화: 구성에서 특수 부대가 잠금 해제되었습니다." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="커스텀 왕국 병력 100명을 모집하십시오." />

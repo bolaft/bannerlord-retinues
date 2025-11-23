@@ -74,7 +74,7 @@ namespace Retinues.Features.Unlocks
         private void OnMissionStarted(IMission mission)
         {
             // Return if the feature is disabled
-            if (!Config.UnlockFromKills)
+            if (!Config.UnlockItemsFromKills)
                 return;
 
             Log.Debug("Adding UnlocksMissionBehavior.");
@@ -109,7 +109,7 @@ namespace Retinues.Features.Unlocks
         private void OnItemsDiscardedByPlayer(ItemRoster roster)
         {
             // Return if the feature is disabled
-            if (!Config.UnlockFromDiscards)
+            if (!Config.UnlockItemsFromDiscards)
                 return;
 
             if (roster == null || roster.Count == 0)
@@ -133,7 +133,7 @@ namespace Retinues.Features.Unlocks
 
                 // Discard progress ratio
                 float discardProgressRatio =
-                    (float)Config.KillsForUnlock / Config.DiscardsForUnlock;
+                    (float)Config.RequiredKillsPerItem / Config.RequiredDiscardsPerItem;
 
                 // Progress per physical item
                 int progress = amount * (int)Math.Ceiling(discardProgressRatio);
@@ -172,7 +172,7 @@ namespace Retinues.Features.Unlocks
 
             return Instance.ProgressByItemId.TryGetValue(itemId, out int count)
                 && count > 0
-                && count < Math.Max(1, Config.KillsForUnlock);
+                && count < Math.Max(1, Config.RequiredKillsPerItem);
         }
 
         /// <summary>
@@ -297,14 +297,14 @@ namespace Retinues.Features.Unlocks
         )
         {
             // Only add culture bonuses if enabled
-            addCultureBonuses = addCultureBonuses && Config.OwnCultureUnlockBonuses;
+            addCultureBonuses = addCultureBonuses && Config.PlayerCultureUnlockBonus;
 
             Log.Info($"AddBattleCounts: {battleCounts.Count} items to process.");
 
             if (battleCounts == null || battleCounts.Count == 0)
                 return;
 
-            int threshold = Math.Max(1, Config.KillsForUnlock);
+            int threshold = Math.Max(1, Config.RequiredKillsPerItem);
 
             Dictionary<int, int> ownCultureBonuses = [];
 

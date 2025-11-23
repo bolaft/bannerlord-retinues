@@ -67,7 +67,7 @@ namespace Retinues.Managers
             if (retinue == null || !retinue.IsRetinue)
                 return 0;
             int tier = retinue.Tier <= 0 ? 1 : retinue.Tier;
-            return tier * Config.RetinueGoldConversionCostPerTier;
+            return tier * Config.GoldConversionCostPerTier;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Retinues.Managers
             if (retinue == null || !retinue.IsRetinue)
                 return 0;
             int tier = retinue.Tier <= 0 ? 1 : retinue.Tier;
-            return tier * Config.RetinueInfluenceConversionCostPerTier;
+            return tier * Config.InfluenceConversionCostPerTier;
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Retinues.Managers
         public static int RankUpCost(WCharacter retinue)
         {
             int tier = retinue?.Tier ?? 1;
-            return tier * Config.RetinueRankUpCostPerTier;
+            return tier * Config.RankUpCostPerTier;
         }
 
         /// <summary>

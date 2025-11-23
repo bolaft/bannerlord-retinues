@@ -309,7 +309,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public int TrainingRequired => State.SkillData?.Sum(kv => kv.Value.Train?.Remaining) ?? 0;
 
         [DataSourceProperty]
-        public bool TrainingTakesTime => Config.TrainingTakesTime && !ClanScreen.IsStudioMode;
+        public bool TrainingTakesTime => Config.TrainingTroopsTakesTime && !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]
         public string TrainingRequiredText

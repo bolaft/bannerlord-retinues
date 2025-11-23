@@ -33,7 +33,7 @@ namespace Retinues.Troops
             if (faction == null)
                 return; // Cannot ensure troops exist for null (no kingdom?) faction.
 
-            if (faction.IsPlayerKingdom && Config.NoKingdomTroops)
+            if (faction.IsPlayerKingdom && Config.DisableKingdomTroops)
                 return;
 
             var createdNonRetinue = UpdateFactionTroops(faction);
@@ -69,12 +69,9 @@ namespace Retinues.Troops
             EnsureRetinueTroops(faction);
 
             // Player clan without fiefs and no recruit-anywhere: skip non-retinue troops.
-            if (ShouldSkipNonRetinueForPlayerClan(faction))
+            if (!faction.HasFiefs && !Config.NoFiefRequirements)
             {
-                Log.Debug(
-                    "Skipping non-retinue troop initialization for player clan without fiefs "
-                        + "and recruit-anywhere disabled."
-                );
+                Log.Debug("Skipping non-retinue troop initialization for fiefless faction.");
                 return false;
             }
 
@@ -85,18 +82,6 @@ namespace Retinues.Troops
             createdAnyNonRetinue |= EnsureSpecialTroops(faction);
 
             return createdAnyNonRetinue;
-        }
-
-        /// <summary>
-        /// Determines whether we should skip creating non-retinue troops for the player clan.
-        /// </summary>
-        private static bool ShouldSkipNonRetinueForPlayerClan(WFaction faction)
-        {
-            if (faction != Player.Clan)
-                return false;
-
-            var recruitAnywhereEnabled = Config.RecruitAnywhere == true;
-            return !faction.HasFiefs && !recruitAnywhereEnabled;
         }
 
         /// <summary>
@@ -135,9 +120,8 @@ namespace Retinues.Troops
             if (hasBasic && hasElite)
                 return false;
 
-            bool canInitClanTroops = faction.HasFiefs || Config.RecruitAnywhere == true;
-            if (!canInitClanTroops)
-                return false;
+            if (!faction.HasFiefs && !Config.NoFiefRequirements)
+                return false; // Cannot create regular troops for fiefless factions.
 
             // Local function to create all missing troops
             void CreateAllTroops(bool copyWholeTree)
@@ -183,7 +167,7 @@ namespace Retinues.Troops
         /// </summary>
         private static bool EnsureMilitiaTroops(WFaction faction)
         {
-            if (!DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
+            if (!DoctrineAPI.IsDoctrineUnlocked<CulturalPride>() && !Config.NoDoctrineRequirements)
                 return false;
 
             bool hasMilitiaMelee = faction.MilitiaMelee != null;
@@ -232,7 +216,7 @@ namespace Retinues.Troops
         /// </summary>
         private static bool EnsureSpecialTroops(WFaction faction)
         {
-            if (!DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+            if (!DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>() && !Config.NoDoctrineRequirements)
                 return false;
 
             var culture = faction.Culture;

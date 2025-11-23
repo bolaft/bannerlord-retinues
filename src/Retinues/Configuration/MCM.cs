@@ -301,9 +301,10 @@ namespace Retinues.Configuration
                 L.S("mcm_section_doctrines", "Doctrines"),
                 L.S("mcm_section_ui", "User Interface"),
                 L.S("mcm_section_retinues", "Retinues"),
+                L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
                 L.S("mcm_section_recruitment", "Recruitment"),
+                L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
                 L.S("mcm_section_equipment", "Equipment"),
-                L.S("mcm_section_unlocks", "Unlocks"),
                 L.S("mcm_section_skills", "Skills"),
                 L.S("mcm_section_restrictions", "Restrictions"),
                 L.S("mcm_section_skill_caps", "Skill Caps"),
@@ -334,9 +335,6 @@ namespace Retinues.Configuration
                             var id = opt.Key;
                             var name = opt.Name;
 
-                            // select hint (disabled or regular)
-                            var hint = opt.IsDisabled ? opt.DisabledHint : opt.Hint;
-
                             // If disabled, force the value and skip adding the control entirely
                             if (opt.IsDisabled)
                             {
@@ -357,7 +355,7 @@ namespace Retinues.Configuration
                                         ),
                                         b =>
                                             b.SetOrder(order++)
-                                                .SetHintText(hint)
+                                                .SetHintText(opt.Hint)
                                                 .SetRequireRestart(opt.RequiresRestart)
                                     );
                                     break;
@@ -378,7 +376,7 @@ namespace Retinues.Configuration
                                         ),
                                         b =>
                                             b.SetOrder(order++)
-                                                .SetHintText(hint)
+                                                .SetHintText(opt.Hint)
                                                 .SetRequireRestart(opt.RequiresRestart)
                                     );
                                     break;
@@ -400,7 +398,7 @@ namespace Retinues.Configuration
                                         ),
                                         b =>
                                             b.SetOrder(order++)
-                                                .SetHintText(hint)
+                                                .SetHintText(opt.Hint)
                                                 .SetRequireRestart(opt.RequiresRestart)
                                     );
                                     break;
@@ -415,7 +413,7 @@ namespace Retinues.Configuration
                                         ),
                                         b =>
                                             b.SetOrder(order++)
-                                                .SetHintText(hint)
+                                                .SetHintText(opt.Hint)
                                                 .SetRequireRestart(opt.RequiresRestart)
                                     );
                                     break;
@@ -634,11 +632,7 @@ namespace Retinues.Configuration
 
                         if (opt.IsDisabled)
                         {
-                            // When disabled, value is always the disabled override
-                            var disabledHint = opt.DisabledHint;
-                            Log.Info(
-                                $"{marker} {label} = {currentText} (DISABLED; override; reason: {disabledHint})"
-                            );
+                            Log.Info($"{marker} {label} = {currentText} (DISABLED; override)");
                         }
                         else
                         {

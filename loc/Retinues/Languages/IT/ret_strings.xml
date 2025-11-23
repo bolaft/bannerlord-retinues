@@ -263,6 +263,9 @@
       id="ret_cultural_pride_description"
       text="Sblocca truppe di milizia personalizzate." />
     <string
+      id="ret_cultural_pride_disabled_message"
+      text="Disabilitato: truppe speciali sbloccate dalla configurazione." />
+    <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Ottieni 100 uccisioni in battaglia con truppe senza equipaggiamento straniero." />
     <string
@@ -707,6 +710,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Importa truppe da XML" />
     <string
+      id="ret_mcm_option_all_culture_equipment_unlocked"
+      text="Tutto l’Equipaggiamento Culturale Sbloccato" />
+    <string
+      id="ret_mcm_option_all_culture_equipment_unlocked_hint"
+      text="Gli oggetti culturali del clan e del regno del giocatore sono sempre disponibili." />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Tutto l’Equipaggiamento Sbloccato" />
     <string
@@ -728,32 +737,23 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Differenza massima di livello consentita tra truppe ed equipaggiamento." />
     <string
-      id="ret_mcm_option_auto_compare_items"
-      text="Confronta Oggetti Automaticamente" />
-    <string
-      id="ret_mcm_option_auto_compare_items_hint"
-      text="Aggiunge un indicatore per mostrare se un oggetto è migliore o peggiore di quello equipaggiato durante la navigazione nell’equipaggiamento delle truppe." />
-    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Costo Base PE Abilità" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Costo base in PE per aumentare un’abilità." />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops"
-      text="Troppe di Clan su Troppe del Regno" />
+      id="ret_mcm_option_copy_all_sets_on_unlock"
+      text="Copia Tutti i Set al Sblocco" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
-      text="Se un feudo è sia un feudo di clan che un feudo del regno, le truppe di clan avranno la priorità sulle truppe del regno." />
+      id="ret_mcm_option_copy_all_sets_on_unlock_hint"
+      text="Quando si sblocca una nuova truppa, copia tutti i set di equipaggiamento dalla truppa originale invece dei soli set da battaglia principali e civili." />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="I set alternativi sono disabilitati a causa di incompatibilità con altri mod attivati." />
+      id="ret_mcm_option_custom_volunteer_proportion"
+      text="Proporzione di Volontari Personalizzati" />
     <string
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="Copia tutti i set durante la clonazione." />
-    <string
-      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
-      text="Durante la clonazione dell’equipaggiamento delle truppe, copia tutti i set di equipaggiamento invece di un solo set da battaglia e un set civile." />
+      id="ret_mcm_option_custom_volunteer_proportion_hint"
+      text="Probabilità che ogni volontario vanilla venga sostituito da una truppa personalizzata (0 = mai, 1 = sempre)." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modalità Debug" />
@@ -761,10 +761,16 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Genera molti più log (può influire sulle prestazioni)." />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1"
-      text="Vietare Cavalcature per Livello 1" />
+      id="ret_mcm_option_disable_kingdom_troops"
+      text="Disabilita le Truppe del Regno" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
+      id="ret_mcm_option_disable_kingdom_troops_hint"
+      text="L’albero delle truppe personalizzate del regno sarà disabilitato e verranno utilizzate le truppe del clan." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops"
+      text="Vietare le cavalcature per le truppe di livello 1" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Le truppe di livello 1 non possono avere cavalcature." />
     <string
       id="ret_mcm_option_enable_doctrines"
@@ -785,56 +791,68 @@
       id="ret_mcm_option_enable_feat_requirements_hint"
       text="Abilita i requisiti di impresa per sbloccare le dottrine (avviso: salvare con le imprese disabilitate cancellerà tutti i dati delle imprese)." />
     <string
+      id="ret_mcm_option_enable_item_comparison_icons"
+      text="Abilita Icone di Confronto Oggetti" />
+    <string
+      id="ret_mcm_option_enable_item_comparison_icons_hint"
+      text="Aggiunge icone di confronto alla lista dell’equipaggiamento per mostrare se un oggetto è migliore o peggiore di quello equipaggiato durante la navigazione nell’equipaggiamento delle truppe." />
+    <string
       id="ret_mcm_option_enable_troop_customization"
       text="Sperimentale: Abilita Controlli Aspetto" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
       text="Aggiunge controlli di personalizzazione dell’aspetto (età, altezza, peso, corporatura)." />
     <string
-      id="ret_mcm_option_equipment_change_takes_time"
-      text="Cambiare l’Equipaggiamento delle Truppe Richiede Tempo" />
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="Moltiplicatore del Costo dell’Equipaggiamento" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time_hint"
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="Moltiplicatore per i prezzi dell’equipaggiamento rispetto ai prezzi del gioco base." />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Moltiplicatore del Tempo di Equipaggiamento" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Moltiplicatore per il tempo di cambio dell’equipaggiamento." />
+    <string
+      id="ret_mcm_option_equipping_troops_costs_gold"
+      text="Equipaggiare le Truppe Costa Oro" />
+    <string
+      id="ret_mcm_option_equipping_troops_costs_gold_hint"
+      text="L’aggiornamento dell’equipaggiamento delle truppe costa denaro." />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time"
+      text="Equipaggiare le Truppe Richiede Tempo" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time_hint"
       text="Per applicare le modifiche agli oggetti, le truppe devono trascorrere del tempo ad aggiornare l’equipaggiamento in un feudo." />
-    <string
-      id="ret_mcm_option_equipment_change_time_modifier"
-      text="Modificatore del Tempo di Cambio Equipaggiamento" />
-    <string
-      id="ret_mcm_option_equipment_change_time_modifier_hint"
-      text="Modificatore per il tempo di cambio equipaggiamento." />
-    <string
-      id="ret_mcm_option_equipment_price_modifier"
-      text="Modificatore del Prezzo dell’Equipaggiamento" />
-    <string
-      id="ret_mcm_option_equipment_price_modifier_hint"
-      text="Modificatore per il prezzo dell’equipaggiamento rispetto ai prezzi del gioco base." />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
       text="Forza il Set di Battaglia Principale in Combattimento" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="Le truppe usano sempre il loro set di equipaggiamento da battaglia principale in combattimento." />
+      text="Le truppe usano sempre il loro equipaggiamento di battaglia principale in combattimento, ignorando gli equipaggiamenti alternativi. Usa questa impostazione se riscontri problemi con le truppe che utilizzano equipaggiamenti errati in battaglia." />
+    <string
+      id="ret_mcm_option_force_xp_refunds"
+      text="Forza Rimborsi PE" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Abilita Editor Globale delle Truppe" />
     <string
-      id="ret_mcm_option_global_editor_enabled_disabled_hint"
-      text="L’editor globale delle truppe è disabilitato a causa di problemi di compatibilità con altri mod attivati." />
-    <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="Abilita l’editor globale delle truppe per modificare qualsiasi truppa nel gioco. Disabilitalo se riscontri problemi con le truppe non controllate dal giocatore." />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
-      text="Ignora il Cavallo Civile per i Requisiti di Upgrade" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier"
+      text="Costo di Conversione in Oro (Per Livello)" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
-      text="Quando si verificano i requisiti di cavalcatura durante l’upgrade delle truppe, ignorare il cavallo del set civile." />
+      id="ret_mcm_option_gold_conversion_cost_per_tier_hint"
+      text="Costo in oro per convertire una truppa in un seguito, per livello della truppa del seguito di destinazione." />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
-      text="Mantieni i Requisiti di Upgrade per le Truppe Vanilla" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier"
+      text="Costo di Conversione in Influenza (Per Livello)" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
-      text="Le truppe vanilla mantengono i loro requisiti originali di oggetti di upgrade quando vengono modificate." />
+      id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
+      text="Costo in influenza per convertire una truppa in un seguito, per livello della truppa del seguito di destinazione." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Rapporto Massimo Seguito Base" />
@@ -860,52 +878,52 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Numero massimo di obiettivi di upgrade per le truppe élite." />
     <string
-      id="ret_mcm_option_never_require_noble_horse"
-      text="Non Richiedere Mai il Cavallo Nobile" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements"
+      text="Nessun Requisito di Upgrade per Set Civili" />
     <string
-      id="ret_mcm_option_never_require_noble_horse_hint"
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements_hint"
+      text="Quando si verificano i requisiti di montatura per gli upgrade, ignorare qualsiasi cavallo nei set civili." />
+    <string
+      id="ret_mcm_option_no_doctrine_requirements"
+      text="Nessun Requisito di Dottrina" />
+    <string
+      id="ret_mcm_option_no_doctrine_requirements_hint"
+      text="Le truppe speciali (milizie, villaggi, guardie delle carovane) possono essere acquisite senza le dottrine appropriate." />
+    <string
+      id="ret_mcm_option_no_fief_requirements"
+      text="Nessun Requisito di Feudo" />
+    <string
+      id="ret_mcm_option_no_fief_requirements_hint"
+      text="Le truppe possono essere sbloccate senza dover possedere un feudo." />
+    <string
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements"
+      text="Nessun Requisito di Upgrade di Cavallo Nobile" />
+    <string
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements_hint"
       text="Le truppe non richiedono mai cavalli nobili per gli upgrade, un cavallo da guerra è sempre sufficiente." />
     <string
-      id="ret_mcm_option_no_kingdom_troops"
-      text="Nessuna Troppa del Regno" />
+      id="ret_mcm_option_player_culture_unlock_bonus"
+      text="Bonus di Sblocco della Cultura del Giocatore" />
     <string
-      id="ret_mcm_option_no_kingdom_troops_hint"
-      text="L’albero delle truppe del regno personalizzato sarà disabilitato." />
+      id="ret_mcm_option_player_culture_unlock_bonus_hint"
+      text="Se la progressione di sblocco degli oggetti aggiunge anche progressi agli oggetti casuali della cultura del giocatore." />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Bonus di Sblocco della Propria Cultura" />
+      id="ret_mcm_option_rank_up_cost_per_tier"
+      text="Costo di Avanzamento di Grado (Per Livello)" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="Determina se le uccisioni sbloccano anche oggetti della cultura della truppa personalizzata." />
+      id="ret_mcm_option_rank_up_cost_per_tier_hint"
+      text="Costo di avanzamento di grado per le truppe del seguito per livello." />
     <string
-      id="ret_mcm_option_pay_for_equipment"
-      text="Pagare l’Equipaggiamento delle Truppe" />
+      id="ret_mcm_option_required_discards_per_item"
+      text="Scarti Necessari Per Oggetto" />
     <string
-      id="ret_mcm_option_pay_for_equipment_hint"
-      text="Aggiornare l’equipaggiamento delle truppe costa denaro." />
-    <string
-      id="ret_mcm_option_recruit_anywhere"
-      text="Reclutare Truppe del Clan Ovunque" />
-    <string
-      id="ret_mcm_option_recruit_anywhere_hint"
-      text="Il giocatore può reclutare truppe del clan in qualsiasi insediamento." />
-    <string
-      id="ret_mcm_option_refund_xp_on_decrease"
-      text="Rimborso dell&apos;XP in caso di diminuzione" />
-    <string
-      id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="Quando si diminuisce la competenza di una truppa, rimborsare il costo in XP." />
-    <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="Articoli Scartati Richiesti per Sbloccare" />
-    <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_per_item_hint"
       text="Quante volte un oggetto deve essere scartato per sbloccarlo." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="Uccisioni Richieste per Sblocco" />
+      id="ret_mcm_option_required_kills_per_item"
+      text="Uccisioni Necessarie Per Oggetto" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_per_item_hint"
       text="Quanti nemici che indossano un oggetto devono essere sconfitti per sbloccarlo." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
@@ -918,25 +936,19 @@
       text="Restringi gli oggetti all&apos;inventario della città" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
-      text="Il giocatore può acquistare solo gli oggetti disponibili nell&apos;inventario della città." />
+      text="L&apos;equipaggiamento delle truppe può essere acquistato solo se disponibile nell&apos;inventario della città attuale." />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
-      text="Costo di Conversione in Oro del Seguito per Livello" />
+      id="ret_mcm_option_restrict_to_owned_settlements"
+      text="Restringi agli insediamenti posseduti" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
-      text="Costo di conversione per le truppe del seguito per livello." />
+      id="ret_mcm_option_restrict_to_owned_settlements_hint"
+      text="Le truppe personalizzate possono essere reclutate solo negli insediamenti posseduti dal clan o dal regno del giocatore." />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
-      text="Costo di Conversione in Influenza del Seguito per Livello" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements"
+      text="Restringi agli insediamenti della stessa cultura" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
-      text="Costo di conversione per le truppe del seguito per livello." />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="Costo di Avanzamento del Seguito per Livello" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="Costo di avanzamento per livello per le truppe del seguito." />
+      id="ret_mcm_option_restrict_to_same_culture_settlements_hint"
+      text="I volontari negli insediamenti di una cultura diversa non saranno sostituiti da truppe personalizzate." />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Bonus al Limite di Abilità del Seguito" />
@@ -980,47 +992,35 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Costo PE scalabile per ogni punto di abilità aggiuntivo." />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture"
-      text="Scambia Volontari Solo per la Cultura Corretta" />
+      id="ret_mcm_option_training_time_multiplier"
+      text="Moltiplicatore del Tempo di Addestramento" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture_hint"
-      text="I volontari negli insediamenti di una cultura diversa non saranno sostituiti da truppe personalizzate." />
+      id="ret_mcm_option_training_time_multiplier_hint"
+      text="Moltiplicatore per il tempo di addestramento delle truppe." />
     <string
-      id="ret_mcm_option_swap_proportion"
-      text="Proporzione di Scambio dei Volontari" />
-    <string
-      id="ret_mcm_option_swap_proportion_hint"
-      text="Proporzione di volontari che vengono scambiati con truppe personalizzate." />
-    <string
-      id="ret_mcm_option_training_takes_time"
+      id="ret_mcm_option_training_troops_takes_time"
       text="L&apos;Addestramento delle Truppe Richiede Tempo" />
     <string
-      id="ret_mcm_option_training_takes_time_hint"
+      id="ret_mcm_option_training_troops_takes_time_hint"
       text="Per applicare gli aumenti di abilità, le truppe devono trascorrere del tempo ad addestrarsi in un feudo." />
     <string
-      id="ret_mcm_option_training_time_modifier"
-      text="Modificatore del Tempo di Addestramento" />
+      id="ret_mcm_option_unlock_items_from_discards"
+      text="Sblocca gli Oggetti Scartandoli" />
     <string
-      id="ret_mcm_option_training_time_modifier_hint"
-      text="Modificatore per il tempo di addestramento delle truppe." />
+      id="ret_mcm_option_unlock_items_from_discards_hint"
+      text="Sblocca l&apos;equipaggiamento scartandolo." />
     <string
-      id="ret_mcm_option_unlock_from_culture"
-      text="Sblocco da Cultura" />
+      id="ret_mcm_option_unlock_items_from_kills"
+      text="Sblocca gli Oggetti Uccidendo" />
     <string
-      id="ret_mcm_option_unlock_from_culture_hint"
-      text="L’equipaggiamento della cultura del giocatore e del regno da lui guidato è sempre disponibile." />
+      id="ret_mcm_option_unlock_items_from_kills_hint"
+      text="Sblocca l&apos;equipaggiamento sconfiggendo i nemici che lo indossano." />
     <string
-      id="ret_mcm_option_unlock_from_discarded"
-      text="Sblocco da Oggetti Scartati" />
+      id="ret_mcm_option_vanilla_upgrade_requirements"
+      text="Requisiti di Upgrade Vanilla" />
     <string
-      id="ret_mcm_option_unlock_from_discarded_hint"
-      text="Sblocca equipaggiamento scartandolo." />
-    <string
-      id="ret_mcm_option_unlock_from_kills"
-      text="Sblocco da Uccisioni" />
-    <string
-      id="ret_mcm_option_unlock_from_kills_hint"
-      text="Sblocca equipaggiamento sconfiggendo i nemici che lo indossano." />
+      id="ret_mcm_option_vanilla_upgrade_requirements_hint"
+      text="Le truppe vanilla mantengono i loro requisiti originali per gli oggetti di upgrade quando vengono modificate." />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="I Signori Vassalli Reclutano Truppe Personalizzate" />
@@ -1036,6 +1036,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="Equipaggiamento" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="Sblocchi dell&apos;Equipaggiamento" />
     <string
       id="ret_mcm_section_general"
       text="Generale" />
@@ -1064,11 +1067,11 @@
       id="ret_mcm_section_skills"
       text="Abilità" />
     <string
+      id="ret_mcm_section_troop_unlocks"
+      text="Sblocchi delle Truppe" />
+    <string
       id="ret_mcm_section_ui"
       text="Interfaccia Utente" />
-    <string
-      id="ret_mcm_section_unlocks"
-      text="Sblocchi" />
     <string
       id="ret_name_header_text"
       text="Nome" />
@@ -1375,6 +1378,9 @@
     <string
       id="ret_royal_patronage_description"
       text="Sblocca le truppe delle carovane e dei villaggi." />
+    <string
+      id="ret_royal_patronage_disabled_message"
+      text="Disabilitato: truppe speciali sbloccate dalla configurazione." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recluta 100 truppe personalizzate del regno." />

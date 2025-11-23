@@ -168,7 +168,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     return L.T("unlock_progress_text", "Unlocking ({PROGRESS}%)")
                         .SetTextVariable(
                             "PROGRESS",
-                            (int)((float)Progress / Config.KillsForUnlock * 100)
+                            (int)((float)Progress / Config.RequiredKillsPerItem * 100)
                         )
                         .ToString();
 
@@ -205,7 +205,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public bool ShowInStockText =>
             !ClanScreen.IsStudioMode
-            && Config.PayForEquipment
+            && Config.EquippingTroopsCostsGold
             && IsEnabled
             && !IsSelected
             && !IsEquipped
@@ -215,7 +215,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public bool ShowValue =>
             !ClanScreen.IsStudioMode
-            && Config.PayForEquipment
+            && Config.EquippingTroopsCostsGold
             && IsEnabled
             && !IsSelected
             && !IsEquipped
@@ -266,7 +266,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             PositiveChevrons = 0;
             NegativeChevrons = 0;
 
-            if (!Config.AutoCompareItems)
+            if (!Config.EnableItemComparisonIcons)
                 return;
 
             if (!IsEnabled)
@@ -408,7 +408,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             }
 
             // Context restriction (only for instant mode)
-            if (!Config.EquipmentChangeTakesTime)
+            if (!Config.EquippingTroopsTakesTime)
                 if (
                     !ContextManager.IsAllowedInContextWithPopup(
                         State.Troop,
@@ -480,7 +480,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 // That’s exactly when this unequip reduces required copies (deltaRemove > 0).
                 if (
                     !ClanScreen.IsStudioMode
-                    && Config.EquipmentChangeTakesTime
+                    && Config.EquippingTroopsTakesTime
                     && equippedItem != null
                 )
                 {

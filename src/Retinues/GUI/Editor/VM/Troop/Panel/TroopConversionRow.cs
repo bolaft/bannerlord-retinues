@@ -108,10 +108,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public bool HasPendingConversions => Amount != 0;
 
         [DataSourceProperty]
-        public bool ShowGoldCost => Config.RetinueGoldConversionCostPerTier > 0;
+        public bool ShowGoldCost => Config.GoldConversionCostPerTier > 0;
 
         [DataSourceProperty]
-        public bool ShowInfluenceCost => Config.RetinueInfluenceConversionCostPerTier > 0;
+        public bool ShowInfluenceCost => Config.InfluenceConversionCostPerTier > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //

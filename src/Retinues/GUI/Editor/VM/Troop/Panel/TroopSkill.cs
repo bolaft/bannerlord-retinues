@@ -141,7 +141,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /// </summary>
         private void Modify(bool increment)
         {
-            if (Config.TrainingTakesTime == false) // Only check in instant training mode
+            if (Config.TrainingTroopsTakesTime == false) // Only check in instant training mode
                 if (
                     ContextManager.IsAllowedInContextWithPopup(
                         State.Troop,
@@ -153,7 +153,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             bool skillsAreFree =
                 ClanScreen.IsStudioMode
                 || (Config.BaseSkillXpCost == 0 && Config.SkillXpCostPerPoint == 0);
-            bool skillsAreInstant = ClanScreen.IsStudioMode || Config.TrainingTakesTime == false;
+            bool skillsAreInstant =
+                ClanScreen.IsStudioMode || Config.TrainingTroopsTakesTime == false;
             bool capped = !skillsAreFree || !skillsAreInstant; // No batch cap if skills are free and instant
 
             // Local function to perform the actual modification
@@ -176,7 +177,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             if (
                 !ClanScreen.IsStudioMode // No warning in Studio Mode
                 && !DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() // No warning if Adaptive Training is unlocked
-                && !Config.RefundXpOnDecrease // No warning if refunds are enabled
+                && !Config.ForceXpRefunds // No warning if refunds are enabled
                 && !increment // Only warn on decrement
                 && !IsStaged // No warning if removing staged points
                 && !PlayerWarnedAboutRetraining // No warning if already warned this session

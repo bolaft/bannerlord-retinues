@@ -263,6 +263,9 @@
       id="ret_cultural_pride_description"
       text="解锁自定义民兵部队。" />
     <string
+      id="ret_cultural_pride_disabled_message"
+      text="已禁用：从配置中解锁特殊部队。" />
+    <string
       id="ret_cultural_pride_full_set_100_kills"
       text="仅使用无外来装备的部队在战斗中获得100击杀。" />
     <string
@@ -707,6 +710,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="从XML导入部队" />
     <string
+      id="ret_mcm_option_all_culture_equipment_unlocked"
+      text="所有文化装备已解锁" />
+    <string
+      id="ret_mcm_option_all_culture_equipment_unlocked_hint"
+      text="玩家氏族和王国的文化物品始终可用。" />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="所有装备已解锁" />
     <string
@@ -728,32 +737,23 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="部队与装备之间允许的最大等级差。" />
     <string
-      id="ret_mcm_option_auto_compare_items"
-      text="自动比较物品" />
-    <string
-      id="ret_mcm_option_auto_compare_items_hint"
-      text="在浏览部队装备时添加一个指示器，以显示某个物品是否优于或劣于已装备的物品。" />
-    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="基础技能经验消耗" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="提升技能所需的基础经验。" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops"
-      text="氏族部队优先于王国部队" />
+      id="ret_mcm_option_copy_all_sets_on_unlock"
+      text="解锁时复制所有套装" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
-      text="如果一个领地既是氏族领地又是王国领地，则氏族部队将优先于王国部队。" />
+      id="ret_mcm_option_copy_all_sets_on_unlock_hint"
+      text="解锁新部队时，复制原始部队的所有装备套装，而不仅仅是主要战斗和民用套装。" />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="由于与其他激活的模组不兼容，替代套装已被禁用。" />
+      id="ret_mcm_option_custom_volunteer_proportion"
+      text="自定义志愿者比例" />
     <string
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="克隆部队装备时复制所有装备套装" />
-    <string
-      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
-      text="克隆部队装备时，复制所有装备套装，而不仅仅是一个战斗套装和一个平民套装。" />
+      id="ret_mcm_option_custom_volunteer_proportion_hint"
+      text="每个原版志愿者被自定义部队替换的概率（0 = 从不，1 = 总是）。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="调试模式" />
@@ -761,11 +761,17 @@
       id="ret_mcm_option_debug_mode_hint"
       text="输出更多日志（可能影响性能）。" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1"
-      text="禁止1级部队骑乘" />
+      id="ret_mcm_option_disable_kingdom_troops"
+      text="禁用王国部队" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
-      text="1级部队不能拥有坐骑。" />
+      id="ret_mcm_option_disable_kingdom_troops_hint"
+      text="自定义王国部队树将被禁用，改为使用氏族部队。" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops"
+      text="禁止一级部队使用坐骑" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
+      text="一级部队不能使用坐骑。" />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="启用教义" />
@@ -785,56 +791,68 @@
       id="ret_mcm_option_enable_feat_requirements_hint"
       text="启用解锁教义的功绩要求（警告：禁用功绩后保存将清除所有功绩数据）。" />
     <string
+      id="ret_mcm_option_enable_item_comparison_icons"
+      text="启用物品比较图标" />
+    <string
+      id="ret_mcm_option_enable_item_comparison_icons_hint"
+      text="在浏览部队装备时，为装备列表添加比较图标，以显示物品是否优于或劣于已装备的物品。" />
+    <string
       id="ret_mcm_option_enable_troop_customization"
       text="实验性：启用外观控制" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
       text="添加外观自定义控制（年龄、身高、体重、体型）。" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time"
-      text="更换部队装备需要时间" />
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="装备成本乘数" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="要应用物品更改，部队必须花时间在封地升级装备。" />
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="与基础游戏价格相比的装备价格乘数。" />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier"
-      text="装备更换时间修正" />
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="装备时间乘数" />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier_hint"
-      text="装备更换时间的修正。" />
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="装备更换时间乘数。" />
     <string
-      id="ret_mcm_option_equipment_price_modifier"
-      text="装备价格修正" />
+      id="ret_mcm_option_equipping_troops_costs_gold"
+      text="装备部队需要金币" />
     <string
-      id="ret_mcm_option_equipment_price_modifier_hint"
-      text="与基础游戏价格相比的装备价格修正。" />
+      id="ret_mcm_option_equipping_troops_costs_gold_hint"
+      text="升级部队装备需要花费金钱。" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time"
+      text="装备部队需要时间" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time_hint"
+      text="要应用物品更改，部队必须花时间在领地升级装备。" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
       text="战斗中强制使用主战装备" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="部队在战斗中始终使用其主战装备。" />
+      text="部队在战斗中始终使用其主战装备，忽略备用装备。如果您在战斗中遇到部队使用错误装备的问题，请使用此设置。" />
+    <string
+      id="ret_mcm_option_force_xp_refunds"
+      text="强制经验退款" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="启用全局部队编辑器" />
     <string
-      id="ret_mcm_option_global_editor_enabled_disabled_hint"
-      text="由于与其他激活的模组存在兼容性问题，全局部队编辑器已被禁用。" />
-    <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="启用全局部队编辑器以修改游戏中的任何部队。如果遇到非玩家部队的问题，请禁用。" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
-      text="升级需求忽略平民马匹" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier"
+      text="金币转换成本（每级）" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
-      text="在升级部队时检查坐骑需求时，忽略平民装备的马匹。" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier_hint"
+      text="将部队转换为随从的金币成本，按目标随从部队的等级计算。" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
-      text="保留原版部队的升级需求" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier"
+      text="影响力转换成本（每级）" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
-      text="编辑时，原版部队保留其原始升级物品需求。" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
+      text="将部队转换为随从的影响力成本，按目标随从部队的等级计算。" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基础随从比例上限" />
@@ -860,53 +878,53 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="精锐部队的最大升级目标数量。" />
     <string
-      id="ret_mcm_option_never_require_noble_horse"
-      text="从不需要贵族马匹" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements"
+      text="无平民套装升级要求" />
     <string
-      id="ret_mcm_option_never_require_noble_horse_hint"
-      text="部队升级时从不需要贵族马匹，战马总是足够的。" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements_hint"
+      text="在检查升级的坐骑要求时，忽略平民套装中的任何马匹。" />
     <string
-      id="ret_mcm_option_no_kingdom_troops"
-      text="无王国部队" />
+      id="ret_mcm_option_no_doctrine_requirements"
+      text="无学说要求" />
     <string
-      id="ret_mcm_option_no_kingdom_troops_hint"
-      text="自定义王国部队树将被禁用。" />
+      id="ret_mcm_option_no_doctrine_requirements_hint"
+      text="特殊部队（民兵、村民、商队护卫）可以在没有适当学说的情况下获得。" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="自身文化解锁奖励" />
+      id="ret_mcm_option_no_fief_requirements"
+      text="无领地要求" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="决定击杀是否也能解锁自定义部队文化物品。" />
+      id="ret_mcm_option_no_fief_requirements_hint"
+      text="部队可以在不拥有领地的情况下解锁。" />
     <string
-      id="ret_mcm_option_pay_for_equipment"
-      text="支付部队装备费用" />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements"
+      text="无贵族马升级要求" />
     <string
-      id="ret_mcm_option_pay_for_equipment_hint"
-      text="升级部队装备需要金钱。" />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements_hint"
+      text="部队升级从不需要贵族马，战马总是足够的。" />
     <string
-      id="ret_mcm_option_recruit_anywhere"
-      text="任意地点招募家族部队" />
+      id="ret_mcm_option_player_culture_unlock_bonus"
+      text="玩家文化解锁奖励" />
     <string
-      id="ret_mcm_option_recruit_anywhere_hint"
-      text="玩家可在任何定居点招募家族部队。" />
+      id="ret_mcm_option_player_culture_unlock_bonus_hint"
+      text="物品解锁进度是否也会为玩家文化的随机物品增加进度。" />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease"
-      text="减少时退款经验值" />
+      id="ret_mcm_option_rank_up_cost_per_tier"
+      text="升级成本（每级）" />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="减少部队技能时，退还经验值成本。" />
+      id="ret_mcm_option_rank_up_cost_per_tier_hint"
+      text="随从部队每级的升级成本。" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="解锁所需丢弃物品" />
+      id="ret_mcm_option_required_discards_per_item"
+      text="每件物品所需的丢弃次数" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
-      text="解锁一件物品所需丢弃的次数。" />
+      id="ret_mcm_option_required_discards_per_item_hint"
+      text="物品必须被丢弃多少次才能解锁。" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="解锁所需击杀数" />
+      id="ret_mcm_option_required_kills_per_item"
+      text="每件物品所需的击杀数" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="解锁一件物品所需击败的敌人数量。" />
+      id="ret_mcm_option_required_kills_per_item_hint"
+      text="必须击败多少穿着某物品的敌人才能解锁该物品。" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="限制编辑到领地" />
@@ -918,25 +936,19 @@
       text="限制物品到城镇库存" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
-      text="玩家只能购买城镇库存中可用的物品。" />
+      text="只有在当前城镇库存中可用时，才能购买部队装备。" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
-      text="随从金币转换成本每级" />
+      id="ret_mcm_option_restrict_to_owned_settlements"
+      text="限制到拥有的定居点" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
-      text="随从部队每级的转换成本。" />
+      id="ret_mcm_option_restrict_to_owned_settlements_hint"
+      text="自定义部队只能在玩家的家族或王国拥有的定居点中招募。" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
-      text="随从影响力转换成本每级" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements"
+      text="限制到相同文化的定居点" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
-      text="随从部队每级的转换成本。" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="随从晋升每级费用" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="随从按等级晋升所需的费用。" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements_hint"
+      text="不同文化定居点的志愿者将不会被自定义部队取代。" />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="随从技能上限奖励" />
@@ -980,47 +992,35 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="提升每点技能所需的可变经验消耗。" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture"
-      text="仅为正确文化更换志愿者" />
+      id="ret_mcm_option_training_time_multiplier"
+      text="训练时间乘数" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture_hint"
-      text="不同文化定居点的志愿者将不会被自定义部队替换。" />
+      id="ret_mcm_option_training_time_multiplier_hint"
+      text="部队训练时间的乘数。" />
     <string
-      id="ret_mcm_option_swap_proportion"
-      text="志愿者更换比例" />
+      id="ret_mcm_option_training_troops_takes_time"
+      text="训练部队需要时间" />
     <string
-      id="ret_mcm_option_swap_proportion_hint"
-      text="被替换为自定义部队的志愿者比例。" />
+      id="ret_mcm_option_training_troops_takes_time_hint"
+      text="为了提升技能，部队必须在一个封地中花时间训练。" />
     <string
-      id="ret_mcm_option_training_takes_time"
-      text="部队训练需要时间" />
+      id="ret_mcm_option_unlock_items_from_discards"
+      text="通过丢弃解锁物品" />
     <string
-      id="ret_mcm_option_training_takes_time_hint"
-      text="为了应用技能提升，部队必须在封地中花时间训练。" />
+      id="ret_mcm_option_unlock_items_from_discards_hint"
+      text="通过丢弃装备来解锁它。" />
     <string
-      id="ret_mcm_option_training_time_modifier"
-      text="训练时间修正" />
+      id="ret_mcm_option_unlock_items_from_kills"
+      text="通过击杀解锁物品" />
     <string
-      id="ret_mcm_option_training_time_modifier_hint"
-      text="部队训练时间的修正。" />
+      id="ret_mcm_option_unlock_items_from_kills_hint"
+      text="通过击败穿戴该装备的敌人来解锁它。" />
     <string
-      id="ret_mcm_option_unlock_from_culture"
-      text="从文化解锁" />
+      id="ret_mcm_option_vanilla_upgrade_requirements"
+      text="原版升级需求" />
     <string
-      id="ret_mcm_option_unlock_from_culture_hint"
-      text="玩家文化和玩家领导的王国文化装备始终可用。" />
-    <string
-      id="ret_mcm_option_unlock_from_discarded"
-      text="从丢弃物品解锁" />
-    <string
-      id="ret_mcm_option_unlock_from_discarded_hint"
-      text="通过丢弃装备来解锁装备。" />
-    <string
-      id="ret_mcm_option_unlock_from_kills"
-      text="从击杀解锁" />
-    <string
-      id="ret_mcm_option_unlock_from_kills_hint"
-      text="通过击败穿戴装备的敌人来解锁装备。" />
+      id="ret_mcm_option_vanilla_upgrade_requirements_hint"
+      text="编辑后，原版部队保留其原始升级物品需求。" />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="封臣领主招募自定义部队" />
@@ -1036,6 +1036,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="装备" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="装备解锁" />
     <string
       id="ret_mcm_section_general"
       text="通用" />
@@ -1064,11 +1067,11 @@
       id="ret_mcm_section_skills"
       text="技能" />
     <string
+      id="ret_mcm_section_troop_unlocks"
+      text="部队解锁" />
+    <string
       id="ret_mcm_section_ui"
       text="用户界面" />
-    <string
-      id="ret_mcm_section_unlocks"
-      text="解锁" />
     <string
       id="ret_name_header_text"
       text="名称" />
@@ -1375,6 +1378,9 @@
     <string
       id="ret_royal_patronage_description"
       text="解锁商队和村民部队。" />
+    <string
+      id="ret_royal_patronage_disabled_message"
+      text="已禁用：从配置中解锁特殊部队。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定义王国部队。" />

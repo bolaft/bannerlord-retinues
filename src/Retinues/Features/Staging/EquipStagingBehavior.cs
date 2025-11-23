@@ -385,7 +385,7 @@ namespace Retinues.Features.Staging
                 : g <= 5000.0 ? (m2 * x + b2)
                 : (m3 * x + b3);
 
-            raw *= Config.EquipmentChangeTimeModifier;
+            raw *= Config.EquipmentTimeMultiplier;
             raw /= 5;
 
             return Math.Max(1, (int)Math.Ceiling(raw));

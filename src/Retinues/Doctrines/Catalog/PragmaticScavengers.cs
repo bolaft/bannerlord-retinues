@@ -18,7 +18,8 @@ namespace Retinues.Doctrines.Catalog
             );
         public override int Column => 0;
         public override int Row => 2;
-        public override bool IsDisabled => !Config.UnlockFromKills || Config.AllEquipmentUnlocked;
+        public override bool IsDisabled =>
+            !Config.UnlockItemsFromKills || Config.AllEquipmentUnlocked;
         public override TextObject DisabledMessage =>
             Config.AllEquipmentUnlocked
                 ? L.T(

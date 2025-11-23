@@ -178,7 +178,7 @@ namespace Retinues.Features.Experience
             if (troop == null || amount <= 0)
                 return;
 
-            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() && !Config.RefundXpOnDecrease)
+            if (!DoctrineAPI.IsDoctrineUnlocked<AdaptiveTraining>() && !Config.ForceXpRefunds)
                 if (!force) // If force is true, skip this check
                     return;
 

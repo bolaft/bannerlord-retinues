@@ -213,8 +213,8 @@ namespace Retinues.Features.Volunteers.Patches
 
             bool inPlayerOwnedFief = settlement.PlayerFaction != null;
 
-            // No player faction here and no Recruit Anywhere => nothing to do.
-            if (!inPlayerOwnedFief && !Config.RecruitAnywhere)
+            // No player faction here and restriction enabled: abort.
+            if (!inPlayerOwnedFief && Config.RestrictToOwnedSettlements)
                 return;
 
             // ── All Lords ON ───────────────────────────────────────

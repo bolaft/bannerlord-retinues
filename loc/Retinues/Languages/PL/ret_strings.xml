@@ -263,6 +263,9 @@
       id="ret_cultural_pride_description"
       text="Odblokowuje niestandardowe oddziały milicji." />
     <string
+      id="ret_cultural_pride_disabled_message"
+      text="Wyłączone: specjalne oddziały odblokowane z konfiguracji." />
+    <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Zdobądź 100 zabójstw w bitwie jednostkami bez obcego ekwipunku." />
     <string
@@ -707,6 +710,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Importuj jednostki z XML" />
     <string
+      id="ret_mcm_option_all_culture_equipment_unlocked"
+      text="Cały Ekwipunek Kulturowy Odblokowany" />
+    <string
+      id="ret_mcm_option_all_culture_equipment_unlocked_hint"
+      text="Przedmioty kulturowe klanu i królestwa gracza są zawsze dostępne." />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Cały Ekwipunek Odblokowany" />
     <string
@@ -728,32 +737,23 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Maksymalna dozwolona różnica poziomów między jednostkami a ekwipunkiem." />
     <string
-      id="ret_mcm_option_auto_compare_items"
-      text="Automatyczne Porównywanie Przedmiotów" />
-    <string
-      id="ret_mcm_option_auto_compare_items_hint"
-      text="Dodaje wskaźnik pokazujący, czy przedmiot jest lepszy czy gorszy od wyposażonego podczas przeglądania ekwipunku jednostek ." />
-    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Podstawowy Koszt PD Umiejętności" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Podstawowy koszt PD zwiększenia umiejętności." />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops"
-      text="Jednostki Klanu ponad Jednostkami Królestwa" />
+      id="ret_mcm_option_copy_all_sets_on_unlock"
+      text="Kopiuj Wszystkie Zestawy przy Odblokowaniu" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
-      text="Jeśli lenno jest zarówno lennem klanu, jak i lennem królestwa, jednostki klanu będą miały priorytet nad jednostkami królestwa." />
+      id="ret_mcm_option_copy_all_sets_on_unlock_hint"
+      text="Podczas odblokowywania nowej jednostki skopiuj wszystkie zestawy ekwipunku z oryginalnej jednostki, a nie tylko główne zestawy bojowe i cywilne." />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="Zestawy alternatywne są wyłączone z powodu niekompatybilności z innymi aktywowanymi modami." />
+      id="ret_mcm_option_custom_volunteer_proportion"
+      text="Proporcja Niestandardowych Ochotników" />
     <string
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="Kopiuj wszystkie zestawy podczas klonowania." />
-    <string
-      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
-      text="Podczas klonowania wyposażenia jednostek, kopiuj wszystkie zestawy wyposażenia zamiast tylko jednego zestawu bojowego i jednego cywilnego." />
+      id="ret_mcm_option_custom_volunteer_proportion_hint"
+      text="Szansa, że każdy standardowy ochotnik zostanie zastąpiony niestandardową jednostką (0 = nigdy, 1 = zawsze)." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
@@ -761,10 +761,16 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Generuje znacznie więcej logów (może wpłynąć na wydajność)." />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1"
-      text="Zakaz Wierzchowców dla Poziomu 1" />
+      id="ret_mcm_option_disable_kingdom_troops"
+      text="Wyłącz Jednostki Królestwa" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
+      id="ret_mcm_option_disable_kingdom_troops_hint"
+      text="Niestandardowe drzewo jednostek królestwa zostanie wyłączone, a zamiast tego zostaną użyte jednostki klanu." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops"
+      text="Zabroń używania wierzchowców dla jednostek poziomu 1" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Jednostki poziomu 1 nie mogą mieć wierzchowców." />
     <string
       id="ret_mcm_option_enable_doctrines"
@@ -785,56 +791,68 @@
       id="ret_mcm_option_enable_feat_requirements_hint"
       text="Włącza wymagania osiągnięć do odblokowywania doktryn (ostrzeżenie: zapisanie z wyłączonymi osiągnięciami spowoduje usunięcie wszystkich danych osiągnięć)." />
     <string
+      id="ret_mcm_option_enable_item_comparison_icons"
+      text="Włącz Ikony Porównywania Przedmiotów" />
+    <string
+      id="ret_mcm_option_enable_item_comparison_icons_hint"
+      text="Dodaje ikony porównywania do listy ekwipunku, aby pokazać, czy przedmiot jest lepszy lub gorszy od wyposażonego podczas przeglądania ekwipunku oddziału." />
+    <string
       id="ret_mcm_option_enable_troop_customization"
       text="Eksperymentalne: Włącz Kontrolę Wyglądu" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
       text="Dodaje kontrolki dostosowywania wyglądu (wiek, wzrost, waga, budowa)." />
     <string
-      id="ret_mcm_option_equipment_change_takes_time"
-      text="Zmiana Wyposażenia Jednostek Zajmuje Czas" />
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="Mnożnik Kosztów Ekwipunku" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Aby zastosować zmiany przedmiotów, jednostki muszą poświęcić czas na ulepszanie wyposażenia w lenno." />
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="Mnożnik cen ekwipunku w porównaniu do cen w grze bazowej." />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier"
-      text="Modyfikator Czasu Zmiany Ekwipunku" />
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Mnożnik Czasu Ekwipunku" />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier_hint"
-      text="Modyfikator czasu zmiany ekwipunku." />
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Mnożnik czasu zmiany ekwipunku." />
     <string
-      id="ret_mcm_option_equipment_price_modifier"
-      text="Modyfikator Ceny Ekwipunku" />
+      id="ret_mcm_option_equipping_troops_costs_gold"
+      text="Ekwipowanie Oddziałów Kosztuje Złoto" />
     <string
-      id="ret_mcm_option_equipment_price_modifier_hint"
-      text="Modyfikator ceny ekwipunku w porównaniu do cen w podstawowej wersji gry." />
+      id="ret_mcm_option_equipping_troops_costs_gold_hint"
+      text="Ulepszanie ekwipunku oddziałów kosztuje pieniądze." />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time"
+      text="Ekwipowanie Oddziałów Wymaga Czasu" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time_hint"
+      text="Aby zastosować zmiany przedmiotów, oddziały muszą poświęcić czas na ulepszanie ekwipunku w lenno." />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
       text="Wymuś Główny Zestaw Bojowy w Walce" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="Jednostki zawsze używają swojego głównego zestawu wyposażenia bojowego w walce." />
+      text="Oddziały zawsze używają swojego głównego zestawu bojowego w walce, ignorując zestawy alternatywne. Użyj tego ustawienia, jeśli napotkasz problemy z oddziałami używającymi nieprawidłowych zestawów wyposażenia w bitwie." />
+    <string
+      id="ret_mcm_option_force_xp_refunds"
+      text="Wymuś Zwroty PD" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Włącz Globalny Edytor Jednostek" />
     <string
-      id="ret_mcm_option_global_editor_enabled_disabled_hint"
-      text="Globalny edytor jednostek jest wyłączony z powodu problemów z kompatybilnością z innymi aktywowanymi modami." />
-    <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="Włącza globalny edytor jednostek do modyfikowania dowolnej jednostki w grze. Wyłącz go, jeśli napotkasz problemy z jednostkami niekontrolowanymi przez gracza." />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
-      text="Ignoruj Konia Cywilnego dla Wymagań Ulepszenia" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier"
+      text="Koszt Konwersji Złota (Na Poziom)" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
-      text="Podczas sprawdzania wymagań dotyczących wierzchowców przy ulepszaniu jednostek, ignoruj konia z zestawu cywilnego." />
+      id="ret_mcm_option_gold_conversion_cost_per_tier_hint"
+      text="Koszt złota za konwersję oddziału na orszak, na poziom docelowego oddziału orszaku." />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
-      text="Zachowaj Wymagania Ulepszenia dla Podstawowych Jednostek" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier"
+      text="Koszt Konwersji Wpływu (Na Poziom)" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
-      text="Podstawowe jednostki zachowują swoje oryginalne wymagania dotyczące przedmiotów ulepszeń po edycji." />
+      id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
+      text="Koszt wpływu za konwersję oddziału na orszak, na poziom docelowego oddziału orszaku." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksymalny Udział Orszaku Podstawowego" />
@@ -860,53 +878,53 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Maksymalna liczba celów ulepszenia dla elitarnych jednostek." />
     <string
-      id="ret_mcm_option_never_require_noble_horse"
-      text="Nigdy Nie Wymagaj Szlacheckiego Konia" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements"
+      text="Brak Wymagań Ulepszenia Zestawu Cywilnego" />
     <string
-      id="ret_mcm_option_never_require_noble_horse_hint"
-      text="Jednostki nigdy nie wymagają szlacheckich koni do ulepszeń, koń wojenny zawsze wystarczy." />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements_hint"
+      text="Podczas sprawdzania wymagań dotyczących wierzchowców do ulepszeń, ignoruj wszelkie konie w zestawach cywilnych." />
     <string
-      id="ret_mcm_option_no_kingdom_troops"
-      text="Brak Jednostek Królestwa" />
+      id="ret_mcm_option_no_doctrine_requirements"
+      text="Brak Wymagań Doktrynalnych" />
     <string
-      id="ret_mcm_option_no_kingdom_troops_hint"
-      text="Niestandardowe drzewo jednostek królestwa zostanie wyłączone." />
+      id="ret_mcm_option_no_doctrine_requirements_hint"
+      text="Specjalne oddziały (milicje, wieśniacy, straże karawan) mogą być pozyskiwane bez odpowiednich doktryn." />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Premie za odblokowanie własnej kultury" />
+      id="ret_mcm_option_no_fief_requirements"
+      text="Brak Wymagań Lenna" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="Czy zabójstwa również odblokowują przedmioty kultury własnej jednostki." />
+      id="ret_mcm_option_no_fief_requirements_hint"
+      text="Oddziały mogą być odblokowane bez konieczności posiadania lenna." />
     <string
-      id="ret_mcm_option_pay_for_equipment"
-      text="Płatność za Ekwipunek Jednostki" />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements"
+      text="Brak Wymagań Ulepszenia Szlachetnych Koni" />
     <string
-      id="ret_mcm_option_pay_for_equipment_hint"
-      text="Ulepszanie ekwipunku jednostki kosztuje pieniądze." />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements_hint"
+      text="Oddziały nigdy nie wymagają szlachetnych koni do ulepszeń, koń wojenny zawsze wystarczy." />
     <string
-      id="ret_mcm_option_recruit_anywhere"
-      text="Rekrutuj Wojska Klanu Gdziekolwiek" />
+      id="ret_mcm_option_player_culture_unlock_bonus"
+      text="Bonus Odblokowania Kultury Gracza" />
     <string
-      id="ret_mcm_option_recruit_anywhere_hint"
-      text="Gracz może rekrutować wojska klanu w dowolnej osadzie." />
+      id="ret_mcm_option_player_culture_unlock_bonus_hint"
+      text="Czy postęp odblokowywania przedmiotów dodaje również postęp do losowych przedmiotów kultury gracza." />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease"
-      text="Zwrot XP przy zmniejszeniu" />
+      id="ret_mcm_option_rank_up_cost_per_tier"
+      text="Koszt Awansu (Na Poziom)" />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="Podczas zmniejszania umiejętności jednostki zwróć koszt XP." />
+      id="ret_mcm_option_rank_up_cost_per_tier_hint"
+      text="Koszt awansu dla oddziałów orszaku na poziom." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="Wymagane Przedmioty Odrzucone do Odblokowania" />
+      id="ret_mcm_option_required_discards_per_item"
+      text="Wymagane Odrzucenia Na Przedmiot" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_per_item_hint"
       text="Ile razy przedmiot musi zostać odrzucony, aby go odblokować." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="Wymagana Liczba Zabójstw do Odblokowania" />
+      id="ret_mcm_option_required_kills_per_item"
+      text="Wymagane Zabójstwa Na Przedmiot" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="Ilu wrogów noszących przedmiot należy pokonać, aby go odblokować." />
+      id="ret_mcm_option_required_kills_per_item_hint"
+      text="Ilu wrogów noszących dany przedmiot musi zostać pokonanych, aby go odblokować." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Ogranicz Edytowanie do Lenna" />
@@ -918,25 +936,19 @@
       text="Ogranicz przedmioty do inwentarza miasta" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
-      text="Gracz może kupować tylko przedmioty dostępne w inwentarzu miasta." />
+      text="Wyposażenie oddziałów można kupić tylko wtedy, gdy jest dostępne w aktualnym inwentarzu miasta." />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
-      text="Koszt Konwersji Złota Orszaku na Poziom" />
+      id="ret_mcm_option_restrict_to_owned_settlements"
+      text="Ogranicz do posiadanych osad" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
-      text="Koszt konwersji dla jednostek orszaku na poziom." />
+      id="ret_mcm_option_restrict_to_owned_settlements_hint"
+      text="Niestandardowe oddziały można rekrutować tylko w osadach należących do klanu lub królestwa gracza." />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
-      text="Koszt Konwersji Wpływów Orszaku na Poziom" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements"
+      text="Ogranicz do osad tej samej kultury" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
-      text="Koszt konwersji dla jednostek orszaku na poziom." />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="Koszt Awansu Orszaku na Poziom" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="Koszt awansu orszaku na poziom." />
+      id="ret_mcm_option_restrict_to_same_culture_settlements_hint"
+      text="Ochotnicy w osadach innej kultury nie zostaną zastąpieni niestandardowymi oddziałami." />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Premia do Limitu Umiejętności Orszaku" />
@@ -980,47 +992,35 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Skalowalny koszt PD za każdy punkt umiejętności." />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture"
-      text="Zamieniaj Ochotników Tylko na Właściwą Kulturę" />
+      id="ret_mcm_option_training_time_multiplier"
+      text="Mnożnik Czasu Szkolenia" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture_hint"
-      text="Ochotnicy w osadach o innej kulturze nie będą zastępowani przez jednostki niestandardowe." />
+      id="ret_mcm_option_training_time_multiplier_hint"
+      text="Mnożnik czasu szkolenia oddziałów." />
     <string
-      id="ret_mcm_option_swap_proportion"
-      text="Proporcja Zamiany Ochotników" />
-    <string
-      id="ret_mcm_option_swap_proportion_hint"
-      text="Proporcja ochotników, którzy zostaną zamienieni na jednostki niestandardowe." />
-    <string
-      id="ret_mcm_option_training_takes_time"
+      id="ret_mcm_option_training_troops_takes_time"
       text="Szkolenie Oddziałów Zajmuje Czas" />
     <string
-      id="ret_mcm_option_training_takes_time_hint"
-      text="Aby zastosować zwiększenia umiejętności, oddziały muszą spędzić czas na szkoleniu w lenno." />
+      id="ret_mcm_option_training_troops_takes_time_hint"
+      text="Aby zastosować zwiększenia umiejętności, oddziały muszą spędzić czas na szkoleniu w lenie." />
     <string
-      id="ret_mcm_option_training_time_modifier"
-      text="Modyfikator Czasu Szkolenia" />
+      id="ret_mcm_option_unlock_items_from_discards"
+      text="Odblokuj Przedmioty przez Odrzucenie" />
     <string
-      id="ret_mcm_option_training_time_modifier_hint"
-      text="Modyfikator czasu szkolenia oddziałów." />
+      id="ret_mcm_option_unlock_items_from_discards_hint"
+      text="Odblokuj wyposażenie, odrzucając je." />
     <string
-      id="ret_mcm_option_unlock_from_culture"
-      text="Odblokuj z Kultury" />
+      id="ret_mcm_option_unlock_items_from_kills"
+      text="Odblokuj Przedmioty przez Zabijanie" />
     <string
-      id="ret_mcm_option_unlock_from_culture_hint"
-      text="Ekwipunek kultury gracza i królestwa, którym dowodzi, jest zawsze dostępny." />
+      id="ret_mcm_option_unlock_items_from_kills_hint"
+      text="Odblokuj wyposażenie, pokonując wrogów, którzy je noszą." />
     <string
-      id="ret_mcm_option_unlock_from_discarded"
-      text="Odblokuj z Porzuconych Przedmiotów" />
+      id="ret_mcm_option_vanilla_upgrade_requirements"
+      text="Wymagania Ulepszeń Vanilla" />
     <string
-      id="ret_mcm_option_unlock_from_discarded_hint"
-      text="Odblokuj ekwipunek, porzucając go." />
-    <string
-      id="ret_mcm_option_unlock_from_kills"
-      text="Odblokuj z Zabójstw" />
-    <string
-      id="ret_mcm_option_unlock_from_kills_hint"
-      text="Odblokuj ekwipunek, pokonując wrogów, którzy go noszą." />
+      id="ret_mcm_option_vanilla_upgrade_requirements_hint"
+      text="Jednostki vanilla zachowują swoje oryginalne wymagania dotyczące przedmiotów ulepszających po edycji." />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Wasalni Lordowie Rekrutują Niestandardowe Oddziały" />
@@ -1036,6 +1036,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="Ekwipunek" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="Odblokowania Ekwipunku" />
     <string
       id="ret_mcm_section_general"
       text="Ogólne" />
@@ -1064,11 +1067,11 @@
       id="ret_mcm_section_skills"
       text="Umiejętności" />
     <string
+      id="ret_mcm_section_troop_unlocks"
+      text="Odblokowania Oddziałów" />
+    <string
       id="ret_mcm_section_ui"
       text="Interfejs Użytkownika" />
-    <string
-      id="ret_mcm_section_unlocks"
-      text="Odblokowania" />
     <string
       id="ret_name_header_text"
       text="Nazwa" />
@@ -1375,6 +1378,9 @@
     <string
       id="ret_royal_patronage_description"
       text="Odblokowuje oddziały karawan i wieśniaków." />
+    <string
+      id="ret_royal_patronage_disabled_message"
+      text="Wyłączone: specjalne oddziały odblokowane z konfiguracji." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Zwerbuj 100 własnych wojsk królestwa." />

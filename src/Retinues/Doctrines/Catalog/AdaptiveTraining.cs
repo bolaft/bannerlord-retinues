@@ -18,10 +18,10 @@ namespace Retinues.Doctrines.Catalog
         public override int Column => 2;
         public override int Row => 3;
         public override bool IsDisabled =>
-            Config.RefundXpOnDecrease
+            Config.ForceXpRefunds
             || (Config.SkillXpCostPerPoint == 0 && Config.BaseSkillXpCost == 0);
         public override TextObject DisabledMessage =>
-            Config.RefundXpOnDecrease
+            Config.ForceXpRefunds
                 ? L.T(
                     "adaptive_training_disabled_message_refund",
                     "Disabled: XP refunds already enabled by config."

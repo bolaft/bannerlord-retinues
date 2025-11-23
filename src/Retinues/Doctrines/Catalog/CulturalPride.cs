@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
@@ -19,6 +20,12 @@ namespace Retinues.Doctrines.Catalog
             L.T("cultural_pride_description", "Unlocks custom militia troops.");
         public override int Column => 1;
         public override int Row => 0;
+        public override bool IsDisabled => Config.NoDoctrineRequirements;
+        public override TextObject DisabledMessage =>
+            L.T(
+                "cultural_pride_disabled_message",
+                "Disabled: special troops unlocked from config."
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

@@ -25,7 +25,7 @@ namespace Retinues.Features.Unlocks
         /// </summary>
         protected override void OnEndMission()
         {
-            if (Config.UnlockFromKills == false)
+            if (Config.UnlockItemsFromKills == false)
                 return; // Unlocks from kills disabled
 
             if (IsDefeat)

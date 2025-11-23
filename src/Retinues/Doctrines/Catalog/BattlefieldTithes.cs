@@ -14,7 +14,8 @@ namespace Retinues.Doctrines.Catalog
             L.T("battlefield_tithes_description", "Can unlock items from allied party kills.");
         public override int Column => 0;
         public override int Row => 1;
-        public override bool IsDisabled => !Config.UnlockFromKills || Config.AllEquipmentUnlocked;
+        public override bool IsDisabled =>
+            !Config.UnlockItemsFromKills || Config.AllEquipmentUnlocked;
         public override TextObject DisabledMessage =>
             Config.AllEquipmentUnlocked
                 ? L.T(

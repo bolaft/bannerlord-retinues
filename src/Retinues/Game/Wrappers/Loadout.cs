@@ -587,13 +587,16 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public ItemCategory ComputeUpgradeItemRequirement()
         {
-            if (!Troop.IsCustom && Config.KeepUpgradeRequirementsForVanilla)
+            if (!Troop.IsCustom && Config.VanillaUpgradeRequirements)
                 return Troop.UpgradeItemRequirement;
 
             var bestHorse = FindBestHorseCategory();
             var bestHorseOfParent = Troop.Parent?.Loadout.FindBestHorseCategory();
 
-            if (Config.NeverRequireNobleHorse && bestHorse == DefaultItemCategories.NobleHorse)
+            if (
+                Config.NoNobleHorseUpgradeRequirements
+                && bestHorse == DefaultItemCategories.NobleHorse
+            )
                 bestHorse = DefaultItemCategories.WarHorse;
 
             return IsBetterHorseCategory(bestHorse, bestHorseOfParent) ? bestHorse : null;
@@ -622,7 +625,7 @@ namespace Retinues.Game.Wrappers
             ItemCategory bestCategory = null;
             foreach (var eq in Equipments)
             {
-                if (eq.IsCivilian && Config.IgnoreCivilianHorseForUpgradeRequirements)
+                if (eq.IsCivilian && Config.NoCivilianSetUpgradeRequirements)
                     continue;
 
                 var horseItem = eq.Get(EquipmentIndex.Horse);

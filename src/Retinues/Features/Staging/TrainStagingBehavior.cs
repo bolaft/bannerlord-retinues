@@ -106,13 +106,13 @@ namespace Retinues.Features.Staging
                 return;
             }
 
-            if (Config.TrainingTakesTime == false || ClanScreen.IsStudioMode)
+            if (Config.TrainingTroopsTakesTime == false || ClanScreen.IsStudioMode)
             {
                 ApplyChange(troop.StringId, tc.Skill, tc.Points);
                 return;
             }
 
-            var hoursPerPoint = Math.Max(1, BaseTrainingTime * Config.TrainingTimeModifier);
+            var hoursPerPoint = Math.Max(1, BaseTrainingTime * Config.TrainingTimeMultiplier);
             var pph = 1f / hoursPerPoint;
 
             var troopId = troop.StringId;

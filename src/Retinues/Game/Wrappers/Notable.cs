@@ -56,7 +56,7 @@ namespace Retinues.Game.Wrappers
                 if (troop.Faction == faction)
                     continue; // Already correct faction troop
 
-                if (rng.NextDouble() > Config.VolunteerSwapProportion)
+                if (rng.NextDouble() > Config.CustomVolunteerProportion)
                     continue; // Skip some based on proportion
 
                 var replacement = TroopMatcher.PickBestFromFaction(

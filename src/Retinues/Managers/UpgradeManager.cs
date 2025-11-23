@@ -29,7 +29,7 @@ namespace Retinues.Managers
             child.FillFrom(
                 troop,
                 keepUpgrades: false,
-                keepEquipment: Config.PayForEquipment == false, // don't copy equipment unless it's free
+                keepEquipment: Config.EquippingTroopsCostsGold == false, // don't copy equipment unless it's free
                 keepSkills: true
             );
 

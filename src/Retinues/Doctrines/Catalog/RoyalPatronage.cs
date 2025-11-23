@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
@@ -15,6 +16,12 @@ namespace Retinues.Doctrines.Catalog
             L.T("royal_patronage_description", "Unlocks caravan and villager troops.");
         public override int Column => 1;
         public override int Row => 2;
+        public override bool IsDisabled => Config.NoDoctrineRequirements;
+        public override TextObject DisabledMessage =>
+            L.T(
+                "royal_patronage_disabled_message",
+                "Disabled: special troops unlocked from config."
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

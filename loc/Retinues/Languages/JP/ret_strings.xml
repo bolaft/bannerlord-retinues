@@ -263,6 +263,9 @@
       id="ret_cultural_pride_description"
       text="カスタム民兵部隊をアンロックする。" />
     <string
+      id="ret_cultural_pride_disabled_message"
+      text="無効：設定から特殊部隊がアンロックされます。" />
+    <string
       id="ret_cultural_pride_full_set_100_kills"
       text="外国の装備を着けない兵で戦闘中100キルを達成する。" />
     <string
@@ -707,6 +710,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="XMLから部隊をインポート" />
     <string
+      id="ret_mcm_option_all_culture_equipment_unlocked"
+      text="全文化装備解除済み" />
+    <string
+      id="ret_mcm_option_all_culture_equipment_unlocked_hint"
+      text="プレイヤーの氏族と王国の文化アイテムは常に利用可能です。" />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="全装備解除済み" />
     <string
@@ -728,32 +737,23 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="兵と装備間の許容ランク差の最大値。" />
     <string
-      id="ret_mcm_option_auto_compare_items"
-      text="アイテムを自動比較" />
-    <string
-      id="ret_mcm_option_auto_compare_items_hint"
-      text="部隊装備を閲覧する際に、装備されているものよりも優れているか劣っているかを示す指標を追加します。" />
-    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="基本スキルXPコスト" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="スキル上昇に必要な基本XP。" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops"
-      text="王国軍より氏族軍優先" />
+      id="ret_mcm_option_copy_all_sets_on_unlock"
+      text="解除時にすべてのセットをコピー" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
-      text="領地が氏族領地であり王国領地である場合、氏族軍が王国軍より優先される。" />
+      id="ret_mcm_option_copy_all_sets_on_unlock_hint"
+      text="新しい部隊を解除する際、元の部隊のすべての装備セットをコピーし、主要な戦闘および民間セットのみをコピーしない。" />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="代替セットは、他のアクティブなモッドとの互換性の問題により無効になっています。" />
+      id="ret_mcm_option_custom_volunteer_proportion"
+      text="カスタム志願者の割合" />
     <string
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="部隊装備をクローンする際に、すべての装備セットをコピーします。" />
-    <string
-      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
-      text="部隊装備をクローンする際に、戦闘用セットと平常用セットの1つずつだけでなく、すべての装備セットをコピーします。" />
+      id="ret_mcm_option_custom_volunteer_proportion_hint"
+      text="各バニラ志願者がカスタム部隊に置き換えられる確率（0 = なし、1 = 常に）。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
@@ -761,11 +761,17 @@
       id="ret_mcm_option_debug_mode_hint"
       text="より多くのログを出力します（パフォーマンスに影響する可能性があります）。" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1"
-      text="ランク1に騎乗禁止" />
+      id="ret_mcm_option_disable_kingdom_troops"
+      text="王国部隊を無効化" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
-      text="ランク1兵は騎乗できない。" />
+      id="ret_mcm_option_disable_kingdom_troops_hint"
+      text="カスタム王国部隊ツリーは無効化され、代わりに氏族部隊が使用されます。" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops"
+      text="レベル1の部隊には騎乗を許可しない" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
+      text="レベル1の部隊は騎乗できません。" />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="ドクトリンを有効化" />
@@ -785,56 +791,68 @@
       id="ret_mcm_option_enable_feat_requirements_hint"
       text="ドクトリンのロックを解除するための功績要件を有効化する（警告：功績を無効にして保存すると、すべての功績データがクリアされます）。" />
     <string
+      id="ret_mcm_option_enable_item_comparison_icons"
+      text="アイテム比較アイコンを有効化" />
+    <string
+      id="ret_mcm_option_enable_item_comparison_icons_hint"
+      text="部隊の装備を閲覧する際に、装備リストに比較アイコンを追加し、アイテムが装備されているものよりも優れているか劣っているかを表示します。" />
+    <string
       id="ret_mcm_option_enable_troop_customization"
       text="実験的：外観コントロールを有効化" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
       text="外観のカスタマイズコントロールを追加します（年齢、身長、体重、体型）。" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time"
-      text="部隊の装備を変更するには時間がかかります" />
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="装備コスト乗数" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="アイテムの変更を適用するには、部隊は封地で装備をアップグレードするのに時間を費やす必要があります。" />
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="基本ゲームの価格と比較した装備価格の乗数。" />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier"
-      text="装備変更時間修正" />
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="装備時間乗数" />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier_hint"
-      text="装備変更時間の修正。" />
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="装備変更時間の乗数。" />
     <string
-      id="ret_mcm_option_equipment_price_modifier"
-      text="装備価格修正" />
+      id="ret_mcm_option_equipping_troops_costs_gold"
+      text="部隊の装備にはゴールドが必要" />
     <string
-      id="ret_mcm_option_equipment_price_modifier_hint"
-      text="基本ゲーム価格と比較した装備価格の修正。" />
+      id="ret_mcm_option_equipping_troops_costs_gold_hint"
+      text="部隊の装備のアップグレードにはお金がかかります。" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time"
+      text="部隊の装備には時間がかかる" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time_hint"
+      text="アイテムの変更を適用するには、部隊は領地で装備をアップグレードするのに時間を費やす必要があります。" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
       text="戦闘中にメインバトルセットを強制" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="部隊は戦闘中に常にメインバトル装備セットを使用します。" />
+      text="部隊は戦闘中に常にメインバトル装備を使用し、代替装備を無視します。戦闘中に部隊が誤った装備を使用する問題が発生した場合は、この設定を使用してください。" />
+    <string
+      id="ret_mcm_option_force_xp_refunds"
+      text="XP返金を強制" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="グローバル部隊エディターを有効化" />
     <string
-      id="ret_mcm_option_global_editor_enabled_disabled_hint"
-      text="他のアクティブなモッドとの互換性の問題により、グローバル部隊エディターは無効になっています。" />
-    <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="ゲーム内の任意の部隊を変更するためにグローバル部隊エディターを有効化します。プレイヤー以外の部隊で問題が発生している場合は無効にしてください。" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
-      text="アップグレード要件に市民の馬を無視" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier"
+      text="ゴールド変換コスト（レベル別）" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
-      text="部隊をアップグレードする際に乗り物の要件を確認する場合、市民装備の馬を無視します。" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier_hint"
+      text="部隊を随伴兵に変換するためのゴールドコスト（ターゲット随伴兵のレベル別）。" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
-      text="バニラ部隊のアップグレード要件を保持" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier"
+      text="影響力変換コスト（レベル別）" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
-      text="バニラ部隊は編集時に元のアップグレードアイテムの要件を保持します。" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
+      text="部隊を随伴兵に変換するための影響力コスト（ターゲット随伴兵のレベル別）。" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基礎随伴兵の比率上限" />
@@ -860,53 +878,53 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="精鋭部隊の最大アップグレード目標数。" />
     <string
-      id="ret_mcm_option_never_require_noble_horse"
-      text="貴族の馬を必要としない" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements"
+      text="民間セットのアップグレード要件なし" />
     <string
-      id="ret_mcm_option_never_require_noble_horse_hint"
-      text="部隊はアップグレードに貴族の馬を必要とせず、戦馬で十分です。" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements_hint"
+      text="アップグレードの乗馬要件を確認する際、民間セットの馬は無視します。" />
     <string
-      id="ret_mcm_option_no_kingdom_troops"
-      text="王国軍なし" />
+      id="ret_mcm_option_no_doctrine_requirements"
+      text="学説の要件なし" />
     <string
-      id="ret_mcm_option_no_kingdom_troops_hint"
-      text="カスタム王国兵ツリーが無効になります。" />
+      id="ret_mcm_option_no_doctrine_requirements_hint"
+      text="特殊部隊（民兵、村人、キャラバンガード）は、適切な学説がなくても取得できます。" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="自文化アンロックボーナス" />
+      id="ret_mcm_option_no_fief_requirements"
+      text="領地の要件なし" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="キルがカスタム兵文化のアイテムも解除するかどうか。" />
+      id="ret_mcm_option_no_fief_requirements_hint"
+      text="部隊は領地を所有せずにアンロックできます。" />
     <string
-      id="ret_mcm_option_pay_for_equipment"
-      text="兵の装備に支払い" />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements"
+      text="貴族の馬のアップグレード要件なし" />
     <string
-      id="ret_mcm_option_pay_for_equipment_hint"
-      text="兵装備のアップグレードには金が必要。" />
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements_hint"
+      text="部隊のアップグレードには貴族の馬は必要なく、戦馬で十分です。" />
     <string
-      id="ret_mcm_option_recruit_anywhere"
-      text="どこでも一族兵を募集" />
+      id="ret_mcm_option_player_culture_unlock_bonus"
+      text="プレイヤー文化のアンロックボーナス" />
     <string
-      id="ret_mcm_option_recruit_anywhere_hint"
-      text="プレイヤーは任意の集落で一族兵を募集できる。" />
+      id="ret_mcm_option_player_culture_unlock_bonus_hint"
+      text="アイテムのアンロック進行がプレイヤー文化のランダムなアイテムにも進行を追加するかどうか。" />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease"
-      text="減少時にXPを返金" />
+      id="ret_mcm_option_rank_up_cost_per_tier"
+      text="ランクアップコスト（レベル別）" />
     <string
-      id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="部隊のスキルを下げると、XPコストが返金されます。" />
+      id="ret_mcm_option_rank_up_cost_per_tier_hint"
+      text="随伴兵のランクアップコスト（レベル別）。" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="解除に必要な廃棄アイテム" />
+      id="ret_mcm_option_required_discards_per_item"
+      text="アイテムごとに必要な廃棄回数" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
-      text="解除するにはアイテムを何回廃棄する必要があるか。" />
+      id="ret_mcm_option_required_discards_per_item_hint"
+      text="アイテムをアンロックするには、アイテムを何度廃棄する必要があるか。" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="解除に必要なキル数" />
+      id="ret_mcm_option_required_kills_per_item"
+      text="アイテムごとに必要なキル数" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="解除するには何人の敵を倒す必要があるか。" />
+      id="ret_mcm_option_required_kills_per_item_hint"
+      text="アイテムをアンロックするには、そのアイテムを装備している敵を何人倒す必要があるか。" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="編集を領地に制限" />
@@ -918,25 +936,19 @@
       text="アイテムを町のインベントリに制限" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
-      text="プレイヤーは町のインベントリで利用可能なアイテムのみを購入できます。" />
+      text="部隊の装備は、現在の町のインベントリで利用可能な場合にのみ購入できます。" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
-      text="随伴兵ゴールド変換コスト（ランクごと）" />
+      id="ret_mcm_option_restrict_to_owned_settlements"
+      text="所有する集落に制限" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
-      text="随伴兵をランクごとに変換するコスト。" />
+      id="ret_mcm_option_restrict_to_owned_settlements_hint"
+      text="カスタム部隊は、プレイヤーの一族または王国が所有する集落でのみ募集できます。" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
-      text="随伴兵影響力変換コスト（ランクごと）" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements"
+      text="同じ文化の集落に制限" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
-      text="随伴兵をランクごとに変換するコスト。" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="随伴兵昇進のランクごとのコスト" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="随伴兵をランクごとに昇進させるコスト。" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements_hint"
+      text="異なる文化の集落のボランティアは、カスタム部隊に置き換えられません。" />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="随伴兵スキル上限ボーナス" />
@@ -980,47 +992,35 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="スキル上昇ごとのスケーラブルXPコスト。" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture"
-      text="正しい文化の志願者のみ交換" />
+      id="ret_mcm_option_training_time_multiplier"
+      text="訓練時間乗数" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture_hint"
-      text="異なる文化の集落にいる志願者はカスタム兵に置き換えられません。" />
+      id="ret_mcm_option_training_time_multiplier_hint"
+      text="部隊の訓練時間の乗数。" />
     <string
-      id="ret_mcm_option_swap_proportion"
-      text="志願者交換の割合" />
-    <string
-      id="ret_mcm_option_swap_proportion_hint"
-      text="カスタム兵に交換される志願者の割合。" />
-    <string
-      id="ret_mcm_option_training_takes_time"
+      id="ret_mcm_option_training_troops_takes_time"
       text="部隊の訓練には時間がかかる" />
     <string
-      id="ret_mcm_option_training_takes_time_hint"
-      text="スキルの向上を適用するには、部隊は封土で訓練に時間を費やす必要があります。" />
+      id="ret_mcm_option_training_troops_takes_time_hint"
+      text="スキルを上げるには、部隊は領地で訓練に時間を費やす必要があります。" />
     <string
-      id="ret_mcm_option_training_time_modifier"
-      text="訓練時間修正" />
+      id="ret_mcm_option_unlock_items_from_discards"
+      text="廃棄からアイテムをアンロック" />
     <string
-      id="ret_mcm_option_training_time_modifier_hint"
-      text="部隊の訓練時間の修正。" />
+      id="ret_mcm_option_unlock_items_from_discards_hint"
+      text="装備を廃棄することでアンロックします。" />
     <string
-      id="ret_mcm_option_unlock_from_culture"
-      text="文化から解除" />
+      id="ret_mcm_option_unlock_items_from_kills"
+      text="キルからアイテムをアンロック" />
     <string
-      id="ret_mcm_option_unlock_from_culture_hint"
-      text="プレイヤー文化および王国文化の装備は常に利用可能。" />
+      id="ret_mcm_option_unlock_items_from_kills_hint"
+      text="それを装備している敵を倒すことで装備をアンロックします。" />
     <string
-      id="ret_mcm_option_unlock_from_discarded"
-      text="廃棄アイテムから解除" />
+      id="ret_mcm_option_vanilla_upgrade_requirements"
+      text="バニラのアップグレード要件" />
     <string
-      id="ret_mcm_option_unlock_from_discarded_hint"
-      text="装備を廃棄することで装備を解除する。" />
-    <string
-      id="ret_mcm_option_unlock_from_kills"
-      text="キルで解除" />
-    <string
-      id="ret_mcm_option_unlock_from_kills_hint"
-      text="敵を倒すことで装備を解除する。" />
+      id="ret_mcm_option_vanilla_upgrade_requirements_hint"
+      text="バニラ部隊は、編集時に元のアップグレードアイテムの要件を保持します。" />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="封臣の領主がカスタム兵を募集" />
@@ -1036,6 +1036,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="装備" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="装備のアンロック" />
     <string
       id="ret_mcm_section_general"
       text="一般" />
@@ -1064,11 +1067,11 @@
       id="ret_mcm_section_skills"
       text="スキル" />
     <string
+      id="ret_mcm_section_troop_unlocks"
+      text="部隊のアンロック" />
+    <string
       id="ret_mcm_section_ui"
       text="ユーザーインターフェース" />
-    <string
-      id="ret_mcm_section_unlocks"
-      text="解除" />
     <string
       id="ret_name_header_text"
       text="名前" />
@@ -1375,6 +1378,9 @@
     <string
       id="ret_royal_patronage_description"
       text="キャラバンと村人の部隊をアンロックします。" />
+    <string
+      id="ret_royal_patronage_disabled_message"
+      text="無効：設定から特殊部隊がアンロックされました。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="カスタム王国兵100人を募集する。" />

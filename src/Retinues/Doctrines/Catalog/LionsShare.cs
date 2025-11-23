@@ -14,7 +14,8 @@ namespace Retinues.Doctrines.Catalog
             L.T("lions_share_description", "Hero kills count twice for unlocks.");
         public override int Column => 0;
         public override int Row => 0;
-        public override bool IsDisabled => !Config.UnlockFromKills || Config.AllEquipmentUnlocked;
+        public override bool IsDisabled =>
+            !Config.UnlockItemsFromKills || Config.AllEquipmentUnlocked;
         public override TextObject DisabledMessage =>
             Config.AllEquipmentUnlocked
                 ? L.T(

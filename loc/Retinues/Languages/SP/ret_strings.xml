@@ -263,6 +263,9 @@
       id="ret_cultural_pride_description"
       text="Desbloquea tropas de milicia personalizadas." />
     <string
+      id="ret_cultural_pride_disabled_message"
+      text="Deshabilitado: tropas especiales desbloqueadas desde la configuración." />
+    <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Consigue 100 muertes en batalla con tropas sin equipo extranjero." />
     <string
@@ -707,6 +710,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Importar tropas desde XML" />
     <string
+      id="ret_mcm_option_all_culture_equipment_unlocked"
+      text="Todo el Equipo Cultural Desbloqueado" />
+    <string
+      id="ret_mcm_option_all_culture_equipment_unlocked_hint"
+      text="Los objetos culturales del clan y reino del jugador siempre están disponibles." />
+    <string
       id="ret_mcm_option_all_equipment_unlocked"
       text="Todo el Equipo Desbloqueado" />
     <string
@@ -728,32 +737,23 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Diferencia máxima de nivel permitida entre tropas y equipo." />
     <string
-      id="ret_mcm_option_auto_compare_items"
-      text="Comparar Artículos Automáticamente" />
-    <string
-      id="ret_mcm_option_auto_compare_items_hint"
-      text="Agrega un indicador para mostrar si un artículo es mejor o peor que el equipado al navegar por el equipo de la tropa." />
-    <string
       id="ret_mcm_option_base_skill_xp_cost"
       text="Costo Base de Exp de Habilidad" />
     <string
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Costo base de experiencia para aumentar una habilidad." />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops"
-      text="Tropas de Clan sobre Tropas del Reino" />
+      id="ret_mcm_option_copy_all_sets_on_unlock"
+      text="Copiar Todos los Conjuntos al Desbloquear" />
     <string
-      id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
-      text="Si un feudo es tanto de clan como del reino, las tropas de clan tendrán prioridad sobre las tropas del reino." />
+      id="ret_mcm_option_copy_all_sets_on_unlock_hint"
+      text="Al desbloquear una nueva tropa, copia todos los conjuntos de equipo de la tropa original en lugar de solo los conjuntos principales de batalla y civiles." />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="Los conjuntos alternativos están desactivados debido a incompatibilidades con otros mods activados." />
+      id="ret_mcm_option_custom_volunteer_proportion"
+      text="Proporción de Voluntarios Personalizados" />
     <string
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="Copiar Todos los Conjuntos al Clonar" />
-    <string
-      id="ret_mcm_option_copy_all_sets_when_cloning_hint"
-      text="Al clonar el equipo de las tropas, copia todos los conjuntos de equipo en lugar de solo un conjunto de batalla y un conjunto civil." />
+      id="ret_mcm_option_custom_volunteer_proportion_hint"
+      text="Probabilidad de que cada voluntario estándar sea reemplazado por una tropa personalizada (0 = nunca, 1 = siempre)." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo Depuración" />
@@ -761,10 +761,16 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Genera muchos más registros (puede afectar el rendimiento)." />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1"
-      text="Prohibir Monturas para Nivel 1" />
+      id="ret_mcm_option_disable_kingdom_troops"
+      text="Desactivar Tropas del Reino" />
     <string
-      id="ret_mcm_option_disallow_mounts_for_tier_1_hint"
+      id="ret_mcm_option_disable_kingdom_troops_hint"
+      text="El árbol de tropas personalizado del reino se desactivará y se usarán las tropas del clan en su lugar." />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops"
+      text="Prohibir monturas para tropas de nivel 1" />
+    <string
+      id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Las tropas de nivel 1 no pueden tener monturas." />
     <string
       id="ret_mcm_option_enable_doctrines"
@@ -785,56 +791,68 @@
       id="ret_mcm_option_enable_feat_requirements_hint"
       text="Habilita los requisitos de hazañas para desbloquear doctrinas (advertencia: guardar con las hazañas deshabilitadas borrará todos los datos de hazañas)." />
     <string
+      id="ret_mcm_option_enable_item_comparison_icons"
+      text="Habilitar Iconos de Comparación de Ítems" />
+    <string
+      id="ret_mcm_option_enable_item_comparison_icons_hint"
+      text="Agrega iconos de comparación a la lista de equipo para mostrar si un ítem es mejor o peor que el equipado al navegar por el equipo de la tropa." />
+    <string
       id="ret_mcm_option_enable_troop_customization"
       text="Experimental: Habilitar Controles de Apariencia" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
       text="Agrega controles de personalización de apariencia (edad, altura, peso, complexión)." />
     <string
-      id="ret_mcm_option_equipment_change_takes_time"
-      text="Cambiar el Equipo de las Tropas Lleva Tiempo" />
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="Multiplicador de Costo de Equipo" />
     <string
-      id="ret_mcm_option_equipment_change_takes_time_hint"
-      text="Para aplicar los cambios de objetos, las tropas deben pasar tiempo mejorando el equipo en un feudo." />
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="Multiplicador para los precios de equipo en comparación con los precios del juego base." />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier"
-      text="Modificador de Tiempo para Cambio de Equipo" />
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Multiplicador de Tiempo de Equipo" />
     <string
-      id="ret_mcm_option_equipment_change_time_modifier_hint"
-      text="Modificador para el tiempo de cambio de equipo." />
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Multiplicador para el tiempo de cambio de equipo." />
     <string
-      id="ret_mcm_option_equipment_price_modifier"
-      text="Modificador de Precio de Equipo" />
+      id="ret_mcm_option_equipping_troops_costs_gold"
+      text="Equipar Tropas Cuesta Oro" />
     <string
-      id="ret_mcm_option_equipment_price_modifier_hint"
-      text="Modificador para el precio del equipo en comparación con los precios del juego base." />
+      id="ret_mcm_option_equipping_troops_costs_gold_hint"
+      text="Actualizar el equipo de las tropas cuesta dinero." />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time"
+      text="Equipar Tropas Toma Tiempo" />
+    <string
+      id="ret_mcm_option_equipping_troops_takes_time_hint"
+      text="Para aplicar los cambios de ítems, las tropas deben pasar tiempo actualizando el equipo en un feudo." />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
       text="Forzar Conjunto de Batalla Principal en Combate" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="Las tropas siempre usan su conjunto de equipo de batalla principal en combate." />
+      text="Las tropas siempre usan su conjunto de equipo de batalla principal en combate, ignorando los conjuntos alternativos. Use esta configuración si experimenta problemas con las tropas que usan conjuntos de equipo incorrectos en batalla." />
+    <string
+      id="ret_mcm_option_force_xp_refunds"
+      text="Forzar Reembolsos de Exp" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Habilitar Editor Global de Tropas" />
     <string
-      id="ret_mcm_option_global_editor_enabled_disabled_hint"
-      text="El editor global de tropas está desactivado debido a problemas de compatibilidad con otros mods activados." />
-    <string
       id="ret_mcm_option_global_editor_enabled_hint"
       text="Habilita el editor global de tropas para modificar cualquier tropa en el juego. Desactívelo si encuentra problemas con tropas que no son del jugador." />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements"
-      text="Ignorar el Caballo Civil para los Requisitos de Mejora" />
+      id="ret_mcm_option_gold_conversion_cost_per_tier"
+      text="Costo de Conversión de Oro (Por Nivel)" />
     <string
-      id="ret_mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint"
-      text="Al verificar los requisitos de montura al mejorar las tropas, ignore el caballo del conjunto civil." />
+      id="ret_mcm_option_gold_conversion_cost_per_tier_hint"
+      text="Costo de oro para convertir una tropa en un séquito, por nivel de la tropa de séquito objetivo." />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla"
-      text="Mantener los Requisitos de Mejora para Tropas Vanilla" />
+      id="ret_mcm_option_influence_conversion_cost_per_tier"
+      text="Costo de Conversión de Influencia (Por Nivel)" />
     <string
-      id="ret_mcm_option_keep_upgrade_requirements_for_vanilla_hint"
-      text="Las tropas vanilla conservan sus requisitos originales de objetos de mejora cuando se editan." />
+      id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
+      text="Costo de influencia para convertir una tropa en un séquito, por nivel de la tropa de séquito objetivo." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Proporción Máxima de Séquito Básico" />
@@ -860,53 +878,53 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Número máximo de objetivos de mejora para tropas de élite." />
     <string
-      id="ret_mcm_option_never_require_noble_horse"
-      text="Nunca Requerir Caballo Noble" />
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements"
+      text="Sin Requisitos de Mejora de Conjunto Civil" />
     <string
-      id="ret_mcm_option_never_require_noble_horse_hint"
+      id="ret_mcm_option_no_civilian_set_upgrade_requirements_hint"
+      text="Al verificar los requisitos de montura para las mejoras, ignore cualquier caballo en los conjuntos civiles." />
+    <string
+      id="ret_mcm_option_no_doctrine_requirements"
+      text="Sin Requisitos de Doctrina" />
+    <string
+      id="ret_mcm_option_no_doctrine_requirements_hint"
+      text="Las tropas especiales (milicias, aldeanos, guardias de caravanas) se pueden adquirir sin las doctrinas apropiadas." />
+    <string
+      id="ret_mcm_option_no_fief_requirements"
+      text="Sin Requisitos de Feudo" />
+    <string
+      id="ret_mcm_option_no_fief_requirements_hint"
+      text="Las tropas se pueden desbloquear sin tener que poseer un feudo." />
+    <string
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements"
+      text="Sin Requisitos de Mejora de Caballo Noble" />
+    <string
+      id="ret_mcm_option_no_noble_horse_upgrade_requirements_hint"
       text="Las tropas nunca requieren caballos nobles para las mejoras, un caballo de guerra siempre es suficiente." />
     <string
-      id="ret_mcm_option_no_kingdom_troops"
-      text="Sin Tropas del Reino" />
+      id="ret_mcm_option_player_culture_unlock_bonus"
+      text="Bono de Desbloqueo de la Cultura del Jugador" />
     <string
-      id="ret_mcm_option_no_kingdom_troops_hint"
-      text="El árbol de tropas del reino personalizado se desactivará." />
+      id="ret_mcm_option_player_culture_unlock_bonus_hint"
+      text="Si la progresión de desbloqueo de objetos también agrega progreso a objetos aleatorios de la cultura del jugador." />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses"
-      text="Bonificaciones de Desbloqueo de Cultura Propia" />
+      id="ret_mcm_option_rank_up_cost_per_tier"
+      text="Costo de Subida de Nivel (Por Nivel)" />
     <string
-      id="ret_mcm_option_own_culture_unlock_bonuses_hint"
-      text="Si las muertes también desbloquean objetos de la cultura de la tropa personalizada." />
+      id="ret_mcm_option_rank_up_cost_per_tier_hint"
+      text="Costo de subida de nivel para tropas de séquito por nivel." />
     <string
-      id="ret_mcm_option_pay_for_equipment"
-      text="Pagar por el Equipo de la Tropa" />
+      id="ret_mcm_option_required_discards_per_item"
+      text="Descarte Requerido Por Objeto" />
     <string
-      id="ret_mcm_option_pay_for_equipment_hint"
-      text="Mejorar el equipo de la tropa cuesta dinero." />
-    <string
-      id="ret_mcm_option_recruit_anywhere"
-      text="Reclutar Tropas del Clan en Cualquier Lugar" />
-    <string
-      id="ret_mcm_option_recruit_anywhere_hint"
-      text="El jugador puede reclutar tropas del clan en cualquier asentamiento." />
-    <string
-      id="ret_mcm_option_refund_xp_on_decrease"
-      text="Reembolso de XP al Disminuir" />
-    <string
-      id="ret_mcm_option_refund_xp_on_decrease_hint"
-      text="Al disminuir la habilidad de una tropa, reembolsa el costo de XP." />
-    <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="Artículos Descartados Requeridos para Desbloquear" />
-    <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_per_item_hint"
       text="Cuántas veces se debe descartar un objeto para desbloquearlo." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="Muertes Requeridas para Desbloquear" />
+      id="ret_mcm_option_required_kills_per_item"
+      text="Muertes Requeridas Por Objeto" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="Cuántos enemigos con un objeto deben ser derrotados para desbloquearlo." />
+      id="ret_mcm_option_required_kills_per_item_hint"
+      text="Cuántos enemigos que llevan un objeto deben ser derrotados para desbloquearlo." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
       text="Restringir la Edición a los Feudos" />
@@ -918,25 +936,19 @@
       text="Restringir los objetos al inventario de la ciudad" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
-      text="El jugador solo puede comprar objetos disponibles en el inventario de la ciudad." />
+      text="El equipo de las tropas solo se puede comprar si está disponible en el inventario de la ciudad actual." />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
-      text="Costo de Conversión de Oro del Séquito por Nivel" />
+      id="ret_mcm_option_restrict_to_owned_settlements"
+      text="Restringir a los asentamientos poseídos" />
     <string
-      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
-      text="Costo de conversión para tropas del séquito por nivel." />
+      id="ret_mcm_option_restrict_to_owned_settlements_hint"
+      text="Las tropas personalizadas solo se pueden reclutar en asentamientos propiedad del clan o reino del jugador." />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
-      text="Costo de Conversión de Influencia del Séquito por Nivel" />
+      id="ret_mcm_option_restrict_to_same_culture_settlements"
+      text="Restringir a los asentamientos de la misma cultura" />
     <string
-      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
-      text="Costo de conversión para tropas del séquito por nivel." />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier"
-      text="Costo de Ascenso de Séquito por Nivel" />
-    <string
-      id="ret_mcm_option_retinue_rank_up_cost_per_tier_hint"
-      text="Costo de ascenso del séquito por nivel." />
+      id="ret_mcm_option_restrict_to_same_culture_settlements_hint"
+      text="Los voluntarios en asentamientos de una cultura diferente no serán reemplazados por tropas personalizadas." />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Bonificación de Tope de Habilidad del Séquito" />
@@ -980,47 +992,35 @@
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Costo escalable de experiencia por cada punto de habilidad." />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture"
-      text="Cambiar Voluntarios Solo por la Cultura Correcta" />
+      id="ret_mcm_option_training_time_multiplier"
+      text="Multiplicador de Tiempo de Entrenamiento" />
     <string
-      id="ret_mcm_option_swap_only_for_correct_culture_hint"
-      text="Los voluntarios en asentamientos de una cultura diferente no serán reemplazados por tropas personalizadas." />
+      id="ret_mcm_option_training_time_multiplier_hint"
+      text="Multiplicador para el tiempo de entrenamiento de las tropas." />
     <string
-      id="ret_mcm_option_swap_proportion"
-      text="Proporción de Intercambio de Voluntarios" />
+      id="ret_mcm_option_training_troops_takes_time"
+      text="El Entrenamiento de Tropas Toma Tiempo" />
     <string
-      id="ret_mcm_option_swap_proportion_hint"
-      text="Proporción de voluntarios que serán reemplazados por tropas personalizadas." />
-    <string
-      id="ret_mcm_option_training_takes_time"
-      text="El Entrenamiento de Tropas Lleva Tiempo" />
-    <string
-      id="ret_mcm_option_training_takes_time_hint"
+      id="ret_mcm_option_training_troops_takes_time_hint"
       text="Para aplicar aumentos de habilidad, las tropas deben pasar tiempo entrenando en un feudo." />
     <string
-      id="ret_mcm_option_training_time_modifier"
-      text="Modificador de Tiempo de Entrenamiento" />
+      id="ret_mcm_option_unlock_items_from_discards"
+      text="Desbloquear Objetos al Desecharlos" />
     <string
-      id="ret_mcm_option_training_time_modifier_hint"
-      text="Modificador para el tiempo de entrenamiento de tropas." />
+      id="ret_mcm_option_unlock_items_from_discards_hint"
+      text="Desbloquea el equipo al desecharlo." />
     <string
-      id="ret_mcm_option_unlock_from_culture"
-      text="Desbloquear por Cultura" />
+      id="ret_mcm_option_unlock_items_from_kills"
+      text="Desbloquear Objetos al Matar" />
     <string
-      id="ret_mcm_option_unlock_from_culture_hint"
-      text="El equipo de la cultura del jugador y del reino liderado por el jugador siempre está disponible." />
+      id="ret_mcm_option_unlock_items_from_kills_hint"
+      text="Desbloquea el equipo al derrotar a enemigos que lo lleven puesto." />
     <string
-      id="ret_mcm_option_unlock_from_discarded"
-      text="Desbloquear por Objetos Descartados" />
+      id="ret_mcm_option_vanilla_upgrade_requirements"
+      text="Requisitos de Mejora Estándar" />
     <string
-      id="ret_mcm_option_unlock_from_discarded_hint"
-      text="Desbloquea equipo descartándolo." />
-    <string
-      id="ret_mcm_option_unlock_from_kills"
-      text="Desbloquear por Muertes" />
-    <string
-      id="ret_mcm_option_unlock_from_kills_hint"
-      text="Desbloquea equipo derrotando enemigos que lo lleven." />
+      id="ret_mcm_option_vanilla_upgrade_requirements_hint"
+      text="Las tropas estándar conservan sus requisitos originales de objetos de mejora cuando se editan." />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Los Señores Vasallos Reclutan Tropas Personalizadas" />
@@ -1036,6 +1036,9 @@
     <string
       id="ret_mcm_section_equipment"
       text="Equipo" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="Desbloqueos de Equipo" />
     <string
       id="ret_mcm_section_general"
       text="General" />
@@ -1064,11 +1067,11 @@
       id="ret_mcm_section_skills"
       text="Habilidades" />
     <string
+      id="ret_mcm_section_troop_unlocks"
+      text="Desbloqueos de Tropas" />
+    <string
       id="ret_mcm_section_ui"
       text="Interfaz de Usuario" />
-    <string
-      id="ret_mcm_section_unlocks"
-      text="Desbloqueos" />
     <string
       id="ret_name_header_text"
       text="Nombre" />
@@ -1375,6 +1378,9 @@
     <string
       id="ret_royal_patronage_description"
       text="Desbloquea tropas de caravanas y aldeanos." />
+    <string
+      id="ret_royal_patronage_disabled_message"
+      text="Desactivado: tropas especiales desbloqueadas desde la configuración." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recluta 100 tropas personalizadas del reino." />

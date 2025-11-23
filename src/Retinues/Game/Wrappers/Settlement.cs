@@ -200,7 +200,7 @@ namespace Retinues.Game.Wrappers
             if (faction == null)
                 return;
 
-            if (Config.SwapOnlyForCorrectCulture && faction.Culture != Culture)
+            if (Config.RestrictToSameCultureSettlements && faction.Culture != Culture)
                 return; // skip if culture doesn't match
 
             Log.Debug($"Swapping volunteers in settlement '{this}' for faction '{faction}'");

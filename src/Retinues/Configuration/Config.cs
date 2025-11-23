@@ -32,7 +32,6 @@ namespace Retinues.Configuration
             bool requiresRestart = false,
             IReadOnlyDictionary<string, object> presets = null,
             bool disabled = false,
-            System.Func<string> disabledHint = null,
             T disabledOverride = default
         ) =>
             new(
@@ -46,7 +45,6 @@ namespace Retinues.Configuration
                 requiresRestart,
                 presets,
                 disabled,
-                disabledHint,
                 disabledOverride
             );
 
@@ -65,7 +63,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_max_elite_retinue_ratio_hint",
-                    "Maximum proportion of elite retinue troops in player party."
+                    "Maximum proportion of elite retinues in player party."
                 ),
             @default: 0.10f,
             minValue: 0,
@@ -84,7 +82,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_max_basic_retinue_ratio_hint",
-                    "Maximum proportion of basic retinue troops in player party."
+                    "Maximum proportion of basic retinues in player party."
                 ),
             @default: 0.20f,
             minValue: 0,
@@ -96,18 +94,34 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<int> RetinueGoldConversionCostPerTier = CreateOption(
+        public static readonly Option<int> RankUpCostPerTier = CreateOption(
             section: () => L.S("mcm_section_retinues", "Retinues"),
-            name: () =>
-                L.S(
-                    "mcm_option_retinue_gold_conversion_cost_per_tier",
-                    "Retinue Gold Conversion Cost Per Tier"
-                ),
-            key: "RetinueGoldConversionCostPerTier",
+            name: () => L.S("mcm_option_rank_up_cost_per_tier", "Rank Up Cost (Per Tier)"),
+            key: "RankUpCostPerTier",
             hint: () =>
                 L.S(
-                    "mcm_option_retinue_gold_conversion_cost_per_tier_hint",
-                    "Conversion cost for retinue troops per tier."
+                    "mcm_option_rank_up_cost_per_tier_hint",
+                    "Rank up cost for retinue troops per tier."
+                ),
+            @default: 1000,
+            minValue: 0,
+            maxValue: 5000,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 0,
+                [Presets.Realistic] = 2000,
+            }
+        );
+
+        public static readonly Option<int> GoldConversionCostPerTier = CreateOption(
+            section: () => L.S("mcm_section_retinues", "Retinues"),
+            name: () =>
+                L.S("mcm_option_gold_conversion_cost_per_tier", "Gold Conversion Cost (Per Tier)"),
+            key: "GoldConversionCostPerTier",
+            hint: () =>
+                L.S(
+                    "mcm_option_gold_conversion_cost_per_tier_hint",
+                    "Gold cost to convert a troop into a retinue, per tier of the target retinue troop."
                 ),
             @default: 50,
             minValue: 0,
@@ -119,18 +133,18 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<int> RetinueInfluenceConversionCostPerTier = CreateOption(
+        public static readonly Option<int> InfluenceConversionCostPerTier = CreateOption(
             section: () => L.S("mcm_section_retinues", "Retinues"),
             name: () =>
                 L.S(
-                    "mcm_option_retinue_influence_conversion_cost_per_tier",
-                    "Retinue Influence Conversion Cost Per Tier"
+                    "mcm_option_influence_conversion_cost_per_tier",
+                    "Influence Conversion Cost (Per Tier)"
                 ),
-            key: "RetinueInfluenceConversionCostPerTier",
+            key: "InfluenceConversionCostPerTier",
             hint: () =>
                 L.S(
-                    "mcm_option_retinue_influence_conversion_cost_per_tier_hint",
-                    "Conversion cost for retinue troops per tier."
+                    "mcm_option_influence_conversion_cost_per_tier_hint",
+                    "Influence cost to convert a troop into a retinue, per tier of the target retinue troop."
                 ),
             @default: 5,
             minValue: 0,
@@ -142,57 +156,18 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<int> RetinueRankUpCostPerTier = CreateOption(
-            section: () => L.S("mcm_section_retinues", "Retinues"),
-            name: () =>
-                L.S("mcm_option_retinue_rank_up_cost_per_tier", "Retinue Rank Up Cost Per Tier"),
-            key: "RetinueRankUpCostPerTier",
-            hint: () =>
-                L.S(
-                    "mcm_option_retinue_rank_up_cost_per_tier_hint",
-                    "Rank up cost for retinue troops per tier."
-                ),
-            @default: 1000,
-            minValue: 0,
-            maxValue: 5000,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = 0,
-                [Presets.Realistic] = 1000,
-            }
-        );
-
         // ─────────────────────────────────────────────────────
-        // Recruitment
+        // Troop Unlocks
         // ─────────────────────────────────────────────────────
 
-        public static readonly Option<float> VolunteerSwapProportion = CreateOption(
-            section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () => L.S("mcm_option_swap_proportion", "Volunteer Swap Proportion"),
-            key: "VolunteerSwapProportion",
+        public static readonly Option<bool> NoFiefRequirements = CreateOption(
+            section: () => L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
+            name: () => L.S("mcm_option_no_fief_requirements", "No Fief Requirements"),
+            key: "NoFiefRequirement",
             hint: () =>
                 L.S(
-                    "mcm_option_swap_proportion_hint",
-                    "Proportion of volunteers that get swapped for custom troops."
-                ),
-            @default: 1f,
-            minValue: 0,
-            maxValue: 1,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = 1.0f,
-                [Presets.Realistic] = 1.0f,
-            }
-        );
-
-        public static readonly Option<bool> RecruitAnywhere = CreateOption(
-            section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () => L.S("mcm_option_recruit_anywhere", "Recruit Clan Troops Anywhere"),
-            key: "RecruitAnywhere",
-            hint: () =>
-                L.S(
-                    "mcm_option_recruit_anywhere_hint",
-                    "Player can recruit clan troops in any settlement."
+                    "mcm_option_no_fief_requirements_hint",
+                    "Troops can be unlocked without having to own a fief."
                 ),
             @default: false,
             presets: new Dictionary<string, object>
@@ -202,39 +177,82 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> SwapOnlyForCorrectCulture = CreateOption(
-            section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () =>
-                L.S(
-                    "mcm_option_swap_only_for_correct_culture",
-                    "Swap Volunteers Only For Correct Culture"
-                ),
-            key: "SwapOnlyForCorrectCulture",
+        public static readonly Option<bool> NoDoctrineRequirements = CreateOption(
+            section: () => L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
+            name: () => L.S("mcm_option_no_doctrine_requirements", "No Doctrine Requirements"),
+            key: "NoDoctrineRequirements",
             hint: () =>
                 L.S(
-                    "mcm_option_swap_only_for_correct_culture_hint",
-                    "Volunteers in settlements of a different culture will not be replaced by custom troops."
+                    "mcm_option_no_doctrine_requirements_hint",
+                    "Special troops (militias, villagers, caravan guards) can be acquired without the appropriate doctrines."
                 ),
             @default: false,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = true,
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
             }
         );
 
-        public static readonly Option<bool> ClanTroopsOverKingdomTroops = CreateOption(
-            section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () =>
-                L.S(
-                    "mcm_option_clan_troops_over_kingdom_troops",
-                    "Clan Troops Over Kingdom Troops"
-                ),
-            key: "ClanTroopsOverKingdomTroops",
+        public static readonly Option<bool> DisableKingdomTroops = CreateOption(
+            section: () => L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
+            name: () => L.S("mcm_option_disable_kingdom_troops", "Disable Kingdom Troops"),
+            key: "DisableKingdomTroops",
             hint: () =>
                 L.S(
-                    "mcm_option_clan_troops_over_kingdom_troops_hint",
-                    "If a fief is both a clan fief and a kingdom fief, clan troops will be prioritized over kingdom troops."
+                    "mcm_option_disable_kingdom_troops_hint",
+                    "The custom kingdom troop tree will be disabled and clan troops will be used instead."
+                ),
+            @default: false
+        );
+
+        public static readonly Option<bool> CopyAllSetsOnUnlock = CreateOption(
+            section: () => L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
+            name: () => L.S("mcm_option_copy_all_sets_on_unlock", "Copy All Sets On Unlock"),
+            key: "CopyAllSetsOnUnlock",
+            hint: () =>
+                L.S(
+                    "mcm_option_copy_all_sets_on_unlock_hint",
+                    "When unlocking a new troop, copy all equipment sets from the original troop instead of only the main battle and civilian sets."
+                ),
+            @default: false,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = true,
+                [Presets.Realistic] = false,
+            },
+            disabled: ModCompatibility.NoAlternateEquipmentSets,
+            disabledOverride: false
+        );
+
+        // ─────────────────────────────────────────────────────
+        // Recruitment
+        // ─────────────────────────────────────────────────────
+
+        public static readonly Option<float> CustomVolunteerProportion = CreateOption(
+            section: () => L.S("mcm_section_recruitment", "Recruitment"),
+            name: () =>
+                L.S("mcm_option_custom_volunteer_proportion", "Custom Volunteer Proportion"),
+            key: "CustomVolunteerProportion",
+            hint: () =>
+                L.S(
+                    "mcm_option_custom_volunteer_proportion_hint",
+                    "Chance for each vanilla volunteer to be replaced by a custom troop (0 = never, 1 = always)."
+                ),
+            @default: 1f,
+            minValue: 0,
+            maxValue: 1
+        );
+
+        public static readonly Option<bool> RestrictToOwnedSettlements = CreateOption(
+            section: () => L.S("mcm_section_recruitment", "Recruitment"),
+            name: () =>
+                L.S("mcm_option_restrict_to_owned_settlements", "Restrict To Owned Settlements"),
+            key: "RestrictToOwnedSettlements",
+            hint: () =>
+                L.S(
+                    "mcm_option_restrict_to_owned_settlements_hint",
+                    "Custom troops can only be recruited in settlements owned by the player's clan or kingdom."
                 ),
             @default: true,
             presets: new Dictionary<string, object>
@@ -244,20 +262,24 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> NoKingdomTroops = CreateOption(
+        public static readonly Option<bool> RestrictToSameCultureSettlements = CreateOption(
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
-            name: () => L.S("mcm_option_no_kingdom_troops", "No Kingdom Troops"),
-            key: "NoKingdomTroops",
+            name: () =>
+                L.S(
+                    "mcm_option_restrict_to_same_culture_settlements",
+                    "Restrict To Same Culture Settlements"
+                ),
+            key: "RestrictToSameCultureSettlements",
             hint: () =>
                 L.S(
-                    "mcm_option_no_kingdom_troops_hint",
-                    "The custom kingdom troop tree will be disabled."
+                    "mcm_option_restrict_to_same_culture_settlements_hint",
+                    "Volunteers in settlements of a different culture will not be replaced by custom troops."
                 ),
             @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = false,
-                [Presets.Realistic] = false,
+                [Presets.Realistic] = true,
             }
         );
 
@@ -275,18 +297,8 @@ namespace Retinues.Configuration
                     "Lords of the player's clan or kingdom can recruit custom troops in their fiefs."
                 ),
             @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            },
             disabled: ModCompatibility.ForceDailyVolunteerSwap,
-            disabledOverride: true,
-            disabledHint: () =>
-                L.S(
-                    "mcm_option_global_editor_enabled_disabled_hint",
-                    "The global troop editor is disabled due to compatibility issues with other activated mods."
-                )
+            disabledOverride: true
         );
 
         public static readonly Option<bool> AllLordsCanRecruitCustomTroops = CreateOption(
@@ -307,19 +319,9 @@ namespace Retinues.Configuration
                         "mcm_option_all_lords_recruit_custom_troops_hint",
                         "Any lord can recruit custom troops in the player's fiefs."
                     ),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = true,
-            },
+            @default: true,
             disabled: ModCompatibility.ForceDailyVolunteerSwap,
-            disabledOverride: true,
-            disabledHint: () =>
-                L.S(
-                    "mcm_option_global_editor_enabled_disabled_hint",
-                    "The global troop editor is disabled due to compatibility issues with other activated mods."
-                )
+            disabledOverride: true
         );
 
         // ─────────────────────────────────────────────────────
@@ -333,43 +335,25 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_global_editor_enabled_hint",
-                    "Enables the global troop editor to modify any troop in the game. Disable if you are encountering issues with non-player troops."
+                    "Enables the global troop editor to modify any troop in the game. Disable if you encounter issues with non-player troops or other mods."
                 ),
             @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            },
             requiresRestart: true,
             disabled: ModCompatibility.NoGlobalEditor,
-            disabledOverride: false,
-            disabledHint: () =>
-                L.S(
-                    "mcm_option_global_editor_enabled_disabled_hint",
-                    "The global troop editor is disabled due to compatibility issues with other activated mods."
-                )
+            disabledOverride: false
         );
 
-        public static readonly Option<bool> KeepUpgradeRequirementsForVanilla = CreateOption(
+        public static readonly Option<bool> VanillaUpgradeRequirements = CreateOption(
             section: () => L.S("mcm_section_global_editor", "Global Editor"),
             name: () =>
-                L.S(
-                    "mcm_option_keep_upgrade_requirements_for_vanilla",
-                    "Keep Upgrade Requirements For Vanilla Troops"
-                ),
-            key: "KeepUpgradeRequirementsForVanilla",
+                L.S("mcm_option_vanilla_upgrade_requirements", "Vanilla Upgrade Requirements"),
+            key: "VanillaUpgradeRequirements",
             hint: () =>
                 L.S(
-                    "mcm_option_keep_upgrade_requirements_for_vanilla_hint",
+                    "mcm_option_vanilla_upgrade_requirements_hint",
                     "Vanilla troops retain their original upgrade item requirements when edited."
                 ),
-            @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            }
+            @default: true
         );
 
         // ─────────────────────────────────────────────────────
@@ -400,7 +384,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_max_elite_upgrades_hint",
-                    "Maximum number of upgrade targets for elite troops."
+                    "Maximum number of upgrade paths each elite troop can have."
                 ),
             @default: 1,
             minValue: 1,
@@ -419,7 +403,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_max_basic_upgrades_hint",
-                    "Maximum number of upgrade targets for basic troops."
+                    "Maximum number of upgrade paths each basic troop can have."
                 ),
             @default: 2,
             minValue: 1,
@@ -442,14 +426,9 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_enable_doctrines_hint",
-                    "Enable the Doctrines system and its features (warning: saving with doctrines disabled will clear all doctrine data)."
+                    "Enables the Doctrines system and its bonuses. Warning: saving with doctrines disabled will clear all doctrine data in the save."
                 ),
             @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            },
             requiresRestart: true
         );
 
@@ -460,14 +439,9 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_enable_feat_requirements_hint",
-                    "Enables feat requirements for unlocking doctrines (warning: saving with feats disabled will clear all feat data)."
+                    "Enables feat requirements for unlocking doctrines. Warning: saving with this disabled will clear all feat data in the save."
                 ),
             @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = true,
-            },
             requiresRestart: true
         );
 
@@ -475,12 +449,16 @@ namespace Retinues.Configuration
         // Equipment
         // ─────────────────────────────────────────────────────
 
-        public static readonly Option<bool> PayForEquipment = CreateOption(
+        public static readonly Option<bool> EquippingTroopsCostsGold = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S("mcm_option_pay_for_equipment", "Pay For Troop Equipment"),
-            key: "PayForEquipment",
+            name: () =>
+                L.S("mcm_option_equipping_troops_costs_gold", "Equipping Troops Costs Gold"),
+            key: "EquippingTroopsCostsGold",
             hint: () =>
-                L.S("mcm_option_pay_for_equipment_hint", "Upgrading troop equipment costs money."),
+                L.S(
+                    "mcm_option_equipping_troops_costs_gold_hint",
+                    "Upgrading troop equipment costs money."
+                ),
             @default: true,
             presets: new Dictionary<string, object>
             {
@@ -489,14 +467,14 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<float> EquipmentPriceModifier = CreateOption(
+        public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S("mcm_option_equipment_price_modifier", "Equipment Price Modifier"),
-            key: "EquipmentPriceModifier",
+            name: () => L.S("mcm_option_equipment_cost_multiplier", "Equipment Cost Multiplier"),
+            key: "EquipmentCostMultiplier",
             hint: () =>
                 L.S(
-                    "mcm_option_equipment_price_modifier_hint",
-                    "Modifier for equipment price compared to base game prices."
+                    "mcm_option_equipment_cost_multiplier_hint",
+                    "Multiplier for equipment prices compared to base game prices."
                 ),
             @default: 2.0f,
             minValue: 0,
@@ -508,17 +486,14 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> EquipmentChangeTakesTime = CreateOption(
+        public static readonly Option<bool> EquippingTroopsTakesTime = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () =>
-                L.S(
-                    "mcm_option_equipment_change_takes_time",
-                    "Changing Troop Equipment Takes Time"
-                ),
-            key: "EquipmentChangeTakesTime",
+                L.S("mcm_option_equipping_troops_takes_time", "Equipping Troops Takes Time"),
+            key: "EquippingTroopsTakesTime",
             hint: () =>
                 L.S(
-                    "mcm_option_equipment_change_takes_time_hint",
+                    "mcm_option_equipping_troops_takes_time_hint",
                     "To apply item changes, troops must spend time upgrading equipment in a fief."
                 ),
             @default: false,
@@ -529,15 +504,14 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<int> EquipmentChangeTimeModifier = CreateOption(
+        public static readonly Option<int> EquipmentTimeMultiplier = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () =>
-                L.S("mcm_option_equipment_change_time_modifier", "Equipment Change Time Modifier"),
-            key: "EquipmentChangeTimeModifier",
+            name: () => L.S("mcm_option_equipment_time_multiplier", "Equipment Time Multiplier"),
+            key: "EquipmentTimeMultiplier",
             hint: () =>
                 L.S(
-                    "mcm_option_equipment_change_time_modifier_hint",
-                    "Modifier for equipment change time."
+                    "mcm_option_equipment_time_multiplier_hint",
+                    "Multiplier for equipment change time."
                 ),
             @default: 2,
             minValue: 1,
@@ -560,7 +534,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_restrict_items_to_town_inventory_hint",
-                    "Player can only purchase items available in the town inventory."
+                    "Troops equipment can only be purchased if available in the current town inventory."
                 ),
             @default: false,
             presets: new Dictionary<string, object> { [Presets.Realistic] = true }
@@ -573,7 +547,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_allowed_tier_difference_hint",
-                    "Maximum allowed tier difference between troops and equipment."
+                    "Maximum allowed difference between troop tier and item tier."
                 ),
             @default: 3,
             minValue: 0,
@@ -582,6 +556,24 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = 6,
                 [Presets.Realistic] = 2,
+            }
+        );
+
+        public static readonly Option<bool> DisallowMountsForT1Troops = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () =>
+                L.S("mcm_option_disallow_mounts_for_t1_troops", "Disallow Mounts For T1 Troops"),
+            key: "DisallowMountsForT1Troops",
+            hint: () =>
+                L.S(
+                    "mcm_option_disallow_mounts_for_t1_troops_hint",
+                    "Tier 1 troops cannot have mounts."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = true,
             }
         );
 
@@ -596,107 +588,64 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_force_main_battle_set_in_combat_hint",
-                    "Troops always use their main battle equipment set in combat."
+                    "Troops always use their main battle equipment set in combat, ignoring alternate sets. Use this setting if you experience issues with troops using incorrect equipment sets in battle."
                 ),
-            @default: false,
+            @default: false
+        );
+
+        public static readonly Option<bool> NoCivilianSetUpgradeRequirements = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () =>
+                L.S(
+                    "mcm_option_no_civilian_set_upgrade_requirements",
+                    "No Civilian Set Upgrade Requirements"
+                ),
+            key: "NoCivilianSetUpgradeRequirements",
+            hint: () =>
+                L.S(
+                    "mcm_option_no_civilian_set_upgrade_requirements_hint",
+                    "When checking mount requirements for upgrades, ignore any horse in civilian sets."
+                ),
+            @default: true,
             presets: new Dictionary<string, object>
             {
-                [Presets.Freeform] = false,
+                [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
             }
         );
 
-        public static readonly Option<bool> IgnoreCivilianHorseForUpgradeRequirements =
-            CreateOption(
-                section: () => L.S("mcm_section_equipment", "Equipment"),
-                name: () =>
-                    L.S(
-                        "mcm_option_ignore_civilian_horse_for_upgrade_requirements",
-                        "Ignore Civilian Horse for Upgrade Requirements"
-                    ),
-                key: "IgnoreCivilianHorseForUpgradeRequirements",
-                hint: () =>
-                    L.S(
-                        "mcm_option_ignore_civilian_horse_for_upgrade_requirements_hint",
-                        "When checking for mount requirements when upgrading troops, ignore the civilian set's horse."
-                    ),
-                @default: true,
-                presets: new Dictionary<string, object>
-                {
-                    [Presets.Freeform] = true,
-                    [Presets.Realistic] = false,
-                }
-            );
-
-        public static readonly Option<bool> NeverRequireNobleHorse = CreateOption(
+        public static readonly Option<bool> NoNobleHorseUpgradeRequirements = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S("mcm_option_never_require_noble_horse", "Never Require Noble Horse"),
-            key: "NeverRequireNobleHorse",
+            name: () =>
+                L.S(
+                    "mcm_option_no_noble_horse_upgrade_requirements",
+                    "No Noble Horse Upgrade Requirements"
+                ),
+            key: "NoNobleHorseUpgradeRequirements",
             hint: () =>
                 L.S(
-                    "mcm_option_never_require_noble_horse_hint",
+                    "mcm_option_no_noble_horse_upgrade_requirements_hint",
                     "Troops never require noble horses for upgrades, a war horse is always enough."
                 ),
             @default: true,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            }
-        );
-
-        public static readonly Option<bool> NoMountForTier1 = CreateOption(
-            section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S("mcm_option_disallow_mounts_for_tier_1", "Disallow Mounts For Tier 1"),
-            key: "NoMountForTier1",
-            hint: () =>
-                L.S(
-                    "mcm_option_disallow_mounts_for_tier_1_hint",
-                    "Tier 1 troops cannot have mounts."
-                ),
-            @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = true,
-            }
-        );
-
-        public static readonly Option<bool> CopyAllSetsWhenCloning = CreateOption(
-            section: () => L.S("mcm_section_equipment", "Equipment"),
-            name: () => L.S("mcm_option_copy_all_sets_when_cloning", "Copy All Sets When Cloning"),
-            key: "CopyAllSetsWhenCloning",
-            hint: () =>
-                L.S(
-                    "mcm_option_copy_all_sets_when_cloning_hint",
-                    "When cloning troop equipment, copy all equipment sets instead of just one battle and one civilian set."
-                ),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
-            },
-            disabled: ModCompatibility.NoAlternateEquipmentSets,
-            disabledOverride: false,
-            disabledHint: () =>
-                L.S(
-                    "mcm_option_copy_all_sets_disabled_hint",
-                    "Alternate sets are disabled due to incompatibilities with other activated mods."
-                )
+            }
         );
 
         // ─────────────────────────────────────────────────────
         // Skills (training)
         // ─────────────────────────────────────────────────────
 
-        public static readonly Option<bool> TrainingTakesTime = CreateOption(
+        public static readonly Option<bool> TrainingTroopsTakesTime = CreateOption(
             section: () => L.S("mcm_section_skills", "Skills"),
-            name: () => L.S("mcm_option_training_takes_time", "Troop Training Takes Time"),
-            key: "TrainingTakesTime",
+            name: () => L.S("mcm_option_training_troops_takes_time", "Training Troops Takes Time"),
+            key: "TrainingTroopsTakesTime",
             hint: () =>
                 L.S(
-                    "mcm_option_training_takes_time_hint",
+                    "mcm_option_training_troops_takes_time_hint",
                     "To apply skill increases, troops must spend time training in a fief."
                 ),
             @default: false,
@@ -707,12 +656,15 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<int> TrainingTimeModifier = CreateOption(
+        public static readonly Option<int> TrainingTimeMultiplier = CreateOption(
             section: () => L.S("mcm_section_skills", "Skills"),
-            name: () => L.S("mcm_option_training_time_modifier", "Training Time Modifier"),
-            key: "TrainingTimeModifier",
+            name: () => L.S("mcm_option_training_time_multiplier", "Training Time Multiplier"),
+            key: "TrainingTimeMultiplier",
             hint: () =>
-                L.S("mcm_option_training_time_modifier_hint", "Modifier for troop training time."),
+                L.S(
+                    "mcm_option_training_time_multiplier_hint",
+                    "Multiplier for troop training time."
+                ),
             @default: 2,
             minValue: 1,
             maxValue: 5,
@@ -762,24 +714,36 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_skills", "Skills"),
             name: () => L.S("mcm_option_shared_xp_pool", "Shared XP Pool"),
             key: "SharedXpPool",
-            hint: () => L.S("mcm_option_shared_xp_pool_hint", "All troops share the same XP pool."),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = false,
-            }
-        );
-
-        public static readonly Option<bool> RefundXpOnDecrease = CreateOption(
-            section: () => L.S("mcm_section_skills", "Skills"),
-            name: () => L.S("mcm_option_refund_xp_on_decrease", "Refund XP On Decrease"),
-            key: "RefundXpOnDecrease",
             hint: () =>
                 L.S(
-                    "mcm_option_refund_xp_on_decrease_hint",
-                    "When decreasing a troop's skill, refund the XP cost."
+                    "mcm_option_shared_xp_pool_hint",
+                    "All edited troops share a single XP pool instead of having individual XP."
                 ),
+            @default: false
+        );
+
+        public static readonly Option<bool> ForceXpRefunds = CreateOption(
+            section: () => L.S("mcm_section_skills", "Skills"),
+            name: () => L.S("mcm_option_force_xp_refunds", "Force XP Refunds"),
+            key: "ForceXpRefunds",
+            hint: () =>
+                L.S(
+                    "mcm_option_force_xp_refunds_hint",
+                    "When lowering a troop's skill, always refund the XP previously spent on those points."
+                ),
+            @default: false
+        );
+
+        // ─────────────────────────────────────────────────────
+        // Equipment Unlocks
+        // ─────────────────────────────────────────────────────
+
+        public static readonly Option<bool> AllEquipmentUnlocked = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () => L.S("mcm_option_all_equipment_unlocked", "All Equipment Unlocked"),
+            key: "AllEquipmentUnlocked",
+            hint: () =>
+                L.S("mcm_option_all_equipment_unlocked_hint", "All items are always available."),
             @default: false,
             presets: new Dictionary<string, object>
             {
@@ -788,17 +752,26 @@ namespace Retinues.Configuration
             }
         );
 
-        // ─────────────────────────────────────────────────────
-        // Unlocks
-        // ─────────────────────────────────────────────────────
-
-        public static readonly Option<bool> UnlockFromKills = CreateOption(
-            section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () => L.S("mcm_option_unlock_from_kills", "Unlock From Kills"),
-            key: "UnlockFromKills",
+        public static readonly Option<bool> AllCultureEquipmentUnlocked = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () =>
+                L.S("mcm_option_all_culture_equipment_unlocked", "All Culture Equipment Unlocked"),
+            key: "AllCultureEquipmentUnlocked",
             hint: () =>
                 L.S(
-                    "mcm_option_unlock_from_kills_hint",
+                    "mcm_option_all_culture_equipment_unlocked_hint",
+                    "Player clan and kingdom culture items are always available."
+                ),
+            @default: false
+        );
+
+        public static readonly Option<bool> UnlockItemsFromKills = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () => L.S("mcm_option_unlock_items_from_kills", "Unlock Items From Kills"),
+            key: "UnlockItemsFromKills",
+            hint: () =>
+                L.S(
+                    "mcm_option_unlock_items_from_kills_hint",
                     "Unlock equipment by defeating enemies wearing it."
                 ),
             @default: true,
@@ -809,13 +782,13 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<int> KillsForUnlock = CreateOption(
-            section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () => L.S("mcm_option_required_kills_for_unlock", "Required Kills For Unlock"),
-            key: "KillsForUnlock",
+        public static readonly Option<int> RequiredKillsPerItem = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () => L.S("mcm_option_required_kills_per_item", "Required Kills Per Item"),
+            key: "RequiredKillsPerItem",
             hint: () =>
                 L.S(
-                    "mcm_option_required_kills_for_unlock_hint",
+                    "mcm_option_required_kills_per_item_hint",
                     "How many enemies wearing an item must be defeated to unlock it."
                 ),
             @default: 100,
@@ -828,31 +801,25 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> UnlockFromDiscards = CreateOption(
-            section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () => L.S("mcm_option_unlock_from_discarded", "Unlock From Discarded Items"),
-            key: "UnlockFromDiscarded",
+        public static readonly Option<bool> UnlockItemsFromDiscards = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () => L.S("mcm_option_unlock_items_from_discards", "Unlock Items From Discards"),
+            key: "UnlockItemsFromDiscards",
             hint: () =>
-                L.S("mcm_option_unlock_from_discarded_hint", "Unlock equipment by discarding it."),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = false,
-                [Presets.Realistic] = false,
-            }
+                L.S(
+                    "mcm_option_unlock_items_from_discards_hint",
+                    "Unlock equipment by discarding it."
+                ),
+            @default: false
         );
 
-        public static readonly Option<int> DiscardsForUnlock = CreateOption(
-            section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () =>
-                L.S(
-                    "mcm_option_required_discards_for_unlock",
-                    "Required Discarded Items For Unlock"
-                ),
+        public static readonly Option<int> RequiredDiscardsPerItem = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () => L.S("mcm_option_required_discards_per_item", "Required Discards Per Item"),
             key: "DiscardsForUnlock",
             hint: () =>
                 L.S(
-                    "mcm_option_required_discards_for_unlock_hint",
+                    "mcm_option_required_discards_per_item_hint",
                     "How many times an item must be discarded to unlock it."
                 ),
             @default: 10,
@@ -865,50 +832,17 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> OwnCultureUnlockBonuses = CreateOption(
-            section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () => L.S("mcm_option_own_culture_unlock_bonuses", "Own Culture Unlock Bonuses"),
-            key: "OwnCultureUnlockBonuses",
+        public static readonly Option<bool> PlayerCultureUnlockBonus = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () =>
+                L.S("mcm_option_player_culture_unlock_bonus", "Player Culture Unlock Bonus"),
+            key: "PlayerCultureUnlockBonus",
             hint: () =>
                 L.S(
-                    "mcm_option_own_culture_unlock_bonuses_hint",
-                    "Whether kills also unlock items from the custom troop's culture."
+                    "mcm_option_player_culture_unlock_bonus_hint",
+                    "Whether item unlock progression also adds progress to random items of the player culture."
                 ),
             @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = false,
-            }
-        );
-
-        public static readonly Option<bool> UnlockFromCulture = CreateOption(
-            section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () => L.S("mcm_option_unlock_from_culture", "Unlock From Culture"),
-            key: "UnlockFromCulture",
-            hint: () =>
-                L.S(
-                    "mcm_option_unlock_from_culture_hint",
-                    "Player culture and player-led kingdom culture equipment is always available."
-                ),
-            @default: false,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = false,
-            }
-        );
-
-        public static readonly Option<bool> AllEquipmentUnlocked = CreateOption(
-            section: () => L.S("mcm_section_unlocks", "Unlocks"),
-            name: () => L.S("mcm_option_all_equipment_unlocked", "All Equipment Unlocked"),
-            key: "AllEquipmentUnlocked",
-            hint: () =>
-                L.S(
-                    "mcm_option_all_equipment_unlocked_hint",
-                    "All equipment unlocked on game start."
-                ),
-            @default: false,
             presets: new Dictionary<string, object>
             {
                 [Presets.Freeform] = true,
@@ -924,11 +858,7 @@ namespace Retinues.Configuration
             section: () => L.S("mcm_section_debug", "Debug"),
             name: () => L.S("mcm_option_debug_mode", "Debug Mode"),
             key: "DebugMode",
-            hint: () =>
-                L.S(
-                    "mcm_option_debug_mode_hint",
-                    "Outputs many more logs (may impact performance)."
-                ),
+            hint: () => L.S("mcm_option_debug_mode_hint", "Displays debug logs in game."),
             @default: false
         );
 
@@ -943,19 +873,20 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_enable_editor_hotkey_hint",
-                    "Enables the hotkey to open the retinue editor from the campaign map."
+                    "Enables the hotkey (Shift + R) to open the editor from the campaign map."
                 ),
             @default: false
         );
 
-        public static readonly Option<bool> AutoCompareItems = CreateOption(
+        public static readonly Option<bool> EnableItemComparisonIcons = CreateOption(
             section: () => L.S("mcm_section_ui", "User Interface"),
-            name: () => L.S("mcm_option_auto_compare_items", "Auto Compare Items"),
-            key: "AutoCompareItems",
+            name: () =>
+                L.S("mcm_option_enable_item_comparison_icons", "Enable Item Comparison Icons"),
+            key: "EnableItemComparisonIcons",
             hint: () =>
                 L.S(
-                    "mcm_option_auto_compare_items_hint",
-                    "Add an indicator to show if an item is better or worse than the equipped one when browsing troop equipment."
+                    "mcm_option_enable_item_comparison_icons_hint",
+                    "Adds comparison icons to the equipment list to show if an item is better or worse than the equipped one when browsing troop equipment."
                 ),
             @default: true
         );
@@ -967,14 +898,9 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_enable_troop_customization_hint",
-                    "Adds appearance customization controls (age, height, weight, build)."
+                    "Adds appearance customization controls (age, height, weight, build) to the editor. Cosmetic only; no gameplay effect."
                 ),
-            @default: true,
-            presets: new Dictionary<string, object>
-            {
-                [Presets.Freeform] = true,
-                [Presets.Realistic] = true,
-            }
+            @default: true
         );
 
         // ─────────────────────────────────────────────────────

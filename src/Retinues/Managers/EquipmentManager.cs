@@ -192,7 +192,7 @@ namespace Retinues.Managers
 
                     var itemCultureId = item.Culture?.StringId;
 
-                    if (Config.UnlockFromCulture && itemCultureId == factionCultureId)
+                    if (Config.AllCultureEquipmentUnlocked && itemCultureId == factionCultureId)
                     {
                         if (item.Slots.Contains(slot))
                             list.Add((item, true, 0));
@@ -210,14 +210,14 @@ namespace Retinues.Managers
                     }
 
                     if (
-                        Config.UnlockFromKills
+                        Config.UnlockItemsFromKills
                         && UnlocksBehavior.Instance.ProgressByItemId.TryGetValue(
                             item.StringId,
                             out var prog
                         )
                     )
                     {
-                        if (prog >= Config.KillsForUnlock)
+                        if (prog >= Config.RequiredKillsPerItem)
                         {
                             item.Unlock();
                             if (item.Slots.Contains(slot))
@@ -273,7 +273,7 @@ namespace Retinues.Managers
                     return false;
 
             // No horse rule
-            if (Config.NoMountForTier1 && !troop.IsHero)
+            if (Config.DisallowMountsForT1Troops && !troop.IsHero)
                 if (troop.Tier <= 1 && item != null && item.IsHorse)
                     return false;
 
@@ -352,7 +352,7 @@ namespace Retinues.Managers
             q.GoldCost = unitCost * q.CopiesToBuy;
 
             // Staging decision - only if adding physical copies
-            bool stagingPossible = Config.EquipmentChangeTakesTime && !ClanScreen.IsStudioMode;
+            bool stagingPossible = Config.EquippingTroopsTakesTime && !ClanScreen.IsStudioMode;
             q.WouldStage = stagingPossible && q.DeltaAdd > 0;
 
             return q;
@@ -367,7 +367,7 @@ namespace Retinues.Managers
                 return EquipFailReason.None;
 
             // Free mode: no stock or gold gating.
-            if (!Config.PayForEquipment)
+            if (!Config.EquippingTroopsCostsGold)
                 return EquipFailReason.None;
 
             if (q.CopiesFromStock < q.DeltaAdd && !allowPurchase)
@@ -488,7 +488,7 @@ namespace Retinues.Managers
             }
 
             // Apply acquisitions now (stock consumption and purchases)
-            if (q.DeltaAdd > 0 && newItem != null && Config.PayForEquipment)
+            if (q.DeltaAdd > 0 && newItem != null && Config.EquippingTroopsCostsGold)
             {
                 // consume from stock
                 for (int i = 0; i < q.CopiesFromStock; i++)
@@ -514,7 +514,7 @@ namespace Retinues.Managers
             }
 
             // Apply reductions immediately (return freed copies to stock now)
-            if (q.DeltaRemove > 0 && oldItem != null && Config.PayForEquipment)
+            if (q.DeltaRemove > 0 && oldItem != null && Config.EquippingTroopsCostsGold)
             {
                 for (int i = 0; i < q.DeltaRemove; i++)
                     oldItem.Stock();
@@ -695,12 +695,12 @@ namespace Retinues.Managers
         {
             if (item == null)
                 return 0;
-            if (!Config.PayForEquipment)
+            if (!Config.EquippingTroopsCostsGold)
                 return 0;
             if (ClanScreen.IsStudioMode)
                 return 0;
             int baseValue = item.Value;
-            return (int)(baseValue * Config.EquipmentPriceModifier);
+            return (int)(baseValue * Config.EquipmentCostMultiplier);
         }
 
         /// <summary>
@@ -774,14 +774,19 @@ namespace Retinues.Managers
             // Precompute cost
             int totalCost = QuotePasteGoldCost(source, target);
 
-            if (!studio && Config.PayForEquipment && totalCost > 0 && Player.Gold < totalCost)
+            if (
+                !studio
+                && Config.EquippingTroopsCostsGold
+                && totalCost > 0
+                && Player.Gold < totalCost
+            )
             {
                 res.Reason = EquipFailReason.NotEnoughGold;
                 return res;
             }
 
             // Deduct global gold once
-            if (!studio && Config.PayForEquipment && totalCost > 0)
+            if (!studio && Config.EquippingTroopsCostsGold && totalCost > 0)
                 Player.ChangeGold(-totalCost);
 
             // Apply slot-by-slot (same as before)
@@ -810,7 +815,7 @@ namespace Retinues.Managers
                 if (!q.IsChange)
                     continue;
 
-                if (!studio && Config.PayForEquipment)
+                if (!studio && Config.EquippingTroopsCostsGold)
                 {
                     for (int i = 0; i < q.CopiesFromStock; i++)
                         srcItem.Unstock();
@@ -821,7 +826,12 @@ namespace Retinues.Managers
                     }
                 }
 
-                if (q.DeltaRemove > 0 && tgtItem != null && !studio && Config.PayForEquipment)
+                if (
+                    q.DeltaRemove > 0
+                    && tgtItem != null
+                    && !studio
+                    && Config.EquippingTroopsCostsGold
+                )
                 {
                     for (int i = 0; i < q.DeltaRemove; i++)
                         tgtItem.Stock();
@@ -850,7 +860,7 @@ namespace Retinues.Managers
                 return 0;
 
             bool studio = ClanScreen.IsStudioMode;
-            if (studio || !Config.PayForEquipment)
+            if (studio || !Config.EquippingTroopsCostsGold)
                 return 0;
 
             int total = 0;

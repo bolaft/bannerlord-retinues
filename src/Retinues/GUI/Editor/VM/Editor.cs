@@ -234,7 +234,7 @@ namespace Retinues.GUI.Editor.VM
         public bool ShowFactionButton =>
             Screen == Screen.Troop
             && Player.Kingdom != null
-            && !Config.NoKingdomTroops
+            && !Config.DisableKingdomTroops
             && !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]

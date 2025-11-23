@@ -21,7 +21,6 @@ namespace Retinues.Configuration
         object Default { get; }
         IReadOnlyDictionary<string, object> PresetOverrides { get; }
         bool IsDisabled { get; }
-        string DisabledHint { get; }
         object DisabledOverrideBoxed { get; }
 
         /// <summary>
@@ -44,7 +43,6 @@ namespace Retinues.Configuration
         private readonly Func<string> _section;
         private readonly Func<string> _name;
         private readonly Func<string> _hint;
-        private readonly Func<string> _disabledHint;
 
         public Option(
             Func<string> section,
@@ -57,14 +55,12 @@ namespace Retinues.Configuration
             bool requiresRestart = false,
             IReadOnlyDictionary<string, object> presetOverrides = null,
             bool disabled = false,
-            Func<string> disabledHint = null,
             T disabledOverride = default
         )
         {
             _section = section ?? (() => L.S("mcm_section_general", "General"));
             _name = name ?? (() => string.Empty);
             _hint = hint ?? (() => string.Empty);
-            _disabledHint = disabledHint ?? (() => string.Empty);
 
             Key = key;
             RequiresRestart = requiresRestart;
@@ -96,7 +92,6 @@ namespace Retinues.Configuration
         public object Default => DefaultTyped!;
         public IReadOnlyDictionary<string, object> PresetOverrides { get; }
         public bool IsDisabled { get; }
-        public string DisabledHint => _disabledHint();
         public T DisabledOverride { get; }
         public object DisabledOverrideBoxed => DisabledOverride!;
 
