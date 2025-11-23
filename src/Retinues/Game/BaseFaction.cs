@@ -54,33 +54,6 @@ namespace Retinues.Game
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Determines if the given troop is considered elite within this faction.
-        /// </summary>
-        public bool IsElite(WCharacter troop)
-        {
-            if (troop == null)
-                return false;
-
-            if (troop == RetinueElite)
-                return true;
-
-            if (troop == MilitiaMeleeElite || troop == MilitiaRangedElite)
-                return true;
-
-            if (troop == CaravanMaster)
-                return true;
-
-            if (EliteTroops.Contains(troop))
-                return true;
-
-            return false;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Roots                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -274,6 +247,10 @@ namespace Retinues.Game
             foreach (var t in GetActiveList([RetinueElite, RetinueBasic]))
                 _retinueIds.Add(t.StringId);
 
+            // Caravan master is also elite in your IsElite logic
+            if (RetinueElite != null && RetinueElite.IsActive)
+                _eliteIds.Add(RetinueElite.StringId);
+
             // Regulars: RootElite tree (elite) + RootBasic tree (basic)
             var eliteTree = RootElite != null ? GetActiveList([.. RootElite.Tree]) : [];
             var basicTree = RootBasic != null ? GetActiveList([.. RootBasic.Tree]) : [];
@@ -318,6 +295,15 @@ namespace Retinues.Game
 
             EnsureCategoryCache();
             return _regularIds.Contains(troop.StringId);
+        }
+
+        public bool IsEliteCached(WCharacter troop)
+        {
+            if (troop == null)
+                return false;
+
+            EnsureCategoryCache();
+            return _eliteIds.Contains(troop.StringId);
         }
     }
 }
