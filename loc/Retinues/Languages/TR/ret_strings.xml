@@ -768,7 +768,7 @@
       text="Doktrinleri Etkinleştir" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Doktrin sistemini ve özelliklerini etkinleştir." />
+      text="Doktrinler sistemini ve özelliklerini etkinleştirir (uyarı: doktrinler devre dışı bırakıldığında kaydetmek tüm doktrin verilerini temizleyecektir)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Editör Kısayol Tuşunu Etkinleştir (Shift + R)" />
@@ -780,7 +780,7 @@
       text="Başarı Gereksinimlerini Etkinleştir" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Doktrinlerin kilidini açmak için başarı gereksinimlerini etkinleştirir." />
+      text="Doktrinlerin kilidini açmak için başarı gereksinimlerini etkinleştirir (uyarı: başarılar devre dışı bırakıldığında kaydetmek tüm başarı verilerini temizleyecektir)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Deneysel: Görünüm Kontrollerini Etkinleştir" />

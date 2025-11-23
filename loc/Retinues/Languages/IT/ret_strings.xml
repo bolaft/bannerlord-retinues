@@ -768,7 +768,7 @@
       text="Abilita Dottrine" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Abilita il sistema di Dottrine e le sue funzionalità." />
+      text="Abilita il sistema delle dottrine e le sue funzionalità (avviso: salvare con le dottrine disabilitate cancellerà tutti i dati delle dottrine)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Abilita Scorciatoia Editor (Shift + R)" />
@@ -780,7 +780,7 @@
       text="Abilita Requisiti di Impresa" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Abilita i requisiti di impresa per sbloccare le dottrine." />
+      text="Abilita i requisiti di impresa per sbloccare le dottrine (avviso: salvare con le imprese disabilitate cancellerà tutti i dati delle imprese)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Sperimentale: Abilita Controlli Aspetto" />

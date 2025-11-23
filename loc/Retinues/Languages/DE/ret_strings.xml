@@ -768,7 +768,7 @@
       text="Doktrinen aktivieren" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Aktiviere das Doktrinensystem und seine Funktionen." />
+      text="Aktiviert das Doktrinensystem und seine Funktionen (Warnung: Das Speichern mit deaktivierten Doktrinen löscht alle Doktrinendaten)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Editor-Hotkey aktivieren (Shift + R)" />
@@ -780,7 +780,7 @@
       text="Meisterschaftsanforderungen aktivieren" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Aktiviert Meisterschaftsanforderungen zum Freischalten von Doktrinen." />
+      text="Aktiviert Meisterschaftsanforderungen zum Freischalten von Doktrinen (Warnung: Das Speichern mit deaktivierten Meisterschaften löscht alle Meisterschaftsdaten)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Experimentell: Erscheinungskontrollen aktivieren" />

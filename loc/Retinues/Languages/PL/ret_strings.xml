@@ -768,7 +768,7 @@
       text="Włącz Doktryny" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Włącz system Doktryn i jego funkcje." />
+      text="Włącza system doktryn i jego funkcje (ostrzeżenie: zapisanie z wyłączonymi doktrynami spowoduje usunięcie wszystkich danych doktryn)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Włącz Skrót Edytora (Shift + R)" />
@@ -780,7 +780,7 @@
       text="Włącz Wymagania Osiągnięć" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Włącza wymagania osiągnięć do odblokowywania doktryn." />
+      text="Włącza wymagania osiągnięć do odblokowywania doktryn (ostrzeżenie: zapisanie z wyłączonymi osiągnięciami spowoduje usunięcie wszystkich danych osiągnięć)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Eksperymentalne: Włącz Kontrolę Wyglądu" />

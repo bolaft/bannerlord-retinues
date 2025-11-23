@@ -419,7 +419,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_enable_doctrines_hint",
-                    "Enable the Doctrines system and its features."
+                    "Enable the Doctrines system and its features (warning: saving with doctrines disabled will clear all doctrine data)."
                 ),
             @default: true,
             presets: new Dictionary<string, object>
@@ -437,7 +437,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_enable_feat_requirements_hint",
-                    "Enables feat requirements for unlocking doctrines."
+                    "Enables feat requirements for unlocking doctrines (warning: saving with feats disabled will clear all feat data)."
                 ),
             @default: true,
             presets: new Dictionary<string, object>

@@ -768,7 +768,7 @@
       text="Activer les Doctrines" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Active le système de doctrines et ses fonctionnalités." />
+      text="Active le système des doctrines et ses fonctionnalités (avertissement : enregistrer avec les doctrines désactivées effacera toutes les données de doctrine)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Activer le Raccourci du Éditeur (Shift + R)" />
@@ -780,7 +780,7 @@
       text="Activer les exigences de haut-faits" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Active les exigences de haut-faits pour débloquer les doctrines." />
+      text="Active les exigences de haut-faits pour débloquer les doctrines (avertissement : enregistrer avec les haut-faits désactivés effacera toutes les données de haut-faits)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Expérimental : Activer les Contrôles d’Apparence" />

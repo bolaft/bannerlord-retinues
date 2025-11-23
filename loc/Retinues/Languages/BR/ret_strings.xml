@@ -768,7 +768,7 @@
       text="Ativar Doutrinas (Instável)" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Ativa o sistema de Doutrinas e seus recursos." />
+      text="Ativa o sistema de Doutrinas e seus recursos (aviso: salvar com doutrinas desativadas limpará todos os dados de doutrinas)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Ativar Atalho do Editor (Shift + R)" />
@@ -780,7 +780,7 @@
       text="Ativar Requisitos de Proezas" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Ativa os requisitos de proeza para desbloquear doutrinas." />
+      text="Ativa os requisitos de proezas para desbloquear doutrinas (aviso: salvar com proezas desativadas limpará todos os dados de proezas)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Experimental: Ativar Controles de Aparência" />
