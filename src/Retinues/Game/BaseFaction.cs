@@ -223,7 +223,6 @@ namespace Retinues.Game
 
         public void InvalidateCategoryCache()
         {
-            Log.Debug($"Invalidating category cache for faction {Name} ({StringId})");
             _categoryCacheDirty = true;
         }
 
@@ -234,8 +233,6 @@ namespace Retinues.Game
 
             if (this is not WFaction)
                 return;
-
-            Log.Debug($"Rebuilding category cache for faction {Name} ({StringId})");
 
             _categoryCacheDirty = false;
 
