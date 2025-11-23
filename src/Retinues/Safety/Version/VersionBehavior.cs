@@ -183,16 +183,6 @@ namespace Retinues.Safety.Version
         //                        Helpers                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly string[] LegacyPre13Versions =
-        {
-            "1.3.3.9",
-            "1.3.3.10",
-            "1.3.1.9",
-            "1.3.1.10",
-            "1.2.12.9",
-            "1.2.12.10",
-        };
-
         /// <summary>
         /// Normalize a version string for comparison:
         /// trims, strips leading 'v'/'V', leaves "unknown" unchanged.
@@ -217,22 +207,6 @@ namespace Retinues.Safety.Version
             string currentVersionString
         )
         {
-            // Bridge: switching from old "1.2.12.x / 1.3.3.x / 1.3.1.x" scheme
-            // to the new "1.2.13.0 / 1.3.13.0" scheme.
-            Log.Info(
-                $"Checking for legacy version bridge: save={saveVersionString}, current={currentVersionString}"
-            );
-            if (
-                (currentVersionString == "1.3.13.0" || currentVersionString == "1.2.13.0")
-                && (
-                    LegacyPre13Versions.Contains(saveVersionString)
-                    || saveVersionString == ModuleChecker.UnknownVersionString
-                )
-            )
-            {
-                return true;
-            }
-
             // From here on we apply the generic rule:
             // if either minor += 1 OR major += 1, show update.
             if (
