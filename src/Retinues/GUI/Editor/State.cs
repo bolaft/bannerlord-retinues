@@ -119,6 +119,7 @@ namespace Retinues.GUI.Editor
         public static void UpdateFaction(BaseFaction faction = null)
         {
             faction ??= !ClanScreen.IsStudioMode ? Player.Clan : Player.Culture;
+            faction?.InvalidateCategoryCache();
 
             EventManager.FireBatch(() =>
             {

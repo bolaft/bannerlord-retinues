@@ -223,7 +223,7 @@ namespace Retinues.Game
 
         public void InvalidateCategoryCache()
         {
-            Log.Info($"Invalidating category cache for faction {Name} ({StringId})");
+            Log.Debug($"Invalidating category cache for faction {Name} ({StringId})");
             _categoryCacheDirty = true;
         }
 
@@ -235,7 +235,7 @@ namespace Retinues.Game
             if (this is not WFaction)
                 return;
 
-            Log.Info($"Rebuilding category cache for faction {Name} ({StringId})");
+            Log.Debug($"Rebuilding category cache for faction {Name} ({StringId})");
 
             _categoryCacheDirty = false;
 
@@ -247,7 +247,7 @@ namespace Retinues.Game
             foreach (var t in GetActiveList([RetinueElite, RetinueBasic]))
                 _retinueIds.Add(t.StringId);
 
-            // Caravan master is also elite in your IsElite logic
+            // Retinue elites are also elites
             if (RetinueElite != null && RetinueElite.IsActive)
                 _eliteIds.Add(RetinueElite.StringId);
 
@@ -268,12 +268,11 @@ namespace Retinues.Game
             var militiaList = GetActiveList([MilitiaRanged, MilitiaRangedElite]);
             foreach (var t in militiaList)
             {
-                // Your original IsElite logic also treats militia elites as elite:
                 if (t == MilitiaMeleeElite || t == MilitiaRangedElite)
                     _eliteIds.Add(t.StringId);
             }
 
-            // Caravan master is also elite in your IsElite logic
+            // Caravan master is also elite
             if (CaravanMaster != null && CaravanMaster.IsActive)
                 _eliteIds.Add(CaravanMaster.StringId);
         }
