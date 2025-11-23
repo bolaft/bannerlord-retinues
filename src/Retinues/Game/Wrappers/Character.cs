@@ -183,9 +183,9 @@ namespace Retinues.Game.Wrappers
 
         /* ━━━━━━━ Category ━━━━━━━ */
 
-        public bool IsRetinue => Faction != null && Faction.IsRetinueCached(this);
-        public bool IsRegular => Faction != null && Faction.IsRegularCached(this);
-        public bool IsElite => Faction != null && Faction.IsEliteCached(this);
+        public bool IsRetinue => Faction != null && Faction.IsRetinue(this);
+        public bool IsRegular => Faction != null && Faction.IsRegular(this);
+        public bool IsElite => Faction != null && Faction.IsElite(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                Tree, Relations & Faction               //
