@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml.Linq;
 using TaleWorlds.Engine;
 using TaleWorlds.Library;
 using TaleWorlds.ModuleManager;
@@ -94,7 +92,7 @@ namespace Retinues.Utils
             catch
             {
                 // Fallback in the unlikely case the API moves
-                ordered = Array.Empty<string>();
+                ordered = [];
             }
 
             // 2) Resolve each module via ModuleHelper to support Workshop/platform mods
