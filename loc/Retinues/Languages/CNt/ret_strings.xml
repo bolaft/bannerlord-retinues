@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="空" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="在全局編輯器中打開。" />
+    <string
       id="ret_enter_file_name"
       text="輸入文件名：" />
     <string
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="玩家只能購買城鎮庫存中可用的物品。" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="隨從轉換每級費用" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="隨從金幣轉換成本每級" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="隨從按等級轉換所需的費用。" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="隨從部隊每級的轉換成本。" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="隨從影響力轉換成本每級" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="隨從部隊每級的轉換成本。" />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="隨從晉升每級費用" />

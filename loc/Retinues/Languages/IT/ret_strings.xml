@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="Vuoto" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="Apri nell’editor globale." />
+    <string
       id="ret_enter_file_name"
       text="Inserisci un nome file:" />
     <string
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="Il giocatore può acquistare solo gli oggetti disponibili nell&apos;inventario della città." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Costo di Conversione del Seguito per Livello" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="Costo di Conversione in Oro del Seguito per Livello" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Costo di conversione per livello per le truppe del seguito." />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="Costo di conversione per le truppe del seguito per livello." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="Costo di Conversione in Influenza del Seguito per Livello" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="Costo di conversione per le truppe del seguito per livello." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="Costo di Avanzamento del Seguito per Livello" />

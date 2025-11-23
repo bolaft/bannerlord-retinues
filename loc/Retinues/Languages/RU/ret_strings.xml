@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="Пусто" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="Открыть в глобальном редакторе." />
+    <string
       id="ret_enter_file_name"
       text="Введите имя файла:" />
     <string
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="Игрок может покупать только предметы, доступные в инвентаре города." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Стоимость Преобразования Свиты за Ранг" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="Стоимость Конверсии Золота Свиты за Ранг" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Стоимость преобразования свиты за ранг." />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="Стоимость конверсии для войск свиты за ранг." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="Стоимость Конверсии Влияния Свиты за Ранг" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="Стоимость конверсии для войск свиты за ранг." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="Стоимость Повышения Свиты за Ранг" />

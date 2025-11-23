@@ -58,6 +58,13 @@ namespace Retinues.GUI.Editor
     public static class State
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Launch Options                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static BaseFaction PendingFaction { get; set; }
+        public static WCharacter PendingTroop { get; set; }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         public static BaseFaction Faction { get; private set; }
@@ -104,7 +111,22 @@ namespace Retinues.GUI.Editor
 
             EventManager.FireBatch(() =>
             {
-                UpdateFaction();
+                if (PendingFaction != null)
+                {
+                    UpdateFaction(PendingFaction);
+                    PendingFaction = null;
+                }
+                else
+                {
+                    UpdateFaction();
+                }
+
+                if (PendingTroop != null)
+                {
+                    UpdateTroop(PendingTroop);
+                    PendingTroop = null;
+                }
+
                 UpdatePartyData();
             });
         }

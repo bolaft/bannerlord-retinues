@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="Boş" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="Küresel düzenleyicide açın." />
+    <string
       id="ret_enter_file_name"
       text="Bir dosya adı girin:" />
     <string
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="Oyuncu yalnızca şehir envanterinde bulunan eşyaları satın alabilir." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Yandaş Dönüşüm Maliyeti (Seviye Başına)" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="Yandaş Altın Dönüşüm Maliyeti (Seviye Başına)" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Yandaş askerleri dönüştürmenin seviye başına maliyeti." />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="Yandaş askerleri için seviye başına dönüşüm maliyeti." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="Yandaş Etki Dönüşüm Maliyeti (Seviye Başına)" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="Yandaş askerleri için seviye başına dönüşüm maliyeti." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="Yandaş Terfi Maliyeti (Seviye Başına)" />

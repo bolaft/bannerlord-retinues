@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="Empty" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="Open in the global editor." />
+    <string
       id="ret_enter_file_name"
       text="Enter a file name:" />
     <string

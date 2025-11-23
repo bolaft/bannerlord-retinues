@@ -1712,6 +1712,22 @@
     "TR": "Boş"
   },
   {
+    "id": "ret_encyclopedia_retinues_link_hint",
+    "EN": "Open in the global editor.",
+    "BR": "Abrir no editor global.",
+    "CNs": "在全局编辑器中打开。",
+    "CNt": "在全局編輯器中打開。",
+    "DE": "Im globalen Editor öffnen.",
+    "FR": "Ouvrir dans l’éditeur global.",
+    "IT": "Apri nell’editor globale.",
+    "JP": "グローバルエディターで開く。",
+    "KO": "글로벌 편집기에서 열기.",
+    "PL": "Otwórz w edytorze globalnym.",
+    "RU": "Открыть в глобальном редакторе.",
+    "SP": "Abrir en el editor global.",
+    "TR": "Küresel düzenleyicide açın."
+  },
+  {
     "id": "ret_enter_file_name",
     "EN": "Enter a file name:",
     "BR": "Insira um nome de arquivo:",

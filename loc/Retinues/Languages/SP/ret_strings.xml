@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="Vacío" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="Abrir en el editor global." />
+    <string
       id="ret_enter_file_name"
       text="Introduce un nombre de archivo:" />
     <string
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="El jugador solo puede comprar objetos disponibles en el inventario de la ciudad." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Costo de Conversión de Séquito por Nivel" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="Costo de Conversión de Oro del Séquito por Nivel" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Costo de conversión del séquito por nivel." />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="Costo de conversión para tropas del séquito por nivel." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="Costo de Conversión de Influencia del Séquito por Nivel" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="Costo de conversión para tropas del séquito por nivel." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="Costo de Ascenso de Séquito por Nivel" />

@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="Vide" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="Ouvrir dans l’éditeur global." />
+    <string
       id="ret_enter_file_name"
       text="Entrez un nom de fichier :" />
     <string
@@ -456,7 +459,7 @@
       text="Immortels" />
     <string
       id="ret_immortals_100_retinue_survive_struck_down"
-      text="Fais survivre 100 troupes de rétinue tombées au combat." />
+      text="Fais survivre 100 rétinues tombées au combat." />
     <string
       id="ret_immortals_description"
       text="+20% de chance de survie aux troupes de la rétinue." />
@@ -522,7 +525,7 @@
       text="Fais vaincre 25 ennemis de rang équivalent par ta rétinue sans aucune perte." />
     <string
       id="ret_indomitable_description"
-      text="+5 PV pour les troupes de rétinue." />
+      text="+5 PV pour les rétinues." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
       text="Remporte un siège du côté des défenseurs avec une rétinue de 20 soldats." />
@@ -837,7 +840,7 @@
       text="Ratio Maximum de Rétinue Basique" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
-      text="Proportion maximale de troupes de rétinue basique dans le groupe du joueur." />
+      text="Proportion maximale de rétinues basique dans le groupe du joueur." />
     <string
       id="ret_mcm_option_max_basic_upgrades"
       text="Max Promotions de Base" />
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="Le joueur ne peut acheter que les objets disponibles dans l&apos;inventaire de la ville." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Coût de Conversion de Rétinue par Rang" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="Coût de Conversion en Or par Rang" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Coût de conversion par rang pour les troupes de rétinue." />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="Coût de conversion pour les rétinues par rang." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="Coût de Conversion en Influence par Rang" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="Coût de conversion pour les rétinues par rang." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="Coût de Promotion de Rétinue par Rang" />
@@ -933,7 +942,7 @@
       text="Bonus de Plafond de Compétence des Rétinues" />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus_hint"
-      text="Plafond de compétence supplémentaire pour les troupes de rétinue." />
+      text="Plafond de compétence supplémentaire pour les rétinues." />
     <string
       id="ret_mcm_option_retinue_skill_total_bonus"
       text="Bonus de Total de Compétences des Rétinues" />

@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="Leer" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="Im globalen Editor öffnen." />
+    <string
       id="ret_enter_file_name"
       text="Dateinamen eingeben:" />
     <string
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="Der Spieler kann nur Gegenstände kaufen, die im Stadtinventar verfügbar sind." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Gefolgs-Umwandlungskosten pro Stufe" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="Gefolgs-Goldumwandlungskosten pro Stufe" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="Umwandlungskosten pro Stufe für Gefolgschaften." />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="Umwandlungskosten für Gefolgschaften pro Stufe." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="Gefolgs-Einflussumwandlungskosten pro Stufe" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="Umwandlungskosten für Gefolgschaften pro Stufe." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="Gefolgs-Aufstiegskosten pro Stufe" />

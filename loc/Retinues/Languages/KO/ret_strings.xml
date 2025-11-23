@@ -326,6 +326,9 @@
       id="ret_empty_set"
       text="비어 있음" />
     <string
+      id="ret_encyclopedia_retinues_link_hint"
+      text="글로벌 편집기에서 열기." />
+    <string
       id="ret_enter_file_name"
       text="파일 이름 입력:" />
     <string
@@ -917,11 +920,17 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="플레이어는 마을 인벤토리에서 사용할 수 있는 아이템만 구매할 수 있습니다." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="등급당 수행원 변환 비용" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="수행원 골드 전환 비용 (등급당)" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
-      text="수행원 변환 시 등급당 비용." />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="수행원 부대의 등급당 전환 비용." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="수행원 영향력 전환 비용 (등급당)" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
+      text="수행원 부대의 등급당 전환 비용." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"
       text="등급당 수행원 승급 비용" />
