@@ -771,7 +771,7 @@
       text="ドクトリンを有効化" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="ドクトリンシステムとその機能を有効化する。" />
+      text="ドクトリンシステムとその機能を有効化する（警告：ドクトリンを無効にして保存すると、すべてのドクトリンデータがクリアされます）。" />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="エディタホットキーを有効化（Shift + R）" />
@@ -783,7 +783,7 @@
       text="功績要件を有効化" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="ドクトリンの解除に功績要件を有効化する。" />
+      text="ドクトリンのロックを解除するための功績要件を有効化する（警告：功績を無効にして保存すると、すべての功績データがクリアされます）。" />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="実験的：外観コントロールを有効化" />

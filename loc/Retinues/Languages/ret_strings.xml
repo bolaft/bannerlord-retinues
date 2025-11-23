@@ -771,7 +771,7 @@
       text="Enable Doctrines" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Enable the Doctrines system and its features." />
+      text="Enable the Doctrines system and its features (warning: saving with doctrines disabled will clear all doctrine data)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Enable Editor Hotkey (Shift + R)" />
@@ -783,7 +783,7 @@
       text="Enable Feat Requirements" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Enables feat requirements for unlocking doctrines." />
+      text="Enables feat requirements for unlocking doctrines (warning: saving with feats disabled will clear all feat data)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Enable Appearance Controls" />

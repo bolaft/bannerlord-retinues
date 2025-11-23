@@ -771,7 +771,7 @@
       text="启用教义" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="启用教义系统及其功能。" />
+      text="启用教义系统及其功能（警告：禁用教义后保存将清除所有教义数据）。" />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="启用编辑器快捷键（Shift + R）" />
@@ -783,7 +783,7 @@
       text="启用功绩要求" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="启用解锁教义的功绩要求。" />
+      text="启用解锁教义的功绩要求（警告：禁用功绩后保存将清除所有功绩数据）。" />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="实验性：启用外观控制" />

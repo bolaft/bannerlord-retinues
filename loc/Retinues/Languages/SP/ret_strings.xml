@@ -771,7 +771,7 @@
       text="Habilitar Doctrinas" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Habilita el sistema de Doctrinas y sus características." />
+      text="Habilita el sistema de doctrinas y sus características (advertencia: guardar con las doctrinas deshabilitadas borrará todos los datos de doctrinas)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="Habilitar Atajo del Editor (Shift + R)" />
@@ -783,7 +783,7 @@
       text="Habilitar Requisitos de Hazañas" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Habilita los requisitos de hazañas para desbloquear doctrinas." />
+      text="Habilita los requisitos de hazañas para desbloquear doctrinas (advertencia: guardar con las hazañas deshabilitadas borrará todos los datos de hazañas)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="Experimental: Habilitar Controles de Apariencia" />

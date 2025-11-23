@@ -771,7 +771,7 @@
       text="교리 활성화" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="교리 시스템과 그 기능을 활성화합니다." />
+      text="교리 시스템과 그 기능을 활성화합니다(경고: 교리를 비활성화한 상태로 저장하면 모든 교리 데이터가 삭제됩니다)." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
       text="에디터 단축키 활성화(Shift + R)" />
@@ -783,7 +783,7 @@
       text="특기 요구 사항 활성화" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="교리를 잠금 해제하기 위한 특기 요구 사항을 활성화합니다." />
+      text="교리를 잠금 해제하기 위한 특기 요구 사항을 활성화합니다(경고: 특기를 비활성화한 상태로 저장하면 모든 특기 데이터가 삭제됩니다)." />
     <string
       id="ret_mcm_option_enable_troop_customization"
       text="실험적: 외형 컨트롤 활성화" />
