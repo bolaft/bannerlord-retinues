@@ -24,6 +24,9 @@ namespace Retinues.Game
                 var clan = Clan?.IsPlayerClan == true ? Player.Clan : null;
                 var kingdom = Kingdom?.IsPlayerKingdom == true ? Player.Kingdom : null;
 
+                if (Config.NoKingdomTroops)
+                    return clan;
+
                 if (Config.ClanTroopsOverKingdomTroops)
                     return clan ?? kingdom;
                 else

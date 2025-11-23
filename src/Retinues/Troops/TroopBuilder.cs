@@ -33,6 +33,9 @@ namespace Retinues.Troops
             if (faction == null)
                 return; // Cannot ensure troops exist for null (no kingdom?) faction.
 
+            if (faction.IsPlayerKingdom && Config.NoKingdomTroops)
+                return;
+
             var createdNonRetinue = UpdateFactionTroops(faction);
 
             if (!createdNonRetinue)
