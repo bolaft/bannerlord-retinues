@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Reflection;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -60,64 +59,68 @@ namespace Retinues.Safety.Version
         {
             try
             {
-                string currentVersionString = ModuleChecker.GetModule("Retinues").Version;
+                string currentVersionRaw = ModuleChecker.GetModule("Retinues").Version;
 
                 // Old saves or missing data: treat as "no stored version yet".
                 if (string.IsNullOrWhiteSpace(_retinuesVersion))
                 {
-                    _retinuesVersion = currentVersionString;
+                    _retinuesVersion = currentVersionRaw;
                     Log.Info(
                         $"No Retinues version stored in save; assuming current version {_retinuesVersion}."
                     );
                     return;
                 }
 
-                if (_retinuesVersion == null)
+                string saveVersionRaw = _retinuesVersion;
+
+                // Normalized versions: strip leading 'v'/'V', trim, but keep "unknown" as-is.
+                string currentVersion = NormalizeVersion(currentVersionRaw);
+                string saveVersion = NormalizeVersion(saveVersionRaw);
+
+                // Exact match (ignoring leading 'v'): nothing to do.
+                if (
+                    !string.IsNullOrEmpty(saveVersion)
+                    && saveVersion != ModuleChecker.UnknownVersionString
+                    && saveVersion == currentVersion
+                )
                 {
                     Log.Info(
-                        $"Retinues version in save matches current version {_retinuesVersion}."
+                        $"Retinues version in save matches current version {currentVersionRaw}."
                     );
                     return;
                 }
 
-                string saveVersionString = _retinuesVersion;
+                Log.Info($"Save File: Retinues {saveVersionRaw}");
 
                 try
                 {
-                    if (saveVersionString != currentVersionString)
+                    // New main rule:
+                    // If either mod minor += 1 OR mod major += 1 (same BL series), show update popup.
+                    // Anything else => mismatch popup.
+
+                    if (ShouldShowUpdatePopup(saveVersion, currentVersion))
                     {
-                        Log.Info($"Save File: Retinues {saveVersionString}");
-
-                        try
-                        {
-                            int? saveVersionInt = GetPatchNumber(saveVersionString);
-                            int? currentVersionInt = GetPatchNumber(currentVersionString);
-
-                            if (saveVersionInt + 1 == currentVersionInt)
-                            {
-                                VersionUpdatePopup(currentVersionString, saveVersionString);
-                                return;
-                            }
-                        }
-                        catch
-                        {
-                            // ignore
-                        }
-
-                        // special case for first time with new versioning
-                        if (saveVersionString == "unknown" && currentVersionString.EndsWith("10"))
-                        {
-                            VersionUpdatePopup(currentVersionString, saveVersionString);
-                            return;
-                        }
-
-                        // Otherwise, show mismatch popup
-                        VersionMismatchPopup(currentVersionString, saveVersionString);
+                        VersionUpdatePopup(currentVersionRaw, saveVersionRaw);
+                        return;
                     }
+
+                    // Legacy special case from previous system:
+                    // Early saves without a stored version string.
+                    if (
+                        saveVersion == ModuleChecker.UnknownVersionString
+                        && currentVersion.EndsWith("10")
+                    )
+                    {
+                        VersionUpdatePopup(currentVersionRaw, saveVersionRaw);
+                        return;
+                    }
+
+                    // Otherwise, show mismatch popup
+                    VersionMismatchPopup(currentVersionRaw, saveVersionRaw);
                 }
                 catch (System.Exception ex)
                 {
-                    VersionMismatchPopup(currentVersionString, saveVersionString);
+                    VersionMismatchPopup(currentVersionRaw, saveVersionRaw);
                     Log.Exception(ex);
                 }
             }
@@ -191,22 +194,115 @@ namespace Retinues.Safety.Version
         //                        Helpers                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private static readonly string[] LegacyPre13Versions =
+        {
+            "1.3.3.9",
+            "1.3.3.10",
+            "1.3.1.9",
+            "1.3.1.10",
+            "1.2.12.9",
+            "1.2.12.10",
+        };
+
         /// <summary>
-        /// Extracts the trailing numeric patch component from a version string.
+        /// Normalize a version string for comparison:
+        /// trims, strips leading 'v'/'V', leaves "unknown" unchanged.
         /// </summary>
-        private static int? GetPatchNumber(string versionString)
+        private static string NormalizeVersion(string versionString)
         {
             if (string.IsNullOrWhiteSpace(versionString))
-                return null;
+                return versionString;
 
-            // Take last dotted segment, then keep only leading digits.
-            string lastSegment = versionString.Split('.').Last();
-            string digitPrefix = new([.. lastSegment.TakeWhile(char.IsDigit)]);
+            if (versionString == ModuleChecker.UnknownVersionString)
+                return versionString;
 
-            if (string.IsNullOrEmpty(digitPrefix))
-                return null;
+            return versionString.Trim().TrimStart('v', 'V');
+        }
 
-            return int.TryParse(digitPrefix, out int patch) ? patch : null;
+        /// <summary>
+        /// Determines whether an update popup should be shown, based on
+        /// the old and new (normalized) version strings.
+        /// </summary>
+        private static bool ShouldShowUpdatePopup(
+            string saveVersionString,
+            string currentVersionString
+        )
+        {
+            // Bridge: switching from old "1.2.12.x / 1.3.3.x / 1.3.1.x" scheme
+            // to the new "1.2.13.0 / 1.3.13.0" scheme.
+            if (
+                (currentVersionString == "1.3.13.0" || currentVersionString == "1.2.13.0")
+                && LegacyPre13Versions.Contains(saveVersionString)
+            )
+            {
+                return true;
+            }
+
+            // From here on we apply the generic rule:
+            // if either minor += 1 OR major += 1, show update.
+            if (
+                !TryParseVersion(
+                    saveVersionString,
+                    out int saveBlMajor,
+                    out int saveBlMinor,
+                    out int saveModMajor,
+                    out int saveModMinor
+                )
+            )
+                return false;
+
+            if (
+                !TryParseVersion(
+                    currentVersionString,
+                    out int curBlMajor,
+                    out int curBlMinor,
+                    out int curModMajor,
+                    out int curModMinor
+                )
+            )
+                return false;
+
+            // Changing Bannerlord series is treated as a mismatch, not a normal update.
+            if (saveBlMajor != curBlMajor || saveBlMinor != curBlMinor)
+                return false;
+
+            bool isMinorStep = curModMajor == saveModMajor && curModMinor == saveModMinor + 1;
+
+            bool isMajorStep = curModMajor == saveModMajor + 1 && curModMinor == saveModMinor;
+
+            return isMinorStep || isMajorStep;
+        }
+
+        /// <summary>
+        /// Parses a normalized version string "A.B.X.Y" into BL + mod components.
+        /// A/B = BL major/minor, X/Y = mod major/minor.
+        /// </summary>
+        private static bool TryParseVersion(
+            string versionString,
+            out int blMajor,
+            out int blMinor,
+            out int modMajor,
+            out int modMinor
+        )
+        {
+            blMajor = blMinor = modMajor = modMinor = 0;
+
+            if (string.IsNullOrWhiteSpace(versionString))
+                return false;
+
+            if (versionString == ModuleChecker.UnknownVersionString)
+                return false;
+
+            string normalized = versionString.Trim().TrimStart('v', 'V');
+
+            string[] parts = normalized.Split('.');
+            if (parts.Length < 4)
+                return false;
+
+            return int.TryParse(parts[0], out blMajor)
+                && int.TryParse(parts[1], out blMinor)
+                && int.TryParse(parts[2], out modMajor)
+                && int.TryParse(parts[3], out modMinor);
         }
     }
 }
