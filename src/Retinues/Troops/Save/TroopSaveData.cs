@@ -212,8 +212,13 @@ namespace Retinues.Troops.Save
             {
                 if (StringId.StartsWith(WCharacter.LegacyCustomIdPrefix))
                 {
+                    var legacyTroop = WCharacter.FromStringId(StringId);
+
+                    // Fill from for those that sip back somehow, at least they'll look right
+                    legacyTroop.FillFrom(troop);
+
                     // Replace any existing troop with the same StringId
-                    WCharacter.FromStringId(StringId).Replace(troop);
+                    legacyTroop.Replace(troop);
 
                     // Migrate XP pool from old key to new key
                     TroopXpBehavior.ReplacePoolKey(StringId, troop.StringId);
