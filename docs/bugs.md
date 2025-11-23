@@ -18,6 +18,8 @@ Before proceeding further, make sure your issue can't be solved by following the
 
 The Nexus Mods Bugs tab is the only place I can *guarantee* I will look at your report. Bugs and issues reported on the comments section of either Steam Workshop or Nexus Mods might be missed.
 
+If you don't have a Nexus Mods account and don't want to create one, use the Steam Workshop discussions tab.
+
 ---
 
 ## 2) What to include (checklist)
