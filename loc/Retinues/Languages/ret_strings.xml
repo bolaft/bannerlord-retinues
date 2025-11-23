@@ -917,10 +917,16 @@
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="Player can only purchase items available in the town inventory." />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier"
-      text="Retinue Conversion Cost Per Tier" />
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier"
+      text="Retinue Gold Conversion Cost Per Tier" />
     <string
-      id="ret_mcm_option_retinue_conversion_cost_per_tier_hint"
+      id="ret_mcm_option_retinue_gold_conversion_cost_per_tier_hint"
+      text="Conversion cost for retinue troops per tier." />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier"
+      text="Retinue Influence Conversion Cost Per Tier" />
+    <string
+      id="ret_mcm_option_retinue_influence_conversion_cost_per_tier_hint"
       text="Conversion cost for retinue troops per tier." />
     <string
       id="ret_mcm_option_retinue_rank_up_cost_per_tier"

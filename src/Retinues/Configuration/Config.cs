@@ -96,17 +96,17 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<int> RetinueConversionCostPerTier = CreateOption(
+        public static readonly Option<int> RetinueGoldConversionCostPerTier = CreateOption(
             section: () => L.S("mcm_section_retinues", "Retinues"),
             name: () =>
                 L.S(
-                    "mcm_option_retinue_conversion_cost_per_tier",
-                    "Retinue Conversion Cost Per Tier"
+                    "mcm_option_retinue_gold_conversion_cost_per_tier",
+                    "Retinue Gold Conversion Cost Per Tier"
                 ),
-            key: "RetinueConversionCostPerTier",
+            key: "RetinueGoldConversionCostPerTier",
             hint: () =>
                 L.S(
-                    "mcm_option_retinue_conversion_cost_per_tier_hint",
+                    "mcm_option_retinue_gold_conversion_cost_per_tier_hint",
                     "Conversion cost for retinue troops per tier."
                 ),
             @default: 50,
@@ -116,6 +116,29 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = 0,
                 [Presets.Realistic] = 100,
+            }
+        );
+
+        public static readonly Option<int> RetinueInfluenceConversionCostPerTier = CreateOption(
+            section: () => L.S("mcm_section_retinues", "Retinues"),
+            name: () =>
+                L.S(
+                    "mcm_option_retinue_influence_conversion_cost_per_tier",
+                    "Retinue Influence Conversion Cost Per Tier"
+                ),
+            key: "RetinueInfluenceConversionCostPerTier",
+            hint: () =>
+                L.S(
+                    "mcm_option_retinue_influence_conversion_cost_per_tier_hint",
+                    "Conversion cost for retinue troops per tier."
+                ),
+            @default: 5,
+            minValue: 0,
+            maxValue: 10,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 0,
+                [Presets.Realistic] = 10,
             }
         );
 

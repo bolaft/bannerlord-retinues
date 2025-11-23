@@ -57,7 +57,6 @@ namespace Retinues.Managers
         //                       Conversion                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private const float InfluenceCostRatio = 0.05f;
         private const float RenownCostRatio = 0.2f;
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace Retinues.Managers
             if (retinue == null || !retinue.IsRetinue)
                 return 0;
             int tier = retinue.Tier <= 0 ? 1 : retinue.Tier;
-            return tier * Config.RetinueConversionCostPerTier;
+            return tier * Config.RetinueGoldConversionCostPerTier;
         }
 
         /// <summary>
@@ -76,7 +75,10 @@ namespace Retinues.Managers
         /// </summary>
         public static int ConversionInfluenceCostPerUnit(WCharacter retinue)
         {
-            return (int)(ConversionGoldCostPerUnit(retinue) * InfluenceCostRatio);
+            if (retinue == null || !retinue.IsRetinue)
+                return 0;
+            int tier = retinue.Tier <= 0 ? 1 : retinue.Tier;
+            return tier * Config.RetinueInfluenceConversionCostPerTier;
         }
 
         /// <summary>

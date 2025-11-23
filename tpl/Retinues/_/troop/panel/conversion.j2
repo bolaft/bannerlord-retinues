@@ -25,16 +25,16 @@
                 {{ button.chevron_l("ExecuteRelease", is_enabled="@CanRelease") }}
 
                 <!-- Gold Cost -->
-                {{ text.base(text="@GoldConversionCost", is_int="true") }}
+                {{ text.base(text="@GoldConversionCost", is_int="true", is_visible="@ShowGoldCost") }}
 
                 <!-- Gold Icon -->
-                {{ image.sprite(sprite="General\Icons\Coin@2x", width="20", height="20") }}
+                {{ image.sprite(sprite="General\Icons\Coin@2x", width="20", height="20", is_visible="@ShowGoldCost") }}
 
                 <!-- Influence Cost -->
-                {{ text.base(text="@InfluenceConversionCost", is_int="true") }}
+                {{ text.base(text="@InfluenceConversionCost", is_int="true", is_visible="@ShowInfluenceCost") }}
 
                 <!-- Influence Icon -->
-                {{ image.sprite(sprite="General\Icons\Influence@2x", width="20", height="20") }}
+                {{ image.sprite(sprite="General\Icons\Influence@2x", width="20", height="20", is_visible="@ShowInfluenceCost") }}
 
                 <!-- Recruit Button -->
                 {{ button.chevron_r("ExecuteRecruit", is_enabled="@CanRecruit") }}

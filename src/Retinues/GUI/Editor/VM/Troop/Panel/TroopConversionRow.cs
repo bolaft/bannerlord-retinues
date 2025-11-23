@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Managers;
 using Retinues.Utils;
@@ -105,6 +106,12 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public bool HasPendingConversions => Amount != 0;
+
+        [DataSourceProperty]
+        public bool ShowGoldCost => Config.RetinueGoldConversionCostPerTier > 0;
+
+        [DataSourceProperty]
+        public bool ShowInfluenceCost => Config.RetinueInfluenceConversionCostPerTier > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
