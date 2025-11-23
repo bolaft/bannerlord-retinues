@@ -283,8 +283,7 @@ namespace Retinues.Game
             if (troop.IsVanilla)
                 return false;
 
-            EnsureCategoryCache();
-            return _retinueIds.Contains(troop.StringId);
+            return RetinueTroops.Contains(troop);
         }
 
         public bool IsRegular(WCharacter troop)
