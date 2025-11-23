@@ -928,7 +928,7 @@
     "TR": "İlk set bir savaş seti olarak kalmalıdır."
   },
   {
-    "id": "ret_clanic_traditions",
+    "id": "ret_clan_traditions",
     "EN": "Clan Traditions",
     "BR": "Tradições do Clã",
     "CNs": "家族传统",
@@ -944,7 +944,7 @@
     "TR": "Klan Gelenekleri"
   },
   {
-    "id": "ret_clanic_traditions_acquire_new_fief",
+    "id": "ret_clan_traditions_acquire_new_fief",
     "EN": "Acquire a new fief for your clan.",
     "BR": "Adquira um novo feudo para o seu clã.",
     "CNs": "为家族获得一个新的封地。",
@@ -960,7 +960,7 @@
     "TR": "Klanın için yeni bir tımar edin."
   },
   {
-    "id": "ret_clanic_traditions_companions_50_kills",
+    "id": "ret_clan_traditions_companions_50_kills",
     "EN": "Win a battle in which you and your companions get 50 or more kills.",
     "BR": "Vença uma batalha na qual você e seus companheiros consigam 50 ou mais abates.",
     "CNs": "在一场战斗中，你与同伴合计击杀50人以上。",
@@ -976,7 +976,7 @@
     "TR": "Sen ve yoldaşların 50 veya daha fazla öldürme yaptığınız bir savaşı kazan."
   },
   {
-    "id": "ret_clanic_traditions_description",
+    "id": "ret_clan_traditions_description",
     "EN": "Troops can equip smithed weapons.",
     "BR": "As tropas podem equipar itens criados.",
     "CNs": "部队可以装备制作的物品。",
@@ -992,7 +992,7 @@
     "TR": "Birlikler, üretilmiş eşyaları giyebilir."
   },
   {
-    "id": "ret_clanic_traditions_own_smithy_30_days",
+    "id": "ret_clan_traditions_own_smithy_30_days",
     "EN": "Own a smithy in a town of your clan's culture for 30 days.",
     "BR": "Seja dono de uma forja em uma cidade da cultura do seu clã por 30 dias.",
     "CNs": "在本家族文化的城镇拥有一家铁匠铺30天。",
@@ -7457,18 +7457,18 @@
   },
   {
     "id": "ret_show_crafted_disabled_hint",
-    "EN": "Unlock the 'Clanic Traditions' doctrine to show crafted items.",
-    "BR": "Desbloqueie a doutrina 'Tradições Clânicas' para mostrar itens fabricados.",
+    "EN": "Unlock the 'Clan Traditions' doctrine to show crafted items.",
+    "BR": "Desbloqueie a doutrina 'Tradições do Clã' para mostrar itens fabricados.",
     "CNs": "解锁“氏族传统”信条以显示手工制作的物品。",
     "CNt": "解鎖“氏族傳統”信條以顯示手工製作的物品。",
-    "DE": "Schalte die Doktrin 'Klantraditionen' frei, um hergestellte Gegenstände anzuzeigen.",
-    "FR": "Débloque la doctrine « Traditions Claniques » pour afficher les objets forgés.",
-    "IT": "Sblocca la dottrina 'Tradizioni Claniche' per mostrare gli oggetti artigianali.",
-    "JP": "「氏族の伝統」教義を解除して、手作りのアイテムを表示します。",
+    "DE": "Schalte die Doktrin 'Clan-Traditionen' frei, um hergestellte Gegenstände anzuzeigen.",
+    "FR": "Débloque la doctrine 'Traditions du clan' pour afficher les objets forgés.",
+    "IT": "Sblocca la dottrina 'Tradizioni del Clan' per mostrare gli oggetti artigianali.",
+    "JP": "'クランの伝統'の教義をアンロックして、手作りのアイテムを表示します。",
     "KO": "'씨족 전통' 교리를 잠금 해제하여 제작된 아이템을 표시하십시오.",
-    "PL": "Odblokuj doktrynę 'Tradycje Klanu', aby wyświetlić wykonane przedmioty.",
-    "RU": "Разблокируйте доктрину «Клановые традиции», чтобы показывать изготовленные предметы.",
-    "SP": "Desbloquea la doctrina 'Tradiciones Clánicas' para mostrar objetos fabricados.",
+    "PL": "Odblokuj doktrynę 'Tradycje klanu', aby wyświetlić wykonane przedmioty.",
+    "RU": "Разблокируйте доктрину «Традиции клана», чтобы показать изготовленные предметы.",
+    "SP": "Desbloquea la doctrina 'Tradiciones del clan' para mostrar objetos fabricados.",
     "TR": "'Klan Gelenekleri' doktrinini açarak el yapımı eşyaları göster."
   },
   {

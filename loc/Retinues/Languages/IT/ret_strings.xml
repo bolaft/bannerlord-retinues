@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Il primo set deve rimanere un set da battaglia." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Tradizioni Claniche" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Acquisisci un nuovo feudo per il tuo clan." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Vinci una battaglia in cui tu e i tuoi compagni ottenete 50 o più uccisioni." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="Le truppe possono equipaggiare oggetti creati." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Possiedi una fucina in una città della cultura del tuo clan per 30 giorni." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="Seleziona Cultura" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Sblocca la dottrina &apos;Tradizioni Claniche&apos; per mostrare gli oggetti artigianali." />
+      text="Sblocca la dottrina &apos;Tradizioni del Clan&apos; per mostrare gli oggetti artigianali." />
     <string
       id="ret_show_crafted_hint"
       text="Mostra gli oggetti artigianali." />

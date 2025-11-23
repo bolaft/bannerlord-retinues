@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="The first set must remain a battle set." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Clan Traditions" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Acquire a new fief for your clan." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Win a battle in which you and your companions get 50 or more kills." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="Troops can equip smithed weapons." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Own a smithy in a town of your clan&apos;s culture for 30 days." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1404,7 +1404,7 @@
       text="Select Culture" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Unlock the &apos;Clanic Traditions&apos; doctrine to show crafted items." />
+      text="Unlock the &apos;Clan Traditions&apos; doctrine to show crafted items." />
     <string
       id="ret_show_crafted_hint"
       text="Show crafted items." />

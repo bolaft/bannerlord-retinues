@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="O primeiro conjunto deve permanecer um conjunto de batalha." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Tradições do Clã" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Adquira um novo feudo para o seu clã." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Vença uma batalha na qual você e seus companheiros consigam 50 ou mais abates." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="As tropas podem equipar itens criados." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Seja dono de uma forja em uma cidade da cultura do seu clã por 30 dias." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="Selecionar Cultura" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Desbloqueie a doutrina &apos;Tradições Clânicas&apos; para mostrar itens fabricados." />
+      text="Desbloqueie a doutrina &apos;Tradições do Clã&apos; para mostrar itens fabricados." />
     <string
       id="ret_show_crafted_hint"
       text="Mostrar itens fabricados." />

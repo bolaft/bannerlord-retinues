@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Das erste Set muss ein Kampfausrüstungsset bleiben." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Clantraditionen" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Erwirb ein neues Lehen für deinen Clan." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Gewinne eine Schlacht, in der du und deine Gefährten zusammen mindestens 50 Kills erzielen." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="Truppen können hergestellte Gegenstände ausrüsten." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Besitze 30 Tage lang eine Schmiede in einer Stadt deiner Clan-Kultur." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="Kultur auswählen" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Schalte die Doktrin &apos;Klantraditionen&apos; frei, um hergestellte Gegenstände anzuzeigen." />
+      text="Schalte die Doktrin &apos;Clan-Traditionen&apos; frei, um hergestellte Gegenstände anzuzeigen." />
     <string
       id="ret_show_crafted_hint"
       text="Zeige hergestellte Gegenstände an." />

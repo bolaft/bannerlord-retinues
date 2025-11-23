@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="第一个套装必须保持为战斗装备。" />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="家族传统" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="为家族获得一个新的封地。" />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="在一场战斗中，你与同伴合计击杀50人以上。" />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="部队可以装备制作的物品。" />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="在本家族文化的城镇拥有一家铁匠铺30天。" />
     <string
       id="ret_clear_conversions_button_text"

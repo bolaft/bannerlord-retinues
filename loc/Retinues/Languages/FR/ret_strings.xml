@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Le premier équipement doit rester un équipement de combat." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Traditions Claniques" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Acquiers un nouveau fief pour ton clan." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Gagne une bataille dans laquelle toi et tes compagnons réalisez 50 éliminations ou plus." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="Les troupes peuvent équiper les armes forgées." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Possède une forge dans une ville de la culture de ton clan pendant 30 jours." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="Sélection de la la culture" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Débloque la doctrine « Traditions Claniques » pour afficher les objets forgés." />
+      text="Débloque la doctrine &apos;Traditions du clan&apos; pour afficher les objets forgés." />
     <string
       id="ret_show_crafted_hint"
       text="Afficher les objets forgés." />

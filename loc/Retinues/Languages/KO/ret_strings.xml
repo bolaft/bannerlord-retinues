@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="첫 번째 세트는 전투용 세트로 유지되어야 합니다." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="가문 전통" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="가문을 위해 새로운 영지를 획득하십시오." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="자신과 동료가 50명 이상의 적을 처치한 전투에서 승리하십시오." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="부대는 제작된 아이템을 장착할 수 있습니다." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="가문 문화의 마을에서 30일 동안 대장간을 소유하십시오." />
     <string
       id="ret_clear_conversions_button_text"

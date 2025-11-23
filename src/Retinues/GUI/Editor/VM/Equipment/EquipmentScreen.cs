@@ -542,7 +542,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     null,
                     L.T(
                             "show_crafted_disabled_hint",
-                            "Unlock the 'Clanic Traditions' doctrine to show crafted items."
+                            "Unlock the 'Clan Traditions' doctrine to show crafted items."
                         )
                         .ToString()
                 )

@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="El primer conjunto debe seguir siendo un conjunto de batalla." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Tradiciones del Clan" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Adquiere un nuevo feudo para tu clan." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Gana una batalla en la que tú y tus compañeros consigáis 50 o más muertes." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="Las tropas pueden equipar objetos fabricados." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Posee una herrería en una ciudad de la cultura de tu clan durante 30 días." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="Seleccionar Cultura" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Desbloquea la doctrina &apos;Tradiciones Clánicas&apos; para mostrar objetos fabricados." />
+      text="Desbloquea la doctrina &apos;Tradiciones del clan&apos; para mostrar objetos fabricados." />
     <string
       id="ret_show_crafted_hint"
       text="Mostrar objetos fabricados." />

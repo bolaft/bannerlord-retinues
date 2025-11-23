@@ -8,11 +8,12 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Doctrines.Catalog
 {
+    // Note: "Clanic" is preserved in class name for backwards compatibility
     public sealed class ClanicTraditions : Doctrine
     {
-        public override TextObject Name => L.T("clanic_traditions", "Clan Traditions");
+        public override TextObject Name => L.T("clan_traditions", "Clan Traditions");
         public override TextObject Description =>
-            L.T("clanic_traditions_description", "Troops can equip smithed weapons.");
+            L.T("clan_traditions_description", "Troops can equip smithed weapons.");
         public override int Column => 1;
         public override int Row => 1;
 
@@ -22,7 +23,7 @@ namespace Retinues.Doctrines.Catalog
         {
             public override TextObject Description =>
                 L.T(
-                    "clanic_traditions_own_smithy_30_days",
+                    "clan_traditions_own_smithy_30_days",
                     "Own a smithy in a town of your clan's culture for 30 days."
                 );
             public override int Target => 30;
@@ -52,7 +53,7 @@ namespace Retinues.Doctrines.Catalog
         {
             public override TextObject Description =>
                 L.T(
-                    "clanic_traditions_companions_50_kills",
+                    "clan_traditions_companions_50_kills",
                     "Win a battle in which you and your companions get 50 or more kills."
                 );
             public override int Target => 50;
@@ -77,7 +78,7 @@ namespace Retinues.Doctrines.Catalog
         public sealed class CT_AcquireNewFief : Feat
         {
             public override TextObject Description =>
-                L.T("clanic_traditions_acquire_new_fief", "Acquire a new fief for your clan.");
+                L.T("clan_traditions_acquire_new_fief", "Acquire a new fief for your clan.");
             public override int Target => 1;
 
             public override void OnSettlementOwnerChanged(SettlementOwnerChange change)

@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="最初のセットは戦闘用セットのままでなければなりません。" />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="一族の伝統" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="一族のために新たな領地を獲得する。" />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="仲間と共に50人以上の敵を倒す戦闘に勝利する。" />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="部隊は作成したアイテムを装備できる。" />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="一族文化の町で30日間鍛冶場を所有する。" />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="文化を選択" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="「氏族の伝統」教義を解除して、手作りのアイテムを表示します。" />
+      text="&apos;クランの伝統&apos;の教義をアンロックして、手作りのアイテムを表示します。" />
     <string
       id="ret_show_crafted_hint"
       text="手作りのアイテムを表示します。" />

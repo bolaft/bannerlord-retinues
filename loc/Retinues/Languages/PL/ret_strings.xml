@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Pierwszy zestaw musi pozostać zestawem bojowym." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Tradycje Klanu" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Zdobądź nowe lenno dla swojego klanu." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Wygraj bitwę, w której ty i twoi towarzysze dokonacie 50 lub więcej zabójstw." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="Oddziały mogą wyposażać wytworzone przedmioty." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Posiadaj kuźnię w mieście swojej kultury przez 30 dni." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="Wybierz Kulturę" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Odblokuj doktrynę &apos;Tradycje Klanu&apos;, aby wyświetlić wykonane przedmioty." />
+      text="Odblokuj doktrynę &apos;Tradycje klanu&apos;, aby wyświetlić wykonane przedmioty." />
     <string
       id="ret_show_crafted_hint"
       text="Wyświetl wykonane przedmioty." />

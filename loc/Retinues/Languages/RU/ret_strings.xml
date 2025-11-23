@@ -179,19 +179,19 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Первый набор должен оставаться боевым набором." />
     <string
-      id="ret_clanic_traditions"
+      id="ret_clan_traditions"
       text="Клановые Традиции" />
     <string
-      id="ret_clanic_traditions_acquire_new_fief"
+      id="ret_clan_traditions_acquire_new_fief"
       text="Получите новый феод для своего клана." />
     <string
-      id="ret_clanic_traditions_companions_50_kills"
+      id="ret_clan_traditions_companions_50_kills"
       text="Выиграйте бой, в котором вы и ваши спутники убьёте 50 или более врагов." />
     <string
-      id="ret_clanic_traditions_description"
+      id="ret_clan_traditions_description"
       text="Войска могут экипировать созданные предметы." />
     <string
-      id="ret_clanic_traditions_own_smithy_30_days"
+      id="ret_clan_traditions_own_smithy_30_days"
       text="Владейте кузницей в городе своей культуры в течение 30 дней." />
     <string
       id="ret_clear_conversions_button_text"
@@ -1401,7 +1401,7 @@
       text="Выбрать Культуру" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Разблокируйте доктрину «Клановые традиции», чтобы показывать изготовленные предметы." />
+      text="Разблокируйте доктрину «Традиции клана», чтобы показать изготовленные предметы." />
     <string
       id="ret_show_crafted_hint"
       text="Показать изготовленные предметы." />
