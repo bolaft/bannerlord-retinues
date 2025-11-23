@@ -4,6 +4,7 @@ using System.IO;
 using System.Xml.Linq;
 using TaleWorlds.Engine;
 using TaleWorlds.Library;
+using TaleWorlds.ModuleManager;
 
 namespace Retinues.Utils
 {
@@ -93,61 +94,47 @@ namespace Retinues.Utils
             catch
             {
                 // Fallback in the unlikely case the API moves
-                ordered = [];
+                ordered = Array.Empty<string>();
             }
 
-            // 2) Resolve each module to its SubModule.xml and parse metadata
-            var modulesRoot = System.IO.Path.Combine(BasePath.Name, "Modules");
+            // 2) Resolve each module via ModuleHelper to support Workshop/platform mods
             foreach (var id in ordered)
             {
                 if (string.IsNullOrWhiteSpace(id))
                     continue;
 
-                var modDir = System.IO.Path.Combine(modulesRoot, id);
-                var submodulePath = System.IO.Path.Combine(modDir, "SubModule.xml");
-
                 string name = id;
-                string version = UnknownVersionString;
-                bool isOfficial = IsOfficialModuleId(id); // quick heuristic
+                string version = "unknown";
+                bool isOfficial = IsOfficialModuleId(id);
+                string modDir = null;
 
                 try
                 {
-                    if (File.Exists(submodulePath))
+                    // This works for both physical Modules/* and Steam Workshop modules
+                    var info = ModuleHelper.GetModuleInfo(id);
+                    if (info != null)
                     {
-                        var doc = XDocument.Load(submodulePath);
-                        var root = doc.Root; // <Module ...>
+                        name = info.Name ?? name;
+                        isOfficial = info.IsOfficial;
 
-                        // Name
-                        name =
-                            (string)root?.Attribute("name")
-                            ?? (root?.Element("Name")?.Value)
-                            ?? name;
+                        // ApplicationVersion.ToString() gives e1.2.12 etc; adapt if you prefer
+                        version = info.Version.ToString();
 
-                        // Version - try attribute, then element patterns used by some tools
-                        version =
-                            (string)root?.Attribute("version")
-                            ?? (string)root?.Element("Version")?.Attribute("value")
-                            ?? (root?.Element("Version")?.Value)
-                            ?? version;
-
-                        // Official flag (some SubModule.xml include an Official tag/attr)
-                        var officialAttr = (string)root?.Attribute("official");
-                        if (!string.IsNullOrEmpty(officialAttr))
-                            isOfficial = officialAttr.Equals(
-                                "true",
-                                StringComparison.OrdinalIgnoreCase
-                            );
-
-                        var officialEl = root?.Element("Official");
-                        if (officialEl != null)
-                        {
-                            var ov = (string)officialEl.Attribute("value") ?? officialEl.Value;
-                            if (!string.IsNullOrEmpty(ov))
-                                isOfficial = ov.Equals("true", StringComparison.OrdinalIgnoreCase);
-                        }
+                        // FolderPath is the real root path (Modules or workshop/content/261550/...)
+                        modDir = info.FolderPath;
                     }
                 }
-                catch { }
+                catch
+                {
+                    // Ignore and fall back to manual path below
+                }
+
+                // Fallback for safety (e.g. if ModuleHelper failed for some reason)
+                if (string.IsNullOrEmpty(modDir))
+                {
+                    var modulesRoot = System.IO.Path.Combine(BasePath.Name, "Modules");
+                    modDir = System.IO.Path.Combine(modulesRoot, id);
+                }
 
                 result.Add(
                     new ModuleEntry
@@ -161,9 +148,7 @@ namespace Retinues.Utils
                 );
             }
 
-            // Cache for future calls
             _cachedActiveModules = result;
-
             return result;
         }
 
