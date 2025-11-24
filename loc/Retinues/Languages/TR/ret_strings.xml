@@ -791,16 +791,11 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="Oyuncu krallığının topraklarındaki her gönüllünün bir klan askeri olma şansı (0 = asla, 1 = her zaman). Klan askerlerini krallık askerleriyle karıştırmak istiyorsanız daha yüksek bir değer belirleyin." />
     <string
-<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Kilit Açıldığında Tüm Setleri Kopyala" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="Yeni bir asker kilidi açıldığında, yalnızca ana savaş ve sivil setler yerine orijinal askerin tüm teçhizat setlerini kopyalayın." />
-=======
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="Klonlama sırasında tüm ekipman setlerini kopyala." />
->>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="Özel Gönüllü Oranı" />

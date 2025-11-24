@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Retinues.Configuration;
+using Retinues.Game.Events;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
-using Retinues.Game.Events;
 using Retinues.Utils;
 using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
@@ -14,44 +14,38 @@ using TaleWorlds.MountAndBlade;
 namespace Retinues.Features.Agents.Patches
 {
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
-    internal static class Mission_SpawnAgent_Postfix
+    internal static class Mission_SpawnAgent_Prefix
     {
-        static void Postfix(AgentBuildData agentBuildData, bool spawnFromAgentVisuals, Agent __result)
+        static void Prefix(AgentBuildData agentBuildData, bool spawnFromAgentVisuals)
         {
             try
             {
-                var agent = __result;
-                if (agent == null || agent.IsMount || agent.Character == null)
-                    return;
-
                 var troop = AgentHelper.TroopFromAgentBuildData(agentBuildData);
                 if (troop == null)
-                    return;
+                    return; // Safety check
 
                 if (troop.IsHero)
-                    return; // don't touch heroes
+                    return; // Don't affect heroes
 
-                if (!troop.IsCustom && !Config.EnableGlobalEditor)
-                    return;
+                if (!troop.IsCustom)
+                    return; // Feature disabled for vanilla troops
 
-                var mission = Mission.Current;
-                if (mission == null)
-                    return;
-
-                // Only affect allowed modes
-                var modeWhiteList = new[]
-                {
+                List<MissionMode> modeWhiteList =
+                [
                     MissionMode.Battle,
                     MissionMode.Duel,
                     MissionMode.Deployment,
                     MissionMode.Stealth,
-                    MissionMode.Duel
-                };
+                ];
+
+                var mission = Mission.Current;
+                if (mission == null)
+                    return; // No mission, nothing to do
 
                 if (!modeWhiteList.Contains(mission.Mode))
-                    return;
+                    return; // Only affect allowed missions
 
-                // Avoid tournaments / arena
+                // Try to ensure we are not in a tournament or arena battle
                 foreach (var behavior in mission.MissionBehaviors)
                 {
                     if (behavior is TournamentBehavior)
@@ -62,21 +56,22 @@ namespace Retinues.Features.Agents.Patches
                         return;
                 }
 
-                // Pick the equipment
-
-                Equipment eq = null;
+                // Choose the equipment set
+                WEquipment chosenSet = null;
 
                 if (agentBuildData.AgentCivilianEquipment)
                 {
+                    // Pick a civilian set if available
                     var civs = troop.Loadout.CivilianSets.ToList();
-                    if (civs.Count == 0)
-                        eq = troop.Loadout.Civilian.Base;
-                    else
-                        eq = civs[MBRandom.RandomInt(civs.Count)].Base;
+                    chosenSet =
+                        civs.Count == 0
+                            ? troop.Loadout.Civilian
+                            : civs[MBRandom.RandomInt(civs.Count)];
                 }
                 else if (Config.ForceMainBattleSetInCombat)
                 {
-                    eq = troop.Loadout.Battle.Base;
+                    // Force main battle set
+                    chosenSet = troop.Loadout.Battle;
                 }
                 else
                 {
@@ -101,15 +96,37 @@ namespace Retinues.Features.Agents.Patches
                     }
 
                     if (eligible.Count == 0)
-                        eligible.Add(troop.Loadout.Battle); // safety
+                        eligible.Add(troop.Loadout.Battle); // safety fallback
 
-                    eq = eligible[MBRandom.RandomInt(eligible.Count)].Base;
+                    chosenSet = eligible[MBRandom.RandomInt(eligible.Count)];
                 }
 
-                if (eq == null)
+                if (chosenSet == null)
                     return;
 
-                agent.UpdateSpawnEquipmentAndRefreshVisuals(eq);
+                var eq = chosenSet.Base;
+
+                // Gender override: flip if enabled for this set
+                if (
+                    CombatAgentBehavior.IsEnabled(
+                        troop,
+                        chosenSet.Index,
+                        PolicyToggleType.GenderOverride
+                    )
+                )
+                {
+                    // Flip relative to the troop's base gender
+                    agentBuildData.IsFemale(!troop.IsFemale);
+                }
+
+                // Force the chosen set and prevent randomization
+                agentBuildData
+                    .Equipment(eq)
+                    .MissionEquipment(null) // ensure nothing overrides equipment later
+                    .FixedEquipment(true)
+                    .CivilianEquipment(false)
+                    .NoWeapons(false)
+                    .NoArmor(false);
             }
             catch (Exception e)
             {

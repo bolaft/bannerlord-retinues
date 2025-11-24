@@ -791,16 +791,11 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="플레이어 왕국 영지의 각 자원봉사자가 씨족 병력일 확률(0 = 없음, 1 = 항상). 씨족 병력과 왕국 병력을 혼합하려면 더 높은 값을 설정하십시오." />
     <string
-<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="잠금 해제 시 모든 세트 복사" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="새 병력을 잠금 해제할 때 주요 전투 및 민간 세트만 복사하는 대신 원래 병력의 모든 장비 세트를 복사합니다." />
-=======
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="부대 장비를 복제할 때 모든 장비 세트를 복사합니다." />
->>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="맞춤형 자원봉사자 비율" />

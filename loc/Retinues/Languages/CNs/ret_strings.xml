@@ -791,16 +791,11 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="玩家王国封地中每个志愿者成为氏族部队的几率（0 = 从不，1 = 总是）。如果您想混合氏族部队和王国部队，请设置更高的值。" />
     <string
-<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="解锁时复制所有套装" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="解锁新部队时，复制原始部队的所有装备套装，而不仅仅是主要战斗和民用套装。" />
-=======
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="克隆部队装备时复制所有装备套装" />
->>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="自定义志愿者比例" />

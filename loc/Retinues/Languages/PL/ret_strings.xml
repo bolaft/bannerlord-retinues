@@ -791,16 +791,11 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="Szansa, że każdy ochotnik w lennach królestwa gracza będzie jednostką klanową (0 = nigdy, 1 = zawsze). Ustaw wyższą wartość, jeśli chcesz mieszać jednostki klanowe z jednostkami królestwa." />
     <string
-<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Kopiuj Wszystkie Zestawy przy Odblokowaniu" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="Podczas odblokowywania nowej jednostki skopiuj wszystkie zestawy ekwipunku z oryginalnej jednostki, a nie tylko główne zestawy bojowe i cywilne." />
-=======
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="Kopiuj wszystkie zestawy podczas klonowania." />
->>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="Proporcja Niestandardowych Ochotników" />

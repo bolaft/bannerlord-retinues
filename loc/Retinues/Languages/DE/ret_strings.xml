@@ -791,16 +791,11 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="Chance, dass jeder Freiwillige in den Lehen des Spieler-Königreichs eine Clan-Truppe ist (0 = nie, 1 = immer). Setzen Sie einen höheren Wert, wenn Sie Clan-Truppen mit Königreichstruppen mischen möchten." />
     <string
-<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Alle Sets beim Entsperren kopieren" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="Beim Entsperren einer neuen Truppe alle Ausrüstungssets der Originaltruppe kopieren, anstatt nur die Hauptkampf- und Zivilsets." />
-=======
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="Alle Ausrüstungssets beim Klonen kopieren." />
->>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="Benutzerdefinierter Freiwilligenanteil" />

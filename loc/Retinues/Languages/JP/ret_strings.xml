@@ -791,16 +791,11 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="プレイヤー王国の封地にいる各志願者が氏族部隊である確率（0 = なし、1 = 常に）。氏族部隊と王国部隊を混ぜたい場合は、より高い値を設定してください。" />
     <string
-<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="解除時にすべてのセットをコピー" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="新しい部隊を解除する際、元の部隊のすべての装備セットをコピーし、主要な戦闘および民間セットのみをコピーしない。" />
-=======
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="部隊装備をクローンする際に、すべての装備セットをコピーします。" />
->>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="カスタム志願者の割合" />

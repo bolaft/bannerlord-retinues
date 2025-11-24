@@ -791,16 +791,11 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="Chance for each volunteer in the player kingdom&apos;s fiefs to be a clan troop (0 = never, 1 = always). Set a higher value if you want to mix clan troops with kingdom troops." />
     <string
-<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Copy All Sets On Unlock" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="When unlocking a new troop, copy all equipment sets from the original troop instead of only the main battle and civilian sets." />
-=======
-      id="ret_mcm_option_copy_all_sets_when_cloning"
-      text="Copy All Sets When Cloning" />
->>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="Custom Volunteer Proportion" />
