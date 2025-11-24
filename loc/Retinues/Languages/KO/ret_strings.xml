@@ -1556,6 +1556,9 @@
       id="ret_training_required_tooltip_body"
       text="기술 포인트 증가가 적용되기 전에 병력은 훈련을 받아야 합니다.{newline}{newline}이는 영지의 마을 메뉴에서 &apos;병력 훈련&apos;을 선택하여 수행됩니다." />
     <string
+      id="ret_traits_header_text"
+      text="성격 특성" />
+    <string
       id="ret_transfer_header_text"
       text="이동" />
     <string

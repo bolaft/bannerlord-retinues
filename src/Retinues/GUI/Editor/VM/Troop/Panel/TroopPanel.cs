@@ -12,6 +12,7 @@ using Retinues.GUI.Helpers;
 using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
@@ -85,6 +86,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(CanChangeRace),
                     nameof(FormationClassIcon),
                     nameof(FormationClassText),
+                    nameof(IsHero),
+                    nameof(Traits),
                 ],
                 [UIEvent.Train] =
                 [
@@ -184,6 +187,26 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
 
+        /* ━━━━━━ Hero Traits ━━━━━ */
+
+        private MBBindingList<TroopTraitVM> _traits;
+
+        [DataSourceProperty]
+        public MBBindingList<TroopTraitVM> Traits
+        {
+            get
+            {
+                if (_traits == null)
+                {
+                    _traits = [];
+
+                    foreach (var trait in WHero.PersonalityTraits)
+                        _traits.Add(new TroopTraitVM(trait));
+                }
+                return _traits;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -207,6 +230,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             ShowSkillSummary
                 ? L.S("skills_header_text", "Skills & Formation")
                 : L.S("skills_header_text_no_formation", "Skills");
+
+        [DataSourceProperty]
+        public string TraitsHeaderText => L.S("traits_header_text", "Personality Traits");
 
         [DataSourceProperty]
         public string FormationClassHeaderText =>
@@ -337,6 +363,11 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     "Before skill point increases are applied, troops must undergo training.\n\nThis is done by selecting 'Train troops' from a fief's town menu."
                 )
             );
+
+        /* ━━━━━━━━━ Hero ━━━━━━━━━ */
+
+        [DataSourceProperty]
+        public bool IsHero => State.Troop?.IsHero == true;
 
         /* ━━━━━━━ Upgrades ━━━━━━━ */
 
@@ -1108,9 +1139,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             foreach (var row in ConversionRows)
                 row.Show();
-
             foreach (var skill in SkillsRow1.Concat(SkillsRow2))
                 skill.Show();
+            foreach (var trait in Traits)
+                trait.Show();
         }
 
         /// <summary>
@@ -1122,6 +1154,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 row.Hide();
             foreach (var skill in SkillsRow1.Concat(SkillsRow2))
                 skill.Hide();
+            foreach (var trait in Traits)
+                trait.Hide();
 
             base.Hide();
         }

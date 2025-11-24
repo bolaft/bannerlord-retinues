@@ -1556,6 +1556,9 @@
       id="ret_training_required_tooltip_body"
       text="Beceri puanı artışları uygulanmadan önce, birlikler eğitimden geçmelidir.{newline}{newline}Bu, bir tımarın kasaba menüsünden &apos;Askerleri eğit&apos; seçilerek yapılır." />
     <string
+      id="ret_traits_header_text"
+      text="Kişilik Özellikleri" />
+    <string
       id="ret_transfer_header_text"
       text="Aktar" />
     <string

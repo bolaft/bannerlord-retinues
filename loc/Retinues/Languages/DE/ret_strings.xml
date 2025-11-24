@@ -1556,6 +1556,9 @@
       id="ret_training_required_tooltip_body"
       text="Bevor Fertigkeitspunkte angewendet werden, müssen die Truppen ein Training durchlaufen.{newline}{newline}Dies geschieht, indem im Stadtmenü eines Lehens &apos;Truppen trainieren&apos; ausgewählt wird." />
     <string
+      id="ret_traits_header_text"
+      text="Persönlichkeitsmerkmale" />
+    <string
       id="ret_transfer_header_text"
       text="Übertragen" />
     <string

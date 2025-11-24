@@ -1556,6 +1556,9 @@
       id="ret_training_required_tooltip_body"
       text="スキルポイントの増加が適用される前に、部隊は訓練を受ける必要があります。{newline}{newline}これは、封地の町のメニューから「部隊を訓練する」を選択することで行われます。" />
     <string
+      id="ret_traits_header_text"
+      text="性格特性" />
+    <string
       id="ret_transfer_header_text"
       text="移動" />
     <string

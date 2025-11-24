@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Game.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
@@ -132,6 +132,69 @@ namespace Retinues.Game.Wrappers
                 {
                     var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
                     _hero.SetSkillValue(skill, v);
+                }
+
+                NeedsPersistence = true;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Traits                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static TraitObject[] PersonalityTraits =>
+            [
+                DefaultTraits.Mercy,
+                DefaultTraits.Valor,
+                DefaultTraits.Honor,
+                DefaultTraits.Generosity,
+                DefaultTraits.Calculating,
+            ];
+
+        /// <summary>
+        /// Gets the hero's level in the given trait.
+        /// </summary>
+        public int GetTrait(TraitObject trait)
+        {
+            if (_hero == null || trait == null)
+                return 0;
+
+            return _hero.GetTraitLevel(trait);
+        }
+
+        /// <summary>
+        /// Sets the hero's level in the given trait (clamped by the game).
+        /// </summary>
+        public void SetTrait(TraitObject trait, int value)
+        {
+            if (_hero == null || trait == null)
+                return;
+
+            _hero.SetTraitLevel(trait, value);
+            NeedsPersistence = true;
+        }
+
+        /// <summary>
+        /// Mirrors the WCharacter Skills API: expose traits as a dictionary.
+        /// </summary>
+        public Dictionary<TraitObject, int> Traits
+        {
+            get
+            {
+                if (_hero == null)
+                    return [];
+
+                return PersonalityTraits.ToDictionary(tr => tr, tr => _hero.GetTraitLevel(tr));
+            }
+            set
+            {
+                if (_hero == null || value == null)
+                    return;
+
+                foreach (var tr in PersonalityTraits)
+                {
+                    value.TryGetValue(tr, out int v);
+                    _hero.SetTraitLevel(tr, v);
                 }
 
                 NeedsPersistence = true;

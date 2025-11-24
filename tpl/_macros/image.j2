@@ -74,7 +74,8 @@
     margin_left="0", margin_right="0",
     margin_top="0", margin_bottom="0",
     horizontal_flip="false", vertical_flip="false",
-    vertical_alignment="Center", horizontal_alignment="Center"
+    vertical_alignment="Center", horizontal_alignment="Center",
+    hint=None
 ) -%}
     <SpriteWidget
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -86,7 +87,18 @@
         IsVisible="{{ is_visible }}"
         {% if data_source %} DataSource="{{ data_source }}"{% endif %}
         HorizontalFlip="{{ horizontal_flip }}" VerticalFlip="{{ vertical_flip }}"
-        HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"/>
+        HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}"
+        {% if hint %}
+            >
+            <Children>
+                <HintWidget
+                    DataSource="{{ hint }}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </SpriteWidget>
+        {% else %}
+            />
+        {% endif %}
 {%- endmacro %}
 
 {# ━━━━━━━━━━━━━━━━━━━━━━━━ #}

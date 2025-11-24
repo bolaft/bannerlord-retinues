@@ -1556,6 +1556,9 @@
       id="ret_training_required_tooltip_body"
       text="Prima che i punti abilità vengano applicati, le truppe devono sottoporsi a un addestramento.{newline}{newline}Questo si fa selezionando &apos;Addestra truppe&apos; dal menu della città di un feudo." />
     <string
+      id="ret_traits_header_text"
+      text="Tratti della Personalità" />
+    <string
       id="ret_transfer_header_text"
       text="Trasferisci" />
     <string

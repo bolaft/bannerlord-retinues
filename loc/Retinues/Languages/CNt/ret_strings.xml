@@ -1556,6 +1556,9 @@
       id="ret_training_required_tooltip_body"
       text="在技能點提升生效之前，部隊必須接受訓練。{newline}{newline}這是通過在封地的城鎮菜單中選擇“訓練部隊”來完成的。" />
     <string
+      id="ret_traits_header_text"
+      text="個性特徵" />
+    <string
       id="ret_transfer_header_text"
       text="轉移" />
     <string
