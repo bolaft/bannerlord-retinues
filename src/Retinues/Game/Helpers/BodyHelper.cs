@@ -308,52 +308,39 @@ namespace Retinues.Game.Helpers
         {
             var character = troop?.Base;
             var culture = troop?.Culture.Base;
-#if !BL13
-            // BL12: no-op, keep behavior unchanged.
-            _ = character;
-            _ = culture;
-            return;
-#else
+
             if (character == null || culture == null)
                 return;
 
+            // CharacterObject inherits BasicCharacterObject, so this cast is always valid.
+            if (character is not BasicCharacterObject basic)
+                return;
+
+            // Heroes use Hero.StaticBodyProperties, let that pipeline handle them.
+            if (basic.IsHero)
+                return;
+
+            // Pick a culture template to pull tags from.
+            var template = culture.BasicTroop ?? culture.EliteBasicTroop;
+            if (template == null)
+            {
+                Log.Warn(
+                    $"[BodyHelper] No BasicTroop/EliteBasicTroop for culture '{culture.StringId}', aborting."
+                );
+                return;
+            }
+
+            var templateRange = template.BodyPropertyRange;
+            var targetRange = basic.BodyPropertyRange;
+
+            if (templateRange == null || targetRange == null)
+            {
+                Log.Warn("[BodyHelper] Missing BodyPropertyRange on template or target, aborting.");
+                return;
+            }
+#if BL13
             try
             {
-                // CharacterObject inherits BasicCharacterObject, so this cast is always valid.
-                if (character is not BasicCharacterObject basic)
-                {
-                    Log.Warn("[BodyHelper] Character is not a BasicCharacterObject, aborting.");
-                    return;
-                }
-
-                // Heroes use Hero.StaticBodyProperties, let that pipeline handle them.
-                if (basic.IsHero)
-                {
-                    Log.Info("[BodyHelper] Character is hero, skipping tag copy.");
-                    return;
-                }
-
-                // Pick a culture template to pull tags from.
-                var template = culture.BasicTroop ?? culture.EliteBasicTroop;
-                if (template == null)
-                {
-                    Log.Warn(
-                        $"[BodyHelper] No BasicTroop/EliteBasicTroop for culture '{culture.StringId}', aborting."
-                    );
-                    return;
-                }
-
-                var templateRange = template.BodyPropertyRange;
-                var targetRange = basic.BodyPropertyRange;
-
-                if (templateRange == null || targetRange == null)
-                {
-                    Log.Warn(
-                        "[BodyHelper] Missing BodyPropertyRange on template or target, aborting."
-                    );
-                    return;
-                }
-
                 // Use the template's tag pools as "valid" tags for this culture.
                 var hairTags = templateRange.HairTags ?? string.Empty;
                 var beardTags = templateRange.BeardTags ?? string.Empty;
@@ -393,6 +380,9 @@ namespace Retinues.Game.Helpers
                         )
                     );
 
+                if (!different)
+                    return;
+
                 // Follow vanilla pattern and clone the MBBodyProperty.
                 var clonedRange = MBBodyProperty.CreateFrom(targetRange);
 
@@ -407,6 +397,37 @@ namespace Retinues.Game.Helpers
 
                 // Assign back via reflection because BodyPropertyRange setter is protected.
                 Reflector.SetPropertyValue(basic, "BodyPropertyRange", clonedRange);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+#else
+            try
+            {
+                // Make sure we are not editing a shared MBBodyProperty instance.
+                troop.Body.EnsureOwnBodyRange();
+                targetRange = basic.BodyPropertyRange;
+
+                // In BL12, hair/beard/tattoo sets are encoded in StaticBodyProperties inside BodyProperties.
+                var curMin = targetRange.BodyPropertyMin;
+                var curMax = targetRange.BodyPropertyMax;
+                var tplMin = templateRange.BodyPropertyMin;
+                var tplMax = templateRange.BodyPropertyMax;
+
+                var newMin = new BodyProperties(
+                    new DynamicBodyProperties(curMin.Age, curMin.Weight, curMin.Build),
+                    tplMin.StaticProperties
+                );
+
+                var newMax = new BodyProperties(
+                    new DynamicBodyProperties(curMax.Age, curMax.Weight, curMax.Build),
+                    tplMax.StaticProperties
+                );
+
+                // Write back into MBBodyProperty private fields.
+                Reflector.SetFieldValue(targetRange, "_bodyPropertyMin", newMin);
+                Reflector.SetFieldValue(targetRange, "_bodyPropertyMax", newMax);
             }
             catch (Exception ex)
             {
