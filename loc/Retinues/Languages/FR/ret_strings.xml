@@ -791,11 +791,16 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="Chance pour chaque volontaire dans les fiefs du royaume du joueur d&apos;être une troupe de clan (0 = jamais, 1 = toujours). Définissez une valeur plus élevée pour mélanger les troupes de clan avec les troupes du royaume." />
     <string
+<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Copier Tous les Équipements" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="Lors du déblocage d’une nouvelle troupe, copie tous les équipements de la troupe originale au lieu des seuls ensembles de combat principaux et civils." />
+=======
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Copier tous les ensembles lors du clonage." />
+>>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="Proportion de Volontaires Personnalisés" />

@@ -271,11 +271,10 @@ namespace Retinues.GUI.Editor.VM.Equipment
             (State.Equipment?.Index ?? 0) < ((State.Troop?.Loadout.Equipments.Count ?? 1) - 1);
 
         [DataSourceProperty]
-        public bool ShowSetControls => !ModCompatibility.NoAlternateEquipmentSets;
+        public bool ShowSetControls => true; // used to hide controls with Shokuho
 
         [DataSourceProperty]
-        public bool CanCreateSet =>
-            !State.Troop.IsHero && !ModCompatibility.NoAlternateEquipmentSets;
+        public bool CanCreateSet => !State.Troop.IsHero;
 
         [DataSourceProperty]
         public bool CanRemoveSet

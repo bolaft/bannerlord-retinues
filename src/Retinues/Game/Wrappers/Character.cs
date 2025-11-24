@@ -848,7 +848,7 @@ namespace Retinues.Game.Wrappers
             // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
             {
-                if (Config.CopyAllSetsOnUnlock && !ModCompatibility.NoAlternateEquipmentSets)
+                if (Config.CopyAllSetsOnUnlock)
                 {
                     // Copy every set verbatim
                     Loadout.FillFrom(src.Loadout, copyAll: true);

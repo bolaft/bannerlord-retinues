@@ -791,11 +791,16 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="Probabilidad de que cada voluntario en los feudos del reino del jugador sea una tropa del clan (0 = nunca, 1 = siempre). Establece un valor más alto si deseas mezclar tropas del clan con tropas del reino." />
     <string
+<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Copiar Todos los Conjuntos al Desbloquear" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="Al desbloquear una nueva tropa, copia todos los conjuntos de equipo de la tropa original en lugar de solo los conjuntos principales de batalla y civiles." />
+=======
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Copiar Todos los Conjuntos al Clonar" />
+>>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="Proporción de Voluntarios Personalizados" />

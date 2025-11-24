@@ -791,11 +791,16 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="Шанс для каждого добровольца в поместьях королевства игрока стать войском клана (0 = никогда, 1 = всегда). Установите более высокое значение, если хотите смешать войска клана с войсками королевства." />
     <string
+<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Копировать Все Наборы при Разблокировке" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="При разблокировке новой войсковой части копируйте все комплекты снаряжения из оригинальной части, а не только основные боевые и гражданские комплекты." />
+=======
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="Копировать все комплекты при клонировании." />
+>>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="Пропорция Пользовательских Добровольцев" />

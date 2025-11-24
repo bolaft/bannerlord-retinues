@@ -791,11 +791,16 @@
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
       text="玩家王國封地中每個志願者成為氏族部隊的幾率（0 = 從不，1 = 總是）。如果您想混合氏族部隊和王國部隊，請設置更高的值。" />
     <string
+<<<<<<< HEAD
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="解鎖時複製所有套裝" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
       text="解鎖新部隊時，複製原始部隊的所有裝備套裝，而不僅僅是主要戰鬥和民用套裝。" />
+=======
+      id="ret_mcm_option_copy_all_sets_when_cloning"
+      text="克隆部队装备时复制所有装备套装" />
+>>>>>>> main
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
       text="自定義志願者比例" />
