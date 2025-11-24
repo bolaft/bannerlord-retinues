@@ -121,6 +121,9 @@ namespace Retinues.Doctrines
 
             var title = L.T("feat_completed_title", "Feat Completed");
 
+            // Play sound when the popup appears
+            Sound.Play2D(Sound.QuestFinished);
+
             InformationManager.ShowInquiry(
                 new InquiryData(
                     title.ToString(),

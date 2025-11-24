@@ -161,6 +161,10 @@ namespace Retinues.Features.Unlocks.Patches
             // 4) Notify the player.
             string itemList = string.Join(", ", unlockedItems.Select(i => i.Name));
 
+            // Play sound when the popup appears
+            Sound.Play2D(Sound.Education);
+
+            // Show popup
             Notifications.Popup(
                 L.T("vassal_secrets_title", "Secrets Unlocked"),
                 L.T("vassal_secrets_unlocked_body", "You have unlocked the secrets of: {ITEMS}.")

@@ -238,6 +238,10 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                         {
                             if (DoctrineAPI.TryAcquireDoctrine(_id, out var reason))
                             {
+                                // Play sound
+                                Sound.Play2D(Sound.ReignDecision);
+
+                                // Refresh UI
                                 Column?.Refresh();
 
                                 if (State.Faction is WFaction f)

@@ -406,6 +406,10 @@ namespace Retinues.Features.Unlocks
 
                 var body = string.Join("\n", lines);
 
+                // Play sound when the popup appears
+                Sound.Play2D(Sound.TraitChange);
+
+                // Show popup
                 Notifications.Popup(
                     L.T("items_unlocked_title", "New Gear Unlocked"),
                     new TextObject(body)
