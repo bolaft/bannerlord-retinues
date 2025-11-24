@@ -1,7 +1,7 @@
-using System.Linq;
 using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Library;
 
 namespace Retinues.Safety.Version
 {
@@ -18,16 +18,13 @@ namespace Retinues.Safety.Version
 
         private string _retinuesVersion;
 
-        /// <summary>
-        /// Syncs the Retinues mod version to and from the campaign save file.
-        /// Updates to current version on save.
-        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             if (dataStore.IsSaving)
             {
-                // Update to current version on save
-                _retinuesVersion = ModuleChecker.GetModule("Retinues").Version;
+                // Update to current version on save (string form, for display)
+                var mod = ModuleChecker.GetModule("Retinues");
+                _retinuesVersion = mod?.Version ?? ModuleChecker.UnknownVersionString;
             }
 
             dataStore.SyncData("Retinues_Version", ref _retinuesVersion);
@@ -37,9 +34,6 @@ namespace Retinues.Safety.Version
         //                    Event Registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Registers event listener for game load finished to log the mod version.
-        /// </summary>
         public override void RegisterEvents()
         {
             CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
@@ -52,14 +46,20 @@ namespace Retinues.Safety.Version
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Logs the Retinues mod version after game load.
-        /// </summary>
         private void OnGameLoadFinished()
         {
             try
             {
-                string currentVersionRaw = ModuleChecker.GetModule("Retinues").Version;
+                var currentModule = ModuleChecker.GetModule("Retinues");
+
+                if (currentModule == null)
+                {
+                    Log.Warn("VersionBehavior: Retinues module not found in ModuleChecker.");
+                    return;
+                }
+
+                string currentVersionRaw = currentModule.Version;
+                ApplicationVersion currentAppVersion = currentModule.AppVersion;
 
                 Log.Info($"Current Retinues version: {currentVersionRaw}");
                 Log.Info($"Retinues version in save: {_retinuesVersion}");
@@ -76,16 +76,26 @@ namespace Retinues.Safety.Version
 
                 string saveVersionRaw = _retinuesVersion;
 
-                // Normalized versions: strip leading 'v'/'V', trim, but keep "unknown" as-is.
-                string currentVersion = NormalizeVersion(currentVersionRaw);
-                string saveVersion = NormalizeVersion(saveVersionRaw);
+                // If the stored version is literally "unknown", just go to mismatch popup logic.
+                if (saveVersionRaw == ModuleChecker.UnknownVersionString)
+                {
+                    VersionMismatchPopup(currentVersionRaw, saveVersionRaw);
+                    return;
+                }
 
-                // Exact match (ignoring leading 'v'): nothing to do.
+                // Try to parse both versions into ApplicationVersion.
                 if (
-                    !string.IsNullOrEmpty(saveVersion)
-                    && saveVersion != ModuleChecker.UnknownVersionString
-                    && saveVersion == currentVersion
+                    !TryParseAppVersion(saveVersionRaw, out var saveAppVersion)
+                    || currentAppVersion == ApplicationVersion.Empty
                 )
+                {
+                    // If parsing fails for either, fall back to mismatch behavior.
+                    VersionMismatchPopup(currentVersionRaw, saveVersionRaw);
+                    return;
+                }
+
+                // Exact match (including change-set) => nothing to do.
+                if (currentAppVersion.IsSame(saveAppVersion, checkChangeSet: true))
                 {
                     Log.Info(
                         $"Retinues version in save matches current version {currentVersionRaw}."
@@ -97,18 +107,14 @@ namespace Retinues.Safety.Version
 
                 try
                 {
-                    // New main rule:
-                    // If either mod minor += 1 OR mod major += 1 (same BL series), show update popup.
-                    // Anything else => mismatch popup.
-
-                    if (ShouldShowUpdatePopup(saveVersion, currentVersion))
+                    if (ShouldShowUpdatePopup(saveAppVersion, currentAppVersion))
                     {
                         VersionUpdatePopup(currentVersionRaw, saveVersionRaw);
-                        return;
                     }
-
-                    // Otherwise, show mismatch popup
-                    VersionMismatchPopup(currentVersionRaw, saveVersionRaw);
+                    else
+                    {
+                        VersionMismatchPopup(currentVersionRaw, saveVersionRaw);
+                    }
                 }
                 catch (System.Exception ex)
                 {
@@ -122,9 +128,10 @@ namespace Retinues.Safety.Version
             }
         }
 
-        /// <summary>
-        /// Displays a popup notification for a Retinues version update in the save file.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Popups                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private void VersionUpdatePopup(string currentVersionString, string saveVersionString)
         {
             if (saveVersionString == ModuleChecker.UnknownVersionString)
@@ -152,9 +159,6 @@ namespace Retinues.Safety.Version
             }
         }
 
-        /// <summary>
-        /// Displays a popup notification for a Retinues version mismatch in the save file.
-        /// </summary>
         private void VersionMismatchPopup(string currentVersionString, string saveVersionString)
         {
             if (saveVersionString == ModuleChecker.UnknownVersionString)
@@ -187,94 +191,115 @@ namespace Retinues.Safety.Version
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Normalize a version string for comparison:
-        /// trims, strips leading 'v'/'V', leaves "unknown" unchanged.
+        /// Robustly parse a stored Retinues version string into an ApplicationVersion.
+        /// Accepts both "v1.2.3.4" and bare "1.2.3.4"; treats invalid as failure.
         /// </summary>
-        private static string NormalizeVersion(string versionString)
+        private static bool TryParseAppVersion(string versionString, out ApplicationVersion version)
         {
+            version = ApplicationVersion.Empty;
+
             if (string.IsNullOrWhiteSpace(versionString))
-                return versionString;
+                return false;
 
             if (versionString == ModuleChecker.UnknownVersionString)
-                return versionString;
+                return false;
 
-            return versionString.Trim().TrimStart('v', 'V');
+            string s = versionString.Trim();
+
+            // If someone ever stored a bare "1.2.3.4", add default release prefix.
+            if (!char.IsLetter(s[0]))
+                s = "v" + s;
+
+            try
+            {
+                version = ApplicationVersion.FromString(s, defaultChangeSet: 0);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
-        /// Determines whether an update popup should be shown, based on
-        /// the old and new (normalized) version strings.
+        /// Determines whether an update popup should be shown, based on the old and new ApplicationVersions.
         /// </summary>
         private static bool ShouldShowUpdatePopup(
-            string saveVersionString,
-            string currentVersionString
+            ApplicationVersion saveVersion,
+            ApplicationVersion currentVersion
         )
         {
-            // From here on we apply the generic rule:
-            // if either minor += 1 OR major += 1, show update.
+            // If current isn't actually newer, nothing to do.
+            if (!currentVersion.IsNewerThan(saveVersion))
+                return false;
+
+            // Changing Bannerlord series (major/minor) is treated as mismatch.
             if (
-                !TryParseVersion(
-                    saveVersionString,
-                    out int saveBlMajor,
-                    out int saveBlMinor,
-                    out int saveModMajor,
-                    out int saveModMinor
-                )
+                saveVersion.Major != currentVersion.Major
+                || saveVersion.Minor != currentVersion.Minor
             )
                 return false;
 
-            if (
-                !TryParseVersion(
-                    currentVersionString,
-                    out int curBlMajor,
-                    out int curBlMinor,
-                    out int curModMajor,
-                    out int curModMinor
-                )
-            )
-                return false;
+            // Major   = BL major
+            // Minor   = BL minor
+            // Revision = mod major
+            // ChangeSet = mod minor
+            int saveModMajor = saveVersion.Revision;
+            int saveModMinor = saveVersion.ChangeSet;
+            int curModMajor = currentVersion.Revision;
+            int curModMinor = currentVersion.ChangeSet;
 
-            // Changing Bannerlord series is treated as a mismatch, not a normal update.
-            if (saveBlMajor != curBlMajor || saveBlMinor != curBlMinor)
-                return false;
+            // Legacy -> 13.0 bridge (old 1.2.12.x / 1.3.3.x / 1.3.1.x -> 1.2.13.0 / 1.3.13.0).
+            if (
+                curModMajor == 13
+                && curModMinor == 0
+                && IsLegacyToNewBridge(saveVersion, currentVersion)
+            )
+            {
+                return true;
+            }
 
             bool isMinorStep = curModMajor == saveModMajor && curModMinor == saveModMinor + 1;
-
             bool isMajorStep = curModMajor == saveModMajor + 1 && curModMinor == saveModMinor;
 
             return isMinorStep || isMajorStep;
         }
 
         /// <summary>
-        /// Parses a normalized version string "A.B.X.Y" into BL + mod components.
-        /// A/B = BL major/minor, X/Y = mod major/minor.
+        /// Special-case bridge from early schemes to the new "13.0" scheme.
+        /// - New: 1.2.13.0 or 1.3.13.0
+        /// - Old: 1.3.3.9, 1.3.3.10, 1.3.1.9, 1.3.1.10, 1.2.12.9, 1.2.12.10
         /// </summary>
-        private static bool TryParseVersion(
-            string versionString,
-            out int blMajor,
-            out int blMinor,
-            out int modMajor,
-            out int modMinor
+        private static bool IsLegacyToNewBridge(
+            ApplicationVersion saveVersion,
+            ApplicationVersion currentVersion
         )
         {
-            blMajor = blMinor = modMajor = modMinor = 0;
+            // Same BL series guaranteed by caller.
+            // New is always ModMajor=13, ModMinor=0 here.
 
-            if (string.IsNullOrWhiteSpace(versionString))
-                return false;
+            // 1.2.*: 1.2.12.9 / 1.2.12.10
+            if (
+                currentVersion.Major == 1
+                && currentVersion.Minor == 2
+                && saveVersion.Revision == 12
+                && (saveVersion.ChangeSet == 9 || saveVersion.ChangeSet == 10)
+            )
+            {
+                return true;
+            }
 
-            if (versionString == ModuleChecker.UnknownVersionString)
-                return false;
+            // 1.3.*: 1.3.3.9 / 1.3.3.10 / 1.3.1.9 / 1.3.1.10
+            if (currentVersion.Major == 1 && currentVersion.Minor == 3)
+            {
+                bool oldRevOk = saveVersion.Revision == 3 || saveVersion.Revision == 1;
+                bool oldMinorOk = saveVersion.ChangeSet == 9 || saveVersion.ChangeSet == 10;
 
-            string normalized = versionString.Trim().TrimStart('v', 'V');
+                if (oldRevOk && oldMinorOk)
+                    return true;
+            }
 
-            string[] parts = normalized.Split('.');
-            if (parts.Length < 4)
-                return false;
-
-            return int.TryParse(parts[0], out blMajor)
-                && int.TryParse(parts[1], out blMinor)
-                && int.TryParse(parts[2], out modMajor)
-                && int.TryParse(parts[3], out modMinor);
+            return false;
         }
     }
 }

@@ -22,7 +22,21 @@ namespace Retinues.Utils
         {
             public string Id { get; set; }
             public string Name { get; set; }
-            public string Version { get; set; }
+
+            /// <summary>
+            /// Raw ApplicationVersion from TaleWorlds.ModuleManager.ModuleInfo.
+            /// </summary>
+            public ApplicationVersion AppVersion { get; set; }
+
+            /// <summary>
+            /// String representation used by logs and save data.
+            /// Falls back to 'unknown' if AppVersion is Empty/invalid.
+            /// </summary>
+            public string Version =>
+                AppVersion == ApplicationVersion.Empty
+                    ? UnknownVersionString
+                    : AppVersion.ToString();
+
             public string Path { get; set; }
             public bool IsOfficial { get; set; }
 
@@ -83,7 +97,6 @@ namespace Retinues.Utils
 
             var result = new List<ModuleEntry>();
 
-            // 1) Load order from the engine (official + mods)
             string[] ordered;
             try
             {
@@ -91,43 +104,35 @@ namespace Retinues.Utils
             }
             catch
             {
-                // Fallback in the unlikely case the API moves
                 ordered = [];
             }
 
-            // 2) Resolve each module via ModuleHelper to support Workshop/platform mods
             foreach (var id in ordered)
             {
                 if (string.IsNullOrWhiteSpace(id))
                     continue;
 
                 string name = id;
-                string version = "unknown";
+                var appVersion = ApplicationVersion.Empty;
                 bool isOfficial = IsOfficialModuleId(id);
                 string modDir = null;
 
                 try
                 {
-                    // This works for both physical Modules/* and Steam Workshop modules
                     var info = ModuleHelper.GetModuleInfo(id);
                     if (info != null)
                     {
                         name = info.Name ?? name;
                         isOfficial = info.IsOfficial;
-
-                        // ApplicationVersion.ToString() gives e1.2.12 etc; adapt if you prefer
-                        version = info.Version.ToString();
-
-                        // FolderPath is the real root path (Modules or workshop/content/261550/...)
-                        modDir = info.FolderPath;
+                        appVersion = info.Version; // this is ApplicationVersion from SubModule.xml
+                        modDir = info.FolderPath; // real root path (Modules or workshop)
                     }
                 }
                 catch
                 {
-                    // Ignore and fall back to manual path below
+                    // Ignore and fall back to manual path
                 }
 
-                // Fallback for safety (e.g. if ModuleHelper failed for some reason)
                 if (string.IsNullOrEmpty(modDir))
                 {
                     var modulesRoot = System.IO.Path.Combine(BasePath.Name, "Modules");
@@ -139,7 +144,7 @@ namespace Retinues.Utils
                     {
                         Id = id,
                         Name = name,
-                        Version = version,
+                        AppVersion = appVersion,
                         Path = modDir,
                         IsOfficial = isOfficial,
                     }
