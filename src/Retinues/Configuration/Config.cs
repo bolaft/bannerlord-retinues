@@ -220,9 +220,7 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
-            },
-            disabled: ModCompatibility.NoAlternateEquipmentSets,
-            disabledOverride: false
+            }
         );
 
         // ─────────────────────────────────────────────────────
