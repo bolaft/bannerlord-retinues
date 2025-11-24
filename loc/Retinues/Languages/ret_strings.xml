@@ -413,11 +413,8 @@
       id="ret_gender_hint"
       text="Gender" />
     <string
-      id="ret_gender_override_applied_hint"
-      text="This set has a gender override applied." />
-    <string
-      id="ret_gender_override_not_applied_hint"
-      text="Apply a gender override to this set." />
+      id="ret_gender_override_hint"
+      text="If enabled, troops spawning with this equipment set will be of the opposite gender." />
     <string
       id="ret_gender_toggle_hint"
       text="Toggle Gender" />

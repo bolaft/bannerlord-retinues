@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
+using Retinues.Features.Agents;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Doctrines;
@@ -197,7 +198,25 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━ 3D Model ━━━━━━━ */
 
         [DataSourceProperty]
-        public CharacterViewModel Model => State.Troop?.GetModel(State.Equipment.Index);
+        public CharacterViewModel Model
+        {
+            get
+            {
+                var troop = State.Troop;
+                var equipment = State.Equipment;
+
+                if (troop == null || equipment == null)
+                    return null;
+
+                bool hasGenderOverride = CombatAgentBehavior.IsEnabled(
+                    troop,
+                    equipment.Index,
+                    PolicyToggleType.GenderOverride
+                );
+
+                return troop.GetModel(equipment.Index, hasGenderOverride);
+            }
+        }
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 

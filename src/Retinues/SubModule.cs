@@ -5,8 +5,8 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
+using Retinues.Features.Agents;
 using Retinues.Features.AutoJoin;
-using Retinues.Features.Equipments;
 using Retinues.Features.Experience;
 using Retinues.Features.Staging;
 using Retinues.Features.Stocks;
@@ -311,7 +311,7 @@ namespace Retinues
             AddBehavior<AutoJoinBehavior>(cs);
 
             // Combat equipment behavior
-            AddBehavior<CombatEquipmentBehavior>(cs);
+            AddBehavior<CombatAgentBehavior>(cs);
 
             // Doctrine behaviors (skip if doctrines disabled)
             if (Config.EnableDoctrines)

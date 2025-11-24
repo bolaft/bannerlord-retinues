@@ -3,7 +3,7 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
-using Retinues.Features.Equipments;
+using Retinues.Features.Agents;
 using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -111,6 +111,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(ShowCrafted),
                     nameof(ShowCraftedHint),
                 ],
+                [UIEvent.Appearance] = [nameof(GenderOverrideIcon)],
             };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -219,7 +220,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 var we = eqs[i];
                 if (we.IsCivilian)
                     continue;
-                if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
+                if (CombatAgentBehavior.IsEnabled(troop, i, t))
                     c++;
             }
             return c;
@@ -228,6 +229,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public bool ShowEquipmentCheckboxes => IsVisible && !ClanScreen.IsStudioMode;
 
         /* ━━━━━━━━ Crafted ━━━━━━━ */
 
@@ -239,9 +243,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public bool ShowCrafted => EquipmentList.ShowCrafted && !ClanScreen.IsStudioMode;
-
-        [DataSourceProperty]
-        public bool ShowCraftedIsVisible => IsVisible && !ClanScreen.IsStudioMode;
 
         /* ━━━ Unequip / Unstage ━━ */
 
@@ -337,7 +338,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForFieldBattle =>
             !SetIsCivilian
-            && CombatEquipmentBehavior.IsEnabled(
+            && CombatAgentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.FieldBattle
@@ -346,7 +347,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeDefense =>
             !SetIsCivilian
-            && CombatEquipmentBehavior.IsEnabled(
+            && CombatAgentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.SiegeDefense
@@ -355,7 +356,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool SetIsEnabledForSiegeAssault =>
             !SetIsCivilian
-            && CombatEquipmentBehavior.IsEnabled(
+            && CombatAgentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.SiegeAssault
@@ -363,7 +364,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public bool SetHasGenderOverride =>
-            CombatEquipmentBehavior.IsEnabled(
+            CombatAgentBehavior.IsEnabled(
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.GenderOverride
@@ -547,21 +548,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
         [DataSourceProperty]
         public BasicTooltipViewModel GenderOverrideHint =>
-            CombatEquipmentBehavior.IsEnabled(
-                State.Troop,
-                State.Equipment.Index,
-                PolicyToggleType.GenderOverride
-            )
-                ? Tooltip.MakeTooltip(
-                    null,
-                    L.T("gender_override_applied_hint", "This set has a gender override applied.")
-                        .ToString()
-                )
-                : Tooltip.MakeTooltip(
-                    null,
-                    L.T("gender_override_not_applied_hint", "Apply a gender override to this set.")
-                        .ToString()
-                );
+            Tooltip.MakeTooltip(
+                null,
+                L.T(
+                        "gender_override_hint",
+                        "If enabled, troops spawning with this equipment set will be of the opposite gender."
+                    )
+                    .ToString()
+            );
 
         [DataSourceProperty]
         public BasicTooltipViewModel ShowCraftedHint =>
@@ -787,7 +781,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForFieldBattle)
                 return;
-            CombatEquipmentBehavior.Toggle(
+            CombatAgentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.FieldBattle
@@ -801,7 +795,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForSiegeDefense)
                 return;
-            CombatEquipmentBehavior.Toggle(
+            CombatAgentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.SiegeDefense
@@ -815,7 +809,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         {
             if (!CanToggleEnableForSiegeAssault)
                 return;
-            CombatEquipmentBehavior.Toggle(
+            CombatAgentBehavior.Toggle(
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.SiegeAssault
@@ -832,9 +826,12 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (troop == null || eq == null)
                 return;
 
-            CombatEquipmentBehavior.Toggle(troop, eq.Index, PolicyToggleType.GenderOverride);
+            CombatAgentBehavior.Toggle(troop, eq.Index, PolicyToggleType.GenderOverride);
             OnPropertyChanged(nameof(SetHasGenderOverride));
             OnPropertyChanged(nameof(GenderOverrideHint));
+
+            // Update 3D model + icon when the override changes.
+            State.UpdateAppearance();
         }
 
         [DataSourceMethod]
@@ -1145,7 +1142,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (created == null)
                 return;
 
-            CombatEquipmentBehavior.DisableAll(troop, created.Index);
+            CombatAgentBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
             State.UpdateEquipment(created);
         }
@@ -1161,7 +1158,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             var created = troop.Loadout.CreateBattleSet();
             CopyItemsInto(created, plan);
 
-            CombatEquipmentBehavior.DisableAll(troop, created.Index);
+            CombatAgentBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
             State.UpdateEquipment(created);
         }
@@ -1221,7 +1218,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             EquipmentList.RefreshFilter();
 
             // Special case
-            OnPropertyChanged(nameof(ShowCraftedIsVisible));
+            OnPropertyChanged(nameof(ShowEquipmentCheckboxes));
         }
 
         /// <summary>
@@ -1234,7 +1231,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             EquipmentList.Hide();
             base.Hide();
 
-            OnPropertyChanged(nameof(ShowCraftedIsVisible));
+            OnPropertyChanged(nameof(ShowEquipmentCheckboxes));
         }
     }
 }

@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="Пол" />
     <string
+      id="ret_gender_override_hint"
+      text="Если включено, войска, появляющиеся с этим набором снаряжения, будут противоположного пола." />
+    <string
       id="ret_gender_toggle_hint"
       text="Переключить пол" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="Принудительный Возврат Опыта" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="При понижении навыка войска всегда возвращайте ранее потраченный на эти очки опыт." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Включить Глобальный Редактор Войск" />

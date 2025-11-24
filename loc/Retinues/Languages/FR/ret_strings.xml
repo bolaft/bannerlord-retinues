@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="Genre" />
     <string
+      id="ret_gender_override_hint"
+      text="Si activé, les troupes apparaissant avec cet ensemble d’équipement seront du genre opposé." />
+    <string
       id="ret_gender_toggle_hint"
       text="Changer de Genre" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="Forcer les Remboursements d’XP" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="Lors de la diminution de la compétence d’une troupe, remboursez toujours l’XP précédemment dépensée pour ces points." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Activer l’Éditeur Global de Troupes" />

@@ -12,7 +12,7 @@ using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Features.Equipments.Patches
+namespace Retinues.Features.Agents.Patches
 {
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class Mission_SpawnAgent_Prefix
@@ -22,7 +22,6 @@ namespace Retinues.Features.Equipments.Patches
             try
             {
                 var troop = AgentHelper.TroopFromAgentBuildData(agentBuildData);
-
                 if (troop == null)
                     return; // Safety check
 
@@ -55,31 +54,32 @@ namespace Retinues.Features.Equipments.Patches
                     if (behavior is TournamentBehavior)
                         return;
 
-                    if (behavior.GetType().FullName.ToLowerInvariant().Contains("tournament"))
+                    var name = behavior.GetType().FullName.ToLowerInvariant();
+                    if (name.Contains("tournament"))
                         return;
 
-                    if (behavior.GetType().FullName.ToLowerInvariant().Contains("arena"))
+                    if (name.Contains("arena"))
                         return;
                 }
 
-                Equipment eq = null;
+                // Pick the equipment set
+                WEquipment chosenSet = null;
 
                 if (agentBuildData.AgentCivilianEquipment)
                 {
                     // Pick a civilian set if available
                     var civs = troop.Loadout.CivilianSets.ToList();
-                    if (civs.Count == 0)
-                        eq = troop.Loadout.Civilian.Base;
-                    else
-                        eq = civs[MBRandom.RandomInt(civs.Count)].Base;
+                    chosenSet =
+                        civs.Count == 0
+                            ? troop.Loadout.Civilian
+                            : civs[MBRandom.RandomInt(civs.Count)];
                 }
-                else if (Config.ForceMainBattleSetInCombat)
+                else if (
+                    Config.ForceMainBattleSetInCombat || ModCompatibility.NoAlternateEquipmentSets
+                )
                 {
-                    eq = troop.Loadout.Battle.Base; // index 0 is normalized to a battle set
-                }
-                else if (ModCompatibility.NoAlternateEquipmentSets)
-                {
-                    eq = troop.Loadout.Battle.Base; // force main battle set to avoid issues
+                    // Force main battle set
+                    chosenSet = troop.Loadout.Battle; // index 0 normalized to battle set
                 }
                 else
                 {
@@ -99,17 +99,38 @@ namespace Retinues.Features.Equipments.Patches
                         if (we.IsCivilian)
                             continue;
 
-                        if (CombatEquipmentBehavior.IsEnabled(troop, i, battleType))
+                        if (CombatAgentBehavior.IsEnabled(troop, i, battleType))
                             eligible.Add(we);
                     }
 
                     if (eligible.Count == 0)
-                        eligible.Add(troop.Loadout.Battle); // safety fallback
-
-                    eq = eligible[MBRandom.RandomInt(eligible.Count)].Base;
+                    {
+                        // Safety fallback: main battle set
+                        chosenSet = troop.Loadout.Battle;
+                    }
+                    else
+                    {
+                        chosenSet = eligible[MBRandom.RandomInt(eligible.Count)];
+                    }
                 }
 
-                // Force the main battle set and prevent randomization/variants.
+                var eq = chosenSet.Base;
+
+                // Apply gender override if this set has it
+                if (
+                    CombatAgentBehavior.IsEnabled(
+                        troop,
+                        chosenSet.Index,
+                        PolicyToggleType.GenderOverride
+                    )
+                )
+                {
+                    // Flip relative to the troop's base gender
+                    agentBuildData.IsFemale(!troop.IsFemale);
+                }
+                // else: we don't touch gender, so default CharacterObject gender is used.
+
+                // Lock in equipment and turn off randomization/variants
                 agentBuildData
                     .Equipment(eq)
                     .MissionEquipment(null) // ensure nothing overrides equipment later

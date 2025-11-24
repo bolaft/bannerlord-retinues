@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="Geschlecht" />
     <string
+      id="ret_gender_override_hint"
+      text="Wenn aktiviert, werden Truppen, die mit diesem Ausrüstungsset spawnen, das entgegengesetzte Geschlecht haben." />
+    <string
       id="ret_gender_toggle_hint"
       text="Geschlecht umschalten" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="XP-Rückerstattungen erzwingen" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="Beim Senken der Fertigkeit einer Truppe wird immer die zuvor für diese Punkte ausgegebene XP zurückerstattet." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Globalen Truppen-Editor aktivieren" />

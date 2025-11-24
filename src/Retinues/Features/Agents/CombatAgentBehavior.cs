@@ -4,7 +4,7 @@ using Retinues.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Features.Equipments
+namespace Retinues.Features.Agents
 {
     public enum PolicyToggleType
     {
@@ -52,7 +52,7 @@ namespace Retinues.Features.Equipments
     /// <summary>
     /// Stores which alternates are enabled for each battle context.
     /// </summary>
-    public sealed class CombatEquipmentBehavior : CampaignBehaviorBase
+    public sealed class CombatAgentBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -184,8 +184,8 @@ namespace Retinues.Features.Equipments
 
         /* ━━━━━━━ Accessors ━━━━━━ */
 
-        private static CombatEquipmentBehavior Inst =>
-            Campaign.Current?.GetCampaignBehavior<CombatEquipmentBehavior>();
+        private static CombatAgentBehavior Inst =>
+            Campaign.Current?.GetCampaignBehavior<CombatAgentBehavior>();
 
         public static bool IsEnabled(WCharacter troop, int altIndex, PolicyToggleType t) =>
             t switch

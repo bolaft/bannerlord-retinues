@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
-using Retinues.Features.Equipments;
+using Retinues.Features.Agents;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -239,7 +239,7 @@ namespace Retinues.Game.Wrappers
             SetEquipments(list);
 
             // Update combat-use mask indices (structure/indices maintenance)
-            CombatEquipmentBehavior.OnRemoved(Troop, idx);
+            CombatAgentBehavior.OnRemoved(Troop, idx);
 
             Normalize();
             Troop.NeedsPersistence = true;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Retinues.Features.Equipments;
+using Retinues.Features.Agents;
 using Retinues.Features.Staging;
 using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;

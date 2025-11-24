@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="性別" />
     <string
+      id="ret_gender_override_hint"
+      text="如果啟用，使用此裝備套裝生成的部隊將具有相反的性別。" />
+    <string
       id="ret_gender_toggle_hint"
       text="切換性別" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="強制經驗退款" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="降低部隊技能時，總是退還之前在這些點上花費的經驗值。" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="啟用全局部隊編輯器" />

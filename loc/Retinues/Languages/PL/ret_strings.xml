@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="Płeć" />
     <string
+      id="ret_gender_override_hint"
+      text="Jeśli włączone, jednostki pojawiające się z tym zestawem ekwipunku będą miały przeciwną płeć." />
+    <string
       id="ret_gender_toggle_hint"
       text="Przełącz płeć" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="Wymuś Zwroty PD" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="Podczas obniżania umiejętności oddziału zawsze zwracaj wcześniej wydane na te punkty PD." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Włącz Globalny Edytor Jednostek" />

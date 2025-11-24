@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="Género" />
     <string
+      id="ret_gender_override_hint"
+      text="Si está activado, las tropas que aparezcan con este conjunto de equipo serán del género opuesto." />
+    <string
       id="ret_gender_toggle_hint"
       text="Cambiar Género" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="Forzar Reembolsos de Exp" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="Al bajar la habilidad de una tropa, siempre reembolse la experiencia gastada previamente en esos puntos." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Habilitar Editor Global de Tropas" />

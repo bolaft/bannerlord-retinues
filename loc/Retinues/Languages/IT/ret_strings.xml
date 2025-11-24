@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="Genere" />
     <string
+      id="ret_gender_override_hint"
+      text="Se abilitato, le truppe che spawnano con questo set di equipaggiamento saranno del genere opposto." />
+    <string
       id="ret_gender_toggle_hint"
       text="Cambia Genere" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="Forza Rimborsi PE" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="Quando si abbassa l’abilità di una truppa, rimborsa sempre i PE precedentemente spesi per quei punti." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Abilita Editor Globale delle Truppe" />

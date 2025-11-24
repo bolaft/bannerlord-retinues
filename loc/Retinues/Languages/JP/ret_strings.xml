@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="性別" />
     <string
+      id="ret_gender_override_hint"
+      text="有効にすると、この装備セットで出現する部隊は反対の性別になります。" />
+    <string
       id="ret_gender_toggle_hint"
       text="性別を切り替え" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="XP返金を強制" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="部隊のスキルを下げるときは、以前にそのポイントに費やしたXPを常に返金します。" />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="グローバル部隊エディターを有効化" />

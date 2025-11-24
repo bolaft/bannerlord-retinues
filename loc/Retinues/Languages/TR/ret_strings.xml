@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="Cinsiyet" />
     <string
+      id="ret_gender_override_hint"
+      text="Etkinleştirilirse, bu teçhizat setiyle ortaya çıkan askerler zıt cinsiyette olacaktır." />
+    <string
       id="ret_gender_toggle_hint"
       text="Cinsiyeti Değiştir" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="XP İadelerini Zorla" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="Bir askerin becerisini düşürdüğünüzde, o puanlara daha önce harcanan XP&apos;yi her zaman iade edin." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="Küresel Asker Düzenleyicisini Etkinleştir" />

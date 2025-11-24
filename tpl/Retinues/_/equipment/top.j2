@@ -5,10 +5,10 @@
 <!-- Show Crafted -->
 <ListPanel
     DataSource="{EquipmentScreen}"
-    IsVisible="@ShowCraftedIsVisible"
+    IsVisible="@ShowEquipmentCheckboxes"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
     SuggestedHeight="32"
-    MarginTop="15" MarginLeft="60"
+    MarginTop="0" MarginLeft="55"
     HorizontalAlignment="Left">
     <Children>
 
@@ -17,6 +17,7 @@
             sprite="General\Mission\smithy",
             color="#f1d7a5ff",
             width="24", height="24",
+            margin_right="4"
         ) }}
 
         <!-- Crafted Checkbox -->
@@ -26,6 +27,35 @@
             size="24",
             is_enabled="@CanShowCrafted",
             hint="{ShowCraftedHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
+<!-- Gender Override -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@ShowEquipmentCheckboxes"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="32"
+    MarginTop="35" MarginLeft="55"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Gender Override Icon -->
+        {{ image.sprite(
+            sprite="@GenderOverrideIcon",
+            color="#f1d7a5ff",
+            width="24", height="24",
+            margin_right="4"
+        ) }}
+
+        <!-- Gender Override Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteToggleGenderOverride",
+            is_selected="@SetHasGenderOverride",
+            size="24",
+            hint="{GenderOverrideHint}"
         )}}
 
     </Children>
@@ -247,30 +277,6 @@
                             is_enabled="@CanToggleEnableForSiegeAssault",
                             size="24",
                             hint="{SiegeAssaultHint}"
-                        )}}
-
-                    </Children>
-                </ListPanel>
-
-                <!-- Gender Override -->
-                <ListPanel
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    SuggestedHeight="32"
-                    HorizontalAlignment="Center">
-                    <Children>
-
-                        <!-- Gender Override Icon -->
-                        {{ image.sprite(
-                            sprite="@GenderOverrideIcon",
-                            width="32", height="32"
-                        ) }}
-
-                        <!-- Gender Override Checkbox -->
-                        {{ button.checkbox(
-                            command="ExecuteToggleGenderOverride",
-                            is_selected="@SetHasGenderOverride",
-                            size="24",
-                            hint="{GenderOverrideHint}"
                         )}}
 
                     </Children>

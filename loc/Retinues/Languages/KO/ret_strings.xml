@@ -413,6 +413,9 @@
       id="ret_gender_hint"
       text="성별" />
     <string
+      id="ret_gender_override_hint"
+      text="활성화되면 이 장비 세트로 생성되는 병력은 반대 성별이 됩니다." />
+    <string
       id="ret_gender_toggle_hint"
       text="성별 전환" />
     <string
@@ -835,6 +838,9 @@
     <string
       id="ret_mcm_option_force_xp_refunds"
       text="경험치 환불 강제" />
+    <string
+      id="ret_mcm_option_force_xp_refunds_hint"
+      text="병력의 기술을 낮출 때 해당 포인트에 이전에 사용한 경험치를 항상 환불합니다." />
     <string
       id="ret_mcm_option_global_editor_enabled"
       text="글로벌 병력 편집기 활성화" />

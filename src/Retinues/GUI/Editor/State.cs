@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Features.Equipments;
+using Retinues.Features.Agents;
 using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -425,14 +425,14 @@ namespace Retinues.GUI.Editor
                 {
                     if (eqs[i].IsCivilian)
                         continue;
-                    if (CombatEquipmentBehavior.IsEnabled(troop, i, t))
+                    if (CombatAgentBehavior.IsEnabled(troop, i, t))
                         enabled++;
                 }
                 if (enabled == 0)
                 {
                     // Enable index 0 (Normalize guarantees index 0 is a battle set)
-                    if (!CombatEquipmentBehavior.IsEnabled(troop, 0, t))
-                        CombatEquipmentBehavior.Toggle(troop, 0, t); // Toggle will enable
+                    if (!CombatAgentBehavior.IsEnabled(troop, 0, t))
+                        CombatAgentBehavior.Toggle(troop, 0, t); // Toggle will enable
                 }
             }
 

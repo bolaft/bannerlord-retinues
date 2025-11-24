@@ -787,6 +787,23 @@ namespace Retinues.Game.Wrappers
             return vm;
         }
 
+        /// <summary>
+        /// Generates a CharacterViewModel for this troop with the specified equipment set index,
+        /// optionally applying a visual gender override.
+        /// </summary>
+        public CharacterViewModel GetModel(int index, bool applyGenderOverride)
+        {
+            if (!applyGenderOverride)
+                return GetModel(index);
+
+            if (!TryGetModel(index, out var vm, out _))
+                return null;
+
+            // Flip the visual gender relative to the troop definition.
+            vm.IsFemale = !IsFemale;
+            return vm;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Cloning                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
