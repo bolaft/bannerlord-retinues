@@ -3936,22 +3936,6 @@
     "TR": "Eğer bir toprak hem klan toprağı hem de krallık toprağı ise, klan askerleri krallık askerlerine göre öncelikli olacaktır."
   },
   {
-    "id": "ret_mcm_option_copy_all_sets_disabled_hint",
-    "EN": "Alternate sets are disabled due to incompatibilities with other activated mods.",
-    "BR": "Conjuntos alternativos estão desativados devido a incompatibilidades com outros mods ativados.",
-    "CNs": "由于与其他激活的模组不兼容，替代套装已被禁用。",
-    "CNt": "由於與其他激活的模組不兼容，替代套裝已被禁用。",
-    "DE": "Alternative Sets sind aufgrund von Inkompatibilitäten mit anderen aktivierten Mods deaktiviert.",
-    "FR": "Les ensembles alternatifs sont désactivés en raison d'incompatibilités avec d'autres mods activés.",
-    "IT": "I set alternativi sono disabilitati a causa di incompatibilità con altri mod attivati.",
-    "JP": "代替セットは、他のアクティブなモッドとの互換性の問題により無効になっています。",
-    "KO": "대체 세트는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다.",
-    "PL": "Zestawy alternatywne są wyłączone z powodu niekompatybilności z innymi aktywowanymi modami.",
-    "RU": "Альтернативные комплекты отключены из-за несовместимости с другими активированными модами.",
-    "SP": "Los conjuntos alternativos están desactivados debido a incompatibilidades con otros mods activados.",
-    "TR": "Alternatif setler, etkinleştirilmiş diğer modlarla uyumsuzluklar nedeniyle devre dışı bırakıldı."
-  },
-  {
     "id": "ret_mcm_option_copy_all_sets_when_cloning",
     "EN": "Copy All Sets When Cloning",
     "BR": "Copiar Todos os Conjuntos ao Clonar",

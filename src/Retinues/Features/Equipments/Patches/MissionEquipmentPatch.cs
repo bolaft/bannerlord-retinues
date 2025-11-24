@@ -15,58 +15,63 @@ using TaleWorlds.MountAndBlade;
 namespace Retinues.Features.Equipments.Patches
 {
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
-    internal static class Mission_SpawnAgent_Prefix
+    internal static class Mission_SpawnAgent_Postfix
     {
-        static void Prefix(AgentBuildData agentBuildData, bool spawnFromAgentVisuals)
+        static void Postfix(
+            AgentBuildData agentBuildData,
+            bool spawnFromAgentVisuals,
+            Agent __result
+        )
         {
             try
             {
-                var troop = AgentHelper.TroopFromAgentBuildData(agentBuildData);
+                var agent = __result;
+                if (agent == null || agent.IsMount || agent.Character == null)
+                    return;
 
+                var troop = AgentHelper.TroopFromAgentBuildData(agentBuildData);
                 if (troop == null)
-                    return; // Safety check
+                    return;
 
                 if (troop.IsHero)
-                    return; // Don't affect heroes
+                    return; // still don't touch heroes
 
-                if (!troop.IsCustom)
-                    if (Config.EnableGlobalEditor == false)
-                        return; // Feature disabled for vanilla troops
+                if (!troop.IsCustom && !Config.EnableGlobalEditor)
+                    return;
 
-                List<MissionMode> modeWhiteList =
-                [
+                var mission = Mission.Current;
+                if (mission == null)
+                    return;
+
+                // Only affect allowed modes (same whitelist you already have)
+                var modeWhiteList = new[]
+                {
                     MissionMode.Battle,
                     MissionMode.Duel,
                     MissionMode.Deployment,
                     MissionMode.Stealth,
-                    MissionMode.Duel,
-                ];
+                };
 
-                var m = Mission.Current;
-                if (m == null)
-                    return; // No mission, nothing to do
+                if (!modeWhiteList.Contains(mission.Mode))
+                    return;
 
-                if (!modeWhiteList.Contains(m.Mode))
-                    return; // Only affect allowed missions
-
-                // Try to ensure we are not in a tournament or arena battle
-                foreach (var behavior in Mission.Current?.MissionBehaviors)
+                // Avoid tournaments / arena (same checks you had in the Prefix)
+                foreach (var behavior in mission.MissionBehaviors)
                 {
                     if (behavior is TournamentBehavior)
                         return;
 
-                    if (behavior.GetType().FullName.ToLowerInvariant().Contains("tournament"))
-                        return;
-
-                    if (behavior.GetType().FullName.ToLowerInvariant().Contains("arena"))
+                    var name = behavior.GetType().FullName?.ToLowerInvariant() ?? string.Empty;
+                    if (name.Contains("tournament") || name.Contains("arena"))
                         return;
                 }
+
+                // ── Pick the equipment, same logic as before ────────────────────── //
 
                 Equipment eq = null;
 
                 if (agentBuildData.AgentCivilianEquipment)
                 {
-                    // Pick a civilian set if available
                     var civs = troop.Loadout.CivilianSets.ToList();
                     if (civs.Count == 0)
                         eq = troop.Loadout.Civilian.Base;
@@ -75,11 +80,7 @@ namespace Retinues.Features.Equipments.Patches
                 }
                 else if (Config.ForceMainBattleSetInCombat)
                 {
-                    eq = troop.Loadout.Battle.Base; // index 0 is normalized to a battle set
-                }
-                else if (ModCompatibility.NoAlternateEquipmentSets)
-                {
-                    eq = troop.Loadout.Battle.Base; // force main battle set to avoid issues
+                    eq = troop.Loadout.Battle.Base;
                 }
                 else
                 {
@@ -104,19 +105,17 @@ namespace Retinues.Features.Equipments.Patches
                     }
 
                     if (eligible.Count == 0)
-                        eligible.Add(troop.Loadout.Battle); // safety fallback
+                        eligible.Add(troop.Loadout.Battle); // safety
 
                     eq = eligible[MBRandom.RandomInt(eligible.Count)].Base;
                 }
 
-                // Force the main battle set and prevent randomization/variants.
-                agentBuildData
-                    .Equipment(eq)
-                    .MissionEquipment(null) // ensure nothing overrides equipment later
-                    .FixedEquipment(true)
-                    .CivilianEquipment(false)
-                    .NoWeapons(false)
-                    .NoArmor(false);
+                if (eq == null)
+                    return;
+
+                // ── Finally, override whatever Shokuho (or others) did ─────────── //
+
+                agent.UpdateSpawnEquipmentAndRefreshVisuals(eq);
             }
             catch (Exception e)
             {

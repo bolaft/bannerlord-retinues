@@ -743,9 +743,6 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="如果一个领地既是氏族领地又是王国领地，则氏族部队将优先于王国部队。" />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="由于与其他激活的模组不兼容，替代套装已被禁用。" />
-    <string
       id="ret_mcm_option_copy_all_sets_when_cloning"
       text="克隆部队装备时复制所有装备套装" />
     <string

@@ -653,14 +653,7 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = true,
                 [Presets.Realistic] = false,
-            },
-            disabled: ModCompatibility.NoAlternateEquipmentSets,
-            disabledOverride: false,
-            disabledHint: () =>
-                L.S(
-                    "mcm_option_copy_all_sets_disabled_hint",
-                    "Alternate sets are disabled due to incompatibilities with other activated mods."
-                )
+            }
         );
 
         // ─────────────────────────────────────────────────────

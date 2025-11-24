@@ -743,9 +743,6 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Si un feudo es tanto de clan como del reino, las tropas de clan tendrán prioridad sobre las tropas del reino." />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="Los conjuntos alternativos están desactivados debido a incompatibilidades con otros mods activados." />
-    <string
       id="ret_mcm_option_copy_all_sets_when_cloning"
       text="Copiar Todos los Conjuntos al Clonar" />
     <string

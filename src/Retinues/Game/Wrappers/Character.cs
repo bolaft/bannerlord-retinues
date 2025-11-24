@@ -827,7 +827,7 @@ namespace Retinues.Game.Wrappers
             // Equipment - re-create from code to avoid shared references
             if (keepEquipment)
             {
-                if (Config.CopyAllSetsWhenCloning && !ModCompatibility.NoAlternateEquipmentSets)
+                if (Config.CopyAllSetsWhenCloning)
                 {
                     // Copy every set verbatim
                     Loadout.FillFrom(src.Loadout, copyAll: true);

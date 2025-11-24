@@ -743,9 +743,6 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="영지가 씨족 영지이자 왕국 영지인 경우 씨족 병력이 왕국 병력보다 우선합니다." />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="대체 세트는 다른 활성 모드와의 호환성 문제로 인해 비활성화되었습니다." />
-    <string
       id="ret_mcm_option_copy_all_sets_when_cloning"
       text="부대 장비를 복제할 때 모든 장비 세트를 복사합니다." />
     <string

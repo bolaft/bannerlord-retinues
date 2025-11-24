@@ -743,9 +743,6 @@
       id="ret_mcm_option_clan_troops_over_kingdom_troops_hint"
       text="Wenn ein Lehen sowohl ein Klanlehen als auch ein Königreichslehen ist, werden Klantruppen gegenüber Königreichstruppen priorisiert." />
     <string
-      id="ret_mcm_option_copy_all_sets_disabled_hint"
-      text="Alternative Sets sind aufgrund von Inkompatibilitäten mit anderen aktivierten Mods deaktiviert." />
-    <string
       id="ret_mcm_option_copy_all_sets_when_cloning"
       text="Alle Ausrüstungssets beim Klonen kopieren." />
     <string
