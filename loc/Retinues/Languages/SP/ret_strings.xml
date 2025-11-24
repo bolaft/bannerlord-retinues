@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Diferencia máxima de nivel permitida entre tropas y equipo." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Costo Base de Exp de Habilidad" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Costo base de experiencia para aumentar una habilidad." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporción de Voluntarios del Clan en los Feudos del Reino" />
     <string
@@ -987,7 +981,7 @@
       text="Restringir la Edición a los Feudos" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="El jugador solo puede editar tropas cuando está en un feudo propiedad de su clan o reino (los séquitos de clan pueden editarse en cualquier asentamiento)." />
+      text="El jugador solo puede editar tropas cuando está en un feudo propiedad de su clan o reino (los séquitos se pueden editar en cualquier asentamiento)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Restringir los objetos al inventario de la ciudad" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="El total de puntos de habilidad disponibles para las tropas de nivel {TIER}." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Costo de XP de Habilidad (Base)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Costo base de XP para aumentar una habilidad." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Costo de Exp de Habilidad por Punto" />
+      text="Costo de XP de Habilidad (Por Punto)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Costo escalable de experiencia por cada punto de habilidad." />
+      text="Costo escalable de XP por cada punto de habilidad adicional." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Multiplicador de Tiempo de Entrenamiento" />

@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="兵と装備間の許容ランク差の最大値。" />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="基本スキルXPコスト" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="スキル上昇に必要な基本XP。" />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="王国の封地における氏族志願者の割合" />
     <string
@@ -987,7 +981,7 @@
       text="編集を領地に制限" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="プレイヤーは自分の一族または王国が所有する領地内でのみ部隊を編集できる（一族の随伴兵はどの集落でも編集可能）。" />
+      text="プレイヤーは、自分の一族または王国が所有する領地にいる場合にのみ部隊を編集できます（随伴兵はどの集落でも編集可能）。" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="アイテムを町のインベントリに制限" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="ランク{TIER}兵の利用可能なスキルポイントの合計。" />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="スキルXPコスト（基本）" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="スキルを上げるための基本的な経験値コスト。" />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="スキルポイントごとのXPコスト" />
+      text="スキルXPコスト（ポイントごと）" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="スキル上昇ごとのスケーラブルXPコスト。" />
+      text="追加のスキルポイントごとのスケーラブルな経験値コスト。" />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="訓練時間乗数" />

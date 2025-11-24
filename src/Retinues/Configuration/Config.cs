@@ -401,7 +401,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_restrict_editing_to_fiefs_hint",
-                    "Player can only edit troops when in a fief owned by their clan or kingdom (clan retinues can be edited in any settlement)."
+                    "Player can only edit troops when in a fief owned by their clan or kingdom (retinues can be edited in any settlement)."
                 ),
             @default: false,
             presets: new Dictionary<string, object>
@@ -711,10 +711,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> BaseSkillXpCost = CreateOption(
             section: () => L.S("mcm_section_skills", "Skills"),
-            name: () => L.S("mcm_option_base_skill_xp_cost", "Base Skill XP Cost"),
+            name: () => L.S("mcm_option_skill_xp_cost_base", "Skill XP Cost (Base)"),
             key: "BaseSkillXpCost",
             hint: () =>
-                L.S("mcm_option_base_skill_xp_cost_hint", "Base XP cost for increasing a skill."),
+                L.S("mcm_option_skill_xp_cost_base_hint", "Base XP cost for increasing a skill."),
             @default: 100,
             minValue: 0,
             maxValue: 1000,
@@ -727,12 +727,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillXpCostPerPoint = CreateOption(
             section: () => L.S("mcm_section_skills", "Skills"),
-            name: () => L.S("mcm_option_skill_xp_cost_per_point", "Skill XP Cost Per Point"),
+            name: () => L.S("mcm_option_skill_xp_cost_per_point", "Skill XP Cost (Per Point)"),
             key: "SkillXpCostPerPoint",
             hint: () =>
                 L.S(
                     "mcm_option_skill_xp_cost_per_point_hint",
-                    "Scalable XP cost for each point of skill increase."
+                    "Scalable XP cost for each additional skill point."
                 ),
             @default: 1,
             minValue: 0,

@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Differenza massima di livello consentita tra truppe ed equipaggiamento." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Costo Base PE Abilità" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Costo base in PE per aumentare un’abilità." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporzione di Volontari del Clan nei Feudi del Regno" />
     <string
@@ -987,7 +981,7 @@
       text="Restringi la Modifica ai Feudi" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Il giocatore può modificare le truppe solo quando si trova in un feudo di proprietà del suo clan o regno (i seguaci del clan possono essere modificati in qualsiasi insediamento)." />
+      text="Il giocatore può modificare le truppe solo in un feudo posseduto dal suo clan o regno (le truppe del seguito possono essere modificate in qualsiasi insediamento)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Restringi gli oggetti all&apos;inventario della città" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="Il totale dei punti abilità disponibili per le truppe di livello {TIER}." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Costo XP Abilità (Base)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Costo base di XP per aumentare un&apos;abilità." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Costo PE per Punto Abilità" />
+      text="Costo XP Abilità (Per Punto)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Costo PE scalabile per ogni punto di abilità aggiuntivo." />
+      text="Costo XP scalabile per ogni punto abilità aggiuntivo." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Moltiplicatore del Tempo di Addestramento" />

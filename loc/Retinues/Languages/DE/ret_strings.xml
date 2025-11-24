@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Maximal zulässiger Stufenunterschied zwischen Truppen und Ausrüstung." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Basis-Fertigkeits-EP-Kosten" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Basis-EP-Kosten zur Steigerung einer Fertigkeit." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Anteil der Clan-Freiwilligen in den Lehen des Königreichs" />
     <string
@@ -987,7 +981,7 @@
       text="Bearbeitung auf Lehen beschränken" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Der Spieler kann Truppen nur in einem Lehen bearbeiten, das seinem Clan oder Königreich gehört (Clan-Gefolgschaften können in jeder Siedlung bearbeitet werden)." />
+      text="Der Spieler kann Truppen nur in einem Lehen bearbeiten, das seinem Clan oder Königreich gehört (Gefolgschaften können in jeder Siedlung bearbeitet werden)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Gegenstände auf Stadtinventar beschränken" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="Die insgesamt verfügbaren Fertigkeitspunkte für Stufe {TIER} Truppen." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Fähigkeits-EP-Kosten (Basis)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Basis-EP-Kosten für die Erhöhung einer Fähigkeit." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="EP-Kosten pro Fertigkeitspunkt" />
+      text="Fähigkeits-EP-Kosten (Pro Punkt)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Skalierende EP-Kosten pro Fertigkeitspunkt." />
+      text="Skalierbare EP-Kosten für jeden zusätzlichen Fertigkeitspunkt." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Trainingszeit-Multiplikator" />

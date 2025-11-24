@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Diferença máxima de nível permitida entre tropas e equipamentos." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Custo Base de XP por Habilidade" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Custo base de XP para aumentar uma habilidade." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporção de Voluntários do Clã nos Feudos do Reino" />
     <string
@@ -987,7 +981,7 @@
       text="Restringir Edição a Feudos" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="O jogador só pode editar tropas quando está em um feudo pertencente ao seu clã ou reino (as retinues de clã podem ser editadas em qualquer assentamento)." />
+      text="O jogador só pode editar tropas quando estiver em um feudo pertencente ao seu clã ou reino (os séquitos podem ser editados em qualquer assentamento)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Restringir Itens ao Inventário da Cidade" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="O total de pontos de habilidade disponíveis para tropas de nível {TIER}." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Custo de XP de Habilidade (Base)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Custo base de XP para aumentar uma habilidade." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Custo de XP por Ponto de Habilidade" />
+      text="Custo de XP de Habilidade (Por Ponto)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Custo de XP escalável para cada ponto de aumento de habilidade." />
+      text="Custo escalável de XP para cada ponto de habilidade adicional." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Multiplicador de Tempo de Treinamento" />

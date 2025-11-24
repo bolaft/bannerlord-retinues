@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="部队与装备之间允许的最大等级差。" />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="基础技能经验消耗" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="提升技能所需的基础经验。" />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="王国封地中的氏族志愿者比例" />
     <string
@@ -987,7 +981,7 @@
       text="限制编辑到领地" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="玩家只能在其家族或王国拥有的领地中编辑部队（家族随从可以在任何定居点编辑）。" />
+      text="玩家只能在其家族或王国拥有的领地中编辑部队（随从可以在任何定居点编辑）。" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="限制物品到城镇库存" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="等级 {TIER} 部队可用的总技能点数。" />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="技能经验值消耗（基础）" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="提升技能的基础经验值消耗。" />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="技能经验每点消耗" />
+      text="技能经验值消耗（每点）" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="提升每点技能所需的可变经验消耗。" />
+      text="每增加一个技能点的可扩展经验值消耗。" />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="训练时间乘数" />

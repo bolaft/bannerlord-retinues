@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Maksymalna dozwolona różnica poziomów między jednostkami a ekwipunkiem." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Podstawowy Koszt PD Umiejętności" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Podstawowy koszt PD zwiększenia umiejętności." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporcja Ochotników z Klanu w Lennach Królestwa" />
     <string
@@ -987,7 +981,7 @@
       text="Ogranicz Edytowanie do Lenna" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Gracz może edytować jednostki tylko w lenie należącym do jego klanu lub królestwa (orszaki klanu można edytować w dowolnej osadzie)." />
+      text="Gracz może edytować oddziały tylko w lenie należącym do jego klanu lub królestwa (orszaki można edytować w dowolnej osadzie)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Ogranicz przedmioty do inwentarza miasta" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="Łączna liczba dostępnych punktów umiejętności dla jednostek poziomu {TIER}." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Koszt XP Umiejętności (Podstawowy)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Podstawowy koszt XP za zwiększenie umiejętności." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Koszt PD na Punkt Umiejętności" />
+      text="Koszt XP Umiejętności (Za Punkt)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Skalowalny koszt PD za każdy punkt umiejętności." />
+      text="Skalowalny koszt XP za każdy dodatkowy punkt umiejętności." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Mnożnik Czasu Szkolenia" />

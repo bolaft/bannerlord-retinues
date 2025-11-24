@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="병력과 장비 사이의 허용 최대 등급 차이." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="기본 기술 경험치 비용" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="기술 상승에 필요한 기본 경험치." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="왕국 영지의 씨족 자원봉사자 비율" />
     <string
@@ -987,7 +981,7 @@
       text="편집을 영지로 제한" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="플레이어는 자신의 가문이나 왕국이 소유한 영지에 있을 때만 병력을 편집할 수 있습니다 (가문 수행원은 모든 정착지에서 편집할 수 있음)." />
+      text="플레이어는 자신의 가문이나 왕국이 소유한 영지에 있을 때만 병력을 편집할 수 있습니다(수행원은 모든 정착지에서 편집할 수 있음)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="아이템을 마을 인벤토리로 제한" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="{TIER} 등급 병력의 사용 가능한 총 스킬 포인트." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="스킬 경험치 비용 (기본)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="스킬을 올리기 위한 기본 경험치 비용." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="스킬 포인트당 경험치 비용" />
+      text="스킬 경험치 비용 (포인트당)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="스킬 증가 시 포인트당 경험치 비용." />
+      text="추가 스킬 포인트당 확장 가능한 경험치 비용." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="훈련 시간 배수" />

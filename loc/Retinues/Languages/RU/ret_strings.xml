@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Максимальная допустимая разница рангов между войсками и снаряжением." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Базовая Стоимость Опыта за Навык" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Базовая стоимость опыта для повышения навыка." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Пропорция Добровольцев Клана в Поместьях Королевства" />
     <string
@@ -987,7 +981,7 @@
       text="Ограничить редактирование до феодов" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Игрок может редактировать войска только в феоде, принадлежащем его клану или королевству (свиту клана можно редактировать в любом поселении)." />
+      text="Игрок может редактировать войска только в феоде, принадлежащем его клану или королевству (свиты можно редактировать в любом поселении)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Ограничить предметы до инвентаря города" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="Общее количество доступных очков навыков для войск {TIER} ранга." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Стоимость Навыков в Опыте (Базовая)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Базовая стоимость опыта за повышение навыка." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Стоимость Опыта за Очко Навыка" />
+      text="Стоимость Навыков в Опыте (За Очко)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Масштабируемая стоимость опыта за каждое очко навыка." />
+      text="Масштабируемая стоимость опыта за каждый дополнительный очко навыка." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Множитель Времени Обучения" />

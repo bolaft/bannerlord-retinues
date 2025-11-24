@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Maximum allowed difference between troop tier and item tier." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Base Skill XP Cost" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Base XP cost for increasing a skill." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Clan Volunteers In Kingdom Fiefs Proportion" />
     <string
@@ -987,7 +981,7 @@
       text="Restrict Editing To Fiefs" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Player can only edit troops when in a fief owned by their clan or kingdom (clan retinues can be edited in any settlement)." />
+      text="Player can only edit troops when in a fief owned by their clan or kingdom (retinues can be edited in any settlement)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Restrict Items To Town Inventory" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="The total available skill points for tier {TIER} troops." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Skill XP Cost (Base)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Base XP cost for increasing a skill." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Skill XP Cost Per Point" />
+      text="Skill XP Cost (Per Point)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Scalable XP cost for each point of skill increase." />
+      text="Scalable XP cost for each additional skill point." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Training Time Multiplier" />

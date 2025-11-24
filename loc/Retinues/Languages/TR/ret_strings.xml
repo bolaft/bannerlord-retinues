@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Askerlerle teçhizat arasındaki izin verilen maksimum seviye farkı." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Temel Beceri XP Maliyeti" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Bir beceriyi artırmak için temel XP maliyeti." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Krallık Topraklarındaki Klan Gönüllü Oranı" />
     <string
@@ -987,7 +981,7 @@
       text="Düzenlemeyi Topraklarla Sınırla" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Oyuncu ancak klanının veya krallığının sahip olduğu bir toprakta asker düzenleyebilir (klan yandaşları herhangi bir yerleşimde düzenlenebilir)." />
+      text="Oyuncu, klanlarının veya krallıklarının sahip olduğu bir yurt içinde yalnızca birlikleri düzenleyebilir (yandaşlar herhangi bir yerleşimde düzenlenebilir)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Eşyaları şehir envanteri ile sınırlayın" />
@@ -1043,11 +1037,17 @@
       id="ret_mcm_option_skill_total_hint"
       text="{TIER} seviye askerler için toplam kullanılabilir beceri puanı." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Yetenek XP Maliyeti (Temel)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Bir yeteneği artırmak için temel XP maliyeti." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Beceri Puanı Başına XP Maliyeti" />
+      text="Yetenek XP Maliyeti (Puan Başına)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Her beceri artışı için ölçeklenebilir XP maliyeti." />
+      text="Her ek yetenek puanı için ölçeklenebilir XP maliyeti." />
     <string
       id="ret_mcm_option_training_time_multiplier"
       text="Eğitim Süresi Çarpanı" />

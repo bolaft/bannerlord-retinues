@@ -38,7 +38,7 @@ namespace Retinues.Managers
 
             var settlement = Player.CurrentSettlement;
 
-            if (troop.IsRetinue == true && faction == Player.Clan)
+            if (troop.IsRetinue == true)
             {
                 if (settlement != null)
                     return null;

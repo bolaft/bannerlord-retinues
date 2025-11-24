@@ -779,12 +779,6 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Différence maximale de rang autorisée entre troupes et équipement." />
     <string
-      id="ret_mcm_option_base_skill_xp_cost"
-      text="Coût de base en XP des compétence" />
-    <string
-      id="ret_mcm_option_base_skill_xp_cost_hint"
-      text="Coût de base en XP pour augmenter une compétence." />
-    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proportion de Volontaires du Clan dans les Fiefs du Royaume" />
     <string
@@ -987,7 +981,7 @@
       text="Restreindre l&apos;Édition aux Fiefs" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Le joueur ne peut éditer des troupes que lorsqu&apos;il est dans un fief appartenant à son clan ou à son royaume (les rétinues de clan peuvent être éditées dans n&apos;importe quelle ville ou village)." />
+      text="Le joueur ne peut éditer les troupes que dans un fief appartenant à son clan ou à son royaume (les rétinues peuvent être éditées dans n’importe quel établissement)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
       text="Restreindre les objets à l&apos;inventaire de la ville" />
@@ -1043,8 +1037,14 @@
       id="ret_mcm_option_skill_total_hint"
       text="Le total des points de compétence disponibles pour les troupes de rang {TIER}." />
     <string
+      id="ret_mcm_option_skill_xp_cost_base"
+      text="Coût en XP des Compétences (Base)" />
+    <string
+      id="ret_mcm_option_skill_xp_cost_base_hint"
+      text="Coût de base en XP pour augmenter une compétence." />
+    <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Coût en XP par Point de Compétence" />
+      text="Coût en XP des Compétences (Par Point)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
       text="Coût en XP évolutif pour chaque point de compétence supplémentaire." />
@@ -1380,13 +1380,13 @@
       text="Limite d’embauche" />
     <string
       id="ret_retinue_cap_tooltip_body"
-      text="Les rétinues vous rejoindront gratuitement au fil du temps tant que vous continuez à gagner en renommée.{newline}{newline}Vous pouvez définir une limite d’embauche pour contrôler le nombre de rétines pouvant rejoindre votre groupe." />
+      text="Les rétinues vous rejoindront gratuitement au fil du temps tant que vous continuez à gagner en renommée.{newline}{newline}Vous pouvez définir une limite d’embauche pour contrôler le nombre de rétinues pouvant rejoindre votre groupe." />
     <string
       id="ret_retinue_female_kingdom"
       text="{FACTION} Champion de la Reine" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="Les rétines suivantes ont rejoint votre groupe : {JOINED}." />
+      text="Ces rétinues ont rejoint votre groupe : {JOINED}." />
     <string
       id="ret_retinue_house_champion"
       text="{FACTION} Champion Seigneurial" />
