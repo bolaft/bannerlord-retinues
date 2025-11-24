@@ -15,6 +15,7 @@ using Retinues.Features.Unlocks;
 using Retinues.Features.Volunteers;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Editor;
 using Retinues.Mods;
 using Retinues.Safety.Fixes;
 using Retinues.Safety.Legacy;
@@ -23,7 +24,9 @@ using Retinues.Safety.Version;
 using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Core;
+using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues
@@ -107,6 +110,16 @@ namespace Retinues
             Log.Debug("SubModule unloaded.");
         }
 
+        /// <summary>
+        /// Called once per application tick.
+        /// </summary>
+        protected override void OnApplicationTick(float dt)
+        {
+            base.OnApplicationTick(dt);
+
+            TryHandleEditorHotkeys(dt);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Mod Config Menu                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -175,6 +188,47 @@ namespace Retinues
         public void DisableUIExtender()
         {
             _extender?.Disable();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Hotkeys                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [SafeMethod]
+        private static void TryHandleEditorHotkeys(float dt)
+        {
+            try
+            {
+                // Config gate
+                if (!Config.EnableEditorHotkey)
+                    return;
+
+                var game = TaleWorlds.Core.Game.Current;
+                if (game == null)
+                    return;
+
+                // Only on campaign map
+                if (game.GameStateManager.ActiveState is not MapState)
+                    return;
+
+                // Must be in a campaign
+                if (Campaign.Current == null)
+                    return;
+
+                if (!Input.IsKeyDown(InputKey.LeftShift))
+                    return;
+
+                // Shift + R -> personal editor
+                if (Input.IsKeyReleased(InputKey.R))
+                {
+                    Log.Info("EditorMapHotkey: Shift+R pressed on map (OnApplicationTick).");
+                    ClanScreen.LaunchEditor(EditorMode.Personal);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

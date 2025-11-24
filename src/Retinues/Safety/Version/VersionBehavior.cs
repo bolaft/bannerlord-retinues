@@ -61,6 +61,9 @@ namespace Retinues.Safety.Version
             {
                 string currentVersionRaw = ModuleChecker.GetModule("Retinues").Version;
 
+                Log.Info($"Current Retinues version: {currentVersionRaw}");
+                Log.Info($"Retinues version in save: {_retinuesVersion}");
+
                 // Old saves or missing data: treat as "no stored version yet".
                 if (string.IsNullOrWhiteSpace(_retinuesVersion))
                 {

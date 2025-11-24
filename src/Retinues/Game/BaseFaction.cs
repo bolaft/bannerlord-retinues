@@ -223,7 +223,6 @@ namespace Retinues.Game
 
         public void InvalidateCategoryCache()
         {
-            Log.Debug($"Invalidating category cache for faction {Name} ({StringId})");
             _categoryCacheDirty = true;
         }
 
@@ -234,8 +233,6 @@ namespace Retinues.Game
 
             if (this is not WFaction)
                 return;
-
-            Log.Debug($"Rebuilding category cache for faction {Name} ({StringId})");
 
             _categoryCacheDirty = false;
 
@@ -278,28 +275,36 @@ namespace Retinues.Game
         }
 
         // Fast lookups used by WCharacter
-        public bool IsRetinueCached(WCharacter troop)
+        public bool IsRetinue(WCharacter troop)
         {
-            if (troop == null)
+            if (troop == null || troop.IsHero)
                 return false;
 
-            EnsureCategoryCache();
-            return _retinueIds.Contains(troop.StringId);
+            if (troop.IsVanilla)
+                return false;
+
+            return RetinueTroops.Contains(troop);
         }
 
-        public bool IsRegularCached(WCharacter troop)
+        public bool IsRegular(WCharacter troop)
         {
-            if (troop == null)
+            if (troop == null || troop.IsHero)
                 return false;
+
+            if (troop.IsVanilla)
+                return true;
 
             EnsureCategoryCache();
             return _regularIds.Contains(troop.StringId);
         }
 
-        public bool IsEliteCached(WCharacter troop)
+        public bool IsElite(WCharacter troop)
         {
-            if (troop == null)
+            if (troop == null || troop.IsHero)
                 return false;
+
+            if (troop.IsVanilla)
+                return EliteTroops.Contains(troop);
 
             EnsureCategoryCache();
             return _eliteIds.Contains(troop.StringId);
