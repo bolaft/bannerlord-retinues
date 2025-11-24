@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="Boy" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="Görünüm" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="Bu kahraman için tam görünüm düzenleyicisini açın." />
+    <string
       id="ret_hero_no_upgrade"
       text="Kahramanlar yükseltilemez." />
     <string

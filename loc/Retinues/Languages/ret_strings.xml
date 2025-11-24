@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="Height" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="Appearance" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="Open the full appearance editor for this hero." />
+    <string
       id="ret_hero_no_upgrade"
       text="Heroes cannot be upgraded." />
     <string

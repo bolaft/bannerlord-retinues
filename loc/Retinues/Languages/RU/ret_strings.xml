@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="Рост" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="Внешность" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="Откройте полный редактор внешности для этого героя." />
+    <string
       id="ret_hero_no_upgrade"
       text="Герои не могут быть улучшены." />
     <string

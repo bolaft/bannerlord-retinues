@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="Wzrost" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="Wygląd" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="Otwórz pełny edytor wyglądu dla tego bohatera." />
+    <string
       id="ret_hero_no_upgrade"
       text="Bohaterowie nie mogą być ulepszani." />
     <string

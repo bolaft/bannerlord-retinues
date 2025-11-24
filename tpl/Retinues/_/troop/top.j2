@@ -14,6 +14,17 @@
     hint="{RemoveButtonHint}"
 ) }}
 
+<!-- Edit Hero Button -->
+{{ button.text(
+    data_source="{TroopScreen}",
+    text="@HeroAppearanceButtonText",
+    command="ExecuteOpenHeroAppearance",
+    is_visible="@ShowHeroAppearanceButton",
+    brush="Popup.Done.Button",
+    vertical_alignment="Top",
+    hint="{HeroAppearanceHint}"
+) }}
+
 <!-- Retinue Cap Section -->
 <Widget
     DataSource="{TroopScreen}"

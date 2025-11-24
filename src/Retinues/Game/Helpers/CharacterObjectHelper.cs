@@ -12,7 +12,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Game.Helpers
 {
-    public class CharacterHelper
+    public class CharacterObjectHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Deep Copy                       //

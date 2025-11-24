@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="身長" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="外観" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="この英雄の完全な外観エディターを開く。" />
+    <string
       id="ret_hero_no_upgrade"
       text="英雄はアップグレードできません。" />
     <string

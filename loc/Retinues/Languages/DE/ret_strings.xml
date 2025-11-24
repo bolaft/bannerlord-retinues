@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="Größe" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="Aussehen" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="Öffne den vollständigen Aussehens-Editor für diesen Helden." />
+    <string
       id="ret_hero_no_upgrade"
       text="Helden können nicht aufgerüstet werden." />
     <string

@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="身高" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="外觀" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="打開此英雄的完整外觀編輯器。" />
+    <string
       id="ret_hero_no_upgrade"
       text="英雄無法升級。" />
     <string

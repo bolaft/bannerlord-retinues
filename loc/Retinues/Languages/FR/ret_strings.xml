@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="Taille" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="Apparence" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="Ouvre l’éditeur d’apparence complet pour ce héros." />
+    <string
       id="ret_hero_no_upgrade"
       text="Les héros ne peuvent pas être promus." />
     <string

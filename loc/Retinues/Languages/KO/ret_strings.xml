@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="신장" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="외모" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="이 영웅을 위한 전체 외모 편집기 열기." />
+    <string
       id="ret_hero_no_upgrade"
       text="영웅은 업그레이드할 수 없습니다." />
     <string

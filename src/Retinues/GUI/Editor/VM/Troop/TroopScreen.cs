@@ -30,6 +30,11 @@ namespace Retinues.GUI.Editor.VM.Troop
         protected override Dictionary<UIEvent, string[]> EventMap =>
             new()
             {
+                [UIEvent.Faction] =
+                [
+                    nameof(ShowHeroAppearanceButton),
+                    nameof(CustomizationIsEnabled),
+                ],
                 [UIEvent.Troop] =
                 [
                     nameof(RemoveTroopButtonIsVisible),
@@ -108,7 +113,11 @@ namespace Retinues.GUI.Editor.VM.Troop
         public bool ShowCustomization { get; set; } = false;
 
         [DataSourceProperty]
-        public bool CustomizationIsEnabled => Config.EnableTroopCustomization;
+        public bool CustomizationIsEnabled =>
+            Config.EnableTroopCustomization && (ClanScreen.EditorMode != EditorMode.Heroes);
+
+        [DataSourceProperty]
+        public bool ShowHeroAppearanceButton => State.Troop is WHero && IsVisible;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -140,6 +149,9 @@ namespace Retinues.GUI.Editor.VM.Troop
                     .ToString();
             }
         }
+
+        [DataSourceProperty]
+        public string HeroAppearanceButtonText => L.S("hero_appearance_button_text", "Appearance");
 
         [DataSourceProperty]
         public string GenderIcon =>
@@ -215,6 +227,13 @@ namespace Retinues.GUI.Editor.VM.Troop
         [DataSourceProperty]
         public BasicTooltipViewModel BuildHint =>
             Tooltip.MakeTooltip(null, L.S("build_hint", "Build"));
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel HeroAppearanceHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S("hero_appearance_hint", "Open the full appearance editor for this hero.")
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -461,6 +480,36 @@ namespace Retinues.GUI.Editor.VM.Troop
 
             BodyHelper.ApplyPrevBuildPreset(State.Troop);
             State.UpdateAppearance();
+        }
+
+        [DataSourceMethod]
+        public void ExecuteOpenHeroAppearance()
+        {
+            if (State.Troop is not WHero hero)
+                return;
+
+            var snapshotTroop = State.Troop;
+            var snapshotFaction = State.Faction;
+
+            // Reuse AppearanceGuard so config/context rules still apply
+            AppearanceGuard.TryApply(
+                State.Troop,
+                State.Equipment.Index,
+                applyChange: () =>
+                {
+                    // We don't change anything here; we just want to pass the guard.
+                    return true;
+                },
+                onSuccess: () =>
+                {
+                    // Open the vanilla FaceGen / appearance editor for this hero.
+                    HeroAppearanceHelper.OpenForHero(hero.Hero);
+
+                    // Restore troop/faction state after returning from FaceGen.
+                    State.PendingFaction = snapshotFaction;
+                    State.PendingTroop = snapshotTroop;
+                }
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

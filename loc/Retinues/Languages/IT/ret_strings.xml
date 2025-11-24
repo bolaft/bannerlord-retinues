@@ -461,6 +461,12 @@
       id="ret_height_hint"
       text="Altezza" />
     <string
+      id="ret_hero_appearance_button_text"
+      text="Aspetto" />
+    <string
+      id="ret_hero_appearance_hint"
+      text="Apri l’editor di aspetto completo per questo eroe." />
+    <string
       id="ret_hero_no_upgrade"
       text="Gli eroi non possono essere potenziati." />
     <string

@@ -2432,6 +2432,38 @@
     "TR": "Boy"
   },
   {
+    "id": "ret_hero_appearance_button_text",
+    "EN": "Appearance",
+    "BR": "Aparência",
+    "CNs": "外观",
+    "CNt": "外觀",
+    "DE": "Aussehen",
+    "FR": "Apparence",
+    "IT": "Aspetto",
+    "JP": "外観",
+    "KO": "외모",
+    "PL": "Wygląd",
+    "RU": "Внешность",
+    "SP": "Apariencia",
+    "TR": "Görünüm"
+  },
+  {
+    "id": "ret_hero_appearance_hint",
+    "EN": "Open the full appearance editor for this hero.",
+    "BR": "Abra o editor de aparência completo para este herói.",
+    "CNs": "打开此英雄的完整外观编辑器。",
+    "CNt": "打開此英雄的完整外觀編輯器。",
+    "DE": "Öffne den vollständigen Aussehens-Editor für diesen Helden.",
+    "FR": "Ouvre l’éditeur d’apparence complet pour ce héros.",
+    "IT": "Apri l’editor di aspetto completo per questo eroe.",
+    "JP": "この英雄の完全な外観エディターを開く。",
+    "KO": "이 영웅을 위한 전체 외모 편집기 열기.",
+    "PL": "Otwórz pełny edytor wyglądu dla tego bohatera.",
+    "RU": "Откройте полный редактор внешности для этого героя.",
+    "SP": "Abre el editor de apariencia completo para este héroe.",
+    "TR": "Bu kahraman için tam görünüm düzenleyicisini açın."
+  },
+  {
     "id": "ret_hero_no_upgrade",
     "EN": "Heroes cannot be upgraded.",
     "BR": "Heróis não podem ser aprimorados.",

@@ -826,7 +826,7 @@ namespace Retinues.Game.Wrappers
             }
 
             // Character object copy
-            CharacterHelper.CopyInto(src.Base, _co);
+            CharacterObjectHelper.CopyInto(src.Base, _co);
 
             // Vanilla id
             VanillaStringIdMap[StringId] = src.VanillaStringId;
