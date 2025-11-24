@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="提升技能所需的基礎經驗。" />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="王國封地中的氏族志願者比例" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="玩家王國封地中每個志願者成為氏族部隊的幾率（0 = 從不，1 = 總是）。如果您想混合氏族部隊和王國部隊，請設置更高的值。" />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="解鎖時複製所有套裝" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="將部隊轉換為隨從的影響力成本，按目標隨從部隊的等級計算。" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="宗族領地中的王國志願兵比例" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="玩家宗族領地中每個志願者成為王國部隊的幾率（0 = 從不，1 = 總是）。如果您想將王國部隊與宗族部隊混合，請設置更高的值。" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="基礎隨從比例上限" />

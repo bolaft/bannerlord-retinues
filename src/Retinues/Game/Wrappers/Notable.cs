@@ -28,12 +28,29 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public void SwapVolunteers(WFaction faction)
         {
-            if (Base == null || faction == null)
+            SwapVolunteers(faction, null, 0f);
+        }
+
+        /// <summary>
+        /// Swaps volunteers for the best matching troop from the primary faction, with an optional
+        /// chance to use a secondary faction instead (for clan/kingdom mixing).
+        /// </summary>
+        public void SwapVolunteers(
+            WFaction primaryFaction,
+            WFaction secondaryFaction,
+            float secondaryProportion
+        )
+        {
+            if (Base == null || primaryFaction == null)
                 return;
 
             var arr = Hero.VolunteerTypes;
             if (arr == null || arr.Length == 0)
                 return;
+
+            // Only treat secondary as active if both faction and a sensible proportion are provided.
+            bool hasSecondary =
+                secondaryFaction != null && secondaryProportion > 0f && secondaryProportion <= 1f;
 
             int replaced = 0;
 
@@ -53,14 +70,27 @@ namespace Retinues.Game.Wrappers
                     continue;
                 }
 
-                if (troop.Faction == faction)
-                    continue; // Already correct faction troop
+                // Already in one of our custom factions, skip.
+                if (
+                    troop.Faction == primaryFaction
+                    || (hasSecondary && troop.Faction == secondaryFaction)
+                )
+                    continue;
 
-                if (rng.NextDouble() > Config.CustomVolunteerProportion)
-                    continue; // Skip some based on proportion
+                // Global toggle: some vanilla volunteers are kept based on CustomVolunteersProportion.
+                if (rng.NextDouble() > Config.CustomVolunteersProportion)
+                    continue;
+
+                // Decide which faction to use for this slot.
+                WFaction targetFaction = primaryFaction;
+                if (hasSecondary && rng.NextDouble() < secondaryProportion)
+                    targetFaction = secondaryFaction;
+
+                if (targetFaction == null)
+                    continue;
 
                 var replacement = TroopMatcher.PickBestFromFaction(
-                    faction,
+                    targetFaction,
                     troop,
                     sameTierOnly: false
                 );
@@ -73,9 +103,17 @@ namespace Retinues.Game.Wrappers
             }
 
             if (replaced > 0)
+            {
+                var primaryId = primaryFaction?.StringId ?? "null";
+                var secondaryId = hasSecondary ? secondaryFaction?.StringId : null;
+                var mixInfo =
+                    secondaryId != null
+                        ? $" + mix {secondaryId} (p={secondaryProportion:0.##})"
+                        : "";
                 Log.Debug(
-                    $"{Name} ({Settlement.Name}): swapped {replaced} volunteers to faction {faction.StringId}."
+                    $"{Name} ({Settlement.Name}): swapped {replaced} volunteers to faction {primaryId}{mixInfo}."
                 );
+            }
         }
 
         /// <summary>

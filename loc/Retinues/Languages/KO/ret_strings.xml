@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="기술 상승에 필요한 기본 경험치." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="왕국 영지의 씨족 자원봉사자 비율" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="플레이어 왕국 영지의 각 자원봉사자가 씨족 병력일 확률(0 = 없음, 1 = 항상). 씨족 병력과 왕국 병력을 혼합하려면 더 높은 값을 설정하십시오." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="잠금 해제 시 모든 세트 복사" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="부대를 수행원으로 전환하는 데 드는 영향력 비용(대상 수행원 병력의 등급별)." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="씨족 영지 내 왕국 자원병 비율" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="플레이어 씨족의 영지에 있는 각 자원병이 왕국 병력이 될 확률(0 = 절대 없음, 1 = 항상). 왕국 병력과 씨족 병력을 혼합하려면 더 높은 값을 설정하십시오." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="기본 수행원 비율 상한" />

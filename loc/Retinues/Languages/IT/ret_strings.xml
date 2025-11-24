@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Costo base in PE per aumentare un’abilità." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="Proporzione di Volontari del Clan nei Feudi del Regno" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="Probabilità che ogni volontario nei feudi del regno del giocatore sia una truppa del clan (0 = mai, 1 = sempre). Imposta un valore più alto se vuoi mescolare le truppe del clan con le truppe del regno." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Copia Tutti i Set al Sblocco" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="Costo in influenza per convertire una truppa in un seguito, per livello della truppa del seguito di destinazione." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="Proporzione di Volontari del Regno nei Feudi del Clan" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="Probabilità che ogni volontario nei feudi del clan del giocatore sia una truppa del regno (0 = mai, 1 = sempre). Imposta un valore più alto se vuoi mescolare truppe del regno con truppe del clan." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Rapporto Massimo Seguito Base" />

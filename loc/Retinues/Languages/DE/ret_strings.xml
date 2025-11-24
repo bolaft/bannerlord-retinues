@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Basis-EP-Kosten zur Steigerung einer Fertigkeit." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="Anteil der Clan-Freiwilligen in den Lehen des Königreichs" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="Chance, dass jeder Freiwillige in den Lehen des Spieler-Königreichs eine Clan-Truppe ist (0 = nie, 1 = immer). Setzen Sie einen höheren Wert, wenn Sie Clan-Truppen mit Königreichstruppen mischen möchten." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Alle Sets beim Entsperren kopieren" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="Einflusskosten, um eine Truppe in eine Gefolgschaft umzuwandeln, pro Stufe der Ziel-Gefolgschaftstruppe." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="Anteil Königreich-Freiwilliger in Clan-Lehen" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="Chance, dass jeder Freiwillige in den Lehen des Spielerclans eine Königreichseinheit ist (0 = nie, 1 = immer). Setze einen höheren Wert, wenn du Königreichseinheiten mit Claneinheiten mischen möchtest." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maximales Basis-Gefolgsverhältnis" />

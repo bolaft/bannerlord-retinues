@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Bir beceriyi artırmak için temel XP maliyeti." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="Krallık Topraklarındaki Klan Gönüllü Oranı" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="Oyuncu krallığının topraklarındaki her gönüllünün bir klan askeri olma şansı (0 = asla, 1 = her zaman). Klan askerlerini krallık askerleriyle karıştırmak istiyorsanız daha yüksek bir değer belirleyin." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Kilit Açıldığında Tüm Setleri Kopyala" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="Bir birliği yandaşlığa dönüştürmek için etkileşim maliyeti, hedef yandaş birlik seviyesine göre." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="Klan Topraklarındaki Krallık Gönüllüleri Oranı" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="Oyuncu klanının topraklarındaki her gönüllünün krallık birliği olma şansı (0 = asla, 1 = her zaman). Krallık birliklerini klan birlikleriyle karıştırmak istiyorsanız daha yüksek bir değer belirleyin." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksimum Temel Yandaş Oranı" />

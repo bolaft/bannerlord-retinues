@@ -229,7 +229,7 @@ namespace Retinues.Configuration
         // Recruitment
         // ─────────────────────────────────────────────────────
 
-        public static readonly Option<float> CustomVolunteerProportion = CreateOption(
+        public static readonly Option<float> CustomVolunteersProportion = CreateOption(
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
             name: () =>
                 L.S("mcm_option_custom_volunteer_proportion", "Custom Volunteer Proportion"),
@@ -237,9 +237,45 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_custom_volunteer_proportion_hint",
-                    "Chance for each vanilla volunteer to be replaced by a custom troop (0 = never, 1 = always)."
+                    "Chance for each vanilla volunteer to be replaced by a custom troop (0 = never, 1 = always). Set a lower value if you want to keep some vanilla volunteers in your settlements."
                 ),
             @default: 1f,
+            minValue: 0,
+            maxValue: 1
+        );
+
+        public static readonly Option<float> KingdomVolunteersInClanFiefsProportion = CreateOption(
+            section: () => L.S("mcm_section_recruitment", "Recruitment"),
+            name: () =>
+                L.S(
+                    "mcm_option_kingdom_volunteers_in_clan_fiefs_proportion",
+                    "Kingdom Volunteers In Clan Fiefs Proportion"
+                ),
+            key: "KingdomVolunteersInClanFiefsProportion",
+            hint: () =>
+                L.S(
+                    "mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint",
+                    "Chance for each volunteer in the player clan's fiefs to be a kingdom troop (0 = never, 1 = always). Set a higher value if you want to mix kingdom troops with clan troops."
+                ),
+            @default: 0.0f,
+            minValue: 0,
+            maxValue: 1
+        );
+
+        public static readonly Option<float> ClanVolunteersInKingdomFiefsProportion = CreateOption(
+            section: () => L.S("mcm_section_recruitment", "Recruitment"),
+            name: () =>
+                L.S(
+                    "mcm_option_clan_volunteers_in_kingdom_fiefs_proportion",
+                    "Clan Volunteers In Kingdom Fiefs Proportion"
+                ),
+            key: "ClanVolunteersInKingdomFiefsProportion",
+            hint: () =>
+                L.S(
+                    "mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint",
+                    "Chance for each volunteer in the player kingdom's fiefs to be a clan troop (0 = never, 1 = always). Set a higher value if you want to mix clan troops with kingdom troops."
+                ),
+            @default: 0.0f,
             minValue: 0,
             maxValue: 1
         );

@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Costo base de experiencia para aumentar una habilidad." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="Proporción de Voluntarios del Clan en los Feudos del Reino" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="Probabilidad de que cada voluntario en los feudos del reino del jugador sea una tropa del clan (0 = nunca, 1 = siempre). Establece un valor más alto si deseas mezclar tropas del clan con tropas del reino." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Copiar Todos los Conjuntos al Desbloquear" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="Costo de influencia para convertir una tropa en un séquito, por nivel de la tropa de séquito objetivo." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="Proporción de Voluntarios del Reino en Feudos del Clan" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="Probabilidad de que cada voluntario en los feudos del clan del jugador sea una tropa del reino (0 = nunca, 1 = siempre). Establezca un valor más alto si desea mezclar tropas del reino con tropas del clan." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Proporción Máxima de Séquito Básico" />

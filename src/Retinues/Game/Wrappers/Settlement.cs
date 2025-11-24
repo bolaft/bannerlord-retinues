@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Game;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Settlements;
 
@@ -192,6 +193,7 @@ namespace Retinues.Game.Wrappers
 
         /// <summary>
         /// Swap all volunteers in notables to match the given faction.
+        /// Optionally mixes clan/kingdom troops based on recruitment config.
         /// </summary>
         public void SwapVolunteers(WFaction faction = null)
         {
@@ -203,13 +205,89 @@ namespace Retinues.Game.Wrappers
             if (Config.RestrictToSameCultureSettlements && faction.Culture != Culture)
                 return; // skip if culture doesn't match
 
-            Log.Debug($"Swapping volunteers in settlement '{this}' for faction '{faction}'");
+            // Determine whether we should mix clan/kingdom volunteers here.
+            WFaction secondaryFaction = null;
+            float secondaryProportion = 0f;
+
+            if (!Config.DisableKingdomTroops)
+            {
+                var clan = Clan;
+                var kingdom = Kingdom;
+
+                bool isPlayerClanFief = clan?.IsPlayerClan == true;
+                bool isPlayerKingdomFief = kingdom?.IsPlayerKingdom == true;
+
+                // 1) Player clan fief that is also in the player kingdom:
+                //    base = clan, mix in kingdom using KingdomVolunteersInClanFiefsProportion.
+                if (isPlayerClanFief && isPlayerKingdomFief && clan != null && kingdom != null)
+                {
+                    if (faction == clan)
+                    {
+                        secondaryFaction = kingdom;
+                        secondaryProportion = Config.KingdomVolunteersInClanFiefsProportion;
+                    }
+                }
+                // 2) Player kingdom fief that is NOT owned by the player clan:
+                //    base = kingdom, mix in clan using ClanVolunteersInKingdomFiefsProportion.
+                else if (
+                    !isPlayerClanFief
+                    && isPlayerKingdomFief
+                    && kingdom != null
+                    && Player.Clan != null
+                )
+                {
+                    if (faction == kingdom)
+                    {
+                        secondaryFaction = Player.Clan;
+                        secondaryProportion = Config.ClanVolunteersInKingdomFiefsProportion;
+                    }
+                }
+                // 3) Remote recruitment (RestrictToOwnedSettlements == false):
+                //    settlement is outside the player kingdom, but we are temporarily swapping
+                //    volunteers to Player.Clan (Recruit Anywhere); still allow mixing in
+                //    Player.Kingdom using KingdomVolunteersInClanFiefsProportion.
+                else if (
+                    !isPlayerKingdomFief
+                    && Player.Clan != null
+                    && Player.Kingdom != null
+                    && faction == Player.Clan
+                    && !Config.RestrictToOwnedSettlements
+                )
+                {
+                    secondaryFaction = Player.Kingdom;
+                    secondaryProportion = Config.KingdomVolunteersInClanFiefsProportion;
+                }
+
+                // Clamp just in case MCM ever misbehaves.
+                if (secondaryProportion < 0f)
+                    secondaryProportion = 0f;
+                else if (secondaryProportion > 1f)
+                    secondaryProportion = 1f;
+
+                if (secondaryFaction == null || secondaryProportion <= 0f)
+                {
+                    secondaryFaction = null;
+                    secondaryProportion = 0f;
+                }
+            }
+
+            if (secondaryFaction != null)
+            {
+                Log.Debug(
+                    $"Swapping volunteers in settlement '{this}' for faction '{faction}' with mix '{secondaryFaction}' (p={secondaryProportion:0.##})."
+                );
+            }
+            else
+            {
+                Log.Debug($"Swapping volunteers in settlement '{this}' for faction '{faction}'.");
+            }
 
             foreach (var notable in Notables)
             {
                 try
                 {
-                    notable.SwapVolunteers(faction);
+                    // Overload that supports primary + secondary faction with proportion.
+                    notable.SwapVolunteers(faction, secondaryFaction, secondaryProportion);
                 }
                 catch (System.Exception ex)
                 {

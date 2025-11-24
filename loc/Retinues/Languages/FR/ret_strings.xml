@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Coût de base en XP pour augmenter une compétence." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="Proportion de Volontaires du Clan dans les Fiefs du Royaume" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="Chance pour chaque volontaire dans les fiefs du royaume du joueur d&apos;être une troupe de clan (0 = jamais, 1 = toujours). Définissez une valeur plus élevée pour mélanger les troupes de clan avec les troupes du royaume." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Copier Tous les Équipements" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="Coût en influence pour convertir une troupe en rétinue, par rang de la rétinue cible." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="Proportion de Volontaires du Royaume dans les Fiefs du Clan" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="Chance pour chaque volontaire dans les fiefs du clan du joueur d&apos;être une troupe de royaume (0 = jamais, 1 = toujours). Définissez une valeur plus élevée pour mélanger les troupes de royaume avec les troupes de clan." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Ratio Maximum de Rétinue Basique" />

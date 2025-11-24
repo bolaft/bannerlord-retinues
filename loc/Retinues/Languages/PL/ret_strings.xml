@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Podstawowy koszt PD zwiększenia umiejętności." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="Proporcja Ochotników z Klanu w Lennach Królestwa" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="Szansa, że każdy ochotnik w lennach królestwa gracza będzie jednostką klanową (0 = nigdy, 1 = zawsze). Ustaw wyższą wartość, jeśli chcesz mieszać jednostki klanowe z jednostkami królestwa." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Kopiuj Wszystkie Zestawy przy Odblokowaniu" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="Koszt wpływu za konwersję oddziału na orszak, na poziom docelowego oddziału orszaku." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="Udział Ochotników Królestwa w Lennach Klanu" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="Szansa, że każdy ochotnik w lennach klanu gracza będzie jednostką królestwa (0 = nigdy, 1 = zawsze). Ustaw wyższą wartość, jeśli chcesz mieszać jednostki królestwa z jednostkami klanu." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Maksymalny Udział Orszaku Podstawowego" />

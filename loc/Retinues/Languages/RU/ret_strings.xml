@@ -746,6 +746,12 @@
       id="ret_mcm_option_base_skill_xp_cost_hint"
       text="Базовая стоимость опыта для повышения навыка." />
     <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
+      text="Пропорция Добровольцев Клана в Поместьях Королевства" />
+    <string
+      id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
+      text="Шанс для каждого добровольца в поместьях королевства игрока стать войском клана (0 = никогда, 1 = всегда). Установите более высокое значение, если хотите смешать войска клана с войсками королевства." />
+    <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
       text="Копировать Все Наборы при Разблокировке" />
     <string
@@ -859,6 +865,12 @@
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
       text="Стоимость влияния для преобразования войска в свиту, за уровень целевого войска свиты." />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
+      text="Доля Добровольцев Королевства в Фьефах Клана" />
+    <string
+      id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
+      text="Шанс для каждого добровольца в фьефах клана игрока стать войском королевства (0 = никогда, 1 = всегда). Установите более высокое значение, если хотите смешать войска королевства с войсками клана." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
       text="Макс. Доля Базовой Свиты" />
