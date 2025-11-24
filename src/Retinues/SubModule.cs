@@ -5,23 +5,10 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Effects;
-using Retinues.Features.Agents;
-using Retinues.Features.AutoJoin;
-using Retinues.Features.Experience;
-using Retinues.Features.Staging;
-using Retinues.Features.Stocks;
-using Retinues.Features.Swaps;
-using Retinues.Features.Unlocks;
-using Retinues.Features.Volunteers;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor;
 using Retinues.Mods;
-using Retinues.Safety.Fixes;
-using Retinues.Safety.Legacy;
-using Retinues.Safety.Sanitizer;
-using Retinues.Safety.Version;
-using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameState;
@@ -277,41 +264,41 @@ namespace Retinues
             Log.Info("Registering behaviors...");
 
             // XP behaviors
-            AddBehavior<TroopXpBehavior>(cs);
-            AddBehavior<BattleSimulationXpBehavior>(cs);
+            AddBehavior<Features.Experience.TroopXpBehavior>(cs);
+            AddBehavior<Features.Experience.BattleSimulationXpBehavior>(cs);
 
             // Staging behaviors
-            AddBehavior<TrainStagingBehavior>(cs);
-            AddBehavior<EquipStagingBehavior>(cs);
+            AddBehavior<Features.Staging.TrainStagingBehavior>(cs);
+            AddBehavior<Features.Staging.EquipStagingBehavior>(cs);
 
             // Legacy staging behaviors
-            AddBehavior<TroopEquipBehavior>(cs);
-            AddBehavior<TroopTrainBehavior>(cs);
+            AddBehavior<Safety.Legacy.TroopEquipBehavior>(cs);
+            AddBehavior<Safety.Legacy.TroopTrainBehavior>(cs);
 
             // Legacy behaviors
-            AddBehavior<TroopBehavior>(cs);
+            AddBehavior<Safety.Legacy.TroopBehavior>(cs);
 
             // Troop behaviors (after legacy migrations and xp)
-            AddBehavior<FactionBehavior>(cs);
+            AddBehavior<Troops.FactionBehavior>(cs);
 
             // Safety behaviors
-            AddBehavior<SanitizerBehavior>(cs);
-            AddBehavior<VersionBehavior>(cs);
-            AddBehavior<PartyLeaderFixBehavior>(cs);
+            AddBehavior<Safety.Sanitizer.SanitizerBehavior>(cs);
+            AddBehavior<Safety.Version.VersionBehavior>(cs);
+            AddBehavior<Safety.Fixes.PartyLeaderFixBehavior>(cs);
 
             // Item behaviors
-            AddBehavior<UnlocksBehavior>(cs);
-            AddBehavior<StocksBehavior>(cs);
+            AddBehavior<Features.Unlocks.UnlocksBehavior>(cs);
+            AddBehavior<Features.Stocks.StocksBehavior>(cs);
 
             // Swap behaviors
-            AddBehavior<MilitiaSwapBehavior>(cs);
-            AddBehavior<VolunteerSwapBehavior>(cs);
+            AddBehavior<Features.Swaps.MilitiaSwapBehavior>(cs);
+            AddBehavior<Features.Volunteers.VolunteerSwapBehavior>(cs);
 
             // Retinue behaviors
-            AddBehavior<AutoJoinBehavior>(cs);
+            AddBehavior<Features.AutoJoin.AutoJoinBehavior>(cs);
 
             // Combat equipment behavior
-            AddBehavior<CombatAgentBehavior>(cs);
+            AddBehavior<Features.Agents.CombatAgentBehavior>(cs);
 
             // Doctrine behaviors (skip if doctrines disabled)
             if (Config.EnableDoctrines)
