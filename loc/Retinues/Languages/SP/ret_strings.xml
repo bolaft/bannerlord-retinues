@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="No se vende en {SETTLEMENT}" />
     <string
-      id="ret_items_unlocked"
-      text="Nuevo Equipo Desbloqueado" />
+      id="ret_items_unlocked_log"
+      text="Nuevo equipo desbloqueado: {ITEMS}." />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...y {MORE} artículos más desbloqueados." />
+      id="ret_items_unlocked_log_more"
+      text="Nuevo equipo desbloqueado: {ITEMS}, y {MORE} más artículos." />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... y {MORE} más artículos." />
+    <string
+      id="ret_items_unlocked_title"
+      text="Nuevo Equipo Desbloqueado" />
     <string
       id="ret_king_guard"
       text="Guardia del Rey" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="Desbloquea el equipo al derrotar a enemigos que lo lleven puesto." />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="Popup de Desbloqueo" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="Muestra una notificación emergente cuando se desbloquean objetos. Si está desactivado, los desbloqueos solo se muestran en el registro." />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="Requisitos de Mejora Estándar" />

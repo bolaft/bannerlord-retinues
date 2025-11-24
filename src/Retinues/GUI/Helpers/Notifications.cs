@@ -72,6 +72,9 @@ namespace Retinues.GUI.Helpers
             );
         }
 
+        /// <summary>
+        /// Shows a quick information message at the top of the screen.
+        /// </summary>
         public static void Information(TextObject message, WCharacter announcer)
         {
             MBInformationManager.AddQuickInformation(
@@ -81,6 +84,9 @@ namespace Retinues.GUI.Helpers
             );
         }
 
+        /// <summary>
+        /// Logs a message to the in-game message log with optional color.
+        /// </summary>
         public static void Log(string message, string color = "#ffffffe0")
         {
             InformationManager.DisplayMessage(
@@ -88,15 +94,12 @@ namespace Retinues.GUI.Helpers
             );
         }
 
-        public static void MapNotification(TextObject message)
+        /// <summary>
+        /// Logs a message to the in-game message log with optional color.
+        /// </summary>
+        public static void Log(TextObject message, string color = "#ffffffe0")
         {
-            var data = new MercenaryOfferMapNotification(null, message);
-            MapNotification(data);
-        }
-
-        public static void MapNotification(InformationData data)
-        {
-            Campaign.Current.CampaignInformationManager.NewMapNoticeAdded(data);
+            Log(message.ToString(), color);
         }
     }
 }

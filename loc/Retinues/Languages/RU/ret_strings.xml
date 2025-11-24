@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="Не продается в {SETTLEMENT}" />
     <string
-      id="ret_items_unlocked"
-      text="Новая Экипировка Разблокирована" />
+      id="ret_items_unlocked_log"
+      text="Разблокировано новое снаряжение: {ITEMS}." />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...и еще {MORE} предметов разблокировано." />
+      id="ret_items_unlocked_log_more"
+      text="Разблокировано новое снаряжение: {ITEMS}, и еще {MORE} предметов." />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... и еще {MORE} предметов." />
+    <string
+      id="ret_items_unlocked_title"
+      text="Разблокировано новое снаряжение" />
     <string
       id="ret_king_guard"
       text="Королевская Гвардия" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="Разблокируйте экипировку, побеждая врагов, которые ее носят." />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="Всплывающее Окно Разблокировки" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="Отображает всплывающее уведомление при разблокировке предметов. Если отключено, разблокировки отображаются только в журнале." />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="Требования к Повышению Уровня по Умолчанию" />

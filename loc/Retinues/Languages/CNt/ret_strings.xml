@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="不在{SETTLEMENT}出售" />
     <string
-      id="ret_items_unlocked"
-      text="新裝備已解鎖" />
+      id="ret_items_unlocked_log"
+      text="新裝備解鎖: {ITEMS}。" />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...還有{MORE}個物品已解鎖。" />
+      id="ret_items_unlocked_log_more"
+      text="新裝備解鎖: {ITEMS}，還有更多{MORE}件物品。" />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... 還有更多{MORE}件物品。" />
+    <string
+      id="ret_items_unlocked_title"
+      text="新裝備解鎖" />
     <string
       id="ret_king_guard"
       text="國王衛隊" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="通過擊敗穿戴該裝備的敵人來解鎖它。" />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="解鎖彈出窗口" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="當物品被解鎖時顯示彈出通知。如果禁用，解鎖僅顯示在日誌中。" />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="原版升級需求" />

@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="Não vendido em {SETTLEMENT}" />
     <string
-      id="ret_items_unlocked"
-      text="Novo Equipamento Desbloqueado" />
+      id="ret_items_unlocked_log"
+      text="Novo equipamento desbloqueado: {ITEMS}." />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...e mais {MORE} itens desbloqueados." />
+      id="ret_items_unlocked_log_more"
+      text="Novo equipamento desbloqueado: {ITEMS}, e mais {MORE} itens." />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... e mais {MORE} itens." />
+    <string
+      id="ret_items_unlocked_title"
+      text="Novo Equipamento Desbloqueado" />
     <string
       id="ret_king_guard"
       text="Guarda do Rei" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="Desbloqueie equipamentos derrotando inimigos que os estejam usando." />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="Pop-up de Desbloqueio" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="Exibe uma notificação pop-up quando os itens são desbloqueados. Se desativado, os desbloqueios são mostrados apenas no registro." />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="Requisitos de Upgrade Padrão" />

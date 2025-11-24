@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="Nicht in {SETTLEMENT} verkauft" />
     <string
-      id="ret_items_unlocked"
-      text="Neue Ausrüstung freigeschaltet" />
+      id="ret_items_unlocked_log"
+      text="Neue Ausrüstung freigeschaltet: {ITEMS}." />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...und {MORE} weitere Gegenstände freigeschaltet." />
+      id="ret_items_unlocked_log_more"
+      text="Neue Ausrüstung freigeschaltet: {ITEMS} und {MORE} weitere Gegenstände." />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... und {MORE} weitere Gegenstände." />
+    <string
+      id="ret_items_unlocked_title"
+      text="Neue Ausrüstung freigeschaltet" />
     <string
       id="ret_king_guard"
       text="Königsgarde" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="Gegenstände freischalten, indem man Feinde besiegt, die sie tragen." />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="Freischaltungs-Popup" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="Zeigt eine Popup-Benachrichtigung an, wenn Gegenstände freigeschaltet werden. Wenn deaktiviert, werden Freischaltungen nur im Protokoll angezeigt." />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="Vanilla-Aufstiegsanforderungen" />

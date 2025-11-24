@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="{SETTLEMENT}에서 판매되지 않음" />
     <string
-      id="ret_items_unlocked"
-      text="새 장비 해제됨" />
+      id="ret_items_unlocked_log"
+      text="새 장비 잠금 해제: {ITEMS}." />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...그리고 {MORE}개의 아이템이 더 해제되었습니다." />
+      id="ret_items_unlocked_log_more"
+      text="새 장비 잠금 해제: {ITEMS}, 그리고 {MORE}개의 추가 아이템." />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... 그리고 {MORE}개의 추가 아이템." />
+    <string
+      id="ret_items_unlocked_title"
+      text="새 장비 잠금 해제" />
     <string
       id="ret_king_guard"
       text="왕의 근위대" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="장비를 착용한 적을 물리쳐서 장비의 잠금을 해제하세요." />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="잠금 해제 팝업" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="아이템이 잠금 해제될 때 팝업 알림을 표시합니다. 비활성화된 경우 잠금 해제는 로그에만 표시됩니다." />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="바닐라 업그레이드 요구사항" />

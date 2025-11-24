@@ -4,12 +4,14 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.ObjectSystem;
 
@@ -98,7 +100,7 @@ namespace Retinues.Features.Unlocks
                 return;
 
             // Modal summary
-            ShowUnlockInquiry(_newlyUnlocked);
+            ShowUnlockNotification(_newlyUnlocked);
 
             _newlyUnlocked.Clear();
         }
@@ -153,7 +155,7 @@ namespace Retinues.Features.Unlocks
             );
             AddUnlockCounts(counts, addCultureBonuses: false);
 
-            ShowUnlockInquiry(_newlyUnlocked);
+            ShowUnlockNotification(_newlyUnlocked);
 
             _newlyUnlocked.Clear();
         }
@@ -365,38 +367,77 @@ namespace Retinues.Features.Unlocks
         /// <summary>
         /// Shows an inquiry popup listing newly unlocked items.
         /// </summary>
-        private static void ShowUnlockInquiry(List<ItemObject> items)
+        private static void ShowUnlockNotification(List<ItemObject> items)
         {
             if (items == null || items.Count == 0)
                 return;
 
-            int n_display = 10;
-            int n_more = items.Count - n_display;
+            const int maxDisplayCount = 10;
 
-            var body = string.Join(
-                "\n",
-                items
-                    .Take(n_display)
-                    .Where(i => i != null)
-                    .Select(i => i.Name?.ToString() ?? i.StringId)
-            );
+            var names = items
+                .Where(i => i != null)
+                .Select(i => i.Name?.ToString() ?? i.StringId)
+                .ToList();
 
-            if (n_more > 0)
-                body += L.T("items_unlocked_more", "\n...and {MORE} more items unlocked.")
-                    .SetTextVariable("MORE", n_more);
+            if (names.Count == 0)
+                return;
 
-            InformationManager.ShowInquiry(
-                new InquiryData(
-                    L.S("items_unlocked", "New Gear Unlocked"),
-                    body,
-                    true,
-                    false,
-                    GameTexts.FindText("str_ok").ToString(),
-                    "",
-                    null,
-                    null
-                )
-            );
+            var displayNames = names.Take(maxDisplayCount).ToList();
+            var moreCount = names.Count - displayNames.Count;
+
+            if (Config.UnlockPopup)
+            {
+                // Popup:
+                // Item1
+                // Item2
+                // ...
+                // Item10
+                // ... and 21 more items.
+                var lines = new List<string>(displayNames);
+
+                if (moreCount > 0)
+                {
+                    var moreLine = L.T("items_unlocked_more_popup", "... and {MORE} more items.")
+                        .SetTextVariable("MORE", moreCount)
+                        .ToString();
+
+                    lines.Add(moreLine);
+                }
+
+                var body = string.Join("\n", lines);
+
+                Notifications.Popup(
+                    L.T("items_unlocked_title", "New Gear Unlocked"),
+                    new TextObject(body)
+                );
+            }
+            else
+            {
+                // Log:
+                // New gear unlocked: Item1, Item2, ..., Item10, and 21 more items.
+                // or
+                // New gear unlocked: Item1, Item2.
+                var listPart = string.Join(", ", displayNames);
+
+                TextObject logText;
+
+                if (moreCount > 0)
+                {
+                    logText = L.T(
+                            "items_unlocked_log_more",
+                            "New gear unlocked: {ITEMS}, and {MORE} more items."
+                        )
+                        .SetTextVariable("ITEMS", listPart)
+                        .SetTextVariable("MORE", moreCount);
+                }
+                else
+                {
+                    logText = L.T("items_unlocked_log", "New gear unlocked: {ITEMS}.")
+                        .SetTextVariable("ITEMS", listPart);
+                }
+
+                Notifications.Log(logText);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

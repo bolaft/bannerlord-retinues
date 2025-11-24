@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="{SETTLEMENT}では販売されていません" />
     <string
-      id="ret_items_unlocked"
-      text="新しい装備が解除された" />
+      id="ret_items_unlocked_log"
+      text="新しい装備がアンロックされました: {ITEMS}。" />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...さらに{MORE}個のアイテムが解除されました。" />
+      id="ret_items_unlocked_log_more"
+      text="新しい装備がアンロックされました: {ITEMS}、およびさらに{MORE}個のアイテム。" />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... およびさらに{MORE}個のアイテム。" />
+    <string
+      id="ret_items_unlocked_title"
+      text="新しい装備がアンロックされました" />
     <string
       id="ret_king_guard"
       text="王の親衛隊" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="それを装備している敵を倒すことで装備をアンロックします。" />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="アンロックポップアップ" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="アイテムがアンロックされるとポップアップ通知が表示されます。無効にすると、アンロックはログにのみ表示されます。" />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="バニラのアップグレード要件" />

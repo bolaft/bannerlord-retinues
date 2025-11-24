@@ -886,6 +886,18 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<bool> UnlockPopup = CreateOption(
+            section: () => L.S("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: () => L.S("mcm_option_unlock_popup", "Unlock Popup"),
+            key: "UnlockPopup",
+            hint: () =>
+                L.S(
+                    "mcm_option_unlock_popup_hint",
+                    "Displays a popup notification when items are unlocked. If disabled, unlocks are only shown in the log."
+                ),
+            @default: true
+        );
+
         // ─────────────────────────────────────────────────────
         // Debug
         // ─────────────────────────────────────────────────────

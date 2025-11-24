@@ -587,11 +587,17 @@
       id="ret_item_unavailable_text"
       text="Nie sprzedawane w {SETTLEMENT}" />
     <string
-      id="ret_items_unlocked"
-      text="Nowy Ekwipunek Odblokowany" />
+      id="ret_items_unlocked_log"
+      text="Nowy sprzęt odblokowany: {ITEMS}." />
     <string
-      id="ret_items_unlocked_more"
-      text="{newline}...i jeszcze {MORE} odblokowanych przedmiotów." />
+      id="ret_items_unlocked_log_more"
+      text="Nowy sprzęt odblokowany: {ITEMS}, oraz jeszcze {MORE} przedmiotów." />
+    <string
+      id="ret_items_unlocked_more_popup"
+      text="... oraz jeszcze {MORE} przedmiotów." />
+    <string
+      id="ret_items_unlocked_title"
+      text="Nowy Sprzęt Odblokowany" />
     <string
       id="ret_king_guard"
       text="Straż Królewska" />
@@ -1033,6 +1039,12 @@
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="Odblokuj wyposażenie, pokonując wrogów, którzy je noszą." />
+    <string
+      id="ret_mcm_option_unlock_popup"
+      text="Okienko Odblokowywania" />
+    <string
+      id="ret_mcm_option_unlock_popup_hint"
+      text="Wyświetla powiadomienie popup, gdy przedmioty zostaną odblokowane. Jeśli wyłączone, odblokowania są wyświetlane tylko w dzienniku." />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
       text="Wymagania Ulepszeń Vanilla" />
