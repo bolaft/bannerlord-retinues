@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="Konwertuj" />
     <string
+      id="ret_battle_record_battle_types"
+      text="Typy bitew:" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="Walczył w {BATTLES} bitwach ({WON} zwycięstw, {LOST} porażek)." />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • Bitwy polowe: {BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • Kryjówki: {BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="Brak dostępnych danych bitewnych dla tej jednostki." />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • Inne: {BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • Oblężenia: {BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="Rekord Bitewny" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • Najazdy na wioski: {BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="Dziesięcina Bitewna" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="Poziom" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="Zabił {KILLS} wrogów i poniósł {DEATHS} ofiar." />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="Najczęściej walczona: {FACTION} ({COUNT} starć)" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="Najbardziej obawiany: {ENEMY} ({COUNT} ofiar)" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="Najczęściej zabijany: {ENEMY} ({COUNT} zabitych)" />
+    <string
       id="ret_steadfast_soldiers"
       text="Niezłomni Żołnierze" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="Brak dostępnych jednostek" />
+    <string
+      id="ret_troop_stats_text"
+      text="Statystyki" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="Wyświetl statystyki bitewne tej jednostki." />
     <string
       id="ret_troop_xp"
       text="{XP} pkt. doświadczenia" />

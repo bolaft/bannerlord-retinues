@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Features.Agents;
+using Retinues.Features.Statistics;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor.VM.Doctrines;
@@ -117,6 +118,7 @@ namespace Retinues.GUI.Editor.VM
                     nameof(ClanName),
                     nameof(TroopEditorTitle),
                     nameof(EnableTopPanelButtons),
+                    nameof(ShowStatsButton),
                 ],
                 [UIEvent.Appearance] = [nameof(Model)],
             };
@@ -247,6 +249,9 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceProperty]
         public string HelpText => L.S("editor_help_text", "Help");
 
+        [DataSourceProperty]
+        public string StatsText => L.S("troop_stats_text", "Statistics");
+
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
@@ -264,6 +269,10 @@ namespace Retinues.GUI.Editor.VM
 
         [DataSourceProperty]
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
+
+        [DataSourceProperty]
+        public bool ShowStatsButton =>
+            ClanScreen.IsStudioMode == false && State.Troop?.IsCustom == true;
 
         [DataSourceProperty]
         public bool ShowGlobalEditorLink =>
@@ -294,6 +303,13 @@ namespace Retinues.GUI.Editor.VM
         public bool InDoctrineScreen => Screen == Screen.Doctrine;
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel StatsHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S("troop_stats_tooltip_text", "View battle statistics for this troop.")
+            );
 
         [DataSourceProperty]
         public BasicTooltipViewModel HelpHint =>
@@ -367,6 +383,15 @@ namespace Retinues.GUI.Editor.VM
             );
 
             InformationManager.ShowInquiry(inquiry);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteShowTroopStats()
+        {
+            if (State.Troop == null)
+                return;
+
+            TroopStatisticsBehavior.ShowForTroop(State.Troop);
         }
 
         /* ━━━━━━ Mode Switch ━━━━━ */

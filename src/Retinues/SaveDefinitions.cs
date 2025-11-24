@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Features.Agents;
 using Retinues.Features.Staging;
+using Retinues.Features.Statistics;
 using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;
 using TaleWorlds.SaveSystem;
@@ -34,6 +35,9 @@ namespace Retinues
 
             // Faction save data
             AddClassDefinition(typeof(FactionSaveData), 070_920);
+
+            // Statistics data
+            AddClassDefinition(typeof(TroopCombatStats), 070_930);
 
             // Staged operations data
             AddClassDefinition(typeof(PendingTrainData), 070_001);
@@ -70,6 +74,9 @@ namespace Retinues
 
             // Faction save data containers
             ConstructContainerDefinition(typeof(List<FactionSaveData>));
+
+            // Statistics data containers
+            ConstructContainerDefinition(typeof(Dictionary<string, TroopCombatStats>));
 
             // Combat equipment behavior containers
             ConstructContainerDefinition(typeof(Dictionary<int, byte>));

@@ -300,6 +300,9 @@ namespace Retinues
             // Combat equipment behavior
             AddBehavior<Features.Agents.CombatAgentBehavior>(cs);
 
+            // Statistics behavior
+            AddBehavior<Features.Statistics.TroopStatisticsBehavior>(cs);
+
             // Doctrine behaviors (skip if doctrines disabled)
             if (Config.EnableDoctrines)
             {

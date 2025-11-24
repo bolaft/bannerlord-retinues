@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="Convert" />
     <string
+      id="ret_battle_record_battle_types"
+      text="Battle types:" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="Fought in {BATTLES} battles ({WON} victories, {LOST} defeats)." />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • Field battles: {BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • Hideouts: {BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="No battle data available yet for this troop." />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • Other: {BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • Sieges: {BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="Battle Record" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • Village raids: {BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="Battlefield Tithes" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="Tier" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="Killed {KILLS} enemies and suffered {DEATHS} casualties." />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="Most battled: {FACTION} ({COUNT} encounters)" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="Most feared: {ENEMY} ({COUNT} casualties)" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="Most slain: {ENEMY} ({COUNT} slain)" />
+    <string
       id="ret_steadfast_soldiers"
       text="Steadfast Soldiers" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="No Troops Available" />
+    <string
+      id="ret_troop_stats_text"
+      text="Statistics" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="View battle statistics for this troop." />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />

@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="轉換" />
     <string
+      id="ret_battle_record_battle_types"
+      text="戰鬥類型：" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="參加了{BATTLES}場戰鬥（{WON}次勝利，{LOST}次失敗）。" />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • 野戰：{BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • 藏身處：{BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="此部隊暫無可用的戰鬥數據。" />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • 其他：{BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • 圍城戰：{BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="戰鬥記錄" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • 村莊突襲：{BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="戰場什一稅" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="等級" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="擊殺了 {KILLS} 名敵人，遭受了 {DEATHS} 名傷亡。" />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="交戰最多：{FACTION}（{COUNT} 次遭遇）" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="最受畏懼：{ENEMY}（{COUNT} 名傷亡）" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="擊殺最多：{ENEMY}（{COUNT} 名被擊殺）" />
+    <string
       id="ret_steadfast_soldiers"
       text="堅定士兵" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="無可用部隊" />
+    <string
+      id="ret_troop_stats_text"
+      text="統計數據" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="查看該部隊的戰鬥統計數據。" />
     <string
       id="ret_troop_xp"
       text="{XP} 經驗" />

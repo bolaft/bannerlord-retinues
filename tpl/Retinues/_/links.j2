@@ -68,3 +68,15 @@
     brush="DescriptionButtonToggleBrush",
     is_visible="true"
 ) }}
+
+
+<!-- Stats Button -->
+
+{{ link(
+    text="@StatsText",
+    command="ExecuteShowTroopStats",
+    hint="{StatsHint}",
+    margin_top="110",
+    brush="DescriptionButtonToggleBrush",
+    is_visible="@ShowStatsButton"
+) }}

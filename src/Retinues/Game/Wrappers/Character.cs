@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Retinues.Configuration;
+using Retinues.Features.Statistics;
 using Retinues.Game.Helpers;
 using Retinues.Mods;
 using Retinues.Troops;
@@ -644,6 +645,9 @@ namespace Retinues.Game.Wrappers
             // Remove all children
             foreach (var target in UpgradeTargets)
                 target.Remove();
+
+            // Clear battle record
+            TroopStatisticsBehavior.Clear(this);
 
             // Revert existing instances in parties
             if (replacement != null)

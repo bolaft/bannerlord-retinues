@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Retinues.Configuration;
+using Retinues.Features.Statistics;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -164,17 +166,37 @@ namespace Retinues.Game.Events
                 }
             }
 
+            /// <summary>
+            /// Called when the mission ends. Cleans up and records statistics.
+            /// </summary>
             public sealed override void OnEndMissionInternal()
             {
                 base.OnEndMissionInternal();
 
-                // Log combat report
-                if (Config.DebugMode)
-                    LogReport();
+                try
+                {
+                    // Build a battle wrapper from the current map event (if any)
+                    var mapEvent = MobileParty.MainParty?.MapEvent;
+                    if (mapEvent != null && Kills.Count > 0)
+                    {
+                        var battle = new Battle(mapEvent);
+                        TroopStatisticsBehavior.RecordFromMission(battle, Kills);
+                    }
 
-                // Clear kills
-                if (Kills.Count > 0)
-                    Kills.Clear();
+                    // Log combat report
+                    if (Config.DebugMode)
+                        LogReport();
+                }
+                catch (System.Exception e)
+                {
+                    Log.Exception(e);
+                }
+                finally
+                {
+                    // Clear kills
+                    if (Kills.Count > 0)
+                        Kills.Clear();
+                }
             }
 
             /// <summary>

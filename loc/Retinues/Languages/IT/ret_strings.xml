@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="Converti" />
     <string
+      id="ret_battle_record_battle_types"
+      text="Tipi di battaglia:" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="Ha combattuto in {BATTLES} battaglie ({WON} vittorie, {LOST} sconfitte)." />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • Battaglie campali: {BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • Nascondigli: {BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="Nessun dato di battaglia disponibile per questa truppa." />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • Altro: {BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • Assedi: {BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="Registro di Battaglia" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • Raid ai villaggi: {BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="Decime di Battaglia" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="Livello" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="Ha ucciso {KILLS} nemici e subito {DEATHS} perdite." />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="Più combattuta: {FACTION} ({COUNT} incontri)" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="Più temuto: {ENEMY} ({COUNT} perdite)" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="Più ucciso: {ENEMY} ({COUNT} uccisi)" />
+    <string
       id="ret_steadfast_soldiers"
       text="Soldati Saldi" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="Nessuna Truppa Disponibile" />
+    <string
+      id="ret_troop_stats_text"
+      text="Statistiche" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="Visualizza le statistiche di battaglia per questa truppa." />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />

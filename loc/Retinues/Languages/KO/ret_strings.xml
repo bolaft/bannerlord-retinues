@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="변환" />
     <string
+      id="ret_battle_record_battle_types"
+      text="전투 유형:" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="{BATTLES}번의 전투에 참가({WON}번의 승리, {LOST}번의 패배)." />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • 야전 전투: {BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • 은신처: {BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="이 병력에 대한 전투 데이터가 아직 없습니다." />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • 기타: {BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • 공성전: {BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="전투 기록" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • 마을 습격: {BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="전장의 십일조" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="등급" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="{KILLS}명의 적을 죽이고 {DEATHS}명의 사상자를 입었습니다." />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="가장 많이 전투한 세력: {FACTION} ({COUNT} 회 교전)" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="가장 두려워하는 적: {ENEMY} ({COUNT} 명의 사상자)" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="가장 많이 처치한 적: {ENEMY} ({COUNT} 명 처치)" />
+    <string
       id="ret_steadfast_soldiers"
       text="굳건한 병사" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="사용 가능한 병력이 없습니다" />
+    <string
+      id="ret_troop_stats_text"
+      text="통계" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="이 병력의 전투 통계를 봅니다." />
     <string
       id="ret_troop_xp"
       text="{XP} 경험치" />

@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="Преобразовать" />
     <string
+      id="ret_battle_record_battle_types"
+      text="Типы боёв:" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="Участвовал в {BATTLES} боях ({WON} побед, {LOST} поражений)." />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • Полевые бои: {BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • Убежища: {BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="Данные о боях для этого войска пока недоступны." />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • Прочее: {BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • Осады: {BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="Запись Боев" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • Набеги на деревни: {BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="Полевая Десятина" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="Уровень" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="Убил {KILLS} врагов и потерял {DEATHS} человек." />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="Чаще всего сражались: {FACTION} ({COUNT} столкновений)" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="Самый страшный: {ENEMY} ({COUNT} потерь)" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="Больше всего убито: {ENEMY} ({COUNT} убитых)" />
+    <string
       id="ret_steadfast_soldiers"
       text="Стойкие Солдаты" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="Нет доступных войск" />
+    <string
+      id="ret_troop_stats_text"
+      text="Статистика" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="Просмотр статистики боёв этой войска." />
     <string
       id="ret_troop_xp"
       text="{XP} очков опыта" />

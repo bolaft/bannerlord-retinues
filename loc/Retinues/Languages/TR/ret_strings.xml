@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="Dönüştür" />
     <string
+      id="ret_battle_record_battle_types"
+      text="Savaş türleri:" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="{BATTLES} savaşta savaştı ({WON} zafer, {LOST} yenilgi)." />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • Saha savaşları: {BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • Saklanma yerleri: {BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="Bu asker için henüz savaş verisi yok." />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • Diğer: {BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • Kuşatmalar: {BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="Savaş Kaydı" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • Köy baskınları: {BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="Savaş Alanı Aşarı" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="Seviye" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="{KILLS} düşman öldürdü ve {DEATHS} kayıp verdi." />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="En Çok Savaşan: {FACTION} ({COUNT} karşılaşma)" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="En Çok Korkulan: {ENEMY} ({COUNT} kayıp)" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="En Çok Öldürülen: {ENEMY} ({COUNT} öldürüldü)" />
+    <string
       id="ret_steadfast_soldiers"
       text="Sarsılmaz Askerler" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="Kullanılabilir Asker Yok" />
+    <string
+      id="ret_troop_stats_text"
+      text="İstatistikler" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="Bu askerin savaş istatistiklerini görüntüle." />
     <string
       id="ret_troop_xp"
       text="{XP} xp" />

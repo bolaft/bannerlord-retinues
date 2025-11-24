@@ -95,6 +95,33 @@
       id="ret_apply_conversions_button_text"
       text="変換" />
     <string
+      id="ret_battle_record_battle_types"
+      text="戦闘タイプ：" />
+    <string
+      id="ret_battle_record_battles_summary"
+      text="{BATTLES}回の戦闘に参加（{WON}回の勝利、{LOST}回の敗北）。" />
+    <string
+      id="ret_battle_record_field_line"
+      text="  • 野戦：{BATTLES}" />
+    <string
+      id="ret_battle_record_hideout_line"
+      text="  • 隠れ家：{BATTLES}" />
+    <string
+      id="ret_battle_record_no_data"
+      text="この兵の戦闘データはまだ利用できません。" />
+    <string
+      id="ret_battle_record_other_line"
+      text="  • その他：{BATTLES}" />
+    <string
+      id="ret_battle_record_siege_line"
+      text="  • 包囲戦：{BATTLES}" />
+    <string
+      id="ret_battle_record_title"
+      text="戦闘記録" />
+    <string
+      id="ret_battle_record_village_raid_line"
+      text="  • 村襲撃：{BATTLES}" />
+    <string
       id="ret_battlefield_tithes"
       text="戦場の什一税" />
     <string
@@ -1472,6 +1499,18 @@
       id="ret_sort_tier"
       text="等級" />
     <string
+      id="ret_stats_kills_deaths_summary"
+      text="{KILLS} 人の敵を殺し、{DEATHS} 人の犠牲者を出しました。" />
+    <string
+      id="ret_stats_most_battled_faction"
+      text="最も戦った勢力: {FACTION}（{COUNT} 回の遭遇）" />
+    <string
+      id="ret_stats_most_feared_enemy"
+      text="最も恐れられた敵: {ENEMY}（{COUNT} 人の犠牲者）" />
+    <string
+      id="ret_stats_most_slain_enemy"
+      text="最も多く倒した敵: {ENEMY}（{COUNT} 人を倒した）" />
+    <string
       id="ret_steadfast_soldiers"
       text="不動の兵士" />
     <string
@@ -1534,6 +1573,12 @@
     <string
       id="ret_troop_list.placeholder"
       text="利用可能な兵士がいません" />
+    <string
+      id="ret_troop_stats_text"
+      text="統計" />
+    <string
+      id="ret_troop_stats_tooltip_text"
+      text="この兵士の戦闘統計を表示します。" />
     <string
       id="ret_troop_xp"
       text="{XP} 経験値" />
