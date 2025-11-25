@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="Открыть документацию" />
     <string
-      id="ret_doctrine_costs"
-      text="Стоимость: {GOLD} Золото, {INFLUENCE} Влияние." />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} Золото" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} Влияние" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="Стоимость:" />
     <string
       id="ret_doctrine_service_unavailable"
       text="Сервис доктрин недоступен." />

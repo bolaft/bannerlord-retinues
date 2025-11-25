@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="Apri Documentazione" />
     <string
-      id="ret_doctrine_costs"
-      text="Costo: {GOLD} Oro, {INFLUENCE} Influenza." />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} Oro" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} Influenza" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="Costo:" />
     <string
       id="ret_doctrine_service_unavailable"
       text="Servizio dottrine non disponibile." />

@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="ドキュメントを開く" />
     <string
-      id="ret_doctrine_costs"
-      text="コスト: {GOLD} ゴールド, {INFLUENCE} 影響力。" />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} ゴールド" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} 影響力" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="コスト：" />
     <string
       id="ret_doctrine_service_unavailable"
       text="ドクトリンのサービスは利用できない。" />

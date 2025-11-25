@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="Belgeleri Aç" />
     <string
-      id="ret_doctrine_costs"
-      text="Maliyet: {GOLD} Altın, {INFLUENCE} Nüfuz." />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} Altın" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} Etki" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="Maliyet:" />
     <string
       id="ret_doctrine_service_unavailable"
       text="Doktrin hizmeti kullanılamıyor." />

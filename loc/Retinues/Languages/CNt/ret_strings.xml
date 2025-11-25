@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="打開文件" />
     <string
-      id="ret_doctrine_costs"
-      text="花費: {GOLD} 金幣, {INFLUENCE} 影響力。" />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} 金幣" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} 影響力" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="成本：" />
     <string
       id="ret_doctrine_service_unavailable"
       text="教義服務不可用。" />

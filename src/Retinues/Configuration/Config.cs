@@ -496,7 +496,8 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = 0.0f,
                 [Presets.Realistic] = 1.0f,
-            }
+            },
+            requiresRestart: true
         );
 
         public static readonly Option<float> DoctrineInfluenceCostMultiplier = CreateOption(
@@ -519,7 +520,8 @@ namespace Retinues.Configuration
             {
                 [Presets.Freeform] = 0.0f,
                 [Presets.Realistic] = 1.0f,
-            }
+            },
+            requiresRestart: true
         );
 
         // ─────────────────────────────────────────────────────

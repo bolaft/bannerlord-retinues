@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="Ouvrir la Documentation" />
     <string
-      id="ret_doctrine_costs"
-      text="Coût : {GOLD} or, {INFLUENCE} influence." />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} Or" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} Influence" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="Coût :" />
     <string
       id="ret_doctrine_service_unavailable"
       text="Service de doctrines indisponible." />

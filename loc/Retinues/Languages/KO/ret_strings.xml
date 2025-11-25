@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="문서 열기" />
     <string
-      id="ret_doctrine_costs"
-      text="비용: {GOLD} 골드, {INFLUENCE} 영향력." />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} 골드" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} 영향력" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="비용:" />
     <string
       id="ret_doctrine_service_unavailable"
       text="교리 서비스 이용 불가." />

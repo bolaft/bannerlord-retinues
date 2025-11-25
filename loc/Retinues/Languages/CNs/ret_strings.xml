@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="打开文档" />
     <string
-      id="ret_doctrine_costs"
-      text="花费: {GOLD} 金币, {INFLUENCE} 影响力。" />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} 金币" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} 影响力" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="成本：" />
     <string
       id="ret_doctrine_service_unavailable"
       text="教义服务不可用。" />

@@ -143,6 +143,15 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         }
 
         [DataSourceProperty]
+        public bool ShowCostRow => ShowGoldCost || ShowInfluenceCost;
+
+        [DataSourceProperty]
+        public bool ShowGoldCost => GoldCost > 0;
+
+        [DataSourceProperty]
+        public bool ShowInfluenceCost => InfluenceCost > 0;
+
+        [DataSourceProperty]
         public int GoldCost
         {
             get { return _def?.GoldCost ?? 0; }
@@ -210,15 +219,42 @@ namespace Retinues.GUI.Editor.VM.Doctrines
                     ? L.S("feats_no_reqs", "No requirements.")
                     : $"{L.S("feats_reqs", "Requirements")}:\n\n{sb}";
 
-            var costs = L.T("doctrine_costs", "Cost: {GOLD} Gold, {INFLUENCE} Influence.")
-                .SetTextVariable("GOLD", GoldCost)
-                .SetTextVariable("INFLUENCE", InfluenceCost)
-                .ToString();
+            // Build cost string only for enabled cost types
+            string costs;
+            if (!ShowCostRow)
+            {
+                costs = string.Empty;
+            }
+            else
+            {
+                var parts = new List<string>();
+                if (ShowGoldCost)
+                    parts.Add(
+                        L.T("doctrine_costs_gold", "{GOLD} Gold")
+                            .SetTextVariable("GOLD", GoldCost)
+                            .ToString()
+                    );
+                if (ShowInfluenceCost)
+                    parts.Add(
+                        L.T("doctrine_costs_influence", "{INFLUENCE} Influence")
+                            .SetTextVariable("INFLUENCE", InfluenceCost)
+                            .ToString()
+                    );
+
+                var joined = string.Join(", ", parts);
+                costs = string.IsNullOrEmpty(joined)
+                    ? string.Empty
+                    : (L.S("doctrine_costs_label", "Cost:") + " " + joined + ".");
+            }
 
             var text =
                 Config.EnableFeatRequirements == false
-                    ? $"{Description}\n\n{costs}"
-                    : $"{Description}\n\n{featsText}\n\n{costs}";
+                    ? (string.IsNullOrEmpty(costs) ? Description : $"{Description}\n\n{costs}")
+                    : (
+                        string.IsNullOrEmpty(costs)
+                            ? $"{Description}\n\n{featsText}"
+                            : $"{Description}\n\n{featsText}\n\n{costs}"
+                    );
 
             bool allComplete = total == 0 || complete == total;
             bool alreadyUnlocked = svc.IsDoctrineUnlocked(_id);
@@ -310,6 +346,9 @@ namespace Retinues.GUI.Editor.VM.Doctrines
             OnPropertyChanged(nameof(IsEnabled));
             OnPropertyChanged(nameof(GoldCost));
             OnPropertyChanged(nameof(InfluenceCost));
+            OnPropertyChanged(nameof(ShowGoldCost));
+            OnPropertyChanged(nameof(ShowInfluenceCost));
+            OnPropertyChanged(nameof(ShowCostRow));
         }
     }
 }

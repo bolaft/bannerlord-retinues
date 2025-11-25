@@ -323,8 +323,14 @@
       id="ret_docs_title"
       text="Otwórz Dokumentację" />
     <string
-      id="ret_doctrine_costs"
-      text="Koszt: {GOLD} Złoto, {INFLUENCE} Wpływy." />
+      id="ret_doctrine_costs_gold"
+      text="{GOLD} Złoto" />
+    <string
+      id="ret_doctrine_costs_influence"
+      text="{INFLUENCE} Wpływy" />
+    <string
+      id="ret_doctrine_costs_label"
+      text="Koszt:" />
     <string
       id="ret_doctrine_service_unavailable"
       text="Usługa doktryn jest niedostępna." />
