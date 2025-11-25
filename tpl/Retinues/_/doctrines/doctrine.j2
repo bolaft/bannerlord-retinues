@@ -32,6 +32,7 @@
 
         <!-- Cost Row -->
         <ListPanel
+            IsVisible="@ShowCostRow"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             VerticalAlignment="Center" HorizontalAlignment="Center"
             StackLayout.LayoutMethod="HorizontalLeftToRight">
@@ -39,12 +40,14 @@
                 <!-- Influence Cost -->
                 {{ text.base(
                     text="@InfluenceCost",
+                    is_visible="@ShowInfluenceCost",
                     brush="InventoryGoldFontBrush",
                     is_int=True
                 ) }}
                 
                 <!-- Influence Icon -->
                 {{ image.sprite(
+                    is_visible="@ShowInfluenceCost",
                     sprite="General\Icons\Influence@2x",
                     width="30", height="30"
                 ) }}
@@ -52,6 +55,7 @@
                 <!-- Gold Cost -->
                 {{ text.base(
                     text="@GoldCost",
+                    is_visible="@ShowGoldCost",
                     brush="InventoryGoldFontBrush",
                     is_int=True
                 ) }}
@@ -59,6 +63,7 @@
                 <!-- Gold Icon -->
                 {{ image.sprite(
                     sprite="General\Icons\Coin@2x",
+                    is_visible="@ShowGoldCost",
                     width="30", height="30"
                 ) }}
             </Children>
