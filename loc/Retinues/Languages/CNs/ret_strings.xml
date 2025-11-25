@@ -168,7 +168,7 @@
       text="购买物品" />
     <string
       id="ret_buy_item_text"
-      text="确定要花费 {ITEM_VALUE} 金币购买 {ITEM_NAME} 吗？" />
+      text="确定要花费 {COST} 金币购买 {NAME} 吗？" />
     <string
       id="ret_cancel"
       text="取消" />
@@ -1496,14 +1496,14 @@
       id="ret_sort_category"
       text="类别" />
     <string
-      id="ret_sort_cost"
-      text="成本" />
-    <string
       id="ret_sort_name"
       text="名称" />
     <string
       id="ret_sort_tier"
       text="等级" />
+    <string
+      id="ret_sort_value"
+      text="价值" />
     <string
       id="ret_stats_kills_deaths_summary"
       text="击杀了 {KILLS} 名敌人，遭受了 {DEATHS} 名伤亡。" />

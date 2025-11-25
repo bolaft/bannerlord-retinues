@@ -37,7 +37,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public readonly bool IsAvailable = isAvailable;
         public readonly bool IsUnlocked = isUnlocked;
         public readonly int Progress = progress;
-        public readonly int Cost = cost;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -62,7 +61,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(IsSelected));
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(ShowInStockText));
-            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(ShowCost));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
         }
 
@@ -83,7 +82,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(Stock));
             OnPropertyChanged(nameof(InStockText));
             OnPropertyChanged(nameof(ShowInStockText));
-            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(ShowCost));
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(IsDisabledText));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
@@ -106,7 +105,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(IsDisabledText));
             OnPropertyChanged(nameof(ShowInStockText));
-            OnPropertyChanged(nameof(ShowValue));
+            OnPropertyChanged(nameof(ShowCost));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
         }
 
@@ -145,7 +144,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /* ━━━━━━━━ Values ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int Value => Cost;
+        public int Cost => cost;
 
         [DataSourceProperty]
         public int Stock => RowItem?.GetStock() ?? 0;
@@ -213,7 +212,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             && RowItem?.IsStocked == true;
 
         [DataSourceProperty]
-        public bool ShowValue =>
+        public bool ShowCost =>
             !ClanScreen.IsStudioMode
             && Config.EquippingTroopsCostsGold
             && IsEnabled
@@ -221,7 +220,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             && !IsEquipped
             && !AvailableFromAnotherSet
             && !ShowInStockText
-            && Value > 0;
+            && Cost > 0;
 
         [DataSourceProperty]
         public override bool IsSelected => RowItem == Item;
@@ -602,12 +601,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 InformationManager.ShowInquiry(
                     new InquiryData(
                         L.S("buy_item", "Buy Item"),
-                        L.T(
-                                "buy_item_text",
-                                "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?"
-                            )
-                            .SetTextVariable("ITEM_NAME", RowItem.Name)
-                            .SetTextVariable("ITEM_VALUE", quote.GoldCost)
+                        L.T("buy_item_text", "Are you sure you want to buy {NAME} for {COST} gold?")
+                            .SetTextVariable("NAME", RowItem.Name)
+                            .SetTextVariable("COST", quote.GoldCost)
                             .ToString(),
                         true,
                         true,

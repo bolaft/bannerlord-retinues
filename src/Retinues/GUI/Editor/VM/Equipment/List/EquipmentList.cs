@@ -32,7 +32,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             Category,
             Name,
             Tier,
-            Cost,
+            Value,
         }
 
         private SortMode _sort = SortMode.Category;
@@ -60,6 +60,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             public string Name;
             public string Category;
             public int Tier;
+            public int Value;
             public int Cost;
             public int EnabledRank; // 0 if unlocked+available else 1
         }
@@ -466,6 +467,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         Name = item.Name ?? string.Empty,
                         Category = item.Class ?? string.Empty,
                         Tier = item.Tier,
+                        Value = item.Value,
                         Cost = EquipmentManager.GetItemCost(item),
                         EnabledRank = (isUnlocked && isAvailable) ? 0 : 1,
                     }
@@ -542,9 +544,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
                     }
 
-                    case SortMode.Cost:
+                    case SortMode.Value:
                     {
-                        int r = Primary(a.Cost.CompareTo(b.Cost));
+                        int r = Primary(a.Value.CompareTo(b.Value));
                         if (r != 0)
                             return r;
                         return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
@@ -633,8 +635,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(SortByCategoryState));
             OnPropertyChanged(nameof(SortByTierSelected));
             OnPropertyChanged(nameof(SortByTierState));
-            OnPropertyChanged(nameof(SortByCostSelected));
-            OnPropertyChanged(nameof(SortByCostState));
+            OnPropertyChanged(nameof(SortByValueSelected));
+            OnPropertyChanged(nameof(SortByValueState));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -658,7 +660,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public bool SortByTierSelected => _sort == SortMode.Tier;
 
         [DataSourceProperty]
-        public bool SortByCostSelected => _sort == SortMode.Cost;
+        public bool SortByValueSelected => _sort == SortMode.Value;
 
         [DataSourceProperty]
         public CampaignUIHelper.SortState SortByNameState =>
@@ -685,8 +687,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 : CampaignUIHelper.SortState.Default;
 
         [DataSourceProperty]
-        public CampaignUIHelper.SortState SortByCostState =>
-            _sort == SortMode.Cost
+        public CampaignUIHelper.SortState SortByValueState =>
+            _sort == SortMode.Value
                 ? _descending
                     ? CampaignUIHelper.SortState.Descending
                     : CampaignUIHelper.SortState.Ascending
@@ -702,7 +704,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public string SortByTierText => L.S("sort_tier", "Tier");
 
         [DataSourceProperty]
-        public string SortByCostText => L.S("sort_cost", "Cost");
+        public string SortByValueText => L.S("sort_value", "Value");
 
         /* ━━━━━━━ Truncated ━━━━━━ */
 
@@ -773,15 +775,15 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         }
 
         [DataSourceMethod]
-        public void ExecuteSortByCost()
+        public void ExecuteSortByValue()
         {
             EnsureSnapshotForCurrentSlot();
 
-            if (_sort == SortMode.Cost)
+            if (_sort == SortMode.Value)
                 _descending = !_descending;
             else
             {
-                _sort = SortMode.Cost;
+                _sort = SortMode.Value;
                 _descending = false;
             }
             RebuildVisibleFromSnapshot();

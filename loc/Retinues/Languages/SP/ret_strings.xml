@@ -168,7 +168,7 @@
       text="Comprar Objeto" />
     <string
       id="ret_buy_item_text"
-      text="¿Seguro que quieres comprar {ITEM_NAME} por {ITEM_VALUE} de oro?" />
+      text="¿Seguro que quieres comprar {NAME} por {COST} de oro?" />
     <string
       id="ret_cancel"
       text="Cancelar" />
@@ -1496,14 +1496,14 @@
       id="ret_sort_category"
       text="Categoría" />
     <string
-      id="ret_sort_cost"
-      text="Costo" />
-    <string
       id="ret_sort_name"
       text="Nombre" />
     <string
       id="ret_sort_tier"
       text="Nivel" />
+    <string
+      id="ret_sort_value"
+      text="Valor" />
     <string
       id="ret_stats_kills_deaths_summary"
       text="Mataste a {KILLS} enemigos y sufriste {DEATHS} bajas." />

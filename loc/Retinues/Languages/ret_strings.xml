@@ -168,7 +168,7 @@
       text="Buy Item" />
     <string
       id="ret_buy_item_text"
-      text="Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?" />
+      text="Are you sure you want to buy {NAME} for {COST} gold?" />
     <string
       id="ret_cancel"
       text="Cancel" />
@@ -1496,14 +1496,14 @@
       id="ret_sort_category"
       text="Category" />
     <string
-      id="ret_sort_cost"
-      text="Cost" />
-    <string
       id="ret_sort_name"
       text="Name" />
     <string
       id="ret_sort_tier"
       text="Tier" />
+    <string
+      id="ret_sort_value"
+      text="Value" />
     <string
       id="ret_stats_kills_deaths_summary"
       text="Killed {KILLS} enemies and suffered {DEATHS} casualties." />

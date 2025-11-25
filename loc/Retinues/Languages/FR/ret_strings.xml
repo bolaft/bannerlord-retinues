@@ -168,7 +168,7 @@
       text="Acheter" />
     <string
       id="ret_buy_item_text"
-      text="Es-tu sûr de vouloir acheter {ITEM_NAME} pour {ITEM_VALUE} pièces d’or ?" />
+      text="Es-tu sûr de vouloir acheter {NAME} pour {COST} pièces d’or ?" />
     <string
       id="ret_cancel"
       text="Annuler" />
@@ -1496,14 +1496,14 @@
       id="ret_sort_category"
       text="Catégorie" />
     <string
-      id="ret_sort_cost"
-      text="Coût" />
-    <string
       id="ret_sort_name"
       text="Nom" />
     <string
       id="ret_sort_tier"
       text="Rang" />
+    <string
+      id="ret_sort_value"
+      text="Valeur" />
     <string
       id="ret_stats_kills_deaths_summary"
       text="A tué {KILLS} ennemis et subi {DEATHS} pertes." />

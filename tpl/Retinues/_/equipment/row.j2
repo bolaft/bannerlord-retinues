@@ -49,21 +49,21 @@
     horizontal_alignment="Right"
 ) }}
 
-<!-- Value -->
+<!-- Cost -->
 {{ text.base(
-    text="@Value",
+    text="@Cost",
     is_int=True,
     brush="InventoryGoldFontBrush",
-    is_visible="@ShowValue",
+    is_visible="@ShowCost",
     horizontal_alignment="Right"
 ) }}
 
-<!-- Coin icon for the value -->
+<!-- Coin icon for the cost -->
 {{ image.sprite(
     sprite="General\Icons\Coin@2x",
     width="20", height="20",
     vertical_alignment="Center",
-    is_visible="@ShowValue",
+    is_visible="@ShowCost",
     horizontal_alignment="Right"
 ) }}
 

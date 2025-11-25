@@ -865,19 +865,19 @@
   },
   {
     "id": "ret_buy_item_text",
-    "EN": "Are you sure you want to buy {ITEM_NAME} for {ITEM_VALUE} gold?",
-    "BR": "Tem certeza de que deseja comprar {ITEM_NAME} por {ITEM_VALUE} de ouro?",
-    "CNs": "确定要花费 {ITEM_VALUE} 金币购买 {ITEM_NAME} 吗？",
-    "CNt": "確定要花費 {ITEM_VALUE} 金幣購買 {ITEM_NAME} 嗎？",
-    "DE": "Bist du sicher, dass du {ITEM_NAME} für {ITEM_VALUE} Gold kaufen willst?",
-    "FR": "Es-tu sûr de vouloir acheter {ITEM_NAME} pour {ITEM_VALUE} pièces d’or ?",
-    "IT": "Sei sicuro di voler comprare {ITEM_NAME} per {ITEM_VALUE} oro?",
-    "JP": "{ITEM_NAME} を {ITEM_VALUE} ゴールドで購入しますか？",
-    "KO": "{ITEM_NAME} 을(를) {ITEM_VALUE} 골드에 구매하시겠습니까?",
-    "PL": "Czy na pewno chcesz kupić {ITEM_NAME} za {ITEM_VALUE} złota?",
-    "RU": "Вы уверены, что хотите купить {ITEM_NAME} за {ITEM_VALUE} золота?",
-    "SP": "¿Seguro que quieres comprar {ITEM_NAME} por {ITEM_VALUE} de oro?",
-    "TR": "{ITEM_NAME} adlı eşyayı {ITEM_VALUE} altına satın almak istediğine emin misin?"
+    "EN": "Are you sure you want to buy {NAME} for {COST} gold?",
+    "BR": "Tem certeza de que deseja comprar {NAME} por {COST} de ouro?",
+    "CNs": "确定要花费 {COST} 金币购买 {NAME} 吗？",
+    "CNt": "確定要花費 {COST} 金幣購買 {NAME} 嗎？",
+    "DE": "Bist du sicher, dass du {NAME} für {COST} Gold kaufen willst?",
+    "FR": "Es-tu sûr de vouloir acheter {NAME} pour {COST} pièces d’or ?",
+    "IT": "Sei sicuro di voler comprare {NAME} per {COST} oro?",
+    "JP": "{NAME} を {COST} ゴールドで購入しますか？",
+    "KO": "{NAME} 을(를) {COST} 골드에 구매하시겠습니까?",
+    "PL": "Czy na pewno chcesz kupić {NAME} za {COST} złota?",
+    "RU": "Вы уверены, что хотите купить {NAME} за {COST} золота?",
+    "SP": "¿Seguro que quieres comprar {NAME} por {COST} de oro?",
+    "TR": "{NAME} adlı eşyayı {ITEM_VALUE} altına satın almak istediğine emin misin?"
   },
   {
     "id": "ret_cancel",
@@ -7952,22 +7952,6 @@
     "TR": "Kategori"
   },
   {
-    "id": "ret_sort_cost",
-    "EN": "Cost",
-    "BR": "Custo",
-    "CNs": "成本",
-    "CNt": "成本",
-    "DE": "Kosten",
-    "FR": "Coût",
-    "IT": "Costo",
-    "JP": "コスト",
-    "KO": "비용",
-    "PL": "Koszt",
-    "RU": "Стоимость",
-    "SP": "Costo",
-    "TR": "Maliyet"
-  },
-  {
     "id": "ret_sort_name",
     "EN": "Name",
     "BR": "Nome",
@@ -7998,6 +7982,22 @@
     "RU": "Уровень",
     "SP": "Nivel",
     "TR": "Seviye"
+  },
+  {
+    "id": "ret_sort_value",
+    "EN": "Value",
+    "BR": "Valor",
+    "CNs": "价值",
+    "CNt": "價值",
+    "DE": "Wert",
+    "FR": "Valeur",
+    "IT": "Valore",
+    "JP": "価値",
+    "KO": "가치",
+    "PL": "Wartość",
+    "RU": "Стоимость",
+    "SP": "Valor",
+    "TR": "Değer"
   },
   {
     "id": "ret_stats_kills_deaths_summary",
