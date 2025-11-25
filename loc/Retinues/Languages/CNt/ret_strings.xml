@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="披風" />
     <string
+      id="ret_captain_header_text"
+      text="隊長" />
+    <string
+      id="ret_captain_mode_button"
+      text="隊長模式" />
+    <string
+      id="ret_captain_name"
+      text="{NAME} 隊長" />
+    <string
+      id="ret_captain_text_1"
+      text="{TROOP} 隊長。" />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="已禁用：該部隊不會出現隊長。" />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="已啟用：在十五個部隊中，有一個將是隊長。" />
+    <string
       id="ret_change_culture_title"
       text="更改文化" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="自定義部隊已解鎖" />
     <string
+      id="ret_disable_captain_button_text"
+      text="禁用隊長" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="為該部隊禁用隊長模式。" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="英雄與已保存的世界狀態相關聯。" />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="空" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="啟用隊長" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="為該部隊啟用隊長模式。" />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="在全局編輯器中打開。" />
@@ -1582,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="轉移" />
+    <string
+      id="ret_troop"
+      text="部隊" />
     <string
       id="ret_troop_editor_button"
       text="部隊編輯器" />

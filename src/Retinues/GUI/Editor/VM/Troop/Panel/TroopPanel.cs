@@ -62,9 +62,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(GenderText),
                     nameof(TierText),
                     nameof(SkillsHeaderText),
-                    nameof(IsCaptain),
-                    nameof(CaptainText1),
-                    nameof(CaptainText2),
                     nameof(CanRankUp),
                     nameof(CanAddUpgrade),
                     nameof(AddUpgradeHint),
@@ -91,6 +88,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(FormationClassText),
                     nameof(IsHero),
                     nameof(Traits),
+                    nameof(IsCaptain),
+                    nameof(CaptainIsEnabled),
+                    nameof(CaptainText1),
+                    nameof(CaptainText2),
                 ],
                 [UIEvent.Train] =
                 [
@@ -260,16 +261,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string CultureText => State.Troop?.Culture?.Name ?? L.S("unknown", "Unknown");
 
         [DataSourceProperty]
-        public string CaptainText1 =>
-            L.T("captain_text_1", "{TROOP} captain:")
-                .SetTextVariable("TROOP", State.Troop?.BaseTroop?.Name ?? L.S("troop", "troop"))
-                .ToString();
-
-        [DataSourceProperty]
-        public string CaptainText2 =>
-            L.S("captain_text_2", "out of fifteen troops, one will spawn as captain.");
-
-        [DataSourceProperty]
         public string RaceText => GetRaceName(State.Troop?.Race ?? -1) ?? L.S("unknown", "Unknown");
 
         [DataSourceProperty]
@@ -299,9 +290,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 return $"{L.S("tier", "Tier")} {roman}";
             }
         }
-
-        [DataSourceProperty]
-        public bool IsCaptain => State.Troop?.IsCaptain == true;
 
         /* ━━━━━━━━ Rank Up ━━━━━━━ */
 
@@ -464,6 +452,31 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceProperty]
         public BasicTooltipViewModel FormationClassHint =>
             Tooltip.MakeTooltip(null, L.S("formation_class_hint", "Change Formation Class"));
+
+        /* ━━━━━━━ Captains ━━━━━━━ */
+        [DataSourceProperty]
+        public bool IsCaptain => State.Troop?.IsCaptain == true;
+
+        [DataSourceProperty]
+        public bool CaptainIsEnabled => IsCaptain && State.Troop.BaseTroop?.CaptainEnabled == true;
+
+        [DataSourceProperty]
+        public string CaptainText1 =>
+            L.T("captain_text_1", "{TROOP} captain.")
+                .SetTextVariable("TROOP", State.Troop?.BaseTroop?.Name ?? L.S("troop", "troop"))
+                .ToString();
+
+        [DataSourceProperty]
+        public string CaptainText2 =>
+            CaptainIsEnabled
+                ? L.S(
+                    "captain_text_2_enabled",
+                    "Enabled: out of fifteen troops, one will be a captain."
+                )
+                : L.S(
+                    "captain_text_2_disabled",
+                    "Disabled: no captains will appear for this troop."
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //

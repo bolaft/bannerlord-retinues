@@ -49,6 +49,10 @@ namespace Retinues.GUI.Editor.VM.Troop
                     nameof(RetinueJoinText),
                     nameof(CountInParty),
                     nameof(GenderIcon),
+                    nameof(CaptainIsEnabled),
+                    nameof(EnableCaptainButtonText),
+                    nameof(EnableCaptainButtonBrush),
+                    nameof(ShowEnableCaptainToggle),
                 ],
                 [UIEvent.Party] = [nameof(RetinueJoinText), nameof(CountInParty)],
                 [UIEvent.Appearance] = [nameof(GenderIcon)],
@@ -86,6 +90,10 @@ namespace Retinues.GUI.Editor.VM.Troop
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
+        public bool CaptainIsEnabled =>
+            State.Troop.IsCaptain && State.Troop.BaseTroop?.CaptainEnabled == true;
+
+        [DataSourceProperty]
         public bool RemoveTroopButtonIsVisible
         {
             get
@@ -118,6 +126,9 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public bool ShowHeroAppearanceButton => State.Troop is WHero && IsVisible;
+
+        [DataSourceProperty]
+        public bool ShowEnableCaptainToggle => State.Troop?.IsCaptain == true && IsVisible;
 
         /* ━━━━━━━━━ Texts ━━━━━━━━ */
 
@@ -152,6 +163,18 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public string HeroAppearanceButtonText => L.S("hero_appearance_button_text", "Appearance");
+
+        [DataSourceProperty]
+        public string EnableCaptainButtonText =>
+            CaptainIsEnabled
+                ? L.S("disable_captain_button_text", "Disable Captain")
+                : L.S("enable_captain_button_text", "Enable Captain");
+
+        /* ━━━━ Icons & Brushes ━━━ */
+
+        [DataSourceProperty]
+        public string EnableCaptainButtonBrush =>
+            CaptainIsEnabled ? "Popup.Delete.Button" : "Popup.Done.Button";
 
         [DataSourceProperty]
         public string GenderIcon =>
@@ -279,6 +302,19 @@ namespace Retinues.GUI.Editor.VM.Troop
             OnPropertyChanged(nameof(CanRaiseRetinueCap));
             OnPropertyChanged(nameof(CanLowerRetinueCap));
             OnPropertyChanged(nameof(RetinueJoinText));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteToggleCaptainEnabled()
+        {
+            if (State.Troop?.BaseTroop == null || !State.Troop.IsCaptain)
+                return;
+
+            var owner = State.Troop.BaseTroop;
+            owner.CaptainEnabled = !owner.CaptainEnabled;
+
+            // Refresh UI
+            State.UpdateTroop(State.Troop);
         }
 
         /// <summary>

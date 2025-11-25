@@ -45,7 +45,7 @@ namespace Retinues.Features.Agents.Patches
                 if (!modeWhiteList.Contains(mission.Mode))
                     return; // Only affect allowed missions
 
-                // Try to ensure we are not in a tournament or arena battle
+                // Try to ensure not a tournament or arena battle
                 foreach (var behavior in mission.MissionBehaviors)
                 {
                     if (behavior is TournamentBehavior)
@@ -55,10 +55,6 @@ namespace Retinues.Features.Agents.Patches
                     if (name.Contains("tournament") || name.Contains("arena"))
                         return;
                 }
-
-                Log.Info(
-                    $"[Retinues|Agents] SpawnAgent: customizing spawn for {troop.StringId} ({troop.Name})"
-                );
 
                 // Choose the equipment set
                 WEquipment chosenSet = null;

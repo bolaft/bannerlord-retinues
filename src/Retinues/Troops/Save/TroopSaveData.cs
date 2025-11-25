@@ -62,6 +62,9 @@ namespace Retinues.Troops.Save
         [SaveableField(14)]
         public bool IsCaptain;
 
+        [SaveableField(15)]
+        public bool CaptainEnabled = false;
+
         public TroopSaveData()
         {
             // Default constructor for deserialization
@@ -85,6 +88,7 @@ namespace Retinues.Troops.Save
             Race = troop.Race;
             FormationClassOverride = troop.FormationClassOverride;
             IsCaptain = troop.IsCaptain;
+            CaptainEnabled = troop.CaptainEnabled;
 
             // For captains, Captain will stay null to avoid recursion.
             if (!troop.IsCaptain && troop.Captain != null)
@@ -252,6 +256,9 @@ namespace Retinues.Troops.Save
 
             // Fix face tags
             BodyHelper.ApplyTagsFromCulture(troop);
+
+            // Captain spawn toggle (default false)
+            troop.CaptainEnabled = CaptainEnabled;
 
             // Rebuild captain if present in save data (and this troop is not itself a captain)
             try

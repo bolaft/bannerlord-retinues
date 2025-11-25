@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="Pelerin" />
     <string
+      id="ret_captain_header_text"
+      text="Kaptan" />
+    <string
+      id="ret_captain_mode_button"
+      text="Kaptan Modu" />
+    <string
+      id="ret_captain_name"
+      text="{NAME} Kaptan" />
+    <string
+      id="ret_captain_text_1"
+      text="{TROOP} Kaptanı." />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="Devre dışı: bu asker için kaptan görünmeyecek." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="Etkin: on beş askerden biri kaptan olacak." />
+    <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Özel Askerler Kilidi Açıldı" />
     <string
+      id="ret_disable_captain_button_text"
+      text="Kaptanı Devre Dışı Bırak" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="Bu asker için Kaptan Modunu devre dışı bırak." />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Kahramanlar kaydedilmiş dünya durumuna bağlıdır." />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="Boş" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="Kaptanı Etkinleştir" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="Bu asker için Kaptan Modunu etkinleştir." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="Küresel düzenleyicide açın." />
@@ -1582,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="Aktar" />
+    <string
+      id="ret_troop"
+      text="asker" />
     <string
       id="ret_troop_editor_button"
       text="Asker Düzenleyici" />

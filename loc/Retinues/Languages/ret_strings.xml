@@ -195,10 +195,13 @@
       text="{NAME} Captain" />
     <string
       id="ret_captain_text_1"
-      text="{TROOP} captain:" />
+      text="{TROOP} captain." />
     <string
-      id="ret_captain_text_2"
-      text="out of fifteen troops, one will spawn as captain." />
+      id="ret_captain_text_2_disabled"
+      text="Disabled: no captains will appear for this troop." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="Enabled: out of fifteen troops, one will be a captain." />
     <string
       id="ret_change_culture_title"
       text="Change Culture" />
@@ -329,6 +332,9 @@
       id="ret_custom_troops_inquiry_title"
       text="Custom Troops Unlocked" />
     <string
+      id="ret_disable_captain_button_text"
+      text="Disable Captain" />
+    <string
       id="ret_disable_captain_mode_tooltip_text"
       text="Disable Captain Mode for this troop." />
     <string
@@ -379,6 +385,9 @@
     <string
       id="ret_empty_set"
       text="Empty" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="Enable Captain" />
     <string
       id="ret_enable_captain_mode_tooltip_text"
       text="Enable Captain Mode for this troop." />

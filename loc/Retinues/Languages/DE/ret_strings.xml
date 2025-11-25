@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="Umhang" />
     <string
+      id="ret_captain_header_text"
+      text="Hauptmann" />
+    <string
+      id="ret_captain_mode_button"
+      text="Hauptmann-Modus" />
+    <string
+      id="ret_captain_name"
+      text="{NAME} Hauptmann" />
+    <string
+      id="ret_captain_text_1"
+      text="{TROOP} Hauptmann." />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="Deaktiviert: Für diese Truppe werden keine Hauptmänner erscheinen." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="Aktiviert: Von fünfzehn Truppen wird eine ein Hauptmann sein." />
+    <string
       id="ret_change_culture_title"
       text="Kultur ändern" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Benutzerdefinierte Truppen freigeschaltet" />
     <string
+      id="ret_disable_captain_button_text"
+      text="Hauptmann deaktivieren" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="Deaktiviere den Hauptmann-Modus für diese Truppe." />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Helden sind an den gespeicherten Weltzustand gebunden." />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="Leer" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="Hauptmann aktivieren" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="Aktiviere den Hauptmann-Modus für diese Truppe." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="Im globalen Editor öffnen." />
@@ -1582,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="Übertragen" />
+    <string
+      id="ret_troop"
+      text="Truppe" />
     <string
       id="ret_troop_editor_button"
       text="Truppen-Editor" />

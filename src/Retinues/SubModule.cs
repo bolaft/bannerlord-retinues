@@ -426,6 +426,9 @@ namespace Retinues
             // Clear upgrade map
             WCharacter.UpgradeMap.Clear();
 
+            // Clear captain caches
+            WCharacter.ClearCaptainCaches();
+
             // Clear edited vanilla roots
             WCharacter.EditedVanillaRootIds.Clear();
 

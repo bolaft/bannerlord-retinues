@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="망토" />
     <string
+      id="ret_captain_header_text"
+      text="대장" />
+    <string
+      id="ret_captain_mode_button"
+      text="대장 모드" />
+    <string
+      id="ret_captain_name"
+      text="{NAME} 대장" />
+    <string
+      id="ret_captain_text_1"
+      text="{TROOP} 대장." />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="비활성화됨: 이 병력에는 대장이 나타나지 않습니다." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="활성화됨: 15개 병력 중 하나가 대장이 될 것입니다." />
+    <string
       id="ret_change_culture_title"
       text="문화 변경" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="사용자 지정 부대 잠금 해제" />
     <string
+      id="ret_disable_captain_button_text"
+      text="대장 비활성화" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="이 부대에 대한 대장 모드를 비활성화합니다." />
+    <string
       id="ret_disabled_in_hero_editor"
       text="영웅은 저장된 세계 상태에 연결되어 있습니다." />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="비어 있음" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="대장 활성화" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="이 부대에 대한 대장 모드를 활성화합니다." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="글로벌 편집기에서 열기." />
@@ -1582,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="이동" />
+    <string
+      id="ret_troop"
+      text="병력" />
     <string
       id="ret_troop_editor_button"
       text="병력 편집기" />

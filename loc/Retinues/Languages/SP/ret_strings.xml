@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="Capa" />
     <string
+      id="ret_captain_header_text"
+      text="Capitán" />
+    <string
+      id="ret_captain_mode_button"
+      text="Modo Capitán" />
+    <string
+      id="ret_captain_name"
+      text="Capitán {NAME}" />
+    <string
+      id="ret_captain_text_1"
+      text="Capitán de {TROOP}." />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="Deshabilitado: no aparecerán capitanes para esta tropa." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="Habilitado: de quince tropas, una será un capitán." />
+    <string
       id="ret_change_culture_title"
       text="Cambiar Cultura" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Tropas Personalizadas Desbloqueadas" />
     <string
+      id="ret_disable_captain_button_text"
+      text="Deshabilitar Capitán" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="Deshabilitar el Modo Capitán para esta tropa." />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Los héroes están vinculados al estado guardado del mundo." />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="Vacío" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="Habilitar Capitán" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="Habilitar el Modo Capitán para esta tropa." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="Abrir en el editor global." />
@@ -1582,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="Transferir" />
+    <string
+      id="ret_troop"
+      text="tropa" />
     <string
       id="ret_troop_editor_button"
       text="Editor de Tropas" />
