@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Mods.Shokuho;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
@@ -24,6 +25,7 @@ namespace Retinues.Mods
         public static bool Tier7Unlocked => IsLoaded("T7TroopUnlocker");
         public static bool SkipItemCultureChecks => IsLoaded("Shokuho", "AD1259");
         public static bool ImprovedGarrisonsHint => IsLoaded("ImprovedGarrisons");
+        public static bool PatchShokuhoEquipment => IsLoaded("Shokuho");
 
         /// <summary>
         /// Adds mod-specific behaviors to the campaign starter if compatible mods are detected.
@@ -31,6 +33,15 @@ namespace Retinues.Mods
         public static void AddBehaviors(CampaignGameStarter cs)
         {
             // Add mod specific behaviors here
+        }
+
+        /// <summary>
+        /// Adds Harmony patches for compatible mods.
+        /// </summary>
+        public static void AddPatches(HarmonyLib.Harmony harmony)
+        {
+            if (PatchShokuhoEquipment)
+                ShokuhoEquipmentPatcher.TryPatch(harmony);
         }
 
         /// <summary>
