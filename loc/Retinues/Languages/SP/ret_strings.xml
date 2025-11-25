@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Las tropas de nivel 1 no pueden tener monturas." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="Multiplicador de Costo de Oro de Doctrinas" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="Multiplicador para los costos de oro de las doctrinas." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Multiplicador de Costo de Influencia de Doctrinas" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplicador para los costos de influencia de las doctrinas." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="Habilitar Doctrinas" />
     <string

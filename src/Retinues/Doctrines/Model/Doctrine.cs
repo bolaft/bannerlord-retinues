@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Retinues.Configuration;
 using TaleWorlds.Localization;
 
 namespace Retinues.Doctrines.Model
@@ -24,7 +25,7 @@ namespace Retinues.Doctrines.Model
         {
             get
             {
-                return Row switch
+                int baseCost = Row switch
                 {
                     0 => 1000,
                     1 => 5000,
@@ -32,6 +33,8 @@ namespace Retinues.Doctrines.Model
                     3 => 100000,
                     _ => 0,
                 };
+
+                return (int)(baseCost * Config.DoctrineGoldCostMultiplier);
             }
         }
 
@@ -39,7 +42,7 @@ namespace Retinues.Doctrines.Model
         {
             get
             {
-                return Row switch
+                int baseCost = Row switch
                 {
                     0 => 50,
                     1 => 100,
@@ -47,6 +50,8 @@ namespace Retinues.Doctrines.Model
                     3 => 500,
                     _ => 0,
                 };
+
+                return (int)(baseCost * Config.DoctrineInfluenceCostMultiplier);
             }
         }
 

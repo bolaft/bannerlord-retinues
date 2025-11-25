@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="1단계 병력은 탈것을 가질 수 없습니다." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="교리 골드 비용 승수" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="교리 골드 비용에 대한 승수." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="교리 영향력 비용 승수" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="교리 영향력 비용에 대한 승수." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="교리 활성화" />
     <string

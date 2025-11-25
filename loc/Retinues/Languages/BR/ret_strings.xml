@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Tropas de Nível 1 não podem ter montarias." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="Multiplicador de Custo de Ouro da Doutrina" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="Multiplicador para custos de ouro de doutrinas." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Multiplicador de Custo de Influência da Doutrina" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplicador para custos de influência de doutrinas." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="Ativar Doutrinas (Instável)" />
     <string

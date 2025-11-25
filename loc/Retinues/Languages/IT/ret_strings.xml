@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Le truppe di livello 1 non possono avere cavalcature." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="Moltiplicatore del Costo in Oro delle Dottrine" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="Moltiplicatore per i costi in oro delle dottrine." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Moltiplicatore del Costo in Influenza delle Dottrine" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Moltiplicatore per i costi in influenza delle dottrine." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="Abilita Dottrine" />
     <string

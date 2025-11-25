@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Seviye 1 askerler binek kullanamaz." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="Doktrin Altın Maliyet Çarpanı" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="Doktrin altın maliyetleri için çarpan." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Doktrin Etki Maliyet Çarpanı" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Doktrin etki maliyetleri için çarpan." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="Doktrinleri Etkinleştir" />
     <string

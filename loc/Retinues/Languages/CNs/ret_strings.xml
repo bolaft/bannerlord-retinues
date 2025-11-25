@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="一级部队不能使用坐骑。" />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="教义金币成本乘数" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="教义金币成本的乘数。" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="教义影响力成本乘数" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="教义影响力成本的乘数。" />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="启用教义" />
     <string

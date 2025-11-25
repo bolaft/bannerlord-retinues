@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="レベル1の部隊は騎乗できません。" />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="ドクトリンのゴールドコスト乗数" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="ドクトリンのゴールドコストの乗数。" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="ドクトリンの影響力コスト乗数" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="ドクトリンの影響力コストの乗数。" />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="ドクトリンを有効化" />
     <string

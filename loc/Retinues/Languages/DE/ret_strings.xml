@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Stufe-1-Truppen können keine Reittiere haben." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="Goldkosten-Multiplikator für Doktrinen" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="Multiplikator für Goldkosten von Doktrinen." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Einflusskosten-Multiplikator für Doktrinen" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplikator für Einflusskosten von Doktrinen." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="Doktrinen aktivieren" />
     <string

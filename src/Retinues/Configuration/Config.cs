@@ -479,6 +479,49 @@ namespace Retinues.Configuration
             requiresRestart: true
         );
 
+        public static readonly Option<float> DoctrineGoldCostMultiplier = CreateOption(
+            section: () => L.S("mcm_section_doctrines", "Doctrines"),
+            name: () =>
+                L.S("mcm_option_doctrine_gold_cost_multiplier", "Doctrine Gold Cost Multiplier"),
+            key: "DoctrineGoldCostMultiplier",
+            hint: () =>
+                L.S(
+                    "mcm_option_doctrine_gold_cost_multiplier_hint",
+                    "Multiplier for doctrine gold costs."
+                ),
+            @default: 1.0f,
+            minValue: 0,
+            maxValue: 5,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 0.0f,
+                [Presets.Realistic] = 1.0f,
+            }
+        );
+
+        public static readonly Option<float> DoctrineInfluenceCostMultiplier = CreateOption(
+            section: () => L.S("mcm_section_doctrines", "Doctrines"),
+            name: () =>
+                L.S(
+                    "mcm_option_doctrine_influence_cost_multiplier",
+                    "Doctrine Influence Cost Multiplier"
+                ),
+            key: "DoctrineInfluenceCostMultiplier",
+            hint: () =>
+                L.S(
+                    "mcm_option_doctrine_influence_cost_multiplier_hint",
+                    "Multiplier for doctrine influence costs."
+                ),
+            @default: 1.0f,
+            minValue: 0,
+            maxValue: 5,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 0.0f,
+                [Presets.Realistic] = 1.0f,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Equipment
         // ─────────────────────────────────────────────────────

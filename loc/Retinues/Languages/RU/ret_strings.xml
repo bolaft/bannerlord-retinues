@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Войска 1 уровня не могут иметь вьючных животных." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="Множитель Золотой Стоимости Доктрин" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="Множитель для золотых затрат на доктрины." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Множитель Стоимости Влияния Доктрин" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Множитель для затрат влияния на доктрины." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="Включить Доктрины" />
     <string

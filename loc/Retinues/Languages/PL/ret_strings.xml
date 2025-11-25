@@ -815,6 +815,18 @@
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
       text="Jednostki poziomu 1 nie mogą mieć wierzchowców." />
     <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier"
+      text="Mnożnik Kosztów Złota Doktryn" />
+    <string
+      id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
+      text="Mnożnik kosztów złota doktryn." />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Mnożnik Kosztów Wpływu Doktryn" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Mnożnik kosztów wpływu doktryn." />
+    <string
       id="ret_mcm_option_enable_doctrines"
       text="Włącz Doktryny" />
     <string
