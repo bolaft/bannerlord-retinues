@@ -141,7 +141,7 @@
       text="Compra Oggetto" />
     <string
       id="ret_buy_item_text"
-      text="Sei sicuro di voler comprare {ITEM_NAME} per {ITEM_VALUE} oro?" />
+      text="Sei sicuro di voler comprare {NAME} per {COST} oro?" />
     <string
       id="ret_cancel"
       text="Annulla" />
@@ -1415,14 +1415,14 @@
       id="ret_sort_category"
       text="Categoria" />
     <string
-      id="ret_sort_cost"
-      text="Costo" />
-    <string
       id="ret_sort_name"
       text="Nome" />
     <string
       id="ret_sort_tier"
       text="Livello" />
+    <string
+      id="ret_sort_value"
+      text="Valore" />
     <string
       id="ret_steadfast_soldiers"
       text="Soldati Saldi" />

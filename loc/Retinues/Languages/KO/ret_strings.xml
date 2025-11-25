@@ -141,7 +141,7 @@
       text="아이템 구매" />
     <string
       id="ret_buy_item_text"
-      text="{ITEM_NAME} 을(를) {ITEM_VALUE} 골드에 구매하시겠습니까?" />
+      text="{NAME} 을(를) {COST} 골드에 구매하시겠습니까?" />
     <string
       id="ret_cancel"
       text="취소" />
@@ -1415,14 +1415,14 @@
       id="ret_sort_category"
       text="카테고리" />
     <string
-      id="ret_sort_cost"
-      text="비용" />
-    <string
       id="ret_sort_name"
       text="이름" />
     <string
       id="ret_sort_tier"
       text="등급" />
+    <string
+      id="ret_sort_value"
+      text="가치" />
     <string
       id="ret_steadfast_soldiers"
       text="굳건한 병사" />

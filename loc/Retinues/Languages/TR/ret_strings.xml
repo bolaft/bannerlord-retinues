@@ -141,7 +141,7 @@
       text="Eşya Satın Al" />
     <string
       id="ret_buy_item_text"
-      text="{ITEM_NAME} adlı eşyayı {ITEM_VALUE} altına satın almak istediğine emin misin?" />
+      text="{NAME} adlı eşyayı {ITEM_VALUE} altına satın almak istediğine emin misin?" />
     <string
       id="ret_cancel"
       text="İptal" />
@@ -1415,14 +1415,14 @@
       id="ret_sort_category"
       text="Kategori" />
     <string
-      id="ret_sort_cost"
-      text="Maliyet" />
-    <string
       id="ret_sort_name"
       text="İsim" />
     <string
       id="ret_sort_tier"
       text="Seviye" />
+    <string
+      id="ret_sort_value"
+      text="Değer" />
     <string
       id="ret_steadfast_soldiers"
       text="Sarsılmaz Askerler" />

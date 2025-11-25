@@ -141,7 +141,7 @@
       text="アイテムを購入" />
     <string
       id="ret_buy_item_text"
-      text="{ITEM_NAME} を {ITEM_VALUE} ゴールドで購入しますか？" />
+      text="{NAME} を {COST} ゴールドで購入しますか？" />
     <string
       id="ret_cancel"
       text="キャンセル" />
@@ -1415,14 +1415,14 @@
       id="ret_sort_category"
       text="カテゴリー" />
     <string
-      id="ret_sort_cost"
-      text="コスト" />
-    <string
       id="ret_sort_name"
       text="名前" />
     <string
       id="ret_sort_tier"
       text="等級" />
+    <string
+      id="ret_sort_value"
+      text="価値" />
     <string
       id="ret_steadfast_soldiers"
       text="不動の兵士" />
