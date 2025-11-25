@@ -335,7 +335,7 @@ namespace Retinues.GUI.Editor
             var data = new Dictionary<WCharacter, int>();
 
             foreach (var element in Player.Party.MemberRoster.Elements)
-                data[element.Troop] = element.Number + element.WoundedNumber;
+                data[element.Troop] = element.Number;
 
             return data;
         }
