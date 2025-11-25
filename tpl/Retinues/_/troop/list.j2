@@ -17,6 +17,14 @@
 
     <!-- List Panel -->
     {% call list.panel("{TroopList}", "TroopList") %}
+    
+        <!-- Hero Header -->
+        {{ list.header_toggle("TroopList", "Hero", "@HeroToggleText", is_visible="@ShowHeroesList") }}
+
+        <!-- Hero List -->
+        {% call list.rows("{Heroes}", "Hero") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
 
         <!-- Retinue Header -->
         {{ list.header_toggle("TroopList", "Retinue", "@RetinueToggleText", is_visible="@ShowRetinueList") }}
@@ -87,14 +95,6 @@
 
         <!-- Civilian List -->
         {% call list.rows("{CivilianTroops}", "Civilian") %}
-            {% include "_/troop/row.j2" %}
-        {% endcall %}
-    
-        <!-- Hero Header -->
-        {{ list.header_toggle("TroopList", "Hero", "@HeroToggleText", is_visible="@ShowHeroesList") }}
-
-        <!-- Hero List -->
-        {% call list.rows("{Heroes}", "Hero") %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 

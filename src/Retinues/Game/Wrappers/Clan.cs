@@ -73,8 +73,24 @@ namespace Retinues.Game.Wrappers
 #endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Troop Lists                      //
+        //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override WCharacter RootBasic
+        {
+            get
+            {
+                var co = Base.BasicTroop;
+
+                if (co.StringId == Culture.RootBasic.StringId)
+                    return null;
+
+                if (co == null)
+                    return null;
+
+                return new WCharacter(co);
+            }
+        }
 
         public override List<WHero> Heroes
         {
