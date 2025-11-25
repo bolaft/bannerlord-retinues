@@ -94,7 +94,22 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public bool IsTroop => RowTroop != null;
 
         [DataSourceProperty]
-        public override bool IsSelected => RowTroop == State.Troop;
+        public override bool IsSelected
+        {
+            get
+            {
+                var current = State.Troop;
+                if (RowTroop == null || current == null)
+                    return false;
+
+                // When editing a captain, keep the base troop row selected.
+                if (current.IsCaptain && current.BaseTroop != null)
+                    return RowTroop == current.BaseTroop;
+
+                // Normal case: row matches current troop.
+                return RowTroop == current;
+            }
+        }
 
         [DataSourceProperty]
         public override bool IsEnabled => RowTroop != null;

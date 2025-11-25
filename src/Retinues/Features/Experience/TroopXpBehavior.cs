@@ -204,8 +204,13 @@ namespace Retinues.Features.Experience
 
         internal static bool SharedPool => Config.SharedXpPool;
 
-        internal static string PoolKey(WCharacter troop) =>
-            SharedPool ? "_shared" : troop?.StringId;
+        internal static string PoolKey(WCharacter troop)
+        {
+            if (troop?.IsCaptain == true && troop.BaseTroop != null)
+                troop = troop.BaseTroop; // Use base troop for captains
+
+            return SharedPool ? "_shared" : troop?.StringId;
+        }
 
         internal int GetPool(string key) =>
             (key != null && _xpPools.TryGetValue(key, out var v)) ? v : 0;

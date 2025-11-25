@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="Плащ" />
     <string
+      id="ret_captain_header_text"
+      text="Капитан" />
+    <string
+      id="ret_captain_mode_button"
+      text="Режим Капитана" />
+    <string
+      id="ret_captain_name"
+      text="Капитан {NAME}" />
+    <string
+      id="ret_captain_text_1"
+      text="Капитан {TROOP}." />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="Отключено: для этой войсковой единицы не появятся капитаны." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="Включено: из пятнадцати войск одна будет капитаном." />
+    <string
       id="ret_change_culture_title"
       text="Сменить Культуру" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Пользовательские войска разблокированы" />
     <string
+      id="ret_disable_captain_button_text"
+      text="Отключить Капитана" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="Отключить режим капитана для этой войсковой единицы." />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Герои привязаны к сохранённому состоянию мира." />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="Пусто" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="Включить Капитана" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="Включить режим капитана для этой войсковой единицы." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="Открыть в глобальном редакторе." />
@@ -1319,9 +1349,6 @@
       id="ret_queen_guard"
       text="Гвардия Королевы" />
     <string
-      id="ret_race_header_text"
-      text="Раса" />
-    <string
       id="ret_rank_up"
       text="Повышение" />
     <string
@@ -1585,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="Передать" />
+    <string
+      id="ret_troop"
+      text="войско" />
     <string
       id="ret_troop_editor_button"
       text="Редактор Войск" />

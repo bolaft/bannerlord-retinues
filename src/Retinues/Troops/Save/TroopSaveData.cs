@@ -56,6 +56,15 @@ namespace Retinues.Troops.Save
         [SaveableField(12)]
         public FormationClass FormationClassOverride = FormationClass.Unset;
 
+        [SaveableField(13)]
+        public TroopSaveData Captain;
+
+        [SaveableField(14)]
+        public bool IsCaptain;
+
+        [SaveableField(15)]
+        public bool CaptainEnabled = false;
+
         public TroopSaveData()
         {
             // Default constructor for deserialization
@@ -78,6 +87,12 @@ namespace Retinues.Troops.Save
             BodyData = Config.EnableTroopCustomization ? new TroopBodySaveData(troop.Body) : null;
             Race = troop.Race;
             FormationClassOverride = troop.FormationClassOverride;
+            IsCaptain = troop.IsCaptain;
+            CaptainEnabled = troop.CaptainEnabled;
+
+            // For captains, Captain will stay null to avoid recursion.
+            if (!troop.IsCaptain && troop.Captain != null)
+                Captain = new TroopSaveData(troop.Captain);
         }
 
         /// <summary>
@@ -241,6 +256,36 @@ namespace Retinues.Troops.Save
 
             // Fix face tags
             BodyHelper.ApplyTagsFromCulture(troop);
+
+            // Captain spawn toggle (default false)
+            troop.CaptainEnabled = CaptainEnabled;
+
+            // Rebuild captain if present in save data (and this troop is not itself a captain)
+            try
+            {
+                if (!IsCaptain && Captain != null)
+                {
+                    // Deserialize captain as a standalone custom troop
+                    var captain = Captain.Deserialize();
+
+                    if (captain != null)
+                    {
+                        // Share faction and transfer flags
+                        if (troop.Faction != null)
+                            captain.Faction = troop.Faction;
+
+                        if (troop.IsRetinue)
+                            captain.IsNotTransferableInPartyScreen = true;
+
+                        // Bind relationship (sets IsCaptain, BaseTroop, ActiveStubIds, flags)
+                        troop.BindCaptain(captain);
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                Log.Exception(e);
+            }
 
             // Return the created troop
             return troop;

@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="Cape" />
     <string
+      id="ret_captain_header_text"
+      text="Capitaine" />
+    <string
+      id="ret_captain_mode_button"
+      text="Mode Capitaine" />
+    <string
+      id="ret_captain_name"
+      text="Capitaine {NAME}" />
+    <string
+      id="ret_captain_text_1"
+      text="Capitaine de {TROOP}." />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="Désactivé : aucun capitaine n’apparaîtra pour cette troupe." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="Activé : sur quinze soldats, un sera un capitaine." />
+    <string
       id="ret_change_culture_title"
       text="Changer de Culture" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Troupes Personnalisées Débloquées" />
     <string
+      id="ret_disable_captain_button_text"
+      text="Désactiver le Capitaine" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="Désactive le mode Capitaine pour cette troupe." />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Les héros sont liés à l’état du monde sauvegardé." />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="Vide" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="Activer le Capitaine" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="Active le mode Capitaine pour cette troupe." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="Ouvrir dans l’éditeur global." />
@@ -1319,9 +1349,6 @@
       id="ret_queen_guard"
       text="Garde de la Reine" />
     <string
-      id="ret_race_header_text"
-      text="Race" />
-    <string
       id="ret_rank_up"
       text="Promotion" />
     <string
@@ -1585,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="Transférer" />
+    <string
+      id="ret_troop"
+      text="troupe" />
     <string
       id="ret_troop_editor_button"
       text="Éditeur de Troupes" />

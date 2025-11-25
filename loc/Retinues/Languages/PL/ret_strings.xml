@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="Płaszcz" />
     <string
+      id="ret_captain_header_text"
+      text="Kapitan" />
+    <string
+      id="ret_captain_mode_button"
+      text="Tryb Kapitana" />
+    <string
+      id="ret_captain_name"
+      text="Kapitan {NAME}" />
+    <string
+      id="ret_captain_text_1"
+      text="Kapitan {TROOP}." />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="Wyłączone: dla tej jednostki nie pojawią się kapitanowie." />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="Włączone: na piętnaście jednostek jedna będzie kapitanem." />
+    <string
       id="ret_change_culture_title"
       text="Zmień Kulturę" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="Niestandardowe Oddziały Odblokowane" />
     <string
+      id="ret_disable_captain_button_text"
+      text="Wyłącz Kapitana" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="Wyłącz tryb kapitana dla tego oddziału." />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Bohaterowie są powiązani z zapisanym stanem świata." />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="Puste" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="Włącz Kapitana" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="Włącz tryb kapitana dla tego oddziału." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="Otwórz w edytorze globalnym." />
@@ -1319,9 +1349,6 @@
       id="ret_queen_guard"
       text="Straż Królowej" />
     <string
-      id="ret_race_header_text"
-      text="Rasa" />
-    <string
       id="ret_rank_up"
       text="Awans" />
     <string
@@ -1585,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="Przenieś" />
+    <string
+      id="ret_troop"
+      text="jednostka" />
     <string
       id="ret_troop_editor_button"
       text="Edytor Jednostek" />

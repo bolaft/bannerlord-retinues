@@ -80,6 +80,9 @@ namespace Retinues.Game.Wrappers
         {
             get
             {
+                if (IsPlayerClan)
+                    return null; // Player clan is handled differently
+
                 var co = Base.BasicTroop;
 
                 if (co.StringId == Culture.RootBasic.StringId)

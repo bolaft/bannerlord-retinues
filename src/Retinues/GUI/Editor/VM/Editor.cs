@@ -94,6 +94,7 @@ namespace Retinues.GUI.Editor.VM
             OnPropertyChanged(nameof(ShowDoctrinesButton));
             OnPropertyChanged(nameof(ShowEquipmentButton));
             OnPropertyChanged(nameof(ShowGlobalEditorLink));
+            OnPropertyChanged(nameof(ShowPersonalEditorLink));
             OnPropertyChanged(nameof(EquipmentButtonText));
             OnPropertyChanged(nameof(DoctrinesButtonText));
             OnPropertyChanged(nameof(FactionButtonText));
@@ -120,6 +121,12 @@ namespace Retinues.GUI.Editor.VM
                     nameof(EnableTopPanelButtons),
                     nameof(ShowStatsButton),
                 ],
+                [UIEvent.Troop] =
+                [
+                    nameof(IsCaptain),
+                    nameof(CaptainModeHint),
+                    nameof(ShowCaptainModeButton),
+                ],
                 [UIEvent.Appearance] = [nameof(Model)],
             };
 
@@ -139,6 +146,26 @@ namespace Retinues.GUI.Editor.VM
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━ Captain Mode ━━━━━ */
+
+        [DataSourceProperty]
+        public bool IsCaptain => State.Troop?.IsCaptain == true;
+
+        [DataSourceProperty]
+        public string CaptainModeButtonText => L.S("captain_mode_button", "Captain Mode");
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel CaptainModeHint =>
+            Tooltip.MakeTooltip(
+                null,
+                IsCaptain
+                    ? L.S(
+                        "disable_captain_mode_tooltip_text",
+                        "Disable Captain Mode for this troop."
+                    )
+                    : L.S("enable_captain_mode_tooltip_text", "Enable Captain Mode for this troop.")
+            );
 
         /* ━━━━━━ Studio Mode ━━━━━ */
 
@@ -271,15 +298,19 @@ namespace Retinues.GUI.Editor.VM
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
 
         [DataSourceProperty]
-        public bool ShowStatsButton =>
-            ClanScreen.IsStudioMode == false && State.Troop?.IsCustom == true;
-
-        [DataSourceProperty]
         public bool ShowGlobalEditorLink =>
             ClanScreen.IsStudioMode == false && Config.EnableGlobalEditor;
 
         [DataSourceProperty]
         public bool ShowPersonalEditorLink => ClanScreen.IsStudioMode == true;
+
+        [DataSourceProperty]
+        public bool ShowStatsButton =>
+            ClanScreen.IsStudioMode == false && State.Troop?.IsCustom == true;
+
+        [DataSourceProperty]
+        public bool ShowCaptainModeButton =>
+            ClanScreen.IsStudioMode == false && State.Troop?.IsCustom == true;
 
         /* ━━━━━━━━ Brushes ━━━━━━━ */
 
@@ -305,20 +336,6 @@ namespace Retinues.GUI.Editor.VM
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 
         [DataSourceProperty]
-        public BasicTooltipViewModel StatsHint =>
-            Tooltip.MakeTooltip(
-                null,
-                L.S("troop_stats_tooltip_text", "View battle statistics for this troop.")
-            );
-
-        [DataSourceProperty]
-        public BasicTooltipViewModel HelpHint =>
-            Tooltip.MakeTooltip(
-                null,
-                L.S("editor_help_tooltip_text", "Open the online Retinues documentation.")
-            );
-
-        [DataSourceProperty]
         public BasicTooltipViewModel GlobalEditorHint =>
             Tooltip.MakeTooltip(
                 null,
@@ -333,6 +350,20 @@ namespace Retinues.GUI.Editor.VM
                     "personal_editor_tooltip_text",
                     "Open the editor for your clan and kingdom troops."
                 )
+            );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel HelpHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S("editor_help_tooltip_text", "Open the online Retinues documentation.")
+            );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel StatsHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S("troop_stats_tooltip_text", "View battle statistics for this troop.")
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -392,6 +423,19 @@ namespace Retinues.GUI.Editor.VM
                 return;
 
             TroopStatisticsBehavior.ShowForTroop(State.Troop);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteToggleCaptainMode()
+        {
+            var troop = State.Troop;
+            if (troop == null)
+                return;
+
+            if (!troop.IsCustom)
+                return;
+
+            State.UpdateTroop(troop.IsCaptain ? troop.BaseTroop : troop.Captain);
         }
 
         /* ━━━━━━ Mode Switch ━━━━━ */

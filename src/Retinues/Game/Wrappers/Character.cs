@@ -187,6 +187,152 @@ namespace Retinues.Game.Wrappers
         public bool IsRetinue => Faction != null && Faction.IsRetinue(this);
         public bool IsRegular => Faction != null && Faction.IsRegular(this);
         public bool IsElite => Faction != null && Faction.IsElite(this);
+        public bool IsCaptain = false;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Captains                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly Dictionary<string, WCharacter> CaptainCache = new(
+            StringComparer.Ordinal
+        );
+        private static readonly Dictionary<string, bool> CaptainEnabledCache = new(
+            StringComparer.Ordinal
+        );
+
+        public static void ClearCaptainCaches()
+        {
+            CaptainCache.Clear();
+            CaptainEnabledCache.Clear();
+        }
+
+        public WCharacter BaseTroop;
+
+        private WCharacter _captain;
+        public WCharacter Captain
+        {
+            get
+            {
+                // If this wrapper is itself a captain, just return it.
+                if (IsCaptain)
+                    return this;
+
+                // Try global cache first (base troop stringId -> captain instance).
+                if (CaptainCache.TryGetValue(StringId, out var cached) && cached != null)
+                {
+                    // Make sure links are wired correctly.
+                    cached.IsCaptain = true;
+                    if (cached.BaseTroop == null)
+                        cached.BaseTroop = this;
+
+                    _captain = cached;
+                    return cached;
+                }
+
+                // No cached captain yet: create and register one.
+                _captain ??= CreateCaptain();
+                if (_captain != null)
+                {
+                    CaptainCache[StringId] = _captain;
+                    _captain.IsCaptain = true;
+                    _captain.BaseTroop = this;
+                }
+
+                return _captain;
+            }
+        }
+
+        /// <summary>
+        /// If false, this troop's captain will not spawn in battles.
+        /// Only meaningful for regular custom troops (base side of the captain pair).
+        /// </summary>
+        public bool CaptainEnabled
+        {
+            get
+            {
+                if (IsCaptain)
+                    return BaseTroop?.CaptainEnabled ?? false;
+
+                // Prefer global cache
+                if (CaptainEnabledCache.TryGetValue(StringId, out var flag))
+                    return flag;
+
+                // Not recorded yet: default false
+                return false;
+            }
+            set
+            {
+                if (IsCaptain)
+                {
+                    if (BaseTroop != null)
+                        BaseTroop.CaptainEnabled = value;
+                    return;
+                }
+
+                CaptainEnabledCache[StringId] = value;
+                NeedsPersistence = true;
+            }
+        }
+
+        public void BindCaptain(WCharacter captain)
+        {
+            if (captain == null)
+                return;
+
+            _captain = captain;
+            captain.IsCaptain = true;
+            captain.BaseTroop = this;
+
+            CaptainCache[StringId] = captain;
+
+            // Ensure faction / flags match the base troop
+            if (Faction != null)
+                captain.Faction = Faction;
+
+            captain.HiddenInEncyclopedia = HiddenInEncyclopedia;
+            captain.IsNotTransferableInPartyScreen = IsNotTransferableInPartyScreen;
+            captain.IsNotTransferableInHideouts = IsNotTransferableInHideouts;
+
+            if (captain.IsCustom && !ActiveStubIds.Contains(captain.StringId))
+                ActiveStubIds.Add(captain.StringId);
+        }
+
+        private WCharacter CreateCaptain()
+        {
+            if (IsVanilla || IsHero)
+                return null; // Only for custom regular troops
+
+            // If already in cache for this base, reuse it
+            if (CaptainCache.TryGetValue(StringId, out var existing) && existing != null)
+                return existing;
+
+            // Create new captain troop from a free stub
+            var stub = AllocateStub();
+            var captain = new WCharacter(stub);
+
+            // Register as active stub + share faction
+            ActiveStubIds.Add(captain.StringId);
+            if (Faction != null)
+                captain.Faction = Faction;
+
+            // Copy data from base troop
+            captain.FillFrom(this, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+            captain.IsCaptain = true;
+            captain.BaseTroop = this;
+
+            // Rank up and rename
+            captain.Level += 5;
+            captain.Name = L.T("captain_name", "{NAME} Captain")
+                .SetTextVariable("NAME", Name)
+                .ToString();
+
+            // Flags
+            captain.HiddenInEncyclopedia = true;
+            captain.IsNotTransferableInPartyScreen = true;
+            captain.IsNotTransferableInHideouts = true;
+
+            return captain;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                Tree, Relations & Faction               //

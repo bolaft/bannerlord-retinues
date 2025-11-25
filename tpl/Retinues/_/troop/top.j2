@@ -25,6 +25,16 @@
     hint="{HeroAppearanceHint}"
 ) }}
 
+<!-- Enable Captain Button -->
+{{ button.text(
+    data_source="{TroopScreen}",
+    text="@EnableCaptainButtonText",
+    command="ExecuteToggleCaptainEnabled",
+    is_visible="@ShowEnableCaptainToggle",
+    brush="@EnableCaptainButtonBrush",
+    vertical_alignment="Top",
+) }}
+
 <!-- Retinue Cap Section -->
 <Widget
     DataSource="{TroopScreen}"

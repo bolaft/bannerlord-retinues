@@ -88,6 +88,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(FormationClassText),
                     nameof(IsHero),
                     nameof(Traits),
+                    nameof(IsCaptain),
+                    nameof(CaptainIsEnabled),
+                    nameof(CaptainText1),
+                    nameof(CaptainText2),
                 ],
                 [UIEvent.Train] =
                 [
@@ -214,16 +218,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Headers ━━━━━━━ */
 
         [DataSourceProperty]
+        public string NameHeaderText => L.S("name_header_text", "Name");
+
+        [DataSourceProperty]
         public string CultureHeaderText =>
             CanChangeRace
                 ? L.S("culture_and_race_header_text", "Culture & Race")
                 : L.S("culture_header_text", "Culture");
 
         [DataSourceProperty]
-        public string RaceHeaderText => L.S("race_header_text", "Race");
-
-        [DataSourceProperty]
-        public string NameHeaderText => L.S("name_header_text", "Name");
+        public string CaptainHeaderText => L.S("captain_header_text", "Captain");
 
         [DataSourceProperty]
         public string SkillsHeaderText =>
@@ -448,6 +452,31 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceProperty]
         public BasicTooltipViewModel FormationClassHint =>
             Tooltip.MakeTooltip(null, L.S("formation_class_hint", "Change Formation Class"));
+
+        /* ━━━━━━━ Captains ━━━━━━━ */
+        [DataSourceProperty]
+        public bool IsCaptain => State.Troop?.IsCaptain == true;
+
+        [DataSourceProperty]
+        public bool CaptainIsEnabled => IsCaptain && State.Troop.BaseTroop?.CaptainEnabled == true;
+
+        [DataSourceProperty]
+        public string CaptainText1 =>
+            L.T("captain_text_1", "{TROOP} captain.")
+                .SetTextVariable("TROOP", State.Troop?.BaseTroop?.Name ?? L.S("troop", "troop"))
+                .ToString();
+
+        [DataSourceProperty]
+        public string CaptainText2 =>
+            CaptainIsEnabled
+                ? L.S(
+                    "captain_text_2_enabled",
+                    "Enabled: out of fifteen troops, one will be a captain."
+                )
+                : L.S(
+                    "captain_text_2_disabled",
+                    "Disabled: no captains will appear for this troop."
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //

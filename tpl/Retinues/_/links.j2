@@ -3,7 +3,7 @@
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
 {# Link Macro #}
-{% macro link(text, command, hint, margin_top, brush, is_visible) -%}
+{% macro link(text, command, hint, margin_top, brush, is_visible, is_selected) -%}
 
 <ListPanel
     IsVisible="{{ is_visible }}"
@@ -25,6 +25,7 @@
             SuggestedWidth="40" SuggestedHeight="40"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             Brush="{{ brush }}"
+            IsSelected="{{ is_selected }}"
             Command.Click="{{ command }}">
             <Children>
                 <HintWidget
@@ -46,7 +47,8 @@
     hint="{GlobalEditorHint}",
     margin_top="10",
     brush="HowToLearnButtonToggleBrush",
-    is_visible="@ShowGlobalEditorLink"
+    is_visible="@ShowGlobalEditorLink",
+    is_selected="false"
 ) }}
 
 {{ link(
@@ -55,7 +57,8 @@
     hint="{PersonalEditorHint}",
     margin_top="10",
     brush="HowToLearnButtonToggleBrush",
-    is_visible="@ShowPersonalEditorLink"
+    is_visible="@ShowPersonalEditorLink",
+    is_selected="false"
 ) }}
 
 <!-- Help Button -->
@@ -66,7 +69,8 @@
     hint="{HelpHint}",
     margin_top="60",
     brush="DescriptionButtonToggleBrush",
-    is_visible="true"
+    is_visible="true",
+    is_selected="false"
 ) }}
 
 
@@ -78,5 +82,18 @@
     hint="{StatsHint}",
     margin_top="110",
     brush="DescriptionButtonToggleBrush",
-    is_visible="@ShowStatsButton"
+    is_visible="@ShowStatsButton",
+    is_selected="false"
+) }}
+
+<!-- Captain Mode Button -->
+
+{{ link(
+    text="@CaptainModeButtonText",
+    command="ExecuteToggleCaptainMode",
+    hint="{CaptainModeHint}",
+    margin_top="220",
+    brush="Encyclopedia.Bookmark.Button",
+    is_visible="@ShowCaptainModeButton",
+    is_selected="@IsCaptain"
 ) }}

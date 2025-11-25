@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="披风" />
     <string
+      id="ret_captain_header_text"
+      text="队长" />
+    <string
+      id="ret_captain_mode_button"
+      text="队长模式" />
+    <string
+      id="ret_captain_name"
+      text="{NAME} 队长" />
+    <string
+      id="ret_captain_text_1"
+      text="{TROOP} 队长。" />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="已禁用：该部队不会出现队长。" />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="已启用：在十五个部队中，有一个将是队长。" />
+    <string
       id="ret_change_culture_title"
       text="更改文化" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="自定义部队已解锁" />
     <string
+      id="ret_disable_captain_button_text"
+      text="禁用队长" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="为该部队禁用队长模式。" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="英雄与已保存的世界状态相关联。" />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="空" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="启用队长" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="为该部队启用队长模式。" />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="在全局编辑器中打开。" />
@@ -1319,9 +1349,6 @@
       id="ret_queen_guard"
       text="女王卫队" />
     <string
-      id="ret_race_header_text"
-      text="种族" />
-    <string
       id="ret_rank_up"
       text="晋升" />
     <string
@@ -1585,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="转移" />
+    <string
+      id="ret_troop"
+      text="部队" />
     <string
       id="ret_troop_editor_button"
       text="部队编辑器" />

@@ -185,6 +185,24 @@
       id="ret_cape_slot_text"
       text="マント" />
     <string
+      id="ret_captain_header_text"
+      text="キャプテン" />
+    <string
+      id="ret_captain_mode_button"
+      text="キャプテンモード" />
+    <string
+      id="ret_captain_name"
+      text="{NAME} キャプテン" />
+    <string
+      id="ret_captain_text_1"
+      text="{TROOP} キャプテン。" />
+    <string
+      id="ret_captain_text_2_disabled"
+      text="無効：この兵にはキャプテンが出現しません。" />
+    <string
+      id="ret_captain_text_2_enabled"
+      text="有効：15隊のうち1隊がキャプテンになります。" />
+    <string
       id="ret_change_culture_title"
       text="文化を変更" />
     <string
@@ -314,6 +332,12 @@
       id="ret_custom_troops_inquiry_title"
       text="カスタム部隊のアンロック完了" />
     <string
+      id="ret_disable_captain_button_text"
+      text="キャプテンを無効化" />
+    <string
+      id="ret_disable_captain_mode_tooltip_text"
+      text="この部隊のキャプテンモードを無効にします。" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="英雄は保存された世界の状態に結び付けられています。" />
     <string
@@ -361,6 +385,12 @@
     <string
       id="ret_empty_set"
       text="空" />
+    <string
+      id="ret_enable_captain_button_text"
+      text="キャプテンを有効化" />
+    <string
+      id="ret_enable_captain_mode_tooltip_text"
+      text="この部隊のキャプテンモードを有効にします。" />
     <string
       id="ret_encyclopedia_retinues_link_hint"
       text="グローバルエディターで開く。" />
@@ -1319,9 +1349,6 @@
       id="ret_queen_guard"
       text="女王の親衛隊" />
     <string
-      id="ret_race_header_text"
-      text="種族" />
-    <string
       id="ret_rank_up"
       text="昇進" />
     <string
@@ -1585,6 +1612,9 @@
     <string
       id="ret_transfer_header_text"
       text="移動" />
+    <string
+      id="ret_troop"
+      text="兵士" />
     <string
       id="ret_troop_editor_button"
       text="兵士エディター" />
