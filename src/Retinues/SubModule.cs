@@ -146,6 +146,9 @@ namespace Retinues
             // Apply safe method patcher
             SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
 
+            // Apply mod compatibility patches
+            ModCompatibility.AddPatches(_harmony);
+
             Log.Debug("Harmony patches applied.");
         }
 
