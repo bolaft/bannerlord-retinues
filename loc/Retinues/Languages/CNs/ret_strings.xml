@@ -1319,9 +1319,6 @@
       id="ret_queen_guard"
       text="女王卫队" />
     <string
-      id="ret_race_header_text"
-      text="种族" />
-    <string
       id="ret_rank_up"
       text="晋升" />
     <string

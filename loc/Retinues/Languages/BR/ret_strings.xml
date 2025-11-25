@@ -1319,9 +1319,6 @@
       id="ret_queen_guard"
       text="Guarda da Rainha" />
     <string
-      id="ret_race_header_text"
-      text="Raça" />
-    <string
       id="ret_rank_up"
       text="Promover" />
     <string

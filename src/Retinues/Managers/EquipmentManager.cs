@@ -326,18 +326,54 @@ namespace Retinues.Managers
                 return q;
             }
 
-            // Compute deltas using the loadout "what-if" helpers
-            int beforeOld = loadout.MaxCountPerSet(oldItem);
-            int afterOld =
-                oldItem != null
-                    ? loadout.RequiredAfterForItem(oldItem, setIndex, slot, newItem)
-                    : 0;
+            // Determine the paired captain/base troop (if any)
+            WCharacter counterpart = null;
+            if (troop != null)
+            {
+                if (troop.IsCaptain && troop.BaseTroop != null)
+                    counterpart = troop.BaseTroop;
+                else if (!troop.IsCaptain && troop.Captain != null)
+                    counterpart = troop.Captain;
+            }
 
-            int beforeNew = loadout.MaxCountPerSet(newItem);
-            int afterNew =
-                newItem != null
-                    ? loadout.RequiredAfterForItem(newItem, setIndex, slot, newItem)
-                    : 0;
+            int GlobalMaxCountPerSet(WItem item)
+            {
+                if (item == null)
+                    return 0;
+
+                int max = loadout.MaxCountPerSet(item);
+                if (counterpart != null)
+                {
+                    var otherLoadout = counterpart.Loadout;
+                    int otherMax = otherLoadout.MaxCountPerSet(item);
+                    if (otherMax > max)
+                        max = otherMax;
+                }
+                return max;
+            }
+
+            int GlobalRequiredAfterForItem(WItem item)
+            {
+                if (item == null)
+                    return 0;
+
+                // This troop after the hypothetical change
+                int thisAfter = loadout.RequiredAfterForItem(item, setIndex, slot, newItem);
+
+                // Counterpart stays unchanged, we just take its current max-per-set
+                if (counterpart == null)
+                    return thisAfter;
+
+                int otherMax = counterpart.Loadout.MaxCountPerSet(item);
+                return thisAfter > otherMax ? thisAfter : otherMax;
+            }
+
+            // Compute deltas using the GLOBAL "what-if" helpers (troop + captain/base)
+            int beforeOld = GlobalMaxCountPerSet(oldItem);
+            int afterOld = oldItem != null ? GlobalRequiredAfterForItem(oldItem) : 0;
+
+            int beforeNew = GlobalMaxCountPerSet(newItem);
+            int afterNew = newItem != null ? GlobalRequiredAfterForItem(newItem) : 0;
 
             q.DeltaRemove = Math.Max(0, beforeOld - afterOld);
             q.DeltaAdd = Math.Max(0, afterNew - beforeNew);
@@ -565,9 +601,47 @@ namespace Retinues.Managers
                 return res;
             }
 
-            // Compute reduction delta for this slot
-            int beforeOld = loadout.MaxCountPerSet(oldItem);
-            int afterOld = loadout.RequiredAfterForItem(oldItem, setIndex, slot, null);
+            // Determine paired captain/base troop for global pooling
+            WCharacter counterpart = null;
+            if (troop != null)
+            {
+                if (troop.IsCaptain && troop.BaseTroop != null)
+                    counterpart = troop.BaseTroop;
+                else if (!troop.IsCaptain && troop.Captain != null)
+                    counterpart = troop.Captain;
+            }
+
+            int GlobalMaxCountPerSet(WItem item)
+            {
+                if (item == null)
+                    return 0;
+
+                int max = loadout.MaxCountPerSet(item);
+                if (counterpart != null)
+                {
+                    var otherLoadout = counterpart.Loadout;
+                    int otherMax = otherLoadout.MaxCountPerSet(item);
+                    if (otherMax > max)
+                        max = otherMax;
+                }
+                return max;
+            }
+
+            int GlobalRequiredAfterForItem(WItem item)
+            {
+                if (item == null)
+                    return 0;
+
+                int thisAfter = loadout.RequiredAfterForItem(item, setIndex, slot, null);
+                if (counterpart == null)
+                    return thisAfter;
+
+                int otherMax = counterpart.Loadout.MaxCountPerSet(item);
+                return thisAfter > otherMax ? thisAfter : otherMax;
+            }
+
+            int beforeOld = GlobalMaxCountPerSet(oldItem);
+            int afterOld = GlobalRequiredAfterForItem(oldItem);
             int deltaRemove = Math.Max(0, beforeOld - afterOld);
 
             // Horse rule: unequipping horse also clears harness (and may refund its copies)

@@ -187,6 +187,83 @@ namespace Retinues.Game.Wrappers
         public bool IsRetinue => Faction != null && Faction.IsRetinue(this);
         public bool IsRegular => Faction != null && Faction.IsRegular(this);
         public bool IsElite => Faction != null && Faction.IsElite(this);
+        public bool IsCaptain = false;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Captain                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WCharacter BaseTroop;
+
+        private WCharacter _captain;
+        public WCharacter Captain
+        {
+            get
+            {
+                if (_captain == null)
+                    _captain = CreateCaptain();
+                return _captain;
+            }
+        }
+
+        /// <summary>
+        /// Binds an existing captain troop to this base troop.
+        /// Used during deserialization to rewire relationships.
+        /// </summary>
+        public void BindCaptain(WCharacter captain)
+        {
+            if (captain == null)
+                return;
+
+            _captain = captain;
+            captain.IsCaptain = true;
+            captain.BaseTroop = this;
+
+            // Ensure faction / flags match the base troop
+            if (Faction != null)
+                captain.Faction = Faction;
+
+            captain.HiddenInEncyclopedia = HiddenInEncyclopedia;
+            captain.IsNotTransferableInPartyScreen = IsNotTransferableInPartyScreen;
+            captain.IsNotTransferableInHideouts = IsNotTransferableInHideouts;
+
+            // Mark as active custom stub
+            if (captain.IsCustom && !ActiveStubIds.Contains(captain.StringId))
+                ActiveStubIds.Add(captain.StringId);
+        }
+
+        private WCharacter CreateCaptain()
+        {
+            if (IsVanilla || IsHero)
+                return null; // Only for custom regular troops
+
+            // Create new captain troop from a free stub
+            var stub = AllocateStub();
+            var captain = new WCharacter(stub);
+
+            // Register as active stub + share faction
+            ActiveStubIds.Add(captain.StringId);
+            if (Faction != null)
+                captain.Faction = Faction;
+
+            // Copy data from base troop
+            captain.FillFrom(this, keepUpgrades: false, keepEquipment: true, keepSkills: true);
+            captain.IsCaptain = true;
+            captain.BaseTroop = this;
+
+            // Make it a bit stronger
+            captain.Level += 5;
+            captain.Name = L.T("captain_name", "{NAME} Captain")
+                .SetTextVariable("NAME", Name)
+                .ToString();
+
+            // Retinues / transfer flags mirror base
+            captain.HiddenInEncyclopedia = HiddenInEncyclopedia;
+            captain.IsNotTransferableInPartyScreen = IsNotTransferableInPartyScreen;
+            captain.IsNotTransferableInHideouts = IsNotTransferableInHideouts;
+
+            return captain;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                Tree, Relations & Faction               //

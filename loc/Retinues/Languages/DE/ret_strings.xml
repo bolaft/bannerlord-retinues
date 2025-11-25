@@ -1319,9 +1319,6 @@
       id="ret_queen_guard"
       text="Königsgarde" />
     <string
-      id="ret_race_header_text"
-      text="Rasse" />
-    <string
       id="ret_rank_up"
       text="Aufstieg" />
     <string

@@ -1319,9 +1319,6 @@
       id="ret_queen_guard"
       text="Гвардия Королевы" />
     <string
-      id="ret_race_header_text"
-      text="Раса" />
-    <string
       id="ret_rank_up"
       text="Повышение" />
     <string

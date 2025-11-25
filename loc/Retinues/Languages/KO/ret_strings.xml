@@ -1319,9 +1319,6 @@
       id="ret_queen_guard"
       text="여왕의 근위대" />
     <string
-      id="ret_race_header_text"
-      text="종족" />
-    <string
       id="ret_rank_up"
       text="승급" />
     <string

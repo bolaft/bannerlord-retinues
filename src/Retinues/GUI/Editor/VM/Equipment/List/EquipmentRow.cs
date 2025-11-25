@@ -244,14 +244,36 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 if (RowItem == null || State.Troop == null || State.Equipment == null)
                     return false;
 
-                var loadout = State.Troop.Loadout;
-                // current set has 0 of this item…
-                int inThisSet = loadout.CountInSet(RowItem, State.Equipment.Index);
-                if (inThisSet > 0)
+                var troop = State.Troop;
+                var loadout = troop.Loadout;
+                var setIndex = State.Equipment.Index;
+                var item = RowItem;
+
+                // 1) If this set already has the item, it's not "from another set".
+                if (loadout.CountInSet(item, setIndex) > 0)
                     return false;
 
-                // …and at least one other set has >= 1 (i.e., free to share one)
-                return loadout.MaxCountPerSet(RowItem) >= 1;
+                // 2) Any other set on this troop has it.
+                if (loadout.MaxOverOtherSets(item, setIndex) >= 1)
+                    return true;
+
+                // 3) Look at the paired captain/base troop, if any.
+                WCharacter counterpart = null;
+                if (troop.IsCaptain && troop.BaseTroop != null)
+                    counterpart = troop.BaseTroop;
+                else if (!troop.IsCaptain && troop.Captain != null)
+                    counterpart = troop.Captain;
+
+                if (counterpart != null)
+                {
+                    var otherLoadout = counterpart.Loadout;
+                    // If the counterpart uses this item in any set,
+                    // we conceptually treat it as "already owned".
+                    if (otherLoadout.MaxCountPerSet(item) >= 1)
+                        return true;
+                }
+
+                return false;
             }
         }
 

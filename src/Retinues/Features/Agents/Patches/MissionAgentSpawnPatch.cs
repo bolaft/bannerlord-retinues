@@ -56,6 +56,10 @@ namespace Retinues.Features.Agents.Patches
                         return;
                 }
 
+                Log.Info(
+                    $"[Retinues|Agents] SpawnAgent: customizing spawn for {troop.StringId} ({troop.Name})"
+                );
+
                 // Choose the equipment set
                 WEquipment chosenSet = null;
 

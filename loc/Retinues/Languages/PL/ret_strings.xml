@@ -1319,9 +1319,6 @@
       id="ret_queen_guard"
       text="Straż Królowej" />
     <string
-      id="ret_race_header_text"
-      text="Rasa" />
-    <string
       id="ret_rank_up"
       text="Awans" />
     <string

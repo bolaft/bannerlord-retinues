@@ -62,6 +62,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(GenderText),
                     nameof(TierText),
                     nameof(SkillsHeaderText),
+                    nameof(IsCaptain),
+                    nameof(CaptainText1),
+                    nameof(CaptainText2),
                     nameof(CanRankUp),
                     nameof(CanAddUpgrade),
                     nameof(AddUpgradeHint),
@@ -214,16 +217,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━━ Headers ━━━━━━━ */
 
         [DataSourceProperty]
+        public string NameHeaderText => L.S("name_header_text", "Name");
+
+        [DataSourceProperty]
         public string CultureHeaderText =>
             CanChangeRace
                 ? L.S("culture_and_race_header_text", "Culture & Race")
                 : L.S("culture_header_text", "Culture");
 
         [DataSourceProperty]
-        public string RaceHeaderText => L.S("race_header_text", "Race");
-
-        [DataSourceProperty]
-        public string NameHeaderText => L.S("name_header_text", "Name");
+        public string CaptainHeaderText => L.S("captain_header_text", "Captain");
 
         [DataSourceProperty]
         public string SkillsHeaderText =>
@@ -257,6 +260,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string CultureText => State.Troop?.Culture?.Name ?? L.S("unknown", "Unknown");
 
         [DataSourceProperty]
+        public string CaptainText1 =>
+            L.T("captain_text_1", "{TROOP} captain:")
+                .SetTextVariable("TROOP", State.Troop?.BaseTroop?.Name ?? L.S("troop", "troop"))
+                .ToString();
+
+        [DataSourceProperty]
+        public string CaptainText2 =>
+            L.S("captain_text_2", "out of fifteen troops, one will spawn as captain.");
+
+        [DataSourceProperty]
         public string RaceText => GetRaceName(State.Troop?.Race ?? -1) ?? L.S("unknown", "Unknown");
 
         [DataSourceProperty]
@@ -286,6 +299,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                 return $"{L.S("tier", "Tier")} {roman}";
             }
         }
+
+        [DataSourceProperty]
+        public bool IsCaptain => State.Troop?.IsCaptain == true;
 
         /* ━━━━━━━━ Rank Up ━━━━━━━ */
 
