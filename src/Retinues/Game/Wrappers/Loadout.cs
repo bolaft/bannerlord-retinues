@@ -593,8 +593,13 @@ namespace Retinues.Game.Wrappers
             var bestHorse = FindBestHorseCategory();
             var bestHorseOfParent = Troop.Parent?.Loadout.FindBestHorseCategory();
 
-            if (Config.NeverRequireNobleHorse && bestHorse == DefaultItemCategories.NobleHorse)
-                bestHorse = DefaultItemCategories.WarHorse;
+            if (Config.NeverRequireNobleHorse)
+            {
+                if (bestHorse == DefaultItemCategories.NobleHorse)
+                    bestHorse = DefaultItemCategories.WarHorse;
+                if (bestHorseOfParent == DefaultItemCategories.NobleHorse)
+                    bestHorseOfParent = DefaultItemCategories.WarHorse;
+            }
 
             return IsBetterHorseCategory(bestHorse, bestHorseOfParent) ? bestHorse : null;
         }
