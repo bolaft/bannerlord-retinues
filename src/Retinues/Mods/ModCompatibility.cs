@@ -19,6 +19,9 @@ namespace Retinues.Mods
             "Retinues.MCM",
         ];
 
+        // DLC
+        public static bool HasNavalDLC => IsLoaded("NavalDLC");
+
         // Ruleset flags
         public static bool NoGlobalEditor => IsLoaded("Shokuho");
         public static bool ForceDailyVolunteerSwap => IsLoaded("Shokuho");
