@@ -30,6 +30,9 @@ namespace Retinues.Game.Helpers
             "Steward",
             "Medicine",
             "Engineering",
+            "Mariner",
+            "Boatswain",
+            "Shipmaster",
         ];
 
         public static readonly HashSet<string> TroopSkillIds =
