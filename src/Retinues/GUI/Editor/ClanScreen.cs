@@ -136,6 +136,9 @@ namespace Retinues.GUI.Editor
         [DataSourceProperty]
         public bool IsTopPanelVisible => IsStudioMode == false;
 
+        [DataSourceProperty]
+        public bool IsFinancePanelVisible => !IsTroopsSelected && !IsStudioMode;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -216,6 +219,7 @@ namespace Retinues.GUI.Editor
         {
             OnPropertyChanged(nameof(IsTroopsSelected));
             OnPropertyChanged(nameof(IsTopPanelVisible));
+            OnPropertyChanged(nameof(IsFinancePanelVisible));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

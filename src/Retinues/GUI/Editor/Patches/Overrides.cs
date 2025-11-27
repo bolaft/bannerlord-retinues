@@ -38,7 +38,7 @@ internal class ClanScreen_TopPanel_Visible : PrefabExtensionSetAttributePatch
 internal class ClanScreen_FinancePanel_Visible : PrefabExtensionSetAttributePatch
 {
     public override List<Attribute> Attributes =>
-        [new Attribute("IsVisible", "@IsTopPanelVisible")];
+        [new Attribute("IsVisible", "@IsFinancePanelVisible")];
 }
 
 [PrefabExtension(
