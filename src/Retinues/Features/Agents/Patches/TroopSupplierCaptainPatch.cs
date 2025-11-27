@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using SandBox.Tournaments.MissionLogics;
@@ -25,36 +26,15 @@ namespace Retinues.Features.Agents.Patches
         private static Mission _lastMission;
         private static readonly Dictionary<string, int> _spawnCounts = [];
 
-        // Signature matches: internal CharacterObject GetTroop(UniqueTroopDescriptor troopDescriptor)
         static void Postfix(UniqueTroopDescriptor troopDescriptor, ref CharacterObject __result)
         {
             try
             {
                 // No mission => probably auto-resolve / simulation / non-mission use, skip.
                 var mission = Mission.Current;
-                if (mission == null)
-                    return;
 
-                // Restrict to battle-like missions
-                var mode = mission.Mode;
-                if (
-                    mode != MissionMode.Battle
-                    && mode != MissionMode.Duel
-                    && mode != MissionMode.Deployment
-                    && mode != MissionMode.Stealth
-                )
-                    return;
-
-                // Skip tournaments / arena missions
-                foreach (var behavior in mission.MissionBehaviors)
-                {
-                    if (behavior is TournamentBehavior)
-                        return;
-
-                    var name = behavior.GetType().FullName?.ToLowerInvariant() ?? string.Empty;
-                    if (name.Contains("tournament") || name.Contains("arena"))
-                        return;
-                }
+                if (!MissionHelper.IsCombatMission(mission))
+                    return; // Combat only
 
                 // If the supplier didn't find anything, nothing to do
                 if (__result == null)

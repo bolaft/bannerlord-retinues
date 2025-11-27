@@ -7,7 +7,6 @@ using Retinues.Game.Events;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
-using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -30,31 +29,8 @@ namespace Retinues.Features.Agents.Patches
                 if (!troop.IsCustom)
                     return; // Feature disabled for vanilla troops
 
-                List<MissionMode> modeWhiteList =
-                [
-                    MissionMode.Battle,
-                    MissionMode.Duel,
-                    MissionMode.Deployment,
-                    MissionMode.Stealth,
-                ];
-
-                var mission = Mission.Current;
-                if (mission == null)
-                    return; // No mission, nothing to do
-
-                if (!modeWhiteList.Contains(mission.Mode))
-                    return; // Only affect allowed missions
-
-                // Try to ensure not a tournament or arena battle
-                foreach (var behavior in mission.MissionBehaviors)
-                {
-                    if (behavior is TournamentBehavior)
-                        return;
-
-                    var name = behavior.GetType().FullName?.ToLowerInvariant() ?? string.Empty;
-                    if (name.Contains("tournament") || name.Contains("arena"))
-                        return;
-                }
+                if (!MissionHelper.IsCombatMission())
+                    return; // Combat only
 
                 // Choose the equipment set
                 WEquipment chosenSet = null;
