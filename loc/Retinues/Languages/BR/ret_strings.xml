@@ -33,7 +33,7 @@
       text="Em uma única batalha, consiga uma baixa usando cinco classes de armas diferentes." />
     <string
       id="ret_adaptive_training_description"
-      text="XP é reembolsado ao reduzir a habilidade de uma tropa." />
+      text="Permitir reembolsos de XP." />
     <string
       id="ret_adaptive_training_disabled_message_cost"
       text="Desabilitado: nenhum custo de XP definido pela configuração." />
@@ -63,7 +63,7 @@
       text="Conquiste de um reino inimigo um feudo da sua própria cultura." />
     <string
       id="ret_ancestral_heritage_description"
-      text="Desbloqueia todos os itens das culturas do clã e do reino." />
+      text="Desbloqueia todos os itens da própria cultura." />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
       text="Desabilitado: todo o equipamento já desbloqueado pela configuração." />
@@ -82,6 +82,15 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Converter" />
+    <string
+      id="ret_armed_peasantry"
+      text="Camponeses Armados" />
+    <string
+      id="ret_armed_peasantry_description"
+      text="Desbloqueia tropas de aldeões." />
+    <string
+      id="ret_armed_peasantry_disabled_message"
+      text="Desabilitado: tropas especiais desbloqueadas pela configuração." />
     <string
       id="ret_battle_record_battle_types"
       text="Tipos de batalha:" />
@@ -114,7 +123,7 @@
       text="Dízimos de Campo de Batalha" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Pode desbloquear itens a partir de abates do grupo aliado." />
+      text="Desbloqueia itens a partir de abates de aliados." />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="Desabilitado: todo o equipamento já desbloqueado pela configuração." />
@@ -190,6 +199,12 @@
     <string
       id="ret_captain_text_2_enabled"
       text="Habilitado: de quinze tropas, uma será um capitão." />
+    <string
+      id="ret_captains"
+      text="Capitães" />
+    <string
+      id="ret_captains_description"
+      text="Desbloqueia Capitães." />
     <string
       id="ret_change_culture_title"
       text="Mudar Cultura" />
@@ -294,10 +309,10 @@
       text="Derrote em batalha um governante de cultura diferente." />
     <string
       id="ret_cultural_pride_description"
-      text="Desbloqueia tropas de milícia personalizadas." />
+      text="Reembolso de 20% em equipamentos da cultura do clã." />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="Desativado: tropas especiais desbloqueadas a partir da configuração." />
+      text="Desativado: os custos de equipamentos estão desativados na configuração." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Consiga 100 abates em batalha com tropas sem nenhum equipamento estrangeiro." />
@@ -351,15 +366,18 @@
       text="Doutrinas" />
     <string
       id="ret_doctrines_col_0"
-      text="Desbloqueios" />
+      text="Saquear" />
     <string
       id="ret_doctrines_col_1"
-      text="Equipamento" />
+      text="Arsenal" />
     <string
       id="ret_doctrines_col_2"
       text="Tropas" />
     <string
       id="ret_doctrines_col_3"
+      text="Treinamento" />
+    <string
+      id="ret_doctrines_col_4"
       text="Séquitos" />
     <string
       id="ret_editor_help_text"
@@ -729,7 +747,7 @@
       text="Consiga 1000 abates com tropas de elite." />
     <string
       id="ret_masters_at_arms_description"
-      text="Ramo de aprimoramento extra para tropas de elite." />
+      text="+1 ramo de aprimoramento para tropas de elite." />
     <string
       id="ret_masters_at_arms_disabled_message"
       text="Desativado: aprimoramentos de elite já estão no máximo na configuração." />
@@ -1323,7 +1341,7 @@
       text="Vença uma batalha na qual os aliados sofram mais de 100 baixas." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="Pode desbloquear itens a partir de baixas do grupo aliado." />
+      text="Desbloqueie itens a partir de baixas de aliados." />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
       text="Desativado: todo o equipamento já desbloqueado pela configuração." />
@@ -1463,6 +1481,24 @@
       id="ret_retinues_version_update_text_no_current"
       text="A versão do mod Retinues neste arquivo de salvamento foi atualizada para a próxima versão ({CURRENT_VERSION}). Seus dados de salvamento foram migrados automaticamente para a nova versão.{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se você notar algum problema e desejar voltar para a versão anterior, não salve e baixe a versão que você estava usando anteriormente do Nexus Mods." />
     <string
+      id="ret_road_wardens"
+      text="Guardiões da Estrada" />
+    <string
+      id="ret_road_wardens_caravan_escort_quests"
+      text="Complete 3 missões de escolta de caravanas." />
+    <string
+      id="ret_road_wardens_clear_hideout"
+      text="Limpe um esconderijo de bandidos." />
+    <string
+      id="ret_road_wardens_description"
+      text="Desbloqueia tropas de caravana." />
+    <string
+      id="ret_road_wardens_disabled_message"
+      text="Desativado: tropas especiais desbloqueadas a partir da configuração." />
+    <string
+      id="ret_road_wardens_three_caravans"
+      text="Possua três caravanas ao mesmo tempo." />
+    <string
       id="ret_royal_patronage"
       text="Patrocínio Real" />
     <string
@@ -1473,10 +1509,7 @@
       text="Tenha um companheiro da mesma cultura do seu reino governando um feudo do reino por 30 dias." />
     <string
       id="ret_royal_patronage_description"
-      text="Desbloqueia tropas de caravanas e aldeões." />
-    <string
-      id="ret_royal_patronage_disabled_message"
-      text="Desativado: tropas especiais desbloqueadas a partir da configuração." />
+      text="Reembolso de 20% em equipamentos da cultura do reino." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recrute 100 tropas personalizadas do reino." />
@@ -1538,6 +1571,24 @@
       id="ret_sort_value"
       text="Valor" />
     <string
+      id="ret_stalwart_militia"
+      text="Milícia Firme" />
+    <string
+      id="ret_stalwart_militia_defend_city_from_siege"
+      text="Defenda uma cidade contra um exército inimigo sitiante." />
+    <string
+      id="ret_stalwart_militia_description"
+      text="Desbloqueia tropas de milícia." />
+    <string
+      id="ret_stalwart_militia_disabled_message"
+      text="Desabilitado: tropas especiais desbloqueadas a partir da configuração." />
+    <string
+      id="ret_stalwart_militia_player_kill_50_siegers"
+      text="Abata pessoalmente 50 atacantes durante a defesa de um cerco." />
+    <string
+      id="ret_stalwart_militia_raise_militia_400"
+      text="Aumente o valor da milícia de um feudo para 400." />
+    <string
       id="ret_stats_kills_deaths_summary"
       text="Abateu {KILLS} inimigos e sofreu {DEATHS} baixas." />
     <string
@@ -1558,6 +1609,9 @@
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 pontos de habilidade." />
+    <string
+      id="ret_steadfast_soldiers_raise_security_60"
+      text="Aumente o valor de segurança de um feudo para 60." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="Vença uma defesa de cerco usando apenas tropas personalizadas." />

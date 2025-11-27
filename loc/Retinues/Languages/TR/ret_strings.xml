@@ -33,7 +33,7 @@
       text="Tek bir savaşta beş farklı silah sınıfıyla düşman öldür." />
     <string
       id="ret_adaptive_training_description"
-      text="Bir askerin becerisi düşürüldüğünde XP iade edilir." />
+      text="XP iadelerine izin ver." />
     <string
       id="ret_adaptive_training_disabled_message_cost"
       text="Devre dışı: yapılandırma tarafından XP maliyeti ayarlanmadı." />
@@ -63,7 +63,7 @@
       text="Düşman bir krallıktan kendi kültürüne ait bir tımar ele geçir." />
     <string
       id="ret_ancestral_heritage_description"
-      text="Klan ve krallık kültürlerinin tüm eşyalarını açar." />
+      text="Kendi kültürüne ait tüm öğelerin kilidini açar." />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
       text="Devre dışı: yapılandırma tarafından tüm ekipman zaten kilidi açıldı." />
@@ -82,6 +82,15 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Dönüştür" />
+    <string
+      id="ret_armed_peasantry"
+      text="Silahlı Köylüler" />
+    <string
+      id="ret_armed_peasantry_description"
+      text="Köylü askerlerinin kilidini açar." />
+    <string
+      id="ret_armed_peasantry_disabled_message"
+      text="Devre dışı: yapılandırma tarafından özel askerler zaten kilidi açıldı." />
     <string
       id="ret_battle_record_battle_types"
       text="Savaş türleri:" />
@@ -114,7 +123,7 @@
       text="Savaş Alanı Aşarı" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Müttefik birliklerin öldürdüğü düşmanlardan eşyalar açılabilir." />
+      text="Müttefik öldürmelerinden öğelerin kilidini aç." />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="Devre dışı: yapılandırma tarafından tüm ekipman zaten kilidi açıldı." />
@@ -190,6 +199,12 @@
     <string
       id="ret_captain_text_2_enabled"
       text="Etkin: on beş askerden biri kaptan olacak." />
+    <string
+      id="ret_captains"
+      text="Kaptanlar" />
+    <string
+      id="ret_captains_description"
+      text="Kaptanların kilidini açar." />
     <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
@@ -294,10 +309,10 @@
       text="Farklı kültürden bir hükümdarı savaşta yen." />
     <string
       id="ret_cultural_pride_description"
-      text="Özel milis birliklerinin kilidini açar." />
+      text="Klan kültürü teçhizatında %20 indirim." />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="Devre dışı: yapılandırmadan özel birliklerin kilidi açıldı." />
+      text="Devre dışı: ekipman maliyetleri yapılandırmada devre dışı bırakıldı." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Yabancı teçhizat giymeyen askerlerle savaşta 100 öldürme yap." />
@@ -351,15 +366,18 @@
       text="Doktrinler" />
     <string
       id="ret_doctrines_col_0"
-      text="Açılışlar" />
+      text="Yağma" />
     <string
       id="ret_doctrines_col_1"
-      text="Teçhizat" />
+      text="Cephanelik" />
     <string
       id="ret_doctrines_col_2"
       text="Askerler" />
     <string
       id="ret_doctrines_col_3"
+      text="Eğitim" />
+    <string
+      id="ret_doctrines_col_4"
       text="Yandaşlar" />
     <string
       id="ret_editor_help_text"
@@ -729,7 +747,7 @@
       text="Seçkin askerlerle 1000 öldürme yap." />
     <string
       id="ret_masters_at_arms_description"
-      text="Seçkin askerler için ekstra yükseltme dalı." />
+      text="Seçkin askerler için +1 yükseltme dalı." />
     <string
       id="ret_masters_at_arms_disabled_message"
       text="Devre dışı: yapılandırmada seçkin yükseltmeler zaten maksimumda." />
@@ -1323,7 +1341,7 @@
       text="Müttefiklerin 100’den fazla kayıp verdiği bir savaşı kazan." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="Müttefik kayıplarından eşyalar açılabilir." />
+      text="Müttefik kayıplardan öğelerin kilidini aç." />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
       text="Devre dışı: tüm ekipman zaten yapılandırma tarafından açıldı." />
@@ -1463,6 +1481,24 @@
       id="ret_retinues_version_update_text_no_current"
       text="Bu kayıt dosyasındaki Yandaş mod sürümü bir sonraki sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak yeni sürüme taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
     <string
+      id="ret_road_wardens"
+      text="Yol Bekçileri" />
+    <string
+      id="ret_road_wardens_caravan_escort_quests"
+      text="3 karavan eskort görevi tamamlayın." />
+    <string
+      id="ret_road_wardens_clear_hideout"
+      text="Bir haydut saklanma yerini temizleyin." />
+    <string
+      id="ret_road_wardens_description"
+      text="Karavan askerlerinin kilidini açar." />
+    <string
+      id="ret_road_wardens_disabled_message"
+      text="Devre Dışı: yapılandırmadan özel birliklerin kilidi açıldı." />
+    <string
+      id="ret_road_wardens_three_caravans"
+      text="Aynı anda üç karavana sahip ol." />
+    <string
       id="ret_royal_patronage"
       text="Kraliyet Himayesi" />
     <string
@@ -1473,10 +1509,7 @@
       text="Krallığınla aynı kültürden bir yoldaşın 30 gün boyunca bir krallık tımarını yönetmesini sağla." />
     <string
       id="ret_royal_patronage_description"
-      text="Kervan ve köylü askerlerinin kilidini açar." />
-    <string
-      id="ret_royal_patronage_disabled_message"
-      text="Devre Dışı: yapılandırmadan özel birliklerin kilidi açıldı." />
+      text="Krallık kültürü ekipmanlarında %20 indirim." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="100 krallık askeri topla." />
@@ -1538,6 +1571,24 @@
       id="ret_sort_value"
       text="Değer" />
     <string
+      id="ret_stalwart_militia"
+      text="Dayanıklı Milis" />
+    <string
+      id="ret_stalwart_militia_defend_city_from_siege"
+      text="Kuşatan düşman ordusuna karşı bir şehri savun." />
+    <string
+      id="ret_stalwart_militia_description"
+      text="Milis birliklerinin kilidini açar." />
+    <string
+      id="ret_stalwart_militia_disabled_message"
+      text="Devre dışı: yapılandırmadan özel birliklerin kilidi açıldı." />
+    <string
+      id="ret_stalwart_militia_player_kill_50_siegers"
+      text="Kuşatma savunması sırasında şahsen 50 saldırgan öldür." />
+    <string
+      id="ret_stalwart_militia_raise_militia_400"
+      text="Bir tımarın milis değerini 400&apos;e çıkar." />
+    <string
       id="ret_stats_kills_deaths_summary"
       text="{KILLS} düşman öldürdü ve {DEATHS} kayıp verdi." />
     <string
@@ -1558,6 +1609,9 @@
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 beceri puanı." />
+    <string
+      id="ret_steadfast_soldiers_raise_security_60"
+      text="Bir tımarın güvenlik değerini 60&apos;a çıkar." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="Sadece özel askerlerle bir kuşatma savunmasını kazan." />

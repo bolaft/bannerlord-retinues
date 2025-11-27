@@ -11,7 +11,7 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("vanguard", "Vanguard");
         public override TextObject Description => L.T("vanguard_description", "+15% retinue cap.");
-        public override int Column => 3;
+        public override int Column => 4;
         public override int Row => 2;
         public override bool IsDisabled =>
             Config.MaxBasicRetinueRatio >= 0.85f && Config.MaxEliteRetinueRatio >= 0.85f;

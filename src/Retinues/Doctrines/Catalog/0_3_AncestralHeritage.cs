@@ -12,10 +12,7 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("ancestral_heritage", "Ancestral Heritage");
         public override TextObject Description =>
-            L.T(
-                "ancestral_heritage_description",
-                "Unlocks all items of clan and kingdom cultures."
-            );
+            L.T("ancestral_heritage_description", "Unlocks all own culture items.");
         public override int Column => 0;
         public override int Row => 3;
         public override bool IsDisabled =>

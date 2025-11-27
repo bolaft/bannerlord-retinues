@@ -11,7 +11,7 @@ namespace Retinues.Doctrines.Catalog
         public override TextObject Name => L.T("indomitable", "Indomitable");
         public override TextObject Description =>
             L.T("indomitable_description", "+5 HP to retinues.");
-        public override int Column => 3;
+        public override int Column => 4;
         public override int Row => 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

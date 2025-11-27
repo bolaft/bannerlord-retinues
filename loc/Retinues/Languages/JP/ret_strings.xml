@@ -33,7 +33,7 @@
       text="1回の戦闘で、5種類の異なる武器クラスでキルを取る。" />
     <string
       id="ret_adaptive_training_description"
-      text="兵のスキルを下げると経験値が返還される。" />
+      text="XP返還を許可する。" />
     <string
       id="ret_adaptive_training_disabled_message_cost"
       text="無効：設定でXPコストが設定されていません。" />
@@ -63,7 +63,7 @@
       text="敵王国から自文化の領地を奪取する。" />
     <string
       id="ret_ancestral_heritage_description"
-      text="一族と王国文化の全てのアイテムを解放する。" />
+      text="自文化のすべてのアイテムを解放する。" />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
       text="無効：設定で全ての装備が既に解除されています。" />
@@ -82,6 +82,15 @@
     <string
       id="ret_apply_conversions_button_text"
       text="変換" />
+    <string
+      id="ret_armed_peasantry"
+      text="武装農民" />
+    <string
+      id="ret_armed_peasantry_description"
+      text="村人の兵を解放する。" />
+    <string
+      id="ret_armed_peasantry_disabled_message"
+      text="無効：設定で特殊兵が既に解除されています。" />
     <string
       id="ret_battle_record_battle_types"
       text="戦闘タイプ：" />
@@ -114,7 +123,7 @@
       text="戦場の什一税" />
     <string
       id="ret_battlefield_tithes_description"
-      text="同盟軍のキルでアイテムを解放できる。" />
+      text="味方のキルからアイテムを解除する。" />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="無効：設定で全ての装備が既に解除されています。" />
@@ -190,6 +199,12 @@
     <string
       id="ret_captain_text_2_enabled"
       text="有効：15隊のうち1隊がキャプテンになります。" />
+    <string
+      id="ret_captains"
+      text="キャプテン" />
+    <string
+      id="ret_captains_description"
+      text="キャプテンを解除する。" />
     <string
       id="ret_change_culture_title"
       text="文化を変更" />
@@ -294,10 +309,10 @@
       text="異なる文化の支配者を戦闘で倒す。" />
     <string
       id="ret_cultural_pride_description"
-      text="カスタム民兵部隊をアンロックする。" />
+      text="一族文化の装備が20％割引になる。" />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="無効：設定から特殊部隊がアンロックされます。" />
+      text="無効：設定で装備コストが無効になっています。" />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="外国の装備を着けない兵で戦闘中100キルを達成する。" />
@@ -351,15 +366,18 @@
       text="ドクトリン" />
     <string
       id="ret_doctrines_col_0"
-      text="解除" />
+      text="戦利品" />
     <string
       id="ret_doctrines_col_1"
-      text="装備" />
+      text="武器庫" />
     <string
       id="ret_doctrines_col_2"
-      text="兵" />
+      text="部隊" />
     <string
       id="ret_doctrines_col_3"
+      text="訓練" />
+    <string
+      id="ret_doctrines_col_4"
       text="随伴兵" />
     <string
       id="ret_editor_help_text"
@@ -729,7 +747,7 @@
       text="精鋭兵で1000キルを達成する。" />
     <string
       id="ret_masters_at_arms_description"
-      text="精鋭兵のための追加アップグレード分岐。" />
+      text="精鋭兵のアップグレードブランチ+1。" />
     <string
       id="ret_masters_at_arms_disabled_message"
       text="無効：設定で精鋭のアップグレードはすでに最大です。" />
@@ -1323,7 +1341,7 @@
       text="同盟軍が100人以上の損失を出す戦闘で勝利する。" />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="同盟軍の損失からアイテムを解放できる。" />
+      text="味方の戦死者からアイテムを解除します。" />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
       text="無効：すべての装備はすでに設定で解除されています。" />
@@ -1463,6 +1481,24 @@
       id="ret_retinues_version_update_text_no_current"
       text="このセーブファイルの随从モッドのバージョンは、次のバージョン（{CURRENT_VERSION}）に更新されました。セーブデータは自動的に新しいバージョンに移行されました。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}問題が発生し、以前のバージョンに戻りたい場合は、保存せずにNexus Modsから以前使用していたバージョンをダウンロードしてください。" />
     <string
+      id="ret_road_wardens"
+      text="ロードウォーデン" />
+    <string
+      id="ret_road_wardens_caravan_escort_quests"
+      text="キャラバン護衛クエストを3つ完了する。" />
+    <string
+      id="ret_road_wardens_clear_hideout"
+      text="山賊の隠れ家を掃討する。" />
+    <string
+      id="ret_road_wardens_description"
+      text="キャラバン部隊をアンロックします。" />
+    <string
+      id="ret_road_wardens_disabled_message"
+      text="無効：設定から特殊部隊がアンロックされました。" />
+    <string
+      id="ret_road_wardens_three_caravans"
+      text="同時に3つのキャラバンを所有する。" />
+    <string
       id="ret_royal_patronage"
       text="王室の後援" />
     <string
@@ -1473,10 +1509,7 @@
       text="王国と同じ文化の仲間に30日間王国の領地を統治させる。" />
     <string
       id="ret_royal_patronage_description"
-      text="キャラバンと村人の部隊をアンロックします。" />
-    <string
-      id="ret_royal_patronage_disabled_message"
-      text="無効：設定から特殊部隊がアンロックされました。" />
+      text="王国文化の装備が20％割引になります。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="カスタム王国兵100人を募集する。" />
@@ -1538,6 +1571,24 @@
       id="ret_sort_value"
       text="価値" />
     <string
+      id="ret_stalwart_militia"
+      text="不屈の民兵" />
+    <string
+      id="ret_stalwart_militia_defend_city_from_siege"
+      text="包囲する敵軍から都市を防衛する。" />
+    <string
+      id="ret_stalwart_militia_description"
+      text="民兵部隊をアンロックします。" />
+    <string
+      id="ret_stalwart_militia_disabled_message"
+      text="無効：設定から特殊部隊がアンロックされました。" />
+    <string
+      id="ret_stalwart_militia_player_kill_50_siegers"
+      text="包囲防衛中に50人の襲撃者を個人的に倒す。" />
+    <string
+      id="ret_stalwart_militia_raise_militia_400"
+      text="封地の民兵値を400に上げる。" />
+    <string
       id="ret_stats_kills_deaths_summary"
       text="{KILLS} 人の敵を殺し、{DEATHS} 人の犠牲者を出しました。" />
     <string
@@ -1558,6 +1609,9 @@
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 スキルポイント。" />
+    <string
+      id="ret_steadfast_soldiers_raise_security_60"
+      text="封地の治安値を60に上げる。" />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="カスタム兵のみで防衛戦に勝利する。" />

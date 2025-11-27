@@ -1,8 +1,10 @@
+using System.Linq;
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
 using Retinues.Managers;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
 namespace Retinues.Doctrines.Catalog
@@ -12,7 +14,7 @@ namespace Retinues.Doctrines.Catalog
         public override TextObject Name => L.T("steadfast_soldiers", "Steadfast Soldiers");
         public override TextObject Description =>
             L.T("steadfast_soldiers_description", "+10 skill points.");
-        public override int Column => 2;
+        public override int Column => 3;
         public override int Row => 1;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -66,27 +68,30 @@ namespace Retinues.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class SS_DefendVillageOnlyCustom : Feat
+        public sealed class SS_RaiseSecurityTo60 : Feat
         {
             public override TextObject Description =>
                 L.T(
-                    "steadfast_soldiers_defend_village_only_custom",
-                    "Defend a village from a raid using only custom troops."
+                    "steadfast_soldiers_raise_security_60",
+                    "Raise the security value of a fief to 60."
                 );
-            public override int Target => 1;
 
-            public override void OnBattleEnd(Battle battle)
+            public override int Target => 60;
+
+            public override void OnDailyTick()
             {
-                if (battle.IsLost)
-                    return;
-                if (!battle.IsVillageRaid)
-                    return;
-                if (!battle.PlayerIsDefender)
-                    return;
-                if (Player.Party.MemberRoster.CustomRatio < 0.99f)
+                if (Campaign.Current == null || Clan.PlayerClan == null)
                     return;
 
-                AdvanceProgress(1);
+                // Towns + castles owned by the player clan.
+                var fiefs = Clan.PlayerClan.Fiefs.Where(s => s.IsTown || s.IsCastle).ToList();
+
+                if (fiefs.Count == 0)
+                    return;
+
+                int maxSecurity = (int)fiefs.Select(s => s.Security).DefaultIfEmpty(0f).Max();
+
+                SetProgress(maxSecurity);
             }
         }
     }

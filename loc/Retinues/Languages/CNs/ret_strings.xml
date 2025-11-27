@@ -33,7 +33,7 @@
       text="在一场战斗中，使用五种不同武器类别各击杀一次。" />
     <string
       id="ret_adaptive_training_description"
-      text="降低部队技能时会返还经验值。" />
+      text="允许经验值返还。" />
     <string
       id="ret_adaptive_training_disabled_message_cost"
       text="已禁用：配置未设置经验值消耗。" />
@@ -63,7 +63,7 @@
       text="从敌对王国手中夺取一个属于本文化的封地。" />
     <string
       id="ret_ancestral_heritage_description"
-      text="解锁家族与王国文化的所有物品。" />
+      text="解锁所有本文化物品。" />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
       text="已禁用：配置已解锁所有装备。" />
@@ -82,6 +82,15 @@
     <string
       id="ret_apply_conversions_button_text"
       text="转换" />
+    <string
+      id="ret_armed_peasantry"
+      text="武装农民" />
+    <string
+      id="ret_armed_peasantry_description"
+      text="解锁村民部队。" />
+    <string
+      id="ret_armed_peasantry_disabled_message"
+      text="已禁用：配置已解锁特殊部队。" />
     <string
       id="ret_battle_record_battle_types"
       text="战斗类型：" />
@@ -114,7 +123,7 @@
       text="战场什一税" />
     <string
       id="ret_battlefield_tithes_description"
-      text="可通过盟友击杀解锁物品。" />
+      text="从盟军击杀中解锁物品。" />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="已禁用：配置已解锁所有装备。" />
@@ -190,6 +199,12 @@
     <string
       id="ret_captain_text_2_enabled"
       text="已启用：在十五个部队中，有一个将是队长。" />
+    <string
+      id="ret_captains"
+      text="队长" />
+    <string
+      id="ret_captains_description"
+      text="解锁队长。" />
     <string
       id="ret_change_culture_title"
       text="更改文化" />
@@ -294,10 +309,10 @@
       text="在战斗中击败一名不同文化的统治者。" />
     <string
       id="ret_cultural_pride_description"
-      text="解锁自定义民兵部队。" />
+      text="家族文化装备享受20%的折扣。" />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="已禁用：从配置中解锁特殊部队。" />
+      text="已禁用：配置中已禁用装备费用。" />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="仅使用无外来装备的部队在战斗中获得100击杀。" />
@@ -351,15 +366,18 @@
       text="教义" />
     <string
       id="ret_doctrines_col_0"
-      text="解锁" />
+      text="战利品" />
     <string
       id="ret_doctrines_col_1"
-      text="装备" />
+      text="军械库" />
     <string
       id="ret_doctrines_col_2"
       text="部队" />
     <string
       id="ret_doctrines_col_3"
+      text="训练" />
+    <string
+      id="ret_doctrines_col_4"
       text="随从" />
     <string
       id="ret_editor_help_text"
@@ -729,7 +747,7 @@
       text="使用精锐部队累计获得1000击杀。" />
     <string
       id="ret_masters_at_arms_description"
-      text="为精锐部队提供额外的升级分支。" />
+      text="精锐部队的升级分支+1。" />
     <string
       id="ret_masters_at_arms_disabled_message"
       text="已禁用：配置中的精锐升级已达最大值。" />
@@ -1323,7 +1341,7 @@
       text="赢得一场盟军损失超过100人的战斗。" />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="可通过盟友损失解锁物品。" />
+      text="从盟友伤亡中解锁物品。" />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
       text="已禁用：所有装备均已通过配置解锁。" />
@@ -1463,6 +1481,24 @@
       id="ret_retinues_version_update_text_no_current"
       text="此保存文件中的随从模组版本已更新到下一版本（{CURRENT_VERSION}）。您的保存数据已自动迁移到新版本。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从Nexus Mods下载您之前使用的版本。" />
     <string
+      id="ret_road_wardens"
+      text="道路守护者" />
+    <string
+      id="ret_road_wardens_caravan_escort_quests"
+      text="完成3个商队护送任务。" />
+    <string
+      id="ret_road_wardens_clear_hideout"
+      text="清除一个强盗藏身处。" />
+    <string
+      id="ret_road_wardens_description"
+      text="解锁商队部队。" />
+    <string
+      id="ret_road_wardens_disabled_message"
+      text="已禁用：从配置中解锁特殊部队。" />
+    <string
+      id="ret_road_wardens_three_caravans"
+      text="同时拥有三支商队。" />
+    <string
       id="ret_royal_patronage"
       text="王室资助" />
     <string
@@ -1473,10 +1509,7 @@
       text="让与你王国同文化的同伴治理一个王国封地30天。" />
     <string
       id="ret_royal_patronage_description"
-      text="解锁商队和村民部队。" />
-    <string
-      id="ret_royal_patronage_disabled_message"
-      text="已禁用：从配置中解锁特殊部队。" />
+      text="王国文化装备享受20%折扣。" />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定义王国部队。" />
@@ -1538,6 +1571,24 @@
       id="ret_sort_value"
       text="价值" />
     <string
+      id="ret_stalwart_militia"
+      text="坚定的民兵" />
+    <string
+      id="ret_stalwart_militia_defend_city_from_siege"
+      text="保卫一座城市，抵御围攻的敌军。" />
+    <string
+      id="ret_stalwart_militia_description"
+      text="解锁民兵部队。" />
+    <string
+      id="ret_stalwart_militia_disabled_message"
+      text="已禁用：从配置中解锁特殊部队。" />
+    <string
+      id="ret_stalwart_militia_player_kill_50_siegers"
+      text="在防御围攻时亲自击杀50名袭击者。" />
+    <string
+      id="ret_stalwart_militia_raise_militia_400"
+      text="将一个封地的民兵值提升到400。" />
+    <string
       id="ret_stats_kills_deaths_summary"
       text="击杀了 {KILLS} 名敌人，遭受了 {DEATHS} 名伤亡。" />
     <string
@@ -1558,6 +1609,9 @@
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 技能点。" />
+    <string
+      id="ret_steadfast_soldiers_raise_security_60"
+      text="将一个封地的安全值提升到60。" />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="仅用自定义部队赢得一场防御攻城战。" />

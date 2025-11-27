@@ -12,10 +12,7 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("pragmatic_scavengers", "Pragmatic Scavengers");
         public override TextObject Description =>
-            L.T(
-                "pragmatic_scavengers_description",
-                "Can unlock items from allied party casualties."
-            );
+            L.T("pragmatic_scavengers_description", "Unlock items from ally casualties.");
         public override int Column => 0;
         public override int Row => 2;
         public override bool IsDisabled =>

@@ -14,8 +14,8 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("adaptive_training", "Adaptive Training");
         public override TextObject Description =>
-            L.T("adaptive_training_description", "XP is refunded when lowering a troop's skill.");
-        public override int Column => 2;
+            L.T("adaptive_training_description", "Allow XP refunds.");
+        public override int Column => 3;
         public override int Row => 3;
         public override bool IsDisabled =>
             Config.ForceXpRefunds

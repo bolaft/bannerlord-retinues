@@ -167,7 +167,9 @@ namespace Retinues.Troops
         /// </summary>
         private static bool EnsureMilitiaTroops(WFaction faction)
         {
-            if (!DoctrineAPI.IsDoctrineUnlocked<CulturalPride>() && !Config.NoDoctrineRequirements)
+            if (
+                !DoctrineAPI.IsDoctrineUnlocked<StalwartMilitia>() && !Config.NoDoctrineRequirements
+            )
                 return false;
 
             bool hasMilitiaMelee = faction.MilitiaMelee != null;
@@ -216,31 +218,34 @@ namespace Retinues.Troops
         /// </summary>
         private static bool EnsureSpecialTroops(WFaction faction)
         {
-            if (!DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>() && !Config.NoDoctrineRequirements)
-                return false;
-
             var culture = faction.Culture;
             bool created = false;
 
-            if (faction.CaravanGuard is null && culture?.CaravanGuard != null)
+            if (DoctrineAPI.IsDoctrineUnlocked<RoadWardens>() || Config.NoDoctrineRequirements)
             {
-                Log.Info("Creating Caravan Guard troop for faction.");
-                CreateSpecialTroop(culture.CaravanGuard, faction, RootCategory.CaravanGuard);
-                created = true;
+                if (faction.CaravanGuard is null && culture?.CaravanGuard != null)
+                {
+                    Log.Info("Creating Caravan Guard troop for faction.");
+                    CreateSpecialTroop(culture.CaravanGuard, faction, RootCategory.CaravanGuard);
+                    created = true;
+                }
+
+                if (faction.CaravanMaster is null && culture?.CaravanMaster != null)
+                {
+                    Log.Info("Creating Caravan Master troop for faction.");
+                    CreateSpecialTroop(culture.CaravanMaster, faction, RootCategory.CaravanMaster);
+                    created = true;
+                }
             }
 
-            if (faction.CaravanMaster is null && culture?.CaravanMaster != null)
+            if (DoctrineAPI.IsDoctrineUnlocked<ArmedPeasantry>() || Config.NoDoctrineRequirements)
             {
-                Log.Info("Creating Caravan Master troop for faction.");
-                CreateSpecialTroop(culture.CaravanMaster, faction, RootCategory.CaravanMaster);
-                created = true;
-            }
-
-            if (faction.Villager is null && culture?.Villager != null)
-            {
-                Log.Info("Creating Villager troop for faction.");
-                CreateSpecialTroop(culture.Villager, faction, RootCategory.Villager);
-                created = true;
+                if (faction.Villager is null && culture?.Villager != null)
+                {
+                    Log.Info("Creating Villager troop for faction.");
+                    CreateSpecialTroop(culture.Villager, faction, RootCategory.Villager);
+                    created = true;
+                }
             }
 
             return created;

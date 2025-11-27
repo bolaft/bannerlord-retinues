@@ -774,6 +774,14 @@ namespace Retinues.Managers
             if (ClanScreen.IsStudioMode)
                 return 0;
             int baseValue = item.Value;
+
+            if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
+                if (Player.Clan.Culture == item.Culture)
+                    baseValue = (int)(baseValue * 0.8f); // 20% discount
+
+            if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
+                baseValue = (int)(baseValue * 0.8f); // 20% discount
+
             return (int)(baseValue * Config.EquipmentCostMultiplier);
         }
 

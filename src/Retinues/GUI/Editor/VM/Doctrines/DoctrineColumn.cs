@@ -49,10 +49,11 @@ namespace Retinues.GUI.Editor.VM.Doctrines
 
             List<string> columnNames =
             [
-                L.S("doctrines_col_0", "Unlocks"),
-                L.S("doctrines_col_1", "Equipment"),
+                L.S("doctrines_col_0", "Spoils"),
+                L.S("doctrines_col_1", "Armory"),
                 L.S("doctrines_col_2", "Troops"),
-                L.S("doctrines_col_3", "Retinues"),
+                L.S("doctrines_col_3", "Training"),
+                L.S("doctrines_col_4", "Retinues"),
             ];
 
             if (svc != null)

@@ -11,7 +11,7 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("battlefield_tithes", "Battlefield Tithes");
         public override TextObject Description =>
-            L.T("battlefield_tithes_description", "Can unlock items from allied party kills.");
+            L.T("battlefield_tithes_description", "Unlock items from alliy kills.");
         public override int Column => 0;
         public override int Row => 1;
         public override bool IsDisabled =>

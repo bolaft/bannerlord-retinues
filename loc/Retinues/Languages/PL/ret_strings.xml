@@ -33,7 +33,7 @@
       text="W jednej bitwie zabij wrogów używając pięciu różnych klas broni." />
     <string
       id="ret_adaptive_training_description"
-      text="PD są zwracane przy obniżaniu umiejętności jednostki." />
+      text="Zezwól na zwroty PD." />
     <string
       id="ret_adaptive_training_disabled_message_cost"
       text="Wyłączone: brak kosztów PD ustawionych przez konfigurację." />
@@ -63,7 +63,7 @@
       text="Zdobądź lenno swojej kultury od wrogiego królestwa." />
     <string
       id="ret_ancestral_heritage_description"
-      text="Odblokowuje wszystkie przedmioty kultury klanu i królestwa." />
+      text="Odblokowuje wszystkie przedmioty własnej kultury." />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
       text="Wyłączone: całe wyposażenie już odblokowane przez konfigurację." />
@@ -82,6 +82,15 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Konwertuj" />
+    <string
+      id="ret_armed_peasantry"
+      text="Uzbrojeni Chłopi" />
+    <string
+      id="ret_armed_peasantry_description"
+      text="Odblokowuje wojska wieśniaków." />
+    <string
+      id="ret_armed_peasantry_disabled_message"
+      text="Wyłączone: specjalne jednostki już odblokowane przez konfigurację." />
     <string
       id="ret_battle_record_battle_types"
       text="Typy bitew:" />
@@ -114,7 +123,7 @@
       text="Dziesięcina Bitewna" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Można odblokować przedmioty z zabójstw sprzymierzeńców." />
+      text="Odblokuj przedmioty za zabójstwa sojuszników." />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="Wyłączone: całe wyposażenie już odblokowane przez konfigurację." />
@@ -190,6 +199,12 @@
     <string
       id="ret_captain_text_2_enabled"
       text="Włączone: na piętnaście jednostek jedna będzie kapitanem." />
+    <string
+      id="ret_captains"
+      text="Kapitanowie" />
+    <string
+      id="ret_captains_description"
+      text="Odblokowuje Kapitanów." />
     <string
       id="ret_change_culture_title"
       text="Zmień Kulturę" />
@@ -294,10 +309,10 @@
       text="Pokonaj władcę innej kultury w bitwie." />
     <string
       id="ret_cultural_pride_description"
-      text="Odblokowuje niestandardowe oddziały milicji." />
+      text="20% rabatu na ekwipunek kultury klanu." />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="Wyłączone: specjalne oddziały odblokowane z konfiguracji." />
+      text="Wyłączono: koszty ekwipunku są wyłączone w konfiguracji." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Zdobądź 100 zabójstw w bitwie jednostkami bez obcego ekwipunku." />
@@ -351,16 +366,19 @@
       text="Doktryny" />
     <string
       id="ret_doctrines_col_0"
-      text="Odblokowania" />
+      text="Łupy" />
     <string
       id="ret_doctrines_col_1"
-      text="Ekwipunek" />
+      text="Zbrojownia" />
     <string
       id="ret_doctrines_col_2"
-      text="Jednostki" />
+      text="Oddziały" />
     <string
       id="ret_doctrines_col_3"
-      text="Orszak" />
+      text="Szkolenie" />
+    <string
+      id="ret_doctrines_col_4"
+      text="Orszaki" />
     <string
       id="ret_editor_help_text"
       text="Pomoc" />
@@ -729,7 +747,7 @@
       text="Zdobądź 1000 zabójstw elitarnymi jednostkami." />
     <string
       id="ret_masters_at_arms_description"
-      text="Dodatkowa gałąź ulepszeń dla elitarnych jednostek." />
+      text="+1 gałąź ulepszeń dla elitarnych jednostek." />
     <string
       id="ret_masters_at_arms_disabled_message"
       text="Wyłączone: ulepszenia elitarnych jednostek są już maksymalne w konfiguracji." />
@@ -1323,7 +1341,7 @@
       text="Wygraj bitwę, w której sojusznicy ponieśli ponad 100 strat." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="Można odblokować przedmioty ze strat sojuszniczych." />
+      text="Odblokuj przedmioty z strat sojuszników." />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
       text="Wyłączone: całe wyposażenie już odblokowane przez konfigurację." />
@@ -1463,6 +1481,24 @@
       id="ret_retinues_version_update_text_no_current"
       text="Wersja moda Orszaki w tym pliku zapisu została zaktualizowana do następnej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione do nowej wersji.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz wersję, której wcześniej używałeś z Nexus Mods." />
     <string
+      id="ret_road_wardens"
+      text="Strażnicy Dróg" />
+    <string
+      id="ret_road_wardens_caravan_escort_quests"
+      text="Wykonaj 3 misje eskorty karawany." />
+    <string
+      id="ret_road_wardens_clear_hideout"
+      text="Wyczyść kryjówkę bandytów." />
+    <string
+      id="ret_road_wardens_description"
+      text="Odblokowuje wojska karawany." />
+    <string
+      id="ret_road_wardens_disabled_message"
+      text="Wyłączone: specjalne wojska odblokowane z konfiguracji." />
+    <string
+      id="ret_road_wardens_three_caravans"
+      text="Posiadaj jednocześnie trzy karawany." />
+    <string
       id="ret_royal_patronage"
       text="Patronat Królewski" />
     <string
@@ -1473,10 +1509,7 @@
       text="Niech towarzysz tej samej kultury co twoje królestwo rządzi lennem przez 30 dni." />
     <string
       id="ret_royal_patronage_description"
-      text="Odblokowuje oddziały karawan i wieśniaków." />
-    <string
-      id="ret_royal_patronage_disabled_message"
-      text="Wyłączone: specjalne oddziały odblokowane z konfiguracji." />
+      text="20% rabatu na ekwipunek kultury królestwa." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Zwerbuj 100 własnych wojsk królestwa." />
@@ -1538,6 +1571,24 @@
       id="ret_sort_value"
       text="Wartość" />
     <string
+      id="ret_stalwart_militia"
+      text="Niezłomna Milicja" />
+    <string
+      id="ret_stalwart_militia_defend_city_from_siege"
+      text="Obroń miasto przed oblężającą je armią wroga." />
+    <string
+      id="ret_stalwart_militia_description"
+      text="Odblokowuje jednostki milicji." />
+    <string
+      id="ret_stalwart_militia_disabled_message"
+      text="Wyłączone: specjalne jednostki odblokowane z konfiguracji." />
+    <string
+      id="ret_stalwart_militia_player_kill_50_siegers"
+      text="Osobiście zabij 50 napastników podczas obrony przed oblężeniem." />
+    <string
+      id="ret_stalwart_militia_raise_militia_400"
+      text="Podnieś wartość milicji lenna do 400." />
+    <string
       id="ret_stats_kills_deaths_summary"
       text="Zabił {KILLS} wrogów i poniósł {DEATHS} ofiar." />
     <string
@@ -1558,6 +1609,9 @@
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 punktów umiejętności." />
+    <string
+      id="ret_steadfast_soldiers_raise_security_60"
+      text="Podnieś wartość bezpieczeństwa lenna do 60." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="Wygraj obronę oblężenia, używając tylko własnych jednostek." />

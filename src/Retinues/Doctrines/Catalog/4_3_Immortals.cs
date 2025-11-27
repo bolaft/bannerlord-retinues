@@ -13,7 +13,7 @@ namespace Retinues.Doctrines.Catalog
         public override TextObject Name => L.T("immortals", "Immortals");
         public override TextObject Description =>
             L.T("immortals_description", "+20% retinue survival chance.");
-        public override int Column => 3;
+        public override int Column => 4;
         public override int Row => 3;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

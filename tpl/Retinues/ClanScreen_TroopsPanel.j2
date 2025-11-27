@@ -42,7 +42,8 @@
                                             command="ExecuteToggleEquipment",
                                             brush="@EquipmentButtonBrush",
                                             is_visible="@ShowEquipmentButton",
-                                            vertical_alignment="Bottom"
+                                            vertical_alignment="Bottom",
+                                            position_y_offset="10",
                                         ) }}
 
                                     </Children>
@@ -82,8 +83,8 @@
             brush="@EquipmentButtonBrush",
             is_visible="@ShowFactionButton",
             vertical_alignment="Bottom", horizontal_alignment="Right",
-            height="120",
-            margin_bottom="120",
+            height="100",
+            margin_bottom="60",
         ) }}
 
         <!-- Doctrines Toggle -->
@@ -93,7 +94,8 @@
             brush="@DoctrinesButtonBrush",
             is_visible="@ShowDoctrinesButton",
             vertical_alignment="Bottom", horizontal_alignment="Right",
-            height="120",
+            height="100",
+            position_y_offset="20",
         ) }}
 
         {# Help Button #}

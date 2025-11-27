@@ -33,7 +33,7 @@
       text="In a single battle, get a kill using five different weapons classes." />
     <string
       id="ret_adaptive_training_description"
-      text="XP is refunded when lowering a troop&apos;s skill." />
+      text="Allow XP refunds." />
     <string
       id="ret_adaptive_training_disabled_message_cost"
       text="Disabled: no XP costs set by config." />
@@ -63,7 +63,7 @@
       text="Capture a fief of your own culture from an enemy kingdom." />
     <string
       id="ret_ancestral_heritage_description"
-      text="Unlocks all items of clan and kingdom cultures." />
+      text="Unlocks all own culture items." />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
       text="Disabled: all equipment already unlocked by config." />
@@ -82,6 +82,15 @@
     <string
       id="ret_apply_conversions_button_text"
       text="Convert" />
+    <string
+      id="ret_armed_peasantry"
+      text="Armed Peasantry" />
+    <string
+      id="ret_armed_peasantry_description"
+      text="Unlocks villager troops." />
+    <string
+      id="ret_armed_peasantry_disabled_message"
+      text="Disabled: special troops unlocked from config." />
     <string
       id="ret_battle_record_battle_types"
       text="Battle types:" />
@@ -114,7 +123,7 @@
       text="Battlefield Tithes" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Can unlock items from allied party kills." />
+      text="Unlock items from alliy kills." />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="Disabled: all equipment already unlocked by config." />
@@ -190,6 +199,12 @@
     <string
       id="ret_captain_text_2_enabled"
       text="Enabled: out of fifteen troops, one will be a captain." />
+    <string
+      id="ret_captains"
+      text="Captains" />
+    <string
+      id="ret_captains_description"
+      text="Unlocks Captains." />
     <string
       id="ret_change_culture_title"
       text="Change Culture" />
@@ -294,10 +309,10 @@
       text="Defeat a ruler of a different culture in battle." />
     <string
       id="ret_cultural_pride_description"
-      text="Unlocks custom militia troops." />
+      text="20% rebate on clan culture gear." />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="Disabled: special troops unlocked from config." />
+      text="Disabled: equipment costs are disabled in config." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="Get 100 kills in battle with troops wearing no foreign gear." />
@@ -351,15 +366,18 @@
       text="Doctrines" />
     <string
       id="ret_doctrines_col_0"
-      text="Unlocks" />
+      text="Spoils" />
     <string
       id="ret_doctrines_col_1"
-      text="Equipment" />
+      text="Armory" />
     <string
       id="ret_doctrines_col_2"
       text="Troops" />
     <string
       id="ret_doctrines_col_3"
+      text="Training" />
+    <string
+      id="ret_doctrines_col_4"
       text="Retinues" />
     <string
       id="ret_editor_help_text"
@@ -729,7 +747,7 @@
       text="Get 1000 kills with elite troops." />
     <string
       id="ret_masters_at_arms_description"
-      text="Extra upgrade branch for elite troops." />
+      text="+1 upgrade branch for elite troops." />
     <string
       id="ret_masters_at_arms_disabled_message"
       text="Disabled: elite upgrades already maxed in config." />
@@ -1323,7 +1341,7 @@
       text="Win a battle in which allies suffer over 100 casualties." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="Can unlock items from allied party casualties." />
+      text="Unlock items from ally casualties." />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
       text="Disabled: all equipment already unlocked by config." />
@@ -1463,6 +1481,24 @@
       id="ret_retinues_version_update_text_no_current"
       text="The Retinues mod version in this save file has been updated to the next version ({CURRENT_VERSION}). Your save data has been automatically migrated to the new version.{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If you notice any issues and wish to go back to the previous version, do not save and download the version you were previously using from Nexus Mods." />
     <string
+      id="ret_road_wardens"
+      text="Road Wardens" />
+    <string
+      id="ret_road_wardens_caravan_escort_quests"
+      text="Complete 3 caravan escort quests." />
+    <string
+      id="ret_road_wardens_clear_hideout"
+      text="Clear a bandit hideout." />
+    <string
+      id="ret_road_wardens_description"
+      text="Unlocks caravan troops." />
+    <string
+      id="ret_road_wardens_disabled_message"
+      text="Disabled: special troops unlocked from config." />
+    <string
+      id="ret_road_wardens_three_caravans"
+      text="Own three caravans at the same time." />
+    <string
       id="ret_royal_patronage"
       text="Royal Patronage" />
     <string
@@ -1473,10 +1509,7 @@
       text="Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days." />
     <string
       id="ret_royal_patronage_description"
-      text="Unlocks caravan and villager troops." />
-    <string
-      id="ret_royal_patronage_disabled_message"
-      text="Disabled: special troops unlocked from config." />
+      text="20% rebate on kingdom culture gear." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recruit 100 custom kingdom troops." />
@@ -1538,6 +1571,24 @@
       id="ret_sort_value"
       text="Value" />
     <string
+      id="ret_stalwart_militia"
+      text="Stalwart Militia" />
+    <string
+      id="ret_stalwart_militia_defend_city_from_siege"
+      text="Defend a city against a besieging enemy army." />
+    <string
+      id="ret_stalwart_militia_description"
+      text="Unlocks militia troops." />
+    <string
+      id="ret_stalwart_militia_disabled_message"
+      text="Disabled: special troops unlocked from config." />
+    <string
+      id="ret_stalwart_militia_player_kill_50_siegers"
+      text="Personally slay 50 assailants during a siege defense." />
+    <string
+      id="ret_stalwart_militia_raise_militia_400"
+      text="Raise the militia value of a fief to 400." />
+    <string
       id="ret_stats_kills_deaths_summary"
       text="Killed {KILLS} enemies and suffered {DEATHS} casualties." />
     <string
@@ -1558,6 +1609,9 @@
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 skill points." />
+    <string
+      id="ret_steadfast_soldiers_raise_security_60"
+      text="Raise the security value of a fief to 60." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="Win a siege defense using only custom troops." />

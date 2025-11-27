@@ -3,14 +3,14 @@
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
 {# Link Macro #}
-{% macro link(text, command, hint, margin_top, brush, is_visible, is_selected) -%}
+{% macro link(text, command, hint, brush, is_visible, is_selected) -%}
 
 <ListPanel
     IsVisible="{{ is_visible }}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Right" VerticalAlignment="Top"
-    StackLayout.LayoutMethod="HorizontalLeftToRight"
-    MarginRight="40" MarginTop="{{ margin_top }}">
+    HorizontalAlignment="Right"
+    MarginTop="10"
+    StackLayout.LayoutMethod="HorizontalLeftToRight">
     <Children>
         <TextWidget
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -41,59 +41,63 @@
 
 <!-- Global Editor -->
 
-{{ link(
-    text="@GlobalEditorLinkText",
-    command="ExecuteShowGlobalEditor",
-    hint="{GlobalEditorHint}",
-    margin_top="10",
-    brush="HowToLearnButtonToggleBrush",
-    is_visible="@ShowGlobalEditorLink",
-    is_selected="false"
-) }}
+<ListPanel
+    IsVisible="@ShowLinksPanel"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Right" VerticalAlignment="Top"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    MarginRight="40" MarginTop="10">
+    <Children>
+        {{ link(
+            text="@GlobalEditorLinkText",
+            command="ExecuteShowGlobalEditor",
+            hint="{GlobalEditorHint}",
+            brush="HowToLearnButtonToggleBrush",
+            is_visible="@ShowGlobalEditorLink",
+            is_selected="false"
+        ) }}
 
-{{ link(
-    text="@PersonalEditorLinkText",
-    command="ExecuteShowPersonalEditor",
-    hint="{PersonalEditorHint}",
-    margin_top="10",
-    brush="HowToLearnButtonToggleBrush",
-    is_visible="@ShowPersonalEditorLink",
-    is_selected="false"
-) }}
+        {{ link(
+            text="@PersonalEditorLinkText",
+            command="ExecuteShowPersonalEditor",
+            hint="{PersonalEditorHint}",
+            brush="HowToLearnButtonToggleBrush",
+            is_visible="@ShowPersonalEditorLink",
+            is_selected="false"
+        ) }}
 
-<!-- Help Button -->
+        <!-- Help Button -->
 
-{{ link(
-    text="@HelpText",
-    command="ExecuteShowHelp",
-    hint="{HelpHint}",
-    margin_top="60",
-    brush="DescriptionButtonToggleBrush",
-    is_visible="true",
-    is_selected="false"
-) }}
+        {{ link(
+            text="@HelpText",
+            command="ExecuteShowHelp",
+            hint="{HelpHint}",
+            brush="DescriptionButtonToggleBrush",
+            is_visible="true",
+            is_selected="false"
+        ) }}
 
 
-<!-- Stats Button -->
+        <!-- Stats Button -->
 
-{{ link(
-    text="@StatsText",
-    command="ExecuteShowTroopStats",
-    hint="{StatsHint}",
-    margin_top="110",
-    brush="DescriptionButtonToggleBrush",
-    is_visible="@ShowStatsButton",
-    is_selected="false"
-) }}
+        {{ link(
+            text="@StatsText",
+            command="ExecuteShowTroopStats",
+            hint="{StatsHint}",
+            brush="DescriptionButtonToggleBrush",
+            is_visible="@ShowStatsButton",
+            is_selected="false"
+        ) }}
 
-<!-- Captain Mode Button -->
+        <!-- Captain Mode Button -->
 
-{{ link(
-    text="@CaptainModeButtonText",
-    command="ExecuteToggleCaptainMode",
-    hint="{CaptainModeHint}",
-    margin_top="160",
-    brush="Encyclopedia.Bookmark.Button",
-    is_visible="@ShowCaptainModeButton",
-    is_selected="@IsCaptain"
-) }}
+        {{ link(
+            text="@CaptainModeButtonText",
+            command="ExecuteToggleCaptainMode",
+            hint="{CaptainModeHint}",
+            brush="Encyclopedia.Bookmark.Button",
+            is_visible="@ShowCaptainModeButton",
+            is_selected="@IsCaptain"
+        ) }}
+    </Children>
+</ListPanel>

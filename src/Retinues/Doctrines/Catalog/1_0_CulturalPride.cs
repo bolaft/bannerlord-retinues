@@ -17,14 +17,15 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("cultural_pride", "Cultural Pride");
         public override TextObject Description =>
-            L.T("cultural_pride_description", "Unlocks custom militia troops.");
+            L.T("cultural_pride_description", "20% rebate on clan culture gear.");
         public override int Column => 1;
         public override int Row => 0;
-        public override bool IsDisabled => Config.NoDoctrineRequirements;
+        public override bool IsDisabled =>
+            Config.EquippingTroopsCostsGold == false || Config.EquipmentCostMultiplier <= 0f;
         public override TextObject DisabledMessage =>
             L.T(
                 "cultural_pride_disabled_message",
-                "Disabled: special troops unlocked from config."
+                "Disabled: equipment costs are disabled in config."
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -12,7 +12,7 @@ namespace Retinues.Doctrines.Catalog
         public override TextObject Name => L.T("iron_discipline", "Iron Discipline");
         public override TextObject Description =>
             L.T("iron_discipline_description", "+5 to skill caps.");
-        public override int Column => 2;
+        public override int Column => 3;
         public override int Row => 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

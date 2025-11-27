@@ -13,14 +13,15 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("royal_patronage", "Royal Patronage");
         public override TextObject Description =>
-            L.T("royal_patronage_description", "Unlocks caravan and villager troops.");
+            L.T("royal_patronage_description", "20% rebate on kingdom culture gear.");
         public override int Column => 1;
         public override int Row => 2;
-        public override bool IsDisabled => Config.NoDoctrineRequirements;
+        public override bool IsDisabled =>
+            Config.EquippingTroopsCostsGold == false || Config.EquipmentCostMultiplier <= 0f;
         public override TextObject DisabledMessage =>
             L.T(
-                "royal_patronage_disabled_message",
-                "Disabled: special troops unlocked from config."
+                "cultural_pride_disabled_message",
+                "Disabled: equipment costs are disabled in config."
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

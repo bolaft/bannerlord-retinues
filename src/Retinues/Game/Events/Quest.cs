@@ -20,6 +20,8 @@ namespace Retinues.Game.Events
         //                          Info                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public string StringId => _quest?.StringId;
+
         public bool IsSuccessful = isSuccessful;
 
         public WHero Giver => _quest?.QuestGiver != null ? new WHero(_quest.QuestGiver) : null;

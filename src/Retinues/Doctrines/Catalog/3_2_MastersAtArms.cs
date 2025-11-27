@@ -12,8 +12,8 @@ namespace Retinues.Doctrines.Catalog
     {
         public override TextObject Name => L.T("masters_at_arms", "Masters-At-Arms");
         public override TextObject Description =>
-            L.T("masters_at_arms_description", "Extra upgrade branch for elite troops.");
-        public override int Column => 2;
+            L.T("masters_at_arms_description", "+1 upgrade branch for elite troops.");
+        public override int Column => 3;
         public override int Row => 2;
         public override bool IsDisabled => Config.MaxEliteUpgrades == 4;
         public override TextObject DisabledMessage =>

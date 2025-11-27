@@ -17,6 +17,7 @@
     width="!CancelButton.Width", height="!CancelButton.Height",
     horizontal_alignment="Center", vertical_alignment="Center",
     margin_left="0", margin_right="0", margin_top="0", margin_bottom="0",
+    position_x_offset="0", position_y_offset="0",
     hint=None
 ) -%}
 
@@ -25,6 +26,7 @@
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
     MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
+    PositionXOffset="{{ position_x_offset }}" PositionYOffset="{{ position_y_offset }}"
     {% if data_source %}DataSource="{{ data_source }}"{% endif %}
     {% if is_hidden %}IsHidden="{{ is_hidden }}"{% endif %}
     IsVisible="{{ is_visible }}">
@@ -189,6 +191,7 @@
     width="!CancelButton.Width", height="!CancelButton.Height",
     vertical_alignment="Center", horizontal_alignment="Center",
     margin_left="0", margin_right="0", margin_top="0", margin_bottom="0",
+    position_x_offset="0", position_y_offset="0",
     font_size=None,
     font_color=None,
     hint=None
@@ -204,6 +207,7 @@
     width=width, height=height,
     horizontal_alignment=horizontal_alignment, vertical_alignment=vertical_alignment,
     margin_left=margin_left, margin_right=margin_right, margin_top=margin_top, margin_bottom=margin_bottom,
+    position_x_offset=position_x_offset, position_y_offset=position_y_offset,
     brush=brush,
     hint=hint
 ) %}

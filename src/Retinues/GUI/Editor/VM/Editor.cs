@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Features.Agents;
 using Retinues.Features.Statistics;
 using Retinues.Game;
@@ -100,6 +102,7 @@ namespace Retinues.GUI.Editor.VM
             OnPropertyChanged(nameof(FactionButtonText));
             OnPropertyChanged(nameof(EquipmentButtonBrush));
             OnPropertyChanged(nameof(DoctrinesButtonBrush));
+            OnPropertyChanged(nameof(ShowLinksPanel));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -298,6 +301,9 @@ namespace Retinues.GUI.Editor.VM
         public bool ShowEquipmentButton => Screen != Screen.Doctrine;
 
         [DataSourceProperty]
+        public bool ShowLinksPanel => Screen != Screen.Doctrine;
+
+        [DataSourceProperty]
         public bool ShowGlobalEditorLink =>
             ClanScreen.IsStudioMode == false && Config.EnableGlobalEditor;
 
@@ -316,9 +322,13 @@ namespace Retinues.GUI.Editor.VM
                 if (ClanScreen.IsStudioMode)
                     return false;
 
+                if (DoctrineAPI.IsDoctrineUnlocked<Captains>() == false)
+                    return false;
+
                 var troop = State.Troop;
                 if (troop == null)
                     return false;
+
                 return troop.CanHaveCaptain || troop.IsCaptain;
             }
         }
@@ -439,6 +449,9 @@ namespace Retinues.GUI.Editor.VM
         [DataSourceMethod]
         public void ExecuteToggleCaptainMode()
         {
+            if (DoctrineAPI.IsDoctrineUnlocked<Captains>() == false)
+                return;
+
             var troop = State.Troop;
             if (troop == null)
                 return;

@@ -12,7 +12,7 @@ namespace Retinues.Doctrines.Catalog
         public override TextObject Name => L.T("bound_by_honor", "Bound by Honor");
         public override TextObject Description =>
             L.T("bound_by_honor_description", "+20% retinue morale.");
-        public override int Column => 3;
+        public override int Column => 4;
         public override int Row => 1;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

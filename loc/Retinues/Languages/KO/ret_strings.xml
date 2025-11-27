@@ -33,7 +33,7 @@
       text="한 전투에서 5가지 다른 무기 유형으로 각각 킬을 기록하십시오." />
     <string
       id="ret_adaptive_training_description"
-      text="병력의 기술을 낮출 경우 경험치가 환급됩니다." />
+      text="XP 환불 허용." />
     <string
       id="ret_adaptive_training_disabled_message_cost"
       text="비활성화됨: 구성에서 XP 비용이 설정되지 않음." />
@@ -63,7 +63,7 @@
       text="적 왕국으로부터 자신의 문화에 속한 영지를 점령하십시오." />
     <string
       id="ret_ancestral_heritage_description"
-      text="가문과 왕국 문화의 모든 아이템을 해제합니다." />
+      text="자신의 문화 아이템 모두 잠금 해제." />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
       text="비활성화됨: 구성에서 이미 모든 장비가 잠금 해제됨." />
@@ -82,6 +82,15 @@
     <string
       id="ret_apply_conversions_button_text"
       text="변환" />
+    <string
+      id="ret_armed_peasantry"
+      text="무장 농민" />
+    <string
+      id="ret_armed_peasantry_description"
+      text="마을 사람 병력 잠금 해제." />
+    <string
+      id="ret_armed_peasantry_disabled_message"
+      text="비활성화됨: 구성에서 이미 특수 병력이 잠금 해제됨." />
     <string
       id="ret_battle_record_battle_types"
       text="전투 유형:" />
@@ -114,7 +123,7 @@
       text="전장의 십일조" />
     <string
       id="ret_battlefield_tithes_description"
-      text="아군의 킬로 아이템을 해제할 수 있습니다." />
+      text="아군 킬로 아이템 잠금 해제." />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="비활성화됨: 구성에서 이미 모든 장비가 잠금 해제됨." />
@@ -190,6 +199,12 @@
     <string
       id="ret_captain_text_2_enabled"
       text="활성화됨: 15개 병력 중 하나가 대장이 될 것입니다." />
+    <string
+      id="ret_captains"
+      text="대장" />
+    <string
+      id="ret_captains_description"
+      text="대장을 잠금 해제합니다." />
     <string
       id="ret_change_culture_title"
       text="문화 변경" />
@@ -294,10 +309,10 @@
       text="다른 문화의 지배자를 전투에서 물리치십시오." />
     <string
       id="ret_cultural_pride_description"
-      text="사용자 지정 민병대를 잠금 해제합니다." />
+      text="가문 문화 장비에 20% 할인 혜택이 제공됩니다." />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="비활성화: 구성에서 특수 부대가 잠금 해제됩니다." />
+      text="비활성화됨: 구성에서 장비 비용이 비활성화되어 있습니다." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
       text="외국 장비를 착용하지 않은 병력으로 전투에서 100킬을 기록하십시오." />
@@ -351,15 +366,18 @@
       text="교리" />
     <string
       id="ret_doctrines_col_0"
-      text="해제" />
+      text="전리품" />
     <string
       id="ret_doctrines_col_1"
-      text="장비" />
+      text="무기고" />
     <string
       id="ret_doctrines_col_2"
       text="병력" />
     <string
       id="ret_doctrines_col_3"
+      text="훈련" />
+    <string
+      id="ret_doctrines_col_4"
       text="수행원" />
     <string
       id="ret_editor_help_text"
@@ -729,7 +747,7 @@
       text="정예 병력으로 1000킬을 기록하십시오." />
     <string
       id="ret_masters_at_arms_description"
-      text="정예 병력을 위한 추가 업그레이드 분기." />
+      text="정예 병력용 업그레이드 분기 +1." />
     <string
       id="ret_masters_at_arms_disabled_message"
       text="비활성화됨: 구성에서 정예 업그레이드가 이미 최대화되었습니다." />
@@ -1323,7 +1341,7 @@
       text="아군이 100명 이상의 피해를 입은 전투에서 승리하십시오." />
     <string
       id="ret_pragmatic_scavengers_description"
-      text="아군 피해로 아이템을 해제할 수 있습니다." />
+      text="아군 사상자에서 아이템 잠금 해제." />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
       text="비활성화: 모든 장비가 이미 구성에 의해 잠금 해제되었습니다." />
@@ -1463,6 +1481,24 @@
       id="ret_retinues_version_update_text_no_current"
       text="이 저장 파일의 수행원 모드 버전이 다음 버전({CURRENT_VERSION})으로 업데이트되었습니다. 저장 데이터가 자동으로 새 버전으로 마이그레이션되었습니다.{newline}{newline}안전 예방 조치로 저장을 덮어쓰기 전에 모든 것이 정상인지 확인하십시오.{newline}{newline}문제가 발생하고 이전 버전으로 돌아가려면 저장하지 말고 이전에 사용하던 버전을 Nexus Mods에서 다운로드하십시오." />
     <string
+      id="ret_road_wardens"
+      text="로드 워든" />
+    <string
+      id="ret_road_wardens_caravan_escort_quests"
+      text="3개의 캐러밴 호위 퀘스트를 완료하십시오." />
+    <string
+      id="ret_road_wardens_clear_hideout"
+      text="산적 은신처를 정리하십시오." />
+    <string
+      id="ret_road_wardens_description"
+      text="캐러밴 병력을 잠금 해제합니다." />
+    <string
+      id="ret_road_wardens_disabled_message"
+      text="비활성화: 구성에서 특수 부대가 잠금 해제되었습니다." />
+    <string
+      id="ret_road_wardens_three_caravans"
+      text="동시에 세 개의 캐러밴을 소유하십시오." />
+    <string
       id="ret_royal_patronage"
       text="왕실 후원" />
     <string
@@ -1473,10 +1509,7 @@
       text="왕국과 같은 문화의 동료가 왕국 영지를 30일간 통치하게 하십시오." />
     <string
       id="ret_royal_patronage_description"
-      text="캐러밴 및 마을 주민 병력을 잠금 해제합니다." />
-    <string
-      id="ret_royal_patronage_disabled_message"
-      text="비활성화: 구성에서 특수 부대가 잠금 해제되었습니다." />
+      text="왕국 문화 장비 20% 할인." />
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="커스텀 왕국 병력 100명을 모집하십시오." />
@@ -1538,6 +1571,24 @@
       id="ret_sort_value"
       text="가치" />
     <string
+      id="ret_stalwart_militia"
+      text="굳건한 민병대" />
+    <string
+      id="ret_stalwart_militia_defend_city_from_siege"
+      text="포위하는 적군으로부터 도시를 방어하십시오." />
+    <string
+      id="ret_stalwart_militia_description"
+      text="민병대 병력을 잠금 해제합니다." />
+    <string
+      id="ret_stalwart_militia_disabled_message"
+      text="비활성화됨: 구성에서 특수 부대가 잠금 해제되었습니다." />
+    <string
+      id="ret_stalwart_militia_player_kill_50_siegers"
+      text="공성 방어 중에 50명의 공격자를 직접 처치하십시오." />
+    <string
+      id="ret_stalwart_militia_raise_militia_400"
+      text="영지의 민병대 가치를 400으로 올리십시오." />
+    <string
       id="ret_stats_kills_deaths_summary"
       text="{KILLS}명의 적을 죽이고 {DEATHS}명의 사상자를 입었습니다." />
     <string
@@ -1558,6 +1609,9 @@
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 기술 포인트." />
+    <string
+      id="ret_steadfast_soldiers_raise_security_60"
+      text="영지의 치안 가치를 60으로 올리십시오." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
       text="커스텀 병력만으로 공성 방어에서 승리하십시오." />
