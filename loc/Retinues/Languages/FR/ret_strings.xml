@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Désactivé : les troupes spéciales déjà débloquées par la configuration." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Accomplis 3 quêtes pour le chef de l’un de tes villages." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Accomplis 3 quêtes pour un propriétaire terrien de l’un de tes villages." />
+    <string
       id="ret_battle_record_battle_types"
       text="Types de bataille :" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Débloque des capitaines." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Gagne 200 d’influence en une seule journée." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="Aie 4 000 de renommée." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Maximise les compétences d’une troupe d’élite T6 et d’une troupe de base T5." />
     <string
       id="ret_change_culture_title"
       text="Changer de Culture" />

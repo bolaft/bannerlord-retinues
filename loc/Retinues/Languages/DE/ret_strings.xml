@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Deaktiviert: Spezielle Truppen bereits durch Konfiguration freigeschaltet." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Schließe 3 Quests für den Dorfvorsteher eines deiner Dörfer ab." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Schließe 3 Quests für einen Grundbesitzer eines deiner Dörfer ab." />
+    <string
       id="ret_battle_record_battle_types"
       text="Schlachtarten:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Schaltet Hauptmänner frei." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Erziele an einem einzigen Tag 200 Einfluss." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="Habe 4.000 Ruhm." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Maximiere die Fähigkeiten einer T6-Elitetruppe und einer T5-Basistruppe." />
     <string
       id="ret_change_culture_title"
       text="Kultur ändern" />

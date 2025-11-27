@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Wyłączone: specjalne jednostki już odblokowane przez konfigurację." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Wykonaj 3 zadania dla sołtysa jednej ze swoich wiosek." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Wykonaj 3 zadania dla właściciela ziemskiego jednej ze swoich wiosek." />
+    <string
       id="ret_battle_record_battle_types"
       text="Typy bitew:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Odblokowuje Kapitanów." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Zdobyć 200 wpływów w ciągu jednego dnia." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="Mieć 4000 sławy." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Maksymalizuj umiejętności elitarnej jednostki T6 i podstawowej jednostki T5." />
     <string
       id="ret_change_culture_title"
       text="Zmień Kulturę" />

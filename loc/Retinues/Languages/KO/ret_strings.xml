@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="비활성화됨: 구성에서 이미 특수 병력이 잠금 해제됨." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="자신의 마을 중 한 곳의 촌장에게 3개의 퀘스트를 완료하십시오." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="자신의 마을 중 한 곳의 지주에게 3개의 퀘스트를 완료하십시오." />
+    <string
       id="ret_battle_record_battle_types"
       text="전투 유형:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="대장을 잠금 해제합니다." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="하루에 200의 영향력을 획득하십시오." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="4,000의 명성을 가지십시오." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="T6 정예 병력과 T5 기본 병력의 기술을 최대한으로 올리십시오." />
     <string
       id="ret_change_culture_title"
       text="문화 변경" />

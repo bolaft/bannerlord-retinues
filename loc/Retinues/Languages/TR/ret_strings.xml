@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Devre dışı: yapılandırma tarafından özel askerler zaten kilidi açıldı." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Köylerinden birinin muhtarına 3 görev tamamla." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Köylerinden birinin toprak sahibine 3 görev tamamla." />
+    <string
       id="ret_battle_record_battle_types"
       text="Savaş türleri:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Kaptanların kilidini açar." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Tek bir günde 200 etki kazanın." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="4.000 şöhrete sahip olun." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Bir T6 seçkin birliğinin ve bir T5 temel birliğinin becerilerini en üst düzeye çıkarın." />
     <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />

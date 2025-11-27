@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Disabled: special troops unlocked from config." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Complete 3 quests for the headman of one of your villages." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Complete 3 quests for a landowner of one of your villages." />
+    <string
       id="ret_battle_record_battle_types"
       text="Battle types:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Unlocks Captains." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Earn 200 influence in a single day." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="Have 4 000 renown." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Max out the skills of a T6 elite troop and a T5 basic troop." />
     <string
       id="ret_change_culture_title"
       text="Change Culture" />

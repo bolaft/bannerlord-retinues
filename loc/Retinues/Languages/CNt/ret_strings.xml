@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="已禁用：配置已解鎖特殊部隊。" />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="為你的一座村莊的村長完成3個任務。" />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="為你的一座村莊的地主完成3個任務。" />
+    <string
       id="ret_battle_record_battle_types"
       text="戰鬥類型：" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="解鎖隊長。" />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="在一天內獲得200點影響力。" />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="擁有4000點聲望。" />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="將一支T6精英部隊和一支T5基礎部隊的技能提升到最高。" />
     <string
       id="ret_change_culture_title"
       text="更改文化" />

@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Disabilitato: le truppe speciali già sbloccate dalla configurazione." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Completa 3 missioni per il capo di uno dei tuoi villaggi." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Completa 3 missioni per un proprietario terriero di uno dei tuoi villaggi." />
+    <string
       id="ret_battle_record_battle_types"
       text="Tipi di battaglia:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Sblocca i Capitani." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Guadagna 200 di influenza in un solo giorno." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="Possiedi 4.000 di fama." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Massimizza le abilità di una truppa d’élite T6 e di una truppa base T5." />
     <string
       id="ret_change_culture_title"
       text="Cambia Cultura" />

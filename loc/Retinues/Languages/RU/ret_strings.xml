@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Отключено: специальные войска уже разблокированы в конфигурации." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Выполните 3 задания для старосты одной из ваших деревень." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Выполните 3 задания для землевладельца одной из ваших деревень." />
+    <string
       id="ret_battle_record_battle_types"
       text="Типы боёв:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Разблокирует Капитанов." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Заработайте 200 влияния за один день." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="Иметь 4000 славы." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Максимизируйте навыки элитной войсковой единицы T6 и базовой войсковой единицы T5." />
     <string
       id="ret_change_culture_title"
       text="Сменить Культуру" />

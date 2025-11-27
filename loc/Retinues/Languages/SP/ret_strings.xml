@@ -92,6 +92,12 @@
       id="ret_armed_peasantry_disabled_message"
       text="Deshabilitado: tropas especiales ya desbloqueadas por la configuración." />
     <string
+      id="ret_armed_peasantry_headman_quests"
+      text="Completa 3 misiones para el jefe de una de tus aldeas." />
+    <string
+      id="ret_armed_peasantry_landowner_quests"
+      text="Completa 3 misiones para un terrateniente de una de tus aldeas." />
+    <string
       id="ret_battle_record_battle_types"
       text="Tipos de batalla:" />
     <string
@@ -205,6 +211,15 @@
     <string
       id="ret_captains_description"
       text="Desbloquea Capitanes." />
+    <string
+      id="ret_captains_earn_200_influence_in_a_day"
+      text="Gana 200 de influencia en un solo día." />
+    <string
+      id="ret_captains_have_4000_renown"
+      text="Ten 4.000 de renombre." />
+    <string
+      id="ret_captains_max_out_elite_basic"
+      text="Maximiza las habilidades de una tropa de élite T6 y una tropa básica T5." />
     <string
       id="ret_change_culture_title"
       text="Cambiar Cultura" />
