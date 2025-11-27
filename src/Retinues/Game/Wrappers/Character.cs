@@ -217,7 +217,7 @@ namespace Retinues.Game.Wrappers
             get
             {
                 if (!CanHaveCaptain)
-                    return this; // fallback for captains and non-custom troops
+                    return null; // fallback for captains and non-custom troops
 
                 // Try global cache first (base troop stringId -> captain instance).
                 if (CaptainCache.TryGetValue(StringId, out var cached) && cached != null)
