@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Rette einen besiegten Lord aus dem Gefangenentransport einer feindlichen Gruppe." />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="Vorschau-Modus deaktivieren." />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="Vorschau-Modus: Sieh dir an, wie die Ausrüstung an der Truppe aussieht, ohne Änderungen anzuwenden." />
+    <string
+      id="ret_preview_mode_text"
+      text="Vorschau-Modus" />
+    <string
       id="ret_queen_guard"
       text="Königsgarde" />
     <string

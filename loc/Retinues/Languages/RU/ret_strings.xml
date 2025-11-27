@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Спасите поверженного лорда из плена вражеского отряда." />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="Отключить режим предварительного просмотра." />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="Режим предварительного просмотра: посмотрите, как оборудование выглядит на отряде без применения изменений." />
+    <string
+      id="ret_preview_mode_text"
+      text="Режим предварительного просмотра" />
+    <string
       id="ret_queen_guard"
       text="Гвардия Королевы" />
     <string

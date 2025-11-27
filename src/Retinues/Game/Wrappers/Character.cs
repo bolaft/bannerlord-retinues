@@ -938,7 +938,6 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public bool TryGetModel(int index, out CharacterViewModel model, out Exception error)
         {
-            model = null;
             error = null;
 
             try

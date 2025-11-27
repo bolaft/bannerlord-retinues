@@ -15,9 +15,9 @@
         <!-- Crafted Icon -->
         {{ image.sprite(
             sprite="General\Mission\smithy",
-            color="#f1d7a5ff",
-            width="24", height="24",
-            margin_right="4"
+            color="#ecc57cff",
+            width="18", height="18",
+            margin_right="5", margin_left="5"
         ) }}
 
         <!-- Crafted Checkbox -->
@@ -46,8 +46,8 @@
         {{ image.sprite(
             sprite="@GenderOverrideIcon",
             color="#f1d7a5ff",
-            width="24", height="24",
-            margin_right="4"
+            width="18", height="18",
+            margin_right="5", margin_left="5"
         ) }}
 
         <!-- Gender Override Checkbox -->
@@ -61,12 +61,40 @@
     </Children>
 </ListPanel>
 
+<!-- Preview Mode -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@ShowEquipmentCheckboxes"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="32"
+    MarginTop="70" MarginLeft="55"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Preview Mode Icon -->
+        {{ image.sprite(
+            sprite="@PreviewModeIcon",
+            color="#f1d7a5ff",
+            width="28", height="28",
+        ) }}
+
+        <!-- Preview Mode Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteTogglePreviewMode",
+            is_selected="@InPreviewMode",
+            size="24",
+            hint="{PreviewModeHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
 <!-- Truncated Indicator -->
 <ListPanel
     DataSource="{EquipmentScreen}"
     IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    MarginLeft="72" MarginTop="54"
+    MarginLeft="72" MarginTop="89"
     HorizontalAlignment="Left">
     <Children>
         <SpriteWidget
@@ -284,5 +312,14 @@
 
             </Children>
         </ListPanel>
+
+        <!-- Preview Mode Indicator -->
+        {{ text.base(
+            text="@PreviewModeText",
+            is_visible="@InPreviewMode",
+            horizontal_alignment="Center",
+            font_size="20",
+            margin_top="6",
+        ) }}
     </Children>
 </ListPanel>

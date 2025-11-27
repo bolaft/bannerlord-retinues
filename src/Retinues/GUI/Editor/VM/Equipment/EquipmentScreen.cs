@@ -11,7 +11,6 @@ using Retinues.GUI.Editor.VM.Equipment.List;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
 using Retinues.GUI.Helpers;
 using Retinues.Managers;
-using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -93,6 +92,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(SiegeDefenseHint),
                     nameof(SiegeAssaultHint),
                     nameof(GenderOverrideHint),
+                    nameof(PreviewModeHint),
                     nameof(CivilianHint),
                     nameof(CanToggleCivilianSet),
                     nameof(CanToggleEnableForFieldBattle),
@@ -113,6 +113,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 ],
                 [UIEvent.Appearance] = [nameof(GenderOverrideIcon)],
             };
+
+        protected override void OnTroopChange()
+        {
+            // Disable preview mode on troop change
+            PreviewOverlay.Disable();
+            OnPropertyChanged(nameof(InPreviewMode));
+            OnPropertyChanged(nameof(PreviewModeHint));
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Components                      //
@@ -375,6 +383,15 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 ? "SPGeneral\\GeneralFlagIcons\\male_only"
                 : "SPGeneral\\GeneralFlagIcons\\female_only";
 
+        [DataSourceProperty]
+        public bool InPreviewMode => PreviewOverlay.IsEnabled;
+
+        [DataSourceProperty]
+        public string PreviewModeIcon => "Inventory\\icon_inspect";
+
+        [DataSourceProperty]
+        public string PreviewModeText => L.S("preview_mode_text", "Preview Mode");
+
         /// <summary>
         /// Handle slot selection changes and update the affected slot buttons.
         /// </summary>
@@ -549,11 +566,22 @@ namespace Retinues.GUI.Editor.VM.Equipment
         public BasicTooltipViewModel GenderOverrideHint =>
             Tooltip.MakeTooltip(
                 null,
-                L.T(
-                        "gender_override_hint",
-                        "If enabled, troops spawning with this equipment set will be of the opposite gender."
+                L.S(
+                    "gender_override_hint",
+                    "If enabled, troops spawning with this equipment set will be of the opposite gender."
+                )
+            );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel PreviewModeHint =>
+            Tooltip.MakeTooltip(
+                null,
+                InPreviewMode
+                    ? L.S("preview_mode_disable_hint", "Disable Preview Mode.")
+                    : L.S(
+                        "preview_mode_enable_hint",
+                        "Preview Mode: see how equipment looks on the troop without applying changes."
                     )
-                    .ToString()
             );
 
         [DataSourceProperty]
@@ -568,16 +596,14 @@ namespace Retinues.GUI.Editor.VM.Equipment
             : !DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
                 ? Tooltip.MakeTooltip(
                     null,
-                    L.T(
-                            "show_crafted_disabled_hint",
-                            "Unlock the 'Clan Traditions' doctrine to show crafted items."
-                        )
-                        .ToString()
+                    L.S(
+                        "show_crafted_disabled_hint",
+                        "Unlock the 'Clan Traditions' doctrine to show crafted items."
+                    )
                 )
             : Tooltip.MakeTooltip(
                 null,
-                L.T("show_crafted_weapon_hint", "Only weapon slots can have crafted items.")
-                    .ToString()
+                L.S("show_crafted_weapon_hint", "Only weapon slots can have crafted items.")
             );
 
         [DataSourceProperty]
@@ -831,6 +857,15 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             // Update 3D model + icon when the override changes.
             State.UpdateAppearance();
+        }
+
+        [DataSourceMethod]
+        public void ExecuteTogglePreviewMode()
+        {
+            PreviewOverlay.Toggle();
+            State.UpdateEquipment(State.Equipment); // Trigger rows refresh
+            OnPropertyChanged(nameof(InPreviewMode));
+            OnPropertyChanged(nameof(PreviewModeHint));
         }
 
         [DataSourceMethod]

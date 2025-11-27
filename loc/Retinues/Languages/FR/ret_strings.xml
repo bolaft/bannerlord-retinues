@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Sauve un seigneur vaincu d’un convoi de prisonniers ennemi." />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="Désactiver le mode Aperçu." />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="Mode Aperçu : voyez à quoi ressemble l’équipement sur la troupe sans appliquer les modifications." />
+    <string
+      id="ret_preview_mode_text"
+      text="Mode Aperçu" />
+    <string
       id="ret_queen_guard"
       text="Garde de la Reine" />
     <string

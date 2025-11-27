@@ -204,6 +204,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public bool ShowInStockText =>
             !ClanScreen.IsStudioMode
+            && !PreviewOverlay.IsEnabled
             && Config.EquippingTroopsCostsGold
             && IsEnabled
             && !IsSelected
@@ -214,6 +215,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public bool ShowCost =>
             !ClanScreen.IsStudioMode
+            && !PreviewOverlay.IsEnabled
             && Config.EquippingTroopsCostsGold
             && IsEnabled
             && !IsSelected
@@ -444,6 +446,22 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             var troop = State.Troop;
             var setIndex = State.Equipment.Index;
             var slot = State.Slot;
+
+            // Preview mode: only update visual overlay, do not touch equipment / staging / costs.
+            if (PreviewOverlay.IsEnabled)
+            {
+                Log.Debug(
+                    $"ExecuteSelect: Preview mode - Troop={troop?.ToString() ?? "null"}, SetIndex={setIndex}, Slot={slot}, RowItem={RowItem?.Name?.ToString() ?? "null"}"
+                );
+
+                // Clicking the empty row clears preview for this slot.
+                if (RowItem == null)
+                    PreviewOverlay.SetPreview(troop, setIndex, slot, null);
+                else
+                    PreviewOverlay.SetPreview(troop, setIndex, slot, RowItem);
+
+                return;
+            }
 
             var equippedItem = State.Equipment.Get(slot);
             var selectionIsNull = RowItem == null;

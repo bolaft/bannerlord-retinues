@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Rescue a defeated lord from a enemy party&apos;s prisoner train." />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="Disable Preview Mode." />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="Preview Mode: see how equipment looks on the troop without applying changes." />
+    <string
+      id="ret_preview_mode_text"
+      text="Preview Mode" />
+    <string
       id="ret_queen_guard"
       text="Queen&apos;s Guard" />
     <string

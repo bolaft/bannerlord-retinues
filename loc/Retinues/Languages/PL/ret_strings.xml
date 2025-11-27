@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Uwolnij pokonanego lorda z transportu więźniów wrogiej drużyny." />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="Wyłącz tryb podglądu." />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="Tryb podglądu: zobacz, jak wygląda wyposażenie na oddziale bez wprowadzania zmian." />
+    <string
+      id="ret_preview_mode_text"
+      text="Tryb podglądu" />
+    <string
       id="ret_queen_guard"
       text="Straż Królowej" />
     <string

@@ -246,7 +246,30 @@ namespace Retinues.GUI.Editor.VM
                     PolicyToggleType.GenderOverride
                 );
 
-                return troop.GetModel(equipment.Index, hasGenderOverride);
+                // Base model (uses staged equipment via WCharacter.GetModel)
+                var vm = troop.GetModel(equipment.Index, hasGenderOverride);
+                if (vm == null)
+                    return null;
+
+                // In preview mode, overlay "fake" equipment on top of the staged base.
+                if (PreviewOverlay.IsEnabled)
+                {
+                    var baseEquipment = troop.Loadout.Get(equipment.Index).StagingPreview();
+
+                    if (
+                        PreviewOverlay.TryBuildEquipment(
+                            troop,
+                            equipment.Index,
+                            baseEquipment,
+                            out var previewEquipment
+                        )
+                    )
+                    {
+                        vm.SetEquipment(previewEquipment);
+                    }
+                }
+
+                return vm;
             }
         }
 

@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="從敵軍押送隊中解救一名戰敗領主。" />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="禁用預覽模式。" />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="預覽模式：查看裝備在部隊上的外觀，而不應用更改。" />
+    <string
+      id="ret_preview_mode_text"
+      text="預覽模式" />
+    <string
       id="ret_queen_guard"
       text="女王衛隊" />
     <string

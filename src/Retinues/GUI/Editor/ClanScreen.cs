@@ -72,7 +72,11 @@ namespace Retinues.GUI.Editor
 
                 try
                 {
-                    SpriteLoader.LoadCategories("ui_charactercreation", "ui_characterdeveloper");
+                    SpriteLoader.LoadCategories(
+                        "ui_charactercreation",
+                        "ui_characterdeveloper",
+                        "ui_inventory"
+                    );
                 }
                 catch (Exception e)
                 {

@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Yenilen bir lordu düşman esir kervanından kurtar." />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="Önizleme Modunu Devre Dışı Bırak." />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="Önizleme Modu: Değişiklikleri uygulamadan ekipmanın birlik üzerindeki görünümünü görün." />
+    <string
+      id="ret_preview_mode_text"
+      text="Önizleme Modu" />
+    <string
       id="ret_queen_guard"
       text="Kraliçenin Muhafızları" />
     <string

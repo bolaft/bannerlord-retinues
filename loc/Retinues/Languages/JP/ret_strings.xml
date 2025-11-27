@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="敵の捕虜護送隊から敗北した領主を救出する。" />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="プレビューモードを無効にします。" />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="プレビューモード：変更を適用せずに、装備が部隊にどのように見えるかを確認します。" />
+    <string
+      id="ret_preview_mode_text"
+      text="プレビューモード" />
+    <string
       id="ret_queen_guard"
       text="女王の親衛隊" />
     <string

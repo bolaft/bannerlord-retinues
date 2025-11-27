@@ -1367,6 +1367,15 @@
       id="ret_pragmatic_scavengers_rescue_lord"
       text="Salva un signore sconfitto da un convoglio di prigionieri nemico." />
     <string
+      id="ret_preview_mode_disable_hint"
+      text="Disabilita la Modalità Anteprima." />
+    <string
+      id="ret_preview_mode_enable_hint"
+      text="Modalità Anteprima: vedi come appare l’equipaggiamento sulla truppa senza applicare le modifiche." />
+    <string
+      id="ret_preview_mode_text"
+      text="Modalità Anteprima" />
+    <string
       id="ret_queen_guard"
       text="Guardia della Regina" />
     <string
