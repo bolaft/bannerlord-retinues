@@ -63,7 +63,7 @@ namespace Retinues.Features.Agents.Patches
                 var troop = new WCharacter(__result);
 
                 // Captains are only for custom non-heroes
-                if (troop.IsHero || !troop.IsCustom)
+                if (!troop.CanHaveCaptain)
                     return;
 
                 // Always key off the base troop

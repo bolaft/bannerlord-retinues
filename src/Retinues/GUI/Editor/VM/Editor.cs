@@ -309,8 +309,19 @@ namespace Retinues.GUI.Editor.VM
             ClanScreen.IsStudioMode == false && State.Troop?.IsCustom == true;
 
         [DataSourceProperty]
-        public bool ShowCaptainModeButton =>
-            ClanScreen.IsStudioMode == false && State.Troop?.IsCustom == true;
+        public bool ShowCaptainModeButton
+        {
+            get
+            {
+                if (ClanScreen.IsStudioMode)
+                    return false;
+
+                var troop = State.Troop;
+                if (troop == null)
+                    return false;
+                return troop.CanHaveCaptain || troop.IsCaptain;
+            }
+        }
 
         /* ━━━━━━━━ Brushes ━━━━━━━ */
 

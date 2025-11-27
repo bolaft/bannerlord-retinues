@@ -196,9 +196,12 @@ namespace Retinues.Game.Wrappers
         private static readonly Dictionary<string, WCharacter> CaptainCache = new(
             StringComparer.Ordinal
         );
+
         private static readonly Dictionary<string, bool> CaptainEnabledCache = new(
             StringComparer.Ordinal
         );
+
+        public bool CanHaveCaptain => IsCustom && !IsRetinue && !IsCaptain;
 
         public static void ClearCaptainCaches()
         {
@@ -213,9 +216,8 @@ namespace Retinues.Game.Wrappers
         {
             get
             {
-                // If this wrapper is itself a captain, just return it.
-                if (IsCaptain)
-                    return this;
+                if (!CanHaveCaptain)
+                    return this; // fallback for captains and non-custom troops
 
                 // Try global cache first (base troop stringId -> captain instance).
                 if (CaptainCache.TryGetValue(StringId, out var cached) && cached != null)
@@ -299,7 +301,7 @@ namespace Retinues.Game.Wrappers
 
         private WCharacter CreateCaptain()
         {
-            if (IsVanilla || IsHero)
+            if (!CanHaveCaptain)
                 return null; // Only for custom regular troops
 
             // If already in cache for this base, reuse it
