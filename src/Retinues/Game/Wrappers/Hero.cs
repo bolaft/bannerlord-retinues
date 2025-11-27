@@ -119,16 +119,16 @@ namespace Retinues.Game.Wrappers
             get
             {
                 if (_hero == null)
-                    return TroopSkills.ToDictionary(s => s, _ => 0);
+                    return AllSkills.ToDictionary(s => s, _ => 0);
 
-                return TroopSkills.ToDictionary(s => s, s => _hero.GetSkillValue(s));
+                return AllSkills.ToDictionary(s => s, s => _hero.GetSkillValue(s));
             }
             set
             {
                 if (_hero == null)
                     return;
 
-                foreach (var skill in TroopSkills)
+                foreach (var skill in AllSkills)
                 {
                     var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
                     _hero.SetSkillValue(skill, v);

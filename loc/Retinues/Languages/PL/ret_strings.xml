@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="Błąd Wyglądu" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="To połączenie płci i kultury nie jest obsługiwane." />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="To połączenie płci, kultury i gatunku nie jest obsługiwane." />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="Nie Obsługiwane" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="Nie Obsługiwane" />
-    <string
       id="ret_apply_conversions_button_text"
       text="Konwertuj" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="Tylko sloty na broń mogą mieć wykonane przedmioty." />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="Pokaż więcej umiejętności" />
     <string
       id="ret_skill_at_cap"

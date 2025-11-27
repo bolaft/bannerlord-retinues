@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="外觀錯誤" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="不支持此性別和文化的組合。" />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="不支持此性別、文化和物種的組合。" />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="不支持" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="不支持" />
-    <string
       id="ret_apply_conversions_button_text"
       text="轉換" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="只有武器槽可以擁有手工製作的物品。" />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="顯示更多技能" />
     <string
       id="ret_skill_at_cap"

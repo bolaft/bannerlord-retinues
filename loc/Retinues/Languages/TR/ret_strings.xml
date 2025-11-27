@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="Görünüm Hatası" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="Bu cinsiyet ve kültür kombinasyonu desteklenmiyor." />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="Bu cinsiyet, kültür ve tür kombinasyonu desteklenmiyor." />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="Desteklenmiyor" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="Desteklenmiyor" />
-    <string
       id="ret_apply_conversions_button_text"
       text="Dönüştür" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="Yalnızca silah yuvaları el yapımı eşyalara sahip olabilir." />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="Daha Fazla Beceri Göster" />
     <string
       id="ret_skill_at_cap"

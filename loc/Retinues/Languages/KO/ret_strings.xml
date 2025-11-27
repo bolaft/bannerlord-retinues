@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="외관 오류" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="이 성별과 문화의 조합은 지원되지 않습니다." />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="이 성별, 문화 및 종의 조합은 지원되지 않습니다." />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="지원되지 않음" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="지원되지 않음" />
-    <string
       id="ret_apply_conversions_button_text"
       text="변환" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="무기 슬롯만 제작된 아이템을 가질 수 있습니다." />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="더 많은 기술 표시" />
     <string
       id="ret_skill_at_cap"

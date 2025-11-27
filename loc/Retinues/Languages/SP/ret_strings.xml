@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="Error de Apariencia" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="Esta combinación de género y cultura no es compatible." />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="Esta combinación de género, cultura y especie no es compatible." />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="No Compatible" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="No Compatible" />
-    <string
       id="ret_apply_conversions_button_text"
       text="Convertir" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="Solo los espacios de armas pueden tener objetos fabricados." />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="Mostrar Más Habilidades" />
     <string
       id="ret_skill_at_cap"

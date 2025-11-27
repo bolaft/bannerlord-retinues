@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="Errore di Aspetto" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="Questa combinazione di genere e cultura non è supportata." />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="Questa combinazione di genere, cultura e specie non è supportata." />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="Non Supportato" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="Non Supportato" />
-    <string
       id="ret_apply_conversions_button_text"
       text="Converti" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="Solo gli slot delle armi possono avere oggetti artigianali." />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="Mostra più abilità" />
     <string
       id="ret_skill_at_cap"

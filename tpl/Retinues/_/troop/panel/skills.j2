@@ -13,7 +13,6 @@
     UpdateChildrenStates="true"
     IsVisible="@ShowSkillSummary">
     <Children>
-
         <!-- Points Used -->
         {{ text.base(text="@SkillPointsUsed", brush="Clan.RightPanel.Name.Text", is_int="true", margin_right="8") }}
 
@@ -95,10 +94,9 @@
     </Children>
 </ListPanel>
 
-
-<!-- Modded Skills Toggle -->
+<!-- Extra Skills Toggle -->
 <ListPanel
-    IsVisible="@HasModdedSkills"
+    IsVisible="@HasExtraSkills"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
     SuggestedHeight="24"
     HorizontalAlignment="Center"
@@ -106,18 +104,18 @@
     UpdateChildrenStates="true"
     MarginBottom="10">
     <Children>
-        <!-- Modded Skills Label -->
+        <!-- Extra Skills Label -->
         {{ text.base(
-            text="@ShowModdedSkillsLabel",
+            text="@ShowExtraSkillsLabel",
             brush="InventoryGoldFontBrush",
             margin_right="8",
             font_size="18"
         ) }}
         
-        <!-- Modded Skills Checkbox -->
+        <!-- Extra Skills Checkbox -->
         {{ button.checkbox(
-            command="ExecuteToggleShowModdedSkills",
-            is_selected="@ShowModdedSkills",
+            command="ExecuteToggleShowExtraSkills",
+            is_selected="@ShowExtraSkills",
             size="24"
         )}}
     </Children>
@@ -131,13 +129,13 @@
     SuggestedWidth="80" SuggestedHeight="110"
     StackLayout.LayoutMethod="VerticalBottomToTop"
     HorizontalAlignment="Center"
-    MarginRight="20" MarginLeft="20" MarginBottom="20">
+    MarginRight="@Margin" MarginLeft="@Margin" MarginBottom="@MarginBottom">
     <Children>
         <!-- Visual Widget -->
         <SkillIconVisualWidget
             SkillId="@SkillId"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="80" SuggestedHeight="80"
+            SuggestedWidth="@IconSize" SuggestedHeight="@IconSize"
             DoNotPassEventsToChildren="false"
             MarginBottom="6">
             <Children>
@@ -161,8 +159,8 @@
                     text="@Value",
                     is_int="true",
                     brush="Encyclopedia.Skill.Text",
-                    width="32", height="24",
-                    font_size="24",
+                    width="@TextWidth", height="@TextHeight",
+                    font_size="@TextHeight",
                     font_color="@ValueColor",
                 ) }}
 
@@ -195,6 +193,28 @@
         </ListPanel>
         <ListPanel
             DataSource="{SkillsRow2}"
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true">
+            <ItemTemplate>
+                {{ skill() }}
+            </ItemTemplate>
+        </ListPanel>
+        <ListPanel
+            IsVisible="@IsHero"
+            DataSource="{SkillsRow3}"
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true">
+            <ItemTemplate>
+                {{ skill() }}
+            </ItemTemplate>
+        </ListPanel>
+        <ListPanel
+            IsVisible="@IsHero"
+            DataSource="{SkillsRow4}"
             HorizontalAlignment="Center"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"

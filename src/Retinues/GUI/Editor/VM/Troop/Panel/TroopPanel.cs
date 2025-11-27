@@ -12,7 +12,6 @@ using Retinues.GUI.Helpers;
 using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
@@ -27,24 +26,13 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
     public sealed class TroopPanelVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Static                         //
+        //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static List<SkillObject> Row1Skills =>
-            [
-                DefaultSkills.Athletics,
-                DefaultSkills.Riding,
-                DefaultSkills.OneHanded,
-                DefaultSkills.TwoHanded,
-            ];
-
-        public static List<SkillObject> Row2Skills =>
-            [
-                DefaultSkills.Polearm,
-                DefaultSkills.Bow,
-                DefaultSkills.Crossbow,
-                DefaultSkills.Throwing,
-            ];
+        public TroopPanelVM()
+        {
+            BuildSkillRows(force: true); // Initial build
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -58,6 +46,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(ConversionRows),
                     nameof(SkillsRow1),
                     nameof(SkillsRow2),
+                    nameof(SkillsRow3),
                     nameof(Name),
                     nameof(GenderText),
                     nameof(TierText),
@@ -75,6 +64,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(IsRegular),
                     nameof(ShowUpgradesHeader),
                     nameof(ShowSkillSummary),
+                    nameof(HasExtraSkills),
                     nameof(IsCustomRegular),
                     nameof(HasPendingConversions),
                     nameof(PendingTotalGoldCost),
@@ -158,6 +148,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             // Update visibility
             foreach (var row in ConversionRows)
                 row.IsVisible = IsVisible;
+
+            // Rebuild skill rows
+            BuildSkillRows();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -171,25 +164,22 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         [DataSourceProperty]
         public MBBindingList<TroopConversionRowVM> ConversionRows => _conversionRows;
 
-        /* ━━━━━ Skills Row 1 ━━━━━ */
+        /* ━━━━━━ Skills Rows ━━━━━━ */
 
-        readonly MBBindingList<TroopSkillVM> _skillsRow1 =
-        [
-            .. Row1Skills.Select(s => new TroopSkillVM(s)),
-        ];
+        readonly MBBindingList<TroopSkillVM> _skillsRow1 = [];
 
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow1 => _skillsRow1;
 
-        /* ━━━━━ Skills Row 2 ━━━━━ */
-
-        readonly MBBindingList<TroopSkillVM> _skillsRow2 =
-        [
-            .. Row2Skills.Select(s => new TroopSkillVM(s)),
-        ];
+        readonly MBBindingList<TroopSkillVM> _skillsRow2 = [];
 
         [DataSourceProperty]
         public MBBindingList<TroopSkillVM> SkillsRow2 => _skillsRow2;
+
+        readonly MBBindingList<TroopSkillVM> _skillsRow3 = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopSkillVM> SkillsRow3 => _skillsRow3;
 
         /* ━━━━━━ Hero Traits ━━━━━ */
 
@@ -331,7 +321,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.Troop != null ? SkillManager.SkillTotalByTier(State.Troop) : 0;
 
         [DataSourceProperty]
-        public int SkillPointsUsed => SkillsRow1.Concat(SkillsRow2).Sum(s => s.Value);
+        public int SkillPointsUsed =>
+            SkillsRow1.Concat(SkillsRow2).Concat(SkillsRow3).Sum(s => s.Value);
 
         /* ━━━━━━━ Training ━━━━━━━ */
 
@@ -672,33 +663,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             }
         }
 
-        private void ShowAppearanceFailurePopup()
-        {
-            bool hasAltSpecies = CanChangeRace;
-
-            TextObject title;
-            TextObject body;
-
-            if (hasAltSpecies)
-            {
-                title = L.T("appearance_not_supported_title_species", "Not Supported");
-                body = L.T(
-                    "appearance_not_supported_body_species",
-                    "This combination of gender, culture and species is not supported."
-                );
-            }
-            else
-            {
-                title = L.T("appearance_not_supported_title", "Not Supported");
-                body = L.T(
-                    "appearance_not_supported_body",
-                    "This combination of gender and culture is not supported."
-                );
-            }
-
-            Notifications.Popup(title, body);
-        }
-
         /// <summary>
         /// Change the selected troop's formation class override setting.
         /// </summary>
@@ -1005,10 +969,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         }
 
         /// <summary>
-        /// Toggle showing modded skills vs base skills.
+        /// Toggle showing extra skills vs base skills.
         /// </summary>
         [DataSourceMethod]
-        public void ExecuteToggleModdedSkills() => ShowModdedSkills = !ShowModdedSkills;
+        public void ExecuteToggleExtraSkills() => ShowExtraSkills = !ShowExtraSkills;
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
 
@@ -1075,63 +1039,69 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Modded Skills                     //
+        //                      Extra Skills                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public bool HasModdedSkills => WCharacter.ModdedSkills.Count > 0;
+        public bool HasExtraSkills => State.Troop?.ExtraSkills.Count > 0;
 
-        private bool _showModdedSkills;
+        private bool _showExtraSkills;
 
         [DataSourceProperty]
-        public bool ShowModdedSkills
+        public bool ShowExtraSkills
         {
-            get => _showModdedSkills;
+            get => _showExtraSkills;
             set
             {
-                if (_showModdedSkills == value)
+                if (_showExtraSkills == value)
                     return;
-                _showModdedSkills = value;
-                OnPropertyChanged(nameof(ShowModdedSkills));
-                RefreshSkillRows();
+                _showExtraSkills = value;
+                OnPropertyChanged(nameof(ShowExtraSkills));
+                BuildSkillRows(force: true);
             }
         }
 
         [DataSourceProperty]
-        public string ShowModdedSkillsLabel => L.S("show_modded_skills_label", "Show More Skills");
+        public string ShowExtraSkillsLabel => L.S("show_extra_skills_label", "Show More Skills");
+
+        private bool WasHero = false;
 
         /// <summary>
-        /// Refresh the skill rows based on the current ShowModdedSkills setting.
+        /// Refresh the skill rows based on the current ShowExtraSkills setting.
         /// </summary>
-        private void RefreshSkillRows()
+        public void BuildSkillRows(bool force = false)
         {
+            if (WasHero == IsHero && !force)
+                return; // No change in hero status, skip rebuild
+
+            WasHero = IsHero; // Remember hero status for next time
+
             IEnumerable<SkillObject> src;
 
-            if (ShowModdedSkills && HasModdedSkills)
-            {
-                // Up to 8 modded skills
-                src = WCharacter.ModdedSkills.Take(8);
-            }
+            if (ShowExtraSkills && HasExtraSkills)
+                src = State.Troop.ExtraSkills;
             else
-            {
-                // The troop's standard 8 vanilla skills
-                src = State.Troop?.TroopSkills ?? Row1Skills.Concat(TroopPanelVM.Row2Skills);
-            }
+                src = State.Troop.TroopSkills;
 
             // 1) Hide old VMs before we rebuild the rows
-            var oldSkills = SkillsRow1.Concat(SkillsRow2);
+            var oldSkills = SkillsRow1.Concat(SkillsRow2).Concat(SkillsRow3).ToList();
             foreach (var vm in oldSkills)
                 vm.Hide();
+
+            // Clear existing rows
+            _skillsRow1.Clear();
+            _skillsRow2.Clear();
+            _skillsRow3.Clear();
 
             // 2) Build the new list of VMs
             var list = src.Select(s => new TroopSkillVM(s)).ToList();
 
-            // 4 + 4 layout
-            var row1 = list.Take(4).ToList();
-            var row2 = list.Skip(4).Take(4).ToList();
+            var nPerRow = IsHero ? 6 : 4;
 
-            _skillsRow1.Clear();
-            _skillsRow2.Clear();
+            // 4 + 4 layout
+            var row1 = list.Take(nPerRow).ToList();
+            var row2 = list.Skip(nPerRow).Take(nPerRow).ToList();
+            var row3 = IsHero ? list.Skip(nPerRow * 2).Take(nPerRow).ToList() : [];
 
             // 3) Add and Show new VMs if the panel itself is visible
             foreach (var skill in row1)
@@ -1148,8 +1118,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     skill.Show();
             }
 
+            foreach (var skill in row3)
+            {
+                _skillsRow3.Add(skill);
+                if (IsVisible)
+                    skill.Show();
+            }
+
             OnPropertyChanged(nameof(SkillsRow1));
             OnPropertyChanged(nameof(SkillsRow2));
+            OnPropertyChanged(nameof(SkillsRow3));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -1168,7 +1146,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
             foreach (var row in ConversionRows)
                 row.Show();
-            foreach (var skill in SkillsRow1.Concat(SkillsRow2))
+            foreach (var skill in SkillsRow1.Concat(SkillsRow2).Concat(SkillsRow3))
                 skill.Show();
             foreach (var trait in Traits)
                 trait.Show();
@@ -1181,7 +1159,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         {
             foreach (var row in ConversionRows)
                 row.Hide();
-            foreach (var skill in SkillsRow1.Concat(SkillsRow2))
+            foreach (var skill in SkillsRow1.Concat(SkillsRow2).Concat(SkillsRow3))
                 skill.Hide();
             foreach (var trait in Traits)
                 trait.Hide();

@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="Aussehensfehler" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="Diese Kombination aus Geschlecht und Kultur wird nicht unterstützt." />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="Diese Kombination aus Geschlecht, Kultur und Spezies wird nicht unterstützt." />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="Nicht Unterstützt" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="Nicht Unterstützt" />
-    <string
       id="ret_apply_conversions_button_text"
       text="Umwandeln" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="Nur Waffenslots können hergestellte Gegenstände haben." />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="Mehr Fertigkeiten anzeigen" />
     <string
       id="ret_skill_at_cap"

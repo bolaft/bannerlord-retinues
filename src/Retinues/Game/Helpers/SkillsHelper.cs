@@ -30,21 +30,13 @@ namespace Retinues.Game.Helpers
             "Steward",
             "Medicine",
             "Engineering",
+        ];
+
+        public static readonly HashSet<string> NavalDLCSkillIds =
+        [
             "Mariner",
             "Boatswain",
             "Shipmaster",
-        ];
-
-        public static readonly HashSet<string> TroopSkillIds =
-        [
-            "Athletics",
-            "Riding",
-            "OneHanded",
-            "TwoHanded",
-            "Polearm",
-            "Bow",
-            "Crossbow",
-            "Throwing",
         ];
     }
 }

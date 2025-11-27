@@ -621,9 +621,7 @@ namespace Retinues.Game.Wrappers
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // List of troop-relevant vanilla skills
-        // NOTE: cannot be static because SkillObject is not initialized yet at that time.
-        public readonly SkillObject[] BaseSkills =
+        public readonly List<SkillObject> CombatSkills =
         [
             DefaultSkills.Athletics,
             DefaultSkills.Riding,
@@ -633,6 +631,20 @@ namespace Retinues.Game.Wrappers
             DefaultSkills.Bow,
             DefaultSkills.Crossbow,
             DefaultSkills.Throwing,
+        ];
+
+        public readonly List<SkillObject> HeroSkills =
+        [
+            DefaultSkills.Crafting,
+            DefaultSkills.Scouting,
+            DefaultSkills.Tactics,
+            DefaultSkills.Roguery,
+            DefaultSkills.Charm,
+            DefaultSkills.Leadership,
+            DefaultSkills.Trade,
+            DefaultSkills.Steward,
+            DefaultSkills.Medicine,
+            DefaultSkills.Engineering,
         ];
 
         // Skills added by mods (non-vanilla ids)
@@ -648,24 +660,60 @@ namespace Retinues.Game.Wrappers
                 var all = MBObjectManager.Instance.GetObjectTypeList<SkillObject>();
                 _moddedSkills =
                 [
-                    .. all.Where(s => !SkillsHelper.VanillaSkillIds.Contains(s.StringId)),
+                    .. all.Where(s =>
+                        !SkillsHelper.VanillaSkillIds.Contains(s.StringId)
+                        && !SkillsHelper.NavalDLCSkillIds.Contains(s.StringId)
+                    ),
                 ];
                 return _moddedSkills;
             }
         }
 
-        public List<SkillObject> TroopSkills
+        private static List<SkillObject> _navalDlcSkills;
+        public static List<SkillObject> NavalDLCSkills
         {
-            get { return [.. BaseSkills, .. ModdedSkills]; }
+            get
+            {
+                if (ModCompatibility.HasNavalDLC == false)
+                    return []; // No naval DLC, no skills
+
+                if (_navalDlcSkills != null)
+                    return _navalDlcSkills;
+
+                _navalDlcSkills = [];
+
+                foreach (var skillId in SkillsHelper.NavalDLCSkillIds)
+                {
+                    var skill = MBObjectManager.Instance.GetObject<SkillObject>(skillId);
+                    if (skill == null)
+                    {
+                        Log.Warn(
+                            $"Naval DLC skill id '{skillId}' not found despite DLC being active."
+                        );
+                        continue;
+                    }
+                    _navalDlcSkills.Add(skill);
+                }
+
+                return _navalDlcSkills;
+            }
         }
+
+        public List<SkillObject> ExtraSkills =>
+            IsHero ? [.. NavalDLCSkills, .. ModdedSkills] : ModdedSkills;
+
+        public List<SkillObject> TroopSkills =>
+            IsHero ? [.. CombatSkills, .. HeroSkills] : CombatSkills;
+
+        public List<SkillObject> AllSkills => [.. TroopSkills, .. ExtraSkills];
 
         // Skill dictionary for easy get/set (vanilla troop skills only)
         public virtual Dictionary<SkillObject, int> Skills
         {
-            get { return TroopSkills.ToDictionary(skill => skill, GetSkill); }
+            get { return AllSkills.ToDictionary(skill => skill, GetSkill); }
             set
             {
-                foreach (var skill in TroopSkills)
+                foreach (var skill in AllSkills)
                 {
                     var v = (value != null && value.TryGetValue(skill, out var val)) ? val : 0;
                     SetSkill(skill, v);

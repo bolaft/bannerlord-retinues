@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="Erreur d’Apparence" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="Cette combinaison de genre et de culture n’est pas prise en charge." />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="Cette combinaison de genre, de culture et d’espèce n’est pas prise en charge." />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="Non Pris en Charge" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="Non Pris en Charge" />
-    <string
       id="ret_apply_conversions_button_text"
       text="Convertir" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="Seuls les emplacements d&apos;armes peuvent contenir des objets forgés." />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="Afficher plus de compétences" />
     <string
       id="ret_skill_at_cap"

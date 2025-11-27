@@ -80,18 +80,6 @@
       id="ret_appearance_error_title"
       text="外観エラー" />
     <string
-      id="ret_appearance_not_supported_body"
-      text="この性別と文化の組み合わせはサポートされていません。" />
-    <string
-      id="ret_appearance_not_supported_body_species"
-      text="この性別、文化、種族の組み合わせはサポートされていません。" />
-    <string
-      id="ret_appearance_not_supported_title"
-      text="サポートされていません" />
-    <string
-      id="ret_appearance_not_supported_title_species"
-      text="サポートされていません" />
-    <string
       id="ret_apply_conversions_button_text"
       text="変換" />
     <string
@@ -1517,7 +1505,7 @@
       id="ret_show_crafted_weapon_hint"
       text="武器スロットのみが手作りのアイテムを持つことができます。" />
     <string
-      id="ret_show_modded_skills_label"
+      id="ret_show_extra_skills_label"
       text="より多くのスキルを表示" />
     <string
       id="ret_skill_at_cap"
