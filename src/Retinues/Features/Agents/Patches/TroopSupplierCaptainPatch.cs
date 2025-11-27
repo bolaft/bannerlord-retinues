@@ -4,7 +4,6 @@ using HarmonyLib;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
-using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.TroopSuppliers;
 using TaleWorlds.Core;
