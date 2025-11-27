@@ -17,7 +17,8 @@ namespace Retinues.GUI.Editor
     }
 
     [ViewModelMixin(
-        "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM", true
+        "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM",
+        true
     )]
     public sealed class ClanScreen : BaseViewModelMixin<ClanManagementVM>
     {
