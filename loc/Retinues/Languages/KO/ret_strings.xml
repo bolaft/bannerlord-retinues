@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="문화적 긍지 교리로 해제하십시오." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="영지를 획득하여 가문 병력을 해제하십시오." />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="커스텀 왕국 병력 100명을 모집하십시오." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="왕실 후원 교리로 잠금 해제합니다." />
     <string
       id="ret_select_clan_hint"
       text="씨족을 선택하십시오." />

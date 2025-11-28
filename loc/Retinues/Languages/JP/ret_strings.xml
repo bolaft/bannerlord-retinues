@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="文化的誇りの教義で解放する。" />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="領地を獲得して一族の兵を解放する。" />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="カスタム王国兵100人を募集する。" />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="王室の後援教義でアンロックします。" />
     <string
       id="ret_select_clan_hint"
       text="氏族を選択します。" />

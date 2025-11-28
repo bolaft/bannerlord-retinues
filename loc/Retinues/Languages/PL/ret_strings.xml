@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="Odblokuj za pomocą doktryny Dumy Kulturowej." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="Zdobądź lenno, aby odblokować wojska klanu." />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Zwerbuj 100 własnych wojsk królestwa." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="Odblokuj za pomocą doktryny Patronatu Królewskiego." />
     <string
       id="ret_select_clan_hint"
       text="Wybierz klan." />

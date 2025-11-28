@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="Разблокируйте с помощью доктрины Культурная Гордость." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="Получите феод, чтобы разблокировать войска клана." />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Нанимайте 100 собственных войск королевства." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="Разблокируйте с помощью доктрины Королевского Покровительства." />
     <string
       id="ret_select_clan_hint"
       text="Выберите клан." />

@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="通过文化自豪感学说解锁。" />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="占领一个封地以解锁家族部队。" />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="招募100名自定义王国部队。" />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="通过王室资助信条解锁。" />
     <string
       id="ret_select_clan_hint"
       text="选择一个氏族。" />

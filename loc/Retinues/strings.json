@@ -1,21 +1,5 @@
 [
   {
-    "id": "ret_acquire_cultural_pride_to_unlock",
-    "EN": "Unlock with the Cultural Pride doctrine.",
-    "BR": "Desbloqueie com a doutrina Orgulho Cultural.",
-    "CNs": "通过文化自豪感学说解锁。",
-    "CNt": "透過文化自豪感學說解鎖。",
-    "DE": "Mit der Doktrin Kultureller Stolz freischalten.",
-    "FR": "Débloqué avec la doctrine Fierté Culturelle.",
-    "IT": "Sblocca con la dottrina Orgoglio Culturale.",
-    "JP": "文化的誇りの教義で解放する。",
-    "KO": "문화적 긍지 교리로 해제하십시오.",
-    "PL": "Odblokuj za pomocą doktryny Dumy Kulturowej.",
-    "RU": "Разблокируйте с помощью доктрины Культурная Гордость.",
-    "SP": "Desbloquea con la doctrina Orgullo Cultural.",
-    "TR": "Kültürel Gurur doktrini ile aç."
-  },
-  {
     "id": "ret_acquire_fief_to_unlock",
     "EN": "Acquire a fief to unlock clan troops.",
     "BR": "Conquiste um feudo para desbloquear as tropas do clã.",
@@ -8254,22 +8238,6 @@
     "RU": "Нанимайте 100 собственных войск королевства.",
     "SP": "Recluta 100 tropas personalizadas del reino.",
     "TR": "100 krallık askeri topla."
-  },
-  {
-    "id": "ret_royal_patronage_to_unlock",
-    "EN": "Unlock with the Royal Patronage doctrine.",
-    "BR": "Desbloqueie com a doutrina Patrocínio Real.",
-    "CNs": "通过王室资助信条解锁。",
-    "CNt": "通過王室資助信條解鎖。",
-    "DE": "Schalte es mit der Doktrin der königlichen Schirmherrschaft frei.",
-    "FR": "Débloqué avec la doctrine de la Faveur Royale.",
-    "IT": "Sblocca con la dottrina del Patrocinio Reale.",
-    "JP": "王室の後援教義でアンロックします。",
-    "KO": "왕실 후원 교리로 잠금 해제합니다.",
-    "PL": "Odblokuj za pomocą doktryny Patronatu Królewskiego.",
-    "RU": "Разблокируйте с помощью доктрины Королевского Покровительства.",
-    "SP": "Desbloquea con la doctrina de Patrocinio Real.",
-    "TR": "Kraliyet Himayesi doktrini ile kilidini aç."
   },
   {
     "id": "ret_select_clan_hint",

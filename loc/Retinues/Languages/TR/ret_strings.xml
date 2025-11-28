@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="Kültürel Gurur doktrini ile aç." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="Bir tımar elde ederek klan askerlerini aç." />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="100 krallık askeri topla." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="Kraliyet Himayesi doktrini ile kilidini aç." />
     <string
       id="ret_select_clan_hint"
       text="Bir klan seçin." />

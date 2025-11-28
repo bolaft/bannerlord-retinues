@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="Desbloquea con la doctrina Orgullo Cultural." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="Adquiere un feudo para desbloquear las tropas del clan." />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recluta 100 tropas personalizadas del reino." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="Desbloquea con la doctrina de Patrocinio Real." />
     <string
       id="ret_select_clan_hint"
       text="Selecciona un clan." />

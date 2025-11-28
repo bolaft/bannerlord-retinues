@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="Mit der Doktrin Kultureller Stolz freischalten." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="Erobere ein Lehen, um die Clantruppen freizuschalten." />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Rekrutiere 100 benutzerdefinierte Königreichstruppen." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="Schalte es mit der Doktrin der königlichen Schirmherrschaft frei." />
     <string
       id="ret_select_clan_hint"
       text="Wähle einen Clan." />

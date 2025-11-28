@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="Débloqué avec la doctrine Fierté Culturelle." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="Acquiers un fief pour débloquer les troupes du clan." />
     <string
@@ -1552,9 +1549,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recrute 100 troupes royales personnalisées." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="Débloqué avec la doctrine de la Faveur Royale." />
     <string
       id="ret_select_clan_hint"
       text="Sélectionne un clan." />
