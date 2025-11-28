@@ -92,30 +92,13 @@ namespace Retinues.Game.Events
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public static bool IsValid(Agent victim, Agent killer, AgentState state)
             {
-                static bool HasValidId(Agent agent)
-                {
-                    try
-                    {
-                        new WCharacter(agent?.Character?.StringId);
-                    }
-                    catch (System.Exception e)
-                    {
-                        Log.Error($"Kill.IsValid: invalid ID: {agent?.Character?.StringId}");
-                        Log.Exception(e);
-                        return false;
-                    }
-                    return true;
-                }
-
                 return killer is not null
                     && victim is not null
                     && killer.IsHuman
                     && victim.IsHuman
                     && (state == AgentState.Killed || state == AgentState.Unconscious)
                     && killer.Character is CharacterObject
-                    && victim.Character is CharacterObject
-                    && HasValidId(killer)
-                    && HasValidId(victim);
+                    && victim.Character is CharacterObject;
             }
         }
 
@@ -134,7 +117,32 @@ namespace Retinues.Game.Events
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private KillTracker _tracker;
-        public List<Kill> Kills => _tracker?.Kills ?? [];
+        public List<Kill> Kills
+        {
+            get
+            {
+                static bool IsValidId(string stringId)
+                {
+                    try
+                    {
+                        new WCharacter(stringId);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Log.Error($"Kill.IsValid: invalid ID: {stringId}");
+                        Log.Exception(e);
+                        return false;
+                    }
+                    return true;
+                }
+
+                List<Kill> kills = _tracker?.Kills ?? [];
+
+                return kills.FindAll(kill =>
+                    IsValidId(kill.KillerCharacterId) && IsValidId(kill.VictimCharacterId)
+                );
+            }
+        }
 
         private void EnsureTracker()
         {
