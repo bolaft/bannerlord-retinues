@@ -31,31 +31,8 @@ namespace Retinues.Features.Agents.Patches
                 if (!troop.IsCustom)
                     return; // Feature disabled for vanilla troops
 
-                List<MissionMode> modeWhiteList =
-                [
-                    MissionMode.Battle,
-                    MissionMode.Duel,
-                    MissionMode.Deployment,
-                    MissionMode.Stealth,
-                ];
-
-                var mission = Mission.Current;
-                if (mission == null)
-                    return; // No mission, nothing to do
-
-                if (!modeWhiteList.Contains(mission.Mode))
-                    return; // Only affect allowed missions
-
-                // Try to ensure we are not in a tournament or arena battle
-                foreach (var behavior in mission.MissionBehaviors)
-                {
-                    if (behavior is TournamentBehavior)
-                        return;
-
-                    var name = behavior.GetType().FullName?.ToLowerInvariant() ?? string.Empty;
-                    if (name.Contains("tournament") || name.Contains("arena"))
-                        return;
-                }
+                if (!MissionHelper.IsCombatMission())
+                    return; // Combat only
 
                 // Choose the equipment set
                 WEquipment chosenSet = null;
