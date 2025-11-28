@@ -16,10 +16,7 @@ namespace Retinues.GUI.Editor
         Heroes,
     }
 
-    [ViewModelMixin(
-        "TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement.ClanManagementVM",
-        true
-    )]
+    [ViewModelMixin("RefreshValues", true)]
     public sealed class ClanScreen : BaseViewModelMixin<ClanManagementVM>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
