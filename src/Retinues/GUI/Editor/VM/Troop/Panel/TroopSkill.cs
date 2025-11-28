@@ -41,11 +41,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(CanDecrement),
                     nameof(IncrementHint),
                     nameof(DecrementHint),
-                    nameof(IconSize),
-                    nameof(Margin),
-                    nameof(MarginBottom),
-                    nameof(TextHeight),
-                    nameof(TextWidth),
+                    nameof(IsSmall),
                 ],
                 [UIEvent.Train] =
                 [
@@ -88,8 +84,6 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         private TextObject CantDecrementReason =>
             SkillManager.GetDecrementSkillReason(State.Troop, Skill);
 
-        private bool Small => State.Troop?.IsHero == true;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -115,19 +109,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━━━━ Gauntlet ━━━━━━━ */
 
         [DataSourceProperty]
-        public int IconSize => Small ? 70 : 80;
-
-        [DataSourceProperty]
-        public int Margin => Small ? 4 : 20;
-
-        [DataSourceProperty]
-        public int MarginBottom => Small ? 0 : 20;
-
-        [DataSourceProperty]
-        public int TextHeight => Small ? 20 : 24;
-
-        [DataSourceProperty]
-        public int TextWidth => Small ? 26 : 32;
+        public bool IsSmall => State.Troop?.IsHero == true;
 
         /* ━━━━━━━ Tooltips ━━━━━━━ */
 

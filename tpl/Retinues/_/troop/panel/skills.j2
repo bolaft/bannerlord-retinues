@@ -144,53 +144,129 @@
 {# Skill Macro #}
 {% macro skill() -%}
 
-<ListPanel
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    SuggestedWidth="80" SuggestedHeight="110"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
-    HorizontalAlignment="Center"
-    MarginRight="@Margin" MarginLeft="@Margin" MarginBottom="@MarginBottom">
+<Widget
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center">
     <Children>
-        <!-- Visual Widget -->
-        <SkillIconVisualWidget
-            SkillId="@SkillId"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="@IconSize" SuggestedHeight="@IconSize"
-            DoNotPassEventsToChildren="false"
-            MarginBottom="6">
-            <Children>
-                {{ tooltip.hint(hint="{SkillHint}") }}
-            </Children>
-        </SkillIconVisualWidget>
 
-        <!-- Controls -->
+        <!-- Large skill (non-hero) -->
         <ListPanel
-            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="80" SuggestedHeight="110"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
             HorizontalAlignment="Center"
-            UpdateChildrenStates="true">
+            MarginRight="20" MarginLeft="20" MarginBottom="20"
+            IsHidden="@IsSmall">
             <Children>
+                <!-- Visual Widget -->
+                <SkillIconVisualWidget
+                    SkillId="@SkillId"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="80" SuggestedHeight="80"
+                    DoNotPassEventsToChildren="false"
+                    MarginBottom="6">
+                    <Children>
+                        {{ tooltip.hint(hint="{SkillHint}") }}
+                    </Children>
+                </SkillIconVisualWidget>
 
-                <!-- Decrement Skill -->
-                {{ button.chevron_l(command="ExecuteDecrement", is_enabled="@CanDecrement", hint="{DecrementHint}") }}
+                <!-- Controls -->
+                <ListPanel
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    HorizontalAlignment="Center"
+                    UpdateChildrenStates="true">
+                    <Children>
 
-                <!-- Skill Value -->
-                {{ text.base(
-                    text="@Value",
-                    is_int="true",
-                    brush="Encyclopedia.Skill.Text",
-                    width="@TextWidth", height="@TextHeight",
-                    font_size="@TextHeight",
-                    font_color="@ValueColor",
-                ) }}
+                        <!-- Decrement Skill -->
+                        {{ button.chevron_l(
+                            command="ExecuteDecrement",
+                            is_enabled="@CanDecrement",
+                            hint="{DecrementHint}"
+                        ) }}
 
-                <!-- Increment Skill -->
-                {{ button.chevron_r(command="ExecuteIncrement", is_enabled="@CanIncrement", hint="{IncrementHint}") }}
+                        <!-- Skill Value -->
+                        {{ text.base(
+                            text="@Value",
+                            is_int="true",
+                            brush="Encyclopedia.Skill.Text",
+                            width="32", height="24",
+                            font_size="24",
+                            font_color="@ValueColor",
+                        ) }}
 
+                        <!-- Increment Skill -->
+                        {{ button.chevron_r(
+                            command="ExecuteIncrement",
+                            is_enabled="@CanIncrement",
+                            hint="{IncrementHint}"
+                        ) }}
+
+                    </Children>
+                </ListPanel>
             </Children>
         </ListPanel>
+
+        <!-- Small skill (hero) -->
+        <ListPanel
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="80" SuggestedHeight="110"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            HorizontalAlignment="Center"
+            MarginRight="4" MarginLeft="4" MarginBottom="0"
+            IsVisible="@IsSmall">
+            <Children>
+                <!-- Visual Widget -->
+                <SkillIconVisualWidget
+                    SkillId="@SkillId"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="70" SuggestedHeight="70"
+                    DoNotPassEventsToChildren="false"
+                    MarginBottom="6">
+                    <Children>
+                        {{ tooltip.hint(hint="{SkillHint}") }}
+                    </Children>
+                </SkillIconVisualWidget>
+
+                <!-- Controls -->
+                <ListPanel
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    HorizontalAlignment="Center"
+                    UpdateChildrenStates="true">
+                    <Children>
+
+                        <!-- Decrement Skill -->
+                        {{ button.chevron_l(
+                            command="ExecuteDecrement",
+                            is_enabled="@CanDecrement",
+                            hint="{DecrementHint}"
+                        ) }}
+
+                        <!-- Skill Value -->
+                        {{ text.base(
+                            text="@Value",
+                            is_int="true",
+                            brush="Encyclopedia.Skill.Text",
+                            width="26", height="20",
+                            font_size="20",
+                            font_color="@ValueColor",
+                        ) }}
+
+                        <!-- Increment Skill -->
+                        {{ button.chevron_r(
+                            command="ExecuteIncrement",
+                            is_enabled="@CanIncrement",
+                            hint="{IncrementHint}"
+                        ) }}
+
+                    </Children>
+                </ListPanel>
+            </Children>
+        </ListPanel>
+
     </Children>
-</ListPanel>
+</Widget>
 
 {%- endmacro %}
 
