@@ -74,7 +74,7 @@ namespace Retinues.Features.Unlocks
         private void OnMissionStarted(IMission mission)
         {
             // Return if the feature is disabled
-            if (!Config.UnlockFromKills)
+            if (!Config.UnlockFromKills || Config.AllEquipmentUnlocked)
                 return;
 
             Log.Debug("Adding UnlocksMissionBehavior.");
@@ -92,6 +92,11 @@ namespace Retinues.Features.Unlocks
         /// </summary>
         private void OnMapEventEnded(MapEvent mapEvent)
         {
+            // Return if the feature is disabled
+            if (!Config.UnlockFromKills || Config.AllEquipmentUnlocked)
+                return;
+
+            // Return if no new unlocks
             if (_newlyUnlocked.Count == 0)
                 return;
             if (!mapEvent?.IsPlayerMapEvent ?? true)
@@ -109,7 +114,7 @@ namespace Retinues.Features.Unlocks
         private void OnItemsDiscardedByPlayer(ItemRoster roster)
         {
             // Return if the feature is disabled
-            if (!Config.UnlockFromDiscards)
+            if (!Config.UnlockFromDiscards || Config.AllEquipmentUnlocked)
                 return;
 
             if (roster == null || roster.Count == 0)
@@ -285,7 +290,7 @@ namespace Retinues.Features.Unlocks
             }
 
             if (randomItemsByTier.Count > 0)
-                AddUnlockCounts(randomItemsByTier, false);
+                AddUnlockCounts(randomItemsByTier, addCultureBonuses: false);
         }
 
         /// <summary>
@@ -296,6 +301,13 @@ namespace Retinues.Features.Unlocks
             bool addCultureBonuses = true
         )
         {
+            // Return if the feature is disabled
+            if (
+                (!Config.UnlockFromKills && !Config.UnlockFromDiscards)
+                || Config.AllEquipmentUnlocked
+            )
+                return;
+
             // Only add culture bonuses if enabled
             addCultureBonuses = addCultureBonuses && Config.OwnCultureUnlockBonuses;
 
