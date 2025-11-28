@@ -150,25 +150,37 @@ namespace Retinues
 
         private Harmony _harmony;
 
-        [SafeMethod]
         private void ApplyHarmonyPatches()
         {
-            _harmony = new Harmony("Retinues");
-            _harmony.PatchAll(Assembly.GetExecutingAssembly());
+            try
+            {
+                _harmony = new Harmony("Retinues");
+                _harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-            // Apply safe method patcher
-            SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
+                // Apply safe method patcher
+                SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
 
-            // Apply mod compatibility patches
-            ModCompatibility.AddPatches(_harmony);
+                // Apply mod compatibility patches
+                ModCompatibility.AddPatches(_harmony);
 
-            Log.Debug("Harmony patches applied.");
+                Log.Debug("Harmony patches applied.");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Error while applying Harmony patches.");
+            }
         }
 
-        [SafeMethod]
         private void RemoveHarmonyPatches()
         {
-            _harmony?.UnpatchAll("Retinues");
+            try
+            {
+                _harmony?.UnpatchAll("Retinues");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Error while removing existing Harmony patches.");
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -180,17 +192,32 @@ namespace Retinues
         [SafeMethod]
         public void EnableUIExtender()
         {
-            _extender = UIExtender.Create("Retinues");
-            _extender.Register(typeof(SubModule).Assembly);
-            _extender.Enable();
+            try
+            {
+                _extender = UIExtender.Create("Retinues");
+                _extender.Register(typeof(SubModule).Assembly);
+                _extender.Enable();
 
-            Log.Debug("UIExtender enabled & assembly registered.");
+                Log.Debug("UIExtender enabled & assembly registered.");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "UIExtender enabling failed.");
+            }
         }
 
         [SafeMethod]
         public void DisableUIExtender()
         {
-            _extender?.Disable();
+            try
+            {
+                _extender?.Disable();
+                Log.Debug("Disabling UIExtender...");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "UIExtender disabling failed.");
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
