@@ -45,7 +45,7 @@ namespace Retinues.Utils
     public sealed class SafeClassAttribute : Attribute
     {
         // Scope switches
-        public bool PublicOnly { get; set; } = true;
+        public bool PublicOnly { get; set; } = false;
         public bool IncludeAccessors { get; set; } = true;
         public bool IncludeDerived { get; set; } = true;
         public bool SwallowByDefault { get; set; } = true;
