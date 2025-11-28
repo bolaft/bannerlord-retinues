@@ -128,6 +128,7 @@ namespace Retinues.Features.Experience
                 // No snapshot
                 return;
             }
+            Log.Debug("AutoResolveXP[End]: processing snapshot.");
             _snapshots.Remove(me);
 
             // Only for simulated outcomes, real battles are handled by mission behavior.
@@ -157,6 +158,7 @@ namespace Retinues.Features.Experience
                 if (IsCustom)
                     TroopXpBehavior.Add(new WCharacter(Troop.StringId), share);
             }
+            Log.Debug("AutoResolveXP[End]: XP awarding complete.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

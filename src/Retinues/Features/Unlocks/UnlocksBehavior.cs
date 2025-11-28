@@ -374,6 +374,8 @@ namespace Retinues.Features.Unlocks
             // Apply accumulated own culture bonuses
             if (addCultureBonuses)
                 AddOwnCultureBonuses(ownCultureBonuses);
+            
+            Log.Info("AddBattleCounts complete.");
         }
 
         /// <summary>
@@ -383,6 +385,8 @@ namespace Retinues.Features.Unlocks
         {
             if (items == null || items.Count == 0)
                 return;
+
+            Log.Debug($"ShowUnlockNotification: {items.Count} items.");
 
             const int maxDisplayCount = 10;
 

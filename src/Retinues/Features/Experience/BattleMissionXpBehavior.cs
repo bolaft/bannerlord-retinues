@@ -20,6 +20,7 @@ namespace Retinues.Features.Experience
         /// </summary>
         protected override void OnEndMission()
         {
+            Log.Info("BattleMissionXpBehavior: OnEndMission - awarding XP for kills.");
             foreach (var kill in Kills)
             {
                 if (!kill.KillerIsPlayerTroop)
@@ -36,6 +37,7 @@ namespace Retinues.Features.Experience
 
                 TroopXpBehavior.Add(kill.Killer, xp);
             }
+            Log.Info("BattleMissionXpBehavior: OnEndMission complete.");
         }
     }
 }
