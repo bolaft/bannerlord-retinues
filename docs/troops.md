@@ -36,8 +36,9 @@ On unlock, you choose how to initialize that faction's troop trees:
 
 Militias and special service troops unlock via doctrines (see [Doctrines](./doctrines.md)):
 
-- **Cultural Pride** → unlocks custom militias.  
-- **Royal Patronage** → unlocks custom Caravan Guards, Caravan Masters, and Villagers for the faction.
+- **Stalwart Militia** → unlocks custom militias.  
+- **Road Wardens** → unlocks custom caravan guards and caravan masters.
+- **Armed Peasantry** → unlocks custom villagers.
 
 ---
 
@@ -60,7 +61,7 @@ Faction troops join your army the vanilla way (with helpful Retinues options):
 
 ### Militias
 
-- Unlock the **Cultural Pride** doctrine to gain access to customizable militias.
+- Unlock the **Stalwart Militia** doctrine to gain access to customizable militias.
 - Custom militias replace the default cultural ones in your faction's fiefs automatically (daily swap).
 - You can edit their equipment, skills, and name from the Troops editor, but:
   - They are still used as militia garrison troops in your settlements.
@@ -68,7 +69,7 @@ Faction troops join your army the vanilla way (with helpful Retinues options):
 
 ### Caravan Guards, Caravan Masters & Villagers
 
-- Unlock the **Royal Patronage** doctrine to gain access to custom Caravan Guards, Caravan Masters, and Villagers.
+- Unlock the **Road Wardens** and **Armed Peasantry** doctrines to gain access to custom Caravan Guards, Caravan Masters, and Villagers.
 - When unlocked for a faction:
   - Retinues creates custom versions of:
     - **Caravan Guard**

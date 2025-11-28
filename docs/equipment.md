@@ -130,7 +130,8 @@ If **Pay for Equipment** is enabled:
 
 - Items without enough stock have a gold cost:
   - Base cost = item value × **Equipment Price Modifier** (MCM).
-  - **Royal Patronage** doctrine: -10% cost for items of your kingdom's culture.
+  - **Cultural Pride** doctrine: -20% cost for items of your clan's culture.
+  - **Royal Patronage** doctrine: -20% cost for items of your kingdom's culture.
 - Before buying, you'll see a confirmation popup if gold is required.
 - The system:
   - Consumes as many copies as possible from stock.
