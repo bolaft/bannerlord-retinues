@@ -115,7 +115,32 @@ namespace Retinues.Game.Events
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private KillTracker _tracker;
-        public List<Kill> Kills => _tracker?.Kills ?? [];
+        public List<Kill> Kills
+        {
+            get
+            {
+                static bool IsValidId(string stringId)
+                {
+                    try
+                    {
+                        new WCharacter(stringId);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Log.Error($"Kill.IsValid: invalid ID: {stringId}");
+                        Log.Exception(e);
+                        return false;
+                    }
+                    return true;
+                }
+
+                List<Kill> kills = _tracker?.Kills ?? [];
+
+                return kills.FindAll(kill =>
+                    IsValidId(kill.KillerCharacterId) && IsValidId(kill.VictimCharacterId)
+                );
+            }
+        }
 
         private void EnsureTracker()
         {
