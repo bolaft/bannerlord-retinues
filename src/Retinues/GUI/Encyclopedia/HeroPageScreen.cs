@@ -12,9 +12,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Encyclopedia
 {
-    [ViewModelMixin(
-        "TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages.EncyclopediaHeroPageVM"
-    )]
+    [ViewModelMixin("RefreshValues")]
     public sealed class HeroPageScreen : BaseViewModelMixin<EncyclopediaHeroPageVM>
     {
         public HeroPageScreen(EncyclopediaHeroPageVM vm)
