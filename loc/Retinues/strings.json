@@ -496,6 +496,22 @@
     "TR": "Köylerinden birinin toprak sahibine 3 görev tamamla."
   },
   {
+    "id": "ret_armed_peasantry_to_unlock",
+    "EN": "Unlock with the Armed Peasantry doctrine.",
+    "BR": "Desbloqueie com a doutrina Camponeses Armados.",
+    "CNs": "通过武装农民学说解锁。",
+    "CNt": "通過武裝農民學說解鎖。",
+    "DE": "Mit der Doktrin der Bewaffneten Bauern freischalten.",
+    "FR": "Nécessite la doctrine Paysannerie Armée.",
+    "IT": "Sblocca con la dottrina dei Contadini Armati.",
+    "JP": "武装農民の教義で解放する。",
+    "KO": "무장 농민 교리로 잠금 해제.",
+    "PL": "Odblokuj za pomocą doktryny Uzbrojeni Chłopi.",
+    "RU": "Разблокируйте с помощью доктрины Вооружённые Крестьяне.",
+    "SP": "Desbloquea con la doctrina Campesinos Armados.",
+    "TR": "Silahlı Köylüler doktrini ile kilidini aç."
+  },
+  {
     "id": "ret_battle_record_battle_types",
     "EN": "Battle types:",
     "BR": "Tipos de batalha:",
@@ -3998,6 +4014,22 @@
     "RU": "Мужской",
     "SP": "Masculino",
     "TR": "Erkek"
+  },
+  {
+    "id": "ret_mariner_label",
+    "EN": "Mariner",
+    "BR": "Marinheiro",
+    "CNs": "水手",
+    "CNt": "水手",
+    "DE": "Seefahrer",
+    "FR": "Marin",
+    "IT": "Marinaio",
+    "JP": "水夫",
+    "KO": "선원",
+    "PL": "Marynarz",
+    "RU": "Моряк",
+    "SP": "Marinero",
+    "TR": "Denizci"
   },
   {
     "id": "ret_masters_at_arms",
@@ -8096,6 +8128,22 @@
     "TR": "Aynı anda üç karavana sahip ol."
   },
   {
+    "id": "ret_road_warrdens_to_unlock",
+    "EN": "Unlock with the Road Warrdens doctrine.",
+    "BR": "Desbloqueie com a doutrina dos Guardiões da Estrada.",
+    "CNs": "通过道路守护者学说解锁。",
+    "CNt": "通過道路守護者學說解鎖。",
+    "DE": "Mit der Doktrin der Straßenwächter freischalten.",
+    "FR": "Nécessite la doctrine Gardiens de la Route.",
+    "IT": "Sblocca con la dottrina dei Guardiani della Strada.",
+    "JP": "ロードウォーデンの教義でアンロックします。",
+    "KO": "로드 워든 교리로 잠금 해제합니다.",
+    "PL": "Odblokuj za pomocą doktryny Strażników Dróg.",
+    "RU": "Разблокируйте с помощью доктрины Дорожных Стражей.",
+    "SP": "Desbloquea con la doctrina de los Guardianes del Camino.",
+    "TR": "Yol Bekçileri doktrini ile kilidini aç."
+  },
+  {
     "id": "ret_royal_patronage",
     "EN": "Royal Patronage",
     "BR": "Patrocínio Real",
@@ -8574,6 +8622,22 @@
     "RU": "Повысить значение милиции феода до 400.",
     "SP": "Eleva el valor de la milicia de un feudo a 400.",
     "TR": "Bir tımarın milis değerini 400'e çıkar."
+  },
+  {
+    "id": "ret_stalwart_militia_to_unlock",
+    "EN": "Unlock with the Stalwart Militia doctrine.",
+    "BR": "Desbloqueie com a doutrina Milícia Firme.",
+    "CNs": "通过坚定的民兵信条解锁。",
+    "CNt": "通過堅定的民兵信條解鎖。",
+    "DE": "Schalte es mit der Doktrin der standhaften Miliz frei.",
+    "FR": "Nécessite la doctrine Milice Inébranlable.",
+    "IT": "Sblocca con la dottrina della Milizia Risoluta.",
+    "JP": "不屈の民兵教義でアンロックします。",
+    "KO": "굳건한 민병대 교리로 잠금 해제합니다。",
+    "PL": "Odblokuj za pomocą doktryny Niezłomnej Milicji.",
+    "RU": "Разблокируйте с помощью доктрины Стойкой Милиции.",
+    "SP": "Desbloquea con la doctrina de la Milicia Firme.",
+    "TR": "Dayanıklı Milis doktrini ile kilidini aç."
   },
   {
     "id": "ret_stats_kills_deaths_summary",

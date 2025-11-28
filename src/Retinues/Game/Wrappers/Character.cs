@@ -9,6 +9,7 @@ using Retinues.Mods;
 using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
@@ -1066,6 +1067,187 @@ namespace Retinues.Game.Wrappers
             else
             {
                 Loadout.Clear();
+            }
+
+            // Mariner trait
+            if (ModCompatibility.HasNavalDLC)
+                IsMariner = src.IsMariner;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Naval / Mariner flag                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsMariner
+        {
+            get
+            {
+                var level = NavalTraitHelper.GetMarinerLevel(Base);
+                return level > 0;
+            }
+            set
+            {
+                var level = value ? 1 : 0;
+                NavalTraitHelper.SetMarinerLevel(Base, level);
+                NeedsPersistence = true;
+            }
+        }
+
+        private static class NavalTraitHelper
+        {
+            private static TraitObject _navalSoldierTrait;
+            private static bool _navalTraitMissing;
+            private static FieldInfo _characterTraitsField;
+            private static MethodInfo _setPropertyValueMethod;
+
+            private static TraitObject TryGetNavalSoldierTrait()
+            {
+                if (_navalTraitMissing)
+                    return null;
+
+                if (_navalSoldierTrait != null)
+                    return _navalSoldierTrait;
+
+                try
+                {
+                    // Resolve DefaultTraits by string so we don't rely on compile-time members.
+                    var defaultTraitsType = Type.GetType(
+                        "TaleWorlds.CampaignSystem.CharacterDevelopment.DefaultTraits, TaleWorlds.CampaignSystem",
+                        throwOnError: false
+                    );
+
+                    if (defaultTraitsType == null)
+                    {
+                        _navalTraitMissing = true;
+                        return null;
+                    }
+
+                    // Look for the static property "NavalSoldier" if it exists.
+                    var prop = defaultTraitsType.GetProperty(
+                        "NavalSoldier",
+                        BindingFlags.Public | BindingFlags.Static
+                    );
+
+                    if (prop == null)
+                    {
+                        _navalTraitMissing = true;
+                        return null;
+                    }
+
+                    var value = prop.GetValue(null) as TraitObject;
+                    if (value == null)
+                        return null; // probably Campaign not ready yet; try again later
+
+                    _navalSoldierTrait = value;
+                    return _navalSoldierTrait;
+                }
+                catch
+                {
+                    // If something goes wrong (e.g. Campaign not initialized yet), don't mark missing;
+                    // we'll simply return null and try again on next call.
+                    return null;
+                }
+            }
+
+            private static void EnsureCharacterTraitsAccessors()
+            {
+                if (_characterTraitsField != null || _navalTraitMissing)
+                    return;
+
+                try
+                {
+                    var coType = typeof(CharacterObject);
+                    _characterTraitsField = coType.GetField(
+                        "_characterTraits",
+                        BindingFlags.Instance | BindingFlags.NonPublic
+                    );
+
+                    if (_characterTraitsField == null)
+                        return;
+
+                    var ownerType = _characterTraitsField.FieldType; // PropertyOwner<TraitObject>
+                    _setPropertyValueMethod = ownerType.GetMethod(
+                        "SetPropertyValue",
+                        BindingFlags.Instance | BindingFlags.Public,
+                        binder: null,
+                        types: [typeof(TraitObject), typeof(int)],
+                        modifiers: null
+                    );
+                }
+                catch
+                {
+                    // best effort; leave everything null if it fails
+                }
+            }
+
+            public static int GetMarinerLevel(CharacterObject co)
+            {
+                if (co == null)
+                    return 0;
+
+                if (ModCompatibility.HasNavalDLC == false)
+                    return 0; // No naval DLC, no mariner level
+
+                var navalTrait = TryGetNavalSoldierTrait();
+                if (navalTrait == null)
+                    return 0;
+
+                // CharacterObject.GetTraitLevel handles both hero & non-hero.
+                try
+                {
+                    return co.GetTraitLevel(navalTrait);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+
+            public static void SetMarinerLevel(CharacterObject co, int level)
+            {
+                if (co == null)
+                    return;
+
+                if (ModCompatibility.HasNavalDLC == false)
+                    return; // No naval DLC, no mariner level
+
+                var navalTrait = TryGetNavalSoldierTrait();
+                if (navalTrait == null)
+                    return;
+
+                level = Math.Max(0, level);
+
+                // Hero case: use Hero.SetTraitLevel if available.
+                if (co.IsHero && co.HeroObject != null)
+                {
+                    try
+                    {
+                        co.HeroObject.SetTraitLevel(navalTrait, level);
+                        return;
+                    }
+                    catch
+                    {
+                        // fall through to non-hero path if something weird happens
+                    }
+                }
+
+                // Non-hero template: poke CharacterObject._characterTraits via reflection.
+                EnsureCharacterTraitsAccessors();
+                if (_characterTraitsField == null || _setPropertyValueMethod == null)
+                    return;
+
+                try
+                {
+                    var owner = _characterTraitsField.GetValue(co);
+                    if (owner == null)
+                        return;
+
+                    _setPropertyValueMethod.Invoke(owner, [navalTrait, level]);
+                }
+                catch
+                {
+                    // swallow; this is best-effort
+                }
             }
         }
     }

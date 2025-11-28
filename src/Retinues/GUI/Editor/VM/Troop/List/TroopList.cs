@@ -75,8 +75,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     new TroopRowVM(
                         null,
                         placeholderText: L.S(
-                            "acquire_cultural_pride_to_unlock",
-                            "Unlock with the Cultural Pride doctrine."
+                            "stalwart_militia_to_unlock",
+                            "Unlock with the Stalwart Militia doctrine."
                         )
                     )
                 ); // placeholder
@@ -86,8 +86,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     new TroopRowVM(
                         null,
                         placeholderText: L.S(
-                            "royal_patronage_to_unlock",
-                            "Unlock with the Royal Patronage doctrine."
+                            "road_warrdens_to_unlock",
+                            "Unlock with the Road Warrdens doctrine."
                         )
                     )
                 ); // placeholder
@@ -97,8 +97,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     new TroopRowVM(
                         null,
                         placeholderText: L.S(
-                            "royal_patronage_to_unlock",
-                            "Unlock with the Royal Patronage doctrine."
+                            "armed_peasantry_to_unlock",
+                            "Unlock with the Armed Peasantry doctrine."
                         )
                     )
                 ); // placeholder

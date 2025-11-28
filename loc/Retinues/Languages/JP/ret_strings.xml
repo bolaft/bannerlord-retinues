@@ -98,6 +98,9 @@
       id="ret_armed_peasantry_landowner_quests"
       text="自分の村の地主のために3つのクエストを完了する。" />
     <string
+      id="ret_armed_peasantry_to_unlock"
+      text="武装農民の教義で解放する。" />
+    <string
       id="ret_battle_record_battle_types"
       text="戦闘タイプ：" />
     <string
@@ -754,6 +757,9 @@
     <string
       id="ret_male"
       text="男性" />
+    <string
+      id="ret_mariner_label"
+      text="水夫" />
     <string
       id="ret_masters_at_arms"
       text="武器の達人" />
@@ -1523,6 +1529,9 @@
       id="ret_road_wardens_three_caravans"
       text="同時に3つのキャラバンを所有する。" />
     <string
+      id="ret_road_warrdens_to_unlock"
+      text="ロードウォーデンの教義でアンロックします。" />
+    <string
       id="ret_royal_patronage"
       text="王室の後援" />
     <string
@@ -1612,6 +1621,9 @@
     <string
       id="ret_stalwart_militia_raise_militia_400"
       text="封地の民兵値を400に上げる。" />
+    <string
+      id="ret_stalwart_militia_to_unlock"
+      text="不屈の民兵教義でアンロックします。" />
     <string
       id="ret_stats_kills_deaths_summary"
       text="{KILLS} 人の敵を殺し、{DEATHS} 人の犠牲者を出しました。" />

@@ -65,6 +65,9 @@ namespace Retinues.Troops.Save
         [SaveableField(15)]
         public bool CaptainEnabled = false;
 
+        [SaveableField(16)]
+        public bool IsMariner = false;
+
         public TroopSaveData()
         {
             // Default constructor for deserialization
@@ -89,6 +92,7 @@ namespace Retinues.Troops.Save
             FormationClassOverride = troop.FormationClassOverride;
             IsCaptain = troop.IsCaptain;
             CaptainEnabled = troop.CaptainEnabled;
+            IsMariner = troop.IsMariner;
 
             // For captains, Captain will stay null to avoid recursion.
             if (!troop.IsCaptain && troop.Captain != null)
@@ -286,6 +290,9 @@ namespace Retinues.Troops.Save
             {
                 Log.Exception(e);
             }
+
+            // Mariner status
+            troop.IsMariner = IsMariner;
 
             // Return the created troop
             return troop;

@@ -10,6 +10,7 @@ using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Helpers;
 using Retinues.Managers;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -64,7 +65,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(IsRegular),
                     nameof(ShowUpgradesHeader),
                     nameof(ShowSkillSummary),
+                    nameof(ShowExtrasSection),
+                    nameof(ShowMariner),
                     nameof(HasExtraSkills),
+                    nameof(IsMariner),
                     nameof(IsCustomRegular),
                     nameof(HasPendingConversions),
                     nameof(PendingTotalGoldCost),
@@ -968,11 +972,15 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             State.ClearPendingConversions();
         }
 
-        /// <summary>
-        /// Toggle showing extra skills vs base skills.
-        /// </summary>
         [DataSourceMethod]
-        public void ExecuteToggleExtraSkills() => ShowExtraSkills = !ShowExtraSkills;
+        public void ExecuteToggleMariner()
+        {
+            if (State.Troop == null || !ShowMariner)
+                return;
+
+            State.Troop.IsMariner = !State.Troop.IsMariner;
+            State.UpdateTroop(State.Troop);
+        }
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */
 
@@ -1039,11 +1047,23 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Extra Skills                      //
+        //                         Extras                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
+        public bool ShowExtrasSection => HasExtraSkills || ShowMariner;
+
+        [DataSourceProperty]
         public bool HasExtraSkills => State.Troop?.ExtraSkills.Count > 0;
+
+        [DataSourceProperty]
+        public bool ShowMariner => ModCompatibility.HasNavalDLC && !IsHero;
+
+        [DataSourceProperty]
+        public bool IsMariner => State.Troop?.IsMariner == true;
+
+        [DataSourceProperty]
+        public string MarinerLabel => L.S("mariner_label", "Mariner");
 
         private bool _showExtraSkills;
 

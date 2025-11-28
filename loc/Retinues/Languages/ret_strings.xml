@@ -5,9 +5,6 @@
   </tags>
   <strings>
     <string
-      id="ret_acquire_cultural_pride_to_unlock"
-      text="Unlock with the Cultural Pride doctrine." />
-    <string
       id="ret_acquire_fief_to_unlock"
       text="Acquire a fief to unlock clan troops." />
     <string
@@ -97,6 +94,9 @@
     <string
       id="ret_armed_peasantry_landowner_quests"
       text="Complete 3 quests for a landowner of one of your villages." />
+    <string
+      id="ret_armed_peasantry_to_unlock"
+      text="Unlock with the Armed Peasantry doctrine." />
     <string
       id="ret_battle_record_battle_types"
       text="Battle types:" />
@@ -754,6 +754,9 @@
     <string
       id="ret_male"
       text="Male" />
+    <string
+      id="ret_mariner_label"
+      text="Mariner" />
     <string
       id="ret_masters_at_arms"
       text="Masters-At-Arms" />
@@ -1523,6 +1526,9 @@
       id="ret_road_wardens_three_caravans"
       text="Own three caravans at the same time." />
     <string
+      id="ret_road_warrdens_to_unlock"
+      text="Unlock with the Road Warrdens doctrine." />
+    <string
       id="ret_royal_patronage"
       text="Royal Patronage" />
     <string
@@ -1537,9 +1543,6 @@
     <string
       id="ret_royal_patronage_recruit_100_custom_kingdom"
       text="Recruit 100 custom kingdom troops." />
-    <string
-      id="ret_royal_patronage_to_unlock"
-      text="Unlock with the Royal Patronage doctrine." />
     <string
       id="ret_select_clan_hint"
       text="Select a clan." />
@@ -1612,6 +1615,9 @@
     <string
       id="ret_stalwart_militia_raise_militia_400"
       text="Raise the militia value of a fief to 400." />
+    <string
+      id="ret_stalwart_militia_to_unlock"
+      text="Unlock with the Stalwart Militia doctrine." />
     <string
       id="ret_stats_kills_deaths_summary"
       text="Killed {KILLS} enemies and suffered {DEATHS} casualties." />

@@ -94,9 +94,9 @@
     </Children>
 </ListPanel>
 
-<!-- Extra Skills Toggle -->
+<!-- Extra Toggles -->
 <ListPanel
-    IsVisible="@HasExtraSkills"
+    IsVisible="@ShowExtrasSection"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
     SuggestedHeight="24"
     HorizontalAlignment="Center"
@@ -106,16 +106,34 @@
     <Children>
         <!-- Extra Skills Label -->
         {{ text.base(
+            is_visible="@HasExtraSkills",
             text="@ShowExtraSkillsLabel",
             brush="InventoryGoldFontBrush",
-            margin_right="8",
+            margin_right="8", margin_left="8",
             font_size="18"
         ) }}
         
         <!-- Extra Skills Checkbox -->
         {{ button.checkbox(
-            command="ExecuteToggleShowExtraSkills",
+            is_visible="@HasExtraSkills",
             is_selected="@ShowExtraSkills",
+            size="24"
+        )}}
+
+        <!-- Mariner Label -->
+        {{ text.base(
+            is_visible="@ShowMariner",
+            text="@MarinerLabel",
+            brush="InventoryGoldFontBrush",
+            margin_right="8", margin_left="8",
+            font_size="18"
+        ) }}
+
+        <!-- Mariner Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteToggleMariner",
+            is_visible="@ShowMariner",
+            is_selected="@IsMariner",
             size="24"
         )}}
     </Children>

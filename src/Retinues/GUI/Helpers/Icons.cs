@@ -1,4 +1,6 @@
+using MCM.Implementation;
 using Retinues.Game.Wrappers;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
@@ -12,7 +14,7 @@ namespace Retinues.GUI.Helpers
     {
         public static string GetFormationClassIcon(WCharacter troop)
         {
-            return (troop?.FormationClass) switch
+            string icon = (troop?.FormationClass) switch
             {
                 FormationClass.Infantry => @"General\TroopTypeIcons\icon_troop_type_infantry",
                 FormationClass.Ranged => @"General\TroopTypeIcons\icon_troop_type_bow",
@@ -21,6 +23,16 @@ namespace Retinues.GUI.Helpers
                     @"General\TroopTypeIcons\icon_troop_type_horse_archer",
                 _ => @"General\TroopTypeIcons\icon_troop_type_infantry",
             };
+
+            if (ModCompatibility.HasNavalDLC)
+                if (troop != null && troop.IsMariner)
+                    if (
+                        troop.FormationClass == FormationClass.Infantry
+                        || troop.FormationClass == FormationClass.Ranged
+                    )
+                        icon = $"{icon}_mariner_big";
+
+            return icon;
         }
 
         public static StringItemWithHintVM GetTierIconData(WCharacter troop)

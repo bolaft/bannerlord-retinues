@@ -98,6 +98,9 @@
       id="ret_armed_peasantry_landowner_quests"
       text="為你的一座村莊的地主完成3個任務。" />
     <string
+      id="ret_armed_peasantry_to_unlock"
+      text="通過武裝農民學說解鎖。" />
+    <string
       id="ret_battle_record_battle_types"
       text="戰鬥類型：" />
     <string
@@ -754,6 +757,9 @@
     <string
       id="ret_male"
       text="男性" />
+    <string
+      id="ret_mariner_label"
+      text="水手" />
     <string
       id="ret_masters_at_arms"
       text="武器大師" />
@@ -1523,6 +1529,9 @@
       id="ret_road_wardens_three_caravans"
       text="同時擁有三支商隊。" />
     <string
+      id="ret_road_warrdens_to_unlock"
+      text="通過道路守護者學說解鎖。" />
+    <string
       id="ret_royal_patronage"
       text="王室資助" />
     <string
@@ -1612,6 +1621,9 @@
     <string
       id="ret_stalwart_militia_raise_militia_400"
       text="將一個封地的民兵值提升到400。" />
+    <string
+      id="ret_stalwart_militia_to_unlock"
+      text="通過堅定的民兵信條解鎖。" />
     <string
       id="ret_stats_kills_deaths_summary"
       text="擊殺了 {KILLS} 名敵人，遭受了 {DEATHS} 名傷亡。" />

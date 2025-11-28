@@ -98,6 +98,9 @@
       id="ret_armed_peasantry_landowner_quests"
       text="자신의 마을 중 한 곳의 지주에게 3개의 퀘스트를 완료하십시오." />
     <string
+      id="ret_armed_peasantry_to_unlock"
+      text="무장 농민 교리로 잠금 해제." />
+    <string
       id="ret_battle_record_battle_types"
       text="전투 유형:" />
     <string
@@ -754,6 +757,9 @@
     <string
       id="ret_male"
       text="남성" />
+    <string
+      id="ret_mariner_label"
+      text="선원" />
     <string
       id="ret_masters_at_arms"
       text="무기 대가" />
@@ -1523,6 +1529,9 @@
       id="ret_road_wardens_three_caravans"
       text="동시에 세 개의 캐러밴을 소유하십시오." />
     <string
+      id="ret_road_warrdens_to_unlock"
+      text="로드 워든 교리로 잠금 해제합니다." />
+    <string
       id="ret_royal_patronage"
       text="왕실 후원" />
     <string
@@ -1612,6 +1621,9 @@
     <string
       id="ret_stalwart_militia_raise_militia_400"
       text="영지의 민병대 가치를 400으로 올리십시오." />
+    <string
+      id="ret_stalwart_militia_to_unlock"
+      text="굳건한 민병대 교리로 잠금 해제합니다。" />
     <string
       id="ret_stats_kills_deaths_summary"
       text="{KILLS}명의 적을 죽이고 {DEATHS}명의 사상자를 입었습니다." />

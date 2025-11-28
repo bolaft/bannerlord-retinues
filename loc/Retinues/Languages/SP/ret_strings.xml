@@ -98,6 +98,9 @@
       id="ret_armed_peasantry_landowner_quests"
       text="Completa 3 misiones para un terrateniente de una de tus aldeas." />
     <string
+      id="ret_armed_peasantry_to_unlock"
+      text="Desbloquea con la doctrina Campesinos Armados." />
+    <string
       id="ret_battle_record_battle_types"
       text="Tipos de batalla:" />
     <string
@@ -754,6 +757,9 @@
     <string
       id="ret_male"
       text="Masculino" />
+    <string
+      id="ret_mariner_label"
+      text="Marinero" />
     <string
       id="ret_masters_at_arms"
       text="Maestros de Armas" />
@@ -1523,6 +1529,9 @@
       id="ret_road_wardens_three_caravans"
       text="Posee tres caravanas al mismo tiempo." />
     <string
+      id="ret_road_warrdens_to_unlock"
+      text="Desbloquea con la doctrina de los Guardianes del Camino." />
+    <string
       id="ret_royal_patronage"
       text="Patrocinio Real" />
     <string
@@ -1612,6 +1621,9 @@
     <string
       id="ret_stalwart_militia_raise_militia_400"
       text="Eleva el valor de la milicia de un feudo a 400." />
+    <string
+      id="ret_stalwart_militia_to_unlock"
+      text="Desbloquea con la doctrina de la Milicia Firme." />
     <string
       id="ret_stats_kills_deaths_summary"
       text="Mataste a {KILLS} enemigos y sufriste {DEATHS} bajas." />

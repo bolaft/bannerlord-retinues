@@ -98,6 +98,9 @@
       id="ret_armed_peasantry_landowner_quests"
       text="Köylerinden birinin toprak sahibine 3 görev tamamla." />
     <string
+      id="ret_armed_peasantry_to_unlock"
+      text="Silahlı Köylüler doktrini ile kilidini aç." />
+    <string
       id="ret_battle_record_battle_types"
       text="Savaş türleri:" />
     <string
@@ -754,6 +757,9 @@
     <string
       id="ret_male"
       text="Erkek" />
+    <string
+      id="ret_mariner_label"
+      text="Denizci" />
     <string
       id="ret_masters_at_arms"
       text="Silah Ustaları" />
@@ -1523,6 +1529,9 @@
       id="ret_road_wardens_three_caravans"
       text="Aynı anda üç karavana sahip ol." />
     <string
+      id="ret_road_warrdens_to_unlock"
+      text="Yol Bekçileri doktrini ile kilidini aç." />
+    <string
       id="ret_royal_patronage"
       text="Kraliyet Himayesi" />
     <string
@@ -1612,6 +1621,9 @@
     <string
       id="ret_stalwart_militia_raise_militia_400"
       text="Bir tımarın milis değerini 400&apos;e çıkar." />
+    <string
+      id="ret_stalwart_militia_to_unlock"
+      text="Dayanıklı Milis doktrini ile kilidini aç." />
     <string
       id="ret_stats_kills_deaths_summary"
       text="{KILLS} düşman öldürdü ve {DEATHS} kayıp verdi." />
