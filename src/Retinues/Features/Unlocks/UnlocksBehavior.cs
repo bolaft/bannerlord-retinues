@@ -374,7 +374,7 @@ namespace Retinues.Features.Unlocks
             // Apply accumulated own culture bonuses
             if (addCultureBonuses)
                 AddOwnCultureBonuses(ownCultureBonuses);
-            
+
             Log.Info("AddBattleCounts complete.");
         }
 
