@@ -5,7 +5,7 @@ nav_order: 8
 
 # Feats & Doctrines
 
-**Doctrines** are long-term perks that enhance your retinues and faction troops as you play. They're organized in a grid with rows, columns, and prerequisites. As you complete feats, you unlock new doctrines.
+**Doctrines** are long-term perks that enhance your retinues and faction troops as you play. They are organized in a grid with rows, columns, and prerequisites. As you complete feats, you unlock new doctrines.
 
 > Open them from **Clan → Troops → Doctrines**.
 
@@ -22,11 +22,12 @@ nav_order: 8
 3. **Stack the effects**  
    All unlocked doctrines are always active at the same time. You are not choosing one column or one row: everything you unlock stacks.
 
-The doctrine grid is organized in four columns, each with its own theme:
+The doctrine grid is organized in **five columns**, each with its own theme:
 
-- **Unlocks** – how quickly you discover and unlock new gear.
-- **Equipment** – culture-themed troops, militias, crafted weapons, and tier limits.
-- **Troops** – skill caps, skill points, upgrade branches, and XP handling.
+- **Spoils** – how quickly you discover and unlock new gear.
+- **Armory** – rebates, culture-themed gear, crafted weapons, and tier limits.
+- **Rister** – militias, caravans, villagers, and captains / officer systems.
+- **Training** – skill caps, skill points, upgrade branches, and XP handling.
 - **Retinues** – retinue size, durability, morale, and survival.
 
 Below is a quick reference of all doctrines and what they do.
@@ -39,23 +40,36 @@ Affect how quickly gear gets unlocked from battles and casualties.
 
 | Doctrine | Effect |
 | --- | --- |
-| **Lion's Share** | Hero kills count **twice** for equipment unlock progress. |
-| **Battlefield Tithes** | **Allied party kills** can also unlock items from enemy gear. |
-| **Pragmatic Scavengers** | **Allied party casualties** can unlock items from their equipment. |
+| **Lion's Share** | **Hero kills** count **twice** toward unlocking enemy gear. |
+| **Battlefield Tithes** | **Enemy gear used by troops killed by your allies** can also be unlocked. |
+| **Pragmatic Scavengers** | **Allied casualties** can also unlock items from their own equipment. |
 | **Ancestral Heritage** | Treats **all items of your clan and kingdom cultures** as unlocked. |
 
 ---
 
 ### Equipment Doctrines
 
-Open up culture-specific troops and equipment options.
+Change cost and options when equipping your troops.
 
 | Doctrine | Effect |
 | --- | --- |
-| **Cultural Pride** | Unlocks **custom militia troops** for your faction. |
-| **Clan Traditions** | Troops can equip **smithed (crafted) weapons** in the equipment editor. |
-| **Royal Patronage** | Unlocks **custom Caravan Guards, Caravan Masters, and Villagers** for your faction. |
+| **Cultural Pride** | **20% rebate** when equipping gear from **your clan culture**. |
+| **Clanic Traditions** | Troops can equip **smithed (crafted) weapons** in the equipment editor. |
+| **Royal Patronage** | **20% rebate** when equipping gear from your **kingdom culture**. |
 | **Ironclad** | Removes **tier restrictions** for arms and armor when equipping troops. |
+
+---
+
+### Forces Doctrines
+
+Unlock special troop types used by your settlements and parties.
+
+| Doctrine | Effect |
+| --- | --- |
+| **Stalwart Militia** | Unlocks **custom militia troops** for your faction’s towns and castles. |
+| **Road Wardens** | Unlocks **custom caravan troops** (Caravan Guards / Caravan Masters). |
+| **Armed Peasantry** | Unlocks **custom villager troops** for village parties. |
+| **Captains** | Unlocks **Captains** (special officer-style troops/features tied to retinues and parties). |
 
 ---
 
@@ -65,9 +79,9 @@ Improve troop skill ceilings and progression options.
 
 | Doctrine | Effect |
 | --- | --- |
-| **Iron Discipline** | Increases **skill caps** for your troops (+5 to all caps). |
+| **Iron Discipline** | Increases **skill caps** for your troops (**+5** to all caps). |
 | **Steadfast Soldiers** | Grants **+10 skill points** to your troops. |
-| **Masters-At-Arms** | Elite (noble) troops gain an **extra upgrade branch** (second noble path). |
+| **Masters-at-Arms** | Elite (noble) troops gain an **extra upgrade branch** (second noble path). |
 | **Adaptive Training** | **Refunds XP** when you lower a troop's skill in the editor. |
 
 ---
@@ -81,7 +95,7 @@ Directly improve your **retinues** (not regular faction troops).
 | **Indomitable** | Retinues gain **+5 HP** each. |
 | **Bound by Honor** | Retinues gain **+20% morale**. |
 | **Vanguard** | Increases retinue cap by **+15%**. |
-| **Immortals** | Retinues are **more likely to be wounded instead of killed** (+20% survival chance). |
+| **Immortals** | Retinues are **more likely to be wounded instead of killed** (**+20% survival chance**). |
 
 ---
 
@@ -96,7 +110,7 @@ Directly improve your **retinues** (not regular faction troops).
 
 - **Retinue-Focused Feats:** reward you for fielding and improving your retinues.
 
-You'll get on-screen notifications as feats progress or complete.
+You will get on-screen notifications as feats progress or complete.
 
 ---
 
