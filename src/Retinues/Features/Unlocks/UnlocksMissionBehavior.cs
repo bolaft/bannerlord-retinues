@@ -28,6 +28,9 @@ namespace Retinues.Features.Unlocks
             if (Config.UnlockItemsFromKills == false)
                 return; // Unlocks from kills disabled
 
+            if (Config.AllEquipmentUnlocked)
+                return; // All equipment already unlocked
+
             if (IsDefeat)
                 return; // No unlocks on defeat
 
