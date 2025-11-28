@@ -10,6 +10,7 @@
     <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.6" />
     <DependedModule Id="Bannerlord.ButterLib" DependentVersion="v2.10.0" />
     <DependedModule Id="Bannerlord.UIExtenderEx" DependentVersion="v2.13.0" />
+    <DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.10.1" />
     <DependedModule Id="Native" DependentVersion="v1.3.6" />
     <DependedModule Id="SandBoxCore" DependentVersion="v1.3.6" />
     <DependedModule Id="Sandbox" DependentVersion="v1.3.6" />
