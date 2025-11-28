@@ -118,10 +118,11 @@ namespace Retinues.GUI.Editor
 
             if (item == null)
             {
+                // Empty row -> explicit "hide this slot" in preview mode.
                 Log.Debug(
-                    $"[PreviewOverlay] Clearing preview for {troop.StringId}, set {setIndex}, slot {slot}."
+                    $"[PreviewOverlay] Setting EMPTY preview for {troop.StringId}, set {setIndex}, slot {slot}."
                 );
-                _map.Remove(key);
+                _map[key] = null;
             }
             else
             {
@@ -163,7 +164,16 @@ namespace Retinues.GUI.Editor
                     continue;
 
                 var item = pair.Value;
-                if (item?.Base == null)
+
+                // Explicit empty preview: visually unequip this slot.
+                if (item == null)
+                {
+                    copy[Slot] = default; // empty EquipmentElement
+                    hasAny = true;
+                    continue;
+                }
+
+                if (item.Base == null)
                     continue;
 
                 copy[Slot] = new EquipmentElement(item.Base);
