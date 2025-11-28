@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="任何領主都可以在玩家的封地中招募自定義部隊（需要改進駐軍兼容性）。" />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="允許隊形覆蓋" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="允許手動覆蓋部隊陣型類別。如果啟用，可能會導致AI行為尷尬並減慢戰前陣型螢幕的速度。" />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="允許的等級差" />
     <string

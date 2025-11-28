@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="어떤 영주라도 플레이어의 영지에서 맞춤 병력을 모집할 수 있습니다(Improved Garrisons 호환성에 필요)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="포메이션 재정의 허용" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="병력 포메이션 클래스를 수동으로 재정의할 수 있습니다. 활성화하면 AI 동작이 어색해지고 전투 전 포메이션 화면이 느려질 수 있습니다." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="허용 등급 차이" />
     <string

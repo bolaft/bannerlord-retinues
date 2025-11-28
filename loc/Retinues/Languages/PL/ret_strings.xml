@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="Każdy lord może rekrutować niestandardowe jednostki w lenna gracza (wymagane dla kompatybilności z Improved Garrisons)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="Zezwól na Nadpisywanie Formacji" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="Zezwól na ręczne nadpisywanie klasy formacji jednostek. Jeśli jest włączone, może powodować niezręczne zachowanie SI i spowolnić ekran formacji przed bitwą." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Dozwolona Różnica Poziomów" />
     <string

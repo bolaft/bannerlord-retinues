@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="Jeder Lord kann in den Lehen des Spielers benutzerdefinierte Truppen rekrutieren (erforderlich für die Kompatibilität mit Improved Garrisons)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="Formation Overrides zulassen" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="Erlaube manuelles Überschreiben der Truppenformationsklasse. Wenn aktiviert, kann dies zu unangenehmem KI-Verhalten führen und den Vor-Kampf-Formationsbildschirm verlangsamen." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Zulässiger Stufenunterschied" />
     <string

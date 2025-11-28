@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="Her lord oyuncunun topraklarında özel asker alabilir (Geliştirilmiş Garnizonlar uyumluluğu için gereklidir)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="Formasyon Geçersiz Kılmalarına İzin Ver" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="Asker formasyon sınıfının manuel olarak geçersiz kılmasına izin verin. Etkinleştirilirse, garip AI davranışına neden olabilir ve savaş öncesi formasyon ekranını yavaşlatabilir." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="İzin Verilen Seviye Farkı" />
     <string

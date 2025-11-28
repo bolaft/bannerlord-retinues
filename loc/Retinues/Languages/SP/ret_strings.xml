@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="Cualquier señor puede reclutar tropas personalizadas en los feudos del jugador (requerido para la compatibilidad con Improved Garrisons)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="Permitir Sobrescrituras de Formación" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="Permitir la sobrescritura manual de la clase de formación de tropas. Si está habilitado, puede causar un comportamiento incómodo de la IA y ralentizar la pantalla de formación previa a la batalla." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Diferencia de Nivel Permitida" />
     <string

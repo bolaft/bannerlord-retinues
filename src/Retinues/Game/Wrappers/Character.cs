@@ -508,9 +508,12 @@ namespace Retinues.Game.Wrappers
         private FormationClass _formationClassOverride = FormationClass.Unset;
         public FormationClass FormationClassOverride
         {
-            get => _formationClassOverride;
+            get => Config.AllowFormationOverrides ? _formationClassOverride : FormationClass.Unset;
             set
             {
+                if (Config.AllowFormationOverrides == false)
+                    return;
+
                 _formationClassOverride = value;
                 NeedsPersistence = true;
             }

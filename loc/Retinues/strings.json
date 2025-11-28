@@ -4432,6 +4432,38 @@
     "TR": "Her lord oyuncunun topraklarında özel asker alabilir (Geliştirilmiş Garnizonlar uyumluluğu için gereklidir)."
   },
   {
+    "id": "ret_mcm_option_allow_formation_overrides",
+    "EN": "Allow Formation Overrides",
+    "BR": "Permitir Substituições de Formação",
+    "CNs": "允许队形覆盖",
+    "CNt": "允許隊形覆蓋",
+    "DE": "Formation Overrides zulassen",
+    "FR": "Autoriser les Remplacements de Formation",
+    "IT": "Consenti Sostituzioni di Formazione",
+    "JP": "フォーメーションの上書きを許可する",
+    "KO": "포메이션 재정의 허용",
+    "PL": "Zezwól na Nadpisywanie Formacji",
+    "RU": "Разрешить Переопределение Формации",
+    "SP": "Permitir Sobrescrituras de Formación",
+    "TR": "Formasyon Geçersiz Kılmalarına İzin Ver"
+  },
+  {
+    "id": "ret_mcm_option_allow_formation_overrides_hint",
+    "EN": "Allow manual overriding of troop formation class. If enabled, may cause awkward AI behavior and slow down the pre-battle formation screen.",
+    "BR": "Permitir a substituição manual da classe de formação da tropa. Se ativado, pode causar um comportamento estranho da IA e desacelerar a tela de formação pré-batalha.",
+    "CNs": "允许手动覆盖部队阵型类别。如果启用，可能会导致AI行为尴尬并减慢战前阵型屏幕的速度。",
+    "CNt": "允許手動覆蓋部隊陣型類別。如果啟用，可能會導致AI行為尷尬並減慢戰前陣型螢幕的速度。",
+    "DE": "Erlaube manuelles Überschreiben der Truppenformationsklasse. Wenn aktiviert, kann dies zu unangenehmem KI-Verhalten führen und den Vor-Kampf-Formationsbildschirm verlangsamen.",
+    "FR": "Permet de remplacer manuellement la classe de formation des troupes. Si activé, cela peut entraîner un comportement maladroit de l’IA et ralentir l’écran de formation avant la bataille.",
+    "IT": "Consenti la sovrascrittura manuale della classe di formazione delle truppe. Se abilitato, potrebbe causare un comportamento imbarazzante dell’IA e rallentare lo schermo di formazione pre-battaglia.",
+    "JP": "部隊編成クラスの手動上書きを許可します。有効にすると、AIの動作が不自然になり、戦闘前の編成画面が遅くなる可能性があります。",
+    "KO": "병력 포메이션 클래스를 수동으로 재정의할 수 있습니다. 활성화하면 AI 동작이 어색해지고 전투 전 포메이션 화면이 느려질 수 있습니다.",
+    "PL": "Zezwól na ręczne nadpisywanie klasy formacji jednostek. Jeśli jest włączone, może powodować niezręczne zachowanie SI i spowolnić ekran formacji przed bitwą.",
+    "RU": "Разрешить ручное переопределение класса формации войск. Если включено, это может привести к неловкому поведению ИИ и замедлить экран формации перед боем.",
+    "SP": "Permitir la sobrescritura manual de la clase de formación de tropas. Si está habilitado, puede causar un comportamiento incómodo de la IA y ralentizar la pantalla de formación previa a la batalla.",
+    "TR": "Asker formasyon sınıfının manuel olarak geçersiz kılmasına izin verin. Etkinleştirilirse, garip AI davranışına neden olabilir ve savaş öncesi formasyon ekranını yavaşlatabilir."
+  },
+  {
     "id": "ret_mcm_option_allowed_tier_difference",
     "EN": "Allowed Tier Difference",
     "BR": "Diferença de Nível Permitida",

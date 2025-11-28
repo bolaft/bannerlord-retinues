@@ -10,7 +10,6 @@ using Retinues.GUI.Helpers;
 using Retinues.Safety.Sanitizer;
 using Retinues.Troops;
 using Retinues.Utils;
-using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Configuration

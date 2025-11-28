@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="Qualquer lorde pode recrutar tropas personalizadas nos feudos do jogador (necessário para compatibilidade com Fortificações Aprimoradas)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="Permitir Substituições de Formação" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="Permitir a substituição manual da classe de formação da tropa. Se ativado, pode causar um comportamento estranho da IA e desacelerar a tela de formação pré-batalha." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Diferença de Nível Permitida" />
     <string

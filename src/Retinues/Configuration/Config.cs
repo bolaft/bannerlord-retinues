@@ -672,6 +672,18 @@ namespace Retinues.Configuration
             @default: false
         );
 
+        public static readonly Option<bool> AllowFormationOverrides = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () => L.S("mcm_option_allow_formation_overrides", "Allow Formation Overrides"),
+            key: "AllowFormationOverrides",
+            hint: () =>
+                L.S(
+                    "mcm_option_allow_formation_overrides_hint",
+                    "Allow manual overriding of troop formation class. If enabled, may cause awkward AI behavior and slow down the pre-battle formation screen."
+                ),
+            @default: false
+        );
+
         public static readonly Option<bool> NoCivilianSetUpgradeRequirements = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () =>

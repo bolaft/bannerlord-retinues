@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="Qualsiasi signore può reclutare truppe personalizzate nei feudi del giocatore (necessario per la compatibilità con Improved Garrisons)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="Consenti Sostituzioni di Formazione" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="Consenti la sovrascrittura manuale della classe di formazione delle truppe. Se abilitato, potrebbe causare un comportamento imbarazzante dell’IA e rallentare lo schermo di formazione pre-battaglia." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Differenza di Livello Consentita" />
     <string

@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="どの領主でもプレイヤーの領地でカスタム部隊を募集できる（Improved Garrisonsの互換性に必要）。" />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="フォーメーションの上書きを許可する" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="部隊編成クラスの手動上書きを許可します。有効にすると、AIの動作が不自然になり、戦闘前の編成画面が遅くなる可能性があります。" />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="許容ランク差" />
     <string

@@ -836,6 +836,12 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
       text="Любой лорд может нанимать пользовательские войска в поместьях игрока (требуется для совместимости с Improved Garrisons)." />
     <string
+      id="ret_mcm_option_allow_formation_overrides"
+      text="Разрешить Переопределение Формации" />
+    <string
+      id="ret_mcm_option_allow_formation_overrides_hint"
+      text="Разрешить ручное переопределение класса формации войск. Если включено, это может привести к неловкому поведению ИИ и замедлить экран формации перед боем." />
+    <string
       id="ret_mcm_option_allowed_tier_difference"
       text="Допустимая Разница Рангов" />
     <string

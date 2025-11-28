@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
@@ -23,14 +24,16 @@ namespace Retinues.Features.Formations.Patches
             public FormationClass Forced;
         }
 
-        private static readonly Dictionary<Formation, CacheEntry> _cache =
-            new Dictionary<Formation, CacheEntry>();
+        private static readonly Dictionary<Formation, CacheEntry> _cache = [];
         private static Mission _cachedMission;
 
         static bool Prefix(FormationQuerySystem __instance, ref FormationClass __result)
         {
             try
             {
+                if (Config.AllowFormationOverrides == false)
+                    return true;
+
                 var mission = Mission.Current;
                 if (!ReferenceEquals(mission, _cachedMission))
                 {

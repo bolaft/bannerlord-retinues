@@ -438,6 +438,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         /* ━━━━ Formation Class ━━━ */
 
         [DataSourceProperty]
+        public bool AllowFormationOverrides => Config.AllowFormationOverrides;
+
+        [DataSourceProperty]
         public string FormationClassText =>
             State.Troop?.FormationClass.GetLocalizedName().ToString();
 
@@ -675,6 +678,9 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         {
             try
             {
+                if (Config.AllowFormationOverrides == false)
+                    return;
+
                 if (State.Troop == null)
                     return;
 
