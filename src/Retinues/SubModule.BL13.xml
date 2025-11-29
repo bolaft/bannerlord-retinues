@@ -1,11 +1,7 @@
 <Module>
   <Name value="Retinues" />
   <Id value="Retinues" />
-<<<<<<< HEAD
   <Version value="v1.3.14.9" />
-=======
-  <Version value="v1.3.13.12" />
->>>>>>> main
   <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
