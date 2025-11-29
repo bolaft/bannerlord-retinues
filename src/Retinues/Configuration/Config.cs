@@ -1294,7 +1294,7 @@ namespace Retinues.Configuration
                     )
                     .SetTextVariable("TIER", "4")
                     .ToString(),
-            @default: 535,
+            @default: 555,
             minValue: 90,
             maxValue: 1600,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
@@ -1314,7 +1314,7 @@ namespace Retinues.Configuration
                     )
                     .SetTextVariable("TIER", "5")
                     .ToString(),
-            @default: 710,
+            @default: 780,
             minValue: 90,
             maxValue: 1600,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
@@ -1334,7 +1334,7 @@ namespace Retinues.Configuration
                     )
                     .SetTextVariable("TIER", "6")
                     .ToString(),
-            @default: 915,
+            @default: 1015,
             minValue: 90,
             maxValue: 1600,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
