@@ -36,7 +36,7 @@ You can now continue that save without the mod.
 
 ---
 
-## Emergency fallback: Retinues.Disabled (Nexus only)
+## Emergency fallback: Retinues - Disabled
 
 On the Nexus Mods download page there is an additional **optional file**: `Retinues - Disabled`.
 
