@@ -233,6 +233,34 @@ namespace Retinues.Troops
             return Path.GetFullPath(filePath);
         }
 
+        public static void MakeBackup()
+        {
+            try
+            {
+                EnsureDir();
+                var backupPath = Path.Combine(DefaultDir, $"auto_backup.xml");
+
+                var pkg = new RetinuesTroopsPackage
+                {
+                    Factions = new FactionExportData
+                    {
+                        clanData = new FactionSaveData(Player.Clan),
+                        kingdomData = new FactionSaveData(Player.Kingdom),
+                    },
+                };
+
+                SerializeUnifiedToFile(pkg, backupPath);
+                Log.Debug($"[TroopImportExport] Backup created at: {backupPath}");
+            }
+            catch (Exception e)
+            {
+                Log.Exception(
+                    e,
+                    "[TroopImportExport] Failed to create troop backup before saving."
+                );
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Import                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

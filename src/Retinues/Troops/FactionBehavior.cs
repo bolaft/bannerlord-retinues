@@ -38,6 +38,12 @@ namespace Retinues.Troops
             ds.SyncData("Retinues_ClanTroops", ref _clanTroops);
             ds.SyncData("Retinues_KingdomTroops", ref _kingdomTroops);
             ds.SyncData("Retinues_CultureTroops", ref _cultureTroops);
+
+            if (ds.IsSaving)
+            {
+                // Backup troop data before saving
+                TroopImportExport.MakeBackup();
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
