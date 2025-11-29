@@ -6,6 +6,7 @@ using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
@@ -62,6 +63,7 @@ namespace Retinues.Features.Unlocks
                 this,
                 OnItemsDiscardedByPlayer
             );
+            CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -102,8 +104,8 @@ namespace Retinues.Features.Unlocks
             if (!mapEvent?.IsPlayerMapEvent ?? true)
                 return;
 
-            // Modal summary
-            ShowUnlockInquiry(_newlyUnlocked);
+            // Delay popup until world map
+            QueueUnlockNotification(_newlyUnlocked);
 
             _newlyUnlocked.Clear();
         }
@@ -158,9 +160,32 @@ namespace Retinues.Features.Unlocks
             );
             AddUnlockCounts(counts, addCultureBonuses: false);
 
-            ShowUnlockInquiry(_newlyUnlocked);
+            // Delay popup until world map
+            QueueUnlockNotification(_newlyUnlocked);
 
             _newlyUnlocked.Clear();
+        }
+
+        private void OnTick(float dt)
+        {
+            if (_pendingNotifications.Count == 0)
+                return;
+
+            if (!IsOnWorldMap())
+                return;
+
+            // Copy then clear, to avoid re-entrancy issues
+            var itemsToShow = _pendingNotifications.ToList();
+            _pendingNotifications.Clear();
+
+            try
+            {
+                ShowUnlockInquiry(itemsToShow);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -241,6 +266,36 @@ namespace Retinues.Features.Unlocks
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly List<ItemObject> _newlyUnlocked = [];
+        private readonly List<ItemObject> _pendingNotifications = [];
+
+        /// <summary>
+        /// Queues newly unlocked items to be shown later, typically on the world map.
+        /// </summary>
+        private void QueueUnlockNotification(IEnumerable<ItemObject> items)
+        {
+            if (items == null)
+                return;
+
+            var list = items.Where(i => i != null).ToList();
+            if (list.Count == 0)
+                return;
+
+            Log.Debug($"QueueUnlockNotification: queuing {list.Count} items.");
+            _pendingNotifications.AddRange(list);
+        }
+
+        /// <summary>
+        /// Returns true if the player is currently on the world map state.
+        /// </summary>
+        private static bool IsOnWorldMap()
+        {
+            var game = TaleWorlds.Core.Game.Current;
+            var gsm = game?.GameStateManager;
+            if (gsm == null)
+                return false;
+
+            return gsm.ActiveState is MapState;
+        }
 
         /// <summary>
         /// Get a random item of a given culture and tier.
