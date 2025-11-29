@@ -25,9 +25,15 @@ namespace Retinues.Features.Volunteers.Patches
         private static WSettlement _settlement;
         private static Dictionary<string, WCharacter[]> _snapshot;
 
-        // Wire campaign events once via static ctor (robust across modlists).
-        static VolunteerSwapForPlayer()
+        /// <summary>
+        /// Re-wire events for the current campaign and clear any stale snapshot.
+        /// Call this from SubModule.OnGameStart.
+        /// </summary>
+        public static void Initialize()
         {
+            // Make sure we do not carry stale state across saves / campaigns.
+            ClearSnapshot();
+
             CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
                 typeof(VolunteerSwapForPlayer),
                 OnSettlementLeft
@@ -40,6 +46,14 @@ namespace Retinues.Features.Volunteers.Patches
                 typeof(VolunteerSwapForPlayer),
                 OnSettlementEntered
             );
+        }
+
+        // Wire campaign events once via static ctor (robust across modlists).
+        static VolunteerSwapForPlayer()
+        {
+            // First game in the process still gets wired automatically.
+            // Later games (load from main menu / in-session) will be re-wired via Initialize().
+            Initialize();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
