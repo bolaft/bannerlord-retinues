@@ -21,6 +21,7 @@ namespace Retinues.Features.Experience
     [SafeClass]
     public class TroopXpBehavior : CampaignBehaviorBase
     {
+        public const float MarinerPenaltyMultiplier = 0.8f; // 80% XP for mariner troops
         public const float TrainingXpMultiplier = 0.2f; // 20% of the original XP
 
         public static TroopXpBehavior Instance { get; private set; }
@@ -134,6 +135,11 @@ namespace Retinues.Features.Experience
         {
             if (troop == null || Instance == null || delta == 0)
                 return;
+
+            // Apply mariner penalty
+            if (troop.IsMariner && delta > 0)
+                delta = (int)(delta * MarinerPenaltyMultiplier);
+
             var cur = Instance.GetPool(PoolKey(troop));
             Instance._xpPools[PoolKey(troop)] = Math.Max(0, cur + delta);
         }

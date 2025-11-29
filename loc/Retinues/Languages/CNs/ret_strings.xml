@@ -758,6 +758,9 @@
       id="ret_mariner_label"
       text="水手" />
     <string
+      id="ret_mariner_toggle_hint"
+      text="水手部队更适合海战，但获得的经验值略有减少。" />
+    <string
       id="ret_masters_at_arms"
       text="武器大师" />
     <string

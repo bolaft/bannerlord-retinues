@@ -758,6 +758,9 @@
       id="ret_mariner_label"
       text="Marynarz" />
     <string
+      id="ret_mariner_toggle_hint"
+      text="Jednostki marynarskie są lepiej przystosowane do walki morskiej, ale zdobywają doświadczenie w nieco zmniejszonym tempie." />
+    <string
       id="ret_masters_at_arms"
       text="Mistrzowie Broni" />
     <string

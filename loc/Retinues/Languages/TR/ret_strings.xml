@@ -758,6 +758,9 @@
       id="ret_mariner_label"
       text="Denizci" />
     <string
+      id="ret_mariner_toggle_hint"
+      text="Denizci askerler deniz savaşları için daha uygundur, ancak XP&apos;yi biraz daha düşük bir hızda kazanırlar." />
+    <string
       id="ret_masters_at_arms"
       text="Silah Ustaları" />
     <string

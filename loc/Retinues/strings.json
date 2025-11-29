@@ -4016,6 +4016,22 @@
     "TR": "Denizci"
   },
   {
+    "id": "ret_mariner_toggle_hint",
+    "EN": "Mariner troops are better suited for naval combat, but earn XP at a slightly reduced rate.",
+    "BR": "Tropas marinheiras são mais adequadas para combate naval, mas ganham XP em uma taxa ligeiramente reduzida.",
+    "CNs": "水手部队更适合海战，但获得的经验值略有减少。",
+    "CNt": "水手部隊更適合海戰，但獲得的經驗值略有減少。",
+    "DE": "Seefahrertruppen sind besser für den Seekampf geeignet, verdienen aber XP mit leicht reduzierter Rate.",
+    "FR": "Les troupes marines sont mieux adaptées au combat naval, mais gagnent de l’XP à un rythme légèrement réduit.",
+    "IT": "Le truppe marine sono più adatte al combattimento navale, ma guadagnano XP a un tasso leggermente ridotto.",
+    "JP": "水夫の兵は海戦に適していますが、XPの獲得率がわずかに低くなります。",
+    "KO": "선원 병력은 해상 전투에 더 적합하지만 XP 획득률이 약간 감소합니다.",
+    "PL": "Jednostki marynarskie są lepiej przystosowane do walki morskiej, ale zdobywają doświadczenie w nieco zmniejszonym tempie.",
+    "RU": "Морские войска лучше подходят для морского боя, но получают опыт немного медленнее.",
+    "SP": "Las tropas marineras son más adecuadas para el combate naval, pero ganan XP a un ritmo ligeramente reducido.",
+    "TR": "Denizci askerler deniz savaşları için daha uygundur, ancak XP'yi biraz daha düşük bir hızda kazanırlar."
+  },
+  {
     "id": "ret_masters_at_arms",
     "EN": "Masters-At-Arms",
     "BR": "Mestres de Armas",

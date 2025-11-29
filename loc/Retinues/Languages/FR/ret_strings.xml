@@ -758,6 +758,9 @@
       id="ret_mariner_label"
       text="Marin" />
     <string
+      id="ret_mariner_toggle_hint"
+      text="Les troupes marines sont mieux adaptées au combat naval, mais gagnent de l’XP à un rythme légèrement réduit." />
+    <string
       id="ret_masters_at_arms"
       text="Maîtres d’Armes" />
     <string

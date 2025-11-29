@@ -758,6 +758,9 @@
       id="ret_mariner_label"
       text="Marinheiro" />
     <string
+      id="ret_mariner_toggle_hint"
+      text="Tropas marinheiras são mais adequadas para combate naval, mas ganham XP em uma taxa ligeiramente reduzida." />
+    <string
       id="ret_masters_at_arms"
       text="Mestres de Armas" />
     <string

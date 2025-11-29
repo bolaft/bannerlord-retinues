@@ -1060,6 +1060,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public bool ShowExtrasSection => HasExtraSkills || ShowMariner;
 
         [DataSourceProperty]
+        public BasicTooltipViewModel MarinerToggleHint =>
+            Tooltip.MakeTooltip(
+                null,
+                L.S(
+                    "mariner_toggle_hint",
+                    "Mariner troops are better suited for naval combat, but earn XP at a slightly reduced rate."
+                )
+            );
+
+        [DataSourceProperty]
         public bool HasExtraSkills => State.Troop?.ExtraSkills.Count > 0;
 
         [DataSourceProperty]

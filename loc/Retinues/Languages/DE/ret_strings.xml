@@ -758,6 +758,9 @@
       id="ret_mariner_label"
       text="Seefahrer" />
     <string
+      id="ret_mariner_toggle_hint"
+      text="Seefahrertruppen sind besser für den Seekampf geeignet, verdienen aber XP mit leicht reduzierter Rate." />
+    <string
       id="ret_masters_at_arms"
       text="Waffenmeister" />
     <string

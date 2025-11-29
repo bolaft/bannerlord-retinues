@@ -758,6 +758,9 @@
       id="ret_mariner_label"
       text="Mariner" />
     <string
+      id="ret_mariner_toggle_hint"
+      text="Mariner troops are better suited for naval combat, but earn XP at a slightly reduced rate." />
+    <string
       id="ret_masters_at_arms"
       text="Masters-At-Arms" />
     <string
