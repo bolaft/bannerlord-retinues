@@ -572,7 +572,7 @@ namespace Retinues.Game.Wrappers
 
         public bool IsClanLeader => Base.HeroObject?.IsClanLeader ?? false;
 
-        public int MaxTier => (IsElite ? 6 : 5) + (ModCompatibility.Tier7Unlocked ? 1 : 0);
+        public int MaxTier => (IsElite ? 6 : 5) + (ModCompatibility.HasTier7Unlocker ? 1 : 0);
 
         public bool IsMaxTier => Tier >= MaxTier;
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Mods.BanditMilitias;
 using Retinues.Mods.Shokuho;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -22,13 +23,16 @@ namespace Retinues.Mods
         // DLC
         public static bool HasNavalDLC => IsLoaded("NavalDLC");
 
+        // Mod flags
+        public static bool HasBanditMilitias => IsLoaded("BanditMilitias");
+        public static bool HasShokuho => IsLoaded("Shokuho");
+        public static bool HasImprovedGarrisons => IsLoaded("ImprovedGarrisons");
+        public static bool HasTier7Unlocker => IsLoaded("T7TroopUnlocker");
+
         // Ruleset flags
         public static bool NoGlobalEditor => IsLoaded("Shokuho");
         public static bool ForceDailyVolunteerSwap => IsLoaded("Shokuho");
-        public static bool Tier7Unlocked => IsLoaded("T7TroopUnlocker");
         public static bool SkipItemCultureChecks => IsLoaded("Shokuho", "AD1259");
-        public static bool ImprovedGarrisonsHint => IsLoaded("ImprovedGarrisons");
-        public static bool PatchShokuhoEquipment => IsLoaded("Shokuho");
 
         /// <summary>
         /// Adds mod-specific behaviors to the campaign starter if compatible mods are detected.
@@ -43,8 +47,11 @@ namespace Retinues.Mods
         /// </summary>
         public static void AddPatches(HarmonyLib.Harmony harmony)
         {
-            if (PatchShokuhoEquipment)
+            if (HasShokuho)
                 ShokuhoEquipmentPatcher.TryPatch(harmony);
+
+            if (HasBanditMilitias)
+                BanditMilitiasTroopsPatcher.TryPatch(harmony);
         }
 
         /// <summary>
