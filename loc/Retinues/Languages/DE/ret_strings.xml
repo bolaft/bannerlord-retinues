@@ -1334,6 +1334,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Königliche Wache" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="Die Abhängigkeiten der Retinues-Mod konnten nicht richtig initialisiert werden:{newline}{newline}{DETAILS}.{newline}{newline}Die Mod wird nicht richtig funktionieren, bis die Abhängigkeiten korrekt sind." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="Retinues-Abhängigkeitsfehler" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues-Update" />
     <string

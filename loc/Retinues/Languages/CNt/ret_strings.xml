@@ -1334,6 +1334,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} 皇家衛隊" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="隨從模組的依賴項未能正確初始化：{newline}{newline}{DETAILS}。{newline}{newline}在依賴項正確之前，模組將無法正常運行。" />
+    <string
+      id="ret_retinues_init_error_title"
+      text="隨從依賴錯誤" />
+    <string
       id="ret_retinues_update_title"
       text="隨從更新" />
     <string

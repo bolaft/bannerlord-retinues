@@ -16,6 +16,7 @@ using Retinues.Features.Volunteers;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor;
+using Retinues.GUI.Helpers;
 using Retinues.Mods;
 using Retinues.Safety.Fixes;
 using Retinues.Safety.Legacy;
@@ -36,6 +37,14 @@ namespace Retinues
     /// </summary>
     public class SubModule : MBSubModuleBase
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Static                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static bool HarmonyPatchesApplied = false;
+        public static bool UIExtenderExEnabled = false;
+        public static bool MCMRegistered = false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -138,7 +147,10 @@ namespace Retinues
                 _mcmRegistered = Config.RegisterWithMCM();
 
                 if (_mcmRegistered)
+                {
                     Log.Info("MCM: registration succeeded.");
+                    MCMRegistered = true;
+                }
 
                 Config.LogDump();
             }
@@ -164,6 +176,7 @@ namespace Retinues
                 ModCompatibility.AddPatches(_harmony);
 
                 Log.Debug("Harmony patches applied.");
+                HarmonyPatchesApplied = true;
             }
             catch (Exception e)
             {
@@ -199,6 +212,7 @@ namespace Retinues
                 _extender.Enable();
 
                 Log.Debug("UIExtender enabled & assembly registered.");
+                UIExtenderExEnabled = true;
             }
             catch (Exception e)
             {
@@ -327,6 +341,7 @@ namespace Retinues
             // Safety behaviors
             AddBehavior<SanitizerBehavior>(cs);
             AddBehavior<VersionBehavior>(cs);
+            AddBehavior<DependenciesBehavior>(cs);
             AddBehavior<PartyLeaderFixBehavior>(cs);
 
             // Item behaviors

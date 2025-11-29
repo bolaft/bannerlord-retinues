@@ -1334,6 +1334,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Guarda Real" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="As dependências do mod Retinues falharam ao inicializar corretamente:{newline}{newline}{DETAILS}.{newline}{newline}O mod não funcionará corretamente até que as dependências estejam corretas." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="Erro de Dependência de Retinues" />
+    <string
       id="ret_retinues_update_title"
       text="Atualização de Retinues" />
     <string

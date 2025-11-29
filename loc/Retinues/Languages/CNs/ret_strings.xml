@@ -1334,6 +1334,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} 皇家卫队" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="随从模组的依赖项未能正确初始化：{newline}{newline}{DETAILS}。{newline}{newline}在依赖项正确之前，模组将无法正常运行。" />
+    <string
+      id="ret_retinues_init_error_title"
+      text="随从依赖错误" />
+    <string
       id="ret_retinues_update_title"
       text="随从更新" />
     <string

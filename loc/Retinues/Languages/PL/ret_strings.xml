@@ -1334,6 +1334,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Straż Królewska" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="Nie udało się poprawnie zainicjować zależności moda Orszaki:{newline}{newline}{DETAILS}.{newline}{newline}Mod nie będzie działać poprawnie, dopóki zależności nie będą poprawne." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="Błąd Zależności Orszaków" />
+    <string
       id="ret_retinues_update_title"
       text="Aktualizacja Orszaków" />
     <string

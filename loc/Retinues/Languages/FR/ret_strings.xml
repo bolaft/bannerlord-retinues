@@ -1334,6 +1334,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Garde Royal" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="Les dépendances du mod Retinues n&apos;ont pas pu s&apos;initialiser correctement :{newline}{newline}{DETAILS}.{newline}{newline}Le mod ne fonctionnera pas correctement tant que les dépendances ne seront pas correctes." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="Erreur de dépendance de Retinues" />
+    <string
       id="ret_retinues_update_title"
       text="Mise à jour de Retinues" />
     <string

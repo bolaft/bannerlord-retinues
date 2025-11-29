@@ -1334,6 +1334,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Королевская Гвардия" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="Не удалось правильно инициализировать зависимости мода Свиты:{newline}{newline}{DETAILS}.{newline}{newline}Мод не будет работать правильно, пока зависимости не будут исправлены." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="Ошибка Зависимости Свиты" />
+    <string
       id="ret_retinues_update_title"
       text="Обновление Свит" />
     <string
