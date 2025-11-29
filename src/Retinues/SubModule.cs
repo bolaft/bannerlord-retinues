@@ -13,10 +13,10 @@ using Retinues.Features.Stocks;
 using Retinues.Features.Swaps;
 using Retinues.Features.Unlocks;
 using Retinues.Features.Volunteers;
+using Retinues.Features.Volunteers.Patches;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor;
-using Retinues.GUI.Helpers;
 using Retinues.Mods;
 using Retinues.Safety.Fixes;
 using Retinues.Safety.Legacy;
@@ -97,6 +97,9 @@ namespace Retinues
 
                 // Add Retinues behaviors
                 AddBehaviors(cs);
+
+                // Re-wire player volunteer swap events for this campaign/save.
+                VolunteerSwapForPlayer.Initialize();
             }
 
             // Smoke test for localization
