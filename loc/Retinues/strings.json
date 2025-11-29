@@ -2864,6 +2864,22 @@
     "TR": "Her savaş türü için en az bir savaş seti etkin kalmalıdır."
   },
   {
+    "id": "ret_hint_naval_ok",
+    "EN": "Available in naval battles.",
+    "BR": "Disponível em batalhas navais.",
+    "CNs": "在海战中可用。",
+    "CNt": "在海戰中可用。",
+    "DE": "Verfügbar in Seeschlachten.",
+    "FR": "Disponible dans les batailles navales.",
+    "IT": "Disponibile nelle battaglie navali.",
+    "JP": "海戦で利用可能。",
+    "KO": "해상 전투에서 사용 가능.",
+    "PL": "Dostępne w bitwach morskich.",
+    "RU": "Доступно в морских боях.",
+    "SP": "Disponible en batallas navales.",
+    "TR": "Deniz savaşlarında kullanılabilir."
+  },
+  {
     "id": "ret_hint_set_disabled",
     "EN": "Can't enable for civilian sets.",
     "BR": "Não é possível ativar para conjuntos civis.",
@@ -2878,6 +2894,22 @@
     "RU": "Невозможно включить для гражданских наборов.",
     "SP": "No se puede activar para conjuntos civiles.",
     "TR": "Sivil setler için etkinleştirilemez."
+  },
+  {
+    "id": "ret_hint_siege_ok",
+    "EN": "Available in siege battles.",
+    "BR": "Disponível em batalhas de cerco.",
+    "CNs": "在围城战中可用。",
+    "CNt": "在圍城戰中可用。",
+    "DE": "Verfügbar in Belagerungsschlachten.",
+    "FR": "Disponible dans les batailles de siège.",
+    "IT": "Disponibile nelle battaglie di assedio.",
+    "JP": "包囲戦で利用可能。",
+    "KO": "공성 전투에서 사용 가능.",
+    "PL": "Dostępne w bitwach oblężniczych.",
+    "RU": "Доступно в осадных боях.",
+    "SP": "Disponible en batallas de asedio.",
+    "TR": "Kuşatma savaşlarında kullanılabilir."
   },
   {
     "id": "ret_horse_harness_slot_text",

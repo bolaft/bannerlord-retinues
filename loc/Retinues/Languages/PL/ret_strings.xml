@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="Co najmniej jeden zestaw bitewny musi pozostać włączony dla każdego typu bitwy." />
     <string
+      id="ret_hint_naval_ok"
+      text="Dostępne w bitwach morskich." />
+    <string
       id="ret_hint_set_disabled"
       text="Nie można włączyć dla zestawów cywilnych." />
+    <string
+      id="ret_hint_siege_ok"
+      text="Dostępne w bitwach oblężniczych." />
     <string
       id="ret_horse_harness_slot_text"
       text="Rząd koński" />

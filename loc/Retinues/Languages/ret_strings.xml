@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="At least one battle set must remain enabled for each battle type." />
     <string
+      id="ret_hint_naval_ok"
+      text="Available in naval battles." />
+    <string
       id="ret_hint_set_disabled"
       text="Can&apos;t enable for civilian sets." />
+    <string
+      id="ret_hint_siege_ok"
+      text="Available in siege battles." />
     <string
       id="ret_horse_harness_slot_text"
       text="Harness" />

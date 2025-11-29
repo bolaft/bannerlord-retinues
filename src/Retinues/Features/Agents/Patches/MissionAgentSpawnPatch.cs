@@ -51,12 +51,7 @@ namespace Retinues.Features.Agents.Patches
                 }
                 else
                 {
-                    var battleType = PolicyToggleType.FieldBattle;
-                    var battle = new Battle();
-                    if (battle.IsSiege)
-                        battleType = battle.PlayerIsDefender
-                            ? PolicyToggleType.SiegeDefense
-                            : PolicyToggleType.SiegeAssault;
+                    var battleType = MissionHelper.GetBattleType();
 
                     var all = troop.Loadout.Equipments;
                     var eligible = new List<WEquipment>();

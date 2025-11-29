@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="Her savaş türü için en az bir savaş seti etkin kalmalıdır." />
     <string
+      id="ret_hint_naval_ok"
+      text="Deniz savaşlarında kullanılabilir." />
+    <string
       id="ret_hint_set_disabled"
       text="Sivil setler için etkinleştirilemez." />
+    <string
+      id="ret_hint_siege_ok"
+      text="Kuşatma savaşlarında kullanılabilir." />
     <string
       id="ret_horse_harness_slot_text"
       text="Koşum" />

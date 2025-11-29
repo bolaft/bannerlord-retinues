@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="Al menos un conjunto de batalla debe permanecer activado para cada tipo de batalla." />
     <string
+      id="ret_hint_naval_ok"
+      text="Disponible en batallas navales." />
+    <string
       id="ret_hint_set_disabled"
       text="No se puede activar para conjuntos civiles." />
+    <string
+      id="ret_hint_siege_ok"
+      text="Disponible en batallas de asedio." />
     <string
       id="ret_horse_harness_slot_text"
       text="Arnés" />

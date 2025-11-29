@@ -11,6 +11,7 @@ using Retinues.GUI.Editor.VM.Equipment.List;
 using Retinues.GUI.Editor.VM.Equipment.Panel;
 using Retinues.GUI.Helpers;
 using Retinues.Managers;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
@@ -85,17 +86,21 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     nameof(SetIsCivilian),
                     nameof(SetIsBattle),
                     nameof(SetIsEnabledForFieldBattle),
+                    nameof(SetIsEnabledForNavalBattle),
                     nameof(SetIsEnabledForSiegeDefense),
                     nameof(SetIsEnabledForSiegeAssault),
                     nameof(SetHasGenderOverride),
                     nameof(FieldBattleHint),
+                    nameof(NavalBattleHint),
                     nameof(SiegeDefenseHint),
                     nameof(SiegeAssaultHint),
+                    nameof(SiegeHint),
                     nameof(GenderOverrideHint),
                     nameof(PreviewModeHint),
                     nameof(CivilianHint),
                     nameof(CanToggleCivilianSet),
                     nameof(CanToggleEnableForFieldBattle),
+                    nameof(CanToggleEnableForNavalBattle),
                     nameof(CanToggleEnableForSiegeDefense),
                     nameof(CanToggleEnableForSiegeAssault),
                     nameof(CopyEquipmentHint),
@@ -241,6 +246,9 @@ namespace Retinues.GUI.Editor.VM.Equipment
         [DataSourceProperty]
         public bool ShowEquipmentCheckboxes => IsVisible && !ClanScreen.IsStudioMode;
 
+        [DataSourceProperty]
+        public bool HasNavalDLC => ModCompatibility.HasNavalDLC;
+
         /* ━━━━━━━━ Crafted ━━━━━━━ */
 
         [DataSourceProperty]
@@ -367,6 +375,15 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 State.Troop,
                 State.Equipment.Index,
                 PolicyToggleType.SiegeAssault
+            );
+
+        [DataSourceProperty]
+        public bool SetIsEnabledForNavalBattle =>
+            !SetIsCivilian
+            && CombatAgentBehavior.IsEnabled(
+                State.Troop,
+                State.Equipment.Index,
+                PolicyToggleType.NavalBattle
             );
 
         [DataSourceProperty]
@@ -509,6 +526,11 @@ namespace Retinues.GUI.Editor.VM.Equipment
             && (!SetIsEnabledForSiegeAssault || CountEnabled(PolicyToggleType.SiegeAssault) > 1);
 
         [DataSourceProperty]
+        public bool CanToggleEnableForNavalBattle =>
+            !SetIsCivilian
+            && (!SetIsEnabledForNavalBattle || CountEnabled(PolicyToggleType.NavalBattle) > 1);
+
+        [DataSourceProperty]
         public BasicTooltipViewModel FieldBattleHint =>
             !SetIsBattle
                 ? Tooltip.MakeTooltip(
@@ -524,6 +546,23 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     )
                 )
             : Tooltip.MakeTooltip(null, L.S("hint_field_ok", "Available in field battles."));
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel NavalBattleHint =>
+            !SetIsBattle
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S("hint_set_disabled", "Can't enable for civilian sets.")
+                )
+            : (!CanToggleEnableForNavalBattle && SetIsEnabledForNavalBattle)
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S(
+                        "hint_last_enabled",
+                        "At least one battle set must remain enabled for each battle type."
+                    )
+                )
+            : Tooltip.MakeTooltip(null, L.S("hint_naval_ok", "Available in naval battles."));
 
         [DataSourceProperty]
         public BasicTooltipViewModel SiegeDefenseHint =>
@@ -561,6 +600,26 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 null,
                 L.S("hint_assault_ok", "Available while assaulting a siege.")
             );
+
+        [DataSourceProperty]
+        public BasicTooltipViewModel SiegeHint =>
+            !SetIsBattle
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S("hint_set_disabled", "Can't enable for civilian sets.")
+                )
+            : (
+                (!CanToggleEnableForSiegeAssault && SetIsEnabledForSiegeAssault)
+                || (!CanToggleEnableForSiegeDefense && SetIsEnabledForSiegeDefense)
+            )
+                ? Tooltip.MakeTooltip(
+                    null,
+                    L.S(
+                        "hint_last_enabled",
+                        "At least one battle set must remain enabled for each battle type."
+                    )
+                )
+            : Tooltip.MakeTooltip(null, L.S("hint_siege_ok", "Available in siege battles."));
 
         [DataSourceProperty]
         public BasicTooltipViewModel GenderOverrideHint =>
@@ -816,6 +875,20 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceMethod]
+        public void ExecuteToggleEnableSetForNavalBattle()
+        {
+            if (!CanToggleEnableForNavalBattle)
+                return;
+            CombatAgentBehavior.Toggle(
+                State.Troop,
+                State.Equipment.Index,
+                PolicyToggleType.NavalBattle
+            );
+            OnPropertyChanged(nameof(SetIsEnabledForNavalBattle));
+            OnPropertyChanged(nameof(NavalBattleHint));
+        }
+
+        [DataSourceMethod]
         public void ExecuteToggleEnableSetForSiegeDefense()
         {
             if (!CanToggleEnableForSiegeDefense)
@@ -841,6 +914,27 @@ namespace Retinues.GUI.Editor.VM.Equipment
             );
             OnPropertyChanged(nameof(SetIsEnabledForSiegeAssault));
             OnPropertyChanged(nameof(SiegeAssaultHint));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteToggleEnableSetForSiege()
+        {
+            if (!CanToggleEnableForSiegeAssault && !CanToggleEnableForSiegeDefense)
+                return;
+            CombatAgentBehavior.Toggle(
+                State.Troop,
+                State.Equipment.Index,
+                PolicyToggleType.SiegeAssault
+            );
+            CombatAgentBehavior.Toggle(
+                State.Troop,
+                State.Equipment.Index,
+                PolicyToggleType.SiegeDefense
+            );
+            OnPropertyChanged(nameof(SetIsEnabledForSiegeAssault));
+            OnPropertyChanged(nameof(SetIsEnabledForSiegeDefense));
+            OnPropertyChanged(nameof(SiegeAssaultHint));
+            OnPropertyChanged(nameof(SiegeDefenseHint));
         }
 
         [DataSourceMethod]

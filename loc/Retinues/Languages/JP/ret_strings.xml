@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="各戦闘タイプに対して、少なくとも1つの戦闘セットを有効にしておく必要があります。" />
     <string
+      id="ret_hint_naval_ok"
+      text="海戦で利用可能。" />
+    <string
       id="ret_hint_set_disabled"
       text="民間用セットには有効にできません。" />
+    <string
+      id="ret_hint_siege_ok"
+      text="包囲戦で利用可能。" />
     <string
       id="ret_horse_harness_slot_text"
       text="馬具" />

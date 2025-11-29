@@ -6,6 +6,7 @@ using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Managers;
+using Retinues.Mods;
 using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -439,6 +440,8 @@ namespace Retinues.GUI.Editor
             EnsureOne(PolicyToggleType.FieldBattle);
             EnsureOne(PolicyToggleType.SiegeDefense);
             EnsureOne(PolicyToggleType.SiegeAssault);
+            if (ModCompatibility.HasNavalDLC)
+                EnsureOne(PolicyToggleType.NavalBattle);
         }
     }
 }

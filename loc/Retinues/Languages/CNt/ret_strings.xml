@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="每種戰鬥類型至少必須保留一個啟用的戰鬥套裝。" />
     <string
+      id="ret_hint_naval_ok"
+      text="在海戰中可用。" />
+    <string
       id="ret_hint_set_disabled"
       text="無法為平民套裝啟用。" />
+    <string
+      id="ret_hint_siege_ok"
+      text="在圍城戰中可用。" />
     <string
       id="ret_horse_harness_slot_text"
       text="馬具" />

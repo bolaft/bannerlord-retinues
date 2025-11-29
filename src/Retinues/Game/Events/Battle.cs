@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Retinues.Game.Wrappers;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Party;
@@ -15,6 +17,26 @@ namespace Retinues.Game.Events
     [SafeClass]
     public class Battle : Combat
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Reflection                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly PropertyInfo MissionIsNavalBattleProperty =
+            typeof(Mission).GetProperty(
+                "IsNavalBattle",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+            );
+
+        private static readonly PropertyInfo MapEventIsNavalMapEventProperty =
+            typeof(MapEvent).GetProperty(
+                "IsNavalMapEvent",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public override MissionBehaviorType BehaviorType => MissionBehaviorType.Other;
 
         public Battle(MapEvent mapEvent = null)
@@ -73,6 +95,45 @@ namespace Retinues.Game.Events
         public bool IsLost => !IsWon;
 
         public bool IsFieldBattle => MapEvent?.IsFieldBattle == true;
+        public bool IsNavalBattle
+        {
+            get
+            {
+                try
+                {
+                    if (ModCompatibility.HasNavalDLC == false)
+                        return false;
+
+                    // Mission-side flag (BL13 + War Sails)
+                    var mission = Mission.Current;
+                    if (mission != null && MissionIsNavalBattleProperty != null)
+                    {
+                        if (
+                            MissionIsNavalBattleProperty.GetValue(mission) is bool missionFlag
+                            && missionFlag
+                        )
+                            return true;
+                    }
+
+                    // MapEvent-side flag (BL13 + War Sails)
+                    if (MapEvent != null && MapEventIsNavalMapEventProperty != null)
+                    {
+                        if (
+                            MapEventIsNavalMapEventProperty.GetValue(MapEvent) is bool mapFlag
+                            && mapFlag
+                        )
+                            return true;
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Log.Exception(e);
+                }
+
+                return false;
+            }
+        }
+
         public bool IsHideout => MapEvent?.IsHideoutBattle == true;
         public bool IsSiege => MapEvent?.IsSiegeAssault == true;
         public bool IsVillageRaid =>

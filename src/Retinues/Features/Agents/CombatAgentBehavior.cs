@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Game.Wrappers;
+using Retinues.Mods;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
@@ -9,6 +10,7 @@ namespace Retinues.Features.Agents
     public enum PolicyToggleType
     {
         FieldBattle,
+        NavalBattle, // DLC
         SiegeDefense,
         SiegeAssault,
         GenderOverride,
@@ -23,6 +25,9 @@ namespace Retinues.Features.Agents
         [SaveableField(1)]
         public bool FieldBattle = false;
 
+        [SaveableField(5)]
+        public bool NavalBattle = false;
+
         [SaveableField(2)]
         public bool SiegeDefense = false;
 
@@ -35,6 +40,7 @@ namespace Retinues.Features.Agents
         public static readonly EquipmentPolicy None = new()
         {
             FieldBattle = false,
+            NavalBattle = false, // DLC
             SiegeDefense = false,
             SiegeAssault = false,
             GenderOverride = false,
@@ -43,6 +49,7 @@ namespace Retinues.Features.Agents
         public static readonly EquipmentPolicy All = new()
         {
             FieldBattle = true,
+            NavalBattle = true, // DLC
             SiegeDefense = true,
             SiegeAssault = true,
             GenderOverride = false, // default to no override
@@ -63,6 +70,26 @@ namespace Retinues.Features.Agents
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData("Retinues_EquipmentUsePolicy", ref _byTroop);
+
+            if (dataStore.IsLoading)
+            {
+                if (ModCompatibility.HasNavalDLC)
+                {
+                    // SiegeAssault and SiegeDefense are both true if any is true
+                    // to merge them into one while preserving existing settings.
+                    foreach (var perTroop in _byTroop.Values)
+                    {
+                        foreach (var p in perTroop.Values)
+                        {
+                            if (p.SiegeAssault || p.SiegeDefense)
+                            {
+                                p.SiegeAssault = true;
+                                p.SiegeDefense = true;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -90,8 +117,11 @@ namespace Retinues.Features.Agents
             return EquipmentPolicy.All;
         }
 
-        public bool IsEnabled_Field(WCharacter troop, int index) =>
+        public bool IsEnabled_FieldBattle(WCharacter troop, int index) =>
             GetPolicy(troop, index).FieldBattle;
+
+        public bool IsEnabled_NavalBattle(WCharacter troop, int index) =>
+            GetPolicy(troop, index).NavalBattle;
 
         public bool IsEnabled_SiegeDefense(WCharacter troop, int index) =>
             GetPolicy(troop, index).SiegeDefense;
@@ -104,13 +134,22 @@ namespace Retinues.Features.Agents
 
         /* ━━━━━━━ Commands ━━━━━━━ */
 
-        public void Toggle_Field(WCharacter troop, int index)
+        public void Toggle_FieldBattle(WCharacter troop, int index)
         {
             if (troop == null)
                 return;
             if (!CanDisable(troop, index, PolicyToggleType.FieldBattle))
                 return;
             Set(troop, index, p => p.FieldBattle = !p.FieldBattle);
+        }
+
+        public void Toggle_NavalBattle(WCharacter troop, int index)
+        {
+            if (troop == null)
+                return;
+            if (!CanDisable(troop, index, PolicyToggleType.NavalBattle))
+                return;
+            Set(troop, index, p => p.NavalBattle = !p.NavalBattle);
         }
 
         public void Toggle_SiegeDefense(WCharacter troop, int index)
@@ -173,6 +212,7 @@ namespace Retinues.Features.Agents
                 per[index] = p = new EquipmentPolicy
                 {
                     FieldBattle = true,
+                    NavalBattle = true, // DLC
                     SiegeDefense = true,
                     SiegeAssault = true,
                     GenderOverride = false,
@@ -190,7 +230,10 @@ namespace Retinues.Features.Agents
         public static bool IsEnabled(WCharacter troop, int altIndex, PolicyToggleType t) =>
             t switch
             {
-                PolicyToggleType.FieldBattle => Inst?.IsEnabled_Field(troop, altIndex) ?? true,
+                PolicyToggleType.FieldBattle => Inst?.IsEnabled_FieldBattle(troop, altIndex)
+                    ?? true,
+                PolicyToggleType.NavalBattle => Inst?.IsEnabled_NavalBattle(troop, altIndex)
+                    ?? true,
                 PolicyToggleType.SiegeDefense => Inst?.IsEnabled_SiegeDefense(troop, altIndex)
                     ?? true,
                 PolicyToggleType.SiegeAssault => Inst?.IsEnabled_SiegeAssault(troop, altIndex)
@@ -205,7 +248,10 @@ namespace Retinues.Features.Agents
             switch (t)
             {
                 case PolicyToggleType.FieldBattle:
-                    Inst?.Toggle_Field(troop, altIndex);
+                    Inst?.Toggle_FieldBattle(troop, altIndex);
+                    break;
+                case PolicyToggleType.NavalBattle:
+                    Inst?.Toggle_NavalBattle(troop, altIndex);
                     break;
                 case PolicyToggleType.SiegeDefense:
                     Inst?.Toggle_SiegeDefense(troop, altIndex);
@@ -229,6 +275,7 @@ namespace Retinues.Features.Agents
                 p =>
                 {
                     p.FieldBattle = false;
+                    p.NavalBattle = false;
                     p.SiegeDefense = false;
                     p.SiegeAssault = false;
                     p.GenderOverride = false;

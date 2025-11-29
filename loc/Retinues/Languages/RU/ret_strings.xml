@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="Для каждого типа боя должен оставаться включенным как минимум один боевой набор." />
     <string
+      id="ret_hint_naval_ok"
+      text="Доступно в морских боях." />
+    <string
       id="ret_hint_set_disabled"
       text="Невозможно включить для гражданских наборов." />
+    <string
+      id="ret_hint_siege_ok"
+      text="Доступно в осадных боях." />
     <string
       id="ret_horse_harness_slot_text"
       text="Сбруя" />

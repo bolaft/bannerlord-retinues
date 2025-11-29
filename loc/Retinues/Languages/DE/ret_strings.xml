@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="Mindestens ein Kampfsatz muss für jeden Kampftyp aktiviert bleiben." />
     <string
+      id="ret_hint_naval_ok"
+      text="Verfügbar in Seeschlachten." />
+    <string
       id="ret_hint_set_disabled"
       text="Kann für zivile Sets nicht aktiviert werden." />
+    <string
+      id="ret_hint_siege_ok"
+      text="Verfügbar in Belagerungsschlachten." />
     <string
       id="ret_horse_harness_slot_text"
       text="Zaumzeug" />

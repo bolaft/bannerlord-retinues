@@ -1,8 +1,9 @@
+using Retinues.Features.Agents;
+using Retinues.Game.Events;
 using Retinues.Mods;
 using Retinues.Utils;
 using SandBox.Tournaments.MissionLogics;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -15,6 +16,9 @@ namespace Retinues.Game.Helpers
     {
         private static Mission _cachedMission;
         private static bool _cachedIsCombatMission;
+        private static Battle _cachedBattle;
+        private static Mission _cachedBattleMission;
+        private static PolicyToggleType _cachedBattleType;
 
         /// <summary>
         /// Returns true for battle-like missions where combat features should apply
@@ -35,11 +39,52 @@ namespace Retinues.Game.Helpers
             {
                 _cachedMission = mission;
                 _cachedIsCombatMission = ComputeIsCombatMission(mission);
+
+                Log.Info($"Computed IsCombatMission: {_cachedIsCombatMission}");
             }
 
             return _cachedIsCombatMission;
         }
 
+        /// <summary>
+        /// Gets the battle type for the current mission.
+        /// </summary>
+        public static PolicyToggleType GetBattleType(Mission mission = null)
+        {
+            mission ??= Mission.Current;
+
+            // No mission => no battle
+            if (mission == null)
+            {
+                _cachedBattleMission = null;
+                _cachedBattle = null;
+                _cachedBattleType = PolicyToggleType.FieldBattle;
+            }
+            // Keep using the existing mission cache for "is this even a combat mission?"
+            else if (!IsCombatMission(mission))
+            {
+                _cachedBattleMission = mission;
+                _cachedBattle = null;
+                _cachedBattleType = PolicyToggleType.FieldBattle;
+                return _cachedBattleType;
+            }
+            // Here mission is a valid combat mission.
+            // Rebuild the Battle + type only when the mission itself changes.
+            else if (!ReferenceEquals(mission, _cachedBattleMission) || _cachedBattle == null)
+            {
+                _cachedBattleMission = mission;
+                _cachedBattle = new Battle();
+                _cachedBattleType = ComputeBattleType(_cachedBattle);
+
+                Log.Info($"Computed BattleType: {_cachedBattleType}");
+            }
+
+            return _cachedBattleType;
+        }
+
+        /// <summary>
+        /// Checks if the given mission is a combat mission.
+        /// </summary>
         private static bool ComputeIsCombatMission(Mission mission)
         {
             var mode = mission.Mode;
@@ -88,6 +133,25 @@ namespace Retinues.Game.Helpers
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Computes the battle type for the given battle.
+        /// </summary>
+        private static PolicyToggleType ComputeBattleType(Battle battle)
+        {
+            Log.Info("Computing battle type.");
+
+            PolicyToggleType policy = PolicyToggleType.FieldBattle;
+
+            if (battle?.IsSiege == true)
+                policy = battle.PlayerIsDefender
+                    ? PolicyToggleType.SiegeDefense
+                    : PolicyToggleType.SiegeAssault;
+            else if (battle?.IsNavalBattle == true)
+                policy = PolicyToggleType.NavalBattle;
+
+            return policy;
         }
     }
 }

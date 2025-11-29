@@ -258,8 +258,35 @@
                     </Children>
                 </ListPanel>
 
+                <!-- Naval Battle -->
+                <ListPanel
+                    IsVisible="@HasNavalDLC"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Naval Battle Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_prosperity_big",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Naval Battle Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForNavalBattle",
+                            is_selected="@SetIsEnabledForNavalBattle",
+                            is_enabled="@CanToggleEnableForNavalBattle",
+                            size="24",
+                            hint="{NavalBattleHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
                 <!-- Siege Defense -->
                 <ListPanel
+                    IsHidden="@HasNavalDLC"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     SuggestedHeight="32"
                     HorizontalAlignment="Center">
@@ -286,6 +313,7 @@
 
                 <!-- Siege Assault -->
                 <ListPanel
+                    IsHidden="@HasNavalDLC"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     SuggestedHeight="32"
                     HorizontalAlignment="Center">
@@ -305,6 +333,32 @@
                             is_enabled="@CanToggleEnableForSiegeAssault",
                             size="24",
                             hint="{SiegeAssaultHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+                <!-- Siege -->
+                <ListPanel
+                    IsVisible="@HasNavalDLC"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Siege Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Siege Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForSiege",
+                            is_selected="@SetIsEnabledForSiegeDefense",
+                            is_enabled="@CanToggleEnableForSiegeDefense",
+                            size="24",
+                            hint="{SiegeHint}"
                         )}}
 
                     </Children>

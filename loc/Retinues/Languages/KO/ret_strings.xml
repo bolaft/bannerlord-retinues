@@ -542,8 +542,14 @@
       id="ret_hint_last_enabled"
       text="각 전투 유형에 대해 최소한 하나의 전투 세트가 활성 상태로 유지되어야 합니다." />
     <string
+      id="ret_hint_naval_ok"
+      text="해상 전투에서 사용 가능." />
+    <string
       id="ret_hint_set_disabled"
       text="민간인 세트에는 활성화할 수 없습니다." />
+    <string
+      id="ret_hint_siege_ok"
+      text="공성 전투에서 사용 가능." />
     <string
       id="ret_horse_harness_slot_text"
       text="마구" />
