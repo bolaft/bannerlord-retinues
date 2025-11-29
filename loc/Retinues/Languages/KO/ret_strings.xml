@@ -1496,6 +1496,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} 왕립 근위대" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="수행원 모드 종속성이 제대로 초기화되지 않았습니다:{newline}{newline}{DETAILS}.{newline}{newline}종속성이 올바를 때까지 모드가 제대로 작동하지 않습니다." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="수행원 종속성 오류" />
+    <string
       id="ret_retinues_update_title"
       text="수행원 업데이트" />
     <string

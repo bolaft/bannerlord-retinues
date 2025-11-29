@@ -1496,6 +1496,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Royal Guard" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="Retinues mod dependencies failed to initialize properly:{newline}{newline}{DETAILS}.{newline}{newline}The mod will not function correctly until the dependencies are correct." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="Retinues Dependency Error" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues Update" />
     <string

@@ -1496,6 +1496,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} Kraliyet Muhafızı" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="Yandaş mod bağımlılıkları düzgün bir şekilde başlatılamadı:{newline}{newline}{DETAILS}.{newline}{newline}Bağımlılıklar doğru olana kadar mod düzgün çalışmayacaktır." />
+    <string
+      id="ret_retinues_init_error_title"
+      text="Yandaş Bağımlılık Hatası" />
+    <string
       id="ret_retinues_update_title"
       text="Yandaş Güncellemesi" />
     <string

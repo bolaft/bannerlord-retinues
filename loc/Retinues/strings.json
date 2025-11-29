@@ -7952,6 +7952,38 @@
     "TR": "{FACTION} Kraliyet Muhafızı"
   },
   {
+    "id": "ret_retinues_init_error_body_detailed",
+    "EN": "Retinues mod dependencies failed to initialize properly:\\n\\n{DETAILS}.\\n\\nThe mod will not function correctly until the dependencies are correct.",
+    "BR": "As dependências do mod Retinues falharam ao inicializar corretamente:\\n\\n{DETAILS}.\\n\\nO mod não funcionará corretamente até que as dependências estejam corretas.",
+    "CNs": "随从模组的依赖项未能正确初始化：\\n\\n{DETAILS}。\\n\\n在依赖项正确之前，模组将无法正常运行。",
+    "CNt": "隨從模組的依賴項未能正確初始化：\\n\\n{DETAILS}。\\n\\n在依賴項正確之前，模組將無法正常運行。",
+    "DE": "Die Abhängigkeiten der Retinues-Mod konnten nicht richtig initialisiert werden:\\n\\n{DETAILS}.\\n\\nDie Mod wird nicht richtig funktionieren, bis die Abhängigkeiten korrekt sind.",
+    "FR": "Les dépendances du mod Retinues n'ont pas pu s'initialiser correctement :\\n\\n{DETAILS}.\\n\\nLe mod ne fonctionnera pas correctement tant que les dépendances ne seront pas correctes.",
+    "IT": "Le dipendenze della mod Retinues non sono state inizializzate correttamente:\\n\\n{DETAILS}.\\n\\nLa mod non funzionerà correttamente finché le dipendenze non saranno corrette.",
+    "JP": "随从モッドの依存関係が正しく初期化されませんでした：\\n\\n{DETAILS}。\\n\\n依存関係が正しくなるまで、モッドは正しく機能しません。",
+    "KO": "수행원 모드 종속성이 제대로 초기화되지 않았습니다:\\n\\n{DETAILS}.\\n\\n종속성이 올바를 때까지 모드가 제대로 작동하지 않습니다.",
+    "PL": "Nie udało się poprawnie zainicjować zależności moda Orszaki:\\n\\n{DETAILS}.\\n\\nMod nie będzie działać poprawnie, dopóki zależności nie będą poprawne.",
+    "RU": "Не удалось правильно инициализировать зависимости мода Свиты:\\n\\n{DETAILS}.\\n\\nМод не будет работать правильно, пока зависимости не будут исправлены.",
+    "SP": "Las dependencias del mod Retinues no se pudieron inicializar correctamente:\\n\\n{DETAILS}.\\n\\nEl mod no funcionará correctamente hasta que las dependencias sean correctas.",
+    "TR": "Yandaş mod bağımlılıkları düzgün bir şekilde başlatılamadı:\\n\\n{DETAILS}.\\n\\nBağımlılıklar doğru olana kadar mod düzgün çalışmayacaktır."
+  },
+  {
+    "id": "ret_retinues_init_error_title",
+    "EN": "Retinues Dependency Error",
+    "BR": "Erro de Dependência de Retinues",
+    "CNs": "随从依赖错误",
+    "CNt": "隨從依賴錯誤",
+    "DE": "Retinues-Abhängigkeitsfehler",
+    "FR": "Erreur de dépendance de Retinues",
+    "IT": "Errore di Dipendenza di Retinues",
+    "JP": "随从依存関係エラー",
+    "KO": "수행원 종속성 오류",
+    "PL": "Błąd Zależności Orszaków",
+    "RU": "Ошибка Зависимости Свиты",
+    "SP": "Error de Dependencia de Retinues",
+    "TR": "Yandaş Bağımlılık Hatası"
+  },
+  {
     "id": "ret_retinues_update_title",
     "EN": "Retinues Update",
     "BR": "Atualização de Retinues",

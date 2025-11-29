@@ -1496,6 +1496,12 @@
       id="ret_retinue_royal_guard"
       text="{FACTION} 王立護衛" />
     <string
+      id="ret_retinues_init_error_body_detailed"
+      text="随从モッドの依存関係が正しく初期化されませんでした：{newline}{newline}{DETAILS}。{newline}{newline}依存関係が正しくなるまで、モッドは正しく機能しません。" />
+    <string
+      id="ret_retinues_init_error_title"
+      text="随从依存関係エラー" />
+    <string
       id="ret_retinues_update_title"
       text="随从アップデート" />
     <string
