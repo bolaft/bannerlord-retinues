@@ -2,6 +2,7 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.GUI.Editor.VM;
+using Retinues.Mods;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
@@ -185,6 +186,11 @@ namespace Retinues.GUI.Editor
 
         private void SelectEditorTab()
         {
+            // Give external mixins (like Banner Kings) a chance to reset
+            // their custom tabs based on a vanilla selection.
+            if (ModCompatibility.ForceClanTabsReset)
+                ForceResetExternalTabs();
+
             UnselectVanillaTabs();
             Editor.Show();
             UpdateVisibilityFlags();
@@ -240,6 +246,8 @@ namespace Retinues.GUI.Editor
                     case "IsFiefsSelected":
                     case "IsPartiesSelected":
                     case "IsIncomeSelected":
+                    case "CourtSelected": // Bannerking
+                    case "DemesneSelected": // Bannerking
                         Log.Debug($"Vanilla tab selected ({e.PropertyName}), hiding troop editor.");
                         HideEditor();
                         break;
@@ -248,6 +256,24 @@ namespace Retinues.GUI.Editor
             catch (Exception ex)
             {
                 Log.Exception(ex);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Mod Compatibility                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void ForceResetExternalTabs()
+        {
+            try
+            {
+                // Select a vanilla tab via the real API so other mixins bound to
+                // SetSelectedCategory (like Banner Kings) can react and clear their flags.
+                ViewModel.SetSelectedCategory(0); // 0 = Members
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
             }
         }
     }
