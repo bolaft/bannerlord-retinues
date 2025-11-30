@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="수행원 병력의 등급별 계급 상승 비용." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="필요한 명성(등급별)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="수행원 병력의 등급별로 수행원이 자동으로 합류하는 데 필요한 명성." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="아이템당 필요한 폐기 횟수" />
     <string

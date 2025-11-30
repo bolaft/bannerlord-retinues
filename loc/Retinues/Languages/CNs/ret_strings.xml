@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="随从部队每级的升级成本。" />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="所需声望（每级）" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="随从部队每级自动加入所需的声望。" />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="每件物品所需的丢弃次数" />
     <string

@@ -57,8 +57,6 @@ namespace Retinues.Managers
         //                       Conversion                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private const float RenownCostRatio = 0.2f;
-
         /// <summary>
         /// Gold cost per unit for converting to this retinue.
         /// </summary>
@@ -82,11 +80,14 @@ namespace Retinues.Managers
         }
 
         /// <summary>
-        /// Renown cost per unit for converting to this retinue.
+        /// Renown required per unit for auto join.
         /// </summary>
-        public static int ConversionRenownCostPerUnit(WCharacter retinue)
+        public static int RenownRequiredPerUnit(WCharacter retinue)
         {
-            return (int)(ConversionGoldCostPerUnit(retinue) * RenownCostRatio);
+            if (retinue == null || !retinue.IsRetinue)
+                return 0;
+            int tier = retinue.Tier <= 0 ? 1 : retinue.Tier;
+            return tier * Config.RenownRequiredPerTier;
         }
 
         /// <summary>

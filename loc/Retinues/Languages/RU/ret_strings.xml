@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Стоимость повышения ранга для войск свиты за уровень." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Требуемая Репутация (За Уровень)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Репутация, необходимая для автоматического присоединения свиты, за уровень войск свиты." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Требуемые Отбросы За Предмет" />
     <string

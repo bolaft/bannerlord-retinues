@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Aufstiegskosten für Gefolgschaftstruppen pro Stufe." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Benötigter Ruhm (pro Stufe)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Benötigter Ruhm, damit sich eine Gefolgschaft automatisch anschließt, pro Stufe der Gefolgschaftstruppen." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Erforderliche Entsorgungen pro Gegenstand" />
     <string

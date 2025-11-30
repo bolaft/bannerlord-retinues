@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Yandaş birlikler için seviye başına rütbe yükseltme maliyeti." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Gerekli Şöhret (Seviye Başına)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Yandaş birliğin otomatik olarak katılması için gereken şöhret, yandaş birliğin seviyesi başına." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Öğe Başına Gerekli Atmalar" />
     <string

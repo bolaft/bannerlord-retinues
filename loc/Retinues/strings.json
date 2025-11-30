@@ -5584,6 +5584,38 @@
     "TR": "Yandaş birlikler için seviye başına rütbe yükseltme maliyeti."
   },
   {
+    "id": "ret_mcm_option_renown_required_per_tier",
+    "EN": "Renown Required (Per Tier)",
+    "BR": "Renome Necessário (Por Nível)",
+    "CNs": "所需声望（每级）",
+    "CNt": "所需聲望（每級）",
+    "DE": "Benötigter Ruhm (pro Stufe)",
+    "FR": "Renommée Requise (Par Rang)",
+    "IT": "Fama Necessaria (Per Livello)",
+    "JP": "必要な名声（レベル別）",
+    "KO": "필요한 명성(등급별)",
+    "PL": "Wymagana Renoma (Na Poziom)",
+    "RU": "Требуемая Репутация (За Уровень)",
+    "SP": "Renombre Requerido (Por Nivel)",
+    "TR": "Gerekli Şöhret (Seviye Başına)"
+  },
+  {
+    "id": "ret_mcm_option_renown_required_per_tier_hint",
+    "EN": "Renown required for a retinue to join automatically, per tier of the retinue troop.",
+    "BR": "Renome necessária para um séquito se juntar automaticamente, por nível da tropa do séquito.",
+    "CNs": "随从部队每级自动加入所需的声望。",
+    "CNt": "隨從部隊每級自動加入所需的聲望。",
+    "DE": "Benötigter Ruhm, damit sich eine Gefolgschaft automatisch anschließt, pro Stufe der Gefolgschaftstruppen.",
+    "FR": "Renommée requise pour qu’une rétinue rejoigne automatiquement, par rang de la rétinue.",
+    "IT": "Fama necessaria affinché un seguito si unisca automaticamente, per livello della truppa del seguito.",
+    "JP": "随伴兵の各レベルに応じて、随伴兵が自動的に参加するために必要な名声。",
+    "KO": "수행원 병력의 등급별로 수행원이 자동으로 합류하는 데 필요한 명성.",
+    "PL": "Renoma wymagana, aby orszak dołączył automatycznie, na poziom oddziału orszaku.",
+    "RU": "Репутация, необходимая для автоматического присоединения свиты, за уровень войск свиты.",
+    "SP": "Renombre requerido para que un séquito se una automáticamente, por nivel de la tropa del séquito.",
+    "TR": "Yandaş birliğin otomatik olarak katılması için gereken şöhret, yandaş birliğin seviyesi başına."
+  },
+  {
     "id": "ret_mcm_option_required_discards_per_item",
     "EN": "Required Discards Per Item",
     "BR": "Descarte Necessário Por Item",

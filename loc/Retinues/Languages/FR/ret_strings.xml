@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Coût de promotion des troupes de rétinue par rang." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Renommée Requise (Par Rang)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Renommée requise pour qu’une rétinue rejoigne automatiquement, par rang de la rétinue." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Rejets Requis Par Objet" />
     <string

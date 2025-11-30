@@ -153,10 +153,7 @@ namespace Retinues.GUI.Editor.VM.Troop
                     return L.S("retinue_join_text_full", "The hiring limit has been reached.");
 
                 return L.T("retinue_join_text", "One new retinue per {COST} renown earned.")
-                    .SetTextVariable(
-                        "COST",
-                        RetinueManager.ConversionRenownCostPerUnit(State.Troop)
-                    )
+                    .SetTextVariable("COST", RetinueManager.RenownRequiredPerUnit(State.Troop))
                     .ToString();
             }
         }

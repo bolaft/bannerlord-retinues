@@ -156,6 +156,25 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<int> RenownRequiredPerTier = CreateOption(
+            section: () => L.S("mcm_section_retinues", "Retinues"),
+            name: () => L.S("mcm_option_renown_required_per_tier", "Renown Required (Per Tier)"),
+            key: "RenownRequiredPerTier",
+            hint: () =>
+                L.S(
+                    "mcm_option_renown_required_per_tier_hint",
+                    "Renown required for a retinue to join automatically, per tier of the retinue troop."
+                ),
+            @default: 10,
+            minValue: 1,
+            maxValue: 100,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = 10,
+                [Presets.Realistic] = 20,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Troop Unlocks
         // ─────────────────────────────────────────────────────

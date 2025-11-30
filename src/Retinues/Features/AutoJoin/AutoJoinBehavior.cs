@@ -97,7 +97,7 @@ namespace Retinues.Features.AutoJoin
                 if (GetCountOf(retinue) >= GetJoinCap(retinue))
                     continue;
 
-                var cost = RetinueManager.ConversionRenownCostPerUnit(retinue);
+                var cost = RetinueManager.RenownRequiredPerUnit(retinue);
                 if (cost > _renownReserve)
                     continue;
 

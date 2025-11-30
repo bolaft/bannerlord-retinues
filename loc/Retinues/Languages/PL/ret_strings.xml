@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Koszt awansu dla oddziałów orszaku na poziom." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Wymagana Renoma (Na Poziom)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Renoma wymagana, aby orszak dołączył automatycznie, na poziom oddziału orszaku." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Wymagane Odrzucenia Na Przedmiot" />
     <string

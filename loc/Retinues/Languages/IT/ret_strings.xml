@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Costo di avanzamento di grado per le truppe del seguito per livello." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Fama Necessaria (Per Livello)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Fama necessaria affinché un seguito si unisca automaticamente, per livello della truppa del seguito." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Scarti Necessari Per Oggetto" />
     <string

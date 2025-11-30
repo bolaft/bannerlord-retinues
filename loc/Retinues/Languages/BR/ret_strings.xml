@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Custo de upgrade de nível para tropas de séquito por nível." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Renome Necessário (Por Nível)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Renome necessária para um séquito se juntar automaticamente, por nível da tropa do séquito." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Descarte Necessário Por Item" />
     <string

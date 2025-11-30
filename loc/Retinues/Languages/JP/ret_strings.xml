@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="随伴兵のランクアップコスト（レベル別）。" />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="必要な名声（レベル別）" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="随伴兵の各レベルに応じて、随伴兵が自動的に参加するために必要な名声。" />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="アイテムごとに必要な廃棄回数" />
     <string

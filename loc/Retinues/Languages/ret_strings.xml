@@ -1052,6 +1052,12 @@
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
       text="Rank up cost for retinue troops per tier." />
     <string
+      id="ret_mcm_option_renown_required_per_tier"
+      text="Renown Required (Per Tier)" />
+    <string
+      id="ret_mcm_option_renown_required_per_tier_hint"
+      text="Renown required for a retinue to join automatically, per tier of the retinue troop." />
+    <string
       id="ret_mcm_option_required_discards_per_item"
       text="Required Discards Per Item" />
     <string
