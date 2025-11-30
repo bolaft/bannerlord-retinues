@@ -13,6 +13,7 @@ namespace Retinues.Game.Menu
     /// <summary>
     /// Generic "wait N in-game hours" game-menu flow.
     /// </summary>
+    [SafeClass]
     public static class TimedWaitMenu
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
