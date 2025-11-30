@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="정예 병력의 최대 업그레이드 대상 수." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="페이지당 최대 장비 행 수" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="병력 편집기에서 페이지당 표시할 최대 장비 행 수. 값이 작을수록 UI 반응성이 향상됩니다." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="민간 세트 업그레이드 요구 사항 없음" />
     <string

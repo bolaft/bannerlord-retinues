@@ -1025,6 +1025,21 @@ namespace Retinues.Configuration
             @default: true
         );
 
+        public static readonly Option<int> MaxEquipmentRowsPerPage = CreateOption(
+            section: () => L.S("mcm_section_ui", "User Interface"),
+            name: () =>
+                L.S("mcm_option_max_equipment_rows_per_page", "Max Equipment Rows Per Page"),
+            key: "MaxEquipmentRowsPerPage",
+            hint: () =>
+                L.S(
+                    "mcm_option_max_equipment_rows_per_page_hint",
+                    "Maximum number of equipment rows to show per page in the troop editor. Smaller values improve UI reactivity."
+                ),
+            @default: 100,
+            minValue: 10,
+            maxValue: 1000
+        );
+
         // ─────────────────────────────────────────────────────
         // Skill Caps
         // ─────────────────────────────────────────────────────

@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Максимальное количество целей обновления для элитных войск." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Макс. Количество Строк Снаряжения на Страницу" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Максимальное количество строк снаряжения для отображения на странице в редакторе войск. Меньшие значения улучшают отзывчивость интерфейса." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="Нет Требований к Обновлению Гражданского Комплекта" />
     <string

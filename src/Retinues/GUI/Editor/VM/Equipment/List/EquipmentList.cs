@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Wrappers;
@@ -40,7 +41,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /// <summary>
         /// Number of rows per page (excluding the empty row).
         /// </summary>
-        public const int MaxRows = 100; // page size
+        public int MaxRows = Config.MaxEquipmentRowsPerPage; // page size
 
         // Total number of items after applying the current filter.
         private int _filteredCount;

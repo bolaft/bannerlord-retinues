@@ -5408,6 +5408,38 @@
     "TR": "Seçkin askerler için maksimum yükseltme hedefi sayısı."
   },
   {
+    "id": "ret_mcm_option_max_equipment_rows_per_page",
+    "EN": "Max Equipment Rows Per Page",
+    "BR": "Máximo de Linhas de Equipamento Por Página",
+    "CNs": "每页最大装备行数",
+    "CNt": "每頁最大裝備行數",
+    "DE": "Maximale Ausrüstungszeilen pro Seite",
+    "FR": "Nombre Maximal de Lignes d’Équipement par Page",
+    "IT": "Massimo Numero di Righe di Equipaggiamento per Pagina",
+    "JP": "ページごとの最大装備行数",
+    "KO": "페이지당 최대 장비 행 수",
+    "PL": "Maksymalna Liczba Wierszy Ekwipunku na Stronę",
+    "RU": "Макс. Количество Строк Снаряжения на Страницу",
+    "SP": "Máximo de Filas de Equipo Por Página",
+    "TR": "Sayfa Başına Maksimum Ekipman Satırı"
+  },
+  {
+    "id": "ret_mcm_option_max_equipment_rows_per_page_hint",
+    "EN": "Maximum number of equipment rows to show per page in the troop editor. Smaller values improve UI reactivity.",
+    "BR": "Número máximo de linhas de equipamento a serem exibidas por página no editor de tropas. Valores menores melhoram a reatividade da interface do usuário.",
+    "CNs": "部队编辑器中每页显示的最大装备行数。较小的值可提高用户界面的响应速度。",
+    "CNt": "部隊編輯器中每頁顯示的最大裝備行數。較小的值可提高用戶界面的響應速度。",
+    "DE": "Maximale Anzahl von Ausrüstungszeilen, die pro Seite im Truppen-Editor angezeigt werden. Kleinere Werte verbessern die Reaktionsfähigkeit der Benutzeroberfläche.",
+    "FR": "Nombre maximum de lignes d’équipement à afficher par page dans l’éditeur de troupes. Des valeurs plus petites améliorent la réactivité de l’interface utilisateur.",
+    "IT": "Numero massimo di righe di equipaggiamento da mostrare per pagina nell’editor delle truppe. Valori più piccoli migliorano la reattività dell’interfaccia utente.",
+    "JP": "部隊エディターでページごとに表示する最大装備行数。値が小さいほど、UIの反応性が向上します。",
+    "KO": "병력 편집기에서 페이지당 표시할 최대 장비 행 수. 값이 작을수록 UI 반응성이 향상됩니다.",
+    "PL": "Maksymalna liczba wierszy ekwipunku do wyświetlenia na stronę w edytorze jednostek. Mniejsze wartości poprawiają reaktywność interfejsu użytkownika.",
+    "RU": "Максимальное количество строк снаряжения для отображения на странице в редакторе войск. Меньшие значения улучшают отзывчивость интерфейса.",
+    "SP": "Número máximo de filas de equipo para mostrar por página en el editor de tropas. Los valores más pequeños mejoran la capacidad de respuesta de la interfaz de usuario.",
+    "TR": "Birlik düzenleyicisinde sayfa başına gösterilecek maksimum ekipman satırı sayısı. Daha küçük değerler kullanıcı arayüzü tepkiselliğini artırır."
+  },
+  {
     "id": "ret_mcm_option_no_civilian_set_upgrade_requirements",
     "EN": "No Civilian Set Upgrade Requirements",
     "BR": "Sem Requisitos de Upgrade de Conjunto Civil",

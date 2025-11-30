@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Nombre maximum de promotions pour les troupes d’élite." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Nombre Maximal de Lignes d’Équipement par Page" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Nombre maximum de lignes d’équipement à afficher par page dans l’éditeur de troupes. Des valeurs plus petites améliorent la réactivité de l’interface utilisateur." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="Pas d’Exigences de Mise à Niveau pour les Ensembles Civils" />
     <string

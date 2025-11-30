@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Numero massimo di obiettivi di upgrade per le truppe élite." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Massimo Numero di Righe di Equipaggiamento per Pagina" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Numero massimo di righe di equipaggiamento da mostrare per pagina nell’editor delle truppe. Valori più piccoli migliorano la reattività dell’interfaccia utente." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="Nessun Requisito di Upgrade per Set Civili" />
     <string

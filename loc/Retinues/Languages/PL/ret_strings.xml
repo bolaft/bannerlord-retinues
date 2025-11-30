@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Maksymalna liczba celów ulepszenia dla elitarnych jednostek." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Maksymalna Liczba Wierszy Ekwipunku na Stronę" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Maksymalna liczba wierszy ekwipunku do wyświetlenia na stronę w edytorze jednostek. Mniejsze wartości poprawiają reaktywność interfejsu użytkownika." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="Brak Wymagań Ulepszenia Zestawu Cywilnego" />
     <string

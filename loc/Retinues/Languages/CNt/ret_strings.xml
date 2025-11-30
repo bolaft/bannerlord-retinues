@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="精銳部隊的最大升級目標數量。" />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="每頁最大裝備行數" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="部隊編輯器中每頁顯示的最大裝備行數。較小的值可提高用戶界面的響應速度。" />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="無平民套裝升級要求" />
     <string

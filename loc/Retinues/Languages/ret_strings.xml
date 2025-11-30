@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Maximum number of upgrade paths each elite troop can have." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Max Equipment Rows Per Page" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Maximum number of equipment rows to show per page in the troop editor. Smaller values improve UI reactivity." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="No Civilian Set Upgrade Requirements" />
     <string

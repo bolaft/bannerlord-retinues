@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Número máximo de alvos de upgrade para tropas de elite." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Máximo de Linhas de Equipamento Por Página" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Número máximo de linhas de equipamento a serem exibidas por página no editor de tropas. Valores menores melhoram a reatividade da interface do usuário." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="Sem Requisitos de Upgrade de Conjunto Civil" />
     <string

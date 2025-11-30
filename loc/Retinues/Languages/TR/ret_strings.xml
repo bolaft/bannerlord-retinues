@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Seçkin askerler için maksimum yükseltme hedefi sayısı." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Sayfa Başına Maksimum Ekipman Satırı" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Birlik düzenleyicisinde sayfa başına gösterilecek maksimum ekipman satırı sayısı. Daha küçük değerler kullanıcı arayüzü tepkiselliğini artırır." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="Sivil Set Yükseltme Gereksinimleri Yok" />
     <string

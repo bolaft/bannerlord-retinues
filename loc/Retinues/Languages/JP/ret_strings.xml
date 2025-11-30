@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="精鋭部隊の最大アップグレード目標数。" />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="ページごとの最大装備行数" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="部隊エディターでページごとに表示する最大装備行数。値が小さいほど、UIの反応性が向上します。" />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="民間セットのアップグレード要件なし" />
     <string

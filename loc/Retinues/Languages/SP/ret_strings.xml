@@ -1019,6 +1019,12 @@
       id="ret_mcm_option_max_elite_upgrades_hint"
       text="Número máximo de objetivos de mejora para tropas de élite." />
     <string
+      id="ret_mcm_option_max_equipment_rows_per_page"
+      text="Máximo de Filas de Equipo Por Página" />
+    <string
+      id="ret_mcm_option_max_equipment_rows_per_page_hint"
+      text="Número máximo de filas de equipo para mostrar por página en el editor de tropas. Los valores más pequeños mejoran la capacidad de respuesta de la interfaz de usuario." />
+    <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="Sin Requisitos de Mejora de Conjunto Civil" />
     <string

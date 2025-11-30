@@ -181,14 +181,19 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void UpdateEquipment(WEquipment equipment = null)
         {
-            // Default to battle loadout unless civilian troop
-            equipment ??= Troop.IsCivilian ? Troop.Loadout.Civilian : Troop.Loadout.Battle;
+            EventManager.FireBatch(() =>
+            {
+                // Default to battle loadout unless civilian troop
+                equipment ??= Troop.IsCivilian ? Troop.Loadout.Civilian : Troop.Loadout.Battle;
 
-            Equipment = equipment;
+                Equipment = equipment;
 
-            UpdateEquipData(singleUpdate: false);
+                // Rebuild equip data (multi-slot change)
+                UpdateEquipData(singleUpdate: false);
 
-            EventManager.Fire(UIEvent.Equipment);
+                // Notify equipment-related bindings
+                EventManager.Fire(UIEvent.Equipment);
+            });
         }
 
         /// <summary>
@@ -213,7 +218,9 @@ namespace Retinues.GUI.Editor
         {
             equipData ??= ComputeEquipData();
 
-            if (Troop?.IsRetinue == true)
+            // Conversions do not depend on which set is active; only recompute
+            // when an actual single-slot equip operation happens.
+            if (singleUpdate && Troop?.IsRetinue == true)
                 UpdateConversionData();
 
             EquipChangeDelta? delta = singleUpdate ? CaptureEquipChange(equipData, Slot) : null;
