@@ -196,10 +196,6 @@ namespace Retinues.Troops.Save
             foreach (var child in UpgradeTargets ?? [])
                 child.Deserialize(troop); // Custom path (Parent)
 
-            // Retinues are not transferable
-            if (troop.IsRetinue)
-                troop.IsNotTransferableInPartyScreen = true;
-
             // Set culture visuals if different from vanilla
             if (CultureId != vanilla.Culture.StringId)
             {
@@ -277,9 +273,6 @@ namespace Retinues.Troops.Save
                         // Share faction and transfer flags
                         if (troop.Faction != null)
                             captain.Faction = troop.Faction;
-
-                        if (troop.IsRetinue)
-                            captain.IsNotTransferableInPartyScreen = true;
 
                         // Bind relationship (sets IsCaptain, BaseTroop, ActiveStubIds, flags)
                         troop.BindCaptain(captain);

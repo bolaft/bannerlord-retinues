@@ -108,7 +108,7 @@ namespace Retinues.Game.Wrappers
             // Toggle flags
             HiddenInEncyclopedia = false;
             IsNotTransferableInHideouts = false;
-            IsNotTransferableInPartyScreen = IsRetinue;
+            IsNotTransferableInPartyScreen = false;
         }
 
         /// <summary>
@@ -293,8 +293,8 @@ namespace Retinues.Game.Wrappers
                 captain.Faction = Faction;
 
             captain.HiddenInEncyclopedia = HiddenInEncyclopedia;
-            captain.IsNotTransferableInPartyScreen = IsNotTransferableInPartyScreen;
-            captain.IsNotTransferableInHideouts = IsNotTransferableInHideouts;
+            captain.IsNotTransferableInPartyScreen = false;
+            captain.IsNotTransferableInHideouts = false;
 
             if (captain.IsCustom && !ActiveStubIds.Contains(captain.StringId))
                 ActiveStubIds.Add(captain.StringId);
@@ -334,8 +334,8 @@ namespace Retinues.Game.Wrappers
 
             // Flags
             captain.HiddenInEncyclopedia = true;
-            captain.IsNotTransferableInPartyScreen = true;
-            captain.IsNotTransferableInHideouts = true;
+            captain.IsNotTransferableInPartyScreen = false;
+            captain.IsNotTransferableInHideouts = false;
 
             return captain;
         }
