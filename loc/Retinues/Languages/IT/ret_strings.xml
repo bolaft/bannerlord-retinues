@@ -767,6 +767,9 @@
       id="ret_mariner_toggle_hint"
       text="Le truppe marine sono più adatte al combattimento navale, ma guadagnano XP a un tasso leggermente ridotto." />
     <string
+      id="ret_mariner_toggle_studio_hint"
+      text="Le truppe marine sono più adatte al combattimento navale." />
+    <string
       id="ret_masters_at_arms"
       text="Maestri d’Armi" />
     <string

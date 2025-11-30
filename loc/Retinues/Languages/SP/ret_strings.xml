@@ -767,6 +767,9 @@
       id="ret_mariner_toggle_hint"
       text="Las tropas marineras son más adecuadas para el combate naval, pero ganan XP a un ritmo ligeramente reducido." />
     <string
+      id="ret_mariner_toggle_studio_hint"
+      text="Las tropas marineras son más adecuadas para el combate naval." />
+    <string
       id="ret_masters_at_arms"
       text="Maestros de Armas" />
     <string

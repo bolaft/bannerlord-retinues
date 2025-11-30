@@ -767,6 +767,9 @@
       id="ret_mariner_toggle_hint"
       text="Морские войска лучше подходят для морского боя, но получают опыт немного медленнее." />
     <string
+      id="ret_mariner_toggle_studio_hint"
+      text="Морские войска лучше подходят для морского боя." />
+    <string
       id="ret_masters_at_arms"
       text="Мастера Оружия" />
     <string

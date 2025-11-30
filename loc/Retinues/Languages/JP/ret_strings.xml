@@ -767,6 +767,9 @@
       id="ret_mariner_toggle_hint"
       text="水夫の兵は海戦に適していますが、XPの獲得率がわずかに低くなります。" />
     <string
+      id="ret_mariner_toggle_studio_hint"
+      text="水夫の兵は海戦に適しています。" />
+    <string
       id="ret_masters_at_arms"
       text="武器の達人" />
     <string

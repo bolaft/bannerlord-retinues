@@ -767,6 +767,9 @@
       id="ret_mariner_toggle_hint"
       text="선원 병력은 해상 전투에 더 적합하지만 XP 획득률이 약간 감소합니다." />
     <string
+      id="ret_mariner_toggle_studio_hint"
+      text="선원 병력은 해상 전투에 더 적합합니다." />
+    <string
       id="ret_masters_at_arms"
       text="무기 대가" />
     <string
