@@ -324,7 +324,14 @@ namespace Retinues.Game.Helpers
                     return;
 
                 // Pick a culture template to pull tags from.
-                var template = culture.BasicTroop ?? culture.EliteBasicTroop;
+                CharacterObject template = null;
+
+                if (troop.IsFemale)
+                    template = culture.VillageWoman;
+
+                if (template == null) // not female or no VillageWoman defined
+                    template = culture.BasicTroop ?? culture.EliteBasicTroop;
+
                 if (template == null)
                 {
                     Log.Warn(
