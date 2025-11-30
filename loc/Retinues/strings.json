@@ -4881,11 +4881,11 @@
   },
   {
     "id": "ret_mcm_option_enable_feat_requirements_hint",
-    "EN": "Enables feat requirements for unlocking doctrines. Warning: saving with this disabled will clear all feat data in the save.",
+    "EN": "Enables feat requirements for unlocking doctrines. Warning: saving with feats disabled will clear all feat data in the save.",
     "BR": "Ativa os requisitos de proezas para desbloquear doutrinas (aviso: salvar com proezas desativadas limpará todos os dados de proezas).",
     "CNs": "启用解锁教义的功绩要求（警告：禁用功绩后保存将清除所有功绩数据）。",
     "CNt": "啟用解鎖教義的功績要求（警告：禁用功績後保存將清除所有功績數據）。",
-    "DE": "Aktiviert Meisterschaftsanforderungen zum Freischalten von Doktrinen (Warnung: Das Speichern mit deaktivierten Meisterschaften löscht alle Meisterschaftsdaten).",
+    "DE": "Aktiviert Meisterschaftsanforderungen zum Entsperren von Doktrinen (Warnung: Das Speichern mit deaktivierten Meisterschaften löscht alle Meisterschaftsdaten).",
     "FR": "Active les exigences de haut-faits pour débloquer les doctrines (avertissement : enregistrer avec les haut-faits désactivés effacera toutes les données de haut-faits).",
     "IT": "Abilita i requisiti di impresa per sbloccare le dottrine (avviso: salvare con le imprese disabilitate cancellerà tutti i dati delle imprese).",
     "JP": "ドクトリンのロックを解除するための功績要件を有効化する（警告：功績を無効にして保存すると、すべての功績データがクリアされます）。",

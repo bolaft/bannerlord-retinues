@@ -921,7 +921,7 @@
       text="Meisterschaftsanforderungen aktivieren" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Aktiviert Meisterschaftsanforderungen zum Freischalten von Doktrinen (Warnung: Das Speichern mit deaktivierten Meisterschaften löscht alle Meisterschaftsdaten)." />
+      text="Aktiviert Meisterschaftsanforderungen zum Entsperren von Doktrinen (Warnung: Das Speichern mit deaktivierten Meisterschaften löscht alle Meisterschaftsdaten)." />
     <string
       id="ret_mcm_option_enable_item_comparison_icons"
       text="Artikel-Vergleichssymbole aktivieren" />

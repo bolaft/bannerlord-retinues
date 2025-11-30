@@ -492,7 +492,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_enable_feat_requirements_hint",
-                    "Enables feat requirements for unlocking doctrines. Warning: saving with this disabled will clear all feat data in the save."
+                    "Enables feat requirements for unlocking doctrines. Warning: saving with feats disabled will clear all feat data in the save."
                 ),
             @default: true,
             requiresRestart: true
