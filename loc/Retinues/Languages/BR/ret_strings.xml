@@ -804,7 +804,7 @@
       text="Remover todos os dados de tropas personalizadas?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Irá limpar todos os dados de tropas personalizadas do Retinues no salvamento atual para que o mod possa ser desinstalado com segurança." />
+      text="Irá limpar o salvamento atual de todos os dados de tropas personalizadas do Retinues para que o mod possa ser desinstalado com segurança. Aviso: esta ação é irreversível." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Limpar Dados de Tropas Personalizadas" />

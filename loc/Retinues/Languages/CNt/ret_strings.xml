@@ -804,7 +804,7 @@
       text="刪除所有自定義部隊數據？" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="將清除當前存檔中所有Retinues自定義部隊數據，以便可以安全卸載mod。" />
+      text="將清除當前存檔中的所有Retinues自定義部隊數據，以便可以安全卸載該模組。警告：此操作不可逆轉。" />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="清除自定義部隊數據" />

@@ -804,7 +804,7 @@
       text="Remove all custom troop data?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Will purge of all Retinues custom troop data in the current save so the mod can be uninstalled safely." />
+      text="Will purge the current save of all Retinues custom troop data so the mod can be uninstalled safely. Warning: this action is irreversible." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Purge Custom Troop Data" />

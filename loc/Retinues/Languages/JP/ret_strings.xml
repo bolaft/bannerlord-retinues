@@ -804,7 +804,7 @@
       text="すべてのカスタム部隊データを削除しますか？" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="現在のセーブデータからすべてのRetinuesカスタム部隊データを削除し、modを安全にアンインストールできるようにします。" />
+      text="現在のセーブデータからすべてのRetinuesカスタム部隊データをパージして、モッドを安全にアンインストールできるようにします。警告：この操作は元に戻せません。" />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="カスタム部隊データのパージ" />

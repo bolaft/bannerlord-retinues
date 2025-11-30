@@ -804,7 +804,7 @@
       text="¿Eliminar todos los datos de tropas personalizadas?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Se purgarán todos los datos de tropas personalizadas de Retinues en la partida guardada actual para que el mod pueda desinstalarse de forma segura." />
+      text="Purgará la partida guardada actual de todos los datos de tropas personalizadas de Retinues para que el mod pueda desinstalarse de forma segura. Advertencia: esta acción es irreversible." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Purgar Datos de Tropas Personalizadas" />

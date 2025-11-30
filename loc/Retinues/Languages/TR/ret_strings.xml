@@ -804,7 +804,7 @@
       text="Tüm özel asker verileri kaldırılsın mı?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Modun güvenli bir şekilde kaldırılabilmesi için mevcut kayıtta tüm Retinues özel asker verileri temizlenecektir." />
+      text="Modun güvenli bir şekilde kaldırılabilmesi için mevcut kaydıtaki tüm Retinues özel asker verilerini temizleyecektir. Uyarı: bu işlem geri alınamaz." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Özel Asker Verilerini Temizle" />

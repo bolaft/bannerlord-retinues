@@ -804,7 +804,7 @@
       text="删除所有自定义部队数据？" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="将清除当前存档中所有Retinues自定义部队数据，以便可以安全卸载mod。" />
+      text="将清除当前存档中的所有Retinues自定义部队数据，以便可以安全卸载该模组。警告：此操作不可逆转。" />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="清除自定义部队数据" />

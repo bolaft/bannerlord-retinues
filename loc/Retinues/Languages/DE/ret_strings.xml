@@ -804,7 +804,7 @@
       text="Alle benutzerdefinierten Truppendaten entfernen?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Wird alle benutzerdefinierten Truppendaten von Retinues im aktuellen Speicherstand bereinigen, damit der Mod sicher deinstalliert werden kann." />
+      text="Wird den aktuellen Speicherstand von allen Retinues-Benutzertruppendaten bereinigen, damit der Mod sicher deinstalliert werden kann. Warnung: Diese Aktion ist irreversibel." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Benutzerdefinierte Truppendaten bereinigen" />

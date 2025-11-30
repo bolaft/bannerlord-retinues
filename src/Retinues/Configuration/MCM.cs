@@ -485,7 +485,7 @@ namespace Retinues.Configuration
                                         .SetHintText(
                                             L.S(
                                                 "mcm_debug_remove_all_hint",
-                                                "Will purge of all Retinues custom troop data in the current save so the mod can be uninstalled safely."
+                                                "Will purge the current save of all Retinues custom troop data so the mod can be uninstalled safely. Warning: this action is irreversible."
                                             )
                                         )
                             );

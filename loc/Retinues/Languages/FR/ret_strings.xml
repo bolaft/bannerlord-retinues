@@ -804,7 +804,7 @@
       text="Supprimer toutes les données de troupes personnalisées ?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Va purger toutes les données de troupes personnalisées de Retinues dans la sauvegarde actuelle afin que le mod puisse être désinstallé en toute sécurité." />
+      text="Purgera la sauvegarde actuelle de toutes les données de troupes personnalisées de Retinues afin que le mod puisse être désinstallé en toute sécurité. Attention : cette action est irréversible." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Purger les données de troupes personnalisées" />

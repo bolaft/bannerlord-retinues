@@ -804,7 +804,7 @@
       text="Rimuovere tutti i dati delle truppe personalizzate?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Eliminerà tutti i dati delle truppe personalizzate di Retinues nel salvataggio corrente in modo che la mod possa essere disinstallata in sicurezza." />
+      text="Purgerà il salvataggio corrente di tutti i dati delle truppe personalizzate di Retinues in modo che la mod possa essere disinstallata in sicurezza. Avviso: questa azione è irreversibile." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Pulisci Dati delle Truppe Personalizzate" />
