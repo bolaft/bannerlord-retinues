@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="第一个套装必须保持为战斗装备。" />
     <string
+      id="ret_clan_select"
+      text="选择家族" />
+    <string
       id="ret_clan_traditions"
       text="家族传统" />
     <string

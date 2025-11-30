@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Le premier équipement doit rester un équipement de combat." />
     <string
+      id="ret_clan_select"
+      text="Sélectionner un Clan" />
+    <string
       id="ret_clan_traditions"
       text="Traditions Claniques" />
     <string

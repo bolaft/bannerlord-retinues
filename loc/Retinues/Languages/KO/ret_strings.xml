@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="첫 번째 세트는 전투용 세트로 유지되어야 합니다." />
     <string
+      id="ret_clan_select"
+      text="가문 선택" />
+    <string
       id="ret_clan_traditions"
       text="가문 전통" />
     <string

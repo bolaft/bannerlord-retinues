@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Das erste Set muss ein Kampfausrüstungsset bleiben." />
     <string
+      id="ret_clan_select"
+      text="Clan auswählen" />
+    <string
       id="ret_clan_traditions"
       text="Clantraditionen" />
     <string

@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="O primeiro conjunto deve permanecer um conjunto de batalha." />
     <string
+      id="ret_clan_select"
+      text="Selecionar Clã" />
+    <string
       id="ret_clan_traditions"
       text="Tradições do Clã" />
     <string

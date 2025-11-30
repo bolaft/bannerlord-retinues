@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="The first set must remain a battle set." />
     <string
+      id="ret_clan_select"
+      text="Select Clan" />
+    <string
       id="ret_clan_traditions"
       text="Clan Traditions" />
     <string

@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Pierwszy zestaw musi pozostać zestawem bojowym." />
     <string
+      id="ret_clan_select"
+      text="Wybierz Klan" />
+    <string
       id="ret_clan_traditions"
       text="Tradycje Klanu" />
     <string

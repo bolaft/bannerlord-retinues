@@ -217,7 +217,10 @@ namespace Retinues.GUI.Editor.VM
         public string CultureName => State.Culture?.Name;
 
         [DataSourceProperty]
-        public string ClanName => State.Clan?.Name;
+        public string ClanName =>
+            ClanScreen.EditorMode == EditorMode.Heroes
+                ? State.Clan?.Name
+                : L.S("clan_select", "Select Clan");
 
         [DataSourceProperty]
         public BasicTooltipViewModel CultureBannerHint =>

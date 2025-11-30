@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="İlk set bir savaş seti olarak kalmalıdır." />
     <string
+      id="ret_clan_select"
+      text="Klan Seç" />
+    <string
       id="ret_clan_traditions"
       text="Klan Gelenekleri" />
     <string

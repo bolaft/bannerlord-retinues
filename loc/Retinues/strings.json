@@ -1264,6 +1264,22 @@
     "TR": "İlk set bir savaş seti olarak kalmalıdır."
   },
   {
+    "id": "ret_clan_select",
+    "EN": "Select Clan",
+    "BR": "Selecionar Clã",
+    "CNs": "选择家族",
+    "CNt": "選擇家族",
+    "DE": "Clan auswählen",
+    "FR": "Sélectionner un Clan",
+    "IT": "Seleziona Clan",
+    "JP": "一族を選択",
+    "KO": "가문 선택",
+    "PL": "Wybierz Klan",
+    "RU": "Выбрать Клан",
+    "SP": "Seleccionar Clan",
+    "TR": "Klan Seç"
+  },
+  {
     "id": "ret_clan_traditions",
     "EN": "Clan Traditions",
     "BR": "Tradições do Clã",

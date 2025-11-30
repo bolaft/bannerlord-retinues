@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="最初のセットは戦闘用セットのままでなければなりません。" />
     <string
+      id="ret_clan_select"
+      text="一族を選択" />
+    <string
       id="ret_clan_traditions"
       text="一族の伝統" />
     <string

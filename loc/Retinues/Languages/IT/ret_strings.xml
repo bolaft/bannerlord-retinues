@@ -242,6 +242,9 @@
       id="ret_civilian_toggle_forbidden_first_set"
       text="Il primo set deve rimanere un set da battaglia." />
     <string
+      id="ret_clan_select"
+      text="Seleziona Clan" />
+    <string
       id="ret_clan_traditions"
       text="Tradizioni Claniche" />
     <string
