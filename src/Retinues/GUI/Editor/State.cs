@@ -218,9 +218,7 @@ namespace Retinues.GUI.Editor
         {
             equipData ??= ComputeEquipData();
 
-            // Conversions do not depend on which set is active; only recompute
-            // when an actual single-slot equip operation happens.
-            if (singleUpdate && Troop?.IsRetinue == true)
+            if (Troop?.IsRetinue == true)
                 UpdateConversionData();
 
             EquipChangeDelta? delta = singleUpdate ? CaptureEquipChange(equipData, Slot) : null;
