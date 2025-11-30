@@ -16,6 +16,9 @@ namespace Retinues.Game.Helpers
 
             var character = origin ? data.AgentOrigin?.Troop : data.AgentCharacter;
 
+            // Second attempt: try the other one
+            character ??= origin ? data.AgentCharacter : data.AgentOrigin?.Troop;
+
             if (character is not CharacterObject co)
                 return null;
 
