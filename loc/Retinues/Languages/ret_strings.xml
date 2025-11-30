@@ -449,9 +449,6 @@
       id="ret_equipment_copied"
       text="Equipment set copied to clipboard." />
     <string
-      id="ret_equipment_list_truncated_hint"
-      text="The equipment list has been truncated to show only the first {MAX_ROWS} items. Refine your filters or search to see more specific results." />
-    <string
       id="ret_equipment_requirement"
       text="Skill is required for equipped items." />
     <string

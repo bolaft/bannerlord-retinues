@@ -449,9 +449,6 @@
       id="ret_equipment_copied"
       text="장비 세트가 클립보드에 복사되었습니다." />
     <string
-      id="ret_equipment_list_truncated_hint"
-      text="장비 목록이 잘려서 처음 {MAX_ROWS}개의 항목만 표시됩니다. 필터나 검색을 세분화하여 보다 구체적인 결과를 확인하세요." />
-    <string
       id="ret_equipment_requirement"
       text="장착된 아이템에는 기술이 필요합니다." />
     <string

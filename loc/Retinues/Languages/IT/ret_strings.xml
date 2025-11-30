@@ -449,9 +449,6 @@
       id="ret_equipment_copied"
       text="Set di equipaggiamento copiato negli appunti." />
     <string
-      id="ret_equipment_list_truncated_hint"
-      text="L’elenco dell’equipaggiamento è stato troncato per mostrare solo i primi {MAX_ROWS} oggetti. Affina i tuoi filtri o la ricerca per vedere risultati più specifici." />
-    <string
       id="ret_equipment_requirement"
       text="È necessaria una competenza per gli oggetti equipaggiati." />
     <string

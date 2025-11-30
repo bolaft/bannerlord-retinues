@@ -20,8 +20,24 @@
     <!-- Filter Row -->
     {% call list.sort_header_buttons("{EquipmentList}") %}
 
+        <!-- Pagination -->
+        <ListPanel
+            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+            PositionXOffset="15"
+            SuggestedWidth="120"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+                {{ button.chevron_l("ExecutePrevPage", size="32", is_enabled="@CanGoPrevPage") }}
+
+                {{ text.base(text="@PageText", margin_left="6", margin_right="6") }}
+
+                {{ button.chevron_r("ExecuteNextPage", size="32", is_enabled="@CanGoNextPage") }}
+            </Children>
+        </ListPanel>
+
         <!-- Search Filter -->
-        {{ list.search_filter() }}
+        {{ list.search_filter(text_width = "100", input_width = "368") }}
 
         <!-- Cap Header Area -->
         {{ list.sort_header_sprite() }}

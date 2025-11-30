@@ -25,8 +25,7 @@ namespace Retinues.GUI.Editor
                     return;
                 value ??= string.Empty;
                 _filterText = value;
-                foreach (var row in Rows)
-                    row.ApplyFilter(_filterText);
+                OnFilterTextChanged();
                 OnPropertyChanged(nameof(FilterText));
             }
         }
@@ -41,12 +40,20 @@ namespace Retinues.GUI.Editor
         public abstract List<BaseListElementVM> Rows { get; }
 
         /// <summary>
-        /// Reapply the current filter to all list rows.
+        /// Hook for when the filter text changes; default implementation filters rows directly.
         /// </summary>
-        public void RefreshFilter()
+        protected virtual void OnFilterTextChanged()
         {
             foreach (var row in Rows)
-                row.ApplyFilter(FilterText);
+                row.ApplyFilter(_filterText);
+        }
+
+        /// <summary>
+        /// Reapply the current filter to all list rows.
+        /// </summary>
+        public virtual void RefreshFilter()
+        {
+            OnFilterTextChanged();
         }
     }
 }

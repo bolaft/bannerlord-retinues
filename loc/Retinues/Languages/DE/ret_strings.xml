@@ -449,9 +449,6 @@
       id="ret_equipment_copied"
       text="Ausrüstungsset in die Zwischenablage kopiert." />
     <string
-      id="ret_equipment_list_truncated_hint"
-      text="Die Ausrüstungsliste wurde gekürzt, um nur die ersten {MAX_ROWS} Gegenstände anzuzeigen. Verfeinere deine Filter oder Suche, um spezifischere Ergebnisse zu sehen." />
-    <string
       id="ret_equipment_requirement"
       text="Fähigkeit ist für ausgerüstete Gegenstände erforderlich." />
     <string

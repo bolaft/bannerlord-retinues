@@ -449,9 +449,6 @@
       id="ret_equipment_copied"
       text="Conjunto de equipo copiado al portapapeles." />
     <string
-      id="ret_equipment_list_truncated_hint"
-      text="La lista de equipo se ha truncado para mostrar solo los primeros {MAX_ROWS} objetos. Refinar tus filtros o búsqueda para ver resultados más específicos." />
-    <string
       id="ret_equipment_requirement"
       text="Se requiere habilidad para los objetos equipados." />
     <string

@@ -449,9 +449,6 @@
       id="ret_equipment_copied"
       text="Набор снаряжения скопирован в буфер обмена." />
     <string
-      id="ret_equipment_list_truncated_hint"
-      text="Список снаряжения был усечён, чтобы показать только первые {MAX_ROWS} предметов. Уточните свои фильтры или поиск, чтобы увидеть более конкретные результаты." />
-    <string
       id="ret_equipment_requirement"
       text="Для экипированных предметов требуется навык." />
     <string

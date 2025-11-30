@@ -449,9 +449,6 @@
       id="ret_equipment_copied"
       text="Ensemble d’équipement copié dans le presse-papiers." />
     <string
-      id="ret_equipment_list_truncated_hint"
-      text="La liste d’équipement a été tronquée pour n’afficher que les {MAX_ROWS} premiers objets. Affine tes filtres ou ta recherche pour voir des résultats plus spécifiques." />
-    <string
       id="ret_equipment_requirement"
       text="La compétence est requise pour les objets équipés." />
     <string

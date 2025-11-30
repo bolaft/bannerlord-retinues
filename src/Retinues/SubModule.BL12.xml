@@ -7,7 +7,7 @@
   <MultiplayerModule value="false" />
   <Official value="false" />
   <DependedModules>
-    <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.4.2" />
+    <DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.6" />
     <DependedModule Id="Bannerlord.ButterLib" DependentVersion="v2.10.2" />
     <DependedModule Id="Bannerlord.UIExtenderEx" DependentVersion="v2.13.1" />
     <DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.11.3" />

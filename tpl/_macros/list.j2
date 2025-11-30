@@ -264,12 +264,12 @@
 {#       Search Filter      #}
 {# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
 
-{% macro search_filter() -%}
+{% macro search_filter(text_width="118", input_width="470") -%}
 
 <TextWidget
     Id="TextWidget"
     WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-    SuggestedWidth="118"
+    SuggestedWidth="{{ text_width }}"
     HorizontalAlignment="Center" VerticalAlignment="Center"
     Brush="Clan.LeftPanel.Header.Text"
     ClipContents="false"
@@ -290,7 +290,7 @@
     VerticalAlignment="Center" HorizontalAlignment="Right"
     DoNotAcceptEvents="false"
     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    SuggestedWidth="470" SuggestedHeight="40"
+    SuggestedWidth="{{ input_width }}" SuggestedHeight="40"
     Brush="SPOptions.Dropdown.Center">
     <Children>
         <EditableTextWidget

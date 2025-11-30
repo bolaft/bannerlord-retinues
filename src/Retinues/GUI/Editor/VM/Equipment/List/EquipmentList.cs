@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
 using Retinues.Game.Wrappers;
-using Retinues.GUI.Helpers;
 using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.VM.Equipment.List
@@ -38,9 +35,25 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         private SortMode _sort = SortMode.Category;
         private bool _descending = false;
 
-        /* ━━━━━━━━━ Caps ━━━━━━━━━ */
+        /* ━━━━━━━━━ Caps / Paging ━━━━━━━━━ */
 
-        public const int MaxRows = 1000;
+        /// <summary>
+        /// Number of rows per page (excluding the empty row).
+        /// </summary>
+        public const int MaxRows = 100; // page size
+
+        // Total number of items after applying the current filter.
+        private int _filteredCount;
+
+        /// <summary>
+        /// Zero-based index of the current page.
+        /// </summary>
+        private int _currentPageIndex;
+
+        /// <summary>
+        /// Total number of pages for the current filtered result.
+        /// </summary>
+        private int _totalPages = 1;
 
         // Precomputed snapshot for current faction/slot (deduped + keyed for fast sort/filter)
         private readonly Dictionary<EquipmentIndex, List<ItemTuple>> _fullTuples = [];
@@ -65,8 +78,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             public int EnabledRank; // 0 if unlocked+available else 1
         }
 
-        public bool IsTruncated => Rows.Count - 1 >= MaxRows;
-
         /* ━━━━━━━━ Crafted ━━━━━━━ */
 
         private bool _showCrafted = false;
@@ -83,6 +94,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 {
                     _showCrafted = value;
                     _needsRebuild = true;
+                    _currentPageIndex = 0;
+
                     if (IsVisible)
                         Build();
                 }
@@ -143,6 +156,8 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         protected override void OnFactionChange()
         {
             _needsRebuild = true;
+            _currentPageIndex = 0;
+
             if (IsVisible)
                 Build();
         }
@@ -194,6 +209,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         protected override void OnTroopChange()
         {
             _needsRebuild = true;
+            _currentPageIndex = 0;
 
             if (IsVisible)
                 Build();
@@ -205,6 +221,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         protected override void OnSlotChange()
         {
             _needsRebuild = true;
+            _currentPageIndex = 0;
 
             if (!IsVisible)
                 return;
@@ -221,7 +238,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     return;
                 }
 
-                // Weapon → weapon: same faction, just changed which weapon slot is “current”
+                // Weapon → weapon: same faction, just changed which weapon slot is "current"
                 if (WeaponSlots.Contains(slotId) && WeaponSlots.Contains(_lastSlotId))
                 {
                     _needsRebuild = false;
@@ -293,7 +310,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 && oldRow != null
             )
             {
-                // Old equipped row loses its “equipped” indicator
+                // Old equipped row loses its "equipped" indicator
                 oldRow.OnSlotChangedSelective();
             }
 
@@ -305,7 +322,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 && newRow != oldRow
             )
             {
-                // New equipped row gains its “equipped” indicator
+                // New equipped row gains its "equipped" indicator
                 newRow.OnSlotChangedSelective();
             }
         }
@@ -393,10 +410,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 foreach (var r in EquipmentRows)
                     r.OnSlotChanged();
 
-                // Keep truncation bindings in sync
-                OnPropertyChanged(nameof(ShowTruncated));
-                OnPropertyChanged(nameof(TruncatedHint));
-
                 return;
             }
 
@@ -483,10 +496,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             // Notify rows
             foreach (var r in EquipmentRows)
                 r.OnSlotChanged();
-
-            // Notify truncation bindings
-            OnPropertyChanged(nameof(ShowTruncated));
-            OnPropertyChanged(nameof(TruncatedHint));
         }
 
         /// <summary>
@@ -555,58 +564,74 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 return 0;
             }
 
-            // Display item list
-            var display = new List<ItemTuple>(Math.Min(snapshot.Count, MaxRows));
-            foreach (var t in snapshot)
-                display.Add(t);
+            // Sort the full snapshot first
+            snapshot.Sort(Comparer<ItemTuple>.Create(Compare));
 
-            // Sort
-            display.Sort(Comparer<ItemTuple>.Create(Compare));
+            // 2) Filter over the full snapshot
+            var filtered = new List<ItemTuple>(snapshot.Count);
+            var filterText = FilterText ?? string.Empty;
+            var hasFilter = !string.IsNullOrWhiteSpace(filterText);
 
-            // Capping
-            if (display.Count > MaxRows)
+            if (!hasFilter)
             {
-                // Remove excess items
-                display.RemoveRange(MaxRows, display.Count - MaxRows);
+                filtered.AddRange(snapshot);
+            }
+            else
+            {
+                var search = filterText.Trim().ToLowerInvariant();
 
-                // List of display item IDs
-                var displayIds = display.Select(t => t.Item.StringId).ToList();
-
-                // Helper function
-                void EnsureItemIsIncluded(WItem item)
+                bool Matches(ItemTuple t)
                 {
-                    if (item != null && !displayIds.Contains(item.StringId))
-                    {
-                        var itemTuple = snapshot.FirstOrDefault(t => t.Item.Equals(item));
-                        if (itemTuple != null)
-                            display.Add(itemTuple);
-                    }
+                    if (t.Item == null)
+                        return true;
+
+                    // Use precomputed Name/Category plus type/culture
+                    var name = t.Name?.ToLowerInvariant() ?? string.Empty;
+                    var category = t.Category?.ToLowerInvariant() ?? string.Empty;
+                    var type = t.Item.Type.ToString().ToLowerInvariant();
+                    var culture =
+                        t.Item.Culture?.Name?.ToString().ToLowerInvariant() ?? string.Empty;
+
+                    return name.Contains(search)
+                        || category.Contains(search)
+                        || type.Contains(search)
+                        || culture.Contains(search);
                 }
 
-                // Ensure staged and equipped items are included
-                foreach (var slot in WEquipment.Slots)
-                {
-                    // Ensure equipped item is included
-                    var equippedItem = State.Equipment?.Get(slot);
-                    EnsureItemIsIncluded(equippedItem);
-
-                    // Ensure staged item is included
-                    var stagedItem =
-                        State.EquipData?.TryGetValue(slot, out var equipData) == true
-                            ? equipData.Equip != null
-                                ? new WItem(equipData.Equip.ItemId)
-                                : null
-                            : null;
-                    EnsureItemIsIncluded(stagedItem);
-                }
+                foreach (var t in snapshot)
+                    if (Matches(t))
+                        filtered.Add(t);
             }
 
-            // 4) Publish to UI (only these capped items become VMs)
+            _filteredCount = filtered.Count;
+
+            // 3) Compute pagination (using MaxRows as page size)
+            if (_filteredCount == 0)
+            {
+                _totalPages = 1;
+                _currentPageIndex = 0;
+            }
+            else
+            {
+                _totalPages = (_filteredCount + MaxRows - 1) / MaxRows;
+
+                if (_currentPageIndex < 0)
+                    _currentPageIndex = 0;
+                if (_currentPageIndex >= _totalPages)
+                    _currentPageIndex = _totalPages - 1;
+            }
+
+            var start = _currentPageIndex * MaxRows;
+            var length = _filteredCount == 0 ? 0 : Math.Min(MaxRows, _filteredCount - start);
+
+            var pageItems = length > 0 ? filtered.GetRange(start, length) : new List<ItemTuple>();
+
+            // 4) Publish to UI (only these page items become VMs)
             EquipmentRows.Clear();
-            _emptyRow = new EquipmentRowVM(null, 0, true, true, 0) { IsVisible = IsVisible }; // Empty row
+            _emptyRow = new EquipmentRowVM(null, 0, true, true, 0) { IsVisible = IsVisible };
             EquipmentRows.Add(_emptyRow);
 
-            foreach (var t in display)
+            foreach (var t in pageItems)
             {
                 var row = new EquipmentRowVM(
                     t.Item,
@@ -625,8 +650,9 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                     _rowsByItemId[id] = row;
             }
 
-            // Rebuilt in sorted order already.
-            RefreshFilter();
+            // Notify rows so comparisons and equipped flags update
+            foreach (var r in EquipmentRows)
+                r.OnSlotChanged();
 
             // Update sort state bindings for the header UI
             OnPropertyChanged(nameof(SortByNameSelected));
@@ -637,6 +663,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(SortByTierState));
             OnPropertyChanged(nameof(SortByValueSelected));
             OnPropertyChanged(nameof(SortByValueState));
+
+            // Paging bindings
+            OnPropertyChanged(nameof(CurrentPage));
+            OnPropertyChanged(nameof(TotalPages));
+            OnPropertyChanged(nameof(CanGoPrevPage));
+            OnPropertyChanged(nameof(CanGoNextPage));
+            OnPropertyChanged(nameof(PageText));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -706,24 +739,22 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public string SortByValueText => L.S("sort_value", "Value");
 
-        /* ━━━━━━━ Truncated ━━━━━━ */
+        /* ━━━━━━━━ Paging ━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowTruncated => IsTruncated;
+        public int CurrentPage => _totalPages == 0 ? 0 : _currentPageIndex + 1;
 
         [DataSourceProperty]
-        public BasicTooltipViewModel TruncatedHint =>
-            IsTruncated
-                ? Tooltip.MakeTooltip(
-                    null,
-                    L.T(
-                            "equipment_list_truncated_hint",
-                            "The equipment list has been truncated to show only the first {MAX_ROWS} items. Refine your filters or search to see more specific results."
-                        )
-                        .SetTextVariable("MAX_ROWS", MaxRows)
-                        .ToString()
-                )
-                : null;
+        public int TotalPages => _totalPages;
+
+        [DataSourceProperty]
+        public bool CanGoPrevPage => CurrentPage > 1;
+
+        [DataSourceProperty]
+        public bool CanGoNextPage => CurrentPage < TotalPages;
+
+        [DataSourceProperty]
+        public string PageText => $"{CurrentPage}/{TotalPages}";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -789,11 +820,61 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             RebuildVisibleFromSnapshot();
         }
 
+        [DataSourceMethod]
+        public void ExecutePrevPage()
+        {
+            EnsureSnapshotForCurrentSlot();
+
+            if (!CanGoPrevPage)
+                return;
+
+            _currentPageIndex--;
+            RebuildVisibleFromSnapshot();
+        }
+
+        [DataSourceMethod]
+        public void ExecuteNextPage()
+        {
+            EnsureSnapshotForCurrentSlot();
+
+            if (!CanGoNextPage)
+                return;
+
+            _currentPageIndex++;
+            RebuildVisibleFromSnapshot();
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override List<BaseListElementVM> Rows => [.. EquipmentRows];
+
+        protected override void OnFilterTextChanged()
+        {
+            _currentPageIndex = 0;
+
+            if (!IsVisible)
+                return;
+
+            // If a rebuild is pending (faction/slot change), let Build() handle it.
+            if (_needsRebuild)
+                return;
+
+            RebuildVisibleFromSnapshot();
+        }
+
+        public override void RefreshFilter()
+        {
+            // Called when showing the screen; if a rebuild is pending, perform it.
+            if (!IsVisible)
+                return;
+
+            if (_needsRebuild)
+                Build();
+            else
+                RebuildVisibleFromSnapshot();
+        }
 
         public override void Show()
         {
