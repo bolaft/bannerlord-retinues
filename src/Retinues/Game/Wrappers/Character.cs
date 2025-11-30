@@ -53,8 +53,20 @@ namespace Retinues.Game.Wrappers
         /// <summary>
         /// Allocates a free stub CharacterObject for new custom troop creation.
         /// </summary>
-        public static CharacterObject AllocateStub()
+        public static CharacterObject AllocateStub(string stringId = null)
         {
+            // Try to find by id first
+            if (!string.IsNullOrWhiteSpace(stringId))
+            {
+                var co = MBObjectManager.Instance.GetObject<CharacterObject>(stringId);
+                if (co != null && co.StringId.StartsWith(CustomIdPrefix))
+                {
+                    if (!ActiveStubIds.Contains(co.StringId)) // not allocated yet
+                        return co;
+                }
+            }
+
+            // Else find any free stub
             foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
                 if (co.StringId.StartsWith(CustomIdPrefix))
                     if (!ActiveStubIds.Contains(co.StringId)) // not allocated yet
@@ -76,7 +88,7 @@ namespace Retinues.Game.Wrappers
 
         // Constructor for root troops
         public WCharacter(WFaction faction, RootCategory category, string stringId = null)
-            : this(NullifyLegacyIds(stringId) ?? AllocateStub().StringId)
+            : this(NullifyLegacyIds(stringId) ?? AllocateStub(stringId).StringId)
         {
             // Enforce binding on construction
             faction.SetRoot(category, this);
@@ -86,7 +98,7 @@ namespace Retinues.Game.Wrappers
 
         // Constructor for upgrade troops
         public WCharacter(WCharacter parent, string stringId = null)
-            : this(NullifyLegacyIds(stringId) ?? AllocateStub().StringId)
+            : this(NullifyLegacyIds(stringId) ?? AllocateStub(stringId).StringId)
         {
             Initialize(parent.Faction);
 
