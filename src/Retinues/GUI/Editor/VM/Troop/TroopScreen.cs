@@ -30,11 +30,6 @@ namespace Retinues.GUI.Editor.VM.Troop
         protected override Dictionary<UIEvent, string[]> EventMap =>
             new()
             {
-                [UIEvent.Faction] =
-                [
-                    nameof(ShowHeroAppearanceButton),
-                    nameof(CustomizationIsEnabled),
-                ],
                 [UIEvent.Troop] =
                 [
                     nameof(RemoveTroopButtonIsVisible),
@@ -53,6 +48,8 @@ namespace Retinues.GUI.Editor.VM.Troop
                     nameof(EnableCaptainButtonText),
                     nameof(EnableCaptainButtonBrush),
                     nameof(ShowEnableCaptainToggle),
+                    nameof(ShowHeroAppearanceButton),
+                    nameof(CustomizationIsEnabled),
                 ],
                 [UIEvent.Party] = [nameof(RetinueJoinText), nameof(CountInParty)],
                 [UIEvent.Appearance] = [nameof(GenderIcon)],
@@ -122,10 +119,11 @@ namespace Retinues.GUI.Editor.VM.Troop
 
         [DataSourceProperty]
         public bool CustomizationIsEnabled =>
-            Config.EnableTroopCustomization && (ClanScreen.EditorMode != EditorMode.Heroes);
+            Config.EnableTroopCustomization && (State.Troop?.IsHero == false);
 
         [DataSourceProperty]
-        public bool ShowHeroAppearanceButton => State.Troop is WHero && IsVisible;
+        public bool ShowHeroAppearanceButton =>
+            State.Troop is WHero && State.Troop.IsHero == true && IsVisible;
 
         [DataSourceProperty]
         public bool ShowEnableCaptainToggle => State.Troop?.IsCaptain == true && IsVisible;
