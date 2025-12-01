@@ -34,10 +34,12 @@ There are two ways to bring retinues into your party:
 1) **Auto-hire up to a cap (daily):**  
    Set a max hiring limit for Basic/Elite (see MCM and cap bonuses below). As you earn renown, new retinues will join automatically each day until you reach that limit (and as long as you have party space).
 
+> The required renown per tier can be tuned in the configuration menu.
+
 2) **Manual conversion (instant):**  
    Convert existing troops into retinues instantly either from your custom lines or from a vanilla/culture equivalent, by paying a gold and influence cost.
 
-> The required renown per tier can be changed in the mod configuration menu.
+> Gold and influence costs can be tuned in the configuration menu.
 
 ---
 
@@ -55,11 +57,8 @@ Retinues can rank up through tiers. Ranking up:
 - Requires the retinue's skills to be **maxed** for the current tier first.
 - **Basic Retinue cannot outrank the Elite Retinue** of the same faction, so you'll rank both in tandem if you want the basic to keep climbing.
 
+> If using the **Tier 7 Troop Unlocker** mod, retinues can be upgraded one more tier (T7 for elites and T6 for basic retinues).
+
 You'll find a **Rank Up** action in the **Troops** panel when conditions are met. The UI will tell you if something is blocking it (e.g., not enough gold/XP, skills not maxed yet).
 
----
-
-## Import / Export
-
-- Retinues can be exported from one save to another via the mod config menu or the cheat console.  
-→ See: [Importing and Exporting Troops](./import_export.md)
+> Rank up costs can be tuned in the configuration menu.

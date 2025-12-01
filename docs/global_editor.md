@@ -5,14 +5,14 @@ nav_order: 5
 
 # Global Troop Editor
 
-The **Global Troop Editor** (also called **Studio Mode**) lets you edit almost every troop in the game world, not just your own clan and kingdom troops.
+The **Global Troop Editor** lets you edit almost every troop in the game world, not just your own clan and kingdom troops.
 
 Use it to:
 
-- Rebuild **culture troop trees** (regular/elite lines).
-- Customize **militias, caravan troops, villagers, and minor clan troops**.
+- Revamp **culture** troops and **minor clan** troops (regular/elite lines).
+- Customize **militias, caravan troops, villagers**.
 - Adjust **civilians and bandits** for each culture.
-- Edit **heroes** from other clans:
+- Edit **heroes** (lords, ladies and companions) from any clan:
   - name
   - equipment
   - skills (including non-combat skills)
@@ -61,10 +61,11 @@ In Culture mode you can edit:
 
 - **Regular troops** – basic and elite trees for that culture.
 - **Militias** – melee/ranged militias and their elite variants.
-- **Caravan troops** – **Caravan Guards** and **Caravan Masters**.
+- **Caravan troops** – Caravan Guards and Caravan Masters.
 - **Villagers** – the culture's main villager troop.
 - **Civilians** – shop workers, beggars, tavern staff, town/village civilians, etc.
 - **Bandits** – the main bandit line for that culture.
+- **Mercenaries** – mercenary troops that can be hired in that culture's settlements.
 
 The troop list is grouped as in the Troops tab:
 

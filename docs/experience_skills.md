@@ -143,10 +143,10 @@ Shared pools are easier to reason about; per-troop pools reward focusing on a sm
 
 Captains are tightly coupled to their base troop:
 
-- A **Captain** and its **base troop** always share the **same XP pool**.
-- In **per-troop XP** mode:
-  - Training the base troop or its Captain consumes XP from a **shared** pool for that pair.
-- In **shared XP** mode:
+- A Captain and its base troop always share the same XP pool.
+- In per-troop XP mode:
+  - Training the base troop or its Captain consumes XP from a shared pool for that pair.
+- In shared XP mode:
   - This distinction is invisible in practice, since all troops already draw from the same global pool.
 
 ---

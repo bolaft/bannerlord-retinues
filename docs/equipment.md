@@ -18,6 +18,7 @@ Each custom (non-hero) troop has:
 - One or more Battle sets  
   Used in combat. You can enable/disable each battle set separately for:
   - Field Battles
+  - Naval Battles (War Sails DLC only)
   - Siege Defense
   - Siege Assault
 

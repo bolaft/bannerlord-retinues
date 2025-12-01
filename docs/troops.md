@@ -12,12 +12,11 @@ Besides the special [Retinues](./retinues.md), there are several kinds of factio
 
 Unlike Retinues (your personal household guard), faction troops are the broader troop trees and service troops that populate your rosters, parties, garrisons, volunteers, caravans, and villager parties.
 
-Each faction layer (clan or kingdom) provides:
+Each faction (clan or kingdom) provides:
 
-- A **Regular Tree** (non-noble line)  
 - An **Elite Tree** (noble line)  
-- Unlockable **Militias** aligned with your culture  
-- Unlockable **Special Troops** (Caravan Guards, Caravan Masters, Villagers) when the right doctrine is active  
+- A **Basic Tree** (non-noble line)  
+- Unlockable **Special Troops** (Militias, Caravan Guards, Caravan Masters, Villagers) aligned with your culture
 
 ---
 
@@ -30,9 +29,9 @@ On unlock, you choose how to initialize that faction's troop trees:
 - **Start from scratch:** minimal roots at low tier; build up over time.
 - **Clone entire culture tree:** instantly copy the vanilla culture lines as a starting point.
 
-> This choice is per faction (clan vs kingdom) and **not reversible** for that layer.
+> This choice is per faction (clan vs kingdom) and **not reversible** for that faction.
 
-Militias and special service troops unlock via doctrines (see [Doctrines](./doctrines.md)):
+Militias and special troops unlock via doctrines (see [Doctrines](./doctrines.md)):
 
 - **Stalwart Militia** → unlocks custom militias.  
 - **Road Wardens** → unlocks custom caravan guards and caravan masters.
@@ -42,7 +41,7 @@ Militias and special service troops unlock via doctrines (see [Doctrines](./doct
 
 ## Recruitment
 
-Faction troops join your army the vanilla way (with helpful Retinues options):
+Faction troops join your army the vanilla way:
 
 - **Clan troops** are available in any settlement owned by your clan.
 - **Kingdom troops** are available in any settlement owned by another clan of your kingdom.
@@ -81,7 +80,7 @@ Faction troops join your army the vanilla way (with helpful Retinues options):
 ### Captains
 
 - Unlock the **Captains** doctrine to gain access to **Captain** variants of regular troops.
-- A Captain is a **stronger version** of a regular troop:
+- A Captain is a stronger version of a regular troop:
   - Always **+1 tier** compared to its base troop.
   - Shares the same role and upgrade branch as its base.
 - When Captains are enabled:
@@ -89,7 +88,7 @@ Faction troops join your army the vanilla way (with helpful Retinues options):
 - Captains are edited in **Captain Mode** in the editor:
   - They have their own equipment and appearance.
   - They **share XP** with their base troop.
-  - Equipping items already worn by the base troop is **free** for the Captain (and **vice versa**).
+  - Equipping items already worn by the base troop is **free** for the Captain (and vice versa).
 
 ---
 
@@ -99,12 +98,14 @@ Faction troops join your army the vanilla way (with helpful Retinues options):
 
 You can add a new upgrade to a troop only if all of the following hold:
 
-- **Not a militia, not a retinue.** Militias and Retinues cannot receive upgrade targets.
+- **Regular troops only.** Retinues and special troops cannot receive upgrade targets.
 - **Not at max tier.** Max-tier troops can't branch further.
 - **Upgrade slots remain.**  
   - **Basic** troops: up to **2** upgrades.  
   - **Elite** troops: **1** upgrade by default, **2** if the *Masters at Arms* doctrine is unlocked.
 - **Context allows editing.** If your settings restrict editing to settlements/fiefs, you must be in the right place.
+
+> If using the **Tier 7 Troop Unlocker** mod, troops can be upgraded one more tier (T7 for elites and T6 for basic troops).
 
 **What gets copied into the new upgrade?**  
 When you confirm the new name, the game creates a child troop and copies skills from the parent (but *not* equipment, unless equipment is free and instant), and sets its tier to one above its parent.
@@ -131,7 +132,7 @@ You can remove a troop only if:
 
 ## Import / Export
 
-- Custom troops can be exported and imported from one save to another via the mod config menu or the cheat console.
-- This includes **clan troops, kingdom troops, militias, and special service troops** (Caravan Guards, Caravan Masters, Villagers), as long as they belong to your custom trees.
+- Custom troops can be exported and imported from one save to another via the global editor or the mod config menu.
+- This includes **clan troops, kingdom troops and special troops** (Militias, Caravan Guards, Caravan Masters, Villagers), as long as they belong to your custom trees.
 
 → See: [Importing and Exporting Troops](./import_export.md)

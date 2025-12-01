@@ -26,8 +26,7 @@ In the **Troops** tab, select a unit and open its **Editor panel** (right side).
 
 Below the 3D character preview (bottom-left corner) there is an icon toggle:
 
-- **Default behavior:** toggles **Gender** only (Male/Female).  
-  Use this when you just want to flip the base presentation quickly.
+- **Default behavior:** toggles **Gender** only (Male/Female).
 
 ---
 
