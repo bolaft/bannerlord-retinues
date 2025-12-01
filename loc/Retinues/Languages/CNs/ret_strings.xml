@@ -129,7 +129,7 @@
       text="战场什一税" />
     <string
       id="ret_battlefield_tithes_description"
-      text="从盟军击杀中解锁物品。" />
+      text="通过盟军击杀解锁物品。" />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="已禁用：配置已解锁所有装备。" />

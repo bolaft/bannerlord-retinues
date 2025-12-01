@@ -129,7 +129,7 @@
       text="Dziesięcina Bitewna" />
     <string
       id="ret_battlefield_tithes_description"
-      text="Odblokuj przedmioty za zabójstwa sojuszników." />
+      text="Odblokowuje przedmioty z zabójstw sojuszników." />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
       text="Wyłączone: całe wyposażenie już odblokowane przez konfigurację." />

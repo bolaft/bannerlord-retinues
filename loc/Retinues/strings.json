@@ -657,19 +657,19 @@
   },
   {
     "id": "ret_battlefield_tithes_description",
-    "EN": "Unlock items from alliy kills.",
+    "EN": "Unlock items from ally kills.",
     "BR": "Desbloqueia itens a partir de abates de aliados.",
-    "CNs": "从盟军击杀中解锁物品。",
-    "CNt": "從盟軍擊殺中解鎖物品。",
-    "DE": "Schalte Gegenstände durch Verbündeten-Kills frei.",
+    "CNs": "通过盟军击杀解锁物品。",
+    "CNt": "通過盟軍擊殺解鎖物品。",
+    "DE": "Schaltet Gegenstände durch Verbündeten-Kills frei.",
     "FR": "Débloque des objets grâce aux éliminations d’alliés.",
     "IT": "Sblocca oggetti dalle uccisioni degli alleati.",
-    "JP": "味方のキルからアイテムを解除する。",
+    "JP": "味方のキルからアイテムを解放する。",
     "KO": "아군 킬로 아이템 잠금 해제.",
-    "PL": "Odblokuj przedmioty za zabójstwa sojuszników.",
-    "RU": "Разблокируйте предметы за убийства союзников.",
-    "SP": "Desbloquea objetos por bajas de aliados.",
-    "TR": "Müttefik öldürmelerinden öğelerin kilidini aç."
+    "PL": "Odblokowuje przedmioty z zabójstw sojuszników.",
+    "RU": "Разблокирует предметы от убийств союзников.",
+    "SP": "Desbloquea objetos a partir de las bajas de aliados.",
+    "TR": "Müttefik öldürmelerinden öğelerin kilidini açar."
   },
   {
     "id": "ret_battlefield_tithes_disabled_message_all_equipment",
