@@ -321,10 +321,8 @@ namespace Retinues.Features.Staging
                         ApplyChange(troopId, skill, +1);
                         data.PointsRemaining -= 1;
                     }
-                    RemovePending(troopId, objId);
 
-                    if (Pending.Count == 0)
-                        RefreshManagedMenuOrDefault();
+                    RemovePending(troopId, objId);
 
                     var message = L.T(
                             "training_complete_text",

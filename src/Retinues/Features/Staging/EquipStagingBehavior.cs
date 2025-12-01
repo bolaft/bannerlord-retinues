@@ -307,9 +307,6 @@ namespace Retinues.Features.Staging
 
                     RemovePending(troopId, objId);
 
-                    if (Pending.Count == 0)
-                        RefreshManagedMenuOrDefault();
-
                     var message = L.T("equip_complete_text", "{TROOP} has equipped {ITEM}.")
                         .SetTextVariable("TROOP", finalTroop.Name)
                         .SetTextVariable(

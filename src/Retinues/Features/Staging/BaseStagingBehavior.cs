@@ -333,9 +333,19 @@ namespace Retinues.Features.Staging
         protected static void RefreshManagedMenuOrDefault()
         {
             if (IsInManagedMenu(out var id))
-                GameMenu.SwitchToMenu(id); // refresh same town/castle
+            {
+                // Already in a managed settlement menu (e.g. "town" or "castle").
+                // Just re-open it to force GameMenu to re-run option conditions.
+                GameMenu.SwitchToMenu(id);
+            }
             else
-                GameMenu.SwitchToMenu(MenuIds[0]); // fallback: "town"
+            {
+                // Do NOT force a fallback from arbitrary menus (like the wait menu);
+                // TimedWaitMenu and the engine will decide where to go.
+                Log.Debug(
+                    "BaseStagingBehavior.RefreshManagedMenuOrDefault: current menu is not managed; skipping refresh."
+                );
+            }
         }
 
         protected static bool CanEdit(WCharacter troop)
