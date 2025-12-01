@@ -26,7 +26,10 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 **A:** You may have a mod conflict; you can unlock the feat using the cheat console (see below).
 
 **Q: I want to uninstall Retinues but now my save crashes.**  
-**A:** Follow the steps in the [Uninstall](uninstall.md) section.
+**A:** Follow the steps in the [Uninstalling](uninstall.md) section.
+
+**Q: My save won't load at all / the game crashes before the save finishes loading.**  
+**A:** If the game cannot reach the campaign map with Retinues enabled, see the **"Retinues - Disabled"** emergency fallback section in [Uninstalling](uninstall.md). It explains how to temporarily load your save using the `Retinues - Disabled` module so you can recover the campaign even if Retinues itself prevents loading.
 
 **Q: The version on Steam Workshop updated automatically and now my save crashes.**  
 **A:** You can go back to any previous version by downloading it from the Nexus Mods [download page](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=files), in the "Old Files" section (unsubscribe from the Steam version first).
@@ -38,15 +41,36 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 
 ## Quick Fixes
 
-1. **Mod order**
+1. **Check required mod versions**
+
+   Make sure the core libraries Retinues depends on match one of the supported version sets:
+
+   - **Harmony**  
+     - `2.4.2.0` for the **v1.3+** version of Retinues  
+     - or `2.3.6.0` if you are using the **v1.2** version of Retinues
+   - **ButterLib** – `2.10.2.0`
+   - **UIExtenderEx** – `2.13.2.0`
+   - **Mod Configuration Menu v5** – `5.11.3.0`
+
+   Check these in your launcher (Mods list → click each dependency).
+
+   - If a version is older/newer than listed, update/downgrade it to the matching version.
+   - For **Steam Workshop users**:
+     - Unsubscribe from **Retinues** and all its dependencies (Harmony, ButterLib, UIExtenderEx, Mod Configuration Menu v5).
+     - Then subscribe again from the **Retinues** Workshop page and accept the *"Additional Required Items"* popup so Steam pulls the correct dependency versions.
+
+2. **Mod order**
+
    - Put **Retinues** **higher (earlier)** in the **load order** than large overhauls that alter troops/equipment/UI.
    - If another mod also edits the Clan screen / troop systems, test with **only Retinues + dependencies**.
    - If you use **Adonnay's Troop Changer**, place it **above Retinues** in the load order to avoid freezes on the battle deployment screen.
 
-2. **Try the "Default" preset**
+3. **Try the "Default" preset**
+
    - In MCM → **Presets**, apply **Default**. If still blocked, try **Freeform** to remove restrictions for testing.
 
-3. **Disable progression gates temporarily**
+4. **Disable progression gates temporarily**
+
    - Turn **Off** in MCM:
      - **Unlock From Kills**
      - **Unlock From Discarded Items**
@@ -54,7 +78,8 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
      - **Enable Doctrines** (or set **Disable Feat Requirements = On**)
    - If this fixes it, re-enable options one by one to find the cause.
 
-4. **Clear Retinues MCM cache**
+5. **Clear Retinues MCM cache**
+
    - Close the game.
    - Delete the `Retinues` folder in  
      `%USERPROFILE%\Documents\Mount and Blade II Bannerlord\Configs\ModSettings\`  
