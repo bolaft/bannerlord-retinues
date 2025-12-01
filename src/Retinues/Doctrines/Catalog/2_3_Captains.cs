@@ -69,7 +69,7 @@ namespace Retinues.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class CP_Earn500InfluenceInADay : Feat
+        public sealed class CP_Earn200InfluenceInADay : Feat
         {
             public override TextObject Description =>
                 L.T("captains_earn_200_influence_in_a_day", "Earn 200 influence in a single day.");
@@ -106,7 +106,7 @@ namespace Retinues.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class CP_Have5000Renown : Feat
+        public sealed class CP_Have4000Renown : Feat
         {
             public override TextObject Description =>
                 L.T("captains_have_4000_renown", "Have 4 000 renown.");
