@@ -58,7 +58,7 @@ namespace Retinues.Troops
             public List<FactionSaveData> Cultures { get; set; } = [];
 
             public bool HasFactions => Factions.HasAny;
-            public bool HasCultures => Cultures != null && Cultures.Count > 0;
+            public bool HasCultures => Cultures != null && Cultures.Count > 0; // Also counts for minor clans
         }
 
         public enum ImportScope
@@ -227,6 +227,10 @@ namespace Retinues.Troops
 
                 foreach (var culture in cultures)
                     pkg.Cultures.Add(new FactionSaveData(new WCulture(culture)));
+
+                foreach (var clan in Clan.All)
+                    if (clan.IsMinorFaction)
+                        pkg.Cultures.Add(new FactionSaveData(new WClan(clan)));
             }
 
             SerializeUnifiedToFile(pkg, filePath);

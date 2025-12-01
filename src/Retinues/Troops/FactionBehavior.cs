@@ -29,6 +29,7 @@ namespace Retinues.Troops
         private FactionSaveData _clanTroops;
         private FactionSaveData _kingdomTroops;
         private List<FactionSaveData> _cultureTroops;
+        private List<FactionSaveData> _minorClanTroops;
 
         /// <summary>
         /// Syncs custom troop data to and from the campaign save file.
@@ -38,6 +39,7 @@ namespace Retinues.Troops
             ds.SyncData("Retinues_ClanTroops", ref _clanTroops);
             ds.SyncData("Retinues_KingdomTroops", ref _kingdomTroops);
             ds.SyncData("Retinues_CultureTroops", ref _cultureTroops);
+            ds.SyncData("Retinues_MinorClanTroops", ref _minorClanTroops);
 
             if (ds.IsSaving)
             {
@@ -88,6 +90,7 @@ namespace Retinues.Troops
             {
                 ResetCultureTroops = false;
                 _cultureTroops = null;
+                _minorClanTroops = null;
                 return;
             }
 
@@ -95,11 +98,7 @@ namespace Retinues.Troops
             {
                 // Collect all base cultures
                 var cultures =
-                    MBObjectManager
-                        .Instance.GetObjectTypeList<CultureObject>()
-                        ?.OrderBy(c => c?.Name?.ToString())
-                        .ToList()
-                    ?? [];
+                    MBObjectManager.Instance.GetObjectTypeList<CultureObject>()?.ToList() ?? [];
 
                 // Initialize culture troops
                 _cultureTroops = [];
@@ -107,6 +106,14 @@ namespace Retinues.Troops
                 // Save each culture's troop data
                 foreach (var culture in cultures)
                     _cultureTroops.Add(new FactionSaveData(new WCulture(culture)));
+
+                // Initialize minor clan troops
+                _minorClanTroops = [];
+
+                // Save each minor clan's troop data
+                foreach (var clan in Clan.All)
+                    if (clan.IsMinorFaction)
+                        _minorClanTroops.Add(new FactionSaveData(new WClan(clan)));
             }
         }
 
@@ -131,6 +138,11 @@ namespace Retinues.Troops
                 // Rebuild culture troops
                 if (_cultureTroops is not null)
                     foreach (FactionSaveData data in _cultureTroops)
+                        data.Apply();
+
+                // Rebuild minor clan troops
+                if (_minorClanTroops is not null)
+                    foreach (FactionSaveData data in _minorClanTroops)
                         data.Apply();
             }
         }
