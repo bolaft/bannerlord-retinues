@@ -26,8 +26,6 @@ Each faction layer (clan or kingdom) provides:
 - **Clan Troops** → unlock when you acquire your first fief.  
 - **Kingdom Troops** → unlock when you found your own kingdom.
 
-> When the **Recruit Anywhere** option is enabled, clan troops are immediately unlocked even if you don't own a fief.
-
 On unlock, you choose how to initialize that faction's troop trees:
 - **Start from scratch:** minimal roots at low tier; build up over time.
 - **Clone entire culture tree:** instantly copy the vanilla culture lines as a starting point.
@@ -51,7 +49,7 @@ Faction troops join your army the vanilla way (with helpful Retinues options):
 
 > It might take an in-game day or two for volunteers to refresh after unlocking a custom troop tree.
 
-- **Recruit Anywhere (optional):** Enable in MCM to recruit your clan/kingdom custom troops from **any** settlement. Disable for stricter, more "realistic" availability.
+- **Restrict To Owned Settlements:** disable in MCM to recruit your clan/kingdom custom troops from **any** settlement. Leave enabled for stricter, more "realistic" availability.
 
 > Retinues-specific auto-hire and manual conversion do *not* apply here; those are for the [Retinues](./retinues.md) only.
 
@@ -79,6 +77,19 @@ Faction troops join your army the vanilla way (with helpful Retinues options):
     - Your faction's **caravans** (guards & masters).
     - Your faction's **villager parties**.
 - You can edit them in the **Clan → Troops** editor like any other custom troop.
+
+### Captains
+
+- Unlock the **Captains** doctrine to gain access to **Captain** variants of regular troops.
+- A Captain is a **stronger version** of a regular troop:
+  - Always **+1 tier** compared to its base troop.
+  - Shares the same role and upgrade branch as its base.
+- When Captains are enabled:
+  - **1 in 15** spawns of that troop will be the Captain variant instead of the base troop.
+- Captains are edited in **Captain Mode** in the editor:
+  - They have their own equipment and appearance.
+  - They **share XP** with their base troop.
+  - Equipping items already worn by the base troop is **free** for the Captain (and **vice versa**).
 
 ---
 

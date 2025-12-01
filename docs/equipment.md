@@ -114,6 +114,17 @@ When you unequip items or remove a set, only the extra copies that stop being ne
 
 ---
 
+### Captains & Equipment
+
+When the **Captains** doctrine is unlocked and a troop has a Captain variant:
+
+- The **base troop** and its **Captain** effectively share their equipment usage:
+  - Any item currently worn by the base troop is treated as available for the Captain at **no extra cost**.
+  - Any item currently worn by the Captain is treated as available for the base troop at **no extra cost**.
+- In practice, swapping items between a troop and its Captain behaves like equipping from a shared pool: if one already uses the item, equipping it on the other is free and does not require buying extra copies.
+
+---
+
 ## Stocks (Own Supply)
 
 The editor shows **"In Stock (n)"** for items you own.

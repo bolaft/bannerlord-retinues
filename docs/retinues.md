@@ -37,15 +37,13 @@ There are two ways to bring retinues into your party:
 2) **Manual conversion (instant):**  
    Convert existing troops into retinues instantly either from your custom lines or from a vanilla/culture equivalent, by paying a gold and influence cost.
 
-> Both methods respect  retinue caps.
+> The required renown per tier can be changed in the mod configuration menu.
 
 ---
 
 ## Limitations
 
-Retinues are **not garrisonable**, they are meant to stay at your side.
-
-If for any reason you need to get rid of them, you need to release them by converting them back into a base troop first.
+Retinues are **not garrisonable**, nor can they be transferred to another party, they are your personal troops and are meant to stay at your side.
 
 ---
 

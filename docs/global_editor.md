@@ -10,9 +10,14 @@ The **Global Troop Editor** (also called **Studio Mode**) lets you edit almost e
 Use it to:
 
 - Rebuild **culture troop trees** (regular/elite lines).
-- Customize **militias, caravan troops, and villagers**.
+- Customize **militias, caravan troops, villagers, and minor clan troops**.
 - Adjust **civilians and bandits** for each culture.
-- Edit **heroes** from other clans (skills, equipment, name, body).
+- Edit **heroes** from other clans:
+  - name
+  - equipment
+  - skills (including non-combat skills)
+  - personality traits
+  - appearance
 
 > For your own clan and kingdom troops (and retinues), see the regular [Troops](./troops.md) and [Equipment](./equipment.md) editors.
 
@@ -83,15 +88,31 @@ In Heroes mode you can edit:
 
 - **Adult heroes** from the selected clan:
   - Name
-  - Gender & body (if appearance controls are enabled)
-  - Skills and attributes
+  - Gender & body (for heroes this uses the full character editor; see [Appearance](./appearance.md))
+  - Skills and attributes (including **non-combat skills**)
+  - **Personality traits**
   - Equipment (battle & civilian sets)
+
+By default, the main grid shows the vanilla skills that are most relevant to combat.  
+
+- **DLC skills** and **modded skills** are also supported, click the **Show more skills** toggle to display them.
 
 The troop list becomes a list of **heroes** instead of regular troops.  
 In this mode:
 
 - The **Import All**, **Export All**, and **Reset All** buttons are **disabled**.
 - The editor treats heroes as live game entities: changes apply directly to the current save.
+
+---
+
+### Minor clan troops
+
+Minor clan troops are edited through the same **culture → clan** flow used by the Heroes Editor:
+
+1. Select the **culture** that the minor clan belongs to (left banner).
+2. Select the **minor clan** (right banner / clan banner).
+
+Once both are selected, the Global Editor exposes that clan's unique troop templates so you can adjust their equipment and progression alongside other global troops.
 
 ---
 
@@ -117,3 +138,14 @@ Use this when:
 - You imported a mismatched file and want to start fresh.
 
 You'll see a confirmation popup explaining that the reset happens on next load.
+
+---
+
+## Encyclopedia shortcuts
+
+For quick access, you can open the editor directly from a troop or hero's **encyclopedia page**:
+
+1. Open the encyclopedia entry for the troop or hero.
+2. Click the **Retinues editor button** at the **top-right of the character portrait**.
+
+This jumps straight into the appropriate editor (personal or global) with that troop or hero pre-selected.
