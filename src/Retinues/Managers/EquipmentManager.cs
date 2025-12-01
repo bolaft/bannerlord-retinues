@@ -176,7 +176,7 @@ namespace Retinues.Managers
                             continue;
                     }
 
-                    if (Config.AllEquipmentUnlocked)
+                    if (Config.AllEquipmentUnlocked || ClanScreen.IsStudioMode)
                     {
                         if (item.Slots.Contains(slot))
                             list.Add((item, true, 0));
