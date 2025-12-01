@@ -37,11 +37,11 @@ namespace Retinues.Game.Wrappers
         public override string StringId => _hero.StringId;
 
         /// <summary>
-        /// Hero name (full name as string).
+        /// Hero name
         /// </summary>
         public override string Name
         {
-            // Display just the first name if present, otherwise fall back to full name
+            // Show first name if present, else full name
             get => _hero.FirstName?.ToString() ?? _hero.Name?.ToString();
             set
             {
@@ -49,11 +49,51 @@ namespace Retinues.Game.Wrappers
                     return;
 
                 var first = new TextObject(value);
-                var full = new TextObject(
-                    _hero
-                        .Name.Value.Replace(_hero.FirstName?.ToString() ?? "", first.ToString())
-                        .Trim()
-                );
+
+                var template = _hero.Name;
+                TextObject full;
+
+                if (template != null)
+                {
+                    // Work on a copy so we preserve all existing attributes
+                    full = template.CopyTextObject();
+
+                    var oldFirst = _hero.FirstName?.ToString();
+                    var templateValue = full.Value ?? string.Empty;
+
+                    if (templateValue.Contains("{FIRSTNAME}"))
+                    {
+                        // Template-based hero ("{FIRSTNAME} the Bard") – just swap the variable
+                        full.SetTextVariable("FIRSTNAME", first);
+                    }
+                    else
+                    {
+                        // Non-templated – try to replace the old first name in the *display* string
+                        var oldDisplay = template.ToString();
+                        string newDisplay;
+
+                        if (
+                            !string.IsNullOrEmpty(oldFirst)
+                            && !string.IsNullOrEmpty(oldDisplay)
+                            && oldDisplay.StartsWith(oldFirst)
+                        )
+                        {
+                            // Preserve suffix like " the Bard"
+                            newDisplay = value + oldDisplay.Substring(oldFirst.Length);
+                        }
+                        else
+                        {
+                            // No recognizable pattern, just use the new name as-is
+                            newDisplay = value;
+                        }
+
+                        full = new TextObject(newDisplay);
+                    }
+                }
+                else
+                {
+                    full = new TextObject(value);
+                }
 
                 _hero.SetName(full, first);
                 NeedsPersistence = true;
