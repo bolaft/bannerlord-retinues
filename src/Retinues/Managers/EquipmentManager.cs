@@ -256,6 +256,89 @@ namespace Retinues.Managers
             return set;
         }
 
+        /// <summary>
+        /// Returns true if the given item should be treated as unlocked when pasting
+        /// into the specified slot for the given troop.
+        /// Mirrors the unlock logic used by CollectAvailableItems.
+        /// </summary>
+        public static bool IsUnlockedForPaste(WCharacter troop, EquipmentIndex slot, WItem item)
+        {
+            if (item == null)
+                return true;
+
+            // Item cannot even go into this slot.
+            if (!item.Slots.Contains(slot))
+                return false;
+
+            // Global / studio unlocks everything.
+            if (Config.AllEquipmentUnlocked || ClanScreen.IsStudioMode)
+                return true;
+
+            bool craftedUnlocked =
+                DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() || ClanScreen.IsStudioMode;
+            bool cultureUnlocked = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
+
+            var factionCultureId = troop?.Faction?.Culture?.StringId;
+            var clanCultureId = Player.Clan?.Culture?.StringId;
+            var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
+
+            try
+            {
+                // Crafted items: only available when the doctrine (or studio) allows it.
+                if (item.IsCrafted)
+                {
+                    if (!craftedUnlocked)
+                        return false;
+                    return true;
+                }
+
+                // Fully unlocked item.
+                if (item.IsUnlocked)
+                    return true;
+
+                var itemCultureId = item.Culture?.StringId;
+
+                // Config: unlock all equipment from the troop's faction culture.
+                if (Config.AllCultureEquipmentUnlocked && itemCultureId == factionCultureId)
+                    return true;
+
+                // Doctrine: Ancestral Heritage → clan/kingdom culture items.
+                if (
+                    cultureUnlocked
+                    && (itemCultureId == clanCultureId || itemCultureId == kingdomCultureId)
+                )
+                    return true;
+
+                // Kill-based unlock progression.
+                if (
+                    Config.UnlockItemsFromKills
+                    && UnlocksBehavior.Instance.ProgressByItemId.TryGetValue(
+                        item.StringId,
+                        out var prog
+                    )
+                )
+                {
+                    if (prog >= Config.RequiredKillsPerItem)
+                    {
+                        item.Unlock();
+                        return true;
+                    }
+
+                    // Below threshold → visible but still locked for equip/paste.
+                    return false;
+                }
+
+                // Not unlocked by any rule.
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+                // Be conservative: treat as locked on error.
+                return false;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                  Pure Checks / Quoting                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -842,7 +925,11 @@ namespace Retinues.Managers
             public EquipFailReason Reason;
         }
 
-        public static PasteResult TryPasteEquipment(WEquipment source, WEquipment target)
+        public static PasteResult TryPasteEquipment(
+            WEquipment source,
+            WEquipment target,
+            HashSet<EquipmentIndex> allowedSlots = null
+        )
         {
             var res = new PasteResult { Ok = false, Reason = EquipFailReason.None };
             if (source == null || target == null)
@@ -854,8 +941,8 @@ namespace Retinues.Managers
 
             bool studio = ClanScreen.IsStudioMode;
 
-            // Precompute cost
-            int totalCost = QuotePasteGoldCost(source, target);
+            // Precompute cost (respecting allowedSlots when provided).
+            int totalCost = QuotePasteGoldCost(source, target, allowedSlots);
 
             if (
                 !studio
@@ -872,9 +959,12 @@ namespace Retinues.Managers
             if (!studio && Config.EquippingTroopsCostsGold && totalCost > 0)
                 Player.ChangeGold(-totalCost);
 
-            // Apply slot-by-slot (same as before)
+            // Apply slot-by-slot (same as before, but skip disallowed slots).
             foreach (EquipmentIndex slot in WEquipment.Slots)
             {
+                if (allowedSlots != null && !allowedSlots.Contains(slot))
+                    continue;
+
                 var srcItem = source.Get(slot);
                 var tgtItem = target.Get(slot);
                 if (srcItem == tgtItem)
@@ -933,7 +1023,11 @@ namespace Retinues.Managers
         /// <summary>
         /// Non-mutating preview: returns the total gold cost required to paste.
         /// </summary>
-        public static int QuotePasteGoldCost(WEquipment source, WEquipment target)
+        public static int QuotePasteGoldCost(
+            WEquipment source,
+            WEquipment target,
+            HashSet<EquipmentIndex> allowedSlots = null
+        )
         {
             if (source == null || target == null)
                 return 0;
@@ -949,6 +1043,9 @@ namespace Retinues.Managers
             int total = 0;
             foreach (EquipmentIndex slot in WEquipment.Slots)
             {
+                if (allowedSlots != null && !allowedSlots.Contains(slot))
+                    continue;
+
                 var srcItem = source.Get(slot);
                 var tgtItem = target.Get(slot);
                 if (srcItem == tgtItem)

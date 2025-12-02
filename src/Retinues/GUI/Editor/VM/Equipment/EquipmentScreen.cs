@@ -16,6 +16,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 using TaleWorlds.TwoDimension;
 
 namespace Retinues.GUI.Editor.VM.Equipment
@@ -1086,7 +1087,46 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (target == null)
                 return;
 
-            var cost = EquipmentManager.QuotePasteGoldCost(source, target);
+            var troop = target.Loadout.Troop;
+            if (troop == null)
+                return;
+
+            // Build unlock mask: which slots from the clipboard are actually unlocked
+            // for this troop in the current (personal/global) context.
+            var allowedSlots = new HashSet<EquipmentIndex>();
+            var lockedSlots = new List<EquipmentIndex>();
+
+            foreach (var slot in WEquipment.Slots)
+            {
+                var srcItem = source.Get(slot);
+                if (srcItem == null)
+                    continue;
+
+                if (EquipmentManager.IsUnlockedForPaste(troop, slot, srcItem))
+                    allowedSlots.Add(slot);
+                else
+                    lockedSlots.Add(slot);
+            }
+
+            // Nothing from this set is unlocked → nothing meaningful to paste.
+            if (allowedSlots.Count == 0)
+            {
+                Notifications.Popup(
+                    L.T("paste_equip_all_locked_title", "Nothing Unlocked"),
+                    L.T(
+                        "paste_equip_all_locked_text",
+                        "No items from this equipment set are currently unlocked for this troop."
+                    )
+                );
+                return;
+            }
+
+            // Only restrict slots when some items are locked; otherwise let the manager
+            // run as before (null = all slots).
+            HashSet<EquipmentIndex> allowedSlotsOrNull =
+                lockedSlots.Count > 0 ? allowedSlots : null;
+
+            var cost = EquipmentManager.QuotePasteGoldCost(source, target, allowedSlotsOrNull);
             var gold = Player.Gold;
 
             // cannot afford
@@ -1106,31 +1146,62 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             var troopName = source.Loadout.Troop.Name;
             var equipmentNumber = (source.Index + 1).ToString();
+            var hasLockedItems = lockedSlots.Count > 0;
 
             // confirmation
-            var title = L.T("paste_equip_confirm_title", "Confirm Equipment Copy");
-            var text =
-                cost > 0
-                    ? L.T(
-                            "paste_equip_confirm_text_cost",
-                            "Pasting {TROOP}'s equipment n°{INDEX} will cost {GOLD} gold. Continue?"
-                        )
-                        .SetTextVariable("GOLD", cost)
-                        .SetTextVariable("TROOP", troopName)
-                        .SetTextVariable("INDEX", equipmentNumber)
-                    : L.T(
-                            "paste_equip_confirm_text_free",
-                            "Paste {TROOP}'s equipment n°{INDEX} onto the current set?"
-                        )
-                        .SetTextVariable("TROOP", troopName)
-                        .SetTextVariable("INDEX", equipmentNumber);
+            var title = hasLockedItems
+                ? L.T("paste_equip_locked_confirm_title", "Confirm Partial Equipment Copy")
+                : L.T("paste_equip_confirm_title", "Confirm Equipment Copy");
+
+            TextObject text;
+
+            if (hasLockedItems)
+            {
+                text =
+                    cost > 0
+                        ? L.T(
+                                "paste_equip_locked_confirm_text_cost",
+                                "Some items in {TROOP}'s equipment n°{INDEX} are still locked and will be skipped. Pasting the unlocked items will cost {GOLD} gold. Continue?"
+                            )
+                            .SetTextVariable("GOLD", cost)
+                            .SetTextVariable("TROOP", troopName)
+                            .SetTextVariable("INDEX", equipmentNumber)
+                        : L.T(
+                                "paste_equip_locked_confirm_text_free",
+                                "Some items in {TROOP}'s equipment n°{INDEX} are still locked and will be skipped. Paste the unlocked items onto the current set?"
+                            )
+                            .SetTextVariable("TROOP", troopName)
+                            .SetTextVariable("INDEX", equipmentNumber);
+            }
+            else
+            {
+                text =
+                    cost > 0
+                        ? L.T(
+                                "paste_equip_confirm_text_cost",
+                                "Pasting {TROOP}'s equipment n°{INDEX} will cost {GOLD} gold. Continue?"
+                            )
+                            .SetTextVariable("GOLD", cost)
+                            .SetTextVariable("TROOP", troopName)
+                            .SetTextVariable("INDEX", equipmentNumber)
+                        : L.T(
+                                "paste_equip_confirm_text_free",
+                                "Paste {TROOP}'s equipment n°{INDEX} onto the current set?"
+                            )
+                            .SetTextVariable("TROOP", troopName)
+                            .SetTextVariable("INDEX", equipmentNumber);
+            }
 
             Notifications.ConfirmationPopup(
                 title,
                 text,
                 onConfirm: () =>
                 {
-                    var res = EquipmentManager.TryPasteEquipment(source, target);
+                    var res = EquipmentManager.TryPasteEquipment(
+                        source,
+                        target,
+                        allowedSlotsOrNull
+                    );
 
                     if (!res.Ok)
                     {
@@ -1325,7 +1396,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         //                        Clipboard                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WEquipment Clipboard { get; set; }
+        private static WEquipment Clipboard { get; set; }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
