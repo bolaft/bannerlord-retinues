@@ -254,6 +254,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                         && TryParseSlot(slotId, out var newSlot)
                     )
                     {
+                        NotifySlotSelectionChanged(oldSlot, newSlot);
                         NotifyEquippedRowChanged(oldSlot, newSlot);
                     }
 
@@ -333,7 +334,12 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             var oldItem = GetCurrentItemForSlot(oldSlot);
             var newItem = GetCurrentItemForSlot(newSlot);
 
-            if (oldItem != null)
+            if (oldItem == null)
+            {
+                // Empty row was the "selected" one for the old slot.
+                _emptyRow?.OnSlotChangedSelective();
+            }
+            else
             {
                 var oldId = oldItem.StringId;
                 if (
@@ -346,7 +352,13 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
                 }
             }
 
-            if (newItem != null)
+            // New selection
+            if (newItem == null)
+            {
+                // New slot is empty: empty row should now be the selected one.
+                _emptyRow?.OnSlotChangedSelective();
+            }
+            else
             {
                 var newId = newItem.StringId;
                 if (
