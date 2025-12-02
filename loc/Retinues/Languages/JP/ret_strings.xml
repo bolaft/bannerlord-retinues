@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="基本ゲームの価格と比較した装備価格の乗数。" />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="購入ごとの装備コスト削減" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="部隊がアイテムを購入するたびに、そのアイテムの将来の購入コストがこの割合で減少します（0 = 減少なし、1 = 最初の購入後は無料）。" />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="装備時間乗数" />
     <string

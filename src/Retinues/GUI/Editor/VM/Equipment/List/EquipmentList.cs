@@ -641,18 +641,12 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
 
             // 4) Publish to UI (only these page items become VMs)
             EquipmentRows.Clear();
-            _emptyRow = new EquipmentRowVM(null, 0, true, true, 0) { IsVisible = IsVisible };
+            _emptyRow = new EquipmentRowVM(null, true, true, 0) { IsVisible = IsVisible };
             EquipmentRows.Add(_emptyRow);
 
             foreach (var t in pageItems)
             {
-                var row = new EquipmentRowVM(
-                    t.Item,
-                    t.Cost,
-                    t.IsAvailable,
-                    t.IsUnlocked,
-                    t.Progress
-                )
+                var row = new EquipmentRowVM(t.Item, t.IsAvailable, t.IsUnlocked, t.Progress)
                 {
                     IsVisible = IsVisible,
                 };

@@ -338,6 +338,9 @@ namespace Retinues
             AddBehavior<Features.Unlocks.UnlocksBehavior>(cs);
             AddBehavior<Features.Stocks.StocksBehavior>(cs);
 
+            // Equipment behaviors
+            AddBehavior<Features.Equipments.EquipmentRebateBehavior>(cs);
+
             // Swap behaviors
             AddBehavior<Features.Swaps.MilitiaSwapBehavior>(cs);
             AddBehavior<Features.Volunteers.VolunteerSwapBehavior>(cs);

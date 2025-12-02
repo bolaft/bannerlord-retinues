@@ -17,7 +17,6 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.TwoDimension;
 
 namespace Retinues.GUI.Editor.VM.Equipment
 {

@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Множитель цен на снаряжение по сравнению с ценами базовой игры." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="Снижение Стоимости Снаряжения за Покупку" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="Каждый раз, когда отряд покупает предмет, стоимость будущих покупок этого предмета уменьшается на эту пропорцию (0 = без уменьшения, 1 = бесплатно после первой покупки)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="Множитель Времени Снаряжения" />
     <string

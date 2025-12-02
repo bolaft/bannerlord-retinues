@@ -584,6 +584,24 @@ namespace Retinues.Configuration
             }
         );
 
+        public static readonly Option<float> EquipmentCostReductionPerPurchase = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () =>
+                L.S(
+                    "mcm_option_equipment_cost_reduction_per_purchase",
+                    "Equipment Cost Reduction Per Purchase"
+                ),
+            key: "EquipmentCostReductionPerPurchase",
+            hint: () =>
+                L.S(
+                    "mcm_option_equipment_cost_reduction_per_purchase_hint",
+                    "Each time a troop purchases an item, the cost for future purchases of that item is reduced by this proportion (0 = no reduction, 1 = free after first purchase)."
+                ),
+            @default: 0.20f,
+            minValue: 0,
+            maxValue: 1
+        );
+
         public static readonly Option<bool> EquippingTroopsTakesTime = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () =>

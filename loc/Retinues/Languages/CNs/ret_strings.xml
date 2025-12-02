@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="与基础游戏价格相比的装备价格乘数。" />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="每次购买装备成本降低" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="每次部队购买物品时，该物品未来购买的成本将按此比例降低（0 = 无减少，1 = 首次购买后免费）。" />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="装备时间乘数" />
     <string

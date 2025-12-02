@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Moltiplicatore per i prezzi dell’equipaggiamento rispetto ai prezzi del gioco base." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="Riduzione del Costo dell’Equipaggiamento per Acquisto" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="Ogni volta che una truppa acquista un oggetto, il costo per gli acquisti futuri di quell’oggetto viene ridotto di questa proporzione (0 = nessuna riduzione, 1 = gratuito dopo il primo acquisto)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="Moltiplicatore del Tempo di Equipaggiamento" />
     <string

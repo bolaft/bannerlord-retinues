@@ -3,6 +3,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
+using Retinues.Features.Equipments;
 using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -23,7 +24,6 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
     [SafeClass]
     public sealed class EquipmentRowVM(
         WItem rowItem,
-        int cost,
         bool isAvailable,
         bool isUnlocked,
         int progress
@@ -83,6 +83,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
             OnPropertyChanged(nameof(InStockText));
             OnPropertyChanged(nameof(ShowInStockText));
             OnPropertyChanged(nameof(ShowCost));
+            OnPropertyChanged(nameof(Cost));
             OnPropertyChanged(nameof(ShowIsEquipped));
             OnPropertyChanged(nameof(IsDisabledText));
             OnPropertyChanged(nameof(AvailableFromAnotherSet));
@@ -144,7 +145,19 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         /* ━━━━━━━━ Values ━━━━━━━━ */
 
         [DataSourceProperty]
-        public int Cost => cost;
+        public int Cost => RowItem == null ? 0 : EquipmentManager.GetItemCost(RowItem);
+
+        [DataSourceProperty]
+        public string CostFontColor
+        {
+            get
+            {
+                if (EquipmentRebateBehavior.HasRebate(RowItem))
+                    return "#c5eb89ff"; // Light green
+
+                return "#F4E1C4FF"; // Default color
+            }
+        }
 
         [DataSourceProperty]
         public int Stock => RowItem?.GetStock() ?? 0;

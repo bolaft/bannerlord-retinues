@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplicador para los precios de equipo en comparación con los precios del juego base." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="Reducción de Costo de Equipo por Compra" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="Cada vez que una tropa compra un ítem, el costo de futuras compras de ese ítem se reduce en esta proporción (0 = sin reducción, 1 = gratis después de la primera compra)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="Multiplicador de Tiempo de Equipo" />
     <string

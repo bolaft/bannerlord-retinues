@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
+using Retinues.Features.Equipments;
 using Retinues.Features.Staging;
 using Retinues.Features.Unlocks;
 using Retinues.Game;
@@ -654,6 +655,9 @@ namespace Retinues.Managers
                         newItem.Unstock();
                     }
 
+                    // Global per-item rebate: track this purchase.
+                    EquipmentRebateBehavior.RegisterPurchase(newItem, q.CopiesToBuy);
+
                     res.GoldDelta = -unitCost * q.CopiesToBuy;
                 }
 
@@ -884,6 +888,7 @@ namespace Retinues.Managers
                 return 0;
             if (ClanScreen.IsStudioMode)
                 return 0;
+
             int baseValue = item.Value;
 
             if (DoctrineAPI.IsDoctrineUnlocked<CulturalPride>())
@@ -893,7 +898,20 @@ namespace Retinues.Managers
             if (DoctrineAPI.IsDoctrineUnlocked<RoyalPatronage>())
                 baseValue = (int)(baseValue * 0.8f); // 20% discount
 
-            return (int)(baseValue * Config.EquipmentCostMultiplier);
+            // Apply global equipment cost multiplier first.
+            float price = baseValue * Config.EquipmentCostMultiplier;
+
+            // Then per-item multiplicative rebate.
+            if (EquipmentRebateBehavior.Instance != null)
+            {
+                float rebateMultiplier = EquipmentRebateBehavior.GetRebateMultiplier(item);
+                price *= rebateMultiplier;
+            }
+
+            if (price <= 0f)
+                return 0;
+
+            return (int)price;
         }
 
         /// <summary>
@@ -1043,10 +1061,18 @@ namespace Retinues.Managers
                         srcItem.Unstock();
 
                     // buy remainder
-                    for (int i = 0; i < q.CopiesToBuy; i++)
+                    if (q.CopiesToBuy > 0)
                     {
-                        srcItem.Stock();
-                        srcItem.Unstock();
+                        // We've already paid totalCost once (via QuotePasteGoldCost using GetItemCost).
+                        // This loop is only stock bookkeeping + rebate tracking.
+                        for (int i = 0; i < q.CopiesToBuy; i++)
+                        {
+                            srcItem.Stock();
+                            srcItem.Unstock();
+                        }
+
+                        // Global per-item rebate: this counts as "purchases" of this item.
+                        EquipmentRebateBehavior.RegisterPurchase(srcItem, q.CopiesToBuy);
                     }
                 }
 

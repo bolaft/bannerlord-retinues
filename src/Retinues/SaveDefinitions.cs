@@ -88,7 +88,7 @@ namespace Retinues
                 typeof(Dictionary<string, Dictionary<int, EquipmentPolicy>>)
             );
 
-            // Retinue hire containers
+            // Retinue hire containers & equipment rebate containers
             ConstructContainerDefinition(typeof(Dictionary<string, int>));
 
             // Legacy containers

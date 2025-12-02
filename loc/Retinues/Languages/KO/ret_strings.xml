@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="기본 게임 가격과 비교한 장비 가격 배수." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="구매당 장비 비용 절감" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="병력이 아이템을 구매할 때마다 해당 아이템의 향후 구매 비용이 이 비율만큼 감소합니다(0 = 감소 없음, 1 = 첫 구매 후 무료)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="장비 시간 배수" />
     <string

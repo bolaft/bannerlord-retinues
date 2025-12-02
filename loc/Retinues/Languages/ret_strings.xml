@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplier for equipment prices compared to base game prices." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="Equipment Cost Reduction Per Purchase" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="Each time a troop purchases an item, the cost for future purchases of that item is reduced by this proportion (0 = no reduction, 1 = free after first purchase)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="Equipment Time Multiplier" />
     <string

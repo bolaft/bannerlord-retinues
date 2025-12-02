@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplikator für Ausrüstungspreise im Vergleich zu den Basis-Spielpreisen." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="Ausrüstungskostenreduzierung pro Kauf" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="Jedes Mal, wenn eine Truppe einen Artikel kauft, werden die Kosten für zukünftige Käufe dieses Artikels um diesen Anteil reduziert (0 = keine Reduzierung, 1 = kostenlos nach dem ersten Kauf)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="Ausrüstungszeit-Multiplikator" />
     <string

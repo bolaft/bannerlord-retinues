@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Mnożnik cen ekwipunku w porównaniu do cen w grze bazowej." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="Redukcja Kosztów Ekwipunku za Zakup" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="Za każdym razem, gdy oddział kupuje przedmiot, koszt przyszłych zakupów tego przedmiotu jest zmniejszany o tę proporcję (0 = brak redukcji, 1 = darmowy po pierwszym zakupie)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="Mnożnik Czasu Ekwipunku" />
     <string

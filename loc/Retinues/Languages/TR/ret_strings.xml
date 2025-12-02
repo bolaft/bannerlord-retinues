@@ -932,6 +932,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Temel oyun fiyatlarıyla karşılaştırıldığında ekipman fiyatları için çarpan." />
     <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase"
+      text="Satın Alma Başına Ekipman Maliyet Azaltma" />
+    <string
+      id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
+      text="Bir birlik bir öğe satın aldığında, o öğenin gelecekteki satın alma maliyeti bu oranda azaltılır (0 = azalma yok, 1 = ilk satın almadan sonra ücretsiz)." />
+    <string
       id="ret_mcm_option_equipment_time_multiplier"
       text="Ekipman Zaman Çarpanı" />
     <string

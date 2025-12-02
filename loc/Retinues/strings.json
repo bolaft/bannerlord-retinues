@@ -4944,6 +4944,38 @@
     "TR": "Temel oyun fiyatlarıyla karşılaştırıldığında ekipman fiyatları için çarpan."
   },
   {
+    "id": "ret_mcm_option_equipment_cost_reduction_per_purchase",
+    "EN": "Equipment Cost Reduction Per Purchase",
+    "BR": "Redução de Custo de Equipamento por Compra",
+    "CNs": "每次购买装备成本降低",
+    "CNt": "每次購買裝備成本降低",
+    "DE": "Ausrüstungskostenreduzierung pro Kauf",
+    "FR": "Réduction du Coût d’Équipement par Achat",
+    "IT": "Riduzione del Costo dell’Equipaggiamento per Acquisto",
+    "JP": "購入ごとの装備コスト削減",
+    "KO": "구매당 장비 비용 절감",
+    "PL": "Redukcja Kosztów Ekwipunku za Zakup",
+    "RU": "Снижение Стоимости Снаряжения за Покупку",
+    "SP": "Reducción de Costo de Equipo por Compra",
+    "TR": "Satın Alma Başına Ekipman Maliyet Azaltma"
+  },
+  {
+    "id": "ret_mcm_option_equipment_cost_reduction_per_purchase_hint",
+    "EN": "Each time a troop purchases an item, the cost for future purchases of that item is reduced by this proportion (0 = no reduction, 1 = free after first purchase).",
+    "BR": "Cada vez que uma tropa compra um item, o custo para compras futuras desse item é reduzido por essa proporção (0 = sem redução, 1 = grátis após a primeira compra).",
+    "CNs": "每次部队购买物品时，该物品未来购买的成本将按此比例降低（0 = 无减少，1 = 首次购买后免费）。",
+    "CNt": "每次部隊購買物品時，該物品未來購買的成本將按此比例降低（0 = 無減少，1 = 首次購買後免費）。",
+    "DE": "Jedes Mal, wenn eine Truppe einen Artikel kauft, werden die Kosten für zukünftige Käufe dieses Artikels um diesen Anteil reduziert (0 = keine Reduzierung, 1 = kostenlos nach dem ersten Kauf).",
+    "FR": "Chaque fois qu’une troupe achète un objet, le coût des achats futurs de cet objet est réduit de cette proportion (0 = pas de réduction, 1 = gratuit après le premier achat).",
+    "IT": "Ogni volta che una truppa acquista un oggetto, il costo per gli acquisti futuri di quell’oggetto viene ridotto di questa proporzione (0 = nessuna riduzione, 1 = gratuito dopo il primo acquisto).",
+    "JP": "部隊がアイテムを購入するたびに、そのアイテムの将来の購入コストがこの割合で減少します（0 = 減少なし、1 = 最初の購入後は無料）。",
+    "KO": "병력이 아이템을 구매할 때마다 해당 아이템의 향후 구매 비용이 이 비율만큼 감소합니다(0 = 감소 없음, 1 = 첫 구매 후 무료).",
+    "PL": "Za każdym razem, gdy oddział kupuje przedmiot, koszt przyszłych zakupów tego przedmiotu jest zmniejszany o tę proporcję (0 = brak redukcji, 1 = darmowy po pierwszym zakupie).",
+    "RU": "Каждый раз, когда отряд покупает предмет, стоимость будущих покупок этого предмета уменьшается на эту пропорцию (0 = без уменьшения, 1 = бесплатно после первой покупки).",
+    "SP": "Cada vez que una tropa compra un ítem, el costo de futuras compras de ese ítem se reduce en esta proporción (0 = sin reducción, 1 = gratis después de la primera compra).",
+    "TR": "Bir birlik bir öğe satın aldığında, o öğenin gelecekteki satın alma maliyeti bu oranda azaltılır (0 = azalma yok, 1 = ilk satın almadan sonra ücretsiz)."
+  },
+  {
     "id": "ret_mcm_option_equipment_time_multiplier",
     "EN": "Equipment Time Multiplier",
     "BR": "Multiplicador de Tempo de Equipamento",
