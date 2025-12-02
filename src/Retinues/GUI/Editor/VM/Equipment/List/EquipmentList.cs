@@ -86,7 +86,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         public bool ShowCrafted
         {
             get =>
-                DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>()
+                (DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() || ClanScreen.IsStudioMode)
                 && _showCrafted
                 && WeaponSlots.Contains(State.Slot.ToString());
             set

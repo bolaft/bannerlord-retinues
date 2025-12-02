@@ -103,7 +103,7 @@ namespace Retinues.Managers
                 Log.Info($"Using provided equipment eligibility cache for slot {slot}");
             if (craftedOnly)
             {
-                if (!DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>())
+                if (!DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() && !ClanScreen.IsStudioMode)
                     return [];
                 cache = null; // ignore caller cache for crafted-only
             }
@@ -133,7 +133,8 @@ namespace Retinues.Managers
             bool craftedOnly
         )
         {
-            bool craftedUnlocked = DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>();
+            bool craftedUnlocked =
+                DoctrineAPI.IsDoctrineUnlocked<ClanicTraditions>() || ClanScreen.IsStudioMode;
             bool cultureUnlocked = DoctrineAPI.IsDoctrineUnlocked<AncestralHeritage>();
 
             var factionCultureId = faction?.Culture?.StringId;
