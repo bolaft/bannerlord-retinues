@@ -121,6 +121,8 @@ namespace Retinues.Doctrines.Catalog
                     {
                         if (item.Culture == null)
                             continue; // Ignore culture-less items
+                        if (item.Culture.StringId == "neutral_culture")
+                            continue; // Calradian counts as neutral
                         if (item.Culture != troop.Culture)
                         {
                             hasFullSet = false;
