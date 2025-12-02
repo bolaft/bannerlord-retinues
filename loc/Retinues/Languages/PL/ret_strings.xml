@@ -230,17 +230,11 @@
       id="ret_change_race_title"
       text="Zmień Rasę" />
     <string
-      id="ret_civilian_hint"
-      text="Włącz lub wyłącz ten zestaw do użytku cywilnego." />
+      id="ret_civilian_set_disabled_hint"
+      text="Zaznacz to pole, aby przełączyć się na zestawy cywilne." />
     <string
-      id="ret_civilian_toggle_forbidden_battle_left"
-      text="Musisz zachować co najmniej jeden zestaw cywilny." />
-    <string
-      id="ret_civilian_toggle_forbidden_civilian_left"
-      text="Musisz zachować co najmniej jeden zestaw bojowy." />
-    <string
-      id="ret_civilian_toggle_forbidden_first_set"
-      text="Pierwszy zestaw musi pozostać zestawem bojowym." />
+      id="ret_civilian_set_enabled_hint"
+      text="Odznacz to pole, aby przełączyć się na zestawy bojowe." />
     <string
       id="ret_clan_select"
       text="Wybierz Klan" />
@@ -531,25 +525,25 @@
       text="Ukryj wykonane przedmioty." />
     <string
       id="ret_hint_assault_ok"
-      text="Dostępne podczas szturmu na oblężenie." />
+      text="Włącz dla szturmu oblężniczego." />
     <string
       id="ret_hint_def_ok"
-      text="Dostępne podczas obrony oblężenia." />
+      text="Włącz dla obrony oblężniczej." />
     <string
       id="ret_hint_field_ok"
-      text="Dostępne w bitwach polowych." />
+      text="Włącz dla bitew polowych." />
     <string
       id="ret_hint_last_enabled"
       text="Co najmniej jeden zestaw bitewny musi pozostać włączony dla każdego typu bitwy." />
     <string
       id="ret_hint_naval_ok"
-      text="Dostępne w bitwach morskich." />
+      text="Włącz dla bitew morskich." />
     <string
       id="ret_hint_set_disabled"
       text="Nie można włączyć dla zestawów cywilnych." />
     <string
       id="ret_hint_siege_ok"
-      text="Dostępne w bitwach oblężniczych." />
+      text="Włącz dla bitew oblężniczych." />
     <string
       id="ret_horse_harness_slot_text"
       text="Rząd koński" />
@@ -754,9 +748,6 @@
     <string
       id="ret_lower_skill_no_refund"
       text="Obniżenie umiejętności tej jednostki nie zwróci punktów doświadczenia. Kontynuować mimo to?" />
-    <string
-      id="ret_make_civilian_title"
-      text="Ustawić zestaw jako cywilny?" />
     <string
       id="ret_male"
       text="Mężczyzna" />
@@ -1720,9 +1711,6 @@
     <string
       id="ret_tier"
       text="Poziom" />
-    <string
-      id="ret_toggle_to_civilian_warn"
-      text="Ten zestaw zawiera {COUNT} przedmiot(y) niecywilny(e). Zostaną one zdjęte, jeśli będziesz kontynuować.{newline}{newline}Kontynuować?" />
     <string
       id="ret_train_complete"
       text="Szkolenie Zakończone" />

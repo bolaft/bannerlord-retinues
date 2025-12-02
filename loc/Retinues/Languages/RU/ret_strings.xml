@@ -230,17 +230,11 @@
       id="ret_change_race_title"
       text="Сменить Расу" />
     <string
-      id="ret_civilian_hint"
-      text="Включите или отключите этот набор для гражданского использования." />
+      id="ret_civilian_set_disabled_hint"
+      text="Установите этот флажок, чтобы переключиться на гражданские наборы." />
     <string
-      id="ret_civilian_toggle_forbidden_battle_left"
-      text="Вы должны сохранить как минимум один гражданский набор." />
-    <string
-      id="ret_civilian_toggle_forbidden_civilian_left"
-      text="Вы должны сохранить как минимум один боевой набор." />
-    <string
-      id="ret_civilian_toggle_forbidden_first_set"
-      text="Первый набор должен оставаться боевым набором." />
+      id="ret_civilian_set_enabled_hint"
+      text="Снимите этот флажок, чтобы переключиться на боевые наборы." />
     <string
       id="ret_clan_select"
       text="Выбрать Клан" />
@@ -531,25 +525,25 @@
       text="Скрыть созданные предметы." />
     <string
       id="ret_hint_assault_ok"
-      text="Доступно при штурме осады." />
+      text="Включить для штурма осады." />
     <string
       id="ret_hint_def_ok"
-      text="Доступно при обороне осады." />
+      text="Включить для обороны осады." />
     <string
       id="ret_hint_field_ok"
-      text="Доступно в полевых боях." />
+      text="Включить для полевых боёв." />
     <string
       id="ret_hint_last_enabled"
       text="Для каждого типа боя должен оставаться включенным как минимум один боевой набор." />
     <string
       id="ret_hint_naval_ok"
-      text="Доступно в морских боях." />
+      text="Включить для морских боёв." />
     <string
       id="ret_hint_set_disabled"
       text="Невозможно включить для гражданских наборов." />
     <string
       id="ret_hint_siege_ok"
-      text="Доступно в осадных боях." />
+      text="Включить для осадных боёв." />
     <string
       id="ret_horse_harness_slot_text"
       text="Сбруя" />
@@ -754,9 +748,6 @@
     <string
       id="ret_lower_skill_no_refund"
       text="Понижение навыка этого войска не вернёт опыт. Всё равно продолжить?" />
-    <string
-      id="ret_make_civilian_title"
-      text="Сделать набор гражданским?" />
     <string
       id="ret_male"
       text="Мужской" />
@@ -1720,9 +1711,6 @@
     <string
       id="ret_tier"
       text="Ранг" />
-    <string
-      id="ret_toggle_to_civilian_warn"
-      text="В этом наборе есть {COUNT} не гражданских предмет(ов). Они будут сняты, если вы продолжите.{newline}{newline}Продолжить?" />
     <string
       id="ret_train_complete"
       text="Обучение Завершено" />

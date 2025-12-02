@@ -2,13 +2,41 @@
 <!--   Equipment Top Bar   -->
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
-<!-- Show Crafted -->
+
+<!-- Show Civilian -->
 <ListPanel
     DataSource="{EquipmentScreen}"
     IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
     SuggestedHeight="32"
     MarginTop="0" MarginLeft="55"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Civilian Icon -->
+        {{ image.sprite(
+            sprite="SPGeneral\MapOverlay\Settlement\icon_militia_big",
+            color="#f8eed1ff",
+            width="28", height="28"
+        ) }}
+
+        <!-- Show Civilian Checkbox -->
+        {{ button.checkbox(
+            is_selected="@EditCivilianSets",
+            size="24",
+            hint="{CivilianHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
+<!-- Show Crafted -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="32"
+    MarginTop="35" MarginLeft="55"
     HorizontalAlignment="Left">
     <Children>
 
@@ -38,7 +66,7 @@
     IsVisible="@ShowEquipmentCheckboxes"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
     SuggestedHeight="32"
-    MarginTop="35" MarginLeft="55"
+    MarginTop="70" MarginLeft="55"
     HorizontalAlignment="Left">
     <Children>
 
@@ -67,7 +95,7 @@
     IsVisible="@ShowEquipmentCheckboxes"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
     SuggestedHeight="32"
-    MarginTop="70" MarginLeft="55"
+    MarginTop="105" MarginLeft="55"
     HorizontalAlignment="Left">
     <Children>
 
@@ -132,7 +160,7 @@
                     hint="{RemoveSetHint}"
                 ) }}
 
-                {{ button.chevron_l("ExecutePrevSet", size="36", is_enabled="@CanSelectPrevSet") }}
+                {{ button.chevron_l("ExecutePrevSet", size="24", is_enabled="@CanSelectPrevSet") }}
 
                 <!-- Copy Icon -->
                 {{ button.sprite(
@@ -160,7 +188,7 @@
                     hint="{PasteEquipmentHint}"
                 ) }}
 
-                {{ button.chevron_r("ExecuteNextSet", size="36", is_enabled="@CanSelectNextSet") }}
+                {{ button.chevron_r("ExecuteNextSet", size="24", is_enabled="@CanSelectNextSet") }}
 
                 <!-- Create Set Button -->
                 {{ button.brush(
@@ -183,31 +211,6 @@
             MarginTop="4"
             StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
-
-                <!-- Civilian -->
-                <ListPanel
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    SuggestedHeight="32"
-                    HorizontalAlignment="Center">
-                    <Children>
-
-                        <!-- Civilian Icon -->
-                        {{ image.sprite(
-                            sprite="SPGeneral\MapOverlay\Settlement\icon_militia_big",
-                            width="32", height="32"
-                        ) }}
-
-                        <!-- Civilian Checkbox -->
-                        {{ button.checkbox(
-                            command="ExecuteToggleCivilianSet",
-                            is_selected="@SetIsCivilian",
-                            is_enabled="@CanToggleCivilianSet",
-                            size="24",
-                            hint="{CivilianHint}"
-                        )}}
-
-                    </Children>
-                </ListPanel>
 
                 <!-- Field Battle -->
                 <ListPanel

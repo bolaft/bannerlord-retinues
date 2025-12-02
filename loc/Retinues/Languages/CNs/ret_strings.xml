@@ -230,17 +230,11 @@
       id="ret_change_race_title"
       text="更改种族" />
     <string
-      id="ret_civilian_hint"
-      text="启用或禁用此套装以供平民使用。" />
+      id="ret_civilian_set_disabled_hint"
+      text="选中此框以切换到平民套装。" />
     <string
-      id="ret_civilian_toggle_forbidden_battle_left"
-      text="你必须至少保留一套平民装备。" />
-    <string
-      id="ret_civilian_toggle_forbidden_civilian_left"
-      text="你必须至少保留一套战斗装备。" />
-    <string
-      id="ret_civilian_toggle_forbidden_first_set"
-      text="第一个套装必须保持为战斗装备。" />
+      id="ret_civilian_set_enabled_hint"
+      text="取消选中此框以切换到战斗套装。" />
     <string
       id="ret_clan_select"
       text="选择家族" />
@@ -531,25 +525,25 @@
       text="隐藏制作的物品。" />
     <string
       id="ret_hint_assault_ok"
-      text="在攻击围城时可用。" />
+      text="启用攻城突袭。" />
     <string
       id="ret_hint_def_ok"
-      text="在防御围城时可用。" />
+      text="启用守城防御。" />
     <string
       id="ret_hint_field_ok"
-      text="在野战中可用。" />
+      text="启用野战。" />
     <string
       id="ret_hint_last_enabled"
       text="每种战斗类型至少必须保留一个启用的战斗套装。" />
     <string
       id="ret_hint_naval_ok"
-      text="在海战中可用。" />
+      text="启用海战。" />
     <string
       id="ret_hint_set_disabled"
       text="无法为平民套装启用。" />
     <string
       id="ret_hint_siege_ok"
-      text="在围城战中可用。" />
+      text="启用攻城战。" />
     <string
       id="ret_horse_harness_slot_text"
       text="马具" />
@@ -754,9 +748,6 @@
     <string
       id="ret_lower_skill_no_refund"
       text="降低此部队技能不会返还经验值。仍要继续吗？" />
-    <string
-      id="ret_make_civilian_title"
-      text="将套装设为民用？" />
     <string
       id="ret_male"
       text="男性" />
@@ -1720,9 +1711,6 @@
     <string
       id="ret_tier"
       text="等级" />
-    <string
-      id="ret_toggle_to_civilian_warn"
-      text="此套装有 {COUNT} 个非平民物品。如果继续，它们将被卸下。{newline}{newline}继续？" />
     <string
       id="ret_train_complete"
       text="训练完成" />

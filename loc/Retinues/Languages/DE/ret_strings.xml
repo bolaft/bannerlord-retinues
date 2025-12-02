@@ -230,17 +230,11 @@
       id="ret_change_race_title"
       text="Rasse ändern" />
     <string
-      id="ret_civilian_hint"
-      text="Aktiviere oder deaktiviere dieses Set für den zivilen Gebrauch." />
+      id="ret_civilian_set_disabled_hint"
+      text="Aktiviere dieses Kästchen, um zu zivilen Sets zu wechseln." />
     <string
-      id="ret_civilian_toggle_forbidden_battle_left"
-      text="Du musst mindestens ein Zivilset behalten." />
-    <string
-      id="ret_civilian_toggle_forbidden_civilian_left"
-      text="Du musst mindestens ein Kampfausrüstungsset behalten." />
-    <string
-      id="ret_civilian_toggle_forbidden_first_set"
-      text="Das erste Set muss ein Kampfausrüstungsset bleiben." />
+      id="ret_civilian_set_enabled_hint"
+      text="Deaktiviere dieses Kästchen, um zu Kampfsets zu wechseln." />
     <string
       id="ret_clan_select"
       text="Clan auswählen" />
@@ -531,25 +525,25 @@
       text="Verstecke hergestellte Gegenstände." />
     <string
       id="ret_hint_assault_ok"
-      text="Verfügbar beim Angriff auf eine Belagerung." />
+      text="Für Belagerungsangriff aktivieren." />
     <string
       id="ret_hint_def_ok"
-      text="Verfügbar beim Verteidigen einer Belagerung." />
+      text="Für Belagerungsverteidigung aktivieren." />
     <string
       id="ret_hint_field_ok"
-      text="Verfügbar in Feldschlachten." />
+      text="Für Feldschlachten aktivieren." />
     <string
       id="ret_hint_last_enabled"
       text="Mindestens ein Kampfsatz muss für jeden Kampftyp aktiviert bleiben." />
     <string
       id="ret_hint_naval_ok"
-      text="Verfügbar in Seeschlachten." />
+      text="Für Seeschlachten aktivieren." />
     <string
       id="ret_hint_set_disabled"
       text="Kann für zivile Sets nicht aktiviert werden." />
     <string
       id="ret_hint_siege_ok"
-      text="Verfügbar in Belagerungsschlachten." />
+      text="Für Belagerungsschlachten aktivieren." />
     <string
       id="ret_horse_harness_slot_text"
       text="Zaumzeug" />
@@ -754,9 +748,6 @@
     <string
       id="ret_lower_skill_no_refund"
       text="Das Senken dieser Truppenfertigkeit erstattet keine EP zurück. Trotzdem fortfahren?" />
-    <string
-      id="ret_make_civilian_title"
-      text="Set als zivil festlegen?" />
     <string
       id="ret_male"
       text="Männlich" />
@@ -1720,9 +1711,6 @@
     <string
       id="ret_tier"
       text="Stufe" />
-    <string
-      id="ret_toggle_to_civilian_warn"
-      text="Dieses Set hat {COUNT} nicht-zivile Gegenstände. Sie werden abgelegt, wenn du fortfährst.{newline}{newline}Fortfahren?" />
     <string
       id="ret_train_complete"
       text="Training Abgeschlossen" />

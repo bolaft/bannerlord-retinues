@@ -230,17 +230,11 @@
       id="ret_change_race_title"
       text="種族を変更" />
     <string
-      id="ret_civilian_hint"
-      text="このセットを民間用に有効または無効にします。" />
+      id="ret_civilian_set_disabled_hint"
+      text="このボックスをオンにして市民セットに切り替えます。" />
     <string
-      id="ret_civilian_toggle_forbidden_battle_left"
-      text="少なくとも1つの民間用セットを保持する必要があります。" />
-    <string
-      id="ret_civilian_toggle_forbidden_civilian_left"
-      text="少なくとも1つの戦闘用セットを保持する必要があります。" />
-    <string
-      id="ret_civilian_toggle_forbidden_first_set"
-      text="最初のセットは戦闘用セットのままでなければなりません。" />
+      id="ret_civilian_set_enabled_hint"
+      text="このボックスのチェックを外して戦闘セットに切り替えます。" />
     <string
       id="ret_clan_select"
       text="一族を選択" />
@@ -531,25 +525,25 @@
       text="作成したアイテムを非表示にします。" />
     <string
       id="ret_hint_assault_ok"
-      text="包囲攻撃中に利用可能。" />
+      text="包囲攻撃で有効にします。" />
     <string
       id="ret_hint_def_ok"
-      text="包囲防御中に利用可能。" />
+      text="包囲防御で有効にします。" />
     <string
       id="ret_hint_field_ok"
-      text="野戦で利用可能。" />
+      text="野戦で有効にします。" />
     <string
       id="ret_hint_last_enabled"
       text="各戦闘タイプに対して、少なくとも1つの戦闘セットを有効にしておく必要があります。" />
     <string
       id="ret_hint_naval_ok"
-      text="海戦で利用可能。" />
+      text="海戦で有効にします。" />
     <string
       id="ret_hint_set_disabled"
       text="民間用セットには有効にできません。" />
     <string
       id="ret_hint_siege_ok"
-      text="包囲戦で利用可能。" />
+      text="包囲戦で有効にします。" />
     <string
       id="ret_horse_harness_slot_text"
       text="馬具" />
@@ -754,9 +748,6 @@
     <string
       id="ret_lower_skill_no_refund"
       text="この兵のスキルを下げても経験値は返還されません。続行しますか？" />
-    <string
-      id="ret_make_civilian_title"
-      text="セットを民間用にしますか？" />
     <string
       id="ret_male"
       text="男性" />
@@ -1720,9 +1711,6 @@
     <string
       id="ret_tier"
       text="ランク" />
-    <string
-      id="ret_toggle_to_civilian_warn"
-      text="このセットには {COUNT} 個の非民間人アイテムがあります。続行するとそれらは装備解除されます。{newline}{newline}続行しますか？" />
     <string
       id="ret_train_complete"
       text="訓練完了" />
