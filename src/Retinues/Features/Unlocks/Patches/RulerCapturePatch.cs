@@ -20,9 +20,12 @@ namespace Retinues.Features.Unlocks.Patches
     [HarmonyPatch(typeof(LordConversationsCampaignBehavior))]
     internal static class VassalRewardSecretsPatch
     {
-        private const string PlayerLineId = "ret_lord_defeat_vassal_secrets";
+        private const string PlayerLineId = "lord_defeat_vassal_secrets";
         private const string PlayerLineToken = "defeated_lord_answer";
-        private const string PlayerLineOutput = "close_window";
+        private const string PlayerLineOutput = "lord_defeat_vassal_secrets_ruler_answer";
+        private const string RulerLineId = "lord_defeat_vassal_secrets_ruler_answer_line";
+        private const string RulerLineInput = PlayerLineOutput;
+        private const string RulerLineOutput = "close_window";
 
         [HarmonyPatch("AddLordLiberateConversations")]
         [HarmonyPostfix]
@@ -31,6 +34,7 @@ namespace Retinues.Features.Unlocks.Patches
             if (starter == null)
                 return;
 
+            // Player option
             starter.AddPlayerLine(
                 PlayerLineId,
                 PlayerLineToken,
@@ -41,6 +45,21 @@ namespace Retinues.Features.Unlocks.Patches
                 ),
                 new ConversationSentence.OnConditionDelegate(Condition),
                 new ConversationSentence.OnConsequenceDelegate(Consequence),
+                100,
+                null
+            );
+
+            // Ruler answer line (fires after the player picks the option)
+            starter.AddDialogLine(
+                RulerLineId,
+                RulerLineInput,
+                RulerLineOutput,
+                L.S(
+                    "vassal_secrets_ruler_answer",
+                    "Very well... I will share the knowledge of these relics, if it buys my freedom."
+                ),
+                null,
+                null,
                 100,
                 null
             );

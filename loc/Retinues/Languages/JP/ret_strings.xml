@@ -1844,6 +1844,9 @@
       id="ret_vassal_secrets_option"
       text="あなたの最も貴重なアーティファクトの秘密を明かせば、私はあなたを解放しましょう。" />
     <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="よろしいでしょう…もしそれが私の自由を買うなら、これらの遺物の知識を共有しましょう。" />
+    <string
       id="ret_vassal_secrets_title"
       text="秘密が解除されました" />
     <string

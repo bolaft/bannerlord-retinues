@@ -1844,6 +1844,9 @@
       id="ret_vassal_secrets_option"
       text="揭示你最珍貴的神器的秘密，我就放你走。" />
     <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="很好……如果這能換來我的自由，我將分享這些遺跡的知識。" />
+    <string
       id="ret_vassal_secrets_title"
       text="秘密已解鎖" />
     <string

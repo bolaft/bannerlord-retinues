@@ -1844,6 +1844,9 @@
       id="ret_vassal_secrets_option"
       text="En değerli eserlerinin sırlarını ortaya çıkar ve seni serbest bırakayım." />
     <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="Pekala... Özgürlüğümü satın alırsa, bu kalıntıların bilgisini paylaşacağım." />
+    <string
       id="ret_vassal_secrets_title"
       text="Sırlar Açıldı" />
     <string

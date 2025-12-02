@@ -1844,6 +1844,9 @@
       id="ret_vassal_secrets_option"
       text="가장 소중한 유물의 비밀을 밝혀내면 당신을 풀어주겠습니다." />
     <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="좋습니다... 이것이 나의 자유를 사는 것이라면, 나는 이 유물들의 지식을 공유하겠습니다." />
+    <string
       id="ret_vassal_secrets_title"
       text="비밀 해제" />
     <string

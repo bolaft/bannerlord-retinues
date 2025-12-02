@@ -1844,6 +1844,9 @@
       id="ret_vassal_secrets_option"
       text="Odkryj sekrety swoich najcenniejszych artefaktów, a ja cię wypuszczę." />
     <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="Bardzo dobrze... Podzielę się wiedzą o tych reliktach, jeśli to zapewni mi wolność." />
+    <string
       id="ret_vassal_secrets_title"
       text="Sekrety Odblokowane" />
     <string

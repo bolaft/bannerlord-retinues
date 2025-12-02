@@ -9808,6 +9808,22 @@
     "TR": "En değerli eserlerinin sırlarını ortaya çıkar ve seni serbest bırakayım."
   },
   {
+    "id": "ret_vassal_secrets_ruler_answer",
+    "EN": "Very well... I will share the knowledge of these relics, if it buys my freedom.",
+    "BR": "Muito bem... Compartilharei o conhecimento dessas relíquias, se isso me garantir a liberdade.",
+    "CNs": "很好……如果这能换来我的自由，我将分享这些遗迹的知识。",
+    "CNt": "很好……如果這能換來我的自由，我將分享這些遺跡的知識。",
+    "DE": "Sehr gut... Ich werde das Wissen über diese Relikte teilen, wenn es meine Freiheit erkauft.",
+    "FR": "Très bien... Je partagerai la connaissance de ces reliques, si cela m'achète ma liberté.",
+    "IT": "Molto bene... Condividerò la conoscenza di queste reliquie, se mi garantirà la libertà.",
+    "JP": "よろしいでしょう…もしそれが私の自由を買うなら、これらの遺物の知識を共有しましょう。",
+    "KO": "좋습니다... 이것이 나의 자유를 사는 것이라면, 나는 이 유물들의 지식을 공유하겠습니다.",
+    "PL": "Bardzo dobrze... Podzielę się wiedzą o tych reliktach, jeśli to zapewni mi wolność.",
+    "RU": "Очень хорошо... Я поделюсь знаниями об этих реликвиях, если это купит мою свободу.",
+    "SP": "Muy bien... Compartiré el conocimiento de estas reliquias, si eso me compra mi libertad.",
+    "TR": "Pekala... Özgürlüğümü satın alırsa, bu kalıntıların bilgisini paylaşacağım."
+  },
+  {
     "id": "ret_vassal_secrets_title",
     "EN": "Secrets Unlocked",
     "BR": "Segredos Desbloqueados",
