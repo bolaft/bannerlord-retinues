@@ -5,6 +5,16 @@ using Retinues.Utils;
 namespace Retinues.Configuration
 {
     /// <summary>
+    /// High-level presets corresponding to the three built-in profiles.
+    /// </summary>
+    public enum ConfigPreset
+    {
+        Default,
+        Freeform,
+        Realistic,
+    }
+
+    /// <summary>
     /// Named configuration presets used for option overrides.
     /// </summary>
     public static class Presets

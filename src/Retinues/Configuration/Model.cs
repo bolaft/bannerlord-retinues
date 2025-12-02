@@ -37,51 +37,35 @@ namespace Retinues.Configuration
     /// <summary>
     /// Typed option wrapper exposing metadata and runtime getter/setter for T.
     /// </summary>
-    public sealed class Option<T> : IOption
+    public sealed class Option<T>(
+        Func<string> section,
+        Func<string> name,
+        string key,
+        Func<string> hint,
+        T @default,
+        int minValue = 0,
+        int maxValue = 1000,
+        bool requiresRestart = false,
+        IReadOnlyDictionary<string, object> presetOverrides = null,
+        bool disabled = false,
+        T disabledOverride = default
+    ) : IOption
     {
         // Lazy-localized text factories (evaluated at MCM build time)
-        private readonly Func<string> _section;
-        private readonly Func<string> _name;
-        private readonly Func<string> _hint;
-
-        public Option(
-            Func<string> section,
-            Func<string> name,
-            string key,
-            Func<string> hint,
-            T @default,
-            int minValue = 0,
-            int maxValue = 1000,
-            bool requiresRestart = false,
-            IReadOnlyDictionary<string, object> presetOverrides = null,
-            bool disabled = false,
-            T disabledOverride = default
-        )
-        {
-            _section = section ?? (() => L.S("mcm_section_general", "General"));
-            _name = name ?? (() => string.Empty);
-            _hint = hint ?? (() => string.Empty);
-
-            Key = key;
-            RequiresRestart = requiresRestart;
-            MinValue = minValue;
-            MaxValue = maxValue;
-            DefaultTyped = @default;
-            PresetOverrides = presetOverrides ?? new Dictionary<string, object>();
-
-            IsDisabled = disabled;
-            DisabledOverride = disabledOverride;
-        }
+        private readonly Func<string> _section =
+            section ?? (() => L.S("mcm_section_general", "General"));
+        private readonly Func<string> _name = name ?? (() => string.Empty);
+        private readonly Func<string> _hint = hint ?? (() => string.Empty);
 
         // Metadata (read-only)
         public string Section => _section();
         public string Name => _name();
-        public string Key { get; }
+        public string Key { get; } = key;
         public string Hint => _hint();
-        public bool RequiresRestart { get; }
-        public int MinValue { get; }
-        public int MaxValue { get; }
-        public T DefaultTyped { get; }
+        public bool RequiresRestart { get; } = requiresRestart;
+        public int MinValue { get; } = minValue;
+        public int MaxValue { get; } = maxValue;
+        public T DefaultTyped { get; } = @default;
 
         // Backing store supplied by ConfigSetup at runtime
         internal Func<T> Getter { get; set; } = () => default!;
@@ -90,9 +74,10 @@ namespace Retinues.Configuration
         // IOption
         public Type Type => typeof(T);
         public object Default => DefaultTyped!;
-        public IReadOnlyDictionary<string, object> PresetOverrides { get; }
-        public bool IsDisabled { get; }
-        public T DisabledOverride { get; }
+        public IReadOnlyDictionary<string, object> PresetOverrides { get; } =
+            presetOverrides ?? new Dictionary<string, object>();
+        public bool IsDisabled { get; } = disabled;
+        public T DisabledOverride { get; } = disabledOverride;
         public object DisabledOverrideBoxed => DisabledOverride!;
 
         /// <summary>
@@ -120,5 +105,33 @@ namespace Retinues.Configuration
         /// </summary>
         public void SetObject(object value) =>
             Setter((T)Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture));
+
+        /// <summary>
+        /// Apply one of the built-in presets to this option only.
+        /// </summary>
+        public void ApplyPreset(ConfigPreset preset)
+        {
+            object value;
+
+            switch (preset)
+            {
+                case ConfigPreset.Freeform:
+                    if (!PresetOverrides.TryGetValue(Presets.Freeform, out value))
+                        value = DefaultTyped!;
+                    break;
+
+                case ConfigPreset.Realistic:
+                    if (!PresetOverrides.TryGetValue(Presets.Realistic, out value))
+                        value = DefaultTyped!;
+                    break;
+
+                case ConfigPreset.Default:
+                default:
+                    value = DefaultTyped!;
+                    break;
+            }
+
+            SetObject(value);
+        }
     }
 }

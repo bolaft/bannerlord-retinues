@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using MCM.Abstractions;
+using MCM.Abstractions.Base.Global;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
 using Retinues.GUI.Helpers;
@@ -20,6 +22,11 @@ namespace Retinues.Configuration
         private const string McmDisplay = "Retinues";
         private const string McmFolder = "Retinues";
         private const string McmFormat = "xml";
+
+        private static FluentGlobalSettings _mcmSettings;
+        private static object _mcmSettingsInstance;
+        private static Type _mcmSettingsType;
+        private static bool _isSyncingWithMcm;
 
         // Runtime registry built via reflection from the static Option<T> fields
         private static readonly List<IOption> _all = [];
@@ -57,6 +64,7 @@ namespace Retinues.Configuration
 
         /// <summary>
         /// Central helper to set a raw value and notify listeners.
+        /// Also requests MCM to persist the updated settings to disk if possible.
         /// </summary>
         internal static void SetRawValue(string key, object value)
         {
@@ -88,6 +96,86 @@ namespace Retinues.Configuration
             {
                 Log.Exception(e);
                 return false; // don't crash game loop; retry loop will stop logging spam
+            }
+        }
+
+        /// <summary>
+        /// Apply one of the three built-in presets (Default, Freeform, Realistic)
+        /// to all options, then persist them via MCM.
+        /// </summary>
+        public static void ApplyPresetsToAll(ConfigPreset preset)
+        {
+            // Make sure _all is populated
+            DiscoverOptions(); // no-op if already done
+
+            string presetKey = null;
+
+            switch (preset)
+            {
+                case ConfigPreset.Freeform:
+                    presetKey = Presets.Freeform;
+                    break;
+                case ConfigPreset.Realistic:
+                    presetKey = Presets.Realistic;
+                    break;
+                case ConfigPreset.Default:
+                default:
+                    // null presetKey → use Default for everything
+                    break;
+            }
+
+            // Apply value for each option
+            foreach (var opt in _all)
+            {
+                object value;
+
+                if (presetKey == null)
+                {
+                    // "Default" preset: just use the option's Default value
+                    value = opt.Default;
+                }
+                else if (!opt.PresetOverrides.TryGetValue(presetKey, out value))
+                {
+                    // Freeform/Realistic but no override → fall back to Default
+                    value = opt.Default;
+                }
+
+                // Option<T>.SetObject(...) will flow through your setter → SetRawValue(...)
+                opt.SetObject(value);
+            }
+        }
+
+        /// <summary>
+        /// Ask MCM to persist the current Retinues settings to disk.
+        /// Uses MCM's DefaultSettingsProvider pipeline, so it behaves exactly
+        /// like pressing "Save" in the MCM UI.
+        /// </summary>
+        public static void SaveSettings()
+        {
+            try
+            {
+                // We only know how to save the Fluent settings instance we built.
+                if (_mcmSettings is null)
+                {
+                    Log.Debug("[MCM] SaveSettings() called but _mcmSettings is null; skipping.");
+                    return;
+                }
+
+                var provider = BaseSettingsProvider.Instance;
+                if (provider is null)
+                {
+                    Log.Debug(
+                        "[MCM] SaveSettings() called but BaseSettingsProvider.Instance is null; skipping."
+                    );
+                    return;
+                }
+
+                provider.SaveSettings(_mcmSettings);
+            }
+            catch (Exception e)
+            {
+                Log.Warn("[MCM] SaveSettings() failed.");
+                Log.Exception(e);
             }
         }
 
@@ -518,17 +606,17 @@ namespace Retinues.Configuration
             builder.CreatePreset(Presets.Freeform, "Freeform", p => ApplyPreset(p, freeform));
             builder.CreatePreset(Presets.Realistic, "Realistic", p => ApplyPreset(p, realistic));
 
-            // Presets (unchanged) …
-            var settings = builder.BuildAsGlobal();
+            _mcmSettings = builder.BuildAsGlobal();
 
             // 2) Helpful stats
             var countsBySection = _all.GroupBy(x => x.Section)
                 .ToDictionary(g => g.Key, g => g.Count());
 
-            if (settings is null)
+            if (_mcmSettings is null)
                 return false;
 
-            settings.Register();
+            HookMcmSettings(_mcmSettings);
+            _mcmSettings.Register();
 
             return true;
         }
@@ -653,6 +741,58 @@ namespace Retinues.Configuration
 
             // Use invariant formatting so numbers are stable in logs
             return Convert.ToString(value, CultureInfo.InvariantCulture) ?? "null";
+        }
+
+        private static void HookMcmSettings(object settings)
+        {
+            if (settings is null)
+                return;
+
+            _mcmSettingsInstance = settings;
+            _mcmSettingsType = settings.GetType();
+
+            // Ensure we only have one handler attached
+            OptionChanged -= SyncOptionToMcm;
+            OptionChanged += SyncOptionToMcm;
+        }
+
+        private static void SyncOptionToMcm(string key, object value)
+        {
+            var settings = _mcmSettingsInstance;
+            var type = _mcmSettingsType;
+            if (settings is null || type is null)
+                return;
+
+            // Prevent infinite recursion when we set the MCM property, which
+            // will in turn call our ProxyRef setter and raise OptionChanged again.
+            if (_isSyncingWithMcm)
+                return;
+
+            try
+            {
+                var prop = type.GetProperty(
+                    key,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                );
+
+                if (prop is null || !prop.CanWrite)
+                    return;
+
+                _isSyncingWithMcm = true;
+
+                var targetType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+
+                var coerced = Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
+                prop.SetValue(settings, coerced);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+            finally
+            {
+                _isSyncingWithMcm = false;
+            }
         }
     }
 }
