@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Non può scendere al di sotto del livello di abilità del genitore {PARENT}." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="Nessun oggetto di questo set di equipaggiamento è attualmente sbloccato per questa truppa." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Niente Sbloccato" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Hai bisogno di {GOLD} oro per incollare questo equipaggiamento, ma ne hai solo {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Copia non riuscita" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Alcuni oggetti nell’equipaggiamento n°{INDEX} di {TROOP} sono ancora bloccati e verranno saltati. Incollare gli oggetti sbloccati costerà {GOLD} oro. Continuare?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Alcuni oggetti nell’equipaggiamento n°{INDEX} di {TROOP} sono ancora bloccati e verranno saltati. Incollare gli oggetti sbloccati nel set corrente?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Conferma copia parziale dell’equipaggiamento" />
+    <string
       id="ret_paste_equipment_empty"
       text="Gli appunti sono vuoti. Copia prima un set di equipaggiamento." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Alcuni oggetti non possono essere equipaggiati da questa truppa." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Questo set di equipaggiamento non può essere applicato a questa truppa:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Un oggetto non civile non può essere equipaggiato in un set civile." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="Ti mancano abbastanza copie degli oggetti richiesti." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Le truppe di livello 1 non sono autorizzate ad avere una cavalcatura." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Questa truppa non soddisfa i requisiti di abilità per alcuni oggetti." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Alcuni oggetti sono al di sopra della differenza di livello consentita per questa truppa." />
     <string
       id="ret_personal_editor_link_text"
       text="Editor Personale" />

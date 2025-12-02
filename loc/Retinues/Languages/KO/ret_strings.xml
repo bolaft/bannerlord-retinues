@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="부모 {PARENT}의 기술 수준 아래로 내려갈 수 없습니다." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="이 장비 세트의 항목은 현재 이 부대에 대해 잠금 해제되지 않았습니다." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="잠금 해제된 항목 없음" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="이 장비를 붙여넣으려면 {GOLD} 골드가 필요하지만 현재 {CURRENT} 골드만 있습니다." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="복사 실패" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="{TROOP}의 장비 n°{INDEX}의 일부 항목은 여전히 잠겨 있으며 건너뜁니다. 잠금 해제된 항목을 붙여넣는 데 {GOLD} 골드가 듭니다. 계속하시겠습니까?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="{TROOP}의 장비 n°{INDEX}의 일부 항목은 여전히 잠겨 있으며 건너뜁니다. 잠금 해제된 항목을 현재 세트에 붙여넣으시겠습니까?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="부분 장비 복사 확인" />
+    <string
       id="ret_paste_equipment_empty"
       text="클립보드가 비어 있습니다. 먼저 장비 세트를 복사하세요." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="일부 아이템은 이 병력이 장착할 수 없습니다." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="이 장비 세트는 이 부대에 적용할 수 없습니다:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="비민간 아이템은 민간 세트에 장착할 수 없습니다." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="필요한 아이템의 충분한 사본이 부족합니다." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="1단계 부대는 탈것을 가질 수 없습니다." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="이 부대는 일부 항목에 대한 기술 요구 사항을 충족하지 않습니다." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="일부 항목은 이 부대에 허용된 등급 차이를 초과합니다." />
     <string
       id="ret_personal_editor_link_text"
       text="개인 편집기" />

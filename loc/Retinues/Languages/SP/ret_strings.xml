@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="No puede bajar del nivel de habilidad del padre {PARENT}." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="Ningún artículo de este conjunto de equipo está actualmente desbloqueado para esta tropa." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Nada Desbloqueado" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Necesitas {GOLD} de oro para pegar este equipo, pero solo tienes {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Copia fallida" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Algunos artículos en el equipo n°{INDEX} de {TROOP} todavía están bloqueados y se omitirán. Pegar los artículos desbloqueados costará {GOLD} de oro. ¿Continuar?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Algunos artículos en el equipo n°{INDEX} de {TROOP} todavía están bloqueados y se omitirán. ¿Pegar los artículos desbloqueados en el conjunto actual?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Confirmar copia parcial de equipo" />
+    <string
       id="ret_paste_equipment_empty"
       text="El portapapeles está vacío. Primero, copia un conjunto de equipo." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Algunos objetos no pueden ser equipados por esta tropa." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Este conjunto de equipo no se puede aplicar a esta tropa:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Un objeto no civil no puede ser equipado en un conjunto civil." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="No tienes suficientes copias de los objetos requeridos." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Las tropas de nivel 1 no pueden tener una montura." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Esta tropa no cumple con los requisitos de habilidad para algunos objetos." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Algunos objetos están por encima de la diferencia de nivel permitida para esta tropa." />
     <string
       id="ret_personal_editor_link_text"
       text="Editor Personal" />

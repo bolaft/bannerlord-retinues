@@ -34,6 +34,15 @@ namespace Retinues.Managers
             NotCivilian = 4,
         }
 
+        [Flags]
+        public enum EquipLimitReason
+        {
+            None = 0,
+            Skill = 1 << 0,
+            MountT1 = 1 << 1,
+            TierDifference = 1 << 2,
+        }
+
         /// <summary>
         /// Non-mutating cost/behavior preview for equipping an item.
         /// </summary>
@@ -344,28 +353,46 @@ namespace Retinues.Managers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Can this troop equip the item into the given slot of the set, ignoring stock/gold?
+        /// Can this troop equip the item, ignoring stock/gold?
         /// </summary>
         public static bool CanEquip(WCharacter troop, WItem item)
         {
+            return CanEquip(troop, item, out _);
+        }
+
+        /// <summary>
+        /// Can this troop equip the item, with detailed failure reasons.
+        /// </summary>
+        public static bool CanEquip(WCharacter troop, WItem item, out EquipLimitReason reasons)
+        {
+            reasons = EquipLimitReason.None;
+
             if (troop == null)
                 return false;
 
-            // Example minimal checks:
+            // Skill requirement
             if (item != null && item.RelevantSkill != null)
+            {
                 if (!MeetsItemSkillRequirements(troop, item))
-                    return false;
+                    reasons |= EquipLimitReason.Skill;
+            }
 
-            // No horse rule
+            // No-horse rule for T1 non-heroes
             if (Config.DisallowMountsForT1Troops && !troop.IsHero)
+            {
                 if (troop.Tier <= 1 && item != null && item.IsHorse)
-                    return false;
+                    reasons |= EquipLimitReason.MountT1;
+            }
 
-            // Tier cap rule
+            // Tier cap rule (unless Ironclad unlocked)
             if ((item?.Tier ?? 0) - troop.Tier > Config.AllowedTierDifference && !troop.IsHero)
-                return DoctrineAPI.IsDoctrineUnlocked<Ironclad>();
+            {
+                if (!DoctrineAPI.IsDoctrineUnlocked<Ironclad>())
+                    reasons |= EquipLimitReason.TierDifference;
+            }
 
-            return true;
+            // If any flags were raised, we cannot equip.
+            return reasons == EquipLimitReason.None;
         }
 
         /// <summary>
@@ -923,6 +950,7 @@ namespace Retinues.Managers
         {
             public bool Ok;
             public EquipFailReason Reason;
+            public EquipLimitReason Details;
         }
 
         public static PasteResult TryPasteEquipment(
@@ -931,7 +959,13 @@ namespace Retinues.Managers
             HashSet<EquipmentIndex> allowedSlots = null
         )
         {
-            var res = new PasteResult { Ok = false, Reason = EquipFailReason.None };
+            var res = new PasteResult
+            {
+                Ok = false,
+                Reason = EquipFailReason.None,
+                Details = EquipLimitReason.None,
+            };
+
             if (source == null || target == null)
                 return res;
 
@@ -941,7 +975,35 @@ namespace Retinues.Managers
 
             bool studio = ClanScreen.IsStudioMode;
 
-            // Precompute cost (respecting allowedSlots when provided).
+            // First pass: validate all items and collect detailed "not allowed" reasons.
+            foreach (EquipmentIndex slot in WEquipment.Slots)
+            {
+                if (allowedSlots != null && !allowedSlots.Contains(slot))
+                    continue;
+
+                var srcItem = source.Get(slot);
+                if (srcItem == null)
+                    continue;
+
+                // Civilian set cannot take non-civilian items.
+                if (target.IsCivilian && srcItem.IsCivilian == false)
+                {
+                    res.Reason = EquipFailReason.NotCivilian;
+                    return res;
+                }
+
+                // Capability checks (skill / horse / tier).
+                if (!CanEquip(troop, srcItem, out var reasons))
+                {
+                    res.Reason = EquipFailReason.NotAllowed;
+                    res.Details |= reasons;
+                }
+            }
+
+            if (res.Reason != EquipFailReason.None)
+                return res;
+
+            // Precompute total cost (already respects allowedSlots and CanEquip).
             int totalCost = QuotePasteGoldCost(source, target, allowedSlots);
 
             if (
@@ -959,7 +1021,7 @@ namespace Retinues.Managers
             if (!studio && Config.EquippingTroopsCostsGold && totalCost > 0)
                 Player.ChangeGold(-totalCost);
 
-            // Apply slot-by-slot (same as before, but skip disallowed slots).
+            // Second pass: apply slot-by-slot. At this point we know all slots are valid.
             foreach (EquipmentIndex slot in WEquipment.Slots)
             {
                 if (allowedSlots != null && !allowedSlots.Contains(slot))
@@ -969,20 +1031,6 @@ namespace Retinues.Managers
                 var tgtItem = target.Get(slot);
                 if (srcItem == tgtItem)
                     continue;
-                if (!CanEquip(troop, srcItem))
-                {
-                    res.Reason = EquipFailReason.NotAllowed;
-                    return res;
-                }
-
-                if (target.IsCivilian)
-                {
-                    if (srcItem?.IsCivilian == false)
-                    {
-                        res.Reason = EquipFailReason.NotCivilian;
-                        return res;
-                    }
-                }
 
                 var q = QuoteEquip(troop, target.Index, slot, srcItem);
                 if (!q.IsChange)
@@ -990,8 +1038,11 @@ namespace Retinues.Managers
 
                 if (!studio && Config.EquippingTroopsCostsGold)
                 {
+                    // consume from stock
                     for (int i = 0; i < q.CopiesFromStock; i++)
                         srcItem.Unstock();
+
+                    // buy remainder
                     for (int i = 0; i < q.CopiesToBuy; i++)
                     {
                         srcItem.Stock();

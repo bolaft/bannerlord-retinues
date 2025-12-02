@@ -1207,10 +1207,8 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     {
                         string msg = res.Reason switch
                         {
-                            EquipmentManager.EquipFailReason.NotAllowed => L.S(
-                                "paste_failed_not_allowed",
-                                "Some items cannot be equipped by this troop."
-                            ),
+                            EquipmentManager.EquipFailReason.NotAllowed =>
+                                BuildPasteNotAllowedMessage(res),
                             EquipmentManager.EquipFailReason.NotEnoughGold => L.S(
                                 "paste_failed_not_enough_gold",
                                 "You do not have enough gold."
@@ -1238,6 +1236,62 @@ namespace Retinues.GUI.Editor.VM.Equipment
                     State.UpdateEquipment(State.Equipment);
                 }
             );
+        }
+
+        private static string BuildPasteNotAllowedMessage(EquipmentManager.PasteResult res)
+        {
+            var reasons = res.Details;
+
+            // Fallback: old generic message if we have no more detail.
+            if (reasons == EquipmentManager.EquipLimitReason.None)
+            {
+                return L.S(
+                    "paste_failed_not_allowed",
+                    "Some items cannot be equipped by this troop."
+                );
+            }
+
+            var lines = new List<string>();
+
+            if (reasons.HasFlag(EquipmentManager.EquipLimitReason.MountT1))
+            {
+                lines.Add(
+                    "• "
+                        + L.S(
+                            "paste_failed_reason_mount_t1",
+                            "Tier 1 troops are not allowed to have a mount."
+                        )
+                );
+            }
+
+            if (reasons.HasFlag(EquipmentManager.EquipLimitReason.TierDifference))
+            {
+                lines.Add(
+                    "• "
+                        + L.S(
+                            "paste_failed_reason_tier_diff",
+                            "Some items are above the allowed tier difference for this troop."
+                        )
+                );
+            }
+
+            if (reasons.HasFlag(EquipmentManager.EquipLimitReason.Skill))
+            {
+                lines.Add(
+                    "• "
+                        + L.S(
+                            "paste_failed_reason_skill",
+                            "This troop does not meet the skill requirements for some items."
+                        )
+                );
+            }
+
+            var header = L.S(
+                "paste_failed_not_allowed_header",
+                "This equipment set cannot be applied to this troop:"
+            );
+
+            return header + "\n\n" + string.Join("\n", lines);
         }
 
         /// <summary>

@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Ana {PARENT} beceri seviyesinin altına inemez." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="Bu ekipman setindeki öğeler şu anda bu birlik için kilidi açılmamış." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Hiçbir Şey Kilidi Açılmadı" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Bu ekipmanı yapıştırmak için {GOLD} altına ihtiyacınız var, ancak sadece {CURRENT} var." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Kopyalama Başarısız" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="{TROOP}&apos;un ekipman n°{INDEX}&apos;indeki bazı öğeler hala kilitli ve atlanacak. Kilidi açılmış öğeleri yapıştırmak {GOLD} altına mal olacak. Devam edilsin mi?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="{TROOP}&apos;un ekipman n°{INDEX}&apos;indeki bazı öğeler hala kilitli ve atlanacak. Kilidi açılmış öğeleri mevcut sete yapıştırılsın mı?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Kısmi Ekipman Kopyasını Onayla" />
+    <string
       id="ret_paste_equipment_empty"
       text="Pano boş. Önce bir ekipman seti kopyalayın." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Bazı öğeler bu birlik tarafından donatılamaz." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Bu ekipman seti bu birliğe uygulanamaz:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Sivil olmayan bir öğe sivil sette donatılamaz." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="Gerekli öğelerin yeterli kopyalarına sahip değilsiniz." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Seviye 1 birliklerin bir bineği olamaz." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Bu birlik bazı öğeler için beceri gereksinimlerini karşılamıyor." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Bazı öğeler bu birlik için izin verilen seviye farkının üzerindedir." />
     <string
       id="ret_personal_editor_link_text"
       text="Kişisel Editör" />

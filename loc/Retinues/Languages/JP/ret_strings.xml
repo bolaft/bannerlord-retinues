@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="親{PARENT}のスキルレベルを下回ることはできません。" />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="この装備セットのアイテムは現在、この部隊にはアンロックされていません。" />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="解除されたものはありません" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="この装備を貼り付けるには{GOLD}ゴールドが必要ですが、あなたは{CURRENT}しか持っていません。" />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="コピーに失敗しました" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="{TROOP}の装備n°{INDEX}の一部のアイテムはまだロックされており、スキップされます。アンロックされたアイテムを貼り付けるには{GOLD}ゴールドがかかります。続行しますか？" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="{TROOP}の装備n°{INDEX}の一部のアイテムはまだロックされており、スキップされます。アンロックされたアイテムを現在のセットに貼り付けますか？" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="部分的な装備のコピーを確認" />
+    <string
       id="ret_paste_equipment_empty"
       text="クリップボードが空です。最初に装備セットをコピーしてください。" />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="一部のアイテムはこの部隊に装備できません。" />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="この装備セットはこの部隊に適用できません：" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="非市民のアイテムは市民セットに装備できません。" />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="必要なアイテムの十分なコピーが不足しています。" />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="ティア1の部隊はマウントを持つことができません。" />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="この部隊は一部のアイテムのスキル要件を満たしていません。" />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="一部のアイテムは、この部隊に許可されているティアの違いを超えています。" />
     <string
       id="ret_personal_editor_link_text"
       text="パーソナルエディター" />

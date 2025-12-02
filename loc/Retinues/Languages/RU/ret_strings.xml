@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Нельзя опускаться ниже уровня навыков родителя {PARENT}." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="В этом наборе оборудования для этого отряда в настоящее время нет разблокированных предметов." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Ничего не разблокировано" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Вам нужно {GOLD} золота, чтобы вставить это оборудование, но у вас есть только {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Не удалось скопировать" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Некоторые предметы в оборудовании n°{INDEX} {TROOP} по-прежнему заблокированы и будут пропущены. Вставка разблокированных предметов обойдется в {GOLD} золота. Продолжить?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Некоторые предметы в оборудовании n°{INDEX} {TROOP} по-прежнему заблокированы и будут пропущены. Вставить разблокированные предметы в текущий набор?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Подтвердить частичное копирование оборудования" />
+    <string
       id="ret_paste_equipment_empty"
       text="Буфер обмена пуст. Сначала скопируйте набор оборудования." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Некоторые предметы не могут быть экипированы этим отрядом." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Этот набор оборудования не может быть применен к этому отряду:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Негражданский предмет не может быть экипирован в гражданском наборе." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="У вас недостаточно копий необходимых предметов." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Отряды 1-го уровня не могут иметь ездового животного." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Этот отряд не соответствует требованиям навыков для некоторых предметов." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Некоторые предметы превышают допустимую разницу уровней для этого отряда." />
     <string
       id="ret_personal_editor_link_text"
       text="Личный редактор" />

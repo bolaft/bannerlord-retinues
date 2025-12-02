@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Não pode ficar abaixo do nível de habilidade do pai {PARENT}." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="Nenhum item deste conjunto de equipamentos está atualmente desbloqueado para esta tropa." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Nada Desbloqueado" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Você precisa de {GOLD} ouro para colar este equipamento, mas você só tem {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Cópia Falhou" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Alguns itens no equipamento n°{INDEX} de {TROOP} ainda estão bloqueados e serão ignorados. Colar os itens desbloqueados custará {GOLD} ouro. Continuar?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Alguns itens no equipamento n°{INDEX} de {TROOP} ainda estão bloqueados e serão ignorados. Colar os itens desbloqueados no conjunto atual?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Confirmar Cópia Parcial de Equipamento" />
+    <string
       id="ret_paste_equipment_empty"
       text="A área de transferência está vazia. Copie um conjunto de equipamentos primeiro." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Alguns itens não podem ser equipados por esta tropa." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Este conjunto de equipamentos não pode ser aplicado a esta tropa:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Um item não civil não pode ser equipado em um conjunto civil." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="Você não tem cópias suficientes dos itens necessários." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Tropas de nível 1 não podem ter uma montaria." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Esta tropa não atende aos requisitos de habilidade para alguns itens." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Alguns itens estão acima da diferença de nível permitida para esta tropa." />
     <string
       id="ret_personal_editor_link_text"
       text="Editor Pessoal" />

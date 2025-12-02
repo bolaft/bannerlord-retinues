@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Nie można zejść poniżej poziomu umiejętności rodzica {PARENT}." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="Żaden przedmiot z tego zestawu wyposażenia nie jest obecnie odblokowany dla tej jednostki." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Nic nie odblokowano" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Aby wkleić ten sprzęt, potrzebujesz {GOLD} złota, ale masz tylko {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Kopiowanie nie powiodło się" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Niektóre przedmioty w wyposażeniu n°{INDEX} {TROOP} są nadal zablokowane i zostaną pominięte. Wklejenie odblokowanych przedmiotów będzie kosztować {GOLD} złota. Kontynuować?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Niektóre przedmioty w wyposażeniu n°{INDEX} {TROOP} są nadal zablokowane i zostaną pominięte. Wkleić odblokowane przedmioty do bieżącego zestawu?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Potwierdź częściowe kopiowanie wyposażenia" />
+    <string
       id="ret_paste_equipment_empty"
       text="Schowek jest pusty. Najpierw skopiuj zestaw wyposażenia." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Niektóre przedmioty nie mogą być wyposażone przez tę jednostkę." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Ten zestaw wyposażenia nie może być zastosowany do tej jednostki:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Przedmiot niecywilny nie może być wyposażony w zestawie cywilnym." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="Brakuje Ci wystarczającej liczby kopii wymaganych przedmiotów." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Jednostki poziomu 1 nie mogą mieć wierzchowca." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Ta jednostka nie spełnia wymagań umiejętności dla niektórych przedmiotów." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Niektóre przedmioty przekraczają dozwoloną różnicę poziomów dla tej jednostki." />
     <string
       id="ret_personal_editor_link_text"
       text="Edytor Osobisty" />

@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Ne peut pas descendre en dessous du niveau de compétence du parent {PARENT}." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="Aucun objet de cet ensemble d’équipement n’est actuellement débloqué pour cette troupe." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Rien de Débloqué" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Vous avez besoin de {GOLD} or pour coller cet équipement, mais vous n’en avez que {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Échec de la copie" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Certains objets de l’équipement n°{INDEX} de {TROOP} sont encore verrouillés et seront ignorés. Coller les objets débloqués coûtera {GOLD} or. Continuer ?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Certains objets de l’équipement n°{INDEX} de {TROOP} sont encore verrouillés et seront ignorés. Coller les objets débloqués sur l’ensemble actuel ?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Confirmer la copie partielle de l’équipement" />
+    <string
       id="ret_paste_equipment_empty"
       text="Le presse-papiers est vide. Copiez d’abord un ensemble d’équipement." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Certains objets ne peuvent pas être équipés par cette troupe." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Cet ensemble d’équipement ne peut pas être appliqué à cette troupe :" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Un objet non civil ne peut pas être équipé dans un ensemble civil." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="Pas assez de stock pour les objets requis." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Les troupes de niveau 1 ne sont pas autorisées à avoir une monture." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Cette troupe ne répond pas aux exigences de compétence pour certains objets." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Certains objets dépassent la différence de niveau autorisée pour cette troupe." />
     <string
       id="ret_personal_editor_link_text"
       text="Éditeur Personnel" />

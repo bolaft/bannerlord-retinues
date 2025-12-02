@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="不能低於父級{PARENT}的技能水平。" />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="此裝備套裝中的物品當前未為該部隊解鎖。" />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="無解鎖內容" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="您需要{GOLD}金幣來粘貼此裝備，但您只有{CURRENT}。" />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="複製失敗" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="{TROOP}的裝備n°{INDEX}中的某些物品仍然被鎖定，將被跳過。粘貼解鎖的物品將花費{GOLD}金幣。繼續嗎？" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="{TROOP}的裝備n°{INDEX}中的某些物品仍然被鎖定，將被跳過。將解鎖的物品粘貼到當前套裝上？" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="確認部分裝備複製" />
+    <string
       id="ret_paste_equipment_empty"
       text="剪貼板為空。請先複製一個裝備套裝。" />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="某些物品無法由這支部隊裝備。" />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="此裝備套裝無法應用於該部隊：" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="非平民物品無法裝備在平民套裝中。" />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="您缺乏足夠的所需物品副本。" />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="一級部隊不允許有坐騎。" />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="該部隊不符合某些物品的技能要求。" />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="某些物品超出了該部隊允許的等級差異。" />
     <string
       id="ret_personal_editor_link_text"
       text="個人編輯器" />

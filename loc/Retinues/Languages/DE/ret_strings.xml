@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Kann nicht unter das Fähigkeitsniveau des übergeordneten {PARENT} gehen." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="Keine Gegenstände aus diesem Ausrüstungsset sind derzeit für diese Truppe freigeschaltet." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Nichts freigeschaltet" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="Du benötigst {GOLD} Gold, um diese Ausrüstung einzufügen, hast aber nur {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Kopie fehlgeschlagen" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Einige Gegenstände in der Ausrüstung n°{INDEX} von {TROOP} sind noch gesperrt und werden übersprungen. Das Einfügen der freigeschalteten Gegenstände kostet {GOLD} Gold. Fortfahren?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Einige Gegenstände in der Ausrüstung n°{INDEX} von {TROOP} sind noch gesperrt und werden übersprungen. Die freigeschalteten Gegenstände in das aktuelle Set einfügen?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Teilweise Ausrüstungskopie bestätigen" />
+    <string
       id="ret_paste_equipment_empty"
       text="Die Zwischenablage ist leer. Zuerst ein Ausrüstungsset kopieren." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Einige Gegenstände können von dieser Truppe nicht ausgerüstet werden." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="Dieses Ausrüstungsset kann nicht auf diese Truppe angewendet werden:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="Ein nicht-ziviler Gegenstand kann in einem zivilen Set nicht ausgerüstet werden." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="Dir fehlen genügend Kopien der benötigten Gegenstände." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Truppen der Stufe 1 dürfen kein Reittier haben." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="Diese Truppe erfüllt die Fähigkeitsanforderungen für einige Gegenstände nicht." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Einige Gegenstände liegen über dem zulässigen Stufendifferenz für diese Truppe." />
     <string
       id="ret_personal_editor_link_text"
       text="Persönlicher Editor" />

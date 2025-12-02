@@ -1334,6 +1334,12 @@
       id="ret_parent_skill"
       text="Cannot go below parent {PARENT}&apos;s skill level." />
     <string
+      id="ret_paste_equip_all_locked_text"
+      text="No items from this equipment set are currently unlocked for this troop." />
+    <string
+      id="ret_paste_equip_all_locked_title"
+      text="Nothing Unlocked" />
+    <string
       id="ret_paste_equip_cannot_afford_text"
       text="You need {GOLD} gold to paste this equipment, but you only have {CURRENT}." />
     <string
@@ -1352,6 +1358,15 @@
       id="ret_paste_equip_failed_title"
       text="Copy Failed" />
     <string
+      id="ret_paste_equip_locked_confirm_text_cost"
+      text="Some items in {TROOP}&apos;s equipment n°{INDEX} are still locked and will be skipped. Pasting the unlocked items will cost {GOLD} gold. Continue?" />
+    <string
+      id="ret_paste_equip_locked_confirm_text_free"
+      text="Some items in {TROOP}&apos;s equipment n°{INDEX} are still locked and will be skipped. Paste the unlocked items onto the current set?" />
+    <string
+      id="ret_paste_equip_locked_confirm_title"
+      text="Confirm Partial Equipment Copy" />
+    <string
       id="ret_paste_equipment_empty"
       text="Clipboard is empty. Copy an equipment set first." />
     <string
@@ -1364,6 +1379,9 @@
       id="ret_paste_failed_not_allowed"
       text="Some items cannot be equipped by this troop." />
     <string
+      id="ret_paste_failed_not_allowed_header"
+      text="This equipment set cannot be applied to this troop:" />
+    <string
       id="ret_paste_failed_not_civilian"
       text="A non-civilian item cannot be equipped in a civilian set." />
     <string
@@ -1372,6 +1390,15 @@
     <string
       id="ret_paste_failed_not_enough_stock"
       text="You lack enough copies of required items." />
+    <string
+      id="ret_paste_failed_reason_mount_t1"
+      text="Tier 1 troops are not allowed to have a mount." />
+    <string
+      id="ret_paste_failed_reason_skill"
+      text="This troop does not meet the skill requirements for some items." />
+    <string
+      id="ret_paste_failed_reason_tier_diff"
+      text="Some items are above the allowed tier difference for this troop." />
     <string
       id="ret_personal_editor_link_text"
       text="Personal Editor" />
