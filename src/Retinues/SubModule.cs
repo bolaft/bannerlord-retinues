@@ -367,6 +367,9 @@ namespace Retinues
                 }
             }
 
+            // Setup wizard behavior
+            AddBehavior<Features.Setup.SetupWizardBehavior>(cs);
+
             // Mod compatibility behaviors
             ModCompatibility.AddBehaviors(cs);
 
