@@ -839,9 +839,6 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="Any lord can recruit custom troops in the player&apos;s fiefs." />
     <string
-      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
-      text="Any lord can recruit custom troops in the player&apos;s fiefs (required for Improved Garrisons compatibility)." />
-    <string
       id="ret_mcm_option_allow_formation_overrides"
       text="Allow Formation Overrides" />
     <string

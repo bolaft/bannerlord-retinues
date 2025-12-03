@@ -17,8 +17,14 @@ namespace Retinues.GUI.Helpers
             string icon = (troop?.FormationClass) switch
             {
                 FormationClass.Infantry => @"General\TroopTypeIcons\icon_troop_type_infantry",
+                FormationClass.HeavyInfantry => @"General\TroopTypeIcons\icon_troop_type_infantry",
+                FormationClass.Bodyguard => @"General\TroopTypeIcons\icon_troop_type_infantry",
                 FormationClass.Ranged => @"General\TroopTypeIcons\icon_troop_type_bow",
+                FormationClass.Skirmisher => @"General\TroopTypeIcons\icon_troop_type_bow",
                 FormationClass.Cavalry => @"General\TroopTypeIcons\icon_troop_type_cavalry",
+                FormationClass.LightCavalry => @"General\TroopTypeIcons\icon_troop_type_cavalry",
+                FormationClass.HeavyCavalry => @"General\TroopTypeIcons\icon_troop_type_cavalry",
+                FormationClass.General => @"General\TroopTypeIcons\icon_troop_type_cavalry",
                 FormationClass.HorseArcher =>
                     @"General\TroopTypeIcons\icon_troop_type_horse_archer",
                 _ => @"General\TroopTypeIcons\icon_troop_type_infantry",

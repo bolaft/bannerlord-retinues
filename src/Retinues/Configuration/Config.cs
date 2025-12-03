@@ -387,15 +387,10 @@ namespace Retinues.Configuration
                 ),
             key: "AllLordsCanRecruitCustomTroops",
             hint: () =>
-                ModCompatibility.HasImprovedGarrisons
-                    ? L.S(
-                        "mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons",
-                        "Any lord can recruit custom troops in the player's fiefs (required for Improved Garrisons compatibility)."
-                    )
-                    : L.S(
-                        "mcm_option_all_lords_recruit_custom_troops_hint",
-                        "Any lord can recruit custom troops in the player's fiefs."
-                    ),
+                L.S(
+                    "mcm_option_all_lords_recruit_custom_troops_hint",
+                    "Any lord can recruit custom troops in the player's fiefs."
+                ),
             @default: true
         );
 
@@ -751,7 +746,9 @@ namespace Retinues.Configuration
                     "mcm_option_additional_formation_overrides_hint",
                     "Adds special formation classes (skirmisher, bodyguard, etc.) to the list of selectable formation overrides. Requires 'Allow Formation Overrides' to be enabled to have an effect."
                 ),
-            @default: false
+            @default: false,
+            disabled: true, // Disabled until properly implemented
+            disabledOverride: false
         );
 
         public static readonly Option<bool> NoCivilianSetUpgradeRequirements = CreateOption(

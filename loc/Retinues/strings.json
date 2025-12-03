@@ -4448,22 +4448,6 @@
     "TR": "Her lord oyuncunun topraklarında özel asker alabilir."
   },
   {
-    "id": "ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons",
-    "EN": "Any lord can recruit custom troops in the player's fiefs (required for Improved Garrisons compatibility).",
-    "BR": "Qualquer lorde pode recrutar tropas personalizadas nos feudos do jogador (necessário para compatibilidade com Fortificações Aprimoradas).",
-    "CNs": "任何领主都可以在玩家的封地中招募自定义部队（需要改进驻军兼容性）。",
-    "CNt": "任何領主都可以在玩家的封地中招募自定義部隊（需要改進駐軍兼容性）。",
-    "DE": "Jeder Lord kann in den Lehen des Spielers benutzerdefinierte Truppen rekrutieren (erforderlich für die Kompatibilität mit Improved Garrisons).",
-    "FR": "N’importe quel seigneur peut recruter des troupes personnalisées dans les fiefs du joueur (nécessaire pour la compatibilité avec Improved Garrisons).",
-    "IT": "Qualsiasi signore può reclutare truppe personalizzate nei feudi del giocatore (necessario per la compatibilità con Improved Garrisons).",
-    "JP": "どの領主でもプレイヤーの領地でカスタム部隊を募集できる（Improved Garrisonsの互換性に必要）。",
-    "KO": "어떤 영주라도 플레이어의 영지에서 맞춤 병력을 모집할 수 있습니다(Improved Garrisons 호환성에 필요).",
-    "PL": "Każdy lord może rekrutować niestandardowe jednostki w lenna gracza (wymagane dla kompatybilności z Improved Garrisons).",
-    "RU": "Любой лорд может нанимать пользовательские войска в поместьях игрока (требуется для совместимости с Improved Garrisons).",
-    "SP": "Cualquier señor puede reclutar tropas personalizadas en los feudos del jugador (requerido para la compatibilidad con Improved Garrisons).",
-    "TR": "Her lord oyuncunun topraklarında özel asker alabilir (Geliştirilmiş Garnizonlar uyumluluğu için gereklidir)."
-  },
-  {
     "id": "ret_mcm_option_allow_formation_overrides",
     "EN": "Allow Formation Overrides",
     "BR": "Permitir Substituições de Formação",
