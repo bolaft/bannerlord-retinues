@@ -359,9 +359,7 @@ namespace Retinues.Configuration
                     "mcm_option_vassal_lords_recruit_custom_troops_hint",
                     "Lords of the player's clan or kingdom can recruit custom troops in their fiefs."
                 ),
-            @default: true,
-            disabled: ModCompatibility.ForceDailyVolunteerSwap,
-            disabledOverride: true
+            @default: true
         );
 
         public static readonly Option<bool> AllLordsCanRecruitCustomTroops = CreateOption(
@@ -382,9 +380,7 @@ namespace Retinues.Configuration
                         "mcm_option_all_lords_recruit_custom_troops_hint",
                         "Any lord can recruit custom troops in the player's fiefs."
                     ),
-            @default: true,
-            disabled: ModCompatibility.ForceDailyVolunteerSwap,
-            disabledOverride: true
+            @default: true
         );
 
         // ─────────────────────────────────────────────────────
@@ -401,9 +397,7 @@ namespace Retinues.Configuration
                     "Enables the global troop editor to modify any troop in the game. Disable if you encounter issues with non-player troops or other mods."
                 ),
             @default: true,
-            requiresRestart: true,
-            disabled: ModCompatibility.NoGlobalEditor,
-            disabledOverride: false
+            requiresRestart: true
         );
 
         public static readonly Option<bool> VanillaUpgradeRequirements = CreateOption(

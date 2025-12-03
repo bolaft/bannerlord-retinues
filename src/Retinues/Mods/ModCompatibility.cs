@@ -31,8 +31,6 @@ namespace Retinues.Mods
 
         // Ruleset flags
         public static bool ForceClanTabsReset => IsLoaded("BannerKings");
-        public static bool NoGlobalEditor => IsLoaded("Shokuho");
-        public static bool ForceDailyVolunteerSwap => IsLoaded("Shokuho");
         public static bool SkipItemCultureChecks => IsLoaded("Shokuho", "AD1259");
 
         /// <summary>
