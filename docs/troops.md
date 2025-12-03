@@ -10,7 +10,7 @@ Besides the special [Retinues](./retinues.md), there are several kinds of factio
 - **Clan Troops** (tied to your **clan**)
 - **Kingdom Troops** (tied to your **kingdom**)
 
-Unlike Retinues (your personal household guard), faction troops are the broader troop trees and service troops that populate your rosters, parties, garrisons, volunteers, caravans, and villager parties.
+Unlike Retinues (your personal household guard), faction troops are the broader troop trees and special troops that populate your rosters, parties, garrisons, volunteers, caravans, and villager parties.
 
 Each faction (clan or kingdom) provides:
 

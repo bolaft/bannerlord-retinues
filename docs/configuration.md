@@ -11,14 +11,14 @@ You can tune Retinues from the **Mod Configuration Menu (MCM)**. Options are gro
 - **Freeform:** very permissive, fast prototyping.
 - **Realistic:** stricter rules, slower progression, more immersion.
 
-> ⚠️ If an option is marked "*(restart)*", return to main menu (or start a new game) after changing it.
+> ⚠️ If an option is marked "*(restart)*", changing it will require a game restart.
 >
 > 🧹 If options don't seem to apply correctly or you get strange behavior after updating Retinues, clear MCM's cached settings for the mod:  
 >   1. Close the game.  
 >   2. Delete the `Retinues` folder in  
 >      `%USERPROFILE%\Documents\Mount and Blade II Bannerlord\Configs\ModSettings\`  
 >      (for example: `C:\Users\YourName\Documents\Mount and Blade II Bannerlord\Configs\ModSettings\Retinues`).  
->   3. Restart the game and re-apply your options in MCM.
+>   3. Restart the game and re-apply your options in the mod configuration menu.
 
 ---
 

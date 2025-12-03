@@ -72,5 +72,5 @@ If you are on Nexus and the game refuses to load even with Retinues reinstalled,
 ## Notes
 
 - Purge is **per-save**. Repeat for any other saves you want to keep.
-- The purge operation is **irreversible**—consider making a manual backup first:
+- The purge operation is **irreversible** - consider making a manual backup first:
   - Saves: `%USERPROFILE%\Documents\Mount and Blade II Bannerlord\Game Saves`
