@@ -343,7 +343,6 @@ namespace Retinues
 
             // Swap behaviors
             AddBehavior<Features.Swaps.MilitiaSwapBehavior>(cs);
-            AddBehavior<Features.Volunteers.VolunteerSwapBehavior>(cs);
 
             // Retinue behaviors
             AddBehavior<Features.AutoJoin.AutoJoinBehavior>(cs);
@@ -366,9 +365,6 @@ namespace Retinues
                     AddBehavior<FeatNotificationBehavior>(cs);
                 }
             }
-
-            // Setup wizard behavior
-            AddBehavior<Features.Setup.SetupWizardBehavior>(cs);
 
             // Mod compatibility behaviors
             ModCompatibility.AddBehaviors(cs);
