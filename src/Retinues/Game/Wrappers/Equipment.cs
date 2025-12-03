@@ -153,6 +153,7 @@ namespace Retinues.Game.Wrappers
             EquipmentIndex.Weapon1,
             EquipmentIndex.Weapon2,
             EquipmentIndex.Weapon3,
+            // EquipmentIndex.ExtraWeaponSlot, // unused?
             EquipmentIndex.Horse,
             EquipmentIndex.HorseHarness,
         ];
