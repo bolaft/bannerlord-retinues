@@ -362,6 +362,22 @@ namespace Retinues.Configuration
             @default: true
         );
 
+        public static readonly Option<bool> VassalLordsRecruitCustomTroopsAnywhere = CreateOption(
+            section: () => L.S("mcm_section_recruitment", "Recruitment"),
+            name: () =>
+                L.S(
+                    "mcm_option_vassal_lords_recruit_custom_troops_anywhere",
+                    "Vassal Lords Recruit Custom Troops Anywhere"
+                ),
+            key: "VassalLordsRecruitCustomTroopsAnywhere",
+            hint: () =>
+                L.S(
+                    "mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint",
+                    "Lords of the player's clan or kingdom can recruit custom troops in any settlement."
+                ),
+            @default: false
+        );
+
         public static readonly Option<bool> AllLordsCanRecruitCustomTroops = CreateOption(
             section: () => L.S("mcm_section_recruitment", "Recruitment"),
             name: () =>

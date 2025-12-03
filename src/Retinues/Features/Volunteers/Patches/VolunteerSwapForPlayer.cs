@@ -12,8 +12,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 namespace Retinues.Features.Volunteers.Patches
 {
     /// <summary>
-    /// Harmony patch for recruit volunteers menu consequence.
-    /// Swaps volunteers for the player and restores the native roster.
+    /// Swaps volunteers for the player and handles snapshots.
     /// </summary>
     [HarmonyPatch]
     internal static class VolunteerSwapForPlayer
@@ -27,7 +26,6 @@ namespace Retinues.Features.Volunteers.Patches
 
         /// <summary>
         /// Re-wire events for the current campaign and clear any stale snapshot.
-        /// Call this from SubModule.OnGameStart.
         /// </summary>
         public static void Initialize()
         {
@@ -48,7 +46,7 @@ namespace Retinues.Features.Volunteers.Patches
             );
         }
 
-        // Wire campaign events once via static ctor (robust across modlists).
+        // Wire campaign events once via static ctor.
         static VolunteerSwapForPlayer()
         {
             // First game in the process still gets wired automatically.
@@ -216,8 +214,16 @@ namespace Retinues.Features.Volunteers.Patches
         //                     Volunteer Swap                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Ensure the player sees custom volunteers where allowed.
+        /// - In player-faction fiefs, volunteers are already swapped by the
+        ///   daily UpdateVolunteers patch; we just enforce it if needed.
+        /// - In foreign settlements (Recruit Anywhere), we do a temporary
+        ///   swap with snapshot + restore.
+        /// </summary>
         private static void TryBeginSwap()
         {
+            // Do not stack multiple temporary swaps.
             if (_snapshot != null)
                 return;
 
@@ -228,32 +234,23 @@ namespace Retinues.Features.Volunteers.Patches
             bool inPlayerOwnedFief = settlement.PlayerFaction != null;
 
             // No player faction here and restriction enabled: abort.
+            // Player sees native volunteers in foreign fiefs if recruitment is restricted.
             if (!inPlayerOwnedFief && Config.RestrictToOwnedSettlements)
                 return;
 
-            // ── All Lords ON ───────────────────────────────────────
-            if (Config.AllLordsCanRecruitCustomTroops)
+            // Player-faction settlement
+            if (inPlayerOwnedFief)
             {
-                if (inPlayerOwnedFief)
-                {
-                    settlement.SwapVolunteers();
-                    return;
-                }
-
-                // Non-player settlement + Recruit Anywhere + AllLords:
-                // temporary swap only for the player, with snapshot + restore.
-                SnapshotVolunteers(settlement);
-                settlement.SwapVolunteers(Player.Clan);
+                // Volunteers in player settlements are swapped on update; call again
+                // defensively in case UpdateVolunteers hasn't run yet.
+                settlement.SwapVolunteers();
                 return;
             }
 
-            // ── All Lords OFF: original behavior ───────────────────
-            var faction = inPlayerOwnedFief ? settlement.PlayerFaction : Player.Clan;
-            if (faction == null)
-                return;
-
+            // Foreign settlement + Recruit Anywhere
+            // Temporary swap only for the player, with snapshot + restore.
             SnapshotVolunteers(settlement);
-            settlement.SwapVolunteers(faction);
+            settlement.SwapVolunteers(Player.Clan);
         }
     }
 }

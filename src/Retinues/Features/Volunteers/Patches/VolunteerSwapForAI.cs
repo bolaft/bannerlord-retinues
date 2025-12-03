@@ -1,5 +1,6 @@
 using HarmonyLib;
 using Retinues.Configuration;
+using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops;
 using Retinues.Utils;
@@ -9,8 +10,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 namespace Retinues.Features.Volunteers.Patches
 {
     /// <summary>
-    /// Harmony patch for OnTroopRecruited.
-    /// Swaps recruited troops to best match from player faction's tree if available.
+    /// Harmony patch for OnTroopRecruited (AI only).
     /// </summary>
     [HarmonyPatch(
         typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.RecruitmentCampaignBehavior),
@@ -27,50 +27,117 @@ namespace Retinues.Features.Volunteers.Patches
             int count
         )
         {
-            if (settlement == null)
-                return; // no settlement, skip
+            // Basic sanity
+            if (settlement == null || recruiter == null || troop == null || count <= 0)
+                return;
 
-            if (recruiter == null)
-                return; // no recruiter, skip
+            // Player path is handled by VolunteerSwapForPlayer
+            if (recruiter.IsHumanPlayerCharacter)
+                return;
 
-            if (recruiter.IsHumanPlayerCharacter == true)
-                return; // skip player recruiter, handled elsewhere
+            var party = recruiter.PartyBelongedTo;
+            if (party == null)
+                return;
 
-            var faction = new WSettlement(settlement).PlayerFaction;
+            var wSettlement = new WSettlement(settlement);
+            var wTroop = new WCharacter(troop);
+            if (!wTroop.IsValid)
+                return;
 
-            if (faction == null)
-                return; // not player faction settlement, skip
+            var wHero = new WHero(recruiter);
+            bool isPlayerVassal = wHero.PlayerFaction != null;
 
-            if (recruiter.PartyBelongedTo == null || count <= 0 || troop == null)
-                return; // never touch suspicious input
+            var playerSphereFaction = wSettlement.PlayerFaction; // clan or kingdom
+            bool isPlayerSphereSettlement = playerSphereFaction != null;
 
+            bool isRetinue = wTroop.IsRetinue;
+
+            // Decide if this recruiter can get CUSTOM troops here and which faction's custom tree to use.
+
+            WFaction customFaction = null;
+            bool canRecruitCustom = false;
+
+            // 1) All lords can recruit custom troops in PLAYER-SPHERE settlements.
+            if (isPlayerSphereSettlement && Config.AllLordsCanRecruitCustomTroops)
+            {
+                canRecruitCustom = true;
+                customFaction = playerSphereFaction ?? Player.Clan;
+            }
+
+            // 2) Vassals can recruit custom troops in their fiefs.
             if (
-                !Config.AllLordsCanRecruitCustomTroops
-                && !(
-                    Config.VassalLordsCanRecruitCustomTroops
-                    && new WHero(recruiter).PlayerFaction != null
-                )
+                !canRecruitCustom
+                && isPlayerSphereSettlement
+                && Config.VassalLordsCanRecruitCustomTroops
+                && isPlayerVassal
             )
+            {
+                canRecruitCustom = true;
+                customFaction = playerSphereFaction ?? Player.Clan;
+            }
+
+            // 3) Vassals recruit custom troops anywhere.
+            if (
+                !canRecruitCustom
+                && Config.VassalLordsRecruitCustomTroopsAnywhere
+                && isPlayerVassal
+            )
+            {
+                canRecruitCustom = true;
+                // For "anywhere", use the player's custom faction as the tree owner.
+                customFaction ??= Player.Clan ?? playerSphereFaction;
+            }
+
+            // If we still have no custom faction to map to, this hero does not get customs.
+            if (!canRecruitCustom || customFaction == null)
+            {
+                // We only need "swap back" behaviour when the settlement is in the player sphere;
+                // outside of it, volunteers are native and there's nothing to revert.
+                if (!isPlayerSphereSettlement || !isRetinue)
+                    return;
+
+                // Unauthorized lord in PLAYER fief: swap custom back to native via settlement culture.
+                var culture = wSettlement.Culture;
+                if (culture == null)
+                    return;
+
+                var nativeRoot = wTroop.IsElite ? culture.RootElite : culture.RootBasic;
+                if (nativeRoot == null)
+                    return;
+
+                var nativeReplacement = TroopMatcher.PickBestFromTree(
+                    nativeRoot,
+                    wTroop,
+                    sameTierOnly: false
+                );
+                if (nativeReplacement == null || nativeReplacement == wTroop)
+                    return;
+
+                var unauthorizedRoster = party.MemberRoster;
+                unauthorizedRoster.RemoveTroop(wTroop.Base, count);
+                unauthorizedRoster.AddToCounts(nativeReplacement.Base, count);
+
+                Log.Debug(
+                    $"VolunteerSwapForAI: unauthorized {recruiter?.Name} recruited {count}x {wTroop} "
+                        + $"-> reverted to native {nativeReplacement}."
+                );
                 return;
+            }
 
-            var wt = new WCharacter(troop);
-            if (!wt.IsValid)
-                return; // defensive
+            // Authorized path: normalize to the custom tree
+            // (works both in player fiefs AND "anywhere" for vassals).
 
-            var root = wt.IsElite ? faction.RootElite : faction.RootBasic;
+            var root = wTroop.IsElite ? customFaction.RootElite : customFaction.RootBasic;
             if (root == null)
-                return; // no tree, skip
-
-            var replacement = TroopMatcher.PickBestFromTree(root, wt, sameTierOnly: false);
-            if (replacement == null)
                 return;
 
-            // Swap in party roster
-            var roster = recruiter.PartyBelongedTo.MemberRoster;
-            roster.RemoveTroop(wt.Base, count);
-            roster.AddToCounts(replacement.Base, count);
+            var replacement = TroopMatcher.PickBestFromTree(root, wTroop, sameTierOnly: false);
+            if (replacement == null || replacement == wTroop)
+                return;
 
-            Log.Debug($"RecruitSwap: {recruiter?.Name} swapped {count}x {wt} to {replacement}.");
+            var roster = party.MemberRoster;
+            roster.RemoveTroop(wTroop.Base, count);
+            roster.AddToCounts(replacement.Base, count);
         }
     }
 }
