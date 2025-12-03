@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Importar tropas desde XML" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Sustituciones de Formación Adicionales" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Agrega clases de formación especiales (escuadrón, guardaespaldas, etc.) a la lista de sustituciones de formación seleccionables. Requiere que &apos;Permitir Sustituciones de Formación&apos; esté habilitado para tener efecto." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="Todo el Equipo Cultural Desbloqueado" />
     <string

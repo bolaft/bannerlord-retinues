@@ -693,6 +693,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     FormationClass.HorseArcher,
                 ];
 
+                if (Config.AdditionalFormationOverrides)
+                {
+                    classes.Add(FormationClass.LightCavalry);
+                    classes.Add(FormationClass.HeavyCavalry);
+                    classes.Add(FormationClass.HeavyInfantry);
+                    classes.Add(FormationClass.Skirmisher);
+                    classes.Add(FormationClass.Bodyguard);
+                    classes.Add(FormationClass.General);
+                }
+
                 var elements = new List<InquiryElement>(classes.Count);
 
                 foreach (var c in classes)

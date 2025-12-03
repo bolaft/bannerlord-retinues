@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="从XML导入部队" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="额外阵型覆盖" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="将特殊阵型类别（散兵、护卫等）添加到可选阵型覆盖列表中。需要启用“允许阵型覆盖”才能生效。" />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="所有文化装备已解锁" />
     <string

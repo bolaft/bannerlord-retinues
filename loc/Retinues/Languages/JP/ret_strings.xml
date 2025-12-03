@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="XMLから部隊をインポート" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="追加の編成オーバーライド" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="特殊な編成クラス（スキルミッシャー、ボディーガードなど）を選択可能な編成オーバーライドのリストに追加します。「編成オーバーライドを許可する」を有効にする必要があります。" />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="全文化装備解除済み" />
     <string

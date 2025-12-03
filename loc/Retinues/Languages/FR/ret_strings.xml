@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Importer les Troupes depuis XML" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Substitutions de Formation Supplémentaires" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Ajoute des classes de formation spéciales (tirailleur, garde du corps, etc.) à la liste des substitutions de formation sélectionnables. Nécessite que &apos;Autoriser les Substitutions de Formation&apos; soit activé pour avoir un effet." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="Tous les Équipements Culturels Débloqués" />
     <string

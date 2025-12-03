@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Importuj jednostki z XML" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Dodatkowe Nadpisania Formacji" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Dodaje specjalne klasy formacji (strzelec, gwardia itp.) do listy dostępnych nadpisań formacji. Wymaga włączenia opcji &apos;Zezwalaj na Nadpisania Formacji&apos;, aby miało to efekt." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="Cały Ekwipunek Kulturowy Odblokowany" />
     <string

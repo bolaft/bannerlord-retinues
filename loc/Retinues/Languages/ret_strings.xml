@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Import Troops from XML" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Additional Formation Overrides" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Adds special formation classes (skirmisher, bodyguard, etc.) to the list of selectable formation overrides. Requires &apos;Allow Formation Overrides&apos; to be enabled to have an effect." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="All Culture Equipment Unlocked" />
     <string

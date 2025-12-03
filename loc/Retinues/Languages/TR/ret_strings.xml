@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="XML’den Askerleri İçe Aktar" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Ek Formasyon Geçersiz Kılmaları" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Seçilebilir formasyon geçersiz kılma listesine özel formasyon sınıfları (hafif piyade, koruma, vb.) ekler. Etki etmesi için &apos;Formasyon Geçersiz Kılmalarına İzin Ver&apos; etkinleştirilmelidir." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="Tüm Kültür Teçhizatı Açıldı" />
     <string

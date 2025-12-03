@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Импорт войск из XML" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Дополнительные Переопределения Формации" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Добавляет специальные классы формации (стрелок, телохранитель и т. д.) в список доступных переопределений формации. Требуется включение &apos;Разрешить переопределения формации&apos; для воздействия." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="Вся Культурная Экипировка Разблокирована" />
     <string

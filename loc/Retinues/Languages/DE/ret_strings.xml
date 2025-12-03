@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Truppen aus XML importieren" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Zusätzliche Formationsüberschreibungen" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Fügt spezielle Formationsklassen (Schützen, Leibwächter usw.) zur Liste der auswählbaren Formationsüberschreibungen hinzu. Erfordert, dass &apos;Formationsüberschreibungen zulassen&apos; aktiviert ist, um eine Wirkung zu haben." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="Alle Kulturausrüstungen freigeschaltet" />
     <string

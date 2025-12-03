@@ -741,6 +741,19 @@ namespace Retinues.Configuration
             @default: false
         );
 
+        public static readonly Option<bool> AdditionalFormationOverrides = CreateOption(
+            section: () => L.S("mcm_section_equipment", "Equipment"),
+            name: () =>
+                L.S("mcm_option_additional_formation_overrides", "Additional Formation Overrides"),
+            key: "AdditionalFormationOverrides",
+            hint: () =>
+                L.S(
+                    "mcm_option_additional_formation_overrides_hint",
+                    "Adds special formation classes (skirmisher, bodyguard, etc.) to the list of selectable formation overrides. Requires 'Allow Formation Overrides' to be enabled to have an effect."
+                ),
+            @default: false
+        );
+
         public static readonly Option<bool> NoCivilianSetUpgradeRequirements = CreateOption(
             section: () => L.S("mcm_section_equipment", "Equipment"),
             name: () =>

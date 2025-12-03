@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="從XML導入部隊" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="額外陣型覆蓋" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="將特殊陣型類別（散兵、護衛等）添加到可選陣型覆蓋列表中。需要啟用“允許陣型覆蓋”才能生效。" />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="所有文化裝備已解鎖" />
     <string

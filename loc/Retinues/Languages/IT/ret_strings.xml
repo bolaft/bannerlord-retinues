@@ -815,6 +815,12 @@
       id="ret_mcm_ie_import_pick_btn_text"
       text="Importa truppe da XML" />
     <string
+      id="ret_mcm_option_additional_formation_overrides"
+      text="Sostituzioni di Formazione Aggiuntive" />
+    <string
+      id="ret_mcm_option_additional_formation_overrides_hint"
+      text="Aggiunge classi di formazione speciali (schermitore, guardia del corpo, ecc.) all’elenco delle sostituzioni di formazione selezionabili. Richiede che &apos;Consenti Sostituzioni di Formazione&apos; sia abilitato per avere effetto." />
+    <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
       text="Tutto l’Equipaggiamento Culturale Sbloccato" />
     <string
