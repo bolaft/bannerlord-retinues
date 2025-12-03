@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Wasalni Lordowie Rekrutują Niestandardowe Oddziały" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="Wasalni Lordowie Rekrutują Niestandardowe Oddziały Wszędzie" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="Lordowie klanu lub królestwa gracza mogą rekrutować niestandardowe oddziały w dowolnym osiedlu." />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Lordowie klanu lub królestwa gracza mogą rekrutować niestandardowe oddziały w swoich lenna." />
     <string

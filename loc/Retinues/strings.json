@@ -6304,6 +6304,38 @@
     "TR": "Vassal Lordlar Özel Asker Toplar"
   },
   {
+    "id": "ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere",
+    "EN": "Vassal Lords Recruit Custom Troops Anywhere",
+    "BR": "Senhores Vassalos Recrutam Tropas Personalizadas em Qualquer Lugar",
+    "CNs": "封臣领主在任何地方招募自定义部队",
+    "CNt": "封臣領主在任何地方招募自定義部隊",
+    "DE": "Lehnsherren rekrutieren Custom-Truppen überall",
+    "FR": "Les Seigneurs Vassaux Recrutent des Troupes Personnalisées Partout",
+    "IT": "I Signori Vassalli Reclutano Truppe Personalizzate Ovunque",
+    "JP": "封臣の領主がどこでもカスタム兵を募集",
+    "KO": "봉신 영주가 어디서나 커스텀 병력 모집",
+    "PL": "Wasalni Lordowie Rekrutują Niestandardowe Oddziały Wszędzie",
+    "RU": "Вассальные Лорды Вербуют Собственные Войска Везде",
+    "SP": "Los Señores Vasallos Reclutan Tropas Personalizadas en Cualquier Lugar",
+    "TR": "Vassal Lordlar Her Yerde Özel Asker Toplar"
+  },
+  {
+    "id": "ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint",
+    "EN": "Lords of the player's clan or kingdom can recruit custom troops in any settlement.",
+    "BR": "Senhores do clã ou reino do jogador podem recrutar tropas personalizadas em qualquer assentamento.",
+    "CNs": "玩家一族或王国的领主可以在任何定居点招募自定义部队。",
+    "CNt": "玩家一族或王國的領主可以在任何定居點招募自定義部隊。",
+    "DE": "Die Herren des Spielerklans oder -königreichs können in jeder Siedlung Custom-Truppen rekrutieren.",
+    "FR": "Les seigneurs du clan ou du royaume du joueur peuvent recruter des troupes personnalisées dans n'importe quelle colonie.",
+    "IT": "I signori del clan o del regno del giocatore possono reclutare truppe personalizzate in qualsiasi insediamento.",
+    "JP": "プレイヤーの一族または王国の領主は、どの集落でもカスタム兵を募集できます。",
+    "KO": "플레이어의 가문 또는 왕국의 영주는 모든 정착지에서 커스텀 병력을 모집할 수 있습니다.",
+    "PL": "Lordowie klanu lub królestwa gracza mogą rekrutować niestandardowe oddziały w dowolnym osiedlu.",
+    "RU": "Лорды клана или королевства игрока могут вербовать собственные войска в любом поселении.",
+    "SP": "Los señores del clan o reino del jugador pueden reclutar tropas personalizadas en cualquier asentamiento.",
+    "TR": "Oyuncunun klanının veya krallığının lordları, herhangi bir yerleşimde özel asker toplayabilir."
+  },
+  {
     "id": "ret_mcm_option_vassal_lords_recruit_custom_troops_hint",
     "EN": "Lords of the player's clan or kingdom can recruit custom troops in their fiefs.",
     "BR": "Senhores do clã ou reino do jogador podem recrutar tropas personalizadas em seus feudos.",

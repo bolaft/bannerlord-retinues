@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="封臣领主招募自定义部队" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="封臣领主在任何地方招募自定义部队" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="玩家一族或王国的领主可以在任何定居点招募自定义部队。" />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="玩家一族或王国的领主可以在他们的封地中招募自定义部队。" />
     <string

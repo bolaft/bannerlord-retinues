@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Вассальные Лорды Вербуют Собственные Войска" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="Вассальные Лорды Вербуют Собственные Войска Везде" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="Лорды клана или королевства игрока могут вербовать собственные войска в любом поселении." />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Лорды клана или королевства игрока могут вербовать собственные войска в своих феодах." />
     <string

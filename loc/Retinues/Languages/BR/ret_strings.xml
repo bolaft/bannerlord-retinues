@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Senhores Vassalos Recrutam Tropas Personalizadas" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="Senhores Vassalos Recrutam Tropas Personalizadas em Qualquer Lugar" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="Senhores do clã ou reino do jogador podem recrutar tropas personalizadas em qualquer assentamento." />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Senhores do clã ou reino do jogador podem recrutar tropas personalizadas em seus feudos." />
     <string

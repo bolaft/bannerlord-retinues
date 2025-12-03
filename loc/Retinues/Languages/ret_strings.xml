@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Vassal Lords Recruit Custom Troops" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="Vassal Lords Recruit Custom Troops Anywhere" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="Lords of the player&apos;s clan or kingdom can recruit custom troops in any settlement." />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Lords of the player&apos;s clan or kingdom can recruit custom troops in their fiefs." />
     <string

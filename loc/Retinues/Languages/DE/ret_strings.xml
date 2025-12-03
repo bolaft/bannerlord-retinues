@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Lehnsherren rekrutieren Custom-Truppen" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="Lehnsherren rekrutieren Custom-Truppen überall" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="Die Herren des Spielerklans oder -königreichs können in jeder Siedlung Custom-Truppen rekrutieren." />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Die Herren des Spielerklans oder -königreichs können in ihren Lehen Custom-Truppen rekrutieren." />
     <string

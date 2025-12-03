@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="封臣の領主がカスタム兵を募集" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="封臣の領主がどこでもカスタム兵を募集" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="プレイヤーの一族または王国の領主は、どの集落でもカスタム兵を募集できます。" />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="プレイヤーの一族または王国の領主は、自分の領地でカスタム兵を募集できます。" />
     <string

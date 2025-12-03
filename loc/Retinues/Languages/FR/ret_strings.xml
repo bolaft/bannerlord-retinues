@@ -1187,6 +1187,12 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
       text="Les Seigneurs Vassaux Recrutent des Troupes Personnalisées" />
     <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
+      text="Les Seigneurs Vassaux Recrutent des Troupes Personnalisées Partout" />
+    <string
+      id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
+      text="Les seigneurs du clan ou du royaume du joueur peuvent recruter des troupes personnalisées dans n&apos;importe quelle colonie." />
+    <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Les seigneurs du clan ou du royaume du joueur peuvent recruter des troupes personnalisées dans leurs fiefs." />
     <string
