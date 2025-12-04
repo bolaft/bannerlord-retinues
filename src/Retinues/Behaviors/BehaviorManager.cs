@@ -55,7 +55,7 @@ namespace Retinues.Behaviors
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                Behavior type discovery                 //
+        //                 Behavior type discovery                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static readonly Lazy<IReadOnlyList<Type>> _behaviorTypes = new(ScanBehaviorTypes);
@@ -87,7 +87,7 @@ namespace Retinues.Behaviors
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                 Auto registration helpers              //
+        //                Auto registration helpers               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace Retinues.Behaviors
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Save definitions                   //
+        //                    Save definitions                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace Retinues.Behaviors
                     "DefineClassTypes",
                     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static,
                     null,
-                    new[] { typeof(SaveableTypeDefiner) },
+                    [typeof(SaveableTypeDefiner)],
                     null
                 );
 
@@ -219,7 +219,7 @@ namespace Retinues.Behaviors
 
                 try
                 {
-                    method.Invoke(null, new object[] { definer });
+                    method.Invoke(null, [definer]);
                 }
                 catch (Exception e)
                 {
@@ -247,7 +247,7 @@ namespace Retinues.Behaviors
                     "DefineContainerDefinitions",
                     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static,
                     null,
-                    new[] { typeof(SaveableTypeDefiner) },
+                    [typeof(SaveableTypeDefiner)],
                     null
                 );
 
@@ -256,7 +256,7 @@ namespace Retinues.Behaviors
 
                 try
                 {
-                    method.Invoke(null, new object[] { definer });
+                    method.Invoke(null, [definer]);
                 }
                 catch (Exception e)
                 {

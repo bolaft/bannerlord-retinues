@@ -3,7 +3,7 @@ using TaleWorlds.Localization;
 namespace Retinues.Utilities
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                  Localization Helpers                  //
+    //                         Helpers                        //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
