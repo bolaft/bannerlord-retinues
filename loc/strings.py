@@ -79,17 +79,47 @@ def scan_file(path: Path):
     text = path.read_text(encoding="utf-8", errors="ignore")
     hits = []
 
+    def is_commented_line(idx: int) -> bool:
+        """
+        Return True if the character at `idx` lies on a line that is fully
+        commented out (i.e. the line starts with optional whitespace then '//').
+        """
+        # Find start of line
+        line_start = text.rfind("\n", 0, idx)
+        if line_start == -1:
+            line_start = 0
+        else:
+            line_start += 1
+
+        # Find end of line (not strictly needed for the check, but handy if you
+        # ever want to inspect the whole line)
+        line_end = text.find("\n", idx)
+        if line_end == -1:
+            line_end = len(text)
+
+        line = text[line_start:line_end]
+        return re.match(r"^\s*//", line) is not None
+
+    # Double-quoted
     for m in RE_DQ.finditer(text):
+        if is_commented_line(m.start()):
+            continue
         key = unescape_regular(m.group("key"))
         val = unescape_regular(m.group("text"))
         hits.append((key, val, path))
 
+    # Single-quoted
     for m in RE_SQ.finditer(text):
+        if is_commented_line(m.start()):
+            continue
         key = unescape_regular(m.group("key"))
         val = unescape_regular(m.group("text"))
         hits.append((key, val, path))
 
+    # Verbatim
     for m in RE_VB.finditer(text):
+        if is_commented_line(m.start()):
+            continue
         key = unescape_verbatim(m.group("key"))
         val = unescape_verbatim(m.group("text"))
         hits.append((key, val, path))
