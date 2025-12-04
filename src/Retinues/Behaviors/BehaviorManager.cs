@@ -82,7 +82,7 @@ namespace Retinues.Behaviors
                     result.Add(t);
             }
 
-            Log.Debug($"[Behaviors.Persistence] Discovered {result.Count} behavior types.");
+            Log.Debug($"Discovered {result.Count} behavior types.");
             return result;
         }
 
@@ -131,10 +131,7 @@ namespace Retinues.Behaviors
                 }
                 catch (Exception e)
                 {
-                    Log.Exception(
-                        e,
-                        $"[Behaviors.Persistence] Failed to instantiate {t.FullName}."
-                    );
+                    Log.Exception(e, $"Failed to instantiate {t.FullName}.");
                 }
 
                 if (instance == null)
@@ -142,13 +139,11 @@ namespace Retinues.Behaviors
 
                 if (!instance.IsEnabled)
                 {
-                    Log.Debug(
-                        $"[Behaviors.Persistence] Skipping disabled campaign behavior {t.Name}."
-                    );
+                    Log.Debug($"Skipping disabled campaign behavior {t.Name}.");
                     continue;
                 }
 
-                Log.Debug($"[Behaviors.Persistence] Registered campaign behavior {t.Name}.");
+                Log.Debug($"Registered campaign behavior {t.Name}.");
                 yield return instance;
             }
         }
@@ -168,10 +163,7 @@ namespace Retinues.Behaviors
                 }
                 catch (Exception e)
                 {
-                    Log.Exception(
-                        e,
-                        $"[Behaviors.Persistence] Failed to instantiate {t.FullName}."
-                    );
+                    Log.Exception(e, $"Failed to instantiate {t.FullName}.");
                 }
 
                 if (instance == null)
@@ -179,13 +171,11 @@ namespace Retinues.Behaviors
 
                 if (!instance.IsEnabled)
                 {
-                    Log.Debug(
-                        $"[Behaviors.Persistence] Skipping disabled mission behavior {t.Name}."
-                    );
+                    Log.Debug($"Skipping disabled mission behavior {t.Name}.");
                     continue;
                 }
 
-                Log.Debug($"[Behaviors.Persistence] Registered mission behavior {t.Name}.");
+                Log.Debug($"Registered mission behavior {t.Name}.");
                 yield return instance;
             }
         }
@@ -223,10 +213,7 @@ namespace Retinues.Behaviors
                 }
                 catch (Exception e)
                 {
-                    Log.Exception(
-                        e,
-                        $"[Behaviors.Persistence] Error in {t.FullName}.DefineClassTypes."
-                    );
+                    Log.Exception(e, $"Error in {t.FullName}.DefineClassTypes.");
                 }
             }
         }
@@ -260,10 +247,7 @@ namespace Retinues.Behaviors
                 }
                 catch (Exception e)
                 {
-                    Log.Exception(
-                        e,
-                        $"[Behaviors.Persistence] Error in {t.FullName}.DefineContainerDefinitions."
-                    );
+                    Log.Exception(e, $"Error in {t.FullName}.DefineContainerDefinitions.");
                 }
             }
         }

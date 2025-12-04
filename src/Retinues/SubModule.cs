@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Behaviors;
+using Retinues.Configuration;
 using Retinues.Module;
 using Retinues.Module.Compatibility;
 using Retinues.Module.Dependencies;
@@ -19,13 +20,12 @@ namespace Retinues
         //                      Dependencies                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static readonly List<Dependency> Dependencies =
-        [
-            new HarmonyDependency(),
-            new UIExtenderExDependency(),
-            new MCMDependency(),
-            new ButterLibDependency(),
-        ];
+        public static List<Dependency> Dependencies => [_harmony, _mcm, _uiextender, _butterlib];
+
+        private static readonly HarmonyDependency _harmony = new();
+        private static readonly MCMDependency _mcm = new();
+        private static readonly UIExtenderExDependency _uiextender = new();
+        private static readonly ButterLibDependency _butterlib = new();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Event Hooks                      //
@@ -34,6 +34,9 @@ namespace Retinues
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
             base.OnBeforeInitialModuleScreenSetAsRoot();
+
+            // Keep trying to register MCM until successful or max retries reached.
+            _mcm.TryRegister();
         }
 
         /// <summary>
@@ -55,6 +58,9 @@ namespace Retinues
 
             // Check for incompatible or legacy mods.
             CompatibilityManager.CheckIncompatibilities();
+
+            // Log configuration
+            SettingsManager.LogSettings();
 
             Log.Info("SubModule loaded.");
         }

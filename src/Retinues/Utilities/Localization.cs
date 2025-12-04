@@ -1,3 +1,4 @@
+using System;
 using TaleWorlds.Localization;
 
 namespace Retinues.Utilities
@@ -21,5 +22,10 @@ namespace Retinues.Utilities
         /// Returns the localized string for the given id and fallback.
         /// </summary>
         public static string S(string id, string fallback) => T(id, fallback).ToString();
+
+        /// <summary>
+        /// Returns a function that provides the localized string for the given id and fallback.
+        /// </summary>
+        public static Func<string> F(string id, string fallback) => () => S(id, fallback);
     }
 }

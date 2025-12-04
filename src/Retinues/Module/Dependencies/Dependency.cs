@@ -120,7 +120,7 @@ namespace Retinues.Module.Dependencies
         {
             if (!IsModuleLoaded)
             {
-                Log.Error("[Dependency/Harmony] Harmony module not loaded; skipping patches.");
+                Log.Error("[Harmony] Harmony module not loaded; skipping patches.");
                 MarkError();
                 return;
             }
@@ -136,12 +136,12 @@ namespace Retinues.Module.Dependencies
                 _harmony.PatchAll(asm);
 
                 MarkInitialized();
-                Log.Debug("[Dependency/Harmony] Harmony patches applied.");
+                Log.Debug("[Harmony] Harmony patches applied.");
             }
             catch (Exception e)
             {
                 MarkError();
-                Log.Exception(e, "[Dependency/Harmony] Error while applying Harmony patches.");
+                Log.Exception(e, "[Harmony] Error while applying Harmony patches.");
             }
         }
 
@@ -153,11 +153,11 @@ namespace Retinues.Module.Dependencies
             try
             {
                 _harmony.UnpatchAll(HarmonyInstanceId);
-                Log.Debug("[Dependency/Harmony] Harmony patches removed.");
+                Log.Debug("[Harmony] Harmony patches removed.");
             }
             catch (Exception e)
             {
-                Log.Exception(e, "[Dependency/Harmony] Error while removing Harmony patches.");
+                Log.Exception(e, "[Harmony] Error while removing Harmony patches.");
             }
             finally
             {
@@ -190,9 +190,7 @@ namespace Retinues.Module.Dependencies
         {
             if (!IsModuleLoaded)
             {
-                Log.Error(
-                    "[Dependency/UIExtenderEx] UIExtenderEx module not loaded; UI patches disabled."
-                );
+                Log.Error("[UIExtenderEx] UIExtenderEx module not loaded; UI patches disabled.");
                 MarkError();
                 return;
             }
@@ -209,14 +207,12 @@ namespace Retinues.Module.Dependencies
                 _extender.Enable();
 
                 MarkInitialized();
-                Log.Debug(
-                    "[Dependency/UIExtenderEx] UIExtenderEx enabled & Retinues assembly registered."
-                );
+                Log.Debug("[UIExtenderEx] UIExtenderEx enabled & Retinues assembly registered.");
             }
             catch (Exception e)
             {
                 MarkError();
-                Log.Exception(e, "[Dependency/UIExtenderEx] Enabling UIExtenderEx failed.");
+                Log.Exception(e, "[UIExtenderEx] Enabling UIExtenderEx failed.");
             }
         }
 
@@ -228,11 +224,11 @@ namespace Retinues.Module.Dependencies
             try
             {
                 _extender.Disable();
-                Log.Debug("[Dependency/UIExtenderEx] UIExtenderEx disabled.");
+                Log.Debug("[UIExtenderEx] UIExtenderEx disabled.");
             }
             catch (Exception e)
             {
-                Log.Exception(e, "[Dependency/UIExtenderEx] Disabling UIExtenderEx failed.");
+                Log.Exception(e, "[UIExtenderEx] Disabling UIExtenderEx failed.");
             }
             finally
             {
@@ -247,10 +243,17 @@ namespace Retinues.Module.Dependencies
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
-    /// MCM dependency. For now, we just consider it 'initialized' if the module is loaded.
+    /// MCM dependency: handles delayed registration with MCM by retrying
+    /// around the initial module screen setup.
     /// </summary>
     public sealed class MCMDependency : Dependency
     {
+        private int _retryCount;
+        private bool _registrationSucceeded;
+
+        // ~5 seconds at 60 FPS
+        private const int MaxRetries = 300;
+
         public MCMDependency()
             : base(
                 moduleId: "Bannerlord.MBOptionScreen",
@@ -258,26 +261,58 @@ namespace Retinues.Module.Dependencies
                 kind: DependencyKind.Recommended
             ) { }
 
+        /// <summary>
+        /// Called from SubModule.OnSubModuleLoad.
+        /// We only verify presence here and defer actual registration
+        /// to the initial-screen / tick callbacks.
+        /// </summary>
         public override void Initialize()
         {
             if (!IsModuleLoaded)
             {
-                Log.Warn(
-                    "[Dependency/MCM] MCMv5 module not loaded; configuration UI will be unavailable."
-                );
+                Log.Info("[MCM] MCM module not loaded; configuration UI will be unavailable.");
                 MarkError();
                 return;
             }
 
-            // Nothing special to wire; just mark as initialized.
-            MarkInitialized();
-            Log.Debug("[Dependency/MCM] MCM present.");
+            Log.Info(
+                "[MCM] MCM module detected; waiting for UI to become ready before registering."
+            );
+            // Real work happens in OnBeforeInitialModuleScreenSetAsRoot / OnApplicationTick.
         }
 
         public override void Shutdown()
         {
-            // No special teardown required at the moment.
+            _registrationSucceeded = false;
+            _retryCount = 0;
             IsInitialized = false;
+        }
+
+        public void TryRegister()
+        {
+            if (_registrationSucceeded)
+                return;
+
+            if (!IsModuleLoaded)
+                return;
+
+            if (_retryCount >= MaxRetries)
+                return;
+
+            _retryCount++;
+
+            bool ok = Configuration.MCM.Register();
+            if (!ok)
+            {
+                // Do not spam; only log when first starting to retry.
+                if (_retryCount == 1)
+                    Log.Info("[MCM] Registration not yet accepted; will retry for a few seconds.");
+                return;
+            }
+
+            _registrationSucceeded = true;
+            MarkInitialized();
+            Log.Info("[MCM] Registration succeeded.");
         }
     }
 
@@ -301,16 +336,14 @@ namespace Retinues.Module.Dependencies
         {
             if (!IsModuleLoaded)
             {
-                Log.Warn(
-                    "[Dependency/ButterLib] ButterLib module not loaded; some features may be disabled."
-                );
+                Log.Warn("[ButterLib] ButterLib module not loaded; some features may be disabled.");
                 MarkError();
                 return;
             }
 
             // Nothing special to wire; just mark as initialized.
             MarkInitialized();
-            Log.Debug("[Dependency/ButterLib] ButterLib present.");
+            Log.Debug("[ButterLib] ButterLib present.");
         }
 
         public override void Shutdown()

@@ -73,8 +73,8 @@ namespace Retinues.Module.Version
                     currentModule.Version ?? ModuleManager.UnknownVersionString;
                 var currentAppVersion = currentModule.AppVersion;
 
-                Log.Info($"Current Retinues version: {currentVersionString}");
-                Log.Info($"Retinues version in save: {_savedVersion}");
+                Log.Info($"Retinues version (current): {currentVersionString}");
+                Log.Info($"Retinues version (in save): {_savedVersion}");
 
                 // Old saves or missing data: treat as "no stored version yet".
                 if (

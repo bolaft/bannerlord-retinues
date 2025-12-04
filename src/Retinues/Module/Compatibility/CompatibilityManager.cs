@@ -38,7 +38,7 @@ namespace Retinues.Module.Compatibility
                 var mod = ModuleManager.GetModule(modId);
                 if (mod != null)
                 {
-                    Log.Critical(string.Format("WARNING: incompatible mod detected: '{0}'.", mod));
+                    Log.Critical($"WARNING: incompatible mod detected: '{mod}'.");
                 }
             }
         }

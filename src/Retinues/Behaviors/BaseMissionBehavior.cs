@@ -1,4 +1,3 @@
-using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Behaviors

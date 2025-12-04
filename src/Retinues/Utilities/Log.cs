@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Retinues.Configuration;
 using TaleWorlds.Library;
 
 namespace Retinues.Utilities
@@ -36,7 +37,7 @@ namespace Retinues.Utilities
         private static readonly object _fileLock = new();
         private static readonly string LogFile;
 
-        private static bool DebugMode => true;
+        private static bool DebugMode => Settings.DebugMode;
 
         /// <summary>
         /// Lowest level written to file.
