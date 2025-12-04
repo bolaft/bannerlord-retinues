@@ -4,7 +4,7 @@ using HarmonyLib;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Modules.Compatibility
+namespace Retinues.Module.Compatibility
 {
     /// <summary>
     /// Manages interoperations between Retinues and other modules (mods, DLC).

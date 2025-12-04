@@ -6,7 +6,7 @@ using Retinues.Engine;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 
-namespace Retinues.Modules.Dependencies
+namespace Retinues.Module.Dependencies
 {
     /// <summary>
     /// Campaign behavior that inspects Retinues' external dependencies and checks their status.

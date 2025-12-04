@@ -3,7 +3,7 @@ using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Utilities;
 
-namespace Retinues.Modules.Dependencies
+namespace Retinues.Module.Dependencies
 {
     public enum DependencyKind
     {
