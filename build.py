@@ -3,7 +3,7 @@ import argparse
 import pathlib
 import re
 import xml.etree.ElementTree as ET
-import yaml
+import yaml # type: ignore
 
 
 def bool_str(value: bool) -> str:
@@ -11,7 +11,9 @@ def bool_str(value: bool) -> str:
 
 
 def indent(elem, level=0):
-    """Pretty-print ElementTree in-place."""
+    """
+    Pretty-print ElementTree in-place.
+    """
     i = "\n" + level * "  "
     if len(elem):
         if not elem.text or not elem.text.strip():
@@ -157,7 +159,7 @@ def main() -> int:
         tree = ET.ElementTree(root)
         tree.write(out_path, encoding="utf-8", xml_declaration=False)
 
-        print(f"[gen_submodule] BL{ver_key}: wrote {out_path} (Version={eff_version})")
+        print(f"BL{ver_key}: wrote {out_path} (Version={eff_version})")
 
     return 0
 

@@ -96,21 +96,7 @@
                       Overwrite="true"
                       Encoding="UTF-8" />
     
-    <!-- 5) Copy the right SubModule.*.xml based on BL (12 or 13) -->
-    <ItemGroup>
-      <_SubModuleFile Include="$(ModuleProjectDir)\SubModule.BL$(BL).xml" />
-    </ItemGroup>
-
-    <!-- Guard: fail fast if the expected file doesn't exist -->
-    <Error Condition="!Exists('%(_SubModuleFile.Identity)')"
-           Text="SubModule.BL$(BL).xml not found at '%(_SubModuleFile.Identity)'. Check BL=$(BL) and file paths." />
-
-    <Copy SourceFiles="@(_SubModuleFile)"
-          DestinationFiles="@(_SubModuleFile->'$(DeployDir)SubModule.xml')"
-          SkipUnchangedFiles="true"
-          OverwriteReadOnlyFiles="true" />
-
-    <!-- 6) Also copy GUI when doing a full module deploy (if present) -->
+    <!-- 5) Also copy GUI when doing a full module deploy (if present) -->
     <ItemGroup>
       <_PrefabGenFiles Include="$(PrefabsOutputDir)**\*.*" Condition="Exists('$(PrefabsOutputDir)')" />
     </ItemGroup>
