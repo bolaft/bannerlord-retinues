@@ -11,7 +11,6 @@ RELEASE_PATCH="" # when set, force "release" and bump last version segment
 MODULE="Retinues" # default
 
 # Print a framed header with lines of '=' above and below and a blank line before/after.
-# Usage: print_header "=   Some Header   ="
 print_header() {
     local hdr="$1"
     local len=${#hdr}
@@ -150,7 +149,6 @@ if [[ "$RUN_MAIN" == "true" && -f "$MAIN_PROJ" ]]; then
 fi
 
 # 4) Generate SubModule.xml directly into the deployed module folder
-#    (replaces the old SubModule.BL12/BL13.xml copy/rename workflow)
 if [[ "$RUN_MAIN" == "true" && "$DEPLOY" == "true" ]]; then
   if [[ -f "$BUILD_PY" && -f "$SUBMODULE_YAML" ]]; then
     print_header "=   Generating SubModule.xml   ="
@@ -171,6 +169,21 @@ if [[ "$RUN_MAIN" == "true" && "$DEPLOY" == "true" ]]; then
     echo "    Expected:"
     echo "      $BUILD_PY"
     echo "      $SUBMODULE_YAML"
+  fi
+fi
+
+# 5) If this is a release build, also prepare the Steam Workshop / zip package
+if [[ "$RUN_MAIN" == "true" && "$DEPLOY" == "true" && -n "$RELEASE_PATCH" ]]; then
+  if [[ -f "$BUILD_PY" && -f "$SUBMODULE_YAML" ]]; then
+    print_header "=   Preparing Release Package   ="
+    python "$BUILD_PY" \
+      --config "$SUBMODULE_YAML" \
+      --only "$BL" \
+      --release-patch "$RELEASE_PATCH" \
+      --module-dir "$MODULE_DEPLOY_DIR" \
+      --package-release
+  else
+    echo "⚠️  Skipping release packaging: build.py or build.yaml not found."
   fi
 fi
 

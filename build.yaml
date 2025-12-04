@@ -47,7 +47,7 @@ versions:
         version: v1.2.12
 
   "13":
-    version: v1.3.14.0
+    version: v1.3.15.0
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.4.2
@@ -63,3 +63,23 @@ versions:
         version: v1.3.9
       - id: Sandbox
         version: v1.3.9
+
+paths:
+  releasesRoot: "Releases"
+
+workshop:
+  "12":
+    itemId: "3592533567"
+    updateVersionTag: "v1.2.12"
+    createVersionTag: "v1.2.12"
+  "13":
+    itemId: "3599557394"
+    updateVersionTag: "v1.3.9"
+    createVersionTag: "v1.3.9"
+  common:
+    description: "Customize your troops: unlock gear through battle, outfit and promote retinues, design your clan and kingdom troop trees, and boost them with unique doctrine perks."
+    imageFile: "retinues_logo.png"
+    visibility: "Private"
+    tags:
+      - "Singleplayer"
+      - "Troops"

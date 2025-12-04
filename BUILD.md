@@ -42,6 +42,7 @@ The build picks the correct set based on `--version 12|13` (defaults to 13).
 
 ```
 build.sh                               # Build wrapper (Git Bash/WSL/macOS/Linux)
+build.yaml                             # Build configuration
 Directory.Build.props                  # Centralized MSBuild configuration
 Directory.Build.targets                # Staging + deploy targets
 Directory.Local.props                  # (optional) local overrides (git‑ignored)
@@ -51,7 +52,6 @@ loc/Retinues/Languages/**              # -> Retinues/ModuleData/Languages/**
 tpl/Retinues/**/                       # GUI templates
 
 src/Retinues/Retinues.csproj           # The game module project
-src/Retinues/SubModule*.xml            # SubModule files (BL‑specific)
 src/Retinues/UIExtenderDebug.xml       # Copied only in non‑Release builds
 ```
 
@@ -86,9 +86,9 @@ src/Retinues/UIExtenderDebug.xml       # Copied only in non‑Release builds
 # Set the last number in <Version value="vX.Y.Z.N" /> to 8 and build Release
 ./build.sh -r 8
 ```
-- Updates `src/Retinues/SubModule.BL12.xml`, `src/Retinues/SubModule.BL13.xml`, and/or `src/Retinues/SubModule.xml` if present.
 - Builds **Release** (no `UIExtenderDebug.xml`).
 - Deploys to the game folder.
+- Deploys to releases folder, with zipped file and steam workshop XMLs.
 
 ### Target a specific Bannerlord version
 ```bash

@@ -27,6 +27,8 @@ dll/*
 ########################################
 *.todo
 TODO.md
+REFACTOR.md
+NOTES*.md
 
 ########################################
 # Decompiled outputs
